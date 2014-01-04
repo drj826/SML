@@ -1,0 +1,31 @@
+>>>problem
+
+######################################################################
+
+title:: Generate HTML Index
+
+label:: rq-000280
+
+revision:: $Revision: 11579 $
+
+date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000001
+
+priority:: routine
+
+type:: functional
+
+description:: The software shall generate an HTML [g:sml:index].  The
+purpose of the index is to enable readers to quickly navigate to
+definitions of key terms used in the document.
+
+######################################################################
+
+index:: rq-000280; index!HTML; HTML index
+
+= [g:sml:index] = [def:sml:index]
+
+<<<problem

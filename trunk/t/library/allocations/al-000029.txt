@@ -1,0 +1,25 @@
+>>>allocation
+
+#---------------------------------------------------------------------
+
+label::    al-000029
+
+solution:: ci-000003 # Parser.pm Perl Module
+
+problem::  rq-000180 # Resolve And Hide Included Text
+
+test::     tc-000005 # Parser.pm Unit Test Case
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 10970 $
+
+date:: $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+#---------------------------------------------------------------------
+
+outcome::2012-04-01:al-000029:green: OK
+
+<<<allocation

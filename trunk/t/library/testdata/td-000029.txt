@@ -1,0 +1,25 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: INVALID SOURCE CITATION, NOT A SOURCE DIVISION
+
+id:: td-000029
+
+######################################################################
+
+This paragraph is followed by an INVALID source citation to a source
+with ID `bogus'.  The ID 'bogus' refers to a listing and not to a
+source. [cite:bogus].
+
+---LISTING
+
+title:: Bogus Listing
+
+label:: bogus
+
+This is a bogus listing.
+
+---LISTING
+
+<<<DOCUMENT

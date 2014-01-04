@@ -1,0 +1,26 @@
+>>>solution
+
+######################################################################
+
+title:: Syntax.pm
+
+label:: ci-000433
+
+revision:: $Revision: 11580 $
+
+date:: $Date: 2012-11-29 07:56:53 -0700 (Thu, 29 Nov 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML::Syntax class describes the allowed syntax of
+SML.
+
+######################################################################
+
+index:: ci-000433; syntax
+
+<<<solution

@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: CommentDivision.pm Unit Test Case
+
+label:: tc-000017
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the CommentDivision.pm
+Perl module that implements the SML::CommentDivision class.
+
+######################################################################
+
+index:: tc-000017; unit test case!CommentDivision.pm
+
+[ref:lis-comment-pm-unit-test-case] shows the unit test case for
+[file:CommentDivision.pm].
+
+---LISTING
+title::       CommentDivision.t - Unit Test Case for CommentDivision.pm
+label::       lis-comment-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: portrait
+fontsize::    footnotesize
+file::        ../../CommentDivision.t
+---LISTING
+
+[ref:lis-comment-pm-unit-test-results] shows the results of executing
+the CommentDivision.pm unit test case.
+
+---LISTING
+title::     CommentDivision.pm Unit Test Case Results
+label::     lis-comment-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat CommentDivision.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+2b731603f9a7d84aca792131f4ca300b13265eef ../CommentDivision.t
+<<<RESOURCES

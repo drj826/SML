@@ -1,0 +1,55 @@
+>>>test
+
+######################################################################
+
+title:: Test.pm Unit Test Case
+
+label:: tc-000066
+
+revision:: $Revision: 15133 $
+
+date:: $Date: 2013-07-07 09:31:37 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Test.pm Perl
+module that implements the SML::Test class.
+
+######################################################################
+
+index:: tc-000066; unit test case!Test.pm
+
+[ref:lis-test-pm-unit-test-case] shows the unit test for
+[file:Test.pm].
+
+---LISTING
+title::       Test.t - Unit Test Case for Test.pm
+label::       lis-test-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: landscape
+fontsize::    footnotesize
+file::        ../Test.t
+---LISTING
+
+[ref:lis-test-pm-unit-test-results] shows the results of executing the
+Test.pm unit test case.
+
+---LISTING
+title::     Test.pm Unit Test Case Results
+label::     lis-test-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Test.t
+---LISTING
+
+<<<test
+>>>RESOURCES
+a0038fc38ee678c2a666dec67a60280933b29fc4 ../Test.t
+<<<RESOURCES

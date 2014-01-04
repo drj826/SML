@@ -1,0 +1,30 @@
+>>>problem
+
+######################################################################
+
+title:: Generate a List of Tables
+
+label:: rq-000144
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000139
+
+priority:: routine
+
+type:: functional
+
+description:: The software shall enable a user to generate a list of
+tables.  The list of tables should match the table of contents in type
+size and general style. Titles given in the list of figures may be
+shortened. [cite:cms15, [[section]]1.47]
+
+######################################################################
+
+index:: rq-000144; list of tables
+
+<<<problem

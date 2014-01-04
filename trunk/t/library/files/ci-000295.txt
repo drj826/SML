@@ -1,0 +1,19 @@
+>>>solution
+
+title:: Workstation #44
+
+label:: ci-000295
+
+instance_of: ci-000293
+
+attr:: IP Address = 10.0.1.202
+
+attr:: Processor Speed = 3.2 GHz
+
+attr:: RAM = 6 GB
+
+attr:: Operating System = Windows XP
+
+attr:: Physical Location = Operations Area
+
+<<<solution

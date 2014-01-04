@@ -1,0 +1,49 @@
+>>>solution
+
+######################################################################
+
+title:: SML/Fragment.pm Module
+
+label:: ci-000410
+
+revision:: $Revision: 15130 $
+
+date:: $Date: 2013-07-07 09:28:51 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML/Fragment.pm Module...
+
+######################################################################
+
+index:: ci-000410
+
+= [g:sml:fragment] = [def:sml:fragment]
+
+This section describes the design of the [g:sml:SML] [g:sml:fragment]
+class. [ref:fig-class-diagram-fragment] shows the composition of an
+SML [g:sml:fragment].
+
+---FIGURE
+title:: SML Fragment Composition
+label:: fig-class-diagram-fragment
+image:: files/images/class-diagram-fragment.png
+width:: 4in
+---FIGURE
+
+---LISTING
+title::     Fragment.pm
+label::     lis-fragment-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../SML/Fragment.pm
+---LISTING
+
+[clearpage]
+
+<<<solution

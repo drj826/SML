@@ -1,0 +1,29 @@
+>>>solution
+
+######################################################################
+
+title:: `sml_domain_traceability_matrix' Subroutine
+
+label:: ci-000024
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000007
+
+description:: The [cmd:sml_domain_traceability_matrix] subroutine
+generates and returns the structured manuscript language (SML) text
+for a complete domain traceability matrix.  Domains include: (1)
+problem, (2) solution, (3) allocation, (4) task, (5) test, (6) result,
+and (7) role.
+
+######################################################################
+
+index:: ci-000024; subroutine![cmd:sml_domain_traceability_matrix]
+
+<<<solution

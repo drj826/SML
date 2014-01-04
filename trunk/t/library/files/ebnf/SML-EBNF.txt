@@ -1,0 +1,316 @@
+######################################################################
+#
+# sml.ebnf
+#
+# $Id: SML-EBNF.txt 6863 2012-03-26 19:09:13Z don.johnson $
+#
+# This is a formal syntax definition of the Structured Manuscript
+# Language (SML) in Extended Backus-Naur Form (EBNF)
+#
+# Use international standard ISO/IEC 14977 EBNF syntax.
+#
+# Validate syntax using:
+#
+#     http://www.icosaedro.it/bnf_chk/bnf_chk-on-line.html
+#
+######################################################################
+
+document = document_preamble document_narrative ;
+
+#---------------------------------------------------------------------
+# document preamble productions
+
+document_preamble = {document_preamble_element} ;
+
+document_preamble_element = ( title | subtitle | description | label |
+author | editor | translator | publisher | publisher_location |
+publisher_logo | publisher_address | edition | biographical_note |
+copyright | full_copyright | publication_year | date | [isbn]
+| [issn] | [cip_data] | [permissions] | [grants] | [paper_durability]
+| [dedication] | [epigraph] | [epigraph_source] | {define} | [doctype]
+| [fontsize] | [organization] | [revision] | [version] |
+[classification] | [classified_by] | [classif_reason] |
+[declassify_on] | {handling_caveat} | [priority] | [status] | {attr} |
+[use_formal_status] | [effort_units] | {var} | [logo_image_left] |
+[logo_image_center] | [logo_image_right] | [logo_image_small] |
+[header_left] ) ;
+
+title = title_element ;
+
+title_element = "title:: " line {line} ;
+
+subtitle = subtitle_element;
+
+subtitle_element = "subtitle:: " line {line} ;
+
+description = description_element;
+
+description_element = "description:: " line {line} ;
+
+label = label_element;
+
+label_element = "label:: " name ;
+
+author = author_element {author_element};
+
+author_element = "author:: " line {line} ;
+
+editor = editor_element {editor_element};
+
+editor_element = "editor:: " line {line} ;
+
+translator = translator_element {translator_element};
+
+translator_element = "translator:: " line {line} ;
+
+publisher = publisher_element;
+
+publisher_element = "publisher:: " line {line} ;
+
+publisher_location = publisher_location_element;
+
+publisher_location_element = "publisher_location:: " line {line} ;
+
+publisher_logo = publisher_logo_element;
+
+publisher_logo_element = "publisher_logo:: " line {line} ;
+
+publisher_address = publisher_address_element;
+
+publisher_address_element = "publisher_address:: " line {line} ;
+
+edition = edition_element;
+
+edition_element = "edition:: " line {line} ;
+
+biographical_note = biographical_note_element;
+
+biographical_note_element = "biographical_note:: " line {line};
+
+copyright = copyright_element {copyright_element};
+
+copyright_element = "copyright:: " line {line};
+
+full_copyright = full_copyright_element {full_copyright_element};
+
+full_copyright_element = "full_copyright:: " line {line};
+
+publication_year = publication_year_element;
+
+publication_year_element = "publication_year:: " year;
+
+#---------------------------------------------------------------------
+# document narrative productions
+
+document_narrative = {document_narrative_division} ;
+
+document_narrative_division = (block|region|environment|section) ;
+
+region = region_begin_tag region_preamble region_narrative
+region_end_tag ;
+
+region_begin_tag = ">>>" {">"} region_name newline {newline} ;
+
+region_end_tag = "<<<" {"<"} region_name newline {newline} ;
+
+region_name = ( "demo" | "exercise" | "keypoints" | "quotation" |
+"slide" | "problem" | "solution" | "allocation" | "test" | "result" |
+"task" | "role" ) ;
+
+region_preamble = {preamble_element} ;
+
+region_narrative = {region_narrative_division} ;
+
+region_narrative_division = (block|environment) ;
+
+environment = environment_tag environment_preamble
+environment_narrative environment_tag ;
+
+environment_tag = "---" {"-"} environment_name newline {newline} ;
+
+environment_name = ( "table" | "figure" | "attachment" | "revisions" |
+"include" | "epigraph" | "listing" | "source" | "preformatted" |
+"sidebar" | "audio" | "video" | "assertion" | "header" | "footer" ) ;
+
+environment_preamble = {environment_preamble-element} ;
+
+environment_preamble_element = (title|description|label);
+
+environment_narrative = {block} ;
+
+header = header_preamble header_narrative ;
+
+header_preamble = header_left_odd? | header_left_even? |
+                  header_center? | header_center_odd? |
+                  header_center_even? | header_right? |
+                  header_right_odd? | header_right_even? ;
+
+footer = footer_preamble footer narrative?
+
+footer_preamble = footer_left? | footer_left_odd? |
+                  footer_left_even? | footer_center? |
+                  footer_center_odd? | footer_center_even? |
+                  footer_right? | footer_right_odd? |
+                  footer_right_even? ;
+
+narrative_element = footnote | generate | script | image | include |
+                    glossary | acronym | index | target | var |
+                    insert | step | outcome | review | insert_gen |
+                    insert_ins ;
+
+section = section_heading section_preamble section_narrative ;
+
+section_heading = "*" { "*" } space+ line ;
+
+section_preamble = label? description? revision? date? author*
+                   type? number? copyright? associated* attr* ;
+
+section_narrative = ( block | region | environment | section )* ;
+
+glossary_entry = "glossary:: " name alt? " = " line {line} ;
+
+acronym_list_entry = "acronym:: " name " = " line {line} ;
+
+variable_definition = "variable:: " name " = " line {line} ;
+
+attribute_definition = "attr:: " name " = " line {line} ;
+
+######################################################################
+
+inline = ( literal | copyright_symbol | registered_trademark | trademark
+           | take_note | section_sign | keystroke_indicator | em_dash
+           | glossary_term | glossary_definition
+           | variable_value | lookup_value | entered_text
+           | acronym_definition | index_term | email_address
+           | bold | typewriter_text | italicized_text
+           | underlined_text | superscripted_text | subscripted_text
+           | footnote_indicator | label_reference
+           | entity_reference | citation | url | path | command
+           | line_break | page_number | document_version
+           | document_revision | document_date | title_reference
+           | page_reference | description_reference | type_reference
+           | owner_reference | status_reference ) ;
+
+literal = "{lit:" non_newline_character+ "}" ;
+
+copyright_symbol = "[c]" ;
+
+registered_trademark = "[r]" ;
+
+trademark = "[tm]" ;
+
+take_note = "[[take_note]]" ;
+
+section_sign = "[[section]]" ;
+
+keystroke_indicator = "[[" non_newline_character+ "]]" ;
+
+em_dash = "--" ;
+
+glossary_term = "[" ("g"|"gls") ":" term "]" ;
+
+Glossary_term = "[" ("G"|"Gls") ":" term "]" ;
+
+glossary_definition = "[def:" term "]" ;
+
+acronym_definition = "[" ("ac"|"acs"|"acl") ":" acronym "]" ;
+
+variable_value = "[var:" name "]" ;
+
+lookup_value = "[" ("l"|"lookup") ":" label ":" key "]" ;
+
+entered_text = "[" ("en"|"enter") ":" text "]" ;
+
+index_term = "[" ("i"|"index") ":" term "]" ;
+
+email_address = ? E-mail address regexp ? ;
+
+bold = "!!" text "!!" ;
+
+typewriter_text = "||" text "||" ;
+
+italicized_text = "~~" text "~~" ;
+
+underlined_text = "__" text "__" ;
+
+superscripted_text = "^^" text "^^" ;
+
+subscripted_text = "" text "" ;
+
+block = ( text | inline )* newline ;
+
+footnote_indicator = "[f]" ;
+
+label_reference = "[" ("r"|"ref") label "]" ;
+
+entity_reference = "[id:" label "]" ;
+
+citation = "[" ("c"|"cite") ":" label "]" ;
+
+path = "[" ("p"|"path"|"f"|"file") filespec "]" ;
+
+command = "[cmd:" command "]" ;
+
+line_break = "[linebreak]" ;
+
+page_number = "[thepage]" ;
+
+document_version = "[version]" ;
+
+document_revision = "[revision]" ;
+
+document_date = "[date]" ;
+
+title_reference = "[" ("t"|"title") ":" label "]" ;
+
+page_reference = "[" ("pg"|"page") ":" label "]" ;
+
+description_reference = "[" ("d"|"desc"|"description") ":" label "]" ;
+
+type_reference = "[type:" label "]" ;
+
+owner_reference = "[owner:" label "]" ;
+
+status_reference = "[status:" label "]" ;
+
+link = "[link:" filespec "]" ;
+
+url = "[url:" url "]" ;
+
+step = "step:: " $line {line} ;
+
+line = non_newline_character+ newline ;
+
+isbn = character {character} ;
+
+date = decimal_digit decimal_digit decimal_digit decimal_digit "-"
+decimal_digit decimal_digit "-" decimal_digit decimal_digit ;
+
+comment = "#" line ;
+
+name = letter {letter|decimal_digit} ;
+
+year = decimal_digit decimal_digit decimal_digit decimal_digit;
+
+character = ( letter | decimal_digit | space_character ) ;
+
+letter = ( lc_letter | uc_letter ) ;
+
+lc_letter = ( "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" |
+"j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u"
+| "v" | "w" | "x" | "y" | "z" );
+
+uc_letter = ( "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" |
+"J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U"
+| "V" | "W" | "X" | "Y" | "Z" );
+
+decimal_digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" |
+"9" ;
+
+space_character = ? space tab newline linefeed carriage-return ?
+
+non_space_character = ? any character except space or tab ? ;
+
+non_newline_character = ? any character except newline ? ;
+
+text = ? 7-bit ASCII ? ;

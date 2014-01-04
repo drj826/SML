@@ -1,0 +1,33 @@
+>>>problem
+
+######################################################################
+
+title:: Parse SML Comment Divisions
+
+label:: rq-000101
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000099
+
+priority:: routine
+
+type:: functional
+
+associated:: rq-000100
+
+description:: The software shall parse SML comment divisions.  The
+purpose of a comment division is to ``comment out'' a sequence of
+lines so they are ignored by processing applications.  A comment
+division directs the processing application to unconditionally ignore
+that division's text.
+
+######################################################################
+
+index:: rq-000101; comment division
+
+<<<problem

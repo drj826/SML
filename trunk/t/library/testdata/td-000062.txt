@@ -1,0 +1,56 @@
+###############################################################COMMENT
+
+SOURCES (BIBLIOGRAPHY)
+
+###############################################################COMMENT
+
+---SOURCE
+
+source:: misc
+
+label:: cmmi
+
+title:: CMMI for Development, Version 1.2
+
+month:: August
+
+year:: 2006
+
+note:: CMU/SEI-2006-TR-008, ESC-TR-2006-008
+
+---SOURCE
+
+######################################################################
+
+---SOURCE
+
+source:: misc
+
+label:: cmmi-levels
+
+title:: Summary of CMMI Maturity Levels
+
+month:: August
+
+year:: 2006
+
+---SOURCE
+
+######################################################################
+
+---SOURCE
+
+source:: misc
+
+label:: cmmi-pa
+
+title:: Summary of CMMI Process Areas, Specific Practices,
+Subpractices, and Typical Work Products
+
+month:: August
+
+year:: 2006
+
+---SOURCE
+
+######################################################################

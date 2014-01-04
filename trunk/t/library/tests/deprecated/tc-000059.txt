@@ -1,0 +1,55 @@
+>>>test
+
+######################################################################
+
+title:: Result.pm Unit Test Case
+
+label:: tc-000059
+
+revision:: $Revision: 15133 $
+
+date:: $Date: 2013-07-07 09:31:37 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Result.pm Perl
+module that implements the SML::Result class.
+
+######################################################################
+
+index:: tc-000059; unit test case!Result.pm
+
+[ref:lis-result-pm-unit-test-case] shows the unit test for
+[file:Result.pm].
+
+---LISTING
+title::       Result.t - Unit Test Case for Result.pm
+label::       lis-result-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: landscape
+fontsize::    footnotesize
+file::        ../Result.t
+---LISTING
+
+[ref:lis-result-pm-unit-test-results] shows the results of executing
+the Result.pm unit test case.
+
+---LISTING
+title::     Result.pm Unit Test Case Results
+label::     lis-result-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Result.t
+---LISTING
+
+<<<test
+>>>RESOURCES
+b85fcaffda7e9e658eaea8c30da708ef4ceced9d ../Result.t
+<<<RESOURCES

@@ -1,0 +1,28 @@
+>>>problem
+
+######################################################################
+
+title:: List Allowed Entity Properties
+
+label:: rq-000184
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000185
+
+priority:: routine
+
+type:: technical
+
+description:: The software shall produce a list of properties allowed
+for a specified entity.
+
+######################################################################
+
+index:: rq-000184
+
+<<<problem

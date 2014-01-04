@@ -1,0 +1,39 @@
+>>>problem
+
+######################################################################
+
+title:: Represent a Variable Declaration
+
+label:: rq-000074
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000073
+
+type:: data format
+
+associated:: rq-000078
+
+description:: The data format shall have the capability to represent a
+variable declaration.  A variable consists of a name and a value.  The
+purpose of this requirement is to maximize document maintainability by
+enabling authors to define a variable in a single location and use the
+value of that variable in multiple locations.
+
+######################################################################
+
+index:: rq-000074; variables
+
+Variables are meant to represent ~~inline~~ elements of content; that
+is, content that potentially consists of ~~partial~~ lines of text.
+Inserts, on the other hand, are meant to represent ~~blocks~~ of
+content; that is, content that consists of one or more ~~whole~~ lines
+of text.
+
+<<<problem

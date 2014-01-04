@@ -1,0 +1,120 @@
+>>>problem
+
+######################################################################
+
+title:: Gather Data
+
+label:: rq-000128
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000105
+
+priority:: routine
+
+type:: technical
+
+description:: The software shall gather the structured data contained
+in a document into data structures for further processing by other
+software functions.
+
+######################################################################
+
+index:: rq-000128; gather data
+
+Resolving several SML constructs requires parsing an SML document to
+be an iterative process. Therefore, the 'gather data' function may be
+repeated many times.
+
+- Throw an exception if the parsing process causes a pre-defined
+  maximum number of iterations to be exceeded.
+
+- Ensure that data gathered during previous iterations of the 'gather
+  data' function do not cause the parsing function to store inaccurate
+  document data.
+
+- Ignore data within comment divisions.
+
+- Capture comment division content as a pre-formatted block.
+
+- Ignore comment lines.
+
+- Ignore inline comments.
+
+- Gather all data withing conditional divisions.  Resolution of
+  conditional divisions is performed by the rendering function, not
+  the parsing function.
+
+- Gather table content metrics to enable computation of table layout
+  (number of columns, amount of content in each cell)
+
+- Establish an automatically generated ID for each division to ensure
+  each division has an ID even if no ID was specified by the author.
+
+- Detect author-supplied division IDs.
+
+- Replace the automatically generated IDs with the author-supplied
+  IDs.
+
+- Assign lines to blocks.
+
+- Assign lines to divisions.
+
+- Assign blocks to divisions.
+
+- Assign divisions to divisions.
+
+- Create an array of blocks that comprises the document.
+
+- Create an array of divisions that comprises the document.
+
+- Identify blocks that should be considered 'pre-formatted'.
+
+- Throw an exception on discovering an improperly nested conditional
+  division.
+
+- Throw an exception on discovering the beginning of a region while in
+  an environment.
+
+- Recognize the ends of preambles (document, region, environment).
+
+- Throw an exception on discovering the beginning or ending of an
+  undefined region.
+
+- Throw an exception on discovering the end of a region without being
+  in that region.
+
+- Throw an exception on discovering the end of an environment without
+  being in that environment.
+
+- Recognize section headings.
+
+- Throw a warning on discovering a section heading while in a region
+  or environment.
+
+- End any previous section division upon discovering a section
+  heading.
+
+- Recognize blank lines.
+
+- End current element on discovering a blank line and not in a
+  pre-formatted block.
+
+- Recognize the end of bare tables.
+
+- Recognize preamble elements.
+
+- Throw a warning if the ontology does not allow a preamble element in
+  the division in which it was discovered.
+
+- Recognize universal elements.
+
+- Throw a warning if the document ends while in a region or
+  environment.
+
+
+<<<problem

@@ -1,0 +1,28 @@
+>>>solution
+
+######################################################################
+
+title:: SML/Assignment.pm Module
+
+label:: ci-000413
+
+revision:: $Revision: 11548 $
+
+date:: $Date: 2012-11-27 17:11:51 -0700 (Tue, 27 Nov 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The Assignment.pm module implements the SML::Assignment
+class. An SML assignment is an item region that declares that a
+specific problem (i.e. requirement) is allocated to a specific role
+and is audited using a specific test.
+
+######################################################################
+
+index:: ci-000413; Assignment.pm
+
+<<<solution

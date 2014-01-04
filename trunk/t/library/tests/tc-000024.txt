@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: Figure.pm Unit Test Case
+
+label:: tc-000024
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Figure.pm Perl
+module that implements the SML::Figure class.
+
+######################################################################
+
+index:: tc-000024; unit test case!Figure.pm
+
+[ref:lis-figure-pm-unit-test-case] shows the unit test case for
+[file:Figure.pm].
+
+---LISTING
+title::       Figure.t - Unit Test Case for Figure.pm
+label::       lis-figure-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: portrait
+fontsize::    footnotesize
+file::        ../../Figure.t
+---LISTING
+
+[ref:lis-figure-pm-unit-test-results] shows the results of executing
+the [file:Figure.pm] unit test case.
+
+---LISTING
+title::     Figure.pm Unit Test Case Results
+label::     lis-figure-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Figure.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+855d52efa6fc2aa5430d8972f2da79d312e448da ../Figure.t
+<<<RESOURCES

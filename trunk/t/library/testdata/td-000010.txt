@@ -1,0 +1,21 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: Script Content
+
+id:: td-000010
+
+######################################################################
+
+This SML document contains a 'script' data element.  The 'script'
+statement tells an application to run a script and insert the results
+into the document.
+
+---PREFORMATTED
+
+script:: ipconfig
+
+---PREFORMATTED
+
+<<<DOCUMENT

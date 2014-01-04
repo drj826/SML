@@ -1,0 +1,98 @@
+>>>DOCUMENT
+
+######################################################################
+
+title::     How To Release the Publish Program
+
+author::    Don Johnson
+
+copyright:: 2005, Don Johnson
+
+######################################################################
+
+This is a simple checklist of the steps involved in releasing an
+updated copy of the publish program.  I tend to release the program
+often after making only a few minor updates.
+
+step:: **Check everything into subversion** - After making necessary
+changes and updating the ||CHANGELOG.txt| file, check everything into
+subversion.
+
+step:: **Create the Windows Executable** - Double click on the
+||make.bat|| file in Windows explorer and everything else should be
+automatic.  It takes 60 seconds or so for the perl packager to create
+the ||publish.exe|| file which is a self-contained Windows executable
+version of the publish script.
+
+step:: **Copy windows executable to ||/bin|| directory** - I always
+keep a copy of the latest version of ||publish.exe|| in my ||C:\bin||
+directory which is in my ||PATH||.
+
+step:: **Test** - The first step is to test the program to make sure
+it doesn't contain any glaring bugs.  This is very easy with this
+publish program since publishing the documentation for the program is
+designed to test many of the features.  The program still needs to be
+tested in the following ways, however:
+
+- Run the Windows standalone executable.  Double-clicking on the
+windows executable (||publish.exe||) should bring up the GUI.  Publish
+the documentation as PDF, HTML, XML, and RTF to make sure everything
+is working properly.
+
+- Run the Windows executable from the command line.  Make sure the
+||publish.exe|| file is in a directory specified in your ||PATH||
+environment variable, open up a DOS window, navigate to the
+||publish/documentation|| directory and run ||publish -r html
+how-to-use-publish.txt|| [[Enter]].
+
+- Run the Perl script.  You should be able to double click on the
+||publish.pl|| file and as long as you've got Perl and all of the
+pre-requisite perl modules installed, the program should run
+
+step:: **SVN Export** - Export a copy of the ||publish|| directory so
+it doesn't contain all the ||.svn|| subdirectories, these don't need
+to be distributed.  (Delete the previously exported directory, and zip
+archive if any.) Right click on the ||publish|| working directory and
+select ~~TortoiseSVN~~ -> ~~Export...~~.  Be sure to ~~de-select~~ the
+checkbox that says ``Export unversioned files too'' or else you'll get
+all the ||.svn|| sub-directories in the exported directory.  I usually
+just export to my Desktop.
+
+step:: **Copy the Windows executable into the exported folder** - We
+want the Windows executable to be part of the zip archive.  But, since
+we don't keep it under revision control, it didn't get exported.  Copy
+the ||publish.exe|| file from the working directory into the exported
+directory on the desktop.
+
+step:: **Create a zip archive** - Create a zip archive of the
+||publish|| directory to be posted to the web.  I just right-click on
+the exported ||publish|| folder on the desktop and select ~~WinZip~~
+-> ~~Add to publish.zip~~.  The zip archive is typically a little over
+4MB.
+
+step:: **Post updated files to the Web** - Post updated copies of
+||publish.exe||, ||publish.pl||, and ||publish.zip|| to
+http:://www.donjohnson.net/projects/publish/.  Be sure to update the
+dates in the titles to the current release date.
+
+step:: **Update the CHANGELOG on the web** - This lets users see what
+has changed so they can judge whether or not they need to download the
+latest version.
+
+step:: **Send email notifications** - I notify certain users via email
+whenever I release a new version.
+
+######################################################################
+# Local Emacs Variables
+
+# Local Variables:
+# mode: outline
+# mode: refill
+# coding: us-ascii
+# fill-column: 70
+# End:
+
+######################################################################
+
+<<<DOCUMENT
+

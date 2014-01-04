@@ -1,0 +1,33 @@
+>>>allocation
+
+#---------------------------------------------------------------------
+
+label::    al-000002
+
+solution:: ci-000001 # SML Grammar
+
+problem::  rq-000082 # Be Human Readable
+
+test::     tc-000040 # Analysis
+
+#---------------------------------------------------------------------
+
+release:: 2.0
+
+rel_component:: ci-000001
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 10970 $
+
+date:: $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+#---------------------------------------------------------------------
+
+outcome::2011-06-21:al-000002:green: SML is human readable.  In my
+opinion it is more human readable than other languages designed to be
+human readable like XML and HTML (Don Johnson).
+
+<<<allocation

@@ -1,0 +1,27 @@
+>>>allocation
+
+#---------------------------------------------------------------------
+
+label::    al-000221
+
+solution:: ci-000007 # publish.pl Script
+
+problem::  rq-000118 # Implement SML Semantics
+
+test::     tc-000041 # Demonstration
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 10970 $
+
+date::     $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
+
+author::   $Author: don.johnson $
+
+#---------------------------------------------------------------------
+
+outcome::2012-03-20:al-000221:yellow: The [cmd:publish.pl] script only
+partially implements SML semantics.  It does not read the
+[file:ontology.conf] file used by the SML library.
+
+<<<allocation

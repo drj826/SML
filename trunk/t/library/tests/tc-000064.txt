@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: TableRow.pm Unit Test Case
+
+label:: tc-000064
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the TableRow.pm Perl
+module that implements the SML::TableRow class.
+
+######################################################################
+
+index:: tc-000064; unit test case!TableRow.pm
+
+[ref:lis-tablerow-pm-unit-test-case] shows the unit test for
+[file:TableRow.pm].
+
+---LISTING
+title::       TableRow.t - Unit Test Case for TableRow.pm
+label::       lis-tablerow-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: landscape
+fontsize::    footnotesize
+file::        ../../TableRow.t
+---LISTING
+
+[ref:lis-tablerow-pm-unit-test-results] shows the results of executing
+the TableRow.pm unit test case.
+
+---LISTING
+title::     TableRow.pm Unit Test Case Results
+label::     lis-tablerow-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat TableRow.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+f6936e6bc350ad8d8578cb0763767ef6bde7463e ../TableRow.t
+<<<RESOURCES

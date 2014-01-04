@@ -1,0 +1,29 @@
+>>>problem
+
+######################################################################
+
+title:: Be Configurable
+
+label:: rq-000182
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000111
+
+priority:: routine
+
+type:: non-functional
+
+description:: The software shall be configurable.  The purpose of this
+requirement is to give individual users the flexibility to configure
+the software to their specific needs.
+
+######################################################################
+
+index:: rq-000182; configurability
+
+<<<problem

@@ -1,0 +1,25 @@
+>>>solution
+
+######################################################################
+
+title:: `write_popimage_js' Subroutine
+
+label:: ci-000231
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000007
+
+description:: The [cmd:write_popimage_js] subroutine 
+
+######################################################################
+
+index:: ci-000231; subroutine![cmd:write_popimage_js]
+
+<<<solution

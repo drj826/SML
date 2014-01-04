@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: Epigraph.pm Unit Test Case
+
+label:: tc-000023
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Epigraph.pm Perl
+module that implements the SML::Epigraph class.
+
+######################################################################
+
+index:: tc-000023; unit test case!Epigraph.pm
+
+[ref:lis-epigraph-pm-unit-test-case] shows the unit test case for
+[file:Epigraph.pm].
+
+---LISTING
+title::       Epigraph.t - Unit Test Case for Epigraph.pm
+label::       lis-epigraph-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: portrait
+fontsize::    footnotesize
+file::        ../../Epigraph.t
+---LISTING
+
+[ref:lis-epigraph-pm-unit-test-results] shows the results of executing
+the Epigraph.pm unit test case.
+
+---LISTING
+title::     Epigraph.pm Unit Test Case Results
+label::     lis-epigraph-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Epigraph.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+cdae42f0cb98e505b5f5c90b15eb7314ba4973db ../Epigraph.t
+<<<RESOURCES

@@ -1,0 +1,176 @@
+>>>solution
+
+######################################################################
+
+title:: Structured Manuscript Language (SML)
+
+label:: ci-000001
+
+revision:: $Revision: 623 $
+
+date:: $Date: 2009-09-08 14:49:48 -0600 (Tue, 08 Sep 2009) $
+
+author:: $Author: don.johnson $
+
+type:: data format
+
+description:: The [g:sml:Structured Manuscript Language] [g:sml:SML]
+is a minimalistic [g:sml:descriptive markup] language designed to be
+human readable, easy to edit, easy to automatically generate, able to
+express and validate semantic relationships, and contain all
+information necessary to publish professional documentation from plain
+text manuscripts.
+
+#---------------------------------------------------------------------
+# Allocations
+#
+allocation:: al-000001 # rq-000005 Minimize Presentation Markup 
+allocation:: al-000002 # rq-000082 Be Human Readable
+allocation:: al-000186 # rq-000186 Be Easy To Debug
+
+allocation:: al-000132 # rq-000107 Represent Document Content
+allocation:: al-000008 # rq-000008 Represent Document Presentation
+
+allocation:: al-000006 # rq-000006 Represent Document Structures
+allocation:: al-000044 # rq-000010 Represent Paragraphs
+allocation:: al-000045 # rq-000011 Represent Sections
+allocation:: al-000047 # rq-000013 Represent Images
+allocation:: al-000048 # rq-000014 Represent Tables
+allocation:: al-000049 # rq-000015 Represent Figures
+allocation:: al-000050 # rq-000016 Represent Listings
+allocation:: al-000051 # rq-000017 Represent Attachments
+allocation:: al-000052 # rq-000018 Represent Pre-formatted Text
+allocation:: al-000053 # rq-000019 Represent Footnotes
+allocation:: al-000054 # rq-000020 Represent Cross References
+allocation:: al-000187 # rq-000187 Represent Internal Hyperlinks
+allocation:: al-000055 # rq-000021 Represent External Hyperlinks
+allocation:: al-000056 # rq-000022 Represent Bibliography Entries
+allocation:: al-000057 # rq-000023 Represent Procedural Steps
+allocation:: al-000058 # rq-000024 Represent Side Bars
+allocation:: al-000059 # rq-000025 Represent Glossary Entries
+allocation:: al-000060 # rq-000026 Represent Index Entries
+
+allocation:: al-000061 # rq-000027 Represent Exercises
+allocation:: al-000062 # rq-000028 Represent Presentation slides
+allocation:: al-000063 # rq-000029 Represent Quotations
+allocation:: al-000064 # rq-000030 Represent Demonstrations
+allocation:: al-000065 # rq-000031 Represent Key Points
+
+allocation:: al-000066 # rq-000032 Represent Problems
+allocation:: al-000067 # rq-000033 Represent Solutions
+allocation:: al-000276 # rq-000198 Represent Allocations
+allocation:: al-000068 # rq-000034 Represent Tests
+allocation:: al-000069 # rq-000035 Represent Results
+allocation:: al-000070 # rq-000036 Represent Tasks
+allocation:: al-000071 # rq-000037 Represent Roles
+
+allocation:: al-000141 # rq-000121 Represent Processing Instructions
+allocation:: al-000072 # rq-000038 Represent a Page Break
+allocation:: al-000073 # rq-000039 Represent a Line Break
+
+allocation:: al-000142 # rq-000122 Represent Document-Wide Presentation Options
+allocation:: al-000074 # rq-000040 Represent Document Font Family
+allocation:: al-000075 # rq-000041 Represent Document Font Size
+
+allocation:: al-000143 # rq-000123 Represent Division-Specific Presentation Options
+allocation:: al-000076 # rq-000042 Represent Table Font Size
+allocation:: al-000077 # rq-000043 Represent Table Cell Font Size
+
+allocation:: al-000140 # rq-000120 Represent Spanned Content
+allocation:: al-000078 # rq-000044 Represent Bold Text
+allocation:: al-000079 # rq-000045 Represent Italicized Text
+allocation:: al-000080 # rq-000046 Represent Fixed-Width Text
+allocation:: al-000081 # rq-000047 Represent Underlined Text
+allocation:: al-000092 # rq-000059 Represent Superscripted Text
+allocation:: al-000093 # rq-000060 Represent Subscripted Text
+
+allocation:: al-000144 # rq-000124 Represent Special Symbols
+allocation:: al-000082 # rq-000049 Represent a Copyright Symbol
+allocation:: al-000083 # rq-000050 Represent a Trademark Symbol
+allocation:: al-000084 # rq-000051 Represent a Registered Trademark Symbol
+allocation:: al-000085 # rq-000052 Represent a Keystroke Symbol
+allocation:: al-000086 # rq-000053 Represent a `Take Note' Symbol
+allocation:: al-000087 # rq-000054 Represent a Section sign
+allocation:: al-000088 # rq-000055 Represent a Smiley Face
+allocation:: al-000089 # rq-000056 Represent a Frowny Face
+allocation:: al-000090 # rq-000057 Represent a Left Arrow
+allocation:: al-000091 # rq-000058 Represent a Right Arrow
+allocation:: al-000094 # rq-000061 Represent a Horizontal Rule
+allocation:: al-000146 # rq-000134 Represent a Fill in the Blank
+
+allocation:: al-000095 # rq-000062 Represent a File Path
+allocation:: al-000096 # rq-000063 Represent a Command
+
+allocation:: al-000097 # rq-000064 Represent Literal Text
+
+allocation:: al-000099 # rq-000066 Represent Comments
+allocation:: al-000100 # rq-000067 Represent a Comment Line
+allocation:: al-000101 # rq-000068 Represent a Comment Division
+allocation:: al-000102 # rq-000069 Represent an Inline Comment
+allocation:: al-000189 # rq-000189 Represent Line-Ending Comments
+
+allocation:: al-000005 # rq-000009 Represent Special Features
+allocation:: al-000106 # rq-000073 Represent Reusable Content
+allocation:: al-000147 # rq-000135 Represent a `Lookup' Statement
+allocation:: al-000148 # rq-000136 Represent a `Definition Reuse' Statement
+allocation:: al-000150 # rq-000138 Represent a `Status' Statement
+allocation:: al-000098 # rq-000065 Represent an `Include' Statement
+allocation:: al-000176 # rq-000165 Represent Option `Include As Section'
+allocation:: al-000177 # rq-000166 Represent Option `Include Flat'
+allocation:: al-000178 # rq-000167 Represent Option `Include as Region'
+allocation:: al-000179 # rq-000168 Represent Option `Include Raw'
+allocation:: al-000180 # rq-000169 Represent Option `Include and Hide'
+
+allocation:: al-000168 # rq-000157 Represent Update Triggers
+allocation:: al-000103 # rq-000070 Represent Hidden Text
+allocation:: al-000104 # rq-000071 Represent Conditional Text
+allocation:: al-000105 # rq-000072 Represent Script Statements
+allocation:: al-000169 # rq-000158 Represent Option to Run Scripts Conditionally
+allocation:: al-000170 # rq-000159 Represent Option to Persist Script Output In Document
+allocation:: al-000171 # rq-000160 Represent Option to Persist Script Output In a File
+allocation:: al-000107 # rq-000074 Represent Variable Declarations
+allocation:: al-000108 # rq-000075 Represent Revision History
+allocation:: al-000109 # rq-000076 Represent Traceability Relationships
+allocation:: al-000110 # rq-000077 Represent Templates
+allocation:: al-000175 # rq-000164 Represent an `Iterative' Template
+
+allocation:: al-000111 # rq-000078 Represent `Insert' Statements
+allocation:: al-000112 # rq-000079 Represent Glossary References
+allocation:: al-000113 # rq-000080 Represent an `Em Dash'
+allocation:: al-000114 # rq-000081 Represent an Assertion
+
+allocation:: al-000046 # rq-000012 Represent Lists
+allocation:: al-000115 # rq-000083 Represent an Unordered List
+allocation:: al-000116 # rq-000084 Represent an Ordered List
+allocation:: al-000117 # rq-000085 Represent a Definition List
+
+allocation:: al-000118 # rq-000086 Represent Specified Data Types
+allocation:: al-000119 # rq-000087 Represent Document Metadata
+allocation:: al-000120 # rq-000088 Represent a Section Epigraph
+allocation:: al-000121 # rq-000089 Represent an Acronym Definition
+allocation:: al-000122 # rq-000090 Represent an Acronym Reference
+allocation:: al-000331 # rq-000252 Represent and Index Reference
+allocation:: al-000332 # rq-000253 Represent a Unique Division Identifier
+
+allocation:: al-000123 # rq-000091 Represent an Audio Clip
+allocation:: al-000124 # rq-000092 Represent a Video Clip
+
+allocation:: al-000125 # rq-000093 Represent a `Generate' Statement
+allocation:: al-000172 # rq-000161 Represent Option to Generate Content Conditionally
+allocation:: al-000173 # rq-000162 Represent Option to Persist Generated Content In Document
+allocation:: al-000174 # rq-000163 Represent Option to Persist Generated Content In a File
+
+allocation:: al-000126 # rq-000094 Represent the Result of a Review
+allocation:: al-000127 # rq-000095 Represent a Formal Outcome
+allocation:: al-000128 # rq-000096 Represent a `Formal Entity Status' Option
+
+allocation:: al-000129 # rq-000097 Represent a Source Citation
+
+allocation:: al-000275 # rq-000197 Declare Entity Types
+allocation:: al-000274 # rq-000196 Identify Entities by Type
+
+######################################################################
+
+index:: Publish.pm
+
+<<<solution

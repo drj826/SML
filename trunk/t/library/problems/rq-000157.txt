@@ -1,0 +1,37 @@
+>>>problem
+
+######################################################################
+
+title:: Represent Update Triggers
+
+label:: rq-000157
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000009
+
+type:: data format
+
+associated:: rq-000065
+
+description:: The data format shall have the capability to represent
+``update triggers.'' The update trigger function is a solution to a
+problem created by the ``include'' mechanism: a change to an included
+file should trigger an update to the containing file. An ``update
+trigger'' is a tag containing content automatically updated by a
+software parsing or publishing function, introducing a change to the
+containing document when the included document is updated.  The data
+format must implement three types of update triggers: (1) revision,
+(2) author, and (3) date.
+
+######################################################################
+
+index:: rq-000157; update triggers
+
+<<<problem

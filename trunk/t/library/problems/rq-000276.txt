@@ -1,0 +1,31 @@
+>>>problem
+
+######################################################################
+
+title:: Generate HTML Glossary
+
+label:: rq-000276
+
+revision:: $Revision: 11579 $
+
+date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000001
+
+priority:: routine
+
+type:: functional
+
+description:: The software shall generate an HTML [g:sml:glossary].  The
+purpose of the glossary is to enable readers to quickly navigate to
+definitions of key terms used in the document.
+
+######################################################################
+
+index:: rq-000276; glossary!HTML; HTML glossary
+
+= [g:sml:glossary] = [def:sml:glossary]
+
+<<<problem

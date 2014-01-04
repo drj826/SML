@@ -1,0 +1,27 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: Include File Default Method
+
+id:: td-000061
+
+######################################################################
+
+This document tests the software's ability to resolve an `include'
+statement.
+
+* Section Heading
+
+This is a top-level section
+
+** Subsection Heading
+
+This is a subsection.  Will the included content be at the correct
+level?
+
+include::**: td-000001 FROM td-000001.txt
+
+include:: td-000062.txt
+
+<<<DOCUMENT

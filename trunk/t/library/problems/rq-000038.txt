@@ -1,0 +1,28 @@
+>>>problem
+
+######################################################################
+
+title:: Represent a Page Break
+
+label:: rq-000038
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000121
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+page breaks.
+
+######################################################################
+
+index:: rq-000038; page break
+
+<<<problem

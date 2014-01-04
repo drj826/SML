@@ -1,0 +1,33 @@
+>>>problem
+
+######################################################################
+
+title:: Represent an Iterative Template
+
+label:: rq-000164
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000077
+
+priority:: routine
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+iterative template statements.  An iterative template statement
+inserts a set of content divisions, all using the same template, using
+~~less~~ source content than would be required to specify each
+template statement individually.  The purpose of this requirement is
+to improve document maintainability by reducing the amount of
+repetitive text in a document.
+
+######################################################################
+
+index:: rq-000164; iterative template
+
+<<<problem

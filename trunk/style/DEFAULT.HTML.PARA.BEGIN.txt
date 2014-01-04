@@ -1,0 +1,25 @@
+>>>STYLE
+
+style:: DEFAULT
+
+format:: HTML
+
+name:: PARA
+
+part:: BEGIN
+
+type:: block
+
+compress_whitespace:: no
+
+trim_whitespace:: yes
+
+trim_newlines:: no
+
+wrap:: no
+
+#=====================================================================
+
+<p style="margin-top: 0;">
+
+<<<STYLE

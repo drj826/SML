@@ -1,0 +1,91 @@
+>>>solution
+
+######################################################################
+
+title:: SML/Block.pm Module
+
+label:: ci-000387
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML/Block.pm Module...
+
+#---------------------------------------------------------------------
+# allocations
+
+allocation:: al-000288 # rq-000209 Render Internal References
+allocation:: al-000289 # rq-000210 Render External References
+allocation:: al-000290 # rq-000211 Render Footnote References
+allocation:: al-000291 # rq-000212 Render Glossary References
+allocation:: al-000292 # rq-000213 Render Acronym References
+allocation:: al-000293 # rq-000214 Render Index References
+allocation:: al-000294 # rq-000215 Render ID References
+allocation:: al-000295 # rq-000216 Render `thepage' References
+allocation:: al-000296 # rq-000217 Render Page References
+allocation:: al-000297 # rq-000218 Render Version References
+allocation:: al-000298 # rq-000219 Render Revision References
+allocation:: al-000299 # rq-000220 Render Date References
+allocation:: al-000300 # rq-000221 Render Status References
+allocation:: al-000301 # rq-000222 Render Citations
+
+allocation:: al-000302 # rq-000223 Render Take Note Indicators
+allocation:: al-000303 # rq-000224 Render Smiley Symbols
+allocation:: al-000304 # rq-000225 Render Frowny Symbols
+allocation:: al-000305 # rq-000226 Render Keystroke Symbols
+allocation:: al-000306 # rq-000227 Render Left Arrow Symbols
+allocation:: al-000307 # rq-000228 Render Right Arrow Symbols
+allocation:: al-000308 # rq-000229 Render LaTeX Symbols
+allocation:: al-000309 # rq-000230 Render TeX Symbols
+allocation:: al-000310 # rq-000231 Render Copyright Symbols
+allocation:: al-000311 # rq-000232 Render Trademark Symbols
+allocation:: al-000312 # rq-000233 Render Registered Trademark Symbols
+allocation:: al-000313 # rq-000234 Render Open Double Quote
+allocation:: al-000314 # rq-000235 Render Close Double Quote
+allocation:: al-000315 # rq-000236 Render Open Single Quote
+allocation:: al-000316 # rq-000237 Render Close Single Quote
+allocation:: al-000317 # rq-000238 Render Section Sign
+allocation:: al-000318 # rq-000239 Render Emdash
+
+allocation:: al-000319 # rq-000240 Render Underlined Text
+allocation:: al-000320 # rq-000241 Render Superscripted Text
+allocation:: al-000321 # rq-000242 Render Subscripted Text
+allocation:: al-000322 # rq-000243 Render Italicized Text
+allocation:: al-000323 # rq-000244 Render Bold Text
+allocation:: al-000324 # rq-000245 Render Fixed Width Text
+allocation:: al-000325 # rq-000246 Render File Names
+allocation:: al-000326 # rq-000247 Render Path Names
+allocation:: al-000327 # rq-000248 Render User Entered Text
+allocation:: al-000328 # rq-000249 Render Commands
+allocation:: al-000329 # rq-000250 Render Literal XML Tags
+allocation:: al-000330 # rq-000251 Render E-mail Addresses
+
+allocation:: al-000336 # rq-000205 Render a Block According to a Style
+
+######################################################################
+
+index:: ci-000387
+
+---LISTING
+title::     Block.pm
+label::     lis-block-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../../SML/Block.pm
+---LISTING
+
+[clearpage]
+
+<<<solution
+
+>>>RESOURCES
+63cca073b7cd0702eb87af8d85f11ee36deede58 ../../SML/Block.pm
+<<<RESOURCES

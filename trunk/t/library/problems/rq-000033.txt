@@ -1,0 +1,506 @@
+>>>problem
+
+######################################################################
+
+title:: Represent Solutions
+
+label:: rq-000033
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000195
+
+type:: data format
+
+description:: The data format shall have the capability to identify and
+represent document content as the description of a solution.  A
+solution describes something that solves a problem.  The purpose of
+identifying content as a solution description is to make the solution
+semantically traceable to other elements of content (like problems and
+tests), to make the content re-usable, and to enable special listings
+of solutions.
+
+######################################################################
+
+index:: rq-000033; solutions
+
+Elements of solution meta data include:
+
+:: data element
+
+:: description
+
+:: type
+
+:: required or optional?
+
+:: single or multi-valued?
+
+---
+
+: ~~title~~
+
+: Title of the solution
+
+: text
+
+: optional
+
+: single
+
+---
+
+: ~~revision~~
+
+: Revision number of this solution
+
+: text
+
+: optional
+
+: single
+
+---
+
+: ~~date~~
+
+: Date of this revision of this solution
+
+: date
+
+: optional
+
+: single
+
+---
+
+: ~~author~~
+
+: Individual who wrote this solution
+
+: text
+
+: optional
+
+: multi
+
+---
+
+: ~~label~~
+
+: Unique identifier for this solution
+
+: text
+
+: optional
+
+: single
+
+---
+
+: ~~description~~
+
+: A one-paragraph explanation of the solution
+
+: text
+
+: optional
+
+: single
+
+---
+
+: ~~type~~
+
+: Descriptors that categorize the solution
+
+: text
+
+: optional
+
+: multi
+
+---
+
+: ~~owner~~
+
+: Name of role or individual responsible for maintaining the solution
+
+: ID or inline
+
+: optional
+
+: single
+
+---
+
+: ~~assignee~~
+
+: Name of role or individual assigned to maintain the solution
+
+: ID or inline
+
+: optional
+
+: multi
+
+---
+
+: ~~stakeholder~~
+
+: Name or role or individual with a stake in maintaining the solution
+
+: ID or inline
+
+: optional
+
+: multi
+
+---
+
+: ~~next~~
+
+: The next solution after this one in a sequence of solutions
+
+: ID
+
+: optional
+
+: multi
+
+---
+
+: ~~previous~~
+
+: The previous solution before this one in a sequence of solutions
+
+: ID
+
+: optional
+
+: multi
+
+---
+
+: ~~priority~~
+
+: The priority of this solution
+
+: priority
+
+: optional
+
+: single
+
+---
+
+: ~~directed_by~~
+
+: The authority that directs this solution be implemented
+
+: ID or inline
+
+: optional
+
+: multi
+
+---
+
+: ~~required_by~~
+
+: Problems this solution solves
+
+: ID
+
+: optional
+
+: multi
+
+---
+
+: ~~depends_on~~
+
+: Other solution(s) on which this one depends
+
+: ID
+
+: optional
+
+: multi
+
+---
+
+: ~~directs~~
+
+: This solution(s) this one authoritatively directs be solved (opposite
+of ``directed_by'')
+
+: ID or inline
+
+: optional
+
+: multi
+
+---
+
+: ~~derived_from~~
+
+: The solution from which this one is derived
+
+: ID or inline
+
+: optional
+
+: single
+
+---
+
+: ~~derived~~
+
+: Solution(s) derived from this one (opposite of ``derived_from'')
+
+: ID or inline
+
+: optional
+
+: multi
+
+---
+
+: ~~class_of~~
+
+: The solution of which this one is a class
+
+: ID or inline
+
+: optional
+
+: single
+
+---
+
+: ~~instance_of~~
+
+: The solution of which this one is an instance
+
+: ID or inline
+
+: optional
+
+: multi
+
+---
+
+: ~~version~~
+
+: Version number of this solution
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~license~~
+
+: License under which this solution is authorized for use
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~cost~~
+
+: Cost of this solution
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~pro~~
+
+: Reason ~~for~~ implementing the solution
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~con~~
+
+: Reason ~~against~~ implementing the solution
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~problem~~
+
+: The solution solves this problem
+
+: ID or inline
+
+: optional
+
+: multi
+
+---
+
+: ~~test~~
+
+: The test that verifies this solution is correct
+
+: ID
+
+: optional
+
+: multi
+
+---
+
+: ~~effort~~
+
+: The estimated or actual level of effort required to implement this
+solution
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~status~~
+
+: The degree to which this solution has been implemented
+
+: status
+
+: optional
+
+: single
+
+---
+
+: ~~task~~
+
+: The name of the task designated to implement this solution
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~associated~~
+
+: Labels of other items associated with this one
+
+: item
+
+: optional
+
+: multi
+
+---
+
+: ~~request~~
+
+: The unique identifier of the request that identified the need for
+this solution, or a need to improve this solution
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~attributes~~
+
+: Name/value pairs that provide additional meta data about the solution
+
+: name/value pair
+
+: optional
+
+: multi
+
+---
+
+: ~~parent~~
+
+: The solution of which this one is a part
+
+: ID
+
+: optional
+
+: single
+
+---
+
+: ~~child~~
+
+: The solution(s) that are part of this one
+
+: ID
+
+: optional
+
+: multi
+
+---
+
+: ~~copyright~~
+
+: The copyright applied to this solution
+
+: inline
+
+: optional
+
+: single
+
+---
+
+:yellow: ~~narrative~~
+
+:yellow: The actual content of the solution
+
+:yellow: text
+
+:yellow: required
+
+:yellow: single
+
+---
+
+<<<problem

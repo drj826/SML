@@ -1,0 +1,40 @@
+>>>solution
+
+######################################################################
+
+title:: SML/PreformattedBlock.pm Module
+
+label:: ci-000427
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML/PreformattedBlock.pm Module...
+
+######################################################################
+
+index:: ci-000427
+
+---LISTING
+title::     PreformattedBlock.pm
+label::     lis-preformatted-block-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../../SML/PreformattedBlock.pm
+---LISTING
+
+[clearpage]
+
+<<<solution
+
+>>>RESOURCES
+f2b925661df323e2a8f26ffb6f3dccbfbe5e427c ../../SML/PreformattedBlock.pm
+<<<RESOURCES

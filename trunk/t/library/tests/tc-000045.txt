@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: BulletListItem.pm Unit Test Case
+
+label:: tc-000045
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the BulletListItem.pm
+Perl module that implements the SML::BulletListItem class.
+
+######################################################################
+
+index:: tc-000045; unit test case!BulletListItem.pm
+
+[ref:lis-bullet-listitem-pm-unit-test-case] shows the unit test case for
+[file:BulletListItem.pm].
+
+---LISTING
+title::       BulletListItem.t - Unit Test Case for BulletListItem.pm
+label::       lis-bullet-listitem-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: portrait
+fontsize::    footnotesize
+file::        ../../BulletListItem.t
+---LISTING
+
+[ref:lis-bullet-listitem-pm-unit-test-results] shows the results of
+executing the [file:BulletListItem.pm] unit test case.
+
+---LISTING
+title::     BulletListItem.pm Unit Test Case Results
+label::     lis-bullet-listitem-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat BulletListItem.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+7bc642cb7841fa3b7e03c86872dfcf9b1adfabf8 ../BulletListItem.t
+<<<RESOURCES

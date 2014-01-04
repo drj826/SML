@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: Formatter.pm Unit Test Case
+
+label:: tc-000053
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Formatter.pm Perl
+module that implements the SML::Formatter class.
+
+######################################################################
+
+index:: tc-000053; unit test case!Formatter.pm
+
+[ref:lis-formatter-pm-unit-test-case] shows the unit test for
+[file:Formatter.pm].
+
+---LISTING
+title::       Formatter.t - Unit Test Case for Formatter.pm
+label::       lis-formatter-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: landscape
+fontsize::    footnotesize
+file::        ../../Formatter.t
+---LISTING
+
+[ref:lis-formatter-pm-unit-test-results] shows the results of
+executing the Formatter.pm unit test case.
+
+---LISTING
+title::     Formatter.pm Unit Test Case Results
+label::     lis-formatter-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Formatter.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+32e6c6ff1cb9030ad784b2ee23074194c514ba0d ../Formatter.t
+<<<RESOURCES

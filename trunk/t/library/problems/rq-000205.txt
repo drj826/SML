@@ -1,0 +1,28 @@
+>>>problem
+
+######################################################################
+
+title:: Format a Block According to a Style Template
+
+label:: rq-000205
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000102
+
+type:: technical
+
+description:: The software shall format a [g:sml:block] of SML text
+into a target rendition according to a specified style template.  For
+example, render an SML paragraph into an HTML paragraph according to a
+specified style template.
+
+######################################################################
+
+index:: rq-000205; format block
+
+<<<problem

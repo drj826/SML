@@ -1,0 +1,1704 @@
+* Structured Manuscript Language (SML) (ci-000001)
+
+include:: ../solutions/ci-000001.txt # <-- solutions/ci-000001.txt:7
+
+** SML Semantics (ci-000006)
+
+include:: ../solutions/ci-000006.txt # <-- solutions/ci-000006.txt:7
+
+** SML Syntax (sml.ebnf) (ci-000379)
+
+include:: ../solutions/ci-000379.txt # <-- solutions/ci-000379.txt:7
+
+* SML Software Library (ci-000004)
+
+include:: ../solutions/ci-000004.txt # <-- solutions/ci-000002.txt:21
+
+** SML.pm Module (ci-000002)
+
+include:: ../solutions/ci-000002.txt # <-- solutions/ci-000002.txt:7
+
+** SML/Parser.pm Module (ci-000003)
+
+include:: ../solutions/ci-000003.txt # <-- solutions/ci-000003.txt:7
+
+** SML/Document.pm Module (ci-000005)
+
+include:: ../solutions/ci-000005.txt # <-- solutions/ci-000005.txt:7
+
+** SML/Reasoner.pm Module (ci-000380)
+
+include:: ../solutions/ci-000380.txt # <-- solutions/ci-000380.txt:7
+
+** SML/Division.pm Module (ci-000381)
+
+include:: ../solutions/ci-000381.txt # <-- solutions/ci-000381.txt:7
+
+** SML/Options.pm Module (ci-000382)
+
+include:: ../solutions/ci-000382.txt # <-- solutions/ci-000382.txt:7
+
+** SML/Util.pm Module (ci-000383)
+
+include:: ../solutions/ci-000383.txt # <-- solutions/ci-000383.txt:7
+
+** SML/File.pm Module (ci-000384)
+
+include:: ../solutions/ci-000384.txt # <-- solutions/ci-000384.txt:7
+
+** SML/Line.pm Module (ci-000385)
+
+include:: ../solutions/ci-000385.txt # <-- solutions/ci-000385.txt:7
+
+** SML/Element.pm Module (ci-000386)
+
+include:: ../solutions/ci-000386.txt # <-- solutions/ci-000386.txt:7
+
+** SML/Block.pm Module (ci-000387)
+
+include:: ../solutions/ci-000387.txt # <-- solutions/ci-000387.txt:7
+
+** SML/CommentDivision.pm Module (ci-000388)
+
+include:: ../solutions/ci-000388.txt # <-- solutions/ci-000388.txt:7
+
+** SML/Conditional.pm Module (ci-000389)
+
+include:: ../solutions/ci-000389.txt # <-- solutions/ci-000389.txt:7
+
+** SML/Region.pm Module (ci-000390)
+
+include:: ../solutions/ci-000390.txt # <-- solutions/ci-000390.txt:7
+
+** SML/Environment.pm Module (ci-000391)
+
+include:: ../solutions/ci-000391.txt # <-- solutions/ci-000391.txt:7
+
+** SML/Section.pm Module (ci-000392)
+
+include:: ../solutions/ci-000392.txt # <-- solutions/ci-000392.txt:7
+
+** SML/Attachment.pm Module (ci-000393)
+
+include:: ../solutions/ci-000393.txt # <-- solutions/ci-000393.txt:7
+
+** SML/Revisions.pm Module (ci-000394)
+
+include:: ../solutions/ci-000394.txt # <-- solutions/ci-000394.txt:7
+
+** SML/Epigraph.pm Module (ci-000395)
+
+include:: ../solutions/ci-000395.txt # <-- solutions/ci-000395.txt:7
+
+** SML/Figure.pm Module (ci-000396)
+
+include:: ../solutions/ci-000396.txt # <-- solutions/ci-000396.txt:7
+
+** SML/Listing.pm Module (ci-000397)
+
+include:: ../solutions/ci-000397.txt # <-- solutions/ci-000397.txt:7
+
+** SML/PreformattedDivision.pm Module (ci-000398)
+
+include:: ../solutions/ci-000398.txt # <-- solutions/ci-000398.txt:7
+
+** SML/Sidebar.pm Module (ci-000399)
+
+include:: ../solutions/ci-000399.txt # <-- solutions/ci-000399.txt:7
+
+** SML/Source.pm Module (ci-000400)
+
+include:: ../solutions/ci-000400.txt # <-- solutions/ci-000400.txt:7
+
+** SML/Table.pm Module (ci-000401)
+
+include:: ../solutions/ci-000401.txt # <-- solutions/ci-000401.txt:7
+
+** SML/Audio.pm Module (ci-000402)
+
+include:: ../solutions/ci-000402.txt # <-- solutions/ci-000402.txt:7
+
+** SML/Video.pm Module (ci-000403)
+
+include:: ../solutions/ci-000403.txt # <-- solutions/ci-000403.txt:7
+
+** SML/Assertion.pm Module (ci-000404)
+
+include:: ../solutions/ci-000404.txt # <-- solutions/ci-000404.txt:7
+
+** SML/Slide.pm Module (ci-000405)
+
+include:: ../solutions/ci-000405.txt # <-- solutions/ci-000405.txt:7
+
+** SML/Demo.pm Module (ci-000406)
+
+include:: ../solutions/ci-000406.txt # <-- solutions/ci-000406.txt:7
+
+** SML/Exercise.pm Module (ci-000407)
+
+include:: ../solutions/ci-000407.txt # <-- solutions/ci-000407.txt:7
+
+** SML/Keypoints.pm Module (ci-000408)
+
+include:: ../solutions/ci-000408.txt # <-- solutions/ci-000408.txt:7
+
+** SML/Quotation.pm Module (ci-000409)
+
+include:: ../solutions/ci-000409.txt # <-- solutions/ci-000409.txt:7
+
+** SML/Library.pm Module (ci-000410)
+
+include:: ../solutions/ci-000410.txt # <-- solutions/ci-000410.txt:7
+
+** SML/Baretable.pm Module (ci-000414)
+
+include:: ../solutions/ci-000414.txt # <-- solutions/ci-000414.txt:7
+
+** SML/Definition.pm Module (ci-000415)
+
+include:: ../solutions/ci-000415.txt # <-- solutions/ci-000415.txt:7
+
+** SML/Entity.pm Module (ci-000416)
+
+include:: ../solutions/ci-000416.txt # <-- solutions/ci-000416.txt:7
+
+** SML/Svninfo.pm Module (ci-000420)
+
+include:: ../solutions/ci-000420.txt # <-- solutions/ci-000420.txt:7
+
+** SML/Formatter.pm Module (ci-000423)
+
+include:: ../solutions/ci-000423.txt # <-- solutions/ci-000423.txt:7
+
+** SML/Listitem.pm Module (ci-000424)
+
+include:: ../solutions/ci-000424.txt # <-- solutions/ci-000424.txt:7
+
+** SML/Paragraph.pm Module (ci-000425)
+
+include:: ../solutions/ci-000425.txt # <-- solutions/ci-000425.txt:7
+
+** SML/CommentBlock.pm Module (ci-000426)
+
+include:: ../solutions/ci-000426.txt # <-- solutions/ci-000426.txt:7
+
+** SML/PreformattedBlock.pm Module (ci-000427)
+
+include:: ../solutions/ci-000427.txt # <-- solutions/ci-000427.txt:7
+
+** SML/TableCell.pm Module (ci-000428)
+
+include:: ../solutions/ci-000428.txt # <-- solutions/ci-000428.txt:7
+
+** SML/TableRow.pm Module (ci-000429)
+
+include:: ../solutions/ci-000429.txt # <-- solutions/ci-000429.txt:7
+
+** SML/BulletListItem.pm Module (ci-000430)
+
+include:: ../solutions/ci-000430.txt # <-- solutions/ci-000430.txt:7
+
+** SML/EnumeratedListItem.pm Module (ci-000431)
+
+include:: ../solutions/ci-000431.txt # <-- solutions/ci-000431.txt:7
+
+** SML/DefinitionListItem.pm Module (ci-000432)
+
+include:: ../solutions/ci-000432.txt # <-- solutions/ci-000432.txt:7
+
+** Syntax.pm (ci-000433)
+
+include:: ../solutions/ci-000433.txt # <-- solutions/ci-000433.txt:7
+
+** SML/Property.pm Module (ci-000434)
+
+include:: ../solutions/ci-000434.txt # <-- solutions/ci-000434.txt:7
+
+** SML/Glossary.pm Module (ci-000435)
+
+include:: ../solutions/ci-000435.txt # <-- solutions/ci-000435.txt:7
+
+* publish.pl Script (ci-000007)
+
+include:: ../solutions/ci-000007.txt # <-- solutions/ci-000007.txt:7
+
+** `publish' Subroutine (ci-000008)
+
+include:: ../solutions/ci-000008.txt # <-- solutions/ci-000008.txt:7
+
+** `display_gui' Subroutine (ci-000009)
+
+include:: ../solutions/ci-000009.txt # <-- solutions/ci-000009.txt:7
+
+** `menu_exit' Subroutine (ci-000010)
+
+include:: ../solutions/ci-000010.txt # <-- solutions/ci-000010.txt:7
+
+** `menu_about' Subroutine (ci-000011)
+
+include:: ../solutions/ci-000011.txt # <-- solutions/ci-000011.txt:7
+
+** `choose_text_file' Subroutine (ci-000012)
+
+include:: ../solutions/ci-000012.txt # <-- solutions/ci-000012.txt:7
+
+** `printmessage' Subroutine (ci-000013)
+
+include:: ../solutions/ci-000013.txt # <-- solutions/ci-000013.txt:7
+
+** `printstatus' Subroutine (ci-000014)
+
+include:: ../solutions/ci-000014.txt # <-- solutions/ci-000014.txt:7
+
+** `printdebug' Subroutine (ci-000015)
+
+include:: ../solutions/ci-000015.txt # <-- solutions/ci-000015.txt:7
+
+** `printwarning' Subroutine (ci-000016)
+
+include:: ../solutions/ci-000016.txt # <-- solutions/ci-000016.txt:7
+
+** `printerror' Subroutine (ci-000017)
+
+include:: ../solutions/ci-000017.txt # <-- solutions/ci-000017.txt:7
+
+** `systemnw' Subroutine (ci-000018)
+
+include:: ../solutions/ci-000018.txt # <-- solutions/ci-000018.txt:7
+
+** `ErrorReport' Subroutine (ci-000019)
+
+include:: ../solutions/ci-000019.txt # <-- solutions/ci-000019.txt:7
+
+** `pass_one' Subroutine (ci-000020)
+
+include:: ../solutions/ci-000020.txt # <-- solutions/ci-000020.txt:7
+
+** `pass_two' Subroutine (ci-000021)
+
+include:: ../solutions/ci-000021.txt # <-- solutions/ci-000021.txt:7
+
+** `text_contains_requests' Subroutine (ci-000022)
+
+include:: ../solutions/ci-000022.txt # <-- solutions/ci-000022.txt:7
+
+** `generate_content' Subroutine (ci-000023)
+
+include:: ../solutions/ci-000023.txt # <-- solutions/ci-000023.txt:7
+
+** `sml_domain_traceability_matrix' Subroutine (ci-000024)
+
+include:: ../solutions/ci-000024.txt # <-- solutions/ci-000024.txt:7
+
+** `generate_prioritized_problem_listing' Subroutine (ci-000025)
+
+include:: ../solutions/ci-000025.txt # <-- solutions/ci-000025.txt:7
+
+** `generate_prioritized_solution_listing' Subroutine (ci-000026)
+
+include:: ../solutions/ci-000026.txt # <-- solutions/ci-000026.txt:7
+
+** `generate_associated_problem_listing' Subroutine (ci-000027)
+
+include:: ../solutions/ci-000027.txt # <-- solutions/ci-000027.txt:7
+
+** `generate_associated_solution_listing' Subroutine (ci-000028)
+
+include:: ../solutions/ci-000028.txt # <-- solutions/ci-000028.txt:7
+
+** `generate_item_summary' Subroutine (ci-000029)
+
+include:: ../solutions/ci-000029.txt # <-- solutions/ci-000029.txt:7
+
+** `pass_three' Subroutine (ci-000030)
+
+include:: ../solutions/ci-000030.txt # <-- solutions/ci-000030.txt:7
+
+** `launch_browser' Subroutine (ci-000031)
+
+include:: ../solutions/ci-000031.txt # <-- solutions/ci-000031.txt:7
+
+** `assemble_latex_head_array' Subroutine (ci-000032)
+
+include:: ../solutions/ci-000032.txt # <-- solutions/ci-000032.txt:7
+
+** `assemble_html_head_array' Subroutine (ci-000033)
+
+include:: ../solutions/ci-000033.txt # <-- solutions/ci-000033.txt:7
+
+** `assemble_html_nav_array' Subroutine (ci-000034)
+
+include:: ../solutions/ci-000034.txt # <-- solutions/ci-000034.txt:7
+
+** `assemble_latex_nav_array' Subroutine (ci-000035)
+
+include:: ../solutions/ci-000035.txt # <-- solutions/ci-000035.txt:7
+
+** `assemble_html_title_array' Subroutine (ci-000036)
+
+include:: ../solutions/ci-000036.txt # <-- solutions/ci-000036.txt:7
+
+** `assemble_latex_title_array' Subroutine (ci-000037)
+
+include:: ../solutions/ci-000037.txt # <-- solutions/ci-000037.txt:7
+
+** `assemble_latex_glossary_array' Subroutine (ci-000038)
+
+include:: ../solutions/ci-000038.txt # <-- solutions/ci-000038.txt:7
+
+** `assemble_latex_changelog_array' Subroutine (ci-000039)
+
+include:: ../solutions/ci-000039.txt # <-- solutions/ci-000039.txt:7
+
+** `assemble_latex_foot_array' Subroutine (ci-000041)
+
+include:: ../solutions/ci-000041.txt # <-- solutions/ci-000041.txt:7
+
+** `assemble_xml_head_array' Subroutine (ci-000042)
+
+include:: ../solutions/ci-000042.txt # <-- solutions/ci-000042.txt:7
+
+** `assemble_xml_stylesheet' Subroutine (ci-000043)
+
+include:: ../solutions/ci-000043.txt # <-- solutions/ci-000043.txt:7
+
+** `assemble_xml_dtd' Subroutine (ci-000044)
+
+include:: ../solutions/ci-000044.txt # <-- solutions/ci-000044.txt:7
+
+** `assemble_xml_foot_array' Subroutine (ci-000045)
+
+include:: ../solutions/ci-000045.txt # <-- solutions/ci-000045.txt:7
+
+** `end_cell_context' Subroutine (ci-000046)
+
+include:: ../solutions/ci-000046.txt # <-- solutions/ci-000046.txt:7
+
+** `end_row_context' Subroutine (ci-000047)
+
+include:: ../solutions/ci-000047.txt # <-- solutions/ci-000047.txt:7
+
+** `end_table_context' Subroutine (ci-000048)
+
+include:: ../solutions/ci-000048.txt # <-- solutions/ci-000048.txt:7
+
+** `end_baretable_context' Subroutine (ci-000049)
+
+include:: ../solutions/ci-000049.txt # <-- solutions/ci-000049.txt:7
+
+** `end_image_set_context' Subroutine (ci-000050)
+
+include:: ../solutions/ci-000050.txt # <-- solutions/ci-000050.txt:7
+
+** `begin_ulist' Subroutine (ci-000051)
+
+include:: ../solutions/ci-000051.txt # <-- solutions/ci-000051.txt:7
+
+** `end_ulist' Subroutine (ci-000052)
+
+include:: ../solutions/ci-000052.txt # <-- solutions/ci-000052.txt:7
+
+** `begin_ulist_item' Subroutine (ci-000053)
+
+include:: ../solutions/ci-000053.txt # <-- solutions/ci-000053.txt:7
+
+** `begin_olist' Subroutine (ci-000054)
+
+include:: ../solutions/ci-000054.txt # <-- solutions/ci-000054.txt:7
+
+** `begin_dlist' Subroutine (ci-000055)
+
+include:: ../solutions/ci-000055.txt # <-- solutions/ci-000055.txt:7
+
+** `end_olist' Subroutine (ci-000056)
+
+include:: ../solutions/ci-000056.txt # <-- solutions/ci-000056.txt:7
+
+** `end_dlist' Subroutine (ci-000057)
+
+include:: ../solutions/ci-000057.txt # <-- solutions/ci-000057.txt:7
+
+** `begin_olist_item' Subroutine (ci-000058)
+
+include:: ../solutions/ci-000058.txt # <-- solutions/ci-000058.txt:7
+
+** `begin_variable_entry' Subroutine (ci-000059)
+
+include:: ../solutions/ci-000059.txt # <-- solutions/ci-000059.txt:7
+
+** `process_variable_entry_text' Subroutine (ci-000060)
+
+include:: ../solutions/ci-000060.txt # <-- solutions/ci-000060.txt:7
+
+** `end_variable_entry' Subroutine (ci-000061)
+
+include:: ../solutions/ci-000061.txt # <-- solutions/ci-000061.txt:7
+
+** `begin_glossary_entry' Subroutine (ci-000062)
+
+include:: ../solutions/ci-000062.txt # <-- solutions/ci-000062.txt:7
+
+** `process_glossary_entry_text' Subroutine (ci-000063)
+
+include:: ../solutions/ci-000063.txt # <-- solutions/ci-000063.txt:7
+
+** `end_glossary_entry' Subroutine (ci-000064)
+
+include:: ../solutions/ci-000064.txt # <-- solutions/ci-000064.txt:7
+
+** `begin_acronym_definition' Subroutine (ci-000065)
+
+include:: ../solutions/ci-000065.txt # <-- solutions/ci-000065.txt:7
+
+** `process_acronym_text' Subroutine (ci-000066)
+
+include:: ../solutions/ci-000066.txt # <-- solutions/ci-000066.txt:7
+
+** `end_acronym_definition' Subroutine (ci-000067)
+
+include:: ../solutions/ci-000067.txt # <-- solutions/ci-000067.txt:7
+
+** `process_pagebreak' Subroutine (ci-000068)
+
+include:: ../solutions/ci-000068.txt # <-- solutions/ci-000068.txt:7
+
+** `process_clearpage' Subroutine (ci-000069)
+
+include:: ../solutions/ci-000069.txt # <-- solutions/ci-000069.txt:7
+
+** `begin_dlist_item' Subroutine (ci-000070)
+
+include:: ../solutions/ci-000070.txt # <-- solutions/ci-000070.txt:7
+
+** `end_item' Subroutine (ci-000071)
+
+include:: ../solutions/ci-000071.txt # <-- solutions/ci-000071.txt:7
+
+** `begin_para' Subroutine (ci-000072)
+
+include:: ../solutions/ci-000072.txt # <-- solutions/ci-000072.txt:7
+
+** `end_para' Subroutine (ci-000073)
+
+include:: ../solutions/ci-000073.txt # <-- solutions/ci-000073.txt:7
+
+** `begin_pre' Subroutine (ci-000074)
+
+include:: ../solutions/ci-000074.txt # <-- solutions/ci-000074.txt:7
+
+** `end_pre' Subroutine (ci-000075)
+
+include:: ../solutions/ci-000075.txt # <-- solutions/ci-000075.txt:7
+
+** `begin_preformatted' Subroutine (ci-000076)
+
+include:: ../solutions/ci-000076.txt # <-- solutions/ci-000076.txt:7
+
+** `end_preformatted' Subroutine (ci-000077)
+
+include:: ../solutions/ci-000077.txt # <-- solutions/ci-000077.txt:7
+
+** `end_ulist_context' Subroutine (ci-000078)
+
+include:: ../solutions/ci-000078.txt # <-- solutions/ci-000078.txt:7
+
+** `end_olist_context' Subroutine (ci-000079)
+
+include:: ../solutions/ci-000079.txt # <-- solutions/ci-000079.txt:7
+
+** `end_current_context' Subroutine (ci-000080)
+
+include:: ../solutions/ci-000080.txt # <-- solutions/ci-000080.txt:7
+
+** `find_size' Subroutine (ci-000081)
+
+include:: ../solutions/ci-000081.txt # <-- solutions/ci-000081.txt:7
+
+** `scale_image' Subroutine (ci-000082)
+
+include:: ../solutions/ci-000082.txt # <-- solutions/ci-000082.txt:7
+
+** `publish_thumbnail' Subroutine (ci-000083)
+
+include:: ../solutions/ci-000083.txt # <-- solutions/ci-000083.txt:7
+
+** `publish_image' Subroutine (ci-000084)
+
+include:: ../solutions/ci-000084.txt # <-- solutions/ci-000084.txt:7
+
+** `publish_file' Subroutine (ci-000085)
+
+include:: ../solutions/ci-000085.txt # <-- solutions/ci-000085.txt:7
+
+** `file_is_stale' Subroutine (ci-000086)
+
+include:: ../solutions/ci-000086.txt # <-- solutions/ci-000086.txt:7
+
+** `init' Subroutine (ci-000087)
+
+include:: ../solutions/ci-000087.txt # <-- solutions/ci-000087.txt:7
+
+** `begin_todo_item' Subroutine (ci-000088)
+
+include:: ../solutions/ci-000088.txt # <-- solutions/ci-000088.txt:7
+
+** `end_todo_item' Subroutine (ci-000089)
+
+include:: ../solutions/ci-000089.txt # <-- solutions/ci-000089.txt:7
+
+** `process_begin_region_marker' Subroutine (ci-000090)
+
+include:: ../solutions/ci-000090.txt # <-- solutions/ci-000090.txt:7
+
+** `process_end_region_marker' Subroutine (ci-000091)
+
+include:: ../solutions/ci-000091.txt # <-- solutions/ci-000091.txt:7
+
+** `process_environment_marker' Subroutine (ci-000092)
+
+include:: ../solutions/ci-000092.txt # <-- solutions/ci-000092.txt:7
+
+** `process_hide_block_marker' Subroutine (ci-000093)
+
+include:: ../solutions/ci-000093.txt # <-- solutions/ci-000093.txt:7
+
+** `process_comment_block_marker' Subroutine (ci-000094)
+
+include:: ../solutions/ci-000094.txt # <-- solutions/ci-000094.txt:7
+
+** `process_label' Subroutine (ci-000095)
+
+include:: ../solutions/ci-000095.txt # <-- solutions/ci-000095.txt:7
+
+** `process_source_line' Subroutine (ci-000096)
+
+include:: ../solutions/ci-000096.txt # <-- solutions/ci-000096.txt:7
+
+** `process_line' Subroutine (ci-000097)
+
+include:: ../solutions/ci-000097.txt # <-- solutions/ci-000097.txt:7
+
+** `process_hide_line' Subroutine (ci-000098)
+
+include:: ../solutions/ci-000098.txt # <-- solutions/ci-000098.txt:7
+
+** `process_comment_line' Subroutine (ci-000099)
+
+include:: ../solutions/ci-000099.txt # <-- solutions/ci-000099.txt:7
+
+** `begin_index_text' Subroutine (ci-000100)
+
+include:: ../solutions/ci-000100.txt # <-- solutions/ci-000100.txt:7
+
+** `process_index_text' Subroutine (ci-000101)
+
+include:: ../solutions/ci-000101.txt # <-- solutions/ci-000101.txt:7
+
+** `end_index_text' Subroutine (ci-000102)
+
+include:: ../solutions/ci-000102.txt # <-- solutions/ci-000102.txt:7
+
+** `process_index_entry' Subroutine (ci-000103)
+
+include:: ../solutions/ci-000103.txt # <-- solutions/ci-000103.txt:7
+
+** `begin_outcome_text' Subroutine (ci-000104)
+
+include:: ../solutions/ci-000104.txt # <-- solutions/ci-000104.txt:7
+
+** `process_outcome_text' Subroutine (ci-000105)
+
+include:: ../solutions/ci-000105.txt # <-- solutions/ci-000105.txt:7
+
+** `end_outcome_text' Subroutine (ci-000106)
+
+include:: ../solutions/ci-000106.txt # <-- solutions/ci-000106.txt:7
+
+** `process_outcome_entry' Subroutine (ci-000107)
+
+include:: ../solutions/ci-000107.txt # <-- solutions/ci-000107.txt:7
+
+** `begin_review_text' Subroutine (ci-000108)
+
+include:: ../solutions/ci-000108.txt # <-- solutions/ci-000108.txt:7
+
+** `process_review_text' Subroutine (ci-000109)
+
+include:: ../solutions/ci-000109.txt # <-- solutions/ci-000109.txt:7
+
+** `end_review_text' Subroutine (ci-000110)
+
+include:: ../solutions/ci-000110.txt # <-- solutions/ci-000110.txt:7
+
+** `process_review_entry' Subroutine (ci-000111)
+
+include:: ../solutions/ci-000111.txt # <-- solutions/ci-000111.txt:7
+
+** `process_heading' Subroutine (ci-000112)
+
+include:: ../solutions/ci-000112.txt # <-- solutions/ci-000112.txt:7
+
+** `resolve_includes' Subroutine (ci-000113)
+
+include:: ../solutions/ci-000113.txt # <-- solutions/ci-000113.txt:7
+
+** `gather_svn_metadata' Subroutine (ci-000114)
+
+include:: ../solutions/ci-000114.txt # <-- solutions/ci-000114.txt:7
+
+** `begin_preamble' Subroutine (ci-000115)
+
+include:: ../solutions/ci-000115.txt # <-- solutions/ci-000115.txt:7
+
+** `end_preamble' Subroutine (ci-000116)
+
+include:: ../solutions/ci-000116.txt # <-- solutions/ci-000116.txt:7
+
+** `end_region_preamble' Subroutine (ci-000117)
+
+include:: ../solutions/ci-000117.txt # <-- solutions/ci-000117.txt:7
+
+** `begin_rcsinfo' Subroutine (ci-000118)
+
+include:: ../solutions/ci-000118.txt # <-- solutions/ci-000118.txt:7
+
+** `begin_revisions' Subroutine (ci-000119)
+
+include:: ../solutions/ci-000119.txt # <-- solutions/ci-000119.txt:7
+
+** `begin_table' Subroutine (ci-000120)
+
+include:: ../solutions/ci-000120.txt # <-- solutions/ci-000120.txt:7
+
+** `begin_celltext' Subroutine (ci-000121)
+
+include:: ../solutions/ci-000121.txt # <-- solutions/ci-000121.txt:7
+
+** `end_celltext' Subroutine (ci-000122)
+
+include:: ../solutions/ci-000122.txt # <-- solutions/ci-000122.txt:7
+
+** `begin_title' Subroutine (ci-000123)
+
+include:: ../solutions/ci-000123.txt # <-- solutions/ci-000123.txt:7
+
+** `end_title' Subroutine (ci-000124)
+
+include:: ../solutions/ci-000124.txt # <-- solutions/ci-000124.txt:7
+
+** `begin_baretable' Subroutine (ci-000125)
+
+include:: ../solutions/ci-000125.txt # <-- solutions/ci-000125.txt:7
+
+** `end_revisions' Subroutine (ci-000126)
+
+include:: ../solutions/ci-000126.txt # <-- solutions/ci-000126.txt:7
+
+** `end_table' Subroutine (ci-000127)
+
+include:: ../solutions/ci-000127.txt # <-- solutions/ci-000127.txt:7
+
+** `end_baretable' Subroutine (ci-000128)
+
+include:: ../solutions/ci-000128.txt # <-- solutions/ci-000128.txt:7
+
+** `begin_quotation_source' Subroutine (ci-000129)
+
+include:: ../solutions/ci-000129.txt # <-- solutions/ci-000129.txt:7
+
+** `end_quotation_source' Subroutine (ci-000130)
+
+include:: ../solutions/ci-000130.txt # <-- solutions/ci-000130.txt:7
+
+** `begin_table_list' Subroutine (ci-000131)
+
+include:: ../solutions/ci-000131.txt # <-- solutions/ci-000131.txt:7
+
+** `end_table_list' Subroutine (ci-000132)
+
+include:: ../solutions/ci-000132.txt # <-- solutions/ci-000132.txt:7
+
+** `begin_table_row' Subroutine (ci-000133)
+
+include:: ../solutions/ci-000133.txt # <-- solutions/ci-000133.txt:7
+
+** `end_table_row' Subroutine (ci-000134)
+
+include:: ../solutions/ci-000134.txt # <-- solutions/ci-000134.txt:7
+
+** `begin_table_header' Subroutine (ci-000135)
+
+include:: ../solutions/ci-000135.txt # <-- solutions/ci-000135.txt:7
+
+** `end_table_header' Subroutine (ci-000136)
+
+include:: ../solutions/ci-000136.txt # <-- solutions/ci-000136.txt:7
+
+** `begin_table_cell' Subroutine (ci-000137)
+
+include:: ../solutions/ci-000137.txt # <-- solutions/ci-000137.txt:7
+
+** `end_table_cell' Subroutine (ci-000138)
+
+include:: ../solutions/ci-000138.txt # <-- solutions/ci-000138.txt:7
+
+** `insert_cell_boundary' Subroutine (ci-000139)
+
+include:: ../solutions/ci-000139.txt # <-- solutions/ci-000139.txt:7
+
+** `process_pre' Subroutine (ci-000140)
+
+include:: ../solutions/ci-000140.txt # <-- solutions/ci-000140.txt:7
+
+** `process_footnote_text' Subroutine (ci-000141)
+
+include:: ../solutions/ci-000141.txt # <-- solutions/ci-000141.txt:7
+
+** `process_todo_text' Subroutine (ci-000142)
+
+include:: ../solutions/ci-000142.txt # <-- solutions/ci-000142.txt:7
+
+** `process_para_text' Subroutine (ci-000143)
+
+include:: ../solutions/ci-000143.txt # <-- solutions/ci-000143.txt:7
+
+** `process_item_text' Subroutine (ci-000144)
+
+include:: ../solutions/ci-000144.txt # <-- solutions/ci-000144.txt:7
+
+** `process_file' Subroutine (ci-000145)
+
+include:: ../solutions/ci-000145.txt # <-- solutions/ci-000145.txt:7
+
+** `process_image' Subroutine (ci-000146)
+
+include:: ../solutions/ci-000146.txt # <-- solutions/ci-000146.txt:7
+
+** `begin_footnote' Subroutine (ci-000147)
+
+include:: ../solutions/ci-000147.txt # <-- solutions/ci-000147.txt:7
+
+** `end_file' Subroutine (ci-000148)
+
+include:: ../solutions/ci-000148.txt # <-- solutions/ci-000148.txt:7
+
+** `end_footnote' Subroutine (ci-000149)
+
+include:: ../solutions/ci-000149.txt # <-- solutions/ci-000149.txt:7
+
+** `begin_figure' Subroutine (ci-000150)
+
+include:: ../solutions/ci-000150.txt # <-- solutions/ci-000150.txt:7
+
+** `end_figure' Subroutine (ci-000151)
+
+include:: ../solutions/ci-000151.txt # <-- solutions/ci-000151.txt:7
+
+** `begin_attachment' Subroutine (ci-000152)
+
+include:: ../solutions/ci-000152.txt # <-- solutions/ci-000152.txt:7
+
+** `end_attachment' Subroutine (ci-000153)
+
+include:: ../solutions/ci-000153.txt # <-- solutions/ci-000153.txt:7
+
+** `begin_slide' Subroutine (ci-000154)
+
+include:: ../solutions/ci-000154.txt # <-- solutions/ci-000154.txt:7
+
+** `end_slide' Subroutine (ci-000155)
+
+include:: ../solutions/ci-000155.txt # <-- solutions/ci-000155.txt:7
+
+** `begin_sidebar' Subroutine (ci-000156)
+
+include:: ../solutions/ci-000156.txt # <-- solutions/ci-000156.txt:7
+
+** `end_sidebar' Subroutine (ci-000157)
+
+include:: ../solutions/ci-000157.txt # <-- solutions/ci-000157.txt:7
+
+** `begin_epigraph' Subroutine (ci-000158)
+
+include:: ../solutions/ci-000158.txt # <-- solutions/ci-000158.txt:7
+
+** `end_epigraph' Subroutine (ci-000159)
+
+include:: ../solutions/ci-000159.txt # <-- solutions/ci-000159.txt:7
+
+** `begin_quotation' Subroutine (ci-000160)
+
+include:: ../solutions/ci-000160.txt # <-- solutions/ci-000160.txt:7
+
+** `end_quotation' Subroutine (ci-000161)
+
+include:: ../solutions/ci-000161.txt # <-- solutions/ci-000161.txt:7
+
+** `begin_problem' Subroutine (ci-000162)
+
+include:: ../solutions/ci-000162.txt # <-- solutions/ci-000162.txt:7
+
+** `end_problem' Subroutine (ci-000163)
+
+include:: ../solutions/ci-000163.txt # <-- solutions/ci-000163.txt:7
+
+** `begin_solution' Subroutine (ci-000164)
+
+include:: ../solutions/ci-000164.txt # <-- solutions/ci-000164.txt:7
+
+** `end_solution' Subroutine (ci-000165)
+
+include:: ../solutions/ci-000165.txt # <-- solutions/ci-000165.txt:7
+
+** `begin_allocation' Subroutine (ci-000166)
+
+include:: ../solutions/ci-000166.txt # <-- solutions/ci-000166.txt:7
+
+** `end_allocation' Subroutine (ci-000167)
+
+include:: ../solutions/ci-000167.txt # <-- solutions/ci-000167.txt:7
+
+** `begin_test' Subroutine (ci-000168)
+
+include:: ../solutions/ci-000168.txt # <-- solutions/ci-000168.txt:7
+
+** `end_test' Subroutine (ci-000169)
+
+include:: ../solutions/ci-000169.txt # <-- solutions/ci-000169.txt:7
+
+** `begin_task' Subroutine (ci-000170)
+
+include:: ../solutions/ci-000170.txt # <-- solutions/ci-000170.txt:7
+
+** `end_task' Subroutine (ci-000171)
+
+include:: ../solutions/ci-000171.txt # <-- solutions/ci-000171.txt:7
+
+** `begin_result' Subroutine (ci-000172)
+
+include:: ../solutions/ci-000172.txt # <-- solutions/ci-000172.txt:7
+
+** `end_result' Subroutine (ci-000173)
+
+include:: ../solutions/ci-000173.txt # <-- solutions/ci-000173.txt:7
+
+** `begin_role' Subroutine (ci-000174)
+
+include:: ../solutions/ci-000174.txt # <-- solutions/ci-000174.txt:7
+
+** `end_role' Subroutine (ci-000175)
+
+include:: ../solutions/ci-000175.txt # <-- solutions/ci-000175.txt:7
+
+** `begin_region' Subroutine (ci-000176)
+
+include:: ../solutions/ci-000176.txt # <-- solutions/ci-000176.txt:7
+
+** `end_region' Subroutine (ci-000177)
+
+include:: ../solutions/ci-000177.txt # <-- solutions/ci-000177.txt:7
+
+** `begin_environment' Subroutine (ci-000178)
+
+include:: ../solutions/ci-000178.txt # <-- solutions/ci-000178.txt:7
+
+** `end_environment' Subroutine (ci-000179)
+
+include:: ../solutions/ci-000179.txt # <-- solutions/ci-000179.txt:7
+
+** `begin_demo' Subroutine (ci-000180)
+
+include:: ../solutions/ci-000180.txt # <-- solutions/ci-000180.txt:7
+
+** `end_demo' Subroutine (ci-000181)
+
+include:: ../solutions/ci-000181.txt # <-- solutions/ci-000181.txt:7
+
+** `begin_note' Subroutine (ci-000182)
+
+include:: ../solutions/ci-000182.txt # <-- solutions/ci-000182.txt:7
+
+** `end_note' Subroutine (ci-000183)
+
+include:: ../solutions/ci-000183.txt # <-- solutions/ci-000183.txt:7
+
+** `begin_listing' Subroutine (ci-000184)
+
+include:: ../solutions/ci-000184.txt # <-- solutions/ci-000184.txt:7
+
+** `end_listing' Subroutine (ci-000185)
+
+include:: ../solutions/ci-000185.txt # <-- solutions/ci-000185.txt:7
+
+** `begin_exercise' Subroutine (ci-000186)
+
+include:: ../solutions/ci-000186.txt # <-- solutions/ci-000186.txt:7
+
+** `end_exercise' Subroutine (ci-000187)
+
+include:: ../solutions/ci-000187.txt # <-- solutions/ci-000187.txt:7
+
+** `begin_keypoints' Subroutine (ci-000188)
+
+include:: ../solutions/ci-000188.txt # <-- solutions/ci-000188.txt:7
+
+** `end_keypoints' Subroutine (ci-000189)
+
+include:: ../solutions/ci-000189.txt # <-- solutions/ci-000189.txt:7
+
+** `begin_comment' Subroutine (ci-000190)
+
+include:: ../solutions/ci-000190.txt # <-- solutions/ci-000190.txt:7
+
+** `end_comment' Subroutine (ci-000191)
+
+include:: ../solutions/ci-000191.txt # <-- solutions/ci-000191.txt:7
+
+** `begin_source' Subroutine (ci-000192)
+
+include:: ../solutions/ci-000192.txt # <-- solutions/ci-000192.txt:7
+
+** `end_source' Subroutine (ci-000193)
+
+include:: ../solutions/ci-000193.txt # <-- solutions/ci-000193.txt:7
+
+** `check_source' Subroutine (ci-000194)
+
+include:: ../solutions/ci-000194.txt # <-- solutions/ci-000194.txt:7
+
+** `escape_html' Subroutine (ci-000195)
+
+include:: ../solutions/ci-000195.txt # <-- solutions/ci-000195.txt:7
+
+** `escape_xml' Subroutine (ci-000196)
+
+include:: ../solutions/ci-000196.txt # <-- solutions/ci-000196.txt:7
+
+** `escape_latex' Subroutine (ci-000197)
+
+include:: ../solutions/ci-000197.txt # <-- solutions/ci-000197.txt:7
+
+** `escape_html_pre' Subroutine (ci-000198)
+
+include:: ../solutions/ci-000198.txt # <-- solutions/ci-000198.txt:7
+
+** `escape_latex_pre' Subroutine (ci-000199)
+
+include:: ../solutions/ci-000199.txt # <-- solutions/ci-000199.txt:7
+
+** `escape_xml_pre' Subroutine (ci-000200)
+
+include:: ../solutions/ci-000200.txt # <-- solutions/ci-000200.txt:7
+
+** `escape_csv' Subroutine (ci-000201)
+
+include:: ../solutions/ci-000201.txt # <-- solutions/ci-000201.txt:7
+
+** `parse_csv' Subroutine (ci-000202)
+
+include:: ../solutions/ci-000202.txt # <-- solutions/ci-000202.txt:7
+
+** `escape_regexp' Subroutine (ci-000203)
+
+include:: ../solutions/ci-000203.txt # <-- solutions/ci-000203.txt:7
+
+** `term_in_glossary' Subroutine (ci-000204)
+
+include:: ../solutions/ci-000204.txt # <-- solutions/ci-000204.txt:7
+
+** `acronym_defined' Subroutine (ci-000205)
+
+include:: ../solutions/ci-000205.txt # <-- solutions/ci-000205.txt:7
+
+** `source_exists' Subroutine (ci-000206)
+
+include:: ../solutions/ci-000206.txt # <-- solutions/ci-000206.txt:7
+
+** `label_exists' Subroutine (ci-000207)
+
+include:: ../solutions/ci-000207.txt # <-- solutions/ci-000207.txt:7
+
+** `name_for' Subroutine (ci-000208)
+
+include:: ../solutions/ci-000208.txt # <-- solutions/ci-000208.txt:7
+
+** `is_context_sensitive' Subroutine (ci-000209)
+
+include:: ../solutions/ci-000209.txt # <-- solutions/ci-000209.txt:7
+
+** `strip_format_markup' Subroutine (ci-000210)
+
+include:: ../solutions/ci-000210.txt # <-- solutions/ci-000210.txt:7
+
+** `trim_whitespace' Subroutine (ci-000211)
+
+include:: ../solutions/ci-000211.txt # <-- solutions/ci-000211.txt:7
+
+** `compress_whitespace' Subroutine (ci-000212)
+
+include:: ../solutions/ci-000212.txt # <-- solutions/ci-000212.txt:7
+
+** `organize_document_metadata' Subroutine (ci-000213)
+
+include:: ../solutions/ci-000213.txt # <-- solutions/ci-000213.txt:7
+
+** `create_lookup_datastructure' Subroutine (ci-000214)
+
+include:: ../solutions/ci-000214.txt # <-- solutions/ci-000214.txt:7
+
+** `create_allocation_titles' Subroutine (ci-000215)
+
+include:: ../solutions/ci-000215.txt # <-- solutions/ci-000215.txt:7
+
+** `create_attribute_datastructure' Subroutine (ci-000216)
+
+include:: ../solutions/ci-000216.txt # <-- solutions/ci-000216.txt:7
+
+** `create_specials_datastructure' Subroutine (ci-000217)
+
+include:: ../solutions/ci-000217.txt # <-- solutions/ci-000217.txt:7
+
+** `render_matrix' Subroutine (ci-000218)
+
+include:: ../solutions/ci-000218.txt # <-- solutions/ci-000218.txt:7
+
+** `render_csvfile' Subroutine (ci-000219)
+
+include:: ../solutions/ci-000219.txt # <-- solutions/ci-000219.txt:7
+
+** `render_tree' Subroutine (ci-000220)
+
+include:: ../solutions/ci-000220.txt # <-- solutions/ci-000220.txt:7
+
+** `render_tree_row' Subroutine (ci-000221)
+
+include:: ../solutions/ci-000221.txt # <-- solutions/ci-000221.txt:7
+
+** `render_spreadsheet' Subroutine (ci-000222)
+
+include:: ../solutions/ci-000222.txt # <-- solutions/ci-000222.txt:7
+
+** `render_bibliography' Subroutine (ci-000223)
+
+include:: ../solutions/ci-000223.txt # <-- solutions/ci-000223.txt:7
+
+** `render_glossary' Subroutine (ci-000224)
+
+include:: ../solutions/ci-000224.txt # <-- solutions/ci-000224.txt:7
+
+** `render_recent_update_listing' Subroutine (ci-000225)
+
+include:: ../solutions/ci-000225.txt # <-- solutions/ci-000225.txt:7
+
+** `render_changelog' Subroutine (ci-000226)
+
+include:: ../solutions/ci-000226.txt # <-- solutions/ci-000226.txt:7
+
+** `parse_changelog' Subroutine (ci-000227)
+
+include:: ../solutions/ci-000227.txt # <-- solutions/ci-000227.txt:7
+
+** `render_priorities' Subroutine (ci-000228)
+
+include:: ../solutions/ci-000228.txt # <-- solutions/ci-000228.txt:7
+
+** `rank_for' Subroutine (ci-000229)
+
+include:: ../solutions/ci-000229.txt # <-- solutions/ci-000229.txt:7
+
+** `end_any_data_element' Subroutine (ci-000230)
+
+include:: ../solutions/ci-000230.txt # <-- solutions/ci-000230.txt:7
+
+** `write_popimage_js' Subroutine (ci-000231)
+
+include:: ../solutions/ci-000231.txt # <-- solutions/ci-000231.txt:7
+
+** `write_treetable_js' Subroutine (ci-000232)
+
+include:: ../solutions/ci-000232.txt # <-- solutions/ci-000232.txt:7
+
+** `cleanup_tempfiles' Subroutine (ci-000233)
+
+include:: ../solutions/ci-000233.txt # <-- solutions/ci-000233.txt:7
+
+** `list_current_contexts' Subroutine (ci-000234)
+
+include:: ../solutions/ci-000234.txt # <-- solutions/ci-000234.txt:7
+
+** `strip_revision_control_keyword_chars' Subroutine (ci-000235)
+
+include:: ../solutions/ci-000235.txt # <-- solutions/ci-000235.txt:7
+
+** `by_env_number' Subroutine (ci-000236)
+
+include:: ../solutions/ci-000236.txt # <-- solutions/ci-000236.txt:7
+
+** `by_days_old' Subroutine (ci-000237)
+
+include:: ../solutions/ci-000237.txt # <-- solutions/ci-000237.txt:7
+
+** `by_doc_order' Subroutine (ci-000238)
+
+include:: ../solutions/ci-000238.txt # <-- solutions/ci-000238.txt:7
+
+** `section_contains' Subroutine (ci-000239)
+
+include:: ../solutions/ci-000239.txt # <-- solutions/ci-000239.txt:7
+
+** `insert_frontmatter_list_headings' Subroutine (ci-000240)
+
+include:: ../solutions/ci-000240.txt # <-- solutions/ci-000240.txt:7
+
+** `html_cell_bgcolor_for' Subroutine (ci-000241)
+
+include:: ../solutions/ci-000241.txt # <-- solutions/ci-000241.txt:7
+
+** `html_cell_class_for' Subroutine (ci-000242)
+
+include:: ../solutions/ci-000242.txt # <-- solutions/ci-000242.txt:7
+
+** `update_files' Subroutine (ci-000243)
+
+include:: ../solutions/ci-000243.txt # <-- solutions/ci-000243.txt:7
+
+** `render_html_trace' Subroutine (ci-000244)
+
+include:: ../solutions/ci-000244.txt # <-- solutions/ci-000244.txt:7
+
+** `status_of' Subroutine (ci-000245)
+
+include:: ../solutions/ci-000245.txt # <-- solutions/ci-000245.txt:7
+
+** `effort_for' Subroutine (ci-000246)
+
+include:: ../solutions/ci-000246.txt # <-- solutions/ci-000246.txt:7
+
+** `latex_header_for' Subroutine (ci-000247)
+
+include:: ../solutions/ci-000247.txt # <-- solutions/ci-000247.txt:7
+
+** `latex_status_for' Subroutine (ci-000248)
+
+include:: ../solutions/ci-000248.txt # <-- solutions/ci-000248.txt:7
+
+** `latex_reviews_for' Subroutine (ci-000249)
+
+include:: ../solutions/ci-000249.txt # <-- solutions/ci-000249.txt:7
+
+** `latex_label_for' Subroutine (ci-000250)
+
+include:: ../solutions/ci-000250.txt # <-- solutions/ci-000250.txt:7
+
+** `latex_revision_for' Subroutine (ci-000251)
+
+include:: ../solutions/ci-000251.txt # <-- solutions/ci-000251.txt:7
+
+** `latex_date_for' Subroutine (ci-000252)
+
+include:: ../solutions/ci-000252.txt # <-- solutions/ci-000252.txt:7
+
+** `latex_author_for' Subroutine (ci-000253)
+
+include:: ../solutions/ci-000253.txt # <-- solutions/ci-000253.txt:7
+
+** `latex_types_for' Subroutine (ci-000254)
+
+include:: ../solutions/ci-000254.txt # <-- solutions/ci-000254.txt:7
+
+** `latex_pros_for' Subroutine (ci-000255)
+
+include:: ../solutions/ci-000255.txt # <-- solutions/ci-000255.txt:7
+
+** `latex_cons_for' Subroutine (ci-000256)
+
+include:: ../solutions/ci-000256.txt # <-- solutions/ci-000256.txt:7
+
+** `latex_priority_for' Subroutine (ci-000257)
+
+include:: ../solutions/ci-000257.txt # <-- solutions/ci-000257.txt:7
+
+** `latex_owner_for' Subroutine (ci-000258)
+
+include:: ../solutions/ci-000258.txt # <-- solutions/ci-000258.txt:7
+
+** `latex_assignees_for' Subroutine (ci-000259)
+
+include:: ../solutions/ci-000259.txt # <-- solutions/ci-000259.txt:7
+
+** `latex_stakeholders_for' Subroutine (ci-000260)
+
+include:: ../solutions/ci-000260.txt # <-- solutions/ci-000260.txt:7
+
+** `latex_previous_for' Subroutine (ci-000261)
+
+include:: ../solutions/ci-000261.txt # <-- solutions/ci-000261.txt:7
+
+** `latex_next_for' Subroutine (ci-000262)
+
+include:: ../solutions/ci-000262.txt # <-- solutions/ci-000262.txt:7
+
+** `latex_license_for' Subroutine (ci-000263)
+
+include:: ../solutions/ci-000263.txt # <-- solutions/ci-000263.txt:7
+
+** `latex_cost_of' Subroutine (ci-000264)
+
+include:: ../solutions/ci-000264.txt # <-- solutions/ci-000264.txt:7
+
+** `latex_copyright_of' Subroutine (ci-000265)
+
+include:: ../solutions/ci-000265.txt # <-- solutions/ci-000265.txt:7
+
+** `latex_version_of' Subroutine (ci-000266)
+
+include:: ../solutions/ci-000266.txt # <-- solutions/ci-000266.txt:7
+
+** `latex_validator_for' Subroutine (ci-000267)
+
+include:: ../solutions/ci-000267.txt # <-- solutions/ci-000267.txt:7
+
+** `latex_effort_for' Subroutine (ci-000268)
+
+include:: ../solutions/ci-000268.txt # <-- solutions/ci-000268.txt:7
+
+** `latex_directs' Subroutine (ci-000269)
+
+include:: ../solutions/ci-000269.txt # <-- solutions/ci-000269.txt:7
+
+** `latex_directed_by' Subroutine (ci-000270)
+
+include:: ../solutions/ci-000270.txt # <-- solutions/ci-000270.txt:7
+
+** `latex_uses' Subroutine (ci-000271)
+
+include:: ../solutions/ci-000271.txt # <-- solutions/ci-000271.txt:7
+
+** `latex_used_by' Subroutine (ci-000272)
+
+include:: ../solutions/ci-000272.txt # <-- solutions/ci-000272.txt:7
+
+** `latex_extends' Subroutine (ci-000273)
+
+include:: ../solutions/ci-000273.txt # <-- solutions/ci-000273.txt:7
+
+** `latex_extended_by' Subroutine (ci-000274)
+
+include:: ../solutions/ci-000274.txt # <-- solutions/ci-000274.txt:7
+
+** `latex_realizes' Subroutine (ci-000275)
+
+include:: ../solutions/ci-000275.txt # <-- solutions/ci-000275.txt:7
+
+** `latex_realized_by' Subroutine (ci-000276)
+
+include:: ../solutions/ci-000276.txt # <-- solutions/ci-000276.txt:7
+
+** `latex_parents_of' Subroutine (ci-000277)
+
+include:: ../solutions/ci-000277.txt # <-- solutions/ci-000277.txt:7
+
+** `latex_children_of' Subroutine (ci-000278)
+
+include:: ../solutions/ci-000278.txt # <-- solutions/ci-000278.txt:7
+
+** `latex_depends_on' Subroutine (ci-000279)
+
+include:: ../solutions/ci-000279.txt # <-- solutions/ci-000279.txt:7
+
+** `latex_required_by' Subroutine (ci-000280)
+
+include:: ../solutions/ci-000280.txt # <-- solutions/ci-000280.txt:7
+
+** `latex_derived_from' Subroutine (ci-000281)
+
+include:: ../solutions/ci-000281.txt # <-- solutions/ci-000281.txt:7
+
+** `latex_derived' Subroutine (ci-000282)
+
+include:: ../solutions/ci-000282.txt # <-- solutions/ci-000282.txt:7
+
+** `latex_instance_of' Subroutine (ci-000283)
+
+include:: ../solutions/ci-000283.txt # <-- solutions/ci-000283.txt:7
+
+** `latex_class_of' Subroutine (ci-000284)
+
+include:: ../solutions/ci-000284.txt # <-- solutions/ci-000284.txt:7
+
+** `latex_problems_for' Subroutine (ci-000285)
+
+include:: ../solutions/ci-000285.txt # <-- solutions/ci-000285.txt:7
+
+** `latex_solutions_for' Subroutine (ci-000286)
+
+include:: ../solutions/ci-000286.txt # <-- solutions/ci-000286.txt:7
+
+** `latex_allocations_for' Subroutine (ci-000287)
+
+include:: ../solutions/ci-000287.txt # <-- solutions/ci-000287.txt:7
+
+** `latex_tests_for' Subroutine (ci-000288)
+
+include:: ../solutions/ci-000288.txt # <-- solutions/ci-000288.txt:7
+
+** `latex_tasks_for' Subroutine (ci-000289)
+
+include:: ../solutions/ci-000289.txt # <-- solutions/ci-000289.txt:7
+
+** `latex_results_for' Subroutine (ci-000290)
+
+include:: ../solutions/ci-000290.txt # <-- solutions/ci-000290.txt:7
+
+** `latex_associates_of' Subroutine (ci-000291)
+
+include:: ../solutions/ci-000291.txt # <-- solutions/ci-000291.txt:7
+
+** `latex_requests_for' Subroutine (ci-000292)
+
+include:: ../solutions/ci-000292.txt # <-- solutions/ci-000292.txt:7
+
+** `latex_attributes_of' Subroutine (ci-000293)
+
+include:: ../solutions/ci-000293.txt # <-- solutions/ci-000293.txt:7
+
+** `latex_outcomes_for' Subroutine (ci-000294)
+
+include:: ../solutions/ci-000294.txt # <-- solutions/ci-000294.txt:7
+
+** `latex_product_of' Subroutine (ci-000295)
+
+include:: ../solutions/ci-000295.txt # <-- solutions/ci-000295.txt:7
+
+** `latex_footer_for' Subroutine (ci-000296)
+
+include:: ../solutions/ci-000296.txt # <-- solutions/ci-000296.txt:7
+
+** `html_header_for' Subroutine (ci-000297)
+
+include:: ../solutions/ci-000297.txt # <-- solutions/ci-000297.txt:7
+
+** `html_label_for' Subroutine (ci-000298)
+
+include:: ../solutions/ci-000298.txt # <-- solutions/ci-000298.txt:7
+
+** `html_revision_for' Subroutine (ci-000299)
+
+include:: ../solutions/ci-000299.txt # <-- solutions/ci-000299.txt:7
+
+** `html_date_for' Subroutine (ci-000300)
+
+include:: ../solutions/ci-000300.txt # <-- solutions/ci-000300.txt:7
+
+** `html_author_for' Subroutine (ci-000301)
+
+include:: ../solutions/ci-000301.txt # <-- solutions/ci-000301.txt:7
+
+** `html_types_for' Subroutine (ci-000302)
+
+include:: ../solutions/ci-000302.txt # <-- solutions/ci-000302.txt:7
+
+** `html_pros_for' Subroutine (ci-000303)
+
+include:: ../solutions/ci-000303.txt # <-- solutions/ci-000303.txt:7
+
+** `html_cons_for' Subroutine (ci-000304)
+
+include:: ../solutions/ci-000304.txt # <-- solutions/ci-000304.txt:7
+
+** `html_priority_for' Subroutine (ci-000305)
+
+include:: ../solutions/ci-000305.txt # <-- solutions/ci-000305.txt:7
+
+** `html_status_for' Subroutine (ci-000306)
+
+include:: ../solutions/ci-000306.txt # <-- solutions/ci-000306.txt:7
+
+** `html_reviews_for' Subroutine (ci-000307)
+
+include:: ../solutions/ci-000307.txt # <-- solutions/ci-000307.txt:7
+
+** `html_owner_for' Subroutine (ci-000308)
+
+include:: ../solutions/ci-000308.txt # <-- solutions/ci-000308.txt:7
+
+** `html_assignees_for' Subroutine (ci-000309)
+
+include:: ../solutions/ci-000309.txt # <-- solutions/ci-000309.txt:7
+
+** `html_stakeholders_for' Subroutine (ci-000310)
+
+include:: ../solutions/ci-000310.txt # <-- solutions/ci-000310.txt:7
+
+** `html_previous_for' Subroutine (ci-000311)
+
+include:: ../solutions/ci-000311.txt # <-- solutions/ci-000311.txt:7
+
+** `html_next_for' Subroutine (ci-000312)
+
+include:: ../solutions/ci-000312.txt # <-- solutions/ci-000312.txt:7
+
+** `html_validator_for' Subroutine (ci-000313)
+
+include:: ../solutions/ci-000313.txt # <-- solutions/ci-000313.txt:7
+
+** `html_effort_for' Subroutine (ci-000314)
+
+include:: ../solutions/ci-000314.txt # <-- solutions/ci-000314.txt:7
+
+** `html_directs' Subroutine (ci-000315)
+
+include:: ../solutions/ci-000315.txt # <-- solutions/ci-000315.txt:7
+
+** `html_directed_by' Subroutine (ci-000316)
+
+include:: ../solutions/ci-000316.txt # <-- solutions/ci-000316.txt:7
+
+** `html_uses' Subroutine (ci-000317)
+
+include:: ../solutions/ci-000317.txt # <-- solutions/ci-000317.txt:7
+
+** `html_used_by' Subroutine (ci-000318)
+
+include:: ../solutions/ci-000318.txt # <-- solutions/ci-000318.txt:7
+
+** `html_extends' Subroutine (ci-000319)
+
+include:: ../solutions/ci-000319.txt # <-- solutions/ci-000319.txt:7
+
+** `html_extended_by' Subroutine (ci-000320)
+
+include:: ../solutions/ci-000320.txt # <-- solutions/ci-000320.txt:7
+
+** `html_realizes' Subroutine (ci-000321)
+
+include:: ../solutions/ci-000321.txt # <-- solutions/ci-000321.txt:7
+
+** `html_realized_by' Subroutine (ci-000322)
+
+include:: ../solutions/ci-000322.txt # <-- solutions/ci-000322.txt:7
+
+** `html_parents_of' Subroutine (ci-000323)
+
+include:: ../solutions/ci-000323.txt # <-- solutions/ci-000323.txt:7
+
+** `html_children_of' Subroutine (ci-000324)
+
+include:: ../solutions/ci-000324.txt # <-- solutions/ci-000324.txt:7
+
+** `html_derived_from' Subroutine (ci-000325)
+
+include:: ../solutions/ci-000325.txt # <-- solutions/ci-000325.txt:7
+
+** `html_derived' Subroutine (ci-000326)
+
+include:: ../solutions/ci-000326.txt # <-- solutions/ci-000326.txt:7
+
+** `html_instance_of' Subroutine (ci-000327)
+
+include:: ../solutions/ci-000327.txt # <-- solutions/ci-000327.txt:7
+
+** `html_class_of' Subroutine (ci-000328)
+
+include:: ../solutions/ci-000328.txt # <-- solutions/ci-000328.txt:7
+
+** `html_solutions_for' Subroutine (ci-000329)
+
+include:: ../solutions/ci-000329.txt # <-- solutions/ci-000329.txt:7
+
+** `html_allocations_for' Subroutine (ci-000330)
+
+include:: ../solutions/ci-000330.txt # <-- solutions/ci-000330.txt:7
+
+** `html_tests_for' Subroutine (ci-000331)
+
+include:: ../solutions/ci-000331.txt # <-- solutions/ci-000331.txt:7
+
+** `html_tasks_for' Subroutine (ci-000332)
+
+include:: ../solutions/ci-000332.txt # <-- solutions/ci-000332.txt:7
+
+** `html_results_for' Subroutine (ci-000333)
+
+include:: ../solutions/ci-000333.txt # <-- solutions/ci-000333.txt:7
+
+** `html_associates_of' Subroutine (ci-000334)
+
+include:: ../solutions/ci-000334.txt # <-- solutions/ci-000334.txt:7
+
+** `html_requests_for' Subroutine (ci-000335)
+
+include:: ../solutions/ci-000335.txt # <-- solutions/ci-000335.txt:7
+
+** `html_attributes_of' Subroutine (ci-000336)
+
+include:: ../solutions/ci-000336.txt # <-- solutions/ci-000336.txt:7
+
+** `html_outcomes_for' Subroutine (ci-000337)
+
+include:: ../solutions/ci-000337.txt # <-- solutions/ci-000337.txt:7
+
+** `html_footer_for' Subroutine (ci-000338)
+
+include:: ../solutions/ci-000338.txt # <-- solutions/ci-000338.txt:7
+
+** `html_version_of' Subroutine (ci-000339)
+
+include:: ../solutions/ci-000339.txt # <-- solutions/ci-000339.txt:7
+
+** `html_license_for' Subroutine (ci-000340)
+
+include:: ../solutions/ci-000340.txt # <-- solutions/ci-000340.txt:7
+
+** `html_cost_of' Subroutine (ci-000341)
+
+include:: ../solutions/ci-000341.txt # <-- solutions/ci-000341.txt:7
+
+** `html_copyright_of' Subroutine (ci-000342)
+
+include:: ../solutions/ci-000342.txt # <-- solutions/ci-000342.txt:7
+
+** `html_depends_on' Subroutine (ci-000343)
+
+include:: ../solutions/ci-000343.txt # <-- solutions/ci-000343.txt:7
+
+** `html_required_by' Subroutine (ci-000344)
+
+include:: ../solutions/ci-000344.txt # <-- solutions/ci-000344.txt:7
+
+** `html_problems_for' Subroutine (ci-000345)
+
+include:: ../solutions/ci-000345.txt # <-- solutions/ci-000345.txt:7
+
+** `html_product_of' Subroutine (ci-000346)
+
+include:: ../solutions/ci-000346.txt # <-- solutions/ci-000346.txt:7
+
+** `has_children' Subroutine (ci-000347)
+
+include:: ../solutions/ci-000347.txt # <-- solutions/ci-000347.txt:7
+
+** `list_by_name' Subroutine (ci-000348)
+
+include:: ../solutions/ci-000348.txt # <-- solutions/ci-000348.txt:7
+
+** `lookup' Subroutine (ci-000349)
+
+include:: ../solutions/ci-000349.txt # <-- solutions/ci-000349.txt:7
+
+** `is_special' Subroutine (ci-000350)
+
+include:: ../solutions/ci-000350.txt # <-- solutions/ci-000350.txt:7
+
+** `hyphenate' Subroutine (ci-000351)
+
+include:: ../solutions/ci-000351.txt # <-- solutions/ci-000351.txt:7
+
+** `html_outfile_for_label' Subroutine (ci-000352)
+
+include:: ../solutions/ci-000352.txt # <-- solutions/ci-000352.txt:7
+
+** `html_outfile_for_secnum' Subroutine (ci-000353)
+
+include:: ../solutions/ci-000353.txt # <-- solutions/ci-000353.txt:7
+
+** `tree_outfile_aref_for' Subroutine (ci-000354)
+
+include:: ../solutions/ci-000354.txt # <-- solutions/ci-000354.txt:7
+
+** `remove_newlines' Subroutine (ci-000355)
+
+include:: ../solutions/ci-000355.txt # <-- solutions/ci-000355.txt:7
+
+** `wrap' Subroutine (ci-000356)
+
+include:: ../solutions/ci-000356.txt # <-- solutions/ci-000356.txt:7
+
+** `count_children' Subroutine (ci-000357)
+
+include:: ../solutions/ci-000357.txt # <-- solutions/ci-000357.txt:7
+
+** `column_heads_present' Subroutine (ci-000358)
+
+include:: ../solutions/ci-000358.txt # <-- solutions/ci-000358.txt:7
+
+** `contains_label' Subroutine (ci-000359)
+
+include:: ../solutions/ci-000359.txt # <-- solutions/ci-000359.txt:7
+
+** `extract_label' Subroutine (ci-000360)
+
+include:: ../solutions/ci-000360.txt # <-- solutions/ci-000360.txt:7
+
+** `html_status_icon_for' Subroutine (ci-000361)
+
+include:: ../solutions/ci-000361.txt # <-- solutions/ci-000361.txt:7
+
+** `latex_status_icon_for' Subroutine (ci-000362)
+
+include:: ../solutions/ci-000362.txt # <-- solutions/ci-000362.txt:7
+
+** `html_priority_icon_for' Subroutine (ci-000363)
+
+include:: ../solutions/ci-000363.txt # <-- solutions/ci-000363.txt:7
+
+** `latex_priority_icon_for' Subroutine (ci-000364)
+
+include:: ../solutions/ci-000364.txt # <-- solutions/ci-000364.txt:7
+
+** `plain_text' Subroutine (ci-000365)
+
+include:: ../solutions/ci-000365.txt # <-- solutions/ci-000365.txt:7
+
+** `already_in_array' Subroutine (ci-000366)
+
+include:: ../solutions/ci-000366.txt # <-- solutions/ci-000366.txt:7
+
+** `count_markup_in_line' Subroutine (ci-000367)
+
+include:: ../solutions/ci-000367.txt # <-- solutions/ci-000367.txt:7
+
+** `no_longer_in_any_environment' Subroutine (ci-000368)
+
+include:: ../solutions/ci-000368.txt # <-- solutions/ci-000368.txt:7
+
+** `list_of_region_names' Subroutine (ci-000369)
+
+include:: ../solutions/ci-000369.txt # <-- solutions/ci-000369.txt:7
+
+** `list_of_environment_names' Subroutine (ci-000370)
+
+include:: ../solutions/ci-000370.txt # <-- solutions/ci-000370.txt:7
+
+** `normalize_glossary_definitions' Subroutine (ci-000371)
+
+include:: ../solutions/ci-000371.txt # <-- solutions/ci-000371.txt:7
+
+** `normalize_variable_values' Subroutine (ci-000372)
+
+include:: ../solutions/ci-000372.txt # <-- solutions/ci-000372.txt:7
+
+** `normalize_acronym_definitions' Subroutine (ci-000373)
+
+include:: ../solutions/ci-000373.txt # <-- solutions/ci-000373.txt:7
+
+** `in_any_region' Subroutine (ci-000374)
+
+include:: ../solutions/ci-000374.txt # <-- solutions/ci-000374.txt:7
+
+** `in_any_environment' Subroutine (ci-000375)
+
+include:: ../solutions/ci-000375.txt # <-- solutions/ci-000375.txt:7
+
+** `in_section' Subroutine (ci-000376)
+
+include:: ../solutions/ci-000376.txt # <-- solutions/ci-000376.txt:7
+
+** `resolve_references' Subroutine (ci-000377)
+
+include:: ../solutions/ci-000377.txt # <-- solutions/ci-000377.txt:7
+
+** `insert_hide_marker' Subroutine (ci-000378)
+
+include:: ../solutions/ci-000378.txt # <-- solutions/ci-000378.txt:7
+

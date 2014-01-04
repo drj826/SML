@@ -1,0 +1,25 @@
+>>>problem
+
+######################################################################
+
+title:: Log Parsing Events
+
+label:: rq-000203
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000199
+
+type:: technical
+
+description:: The system shall log specified parsing events.
+
+######################################################################
+
+index:: rq-000203; log events
+
+<<<problem

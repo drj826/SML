@@ -1,0 +1,33 @@
+>>>allocation
+
+#---------------------------------------------------------------------
+
+label::    al-000005
+
+solution:: ci-000001 # SML
+
+problem::  rq-000009 # Represent Special Features
+
+test::     tc-000040 # Analysis
+
+#---------------------------------------------------------------------
+
+release:: 2.0
+
+rel_component:: ci-000001
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 10970 $
+
+date:: $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+#---------------------------------------------------------------------
+
+outcome::2011-06-21:al-000005:yellow: SML meets all the data format
+requirements for special document features except the one for
+assertions ([id:rq-000081]).
+
+<<<allocation

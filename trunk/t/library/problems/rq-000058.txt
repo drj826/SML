@@ -1,0 +1,28 @@
+>>>problem
+
+######################################################################
+
+title:: Represent a Right Arrow
+
+label:: rq-000058
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000124
+
+type:: data format
+
+description:: The data format shall have the capability to represent a
+right arrow.
+
+######################################################################
+
+index:: rq-000058; right arrow
+
+<<<problem

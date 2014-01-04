@@ -1,0 +1,26 @@
+>>>solution
+
+######################################################################
+
+title:: `pass_three' Subroutine
+
+label:: ci-000030
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000007
+
+description:: The [cmd:pass_three] subroutine renders SML documents
+into other formats (LaTeX, HTML, CSV, XML, and RTF).
+
+######################################################################
+
+index:: ci-000030; subroutine![cmd:pass_three]
+
+<<<solution

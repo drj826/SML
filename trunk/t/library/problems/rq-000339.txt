@@ -1,0 +1,31 @@
+>>>problem
+
+######################################################################
+
+title:: Return Value of Bullet List Item
+
+label:: rq-000339
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000340
+
+priority:: routine
+
+type:: technical
+
+attr:: validation method = test
+
+description:: The software shall return the value of a bullet list
+item.  The purpose of this function is to strip the markup (optional
+whitespace and hyphen) from the beginning of the content.
+
+######################################################################
+
+index:: rq-000339
+
+<<<problem

@@ -1,0 +1,31 @@
+>>>problem
+
+######################################################################
+
+title:: Represent an Option to `Include as Region'
+
+label:: rq-000167
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000065
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+an `include' as region statement to include content from another
+locations ~~as a named region with semantic meaning.~~ For instance,
+include content from another location as an exercise, demo, slide,
+problem, solution, etc.
+
+######################################################################
+
+index:: rq-000167; include!as region
+
+<<<problem

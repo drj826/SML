@@ -1,0 +1,40 @@
+>>>solution
+
+######################################################################
+
+title:: SML/Slide.pm Module
+
+label:: ci-000405
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML/Slide.pm Module...
+
+######################################################################
+
+index:: ci-000405
+
+---LISTING
+title::     Slide.pm
+label::     lis-slide-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../../SML/Slide.pm
+---LISTING
+
+[clearpage]
+
+<<<solution
+
+>>>RESOURCES
+2c2e94ec4d9a5338e25d1873a34d2e86e1e30e62 ../../SML/Slide.pm
+<<<RESOURCES

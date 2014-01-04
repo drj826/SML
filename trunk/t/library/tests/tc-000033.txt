@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: Assertion.pm Unit Test Case
+
+label:: tc-000033
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Assertion.pm Perl
+module that implements the SML::Assertion class.
+
+######################################################################
+
+index:: tc-000033; unit test case!Assertion.pm
+
+[ref:lis-assertion-pm-unit-test-case] shows the unit test case for
+[file:Assertion.pm].
+
+---LISTING
+title::       Assertion.t - Unit Test Case for Assertion.pm
+label::       lis-assertion-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: portrait
+fontsize::    footnotesize
+file::        ../../Assertion.t
+---LISTING
+
+[ref:lis-assertion-pm-unit-test-results] shows the results of
+executing the [file:Assertion.pm] unit test case.
+
+---LISTING
+title::     Assertion.pm Unit Test Case Results
+label::     lis-assertion-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Assertion.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+811f8a5f6c5a3751abbd24d0bdf12ad502fc6c97 ../Assertion.t
+<<<RESOURCES

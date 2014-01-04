@@ -1,0 +1,210 @@
+>>>problem
+
+######################################################################
+
+title:: Represent Specified Data Types
+
+label:: rq-000086
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000107
+
+type:: data format
+
+associated:: rq-000048
+
+description:: The data format must have the capability to represent
+specified data types.  The purpose of this requirement is to ensure
+the data format defines and makes consistent use of basic data types.
+
+######################################################################
+
+index:: rq-000086; data types
+
+The data types the data format must have the capability to represent
+are:
+
+:: data type
+
+:: description
+
+---
+
+: ~~text~~ 
+
+: a string of 7-bit ASCII encoded characters, any length, may contain
+white space characters (space, tab, newline).  Text elements may be
+composed of multiple inline and block elements.
+
+---
+
+: ~~inline~~ 
+
+: One or more lines of text; may include ~~partial~~ lines of text.
+Inline elements may be used within blocks but not vice-versa.
+
+---
+
+: ~~block~~
+
+: One or more ~~whole~~ lines of text, not to exceed a single
+paragraph.  Blocks may contain inline elements but not other blocks.
+
+---
+
+: ~~date~~
+
+: A string of characters that represents a date
+
+---
+
+: ~~ID~~
+
+: A string of characters that uniquely identifies a referenceable
+element of document content
+
+---
+
+: ~~orientation~~
+
+: One of: portrait or landscape
+
+---
+
+: ~~name/value pair~~
+
+: Two inline text elements that relate to one another
+
+---
+
+: ~~width~~
+
+: A string of characters that expresses a width dimension
+
+---
+
+: ~~fontsize~~
+
+: A string of characters that expresses a font size
+
+---
+
+: ~~boolean~~
+
+: One of: true or false
+
+---
+
+: ~~file path~~
+
+: path to + name of file
+
+---
+
+: ~~integer~~
+
+: A whole number greater than zero
+
+---
+
+: ~~horizontal side~~
+
+: One of: none, left, or right
+
+---
+
+: ~~vertical side~~
+
+: One of: none, top, or bottom
+
+---
+
+: ~~justification~~
+
+: One of: left, center, right, or full
+
+---
+
+: ~~language~~
+
+: any language accepted by the LaTeX `listing' package
+
+---
+
+: ~~color~~
+
+: One of: red, yellow, blue, green, yellow, purple, white, black, lite
+grey, grey, dark grey
+
+---
+
+: ~~attachment icon~~
+
+: One of: Graph, PaperClip, PushPin, or Tag
+
+---
+
+: ~~mimetype~~
+
+: Any standard mimetype
+
+---
+
+: ~~doctype~~
+
+: One of: book, article, or report
+
+---
+
+: ~~classification~~
+
+: One of: unclassified, confidential, secret, or top secret
+
+---
+
+: ~~duration~~
+
+: An amount of time
+
+---
+
+: ~~status~~
+
+: One of: green, yellow, red, or grey
+
+---
+
+: ~~priority~~
+
+: One of: critical, high, routine, or low
+
+---
+
+: ~~sectype~~
+
+: One of: section, chapter, appendix, module
+
+---
+
+: ~~month~~
+
+: One of: Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec
+
+---
+
+: ~~bibsource~~
+
+: One of: article, book, booklet, conference, inbook, incollection,
+inproceedings, manual, mastersthesis, misc, phdthesis, proceedings,
+techreport, unpublished
+
+---
+
+<<<problem

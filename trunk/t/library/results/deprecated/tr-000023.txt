@@ -1,0 +1,41 @@
+>>>result
+
+######################################################################
+
+title:: Epigraph.pm Unit Test Case Results
+
+label:: tr-000023
+
+revision:: $Revision: 15128 $
+
+date:: $Date: 2013-07-07 09:27:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tr-000001
+
+test:: tc-000023
+
+description:: This is the test result for the Epigraph.pm unit test
+case.
+
+######################################################################
+
+index:: tr-000023; unit test case results!Epigraph.pm
+
+[ref:lis-epigraph-pm-unit-test-results] shows the results of executing
+the Epigraph.pm unit test case.
+
+---LISTING
+title::     Epigraph.pm Unit Test Case Results
+label::     lis-epigraph-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    files/scripts/run-test.Epigraph.bat
+---LISTING
+
+<<<result

@@ -1,0 +1,40 @@
+>>>solution
+
+######################################################################
+
+title:: SML/Demo.pm Module
+
+label:: ci-000406
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML/Demo.pm Module...
+
+######################################################################
+
+index:: ci-000406
+
+---LISTING
+title::     Demo.pm
+label::     lis-demo-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../../SML/Demo.pm
+---LISTING
+
+[clearpage]
+
+<<<solution
+
+>>>RESOURCES
+f6c5276ca359bef4218c355b0ea67bdf9fc8d7ea ../../SML/Demo.pm
+<<<RESOURCES

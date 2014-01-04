@@ -1,0 +1,33 @@
+>>>problem
+
+######################################################################
+
+title:: Ignore Comments
+
+label:: rq-000109
+
+revision:: $Revision: 11579 $
+
+date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000105
+
+priority:: routine
+
+type:: technical
+
+associated:: rq-000066
+
+description:: The software shall ignore comments.  This means that
+lines of text in an SML file that are either (1) in a comment division
+or (2) individually commented out should be ignored for the purposes
+of gathering structured data from the document and publishing document
+renditions.
+
+######################################################################
+
+index:: rq-000109; comments!ignore
+
+<<<problem

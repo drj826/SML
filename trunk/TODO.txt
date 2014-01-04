@@ -1,0 +1,756 @@
+title:: To Do List
+
+subtitle:: SML Library Bugs to Fix and Ideas to Implement
+
+#---------------------------------------------------------------------
+
+* Status as of 3/28/2013
+
+What is the status of fixing bugs and implementing ideas with respect
+to the SML code library?
+
+- I'm in phase 1 of the plan.
+
+- I'm currently back-porting changes to the publish.pl script to
+  handle the following:
+
+  - Use of file references relative to the containing file instead of
+    to the document being published.
+
+  - Use of ALL UPPER CASE for reserved words.
+
+  - Addition of the 'DOCUMENT' marker.
+
+#---------------------------------------------------------------------
+
+* Plan
+
+This `plan' describes the order in which I plan to fix the bugs and
+implement the ideas described here.
+
++ PHASE 1: Implement new library class.  The new library class will
+  contain methods that reason across all the content of the library.
+  This is necessary to construct lists of allocations within the scope
+  of a release.  This functionality will replace the
+  `include_related.pl' script.
+
++ PHASE 2: Implement new formatter class.  Port all document rendering
+  functionality from the old code-base.  The reason for doing this
+  first is efficiency.  I want to deprecate the old code base
+  (publish.pl) so I only have to maintain the new one.
+
++ PHASE 3: Simplify SML Syntax by:
+
+  + removing distinction between regions and environments.  These
+    should simply all be divisions and use the `>>>' and `<<<' syntax
+    for begin and end markers
+
+  + removing the feature whereby a user can specify entity type in an
+    include statement (i.e. include::problem:)
+
+  + specifying an explicit syntax for separating preamble content from
+    narrative content (i.e. ===).
+
++ PHASE 4: Implement reasoner logic to validate business rules more
+  abstract than the ontology.conf can express. For instance, every
+  functional requirement should be derived from one or more business
+  requirements. (Reasoner.pm class using CLIPS)
+
++ PHASE 5: Re-implement parser using Marpa to improve maintainability
+  and flexibility.
+
+#---------------------------------------------------------------------
+
+* Open Bugs
+
+# next: 048
+
+[ ] BUG-047 (ROUTINE) CSV values not available for lookup.  See
+    sdd-tvs design baseline table.
+
+[ ] BUG-046 (HIGH) Re-design Validation Logic - The parser should
+    assume text is ~~invalid~~ until it is validated.  Text objects
+    should have a 'valid' attribute set to 0 until the validate method
+    sets it to 1.  Text classes that should exhibit this behavior
+    include: block, element, division, document, fragment, library.
+
+[ ] BUG-045 (HIGH) The keyword 'INCLUDE' conflicts with a semantic
+    relationship between use cases in OMG UML v2.4.  We need the
+    capability to capture 'include' relationships between use cases
+    without conflicting with the 'INCLUDE' mechanism used to include
+    one document structure inside another.
+
+[ ] BUG-044 (ROUTINE) Establish return values for all methods.
+    Several of my methods return ambiguous values.  This makes them
+    difficult to test.  Ensure all methods have clearly defined return
+    values.
+
+[ ] BUG-043 (HIGH) Insert Function Broken - Parsing test file
+    doc.0009.sml reveals the parser is not resolving insert elements
+    correctly.  That test file contains 2 `insert::' statements and
+    neither are getting resolved by the parser.
+
+[ ] BUG-042 (HIGH) Footnotes in Tables - I recently changed the
+    footnote syntax to be tied to the containing division.  This works
+    well when the containing division is a section, but not when it is
+    a table (or perhaps a figure or other non-section division).
+    Perhaps in these unusual cases, I should allow explicit
+    declaration of the footnote's division ID in ?
+
+[ ] BUG-040 (ROUTINE) False Positive Cardinality Warnings - The new
+    Parser.pm throws false positive cardinality warnings like "empty:0
+    no cardinality for table-row outcome..."
+
+[ ] BUG-038 (ROUTINE) Allocation and Assignment CSV Files Not
+    Rendering - The publish.pl script is not producing allocation and
+    assignment CSV files.  Well, it is creating them, but they are
+    empty.
+
+[ ] BUG-037 (LOW) Make Plural Certain Document Data Attributes -
+    Certain document/parser attributes are complex data structures
+    like footnote, outcome, review, table, and baretable.  These
+    attribute names should reflect the plural nature of these
+    attributes and should therefore be: footnotes, outcomes, reviews,
+    tables, and baretables.  I think this will make the code more
+    readable.
+
+[ ] BUG-035 (MEDIUM) Entity Metadata not in Doc Order - The metadata
+    of each entity enumerates other entities associated in various
+    ways.  These associated entities should be listed in document
+    order but they are not. (Where are they not listed in document
+    order?)
+
+[ ] BUG-031 (LOW) Images Not Published When All Are Figure Images - I
+    think there is a deep logic error in image publishing.  When all
+    document images are in figures, the images don't get published,
+    thumb-nailed, or scaled.  Woody experiences this when he publishes
+    a document containing only new and updated requirements.  I think
+    the solution to this problem is to add logic between pass 2 and 3
+    to publish images rather than publishing some images in pass 2 and
+    some in pass 3.  You can work-around this problem by including a
+    logo image.
+
+[ ] BUG-030 (HIGH) Narrative Figures Dropped By Insert Mechanism -
+    When you try to insert a narrative containing a figure, the figure
+    doesn't get inserted.
+
+[ ] BUG-029 (LOW) Listing A Raw SML Environment - How can I list the
+    raw text of an SML environment without the parser interpreting the
+    content as improperly nested environments?  Only by indenting it?
+
+[ ] BUG-028 (HIGH) Regions Can't Be Nested - The current parser
+    implementation doesn't allow nested regions.  While the need for
+    nested regions is small at this point, it looks like fixing
+    BUG-023 will require the parser to properly handle nested regions.
+
+[ ] BUG-023 (MEDIUM) `Hide' and `Comment' Divisions Must Be Nestable -
+    The current design and implementation does not allow hidden
+    divisions or comment divisions to be nested.  this is dangerous
+    because if you include a file containing a hidden division inside
+    a hidden division, the `hide' tags conflict and you end up
+    un-hiding content you meant to hide.  Similarly for comments, if a
+    person accidentally puts one comment division inside another, the
+    result will be unexpected.  Perhaps `hide' and `comment' should be
+    regions?
+
+[.] BUG-010 (HIGH) Publish::Parser::_gather_data needs to track table
+    and baretable columns to recognize the end of a baretable
+
+[ ] BUG-014 (LOW) HTML Header Covers Up Jumped-To Text After User
+    Follows Hyperlink - When following a hyperlink in an HTML document
+    with a header, the header covers up the first line of the text.
+    This makes you wonder whether following the hyperlink took you to
+    the right place and forces you to scroll after making the jump.
+    This is inconvenient.  Is there a way to tell the browser to
+    scroll the target of the hyperlink some distance below the top of
+    the browser window? The Chrome browser places the jumped-to link
+    in the middle of the window not at the bottom (making this bug
+    mute).  I wish IE worked that way.
+
+[ ] BUG-009 (MEDIUM) No Requirement For Logging Function - Create new
+    requirement for logging functionality.  Log to screen, log to
+    file...
+
+[ ] BUG-007 (MEDIUM) Execution Directory Dependency - publish.pl must
+    be executed in the directory containing the document being
+    published (i.e. publish.pl doc.txt).  Design a method to execute
+    from any directory (i.e. publish.pl docs/doc.txt).  One wrinkle in
+    this is included files.  They are currently specified using a path
+    relative to the main document file.
+
+#---------------------------------------------------------------------
+
+* Ideas for Improvement
+
+# next: 036
+
+[ ] IDEA-035 (ROUTINE) Capability to change attribute value based on
+    date.  For instance, set an expiration date and a rule that says
+    the status of an item is green if the expiration date is 4 months
+    in the future, yellow if less than 4 months, and red if expired.
+
+[ ] IDEA-034 (LOW) Implement a Request Tracker server on CSOCCM.  This
+    could replace these cheesy TODO files with a better ticketing
+    system.  RT has many advantages including: (1) the ability to
+    allocate tickets to releases, (2) the ability to assign tickets to
+    individuals. (But... perhaps I could use outlook instead?)
+
+[ ] IDEA-033 (ROUTINE) Use absolute file paths for all cached file
+    paths.  Doing so will avoid confusion over which directory you're
+    in when later you go to use those files.
+
+[ ] IDEA-031 (ROUTINE) Use Devel::Cover to report test coverage.
+
+[ ] IDEA-030 (ROUTINE) Change division ID syntax.  Make the ID part of
+    the syntax that begins a division rather than an element within
+    the division.  This would simplify parsing. For instance:
+
+    >>>DOCUMENT.frd-sml
+
+    ---table.tab-001
+
+[ ] IDEA-029 (ROUTINE) Automatically generate missing division IDs.
+    Rather than requiring the user to provide an ID, automatically
+    generate an ID.  Perhaps warn if no user-specified ID is present?
+    The problem the user creates by not specifying an ID is he can't
+    refer to the division.
+
+[ ] IDEA-028 (HIGH) Implement Build Script for Individual Documents -
+    Implement a script that builds an individual document.  By `build'
+    I mean publish the document, check in the automatic changes made
+    by the publisher, and repeat until there are no more uncommitted
+    changes.  I have a build script for the entire library, but not
+    for an individual document.
+
+[ ] IDEA-026 (HIGH) Add `release' Property to Allocation - Add a
+    `release' property to the semantics of an allocation entity.  This
+    will enable us to automatically generate: (1) lists of allocated
+    requirements within scope of a release, (2) lists of CIs impacted
+    by a release, and (3) lists of test cases (apart from regression
+    tests) that must be executed for a release.
+
+[ ] IDEA-025 (ROUTINE) Investigate MARPA - Marpa is a new(ish)
+    Lexing/Parsing library that is likely a better alternative than my
+    hand-rolled lexer/parser
+    code. (http://metacpan.org/module/Marpa::XS)
+
+[ ] IDEA-024 (ROUTINE) Don't Use makeindex and makeglossary Scripts -
+    The makeindex and makeglossary perl scripts come with MikTeX.
+    They scan a LaTeX source file to create included index and
+    glossary files.  Since glossary entries often include other
+    glossary terms it takes many makeglossary passes to fully resolve
+    all references.  I should have the publishing software write the
+    index and glossary files directly so the PDF can be generated in a
+    single pass.  This would be far more efficient than the current
+    solution.
+
+[ ] IDEA-022 (ROUTINE) Change `Footnotes' to just `Notes' - Rather
+    than calling them `footnotes' the notes in my documents should
+    simply be called `notes' because they could be rendered either as
+    footnotes or as endnotes.
+
+[ ] IDEA-020 (HIGH) Implement Generalization/Specialization
+    Relationship - generalizes/specializes.
+
+[ ] IDEA-019 (HIGH) Deprecate Parent/Child Relationship - Replace the
+    (ambiguous) parent/child relationship with the part_of/part
+    relationship.
+
+[ ] IDEA-018 (HIGH) Get Rid Of Results - The idea of using a `result'
+    entity as a container for outcomes is a bad idea because it
+    introduces unnecessary complexity.  The idea that an outcome
+    establishes the status of an entity is a ~~good~~ idea.  To
+    simplify document maintenance, outcomes should go directly into
+    the entities they describe.  How then do you tie an outcome to a
+    test case (important for repeatability)?  Well, if outcomes become
+    properties of entities, I could change the outcome syntax to
+    replace the entity ID with the test case ID.
+
+[ ] IDEA-017 (ROUTINE) Enable csv2tbl.pl To Select Rows - Update the
+    csv2tbl.pl script to permit user to specify range of rows to
+    include (-r 2-25). Dave Bristow requested this functionality.
+
+[ ] IDEA-016 (ROUTINE) Indicate Separation of Preamble and Narrative -
+    Remove ambiguity over the transition from preamble to narrative by
+    requiring authors to insert markup that explicitly indicates the
+    transition (===).  Absence of the transition indicates a division
+    has no narrative content.
+
+[ ] IDEA-015 (ROUTINE) Deprecate Division Types in `Includes' - The
+    current implementation allows you to `include' the contents of a
+    file as a `problem' division with `include::problem:'.  This
+    should be deprecated.  My original thinking was to allow the
+    flexibility to include the same content as different division
+    types. I've never needed to, and this is practically impossible
+    since different types have different preamble elements.
+    Therefore, the design contains unnecessary complexity that I
+    should remove.
+
+[ ] IDEA-014 (ROUTINE) Title in HTML Navigation Margin - Render the
+    document title at the top of the HTML left-margin navigation area.
+
+[ ] IDEA-011 (ROUTINE) Formalize SML Document Library Implementation -
+    SML should implement a formal `library' concept so it can operate
+    on the library.  The library is a collection of documents.  The
+    library should provide a catalog function that allows documents to
+    be referenced by an identifier guaranteed to be unique within the
+    library.  The unique document identifier could then be used in
+    `include::' statements.  I'd like libraries to be distributable as
+    well as localize-able.  In other words, I'd like a library to
+    possibly be a collection of documents scattered across the web
+    addressed by URI.
+
+[ ] IDEA-009 (ROUTINE) Get Rid of Environments Altogether - Why not
+    ~~just~~ use regions?  They are more powerful.  Changing existing
+    environments (---table) into regions (>>>table) would simplify the
+    language.  This would simplify parsing and rendering.  It would
+    also make it more difficult to accidentally introduce document
+    division `improper nesting' errors.
+
+[ ] IDEA-008 (ROUTINE) Decide whether or not to substitute variables
+    within pre-formatted text.  There are two forms of pre-formatted
+    text: (1) text that is indented, and (2) text within a
+    ---preformatted environment.  I ~~could~~ get tricky and
+    substitute variables in one and not the other.  Tricky is usually
+    not a good idea.  Perhaps the preformatted environment could have
+    a property which determined whether or not variables within it
+    should be substituted.
+
+[.] IDEA-007 (ROUTINE) Deprecate use of [title:...],
+    [description:...], [type:...], and [owner:...].  Replace with
+    [lookup:title:...], [lookup:description:...], [lookup:type:...],
+    [lookup:owner:...].
+
+[ ] IDEA-006 (LOW) Namespaces For Variables - Should SML provide
+    namespaces for variables?  Should a division provide a lexical
+    namespace outside of which a variable declaration has no meaning?
+    Would this harm anything?  This would be easy to implement.
+
+[ ] CHANGE-005 (HIGH) Re-design Container File Change Triggering
+    Mechanism - I don't like the current solution.  The current
+    solution places an update-able field in the include statement
+    (i.e. include:$r3765$: incl/my-file.txt) that reduces readability
+    with those ugly dollar signs.  How about having a special division
+    at the end of a document file that lists all included files and
+    their current version?  What other types of automatic updates
+    would be good to have?
+
+    $$$included-file-revisions
+
+    r4422 incl/glossary.txt
+    r3985 incl/sources.txt
+
+    $$$included-file-revisions
+
+[ ] CHANGE-002 (ROUTINE) Change Property Names:
+
+    epigraph text     => (use narrative rather than element)
+    problem assignee  => problem assigned_to
+    problem request   => problem requested_by
+    problem effort    => problem requires_effort
+    solution problem  => solution shall_solve
+    solution assignee => solution assigned_to
+    solution request  => solution requested_by
+    test problem      => test verifies
+    test solution     => test validates
+    test assignee     => test assigned_to
+    test request      => test requested_by
+    result test       => result from_test
+    result assignee   => result assigned_to
+    task assignee     => task assigned_to
+    problem parent    => problem specializes
+    problem child     => problem generalizes
+
+#---------------------------------------------------------------------
+
+* Requested Features
+
+# next: 021
+
+[ ] FEATURE-020 (ROUTINE) Simple Functional-to-Technical Requirement
+    Mapping - Woody would like the capability to generate a simple
+    mapping of functional requirements to technical requirements.  I
+    think this is may be a new `generated content' type.
+
+[ ] FEATURE-019 (HIGH) Implement property inheritance from
+    generalization items to specialization items.  Before implementing
+    this feature, transition parent/child relationships to
+    part-of/has-part relationships to avoid confusion.
+
+[.] FEATURE-014 (HIGH) Requirements Validation Function - Implement a
+    function to validate that requirements conform to requirements
+    definition business rules. For instance, all requirements have one
+    of six required types: (1) mission directive, (2) compliance
+    directive, (3) business requirement, (4) functional requirement,
+    (5) non-functional requirement, or (6) system requirement.  This
+    feature is unique to the Vetting Operations Engineering Library
+    and therefore should be implemented as a utility and not baked
+    into the SML software library.
+
+[.] FEATURE-004 (LOW) Update SML syntax to allow includes of variant
+    `section' to be written like `** include:
+    incl/my-included-section.txt'. This way I can still use Emacs'
+    outline mode to see the complete section structure of a
+    document. (implemented in v2 but not in v1)
+
+[.] FEATURE-011 (LOW) Separate Header/Footer From Preamble - Define
+    header and footer environments instead of putting header and
+    footer attributes in document preamble. (implemented in v2 but not
+    v1)  This will allow different headers/footers in different parts
+    of a document.
+
+[ ] FEATURE-010 (LOW) In glossary definitions, the presence of a
+    context indicator like (IEEE) impairs the re-usability of the
+    definition in non-glossary text.  Find a way to express glossary
+    definitions that allows the source context to be presented in the
+    glossary but not in definition re-use.
+
+[ ] FEATURE-009 (LOW) Conditional inline elements [?...].  For
+    instance (1) only insert a page number if rendering PDF, (2) only
+    insert link to item if item exists, (3) only insert item type if
+    item *has* a type.
+
+[ ] FEATURE-008 (MEDIUM) Define iterative template syntax and then
+    implement Parser.pm capability to resolve iterative templates.
+
+[ ] FEATURE-006 (MEDIUM) Design multiple methods for finding included
+    files.  Ideas include (1) relative to main document, (2) INCDIR
+    array, (3) ID lookup in library file, (4) URI/URL. See also
+    IDEA-011.
+
+[ ] FEATURE-003 (LOW) Implement document epigraph feature to put an
+    epigraph on the title page of a document. Woody tried to use this
+    an found out it wasn't yet implemented.
+
+[ ] FEATURE-002 (MEDIUM) Create the ability to read CI attributes in
+    from a CSV file.  I think there may be two variations of this.
+    The first is where all the attributes in a CSV file pertains to
+    the same CI.  The second is where they may pertain to multiple
+    CIs.
+
+[ ] FEATURE-001 (MEDIUM) PDF rendition traceability matrices. Generate
+    traceability matrices for the PDF rendition similar to the HTML
+    rendition.
+
+#---------------------------------------------------------------------
+
+* Closed Bugs
+
+[X] BUG-041 (HIGH) Parser Can't Resolve Variable(s) in BRD - For some
+    unexplained reason, a current Business Requirements Document (BRD)
+    causes the Parser to enter an infinite loop because it can't
+    substitute a variable.  The parser eventually EXCEEDS MAX
+    ITERATIONS and bails out.  The line that doesn't resolve is a
+    table cell line: ":r: [var:fcm-count][f:tab-subj-populations:3]"
+    (closed 2012-10-10 by drj)
+
+[X] BUG-033 (ROUTINE) Don't Display Empty Revision/Version Numbers -
+    In the baseline summaries a bare `v' and `r' appear in the left
+    margin for version and rendition, but with no number.  If there is
+    no number to render, don't render the `v' and the `r'. (closed
+    2012-09-30 by drj)
+
+[X] BUG-001 (MEDIUM) Incorrect HTML Top-Level Book Section Names -
+    Top-level book sections should always be `Chapter' but in the HTML
+    rendition they are not. (closed 2012-09-30 by drj)
+
+[X] BUG-002 (LOW) Incorrect HTML Front-matter Section Name Case - In
+    front-matter lists section types (section, chapter, appendix)
+    should be ucfirst. (closed 2012-09-30 by drj)
+
+[X] BUG-003 (MEDIUM) Incorrect HTML Appendix Numbering - In HTML
+    rendition, appendix numbers should be letters, not
+    numbers. (closed 2012-09-30 by drj)
+
+[X] BUG-039 (HIGH) Default Section Not Handled - After the document
+    preamble but before the first section heading (if there is one) is
+    a part of the document that should be handled as a ``default
+    section.''  The parser must be updated to recognize the end of the
+    document preamble to infer the beginning of this default
+    section. (closed 2012-09-21 by drj)
+
+[X] BUG-036 (HIGH) Back Port Footnote Syntax Change - I made a change
+    to the syntax of footnotes necessary in the v2.0 codebase.  Back
+    port it to the v1.0 codebase so the documents remain in
+    sync. (closed 2012-09-15 by drj)
+
+[X] BUG-034 (MEDIUM) Fix Cardinality Error in render_tree and
+    render_tree_row - The `render_tree' and `render_tree_row'
+    subroutines in publish.pl assume that ALL column values have
+    cardinality of `many'.  This is a bad assumption.  Fix these
+    subroutines the same way I fixed the `render_matrix' subroutine --
+    check each value whether it is an ARRAY or a SCALAR. (closed
+    2012-03-02 by drj)
+
+[X] BUG-005 (MEDIUM) Incorrect Tree View Test Case Order - In tree
+    view test cases should appear in the order they occur in the
+    document.  The current implementation sorts them in ascending
+    `label' order.  This problem is the same across all item types,
+    not just test cases. (closed 2012-02-22 by drj)
+
+[X] BUG-032 (HIGH) Lookup Table Cell Color-as-Status Broken - I think
+    when I converted element names from using single to double colons
+    I broke this feature used to colorize the baseline
+    summaries. (closed 2012-02-01 by drj)
+
+[X] BUG-006 (HIGH) `Include' Mechanism Not Fully Implemented In
+    Parser.pm - Implement and test the 6 `include' variations in
+    Parser.pm. (as-is, flat, section, region, hide, raw) (closed
+    2011-12-14 by drj)
+
+[X] BUG-027 (HIGH) Parser Does Not Ignore Elements Within Comments -
+    Users should have the capability to `comment out' elements and the
+    parser should ignore them.  The current implementation is throwing
+    warnings about unknown UNIVERSAL properties within comment
+    divisions. (closed 2011-11-11 by drj)
+
+[X] BUG-026 (HIGH) Output Of `script' Statements Not Going Into
+    Document - Part 13 of Parser.t tests this function using
+    doc.10.sml. (closed 2011-11-11 by drj)
+
+[X] BUG-025 (HIGH) Listing And Pre-formatted Narratives Should Be
+    Single Blocks That Span Any Newlines - The current parser
+    implementation recognizes newlines within listing and
+    pre-formatted narratives as the end of blocks.  It shouldn't.  The
+    narrative of a listings, pre-formatted divisions, and comment
+    divisions should be single blocks that only end at the end of the
+    listing, pre-formatted division, or comment division. (closed
+    2011-11-11 by drj)
+
+[X] BUG-024 (HIGH) Listing Division Content Blocks Must Preserve
+    Newlines - SML::Block->content method removes whitespace,
+    compresses whitespace, and removes newlines.  This should ~~not~~
+    happen for blocks withing listings or pre-formatted divisions.
+    Perhaps each block should know whether it should be pre-formatted
+    or not. (closed 2011-11-11 by drj)
+
+[X] BUG-004 (MEDIUM) SML::Document::as_text Method Includes Comments -
+    The $doc->as_text method should NOT render comments, hidden text,
+    or conditional text for which the condition is not true. (closed
+    2011-10-30 by drj - created new method `as_sml' to render as SML)
+
+[X] BUG-022 (MEDIUM) Methods The Check For Unresolved Items Must
+    Ignore Comment Contents - Each method that checks for unresolved
+    items in a document must ignore those items if the occur within
+    comments. (closed 2011-10-27 by drj)
+
+[X] BUG-021 (MEDIUM) SML::Parser::_resolve_includes Does Not Ignore
+    Include Statements Within Comment Divisions - The parser should
+    ignore include statements inside comment divisions.  The current
+    implementation does ~~not~~ do this. (closed 2011-10-27 by drj)
+
+[X] BUG-020 (MEDIUM) SML::Parser::_run_scripts Does Not Ignore Script
+    Statements Within Comment Divisions - The parser should ignore
+    script statements inside comment divisions.  The current
+    implementation does ~~not~~ do this. (closed 2011-10-27 by drj)
+
+[X] BUG-019 (MEDIUM) SML::Parser::_resolve_conditionals Does Not
+    Ignore Conditionals Within Comment Divisions - The parser should
+    ignore conditional divisions inside comment divisions.  The
+    current implementation does ~~not~~ do this. (closed 2011-10-27 by
+    drj)
+
+[X] BUG-018 (HIGH) SML::Parser::parsefile Missing Function To Resolve
+    Conditionals - The parsefile method lacks functionality to resolve
+    conditionals.  Update the ad-parsefile.vsd activity diagram and
+    the parsefile method to implement. (closed 2011-10-26 by drj)
+
+[X] BUG-008 (MEDIUM) Unnecessary Division Parsing Complexity -
+    Collapse the number of Parser.pm `enter' and `exit' subroutines.
+    Too many.  Pass an argument instead? Why use ~~both~~ end_element
+    and exit_element?  Can't I consolidate these?  The same question
+    goes for end_environment and exit_environment. (closed 2011-10-26
+    by drj)
+
+[X] BUG-017 (MEDIUM) Warnings Notification Missing - The application
+    fails to notify the user that the document contains warnings.  I
+    just published brd-o-and-m.txt and many warning displayed in the
+    terminal but the rendered HTML document does not display the red
+    `WARNINGS' link.  The publish.warnings.txt file ~~does~~ contain
+    the warnings.  The problem turned out to be that only ~~certain~~
+    warnings, lookup failures performed by the escape_html subroutine,
+    were not getting reported at all.  Fixed now. (closed 2011-10-23
+    by drj)
+
+[X] BUG-011 (LOW) Runtime Status Messages Not On Own Line - Runtime
+    error, warning, and changes message should appear on their own
+    line for readability.  The current implementation prints these
+    messages inline with no newlines and this makes them difficult to
+    read. (closed 2011-10-23 by drj)
+
+[X] BUG-016 (HIGH) Publish Application Detects Included Files As
+    Modified When They Are Not - The current implementation of
+    publish.pl assumes that the files that make up a document do not
+    change during publishing.  This is a bad assumption since the
+    `script:' feature can re-generate included files during
+    publishing.  The program should check the change-control
+    (currently SVN) status ~~after~~ all files are written to
+    determine only at that time whether there are any uncommitted
+    changes. This problem results in the publisher naming files
+    `-MODIFIED' when they are not.  This is very confusing. (closed
+    2011-10-23 by drj)
+
+[X] BUG-015 (MEDIUM) HTML Revisions Listing Is Misplaced - The HTML
+    Revisions listing should be on a page by itself.  But there's a
+    bug in publish.pl that puts the revision listing at the top of the
+    last HTML file produced by the program making it difficult to find
+    and munging that last page. (closed 2011-10-23 by drj)
+
+[X] BUG-013 (HIGH) Replacement Glossary Definitions Of Terms
+    Containing Ampersands Is Broken - The publish.pl program throws a
+    warning when it encounters a statement like [def:ST&E] because
+    earlier code replaced the `&' with `\&'.  This means the publish
+    application throws a warning when it shouldn't. (closed 2011-10-23
+    by drj)
+
+#---------------------------------------------------------------------
+
+* Implemented Changes
+
+[X] IDEA-032 (ROUTINE) Use Perl::Critic to evaluate Perl code against
+    best practices.  Investigate the use of Test::Perl::Critic to
+    integrate Perl::Critic into test programs. (closed 2013-03-31 by
+    drj)
+
+[X] IDEA-027 (HIGH) Implement NOSVN Option - Implement an option that
+    disables all SVN functionality during publishing.  I have a theory
+    that gathering SVN data is the primary performance drain on the
+    publishing process. (closed 2012-10-21 by drj)
+
+[X] IDEA-023 (ROUTINE) Divisions Don't Need `lines' Attribute - Since
+    divisions are composed of blocks and blocks are composed of lines,
+    divisions don't need to also keep track of their lines.  If I need
+    to get the first line of a division, I can just get the first line
+    of the first block. Dropping the `lines' attribute from the
+    division class should improve performance. Is there any reason for
+    a document to have a lines attribute?  What about for the purpose
+    of writing changes back out to original SML files? (closed
+    2012-09-25 by drj)
+
+[X] IDEA-021 (ROUTINE) Use SML Engineering Docs for Tests - Move SML
+    FRD, SDD, TED, and UG under the test directory (/t) and use them
+    for regression testing.  I'm getting to the point in the
+    implementation where I need very complex documents against which
+    to test functionality.  The SML Engineering Documents (FRD, SDD,
+    TED, and UG) would be ideal for this purpose. (closed 2012-09-18
+    by drj)
+
+[X] IDEA-013 (HIGH) Promote Allocation to ID'd Division - An
+    `allocation' needs to be a first-class object addressable by its
+    own ID because test results need to be traceable to allocations
+    instead of to requirements.  Since requirements are designed to be
+    re-usable they may be satisfied in one context but not in others.
+    For instance, suppose two CIs must satisfy the same requirement
+    like a security requirement. If one CI satisfies the requirement
+    and the other doesn't test results must capture these facts.
+    Tests therefore must be traceable to allocations and not to
+    requirements. (closed 2012-03-02 by drj)
+
+[X] IDEA-012 (ROUTINE) Allow Comments At The End Of Elements - SML
+    should allow authors to place comments at the end of element
+    lines.  For instance, instead of `stakeholder:: ro-000022' the
+    author ought to have the ability to put `stakeholder:: ro-000022 #
+    system owner.'  Currently this throws and error. (closed
+    2012-03-02 by drj)
+
+[X] IDEA-010 (ROUTINE) Cache Templates In Memory - Rather than reading
+    template files over and over again, cache them in memory. (closed
+    2011-12-28 by drj)
+
+[X] CHANGE-001 (ROUTINE) Change Element Name Syntax From Single To
+    Double Colon - The use of only a single colon conflicts with a
+    significant number of instances where the plain text contains a
+    word at the beginning of a line with a colon.  So, instead of a
+    title element being `title: My Title' it will be `title:: My
+    Title'. (closed 2011-11-08 by drj)
+
+[X] CHANGE-004 (ROUTINE) Collect Blocks In Sets By Division - Collect
+    the sequence of blocks that make up a division and assign the
+    block set to the division at the end of the division.  This will
+    provide the ability to process all block in a division. (closed
+    2011-11-11 by drj)
+
+[X] CHANGE-003 (ROUTINE) Process Blocks Rather Than Lines - Wherever
+    possible, process blocks (even divisions?) instead of lines to (1)
+    recognize inline markup that might span a line boundary, and (2)
+    improve performance. (closed 2011-11-11 by drj)
+
+#---------------------------------------------------------------------
+
+* Implemented Features
+
+[X] FEATURE-012 (MEDIUM) `Include Related' Script Should Provide
+    Section Outline Option - the `include_related.pl' script should
+    provide an option that creates a section structure for large
+    listings of items.  This will make large collections of related
+    items easier to navigate. (closed 2012-02-29 by drj)
+
+[X] FEATURE-007 (HIGH) Implement Parser.pm capability to resolve
+    templates. (closed 2011-12-14 by drj)
+
+[X] FEATURE-005 (HIGH) Implement initial template mechanism using the
+    `include:id=my-id' syntax.  Migrate later to
+    `template:id=my-id'. (closed 2011-12-05 by drj)
+
+[X] FEATURE-015 (HIGH) Define Ontology In ontology.conf Rather Than
+    SML.pm - Rather than "hard-coding" the default SML ontology in the
+    SML.pm class, define it in a configuration file, preferably in the
+    sml.conf file. (closed 2011-11-25 by drj)
+
+[X] FEATURE-016 (ROUTINE) Make Log Messages Pretty - Log messages
+    meant for users should not contain the name of the subroutine
+    emitting the message, only debugging message.  Customize logging
+    to NOT contain information users aren't interested in above the
+    DEBUG level. (closed 2011-11-25 by drj)
+
+[X] FEATURE-018 (ROUTINE) Implement Subscript Syntax - Use double
+    commas to indicate subscripts (i.e. precision,,max,,) (closed
+    2011-11-25 by drj)
+
+[X] FEATURE-017 (ROUTINE) Implement Superscript Syntax - Use double
+    circumflexes to indicate superscripts (i.e. y^^x-1^^) (closed
+    2011011025 by drj)
+
+[X] FEATURE-013 (MEDIUM) Provide Links To ERRORS, WARNINGS, and
+    CHANGES In HTML Rendition - The purpose of this feature is to
+    notify authors that errors, warnings, and/or change messages were
+    generated by the publishing application.  If a document contains
+    errors, warnings, or uncommitted changes in included files,
+    display a link in the left margin that provides easy access to
+    these messages. (implemented 2011-10-23 by drj)
+
+#---------------------------------------------------------------------
+
+* Bug and Feature Severity Levels
+
+= critical = The problem causes one of the following: (1) prevents
+program from running, (2) causes the system to crash, (3) causes data
+loss, (4) prevents the operation of a major program function and there
+is no workaround solution.
+
+= high = The problem causes one of the following: (1) problem causes
+unexpected fatal errors, (2) prevents the operation of a major program
+function but there ~~is~~ a workaround solution, (3) program generates
+bad output when good input data is provided.
+
+= medium = The problem causes one of the following: (1) prevents the
+operation of minor program functions but there ~~is~~ a workaround
+solution, (2) an item is missing from the system documentation, (3)
+the design or implementation contains unnecessary complexity, (4) The
+program lacks a feature that would improve ease of use.
+
+= low = The problem causes one of the following: (1) a minor issue
+that imposes some loss of functionality, but for which there is an
+acceptable and easily reproducible workaround, (2) A cosmetic issue
+such as unclear wording or error messages in low visibility fields.
+
+######################################################################
+# Local Emacs Variables
+
+# Local Variables:
+# mode: outline
+# coding: us-ascii
+# fill-column: 70
+# End:
+
+######################################################################

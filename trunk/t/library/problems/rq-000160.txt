@@ -1,0 +1,38 @@
+>>>problem
+
+######################################################################
+
+title:: Represent an Option to Persist Script Output In Specified File
+
+label:: rq-000160
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000072
+
+type:: data format
+
+associated:: rq-000159
+
+description:: The data format shall have the capability to represent
+the author's choice that the output of a script should persist in a
+specified file.  The default behavior of the script function is to run
+the script and insert the output into the generated document but
+~~not~~ persist the output anywhere.
+
+######################################################################
+
+index:: rq-000160; scripts!persistent output
+
+This requirement is ~~different~~ than [id:rq-000159] because it
+requires the data format to represent an option to persist script
+output to ~~any~~ specified file, not just within the file that
+represents the document itself.
+
+<<<problem

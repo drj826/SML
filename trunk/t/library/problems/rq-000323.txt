@@ -1,0 +1,25 @@
+>>>problem
+
+######################################################################
+
+title:: Format a LaTeX Command
+
+label:: rq-000323
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000205
+
+type:: technical
+
+description:: The software shall format a LaTeX command.
+
+######################################################################
+
+index:: rq-000323; command!format LaTeX
+
+<<<problem

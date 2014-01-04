@@ -1,0 +1,55 @@
+>>>test
+
+######################################################################
+
+title:: Problem.pm Unit Test Case
+
+label:: tc-000058
+
+revision:: $Revision: 15133 $
+
+date:: $Date: 2013-07-07 09:31:37 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Problem.pm Perl
+module that implements the SML::Problem class.
+
+######################################################################
+
+index:: tc-000058; unit test case!Problem.pm
+
+[ref:lis-problem-pm-unit-test-case] shows the unit test for
+[file:Problem.pm].
+
+---LISTING
+title::       Problem.t - Unit Test Case for Problem.pm
+label::       lis-problem-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: landscape
+fontsize::    footnotesize
+file::        ../Problem.t
+---LISTING
+
+[ref:lis-problem-pm-unit-test-results] shows the results of executing
+the Problem.pm unit test case.
+
+---LISTING
+title::     Problem.pm Unit Test Case Results
+label::     lis-problem-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Problem.t
+---LISTING
+
+<<<test
+>>>RESOURCES
+a1bbf61179e6d60f0ccbf0f99ee39ccbbe8dfc5c ../Problem.t
+<<<RESOURCES

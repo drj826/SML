@@ -1,0 +1,260 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: Functional Requirements Document
+
+subtitle:: SML Data Format[linebreak]and[linebreak]SML Software Library
+
+author:: Don Johnson (drj826@acm.org)
+
+copyright:: 2002-2012, Don Johnson
+
+doctype:: book
+
+logo_image_small:: files/images/sml_logo.png
+
+logo_image_center:: files/images/sml_logo.png
+
+version:: 0.5
+
+revision:: $Revision: 15138 $
+
+date:: $Date: 2013-07-07 09:35:23 -0600 (Sun, 07 Jul 2013) $
+
+use_formal_status:: 1
+
+# [#v:tmpl/item-summary.txt:6530]
+
+######################################################################
+# Revisions
+
+---REVISIONS
+
+rev:: 0.5 = 2012-03-25 = Added rq-000201 "Validate Allowed Entity
+Properties", and rq-000202 "Validate Entity Relationships"
+
+rev:: 0.4 = 2012-03-23 = Re-organized system requirements into
+`functional' and `technical' categories; Updated glossary organization
+
+rev:: 0.3 = 2012-02-15 = Added requirement for internal hyperlinks,
+updated template function requirements, updated all requirement status
+(informal) and supplied status explanations.
+
+rev:: 0.2 = 2011-06-16 = Added a significant number of new data format
+requirements plus other constraints like the data format must use
+7-bit ASCII and be human readable.
+
+rev:: 0.1 = 2011-04-08 = Initial draft.
+
+---REVISIONS
+
+#---------------------------------------------------------------------
+
+* Introduction
+
+type:: chapter
+
+This is the Functional Requirements Document (FRD) for a ~~structured
+manuscript data format~~.  The required data format will be used to
+represent book, article, and report manuscripts that will be published
+to multiple document renditions by a publishing application.
+
+Intended applications of this data format include: (1) requirements
+documentation, (2) design documentation, (3) test documentation, (4)
+training documentation, and (5) project plans.
+
+The overarching purpose of the data format is to enable authors to
+create modular, re-usable documents and document fragments they can
+automatically publish to multiple different renditions.  Authors
+shouldn't have to re-write the same information twice.  Therefore they
+need the capability to combine and re-use fragments of documents to
+create whole documents.
+
+Why call it a ``structured manuscript'' data format?
+
+The term ~~structured~~ implies information can be modularly organized
+and can contain predefined relationships.
+
+A ~~manuscript~~ contains manually created written information.  The
+term implies it is the ~~original~~ version as opposed to a duplicated
+or published version.
+
+The concept of a ``structured manuscript'' aligns well with the
+overarching purpose to enable authors to create modular, re-usable
+documents and document fragments they can automatically publish to
+multiple different document renditions.
+
+# include::$r9648$: problems/rq-000005.txt # Minimize Presentation Markup
+# include::$r6525$: problems/rq-000009.txt # Represent Special Features
+
+#---------------------------------------------------------------------
+
+* Key Terms and Definitions
+
+This section defines key terms used in this document.  The glossary
+contains a complete collection of terms and their definitions.
+
+= [g:ieee:baseline] = [def:ieee:baseline]
+
+= [g:ieee:allocated baseline] = [def:ieee:allocated baseline]
+
+= [g:cmmi:bidirectional traceability] = [def:cmmi:bidirectional traceability]
+
+= [g:BRD] = [def:BRD]
+
+= [g:sml:business requirement] = [def:sml:business requirement]
+
+= [g:sml:compliance directive] = [def:sml:compliance directive]
+
+= [g:ieee:component] = [def:ieee:component]
+
+= [g:cmmi:customer requirement] = [def:cmmi:customer requirement]
+
+= [g:sml:demonstration] = [def:sml:demonstration]
+
+= [g:cmmi:derived requirements] = [def:cmmi:derived requirements]
+
+= [g:ieee:design requirement] = [def:ieee:design requirement]
+
+= [g:sml:feasibility] = [def:sml:feasibility]
+
+= [g:sml:FRD] = [def:sml:FRD]
+
+= [g:cmmi:functional analysis] = [def:cmmi:functional analysis]
+
+= [g:cmmi:functional architecture] = [def:cmmi:functional architecture]
+
+= [g:ieee:functional baseline] = [def:ieee:functional baseline]
+
+= [g:ieee:functional configuration audit] = [def:ieee:functional configuration audit]
+
+= [g:sml:functional requirement] = [def:sml:functional requirement]
+
+= [g:sml:Functional Requirements Document] = [def:sml:Functional Requirements Document]
+
+= [g:ieee:functional specification] = [def:ieee:functional specification]
+
+= [g:ieee:interface requirement] = [def:ieee:interface requirement]
+
+= [g:ieee:implementation requirement] = [def:ieee:implementation requirement]
+
+= [g:sml:mission directive] = [def:sml:mission directive]
+
+= [g:sml:non-functional requirement] = [def:sml:non-functional requirement]
+
+= [g:sml:operational baseline] = [def:sml:operational baseline]
+
+= [g:cmmi:operational scenario] = [def:cmmi:operational scenario]
+
+= [g:ieee:performance requirement] = [def:ieee:performance requirement]
+
+= [g:ieee:physical requirement] = [def:ieee:physical requirement]
+
+= [g:ieee:product baseline] = [def:ieee:product baseline]
+
+= [g:cmmi:product requirements] = [def:cmmi:product requirements]
+
+= [g:ieee:qualification requirement] = [def:ieee:qualification requirement]
+
+= [g:sml:release] = [def:sml:release]
+
+= [g:sml:requirement] = [def:sml:requirement]
+
+= [g:cmmi:requirements analysis] = [def:cmmi:requirements analysis]
+
+= [g:cmmi:requirements elicitation] = [def:cmmi:requirements elicitation]
+
+= [g:cmmi:requirements management] = [def:cmmi:requirements management]
+
+= [g:ieee:requirements phase] = [def:ieee:requirements phase]
+
+= [g:ieee:requirements specification] = [def:ieee:requirements specification]
+
+= [g:cmmi:requirements traceability] = [def:cmmi:requirements traceability]
+
+= [g:sml:requirements traceability matrix] = [def:sml:requirements traceability matrix]
+
+= [g:sml:RTM] = [def:sml:RTM]
+
+= [g:sml:shall statement] = [def:sml:shall statement]
+
+= [g:sml:SRD] = [def:sml:SRD]
+
+= [g:ieee:SRR] = [def:ieee:SRR]
+
+= [g:ieee:software requirements review] = [def:ieee:software requirements review]
+
+= [g:ieee:Software Requirements Specification] = [def:ieee:Software Requirements Specification]
+
+= [g:ieee:System Requirements Review] = [def:ieee:System Requirements Review]
+
+= [g:sml:systems engineering] = [def:sml:systems engineering]
+
+= [g:sml:system requirement] = [def:sml:system requirement]
+
+= [g:sml:technical requirement] = [def:sml:technical requirement]
+
+= [g:ieee:testability] = [def:ieee:testability]
+
+= [g:ieee:traceability] = [def:ieee:traceability]
+
+= [g:ieee:traceability matrix] = [def:ieee:traceability matrix]
+
+= [g:sml:use case] = [def:sml:use case]
+
+= [g:ieee:validation] = [def:ieee:validation]
+
+= [g:ieee:verification] = [def:ieee:verification]
+
+= [g:ieee:verification and validation] = [def:ieee:verification and validation]
+
+#---------------------------------------------------------------------
+
+* Requirements
+
+type:: chapter
+
+label:: requirements
+
+include::*: auto/frd-sml-problems.txt
+
+######################################################################
+# Backmatter
+
+include:: incl/glossary-sml.txt
+
+include:: incl/glossary-ieee.txt
+
+include:: incl/glossary-cmmi.txt
+
+include:: incl/sources.txt
+
+include:: incl/sources-ieee.txt
+
+include:: incl/sources-cmmi.txt
+
+######################################################################
+# Local Emacs Variables
+#
+
+# Local Variables:
+# mode: outline
+# mode: fill
+# coding: us-ascii
+# fill-column: 70
+# End:
+
+######################################################################
+
+<<<DOCUMENT
+
+>>>RESOURCES
+834e76751ecb6d5aa9c9b5b70b0a17b3dbc38d2d auto/frd-sml-problems.txt
+8e2f83308edfd091af3be471a40fadab6331a820 incl/glossary-cmmi.txt
+6cc38b489395380b94fd2eb1b613422d01e0f77a incl/glossary-ieee.txt
+b135f12b52f258b5a24258151c58c07b87981bdb incl/glossary-sml.txt
+b24fe394af677b82414286f692203da27544d041 incl/sources-cmmi.txt
+bcb470316772f86a615d31273911d4f02ef80e98 incl/sources-ieee.txt
+2d438a12210cf179d43abaf0867b5b505c9c8af7 incl/sources.txt
+<<<RESOURCES

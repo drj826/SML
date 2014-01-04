@@ -1,0 +1,41 @@
+>>>result
+
+######################################################################
+
+title:: Parser.pm Unit Test Case Results
+
+label:: tr-000005
+
+revision:: $Revision: 15128 $
+
+date:: $Date: 2013-07-07 09:27:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tr-000001
+
+test:: tc-000005
+
+description:: This is the test result for the Parser.pm unit test
+case.
+
+######################################################################
+
+index:: tr-000005; unit test case results!Parser.pm
+
+[ref:lis-parser-pm-unit-test-results] shows the results of executing
+the Parser.pm unit test case.
+
+---LISTING
+title::     Parser.pm Unit Test Case Results
+label::     lis-parser-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    files/scripts/run-test.Parser.bat
+---LISTING
+
+<<<result

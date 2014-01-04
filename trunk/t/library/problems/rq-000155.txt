@@ -1,0 +1,30 @@
+>>>problem
+
+######################################################################
+
+title:: Generate a List of Attachments
+
+label:: rq-000155
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000139
+
+priority:: routine
+
+type:: functional
+
+description:: The software shall enable a user to generate a list of
+file attachments.  The listing should display the location of the
+attachment in the document and allow downloading the attachment
+directly from the listing.
+
+######################################################################
+
+index:: rq-000155; list of attachments
+
+<<<problem

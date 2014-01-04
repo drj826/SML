@@ -1,0 +1,27 @@
+>>>allocation
+
+#---------------------------------------------------------------------
+
+label::    al-000144
+
+solution:: ci-000001 # Structured Manuscript Language (SML)
+
+problem::  rq-000124 # Represent Special Symbols
+
+test::     tc-000041 # Demonstration
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 10970 $
+
+date:: $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+#---------------------------------------------------------------------
+
+outcome::2011-11-24:al-000144:yellow: This is yellow because the only
+way to represent a horizontal rule ([id:rq-000061]) is to use a long
+fill-in-the-blank ([id:rq-000134]).
+
+<<<allocation

@@ -1,0 +1,93 @@
+>>>problem
+
+######################################################################
+
+title:: Represent Pre-Formatted Text
+
+label:: rq-000018
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000326
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+pre-formatted text.  Pre-formatted text is verbatim text inserted into
+a document while preserving all white spaces and line breaks.  This
+requirement serves as a container for data format requirements related
+to representing pre-formatted text.
+
+######################################################################
+
+index:: rq-000018; pre-formatted text
+
+Elements of pre-formatted text meta data include:
+
+:: data element
+
+:: description
+
+:: type
+
+:: required or optional?
+
+:: single or multi-valued?
+
+---
+
+: ~~title~~
+
+: Title of the pre-formatted text block
+
+: block
+
+: optional
+
+: single
+
+---
+
+: ~~label~~
+
+: Unique identifier for the pre-formatted text block
+
+: ID
+
+: optional
+
+: single
+
+---
+
+: ~~description~~
+
+: A one-paragraph description of the pre-formatted text block
+
+: block
+
+: optional
+
+: single
+
+---
+
+:yellow: ~~narrative~~
+
+:yellow: The actual pre-formatted block of text
+
+:yellow: block
+
+:yellow: required
+
+:yellow: single
+
+---
+
+<<<problem

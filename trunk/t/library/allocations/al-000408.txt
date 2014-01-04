@@ -1,0 +1,30 @@
+>>>allocation
+
+#---------------------------------------------------------------------
+
+label::    al-000408
+
+solution:: ci-000432 # SML/DefinitionListItem.pm
+
+problem::  rq-000344 # Return Term of Definition List Item
+
+test::     tc-000067 # DefinitionListItem.pm Unit Test Case
+
+#---------------------------------------------------------------------
+
+release:: 2.0
+
+rel_component:: ci-000004
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 10970 $
+
+date:: $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+#---------------------------------------------------------------------
+
+
+<<<allocation

@@ -1,0 +1,241 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: Test and Evaluation Document
+
+subtitle:: SML Data Format [linebreak] and [linebreak] SML Software
+Library
+
+version:: 0.2
+
+author:: Don Johnson (drj826@acm.org)
+
+date:: $Date: 2013-07-07 09:35:23 -0600 (Sun, 07 Jul 2013) $
+
+copyright:: 2002-2012, Don Johnson
+
+doctype:: book
+
+logo_image_small:: files/images/sml_logo.png
+
+logo_image_center:: files/images/sml_logo.png
+
+revision:: $Revision: 15138 $
+
+use_formal_status:: 1
+
+######################################################################
+# Revisions
+
+---REVISIONS
+
+rev:: 0.2 = 2012-03-25 = Added a lot of new test cases and
+automatically generated unit test results.
+
+rev:: 0.1 = 2012-03-23 = Initial draft.
+
+---REVISIONS
+
+#---------------------------------------------------------------------
+
+* Introduction
+
+This is the Test and Evaluation Document (TED) for the Structured
+Manuscript Language (SML) data format and SML application library.
+
+The purpose of this document is to:
+
++ describe the [g:sml:unit test case]s that verify [g:ieee:unit]s work
+  properly
+
++ describe the verification [g:ieee:test case]s that verify
+  [g:sml:requirement]s are satisfied
+
++ report [g:sml:unit test] results that demonstrate units are working
+  properly
+
++ report [g:ieee:verification] test results that demonstrate
+  requirements are satisfied
+
+#---------------------------------------------------------------------
+
+* Key Terms and Definitions
+
+This section defines ~~key~~ terms used in this document.  The
+glossary contains a complete collection of terms and their
+definitions.
+
+= [g:sml:acceptance test] = [def:sml:acceptance test]
+
+= [g:ieee:allocated baseline] = [def:ieee:allocated baseline]
+
+= [g:ieee:baseline] = [def:ieee:baseline]
+
+= [g:ieee:checkout] = [def:ieee:checkout]
+
+= [g:ieee:component] = [def:ieee:component]
+
+= [g:ieee:component integration testing] = [def:ieee:component integration testing]
+
+= [g:sml:demonstration] = [def:sml:demonstration]
+
+= [g:sml:development testing] = [def:sml:development testing]
+
+= [g:ieee:functional baseline] = [def:ieee:functional baseline]
+
+= [g:sml:operational baseline] = [def:sml:operational baseline]
+
+= [g:ieee:operational testing] = [def:ieee:operational testing]
+
+= [g:ieee:product baseline] = [def:ieee:product baseline]
+
+= [g:sml:regression test] = [def:sml:regression test]
+
+= [g:sml:release] = [def:sml:release]
+
+= [g:ieee:system testing] = [def:ieee:system testing]
+
+= [g:sml:systems engineering] = [def:sml:systems engineering]
+
+= [g:ieee:test case] = [def:ieee:test case]
+
+= [g:ieee:test class] = [def:ieee:test class]
+
+= [g:ieee:test coverage] = [def:ieee:test coverage]
+
+= [g:ieee:test design] = [def:ieee:test design]
+
+= [g:ieee:test effort] = [def:ieee:test effort]
+
+= [g:ieee:test item] = [def:ieee:test item]
+
+= [g:ieee:test level] = [def:ieee:test level]
+
+= [g:ieee:test phase] = [def:ieee:test phase]
+
+= [g:ieee:test procedure] = [def:ieee:test procedure]
+
+= [g:ieee:test unit] = [def:ieee:test unit]
+
+= [g:ieee:testability] = [def:ieee:testability]
+
+= [g:ieee:testing] = [def:ieee:testing]
+
+= [g:ieee:testing task iteration] = [def:ieee:testing task iteration]
+
+= [g:ieee:testware] = [def:ieee:testware]
+
+= [g:ieee:traceability] = [def:ieee:traceability]
+
+= [g:ieee:traceability matrix] = [def:ieee:traceability matrix]
+
+= [g:ieee:unit] = [def:ieee:unit]
+
+= [g:sml:unit test] = [def:sml:unit test]
+
+#---------------------------------------------------------------------
+
+* Test Cases
+
+label:: test-cases
+
+type:: appendix
+
+include:: auto/ted-sml-tests.txt
+
+#---------------------------------------------------------------------
+
+* Requirements
+
+label:: requirements
+
+type:: appendix
+
+This appendix contains a reference listing of all requirements.
+
+include:: auto/ted-sml-problems.txt
+
+######################################################################
+
+* Solutions
+
+label:: solutions
+
+type:: appendix
+
+This appendix contains a reference listing of all solutions.
+
+include:: auto/ted-sml-solutions.txt
+
+######################################################################
+
+* Allocations
+
+label:: allocations
+
+type:: appendix
+
+This appendix contains a reference listing of all allocations.
+
+include:: auto/ted-sml-allocations.txt
+
+######################################################################
+
+* Roles
+
+label:: roles
+
+type:: appendix
+
+This appendix contains a reference listing of all roles.
+
+include:: auto/ted-sml-roles.txt
+
+######################################################################
+
+*** SML/Backmatter
+
+# Backmatter
+
+include:: incl/glossary-sml.txt
+
+include:: incl/glossary-ieee.txt
+
+include:: incl/glossary-cmmi.txt
+
+include:: incl/sources.txt
+
+include:: incl/sources-ieee.txt
+
+include:: incl/sources-cmmi.txt
+
+######################################################################
+
+# Local Emacs Variables
+#
+
+# Local Variables:
+# mode: outline
+# mode: fill
+# coding: us-ascii
+# fill-column: 70
+# End:
+
+######################################################################
+
+<<<DOCUMENT
+
+>>>RESOURCES
+41526465c139a523ed98ae63966ff2a022d3a2d9 auto/ted-sml-allocations.txt
+6d20ed62f8cc730069a39d47448b8093bdad3223 auto/ted-sml-problems.txt
+da39a3ee5e6b4b0d3255bfef95601890afd80709 auto/ted-sml-roles.txt
+5fa8d29c149878ae87c5ee824c86d19ff3edbbee auto/ted-sml-solutions.txt
+6b42215adba7d85af9032c6e4ca45f4ff5c7fc34 auto/ted-sml-tests.txt
+e5ae1c93144c5a9a81eeb30f3884d65e12fa6988 incl/glossary-cmmi.txt
+414c20a6a2b0e57e8e78b6dc0a922d33a202d5f3 incl/glossary-ieee.txt
+0c3df63df245167baab7f5d936c39ae9bdf38f75 incl/glossary-sml.txt
+6c4ccf53df08be2de4f303b19721149fe4d1dede incl/sources-cmmi.txt
+0ba124c70e3cca5ae117c049e8f7e27dbe490b66 incl/sources-ieee.txt
+0b65740376b5d9a28d38d2280693cca8829d707d incl/sources.txt
+<<<RESOURCES

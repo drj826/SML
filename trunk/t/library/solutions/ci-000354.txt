@@ -1,0 +1,25 @@
+>>>solution
+
+######################################################################
+
+title:: `tree_outfile_aref_for' Subroutine
+
+label:: ci-000354
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000007
+
+description:: The [cmd:tree_outfile_aref_for] subroutine 
+
+######################################################################
+
+index:: ci-000354; subroutine![cmd:tree_outfile_aref_for]
+
+<<<solution

@@ -1,0 +1,28 @@
+>>>problem
+
+######################################################################
+
+title:: Validate Allowed Entity Properties
+
+label:: rq-000201
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000106
+
+type:: functional
+
+description:: The software shall enable a user to validate that an
+[g:sml:entity] does not have any disallowed properties.  The allowed
+properties for each entity type are specified in the [g:sml:library]
+[s:sml:ontology].
+
+######################################################################
+
+index:: rq-000201; entity!allowed properties
+
+<<<problem

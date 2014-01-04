@@ -1,0 +1,23 @@
+>>>STYLE
+
+style:: DEFAULT
+
+format:: 
+
+name:: 
+
+part:: 
+
+type:: 
+
+compress_whitespace:: no
+
+trim_whitespace:: no
+
+trim_newlines:: no
+
+wrap:: no
+
+======================================================================
+
+<<<STYLE

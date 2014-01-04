@@ -1,0 +1,14 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: INVALID ID REFERENCE SYNTAX
+
+id:: td-000058
+
+######################################################################
+
+This SML document contains an ID reference with invalid syntax.  It is
+missing the close markup. [id:bogus
+
+<<<DOCUMENT

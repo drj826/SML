@@ -1,0 +1,41 @@
+>>>solution
+
+######################################################################
+
+title:: SML/BulletListItem.pm Module
+
+label:: ci-000430
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML/BulletListItem.pm Module implements the
+{lit:SML::BulletListItem} class which represents bullet list items.
+
+######################################################################
+
+index:: ci-000428; table cell
+
+---LISTING
+title::     BulletListItem.pm
+label::     lis-bullet-list-item-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../../SML/BulletListItem.pm
+---LISTING
+
+[clearpage]
+
+<<<solution
+
+>>>RESOURCES
+4d2dd6405c3f8383597d6dcaef59003b42366d98 ../../SML/BulletListItem.pm
+<<<RESOURCES

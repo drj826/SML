@@ -1,0 +1,55 @@
+>>>test
+
+######################################################################
+
+title:: Task.pm Unit Test Case
+
+label:: tc-000065
+
+revision:: $Revision: 15133 $
+
+date:: $Date: 2013-07-07 09:31:37 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Task.pm Perl
+module that implements the SML::Task class.
+
+######################################################################
+
+index:: tc-000065; unit test case!Task.pm
+
+[ref:lis-task-pm-unit-test-case] shows the unit test for
+[file:Task.pm].
+
+---LISTING
+title::       Task.t - Unit Test Case for Task.pm
+label::       lis-task-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: landscape
+fontsize::    footnotesize
+file::        ../Task.t
+---LISTING
+
+[ref:lis-task-pm-unit-test-results] shows the results of executing the
+Task.pm unit test case.
+
+---LISTING
+title::     Task.pm Unit Test Case Results
+label::     lis-task-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Task.t
+---LISTING
+
+<<<test
+>>>RESOURCES
+a3221850935b046f83b0dbc7ab96a442cbe6b09a ../Task.t
+<<<RESOURCES

@@ -1,0 +1,25 @@
+>>>solution
+
+######################################################################
+
+title:: `escape_html_pre' Subroutine
+
+label:: ci-000198
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000007
+
+description:: The [cmd:escape_html_pre] subroutine 
+
+######################################################################
+
+index:: ci-000198; subroutine![cmd:escape_html_pre]
+
+<<<solution

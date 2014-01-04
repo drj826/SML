@@ -1,0 +1,29 @@
+>>>problem
+
+######################################################################
+
+title:: Represent Spanned Content
+
+label:: rq-000120
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000008
+
+priority:: routine
+
+type:: data format
+
+description:: The data format shall represent spanned content
+presentation formats.  This requirement serves as a container for
+those formats.
+
+######################################################################
+
+index:: rq-000120; spanned content presentation formats
+
+<<<problem

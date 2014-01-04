@@ -1,0 +1,27 @@
+>>>problem
+
+######################################################################
+
+title:: Sample Problem For `Include' Tests
+
+id:: rq-000003
+
+type:: functional
+
+attr:: state = deprecated
+
+description:: The system shall perform general message processing
+functions.  This requirement serves as a container for general message
+processing requirements.
+
+######################################################################
+
+index:: rq-000003; message!processing
+
+This is the narrative part of the problem.  SML divisions are composed
+of a preamble followed by a narrative.  The purpose of the preamble is
+to contain information structured property information.  The purpose
+of the narrative is to contain narrative text that can include section
+structure, tables, figures, etc.
+
+<<<problem

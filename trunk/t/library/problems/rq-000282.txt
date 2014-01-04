@@ -1,0 +1,33 @@
+>>>problem
+
+######################################################################
+
+title:: Generate HTML Copyright Page
+
+label:: rq-000282
+
+revision:: $Revision: 11579 $
+
+date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000001
+
+priority:: routine
+
+type:: functional
+
+description:: The software shall generate an HTML copyright page.  The
+copyright page shall present the: (1) optional biographical note, (2)
+publisher's address, (3) copyright notice, (4) year of publication,
+(5) subsequent editions, (6) any additional copyright information, (7)
+publishing history, (8) translation, (9) ISBN, (10) ISSN, (11)
+acknowledgments, permissions, and other credits, (12) grants, and (13)
+cataloging-in-publication (CIP) data
+
+######################################################################
+
+index:: rq-000282; copyright page!HTML; HTML copyright page
+
+<<<problem

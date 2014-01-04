@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: PreformattedDivision.pm Unit Test Case
+
+label:: tc-000026
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the PreformattedDivision.pm Perl
+module that implements the SML::Preformatted class.
+
+######################################################################
+
+index:: tc-000026; unit test case!PreformattedDivision.pm
+
+[ref:lis-preformatted-pm-unit-test-case] shows the unit test case for
+[file:PreformattedDivision.pm].
+
+---LISTING
+title::       PreformattedDivision.t - Unit Test Case for PreformattedDivision.pm
+label::       lis-preformatted-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: portrait
+fontsize::    footnotesize
+file::        ../../PreformattedDivision.t
+---LISTING
+
+[ref:lis-preformatted-pm-unit-test-results] shows the results of
+executing the [file:PreformattedDivision.pm] unit test case.
+
+---LISTING
+title::     PreformattedDivision.pm Unit Test Case Results
+label::     lis-preformatted-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat PreformattedDivision.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+f8f8c23ff4de3d43139abb91d7c8c6634459b651 ../PreformattedDivision.t
+<<<RESOURCES

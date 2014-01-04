@@ -1,0 +1,33 @@
+>>>problem
+
+######################################################################
+
+title:: Generate a List of Abbreviations
+
+label:: rq-000146
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000139
+
+priority:: routine
+
+type:: functional
+
+description:: The software shall enable a user to generate a list of
+abbreviations. The list may go in either the front matter or the back
+matter.  If abbreviations are used in the text or in footnotes, the
+list should appear in the front matter. If they are only used in the
+back matter, the list should appear before the first part in which
+abbreviations are used, whether the appendixes, the end-notes, or the
+bibliography.
+
+######################################################################
+
+index:: rq-000146; list of abbreviations
+
+<<<problem

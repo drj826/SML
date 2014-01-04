@@ -1,0 +1,105 @@
+>>>solution
+
+######################################################################
+
+title:: publish.pl Script
+
+label:: ci-000007
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: perl
+
+type:: script
+
+type:: unit
+
+description:: The [cmd:publish.pl] perl script is a first generation
+implementation of SML publishing functionality.  It implements all
+software functions in a single script.
+
+#---------------------------------------------------------------------
+# allocations
+
+allocation:: al-000279 # rq-000104 Perform Functions For Users
+allocation:: al-000190 # rq-000098 Publish SML Documents
+allocation:: al-000281 # rq-000199 Satisfy Technical Requirements
+
+allocation:: al-000040 # rq-000001 Publish To HTML
+allocation:: al-000041 # rq-000002 Publish To PDF
+allocation:: al-000042 # rq-000003 Publish To CSV
+allocation:: al-000043 # rq-000003 Publish To XML
+allocation:: al-000191 # rq-000105 Parse SML Files
+allocation:: al-000192 # rq-000170 Implement SML Data Format
+allocation:: al-000193 # rq-000175 Process Multiple Documents without Restarting
+allocation:: al-000194 # rq-000181 Prevent Infinite Loops
+allocation:: al-000195 # rq-000185 Perform Specified Utility Functions
+allocation:: al-000196 # rq-000110 Be Reusable
+allocation:: al-000197 # rq-000113 Be Interoperable
+allocation:: al-000198 # rq-000137 Be Maintainable
+allocation:: al-000199 # rq-000182 Be Configurable
+allocation:: al-000200 # rq-000102 Publish SML Document Structure Features
+allocation:: al-000202 # rq-000114 Publish to Plain Text
+allocation:: al-000203 # rq-000126 Publish to SML
+allocation:: al-000204 # rq-000139 Publish Document Front and Back Matter
+allocation:: al-000205 # rq-000099 Parse SML Special Features
+allocation:: al-000206 # rq-000106 Validate Document Semantics
+allocation:: al-000208 # rq-000109 Ignore Comments
+allocation:: al-000209 # rq-000119 Validate Document Syntax
+allocation:: al-000210 # rq-000127 Run Scripts
+allocation:: al-000219 # rq-000156 Read Files
+allocation:: al-000220 # rq-000112 Implement SML Syntax
+allocation:: al-000221 # rq-000118 Implement SML Semantics
+allocation:: al-000222 # rq-000184 List Allowed Entity Properties
+allocation:: al-000223 # rq-000140 Generate a Title Page
+allocation:: al-000224 # rq-000141 Generate a Copyright Page
+allocation:: al-000225 # rq-000142 Generate a Table of Contents
+allocation:: al-000226 # rq-000143 Generate a List of Figures
+allocation:: al-000227 # rq-000144 Generate a List of Tables
+allocation:: al-000228 # rq-000146 Generate a List of Abbreviations
+allocation:: al-000229 # rq-000147 Generate a List of Notes
+allocation:: al-000230 # rq-000148 Generate a Glossary
+allocation:: al-000231 # rq-000149 Generate a Bibliography
+allocation:: al-000232 # rq-000150 Generate a List of Contributors
+allocation:: al-000233 # rq-000151 Generate an Index
+allocation:: al-000234 # rq-000145 Generate Specified 'Special Content' Lists
+allocation:: al-000235 # rq-000152 Generate a Prioritized List of Entities
+allocation:: al-000236 # rq-000153 Generate a List of Recent Changes
+allocation:: al-000237 # rq-000154 Generate a Change Log
+allocation:: al-000238 # rq-000155 Generate a List of Attachments
+allocation:: al-000239 # rq-000100 Parse SML Conditional Divisions
+allocation:: al-000240 # rq-000101 Parse SML Comment Divisions
+allocation:: al-000244 # rq-000171 Validate Imply-Only Properties
+allocation:: al-000245 # rq-000172 Validate Required Properties
+allocation:: al-000246 # rq-000173 Validate Property Cardinality
+allocation:: al-000252 # rq-000174 Validate External File References
+allocation:: al-000253 # rq-000188 Remember Document Division Order
+
+allocation:: al-000255 # rq-000116 Validate Design Documents
+allocation:: al-000256 # rq-000117 Validate Test Documents
+allocation:: al-000257 # rq-000115 Validate Requirements Documents
+
+allocation:: al-000258 # rq-000185 Perform Specified Utility Functions
+
+allocation:: al-000264 # rq-000191 Emit ERROR Message on Major...
+allocation:: al-000266 # rq-000192 Emit WARNING Message on Minor...
+allocation:: al-000269 # rq-000193 Emit INFO Message on Inference...
+
+allocation:: al-000272 # rq-000190 Validate Doc Contains No Redundant Allocations
+
+allocation:: al-000273 # rq-000183 Permit Library Ontology Configuration
+
+######################################################################
+
+index:: ci-000007; publish.pl
+
+In 2002 I began designing and implementing a simple publishing
+capability in a single perl script named [cmd:publish.pl].  Over time
+I added so many features that this single script became
+unmaintainable.
+
+<<<solution

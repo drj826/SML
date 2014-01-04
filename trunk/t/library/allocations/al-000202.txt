@@ -1,0 +1,26 @@
+>>>allocation
+
+#---------------------------------------------------------------------
+
+label::    al-000202
+
+solution:: ci-000007 # publish.pl Script
+
+problem::  rq-000114 # Publish to Plain Text
+
+test::     tc-000041 # Demonstration
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 10970 $
+
+date::     $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
+
+author::   $Author: don.johnson $
+
+#---------------------------------------------------------------------
+
+outcome::2012-03-20:al-000202:red: The [cmd:publish.pl] script does
+not publish to (non-SML) plain text.
+
+<<<allocation

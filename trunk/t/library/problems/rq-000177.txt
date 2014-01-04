@@ -1,0 +1,32 @@
+>>>problem
+
+######################################################################
+
+title:: Resolve Included Flat Text
+
+label:: rq-000177
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000108
+
+priority:: routine
+
+type:: technical
+
+associated:: rq-000166
+
+description:: The software shall resolve included flat text.  The
+[g:sml:SML] data format enables authors to include the content of an
+external file as `flat' text, that is, the software must `flatten' any
+section hierarchy within the included file.
+
+######################################################################
+
+index:: rq-000177; include
+
+<<<problem

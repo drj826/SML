@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: Inline.pm Unit Test Case
+
+label:: tc-000054
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Inline.pm Perl
+module that implements the SML::Inline class.
+
+######################################################################
+
+index:: tc-000054; unit test case!Inline.pm
+
+[ref:lis-inline-pm-unit-test-case] shows the unit test for
+[file:Inline.pm].
+
+---LISTING
+title::       Inline.t - Unit Test Case for Inline.pm
+label::       lis-inline-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: landscape
+fontsize::    footnotesize
+file::        ../../Inline.t
+---LISTING
+
+[ref:lis-inline-pm-unit-test-results] shows the results of executing
+the Inline.pm unit test case.
+
+---LISTING
+title::     Inline.pm Unit Test Case Results
+label::     lis-inline-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Inline.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+b6a3a548d2d808ca12a62cd16401be1e80636916 ../Inline.t
+<<<RESOURCES

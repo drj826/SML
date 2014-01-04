@@ -1,0 +1,29 @@
+>>>problem
+
+######################################################################
+
+title:: Warn User of Uncommitted Changes
+
+label:: rq-000257
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000104
+
+type:: technical
+
+description:: The software shall warn the user of uncommitted changes
+in SML source files.  The purpose of this requirement is to let the
+user know there are uncommitted changes in any of the SML files that
+make up a document so the user can decide to either commit or discard
+those changes.
+
+######################################################################
+
+index:: rq-000257; warning!uncommitted changes
+
+<<<problem

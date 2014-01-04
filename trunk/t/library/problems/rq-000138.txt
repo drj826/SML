@@ -1,0 +1,34 @@
+>>>problem
+
+######################################################################
+
+title:: Represent a `Status' Statement
+
+label:: rq-000138
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000073
+
+type:: data format
+
+description:: The data format shall have the capability to reference
+an item's status.  The status of an item is the degree to which it is
+complete and valid.  Status is one of: green, yellow, red, or grey.
+The status of an item should be declared in one and only one location
+then referenced in multiple locations. The purpose of this requirement
+is to maximize document maintainability by giving authors the
+capability to reference an item's definitive status in multiple
+locations.
+
+######################################################################
+
+index:: rq-000138; status
+
+<<<problem

@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: Baretable.pm Unit Test Case
+
+label:: tc-000048
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Baretable.pm Perl
+module that implements the SML::Baretable class.
+
+######################################################################
+
+index:: tc-000048; unit test case!Baretable.pm
+
+[ref:lis-baretable-pm-unit-test-case] shows the unit test for
+[file:Baretable.pm].
+
+---LISTING
+title::       Baretable.t - Unit Test Case for Baretable.pm
+label::       lis-baretable-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: landscape
+fontsize::    footnotesize
+file::        ../../Baretable.t
+---LISTING
+
+[ref:lis-baretable-pm-unit-test-results] shows the results of
+executing the Baretable.pm unit test case.
+
+---LISTING
+title::     Baretable.pm Unit Test Case Results
+label::     lis-baretable-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Baretable.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+9a65c32f2a439770763f260ab0cd3148b7ecf222 ../Baretable.t
+<<<RESOURCES

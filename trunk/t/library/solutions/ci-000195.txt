@@ -1,0 +1,31 @@
+>>>solution
+
+######################################################################
+
+title:: `escape_html' Subroutine
+
+label:: ci-000195
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000007
+
+description:: The [cmd:escape_html] subroutine 
+
+#---------------------------------------------------------------------
+# allocations
+
+allocation:: al-000213 # rq-000130 Substitute Variables
+allocation:: al-000215 # rq-000131 Resolve Lookups
+
+######################################################################
+
+index:: ci-000195; subroutine![cmd:escape_html]
+
+<<<solution

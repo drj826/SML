@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: Revisions.pm Unit Test Case
+
+label:: tc-000022
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Revisions.pm Perl
+module that implements the SML::Revisions class.
+
+######################################################################
+
+index:: tc-000022; unit test case!Revisions.pm
+
+[ref:lis-revisions-pm-unit-test-case] shows the unit test case for
+[file:Revisions.pm].
+
+---LISTING
+title::       Revisions.t - Unit Test Case for Revisions.pm
+label::       lis-revisions-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: portrait
+fontsize::    footnotesize
+file::        ../../Revisions.t
+---LISTING
+
+[ref:lis-revisions-pm-unit-test-results] shows the results of
+executing the [file:Revisions.pm] unit test case.
+
+---LISTING
+title::     Revisions.pm Unit Test Case Results
+label::     lis-revisions-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Revisions.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+85493e4acb1f9d46d122f34a87dee4ade3d0b1bf ../Revisions.t
+<<<RESOURCES

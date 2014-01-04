@@ -1,0 +1,29 @@
+>>>problem
+
+######################################################################
+
+title:: Represent A Spanned Structure
+
+label:: rq-000334
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000006
+
+priority:: routine
+
+type:: data format
+
+description:: The data format shall have the capability to represent a
+spanned structure.  A spanned structure is an element of document
+structure that spans characters and or words within a block.
+
+######################################################################
+
+index:: rq-000334
+
+<<<problem

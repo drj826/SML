@@ -1,0 +1,6976 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: Structured Manuscript Language (SML)
+
+subtitle:: User Guide [linebreak] Professional Documents Using SML
+[linebreak] and the [cmd:publish] Program
+
+author:: Don Johnson (drj826@acm.org)
+
+copyright:: 2002-2011, Don Johnson
+
+doctype:: book
+
+logo_image_small:: files/images/sml_logo.png
+
+logo_image_center:: files/images/lost-creek-meadow.jpg
+
+version:: 1.6
+
+revision:: $Revision: 15146 $
+
+date:: $Date: 2013-07-07 11:42:01 -0600 (Sun, 07 Jul 2013) $
+
+######################################################################
+# Revisions
+
+---REVISIONS
+
+rev:: 1.6 = 2012-09-18 = Updated description of footnote syntax.
+
+rev:: 1.5 = 2012-03-23 = Updated glossary organization.
+
+rev:: 1.4 = 2011-03-17 = Updated description of environments and
+regions to include recent additions ([ref:environments-and-regions]).
+Updated the description of using [cmd:emacs] variables to include how
+to declare variables at the end of your manuscript file
+([ref:emacs-variables]).  Added a description of the
+``||use_formal_status||'' declaration ([ref:preamble]), Added
+descriptions of ``items'' ([ref:advanced-document-structures]),
+``tests'' ([ref:tests]), ``results'' ([ref:results]), ``outcomes''
+([ref:outcomes]), ``reviews'' ([ref:reviews]), ``tasks''
+([ref:tasks]), and ``roles'' ([ref:roles]).
+
+---REVISIONS
+
+[pagebreak]
+
+######################################################################
+
+* Getting Started
+
+label:: getting-started
+
+---EPIGRAPH
+text:: The document is nothing; the documenting is everything.
+source:: Exploring Requirements
+author:: Donald C. Gause & Gerald M. Weinberg
+---EPIGRAPH
+
+This book describes how to construct documents using the
+[g:sml:Structured Manuscript Language] ([g:sml:SML]) and how to
+publish them using the [g:sml:publish] program.
+
+index:: Structured Manuscript Language; SML; structured text; ||publish||
+program
+
+SML enables you to represent full-length, full-featured, high-quality
+books, reports, and articles in minimally formatted text files.  Its
+simple mark-up rules ensure the plain text manuscript is easy to read,
+but still contains all information necessary to turn the text into a
+professionally typeset hardcopy.  In addition to hardcopy (via
+[g:PDF]), SML files can also be rendered as [g:HTML], [g:XML],
+[g:RTF], and [g:CSV].[f:getting-started:1]
+
+index:: PDF; HTML; XML; RTF; CSV
+
+The ||publish|| program renders SML text files into published
+documents.  I used it to publish ~~this~~ document.  This book's SML
+text file is included with the [cmd:publish] distribution at
+[path:docs/sml.txt].  You can publish this book yourself to test
+things out.
+
+The program is free (licensed under the [g:GPL]). Binaries are
+available for Windows and Linux, and the source code is available for
+any platform that runs [g:Perl].  For more information contact me at
+drj826@acm.org.
+
+index:: LaTeX; PDFLaTeX
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# footnotes
+
+footnote::1: The CSV rendition only captures the structured data
+portions of the document such as requirements, problems, solutions,
+tests, and tasks.  It is useful for exporting these structured
+elements of the document to a spreadsheet or database.
+
+#---------------------------------------------------------------------
+
+** Documentation Is Like Software
+
+~~Why don't we write software the way we write documentation?~~
+Because that would be ~~terribly~~ inefficient.
+
+Documents are like programs that are processed by the human brain
+rather than a computer.
+
+###COMMENT
+
+When people first began writing computer programs, they wrote the
+exact steps they wanted the computer to perform.  This was tedious.
+
+###COMMENT
+
+Most people write documentation using a word processor like Microsoft
+Word[tm].  They use practices long ago discarded as barbaric
+[g:sml:anti-pattern]s by programmers. Ask yourself if ~~you~~ use any
+of these common ``documentation anti-patterns'' when ~~you~~ write
+documents.
+
+[pagebreak]
+
+:: Programming Anti-Pattern
+
+:: Documentation Anti-Pattern
+
+---
+
+: ~~Copy and paste programming~~ -- Copying (and modifying) existing
+code rather than creating re-usable software. 
+
+: ~~Copy and paste documentation~~ -- Copying (and modifying) existing
+documentation rather than creating re-usable document parts.
+
+---
+
+: ~~Waterfall Method~~ -- The waterfall method of software development
+incorrectly assumes software can be manufactured like physical
+products through a series of sequential steps: requirements, design,
+implementation, verification, and maintenance.  It under-emphasizes
+the need to continuously improve software to meet changing
+requirements.
+
+: ~~Write Once and Done~~ -- The write-once-and-done method of
+document development incorrectly assumes documentation can be
+manufactured like physical products through a series of sequential
+steps: draft, review, edit, finalize. It under-emphasizes the need to
+continuously update documentation to capture changing requirements,
+designs, and implementations.  This method often accompanies a simple
+compliance mindset of `churning out' required documentation.  Such
+`one-time' documentation rarely serves its intended purpose.
+
+---
+
+#---------------------------------------------------------------------
+
+** Why Use SML/||publish||?
+
+label:: why-use-sml
+
+Why Use SML/||publish||? Productivity.  Most people use a `modern'
+word processor, like Microsoft Word or OpenOffice.org Writer, to write
+documents. An unfortunate side effect of `modern' word processors is
+that authors spend time fiddling with styles and alternative
+presentations when they should be writing.[f:why-use-sml:1] I wish I
+could calculate the lost productivity due to easily distracted authors
+who waste their time playing with formatting options rather than doing
+the hard work of producing quality content.
+
+Here is a short list of reasons you might consider using
+SML/[cmd:publish] rather than a traditional word processor:
+
+- !!Productivity.!!  SML eliminates most presentation options, forcing
+  authors to focus on structure and content, making them more
+  productive. The absence of presentation information also enables you
+  to more easily re-use the content.
+
+- !!Re-usability.!!  Word processors do not provide an easy way to
+  re-use document content.  If you want to use the same content in
+  multiple documents, you cut-and-paste from one document to the
+  other. Now you must maintain the content in two places.
+  SML/[cmd:publish] enables you to modularize your content to re-use
+  chunks wherever you would like.
+
+- !!Modularity.!! You should modularize the content of most major
+  works (books, reference documents, requirements documents) to enable
+  many people to work on different parts of the document at the same
+  time.  If you store your 600+ page reference document in Microsoft
+  Word, only one person at a time can make changes.  With the help of
+  CVS[f:why-use-sml:2] or Subversion[f:why-use-sml:3],
+  SML/[cmd:publish] enables multiple people to work on the ~~same~~
+  part of the document at the ~~same~~ time and automatically merge
+  the changes.
+
+- !!Revision Control.!! You can benefit from a disciplined approach to
+  document creation and management by keeping your SML files under
+  revision control.  You'll gain these benefits:
+
+  - Know who made each change, when and why.
+
+  - If necessary, revert documents back to a previous revision.
+
+  - Retrieve a previous revision.
+
+  - Gain insight into work performed on a project by reviewing the
+    change log.
+
+  - Keep automatic backups.
+
+- !!Plain Text.!! The content of an SML document is plain text rather
+  than a proprietary format like Microsoft Word.
+
+  - Plain text is easier to manipulate using simple programs and
+    scripts.
+
+  - Plain text is easier to re-use in other applications like
+    spreadsheets and databases.
+
+  - Nothing is hidden.  Unlike binary file formats, nothing is hidden
+    in a plain text document.
+
+- !!Automation.!! Since SML is plain text, it is easy to automate the
+  construction and publication of documents.  This is the key to
+  quickly producing high-quality documents with few people.
+
+- !!High Quality Hardcopy.!!  SML/[cmd:publish] uses the
+  [cmd:pdflatex] program, part of the TeX/LaTeX family of typesetting
+  applications to create high-quality hardcopy (via PDF).  This is the
+  same software used to typeset many text books.  It produces higher
+  quality typeset documentation than a word-processing program like
+  Microsoft Word.
+
+- !!Traceability.!! SML features rich traceability features for
+  systems engineering documentation.
+
+When you pick up a good looking document, you know something is
+different.  But, what makes it ``professional looking?''  You know
+that your college textbooks look better than your word-processed term
+papers, but can you enumerate the design decisions that made the
+textbook look ``professional?''
+
+You need a surprising amount of expertise to produce professional
+looking typeset (or online) documents. Few people are experts in
+~~both~~ the subject of their writing ~~and~~ the art of typographic
+design or online presentation.  Good content gets presented badly; and
+authors, who should be writing, waste their time with styles and
+presentation options trying to make their documents look ``good.''
+
+SML eliminates most presentation options.  This forces you to
+concentrate on the structure and content rather than the
+presentation. Sorry, it's for your own good :-).  Within the
+||publish|| program, I've codified rules for typesetting easy-to-read,
+professional looking documents.  You'll be surprised and pleased at
+the quality of documents you can produce.
+
+The ||publish|| program can create five different renditions: PDF,
+HTML, RTF, XML and CSV.[f:why-use-sml:4] The PDF rendition is created
+using LaTeX (actually [g:PDFLaTeX]) to produce very high quality
+typeset output.
+
+You can use this system to publish any document, but it was
+specifically designed to publish ~~training material~~, ~~requirements
+documents~~, ~~project documentation~~, ~~test results~~, and
+~~automatically generated documentation~~.
+
+- For ~~training material~~, it provides special structures for
+  exercises, demonstrations, and presentation slides.
+
+- For ~~requirements documents~~, it provides a way to establish
+  formal traceability between ~~problems~~ (i.e. requirements),
+  ~~solutions~~ (i.e. system components), and ~~tests~~.  It also has
+  a mechanism for prioritizing requirements based on priority and
+  status.
+
+- For ~~project documentation~~, it provides a way to track tasks.
+
+- For ~~test results~~, it provides a way to automatically generate
+  test result documentation by merging tests and result summaries.
+
+- The ``||script::||'' and ``||generate::||'' [g:sml:element]s provide
+  powerful ways to ~~automatically generate~~ high-quality
+  documentation.
+
+index:: presentation; structure; content
+
+SML is a ~~structured text~~ language designed to describe document
+content and structure ~~but not the presentation~~. With the exception
+of the limited presentation features listed in
+[ref:tab-presentation-features], it intentionally takes away the
+ability to specify document presentation.
+
+SML is a carefully designed, extremely minimal, descriptive markup
+language.  It was designed for simplicity of editing with a plain text
+editor.  SML text files are like the source code for documents
+(i.e. the ``manuscript''), and the ||publish|| program is like a
+compiler that `builds' (renders) the documents in a variety of
+renditions.
+
+Although SML is a markup language (like SGML, XML, or HTML), the
+actual markup has been reduced to a bare minimum to improve the
+readability of the text and simplicity of editing.  For this reason,
+the language is not as flexible as XML.  In return for this loss of
+flexibility, however, you gain ease of use.  Normal people don't like
+to edit raw XML in a text editor because it's too complicated, and
+it's too easy to introduce errors.[f:why-use-sml:5] My hope is that
+``normal'' people (well, programmers anyway) are willing to edit SML
+documents using a simple text editor.
+
+One benefit is reuseability.  Not only can you publish SML documents
+in a variety of forms, but you can also modularize the content and
+reuse bits and pieces in different documents.  Using the
+``||include::||'' [g:sml:element], the actual text can be stored in
+one file and reused in many others.
+
+Descriptive markup can be used to describe format, structure, and
+content:
+
+- Elements of ~~structure~~ are the building blocks of a document
+  like titles, paragraphs, sections, lists, list items, tables, and
+  figures.
+
+- Elements of ~~content~~ describe the meaning of the text like
+  exercises, demonstrations, problems, and solutions.
+
+- Elements of ~~presentation~~ (or style) describe how text is to be
+  presented like bold, italics, font-family, and font-size.
+
+Beginning in [ref:summary-of-structure-features] I'll enumerate the
+features of SML in terms of format, structure, and content.  But
+before we get into lists of these features, let's take a look at a
+simple example.
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# footnotes
+
+footnote::1: You can read a great rant on this issue by Allin Cottrell
+entitled, ``Word Processors: Stupid and Inefficient'' at
+[url:http://www.ecn.wfu.edu/~cottrell/wp.html].
+
+footnote::2: Concurrent Versions System, see:
+[url:http://en.wikipedia.org/wiki/Concurrent_Versions_System]
+
+footnote::3: See: [url:http://subversion.tigris.org/]
+
+footnote::4: Some of these formats are more mature than others.  PDF,
+HTML, and CSV rendering are quite good.  XML rendering is pretty good,
+while RTF rendering is only in the early stages of development.
+
+footnote::5: Actually, I've discovered ``normal'' people don't like to
+edit text in a text editor either, but that opens up a whole other set
+of problems.
+
+#---------------------------------------------------------------------
+
+** A Step-By-Step Example
+
+label:: example
+
+index::begin: sample document
+
+Here is a step-by-step example of creating and publishing an SML
+document using the ||publish|| program.
+
+index:: example; Emacs; text editor
+
+step:: ~~Start Your Favorite Text Editor.~~ You can use notepad or
+wordpad on Windows, or any of the gazillion text editors that come
+with most Linux distributions.  My favorite text editor is Emacs.
+You'll discover there are some built-in advantages to using Emacs to
+edit SML documents.
+
+step:: ~~Type The Following.~~ [ref:lis-sample-document] shows a simple
+document with a title, author, a handful of paragraphs and a list.
+Type this (or cut and paste it) into the text editor.
+
+---LISTING
+title:: A Sample Document
+label:: lis-sample-document
+file:: files/sample-document.txt
+---LISTING
+
+step:: ~~Save.~~ Save the text in a file named ||sample-document.txt||.
+
+index:: GUI
+
+step:: ~~Start Publish.~~ Start the ||publish|| program.  If you've got the
+Windows executable version simply double-click on the ||publish.exe||
+file.  If you've got the Perl script version, run `||perl publish.pl||
+[[Enter]]'.  You'll see the graphical user interface appear
+([ref:fig-publish-window]).[f:example:1]
+
+step:: ~~Select File to Publish.~~ Click ~~browse...~~ and use the file
+chooser to select the ||sample-document.txt|| file you just created.
+
+step:: ~~Select PDF.~~ Check the ~~PDF~~ box to publish a PDF rendition
+of the document (it's checked by default).
+
+step:: ~~Publish.~~ Press the green ~~Publish Document~~ button.  The
+button will turn red and say `Publishing...'  while the program is
+publishing the document.  If everything is set up correctly, after a
+little while you'll be presented with a PDF rendition of the sample
+document ([ref:fig-sample-document-pdf]).
+
+---FIGURE
+title:: PDF Rendition Of The Sample Document
+label:: fig-sample-document-pdf
+image:: files/images/sample-document-pdf.png
+width:: 6in
+---FIGURE
+
+You can also publish an HTML rendition.
+
+step:: ~~Choose HTML.~~ Un-check the ~~PDF~~ box and check the ~~HTML~~
+one.
+
+step:: ~~Publish.~~ Press the green ~~Publish Document~~ button.
+Again, if everything is set up right, after a little while you'll be
+presented with an HTML rendition of the sample document
+([ref:fig-sample-document-html]).
+
+---FIGURE
+title:: HTML Rendition Of The Sample Document
+label:: fig-sample-document-html
+image:: files/images/sample-document-html.png
+width:: 4in
+---FIGURE
+
+index::end: sample document
+
+Now you know the mechanics of how to publish an SML document.  All
+that's left is to learn the rules of SML, which are really not very
+complicated.
+
+The following sections summarize the features supported by SML,
+divided into format, structure, content, and special feature
+categories.  For the gory details see [title:structuring-text].
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# footnotes
+
+footnote::1: If you're one of those crazy computer types who knows how
+to run programs from the mythical `command line,' you can publish the
+document with the command `||publish -r pdf sample-document.txt||
+[[Enter]]'
+
+#---------------------------------------------------------------------
+
+** Summary of Structure Features
+
+label:: summary-of-structure-features
+
+index::begin: structure features
+
+Elements of ~~structure~~ are the building blocks of a document like:
+titles, paragraphs, sections, lists, list items, tables, and
+figures. The elements of structure supported by SML are summarized in
+[ref:tab-structure-features].
+
+---TABLE
+
+title:: Summary of Structure Features
+
+label:: tab-structure-features
+
+column::1:width: 50
+column::2:width: 50
+
+column::1:head: Feature
+column::2:head: Example
+
+include:: incl/sml-structure-summary.txt
+
+---TABLE
+
+index::end: structure features
+
+Any block of text that begins with three or more dashes is called an
+~~environment~~.
+
+Footnote markers can go in tables but footnote text should come after
+the table; likewise, footnote markers can go in list items, but the
+footnote text should be placed after the end of the list.
+
+As a matter of style, I've gotten into the habit of prefixing all
+labels with three letters to indicate the type of document component
+being labeled: ||tab-|| for table labels, ||fig-|| for figure labels,
+||lis-|| for listing labels, ||sec-|| for section labels, etc.
+
+#---------------------------------------------------------------------
+
+** Summary of Content Features
+
+index::begin: content features
+
+Content features enable you to insert blocks of content with semantic
+significance like: 
+
+:
+
+- exercises
+
+- demonstrations
+
+- presentation slides
+
+:
+
+- keypoints
+
+- quotations
+
+:
+
+- problems
+
+- solutions
+
+:
+
+- tests
+
+- results
+
+:
+
+- tasks
+
+- roles
+
+---
+
+The content features supported by SML are summarized in
+[ref:tab-content-features].
+
+---TABLE
+
+title:: Summary of Content Features
+
+label:: tab-content-features
+
+column::1:width: 50
+column::2:width: 50
+
+column::1:head: Feature
+column::2:head: Example
+
+include:: incl/sml-content-summary.txt
+
+---TABLE
+
+index::end: content features
+
+#---------------------------------------------------------------------
+
+** Summary of Presentation Features
+
+label:: summary-of-presentation-features
+
+index::begin: presentation features
+
+index:: style
+
+Elements of ~~presentation~~ (or style) describe how text is to be
+presented.  These include features like: bold, italics, font-family,
+and font-size.  [ref:tab-presentation-features] lists supported presentation
+features.
+
+---TABLE
+
+title:: Summary of Presentation Features
+
+label:: tab-presentation-features
+
+column::1:width: 50
+column::2:width: 50
+
+column::1:head: Feature
+column::2:head: Example
+
+include:: incl/sml-presentation-summary.txt
+
+---TABLE
+
+index::end: presentation features
+
+#---------------------------------------------------------------------
+
+** Summary of Special Features
+
+index::begin: special features
+
+SML has special features designed to support tasks like: development
+of instructor notes for training courses, system requirements and
+design documentation, and publishing of full length books.
+[ref:tab-special-features] summarizes these special features.
+
+---TABLE
+
+title:: Summary of Special Features
+
+label:: tab-special-features
+
+column::1:width: 50
+column::2:width: 50
+
+column::1:head: Feature
+column::2:head: Example
+
+include:: incl/sml-special-summary.txt
+
+---TABLE
+
+You'll see features in SML specifically designed to help you produce
+course materials such as presentation slides, demonstrations, and
+exercises.  I've found the ||publish|| program useful for a lot of
+other jobs as well, and so I've added more and more features over
+time.  My goal is to keep SML very simple while providing a rich set
+of features useful to people creating formal documentation of all
+kinds.
+
+To avoid infinite loops caused by scripts calling other scripts, there
+is a ||$MAX_PASS_TWO_ITERATIONS|| variable which defaults to 10 to
+limit the number of recursions.
+
+index::end: special features
+
+#---------------------------------------------------------------------
+
+** Alternatives
+
+There are alternative programs with features similar to the ||publish||
+program:
+
+- Emacs Muse ([url:http://www.mwolson.org/projects/MuseMode.html])
+
+- txt2tags ([url:http://txt2tags.sourceforge.net/])
+
+#---------------------------------------------------------------------
+
+** Pros and Cons
+
+label:: pros-and-cons
+
+index::begin: pros and cons
+
+Why use the ||publish|| program instead of a word processor like
+MSWord or OpenOffice.org?  Here are some pros and cons of using
+SML/||publish|| instead of a word processor to produce documents.
+
+- !!PRO:!! ~~Concentrate on writing content.~~ - SML/||publish||
+removes the distractions and time-consuming struggles of choosing
+the appearance of your content.
+
+- !!CON:!! ~~Using a Text Editor.~~ - You must edit plain text rather
+than using a WYSIWYG word processor.  Few individuals apart from
+programmers are comfortable using a plain text editor.
+
+- !!PRO:!! ~~No Presentation Inconsistencies.~~ - Inconsistencies in
+the appearance of your documents are eliminated since the ||publish||
+program renders the presentation of the document for you.
+
+- !!CON:!! ~~Learning the Structured Manuscript Language~~ - You must
+learn the Structured Manuscript Language.  Even though it is designed
+to be as simple as possible, you still have to learn the SML rules.
+
+- !!PRO:!! ~~Easier to Learn Than LaTeX.~~ - If you want to get
+started producing beautiful documents with LaTeX, using the
+||publish|| program is a great way to start.  Learning the SML rules
+is easier than learning LaTeX.
+
+- !!PRO:!! ~~Your content is future proof.~~ - Plain text is going to
+be around for a long long time.
+
+- !!PRO:!! ~~Modularize your content.~~ - The `include' feature
+enables you to modularize your content and make components reusable.
+
+- !!CON:!! ~~Poor for layout intensive work.~~ - The ||publish||
+program is not good for layout intensive documents like pamphlets or
+newsletters.
+
+- !!PRO:!! ~~Nothing is hidden.~~ - Since all the content is plain
+text, nothing is hidden.  There are no mysterious problems due to the
+tangled mess you get with some word processor formats.
+
+- !!CON:!! ~~Limitations of SML~~ - You may need some feature not
+supported by SML.  If you find this to be the case, let me know
+(drj826@acm.org) and I might implement that feature.
+
+- !!PRO:!! ~~Publish to many renditions.~~ - Use the same source
+document to produce HTML, PDF, CSV, RTF, XML, and even publish the
+structured data to CSV.[f:pros-and-cons:1]
+
+- !!PRO:!! ~~Separate style from content.~~ - Want to change the style
+across the board?  Change the style sheet without touching the
+content.[f:pros-and-cons:2]
+
+- !!PRO:!! ~~Automatically produce documents.~~ - It's easy to write
+programs that output data in SML.  Furthermore, you can run the
+||publish|| program from the command line or call it from other
+programs.
+
+- !!PRO:!! ~~Documents that write themselves!~~ - Using the `script'
+feature, you can produce documents that write themselves (even
+recursively).  Imagine writing a computer security vulnerability
+assessment report that automatically performs the vulnerability
+assessment while publishing the report!
+
+- !!PRO:!! ~~High Quality Typeset Output~~ - The program uses LaTeX to
+produce extremely high quality typeset output.  This level of
+typesetting quality is hard to achieve even with the best word
+processors.
+
+index::end: pros and cons
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# footnotes
+
+footnote::1: HTML and PDF renditions are mature, as of this writing
+output to RTF was still in the initial phases of development, CSV
+output is for structured data, and XML output is to a very simple XML
+DTD (DOCBOOK support is envisioned in the future).
+
+footnote::2: As of this writing, stylesheet support had not been
+implemented but is planned for the future.
+
+#---------------------------------------------------------------------
+
+** What Makes A Document Easy To Read?
+
+Despite my best efforts to make the ||publish|| program a tool that
+produces professional looking, easy-to-read documents, it still gives
+you the flexibility to produce hard-to-read documents.  What makes a
+document easy to read?  Here are some rules of thumb for creating
+professional looking, readable documents:
+
+- ~~Line Length.~~ Use lines that contain no more than 75 characters,
+  including punctuation and spaces.
+
+- ~~Vertical Whitespace.~~
+
+- ~~Visual Structure Reflects Logical Structure.~~
+
+#---------------------------------------------------------------------
+
+** Characteristics of Poor Technical Documentation
+
+Technical documentation is any documentation in which the meaning of
+terms must be used with precision.  Characteristics of poor technical
+documentation include:
+
++ No glossary.
+
++ No index.
+
++ No front-matter (table of contents, list of tables, etc.)
+
++ Inconsistent use of styles.
+
+#---------------------------------------------------------------------
+
+* Running The Publish Program
+
+label:: running-publish
+
+#---------------------------------------------------------------------
+
+** Using the Graphical User Interface
+
+label:: using-the-gui
+
+Publishing is easy: start it up, choose a file, choose one or more
+renditions (i.e. HTML, PDF, RTF, XML and/or CSV), then push the
+publish button. To launch the program double click on the publish icon
+and the ||publish|| program window ([ref:fig-publish-window]) will pop
+up.
+
+step:: Start the Program.  The easiest way to use the ||publish||
+program is to use the graphical user interface.  Double-click on
+||publish.exe||.[f:using-the-gui:1]
+
+---FIGURE
+label:: fig-publish-window
+width:: 5in
+image:: files/images/publish-1.png
+title:: ||publish|| Program Window
+---FIGURE
+
+step:: Choose a File to Publish.  Click the ``Browse'' button and
+select the text file you want to publish.  The file selector box will
+look different depending on the operating system you're using.  The
+one shown in [ref:fig-choose-file] is from Windows XP.
+
+---FIGURE
+label:: fig-choose-file
+width:: 4in
+image:: files/images/publish-3.png
+title:: Choose A File To Publish
+---FIGURE
+
+step:: Choose One or More Renditions.  You can choose among HTML, PDF,
+RTF, and/or XML output renditions.  A tab for each of these renditions
+allows you to specify options that are specific to each.
+
+step:: Choose Options.  For each rendition (HTML, PDF, RTF, XML...)
+there are options to choose from.  Click on the ~~PDF Options~~ tab to
+select PDF styles and options.
+
+step:: Publish the File.  Click the green ``Publish Document'' button
+to publish the chosen text file.  You'll see text messages scroll by
+as the document is published.[f:using-the-gui:2] The green ``Publish
+Document'' button turns into a red ``Publishing...'' button until
+publishing is complete.
+
+---FIGURE
+label:: fig-messages
+image:: files/images/publish-2.png
+width:: 5in
+title:: Publishing Messages Scroll By In Window
+---FIGURE
+
+The HTML rendition of the published document will automatically be
+displayed in a web browser when publishing is complete.  The PDF
+rendition will automatically be displayed in Adobe Acrobat.
+
+---FIGURE
+label:: fig-doc-in-browser
+image:: files/images/publish-4.png
+title:: Published Document Is Automatically Displayed In Browser
+---FIGURE
+
+If you are __re-publishing__ a document, the program will skip certain
+steps it doesn't need to re-accomplish like creating thumbnail images,
+scaling images, and copying images to appropriate output directories.
+This makes publishing go a lot faster.
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# footnotes
+
+footnote::1: If you get an error when you run the ||publish|| program,
+you may need to install some additional software on which it depends.
+See [ref:dependencies].
+
+footnote::2: These are the messages produced by publishing this
+document you're reading.
+
+#---------------------------------------------------------------------
+
+** Running ||publish|| From the Command Line
+
+You can run ||publish|| like this:
+
+  publish mybook.txt
+
+and it should do everything necessary to turn the text into both PDF
+and HTML.  Options should be available to stop the process somewhere
+in the middle if you choose.
+
+All command line options are listed in [ref:tab-command-line-options].
+
+---TABLE
+
+title:: ||publish|| Program Command Line Options
+
+label:: tab-command-line-options
+
+column::1:head: option
+
+column::2:head: description
+
+: ||-h, --help||
+
+: display help information
+
+---
+
+: ||-g, --gui||
+
+: display the GUI
+
+---
+
+: ||-r, --render=pdf||
+
+: output renditions (pdf,html,xml,rtf,csv)
+
+---
+
+: ||-d, --directory=dir||
+
+: output directory
+
+---
+
+: ||-o, --output=file||
+
+: output filename
+
+---
+
+: ||-v, --verbose||
+
+: print messages
+
+---
+
+: ||-V, --version||
+
+: print program version and exit
+
+---
+
+:
+
+:
+
+---
+
+: ||--pdf_style=default||
+
+: PDF style to use
+
+---
+
+: ||--rtf_style=default||
+
+: RTF style to use
+
+---
+
+: ||--html_style=default||
+
+: HTML style to use
+
+---
+
+: ||--xml_style=default||
+
+: XML style to use
+
+---
+
+:
+
+:
+
+---
+
+: ||--titlepage||
+
+: render title page
+
+---
+
+: ||--notitlepage||
+
+: don't render title page
+
+---
+
+:
+
+:
+
+---
+
+: ||--toc||
+
+: render a table of contents
+
+---
+
+: ||--notoc||
+
+: don't render a table of contents
+
+---
+
+: ||--toc_level=N||
+
+: maximum TOC level (deepness)
+
+---
+
+:
+
+:
+
+---
+
+: ||--secnums||
+
+: include section numbers
+
+---
+
+: ||--nosecnums||
+
+: don't include section numbers
+
+---
+
+: ||--secnum_level=N||
+
+: maximum section number level (depth)
+
+---
+
+:
+
+:
+
+---
+
+: ||--figures||
+
+: render figures
+
+---
+
+: ||--nofigures||
+
+: don't render figures
+
+---
+
+: ||--lof||
+
+: render a list of figures
+
+---
+
+: ||--nolof||
+
+: don't render a list of figures
+
+---
+
+:
+
+:
+
+---
+
+: ||--tables||
+
+: render tables
+
+---
+
+: ||--notables||
+
+: don't render tables
+
+---
+
+: ||--lot||
+
+: render a list of tables
+
+---
+
+: ||--nolot||
+
+: don't render a list of tables
+
+---
+
+:
+
+:
+
+---
+
+: ||--listings||
+
+: render listings
+
+---
+
+: ||--nolistings||
+
+: don't render listings
+
+---
+
+: ||--lolists||
+
+: render a list of listings
+
+---
+
+: ||--nololists||
+
+: don't render a list of listings
+
+---
+
+:
+
+:
+
+---
+
+: ||--slides||
+
+: render slides
+
+---
+
+: ||--noslides||
+
+: don't render slides
+
+---
+
+: ||--loslides||
+
+: render a list of slides
+
+---
+
+: ||--noloslides||
+
+: don't render a list of slides
+
+---
+
+:
+
+:
+
+---
+
+: ||--exercises||
+
+: render exercises
+
+---
+
+: ||--noexercises||
+
+: don't render exercises
+
+---
+
+: ||--loexercises||
+
+: render list of exercises
+
+---
+
+: ||--noloexercises||
+
+: don't render list of exercises
+
+---
+
+:
+
+:
+
+---
+
+: ||--demos||
+
+: render demos
+
+---
+
+: ||--nodemos||
+
+: don't render demos
+
+---
+
+: ||--lodemos||
+
+: render a list of demos
+
+---
+
+: ||--nolodemos||
+
+: don't render a list of demos
+
+---
+
+:
+
+:
+
+---
+
+: ||--footnotes||
+
+: render footnotes
+
+---
+
+: ||--nofootnotes||
+
+: don't render footnotes
+
+---
+
+: ||--lofootnotes||
+
+: render a list of footnotes
+
+---
+
+: ||--nolofootnotes||
+
+: don't render a list of footnotes
+
+---
+
+:
+
+:
+
+---
+
+: ||--todo||
+
+: render todo items
+
+---
+
+: ||--notodo||
+
+: don't render todo items
+
+---
+
+: ||--lotodo||
+
+: render a list of todo items
+
+---
+
+: ||--nolotodo||
+
+: don't render a list of todo items
+
+---
+
+:
+
+:
+
+---
+
+: ||--problems||
+
+: render problems
+
+---
+
+: ||--noproblems||
+
+: don't render problems
+
+---
+
+: ||--loproblems||
+
+: render list of problems
+
+---
+
+: ||--noloproblems||
+
+: don't render a list of problems
+
+---
+
+:
+
+:
+
+---
+
+: ||--solutions||
+
+: render solutions
+
+---
+
+: ||--nosolutions||
+
+: don't render solutions
+
+---
+
+: ||--losolutions||
+
+: render list of solutions
+
+---
+
+: ||--nolosolutions||
+
+: don't render a list of solutions
+
+---
+
+:
+
+:
+
+---
+
+: ||--tests||
+
+: render tests
+
+---
+
+: ||--notests||
+
+: don't render tests
+
+---
+
+: ||--lotests||
+
+: render list of tests
+
+---
+
+: ||--notests||
+
+: don't render a list of tests
+
+---
+
+:
+
+:
+
+---
+
+: ||--sources||
+
+: render bibliographic sources
+
+---
+
+: ||--nosource||
+
+: don't render bibliographic sources
+
+---
+
+: ||--losources||
+
+: render a list of sources
+
+---
+
+: ||--nolosources||
+
+: don't render a list of sources
+
+---
+
+:
+
+:
+
+---
+
+: ||--generate||
+
+: render requested generated content
+
+---
+
+: ||--nogenerate||
+
+: don't render requested generated content
+
+---
+
+:
+
+:
+
+---
+
+: ||--scripts||
+
+: run scripts, insert output
+
+---
+
+: ||--noscripts||
+
+: don't run scripts
+
+---
+
+:
+
+:
+
+---
+
+: ||--glossary||
+
+: render glossary
+
+---
+
+: ||--noglossary||
+
+: don't render glossary
+
+---
+
+:
+
+:
+
+---
+
+: ||--index||
+
+: render index
+
+---
+
+: ||--noindex||
+
+: don't render index
+
+---
+
+:
+
+:
+
+---
+
+: ||--pdf_fontsize=11||
+
+: font size for PDF rendition (10,11,12)
+
+---
+
+: ||--pdf_fontfam=times||
+
+: font family for PDF rendition: ||computer_modern||, ||times||,
+||bookman||, ||chancery||, ||charter||, ||new_century|| or
+||palatino||
+
+---
+
+: ||--rtf_fontsize=11||
+
+: font size for RTF rendition
+
+---
+
+: ||--rtf_fontfam=times||
+
+: font family for RTF rendition
+
+---
+
+:
+
+:
+
+---
+
+: ||--run_pdflatex||
+
+: run pdflatex to generate PDF file
+
+---
+
+:
+
+:
+
+---
+
+: ||--cleanup||
+
+: remove temporary files
+
+---
+
+: ||--nocleanup||
+
+: don't remove temporary files
+
+---
+
+:
+
+:
+
+---
+
+: ||--launch_browser||
+
+: launch browser after publishing
+
+---
+
+: ||--nolaunch_browser||
+
+: don't launch browser arfter publishing
+
+---
+
+:
+
+:
+
+---
+
+: ||--launch_pdfview||
+
+: launch a PDF viewer after publishing
+
+---
+
+: ||--nolaunch_pdfview||
+
+: don't launch a PDF viewer after publishing
+
+---
+
+:
+
+:
+
+---
+
+: ||--launch_rtfview||
+
+: launch RTF viewer after publishing
+
+---
+
+: ||--nolaunch_rtfview||
+
+: don't lanuch RTF viewer after publishing
+
+---TABLE
+
+** Output Goes To The Output Directory
+
+The ||publish|| program creates a directory containing all of its
+output.  For example, if you publish an SML file called
+``my-notes.txt'' it will create the directory structure shown in
+[ref:fig-dir-output] as output.
+
+---FIGURE
+
+title:: Directory Structure Created To Hold Published Output
+
+label:: fig-dir-output
+
+        my-notes
+          |
+          +-- makepdf.bat
+          +-- makepdf.sh
+          +
+          +-- my-notes.html
+          +-- my-notes.exercises.html
+          +-- my-notes.figures.html
+          +-- my-notes.footnotes.html
+          +-- my-notes.listings.html
+          +-- my-notes.slides.html
+          +-- my-notes.sidebars.html
+          +-- my-notes.quotations.html
+          +-- my-notes.problems.html
+          +-- my-notes.solutions.html
+          +-- my-notes.priorities.html
+          +-- my-notes.tests.html
+          +-- my-notes.tables.html
+          +-- my-notes.toc.html
+          +-- my-notes.todo.html
+          +
+          +-- my-notes.tex
+          +
+          +-- my-notes.rtf
+          +
+          +-- files
+          |     |
+          |     +-- included-file-1.txt
+          |     +-- included-file-2.txt
+          |     +-- included-file-3.txt
+          |
+          +-- images
+          |     |
+          |     +-- image_1.png
+          |     +-- image_2.png
+          |     +-- image_3.png
+          |
+          +-- images-scaled
+          |     |
+          |     +-- image_1.png
+          |
+          +-- images-thumbnails
+          |     |
+          |     +-- image_1.png
+          |     +-- image_2.png
+          |     +-- image_3.png
+
+---FIGURE
+
+** How It Works
+
+label:: how-it-works
+
+We kind of jumped right into how to run the program and publish a
+document.  Let's take a moment to step back and look at the big
+picture of what's going on.  [ref:fig-publishing-flowchart] shows a
+flowchart of the steps in creating and publishing both HTML and LaTeX
+documents with the ||publish|| program.
+
+---FIGURE
+label:: fig-publishing-flowchart
+title:: Publishing Flowchart
+image:: files/images/publishing-flowchart.png
+width:: 5in
+---FIGURE
+
+This publishing process is a lot like creating, organizing and
+compiling source code into a working program.  The process of
+producing a document also includes creating, organizing and compiling
+(publishing) some source files.
+
+The process involves three steps if you want to create HTML files and
+four steps if you want to create a PDF file.  The HTML file creation
+steps are:
+
++ create text source files
+
++ run publishing program (produces HTML files)
+
++ view the published HTML files in web browser
+
+There are four steps if you want to create a PDF file:
+
++ create text source files
+
++ run publishing program (produce a LaTeX file)
+
++ run pdflatex to render the LaTeX file into PDF
+
++ view PDF file in a PDF viewer
+
+The first step is to create the files that make up your document.
+These source files might be:
+
+- SML files
+
+- image files
+
+- other text files
+
+- files in any other format or rendition you want your document to
+refer to
+
+[clearpage]
+
+Publishing (implemented by the ``publish'' function) occurs in three
+passes through the original text file(s).  The second pass is repeated
+as necessary to resolve references, and create automatically generated
+content:
+
+  +----------------+    +----------------+    +----------------+
+  | PASS 1:        |    | PASS 2:        |    | PASS 3:        |
+  |                |    |                |    |                |
+  | Resolve        |--->| Resolve        |--->| Publish        |
+  | included       |    | refs/labels,   |    | renditions     |
+  | content        |    | get/gen data   |    |                |
+  +----------------+    +----------------+    +----------------+
+                           ^           |
+                           |           |
+                           +-----------+
+                        repeat as necessary
+
+The rest of this document teaches you the rules of SML.
+
+#---------------------------------------------------------------------
+
+** Organizing the Input Files
+
+Simple documents can be fully contained in a single file.  In more
+complicated situations, however, you might have additional files that
+get combined to create your document:
+
+- files containing images that go in your document
+
+- files containing text listings that go in your document
+
+- files containing documents that are linked to your document
+
+- files containing content that is included in your document
+
+There are no rigid requirements for how to organize the files that go
+into your document.  You can have them all in one directory or you can
+organize them into other directories.
+
+The only requirement is that you specify the path to the referenced
+file as in these examples:
+
+  image: files/images/my-picture.png
+
+  include: ../../common/copyright.txt
+
+  link: lectures/module_01.ppt
+
+#---------------------------------------------------------------------
+
+** Dependencies
+
+label:: dependencies
+
+The ||publish|| program depends on some other software.  You may need
+to install some additional software if the program doesn't work.
+
+To publish PDF documents you must install a TeX/LaTeX publishing suite
+that includes the ||pdflatex|| program.
+
+To run the ||publish.pl|| Perl script instead of a binary executable
+version of the program, you'll need to install some additional Perl
+modules.
+
+Here are step-by-step instructions for getting the ||publish.pl||
+script working on a fresh install of Ubuntu 7.04.
+
+step:: Install tetex: 
+
+ sudo apt-get install tetex-bin tetex-extra latex-xcolor texlive-latex-extra
+
+step:: Install Perl Modules:
+
+ sudo apt-get install perl-tk libimage-size-perl libregexp-common-perl
+
+#---------------------------------------------------------------------
+
+* The Structured Manuscript Language
+
+label:: structuring-text
+
+---EPIGRAPH
+
+text:: Things should be made as simple as possible, but not any
+simpler.
+
+author:: Albert Einstein
+
+---EPIGRAPH
+
+SML is simple, but not too simple. It is designed with the philosophy
+that simple things should be simple and hard things should be
+possible.  SML ~~enables~~ you to describe document structures but
+~~disables~~ you from prescribing most document presentation options.
+This chapter shows you the gory details of the rules summarized in
+[r:getting-started], ``[t:getting-started].''
+
+Ready to write?  Just start writing!  There are no special text
+incantations required to start a document.  SML documents are very
+simple text.  Paragraphs are separated by blank lines.  That is all
+you really need to know to get started.
+
+Want to add a title to your document?  Want to identify the author of
+the document?  These are simple ``data elements.''
+
+#---------------------------------------------------------------------
+
+** Data Elements
+
+label:: data-elements
+
+index:: Data Elements
+
+Data elements enable you to insert easy-to-read data fields into your
+narrative text.  For example, here are two data elements:
+
+  title:: A Sample Document
+
+  author:: Bilbo Baggins
+
+A data element starts with the element's name ending with a colon
+(i.e. `title:', or `author:').  The value of the data element is
+everything that follows, up to the next data element or a blank line.
+Since a blank line ends a data element, they can't be any more
+complicated than a paragraph.
+
+Data elements are used to:
+
+- specify information about the overall document in the document
+  `preamble' (title, author, date, copyright...)
+
+- insert text with special meaning (file, image, footnote,
+  glossary...)
+
+- describe attributes of special text environments like tables,
+  figures, and listings (width, size, language...)
+
+- describe structured data in special text regions like exercises,
+  quotations, problems, solutions, and tests (description, type,
+  status, parent...)
+
+Data elements are simple key/value pairs and the value of
+a data element is a paragraph.  Often, this paragraph is a single
+line, or even a single word or character.
+
+Some data elements can have attributes.  For instance, you can use the
+``column'' data element to specify the widths of a table columns like
+this:
+
+  column::1:width: 30
+  column::2:width: 30
+  column::3:width: 40
+
+In this example, the column numbers (1, 2, and 3), and the parameter,
+``width'' are attributes.
+
+Most data elements are single-valued, but some can be multi-valued;
+meaning, there can be many with the same name in the same section,
+environment or region.  For instance, a `source' environment (which
+describes a bibliographic source) can have multiple `author' data
+elements.  A `problem' region (which describes a problem to be solved)
+can have multiple `stakeholders' (people interested in getting the
+problem solved).
+
+#---------------------------------------------------------------------
+
+** Environments and Regions
+
+label:: environments-and-regions
+
+index:: Environments and Regions
+
+SML defines special blocks of text called ~~environments~~ and
+~~regions~~ to assign meaning to raw text.  Environments have
+~~structural~~ meaning (like figure, listing, and table) and regions
+have ~~semantic~~ meaning (like demo, exercise, and
+problem). Environments are simple and regions are complicated.
+Elsewhere in this document, regions are called ``items.''
+
+~~Environments,~~ which describe structural document elements, are:
+
+:
+
+- table
+- figure
+- listing
+
+:
+
+- preformatted
+- epigraph
+- assertion
+
+:
+
+- sidebar
+- source
+- attachment
+
+:
+
+- audio 
+- video
+- revisions
+
+:
+
+- include
+
+---
+
+Environments begin and end with three or more hyphens and the name of
+the environment like this example table:
+
+  ---table
+  title:: My Table
+  label:: tab-my-table
+
+  :: column 1 heading
+  :: column 2 heading
+  ---
+  : row 1 column 1
+  : row 1 column 2
+  ---
+  : row 2 column 1
+  : row 2 column 2
+  ---table
+
+~~Regions,~~ which describe semantic document elements, are:
+
+:
+
+- problem
+- solution
+- test
+
+:
+
+- result
+- task
+- role
+
+:
+
+- slide
+- demo
+- exercise
+
+:
+
+- keypoints
+- quotation
+
+---
+
+A region begins with three or more greater-than signs (>) and the name
+of the region.  A region ends with three or more less-than signs (<)
+and the name of the region.  For example:
+
+  >>>problem
+
+  title:: Conflict between Emacs and screen use of C-a
+
+  label:: problem-2006-01-02-001
+
+  description:: In Emacs, C-a is a commonly used keystroke that takes
+  you to the beginning of the line.  In screen, C-a is the prefix
+  command for special screen commands (like C-a d to detach the
+  terminal from the screen session).  I would prefer to use C-a for
+  Emacs and use some other command (like C-\) for the screen prefix
+  command.
+
+  <<<problem
+
+Environments are simple and regions are complicated:
+
+- ~~Environments cannot contain other environments.~~  This means you
+  can't put a table inside another table, or a figure inside a table,
+  or a listing inside a table.
+
+- ~~Regions can contain environments.~~  This means you can put a
+  table (environment) in a slide (region).
+
+- ~~Regions can contain regions.~~ Although the syntax supports this,
+  I think in most cases it's a bad idea to nest regions because it
+  makes the document too complicated.
+
+Every environment and region can have a title, label, and description.
+These titles are used in automatically generated lists (i.e. List of
+Tables, List of Exercises, etc.) and cross references.  Labels are
+used to uniquely identify the environment or region for the purpose of
+references.  The descriptions, can be used anywhere in the document to
+provide a one-paragraph description of the region.
+
+In addition to titles, labels, and description, environments and
+regions have ~~numerous~~ possible ~~data elements~~.  Think of these
+data elements as pieces of meta-data that further describe the
+environment or region.
+
+The following sections summarize the data elements for each
+environment and region.[f:environments-and-regions:1]
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# footnotes
+
+footnote::1: The absolute definitive source for data elements is the
+||%structure|| hash in the Perl source code of the publishing program
+itself.
+
+#---------------------------------------------------------------------
+
+** Document Preamble
+
+label:: preamble
+
+Let's start at the beginning. Every document automatically begins with
+a portion of text called the preamble.  The preamble contains metadata
+about the overall document like the title, author and date.  There is
+no special symbol marking the end of the preamble, it simply ends with
+the beginning of any non-preamble document element like a heading,
+paragraph, region, environment, table, figure, etc.
+
+The preamble is special because it is not considered an environment or
+a region.  It is the beginning of the document which contains
+meta-data about the document.  The document preamble ends with the
+first occurrence of one of these:
+
+:
+
+- the beginning of a region
+- the beginning of an environment
+- a section heading
+- an unordered list item
+- an ordered list item
+
+:
+
+- a todo list item
+- a glossary entry
+- an index entry
+- a table
+- a quotation
+
+:
+
+- a paragraph
+- a file data element
+- an image
+- a footnote
+
+---
+
+Here's an example of a typical preamble, in fact it's the preamble of
+~~this~~ document:
+
+  title:: Structured Manuscript Language (SML)
+
+  subtitle:: Professional Documents Using SML [linebreak] and the
+  [cmd:publish] Program
+
+  author:: Don Johnson (drj826@acm.org)
+
+  copyright:: 2002-2011, Don Johnson
+
+  doctype:: book
+
+  logo_image_center:: files/images/lost-creek-meadow.jpg
+
+  version:: 1.2
+
+  revision:: $Revision: 15146 $
+
+  date:: $Date: 2013-07-07 11:42:01 -0600 (Sun, 07 Jul 2013) $
+
+So what are all the possible elements that can go into the preamble?
+Here is a complete list:
+
+index:: preamble!data elements
+
+= title = The title of the work.
+
+= subtitle = The sub-title of the work.
+
+= author = (multivalued) the author's name, or author's names.  Given
+names should ~~not~~ be shortened to initials unless the author's name
+is widely known in such a form.  Using a full first name helps to
+ensure that a name will not be conlated with another in bibliographic
+listings and library catalogs [cite:chicago, 1.11].
+
+= editor = (multivalued) The editor's name, or editor's names.
+
+= translator = (multivalued) The translator(s) of the work.
+
+= publisher = The publisher's full name (imprint) should be given.
+
+= publisher_location = The name of the city (or cities) where the
+publisher's principal offices are located. [cite:chicago, 1.13]
+
+= publisher_logo = File containing an image of the publisher's logo.
+
+= publisher_address = The address of the publisher -- and sometimes
+the addresses of overseas agents.  An address may be abbreviated,
+consisting, for example, only of city and perhaps postal
+code. [cite:chicago, 1.15]
+
+= edition = In a new edition of a work previously published, the
+number of the edition (e.g. Third Edition). [cite:chicago, 1.10]
+
+= biographical_note = A brief note on the author or authors
+(``author'' here includes editors, compilers, and translators),
+listing previous publications and, if relevant, academic
+affiliation. [cite:chicago, 1.14]
+
+= copyright = The Copyright Act of 1989 does not require that
+published works carry a copyright notice in order to secure copyright
+protection.  Nevertheless, most publishers continue to carry the
+notice to discourage infringement.  The usual notice consists of three
+parts; the symbol [c], the year the work is published, and the name of
+the copyright owner. [cite:chicago, 1.16]
+
+= publication_year = The year of publication should correspond to the
+copyright date.  From a marketing point of view, if a book is
+physically available near the end of a year but not formally published
+until the beginning of the next, the later date is preferred as both
+copyright and publication date. [cite:chicago, 1.18]
+
+= date = Date last modified.
+
+= isbn = International Standard Book Number -- an ISBN is assigned to
+each book by its publisher under a system set up by the R. R. Bowker
+Company and the International Organization for Standardization (ISO).
+The ISBN uniquely identifies the book, thus facilitating order
+fulfillment and computer tracking of inventory.  For example, in ISBN
+0-226-07522-2, the first digit, 0, tells us that the book was
+published in an English-speaking country; the second group of digits,
+226, identifies the publisher (in this intance the University of
+Chicago Press); the third group identifies the book; and the last
+digit is the check digit, which mathematically discloses any error in
+the preceding group. [cite:chicago, 1.28]
+
+= issn = International Standard Serial Number - An ISSN is assigned to
+serial publications, which include journals, magazines, yearbooks, and
+certain monograph series. [cite:chicago, 1.29]
+
+= cip_data = Cataloging-in-Publication (CIP) -- Since 1971 most
+publishers have printed the Library of Congress CIP data on the
+copyright pages of their books.  The cataloging data printed in a book
+corresponds substantially to the catalog file in the Library of
+Congress.  The ~~CIP Publishers Manual~~, issued by the Cataloging in
+Publication Division of the Library, provides information and
+instructure for participants in the program. [cite:chicago, 1.32,
+1.33]
+
+= permissions = Statements of permission gained to quote from
+copyrighted material.
+
+= grants = Grants of financial assestance toward publication that are
+made to the publisher (rather than the author) should be acknowledged
+on the copyright page unless they require more space or greater
+prominence, in which case they may appear on a separate page, usually
+following the copyright page.  Wording should be as requested (or at
+least approved) by the grantors. [cite:chicago, 1.31]
+
+= paper_durability = Included on the copyright page is a statement
+relating to the durability of the paper the book is printed on.
+Acid-free paper has a longer life expectancy, and paper that is
+somewhat alkaline is more durable still.  Durability standards for
+paper have been established by the American National Standards
+Institute (ANSI), which has issued statements to be included in books
+meeting these standards. [cite:chicago, 1.35]
+
+= dedication = The phrasing of the dedication, to be determined by the
+author, is best kept simple.  There is no need to say, ``Dedicated
+to.''  Such forms as ``To George,'' ``For my children,'' or ``In
+memory of my mother, Mary Stephens'' are appropriate. [cite:chicago,
+1.36]
+
+= epigraph = A quotation that is pertinent byt not integral to the
+text.  Epigraphs are occasionally used at chapter openings and even at
+the beginnings of sections within chapters. [cite:chicago, 1.38]
+
+= epigraph_source = The source of an epigraph is usually given on a
+line following the quotation, sometimes preceded by a dash.  Only the
+author's name (only the last name of a well-known author) and,
+usually, the title of the work need appear.  A book epigraph should
+never be annotated.  If a number should follow the source, or, to
+avoid the intrusion of a number, the supplementary documentation may
+be given in an unnumbered note. [cite:chicago, 1.39]
+
+= define = (multivalued) Define keywords that control which sections
+of conditional text appear in the published document. (see:
+[ref:conditional-text])
+
+= doctype = book, article or report (default is article)
+
+= fontsize = 10pt, 11pt or 12pt (10pt is the default)
+
+= organization = Organization affiliated with the published work.
+
+= revision = Revision number of the published work.
+
+= classification = Overall security classification of the published
+work.
+
+= classified_by = Classified-by line for the published work.
+
+= classif_reason = Classification reason for the published work.
+
+= declassify_on = Declassification instructions for the published
+work.
+
+= handling_caveat = (multivalued) Handling caveats that apply to the
+published work.
+
+= use_formal_status = Boolean value.  1 means use only formal test
+outcomes to set the status of items in the document
+
+---SOURCE
+source:: book
+label:: chicago
+title:: The Chicago Manual of Style
+subtitle:: The Essential Guide for Writers, Editors, and Publishers
+editor:: Margaret D.F. Mahan
+publisher:: The University of Chicago Press
+year:: 2003
+edition:: 15th Edition
+---SOURCE
+
+#---------------------------------------------------------------------
+
+** Simple Document Structures
+
+label:: ordinary-structures
+
+This section introduces the simple document structures you might use
+in any document: titles, paragraphs, sections, bold, italics, lists,
+footnotes, images, pre-formatted text, and so on.
+
+#---------------------------------------------------------------------
+
+*** Document Title
+
+label:: document-title
+
+The document title is simply the first title element encountered in
+the document:[f:document-title:1]
+
+  title:: This Is My Document Title
+
+Normally you place the title on the first line of the text document.
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# footnotes
+
+footnote::1: ~~QUESTION:~~ Why isn't __this__ example interpreted as a
+title?  ~~ANSWER:~~ In the document you're reading, this example is
+interpreted as __preformatted text__ ([ref:preformatted-text]) rather
+than a document title because it is indented.
+
+#---------------------------------------------------------------------
+
+*** Paragraphs
+
+label:: paragraphs
+
+A paragraph is simply a non-indented block of text that ends with a
+blank line.
+
+  This is a paragraph. Insert a paragraph simply by adding blocks of
+  text.  A blank line between two blocks of text signifies a break
+  between paragraphs.
+
+~~Commenting Out Paragraphs.~~ What if you to temporarily leave a
+paragraph out of the published document, but you wish to keep the text
+for future use?  There are a couple of ways you can `comment out' a
+paragraph:
+
+  # Any line that begins with a `#' in the first column is considered
+  # a comment line.  Therefore you can `comment out' a paragraph but
+  # putting a `#' at the beginning of each line.
+
+An easier way is to enclose the paragraph in a comment block like
+this:
+
+  ###comment
+
+  This paragraph has been `commented out' because it is enclosed
+  within a comment block.  Enclosing any section of text within a
+  comment block will cause the publisher to ignore it.
+
+  ###comment
+
+Some people find it more visually appealing to represent comment
+blocks like this:
+
+  #############################################################comment
+
+  This paragraph has been `commented out' because it is enclosed
+  within a comment block.  Enclosing any section of text within a
+  comment block will cause the publisher to ignore it.
+
+  #############################################################comment
+
+~~Conditional Paragraphs.~~ You can make paragraphs conditional so
+they appear in one version of the document but not in others.  For
+instance, let's say you are writing a training document about the
+Linux operating system but you need one version for Red Hat 10.0 and
+another version for SuSE Linux 10.0.  Enclosing paragraphs inside
+`conditional' markers indicates in which versions of the document the
+text should appear:
+
+  ???RedHat10
+
+  This is a paragraph that should only appear in the Red Hat 10.0
+  version of the document.
+
+  ???RedHat10
+
+  ???SuSE10
+
+  This is a paragraph that should only appear in the SuSE 10.0 version
+  of the documents.
+
+  ???SuSE10
+
+To specify which version of the document you wish to publish, add a
+||define|| data element in the preamble of the document like:
+
+  define:: RedHat10
+
+~~Paragraphs In Table Cells.~~ You can put paragraphs inside of table
+cells.  A table cell containing a single paragraph looks like this:
+
+  : This is a table cell containing a single paragraph.  Notice the
+  paragraph begins on the same line as the colon (the presence of a
+  colon in the first column always indicates the beginning of a table
+  cell.
+
+If you want multiple paragraphs within the same table cell, format it
+like this:
+
+  :
+
+  This is the first of several paragraphs within a table cell.  Notice
+  that it ~~does not~~ begin on the same line as the colon.
+
+  The space between the colon and the beginning of the first paragraph
+  tells the publisher the contents of the cell should be formatted as
+  separate paragraphs.
+
+~~Multiple Paragraphs In List Items.~~ You ~~can not~~ have multiple
+paragraphs in a list item.
+
+#---------------------------------------------------------------------
+
+*** Inline Text Elements
+
+label:: sec-inline-markup
+
+You can make words !!bold!! by bracketing them in double exclamation
+marks !!like this!!.
+
+You can __underline__ words by bracketing them in double underscores
+__like this__.
+
+You can render words in ||typewriter type|| by bracketing them in
+double pipes ||like this||.
+
+You can render words in ~~italicized type~~ by bracketing them in
+double tildes ~~like this~~.
+
+#---------------------------------------------------------------------
+
+*** Sections
+
+label:: sections
+
+~~Section Headings.~~ You can organize your document into sections by
+inserting section headings in the text.  A section heading is a line
+that begins with one or more asterisks.  The number of asterisks
+indicates the depth of the section level:
+
+  * Top Level Section (Chapter or Appendix in a book)
+
+  ** Sub-section
+
+  *** Sub-sub-section
+
+~~Section Numbering.~~ By default, the ||publish|| program will
+automatically number the sections in the published output:
+
+  Chapter 1 - Top Level Section (Chapter or Appendix in a book)
+
+  1.1 Sub-section
+
+  1.1.1 Sub-sub-section
+
+~~Suppressing Section Numbering.~~ In ~~Options~~ -> ~~Other Options~~
+pane of the graphical user interface you can un-select the ~~Number
+sections?~~ checkbox to disable section numbering.  If you are running
+||publish|| from the command line you can suppress section numbering
+in the published document using the command-line option:
+
+  --nosecnums
+
+~~Limiting Section Depth.~~ If you don't want your document to have
+section levels deeper than a certain depth, like 3, you can specify a
+maximum section depth on the command line:
+
+  --secnum_level=3
+
+#---------------------------------------------------------------------
+
+*** Lists
+
+label:: lists
+
+SML supports unordered (bulletized), ordered (numbered), and
+definition lists.
+
+~~Unordered lists.~~ An unordered (bulletized) list is a series of
+items that begin with a hyphen (-).  The hyphen must appear in the
+first column otherwise it will be interpreted as preformatted text.
+The beginning of a list item ends the previous item.  Any non-list
+item ends the list.  For example:
+
+- item one
+
+- item two
+
+- item three
+
+List items are designed to be simple.  You cannot place multiple
+paragraphs in a list item.  You cannot put tables, figures, or
+preformatted text inside a list.
+
+~~Lists can be nested.~~  You can nest lists by indenting subordinate
+list items.  For example:
+
+- item one
+
+- item two
+
+  - sub-item one
+
+  - sub-item two
+
+  - sub-item three
+
+- item three
+
+~~Ordered lists.~~ An ordered (numbered) list is just like the
+unordered list except each item begins with a plus sign (+).  For
+example:
+
++ item one
+
++ item two
+
++ item three
+
+~~Definition lists.~~ A definition (aka description) list is only
+slightly more complicated.  Each item of a definition list begins with
+an equal sign (=) followed by the term being defined, followed by
+another equal sign and the definition of the term.  For example:
+
+= one = item one
+
+= two = item two
+
+= three = item three
+
+#---------------------------------------------------------------------
+
+*** Footnotes
+
+label:: footnotes
+
+Indicate that a footnote[f:footnotes:1] applies to your text by
+inserting ||{lit:[f:<label>:<tag>]}|| where you want the footnote
+indicator to appear.  The ||<label>|| is the label for the division
+containing the footnote.  The ||<tag>|| is, by convention, usually a
+single number or letter.  Then add the text of your footnote in a
+separate paragraph like this:
+
+  footnote::1: This is a footnote
+
+You can put multiple footnotes in the same paragraph.  They will be
+numbered in sequential order.
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# footnotes
+
+footnote::1: This is a footnote
+
+#---------------------------------------------------------------------
+
+*** Images
+
+label:: images
+
+Insert an image by putting ``image: <image-file>'' starting in column 5.
+
+Insert a figure caption by putting ``title: <caption>''. Text after
+``title:'' will be taken as the figure caption.  All caption text
+must fit on one line.  Figure captions are used to build a list of
+figures.  If you insert an image in your document but leave out the
+figure caption, that image won't be listed in the list of figures.
+
+---FIGURE
+title:: Apache Runs More Active Web Sites Than All Others Combined
+label:: fig-apache-stats
+image:: files/images/netcraft-activesite-usage.png
+width:: 6in
+---FIGURE
+
+Large images will automatically scaled to about 600 pixels wide and
+made clickable to bring up the full sized original image in it's own
+window.  [ref:fig-knoppix-screenshot] shows an example of an image
+that gets scaled because it is bigger than 600 pixels wide:
+
+---FIGURE
+title:: Knoppix Linux Packs a Lot of Software Onto One CDROM
+label:: fig-knoppix-screenshot
+image:: files/images/knoppix-4.png
+width:: 6in
+---FIGURE
+
+[clearpage]
+
+#---------------------------------------------------------------------
+
+*** Preformatted Text
+
+label:: preformatted-text
+
+Insert pre-formatted text by indenting each line in the preformatted
+block.  Here's an example:
+
+  +---------------------------------------------------------+
+  |                                                         |
+  |                         ---                             |
+  |                       /     \                           |
+  |                      (  * *  )                          |
+  |                       |  ^  |                           |
+  |                       |  o  |                           |
+  |                        \___/                            |
+  |                                                         |
+  |                     Monkey Boy                          |
+  |                                                         |
+  +---------------------------------------------------------+
+
+#---------------------------------------------------------------------
+
+*** Labels and References
+
+label:: labels-and-references
+
+~~Labels~~ mark specific locations within a document. ~~References~~
+point to the locations marked by labels.  For example, here's a
+reference to a figure: [ref:fig-publish-window].  A label marks a spot
+in the text.  A reference refers to a spot in the text.  You can
+insert a label anywhere you like, but the meaning of the label will
+depend on the location.  You place a label in any environment or
+region to refer to that environment or region.  If the label occurs
+~~outside~~ of an environment or region the label refers to the
+current section.
+
+Here's an example showing how to assign a label to a figure then refer
+to that figure from anywhere else in the text.  You might insert a
+figure into your document that looks like this
+
+  ---figure
+  image::    files/images/my-figure.png
+  label::    fig-example-figure
+  title::    My Example Figure
+  ---figure
+
+Notice the line, ||label: fig-example-figure||.  This assigns the
+label ``fig-example-figure'' to this table.  You can now refer to this
+table from anywhere in the text by inserting a reference:
+
+  See [ref:fig-example-figure] for an example figure.
+
+You only need to supply labels for things you want to refer to.  The
+label text can be anything you want.  Follow these rules and you won't
+have any trouble:
+
+- You can only (currently) have one reference on a line.  If you have
+  more than one reference on the same line only the first one will get
+  resolved.
+
+- Don't put any spaces in your labels.  If you do, there's a chance
+  that references using that label will get split across a line
+  boundary and won't be recognized.
+
+- It's a good idea (but not required) to use a three letter prefix to
+  identify the type of label.  Start all section labels with ||sec-||,
+  all table labels with ||tab-||, all figure labels with ||fig-||,
+  etc.  This will help you keep all those labels straight in your
+  head.
+
+#---------------------------------------------------------------------
+
+*** Hyperlinks, Commands and Paths
+
+label:: hyperlinks-commands-paths
+
+#---------------------------------------------------------------------
+
+*** Procedural Steps
+
+label:: steps
+
+#---------------------------------------------------------------------
+
+** Intermediate Document Structures
+
+label:: environments
+
+Environments are blocks of text representing elements of !!structure!!
+like tables, figures, listings, sidebars, bibliographic sources, and
+preformatted environments.  Environemnts begin and end like
+`||---table||.'  Environments are:
+
+- figure
+
+- listing
+
+- preformatted
+
+- sidebar
+
+- source
+
+- table
+
+- audio
+
+- video
+
+Environments !!cannot!! contain other environments.
+
+#---------------------------------------------------------------------
+
+*** Tables
+
+label:: tables
+
+The ability to create both simple and complicated tables is one of the
+features that sets the ||publish|| program apart from alternatives.
+
+Example:
+
+  ---table
+
+  title:: A Sample Table
+  label:: tab-sample
+
+  :: heading of column 1
+  :: heading of column 2
+  ---
+  : row 1 column 1
+  : row 1 column 2
+  ---
+  : row 2 column 1
+  : row 2 column 2
+
+  ---table
+
+Here's a simple example:
+
+---TABLE
+
+label:: tab-osi-model
+
+title:: OSI 7-layer Reference Model
+
+:: Layer
+
+:: Functions
+
+---
+
+: 7 - Application Layer
+
+:
+
+- Provides interface to end-user processes
+
+- Provides standardized services to applications
+
+---
+
+: 6 - Presentation Layer
+
+:
+
+- Specifies architecture-independent data transfer format
+
+- Encodes and decodes data; encrypts and decrypts data; compresses
+data
+
+---
+
+: 5 - Session Layer
+
+:
+
+- Manages user sessions
+
+- Reports upper-layer errors
+
+---
+
+: 4 - Transport Layer
+
+:
+
+- Manages network layer connections
+
+- Provides reliable packet delivery mechanism
+
+---
+
+: 3 - Network Layer
+
+:
+
+- Addresses and routes packets
+
+---
+
+: 2 - Data Link Layer
+
+:
+
+- Frames packets
+
+- Controls physical layer data flow
+
+---
+
+: 1 - Physical Layer
+
+:
+
+- Interfaces between network medium and network devices
+
+- Defines electrical and mechanical characteristics
+
+---TABLE
+
+You can use the certain meta-data elements to specify formatting
+options of tables:
+
+---TABLE
+
+label:: tab-metadata-elements
+
+title:: Meta-data elements that effect the formatting of tables
+
+:: option
+
+:: values
+
+:: description
+
+---
+
+: border
+
+: 0 or 1
+
+: specify whether tables should have borders
+
+---
+
+: bgcolor
+
+: any valid color specifier
+
+: specify the background color of table cells
+
+---
+
+: cellpadding
+
+: integer number
+
+: specify number of pixels of padding in table cells
+
+---
+
+: cellspacing
+
+: integer number
+
+: specify number of pixels of spacing between cells
+
+---TABLE
+
+Remember, when you specify a background color using the ``bgcolor''
+meta-data element, all table cells will have that background color
+until you change it to something else.  In the following example, I
+set bgcolor back to nothing so that the next table in the document
+won't be pink:
+
+---TABLE
+
+label:: tab-security-problems
+
+title:: The Most Common Security Problems
+
+::grey: Type
+
+::grey: Problem
+
+::grey: Explanation
+
+---
+
+:blue: Organizational
+
+:blue: There's no one in charge of security
+
+:blue: This isn't really a technical problem, but an organizational
+one.  It is by far the most common problem we encounter.  Most other
+problems stem from this one.  The top recommendation in nearly every
+security report we do is, ``Put someone in charge of information
+security.''  System and network administrators spend their days
+keeping users happy by making sure computers and applications are up
+and running.  Their success is measured in large part by how happy
+they keep the users.  Security measures implemented by the person in
+charge of security will never make users happy.
+
+---
+
+:blue: Organizational
+
+:blue: Network administrators in charge of security
+
+:blue: Network administrators have a full time job keeping systems and
+applications running and users happy.  Their job performance is based
+on these things rather than keeping the system secure.  Security
+analysts require a different mind set and skill set to engage in
+security incident prevention, detection, and response.
+
+---
+
+:green: Architectural
+
+:green: Poor security architecture
+
+:green: Many organizations we audit have a good security architecture
+on paper, but a poor one in practice.  For reasons of convenience or
+functionality, the security design is circumvented by punching holes
+in a firewall, rogue wireless access points, and unauthorized
+gateways.
+
+---
+
+:green: Architectural
+
+:green: Single layer of defense
+
+:green: Organizations need to adopt a ``defense in depth'' approach to
+information security just like they do for physical security.
+
+---
+
+:green: Architectural
+
+:green: No intrusion detection system
+
+:green: Organizations that have not thought deeply about information
+security think they can secure their systems simply by taking
+preventative measures.  These organizations get hacked and they don't
+even know it!
+
+---
+
+:yellow: Procedural
+
+:yellow: Inadequate configuration control procedures
+
+:yellow: User's hate configuration control procedures because it takes
+away their freedom to do whatever they want with their computers.
+Unauthorized software accounts for a significant percentage of system
+vulnerabilities in most enterprises.
+
+---
+
+:yellow: Procedural
+
+:yellow: Unpatched systems
+
+:yellow: ``If it's not broke, don't fix it'' is the response we
+normally get when we point out when an organization is missing
+critical software patches.  Our response is, ``It's broken!''
+Organizations must aggressively install software patches as they're
+made available.  The vast majority of losses due to computer security
+breaches could have been prevented if someone had patched a vulnerable
+server.
+
+---
+
+:yellow: Procedural
+
+:yellow: No incident response plan
+
+:yellow: You will get hacked.  What are you going to do when it
+happens?
+
+---
+
+:yellow: Procedural
+
+:yellow: Poor (or missing) security policies
+
+:yellow: The best security policies are useless unless they're
+enforced (remember the first problem of no one in charge of security).
+The most common security policy problem we find is poor passwords.
+Every time we do a vulnerability assessment we audit the strength of
+the organization's passwords.  We usually find that more than 80% of
+user passwords are easily cracked.  On a recent assessment, we found
+that 10% of all user passwords (including some domain admin passwords)
+were the name of the company (easily guessed).
+
+---
+
+:red: Technical
+
+:red: Software Defects
+
+:red: All software has bugs.  Some of these bugs (like buffer overflow
+conditions and format string errors) can be exploited to cause
+security problems.
+
+---
+
+:red: Technical
+
+:red: Misconfigured Software
+
+:red: People make mistakes.  System and network administrators
+sometimes misconfigure software.  It's not unusual to find
+misconfigured firewall rules that leave certain ports open to all
+traffic.  An open port is easy for a hacker to discover and exploit.
+
+---TABLE
+
+Here is a complete list of table data elements:
+
+index:: table!data elements
+
+= title = Table caption
+
+= label = Unique identifier
+
+= width = Desired width of the table (for both hardcopy and screen
+renditions)
+
+= fontsize = from smallest to largest: tiny, scriptsize, footnotesize,
+small, normalsize, large, Large, LARGE, huge, Huge -- default fontsize
+for all cells in the table
+
+= orientation = portrait or landscape, specifies the orientation in
+which to render the PDF rendition
+
+#---------------------------------------------------------------------
+
+*** Figures
+
+label:: figures
+
+Example:
+
+  ---figure
+  title:: PDF Rendition Of The Sample Document
+  label:: fig-sample-document-pdf
+  image:: files/images/sample-document-pdf.png
+  width:: 6in
+  ---figure
+
+Here is a complete list of figure table elements:
+
+index:: figure!data elements
+
+= title = Figure caption
+
+= label = Unique identifier
+
+= width = Desired display width (for both hardcopy and on screen
+display)
+
+= image = File containing image (i.e. [path:files/images/my-figure.png])
+
+= orientation = portrait or landscape -- Specify the orientation in
+which to render the PDF rendition.
+
+#---------------------------------------------------------------------
+
+*** Listings
+
+label:: listings
+
+Example:
+
+  ---listing
+  title::    If Computers Were Like Cars...
+  label::    lis-computer-joke
+  file::     files/text/computer-car-joke.txt
+  fontsize:: footnotesize
+  ---listing
+
+The result of this listing environment is:
+
+---LISTING
+title::    If Computers Were Like Cars...
+label::    lis-computer-joke
+file::     files/text/computer-car-joke.txt
+fontsize:: footnotesize
+---LISTING
+
+Here is a complete list of data elements that can be used in listing
+environments:
+
+index:: listing!data elements
+
+= title = Listing caption
+
+= label = Unique identifier
+
+= file = a file from which to get the content of the listing
+
+= numbers = left or right -- insert line numbers on the left of the
+right of the listed text
+
+= name = Name of a listing.  Listings that share the same name share
+the same counter.  Therefore lines in the second listing with the same
+name will have line numbering that picks up where the first listing
+left off.
+
+= language = Any language accepted by the LaTeX `listings' package
+(see
+[url:http://www.tug.org/tex-archive/macros/latex/contrib/listings/]).
+
+= firstline = an integer number on which to start displaying content
+from the listing.  If you've got a long file and only wish to list
+lines 100 - 200, set firstline to 100.
+
+= lastline = an integer number on which to end displaying content from
+the listing.  If you've got a long file and only wish to list lines
+100 - 200, set lastline to 200.
+
+= showspaces = true or false -- represent individual spaces in the
+listing as little underscore-like characters (only in PDF)
+
+= showtabs = true or false -- represent individual tabs in the listing
+as little underscore-like characters (only in PDF)
+
+= showstringspaces = true or false -- represent individual spaces in
+the listing as little underscore-like characters (only in PDF) (~~I
+don't know the difference between this and `showspaces'~~)
+
+= fontsize = from smallest to largest: tiny, scriptsize, footnotesize,
+small, normalsize, large, Large, LARGE, huge, Huge (implemented via
+the listings package `basicstyle' directive) I intend to add a default
+`auto' option which will automatically calculate the correct fontsize
+based on the widest line (number of characters) in the listing.
+
+= stepnumber = number of lines between numbered lines (i.e. if
+stepnumber is 10, put a line number every 10 lines).
+
+= float = true or false -- If true, render the listing as a
+float. (not yet implemented)
+
+= orientation = portrait or landscape -- Specify the orientation in
+which to render the PDF rendition.
+
+#---------------------------------------------------------------------
+
+*** Attachments
+
+label:: attachments
+
+The ~~attachment~~ environment enables you to attach any type of file
+to your document.  The attachment appears in the published document
+right where you put in in the text.  PDF documents enable you to
+attach files which get included inside the PDF file.  In HTML
+renditions you click a link to download the attachment.
+
+Example:
+
+  ---attachment
+  title:: Sample Document
+  label:: att-sample-document
+  file::  files/sample-document.txt
+  ---attachment
+
+---ATTACHMENT
+title:: Sample Document
+label:: att-sample-document
+file:: files/sample-document.txt
+---ATTACHMENT
+
+#---------------------------------------------------------------------
+
+*** Preformatted Blocks
+
+label:: preformatted-blocks
+
+The ~~preformatted~~ environment is seldom used because authors
+typically indent lines they want to appear as preformatted text.
+
+Example:
+
+  ---preformatted
+
+  This
+    is
+      some
+        preformatted
+          text...
+
+  ---preformatted
+
+Here is a complete list of data elements you can put in the preamble
+of a preformatted text block:
+
+index:: preformatted!data elements
+
+= title = A descriptive caption for the preformatted content
+
+= label = Unique identifier
+
+#---------------------------------------------------------------------
+
+*** Sidebars
+
+label:: sidebars
+
+Example:
+
+  ---sidebar
+  title::  Burrito Threat
+  label::  side-burrito-threat
+  author:: Don Johnson
+
+  New Orleans is in danger of being swallowed by a giant burrito
+  creature from the planet Chipotle.
+
+  ---sidebar
+
+Here is a complete list of data elements you can put inside a sidebar:
+
+index:: sidebar!data elements
+
+= title = Sidebar caption
+
+= label = Unique identifier
+
+#---------------------------------------------------------------------
+
+*** Source Referencing
+
+label:: source-referencing
+
+I'm defining the design of the bibliography system for the ||publish||
+program.  The bibliography section will allow authors to place
+bibliographical information anywhere in the document.  The publishing
+process will take care of extracting and building the bibliography.
+
+There are two parts to a citation, the citation itself which occurs in
+the text like a footnote marker, and the bibliographic source
+information the citation points to.
+
+A citation look like this:
+
+  [cite:Lamport96, 161-164]
+
+A citation takes the form:
+
+  [cite:<label>, <optional-text>]
+
+The ||<label>|| must correspond to a source label.  The
+||<optional-text>|| is designed to let you specify a page range,
+chapter, or other set of particulars about the source being cited.
+Citations are allowed to span line breaks.  Unlike LaTeX citations,
+you're only allowed to cite a single source in these simple structured
+text citations.
+
+A bibliography entry looks like this:
+
+  ---source
+  source::      book
+  label::       Goossens94
+  title::       The LaTeX Companion
+  author::      Michel Goossens
+  author::      Frank Mittelbach
+  author::      Alexander Samarin
+  publisher::   Addison-Wesley Publishing Company
+  year::        1994
+  ---source
+
+If you want to keep all your bibliographic sources in one file (like
+sources.txt), you can include that file anywhere in your text like
+this:
+
+  include: sources.txt
+
+The bibliographic fields are taken straight from the LaTeX book
+[cite:Lamport96, 161-164] since I figure the folks who designed that
+system have things pretty well figured out.
+
+---SOURCE
+source::    book
+label::     Lamport96
+title::     LaTeX, A Document Preparation System User's Guide
+author::    Leslie Lamport
+publisher:: Addison-Wesley
+year::      1996
+---SOURCE
+
+In the case of LaTeX, the ||publish|| program builds the .bib file and
+inserts citations where they're supposed to go.  In the case of HTML,
+it inserts hyper-linked citations it creates a separate bibliography
+page.
+
+Types of bibliography source entries include [cite:Lamport96, 161-162]:
+
+---TABLE
+
+title:: Types of Bibliography Source Entries
+
+label:: tab-bib-source-types
+
+column::1:width: 30
+
+column::2:width: 30
+
+column::3:width: 30
+
+:: type - description
+
+:: required entries
+
+:: optional entries
+
+---
+
+: ~~article~~ - An article from a journal or magazine.
+
+: ||author||, ||title||, ||journal||, ||year||
+
+: ||volume||, ||number||, ||pages||, ||month||, ||note||
+
+---
+
+: ~~book~~ - A book with an explicit publisher.
+
+: ||author|| or ||editor||, ||title||, ||publisher||, ||year||
+
+: ||volume|| or ||number||, ||series||, ||address||, ||edition||,
+||month||, ||note||
+
+---
+
+: ~~booklet~~ - A work that is printed and bound, but without a named
+publisher or sponsoring institution.
+
+: ||title||
+
+: ||author||, ||howpublished||, ||address||, ||month||, ||year||,
+||note||
+
+---
+
+: ~~conference~~ - The same as ~~inproceedings~~
+
+: ||author||, ||title||, ||booktitle||, ||year||
+
+: ||editor||, ||volume|| or ||number||, ||series||, ||pages||,
+||address||, ||month||, ||organization||, ||publisher||, ||note||
+
+---
+
+: ~~inbook~~ - A part of a book, usually untitled; it may be a chapter
+(or other sectional unit) and/or a range of pages.
+
+: ||author|| or ||editor||, ||title||, ||chapter|| and/or ||pages||,
+||publisher||, ||year||
+
+: ||volume|| or ||number||, ||series||, ||type||, ||address||,
+||edition||, ||month||, ||note||
+
+---
+
+: ~~incollection~~ - A part of a book with its own title.
+
+: ||author||, ||title||, ||booktitle||, ||publisher||, ||year||
+
+: ||editor||, ||volume|| or ||number||, ||series||, ||type||,
+||chapter||, ||pages||, ||address||, ||edition||, ||month||, ||note||
+
+---
+ 
+: ~~inproceedings~~ - An article in a conference proceedings.
+
+: ||author||, ||title||, ||booktitle||, ||year||
+
+: ||editor||, ||volume|| or ||number||, ||series||, ||pages||,
+||address||, ||month||, ||organization||, ||publisher||, ||note||
+
+---
+
+: ~~manual~~ - Technical documentation.
+
+: ||title||
+
+: ||author||, ||organization||, ||address||, ||edition||, ||month||,
+||year||, ||note||
+
+---
+
+: ~~mastersthesis~~ - A master's thesis.
+
+: ||author||, ||title||, ||school||, ||year||
+
+: ||type||, ||address||, ||month||, ||note||
+
+---
+
+: ~~misc~~ - Use this type when nothing else fits.
+
+: none
+
+: ||author||, ||title||, ||howpublished||, ||month||, ||year||,
+||note||
+
+---
+
+: ~~phdthesis~~ - A Ph.D. thesis.
+
+: ||author||, ||title||, ||school||, ||year||
+
+: ||type||, ||address||, ||month||, ||note||
+
+---
+
+: ~~proceedings~~ - The proceedings of a conference.
+
+: ||title||, ||year||
+
+: ||editor||, ||volume|| or ||number||, ||series||, ||address||,
+||month||, ||organization||, ||publisher||, ||note||
+
+---
+
+: ~~techreport~~ - A report published by a school or other
+institution, usually numbered within a series.
+
+: ||author||, ||title||, ||institution||, ||year||
+
+: ||type||, ||number||, ||address||, ||month||, ||note||
+
+---
+
+: ~~unpublished~~ - A document with an author and title, but not
+formally published.
+
+: ||author||, ||title||, ||note||
+
+: ||month||, ||year||
+
+---TABLE
+
+Here is a complete list of data elements used in source environments:
+
+index:: source!data elements
+
+= title =  The work's title.
+
+= label = Unique identifier
+
+= address = Usually the address of the ||publisher|| or
+||institution||.  For major publishing houses, omit it entirely or
+just give the city.  For small publishers, you can help the reader by
+giving the complete address.
+
+= annote = An annotation.  It is not used by the standard bibliography
+style, but may be used by other styles that produce an annotated
+bibliography
+
+= author = (multivalued) The name(s) of the author(s).
+
+= booktitle = The title of a book, a titled part of which is being
+cited.  It is used only for the ||incollection|| and ||inproceedings||
+entry types ; use the ||title|| field for ||book|| entries.
+
+= chapter = A chapter (or other sectional unit) number.
+
+= crossref = The database key (label) of the entry being
+cross-referenced.
+
+= edition = The edition of a book --- for example, ``Second''.
+
+= editor = (multivalued) The name(s) of editor(s).  If there is also
+an ||author|| field, then the ||editor|| field gives the editor of the
+book or collection in which the reference appears.
+
+= howpublished = How something out-of-the-ordinary was published.
+
+= institution = The sponsoring institution of a technical report.
+
+= journal = A journal name.
+
+= key = Used for alphabetizing and creating a label when the
+||author|| and ||editor|| fields are missing.  This field should not
+be confused with the key that appears in the ||cite:|| command and at
+the beginning of the entry.
+
+= month = The month in which the work was published or, for an
+unpublished work, in which it was written.  Use the standard
+three-letter abbreviations described above.
+
+= note = Any additional information that can help the reader.  The
+first word should be capitalized.
+
+= number = The number of a journal, magazine, technical report, or
+work in a series.  An issue of a journal or magazine is usually
+identified by its volume and number; the organization that issues a
+technical report usually gives it a number; books in a named series
+are sometimes numbered.
+
+= organization = The organization that sponsors a conference or that
+publishes a manual.
+
+= pages = One or more page numbers or ranges of numbers, such as
+||42--111|| or ||7,41,73--97||.
+
+= publisher = The publisher's name.
+
+= school = The name of the school where a thesis was written.
+
+= series = The name of a series or set of books.  When citing an
+entire book, the ||title|| field gives its title and the optional
+||series|| field gives the name of a series or multivolume set in
+which the book was published.
+
+= source = ||article||, ||book||, ||booklet||, ||conference||,
+||inbook||, ||incollection||, ||inproceedings||, ||manual||,
+||mastersthesis||, ||misc||, ||phdthesis||, ||proceedings||,
+||techreport||, ||unpublished||
+
+= type = The type of a technical report -- for example, ``Research
+Note''.  It is also used to specify a type of sectional unit in an
+||inbook|| or ||incollection|| entry and a different type of thesis in
+a ||mastersthesis|| or ||phdthesis|| entry.
+
+= volume = The volume of a journal or multivolume book.
+
+= year = The year of publication or, for an unpublished work, the year
+it was written.  It usually consists only of numerals, such as
+||1984||, but it could also be something like ||circa 1066||.
+
+#---------------------------------------------------------------------
+
+*** Audio Clips
+
+label:: audio-clips
+
+The ~~audio~~ environment enables you to embed audio clips in a
+document.
+
+Example:
+
+  ---audio
+  title:: Morning News
+  label:: audio-morning-news
+  file::  audio/morning-news.wav
+  ---audio
+
+Audio environment data elements are:
+
+= title = Short, description caption
+
+= label = Unique identifier
+
+= author = (multivalued) Author(s) of content
+
+= duration = Duration of audio clip
+
+= file = File containing audio clip
+
+#---------------------------------------------------------------------
+
+*** Video Clips
+
+label:: video-clips
+
+The ~~video~~ environment enables you to embed video clips in a
+document.
+
+Example:
+
+  ---video
+  title:: Morning News
+  label:: video-morning-news
+  file::  video/morning-news.wav
+  ---video
+
+Video environment data elements are:
+
+= title = Short, description caption
+
+= label = Unique identifier
+
+= author = (multivalued) Author(s) of content
+
+= duration = Duration of video clip
+
+= file = File containing video clip
+
+#---------------------------------------------------------------------
+
+** Advanced Document Structures
+
+label:: advanced-document-structures
+
+[g:sml:SML] enables you to define items with semantic significance and to
+describe relationships between those items.  You can define and
+describe items using special text ~~regions~~.
+
+Regions are blocks of text representing elements of !!content!! like
+exercises, slides, demonstrations, etc.  Regions begin and end like
+`||>>>exercise||' and `||<<<exercise||'. Elsewhere in this document,
+regions are called ``items.'' Regions are:
+
+:
+
+- problem
+- solution
+- test
+
+:
+
+- result
+- task
+- role
+
+:
+
+- slide
+- demo
+- exercise
+
+:
+
+- keypoints
+- quotation
+
+---
+
+Items (regions) can contain environments (e.g. you can put a table
+inside an exercise) but environments cannot contain regions (e.g. you
+can't put an exercise inside a table).
+
+Regions ~~cannot~~ contain other regions.
+
+All items may have the following data elements:
+
+= title = A very brief description of the item
+
+= label = A unique identifier for the item.  Don't use spaces in
+labels.
+
+= description = A one-paragraph description of the item
+
+= revision = The current revision of the item
+
+= date = The date the item was last changed
+
+= author = The individual who last changed the item
+
+= priority = A measure of the importance of the item relative to other
+items
+
+= status = A color (red, yellow, green, or grey) that represents the
+degree to which the item is complete
+
+There are two ways to set the status of an item, ~~informally~~ and
+~~formally~~.  Set the ~~informal~~ status of an item using the
+``||status:||'' data element like this:
+
+  status: green
+
+The ~~formal~~ status of an item can only be established through
+testing.  Tests produce results; results contain outcomes.  Outcomes
+establish the formal status of items if the ``||use_formal_status:
+1||'' declaration appears in the document preamble.
+
+The ~~priority~~ of an item is a measure of the importance of that
+item relative to other items. [ref:tab-priority-values] describes the
+meaning of priorities of problems, solutions, tests, and tasks.
+
+---TABLE
+
+title:: Priority Values
+
+label:: tab-priority-values
+
+column::1:width: 10
+
+column::2:width: 18
+
+column::3:width: 18
+
+column::4:width: 18
+
+column::5:width: 18
+
+:: priority
+
+:: problem
+
+:: solution
+
+:: test
+
+:: task
+
+---
+
+:red: critical
+
+: failure
+
+: required for success
+
+: must pass to ensure success
+
+: must be performed to ensure success
+
+---
+
+:orange: high
+
+: ~~significant~~ impact
+
+: ~~significant~~ impact if not working
+
+: ~~significant~~ impact if test fails
+
+: ~~significant~~ impact if not performed
+
+---
+
+:yellow: routine
+
+: impact
+
+: impact if not working
+
+: impact if test fails
+
+: impact if not performed
+
+---
+
+:grey: low
+
+: ~~minimal~~ impact
+
+: ~~minimal~~ impact if not working
+
+: ~~minimal~~ impact if test fails
+
+: ~~minimal~~ impact if not performed
+
+---TABLE
+
+The ~~status~~ of an item describes the degree to which the item is
+complete.  [ref:tab-status-values] lists the status values used to
+indicate the current status of problems, solutions, tests, and tasks.
+
+---TABLE
+
+title:: Status Values
+
+label:: tab-status-values
+
+column::1:width: 10
+
+column::2:width: 18
+
+column::3:width: 18
+
+column::4:width: 18
+
+column::5:width: 18
+
+:: status
+
+:: problem
+
+:: solution
+
+:: test
+
+:: task
+
+---
+
+:green: green
+
+: problem solved
+
+: solution working
+
+: test successful
+
+: task complete
+
+---
+
+:yellow: yellow
+
+: problem partially solved
+
+: solution partially working
+
+: test partially successful
+
+: task partially accomplished
+
+---
+
+:red: red
+
+: problem 0% solved
+
+: solution 0% working
+
+: test 0% successful
+
+: task 0% accomplished
+
+---
+
+:grey: grey
+
+: problem status unknown
+
+: solution status unknown
+
+: test status unknown
+
+: task status unknown
+
+---TABLE
+
+#---------------------------------------------------------------------
+
+*** Key Points
+
+label:: keypoints
+
+The purpose of the ~~keypoints~~ region is to place a summary of key
+points at the beginning of major sections like chapters.
+
+Example:
+
+  >>>keypoints
+
+  title:: Key Points Of This Course
+
+  - The open source software development model is rapid, relentless, and
+    here to stay
+
+  - Linux is more flexible, but less integrated, than Microsoft
+    Windows
+
+  - Linux was originally designed to be expert friendly but is rapidly
+    becoming user friendly
+
+  <<<keypoints
+
+Keypoints region data elements are:
+
+= title = Short, descriptive caption
+
+= label = Unique identifier
+
+#---------------------------------------------------------------------
+
+*** Slides
+
+label:: slides
+
+Slides are regions.  Start a slide with `||>>>slide||' and end a slide
+with `||<<<slide||.'
+
+You can put unordered and ordered lists inside a slide (and they
+~~can~~ be nested).
+
+You can put tables in slides (use baretables rather than regular
+tables.).
+
+Images put inside a slide will be turned into clickable thumbnails.
+In the HTML rendition, clicking on a thumbnail image in a slide will
+pop up a window containing the full sized image.  Click anywhere
+outside the popup image to make it go away.  Here's an example:
+
+>>>SLIDE
+
+title:: Session Handshaking
+
+id:: session-handshaking
+
+- Transmission Control Protocol (TCP) establish (3-way handshake)
+    - SYN
+    - SYN/ACK
+    - ACK
+
+image:: files/images/mod01_tcp_three_way_handshake.png
+
+  - Session tear-down File Transfer Protocol (FTP)
+    - FIN/ACK
+    - ACK
+
+image:: files/images/mod01_ftp_session_tear_down.png
+
+  - No listening port
+    - SYN
+    - RST/ACK
+
+image:: files/images/mod01_no_listening_port.png
+
+<<<SLIDE
+
+Slide region data elements are:
+
+= title = Short, descriptive caption
+
+= label = Unique identifier
+
+= duration = Approximate duration of presentation for this slide
+
+= author = Slide author
+
+= copyright = Slide copyright
+
+#---------------------------------------------------------------------
+
+*** Demonstrations
+
+label:: demos
+
+The purpose of the ~~demo~~ region is to document short
+demonstrations.  Demonstrations are regions (like slides).  Start a
+demo with `||>>>demo||' and end a demo with `||<<<demo||.'  See the
+example below.
+
+You can put unordered and ordered lists inside a demo (and they
+~~can~~ be nested).
+
+You can put tables in demos.
+
+Images put inside a demo will be turned into clickable thumbnails.
+Clicking on a thumbnail image in a demo will pop up a window
+containing the full sized image.  Click anywhere outside the popup
+image to make it go away.
+
+For example:
+
+Example:
+
+  >>>demo
+
+  title:: IIS Buffer Overflow Using jill.exe
+
+  Requirements for this demo:
+
+  - target Windows server running vulnerable IIS server
+  - jill.exe exploit program
+  - netcat (nc.exe) program
+
+  step:: Take a Windows machine running a vulnerable IIS web server:
+
+  image:: files/images/buffer-overflow-demo-1.png
+  image:: files/images/buffer-overflow-demo-2.png
+
+  step:: Open a command shell on the attack computer and start a netcat
+  listener on port 53:
+
+  image:: files/images/buffer-overflow-demo-3.png
+
+  step:: Attack the target by sending the buffer overflow.  To do this,
+  open another command shell and launch the ``jill.exe'' program as
+  shown:
+
+  image:: files/images/buffer-overflow-demo-4.png
+
+  step:: Wait for a connection.  You may have to hit [[Enter]] a couple
+  of times in your ``listener'' terminal.  If the buffer overflow works,
+  you'll get a connection and command prompt from the web server:
+
+  image:: files/images/buffer-overflow-demo-5.png
+
+  step:: Have fun!  You've got a command shell on the target web server.
+  Now you can deface the web site, upload trojan horses, download
+  interesting documents, etc.  In this screenshot, I did a directory
+  listing of the C: drive and notice an interesting file named
+  ``allyouserverarebelongtous.txt'':
+
+  image:: files/images/buffer-overflow-demo-6.png
+
+  <<<demo
+
+Here's the example:
+
+>>>DEMO
+
+title:: IIS Buffer Overflow using jill.exe
+
+id:: buffer-overflow-demo
+
+Requirements for this demo:
+
+- target Windows server running vulnerable IIS server
+- jill.exe exploit program
+- netcat (nc.exe) program
+
+step:: Take a Windows machine running a vulnerable IIS web server:
+
+image:: files/images/buffer-overflow-demo-1.png
+
+image:: files/images/buffer-overflow-demo-2.png
+
+step:: Open a command shell on the attack computer and start a netcat
+listener on port 53:
+
+image:: files/images/buffer-overflow-demo-3.png
+
+step:: Attack the target by sending the buffer overflow.  To do this,
+open another command shell and launch the ``jill.exe'' program as
+shown:
+
+image:: files/images/buffer-overflow-demo-4.png
+
+step:: Wait for a connection.  You may have to hit [[Enter]] a couple
+of times in your ``listener'' terminal.  If the buffer overflow works,
+you'll get a connection and command prompt from the web server:
+
+image:: files/images/buffer-overflow-demo-5.png
+
+step:: Have fun!  You've got a command shell on the target web server.
+Now you can deface the web site, upload trojan horses, download
+interesting documents, etc.  In this screenshot, I did a directory
+listing of the C: drive and notice an interesting file named
+``allyouserverarebelongtous.txt'':
+
+image:: files/images/buffer-overflow-demo-6.png
+
+<<<DEMO
+
+Demo region data elements are: 
+
+= title = short, descriptive caption
+
+= label = Unique identifier
+
+= duration = Duration of demo
+
+= author = (multivalued) Author(s) of demonstration
+
+= copyright = Copyright of the demo content
+
+#---------------------------------------------------------------------
+
+*** Exercises
+
+label:: exercises
+
+The purpose of the ~~exercise~~ region is to document short exercises.
+
+Example:
+
+  >>>exercise
+
+  The purpose of this exercise is to learn how to find the version of
+  the kernel running on a Linux system (this works for all Unix
+  systems).
+
+  step:: !!Run the ||uname|| command.!! - Open a terminal and run the
+  [cmd:uname] [[Enter]] command from the command line to find the name
+  of the system.
+
+  step:: !!Use the ||-a|| option of ||uname||.!! - The ||-a|| option
+  to the ||uname|| command causes the command to find all information
+  about the system.  Type [cmd:uname -a] [[Enter]] to see the gory
+  details.
+
+  <<<exercise
+
+Exercise region data elements are:
+
+= title = short, descriptive caption
+
+= label = Unique identifier
+
+= duration = Duration of exercise
+
+= author = (multivalued) Author(s) of exercise
+
+= copyright = Copyright of the exercise content
+
+#---------------------------------------------------------------------
+
+*** Quotations
+
+label:: quotations
+
+Example:
+
+  >>>quotation
+
+  title:: Early To Bed
+
+  label:: quote-early-to-bed
+
+  source:: 15th Century Nursery Rhyme
+
+  Early to bed, early to rise, makes a man healthy, wealthy and wise.
+
+  <<<quotation
+
+Quotation region data elements are:
+
+= title = Short, descriptive caption
+
+= label = Unique identifier
+
+= source = Source of quotation
+
+#---------------------------------------------------------------------
+
+*** Problems
+
+label:: problems
+
+Problems are things to be solved (a.k.a. requirements).  Problems
+describe ~~what~~ must be done.  Solutions describe ~~how~~ things are
+done.  Never confuse the ``what'' and the ``how.''
+
+The purpose of the ~~problem~~ region is to provide a simple traceable
+description of a problem.
+
+Example:
+
+  >>>problem
+
+  title:: Conflict between Emacs and screen use of C-a
+
+  label:: problem-2006-01-02-001
+
+  solution:: solution-2006-01-02-001
+
+  description:: In Emacs, C-a is a commonly used keystroke that takes
+  you to the beginning of the line.  In screen, C-a is the prefix
+  command for special screen commands (like C-a d to detach the
+  terminal from the screen session).  I would prefer to use C-a for
+  Emacs and use some other command (like C-\) for the screen prefix
+  command.
+
+  <<<problem
+
+This example problem contains 4 data elements, ~~title~~, ~~label~~,
+~~solution~~, and ~~description~~. [g:sml:SML] enables you to capture a
+lot of structured information about problems.  [ref:tab-problem-data]
+enumerates the data elements you can use to describe problems.  In
+this table, identifiers like ||P||, ||S||, and ||S1|| represent
+labels.  Identifiers like <title>, <text>, and <paragraph> represent
+free text.
+
+---TABLE
+
+title:: Problem Data Elements
+
+label:: tab-problem-data
+
+column::1:width: 15
+
+column::1:head: Structured Information
+
+column::2:width: 40
+
+column::2:head: Assertion
+
+column::3:width: 7
+
+column::4:width: 35
+
+column::4:head: Examples
+
+: ~~Title~~
+
+: Problem P ~~has title~~ <title>
+
+: In P:
+
+: ||title:|| <title>
+
+---
+
+:litegrey: ~~Unique Identifier~~
+
+:litegrey: Problem P ~~has unique identifier~~ ``P''
+
+:litegrey: In P:
+
+:litegrey: ||label: P||
+
+---
+
+: ~~Description~~
+
+: Problem P ~~has description~~ <paragraph>
+
+: In P:
+
+: ||description:|| <paragraph>
+
+---
+
+:litegrey: ~~Ownership~~
+
+:litegrey: Role O ~~has overall responsibility for solving~~ Problem P
+
+:litegrey: In P:
+
+:litegrey: ||owner: O||
+
+---
+
+:litegrey:
+
+:litegrey:
+
+:litegrey: In O:
+
+:litegrey: ||problem: P||
+
+---
+
+:litegrey:
+
+:litegrey: <owner> ~~has overall responsibility for solving~~ Problem
+P
+
+:litegrey: In P:
+
+:litegrey: ||owner:|| <owner>
+
+---
+
+: ~~Assignees~~
+
+: Role A ~~is assigned responsibility for solving~~ Problem P
+
+: In P:
+
+: ||assignee: A||
+
+---
+
+:
+
+: <assignee> ~~is assigned responsibility for solving~~ Problem P
+
+: In P:
+
+: ||assignee:|| <assignee>
+
+---
+
+:litegrey: ~~Stakeholders~~
+
+:litegrey: Role S ~~has a stake in solving~~ Problem P
+
+:litegrey: In P:
+
+:litegrey: ||stakeholder: S||
+
+---
+
+:litegrey:
+
+:litegrey: <stakeholder> ~~has a stake in solving~~ Problem P
+
+:litegrey: In P:
+
+:litegrey: ||stakeholder:|| <stakeholder>
+
+---
+
+: ~~Types~~
+
+: Problem P ~~has type~~ <type>
+
+: In P:
+
+: ||type:|| <type>
+
+---
+
+:litegrey: ~~Sequences~~
+
+:litegrey: Problem P1 ~~comes before~~ Problem P2
+
+:litegrey: In P1:
+
+:litegrey: ||next: P2||
+
+---
+
+:litegrey:
+
+:litegrey:
+
+:litegrey: In P2:
+
+:litegrey: ||previous: P1||
+
+---
+
+: ~~Priority~~
+
+: Problem P ~~has priority~~ <priority>
+
+: In P:
+
+: ||priority:|| <priority>
+
+---
+
+:litegrey: ~~Directives~~
+
+:litegrey: Problem P2 ~~is directed by~~ Problem P1
+
+:litegrey: In P1:
+
+:litegrey: ||directs: P2||
+
+---
+
+:litegrey:
+
+:litegrey:
+
+:litegrey: In P2:
+
+:litegrey: ||directed_by: P1||
+
+---
+
+:litegrey:
+
+:litegrey: Problem P ~~is directed by~~ <directive>
+
+:litegrey: In P:
+
+:litegrey: ||directed_by:|| <directive>
+
+---
+
+: ~~Derived Requirements~~
+
+: Problem P2 ~~is derived from~~ Problem P1
+
+: In P1:
+
+: ||derived: P2||
+
+---
+
+:
+
+:
+
+: In P2:
+
+: ||derived_from: P1||
+
+---
+
+:litegrey: ~~Classes/Instances~~
+
+:litegrey: Problem P2 ~~is an instance of~~ Problem P1
+
+:litegrey: In P1:
+
+:litegrey: ||class_of: P2||
+
+---
+
+:litegrey:
+
+:litegrey:
+
+:litegrey: In P2:
+
+:litegrey: ||instance_of: P1||
+
+---
+
+: ~~Solutions~~
+
+: Solution S ~~solves~~ Problem P
+
+: In S:
+
+: ||problem: P||
+
+---
+
+:
+
+:
+
+: In P:
+
+: ||solution: S||
+
+---
+
+:litegrey: ~~Test Cases~~
+
+:litegrey: Test T ~~verifies a solution to~~ Problem P
+
+:litegrey: In P:
+
+:litegrey: ||test: T||
+
+---
+
+:litegrey:
+
+:litegrey:
+
+:litegrey: In T:
+
+:litegrey: ||problem: P||
+
+---
+
+: ~~Effort~~
+
+: <amount> ~~is the amount of effort required to solve~~
+Problem P
+
+: In P:
+
+: ||effort:|| <amount>
+
+---
+
+:litegrey: ~~Status~~
+
+:litegrey: Problem P ~~has current status of~~ <status>
+
+:litegrey: In P:
+
+:litegrey: ||status:|| <status>
+
+---
+
+: ~~Reviews~~
+
+: Problem P ~~had an __informal__ status of~~ <status> on
+<date> as described in <paragraph>
+
+:
+
+: ||review:||<date>||:P:||<status>||:|| <paragraph>
+
+---
+
+:litegrey: ~~Results~~
+
+:litegrey: Problem P ~~had a __formal__ status of~~ <status> on <date>
+as described in <paragraph>
+
+:litegrey:
+
+:litegrey: ||outcome:||<date>||:P:||<status>||:|| <paragraph>
+
+---
+
+: ~~Tasks~~
+
+: Task T ~~will solve~~ Problem P
+
+: In P:
+
+: ||task: T||
+
+---
+
+:
+
+:
+
+: In T:
+
+: ||problem: P||
+
+---
+
+:litegrey: ~~Associations~~
+
+:litegrey: Problem P2 ~~is associated with~~ Problem P1
+
+:litegrey: In P2:
+
+:litegrey: ||associated: P1||
+
+---
+
+:litegrey:
+
+:litegrey:
+
+:litegrey: In P1:
+
+:litegrey: ||associated: P2||
+
+---
+
+: ~~Request~~
+
+: Problem P2 ~~is a request to solve~~ Problem P1
+
+: In P1:
+
+: ||request: P2||
+
+---
+
+:
+
+: <request> ~~is a request to solve~~ Problem P
+
+: In P:
+
+: ||request:|| <request>
+
+---
+
+:litegrey: ~~Attributes~~
+
+:litegrey: Problem P ~~has an attribute~~ named <name> with a value of <value>
+
+:litegrey: In P:
+
+:litegrey: ||attr:|| <name> ||=|| <value>
+
+---
+
+: ~~Whole/Part hierarchy~~
+
+: Problem P2 ~~is part of~~ Problem P1
+
+: In P2:
+
+: ||parent: P1||
+
+---
+
+:
+
+:
+
+: In P1:
+
+: ||child: P2||
+
+---
+
+:litegrey: ~~Copyright~~
+
+:litegrey: Problem P ~~is copyrighted~~ with <text>
+
+:litegrey: In P:
+
+:litegrey: ||copyright:|| <text>
+
+---
+
+: ~~Revision~~
+
+: Problem P ~~has a revision number of~~ <number>
+
+: In P:
+
+: ||revision:|| <number>
+
+---
+
+:litegrey: ~~Date~~
+
+:litegrey: Problem P ~~was last revised on~~ <date>
+
+:litegrey: In P:
+
+:litegrey: ||date:|| <date>
+
+---
+
+: ~~Author~~
+
+: Problem P ~~was last revised by~~ <name>
+
+: In P:
+
+: ||author:|| <name>
+
+---TABLE
+
+#---------------------------------------------------------------------
+
+*** Solutions
+
+label:: solutions
+
+The purpose of the ~~solution~~ region is to provide a simple
+traceable description of a specific solution.
+
+Example:
+
+  >>>solution
+
+  title:: Use C-a a instead of C-a
+
+  label:: solution-2006-01-02-001
+
+  problem:: problem-2006-01-02-001
+
+  description:: Without changing the configuration of either screen or
+  Emacs you can simply use C-a a in place of C-a to go to the
+  beginning of a line.
+
+  con:: This solution requires a change in editing behavior which has
+  become reflexive muscle-memory over years of editing with Emacs.
+
+  <<<solution
+
+This example solution contains 5 data elements, ~~title~~, ~~label~~,
+~~problem~~, ~~description~~, and ~~con~~. [g:sml:SML] enables you to
+capture a lot of structured information about solutions.
+[ref:tab-solution-data] enumerates the data elements you can use to
+describe solutions.  In this table, identifiers like ||P||, ||S||, and
+||S1|| represent labels.  Identifiers like <title>, <text>, and
+<paragraph> represent free text.
+
+---TABLE
+
+title:: Solution Data Elements
+
+label:: tab-solution-data
+
+column::1:width: 15
+
+column::1:head: Structured Information
+
+column::2:width: 40
+
+column::2:head: Assertion
+
+column::3:width: 7
+
+column::4:width: 30
+
+column::4:head: Examples
+
+: ~~Title~~
+
+: Solution S ~~has title~~ <title>
+
+: In S:
+
+: ||title:|| <title>
+
+---
+
+:litegrey: ~~Unique Identifier~~
+
+:litegrey: Solution S ~~has unique identifier~~ ``S''
+
+:litegrey: In S:
+
+:litegrey: ||label: S||
+
+---
+
+: ~~Description~~
+
+: Solution S ~~has description~~ <paragraph>
+
+: In S:
+
+: ||description:|| <paragraph>
+
+---
+
+:litegrey: ~~Ownership~~
+
+:litegrey: Role O ~~has overall responsibility for~~ Solution S
+
+:litegrey: In S:
+
+:litegrey: ||owner: O||
+
+---
+
+:litegrey:
+
+:litegrey:
+
+:litegrey: In O:
+
+:litegrey: ||solution: S||
+
+---
+
+:litegrey:
+
+:litegrey: <owner> ~~has overall responsibility for~~ Solution S
+
+:litegrey: In S:
+
+:litegrey: ||owner:|| <owner>
+
+---
+
+: ~~Assignees~~
+
+: Role A ~~is assigned responsibility for~~ Solution S
+
+: In S:
+
+: ||assignee: A||
+
+---
+
+:
+
+: <assignee> ~~is assigned responsibility for~~ Solution S
+
+: In S:
+
+: ||assignee:|| <assignee>
+
+---
+
+:litegrey: ~~Stakeholders~~
+
+:litegrey: Role H ~~has a stake in~~ Solution S
+
+:litegrey: In S:
+
+:litegrey: ||stakeholder: H||
+
+---
+
+:litegrey:
+
+:litegrey: <stakeholder> ~~has a stake in~~ Solution S
+
+:litegrey: In S:
+
+:litegrey: ||stakeholder:|| <stakeholder>
+
+---
+
+: ~~Types~~
+
+: Solution S ~~has type~~ <type>
+
+: In S:
+
+: ||type:|| <type>
+
+---
+
+:litegrey: ~~Sequences~~
+
+:litegrey: Solution S1 ~~comes before~~ Solution S2
+
+:litegrey: In S1:
+
+:litegrey: ||next: S2||
+
+---
+
+:litegrey:
+
+:litegrey:
+
+:litegrey: In S2:
+
+:litegrey: ||previous: S1||
+
+---
+
+: ~~Priority~~
+
+: Solution S ~~has priority~~ <priority>
+
+: In S:
+
+: ||priority:|| <priority>
+
+---
+
+:litegrey: ~~Directives~~
+
+:litegrey: Use of Solution S ~~is directed by~~ Problem P
+
+:litegrey: In S:
+
+:litegrey: ||directed_by: P||
+
+---
+
+:litegrey:
+
+:litegrey: Use of Solution S ~~is directed by~~ <directive>
+
+:litegrey: In S:
+
+:litegrey: ||directed_by:|| <directive>
+
+---
+
+: ~~Dependencies~~
+
+: Solution S2 ~~depends on~~ Solution S1
+
+: In S2:
+
+: ||depends_on: S1||
+
+---
+
+:
+
+:
+
+: In S1:
+
+: ||required_by: S2||
+
+---
+
+:litegrey: ~~Classes/Instances~~
+
+:litegrey: Solution S2 ~~is an instance of~~ Solution S1
+
+:litegrey: In S1:
+
+:litegrey: ||class_of: S2||
+
+---
+
+:litegrey:
+
+:litegrey:
+
+:litegrey: In S2:
+
+:litegrey: ||instance_of: S1||
+
+---
+
+: ~~Version~~
+
+: Solution S ~~is version~~ <version>
+
+: In S:
+
+: ||version:|| <version>
+
+---
+
+:litegrey: ~~License~~
+
+:litegrey: Solution S ~~is used under license~~ <license>
+
+:litegrey: In S:
+
+:litegrey: ||license:|| <license>
+
+---
+
+: ~~Cost~~
+
+: Solution S ~~costs~~ <cost>
+
+: In S:
+
+: ||cost:|| <cost>
+
+---
+
+:litegrey: Pros
+
+:litegrey: Solution S ~~has pro~~ <pro>
+
+:litegrey: In S:
+
+:litegrey: ||pro:|| <pro>
+
+---
+
+: Cons
+
+: Solution S ~~has con~~ <con>
+
+: In S:
+
+: ||con:|| <con>
+
+---
+
+:litegrey: ~~Problems~~
+
+:litegrey: Solution S ~~solves~~ Problem P
+
+:litegrey: In S:
+
+:litegrey: ||problem: P||
+
+---
+
+:litegrey:
+
+:litegrey:
+
+:litegrey: In P:
+
+:litegrey: ||solution: S||
+
+---
+
+: ~~Test Cases~~
+
+: Test T ~~verifies~~ Solution S
+
+: In S:
+
+: ||test: T||
+
+---
+
+:
+
+:
+
+: In T:
+
+: ||solution: S||
+
+---
+
+:litegrey: ~~Status~~
+
+:litegrey: Solution S ~~has current status of~~ <status>
+
+:litegrey: In S:
+
+:litegrey: ||status:|| <status>
+
+---
+
+: ~~Reviews~~
+
+: Solution S ~~had an __informal__ status of~~ <status> on
+<date> as described in <paragraph>
+
+:
+
+: ||review:||<date>||:S:||<status>||:|| <paragraph>
+
+---
+
+:litegrey: ~~Results~~
+
+:litegrey: Solution S ~~had a __formal__ status of~~ <status> on <date> as
+described in <paragraph>
+
+:litegrey:
+
+:litegrey: ||outcome:||<date>||:S:||<status>||:|| <paragraph>
+
+---
+
+: ~~Tasks~~
+
+: Task T ~~will implement~~ Solution S
+
+: In S:
+
+: ||task: T||
+
+---
+
+:
+
+:
+
+: In T:
+
+: ||solution: S||
+
+---
+
+:litegrey: ~~Associations~~
+
+:litegrey: Solution S2 ~~is associated with~~ Solution S1
+
+:litegrey: In S2:
+
+:litegrey: ||associated: S1||
+
+---
+
+:litegrey:
+
+:litegrey:
+
+:litegrey: In S1:
+
+:litegrey: ||associated: S2||
+
+---
+
+: ~~Request~~
+
+: Solution S ~~is requested by~~ <request>
+
+: In S:
+
+: ||request:|| <request>
+
+---
+
+:litegrey: ~~Attributes~~
+
+:litegrey: Solution S ~~has an attribute~~ named <name> with a value of <value>
+
+:litegrey: In S:
+
+:litegrey: ||attr:|| <name> ||=|| <value>
+
+---
+
+: ~~Whole/Part hierarchy~~
+
+: Solution S2 ~~is part of~~ Solution S1
+
+: In S2:
+
+: ||parent: S1||
+
+---
+
+:
+
+:
+
+: In S1:
+
+: ||child: S2||
+
+---
+
+:litegrey: ~~Copyright~~
+
+:litegrey: Solution S ~~is copyrighted~~ with <text>
+
+:litegrey: In S:
+
+:litegrey: ||copyright:|| <text>
+
+---
+
+: ~~Revision~~
+
+: Solution S ~~has a revision number of~~ <number>
+
+: In S:
+
+: ||revision:|| <number>
+
+---
+
+:litegrey: ~~Date~~
+
+:litegrey: Solution S ~~was last revised on~~ <date>
+
+:litegrey: In S:
+
+:litegrey: ||date:|| <date>
+
+---
+
+: ~~Author~~
+
+: Solution S ~~was last revised by~~ <name>
+
+: In S:
+
+: ||author:|| <name>
+
+---TABLE
+
+#---------------------------------------------------------------------
+
+*** Tests
+
+label:: tests
+
+The purpose of the ~~test~~ region is to document formal tests and
+make them traceable to problems, solutions and tasks.  The outcome of
+tests establish formal ~~status~~ of problems and solutions.
+
+Tests ~~formally~~ determine that status of items.[f:tests:1] For
+instance, a test can formally determine whether a problem has been
+solved.  Tests are often called test cases.
+
+Tests produce results; results contain outcomes.  Each result might
+represent a different solution, a different version of the same
+solution, or the same solution implemented in different environments.
+
+One test can produce many results but a result can only be the product
+of one test.  In other words, you ~~can't~~ combine the outcomes from
+different tests into a single result.
+
+Tests come in many forms including, measurements, inspections, and
+demonstrations.
+
+Tests often contain procedures in their narratives.  A procedure is a
+set of steps.
+
+Example:
+
+  >>>test
+
+  title:: Does C-a move the cursor to the beginning of the line?
+
+  problem:: problem-2006-01-02-001
+
+  description:: Test to determine whether C-a moves the cursor to the
+  beginning of the line.
+
+  step:: type C-a
+
+  step:: observe cursor
+
+  <<<test
+
+This example test contains 3 data elements, ~~title~~, ~~problem~~,
+and ~~description~~.  [g:sml:SML] enables you to capture a lot of
+structured information about tests.  [ref:tab-test-data] enumerates
+the data elements you can use to describe tests.  In this table,
+identifiers like ||P||, ||S||, and ||S1|| represent labels.
+Identifiers like <title>, <text>, and <paragraph> represent free text.
+
+---TABLE
+
+title:: Test Data Elements
+
+label:: tab-test-data
+
+column::1:width: 15
+
+column::1:head: Structured Information
+
+column::2:width: 40
+
+column::2:head: Assertion
+
+column::3:width: 7
+
+column::4:width: 30
+
+column::4:head: Examples
+
+: ~~Title~~
+
+: Test T ~~has title~~ <title>
+
+: In T:
+
+: ||title:|| <title>
+
+---
+
+:litegrey: ~~Unique Identifier~~
+
+:litegrey: Test T ~~has unique identifier~~ ``T''
+
+:litegrey: In T:
+
+:litegrey: ||label: T||
+
+---
+
+: ~~Description~~
+
+: Test T ~~has description~~ <paragraph>
+
+: In T:
+
+: ||description:|| <paragraph>
+
+---TABLE
+
+= title = Short, descriptive caption
+
+= label = Unique identifier
+
+= type = Arbitrary type identifier
+
+= parent = The ID (label) of this test's parent. Tests can exist in
+hierarchies.
+
+= problem = (multivalued) Problem(s) related to this test.  Do
+solutions solve these problems?
+
+= solution = (multivalued) Solution(s) related to this test.  Do they
+solve the related problems?
+
+= script = (multivalued) A script that automates the test.
+
+= tester = The name of the individual who is supposed to (or did) run
+the test.
+
+= author = The author of the test.
+
+= owner = The person responsible for the test.
+
+= validator = An authority who validates the suitability of the test.
+
+= copyright = Copyright notice on this test.
+
+= description = A one paragraph description of the test.
+
+= level = (multivalued) Tests can result in a score called a `level.'
+This is a complex data element used to define levels and the impact of
+achieving each level. (a separate section will cover the complexities
+of writing tests).
+
+= question = (multivalued) Questions are complicated data elements.
+Each question has a yes or no answer plus an optional comment.  The
+question can include impact statements for yes and no answers.
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# footnotes
+
+footnote::1: The ~~informal~~ status of an item can be declared using
+the ||status:|| data element in the preamble of the item.  If the
+document preamble contains the ``||use_formal_status: 1||'' directive,
+item status will ~~only~~ be established by test results (outcomes).
+
+#---------------------------------------------------------------------
+
+*** Results
+
+label:: results
+
+Results are produced by tests.  The same test can produce many
+results.  Each result might represent a different solution, a
+different version of the same solution, or the same solution
+implemented in different environments.
+
+Each result is related to one or more specified items tested.
+
+A result contains one or more outcomes.
+
+Outcomes are automatically combined to determine the overall test
+result status.
+
+Example:
+
+  >>>result
+
+  title:: Test Results
+
+  test:: test-2006-01-03-001
+
+  outcome::2011-03-17:ci-000366:green: The message processor processed
+  300 test messages in one (1) minute.
+
+  <<<result
+
+Results region data elements are:
+
+= title = Automatically generated
+
+= label = Unique identifier (automatically generated)
+
+= test = The test for which this result applies
+
+= outcome = An individual test outcome
+
+#---------------------------------------------------------------------
+
+**** Outcomes
+
+label:: outcomes
+
+An outcome records the degree to which the outcome of a test matches
+the expected outcome.  It consists of (1) the date of the test, (2)
+the label of the item tested, (3) a status (red, yellow, green, or
+grey), (4) and a one-paragraph description of the outcome.
+
+Test outcomes can set the status of items in the document.  If the
+``||use_formal_status: 1||'' directive is included in the document
+preamble, then the status of each item in the document will ~~only~~
+be determined based on test outcomes.
+
+#---------------------------------------------------------------------
+
+**** Reviews
+
+label:: reviews
+
+Reviews have the exact same syntax as outcomes but do not affect the
+status of items.
+
+#---------------------------------------------------------------------
+
+*** Tasks
+
+label:: tasks
+
+The purpose of the ~~task~~ region is to provide a short description
+of work to be performed.
+
+Example:
+
+  >>>task
+
+  title:: Re-factor publish code to be object-oriented
+
+  label:: task-2006-01-03-001
+
+  description:: All code that makes up the ||publish|| program is
+  currently procedural code.  Several new requirements would be easier
+  to satisfy if the code were structured using an object-oriented
+  paradigm.
+
+  <<<task
+
+Task region data elements are:
+
+= title = Short, descriptive cation
+
+= label = Unique identifier
+
+= type = Arbitrary type descriptor
+
+= parent = Tasks can exist in hierarchies (called work breakdown
+structures)
+
+= problem = (multivalued) ID (label) of problem(s) related to this
+task
+
+= solution = (multivalued) ID (label) of solution(s) related to this
+task
+
+= author = The individual who wrote the description of this task
+
+= owner = The owner of the task (i.e. the person responsible for
+getting the work done)
+
+= copyright = The copyright of the task description
+
+= depends_on = The ID (label) of another task upon which this one
+depends.  Tasks often have complex dependency relationships.
+
+= required_by = The ID (label) of another task that requires this one.
+
+= instance_of = The ID (label) of another task of which this is an
+instance.  Tasks often have complex object inheritance relationships.
+Instances inherit the attributes of the classes to which they belong.
+
+= class_of = The ID (label) of another task for which this is a class.
+Instances inherit the attributes of the classes to which they belong.
+
+#---------------------------------------------------------------------
+
+*** Roles
+
+label:: roles
+
+A ~~role~~ describes the duties of an individual.  An individual may
+have multiple roles.
+
+#---------------------------------------------------------------------
+
+*** Region Attributes
+
+Region preambles can contain attributes that describe the region.  For
+instance, you might create a ``solution'' region to represent a
+certain computer ([ref:lis-sample-region]) and use attributes to
+describe that computer.
+
+---LISTING
+
+title:: Sample Region With Attributes
+
+label:: lis-sample-region
+
+file:: files/ci-000294.txt
+
+---LISTING
+
+An attribute is simply a name/value pair where the name and the value
+are separated by an equals sign.
+
+#---------------------------------------------------------------------
+
+*** Object Oriented Inheritance
+
+The ||instance_of|| and ||class_of|| data elements allow you to
+establish class -> instance relationships between items described in
+regions.  For instance, you might have a region that describes the
+default configuration of a workstation computer ([ref:lis-ci-000293]).
+
+---LISTING
+
+title:: Sample Configuration of a Workstation Computer
+
+label:: lis-ci-000293
+
+file:: files/ci-000293.txt
+
+---LISTING
+
+Then you might have another region that describes a unique
+instantiation of a computer workstation ([ref:lis-ci-000295]).
+
+---LISTING
+
+title:: Unique Instantiation of a Workstation Computer
+
+label:: lis-ci-000295
+
+file:: files/ci-000295.txt
+
+---LISTING
+
+Notice the data element that says, ``||instance_of: ci-000293||.''
+This tells the publishing system that ||ci-000295|| is an ~~instance
+of~~ ||ci-000293|| and that ||ci-000295|| should inherit all of the
+attributes of ||ci-000293||.  If any attributes are defined in both
+the class (||ci-000293||) and the instance (||ci-000295||) the
+attributes in the instance override the attributes in the class.  In
+this example, the instance has more RAM (6 GB) than the class (4 GB)
+and the operating system is ``Windows XP'' instead of ``Microsoft
+Windows.''
+
+#---------------------------------------------------------------------
+
+** Special Features
+
+label:: special-features
+
+#---------------------------------------------------------------------
+
+*** Include
+
+label:: include
+
+You can reuse text from other files using the ``||include||''
+mechanism:
+
+  include:: my-other-doc.txt
+
+This will make the text of ``||my-other-doc.txt||'' part of your
+current document.  This lets you modularize documents.  You can have
+document components (or fragments) that are re-used in multiple master
+documents.  Here are some other examples:
+
+  include:: demos/my-hacking-demo.txt
+
+  include:: ../../common/GPL-license.txt
+
+Modularizing your documentation provides the following benefits:
+
++ Enable publishing of document parts as separate documents
+
++ Re-use document components across documents
+
++ Organize your document content for maintainability
+
+By default, this ``include'' mechanism simply adds the external file's
+text to the current document just as it appears in the external file.
+However, this isn't always what you want.  What if the text in the
+included file contains a section structure?  You have three options:
+
++ ||include: my-file.txt|| and ||include:section: my-file.txt|| -- The
+title of the included text will become a top-level section in the
+document.  Top-level sections in the included text will become
+sub-sections.
+
++ ||include:subsection: my-file.txt|| -- The title of the included
+text will become a sub-section of the current context.  If the
+||include:subsection:|| directive occurs one of the document's
+sub-sections (i.e., has a 2 asterisk heading) then the title of the
+included text will be inserted as a sub-sub-section.
+
+You can include files that include other files.  You can have up to 10
+levels of included files.
+
+#---------------------------------------------------------------------
+
+*** Comment Lines
+
+label:: comment-lines
+
+~~Comment lines.~~ Any line that begins with '#' is interpreted as a
+comment.  The '#' sign must appear in the first column otherwise the
+line will be interpreted as preformatted text.
+
+  # This is a comment.  It won't show up in the published document
+  # except as an HTML or LaTeX comment.
+
+~~Comment blocks.~~ A whole block of text can be `commented out' like
+this:
+
+  ###comment
+
+  This whole block of text is a comment since it occurs between the
+  comment markers.  Everything inside this comment will be ignored.
+  It won't show up in the published document except as an HTML or
+  LaTeX comment.
+
+  ###comment
+
+or even like this:
+
+  #############################################################comment
+
+  This whole block of text is a comment since it occurs between the
+  comment markers.  Everything inside this comment will be ignored.
+  It won't show up in the published document except as an HTML or
+  LaTeX comment.
+
+  #############################################################comment
+
+#---------------------------------------------------------------------
+
+*** In-line Comments
+
+label:: in-line-comments
+
+Insert in-line comments like this:
+
+  Line of text {lit:[# my in-line comment]} containing an in-line comment.
+
+#---------------------------------------------------------------------
+
+*** Hidden Text
+
+label:: hidden-text
+
+Hide text by enclosing it within `||###hide||' lines like this:
+
+  ###hide
+
+  This text is hidden.
+
+  ###hide
+
+Why not just use a comment block?  Hidden text is slightly different
+from commented text.  Data elements inside hidden text are known to
+the ||publish|| program and can be referenced in other parts of the
+document.  So, for instance, let's say you want to hide a slide:
+
+  ###hide
+
+  >>>slide
+
+  title:: Great Slide Title
+
+  label:: great-slide
+
+  description:: This great slide describes my three main points.
+
+  - Point 1
+
+  - Point 2
+
+  - Point 3
+
+  <<<slide
+
+  ###hide
+
+Even though the slide will not appear in the document, you could still
+use ||{lit:[title:great-slide]}|| to recall the slide's title, and
+||{lit:[description:great-slide]}|| to recall the slide's description.
+
+###COMMENT
+
+The preceding paragraph tests the publish program's ability to escape
+two literal strings in the same block of text.
+
+###COMMENT
+
+You can also ``||include||'' hidden text:
+
+  include::hide: problem-1.txt
+
+The ``problem'' itself won't show up in the document, but you can
+still refer to it's data.  This comes in handy when you want to create
+a summary of items without cluttering up the document with the items
+themselves.  For example, here we create a summary table of three
+problems without rendering the full problems in the document:
+
+  include::hide: problem-1.txt
+  include::hide: problem-2.txt
+  include::hide: problem-3.txt
+
+  ---table
+  title:: Summary of Problems
+  label:: problem-summary
+
+  : [lookup:title:problem-1]
+  : [lookup:description:problem-1]
+  ---
+  : [lookup:title:problem-2]
+  : [lookup:description:problem-2]
+  ---
+  : [lookup:title:problem-3]
+  : [lookup:description:problem-3]
+  ---table
+
+#---------------------------------------------------------------------
+
+*** Take Note!
+
+label:: take-note
+
+If you want to call attention to certain content, insert a
+[[take_note]] indicator.
+
+#---------------------------------------------------------------------
+
+*** Cross References
+
+label:: cross-references
+
+#---------------------------------------------------------------------
+
+*** Conditional Text
+
+label:: conditional-text
+
+Sometimes you may have a document I want to use for multiple purpose
+with slight differences for each.  The conditional text mechanism is
+like the ||IFDEF|| in C.
+
+You can make blocks of text conditional with `||???name1,name2||' at
+the beginning and end of the block (three or more question marks '???'
+starting at the beginning of a line and ending with a comma separated
+list of names of conditionals) will start and stop the conditional
+block.
+
+For example, in the document preamble are:
+
+  define:: rh9,knoppix
+
+mark blocks of conditional text like:
+
+  ????????????????????????????????????????????????????????????rh9
+
+  This paragraph goes into the RedHat 9 version of the document, but
+  not into other variations.  The '..define' statement above tells the
+  ||publish|| program to include this text.
+
+  ????????????????????????????????????????????????????????????rh9
+
+Conditional names are defined using 'define: name' at the beginning of
+the line in the document preamble (but normally near the top where
+they are easily changed).
+
+#---------------------------------------------------------------------
+
+*** Building an Index
+
+label:: building-an-index
+
+Its easy to build an [i:index] for your
+document.[f:building-an-index:1] An index enables readers to quickly
+find information by subject.  There are two ways to add words or
+phrases to the index.
+
+index:: index!inline markup
+
+The first way is to simply enclose it in markup like this:
+||{lit:[i:term]}||.  The text of the first paragraph in this section
+is:
+
+  Its easy to build an [i:index] for your document.[f] An index
+  enables readers to quickly find information by subject.  There are
+  two ways to add words or phrases to the index.
+
+Notice the markup surrounding the word ``index.'' If you look in this
+document's index you should find an entry for the word ``index''
+pointing to this page.
+
+index:: index!one-line entry; index!sub-entries
+
+The second way to add words or phrases to the index is to add a line
+like this to your text:
+
+  index:: term
+
+You can specify multiple index terms on one line by separating them
+by semi-colons:
+
+  index:: term 1; term 2; term 3
+
+You can specify index ~~sub-terms~~ like this:
+
+  index:: document!structure
+
+This will create a ``structure'' sub-entry under ``document'' in the
+index.
+
+index:: index!block of text
+
+You can also create an index entry to indicate a whole block of text
+deals with an indexed subject:
+
+  index::begin: term
+
+  Here are several...
+  lines of text...
+  about the term...
+
+  index::end: term
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# footnotes
+
+footnote::1: At the time of this writing, 2009-01-22, I haven't yet
+implemented index publishing for the HTML rendition.
+
+#---------------------------------------------------------------------
+
+*** Building a Glossary
+
+label:: building-a-glossary
+
+Its easy to build a [g:sml:glossary] of terms within your document. If
+you've defined glossary terms in your document, the glossary will
+automatically be inserted at the end of the document between the
+bibliography and the index.
+
+In the PDF rendition glossary terms are typeset in a blue italicized
+font and hyper-linked to the term's definition in the glossary at the
+end of the document.
+
+In keeping with the design philosophy that simple things should be
+simple and hard things possible, creating simple glossary entries and
+references is simple.  More complicated glossary features are
+possible.  First, let's look at a simple glossary definition and
+reference.
+
+Insert the definition of the term ``glossary'' anywhere in the
+document like this:
+
+  glossary:: glossary = A list of terms in a special subject, field,
+  or area of usage, with accompanying definitions.
+
+To indicate the definition of the term ``glossary'' can be found in
+the glossary simply surround the term with ||{lit:[g:term]}|| like
+this:
+
+  Its easy to build a [g:sml:glossary] of terms within your document.  If
+  you've defined glossary terms in your document, the glossary will
+  automatically be inserted at the end.
+
+#---------------------------------------------------------------------
+
+**** Defining Glossary Entries
+
+[ref:building-a-glossary] described the most basic glossary features,
+how to define a simple glossary entry and how to reference that entry
+in the text of your document.
+
+The following additional glossary definition features are available.
+
++ Define a plural form of the term
+
++ Define multiple definitions of the same term
+
++ Define a sort order for the term
+
+#---------------------------------------------------------------------
+
+**** Glossary References
+
+[ref:building-a-glossary] described the most basic way to refer to a
+glossary term.
+
+---TABLE
+
+title:: Referencing Glossary Entries
+
+label:: tab-referencing-glossary-entries
+
+:: Form
+
+:: Example
+
+---
+
+:
+
+ [g:<term>]
+
+ [gls:<term>]
+
+: Insert a [g:sml:glossary] term.
+
+---
+
+:
+
+ [G:<term>]
+
+ [Gls:<term>]
+
+: Insert a [g:sml:glossary] term; upper-case the initial letter of each
+word.
+
+---TABLE
+
+#---------------------------------------------------------------------
+
+*** Generated Content
+
+label:: generated-content
+
+The following blocks of content can be automagically generated by the
+||publish|| program based on the content of the document:
+
+:
+
+- ||problem-domain-listing||
+- ||solution-domain-listing||
+- ||prioritized-problem-listing||
+
+:
+
+- ||prioritized-solution-listing||
+- ||associated-problem-listing||
+- ||associated-solution-listing||
+
+---
+
+You could think of these as special purpose tables of contents that
+can be inserted anywhere you want in the document.  They are all
+related to features for the documentation of systematic problem
+solving.  Assuming you've inserted ``problem'' regions in your
+document, you can insert a complete problem domain listing simply by
+adding:
+
+  generate:: problem-domain-listing
+
+The same goes for the other types of generated content.  If you've
+assigned priority and status attributes to your problems, you can
+generate a prioritized listing of problems:
+
+  generate:: prioritized-problem-listing
+
+Prioritization is based on priority and status using the following
+ranking system shown in [ref:tab-priority-ranking-system].
+
+---TABLE
+
+title:: Problem and Solution Prioritization Ranking System
+
+label:: tab-priority-ranking-system
+
+:: rank
+
+:: importance
+
+:: priority
+
+:: status
+
+---
+
+: 1
+
+:red: urgent
+
+:red: critical
+
+:red: red
+
+---
+
+: 2
+
+:red: urgent
+
+:red: critical
+
+:yellow: yellow
+
+---
+
+: 3
+
+:red: urgent
+
+:orange: high
+
+:red: red
+
+---
+
+: 4
+
+:red: urgent
+
+:orange: high
+
+:yellow: yellow
+
+---
+
+: 5
+
+:yellow: routine
+
+:yellow: routine
+
+:red: red
+
+---
+
+: 6
+
+:yellow: routine
+
+:yellow: routine
+
+:yellow: yellow
+
+---
+
+: 7
+
+:yellow: routine
+
+:grey: low
+
+:red: red
+
+---
+
+: 8
+
+:yellow: routine
+
+:grey: low
+
+:yellow: yellow
+
+---
+
+: 9
+
+:green: satisfied
+
+:red: critical
+
+:green: green
+
+---
+
+: 10
+
+:green: satisfied
+
+:orange: high
+
+:green: green
+
+---
+
+: 11
+
+:green: satisfied
+
+:yellow: routine
+
+:green: green
+
+---
+
+: 12
+
+:green: satisfied
+
+:grey: low
+
+:green: green
+
+---TABLE
+
+Additional ``generate'' directives may be added in the future.
+
+#--------------------------------------------------------------------
+
+*** Inserted Content
+
+label:: inserted-content
+
+The following blocks of content can be automagically inserted by the
+||publish|| program:
+
+- narrative content of any region
+
+Regions include problems, solutions, tests, tasks, and roles.  The
+narrative portion of these regions consists of all text after the
+region preamble.  Use the following syntax to insert the narrative
+content of a region:
+
+  insert:: narrative(ci-000123)
+
+#---------------------------------------------------------------------
+
+*** To Do Items
+
+label:: to-do-items
+
+Lines that begin with ``[ ]'' in the first column indicate the
+beginning of a to-do item:
+
+  [ ] means work has not started
+  [!] means an urgent todo that is not yet completed
+  [.] means work has started, not yet completed
+  [x] means todo is done
+  [-] means todo is canceled
+  [?] (Don) indicates Don has a question
+  [ ] (12 Sep 2002) means todo has 12 Sep 2002 deadline
+  [ ] (12 Sep 2002, Don) means Don has a 12 Sep 2002 deadline
+
+#---------------------------------------------------------------------
+
+*** Scripts
+
+label:: scripts
+
+You can have the ||publish|| program run an arbitrary script for you and
+insert the output in your document.  Imagine how useful this feature
+is for performing automated vulnerability assessments.  You can write
+a document that scripts the execution of vulnerability assessment
+script, inserts the output into your document as you're publishing it!
+Talk about a ``hot off the presses'' vulnerability assessment.
+
+Scripts can be recursive.  This means the output of a script can
+include a directive to run another script.  The ||publish|| program
+will keep running until all script requests have been
+satisfied.[f:scripts:1]
+
+By default, the script feature is disabled.  If you have included
+script requests in your document and wish to have the ||publish|| program
+run them, check the ~~run scripts~~ option in the GUI or specify
+||--scripts|| from the command line.
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# footnotes
+
+footnote::1: Since the script mechanism could easily set up an
+infinite loop, there is a safety valve.  There is a setting called
+||$MAX_PASS_TWO_ITERATIONS|| that defines the maximum number of times
+pass will run before the program decides you're in an infinite loop
+and exits.  This is currently set to 10, but may be increased in the
+future.
+
+#---------------------------------------------------------------------
+
+*** Reusable Content
+
+label:: reusable-content
+
+You can reuse elements of content like titles, descriptions, and
+narratives.  Here is a complete list of reusable content elements
+along with alternative syntaxes for reusing them
+
+: title
+
+: ||{lit:[title:item-label]}||
+
+:
+
+: ||{lit:[t:item-label]}||
+
+---
+
+: description
+
+: ||{lit:[description:item-label]}||
+
+: ||{lit:[desc:item-label] }||
+
+: ||{lit:[d:item-label]}||
+
+---
+
+: type
+
+: ||{lit:[type:item-label]}||
+
+:
+
+:
+
+---
+
+: owner
+
+: ||{lit:[owner:item-label]}||
+
+:
+
+:
+
+---
+
+: status
+
+: ||{lit:[status:item-label]}||
+
+:
+
+:
+
+---
+  
+[g:sml:SML] also has a generic ``lookup'' feature that enables you to
+reuse any element of structured data, even user defined attributes:
+
+  [lookup:<label>:<element>]
+
+For instance, you can ``lookup'' a title like this:
+
+  [lookup:item-label:title]
+
+If your item contains a user defined attribute:
+
+  title:: My Nose
+
+  label:: nose
+
+  attr:: color = red
+
+you can reuse the user defined attribute using:
+
+  [lookup:color:nose]
+
+#---------------------------------------------------------------------
+
+*** Revision Summary
+
+label:: revision-summary
+
+You can put one or more revision summaries in your document to
+describe how the document has changed over time.  The revision summary
+will be rendered as a table with three columns: (1) version, (2) date,
+(3) summary of changes.
+
+Here is an example:
+
+  ---revisions
+
+  rev:: 0.1 (1539) = 2010-10-19 = nitial draft.  Separated out the
+  Crew Vetting business requirements into their own business
+  requirements document, and removed all references to this document
+  being a CONOPS.
+
+  rev:: 0.2 (1957) = 2011-02-01 = Added this revision summary table.
+  Organized each stage description into four parts: (1) Activities By
+  Role, (2) Work Products, (3) Exit Criteria, (4) Tailoring
+  Information
+
+  ---revisions
+
+The publish program will render this change summary like this:
+
+---TABLE
+
+title:: Revision Summary
+
+label:: tab-revision-summary
+
+column::1:width: 15
+
+column::2:width: 15
+
+column::3:width: 70
+
+:: Version
+
+:: Date
+
+:: Summary of Changes
+
+---
+
+: v0.2 (1957)
+
+: 2011-02-01
+
+: Added this revision summary table. Organized each stage description
+into four parts: (1) Activities By Role, (2) Work Products, (3) Exit
+Criteria, (4) Tailoring Information
+
+---
+
+: v0.1 (1539)
+
+: 2010-10-19
+
+: Initial draft.  Separated out the Crew Vetting business requirements
+into their own business requirements document, and removed all
+references to this document being a CONOPS.
+
+---TABLE
+
+#---------------------------------------------------------------------
+
+* Required Software
+
+label:: required-software
+
+#---------------------------------------------------------------------
+
+** LaTeX
+
+If you want to render PDF output, you need a distribution of LaTeX.
+
+#---------------------------------------------------------------------
+
+** Adobe Acrobat
+
+To view PDF output you need a PDF reader like Adobe Acrobat.
+
+#---------------------------------------------------------------------
+
+** ImageMagick
+
+For ||publish|| to handle images properly, ImageMagick must be installed.
+You can download Windows and Linux versions at:
+
+  http://www.imagemagick.org/
+
+Specifically, the ||convert|| program from the ImageMagick suite is
+used to resize images.  ImageMagick is open source software and can be
+used and modified at no cost.
+
+###############################################################COMMENT
+
+footnote::18: In the current version of ||publish||, you must place a
+copy of ImageMagick's ``convert.exe'' program file in the same
+directory containing [cmd:publish.exe].  I'm looking for a simpler way
+to resize images.  If you've got any ideas, please send me email at
+drj826@acm.org.  THANKS!
+
+###############################################################COMMENT
+
+** Web Browser
+
+To view HTML output you need a Web browser like Mozilla Firefox.
+
+#---------------------------------------------------------------------
+
+* Systems Engineering
+
+label:: systems-engineering
+
+---EPIGRAPH
+
+text:: There's no sense being exact about something if you don't even
+know what you're talking about.
+
+author:: John von Neumann
+
+---EPIGRAPH
+
+Systems Engineering is the interdisciplinary approach governing the
+total technical and managerial effort required to transform a set of
+customer needs, expectations, and constraints into a product solution
+and support that solution throughout the product's life. This includes
+the definition of technical performance measures, the integration of
+engineering specialties towards the establishment of a product
+architecture, and the definition of supporting life-cycle processes
+that balance cost, performance, and schedule objectives.
+
+People spend their days solving problems.  In fact, it seems that most
+of life's activity revolves around solving problems.  People who think
+deep thoughts about such things say the solutions to problems can be
+described as ``systems.''  There are electrical systems, mechanical
+systems, software systems, systems of processes, and even systems of
+systems!  You guessed it, these deep thinkers call themselves
+``Systems Engineers.''
+
+Systems Engineers solve problems systematically.  This is a good idea.
+Many failed solutions can be blamed, at least in part, on
+un-systematic problem solving approaches.  An important part of any
+systematic problem solving method is documentation. This ||publish||
+program can help you with that.
+
+Systematic problem solvers like to divide the world into problems and
+solutions.  They need to use fancy names, however so they call them
+the ``problem domain'' and the ``solution domain.''  Seeing the world
+in terms of well defined problems and solutions is key to a systematic
+problem solving approach.  After all, if you can't define the problem,
+how do you know you've solved it?
+
+The ~~problem domain~~ is an organized description of the problem to
+be solved.  The favorite problem domain organizational structure is
+the hierarchy, a whole/part hierarchy.  Top level problems are broken
+down into smaller and smaller problems to describe every last detail
+of the problem.
+
+The ~~solution domain~~ is an organized description of things that
+solve the problem.  The favorite solution domain organizational
+structure is also the hierarchy (another whole/part hierarchy). Oh the
+wonderful symmetry of it all!  Top level solutions are broken down
+into smaller and smaller pieces to describe every last detail of the
+solution to the problem.
+
+There are lots of things that might go into the problem and solution
+domains.  In the following list, every thing in the left column
+represents a type of problem to be solved, and everything on the right
+represents a type of solution:
+
+:: problem domain
+
+:: solution domain
+
+---
+
+:
+
+- requirements
+- questions
+- organizational tasks
+- training objectives
+
+:
+
+- systems
+- answers
+- organizational processes
+- training modules
+
+---
+
+If you think about it, everything starts falling into either the
+problem domain or the solution domain.  Scary.
+
+This ||publish|| program can help you take a systematic approach to
+problem solving.  It offers the following features:
+
+- define problems
+
+- define solutions
+
+- relate problems to one another in a hierarchy
+
+- relate solutions to one another in a hierarchy
+
+- define the priority of problems; what does it mean to some
+  stakeholder if their problem isn't solved?
+
+- define the status of problems; to what degree have they been solved?
+
+- define the priority of solutions; what does it mean to some
+  stakeholder if this solution isn't implemented or maintained?
+
+- define the status of a solution; to what degree has it been
+  implemented and successfully used to solve problems?
+
+- trace requirements to the solutions that solve them
+
+- trace requirements to the stakeholders who need them solved
+
+- trace solutions to those responsible for them
+
+- identify the cost of solutions
+
+- trace requirements to authoritative policies that mandate they be
+  solved
+
+So what?  The ``so what'' lies in the questions you can answer once
+you've pieced together this puzzle of problems and solutions:
+
+- Why is this requirement important?
+
+- Why is this requirement more important than this other one?
+
+- What's problems get un-solved if I do away with this solution?
+
+- What's the most important problem I should be working on right now?
+
+- How much is this solution going to cost me?
+
+- Who says we have to solve ~~this~~ problem?
+
+The publishing program recognizes a special group of content regions
+to capture project-related information: ~~problem~~, ~~solution~~,
+~~test~~, ~~result~~ and ~~task~~. designed to enable systematic
+documentation and traceability of problems and solutions.
+
+#---------------------------------------------------------------------
+
+** Problems
+
+Problems are things to be solved (a.k.a. requirements).  Problems
+describe ~~what~~ must be done.  Solutions describe ~~how~~ things are
+done.  Never confuse the ``what'' and the ``how.''
+
+The coherent set of requirements is called the ~~Problem Domain~~.
+Requirements are ``coherent'' when they don't conflict with or
+duplicate one another.  Requirements are organized in a hierarchy to
+make them explainable.  High-level requirements are broken down into
+(i.e. decomposed into) more specific requirements.
+
+We often make a distinction between business requirements and system
+requirements.
+
+- ~~Business Requirements~~ are derived from business needs and
+  compliance directives, and describe what the organization must do.
+  Business requirements are allocated to the organization.  More
+  specifically, they are allocated to organizational roles.  These
+  roles are the ``owners'' who are responsible for ensuring their
+  requirements are satisfied.
+
+- ~~System requirements~~ are derived from business requirements, and
+  are allocated to systems.  System requirements are categorized as
+  (1) functional requirements, (2) non-functional requirements, and
+  (3) performance requirements.
+
+#---------------------------------------------------------------------
+
+*** Requirements Characteristics
+
+label:: requirements-characteristics
+
+Requirements should have the following characteristics:
+
+= Complete = The requirement is complete, standalone, and does not
+need additional clarification or documentation to convey the problem
+to be solved.
+
+= Correct = The requirement is correctly stated. When solved, the
+solution will solve the correct problem. Reviews to validate
+requirements will aid in developing requirements which are correct.
+
+= Consistent = The requirement does not duplicate or conflict with
+other requirements. Reviews and simulations will aid in detecting
+inconsistencies in requirements.
+
+= Traceable = The requirement was derived from a validated source. The
+source could be a Mission Need, Compliance Directive, or higher-level
+requirement. In addition, if the requirement has a child, the parent
+will also have traceability to that child.
+
+= Understandable = A good requirement is a requirement that is clearly
+stated, concise, and does not contain terms that may be misunderstood
+by the solution designer. It is incumbent upon the solution designer
+to internalize the requirements and request clarification if there is
+a potential misinterpretation.
+
+= Unambiguous = Each requirement has only one interpretation. The
+language of the requirement cannot be misinterpreted by the solution
+designer.
+
+= Testable = Each requirement is subject to testing to verify the
+solution solved the correct problem as stated in the
+requirement. Therefore, each requirement must be testable. Testing can
+be analytical, inspection, demonstration, or testing.
+
+= Feasible = Solving problems generally has a cost/schedule
+constraint. Therefore, solving a problem stated in a requirement must
+conform to the cost/schedule constraint. In other words, the solution
+to the stated problem (requirement) must be reasonable.
+
+#---------------------------------------------------------------------
+
+*** Requirements Traceability
+
+label:: requirements-traceability
+
+The ~~primary~~ purpose of requirements traceability is to trace
+requirements from origin to fulfillment.
+
+Requirements originate from a variety of sources: (1) authoritative
+documents (statutes, regulations) that assign mission activities to
+organizations, (2) authoritative documents that requires organizations
+comply with standards, and (3) customer or user requests that identify
+valid needs.
+
+Requirements are fulfilled by elements of the solution domain: (1)
+plans and procedures executed by organizations, and (2) systems that
+perform required functions.
+
+A ~~secondary~~ purpose of requirements traceability is to connect
+requirements to a variety of information that supports planning.
+Requirements are logically connected to ownership roles, test cases,
+and are allocated to projects.  These connections form a sometimes
+complicated ~~network~~ of connections also referred to as
+requirements traceability.
+
+Requirements traceability provides all information necessary to verify
+the ~~completeness~~ of requirements, designs, and tests.  The
+traceability matrices in this baseline are designed to enable
+reviewers to assess completeness of requirements, designs, and tests.
+
+Questions answered by requirements traceability are:
+
+- Are ~~all~~ of the mission and compliance needs expressed as
+  requirements?
+
+- Do the business requirements address ~~all~~ of the mission and
+  compliance needs?
+
+- Are ~~all~~ of the business requirements justified by mission needs,
+  compliance directives, valid user requests, or good practice?
+
+- Do the system requirements address ~~all~~ of the business
+  requirements?
+
+- Are ~~all~~ of the system requirements justified by business
+  requirements, or good engineering practice?
+
+- Do the component requirements address ~~all~~ of the system
+  requirements?
+
+- Do we have test cases that cover ~~each~~ business requirement?
+
+- Do we have test cases that cover ~~each~~ system requirement?
+
+- Do we have test cases that cover ~~each~~ component requirement?
+
+- Do we have a solution for ~~each~~ requirement?
+
+- Does ~~each~~ requirement have an ``owner?''
+
+- If a requirement owner has assigned responsibility for the
+  requirement to someone else, are all ``assignees'' identified?
+
+- Are ~~all~~ stakeholders identified for each requirement?
+
+- Has ~~each~~ requirement been reviewed by its owner and stakeholders
+  and do they ~~agree~~ with the requirement?
+
+- Does ~~each~~ solution component have an ``owner?''
+
+- Are ~~all~~ stakeholders identified for each solution component?
+
+- Has ~~each~~ solution component been reviewed by its owner and
+  stakeholders and do they agree with its design and implementation?
+
+Many forms of traceability are ~~bi-directional~~.  Bi-directional
+traceability means that if item ``A'' is traceable to item ``B,'' you
+can discover the relationship by looking at either one.  Requirement
+``A'' specifies it is traceable to requirement ``B'' and requirement
+``B'' specifies it is traceable to requirement ``A.''
+
+#---------------------------------------------------------------------
+
+**** Whole/Part Traceability
+
+label:: whole-part-traceability
+
+The most basic form of requirements traceability is the ~~whole/part
+hierarchy~~.  Requirements should be carefully organized into a
+whole/part hierarchy to make the requirements easy to explain.
+
+The primary benefit of organizing requirements into a hierarchy is
+~~explain-ability~~.  The best way to make requirements understandable
+is to start explaining them at a high level and to systematically
+``drill'' deeper to reveal more detail as necessary.
+
+Another benefit of organizing requirements into a whole/part hierarchy
+is to enable requirements analysts to recognize and avoid duplicate
+and overlapping requirements.
+
+This engineering baseline presents the whole/part requirements
+hierarchy three ways: (1) the expandable/collapsible tree shown in
+[ref:fig-whole-part-req-hierarchy], (2) the traceability matrix shown
+in [ref:fig-req-traceability-matrix], and (3) within detailed
+requirements descriptions shown in [ref:fig-requirement-parts] and
+[ref:fig-requirement-parents].
+
+---FIGURE
+
+title:: Portion Of The Whole/Part Requirements Hierarchy Captured In
+This Requirements Baseline
+
+label:: fig-whole-part-req-hierarchy
+
+image:: files/images/whole-part-req-hierarchy.png
+
+description:: This view of the requirements baseline is available in
+the HTML rendition by clicking the ``Tree'' link under ``Problems'' in
+the left margin of the browser.
+
+---FIGURE
+
+[ref:fig-whole-part-req-hierarchy] shows a portion of the whole/part
+hierarchy of requirements in this baseline.
+
+Traceability matrices are published with the engineering baseline.
+[ref:fig-req-traceability-matrix] shows a small segment of the
+requirements traceability matrix.  Notice the ``parts'' column in the
+middle of the matrix and the ``up'' link in the upper right corner.
+These hyperlinks enable you to navigate the whole/part hierarchy.
+
+---FIGURE
+title:: Segment of the Requirements Traceability Matrix
+label:: fig-req-traceability-matrix
+image:: files/images/req-traceability-matrix.png
+width:: 6in
+---FIGURE
+
+The whole/part requirements hierarchy must be presented in a
+bi-directional way.  ``Parent'' requirements must enumerate their
+children (i.e. parts) and each ``child'' requirement must identify its
+parent.
+
+---FIGURE
+title:: Requirement Parts
+label:: fig-requirement-parts
+image:: files/images/requirement-parts.png
+width:: 6in
+
+description:: When a requirement in a whole/part hierarchy has children
+(i.e. parts) the requirement lists its parts.
+
+---FIGURE
+
+---FIGURE
+title:: Requirement Parents
+label:: fig-requirement-parents
+image:: files/images/requirement-parents.png
+width::  6in
+
+description:: All requirements except the top-level requirements in a
+whole/part hierarchy have ``parents."  Requirements list their
+heritage all the way up to their top-level requirements.
+
+---FIGURE
+
+#---------------------------------------------------------------------
+
+**** Directives
+
+label:: directives
+
+Requirements should be traceable to authoritative directives.  When a
+requirement exists because an authority directs it, that requirement
+should be formally traceable to that authoritative directive.
+
+Capturing traceability to a directive is as easy as this:
+
+  directed_by:: NIST 800-53, CM-2
+
+If you want bi-directional traceability to directives, first capture
+the directive as a problem (i.e. requirement) then use the problem
+label to establish traceability:
+
+  directed_by:: rq-000001
+
+Tracing requirements to the directives makes it possible to
+~~justify~~ those requirements.  When getting the resources necessary
+to design solutions, the question is inevitably asked, ``why is this
+requirement important?''  Tracing the requirement to an authoritative
+directive makes it possible to answer that question.
+
+The same requirement can be directed by multiple authorities.
+
+#---------------------------------------------------------------------
+
+**** Requests
+
+label:: requests
+
+Sometimes the origin of a requirement is a request (e.g. ``trouble
+ticket,'' ``problem report,'' etc.).  In this case, the requirement
+should be made traceable to the request.  The benefit of tracing the
+requirement to the originating request is to preserve the original
+context of the stated need.  You can go back later and ask the
+requester to clarify their need or to find out if your solution meets
+their need.
+
+It's easy to confuse requests and requirements.  ~~Anyone~~ can make a
+request.  Requests come streaming in and someone must figure out what
+to do with them.  Several people might make the same request.  Someone
+might request a feature already implemented by the system but they
+don't know how to use it.  Requests are messy.  Taken all together,
+requests form a disorganized jumble of raw user needs.
+
+Requirements, on the other hand, should be complete, correct,
+consistent, traceable, understandable, unambiguous, testable,
+feasible, and well organized into a baseline which is only changed in
+an orderly, systematic way.
+
+#---------------------------------------------------------------------
+
+**** Derived Requirements
+
+label:: derived-requirements
+
+There must be a reason for each requirement.  If not directed by an
+authoritative source, a requirement is likely derived from another
+that is.
+
+Component requirements are derived from system requirements.  System
+requirements are typically derived from business requirements.
+Business requirements are often derived from mission needs.
+
+The benefit of documenting how requirements are derived is the ability
+to justify requirements.  Requirements must be justified because
+satisfying them costs resources.
+
+#---------------------------------------------------------------------
+
+**** Test Cases
+
+label:: test-cases
+
+Requirements must be traceable to the verification and validation test
+cases that prove they are solved and solved in the correct way.
+
+#---------------------------------------------------------------------
+
+**** Solutions
+
+label:: solutions-traceability
+
+Requirements must be traceable to the solutions that solve them.
+
+#---------------------------------------------------------------------
+
+**** Requirement Owners
+
+label:: requirement-owners
+
+Business requirements define what an organization must do.  Every
+business requirement should be traceable to the organizational role
+that owns it.  That is, the role responsible for ensuring the
+requirement is met.  Business requirements are ~~allocated~~ to
+organizational roles.
+
+This engineering baseline treats roles as first-class objects.
+Traceability between business requirements and roles therefore is
+bi-directional.  If you look at a business requirement you will see
+who owns it and if you look at a role you will see a list of all
+business requirements owned by that role.
+
+Ownership of system requirements is slightly more complicated.  System
+requirements are ~~allocated~~ to systems and system components.  The
+owner of a system requirement is the owner of the system or component
+to which the requirement is allocated.
+
+#---------------------------------------------------------------------
+
+**** Requirement Stakeholders
+
+label:: requirement-stakeholders
+
+There may be people with an interest in getting a requirement met who
+are not the owner of the requirement.  These people are known as
+stakeholders.
+
+#---------------------------------------------------------------------
+
+**** Requirements Reviews
+
+label:: requirements-reviews
+
+Requirements must be reviewed by requirement owners and stakeholders.
+
+#---------------------------------------------------------------------
+
+**** Requirements Verification Audits
+
+label:: requirements-verification-audits
+
+Requirements must be verified.  Requirements verification audits must
+be documented.  The verification documentation should be traceable to
+the requirement.
+
+#---------------------------------------------------------------------
+
+*** Requirements Attributes
+
+label:: requirements-attributes
+
+We describe requirements using the following attributes:
+
+= Title = A short, descriptive title for the requirement
+
+= Description = A couple of sentences that describe the problem to be
+solved
+
+= ID = A unique identifier used to track each requirement and to make
+requirements traceable
+
+= Type = The type of requirement described -- use any descriptive text
+
+= Priority = The importance to the organization's mission of solving
+the requirement (critical, high, routine, or low) -- See
+[ref:tab-priority-values] for definitions of these priority values
+
+= Status = The extent to which the requirement has already been solved
+(green, yellow, or red) -- See [ref:tab-status-values] for definitions
+of these status values
+
+= Owner = The individual responsible for solving the problem
+
+= Stakeholder = One or more individuals interested in solving the
+requirement
+
+= Author = The individual who wrote or last changed the requirement
+
+= Validator = An individual in a position of authority who has
+validated the requirement is one that must be solved; or, a board --
+Configuration Control Board (CCB), Engineering Review Board (ERB),
+Technical Review Board (TRB), or Requirements Review Board (RRB) --
+that validates the requirement
+
+= Directed by = One or more authorities (individuals or documents)
+that direct that the requirement be solved
+
+= Parents = The chain of requirements that traces through the
+whole/part hierarchy to the top-level requirement
+
+= Parts = Sub-requirements
+
+= Solutions = Elements of the solution domain like configuration items
+(CIs) or procedural documentation that do, or could, satisfy this
+requirement either in whole or in part -- requirements get
+~~allocated~~ to solutions to ~~assign responsibility~~ for solving
+requirements so project managers (CI owners) know which requirements
+they must solve
+
+= Release = The specific release number of a solution designed to
+solve the requirement -- requirements get ~~allocated~~ to specific
+releases of a solution so users know when to expect the requirement to
+be solved
+
+= Requests = Tickets (user requests, problem reports) related to this
+requirement
+
+#---------------------------------------------------------------------
+
+*** Requirements Reviews
+
+Requirements are periodically reviewed.  The purposes of reviewing
+requirements are:
+
+= Identify Requirement Type = Identify each requirement as either a
+business requirement (something an organization must satisfy) or a
+system requirement (something a system must satisfy).
+
+= Ensure Common Understanding = Ensure all stakeholders have a common
+understanding of each requirement.
+
+= Ensure Completeness = Ensure that sets of requirements completely
+describe the problem to be solved.  Also, ensure each requirement is
+individually complete.  That means the requirement is self-explanatory
+and does not need additional clarification or documentation to convey
+the problem to be solved.
+
+= Ensure Simplicity = Ensure requirements are written in a simple,
+understandable way.  Each requirement should have only one
+interpretation.  Clarify requirements that could possibly be
+interpreted in more than one way.  Use examples if possible.
+
+= Ensure Testability = Ensure each requirement is subject to testing
+to verify the solution solved the correct problem as stated in the
+requirement.  Each requirement should identify the test method for
+verifying the requirement. Test methods include: (1) analysis, (2)
+inspection, (3) demonstration, and (4) testing.
+
+= Ensure Feasibility = Ensure satisfying each requirement is
+feasible. Solving requirements generally has cost and schedule
+constraints.  Solving the problem stated by each requirement must be
+reasonably feasible.
+
+= Ensure Correct Structure = Ensure all stakeholders agree with the
+requirements structure.  The requirements structure is the
+hierarchical organization of the requirements.  The requirements
+structure is established by identifying the parent of each
+requirement.
+
+= Ensure Consistency = Ensure each requirement is not inconsistent
+with other requirements.  Be sure no requirement duplicates another.
+Be sure requirements do not conflict with one another.
+
+= Identify Justification = Ensure each requirement is justified as
+strongly as possible.  The strongest possible justification for a
+requirement is a ``directed by'' statement that identifies an
+authoritative source that directs the requirement be met.  The next
+strongest possible justification is a non-authoritative ``directed
+by'' statement.  If no policy directs satisfaction of the requirement,
+explain why the requirement is necessary.
+
+= Identify Owner = For business requirements, that is, requirements
+that state what an organization must do, identify the ``role'' that
+owns the requirement.  The requirement owner is the role responsible
+for ensuring the requirement is satisfied.
+
+= Identify Priority = Identify the priority of each requirement.  The
+priority expresses the importance to the organization's mission of
+satisfying the requirement: (1) critical = mission failure if not
+satisfied, (2) high = significant mission impact if not satisfied, (3)
+routine = mission impact if not satisfied, (4) low = minimal mission
+impact if not satisfied.
+
+= Identify Stakeholders = Identify all stakeholders with an interest
+in the satisfaction of the requirement (i.e. who needs this?).
+
+= Establish Requirement Traceability = Ensure each system requirement
+is derived from a business requirement or is part of another system
+requirement.
+
+= Establish Solution Traceability = Ensure each requirement is
+bi-directionally traceable to solutions designed to satisfy the
+requirement.
+
+= Establish Test Case Traceability = Ensure each requirement is
+bi-directionally traceable to test cases designed to verify
+requirement satisfaction.
+
+= Establish Request Traceability = Ensure each requirement is
+traceable to original stakeholder requests.  This traceability is
+designed to answer the questions, ``How was this requirement
+identified?'' -- ``Who identified this requirement?'' -- ``When was
+this requirement identified?''
+
+#---------------------------------------------------------------------
+
+* Using Emacs to Edit SML Files
+
+label:: using-emacs
+
+SML is based on Emacs' outline mode.  I find that editing SML files in
+Emacs is very quick and easy.  Emacs is a free, open source editor
+available for windows from:
+
+  http://www.gnu.org/software/emacs/windows/ntemacs.html
+
+Emacs is also available for Unix and Linux, and is probably already
+installed if you're using one of those operating systems.
+
+Emacs is easy to use as a plain text editor.  It has pull down menus
+for editing functions (cut, copy, paste, etc).  Those who learn Emacs'
+advanced editing capabilities (like macros) can edit text with
+incredible speed and power.
+
+#---------------------------------------------------------------------
+
+** Adding an Emacs mode directive to an SML file
+
+label:: emacs-variables
+
+If you ~~do~~ choose to use Emacs, you might want to put the following
+line at the top of each SML file to force Emacs into outline mode when
+it opens the file:
+
+  -*- mode: outline -*-        
+
+This line won't show up in your published document because the
+publishing program ignores lines containing the ``-*-'' string starting
+in the first column.
+
+If you don't want to clutter up the beginning of your document with
+that ugly looking outline mode declaration, you can instead place a
+set of emacs variable declarations at the end of your document like
+this:
+
+  # Local Variables:
+  # mode: outline
+  # mode: fill
+  # coding: us-ascii
+  # fill-column: 70
+  # End:
+
+#---------------------------------------------------------------------
+
+** Your .emacs file
+
+Here are some things I put in my ||.emacs|| file that help the editing
+process:
+
+---LISTING
+title:: Add This To Your ||.emacs|| File
+label:: lis-emacs-startup
+language:: lisp
+fontsize:: footnotesize
+numbers:: left
+file:: files/.emacs
+---LISTING
+
+######################################################################
+# Known Bugs, Desired Improvements
+
+include:: incl/bugs.txt
+
+######################################################################
+# Backmatter
+
+include:: incl/glossary-sml.txt
+
+include:: incl/glossary-ieee.txt
+
+include:: incl/glossary-cmmi.txt
+
+include:: incl/sources.txt
+
+include:: incl/sources-ieee.txt
+
+include:: incl/sources-cmmi.txt
+
+######################################################################
+# Local Emacs Variables
+
+# Local Variables:
+# mode: outline
+# mode: fill
+# coding: us-ascii
+# fill-column: 70
+# End:
+
+######################################################################
+
+<<<DOCUMENT
+
+>>>RESOURCES
+dfedde61c616316e158023732d28a9bf9a65e3c5 files/.emacs
+7d019a93157a886c69b3872c92f36d547f170d58 files/ci-000293.txt
+3753b8851a2fb41eef864db24d291baa6def5360 files/ci-000294.txt
+4c89e19e44a8d53339ab50fd5960e08eef395af3 files/ci-000295.txt
+09d632755bb11e397cfcbe3a592b8529e8d0665d files/images/knoppix-4.png
+8586c8f3ee77017c882cd581fcbc07de3e7cf2bf files/images/netcraft-activesite-usage.png
+e257541aa387e8a114457fa40a506c31bc5f55b6 files/images/publish-1.png
+8537c990485c8473391ce9bd4d6864c6a9ddf9f6 files/images/publish-2.png
+b6f82aa1839ac0751c7d022dbdbe96662519cf27 files/images/publish-3.png
+ca81c0298f643c43c641d92486f04819f0b6d3dd files/images/publish-4.png
+4660fe0284f2941d016e9eec9d3a6571bdd06fda files/images/publishing-flowchart.png
+10b8c0be11bf333be5c1f950a3a4a8cf7767d96f files/images/req-traceability-matrix.png
+272c0ca1b1612acc61574a1a80f313b819447c34 files/images/requirement-parents.png
+de99d4e4d23f958c0d40912df12f267ce4d9fc8e files/images/requirement-parts.png
+5b66055e23aa6df192ec79373a682fa59b01ad1e files/images/sample-document-html.png
+7dcb93491ea7c4f4933a54bc01b447be21f6149c files/images/sample-document-pdf.png
+4fdf3487bed0505ffe2b94e3687d96d0782f97ff files/images/whole-part-req-hierarchy.png
+262b7ff1b995368e20ffb7f326435a063bbd5acc files/sample-document.txt
+72f872004bed86e41e5a841f6379566edf01861f files/text/computer-car-joke.txt
+b7ada7b66dcddaa319ef18da83b51df043485792 incl/bugs.txt
+e5ae1c93144c5a9a81eeb30f3884d65e12fa6988 incl/glossary-cmmi.txt
+414c20a6a2b0e57e8e78b6dc0a922d33a202d5f3 incl/glossary-ieee.txt
+0c3df63df245167baab7f5d936c39ae9bdf38f75 incl/glossary-sml.txt
+87ad8604c5816fc65687d10797975e4134dbee2f incl/sml-content-summary.txt
+519e40843ab95e7cea4b46cd822ce934c9177d34 incl/sml-presentation-summary.txt
+985bfd33ac95fd19920c225cee403fc6b8fc4770 incl/sml-special-summary.txt
+19514f831da9a492757fc97582da30bccd75793a incl/sml-structure-summary.txt
+857c45a18e45b63f73d596d4bd32fbb7f83b3cb3 incl/sources-cmmi.txt
+a6b1000962d5a72f3cb7a4e0636aaa289f697188 incl/sources-ieee.txt
+0b65740376b5d9a28d38d2280693cca8829d707d incl/sources.txt
+<<<RESOURCES

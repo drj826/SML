@@ -1,0 +1,15 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: INVALID UNDERLINE MARKUP
+
+id:: td-000045
+
+######################################################################
+
+This document contains an example of INVALID underline markup.
+
+This paragraph contains a __begin underline but not an end underline.
+
+<<<DOCUMENT

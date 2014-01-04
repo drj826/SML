@@ -1,0 +1,55 @@
+>>>test
+
+######################################################################
+
+title:: Role.pm Unit Test Case
+
+label:: tc-000060
+
+revision:: $Revision: 15133 $
+
+date:: $Date: 2013-07-07 09:31:37 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Role.pm Perl
+module that implements the SML::Role class.
+
+######################################################################
+
+index:: tc-000060; unit test case!Role.pm
+
+[ref:lis-role-pm-unit-test-case] shows the unit test for
+[file:Role.pm].
+
+---LISTING
+title::       Role.t - Unit Test Case for Role.pm
+label::       lis-role-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: landscape
+fontsize::    footnotesize
+file::        ../Role.t
+---LISTING
+
+[ref:lis-role-pm-unit-test-results] shows the results of executing the
+Role.pm unit test case.
+
+---LISTING
+title::     Role.pm Unit Test Case Results
+label::     lis-role-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Role.t
+---LISTING
+
+<<<test
+>>>RESOURCES
+d0968814f1b61180d350adb259a462da4c85b648 ../Role.t
+<<<RESOURCES

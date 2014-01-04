@@ -1,0 +1,1 @@
+pp --gui -v -o publish.exe publish.pl

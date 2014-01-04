@@ -1,0 +1,28 @@
+>>>result
+
+######################################################################
+
+title:: Component Test Results
+
+label:: tr-000002
+
+revision:: $Revision: 10974 $
+
+date:: $Date: 2012-10-27 14:47:29 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: container
+
+test:: tc-000002
+
+description:: This test result serves as a container for all of SML
+software library component test results.
+
+######################################################################
+
+index:: tr-000002; component test results
+
+<<<result

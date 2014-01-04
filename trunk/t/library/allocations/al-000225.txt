@@ -1,0 +1,25 @@
+>>>allocation
+
+#---------------------------------------------------------------------
+
+label::    al-000225
+
+solution:: ci-000007 # publish.pl Script
+
+problem::  rq-000142 # Generate a Table of Contents
+
+test::     tc-000041 # Demonstration
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 10970 $
+
+date::     $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
+
+author::   $Author: don.johnson $
+
+#---------------------------------------------------------------------
+
+outcome::2012-04-01:al-000225:green: OK
+
+<<<allocation
