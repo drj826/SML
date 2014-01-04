@@ -1,0 +1,28 @@
+>>>problem
+
+######################################################################
+
+title:: Format a LaTeX URL Reference
+
+label:: rq-000284
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000205
+
+type:: technical
+
+associated:: rq-000021
+
+description:: The software shall format a LaTeX url reference.  URL
+references link to locations outside the current document.
+
+######################################################################
+
+index:: rq-000284; URL reference!format LaTeX
+
+<<<problem

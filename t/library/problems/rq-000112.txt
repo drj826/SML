@@ -1,0 +1,29 @@
+>>>problem
+
+######################################################################
+
+title:: Implement SML Syntax
+
+label:: rq-000112
+
+revision:: $Revision: 11579 $
+
+date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000170
+
+priority:: routine
+
+type:: technical
+
+description:: The software shall implement data structures that define
+SML syntax.  The purpose of this requirement is to enable automatic
+validation of document syntax.
+
+######################################################################
+
+index:: rq-000112; syntax!SML
+
+<<<problem

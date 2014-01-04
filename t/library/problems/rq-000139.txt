@@ -1,0 +1,329 @@
+>>>problem
+
+######################################################################
+
+title:: Generate Document Front and Back Matter
+
+label:: rq-000139
+
+revision:: $Revision: 15126 $
+
+date:: $Date: 2013-07-07 09:25:21 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000199
+
+priority:: routine
+
+type:: technical
+
+description:: The software shall generate document front and back
+matter parts.  The interior of a printed book comprises three major
+divisions: front matter, text, and back matter.  Some parts of the
+front matter and back matter, like the table of contents, should be
+automatically generated.  Other parts, like the preface, are written
+manually by the author.  This requirement serves as a container for
+software requirements to publish document front and back matter.
+
+######################################################################
+
+index:: rq-000139
+
+According to The Chicago Manual of Style the following parts
+generally, but not always, make up the front matter, text, and back
+matter: [cite:cms15, [[section]]1.4]
+
+---TABLE
+
+title:: Printed Document Divisions and Parts
+
+label:: tab-doc-divisions-and-parts
+
+column::1:width: 50
+
+column::2:width: 15
+
+column::3:width: 25
+
+:grey: ~~FRONT MATTER~~
+
+:grey:
+
+:grey:
+
+---
+
+: Book half title
+
+: i
+
+:
+
+---
+
+: Series title, frontispiece, or blank
+
+: ii
+
+:
+
+---
+
+: Title page
+
+: iii
+
+: automatically generated ([id:rq-000140])
+
+---
+
+: Copyright page
+
+: iv
+
+: automatically generated ([id:rq-000141])
+
+---
+
+: Dedication
+
+: v
+
+:
+
+---
+
+: Epigraph
+
+: v or vi
+
+:
+
+---
+
+: (Table of) Contents
+
+: v or vii
+
+: automatically generated ([id:rq-000142])
+
+---
+
+: (List of) Illustrations
+
+: recto or verso
+
+: automatically generated ([id:rq-000143])
+
+---
+
+: (List of) Tables
+
+: recto or verso
+
+: automatically generated ([id:rq-000144])
+
+---
+
+: Foreword
+
+: recto
+
+:
+
+---
+
+: Preface
+
+: recto
+
+:
+
+---
+
+: Acknowledgments (if not part of preface)
+
+: recto
+
+:
+
+---
+
+: Introduction (if not part of text)
+
+: recto
+
+:
+
+---
+
+: Abbreviations (if not in back matter)
+
+: recto or verso
+
+: automatically generated ([id:rq-000146])
+
+---
+
+: Chronology (if not in back matter)
+
+: recto
+
+:
+
+---
+
+: Second half title
+
+: recto
+
+:
+
+---
+
+:grey: ~~TEXT~~
+
+:grey:
+
+:grey:
+
+---
+
+: First text page (introduction or chapter 1)
+
+: 1
+
+:
+
+---
+
+: ~~or~~
+
+:
+
+:
+
+---
+
+: Second half title or first part title
+
+: 1
+
+:
+
+---
+
+: Blank
+
+: 2
+
+:
+
+---
+
+: First text page
+
+: 3
+
+:
+
+---
+
+:grey: ~~BACK MATTER~~
+
+:grey: 
+
+:grey:
+
+---
+
+: Acknowledgments (if not in front matter)
+
+: recto
+
+:
+
+---
+
+: Appendix (or first, if more than one)
+
+: recto
+
+:
+
+---
+
+: Second and subsequent appendixes
+
+: recto or verso
+
+:
+
+---
+
+: Chronology (if not in front matter)
+
+: recto
+
+:
+
+---
+
+: Abbreviations (if not in front matter)
+
+: recto
+
+: automatically generated ([id:rq-000146])
+
+---
+
+: Notes
+
+: recto
+
+: automatically generated ([id:rq-000147])
+
+---
+
+: Glossary
+
+: recto
+
+: automatically generated ([id:rq-000148])
+
+---
+
+: Bibliography or References
+
+: recto
+
+: automatically generated ([id:rq-000149])
+
+---
+
+: (List of) Contributors
+
+: recto
+
+: automatically generated ([id:rq-000150])
+
+---
+
+: Illustration Credits (if not in captions or elsewhere)
+
+: recto
+
+:
+
+---
+
+: Index(es)
+
+: recto
+
+: automatically generated ([id:rq-000151])
+
+---TABLE
+
+<<<problem

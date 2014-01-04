@@ -1,0 +1,29 @@
+>>>problem
+
+######################################################################
+
+title:: Render A Common Navigation Pane for Each HTML Page
+
+label:: rq-000260
+
+revision:: $Revision: 11579 $
+
+date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000001
+
+priority:: routine
+
+type:: functional
+
+description:: The software shall render a common navigation pane for
+each HTML page. The purpose of this requirement is to ease navigation
+among the pages that make up a document.
+
+######################################################################
+
+index:: rq-000260; navigation pane
+
+<<<problem

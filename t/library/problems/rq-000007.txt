@@ -1,0 +1,35 @@
+>>>problem
+
+######################################################################
+
+title:: Represent Semantic Content
+
+label:: rq-000007
+
+priority:: routine
+
+parent:: rq-000107
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+semantic [g:sml:content].  Semantic [g:sml:content] features allow
+[g:sml:division]s of a document to have special meaning (i.e.,
+[g:sml:exercise]s, [g:sml:slide]s, [g:sml:quotation]s, [g:sml:demo],
+[g:sml:problem]s, [g:sml:solution]s, [g:sml:test]s, [g:sml:result]s,
+[g:sml:task]s, and [g:sml:role]s).  This requirement serves as a
+container for all [g:sml:content] representation requirements.
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+######################################################################
+
+index:: rq-000007; document content features
+
+<<<problem

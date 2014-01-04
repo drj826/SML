@@ -1,0 +1,15 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: INVALID GLOSSARY TERM SYNTAX
+
+id:: td-000050
+
+######################################################################
+
+This SML document contains invalid glossary term syntax.  The
+following glossary term reference is missing its close
+markup. [g:term.
+
+<<<DOCUMENT

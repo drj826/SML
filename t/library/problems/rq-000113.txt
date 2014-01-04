@@ -1,0 +1,30 @@
+>>>problem
+
+######################################################################
+
+title:: Be Interoperable
+
+label:: rq-000113
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000111
+
+priority:: routine
+
+type:: non-functional
+
+description:: The software shall be interoperable. Interoperability is
+a property of a product or system, whose interfaces are completely
+understood, to work with other products or systems, present or future,
+without any restricted access or implementation.
+
+######################################################################
+
+index:: rq-000113; interoperability
+
+<<<problem

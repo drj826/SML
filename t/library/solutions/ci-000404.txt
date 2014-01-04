@@ -1,0 +1,40 @@
+>>>solution
+
+######################################################################
+
+title:: SML/Assertion.pm Module
+
+label:: ci-000404
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML/Assertion.pm Module...
+
+######################################################################
+
+index:: ci-000404
+
+---LISTING
+title::     Assertion.pm
+label::     lis-assertion-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../../SML/Assertion.pm
+---LISTING
+
+[clearpage]
+
+<<<solution
+
+>>>RESOURCES
+4884ff4073b41b1305499b9cb24af5b286f53a57 ../../SML/Assertion.pm
+<<<RESOURCES

@@ -1,0 +1,29 @@
+>>>problem
+
+######################################################################
+
+title:: Perform Specified Utility Functions
+
+label:: rq-000185
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000199
+
+priority:: routine
+
+type:: technical
+
+description:: The software shall perform specified utility functions.
+This requirement serves as a container for utility function
+requirements.
+
+######################################################################
+
+index:: rq-000185; utility functions; functions!utility
+
+<<<problem

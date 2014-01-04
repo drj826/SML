@@ -1,0 +1,38 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: Block Content
+
+id:: td-000069
+
+######################################################################
+
+This document contains various blocks to test block rendering methods.
+
+This paragraph contains an internal cross reference to a problem.
+[ref:my-problem] describes my problem.
+
+#---------------------------------------------------------------------
+
+>>>problem
+
+title:: My Problem
+
+id:: my-problem
+
+type:: functional
+
+description:: This is a description of my problem.  This purpose of
+this problem is to serve as a test for applications designed to
+process SML problem regions.
+
+This is some narrative text within the problem region.  You can put as
+much narrative text as you want inside regions but you may ~~not~~ use
+sections.  The purpose of ~~this~~ paragraph is to test the parser to
+see if it recognizes the end of the problem preamble which is also the
+beginning of the problem narrative.
+
+<<<problem
+
+<<<DOCUMENT

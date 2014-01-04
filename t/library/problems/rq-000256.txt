@@ -1,0 +1,39 @@
+>>>problem
+
+######################################################################
+
+title:: Track Changes
+
+label:: rq-000256
+
+parent:: rq-000104
+
+type:: technical
+
+description:: The software shall track changes using a change control
+facility.  The purpose of this function is to interface with a change
+control facility on behalf of the user.  This requirement serves as a
+container for specific change control functions.
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+######################################################################
+
+index:: rq-000256; change control facility
+
+Users often use a change control application to collaborate on
+document development.  Just as in software development, document
+developers use change repositories to share changes with one another.
+
+This requirement is intentionally vague about specific change control
+applications because I don't want the software to be tightly coupled
+to any specific change control application. As a practical matter,
+however, I primarily use Subversion for change control.
+
+<<<problem

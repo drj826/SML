@@ -1,0 +1,32 @@
+>>>problem
+
+######################################################################
+
+title:: Format Output Text From Document Structure Objects
+
+label:: rq-000102
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000199
+
+priority:: routine
+
+type:: functional
+
+description:: The software shall format output text from document
+[g:sml:structure] objects. Document structure objects are memory
+resident objects created by the parser that represent document
+structures like paragraphs, lists, sections, tables, figures, and
+listings.  This requirement serves as a container for requirements
+calling for formatting specific SML document structure features.
+
+######################################################################
+
+index:: rq-000102; document structures!format
+
+<<<problem

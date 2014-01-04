@@ -1,0 +1,28 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: Valid Cross Reference
+
+id:: td-000032
+
+######################################################################
+
+This test file illustrates a valid cross reference.  See
+[ref:my-listing] for details.
+
+---LISTING
+
+title:: My Listing
+
+label:: my-listing
+
+listing line 1
+
+listing line 2
+
+listing line 3
+
+---LISTING
+
+<<<DOCUMENT

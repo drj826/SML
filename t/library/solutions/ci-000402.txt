@@ -1,0 +1,40 @@
+>>>solution
+
+######################################################################
+
+title:: SML/Audio.pm Module
+
+label:: ci-000402
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML/Audio.pm Module...
+
+######################################################################
+
+index:: ci-000402
+
+---LISTING
+title::     Audio.pm
+label::     lis-audio-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../../SML/Audio.pm
+---LISTING
+
+[clearpage]
+
+<<<solution
+
+>>>RESOURCES
+baee34500f1fa4129785febac6133cd15c27e161 ../../SML/Audio.pm
+<<<RESOURCES

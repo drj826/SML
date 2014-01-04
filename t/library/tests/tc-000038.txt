@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: Quotation.pm Unit Test Case
+
+label:: tc-000038
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Quotation.pm Perl
+module that implements the SML::Quotation class.
+
+######################################################################
+
+index:: tc-000038; unit test case!Quotation.pm
+
+[ref:lis-quotation-pm-unit-test-case] shows the unit test case for
+[file:Quotation.pm].
+
+---LISTING
+title::       Quotation.t - Unit Test Case for Quotation.pm
+label::       lis-quotation-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: portrait
+fontsize::    footnotesize
+file::        ../../Quotation.t
+---LISTING
+
+[ref:lis-quotation-pm-unit-test-results] shows the results of
+executing the [file:Quotation.pm] unit test case.
+
+---LISTING
+title::     Quotation.pm Unit Test Case Results
+label::     lis-quotation-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Quotation.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+82813fe4ab638be411ea394e47ee14f09191b61b ../Quotation.t
+<<<RESOURCES

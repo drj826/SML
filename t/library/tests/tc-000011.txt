@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: Library.pm Unit Test Case
+
+label:: tc-000011
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Library.pm Perl
+module that implements the SML::Library class.
+
+######################################################################
+
+index:: tc-000011; unit test case!Library.pm
+
+[ref:lis-library-pm-unit-test-case] shows the unit test case for
+[file:Library.pm].
+
+---LISTING
+title::       Library.t - Unit Test Case for Library.pm
+label::       lis-library-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: portrait
+fontsize::    footnotesize
+file::        ../../Library.t
+---LISTING
+
+[ref:lis-library-pm-unit-test-results] shows the results of executing
+the Library.pm unit test case.
+
+---LISTING
+title::     Library.pm Unit Test Case Results
+label::     lis-library-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Library.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+c273b8068fc6e8519515ca034f7c96147286703a ../Library.t
+<<<RESOURCES

@@ -1,0 +1,31 @@
+>>>problem
+
+######################################################################
+
+title:: Render Document Data from SML to CSV
+
+label:: rq-000003
+
+parent:: rq-000098
+
+priority:: routine
+
+type:: functional
+
+description:: The system shall enable a user to render the
+[g:sml:element]s within [g:sml:Structured Manuscript Language]
+([g:sml:SML]) [g:sml:document]s to [g:CSV] files.
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+######################################################################
+
+index:: rq-000003; CSV!render
+
+<<<problem

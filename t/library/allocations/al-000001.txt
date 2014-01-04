@@ -1,0 +1,32 @@
+>>>allocation
+
+#---------------------------------------------------------------------
+
+label::    al-000001
+
+solution:: ci-000001 # SML
+
+problem::  rq-000005 # Minimize Presentation Markup
+
+test::     tc-000040 # Analysis
+
+#---------------------------------------------------------------------
+
+release:: 2.0
+
+rel_component:: ci-000001
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 10970 $
+
+date:: $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+#---------------------------------------------------------------------
+
+outcome::2011-10-20:al-000001:green: The SML data format does a good
+job of minimizing document presentation markup.
+
+<<<allocation

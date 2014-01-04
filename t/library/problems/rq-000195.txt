@@ -1,0 +1,29 @@
+>>>problem
+
+######################################################################
+
+title:: Represent Semantic Entities
+
+label:: rq-000195
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000007
+
+priority:: routine
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+semantic entities.  An entity is any singular item with semantic
+meaning.
+
+######################################################################
+
+index:: rq-000195; entities
+
+<<<problem

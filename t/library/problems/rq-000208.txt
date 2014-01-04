@@ -1,0 +1,29 @@
+>>>problem
+
+######################################################################
+
+title:: Distinguish Reserved Words
+
+label:: rq-000208
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000107
+
+type:: data format
+
+description:: The data format shall distinguish reserved words from
+non-reserved words.  The purpose of this requirement is to help users
+distinguish reserved words from non-reserved words.  Reserved words
+are terms with special meaning to the language itself that may ~~not~~
+be re-used by users for their own purposes.
+
+######################################################################
+
+index:: rq-000208; reserved words
+
+<<<problem

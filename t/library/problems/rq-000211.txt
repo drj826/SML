@@ -1,0 +1,27 @@
+>>>problem
+
+######################################################################
+
+title:: Format an HTML Footnote Reference
+
+label:: rq-000211
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000205
+
+type:: technical
+
+associated:: rq-000019
+
+description:: The software shall format an HTML footnote reference.
+
+######################################################################
+
+index:: rq-000211; footnote reference!format HTML
+
+<<<problem

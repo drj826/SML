@@ -1,0 +1,41 @@
+>>>result
+
+######################################################################
+
+title:: File.pm Unit Test Case Results
+
+label:: tr-000009
+
+revision:: $Revision: 15128 $
+
+date:: $Date: 2013-07-07 09:27:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tr-000001
+
+test:: tc-000009
+
+description:: This is the test result for the File.pm unit test
+case.
+
+######################################################################
+
+index:: tr-000009; unit test case results!File.pm
+
+[ref:lis-file-pm-unit-test-results] shows the results of executing
+the File.pm unit test case.
+
+---LISTING
+title::     File.pm Unit Test Case Results
+label::     lis-file-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    files/scripts/run-test.File.bat
+---LISTING
+
+<<<result

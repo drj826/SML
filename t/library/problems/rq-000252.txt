@@ -1,0 +1,28 @@
+>>>problem
+
+######################################################################
+
+title:: Represent an Inline Index Reference
+
+label:: rq-000252
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000334
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+an inline index reference.  In other words, give authors the inline
+capability to represent that a word or phrase should be included in
+the document index.
+
+######################################################################
+
+index:: rq-000252; index reference
+
+<<<problem

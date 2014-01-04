@@ -1,0 +1,56 @@
+>>>problem
+
+######################################################################
+
+title:: Permit Configuration of Allowed Entity Properties
+
+label:: rq-000350
+
+revision:: $Revision: 15127 $
+
+date:: $Date: 2013-07-07 09:26:14 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000183
+
+priority:: routine
+
+type:: non-functional
+
+description:: The [g:sml:ontology] shall permit the user to configure
+the allowed properties of entities. This is a `configurability'
+requirement.  The purpose of this requirement is to ensure the
+solution does ~~not~~ hard-code allowed entity properties into the
+software solution but instead enables users to configure custom entity
+properties in their own libraries.
+
+######################################################################
+
+index:: rq-000349
+
+For instance, in a library intended to hold systems engineering
+information, a user might define entity types:
+
+- entity: requirement
+
+  - property: priority
+
+  - property: status
+
+  - property: stakeholder
+
+- entity: configuration item
+
+  - property: owner
+
+  - property: cost
+
+  - property: version
+
+The definitions of these and other entity properties should ~~not~~ be
+``baked in'' to the software product but instead the software should
+permit the user to configure the entity properties allowed in a
+library.
+
+<<<problem

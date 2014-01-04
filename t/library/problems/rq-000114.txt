@@ -1,0 +1,29 @@
+>>>problem
+
+######################################################################
+
+title:: Render Documents from SML to Plain Text
+
+label:: rq-000114
+
+revision:: $Revision: 11579 $
+
+date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000098
+
+priority:: routine
+
+type:: functional
+
+description:: The system shall enable a user to render
+[g:sml:document]s from [g:sml:Structured Manuscript Language]
+([g:sml:SML]) to plain text.
+
+######################################################################
+
+index:: rq-000114; plain text!render
+
+<<<problem

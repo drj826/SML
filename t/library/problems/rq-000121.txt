@@ -1,0 +1,29 @@
+>>>problem
+
+######################################################################
+
+title:: Represent Presentation-Related Processing Instructions
+
+label:: rq-000121
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000008
+
+priority:: routine
+
+type:: data format
+
+description:: The data format shall represent processing instructions
+that impact document content presentation.  This requirement serves as
+a container for those formats.
+
+######################################################################
+
+index:: rq-000121; presentation feature processing instructions
+
+<<<problem

@@ -1,0 +1,25 @@
+>>>solution
+
+######################################################################
+
+title:: `end_current_context' Subroutine
+
+label:: ci-000080
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000007
+
+description:: The [cmd:end_current_context] subroutine 
+
+######################################################################
+
+index:: ci-000080; subroutine![cmd:end_current_context]
+
+<<<solution

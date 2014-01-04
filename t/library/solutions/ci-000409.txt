@@ -1,0 +1,40 @@
+>>>solution
+
+######################################################################
+
+title:: SML/Quotation.pm Module
+
+label:: ci-000409
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML/Quotation.pm Module...
+
+######################################################################
+
+index:: ci-000409
+
+---LISTING
+title::     Quotation.pm
+label::     lis-quotation-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../../SML/Quotation.pm
+---LISTING
+
+[clearpage]
+
+<<<solution
+
+>>>RESOURCES
+ab748b082360d30b65b29ae03eff33c7aeff7636 ../../SML/Quotation.pm
+<<<RESOURCES

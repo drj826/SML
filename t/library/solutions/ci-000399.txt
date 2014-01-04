@@ -1,0 +1,40 @@
+>>>solution
+
+######################################################################
+
+title:: SML/Sidebar.pm Module
+
+label:: ci-000399
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML/Sidebar.pm Module...
+
+######################################################################
+
+index:: ci-000399
+
+---LISTING
+title::     Sidebar.pm
+label::     lis-sidebar-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../../SML/Sidebar.pm
+---LISTING
+
+[clearpage]
+
+<<<solution
+
+>>>RESOURCES
+20ab62433c86be31e19f05e59bf91f08c40538fe ../../SML/Sidebar.pm
+<<<RESOURCES

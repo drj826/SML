@@ -1,0 +1,16 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: INVALID SUPERSCRIPT MARKUP
+
+id:: td-000047
+
+######################################################################
+
+This document contains an example of INVALID superscript markup.
+
+This paragraph contains a ^^begin superscript but not an end
+superscript.
+
+<<<DOCUMENT

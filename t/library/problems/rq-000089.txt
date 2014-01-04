@@ -1,0 +1,31 @@
+>>>problem
+
+######################################################################
+
+title:: Represent an Acronym Definition
+
+label:: rq-000089
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000327
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+an acronym definition.  This capability enables an author to establish
+a formal definition of an acronyms used in a document.  The data
+format representation of an acronym definition must allow but not
+mandate newline characters within an acronym definition.
+
+######################################################################
+
+index:: rq-000089; acronym!definition
+
+<<<problem

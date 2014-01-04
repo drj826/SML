@@ -1,0 +1,156 @@
+>>>problem
+
+######################################################################
+
+title:: Represent an Attachment
+
+label:: rq-000017
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000326
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+an attachment.  This capability, similar to an E-mail attachment,
+enables an author to insert a file into a document for explanation and
+reference.  Readers of soft-copy document renditions should have the
+capability to detach and open attachments.  Attachments have titles
+and descriptions (often called captions) and unique identifiers that
+allow cross referencing within the document.
+
+######################################################################
+
+index:: rq-000017; attachments
+
+Elements of attachment meta data include:
+
+:: data element
+
+:: description
+
+:: type
+
+:: required or optional?
+
+:: single or multi-valued?
+
+---
+
+: ~~title~~
+
+: Title of the attachment (sometimes called a caption)
+
+: block
+
+: optional
+
+: single
+
+---
+
+: ~~label~~
+
+: Unique identifier for the attachment
+
+: ID
+
+: optional
+
+: single
+
+---
+
+: ~~description~~
+
+: A one-paragraph description of the attachment
+
+: block
+
+: optional
+
+: single
+
+---
+
+: ~~appearance~~
+
+: Whether or not to prevent the attachment icon's appearance from
+being specified explicitly in the output rendition
+
+: boolean
+
+: optional
+
+: single
+
+---
+
+: ~~color~~
+
+: Color of the attachment icon in the output rendition
+
+: color
+
+: optional
+
+: single
+
+---
+
+: ~~date~~
+
+: date and time the attached file was last modified
+
+: date
+
+: optional
+
+: single
+
+---
+
+: ~~icon~~
+
+: Icon to use to represent attachment in output rendition
+
+: attachment icon
+
+: optional
+
+: single
+
+---
+
+: ~~mimetype~~
+
+: MIME type of attached file
+
+: mimetype
+
+: optional
+
+: single
+
+---
+
+:yellow: ~~file~~
+
+:yellow: Path to file to attach
+
+:yellow: file path
+
+:yellow: required
+
+:yellow: single
+
+---
+
+<<<problem

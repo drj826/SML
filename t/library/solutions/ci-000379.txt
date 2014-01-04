@@ -1,0 +1,55 @@
+>>>solution
+
+######################################################################
+
+title:: SML Syntax (sml.ebnf)
+
+label:: ci-000379
+
+revision:: $Revision: 6476 $
+
+date:: $Date: 2012-03-05 07:05:48 -0700 (Mon, 05 Mar 2012) $
+
+author:: $Author: don.johnson $
+
+type:: specification
+
+parent:: ci-000001
+
+description:: The [g:sml:SML] syntax defines the rules governing the
+expression of statements and combinations of statements used to
+represent the content of an SML document. The SML syntax specification
+is a context free grammar implemented in [g:EBNF].  The SML syntax is
+not customizable and applies the same to all SML libraries.
+
+#---------------------------------------------------------------------
+# allocations
+
+allocation:: al-000134 # rq-000112 Implement SML Syntax
+allocation:: al-000287 # rq-000208 Distinguish Reserved Words
+allocation:: al-000003 # rq-000048 Be Encodable Using 7-Bit ASCII
+allocation:: al-000004 # rq-000086 Represent Specified Data Types
+
+######################################################################
+
+index:: ci-000379; SML syntax; EBNF
+
+There is an online EBNF validator here:
+[url:http://www.icosaedro.it/bnf_chk/bnf_chk-on-line.html].
+
+[ref:lis-sml-syntax] is a listing of the EBNF file that defines the
+SML syntax.
+
+---LISTING
+title::     SML syntax
+label::     lis-sml-syntax
+numbers::   left
+fontsize::  small
+file::      ../files/ebnf/SML-EBNF.txt
+---LISTING
+
+<<<solution
+
+>>>RESOURCES
+2b78bfb7aa90489f6d9b2cacd16f3f73e9ee16ed files/ebnf/SML-EBNF.txt
+<<<RESOURCES

@@ -1,0 +1,25 @@
+>>>STYLE
+
+style:: DEFAULT
+
+format:: HTML
+
+name:: DOCUMENT
+
+part:: END
+
+type:: block
+
+compress_whitespace:: no
+
+trim_whitespace:: no
+
+trim_newlines:: no
+
+wrap:: no
+
+#=====================================================================
+
+</html>
+
+<<<STYLE

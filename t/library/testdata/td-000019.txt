@@ -1,0 +1,15 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: Include File As A Section (Leading Asterisk Method)
+
+id:: td-000019
+
+######################################################################
+
+This file demonstrates how to include a file as a section.
+
+* include:: td-000001 FROM td-000001.txt
+
+<<<DOCUMENT

@@ -1,0 +1,40 @@
+>>>solution
+
+######################################################################
+
+title:: SML/Util.pm Module
+
+label:: ci-000383
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML/Util.pm Module...
+
+######################################################################
+
+index:: ci-000383
+
+---LISTING
+title::     Util.pm
+label::     lis-util-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../../SML/Util.pm
+---LISTING
+
+[clearpage]
+
+<<<solution
+
+>>>RESOURCES
+484683c2f6adc3962e3bf1ba00afd7dfda239aeb ../../SML/Util.pm
+<<<RESOURCES

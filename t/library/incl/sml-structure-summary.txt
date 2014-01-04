@@ -1,0 +1,365 @@
+###############################################################COMMENT
+
+$Author: don.johnson $
+
+$Revision: 15125 $
+
+$Date: 2013-07-07 09:24:43 -0600 (Sun, 07 Jul 2013) $
+
+###############################################################COMMENT
+
+: !!Paragraphs.!! ([ref:paragraphs]) A paragraph is simply a block of
+text, not indented, terminated with a blank line.  Paragraphs are
+separated by blank lines.
+
+index:: paragraphs
+
+:
+
+  A paragraph is simply a block 
+  of text that is not indented.
+  Paragraphs are separated by
+  blank lines.
+
+----------------------------------------------------------------------
+
+: !!Sections.!! ([ref:sections]) Sections start with a section heading
+indicated by a line that begins with one or more asterisks (`*' - the
+way section headings are marked in Emacs' outline mode). A table of
+contents is automatically generated for the front matter of the
+document.
+
+index:: sections
+
+index:: section headings
+
+:
+
+  * My Section
+
+  ** My Sub-Section
+
+  *** My Sub-Sub-Section
+
+----------------------------------------------------------------------
+
+: !!Unordered Lists.!! ([ref:lists]) An unordered list item starts
+with a dash (`-') in the first column. Unordered lists can be nested
+by indenting items in sub-lists.
+
+index:: unordered lists; lists!unordered
+
+:
+
+  - item 1
+  - item 2
+  - item 3
+
+----------------------------------------------------------------------
+
+: !!Ordered Lists.!! ([ref:lists]) An ordered list item starts with a
+plus sign (`+') in the first column. Ordered lists can be nested by
+indenting items in sub-lists.
+
+index:: ordered lists; lists!ordered
+
+:
+
+  + item 1
+  + item 2
+  + item 3
+
+----------------------------------------------------------------------
+
+: !!Definition Lists.!! ([ref:lists]) A definition list item starts
+with an equal sign (`=') followed by the term being defined, then
+another equal sign followed by the definition of the term.
+
+index:: definition lists; lists!definition
+
+:
+
+  = term 1 = term 1 means...
+  = term 2 = term 2 means...
+  = term 3 = term 3 means...
+
+----------------------------------------------------------------------
+
+: !!Images.!! ([ref:images]) Insert an image (JPEG, GIF, or PNG) into
+a figure or anywhere in the text by pointing to the file containing
+the image.
+
+index:: images
+
+:
+
+  image:: my-image.png
+
+  image:: images/my-other-image.gif
+
+----------------------------------------------------------------------
+
+: !!Baretables.!! ([ref:tables]) A ~~baretable~~ (one without a
+caption or label) starts with a line that begins with a single or
+double colon (`:' or `::'). Rows are separated by three or more dashes
+(`||---||').
+
+index:: baretables
+
+:
+
+  :: column 1 heading
+  :: column 2 heading
+  ---
+  : row 1 column 1
+  : row 1 column 2
+  ---
+  : row 2 column 1
+  : row 2 column 2
+
+----------------------------------------------------------------------
+
+: !!Tables.!! ([ref:tables]) A normal ~~table~~ (i.e. not a
+~~baretable~~) starts with a line that begins with three or more
+dashes and the word `table' (`||---table||'). Tables can have titles
+(captions). Tables ~~cannot~~ be nested. A list of tables is
+automatically generated for the front matter of the document. Rows are
+separated by three or more dashes (`||---||').
+
+index:: tables
+
+:
+
+  ---table
+  title:: My Table
+  label:: tab-my-table
+
+  :: column 1 heading
+  :: column 2 heading
+  ---
+  : row 1 column 1
+  : row 1 column 2
+  ---
+  : row 2 column 1
+  : row 2 column 2
+  ---table
+
+----------------------------------------------------------------------
+
+: !!Figures.!! ([ref:figures]) A figure is a picture, diagram, or
+ascii art. Figures can have titles (captions). You can specify a
+desired width of a figure (i.e. ||width:: 5in||). A list of figures is
+automatically generated for the front matter of the document.
+
+index:: figures
+
+:
+
+  ---figure
+  title:: My Figure
+  label:: fig-my-figure
+  image:: images/my-figure.png
+  ---figure
+
+----------------------------------------------------------------------
+
+: !!Listings.!! ([ref:listings]) Listings are used for verbatim
+listings of text like source code. Optional features are: ~~listing
+caption~~, ~~line numbering~~, ~~language dependent syntax
+highlighting~~, ~~space character indicators~~, and ~~variable font
+size~~. A list of listings is automatically generated for the front
+matter of the document.
+
+index:: listings
+
+:
+
+  ---listing
+  title:: My Listing
+  label:: lis-my-listing
+  file::  files/my-listing.txt
+  ---listing
+
+----------------------------------------------------------------------
+
+: !!Attachments.!! ([ref:attachments]) You can attach files to a
+document just as you would an E-mail.  Attachments appear in your
+published documents with a paperclip icon users can click to
+``detach'' those files.
+
+index:: attachments
+
+:
+
+  ---attachment
+  title:: My Attachment
+  label:: att-my-attachment
+  file::  files/my-attachment.txt
+  ---attachment
+
+----------------------------------------------------------------------
+
+: !!Pre-formatted.!! ([ref:preformatted-text]) ~~Simple~~ preformatted
+text is ~~indented text~~ which is rendered as verbatim
+text. ~~Fancy~~ preformatted text is a block of text that begins and
+ends with `||---preformatted||,' does not need to be indented and is
+rendered as verbatim text.
+
+index:: preformatted text
+
+:
+
+  ---preformatted
+
+  some
+    preformatted
+      text...
+
+  ---preformatted
+
+----------------------------------------------------------------------
+
+: !!Footnotes.!! ([ref:footnotes]) Footnote ~~markers~~
+(i.e. `||{lit:[f]}||') get converted to footnote ~~numbers~~ which
+refer to corresponding footnote ~~text~~ (i.e. `||footnote:: ...||').
+
+index:: footnotes
+
+:
+
+  footnote:: My footnote text...
+
+----------------------------------------------------------------------
+
+: !!Labels and References.!! ([ref:labels-and-references]) Labels
+uniquely identify document components for referral in other parts of
+the document.
+
+index:: labels; references
+
+:
+
+  label:: tab-sample-table
+
+  [ref:tab-sample-table]
+
+----------------------------------------------------------------------
+
+: !!Hyper-links.!! ([ref:hyperlinks-commands-paths]) Anything that
+looks like a URL or email address will be turned into a hyper-link
+(i.e. [url:http://www.donjohnson.net/] and drj826@acm.org).
+
+index:: hyperlinks
+
+:
+
+  drj826@acm.org
+
+  http://www.cnn.com/
+
+----------------------------------------------------------------------
+
+: !!Sources and Citations.!! ([ref:source-referencing]) The
+||publish|| program generates BibTeX style bibliographic citations
+(i.e. ||{lit:[cite:Goossens94]}||). If citations exist in the document
+a bibliography will automatically be inserted near the end of the
+document.
+
+index:: sources; citations; bibliography
+
+:
+
+  ---source
+  source::    book
+  label::     Goossens94
+  title::     The LaTeX Companion
+  author::    Michel Goossens
+  author::    Frank Mittelbach
+  author::    Alexander Samarin
+  publisher:: Addison-Wesley
+  year::      1994
+  ---source
+
+----------------------------------------------------------------------
+
+: !!Steps.!! ([ref:steps]) Sequences of procedural steps (i.e. lines
+that begin with `||step::||') will be automatically numbered and
+rendered with a check-box in front of them. This feature comes in
+handy for exercises, demos, etc.
+
+index:: steps; procedures
+
+:
+
+  step:: Turn off computer
+
+  step:: Put in box
+
+  step:: Send it back
+
+----------------------------------------------------------------------
+
+: !!Side-bars.!! ([ref:sidebars]) Sidebar text is rendered as a box
+against the outer margin. Main text flows around sidebar boxes.
+
+index:: sidebars
+
+:
+
+  ---sidebar
+  title:: My sidebar
+  label:: sid-my-sidebar
+
+  My sidebar content...
+
+  ---sidebar
+
+----------------------------------------------------------------------
+
+: !!Glossary.!! ([ref:building-a-glossary]) The presence of glossary
+entries result in the generation of an alphabetical glossary inserted
+at the end of the document.
+
+index:: glossary
+
+:
+
+  I've got [g:ants].
+
+  glossary:: ants = small bugs
+
+----------------------------------------------------------------------
+
+: !!Index.!! ([ref:building-an-index]) The presence of index entries
+result in the generation of an alphabetical index inserted at the end
+of the document.
+
+index:: index; gophers
+
+:
+
+  skinny [i:gopher], look!
+
+  index:: gopher
+
+  index:: rodent!gopher
+
+  index::begin: gopher
+
+  block of...
+  text about...
+  gophers...
+
+  index::end: gopher
+
+######################################################################
+# Local Emacs Variables
+
+# Local Variables:
+# mode: outline
+# mode: fill
+# coding: us-ascii
+# fill-column: 70
+# End:
+
+######################################################################

@@ -1,0 +1,25 @@
+>>>solution
+
+######################################################################
+
+title:: 
+
+label:: ci-000
+
+revision:: $Revision: 6476 $
+
+date:: $Date: 2012-03-05 07:05:48 -0700 (Mon, 05 Mar 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: 
+
+######################################################################
+
+index:: ci-000
+
+<<<solution

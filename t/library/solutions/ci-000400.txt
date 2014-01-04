@@ -1,0 +1,40 @@
+>>>solution
+
+######################################################################
+
+title:: SML/Source.pm Module
+
+label:: ci-000400
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML/Source.pm Module...
+
+######################################################################
+
+index:: ci-000400
+
+---LISTING
+title::     Source.pm
+label::     lis-source-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../../SML/Source.pm
+---LISTING
+
+[clearpage]
+
+<<<solution
+
+>>>RESOURCES
+eb0d3fcfcfcd4c29190a498fd210c596752b109d ../../SML/Source.pm
+<<<RESOURCES

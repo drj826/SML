@@ -1,0 +1,25 @@
+>>>problem
+
+######################################################################
+
+title:: Satisfy Non-Functional Requirements
+
+label:: rq-000111
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+type:: package
+
+description:: The product shall satisfy specified non-functional
+requirements.  This requirement serves as a container for all
+non-functional requirements.
+
+######################################################################
+
+index:: rq-000111; requirements!non-functional
+
+<<<problem

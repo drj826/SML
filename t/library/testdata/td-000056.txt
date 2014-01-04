@@ -1,0 +1,14 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: INVALID SOURCE CITATION SYNTAX
+
+id:: td-000056
+
+######################################################################
+
+This SML document contains a source citation with invalid syntax.  It
+is missing the close markup. [cite:bogus
+
+<<<DOCUMENT

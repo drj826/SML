@@ -1,0 +1,801 @@
+>>>problem
+
+######################################################################
+
+title:: Represent Document Metadata
+
+label:: rq-000087
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000107
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+specified document meta data.  Document meta data describes the
+document.  The purpose of this requirement is to specify all elements
+of document meta data needed to publish books, reports, and articles.
+
+######################################################################
+
+index:: rq-000087
+
+:: data element
+
+:: description
+
+:: type
+
+:: required or optional?
+
+:: single or multi valued?
+
+---
+
+: ~~title~~
+
+: The title of the document
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~subtitle~~
+
+: The subtitle of the document
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~description~~
+
+: The description of the document (same as the ``abstract'')
+
+: block
+
+: optional
+
+: single
+
+---
+
+: ~~author~~
+
+: The author(s) of the document
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~editor~~
+
+: The editor(s) of the document
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~translator~~
+
+: The translator(s) of the document
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~publisher~~
+
+: The publisher of the document
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~publisher_location~~
+
+: The geographic location of the publisher
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~publisher_logo~~
+
+: The logo of the publisher
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~publisher_address~~
+
+: The address of the publisher
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~edition~~
+
+: The edition of the document
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~biographical_note~~
+
+:
+
+: block
+
+: optional
+
+: single
+
+---
+
+: ~~copyright~~
+
+: Copyright of the document
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~full_copyright~~
+
+: Full copyright of the document
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~publication_year~~
+
+: Year of publication
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~date~~
+
+: Date of this revision
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~isbn~~
+
+: International Standard Book Number
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~issn~~
+
+: International Standard Serial Number
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~cip_data~~
+
+: Cataloging in Publication data
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~permissions~~
+
+: 
+
+: block
+
+: optional
+
+: single
+
+---
+
+: ~~grants~~
+
+: 
+
+: block
+
+: optional
+
+: single
+
+---
+
+: ~~paper_durability~~
+
+:
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~dedication~~
+
+:
+
+: block
+
+: optional
+
+: single
+
+---
+
+: ~~epigraph~~
+
+: Phrase, quotation, or poem set at the beginning of the document
+
+: block
+
+: optional
+
+: single
+
+---
+
+: ~~epigraph_source~~
+
+: Source of epigraph
+
+: block
+
+: optional
+
+: single
+
+---
+
+: ~~define~~
+
+: A defined clause for conditional text
+
+: block
+
+: optional
+
+: multi
+
+---
+
+: ~~doctype~~
+
+: Type of document
+
+: doctype
+
+: optional
+
+: single
+
+---
+
+: ~~fontsize~~
+
+: Size of document font
+
+: fontsize
+
+: optional
+
+: single
+
+---
+
+: ~~organization~~
+
+: Organization responsible for document content
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~revision~~
+
+: Revision of document (i.e. the number of times the document has been
+revised)
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~version~~
+
+: Version of document (i.e. the number of times the document has been
+finalized and released)
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~classification~~
+
+: Security classification of overall document
+
+: classification
+
+: optional
+
+: single
+
+---
+
+: ~~classified_by~~
+
+: Classification authority for document
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~classif_reason~~
+
+: Reason document is classified
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~declassify_on~~
+
+: Declassification instructions
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~handling_caveat~~
+
+: Handling caveat for overall document
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~priority~~
+
+: Priority of document
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~status~~
+
+: Status of the document (degree to which the document is complete)
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~attr~~
+
+: Arbitrary attribute
+
+: name/value pair
+
+: optional
+
+: multi
+
+---
+
+: ~~use_formal_status~~
+
+: Whether to use formal outcomes to establish item status
+
+: boolean
+
+: optional
+
+: single
+
+---
+
+: ~~effort_units~~
+
+: Unit of effort used to aggregate level of effort estimates for tasks
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~var~~
+
+: A variable declaration
+
+: name/value pair
+
+: optional
+
+: multi
+
+---
+
+: ~~logo_image_left~~
+
+: Logo image for left side of title page
+
+: file path
+
+: optional
+
+: single
+
+---
+
+: ~~logo_image_center~~
+
+: Logo image for center of title page
+
+: file path
+
+: optional
+
+: single
+
+---
+
+: ~~logo_image_right~~
+
+: Logo image for right side of title page
+
+: file path
+
+: optional
+
+: single
+
+---
+
+: ~~header_left~~
+
+: Left side header text
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~header_left_odd~~
+
+: Left side header text on odd pages
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~header_left_even~~
+
+: Left side header text on even pages
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~header_center~~
+
+: Center header text
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~header_center_odd~~
+
+: Center header text on odd pages
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~header_center_even~~
+
+: Center header text on even pages
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~header_right~~
+
+: Right header text
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~header_right_odd~~
+
+: Right header text on odd pages
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~header_right_even~~
+
+: Right header text on even pages
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~footer_left~~
+
+: Left side footer text
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~footer_left_odd~~
+
+: Left side footer text on odd pages
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~footer_left_even~~
+
+: Left side footer text on even pages
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~footer_center~~
+
+: Center footer text
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~footer_center_odd~~
+
+: Center footer text on odd pages
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~footer_center_even~~
+
+: Center footer text on even pages
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~footer_right~~
+
+: Right footer text
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~footer_right_odd~~
+
+: Right footer text on odd pages
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+: ~~footer_right_even~~
+
+: Right footer text on even pages
+
+: inline
+
+: optional
+
+: multi
+
+---
+
+
+<<<problem

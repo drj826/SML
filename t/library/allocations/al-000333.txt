@@ -1,0 +1,24 @@
+>>>allocation
+
+#---------------------------------------------------------------------
+
+label::    al-000333
+
+solution:: ci-000004 # SML Software Library
+
+problem::  rq-000254 # Validate SML Source Files
+
+test::     tc-000041 # Demonstration
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 10970 $
+
+date:: $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+#---------------------------------------------------------------------
+
+
+<<<allocation

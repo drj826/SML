@@ -1,0 +1,30 @@
+>>>problem
+
+######################################################################
+
+title:: Emit an ~~Information~~ Message On Activation of an Inference
+Rule
+
+label:: rq-000193
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000203
+
+type:: technical
+
+description:: The software shall emit an ~~information~~ message upon
+activation of an inference rule.  An inference rule is an ``if-then''
+rule which defines a set of conditions that, if satisfied, enables the
+software to infer one or more non-explicit facts about the document
+subject matter.
+
+######################################################################
+
+index:: rq-000193; information message!emit; first-order semantics
+
+<<<problem

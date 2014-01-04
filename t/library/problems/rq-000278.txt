@@ -1,0 +1,36 @@
+>>>problem
+
+######################################################################
+
+title:: Generate HTML Changelog
+
+label:: rq-000278
+
+revision:: $Revision: 11579 $
+
+date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000001
+
+priority:: routine
+
+type:: functional
+
+description:: The software shall generate an HTML changelog.  The
+purpose of this list is to notify readers of recent changes to the
+document in chronological order. This is an automatically generated
+listing of recent changelog entries in chronological order. The
+definition of ``recent'' should be configurable by the user as some
+number of days.
+
+######################################################################
+
+index:: rq-000278; changelog!HTML; HTML changelog
+
+This requirement is similar to but different from [id:rq-000264],
+``[lookup:title:rq-000264]''  which groups recent changes by entity
+type rather than listing them in chronological order.
+
+<<<problem

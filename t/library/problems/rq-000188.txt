@@ -1,0 +1,34 @@
+>>>problem
+
+######################################################################
+
+title:: Remember Document Division Order
+
+label:: rq-000188
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000128
+
+priority:: routine
+
+type:: technical
+
+description:: The software shall remember the order in which divisions
+occur in a document.  The purpose of this requirement is to enable
+other software functions to list labeled divisions, especially
+entities, in the order in which they appear in the document. This
+requirement applies to all divisions at the same time, meaning, the
+software should not remember order of entities independently by type
+(i.e. problem, solution, etc.).  This will enable the software to list
+divisions in document order both independent of type and by type.
+
+######################################################################
+
+index:: rq-000188; entity document order
+
+<<<problem

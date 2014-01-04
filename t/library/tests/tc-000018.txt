@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: Conditional.pm Unit Test Case
+
+label:: tc-000018
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Conditional.pm Perl
+module that implements the SML::Conditional class.
+
+######################################################################
+
+index:: tc-000018; unit test case!Conditional.pm
+
+[ref:lis-conditional-pm-unit-test-case] shows the unit test case for
+[file:Conditional.pm].
+
+---LISTING
+title::       Conditional.t - Unit Test Case for Conditional.pm
+label::       lis-conditional-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: portrait
+fontsize::    footnotesize
+file::        ../../Conditional.t
+---LISTING
+
+[ref:lis-conditional-pm-unit-test-results] shows the results of executing
+the Conditional.pm unit test case.
+
+---LISTING
+title::     Conditional.pm Unit Test Case Results
+label::     lis-conditional-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Conditional.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+54b6aeb477fe6cb41ded2cc4eba0974631ed8508 ../Conditional.t
+<<<RESOURCES

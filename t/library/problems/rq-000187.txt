@@ -1,0 +1,35 @@
+>>>problem
+
+######################################################################
+
+title:: Represent an Inline Internal Hyperlink
+
+label:: rq-000187
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000334
+
+priority:: routine
+
+type:: data format
+
+associated:: rq-000021
+
+associated:: rq-000020
+
+description:: The data format shall have the capability to represent
+an inline internal hyperlink.  This capability must allow authors to
+designate arbitrary ``from'' span of text as the beginning end of the
+hyperlink and to designate an arbitrary location in the document as
+the target end of the hyperlink.
+
+######################################################################
+
+index:: rq-000187; internal hyperlink; hyperlink!internal
+
+<<<problem

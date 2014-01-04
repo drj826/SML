@@ -1,0 +1,55 @@
+>>>test
+
+######################################################################
+
+title:: Allocation.pm Unit Test Case
+
+label:: tc-000046
+
+revision:: $Revision: 15133 $
+
+date:: $Date: 2013-07-07 09:31:37 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Allocation.pm Perl
+module that implements the SML::Allocation class.
+
+######################################################################
+
+index:: tc-000046; unit test case!Allocation.pm
+
+[ref:lis-allocation-pm-unit-test-case] shows the unit test for
+[file:Allocation.pm].
+
+---LISTING
+title::       Allocation.t - Unit Test Case for Allocation.pm
+label::       lis-allocation-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: landscape
+fontsize::    footnotesize
+file::        ../Allocation.t
+---LISTING
+
+[ref:lis-allocation-pm-unit-test-results] shows the results of
+executing the Allocation.pm unit test case.
+
+---LISTING
+title::     Allocation.pm Unit Test Case Results
+label::     lis-allocation-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Allocation.t
+---LISTING
+
+<<<test
+>>>RESOURCES
+88e40e5022a70dc2cdb3da10a85ea0c99ce9fc62 ../Allocation.t
+<<<RESOURCES

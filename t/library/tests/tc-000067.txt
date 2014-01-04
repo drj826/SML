@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: DefinitionListItem.pm Unit Test Case
+
+label:: tc-000067
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the DefinitionListItem.pm Perl
+module that implements the SML::DefinitionListItem class.
+
+######################################################################
+
+index:: tc-000067; unit test case!DefinitionListItem.pm
+
+[ref:lis-definitionlistitem-pm-unit-test-case] shows the unit test for
+[file:DefinitionListItem.pm].
+
+---LISTING
+title::       DefinitionListItem.t - Unit Test Case for DefinitionListItem.pm
+label::       lis-definitionlistitem-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: landscape
+fontsize::    footnotesize
+file::        ../../DefinitionListItem.t
+---LISTING
+
+[ref:lis-definitionlistitem-pm-unit-test-results] shows the results of
+executing the DefinitionListItem.pm unit test case.
+
+---LISTING
+title::     DefinitionListItem.pm Unit Test Case Results
+label::     lis-definitionlistitem-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat DefinitionListItem.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+c71ff319f6ad9e34a7f1caaea51b809e846e4896 ../DefinitionListItem.t
+<<<RESOURCES

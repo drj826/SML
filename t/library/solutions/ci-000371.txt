@@ -1,0 +1,25 @@
+>>>solution
+
+######################################################################
+
+title:: `normalize_glossary_definitions' Subroutine
+
+label:: ci-000371
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000007
+
+description:: The [cmd:normalize_glossary_definitions] subroutine 
+
+######################################################################
+
+index:: ci-000371; subroutine![cmd:normalize_glossary_definitions]
+
+<<<solution

@@ -1,0 +1,31 @@
+>>>problem
+
+######################################################################
+
+title:: Be Easy To Debug
+
+label:: rq-000186
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000107
+
+type:: data format
+
+description:: The data format shall be easy to debug.  Invalid syntax
+should be easy to pinpoint for parsing applications and for human
+reviewers. The purpose of this requirement is to avoid tricky or
+clever mechanisms on the data format that hinder debugging and
+correction of invalid documents.
+
+######################################################################
+
+index:: rq-000186; ease of debugging
+
+<<<problem

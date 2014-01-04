@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: Definition.pm Unit Test Case
+
+label:: tc-000051
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Definition.pm Perl
+module that implements the SML::Definition class.
+
+######################################################################
+
+index:: tc-000051; unit test case!Definition.pm
+
+[ref:lis-definition-pm-unit-test-case] shows the unit test for
+[file:Definition.pm].
+
+---LISTING
+title::       Definition.t - Unit Test Case for Definition.pm
+label::       lis-definition-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: landscape
+fontsize::    footnotesize
+file::        ../../Definition.t
+---LISTING
+
+[ref:lis-definition-pm-unit-test-results] shows the results of
+executing the Definition.pm unit test case.
+
+---LISTING
+title::     Definition.pm Unit Test Case Results
+label::     lis-definition-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Definition.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+673e1155303527ef45f18a3412fef67287c4e127 ../Definition.t
+<<<RESOURCES

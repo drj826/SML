@@ -1,0 +1,29 @@
+>>>problem
+
+######################################################################
+
+title:: Insert Content
+
+label:: rq-000129
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000105
+
+priority:: routine
+
+type:: technical
+
+description:: The software shall insert re-usable document divisions as
+instructed by `insert:' statement in the document manuscript. Reusable
+content divisions include item narratives and glossary definitions.
+
+######################################################################
+
+index:: rq-000129; insert content
+
+<<<problem

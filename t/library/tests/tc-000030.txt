@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: Audio.pm Unit Test Case
+
+label:: tc-000030
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Audio.pm Perl
+module that implements the SML::Audio class.
+
+######################################################################
+
+index:: tc-000030; unit test case!Audio.pm
+
+[ref:lis-audio-pm-unit-test-case] shows the unit test case for
+[file:Audio.pm].
+
+---LISTING
+title::       Audio.t - Unit Test Case for Audio.pm
+label::       lis-audio-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: portrait
+fontsize::    footnotesize
+file::        ../../Audio.t
+---LISTING
+
+[ref:lis-audio-pm-unit-test-results] shows the results of executing
+the [file:Audio.pm] unit test case.
+
+---LISTING
+title::     Audio.pm Unit Test Case Results
+label::     lis-audio-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Audio.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+54f11edfb61d112bbf49e0d1b5b007f14e070d80 ../Audio.t
+<<<RESOURCES

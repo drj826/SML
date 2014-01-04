@@ -1,0 +1,32 @@
+>>>problem
+
+######################################################################
+
+title:: Resolve Templates
+
+label:: rq-000132
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000105
+
+priority:: routine
+
+type:: technical
+
+description:: The software shall resolve template statements.
+Templates are re-usable SML files containing variable tags.  The
+template statement passes values for those variables.  The software
+must replace the variable tags with the values and replace the
+template statement with the template containing the replaced
+variables.
+
+######################################################################
+
+index:: rq-000132; resolve templates
+
+<<<problem

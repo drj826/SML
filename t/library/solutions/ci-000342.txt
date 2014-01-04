@@ -1,0 +1,25 @@
+>>>solution
+
+######################################################################
+
+title:: `html_copyright_of' Subroutine
+
+label:: ci-000342
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000007
+
+description:: The [cmd:html_copyright_of] subroutine 
+
+######################################################################
+
+index:: ci-000342; subroutine![cmd:html_copyright_of]
+
+<<<solution

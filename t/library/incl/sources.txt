@@ -1,0 +1,102 @@
+###############################################################COMMENT
+
+SOURCES (BIBLIOGRAPHY)
+
+$Revision: 2349 $
+
+$Date: 2011-04-07 16:47:26 -0600 (Thu, 07 Apr 2011) $
+
+$Author: don.johnson $
+
+This file contains all bibliographic source entries for the Vetting
+Operations Engineering Baseline.
+
+###############################################################COMMENT
+
+---SOURCE
+
+source:: book
+
+title:: The Chicago Manual of Style
+
+label:: cms15
+
+editor:: William S. Strong
+
+editor:: Bryan A. Garner
+
+edition:: 15th Edition
+
+publisher:: The University of Chicago Press
+
+year:: 2003
+
+address:: Chicago 60637
+
+note:: [url:http://www.chicagomanualofstyle.org]
+
+---SOURCE
+
+######################################################################
+
+---SOURCE
+
+source:: misc
+
+title:: TortoiseSVN Web Site
+
+label:: tsvn-web-site
+
+note:: [url:http://tortoisesvn.tigris.org]
+
+---SOURCE
+
+######################################################################
+
+---SOURCE
+
+source:: misc
+
+title:: `Semantic Reasoner' Wikipedia Article
+
+label:: wp-semantic-reasoner
+
+note:: [url:http://en.wikipedia.org/wiki/Reasoner]
+
+---SOURCE
+
+######################################################################
+
+---SOURCE
+
+source:: book
+
+title:: Systems Engineering Principles and Practice
+
+label:: kossiakoff-and-sweet
+
+author:: Alexander Kossiakoff
+
+author:: William N. Sweet
+
+publisher:: John Wiley & Sons
+
+address:: 111 River Street, Hoboken, NJ 07030, (201) 748-6011, (201)
+748-6008 (fax), permreq@wiley.com
+
+year:: 2003
+
+note:: ISBN 0-471-23443-5
+
+---SOURCE
+
+######################################################################
+# Local Emacs Variables
+
+# Local Variables:
+# mode: outline
+# coding: us-ascii
+# fill-column: 70
+# End:
+
+######################################################################

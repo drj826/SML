@@ -1,0 +1,25 @@
+>>>solution
+
+######################################################################
+
+title:: `process_file' Subroutine
+
+label:: ci-000145
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000007
+
+description:: The [cmd:process_file] subroutine 
+
+######################################################################
+
+index:: ci-000145; subroutine![cmd:process_file]
+
+<<<solution

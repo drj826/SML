@@ -1,0 +1,55 @@
+>>>test
+
+######################################################################
+
+title:: Assignment.pm Unit Test Case
+
+label:: tc-000047
+
+revision:: $Revision: 15133 $
+
+date:: $Date: 2013-07-07 09:31:37 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Assignment.pm Perl
+module that implements the SML::Assignment class.
+
+######################################################################
+
+index:: tc-000047; unit test case!Assignment.pm
+
+[ref:lis-assignment-pm-unit-test-case] shows the unit test for
+[file:Assignment.pm].
+
+---LISTING
+title::       Assignment.t - Unit Test Case for Assignment.pm
+label::       lis-assignment-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: landscape
+fontsize::    footnotesize
+file::        ../Assignment.t
+---LISTING
+
+[ref:lis-assignment-pm-unit-test-results] shows the results of
+executing the Assignment.pm unit test case.
+
+---LISTING
+title::     Assignment.pm Unit Test Case Results
+label::     lis-assignment-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Assignment.t
+---LISTING
+
+<<<test
+>>>RESOURCES
+e763cc45fbfac6d9d36b0b8325f2fd55255ebf15 ../Assignment.t
+<<<RESOURCES

@@ -1,0 +1,29 @@
+>>>problem
+
+######################################################################
+
+title:: Implement SML Semantics
+
+label:: rq-000118
+
+revision:: $Revision: 11579 $
+
+date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000170
+
+priority:: routine
+
+type:: technical
+
+description:: The software shall implement data structures that define
+SML semantics. The purpose of this requirement is to enable automatic
+validation of document semantics.
+
+######################################################################
+
+index:: rq-000118; semantics!SML
+
+<<<problem

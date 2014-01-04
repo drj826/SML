@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: Sidebar.pm Unit Test Case
+
+label:: tc-000027
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Sidebar.pm Perl
+module that implements the SML::Sidebar class.
+
+######################################################################
+
+index:: tc-000027; unit test case!Sidebar.pm
+
+[ref:lis-sidebar-pm-unit-test-case] shows the unit test case for
+[file:Sidebar.pm].
+
+---LISTING
+title::       Sidebar.t - Unit Test Case for Sidebar.pm
+label::       lis-sidebar-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: portrait
+fontsize::    footnotesize
+file::        ../../Sidebar.t
+---LISTING
+
+[ref:lis-sidebar-pm-unit-test-results] shows the results of executing
+the [file:Sidebar.pm] unit test case.
+
+---LISTING
+title::     Sidebar.pm Unit Test Case Results
+label::     lis-sidebar-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Sidebar.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+1aa7393365f586847171bf2f6586dea39c2ea3f2 ../Sidebar.t
+<<<RESOURCES

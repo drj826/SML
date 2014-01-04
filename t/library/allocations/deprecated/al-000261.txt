@@ -1,0 +1,6 @@
+label::    al-000261
+solution:: ci-000005
+problem::  rq-000103
+
+outcome::2012-04-01:al-000261:red: The [file:Document.pm] class does
+not yet publish any output.

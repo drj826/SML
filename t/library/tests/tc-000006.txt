@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: Document.pm Unit Test Case
+
+label:: tc-000006
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Document.pm Perl
+module that implements the SML::Document class.
+
+######################################################################
+
+index:: tc-000006; unit test case!Document.pm
+
+[ref:lis-document-pm-unit-test-case] shows the unit test case for
+[file:Document.pm].
+
+---LISTING
+title::       Document.t - Unit Test Case for Document.pm
+label::       lis-document-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: portrait
+fontsize::    footnotesize
+file::        ../../Document.t
+---LISTING
+
+[ref:lis-document-pm-unit-test-results] shows the results of executing
+the Document.pm unit test case.
+
+---LISTING
+title::     Document.pm Unit Test Case Results
+label::     lis-document-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Document.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+67de7b498be09772917b2b42d57592e793d78a52 ../Document.t
+<<<RESOURCES

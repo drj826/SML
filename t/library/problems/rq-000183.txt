@@ -1,0 +1,49 @@
+>>>problem
+
+######################################################################
+
+title:: Permit Library Ontology Configuration
+
+label:: rq-000183
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000182
+
+priority:: routine
+
+type:: non-functional
+
+description:: The [g:sml:library] [g:sml:ontology] shall be
+configurable in specified ways.  The [g:sml:ontology] applies to all
+[g:sml:document]s in a [g:sml:library].
+
+######################################################################
+
+index:: rq-000183; ontology!configurability
+
+Users need the ability to configure the ontology in the following
+ways:
+
++ Declare entities
+
++ Declare entity properties by name
+
++ Declare whether or not an entity property is required
+
++ Declare the data type of an entity property
+
++ Declare inverse entity property implication rules
+
++ Declare the cardinality of an entity property
+
++ Declare whether an entity property is an 'imply only' property
+
++ Declare the order in which the property should appear in
+  traceability matrices
+
+<<<problem

@@ -1,0 +1,55 @@
+>>>test
+
+######################################################################
+
+title:: Solution.pm Unit Test Case
+
+label:: tc-000061
+
+revision:: $Revision: 15133 $
+
+date:: $Date: 2013-07-07 09:31:37 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Solution.pm Perl
+module that implements the SML::Solution class.
+
+######################################################################
+
+index:: tc-000061; unit test case!Solution.pm
+
+[ref:lis-solution-pm-unit-test-case] shows the unit test for
+[file:Solution.pm].
+
+---LISTING
+title::       Solution.t - Unit Test Case for Solution.pm
+label::       lis-solution-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: landscape
+fontsize::    footnotesize
+file::        ../Solution.t
+---LISTING
+
+[ref:lis-solution-pm-unit-test-results] shows the results of executing
+the Solution.pm unit test case.
+
+---LISTING
+title::     Solution.pm Unit Test Case Results
+label::     lis-solution-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Solution.t
+---LISTING
+
+<<<test
+>>>RESOURCES
+3c84f73ac2449c865298b9ed7ed635fb37fd0bbd ../Solution.t
+<<<RESOURCES

@@ -1,0 +1,28 @@
+>>>problem
+
+######################################################################
+
+title:: Represent A Document Division
+
+label:: rq-000326
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000006
+
+priority:: routine
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+a [g:sml:document] [g:sml:division].
+
+######################################################################
+
+index:: rq-000326
+
+<<<problem

@@ -1,0 +1,31 @@
+>>>problem
+
+######################################################################
+
+title:: Resolve Included Regions
+
+label:: rq-000178
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000108
+
+priority:: routine
+
+type:: technical
+
+associated:: rq-000167
+
+description:: The software shall resolve included regions.  The
+[g:sml:SML] data format enables authors to include the content of an
+external file as a [g:sml:region].
+
+######################################################################
+
+index:: rq-000178; include
+
+<<<problem

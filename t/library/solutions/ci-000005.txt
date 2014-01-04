@@ -1,0 +1,92 @@
+>>>solution
+
+######################################################################
+
+title:: SML/Document.pm Module
+
+label:: ci-000005
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: perl
+
+type:: class
+
+type:: unit
+
+parent:: ci-000004
+
+description:: The Document.pm perl module implements the
+[g:sml:document] class.
+
+#---------------------------------------------------------------------
+# allocations
+
+allocation:: al-000032 # rq-000098 Publish SML Documents
+
+allocation:: al-000033 # rq-000001 Publish To HTML
+allocation:: al-000034 # rq-000002 Publish To PDF
+allocation:: al-000035 # rq-000003 Publish To CSV
+allocation:: al-000036 # rq-000004 Publish To XML
+allocation:: al-000037 # rq-000114 Publish To Plain Text
+allocation:: al-000038 # rq-000126 Publish To SML
+
+allocation:: al-000151 # rq-000139 Publish Document Front and Back Matter
+allocation:: al-000152 # rq-000140 Generate a Title Page
+allocation:: al-000153 # rq-000141 Generate a Copyright Page
+allocation:: al-000154 # rq-000142 Generate a Table of Contents
+allocation:: al-000155 # rq-000143 Generate a List of Figures
+allocation:: al-000156 # rq-000144 Generate a List of Tables
+allocation:: al-000157 # rq-000145 Generate Specified `Special Content' Lists
+allocation:: al-000158 # rq-000146 Generate a List of Abbreviations
+allocation:: al-000159 # rq-000147 Generate a List of Notes
+allocation:: al-000160 # rq-000148 Generate a Glossary
+allocation:: al-000161 # rq-000149 Generate a Bibliography
+allocation:: al-000162 # rq-000150 Generate a List of Contributors
+allocation:: al-000163 # rq-000151 Generate an Index
+allocation:: al-000164 # rq-000152 Generate a Prioritized List of Entities
+allocation:: al-000165 # rq-000153 Generate a List of Recent Changes
+allocation:: al-000166 # rq-000154 Generate a Change Log
+allocation:: al-000167 # rq-000155 Generate a List of Attachments
+
+allocation:: al-000260 # rq-000102 Publish SML Document Structure Features
+
+allocation:: al-000338 # rq-000207 Render a Document According to a Style
+
+######################################################################
+
+index:: ci-000005; Document.pm
+
+= [g:sml:document] = [def:sml:document]
+
+[ref:fig-class-diagram-document] shows the composition of an SML
+[g:sml:document].
+
+---FIGURE
+title:: SML Document Composition
+label:: fig-class-diagram-document
+image:: ../files/images/class-diagram-document.png
+width:: 2.25in
+---FIGURE
+
+---LISTING
+title::     Document.pm
+label::     lis-document-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../../SML/Document.pm
+---LISTING
+
+[clearpage]
+
+<<<solution
+
+>>>RESOURCES
+7edf872dac92d5d9fed72d2b04a19279d24f8b58 ../../SML/Document.pm
+57a80837f614a01aa0db34a7184fcb37c7c9235f files/images/class-diagram-document.png
+<<<RESOURCES

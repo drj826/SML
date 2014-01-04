@@ -1,0 +1,31 @@
+>>>problem
+
+######################################################################
+
+title:: Generate HTML List of Footnotes
+
+label:: rq-000275
+
+revision:: $Revision: 11579 $
+
+date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000001
+
+priority:: routine
+
+type:: functional
+
+description:: The software shall generate an HTML list of
+[g:sml:footnote]s.  The purpose of this footnote is to enable readers
+to quickly navigate to any footnote in the document.
+
+######################################################################
+
+index:: rq-000275; list of footnotes!HTML; HTML list of footnotes
+
+= [g:sml:footnote] = [def:sml:footnote]
+
+<<<problem

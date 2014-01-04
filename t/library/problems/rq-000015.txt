@@ -1,0 +1,143 @@
+>>>problem
+
+######################################################################
+
+title:: Represent a Figure
+
+label:: rq-000015
+
+priority:: routine
+
+parent:: rq-000326
+
+type:: data format
+
+description:: The data format shall have the capability to represent a
+figure.  This capability enables authors to insert images, diagrams,
+and ASCII art into a document.  Figures have titles and descriptions
+(often called captions) and unique identifiers that allow cross
+referencing within the document.
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+######################################################################
+
+index:: rq-000015; figures
+
+Elements of figure meta data include:
+
+:: data element
+
+:: description
+
+:: type
+
+:: required or optional?
+
+:: single or multi-valued?
+
+---
+
+: ~~title~~
+
+: Title of the figure (sometimes called a caption)
+
+: block
+
+: optional
+
+: single
+
+---
+
+: ~~label~~
+
+: Unique identifier for the figure
+
+: ID
+
+: optional
+
+: single
+
+---
+
+: ~~description~~
+
+: A one-paragraph description of the figure
+
+: block
+
+: optional
+
+: single
+
+---
+
+: ~~width~~
+
+: Overall width of the figure
+
+: width
+
+: optional
+
+: single
+
+---
+
+: ~~border~~
+
+: Whether or not to place a border around the figure
+
+: boolean
+
+: optional
+
+: single
+
+---
+
+: ~~image~~
+
+: Location of file containing image to display
+
+: file path
+
+: optional
+
+: multi
+
+---
+
+: ~~orientation~~
+
+: Orientation of the table on hard copy media
+
+: orientation
+
+: optional
+
+: single
+
+---
+
+: ~~narrative~~
+
+: ASCII art to insert into figure
+
+: block
+
+: optional
+
+: single
+
+---
+
+<<<problem

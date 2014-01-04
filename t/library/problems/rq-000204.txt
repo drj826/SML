@@ -1,0 +1,28 @@
+>>>problem
+
+######################################################################
+
+title:: Permit Library-Wide Document Style Configuration
+
+label:: rq-000204
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000182
+
+type:: non-functional
+
+description:: The software shall permit users to configure
+library-wide document styles.  The purpose of this requirement is to
+drive the solution to enable users to establish a common style for all
+documents in a library.
+
+######################################################################
+
+index:: rq-000204; document style configuration
+
+<<<problem

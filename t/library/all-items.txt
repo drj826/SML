@@ -1,0 +1,122 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: All Items
+
+subtitle:: problems, solutions, allocations, tests, results, tasks,
+roles
+
+label:: all-items
+
+revision:: $Revision: 15138 $
+
+date:: $Date: 2013-07-07 09:35:23 -0600 (Sun, 07 Jul 2013) $
+
+version:: 0.2
+
+author:: Don Johnson (drj826@acm.org)
+
+copyright:: 2002-2012, Don Johnson
+
+doctype:: book
+
+logo_image_small:: files/images/sml_logo.png
+
+logo_image_center:: files/images/sml_logo.png
+
+use_formal_status:: 1
+
+######################################################################
+
+#---------------------------------------------------------------------
+# Problems
+
+* Problems
+
+type:: chapter
+
+include:: auto/all-items-problems.txt
+
+#---------------------------------------------------------------------
+# Solutions
+
+* Solutions
+
+type:: chapter
+
+include:: auto/all-items-solutions.txt
+
+#---------------------------------------------------------------------
+# Allocations
+
+* Allocations
+
+type:: chapter
+
+include:: auto/all-items-allocations.txt
+
+#---------------------------------------------------------------------
+# Tests
+
+* Tests
+
+type:: chapter
+
+include:: auto/all-items-tests.txt
+
+#---------------------------------------------------------------------
+# Results
+
+* Results
+
+type:: chapter
+
+include:: auto/all-items-results.txt
+
+#---------------------------------------------------------------------
+# Tasks
+
+* Tasks
+
+type:: chapter
+
+include:: auto/all-items-tasks.txt
+
+#---------------------------------------------------------------------
+# Roles
+
+* Roles
+
+type:: chapter
+
+include:: auto/all-items-roles.txt
+
+######################################################################
+# Backmatter
+
+include:: incl/glossary-sml.txt
+
+include:: incl/glossary-ieee.txt
+
+include:: incl/glossary-cmmi.txt
+
+include:: incl/sources.txt
+
+include:: incl/sources-ieee.txt
+
+include:: incl/sources-cmmi.txt
+
+######################################################################
+# Local Emacs Variables
+
+# Local Variables:
+# mode: outline
+# mode: flyspell
+# coding: us-ascii
+# fill-column: 70
+# End:
+
+######################################################################
+
+<<<DOCUMENT

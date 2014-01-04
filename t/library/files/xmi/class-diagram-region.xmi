@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMI xmlns:UML="org.omg.xmi.namespace.UML" xmi.version="1.2" timestamp="Sun Nov 06 08:38:29 2011">
+  <XMI.content>
+    <UML:Model name="../xmi/class-diagram-region.xmi" xmi.id="xmi.12" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+      <UML:Namespace.ownedElement>
+        <UML:Class name="SML::Region" xmi.id="xmi.1" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false" isActive="false">
+          <UML:Classifier.feature>
+            <UML:Operation name="DESTROY" xmi.id="xmi.13" visibility="public" ownerScope="classifier" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="as_CSV" xmi.id="xmi.14" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="as_HTML" xmi.id="xmi.15" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="as_LaTeX" xmi.id="xmi.16" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="as_XML" xmi.id="xmi.17" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="as_text" xmi.id="xmi.18" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="description" xmi.id="xmi.19" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="id" xmi.id="xmi.20" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="meta" xmi.id="xmi.21" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="new" xmi.id="xmi.22" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="title" xmi.id="xmi.23" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="type" xmi.id="xmi.24" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <UML:Generalization isSpecification="false" xmi.id="xmi.25">
+          <UML:Generalization.child>
+            <UML:Class xmi.idref="xmi.2"/>
+          </UML:Generalization.child>
+          <UML:Generalization.parent>
+            <UML:Class xmi.idref="xmi.1"/>
+          </UML:Generalization.parent>
+        </UML:Generalization>
+        <UML:Generalization isSpecification="false" xmi.id="xmi.26">
+          <UML:Generalization.child>
+            <UML:Class xmi.idref="xmi.3"/>
+          </UML:Generalization.child>
+          <UML:Generalization.parent>
+            <UML:Class xmi.idref="xmi.1"/>
+          </UML:Generalization.parent>
+        </UML:Generalization>
+        <UML:Generalization isSpecification="false" xmi.id="xmi.27">
+          <UML:Generalization.child>
+            <UML:Class xmi.idref="xmi.4"/>
+          </UML:Generalization.child>
+          <UML:Generalization.parent>
+            <UML:Class xmi.idref="xmi.1"/>
+          </UML:Generalization.parent>
+        </UML:Generalization>
+        <UML:Generalization isSpecification="false" xmi.id="xmi.28">
+          <UML:Generalization.child>
+            <UML:Class xmi.idref="xmi.5"/>
+          </UML:Generalization.child>
+          <UML:Generalization.parent>
+            <UML:Class xmi.idref="xmi.1"/>
+          </UML:Generalization.parent>
+        </UML:Generalization>
+        <UML:Class name="SML::Demo" xmi.id="xmi.2" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false" isActive="false">
+          <UML:Classifier.feature>
+            <UML:Operation name="DESTROY" xmi.id="xmi.29" visibility="public" ownerScope="classifier" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="id" xmi.id="xmi.30" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="meta" xmi.id="xmi.31" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="name" xmi.id="xmi.32" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="new" xmi.id="xmi.33" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <UML:Class name="SML::Exercise" xmi.id="xmi.3" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false" isActive="false">
+          <UML:Classifier.feature>
+            <UML:Operation name="DESTROY" xmi.id="xmi.34" visibility="public" ownerScope="classifier" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="meta" xmi.id="xmi.35" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="name" xmi.id="xmi.36" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="new" xmi.id="xmi.37" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <UML:Class name="SML::Item" xmi.id="xmi.4" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false" isActive="false">
+          <UML:Classifier.feature>
+            <UML:Operation name="DESTROY" xmi.id="xmi.38" visibility="public" ownerScope="classifier" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="meta" xmi.id="xmi.39" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="new" xmi.id="xmi.40" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="type" xmi.id="xmi.41" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <UML:Generalization isSpecification="false" xmi.id="xmi.42">
+          <UML:Generalization.child>
+            <UML:Class xmi.idref="xmi.6"/>
+          </UML:Generalization.child>
+          <UML:Generalization.parent>
+            <UML:Class xmi.idref="xmi.4"/>
+          </UML:Generalization.parent>
+        </UML:Generalization>
+        <UML:Generalization isSpecification="false" xmi.id="xmi.43">
+          <UML:Generalization.child>
+            <UML:Class xmi.idref="xmi.7"/>
+          </UML:Generalization.child>
+          <UML:Generalization.parent>
+            <UML:Class xmi.idref="xmi.4"/>
+          </UML:Generalization.parent>
+        </UML:Generalization>
+        <UML:Generalization isSpecification="false" xmi.id="xmi.44">
+          <UML:Generalization.child>
+            <UML:Class xmi.idref="xmi.8"/>
+          </UML:Generalization.child>
+          <UML:Generalization.parent>
+            <UML:Class xmi.idref="xmi.4"/>
+          </UML:Generalization.parent>
+        </UML:Generalization>
+        <UML:Generalization isSpecification="false" xmi.id="xmi.45">
+          <UML:Generalization.child>
+            <UML:Class xmi.idref="xmi.9"/>
+          </UML:Generalization.child>
+          <UML:Generalization.parent>
+            <UML:Class xmi.idref="xmi.4"/>
+          </UML:Generalization.parent>
+        </UML:Generalization>
+        <UML:Generalization isSpecification="false" xmi.id="xmi.46">
+          <UML:Generalization.child>
+            <UML:Class xmi.idref="xmi.10"/>
+          </UML:Generalization.child>
+          <UML:Generalization.parent>
+            <UML:Class xmi.idref="xmi.4"/>
+          </UML:Generalization.parent>
+        </UML:Generalization>
+        <UML:Generalization isSpecification="false" xmi.id="xmi.47">
+          <UML:Generalization.child>
+            <UML:Class xmi.idref="xmi.11"/>
+          </UML:Generalization.child>
+          <UML:Generalization.parent>
+            <UML:Class xmi.idref="xmi.4"/>
+          </UML:Generalization.parent>
+        </UML:Generalization>
+        <UML:Class name="SML::Slide" xmi.id="xmi.5" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false" isActive="false">
+          <UML:Classifier.feature>
+            <UML:Operation name="DESTROY" xmi.id="xmi.48" visibility="public" ownerScope="classifier" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="meta" xmi.id="xmi.49" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="name" xmi.id="xmi.50" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="new" xmi.id="xmi.51" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <UML:Class name="SML::Problem" xmi.id="xmi.6" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false" isActive="false">
+          <UML:Classifier.feature>
+            <UML:Operation name="DESTROY" xmi.id="xmi.52" visibility="public" ownerScope="classifier" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="meta" xmi.id="xmi.53" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="name" xmi.id="xmi.54" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="new" xmi.id="xmi.55" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <UML:Class name="SML::Result" xmi.id="xmi.7" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false" isActive="false">
+          <UML:Classifier.feature>
+            <UML:Operation name="DESTROY" xmi.id="xmi.56" visibility="public" ownerScope="classifier" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="meta" xmi.id="xmi.57" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="name" xmi.id="xmi.58" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="new" xmi.id="xmi.59" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <UML:Class name="SML::Role" xmi.id="xmi.8" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false" isActive="false">
+          <UML:Classifier.feature>
+            <UML:Operation name="DESTROY" xmi.id="xmi.60" visibility="public" ownerScope="classifier" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="meta" xmi.id="xmi.61" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="name" xmi.id="xmi.62" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="new" xmi.id="xmi.63" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <UML:Class name="SML::Solution" xmi.id="xmi.9" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false" isActive="false">
+          <UML:Classifier.feature>
+            <UML:Operation name="DESTROY" xmi.id="xmi.64" visibility="public" ownerScope="classifier" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="meta" xmi.id="xmi.65" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="name" xmi.id="xmi.66" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="new" xmi.id="xmi.67" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <UML:Class name="SML::Task" xmi.id="xmi.10" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false" isActive="false">
+          <UML:Classifier.feature>
+            <UML:Operation name="DESTROY" xmi.id="xmi.68" visibility="public" ownerScope="classifier" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="meta" xmi.id="xmi.69" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="name" xmi.id="xmi.70" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="new" xmi.id="xmi.71" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+          </UML:Classifier.feature>
+        </UML:Class>
+        <UML:Class name="SML::Test" xmi.id="xmi.11" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false" isActive="false">
+          <UML:Classifier.feature>
+            <UML:Operation name="DESTROY" xmi.id="xmi.72" visibility="public" ownerScope="classifier" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="meta" xmi.id="xmi.73" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="name" xmi.id="xmi.74" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+            <UML:Operation name="new" xmi.id="xmi.75" visibility="public" ownerScope="instance" concurrency="sequential" isSpecification="false" isQuery="false" isRoot="false" isLeaf="false" isAbstract="false"/>
+          </UML:Classifier.feature>
+        </UML:Class>
+      </UML:Namespace.ownedElement>
+    </UML:Model>
+  </XMI.content>
+</XMI>

@@ -1,0 +1,32 @@
+>>>problem
+
+######################################################################
+
+title:: Represent an Option to `Include As Section'
+
+label:: rq-000165
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000065
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+an `include' statement where the included content must be included
+~~as a section of specified level~~. Convert the title of the external
+file to a section heading at a specified section depth.  Make all
+sections and sub-sections from the external file relative to the
+specified section depth.
+
+######################################################################
+
+index:: rq-000165; include!as section
+
+<<<problem

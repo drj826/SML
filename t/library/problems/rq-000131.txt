@@ -1,0 +1,29 @@
+>>>problem
+
+######################################################################
+
+title:: Resolve Lookups
+
+label:: rq-000131
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000105
+
+priority:: routine
+
+type:: technical
+
+description:: The software shall resolve inline lookup tags with the
+looked-up values.  Every property and attribute of every identified
+division may be looked up and re-used.
+
+######################################################################
+
+index:: rq-000131; resolve lookups
+
+<<<problem

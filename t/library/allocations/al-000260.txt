@@ -1,0 +1,24 @@
+>>>allocation
+
+#---------------------------------------------------------------------
+
+label::    al-000260
+
+solution:: ci-000423 # Formatter.pm
+
+problem::  rq-000102 # Format Document Structures from SML Sources
+
+test::     tc-000041 # Demonstration
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 10970 $
+
+date::     $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
+
+author::   $Author: don.johnson $
+
+#---------------------------------------------------------------------
+
+
+<<<allocation

@@ -1,0 +1,32 @@
+>>>problem
+
+######################################################################
+
+title:: Parse SML Conditional Divisions
+
+label:: rq-000100
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000099
+
+priority:: routine
+
+type:: functional
+
+description:: The software shall parse SML conditional divisions.  The
+purpose of conditional text is to allow authors to publish different
+versions of the same document depending on certain conditions.  A
+conditional division directs the application to ignore that division's
+text unless a certain condition is met (whether or not a named token
+is defined).
+
+######################################################################
+
+index:: rq-000100; conditional text
+
+<<<problem

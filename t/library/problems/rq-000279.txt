@@ -1,0 +1,31 @@
+>>>problem
+
+######################################################################
+
+title:: Generate HTML List of References
+
+label:: rq-000279
+
+revision:: $Revision: 11579 $
+
+date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000001
+
+priority:: routine
+
+type:: functional
+
+description:: The software shall generate an HTML list of
+[g:sml:reference]s.  The purpose of this reference is to enable
+readers to quickly navigate to any reference in the document.
+
+######################################################################
+
+index:: rq-000279; list of references!HTML; HTML list of references
+
+= [g:sml:reference] = [def:sml:reference]
+
+<<<problem

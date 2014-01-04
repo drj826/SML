@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: CommentBlock.pm Unit Test Case
+
+label:: tc-000050
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the CommentBlock.pm Perl
+module that implements the SML::CommentBlock class.
+
+######################################################################
+
+index:: tc-000050; unit test case!CommentBlock.pm
+
+[ref:lis-commentblock-pm-unit-test-case] shows the unit test for
+[file:CommentBlock.pm].
+
+---LISTING
+title::       CommentBlock.t - Unit Test Case for CommentBlock.pm
+label::       lis-commentblock-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: landscape
+fontsize::    footnotesize
+file::        ../../CommentBlock.t
+---LISTING
+
+[ref:lis-commentblock-pm-unit-test-results] shows the results of
+executing the CommentBlock.pm unit test case.
+
+---LISTING
+title::     CommentBlock.pm Unit Test Case Results
+label::     lis-commentblock-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat CommentBlock.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+ce17898fd86b7c55ed98dd17d18020ae55ba2b2b ../CommentBlock.t
+<<<RESOURCES

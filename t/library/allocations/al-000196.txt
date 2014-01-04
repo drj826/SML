@@ -1,0 +1,30 @@
+>>>allocation
+
+#---------------------------------------------------------------------
+
+label::    al-000196
+
+solution:: ci-000007 # publish.pl Script
+
+problem::  rq-000110 # Be Reusable
+
+test::     tc-000041 # Demonstration
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 10970 $
+
+date::     $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
+
+author::   $Author: don.johnson $
+
+#---------------------------------------------------------------------
+
+outcome::2011-11-27:al-000196:red: I rate the SML library's
+re-usability as red because the current implementation has all the
+code in a single script.  The parser and the renderer are all together
+so that you cannot perform parsing and rendering functions
+independently.  The code must be modularized to enable re-use of
+independent functions.
+
+<<<allocation

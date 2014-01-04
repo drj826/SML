@@ -1,0 +1,32 @@
+>>>problem
+
+######################################################################
+
+title:: Render Document Presentation Features from SML Sources
+
+label:: rq-000103
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000199
+
+priority:: routine
+
+type:: function
+
+description:: The software shall render document [g:sml:presentation]
+features from SML.  Presentation features are means of specifying the
+appearance of document content such as font size, font family, bold,
+italics, underline, superscript, and subscript.  This requirement
+serves as a container for requirements calling for publishing specific
+SML presentation features.
+
+######################################################################
+
+index:: rq-000103; document presentation features!render
+
+<<<problem

@@ -1,0 +1,25 @@
+>>>problem
+
+######################################################################
+
+title:: Format an HTML Emdash
+
+label:: rq-000239
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000205
+
+type:: technical
+
+description:: The software shall format an HTML emdash.
+
+######################################################################
+
+index:: rq-000239; emdash!format HTML
+
+<<<problem

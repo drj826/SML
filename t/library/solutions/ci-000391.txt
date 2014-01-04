@@ -1,0 +1,40 @@
+>>>solution
+
+######################################################################
+
+title:: SML/Environment.pm Module
+
+label:: ci-000391
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML/Environment.pm Module...
+
+######################################################################
+
+index:: ci-000391
+
+---LISTING
+title::     Environment.pm
+label::     lis-environment-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../../SML/Environment.pm
+---LISTING
+
+[clearpage]
+
+<<<solution
+
+>>>RESOURCES
+77e14748bbbe5107e8a3826c669cbadcda770b63 ../../SML/Environment.pm
+<<<RESOURCES

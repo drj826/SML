@@ -1,0 +1,15 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: Resolve Template
+
+id:: td-000060
+
+######################################################################
+
+This document contains a template to be resolved by the parser.
+
+include::text=my text: ../tmpl/test_template.txt
+
+<<<DOCUMENT

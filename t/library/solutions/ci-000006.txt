@@ -1,0 +1,69 @@
+>>>solution
+
+######################################################################
+
+title:: SML Semantics
+
+label:: ci-000006
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: configuration file
+
+parent:: ci-000001
+
+description:: [g:sml:SML] semantics specify the terms that represent the
+entities defined for an SML library, the entity properties, the
+relationships that hold among entities, and the formal axioms that
+constrain the interpretation and well-formed use of these terms.  The
+semantics that hold for an SML library are expressed as an ontology in
+one or more ontology configuration files.
+
+#---------------------------------------------------------------------
+# allocations
+
+allocation:: al-000039 # rq-000183 Ontology Configurability
+
+allocation:: al-000007 # rq-000007 Represent Semantic Content
+allocation:: al-000283 # rq-000194 Represent Semantic Entities
+allocation:: al-000145 # rq-000125 Represent Inline Semantic Content
+allocation:: al-000284 # rq-000194 Represent Inference Rules
+
+######################################################################
+
+index:: ci-000006
+
+[ref:lis-sml-ontology-config] shows the [file:ontology_rules_sml.conf]
+file.
+
+---LISTING
+title::       ontology_rules_sml.conf
+label::       lis-sml-ontology-config
+numbers::     left
+fontsize::    footnotesize
+orientation:: landscape
+file::        ../ontology_rules_sml.conf
+---LISTING
+
+[ref:lis-lib-ontology-config] shows the [file:ontology_rules_lib.conf]
+file.
+
+---LISTING
+title::       ontology_rules_lib.conf
+label::       lis-lib-ontology-config
+numbers::     left
+fontsize::    footnotesize
+orientation:: landscape
+file::        ../ontology_rules_lib.conf
+---LISTING
+
+<<<solution
+
+>>>RESOURCES
+a669b46d8bacf8c3d00be59f23f102092abb62b2 ontology_rules_lib.conf
+38748edd3fe991f48a2bc6d52b1daf2fd66f4013 ontology_rules_sml.conf
+<<<RESOURCES

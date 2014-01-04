@@ -1,0 +1,27 @@
+>>>solution
+
+######################################################################
+
+title:: SML/Role.pm Module
+
+label:: ci-000418
+
+revision:: $Revision: 11548 $
+
+date:: $Date: 2012-11-27 17:11:51 -0700 (Tue, 27 Nov 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The Role.pm module implements the SML::Role class. An
+SML role is an item region that represents the role of an individual,
+that is, a description of the individual's responsibilities.
+
+######################################################################
+
+index:: ci-000418; Role.pm
+
+<<<solution

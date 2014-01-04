@@ -1,0 +1,55 @@
+>>>solution
+
+######################################################################
+
+title:: SML/Library.pm Module
+
+label:: ci-000410
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML/Library.pm Module...
+
+######################################################################
+
+index:: ci-000410
+
+= [g:sml:library] = [def:sml:library]
+
+This section describes the design of the [g:sml:SML] [g:sml:library]
+class. [ref:fig-class-diagram-library] shows the composition of an SML
+[g:sml:library].  The library class does not inherit attributes or
+methods from any other class.
+
+---FIGURE
+title:: SML Library Composition
+label:: fig-class-diagram-library
+image:: ../files/images/class-diagram-library.png
+width:: 3.75in
+---FIGURE
+
+---LISTING
+title::     Library.pm
+label::     lis-library-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../../SML/Library.pm
+---LISTING
+
+[clearpage]
+
+<<<solution
+
+>>>RESOURCES
+0e9896b73b90f31d26ba293b20ee773a5304e17c ../../SML/Library.pm
+b9f272c9eeea278c439639a35805ddec336b4f13 files/images/class-diagram-library.png
+<<<RESOURCES

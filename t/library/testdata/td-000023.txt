@@ -1,0 +1,16 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: Include A Problem Region
+
+id:: td-000023
+
+######################################################################
+
+This document demonstrates including a region using an include
+statement.
+
+include:: td-000022.txt # <-- a problem
+
+<<<DOCUMENT

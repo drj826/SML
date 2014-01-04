@@ -1,0 +1,40 @@
+>>>solution
+
+######################################################################
+
+title:: SML/Section.pm Module
+
+label:: ci-000392
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML/Section.pm Module...
+
+######################################################################
+
+index:: ci-000392
+
+---LISTING
+title::     Section.pm
+label::     lis-section-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../../SML/Section.pm
+---LISTING
+
+[clearpage]
+
+<<<solution
+
+>>>RESOURCES
+717263d91d0a799e0eacbc7ab9057c3d126bf6c5 ../../SML/Section.pm
+<<<RESOURCES

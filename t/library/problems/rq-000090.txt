@@ -1,0 +1,31 @@
+>>>problem
+
+######################################################################
+
+title:: Represent an Inline Acronym Reference
+
+label:: rq-000090
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000334
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+an inline acronym reference.  In other words, the data format must
+have the capability to indicate an acronym is in the official list of
+acronyms.  The data format must allow acronym references to span
+newline characters.
+
+######################################################################
+
+index:: rq-000090; acronym reference
+
+<<<problem

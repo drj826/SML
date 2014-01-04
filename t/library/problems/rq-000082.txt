@@ -1,0 +1,37 @@
+>>>problem
+
+######################################################################
+
+title:: Be Human Readable
+
+label:: rq-000082
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000107
+
+type:: data format
+
+description:: The data format shall be human readable.  It should be as
+easy as possible for people to read and understand raw text manuscript
+files.  The purpose of this requirement is to keep the data format as
+readable as possible so people are comfortable reading and writing in
+the raw data format using simple text editing tools.
+
+######################################################################
+
+index:: rq-000082; human readable
+
+Markup languages like XML and HTML also have a goal of being human
+readable but have accumulated so much complexity that most files are
+difficult to read.  To maximize human readability, the data format
+should make it easy for people to distinguish markup from content and
+should keep the ratio of markup to content to an absolute minimum.
+
+<<<problem

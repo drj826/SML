@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: Reasoner.pm Unit Test Case
+
+label:: tc-000010
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Reasoner.pm Perl
+module that implements the SML::Reasoner class.
+
+######################################################################
+
+index:: tc-000010; unit test case!Reasoner.pm
+
+[ref:lis-reasoner-pm-unit-test-case] shows the unit test case for
+[file:Reasoner.pm].
+
+---LISTING
+title::       Reasoner.t - Unit Test Case for Reasoner.pm
+label::       lis-reasoner-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: portrait
+fontsize::    footnotesize
+file::        ../../Reasoner.t
+---LISTING
+
+[ref:lis-reasoner-pm-unit-test-results] shows the results of executing
+the Reasoner.pm unit test case.
+
+---LISTING
+title::     Reasoner.pm Unit Test Case Results
+label::     lis-reasoner-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Reasoner.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+aa5c324418768e7481c2aa2150e497b365809930 ../Reasoner.t
+<<<RESOURCES

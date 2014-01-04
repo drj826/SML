@@ -1,0 +1,68 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: Generate Content
+
+id:: td-000008
+
+######################################################################
+
+This SML document contains a generate block.  The 'generate' statement
+tells an application to generate content based on the parsed data
+elements.
+
+The 'generate' statement in this test file generates a problem
+listing.  That is, a listing of all the problems in the document.
+
+generate:: problem-domain-listing
+
+#---------------------------------------------------------------------
+
+>>>problem
+
+title:: Parent Problem
+
+id:: problem-1
+
+type:: technical
+
+description:: This is the parent problem.
+
+<<<problem
+
+#---------------------------------------------------------------------
+
+>>>problem
+
+title:: First Child Problem
+
+id:: problem-2
+
+type:: technical
+
+parent:: problem-1
+
+description:: This is the first child problem.
+
+<<<problem
+
+#---------------------------------------------------------------------
+
+>>>problem
+
+title:: Second Child Problem
+
+id:: problem-3
+
+type:: technical
+
+parent:: problem-1
+
+description:: This is the second child problem.
+
+<<<problem
+
+#---------------------------------------------------------------------
+
+<<<DOCUMENT

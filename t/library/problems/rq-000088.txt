@@ -1,0 +1,123 @@
+>>>problem
+
+######################################################################
+
+title:: Represent a Section Epigraph
+
+label:: rq-000088
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000326
+
+type:: data format
+
+associated:: rq-000087
+
+description:: The data format shall have the capability to represent a
+section epigraph.  An epigraph is a phrase, quotation, or poem at the
+beginning of a section. The data format representation of a section
+epigraph must allow but not mandate newline characters within the
+section epigraph.
+
+######################################################################
+
+index:: rq-000088; epigraph
+
+Note that a ~~section~~ epigraph is not the same as a ~~document~~
+epigraph.  A document epigraph is an element of document meta data
+(See [id:rq-000087]) and applies to the whole document.
+
+Section epigraphs may have the following meta data elements:
+
+:: data element
+
+:: description
+
+:: type
+
+:: required or optional?
+
+:: single or multi-valued?
+
+---
+
+: ~~title~~
+
+: Brief title of the section epigraph
+
+: block
+
+: optional
+
+: single
+
+---
+
+: ~~label~~
+
+: Unique identifier for this section epigraph
+
+: ID
+
+: optional
+
+: single
+
+---
+
+: ~~description~~
+
+: A one-paragraph description of the section epigraph
+
+: block
+
+: optional
+
+: single
+
+---
+
+:yellow: ~~text~~
+
+:yellow: The actual text of the section epigraph
+
+:yellow: block
+
+:yellow: optional
+
+:yellow: multi
+
+---
+
+: ~~source~~
+
+: The source of the section epigraph
+
+: block
+
+: optional
+
+: single
+
+---
+
+: ~~author~~
+
+: The author of the section epigraph
+
+: inline
+
+: optional
+
+: single
+
+---
+
+<<<problem

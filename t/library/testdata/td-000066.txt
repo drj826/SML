@@ -1,0 +1,24 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: FILE NOT FOUND
+
+id:: td-000066
+
+######################################################################
+
+This SML document contains an INVALID file element (bad file
+extension).
+
+---LISTING
+
+title:: My File Listing
+
+id:: lis-my-file-listing
+
+file:: td-000001.xtx
+
+---LISTING
+
+<<<DOCUMENT

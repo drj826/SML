@@ -1,0 +1,27 @@
+>>>allocation
+
+#---------------------------------------------------------------------
+
+label::    al-000287
+
+solution:: ci-000379 # SML Syntax
+
+problem::  rq-000208 # Distinguish Reserved Words
+
+test::     tc-000041 # Demonstration
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 10970 $
+
+date::     $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
+
+author::   $Author: don.johnson $
+
+#---------------------------------------------------------------------
+
+outcome::2012-03-31:al-000287:red: The SML-EBNF.txt does not yet
+define reserved words and require them to be ALL UPPER CASE.  I have
+begun using this convention, but nothing in the code yet enforces it.
+
+<<<allocation

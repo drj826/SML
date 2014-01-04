@@ -1,0 +1,30 @@
+>>>problem
+
+######################################################################
+
+title:: Represent Document Font Family
+
+label:: rq-000040
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000122
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+the font family used for the entire document.  The font family
+represents a set of fonts used for narrative text, fixed-width text,
+bold, italics, and other font variations.
+
+######################################################################
+
+index:: rq-000040; font family
+
+<<<problem

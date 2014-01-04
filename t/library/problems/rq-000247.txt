@@ -1,0 +1,25 @@
+>>>problem
+
+######################################################################
+
+title:: Format an HTML Path Name
+
+label:: rq-000247
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000205
+
+type:: technical
+
+description:: The software shall format an HTML path name.
+
+######################################################################
+
+index:: rq-000247; path name!format HTML
+
+<<<problem

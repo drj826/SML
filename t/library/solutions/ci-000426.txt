@@ -1,0 +1,40 @@
+>>>solution
+
+######################################################################
+
+title:: SML/CommentBlock.pm Module
+
+label:: ci-000426
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000004
+
+description:: The SML/CommentBlock.pm Module...
+
+######################################################################
+
+index:: ci-000426
+
+---LISTING
+title::     CommentBlock.pm
+label::     lis-comment-block-pm
+numbers::   left
+language::  Perl
+fontsize::  footnotesize
+file::      ../../../SML/CommentBlock.pm
+---LISTING
+
+[clearpage]
+
+<<<solution
+
+>>>RESOURCES
+5da80243a915fdf2931b296eba0a634dc8a83f08 ../../SML/CommentBlock.pm
+<<<RESOURCES

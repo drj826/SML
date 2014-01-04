@@ -1,0 +1,29 @@
+>>>test
+
+######################################################################
+
+title:: Abstract Test Cases
+
+label:: tc-000039
+
+revision:: $Revision: 10967 $
+
+date:: $Date: 2012-10-27 14:28:23 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: container
+
+description:: This test case serves as a container for abstract test
+cases. Abstract test cases are often used until more concrete test
+cases can be created.  The four classic software qualification methods
+are: (1) analysis, (2) demonstration, (3) inspection, and (4) test.
+
+######################################################################
+
+index:: tc-000039; abstract test cases
+
+
+<<<test

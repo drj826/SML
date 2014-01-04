@@ -1,0 +1,2 @@
+[status:[var:id]] [id:[var:id]] [lookup:title:[var:id]] -- [lookup:description:[var:id]] ([pg:[var:id]])
+

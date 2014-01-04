@@ -1,0 +1,26 @@
+>>>test
+
+######################################################################
+
+title:: Component Integration Test Cases
+
+label:: tc-000003
+
+revision:: $Revision: 10967 $
+
+date:: $Date: 2012-10-27 14:28:23 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: container
+
+description:: This test case serves as a container for all SML
+component integration test cases.
+
+######################################################################
+
+index:: tc-000003; component integration test cases
+
+<<<test

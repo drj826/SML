@@ -1,0 +1,40 @@
+>>>problem
+
+######################################################################
+
+title:: Render Documents from SML to Static HTML
+
+label:: rq-000001
+
+parent:: rq-000098
+
+priority:: routine
+
+type:: functional
+
+description:: The system shall enable a user to render
+[g:sml:document]s from [g:sml:Structured Manuscript Language] (SML)
+sources to static HTML documents.  The purpose of producing static
+HTML is to enable simple document sharing via storage devices like CD,
+DVD, or USB drives and by uploading to content management web
+services.
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+######################################################################
+
+index:: rq-000001; HTML!render static
+
+Many SML documents are large and complex.  Rendering them to a single
+large HTML file would result in slow navigation because web browsers
+are not optimized for very large HTML files.  Therefore, the best way
+to meet this requirement is to render the SML document into a
+~~collection~~ of navigable HTML pages.
+
+<<<problem

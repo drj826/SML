@@ -1,0 +1,27 @@
+>>>allocation
+
+#---------------------------------------------------------------------
+
+label::    al-000271
+
+solution:: ci-000003
+
+problem::  rq-000190
+
+test::     tc-000041 # Demonstration
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 10970 $
+
+date::     $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
+
+author::   $Author: don.johnson $
+
+#---------------------------------------------------------------------
+
+outcome::2012-03-20:al-000271:red: The [file:Parser.pm] class does not
+validate a document contains no redundant allocations.  I'm thinking
+of having the [file:Reasoner.pm] class perform this function.
+
+<<<allocation

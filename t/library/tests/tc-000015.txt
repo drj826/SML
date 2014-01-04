@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: Division.pm Unit Test Case
+
+label:: tc-000015
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the Division.pm Perl
+module that implements the SML::Division class.
+
+######################################################################
+
+index:: tc-000015; unit test case!Division.pm
+
+[ref:lis-division-pm-unit-test-case] shows the unit test case for
+[file:Division.pm].
+
+---LISTING
+title::       Division.t - Unit Test Case for Division.pm
+label::       lis-division-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: portrait
+fontsize::    footnotesize
+file::        ../../Division.t
+---LISTING
+
+[ref:lis-division-pm-unit-test-results] shows the results of executing
+the Division.pm unit test case.
+
+---LISTING
+title::     Division.pm Unit Test Case Results
+label::     lis-division-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat Division.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+0418a149f49e0403ef1dd2692809427b5d99f6b6 ../Division.t
+<<<RESOURCES

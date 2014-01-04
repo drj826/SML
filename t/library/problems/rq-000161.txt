@@ -1,0 +1,30 @@
+>>>problem
+
+######################################################################
+
+title:: Represent an Option to Generate Content Conditionally
+
+label:: rq-000161
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000093
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+that the author wants generated content to be generated only when a
+specified condition is true.
+
+######################################################################
+
+index:: rq-000161; generated content!conditional; conditional
+generated content
+
+<<<problem

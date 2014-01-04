@@ -1,0 +1,37 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: Baretable
+
+id:: td-000071
+
+######################################################################
+
+This is a test document containing a baretable.
+
+:: header column 1
+
+:: header column 2
+
+:: header column 3
+
+---
+
+: row 1 column 1
+
+: row 1 column 2
+
+: row 1 column 3
+
+---
+
+: row 2 column 1
+
+: row 2 column 2
+
+: row 2 column 3
+
+---
+
+<<<DOCUMENT

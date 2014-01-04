@@ -1,0 +1,23 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: Valid File Element
+
+id:: td-000065
+
+######################################################################
+
+This SML document contains a valid file element. 
+
+---LISTING
+
+title:: My File Listing
+
+id:: lis-my-file-listing
+
+file:: td-000001.txt
+
+---LISTING
+
+<<<DOCUMENT

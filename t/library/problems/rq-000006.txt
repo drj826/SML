@@ -1,0 +1,33 @@
+>>>problem
+
+######################################################################
+
+title:: Represent Document Structures
+
+label:: rq-000006
+
+priority:: routine
+
+parent:: rq-000107
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+document [g:sml:structure]s.  Structures (i.e. paragraphs, sections,
+lists, tables, figures...) enable authors to organize document
+content.  This requirement serves as a container for all document
+structure representation requirements.
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+######################################################################
+
+index:: rq-000006; document structures
+
+<<<problem

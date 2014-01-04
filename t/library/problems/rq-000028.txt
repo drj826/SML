@@ -1,0 +1,191 @@
+>>>problem
+
+######################################################################
+
+title:: Represent Presentation Slides
+
+label:: rq-000028
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000195
+
+type:: data format
+
+description:: The data format shall have the capability to identify and
+represent document content as presentation slides.  Presentation
+slides summarize information for the purpose of presentation to an
+audience.  The purpose of identifying content as presentation slides
+is to make the content re-usable and to enable special listings of
+presentation slides.
+
+######################################################################
+
+index:: rq-000028; slides; presentation slides
+
+Elements of presentation slide meta data include:
+
+:: data element
+
+:: description
+
+:: type
+
+:: required or optional?
+
+:: single or multi-valued?
+
+---
+
+: ~~title~~
+
+: Title of the slide
+
+: text
+
+: optional
+
+: single
+
+---
+
+: ~~revision~~
+
+: Revision number of this slide
+
+: text
+
+: optional
+
+: single
+
+---
+
+: ~~date~~
+
+: Date of this revision of this slide
+
+: date
+
+: optional
+
+: single
+
+---
+
+: ~~author~~
+
+: Individual who wrote this slide
+
+: text
+
+: optional
+
+: multi
+
+---
+
+: ~~label~~
+
+: Unique identifier for this slide
+
+: text
+
+: optional
+
+: single
+
+---
+
+: ~~description~~
+
+: A one-paragraph explanation of the slide
+
+: text
+
+: optional
+
+: single
+
+---
+
+: ~~type~~
+
+: Descriptors that categorize the slide
+
+: text
+
+: optional
+
+: multi
+
+---
+
+: ~~duration~~
+
+: The amount of time it should take to present the slide
+
+: text
+
+: optional
+
+: single
+
+---
+
+: ~~copyright~~
+
+: The copyright applied to the slide
+
+: text
+
+: optional
+
+: single
+
+---
+
+: ~~associated~~
+
+: Labels of other items associated with this one
+
+: item
+
+: optional
+
+: multi
+
+---
+
+: ~~attributes~~
+
+: Name/value pairs that provide additional meta data about the
+slide
+
+: name/value pair
+
+: optional
+
+: multi
+
+---
+
+:yellow: ~~narrative~~
+
+:yellow: The actual content of the slide -- often an unordered list
+
+:yellow: text
+
+:yellow: required
+
+:yellow: single
+
+---
+
+<<<problem

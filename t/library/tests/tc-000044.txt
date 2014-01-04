@@ -1,0 +1,56 @@
+>>>test
+
+######################################################################
+
+title:: ListItem.pm Unit Test Case
+
+label:: tc-000044
+
+revision:: $Revision: 15145 $
+
+date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tc-000001
+
+description:: This is the unit test case for the ListItem.pm Perl
+module that implements the SML::ListItem class.
+
+######################################################################
+
+index:: tc-000044; unit test case!ListItem.pm
+
+[ref:lis-listitem-pm-unit-test-case] shows the unit test case for
+[file:ListItem.pm].
+
+---LISTING
+title::       ListItem.t - Unit Test Case for ListItem.pm
+label::       lis-listitem-pm-unit-test-case
+numbers::     left
+language::    Perl
+orientation:: portrait
+fontsize::    footnotesize
+file::        ../../ListItem.t
+---LISTING
+
+[ref:lis-listitem-pm-unit-test-results] shows the results of
+executing the [file:ListItem.pm] unit test case.
+
+---LISTING
+title::     ListItem.pm Unit Test Case Results
+label::     lis-listitem-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    scripts/run-unit-test.bat ListItem.t
+---LISTING
+
+<<<test
+
+>>>RESOURCES
+75b4d1cc09e890ec4083451cf85be6382499e434 ../ListItem.t
+<<<RESOURCES

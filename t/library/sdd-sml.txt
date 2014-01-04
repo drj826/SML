@@ -1,0 +1,708 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: Software Design Document
+
+subtitle:: SML Data Format [linebreak] and [linebreak] SML Software
+Library
+
+version:: 0.3
+
+author:: Don Johnson (drj826@acm.org)
+
+copyright:: 2002-2012, Don Johnson
+
+doctype:: book
+
+logo_image_small:: files/images/sml_logo.png
+
+logo_image_center:: files/images/sml_logo.png
+
+revision:: $Revision: 15138 $
+
+date:: $Date: 2013-07-07 09:35:23 -0600 (Sun, 07 Jul 2013) $
+
+use_formal_status:: 1
+
+# [#v:tmpl/ci-summary.txt:4325]
+
+######################################################################
+# Revisions
+
+---REVISIONS
+
+rev:: 0.3 = 2012-03-25 = Reorganized description of classes in the SML
+software library.
+
+rev:: 0.2 = 2012-03-23 = Updated glossary organization; many other
+changes.  This is still and early draft.
+
+rev:: 0.1 = 2011-04-10 = Initial draft.
+
+---REVISIONS
+
+#---------------------------------------------------------------------
+
+* Introduction
+
+This is the Software Design Document (SDD) for the Structured
+Manuscript Language (SML) data format and the ``Publish'' application
+designed to render SML documents into finished PDF, HTML, and other
+renditions.
+
+The purpose of this document is to:
+
++ describe the design of the SML data format
+
++ describe the design of the ``publish'' application
+
++ allocate requirements to elements of the design
+
+#---------------------------------------------------------------------
+
+* Philosophy
+
+label:: philosophy
+
+The overarching philosophy of the Structured Manuscript Language is
+that the data format should make simple things easy, hard things
+possible, and that its OK to make dumb things
+impossible.[f:philosophy:1] To elaborate this philosophy here are some
+ideas about what is simple, hard, and dumb.
+
+footnote::1: This philosophy embraces and extends the Perl philosophy,
+``make simple things easy and hard things possible.''
+
+#---------------------------------------------------------------------
+
+** Simple Things
+
+Simple things should be easy. Simple things are those you can easily
+represent in rich text documents.
+
+:
+
+- paragraphs
+- lists
+- titles
+- images
+
+:
+
+- bold text
+- typewriter text
+- italics
+- underlined text
+
+:
+
+- superscripted text
+- subscripted text
+- pre-formatted text
+
+:
+
+- figures
+- tables
+- listings
+
+---
+
+#---------------------------------------------------------------------
+
+** Hard Things
+
+Hard things should be possible. Hard things are those you generally
+need a word processing format to represent.
+
+:
+
+- sections and section headings
+- item descriptions
+- table of contents
+- procedural steps
+- hyperlinks
+- footnotes
+
+:
+
+- glossaries
+- indexes
+- cross referencing
+- source referencing
+- content modularization
+- content reuse
+
+:
+
+- attachments
+- audio clips
+- video clips
+- formal assertion semantics
+- epigraphs
+- side bars
+
+:
+
+- exercises
+- presentation slides
+- demonstrations
+- key points listings
+- file paths
+- commands
+
+---
+
+#---------------------------------------------------------------------
+
+** Dumb Things
+
+label:: dumb-things
+
+People do dumb things with word processors because they don't know any
+better and because word processing data formats let them.  SML doesn't
+allow you to do the following things.  I'm sorry.[f:dumb-things:1]
+
+- tables inside of other tables
+
+- list items containing multiple paragraphs
+
+footnote::1: Not really.
+
+#---------------------------------------------------------------------
+
+* Key Terms and Definitions
+
+label:: key-terms
+
+The following key terms and definitions describe SML document
+structures.[f:key-terms:1]
+
+= [g:sml:document] = [def:sml:document]
+
+= [g:sml:document preamble] = [def:sml:document preamble]
+
+= [g:sml:document narrative] = [def:sml:document narrative]
+
+= [g:sml:section] = [def:sml:section]
+
+= [g:sml:environment] = [def:sml:environment]
+
+= [g:sml:region] = [def:sml:region]
+
+= [g:sml:line] = [def:sml:line]
+
+= [g:sml:inline] = [def:sml:inline]
+
+= [g:sml:block] = [def:sml:block]
+
+= [g:sml:division] = [def:sml:division]
+
+= [g:sml:element] = [def:sml:element]
+
+= [g:sml:entity] = [def:sml:entity]
+
+footnote::1: These definitions are also in the glossary.
+
+#---------------------------------------------------------------------
+
+* Data Format Design
+
+label:: data-format-design
+
+An [g:sml:SML] [g:sml:document] is composed of [g:sml:division]s,
+divisions are composed of [g:sml:block]s, and blocks are composed of
+whole [g:sml:line]s of [g:sml:text].  An SML document has two
+top-level divisions, a [g:sml:document preamble] and a [g:sml:document
+narrative].[f:data-format-design:1] Preambles contain [g:sml:element]s
+which represent structured data.  Narratives contain a mix of
+[g:sml:block]s, [g:sml:section]s, [g:sml:environment]s,
+[g:sml:region]s, and [g:sml:element]s.
+
+footnote::1: The [g:sml:document preamble] and [g:sml:document
+narrative] are both optional. An empty file is a valid SML document.
+
+#---------------------------------------------------------------------
+
+** SML Grammar
+
+include::id=ci-000001: tmpl/item-summary.txt
+
+include::id=ci-000379: tmpl/item-summary.txt
+
+include::id=ci-000006: tmpl/item-summary.txt
+
+#---------------------------------------------------------------------
+
+** SML Document Structure
+
+[ref:fig-block-diagram-sml-document-1] is a block diagram of an SML
+[g:sml:document].  It shows a [g:sml:document preamble] and a
+[g:sml:document narrative].  The document preamble contains
+[g:sml:element]s (structured information) that describe the document.
+The [g:sml:document narrative] contains the rest of the textual
+content.  which may include structured ~~and~~ unstructured
+information.
+
+---FIGURE
+title::     Block Diagram of an SML Document
+label::     fig-block-diagram-sml-document-1
+image::     files/images/block-diagram-sml-document-1.png
+width::     3.0in
+---FIGURE
+
+[ref:lis-simple-sml-document] shows a very simple SML document
+
+---LISTING
+title::     Simple SML Document
+label::     lis-simple-sml-document
+numbers::   left
+file::      files/simple-sml-document.txt
+---LISTING
+
+The [g:sml:document preamble] is composed of [g:sml:element]s like
+``title,'' ``author,'' and ``version'' that describe the document
+([ref:fig-block-diagram-document-preamble]).
+
+---FIGURE
+title::     Block Diagram of a Document Preamble
+label::     fig-block-diagram-document-preamble
+image::     files/images/block-diagram-document-preamble.png
+width::     3.0in
+---FIGURE
+
+The [g:sml:document narrative] is composed of [g:sml:block]s,
+[g:sml:section]s, [g:sml:environment]s, [g:sml:region]s, and
+[g:sml:element]s ([ref:fig-block-diagram-document-narrative]).
+
+---FIGURE
+title::     Block Diagram of a Document Narrative
+label::     fig-block-diagram-document-narrative
+image::     files/images/block-diagram-document-narrative.png
+width::     3.0in
+---FIGURE
+
+Blocks include paragraphs and list items.  For instance:
+
+  This is a paragraph.  A paragraph is a block of text.  A block of
+  text is a contiguous sequence of one or more whole lines of text.  A
+  blank line indicates the end of a paragraph.
+
+Sections begin with a section heading.  A section heading is a line
+that begins with one or more asterisks.  The number of asterisks
+indicates the depth of the section. For instance:
+
+  * My Section
+
+  ** My Sub-section
+
+  *** My Sub-sub-section
+
+Environments represent tables, figures, listings, assertions,
+attachments, revision histories, epigraphs, pre-formatted text,
+sidebars, bibliographic sources, audio clips, and video clips. For
+instance:
+
+  ---figure
+  title:: Block Diagram of a Document Preamble
+  label:: fig-block-diagram-document-preamble
+  image:: files/images/block-diagram-document-preamble.png
+  width:: 3.0in
+  ---figure
+
+Regions represent demos, exercises, presentation slides, lists of
+keypoints, quotations, problems, solutions, tests, results, tasks, and
+roles. For instance:
+
+  >>>problem
+  title::       My Problem
+  label::       my-problem
+  description:: My problem is that I don't understand the problem.
+  <<<problem
+
+Document narrative data elements include footnotes, glossary term
+definitions, acronym definitions, procedural steps, index entries,
+variable definitions, and other specialized data elements.  For
+instance:
+
+  footnote:: The document preamble and narrative are both optional. An
+  empty file is therefore a valid SML document.
+
+SML documents may also contain comments.  Comments are ignored by
+applications that process SML documents.  You can comment out a single
+line by putting a `||#||' in the first column.
+
+  # This line is commented out.
+
+You may comment out a whole division of text by putting
+`||###comment||' at the beginning and end.
+
+  ###comment
+
+  These
+
+  lines
+
+  are
+
+  commented
+
+  out.
+
+  ###comment
+
+#---------------------------------------------------------------------
+
+*** Document Rules
+
+- ~~document container~~ - A document is represented by a
+  file. Although parts of the document may be included from other
+  files, the beginning and end of the document is the begin and end of
+  the main file.
+
+- ~~document begin~~ - A document begins at the beginning of the file
+  that contains it.
+
+  - The beginning of the document triggers the beginning of the
+    document preamble.
+
+- ~~document composition~~ - A document is composed of one optional
+  [g:sml:preamble] followed by one optional [g:sml:narrative].
+
+- ~~document preamble composition~~ - A document preamble may contain
+  specified [g:sml:element]s, [g:sml:comment]s, and
+  [g:sml:conditional]s.
+
+- ~~document narrative begin~~ - The document narrative begins with
+  the first [g:sml:block] that is not one of the allowed
+  [g:sml:document] [g:sml:preamble] [g:sml:element]s.
+
+- ~~document narrative composition~~ - A document narrative may
+  contain any number of [g:sml:block]s, [g:sml:element]s,
+  [g:sml:section]s, [g:sml:region]s, [g:sml:environment]s,
+  [g:sml:comment]s, and [g:sml:conditional]s.
+
+- ~~document end~~ - A document ends at the end of the file that
+  contains it.
+
+  - The end of the document triggers the end of any [g:sml:element].
+
+  - The end of the document triggers the end of any
+    [g:sml:environment].
+
+  - The end of the document triggers the end of any [g:sml:region].
+
+  - The end of the document marks the end of the [g:sml:document]
+    [g:sml:narrative].
+
+#---------------------------------------------------------------------
+
+*** Section Rules
+
+- ~~section names~~ - Each section has a name that must be one of
+  those specified.
+
+- ~~section begin~~ - A section begins with a block starting with one
+  or more asterisks, some whitespace, and a section header (i.e. ||*
+  Introduction||).  No leading whitespace is allowed before the
+  asterisks.  The number of asterisks indicates the section level
+  depth.
+
+  - The beginning of a section triggers the end of any data element.
+
+  - The beginning of a section triggers the end of any environment.
+
+  - The beginning of a section triggers the end of any region.
+
+  - The beginning of a section triggers the beginning of the section
+    preamble.
+
+  - The beginning of a section triggers the beginning of the section
+    title data element.
+
+- ~~section composition~~ - A section is composed of one optional
+  preamble followed by one optional narrative.
+
+- ~~section preamble begin~~ - A section preamble begins the
+  section. Parsing applications assume the section begins with a
+  preamble.
+
+- ~~section preamble composition~~ - A section preamble is composed of
+  specified data elements (label, type).
+
+- ~~section narrative begin~~ A section narrative begins with the
+  first block that is not one of the allowed section preamble data
+  elements.
+
+- ~~section narrative composition~~ - A section narrative may contain
+  any number of blocks, data elements, sections, regions,
+  environments, comments, and conditionals.
+
+- ~~section end~~ - A section ends at either the beginning of the next
+  section, or the end of the document.  The end of a section ends all
+  regions, environments, and data elements.
+
+  - The end of a section triggers the end of any data element.
+
+  - The end of a section triggers the end of any environment.
+
+  - The end of a section triggers the end of any region.
+
+  - The end of a section marks the end of the section narrative.
+
+#---------------------------------------------------------------------
+
+*** Region Rules
+
+- ~~region names~~ - Each region has a name that must be one of those
+  specified.
+
+- ~~region begin~~ - A region begins with a line starting with three
+  or more greater-than signs and a region name (i.e. ||>>>exercise||).
+  No leading whitespace is allowed before the greater-than signs.
+
+  - The beginning of a region triggers the end of any data element.
+
+  - The beginning of a region triggers the end of any environment.
+
+  - The beginning of a region triggers the beginning of the region
+    preamble.
+
+- ~~region composition~~ - A region is composed of one optional
+  preamble followed by one optional narrative.
+
+- ~~region preamble composition~~ - A region preamble is composed of
+  data elements specified for that region's name.
+
+- ~~region narrative begin~~ - A region narrative begins with the
+  first block that is not one of the allowed region preamble data
+  elements.
+
+- ~~region narrative composition~~ - A region narrative may contain
+  any number of blocks, data elements, environments, comments, and
+  conditionals.  A region narrative ~~may not~~ contain sections, or
+  other regions.
+
+- ~~region end~~ - A region ends with a line starting with three or
+  more less-than signs and a region name (i.e. ||<<<exercise||).  No
+  leading whitespace is allowed before the less-than signs.  The end
+  of a region ends any environment and/or data element.
+
+  - The end of a region triggers the end of any data element.
+
+  - The end of a region triggers the end of any environment.
+
+  - The end of a region marks the end of the region narrative.
+
+#---------------------------------------------------------------------
+
+*** Environment Rules
+
+- ~~environment names~~ - Each environment has a name that must be one
+  of those specified.
+
+- ~~environment begin~~ - An environment begins with a line starting
+  with three or more hyphens and an environment name
+  (i.e. ||---table||).  No leading whitespace is allowed before the
+  hyphens.
+
+  - The beginning of an environment triggers the end of any data
+    element.
+
+  - The beginning of an environment triggers the end of any previous
+    environment.
+
+  - The beginning of an environment triggers the beginning of the
+    environment preamble.
+
+- ~~environment composition~~ - An environment is composed of one
+  optional preamble followed by one optional narrative.
+
+- ~~environment preamble composition~~ - An environment preamble is
+  composed of data elements specified for that environment's name.
+
+- ~~environment narrative begin~~ - An environment begins with the
+  first block that is not one of the allowed environment preamble data
+  elements.
+
+- ~~environment narrative composition~~ - An environment may contain
+  any number of blocks, data elements, comments, and conditionals.  An
+  environment ~~may not~~ contain sections, regions, or other
+  environments.
+
+- ~~environment end~~ - An environment ends with a line starting with
+  three or more less-than signs and an environment name
+  (i.e. ||---table||).  No leading whitespace is allowed before the
+  hyphens.
+
+  - The end of an environment triggers the end of any data element.
+
+  - The end of an environment marks the end of the environment
+    narrative.
+
+#---------------------------------------------------------------------
+
+*** Comment Rules
+
+- ~~comment begin~~ - A comment division begins with a line starting
+  with three or more pound signs and the word 'comment'
+  (i.e. ||###comment||).  No leading whitespace is allowed before the
+  pound signs.
+
+- ~~comment composition~~ - A comment division may contain any text
+  except the comment end tag.  Comments can span sections, regions,
+  and environments.
+
+- ~~comment end~~ - A comment division ends with a line starting with
+  three or more pound signs and the word 'comment'
+  (i.e. ||###comment||).  No leading whitespace is allowed before the
+  pound signs.
+
+#---------------------------------------------------------------------
+
+*** Conditional Rules
+
+- ~~conditional tokens~~ - Each conditional division is named by a
+  token.  A token is a string composed of upper or lower-case alpha
+  characters and numerals (no spaces).
+
+- ~~conditional begin~~ - A conditional division begins with a line
+  starting with three or more question marks and a token
+  (i.e. ||???version-2||).  No leading whitespace is allowed before
+  the question marks.
+
+- ~~conditional composition~~ - A conditional division may contain any
+  text except the conditional end tag.  Conditionals can span
+  sections, regions, and environments.
+
+- ~~conditional end~~ - A conditional division ends with a line
+  starting with three or more question marks and a token
+  (i.e. ||???version-2||). No leading whitespace is allowed before the
+  question marks.
+
+#---------------------------------------------------------------------
+
+*** Data Element Rules
+
+- ~~data element begin~~ - A data element begins with a line starting
+  with a data element name ending with a colon (i.e. ||file:||).  No
+  leading whitespace is allowed before the data element name.  Data
+  element names cannot contain whitespace.
+
+  - The beginning of a data element triggers the end of any other data
+    element.
+
+- ~~data element composition~~ - Data elements are limited to a single
+  block and therefore cannot contain divisions or other data elements.
+
+- ~~data element end~~ - A data element ends with a blank line or the
+  beginning of any division or other data element.
+
+#---------------------------------------------------------------------
+
+* Design Patterns
+
+label:: design-patterns
+
+type:: chapter
+
+Use dependency injection for defining configuration options.  See:
+http://www.modernperlbooks.com/mt/2011/08/youre-already-using-dependency-injection.html
+
+#---------------------------------------------------------------------
+
+* Requirements
+
+label:: requirements
+
+type:: appendix
+
+This appendix contains a reference listing of all requirements.
+
+include::*: auto/sdd-sml-problems.txt
+
+#---------------------------------------------------------------------
+
+* Solutions
+
+label:: solutions
+
+type:: appendix
+
+In 2010 I began designing an object-oriented solution to the
+functional requirements and implementing it as a software library.
+
+include::*: auto/sdd-sml-solutions.txt
+
+#---------------------------------------------------------------------
+
+* Allocations
+
+label:: allocations
+
+type:: appendix
+
+This appendix contains a reference listing of all allocations.
+
+include::*: auto/sdd-sml-allocations.txt
+
+######################################################################
+
+* Tests
+
+label:: tests
+
+type:: appendix
+
+This appendix contains a reference listing of all tests.
+
+include::*: auto/sdd-sml-tests.txt
+
+######################################################################
+# Backmatter
+
+include:: incl/glossary-sml.txt
+
+include:: incl/glossary-ieee.txt
+
+include:: incl/glossary-cmmi.txt
+
+include:: incl/sources.txt
+
+include:: incl/sources-ieee.txt
+
+include:: incl/sources-cmmi.txt
+
+######################################################################
+# Local Emacs Variables
+#
+
+# Local Variables:
+# mode: outline
+# mode: fill
+# coding: us-ascii
+# fill-column: 70
+# End:
+
+######################################################################
+
+<<<DOCUMENT
+
+>>>RESOURCES
+9e32d81106ac7b02c34afe031b78ea85ad351e46 auto/sdd-sml-allocations.txt
+87a5d548acbd91a8cbf5d50bf68a20ecf1969eb6 auto/sdd-sml-problems.txt
+a7978e6c77a207d167d8781bf704e48045cd77a6 auto/sdd-sml-solutions.txt
+541e5a3a0a34e3a9813a3e7f2f4dae065656c291 auto/sdd-sml-tests.txt
+0480d82431f70d736ca822d714d4714691708f2a files/images/block-diagram-document-narrative.png
+21bb1ad3640e5b2cab6fb127c522e9b84c885645 files/images/block-diagram-document-preamble.png
+952e9507262f6e98885dff23ec72dc322e5a723f files/images/block-diagram-sml-document-1.png
+6c867300dc42edc0bbd25451685c93dce6d7a8e7 files/simple-sml-document.txt
+e5ae1c93144c5a9a81eeb30f3884d65e12fa6988 incl/glossary-cmmi.txt
+414c20a6a2b0e57e8e78b6dc0a922d33a202d5f3 incl/glossary-ieee.txt
+0c3df63df245167baab7f5d936c39ae9bdf38f75 incl/glossary-sml.txt
+857c45a18e45b63f73d596d4bd32fbb7f83b3cb3 incl/sources-cmmi.txt
+a6b1000962d5a72f3cb7a4e0636aaa289f697188 incl/sources-ieee.txt
+0b65740376b5d9a28d38d2280693cca8829d707d incl/sources.txt
+d5a67469475298bf07fd12d6510f4ee502338701 tmpl/item-summary.txt
+<<<RESOURCES

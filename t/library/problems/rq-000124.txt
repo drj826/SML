@@ -1,0 +1,33 @@
+>>>problem
+
+######################################################################
+
+title:: Represent Special Symbols
+
+label:: rq-000124
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000008
+
+priority:: routine
+
+type:: data format
+
+associated:: rq-000048
+
+description:: The data format shall represent special symbols.  This
+requirement serves as a container for those symbols.  Many useful
+symbols are not directly encoded in 7-bit ASCII.  Since [id:rq-000048]
+constrains the data format's encoding to 7-bit ASCII the data format
+must define alternate representations for these symbols.
+
+######################################################################
+
+index:: rq-000124; special symbols
+
+<<<problem

@@ -1,0 +1,41 @@
+>>>result
+
+######################################################################
+
+title:: Element.pm Unit Test Case Results
+
+label:: tr-000013
+
+revision:: $Revision: 15128 $
+
+date:: $Date: 2013-07-07 09:27:13 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+type:: unit
+
+parent:: tr-000001
+
+test:: tc-000013
+
+description:: This is the test result for the Element.pm unit test
+case.
+
+######################################################################
+
+index:: tr-000013; unit test case results!Element.pm
+
+[ref:lis-element-pm-unit-test-results] shows the results of executing
+the Element.pm unit test case.
+
+---LISTING
+title::     Element.pm Unit Test Case Results
+label::     lis-element-pm-unit-test-results
+numbers::   left
+fontsize::  footnotesize
+script::    files/scripts/run-test.Element.bat
+---LISTING
+
+<<<result

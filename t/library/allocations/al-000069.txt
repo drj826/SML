@@ -1,0 +1,39 @@
+>>>allocation
+
+#---------------------------------------------------------------------
+
+label::    al-000069
+
+solution:: ci-000001 # Structured Manuscript Language (SML)
+
+problem::  rq-000035 # Represent Results
+
+test::     tc-000041 # Demonstration
+
+#---------------------------------------------------------------------
+
+revision:: $Revision: 10970 $
+
+date:: $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+#---------------------------------------------------------------------
+
+outcome::2011-11-27:al-000069:red: I'm not satisfied with the current
+syntax for capturing reviews and outcomes.  The original purpose of an
+outcome was to declare the status of a tested item.  This
+works. However, I now think an outcome should declare the degree to
+which a tested item meets a specific requirement.  The current syntax
+does not capture the requirement against which the item is being
+tested.  Furthermore, I may need to capture the ~~version~~ of the
+tested item.  The current syntax provides no way to capture that.
+These same issues apply to reviews.
+
+outcome::2012-09-04:al-000069:green: Since last analyzing whether SML
+satisfies [id:rq-000035] ``[lookup:title:rq-000035],'' I've added
+``allocation'' and ``assignment'' entities to the ontology.  Declaring
+the outcome of allocation and assignment validation now satisfies
+[id:rq-000035].
+
+<<<allocation

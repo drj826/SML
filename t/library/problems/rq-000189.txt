@@ -1,0 +1,31 @@
+>>>problem
+
+######################################################################
+
+title:: Represent a Line-Ending Comment
+
+label:: rq-000189
+
+revision:: $Revision: 5074 $
+
+date:: $Date: 2011-11-28 06:31:30 -0700 (Mon, 28 Nov 2011) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000066
+
+type:: data format
+
+description:: The data format shall have the capability to represent a
+line-ending comment.  Line-ending comments are ~~partial~~ lines of
+text that appear in the source data format but not in published
+renditions.  They begin at some point on a line and continue to the
+end of the line.
+
+######################################################################
+
+index:: rq-000189; line-ending comment
+
+<<<problem

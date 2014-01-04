@@ -1,0 +1,3 @@
+[status:[var:id]] [id:[var:id]] [t:[var:id]] [d:[var:id]] [pg:[var:id]]
+
+index:: [var:id]

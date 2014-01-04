@@ -1,0 +1,27 @@
+>>>solution
+
+######################################################################
+
+title:: `generate_associated_problem_listing' Subroutine
+
+label:: ci-000027
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000007
+
+description:: The [cmd:generate_associated_problem_listing] subroutine
+generates and returns structured manuscript language text for a
+listing of problems associated with the specified label.
+
+######################################################################
+
+index:: ci-000027; subroutine![cmd:generate_associated_problem_listing]
+
+<<<solution

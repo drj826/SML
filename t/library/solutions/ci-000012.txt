@@ -1,0 +1,26 @@
+>>>solution
+
+######################################################################
+
+title:: `choose_text_file' Subroutine
+
+label:: ci-000012
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+parent:: ci-000007
+
+description:: The [cmd:choose_text_file] subroutine implements the GUI
+function to choose a text file to publish.
+
+######################################################################
+
+index:: ci-000012; subroutine![cmd:choose_text_file]
+
+<<<solution

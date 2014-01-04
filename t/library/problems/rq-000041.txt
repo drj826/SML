@@ -1,0 +1,30 @@
+>>>problem
+
+######################################################################
+
+title:: Represent Document Font Size
+
+label:: rq-000041
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000122
+
+type:: data format
+
+description:: The data format shall have the capability to represent
+the document font size.  The document font size is the size of normal
+narrative text.  The font size used for footnotes and other structures
+may be relative to the document font size.
+
+######################################################################
+
+index:: rq-000041; document font size; font size!document
+
+<<<problem

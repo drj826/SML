@@ -1,0 +1,44 @@
+>>>problem
+
+######################################################################
+
+title:: Validate First-Order Document Semantics
+
+label:: rq-000106
+
+revision:: $Revision: 11687 $
+
+date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
+
+author:: $Author: don.johnson $
+
+parent:: rq-000254
+
+priority:: routine
+
+type:: functional
+
+description:: The software shall enable a user to validate first-order
+document semantics.  First-order document semantics are expressed as
+rules (axioms) in a [g:sml:library]'s [g:sml:ontology]. Validate that
+entities with semantic significance conform to a specified ontology.
+More specifically, valid entities must: (1) have all required
+properties, (2) not have any dis-allowed properties, (3) have valid
+relationships with other entities, that (4) not have `imply-only'
+properties stated explicitly. Warn the user of invalid semantics with
+a notification that includes an error description, file, and line
+number.
+
+######################################################################
+
+index:: rq-000106; validation!semantics
+
+The adjective ``first-order'' distinguishes first-order logic from
+higher-order logic in which there are predicates having predicates or
+functions as arguments, or in which one or both of predicate
+quantifiers or function quantifiers are permitted.[f:rq-000106:1]
+
+footnote::1: Mendelson, Elliott (1964). Introduction to Mathematical
+Logic. Van Nostrand Reinhold. pp. 56.
+
+<<<problem

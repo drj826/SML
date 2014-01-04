@@ -1,0 +1,256 @@
+>>>problem
+
+######################################################################
+
+title:: Represent a Listing
+
+label:: rq-000016
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+priority:: routine
+
+parent:: rq-000326
+
+type:: data format
+
+description:: The data format shall have the capability to represent a
+listing.  This capability enables authors to insert verbatim content
+into a document for explanation and reference.  Note that ~~listings~~
+are not the same as ~~lists~~.  Listings have titles and descriptions
+(often called captions) and unique identifiers that allow cross
+referencing within the document.
+
+######################################################################
+
+index:: rq-000016; listings
+
+Elements of listing meta data include:
+
+:: data element
+
+:: description
+
+:: type
+
+:: required or optional?
+
+:: single or multi-valued?
+
+---
+
+: ~~title~~
+
+: Title of the listing (sometimes called a caption)
+
+: block
+
+: optional
+
+: single
+
+---
+
+: ~~label~~
+
+: Unique identifier for the listing
+
+: ID
+
+: optional
+
+: single
+
+---
+
+: ~~description~~
+
+: A one-paragraph description of the listing
+
+: block
+
+: optional
+
+: single
+
+---
+
+: ~~numbers~~
+
+: location to display the number of each line of the listing
+
+: horizontal side
+
+: optional
+
+: single
+
+---
+
+: ~~name~~
+
+: Name of listing for numbering purposes (listings that share the same
+name share the same counter)
+
+: inline
+
+: optional
+
+: single
+
+---
+
+: ~~language~~
+
+: Name of computer language of listing
+
+: language
+
+: optional
+
+: single
+
+---
+
+: ~~firstline~~
+
+: Number of first line to display in listing
+
+: integer
+
+: optional
+
+: single
+
+---
+
+: ~~lastline~~
+
+: Number of last line to display in listing
+
+: integer
+
+: optional
+
+: single
+
+---
+
+: ~~showspaces~~
+
+: Whether or not to represent individual spaces in the listing as
+underscore-like characters
+
+: boolean
+
+: optional
+
+: single
+
+---
+
+: ~~showtabs~~
+
+: Whether or not to represent individual tabs in the listing as
+wide underscore-like characters
+
+: boolean
+
+: optional
+
+: single
+
+---
+
+: ~~showstringspaces~~
+
+: Whether or not to represent individual spaces in the listing strings
+as underscore-like characters
+
+: boolean
+
+: optional
+
+: single
+
+---
+
+: ~~fontsize~~
+
+: Size of font to use in listing
+
+: font size
+
+: optional
+
+: single
+
+---
+
+: ~~stepnumber~~
+
+: Number of lines between numbered lines (i.e. if stepnumber is 10,
+put a line number every 10 lines)
+
+: boolean
+
+: optional
+
+: single
+
+---
+
+: ~~float~~
+
+: whether or not to float the listing in surrounding text
+
+: boolean
+
+: optional
+
+: single
+
+---
+
+: ~~file~~
+
+: Path to file, the content of which is the content of the listing
+
+: file path
+
+: optional
+
+: single
+
+---
+
+: ~~orientation~~
+
+: Orientation of the listing on hard copy media
+
+: orientation
+
+: optional
+
+: single
+
+---
+
+:yellow: ~~narrative~~
+
+:yellow: The actual content of the listing (if the content is not read
+from a file)
+
+:yellow: text
+
+:yellow: optional
+
+:yellow: single
+
+---
+
+<<<problem
