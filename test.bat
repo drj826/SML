@@ -4,7 +4,7 @@ set begin=%DATE% %TIME%
 echo BEGIN: %begin%
 
 cd t
-..\..\perl\perl\bin\perl.exe run_unit_tests.pl
+..\..\app\perl\perl\bin\perl.exe run_unit_tests.pl
 cd ..
 
 echo BEGIN: %begin%
