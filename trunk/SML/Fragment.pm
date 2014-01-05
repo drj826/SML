@@ -185,7 +185,7 @@ sub extract_division_lines {
 
   foreach my $line (@{ $self->get_line_list })
     {
-      my $_ = $line->get_content;
+      $_ = $line->get_content;
 
       chomp;
 

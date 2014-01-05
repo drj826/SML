@@ -614,7 +614,8 @@ sub get_preamble_line_list {
 
   foreach my $block (@{ $self->get_block_list })
     {
-      my $_ = $block->get_content;
+      $_ = $block->get_content;
+
       chomp;
       ++ $i;
 
@@ -675,7 +676,8 @@ sub get_narrative_line_list {
 
   foreach my $block (@{ $self->get_block_list })
     {
-      my $_ = $block->get_content;
+      $_ = $block->get_content;
+
       chomp;
       ++ $i;
 
@@ -934,7 +936,8 @@ sub as_text {
 
  LINE:
   foreach my $line (@{ $lines }) {
-    my $_ = $line->get_content;
+
+    $_ = $line->get_content;
 
       #---------------------------------------------------------------
       # Ignore comments
@@ -1428,7 +1431,8 @@ sub validate_id_uniqueness {
 
 sub _line_ends_preamble {
 
-  my $_      = shift;
+  $_ = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 

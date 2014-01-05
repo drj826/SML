@@ -219,9 +219,10 @@ sub remove_literals {
 sub remove_keystroke_symbols {
 
   my $self   = shift;
-  my $_      = shift;
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
+
+  $_ = shift;
 
   s/$syntax->{keystroke_symbol}//g;
 
