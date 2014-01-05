@@ -43,9 +43,10 @@ my $logger = Log::Log4perl::get_logger('sml.definition');
 sub get_term {
 
   my $self   = shift;
-  my $_      = $self->get_content;
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
+
+  $_ = $self->get_content;
 
   chomp;
 
@@ -66,9 +67,10 @@ sub get_term {
 sub get_alt {
 
   my $self   = shift;
-  my $_      = $self->get_content;
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
+
+  $_ = $self->get_content;
 
   chomp;
 
@@ -89,9 +91,10 @@ sub get_alt {
 sub get_value {
 
   my $self   = shift;
-  my $_      = $self->get_content;
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
+
+  $_ = $self->get_content;
 
   chomp;
 

@@ -630,7 +630,8 @@ sub add_outcome {
   my $syntax     = $sml->get_syntax;
   my $util       = $sml->get_util;
   my $options    = $util->get_options;
-  my $_          = $outcome->get_content;
+
+  $_ = $outcome->get_content;
 
   chomp;
 
@@ -675,7 +676,8 @@ sub add_review {
   my $syntax    = $sml->get_syntax;
   my $util      = $sml->get_util;
   my $options   = $util->get_options;
-  my $_         = $review->get_content;
+
+  $_ = $review->get_content;
 
   chomp;
 
@@ -1804,7 +1806,8 @@ sub update_status_from_outcome {
   my $sml     = SML->instance;
   my $syntax  = $sml->get_syntax;
   my $util    = $sml->get_util;
-  my $_       = $outcome->get_content;
+
+  $_ = $outcome->get_content;
 
   chomp;
 

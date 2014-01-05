@@ -49,7 +49,8 @@ sub get_value {
   my $self   = shift;
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
-  my $_      = $self->get_content || q{};
+
+  $_ = $self->get_content || q{};
 
   chomp;
 

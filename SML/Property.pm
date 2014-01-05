@@ -115,7 +115,7 @@ sub get_value {
 	{
 	  next if not $element->get_name eq 'outcome';
 
-	  my $_ = $element->get_content;
+	  $_ = $element->get_content;
 
 	  chomp;
 

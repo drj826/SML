@@ -48,9 +48,10 @@ sub get_value {
   # Strip any comment text off the end of the element content.
 
   my $self   = shift;
-  my $_      = $self->get_content || q{};
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
+
+  $_ = $self->get_content || q{};
 
   chomp;
 
@@ -184,7 +185,8 @@ sub validate_outcome_semantics {
   my $syntax  = $sml->get_syntax;
   my $util    = $sml->get_util;
   my $library = $util->get_library;
-  my $_       = $self->get_content;
+
+  $_ = $self->get_content;
 
   chomp;
 
@@ -248,7 +250,8 @@ sub validate_footnote_syntax {
   my $valid  = 1;
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
-  my $_      = $self->get_content;
+
+  $_ = $self->get_content;
 
   if ( not /$syntax->{footnote_element}/xms )
     {

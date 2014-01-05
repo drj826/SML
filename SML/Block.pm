@@ -526,13 +526,14 @@ sub validate_bold_markup {
   # Return 1 if valid, 0 if not. Validate this block contains no
   # unbalanced bold markup.
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
-  my $_      = $self->get_content;
   my $util   = $sml->get_util;
   my $count  = 0;
 
+  $_ = $self->get_content;
   $_ = $util->remove_literals($_);
 
   while ( /$syntax->{bold}/gxms )
@@ -563,10 +564,10 @@ sub validate_italics_markup {
   my $self   = shift;
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
-  my $_      = $self->get_content;
   my $util   = $sml->get_util;
   my $count  = 0;
 
+  $_ = $self->get_content;
   $_ = $util->remove_literals($_);
 
   while ( /$syntax->{italics}/gxms )
@@ -598,9 +599,9 @@ sub validate_fixedwidth_markup {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-  my $_      = $self->get_content;
   my $count  = 0;
 
+  $_ = $self->get_content;
   $_ = $util->remove_literals($_);
 
   while ( /$syntax->{fixedwidth}/gxms )
@@ -632,9 +633,9 @@ sub validate_underline_markup {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-  my $_      = $self->get_content;
   my $count  = 0;
 
+  $_ = $self->get_content;
   $_ = $util->remove_literals($_);
 
   while ( /$syntax->{underline}/gxms )
@@ -666,9 +667,9 @@ sub validate_superscript_markup {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-  my $_      = $self->get_content;
   my $count  = 0;
 
+  $_ = $self->get_content;
   $_ = $util->remove_literals($_);
 
   while ( /$syntax->{superscript}/gxms )
@@ -700,9 +701,9 @@ sub validate_subscript_markup {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-  my $_      = $self->get_content;
   my $count  = 0;
 
+  $_ = $self->get_content;
   $_ = $util->remove_literals($_);
 
   while ( /$syntax->{subscript}/gxms )
@@ -734,9 +735,9 @@ sub validate_inline_tags {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-  my $_      = $self->get_content;
   my $valid  = 1;
 
+  $_ = $self->get_content;
   $_ = $util->remove_literals($_);
   $_ = $util->remove_keystroke_symbols($_);
 
@@ -769,7 +770,8 @@ sub validate_cross_refs {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-  my $_      = $self->get_content;
+
+  $_ = $self->get_content;
 
   if (
       not
@@ -838,7 +840,8 @@ sub validate_id_refs {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-  my $_      = $self->get_content;
+
+  $_ = $self->get_content;
 
   if (
       not
@@ -900,7 +903,8 @@ sub validate_page_refs {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-  my $_      = $self->get_content;
+
+  $_ = $self->get_content;
 
   if (
       not
@@ -962,7 +966,8 @@ sub validate_version_refs {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-  my $_      = $self->get_content;
+
+  $_ = $self->get_content;
 
   if ( not /$syntax->{version_ref}/xms )
     {
@@ -1008,7 +1013,8 @@ sub validate_revision_refs {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-  my $_      = $self->get_content;
+
+  $_ = $self->get_content;
 
   if ( not /$syntax->{revision_ref}/xms )
     {
@@ -1054,7 +1060,8 @@ sub validate_date_refs {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-  my $_      = $self->get_content;
+
+  $_ = $self->get_content;
 
   if ( not /$syntax->{date_ref}/xms )
     {
@@ -1107,7 +1114,8 @@ sub validate_status_refs {
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
   my $valid  = 1;
-  my $_      = $self->get_content;
+
+  $_ = $self->get_content;
 
   if ( not /$syntax->{status_ref}/xms )
     {
@@ -1175,7 +1183,8 @@ sub validate_glossary_term_refs {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-  my $_      = $self->get_content;
+
+  $_ = $self->get_content;
 
   if (
       not
@@ -1243,7 +1252,8 @@ sub validate_glossary_def_refs {
   my $sml     = SML->instance;
   my $syntax  = $sml->get_syntax;
   my $util    = $sml->get_util;
-  my $_       = $self->get_content;
+
+  $_ = $self->get_content;
 
   if (
       not
@@ -1311,7 +1321,8 @@ sub validate_acronym_refs {
   my $sml     = SML->instance;
   my $syntax  = $sml->get_syntax;
   my $util    = $sml->get_util;
-  my $_       = $self->get_content;
+
+  $_ = $self->get_content;
 
   if (
       not
@@ -1379,7 +1390,8 @@ sub validate_source_citations {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-  my $_      = $self->get_content;
+
+  $_ = $self->get_content;
 
   if (
       not

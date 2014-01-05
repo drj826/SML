@@ -528,7 +528,8 @@ sub extract_division_name {
   my $lines  = shift;
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
-  my $_      = $lines->[0]->get_content;
+
+  $_ = $lines->[0]->get_content;
 
   if ( /$syntax->{start_region}/ )
     {
@@ -691,7 +692,7 @@ sub extract_preamble_lines {
 
   foreach my $line (@{ $lines })
     {
-      my $_ = $line->get_content;
+      $_ = $line->get_content;
       chomp;
       ++ $i;
 
@@ -781,7 +782,7 @@ sub extract_narrative_lines {
 
   foreach my $line (@{ $lines })
     {
-      my $_ = $line->get_content;
+      $_ = $line->get_content;
       chomp;
       ++ $i;
 
@@ -934,7 +935,7 @@ sub _resolve_includes {
  LINE:
   foreach my $oldline (@{ $oldlines })
     {
-      my $_        = $oldline->get_content;
+      $_        = $oldline->get_content;
       my $location = $oldline->get_location;
 
       chomp;
@@ -1319,7 +1320,7 @@ sub _run_scripts {
     {
       my $file = $line->get_file;
       my $num  = $line->get_num;
-      my $_    = $line->get_content;
+      $_    = $line->get_content;
 
       #---------------------------------------------------------------
       # Ignore comments
@@ -1469,7 +1470,7 @@ sub _gather_data {
  LINE:
   foreach my $line ( @{ $self->get_line_list } )
     {
-      my $_        = $line->get_content;
+      $_        = $line->get_content;
       my $location = $line->get_location;
 
       chomp;
@@ -2073,7 +2074,7 @@ sub _insert_content {
  LINE:
   foreach my $line (@{ $oldlines })
     {
-      my $_        = $line->get_content;
+      $_        = $line->get_content;
       my $location = $line->get_location;
 
       #----------------------------------------------------------------
@@ -2257,7 +2258,7 @@ sub _substitute_variables {
       next if $block->isa('SML::PreformattedBlock');
       next if $block->is_in_a('SML::PreformattedDivision');
 
-      my $_ = $block->get_content;
+      $_ = $block->get_content;
 
       next if /$syntax->{'comment_line'}/;
 
@@ -2325,7 +2326,7 @@ sub _resolve_lookups {
       next if $block->isa('SML::PreformattedBlock');
       next if $block->is_in_a('SML::PreformattedDivision');
 
-      my $_ = $block->get_content;
+      $_ = $block->get_content;
 
       next if /$syntax->{'comment_line'}/;
 
@@ -2389,7 +2390,7 @@ sub _resolve_templates {
   foreach my $line ( @{ $oldlines } )
     {
       my $num = $line->get_num;            # line number in file
-      my $_   = $line->get_content;        # line content
+      $_   = $line->get_content;        # line content
 
       #---------------------------------------------------------------
       # Ignore comments
@@ -2523,7 +2524,7 @@ sub _generate_content {
  LINE:
   foreach my $line (@{ $oldlines })
     {
-      my $_ = $line->get_content;         # line content
+      $_ = $line->get_content;         # line content
 
       # !!! BUG HERE !!!
       #
@@ -3038,7 +3039,7 @@ sub _contains_insert {
 
   foreach my $element ( @{ $self->get_fragment->get_element_list } )
     {
-      my $_ = $element->get_content;
+      $_ = $element->get_content;
 
       chomp;
 
@@ -3075,7 +3076,7 @@ sub _contains_variable {
       next if $block->isa('SML::PreformattedBlock');
       next if $block->is_in_a('SML::PreformattedDivision');
 
-      my $_ = $block->get_content;
+      $_ = $block->get_content;
 
       chomp;
 
@@ -3110,7 +3111,7 @@ sub _contains_lookup {
       next if $block->isa('SML::PreformattedBlock');
       next if $block->is_in_a('SML::PreformattedDivision');
 
-      my $_ = $block->get_content;
+      $_ = $block->get_content;
 
       chomp;
 
@@ -3143,7 +3144,7 @@ sub _contains_template {
       next if $block->isa('CommentBlock');
       next if $block->is_in_a('SML::CommentDivision');
 
-      my $_ = $block->get_content;
+      $_ = $block->get_content;
 
       chomp;
 
@@ -3200,7 +3201,7 @@ sub _text_requires_processing {
   # check for unresolved elements
   foreach my $element ( @{ $self->get_fragment->get_element_list } )
     {
-      my $_ = $element->get_content;
+      $_ = $element->get_content;
 
       if (/$syntax->{include_element}/)
 	{
@@ -3252,7 +3253,7 @@ sub _text_requires_processing {
       next if $block->isa('SML::PreformattedBlock');
       next if $block->is_in_a('SML::PreformattedDivision');
 
-      my $_ = $block->get_content;
+      $_ = $block->get_content;
 
       next if /$syntax->{'comment_line'}/;
 
@@ -4462,7 +4463,7 @@ sub _add_review {
   my $div_id   = $division->get_id;
   my $location = $element->get_location;
   my $library  = $util->get_library;
-  my $_        = $element->get_content;
+  $_        = $element->get_content;
 
   chomp;
 
@@ -6553,7 +6554,8 @@ sub _get_current_division {
 
 sub _line_ends_preamble {
 
-  my $_      = shift;
+  $_ = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
