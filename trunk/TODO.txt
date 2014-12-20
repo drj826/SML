@@ -1,8 +1,10 @@
+######################################################################
+
 title:: To Do List
 
 subtitle:: SML Library Bugs to Fix and Ideas to Implement
 
-#---------------------------------------------------------------------
+######################################################################
 
 * Status as of 3/28/2013
 
@@ -29,10 +31,10 @@ This `plan' describes the order in which I plan to fix the bugs and
 implement the ideas described here.
 
 + PHASE 1: Implement new library class.  The new library class will
-  contain methods that reason across all the content of the library.
-  This is necessary to construct lists of allocations within the scope
-  of a release.  This functionality will replace the
-  `include_related.pl' script.
+  contain methods that perform reasoning functions across all the
+  content of the library.  This is necessary to construct lists of
+  allocations within the scope of a release.  This functionality will
+  replace the old `include_related.pl' script.
 
 + PHASE 2: Implement new formatter class.  Port all document rendering
   functionality from the old code-base.  The reason for doing this
@@ -44,6 +46,10 @@ implement the ideas described here.
   + removing distinction between regions and environments.  These
     should simply all be divisions and use the `>>>' and `<<<' syntax
     for begin and end markers
+
+  + change division ID syntax to be part of the division marker
+    instead of an attribute within the division
+    (i.e. >>>division.div-001).  This will simplify parsing.
 
   + removing the feature whereby a user can specify entity type in an
     include statement (i.e. include::problem:)
@@ -182,7 +188,12 @@ implement the ideas described here.
 
 * Ideas for Improvement
 
-# next: 036
+# next: 037
+
+[ ] IDEA-036 (HIGH) Distinguish Public and Private Attributes and
+    Methods.  The purpose of distinguishing between public and private
+    attributes and methods is to improve the readability of modules
+    and aid the process of documenting the public API.
 
 [ ] IDEA-035 (ROUTINE) Capability to change attribute value based on
     date.  For instance, set an expiration date and a rule that says
