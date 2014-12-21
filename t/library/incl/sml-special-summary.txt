@@ -91,9 +91,9 @@ index:: in-line comments
 :
 
   [# my in-line comment]
-  [#v:incl/glossary-sml.txt:10060]
-  [#a:incl/glossary-sml.txt:don.johnson]
-  [#d:incl/glossary-sml.txt:2012-09-24]
+  [#v:incl/glossary-sml.txt:]
+  [#a:incl/glossary-sml.txt:]
+  [#d:incl/glossary-sml.txt:]
 
 ----------------------------------------------------------------------
 
