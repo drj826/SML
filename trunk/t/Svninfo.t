@@ -5,8 +5,7 @@
 # Svninfo.pm unit tests
 
 use lib "..";
-use Test::More tests => 5;
-use Test::Perl::Critic (-severity => 4);
+use Test::More tests => 4;
 
 use SML;
 

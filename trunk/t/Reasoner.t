@@ -3,8 +3,7 @@
 # $Id: Reasoner.t 15151 2013-07-08 21:01:16Z don.johnson $
 
 use lib "..";
-use Test::More tests => 4;
-use Test::Perl::Critic (-severity => 4);
+use Test::More tests => 3;
 
 use SML;
 

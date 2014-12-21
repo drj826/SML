@@ -4,7 +4,6 @@
 
 use lib "..";
 use Test::More;
-use Test::Perl::Critic;
 
 use SML;
 
