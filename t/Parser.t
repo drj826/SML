@@ -5,8 +5,7 @@
 # tc-000005 -- unit test case for Parser.pm (ci-000003)
 
 use lib "..";
-use Test::More tests => 53;
-use Test::Perl::Critic (-severity => 4);
+use Test::More tests => 52;
 
 use SML::Library;
 

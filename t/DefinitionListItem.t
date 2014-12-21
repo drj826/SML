@@ -3,8 +3,7 @@
 # $Id: DefinitionListItem.t 15151 2013-07-08 21:01:16Z don.johnson $
 
 use lib "..";
-use Test::More tests => 8;
-use Test::Perl::Critic (-severity => 3);
+use Test::More tests => 7;
 use Test::Exception;
 
 use SML;

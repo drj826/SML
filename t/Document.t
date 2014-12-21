@@ -5,8 +5,7 @@
 # Document.pm (ci-000005) unit tests
 
 use lib "..";
-use Test::More tests => 7;
-use Test::Perl::Critic (-severity => 4);
+use Test::More tests => 6;
 use Test::Exception;
 
 use SML;

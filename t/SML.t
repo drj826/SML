@@ -5,8 +5,7 @@
 # tc-000004 -- unit test case for SML.pm (ci-000002)
 
 use lib "..";
-use Test::More tests => 10;
-use Test::Perl::Critic (-severity => 4);
+use Test::More tests => 9;
 use Test::Exception;
 
 use Log::Log4perl;
