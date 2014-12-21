@@ -188,12 +188,19 @@ implement the ideas described here.
 
 * Ideas for Improvement
 
-# next: 037
+# next: 038
+
+[ ] IDEA-037 (ROUTINE) Remove Perl::Critic Tests to Separate File.  In
+    preparation to distribute the code using a package manager like
+    Dist::Zilla, remove the Perl::Critic test from individual class
+    tests.  These are causing file not found problems anyway. (opened
+    2014-12-20 by Don J)
 
 [ ] IDEA-036 (HIGH) Distinguish Public and Private Attributes and
     Methods.  The purpose of distinguishing between public and private
-    attributes and methods is to improve the readability of modules
-    and aid the process of documenting the public API.
+    attributes and methods is to improve the readability and
+    maintainability of modules and aid the process of documenting the
+    public API.
 
 [ ] IDEA-035 (ROUTINE) Capability to change attribute value based on
     date.  For instance, set an expiration date and a rule that says
