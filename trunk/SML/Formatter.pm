@@ -8,7 +8,7 @@ use version; our $VERSION = qv('2.0.0');
 
 use namespace::autoclean;
 
-use Template;
+# use Template;
 use Text::Wrap;
 
 use Log::Log4perl qw(:easy);
