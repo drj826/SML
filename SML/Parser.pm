@@ -78,381 +78,12 @@ $OUTPUT_AUTOFLUSH = 1;
 ######################################################################
 ######################################################################
 ##
-## Attributes
+## Public Attributes
 ##
 ######################################################################
 ######################################################################
 
-has 'fragment' =>
-  (
-   isa       => 'SML::Fragment',
-   reader    => 'get_fragment',
-   writer    => '_set_fragment',
-   clearer   => '_clear_fragment',
-   predicate => '_has_fragment',
-  );
-
-# This is the object returned by parse method, usually a document or
-# an entity.
-
-######################################################################
-
-has 'line_list' =>
-  (
-   isa       => 'ArrayRef',
-   reader    => 'get_line_list',
-   writer    => '_set_line_list',
-   clearer   => '_clear_line_list',
-   predicate => '_has_line_list',
-   default   => sub {[]},
-  );
-
-# This is the sequential array of lines that make up the file being
-# parsed.
-
-######################################################################
-
-has 'block' =>
-  (
-   isa       => 'SML::Block',
-   reader    => 'get_block',
-   writer    => '_set_block',
-   clearer   => '_clear_block',
-   predicate => '_has_block',
-  );
-
-# This is the current block at any given time during parsing. A block
-# is a contiguous sequence of one or more whole lines of text.  Blocks
-# end with either a blank line or the beginning of another
-# block. Blocks cannot contain blank lines. Blocks may contain inline
-# elements which span lines.
-
-######################################################################
-
-has 'division_stack' =>
-  (
-   isa       => 'ArrayRef',
-   reader    => 'get_division_stack',
-   writer    => '_set_division_stack',
-   clearer   => '_clear_division_stack',
-   predicate => '_has_division_stack',
-   default   => sub {[]},
-  );
-
-# This is a stack of nested divisions at any point during document
-# parsing.  A division is a contiguous sequence of blocks.  Divisions
-# may be nested within one another. A division has an unambiguous
-# beginning and end. Sometimes the beginning and end are explicit and
-# other times they are implicit.
-#
-#   $current_division = $division_stack->[-1];
-#   $self->_push_division_stack($division);
-#   my $division = $self->_pop_division_stack;
-
-######################################################################
-
-has 'column' =>
-  (
-   isa       => 'Int',
-   reader    => 'get_column',
-   writer    => '_set_column',
-   clearer   => '_clear_column',
-   predicate => '_set_column',
-   default   => 0,
-  );
-
-# This is the current table column.
-
-######################################################################
-
-has 'in_preamble' =>
-  (
-   isa       => 'Bool',
-   reader    => 'in_preamble',
-   writer    => '_set_in_preamble',
-   clearer   => '_clear_in_preamble',
-   predicate => '_has_in_preamble',
-   default   => 0,
-  );
-
-# This is a boolean flag that indicates whether the current line is in
-# a preamble.  A preamble is the opening part of a division that
-# contains (structured data) elements.
-
-######################################################################
-
-has 'count_total_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_count_total_hash',
-   writer    => '_set_count_total_hash',
-   clearer   => '_clear_count_total_hash',
-   predicate => '_has_count_total_hash',
-   default   => sub {{}},
-  );
-
-# This is a count of the total number of "things" in document.
-
-#   $count = $count_total->{$name};
-
-######################################################################
-
-has 'count_method_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_count_method_hash',
-   writer    => '_set_count_method_hash',
-   clearer   => '_clear_count_method_hash',
-   predicate => '_has_count_method_hash',
-   default   => sub {{}},
-  );
-
-# This is a count of the number of times a method has been invoked.
-
-#   $count = $count_method->{$name};
-
-######################################################################
-
-has 'gen_content_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_gen_content_hash',
-   writer    => '_set_gen_content_hash',
-   clearer   => '_clear_gen_content_hash',
-   predicate => '_has_gen_content_hash',
-   default   => sub {{}},
-  );
-
-# This is a hash of generated content.
-
-######################################################################
-
-has 'to_be_gen_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_to_be_gen_hash',
-   writer    => '_set_to_be_gen_hash',
-   clearer   => '_clear_to_be_gen_hash',
-   predicate => '_has_to_be_gen_hash',
-   default   => sub {{}},
-  );
-
-# This is a hash of 'to be generated' content items.
-
-######################################################################
-
-has 'outcome_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_outcome_hash',
-   writer    => '_set_outcome_hash',
-   clearer   => '_clear_outcome_hash',
-   predicate => '_has_outcome_hash',
-   default   => sub {{}},
-  );
-
-# This is the outcome data structure containing test outcomes indexed
-# by test case ID.
-#
-#   $outcome_description = $outcome->{$test} ?????
-
-######################################################################
-
-has 'review_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_review_hash',
-   writer    => '_set_review_hash',
-   clearer   => '_clear_review_hash',
-   predicate => '_has_review_hash',
-   default   => sub {{}},
-  );
-
-# This is the review data structure containing test reviews indexed
-# by test case ID.
-#
-#   $review_description = $review->{$test} ?????
-
-######################################################################
-
-has 'acronym_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_acronym_hash',
-   writer    => '_set_acronym_hash',
-   clearer   => '_clear_acronym_hash',
-   predicate => '_has_acronym_hash',
-   default   => sub {{}},
-  );
-
-#   $definition = $acronyms->{$term}{$alt};
-
-######################################################################
-
-has 'source_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_source_hash',
-   writer    => '_set_source_hash',
-   clearer   => '_clear_source_hash',
-   predicate => '_has_source_hash',
-   default   => sub {{}},
-  );
-
-# $sources->{$sourceid} =
-#   {
-#    title        => 'CMMI for Development, Version 1.2',
-#    label        => 'cmmi',
-#    description  => '',
-#    address      => '',
-#    annote       => '',
-#    author       => '',
-#    booktitle    => '',
-#    chapter      => '',
-#    crossref     => '',
-#    edition      => '',
-#    editor       => '',
-#    howpublished => '',
-#    institution  => '',
-#    journal      => '',
-#    key          => '',
-#    month        => 'August',
-#    note         => 'CMU/SEI-2006-TR-008, ESC-TR-2006-008',
-#    number       => '',
-#    organization => '',
-#    pages        => '',
-#    publisher    => '',
-#    school       => '',
-#    series       => '',
-#    source       => 'misc',
-#    subtitle     => '',
-#    type         => '',
-#    volume       => '',
-#    year         => '2006',
-#    appearance   => '',
-#    color        => '',
-#    date         => '',
-#    icon         => '',
-#    mimetype     => '',
-#    file         => 'files/cmmi/CMMI-DEV-v1-2.pdf',
-#   };
-
-######################################################################
-
-has 'index_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_index_hash',
-   writer    => '_set_index_hash',
-   clearer   => '_clear_index_hash',
-   predicate => '_has_index_hash',
-   default   => sub {{}},
-  );
-
-# This is a hash of indexed terms where the key is the term and the
-# value is an anonymous array of IDs of the divisions in which the
-# terms appear.
-#
-#   $index->{$term} = [$id1, $id2, $id3...]
-
-######################################################################
-
-has 'table_data_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_table_data_hash',
-   writer    => '_set_table_data_hash',
-   clearer   => '_clear_table_data_hash',
-   predicate => '_has_table_data_hash',
-   default   => sub {{}},
-  );
-
-# This is a data structure containing information about the tables in
-# the document.
-
-######################################################################
-
-has 'baretable_data_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_baretable_data_hash',
-   writer    => '_set_baretable_data_hash',
-   clearer   => '_clear_baretable_data_hash',
-   predicate => '_has_baretable_data_hash',
-   default   => sub {{}},
-  );
-
-# This is a data structure containing information about the baretables
-# in the document.  A baretable is a table without a title, ID, or
-# description used only to present content in a tabular layout.
-
-######################################################################
-
-has 'template_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_template_hash',
-   writer    => '_set_template_hash',
-   clearer   => '_clear_template_hash',
-   predicate => '_has_template_hash',
-   default   => sub {{}},
-  );
-
-# This is a data structure for memoizing templates.  Memoizing
-# templates improves performance by avoiding reading oft used
-# templates from the file over-and-over again.
-
-######################################################################
-
-has 'requires_processing' =>
-  (
-   isa     => 'Bool',
-   reader  => 'requires_processing',
-   default => 0,
-   writer  => '_set_requires_processing',
-  );
-
-######################################################################
-
-has 'section_counter_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_section_counter_hash',
-   writer    => '_set_section_counter_hash',
-   clearer   => '_clear_section_counter_hash',
-   predicate => '_set_section_counter_hash',
-   default   => sub {{}},
-  );
-
-# $section_counter->{$depth}= $count;
-# $section_counter->{1}     = 3;         # third top-level section
-
-######################################################################
-
-has 'division_counter_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_division_counter_hash',
-   writer    => '_set_division_counter_hash',
-   clearer   => '_clear_division_counter_hash',
-   predicate => '_set_division_counter_hash',
-   default   => sub {{}},
-  );
-
-# $division_counter->{$name}   = $count;
-# $division_counter->{'table'} = 4;      # forth table in this top-level
-
-######################################################################
-
-has 'valid' =>
-  (
-   isa       => 'Bool',
-   reader    => 'is_valid',
-   writer    => 'set_valid',
-   clearer   => 'clear_valid',
-   predicate => 'has_valid',
-   default   => 1,
-  );
+# NONE.
 
 ######################################################################
 ######################################################################
@@ -469,6 +100,7 @@ sub parse {
 
   my $self     = shift;
   my $filespec = shift;
+
   my $startdir = getcwd;
   my $fragdir  = dirname($filespec);
   my $basename = basename($filespec);
@@ -484,11 +116,10 @@ sub parse {
       $logger->logcroak("CAN'T PARSE \'$basename\'");
     }
 
-  $self->_init;
-
   my $fragment = SML::Fragment->new(file=>$file);
 
-  $self->_set_line_list( $fragment->get_line_list );
+  $self->_init;
+  $self->_set_line_list( $fragment->_get_line_list );
   $self->_set_fragment( $fragment );
 
   do
@@ -524,8 +155,9 @@ sub extract_division_name {
   # division.  In other words, the first line must be a division
   # starting line.
 
-  my $self   = shift;
-  my $lines  = shift;
+  my $self  = shift;
+  my $lines = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
@@ -563,8 +195,9 @@ sub extract_title_text {
   # Extract the preamble title from an array of lines and return it as
   # a string.
 
-  my $self        = shift;
-  my $lines       = shift;
+  my $self  = shift;
+  my $lines = shift;
+
   my $sml         = SML->instance;
   my $syntax      = $sml->get_syntax;
   my $in_preamble = 1;
@@ -678,8 +311,9 @@ sub extract_preamble_lines {
   #
   #   This method doesn't work for sections.
 
-  my $self                = shift;
-  my $lines               = shift;
+  my $self  = shift;
+  my $lines = shift;
+
   my $sml                 = SML->instance;
   my $syntax              = $sml->get_syntax;
   my $ontology            = $sml->get_ontology;
@@ -768,8 +402,9 @@ sub extract_narrative_lines {
   #
   #   This method doesn't work for sections.
 
-  my $self                = shift;
-  my $lines               = shift;
+  my $self  = shift;
+  my $lines = shift;
+
   my $sml                 = SML->instance;
   my $syntax              = $sml->get_syntax;
   my $ontology            = $sml->get_ontology;
@@ -867,6 +502,351 @@ sub extract_narrative_lines {
 ######################################################################
 ######################################################################
 ##
+## Private Attributes
+##
+######################################################################
+######################################################################
+
+has 'fragment' =>
+  (
+   isa       => 'SML::Fragment',
+   reader    => '_get_fragment',
+   writer    => '_set_fragment',
+  );
+
+# This is the object returned by parse method, usually a document or
+# an entity.
+
+######################################################################
+
+has 'line_list' =>
+  (
+   isa       => 'ArrayRef',
+   reader    => '_get_line_list',
+   writer    => '_set_line_list',
+   clearer   => '_clear_line_list',
+   default   => sub {[]},
+  );
+
+# This is the sequential array of lines that make up the file being
+# parsed.
+
+######################################################################
+
+has 'block' =>
+  (
+   isa       => 'SML::Block',
+   reader    => '_get_block',
+   writer    => '_set_block',
+   clearer   => '_clear_block',
+  );
+
+# This is the current block at any given time during parsing. A block
+# is a contiguous sequence of one or more whole lines of text.  Blocks
+# end with either a blank line or the beginning of another
+# block. Blocks cannot contain blank lines. Blocks may contain inline
+# elements which span lines.
+
+######################################################################
+
+has 'division_stack' =>
+  (
+   isa       => 'ArrayRef',
+   reader    => '_get_division_stack',
+   writer    => '_set_division_stack',
+   clearer   => '_clear_division_stack',
+   predicate => '_has_division_stack',
+   default   => sub {[]},
+  );
+
+# This is a stack of nested divisions at any point during document
+# parsing.  A division is a contiguous sequence of blocks.  Divisions
+# may be nested within one another. A division has an unambiguous
+# beginning and end. Sometimes the beginning and end are explicit and
+# other times they are implicit.
+#
+#   $current_division = $division_stack->[-1];
+#   $self->_push_division_stack($division);
+#   my $division = $self->_pop_division_stack;
+
+######################################################################
+
+has 'column' =>
+  (
+   isa       => 'Int',
+   reader    => '_get_column',
+   writer    => '_set_column',
+   default   => 0,
+  );
+
+# This is the current table column.
+
+######################################################################
+
+has 'in_preamble' =>
+  (
+   isa       => 'Bool',
+   reader    => '_in_preamble',
+   writer    => '_set_in_preamble',
+   default   => 0,
+  );
+
+# This is a boolean flag that indicates whether the current line is in
+# a preamble.  A preamble is the opening part of a division that
+# contains (structured data) elements.
+
+######################################################################
+
+has 'count_total_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_count_total_hash',
+   writer    => '_set_count_total_hash',
+   default   => sub {{}},
+  );
+
+# This is a count of the total number of "things" in document.
+
+#   $count = $count_total->{$name};
+
+######################################################################
+
+has 'count_method_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_count_method_hash',
+   writer    => '_set_count_method_hash',
+   clearer   => '_clear_count_method_hash',
+   default   => sub {{}},
+  );
+
+# This is a count of the number of times a method has been invoked.
+
+#   $count = $count_method->{$name};
+
+######################################################################
+
+has 'gen_content_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_gen_content_hash',
+   default   => sub {{}},
+  );
+
+# This is a hash of generated content.
+
+######################################################################
+
+has 'to_be_gen_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_to_be_gen_hash',
+   writer    => '_set_to_be_gen_hash',
+   default   => sub {{}},
+  );
+
+# This is a hash of 'to be generated' content items.
+
+######################################################################
+
+has 'outcome_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_outcome_hash',
+   writer    => '_set_outcome_hash',
+   default   => sub {{}},
+  );
+
+# This is the outcome data structure containing test outcomes indexed
+# by test case ID.
+#
+#   $outcome_description = $outcome->{$test} ?????
+
+######################################################################
+
+has 'review_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_review_hash',
+   writer    => '_set_review_hash',
+   default   => sub {{}},
+  );
+
+# This is the review data structure containing test reviews indexed
+# by test case ID.
+#
+#   $review_description = $review->{$test} ?????
+
+######################################################################
+
+has 'acronym_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_acronym_hash',
+   writer    => '_set_acronym_hash',
+   default   => sub {{}},
+  );
+
+#   $definition = $acronyms->{$term}{$alt};
+
+######################################################################
+
+has 'source_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_source_hash',
+   writer    => '_set_source_hash',
+   default   => sub {{}},
+  );
+
+# $sources->{$sourceid} =
+#   {
+#    title        => 'CMMI for Development, Version 1.2',
+#    label        => 'cmmi',
+#    description  => '',
+#    address      => '',
+#    annote       => '',
+#    author       => '',
+#    booktitle    => '',
+#    chapter      => '',
+#    crossref     => '',
+#    edition      => '',
+#    editor       => '',
+#    howpublished => '',
+#    institution  => '',
+#    journal      => '',
+#    key          => '',
+#    month        => 'August',
+#    note         => 'CMU/SEI-2006-TR-008, ESC-TR-2006-008',
+#    number       => '',
+#    organization => '',
+#    pages        => '',
+#    publisher    => '',
+#    school       => '',
+#    series       => '',
+#    source       => 'misc',
+#    subtitle     => '',
+#    type         => '',
+#    volume       => '',
+#    year         => '2006',
+#    appearance   => '',
+#    color        => '',
+#    date         => '',
+#    icon         => '',
+#    mimetype     => '',
+#    file         => 'files/cmmi/CMMI-DEV-v1-2.pdf',
+#   };
+
+######################################################################
+
+has 'index_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_index_hash',
+   writer    => '_set_index_hash',
+   default   => sub {{}},
+  );
+
+# This is a hash of indexed terms where the key is the term and the
+# value is an anonymous array of IDs of the divisions in which the
+# terms appear.
+#
+#   $index->{$term} = [$id1, $id2, $id3...]
+
+######################################################################
+
+has 'table_data_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_table_data_hash',
+   writer    => '_set_table_data_hash',
+   default   => sub {{}},
+  );
+
+# This is a data structure containing information about the tables in
+# the document.
+
+######################################################################
+
+has 'baretable_data_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_baretable_data_hash',
+   writer    => '_set_baretable_data_hash',
+   default   => sub {{}},
+  );
+
+# This is a data structure containing information about the baretables
+# in the document.  A baretable is a table without a title, ID, or
+# description used only to present content in a tabular layout.
+
+######################################################################
+
+has 'template_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_template_hash',
+   writer    => '_set_template_hash',
+   default   => sub {{}},
+  );
+
+# This is a data structure for memoizing templates.  Memoizing
+# templates improves performance by avoiding reading oft used
+# templates from the file over-and-over again.
+
+######################################################################
+
+has 'requires_processing' =>
+  (
+   isa     => 'Bool',
+   reader  => '_requires_processing',
+   writer  => '_set_requires_processing',
+   default => 0,
+  );
+
+# Don't confuse this boolean value with the private method
+# '_text_requires_processing' that determines whether or not the text
+# requires further processing.
+
+######################################################################
+
+has 'section_counter_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_section_counter_hash',
+   writer    => '_set_section_counter_hash',
+   default   => sub {{}},
+  );
+
+# $section_counter->{$depth} = $count;
+# $section_counter->{1}      = 3;         # third top-level section
+
+######################################################################
+
+has 'division_counter_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_divsion_counter_hash',
+   writer    => '_set_division_counter_hash',
+   default   => sub {{}},
+  );
+
+# $division_counter->{$name}   = $count;
+# $division_counter->{'table'} = 4;      # forth table in this top-level
+
+######################################################################
+
+has 'valid' =>
+  (
+   isa       => 'Bool',
+   reader    => '_is_valid',
+   writer    => '_set_is_valid',
+   default   => 1,
+  );
+
+######################################################################
+######################################################################
+##
 ## Private Methods
 ##
 ######################################################################
@@ -881,7 +861,8 @@ sub _init {
   # 1. Initialize 'lines' array
   # 2. Initialize method invocation counter
 
-  my $self    = shift;
+  my $self = shift;
+
   my $sml     = SML->instance;
   my $util    = $sml->get_util;
   my $options = $util->get_options;
@@ -910,17 +891,18 @@ sub _resolve_includes {
 
   # Scan lines, replace 'include' requests with 'included' lines.
 
-  my $self           = shift;
+  my $self = shift;
+
   my $sml            = SML->instance;
   my $syntax         = $sml->get_syntax;
   my $util           = $sml->get_util;
   my $library        = $util->get_library;
-  my $count_method   = $self->get_count_method_hash;
+  my $count_method   = $self->_get_count_method_hash;
   my $options        = $util->get_options;
   my $max_iterations = $options->get_MAX_RESOLVE_INCLUDES;
   my $count          = ++ $count_method->{'_resolve_includes'};
   my $newlines       = [];
-  my $oldlines       = $self->get_line_list;
+  my $oldlines       = $self->_get_line_list;
   my $in_comment     = 0;
   my $depth          = 1;
 
@@ -1020,7 +1002,7 @@ sub _resolve_includes {
 	  elsif ( $incl_id and $library->has_division( $incl_id ) )
 	    {
 	      $division = $library->get_division($incl_id);
-	      $included_lines = $division->get_line_list;
+	      $included_lines = $division->_get_line_list;
 	    }
 
 	  #-----------------------------------------------------------
@@ -1095,7 +1077,7 @@ sub _resolve_includes {
 		 $args =~ /flat:/
 		)
 	    {
-	      foreach my $line (@{ $division->get_line_list }) {
+	      foreach my $line (@{ $division->_get_line_list }) {
 		my $content = $line->get_content;
 		if ($content =~ /^(title::\s|\*+\s)/)
 		  {
@@ -1119,7 +1101,7 @@ sub _resolve_includes {
 
 	      push @{ $included_lines }, $begin_line;
 
-	      foreach my $line (@{ $division->get_line_list })
+	      foreach my $line (@{ $division->_get_line_list })
 		{
 		  push @{ $included_lines }, $line;
 		}
@@ -1136,7 +1118,7 @@ sub _resolve_includes {
 		 $args =~ /raw:/
 		)
 	    {
-	      foreach my $line (@{ $division->get_line_list })
+	      foreach my $line (@{ $division->_get_line_list })
 		{
 		  push @{ $included_lines }, $line;
 		}
@@ -1171,7 +1153,7 @@ sub _resolve_includes {
 		{
 		  $fragment = $library->get_fragment($included_filespec);
 
-		  foreach my $line (@{ $fragment->get_line_list })
+		  foreach my $line (@{ $fragment->_get_line_list })
 		    {
 		      push @{ $included_lines }, $line;
 		    }
@@ -1290,14 +1272,15 @@ sub _run_scripts {
 
   # Scan lines, replace 'script' requests with script outputs.
 
-  my $self           = shift;
+  my $self = shift;
+
   my $sml            = SML->instance;
   my $syntax         = $sml->get_syntax;
   my $util           = $sml->get_util;
-  my $count_method   = $self->get_count_method_hash;
+  my $count_method   = $self->_get_count_method_hash;
   my $newlines       = [];
-  my $oldlines       = $self->get_line_list;
-  my $gen_content    = $self->get_gen_content_hash;
+  my $oldlines       = $self->_get_line_list;
+  my $gen_content    = $self->_get_gen_content_hash;
   my $options        = $util->get_options;
   my $library        = $util->get_library;
   my $glossary       = $library->get_glossary;
@@ -1407,12 +1390,13 @@ sub _gather_data {
 
   # Scan lines, gather data into objects.
 
-  my $self           = shift;
+  my $self = shift;
+
   my $sml            = SML->instance;
   my $syntax         = $sml->get_syntax;
   my $util           = $sml->get_util;
   my $options        = $util->get_options;
-  my $count_method   = $self->get_count_method_hash;
+  my $count_method   = $self->_get_count_method_hash;
   my $max_iterations = $options->get_MAX_GATHER_DATA;
   my $count          = ++ $count_method->{'_gather_data'};
 
@@ -1435,11 +1419,11 @@ sub _gather_data {
   $self->_set_acronym_hash({});
   $self->_set_source_hash({});
   $self->_set_index_hash({});
-  $self->_set_table_data_hash({});
-  $self->_set_baretable_data_hash({});
+  # $self->_set_table_data_hash({});
+  # $self->_set_baretable_data_hash({});
   $self->_set_template_hash({});
   $self->_set_section_counter_hash({});
-  $self->_set_division_counter_hash({});
+  # $self->_set_division_counter_hash({});
   $self->_set_count_total_hash({});
 
   $self->_clear_block;
@@ -1450,15 +1434,15 @@ sub _gather_data {
   my $library     = $util->get_library;
   my $reasoner    = $library->get_reasoner;
 
-  my $fragment    = $self->get_fragment;
-  my $acronyms    = $self->get_acronym_hash;
-  my $sources     = $self->get_source_hash;
-  my $index       = $self->get_index_hash;
-  my $outcome     = $self->get_outcome_hash;
-  my $review      = $self->get_review_hash;
+  my $fragment    = $self->_get_fragment;
+  my $acronyms    = $self->_get_acronym_hash;
+  my $sources     = $self->_get_source_hash;
+  my $index       = $self->_get_index_hash;
+  my $outcome     = $self->_get_outcome_hash;
+  my $review      = $self->_get_review_hash;
 
-  my $to_be_gen   = $self->get_to_be_gen_hash;
-  my $count_total = $self->get_count_total_hash;
+  my $to_be_gen   = $self->_get_to_be_gen_hash;
+  my $count_total = $self->_get_count_total_hash;
 
   $fragment->init;
 
@@ -1468,7 +1452,7 @@ sub _gather_data {
   # parse line-by-line
   #
  LINE:
-  foreach my $line ( @{ $self->get_line_list } )
+  foreach my $line ( @{ $self->_get_line_list } )
     {
       $_        = $line->get_content;
       my $location = $line->get_location;
@@ -1595,7 +1579,7 @@ sub _gather_data {
       else
 	{
 	  $logger->warn("SOMETHING UNEXPECTED HAPPENED: at $location");
-	  $self->set_valid(0);
+	  $self->_set_is_valid(0);
 	}
     }
 
@@ -1655,7 +1639,7 @@ sub _end_preamble {
 
   my $self = shift;
 
-  return if not $self->in_preamble;
+  return if not $self->_in_preamble;
 
   $logger->trace("..... end preamble");
   $self->_set_in_preamble(0);
@@ -1669,11 +1653,12 @@ sub _begin_division {
 
   my $self     = shift;
   my $division = shift;
-  my $name     = $division->get_name;
-  my $type     = ref $division;
-  my $sml      = SML->instance;
-  my $util     = $sml->get_util;
-  my $library  = $util->get_library;
+
+  my $name    = $division->get_name;
+  my $type    = ref $division;
+  my $sml     = SML->instance;
+  my $util    = $sml->get_util;
+  my $library = $util->get_library;
 
   $logger->trace("..... begin division $type");
 
@@ -1777,7 +1762,8 @@ sub _end_division {
 
   # End the CURRENT division.
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
   my $type     = ref $division;
   my $sml      = SML->instance;
@@ -1932,7 +1918,7 @@ sub _end_division {
 
 sub _end_table_row {
 
-  my $self   = shift;
+  my $self = shift;
 
   return if not $self->_in_table_row;
 
@@ -1955,7 +1941,7 @@ sub _end_table_row {
 
 sub _end_baretable {
 
-  my $self   = shift;
+  my $self = shift;
 
   return if not $self->_in_baretable;
 
@@ -1983,7 +1969,7 @@ sub _end_baretable {
 
 sub _end_table {
 
-  my $self   = shift;
+  my $self = shift;
 
   return if not $self->_in_table;
 
@@ -2047,19 +2033,19 @@ sub _insert_content {
 
   # Scan lines, insert requested content lines.
 
-  my $self           = shift;
+  my $self = shift;
+
   my $sml            = SML->instance;
   my $syntax         = $sml->get_syntax;
   my $util           = $sml->get_util;
   my $newlines       = [];
-  my $fragment       = $self->get_fragment;
-  my $count_method   = $self->get_count_method_hash;
-  my $oldlines       = $self->get_line_list;
-  my $gen_content    = $self->get_gen_content_hash;
+  my $fragment       = $self->_get_fragment;
+  my $count_method   = $self->_get_count_method_hash;
+  my $oldlines       = $self->_get_line_list;
+  my $gen_content    = $self->_get_gen_content_hash;
   my $options        = $util->get_options;
   my $library        = $util->get_library;
   my $glossary       = $library->get_glossary;
-
   my $max_iterations = $options->get_MAX_INSERT_CONTENT;
   my $count          = ++ $count_method->{'_insert_content'};
 
@@ -2091,7 +2077,7 @@ sub _insert_content {
 	  if ( not $sml->allows_insert($name) )
 	    {
 	      $logger->error("UNKNOWN INSERT NAME at $location: \"$name\"");
-	      $fragment->set_valid(0);
+	      $fragment->_set_is_valid(0);
 	      s/^(.*)/# $1/;
 
 	      my $newline = SML::Line->new
@@ -2227,15 +2213,16 @@ sub _substitute_variables {
 
   # Scan blocks, substitute inline variable tags with values.
 
-  my $self           = shift;
+  my $self = shift;
+
   my $sml            = SML->instance;
   my $syntax         = $sml->get_syntax;
   my $util           = $sml->get_util;
   my $options        = $util->get_options;
   my $library        = $util->get_library;
-  my $fragment       = $self->get_fragment;
+  my $fragment       = $self->_get_fragment;
   my $block_list     = $fragment->get_block_list;
-  my $count_method   = $self->get_count_method_hash;
+  my $count_method   = $self->_get_count_method_hash;
   my $max_iterations = $options->get_MAX_SUBSTITUTE_VARIABLES;
   my $count          = ++ $count_method->{'_substitute_variables'};
   my $document       = undef;
@@ -2281,8 +2268,8 @@ sub _substitute_variables {
 	      # error handling
 	      my $location = $block->get_location;
 	      $logger->warn("UNDEFINED VARIABLE: \'$name\' at $location");
-	      $self->set_valid(0);
-	      $fragment->set_valid(0);
+	      $self->_set_is_valid(0);
+	      $fragment->_set_is_valid(0);
 	      s/$syntax->{variable_ref}/$name/;
 	    }
 	}
@@ -2297,9 +2284,10 @@ sub _substitute_variables {
 
 sub _resolve_lookups {
 
-  my $self           = shift;
-  my $count_method   = $self->get_count_method_hash;
-  my $fragment       = $self->get_fragment;
+  my $self = shift;
+
+  my $count_method   = $self->_get_count_method_hash;
+  my $fragment       = $self->_get_fragment;
   my $block_list     = $fragment->get_block_list;
   my $sml            = SML->instance;
   my $syntax         = $sml->get_syntax;
@@ -2349,8 +2337,8 @@ sub _resolve_lookups {
 	    {
 	      my $msg = "LOOKUP FAILED: at $location: \'$id\' \'$name\'";
 	      $logger->warn($msg);
-	      $self->set_valid(0);
-	      $fragment->set_valid(0);
+	      $self->_set_is_valid(0);
+	      $fragment->_set_is_valid(0);
 	      s/$syntax->{lookup_ref}/($msg)/;
 	    }
 	}
@@ -2365,14 +2353,15 @@ sub _resolve_lookups {
 
 sub _resolve_templates {
 
-  my $self           = shift;
+  my $self = shift;
+
   my $sml            = SML->instance;
   my $syntax         = $sml->get_syntax;
   my $util           = $sml->get_util;
-  my $fragment       = $self->get_fragment;
-  my $count_method   = $self->get_count_method_hash;
+  my $fragment       = $self->_get_fragment;
+  my $count_method   = $self->_get_count_method_hash;
   my $newlines       = [];
-  my $oldlines       = $self->get_line_list;
+  my $oldlines       = $self->_get_line_list;
   my $options        = $util->get_options;
   my $max_iterations = $options->get_MAX_RESOLVE_TEMPLATES;
   my $count          = ++ $count_method->{'_resolve_templates'};
@@ -2428,9 +2417,9 @@ sub _resolve_templates {
 	      $logger->logcroak("NO TEMPLATE FILE \"$template\" (from \"$cwd\")");
 	    }
 
-	  elsif ( exists $self->get_template_hash->{$template} )
+	  elsif ( exists $self->_get_template_hash->{$template} )
 	    {
-	      $text = $self->get_template_hash->{$template};
+	      $text = $self->_get_template_hash->{$template};
 	    }
 
 	  else
@@ -2441,10 +2430,10 @@ sub _resolve_templates {
 		{
 		  my $location = $line->get_location;
 		  $logger->error("TEMPLATE FILE NOT FOUND \'$template\' at $location");
-		  $fragment->set_valid(0);
+		  $fragment->_set_is_valid(0);
 		}
 	      $text = $file->get_text;
-	      $self->get_template_hash->{$template} = $text;
+	      $self->_get_template_hash->{$template} = $text;
 	    }
 
 	  my @vars = split(/:/,$attrs);
@@ -2498,14 +2487,15 @@ sub _generate_content {
   # 1. Generate requested content.
   # 2. Replace 'generate' statement(s) with 'insert_gen' statement(s)
 
-  my $self           = shift;
+  my $self = shift;
+
   my $sml            = SML->instance;
   my $syntax         = $sml->get_syntax;
   my $util           = $sml->get_util;
-  my $count_method   = $self->get_count_method_hash;
-  my $to_be_gen      = $self->get_to_be_gen_hash;
-  my $gen_content    = $self->get_gen_content_hash;
-  my $oldlines       = $self->get_line_list;
+  my $count_method   = $self->_get_count_method_hash;
+  my $to_be_gen      = $self->_get_to_be_gen_hash;
+  my $gen_content    = $self->_get_gen_content_hash;
+  my $oldlines       = $self->_get_line_list;
   my $options        = $util->get_options;
   my $newlines       = [];
   my $max_iterations = $options->get_MAX_GENERATE_CONTENT;
@@ -2709,12 +2699,12 @@ sub _generate_section_numbers {
   my $self = shift;
 
   # initialize section counter
-  my $section_counter  = $self->get_section_counter_hash;
+  my $section_counter  = $self->_get_section_counter_hash;
 
   $section_counter  = {};
 
   my $previous_depth = 1;
-  my $fragment       = $self->get_fragment;
+  my $fragment       = $self->_get_fragment;
   my $section_list   = $fragment->get_section_list;
 
   foreach my $section (@{ $section_list }) {
@@ -2766,12 +2756,12 @@ sub _generate_division_numbers {
   $logger->trace("generate division numbers");
 
   # initialize division counter
-  my $division_counter = $self->get_division_counter_hash;
+  my $division_counter = $self->_get_divsion_counter_hash;
 
   $division_counter = {};
 
   my $previous_depth = 1;
-  my $fragment       = $self->get_fragment;
+  my $fragment       = $self->_get_fragment;
   my $division_list  = $fragment->get_division_list;
 
   foreach my $division (@{ $division_list }) {
@@ -2803,7 +2793,7 @@ sub _begin_block {
   my $self  = shift;
   my $block = shift;
 
-  $self->_end_block if $self->get_block;
+  $self->_end_block if $self->_get_block;
 
   $self->_set_block($block);
 
@@ -2816,8 +2806,9 @@ sub _end_block {
 
   # End the current block.
 
-  my $self  = shift;
-  my $block = $self->get_block;
+  my $self = shift;
+
+  my $block = $self->_get_block;
 
   if ( $block->isa('SML::Element') )
     {
@@ -2833,8 +2824,9 @@ sub _end_block {
 
 sub _end_element {
 
-  my $self     = shift;
-  my $element  = shift;
+  my $self    = shift;
+  my $element = shift;
+
   my $sml      = SML->instance;
   my $util     = $sml->get_util;
   my $library  = $util->get_library;
@@ -2931,14 +2923,15 @@ sub _contains_include {
   # because it is called BEFORE _gather_data builds arrays of blocks
   # and elements.
 
-  my $self           = shift;
+  my $self = shift;
+
   my $sml            = SML->instance;
   my $syntax         = $sml->get_syntax;
   my $in_comment     = 0;
   my $in_conditional = '';
 
  LINE:
-  foreach my $line ( @{ $self->get_line_list } )
+  foreach my $line ( @{ $self->_get_line_list } )
     {
       $_ = $line->get_content;
 
@@ -2987,13 +2980,14 @@ sub _contains_script {
   # element-by-element) because it is called BEFORE _gather_data
   # builds arrays of blocks and elements.
 
-  my $self       = shift;
+  my $self = shift;
+
   my $sml        = SML->instance;
   my $syntax     = $sml->get_syntax;
   my $in_comment = 0;
 
  LINE:
-  foreach my $line ( @{ $self->get_line_list } )
+  foreach my $line ( @{ $self->_get_line_list } )
     {
       $_ = $line->get_content;
 
@@ -3033,11 +3027,12 @@ sub _contains_script {
 
 sub _contains_insert {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  foreach my $element ( @{ $self->get_fragment->get_element_list } )
+  foreach my $element ( @{ $self->_get_fragment->get_element_list } )
     {
       $_ = $element->get_content;
 
@@ -3062,11 +3057,12 @@ sub _contains_insert {
 
 sub _contains_variable {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  my $fragment   = $self->get_fragment;
+  my $fragment   = $self->_get_fragment;
   my $block_list = $fragment->get_block_list;
 
   foreach my $block ( @{ $block_list } )
@@ -3097,11 +3093,12 @@ sub _contains_variable {
 
 sub _contains_lookup {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  my $fragment   = $self->get_fragment;
+  my $fragment   = $self->_get_fragment;
   my $block_list = $fragment->get_block_list;
 
   foreach my $block ( @{ $block_list } )
@@ -3132,11 +3129,12 @@ sub _contains_lookup {
 
 sub _contains_template {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  my $fragment   = $self->get_fragment;
+  my $fragment   = $self->_get_fragment;
   my $block_list = $fragment->get_block_list;
 
   foreach my $block ( @{ $block_list } )
@@ -3167,8 +3165,9 @@ sub _contains_template {
 
 sub _contains_generate {
 
-  my $self      = shift;
-  my $to_be_gen = $self->get_to_be_gen_hash;
+  my $self = shift;
+
+  my $to_be_gen = $self->_get_to_be_gen_hash;
   my $count     = scalar keys %{ $to_be_gen };
 
   if ( $count > 0 )
@@ -3188,18 +3187,19 @@ sub _text_requires_processing {
 
   # Return 1 if text contains anything that needs to be resolved.
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  if ( $self->requires_processing )
+  if ( $self->_requires_processing )
     {
       $self->_set_requires_processing(0);
       return 1;
     }
 
   # check for unresolved elements
-  foreach my $element ( @{ $self->get_fragment->get_element_list } )
+  foreach my $element ( @{ $self->_get_fragment->get_element_list } )
     {
       $_ = $element->get_content;
 
@@ -3243,7 +3243,7 @@ sub _text_requires_processing {
     }
 
   # check for unresolved inline text
-  my $fragment   = $self->get_fragment;
+  my $fragment   = $self->_get_fragment;
   my $block_list = $fragment->get_block_list;
 
   foreach my $block ( @{ $block_list } )
@@ -3290,9 +3290,9 @@ sub _already_in_array {
 
   # Determine whether a value is already in an array.
 
-  my $self   = shift;
-  my $value  = shift;
-  my $aref   = shift;
+  my $self  = shift;
+  my $value = shift;
+  my $aref  = shift;
 
   foreach my $item ( @{ $aref } ) {
     if ($item eq $value) {
@@ -3307,8 +3307,9 @@ sub _already_in_array {
 
 sub _traceability_matrix {
 
-  my $self    = shift;
-  my $name    = shift; # problem, solution, test, etc.
+  my $self = shift;
+  my $name = shift;                     # problem, solution, test...
+
   my $sml     = SML->instance;
   my $util    = $sml->get_util;
   my $library = $util->get_library;
@@ -3780,12 +3781,13 @@ END_OF_TEXT
 
 sub _generate_prioritized_problem_listing {
 
-  my $self        = shift;
+  my $self = shift;
+
   my $sml         = SML->instance;
   my $util        = $sml->get_util;
   my $library     = $util->get_library;
   my $lookup      = $library->get_lookup_hash;
-  my $count_total = $self->get_count_total_hash;
+  my $count_total = $self->_get_count_total_hash;
 
   $logger->trace;
 
@@ -3938,12 +3940,13 @@ END_OF_TEXT
 
 sub _generate_prioritized_solution_listing {
 
-  my $self        = shift;
+  my $self = shift;
+
   my $sml         = SML->instance;
   my $util        = $sml->get_util;
   my $library     = $util->get_library;
   my $lookup      = $library->get_lookup_hash;
-  my $count_total = $self->get_count_total_hash;
+  my $count_total = $self->_get_count_total_hash;
 
   $logger->trace;
 
@@ -4093,8 +4096,9 @@ END_OF_TEXT
 
 sub _generate_associated_problem_listing {
 
-  my $self    = shift;
-  my $id      = shift;
+  my $self = shift;
+  my $id   = shift;
+
   my $sml     = SML->instance;
   my $syntax  = $sml->get_syntax;
   my $util    = $sml->get_util;
@@ -4166,8 +4170,9 @@ END_OF_TEXT
 
 sub _generate_associated_solution_listing {
 
-  my $self    = shift;
-  my $id      = shift;
+  my $self = shift;
+  my $id   = shift;
+
   my $sml     = SML->instance;
   my $util    = $sml->get_util;
   my $library = $util->get_library;
@@ -4235,8 +4240,10 @@ END_OF_TEXT
 ######################################################################
 
 sub _print_lines {
+
   my $self = shift;
-  foreach my $line (@{ $self->get_line_list }) {
+
+  foreach my $line (@{ $self->_get_line_list }) {
     print $line->get_content;
   }
 
@@ -4252,9 +4259,10 @@ sub _list_by_name {
 
   my $self = shift;                     # SML::Parser object
   my $name = shift;                     # string
+
   my $list = [];
 
-  my $fragment      = $self->get_fragment;
+  my $fragment      = $self->_get_fragment;
   my $division_list = $fragment->get_division_list;
 
   foreach my $division (@{ $division_list })
@@ -4275,8 +4283,9 @@ sub _divname_for {
   # Return the divname (problem, solution, test, task, result,
   # role...)  for the item with the specified id
 
-  my $self    = shift;
-  my $id      = shift;
+  my $self = shift;
+  my $id   = shift;
+
   my $sml     = SML->instance;
   my $util    = $sml->get_util;
   my $library = $util->get_library;
@@ -4298,8 +4307,9 @@ sub _divname_for {
 
 sub _class_for {
 
-  my $self     = shift;               # SML::Parser object
-  my $name     = shift;               # string
+  my $self = shift;                     # SML::Parser object
+  my $name = shift;                     # string
+
   my $sml      = SML->instance;
   my $ontology = $sml->get_ontology;
 
@@ -4312,12 +4322,13 @@ sub _region_tag {
 
   # Create and return a region begin or end tag line.
 
-  my $self   = shift;                 # SML::Parser object
-  my $type   = shift;                 # string (begin or end)
-  my $region = shift;                 # string
-  my $file   = shift;                 # file file for warnings
-  my $num    = shift;                 # line number
-  my $tag    = '';
+  my $self   = shift;                   # SML::Parser object
+  my $type   = shift;                   # string (begin or end)
+  my $region = shift;                   # string
+  my $file   = shift;                   # file file for warnings
+  my $num    = shift;                   # line number
+
+  my $tag = '';
 
   if ( $type eq 'begin' )
     {
@@ -4366,8 +4377,9 @@ sub _flatten {
 
   # Replace title or section heading with bold text in line.
 
-  my $self   = shift;                  # SML::Parser object
-  my $line   = shift;                  # SML::Line object
+  my $self = shift;                     # SML::Parser object
+  my $line = shift;                     # SML::Line object
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
@@ -4408,9 +4420,10 @@ sub _add_generate_request {
 
   # Add a request for generated content.
 
-  my $self      = shift;
-  my $element   = shift;
-  my $to_be_gen = $self->get_to_be_gen_hash;
+  my $self    = shift;
+  my $element = shift;
+
+  my $to_be_gen = $self->_get_to_be_gen_hash;
   my $value     = $element->get_value;
   my $location  = $element->get_location;
 
@@ -4433,7 +4446,7 @@ sub _add_generate_request {
 	{
 	  # BAD generate request name
 	  $logger->warn("INVALID GENERATE REQUEST: at $location: \"$value\"");
-	  $self->set_valid(0);
+	  $self->_set_is_valid(0);
 	  return 0;
 	}
     }
@@ -4442,7 +4455,7 @@ sub _add_generate_request {
     {
       # BAD generate request syntax
       $logger->warn("INVALID GENERATE REQUEST SYNTAX: at $location: \"$value\"");
-      $self->set_valid(0);
+      $self->_set_is_valid(0);
       return 0;
     }
 
@@ -4453,17 +4466,18 @@ sub _add_generate_request {
 
 sub _add_review {
 
-  my $self     = shift;
-  my $element  = shift;
+  my $self    = shift;
+  my $element = shift;
+
   my $sml      = SML->instance;
   my $syntax   = $sml->get_syntax;
   my $util     = $sml->get_util;
-  my $review   = $self->get_review_hash;
+  my $review   = $self->_get_review_hash;
   my $division = $element->get_containing_division;
   my $div_id   = $division->get_id;
   my $location = $element->get_location;
   my $library  = $util->get_library;
-  $_        = $element->get_content;
+  $_           = $element->get_content;
 
   chomp;
 
@@ -4521,7 +4535,8 @@ sub _add_review {
 
 sub _increment_toplevel_division_number {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $number = $self->toplevel_division_number;
 
   ++ $number;
@@ -4535,8 +4550,9 @@ sub _increment_toplevel_division_number {
 
 sub _add_table {
 
-  my $self      = shift;
-  my $division  = shift;
+  my $self     = shift;
+  my $division = shift;
+
   my $id        = $division->get_id;
   my $table     = $self->table;
 
@@ -4551,6 +4567,7 @@ sub _add_source {
 
   my $self     = shift;
   my $division = shift;
+
   my $id       = $division->get_id;
   my $sml      = SML->instance;
   my $util     = $sml->get_util;
@@ -4565,8 +4582,9 @@ sub _add_source {
 
 sub _add_template {
 
-  my $self      = shift;
-  my $division  = shift;
+  my $self     = shift;
+  my $division = shift;
+
   my $id        = $division->get_id;
   my $template  = $self->template;
 
@@ -4651,7 +4669,7 @@ sub _process_comment_line {
     {
       $logger->trace("..... continue comment block");
 
-      $self->get_block->add_line($line);
+      $self->_get_block->add_line($line);
     }
 
   return 1;
@@ -4666,7 +4684,7 @@ sub _process_comment_division_line {
 
   $logger->trace("----- line in comment division");
 
-  if ( not $self->get_block )
+  if ( not $self->_get_block )
     {
       my $block = SML::PreformattedBlock->new;
       $block->add_line($line);
@@ -4675,7 +4693,7 @@ sub _process_comment_division_line {
 
   else
     {
-      $self->get_block->add_line($line);
+      $self->_get_block->add_line($line);
     }
 
   return 1;
@@ -4685,9 +4703,10 @@ sub _process_comment_division_line {
 
 sub _process_conditional_division_marker {
 
-  my $self      = shift;
-  my $line      = shift;
-  my $token     = shift;
+  my $self  = shift;
+  my $line  = shift;
+  my $token = shift;
+
   my $blockname = '';
 
   $logger->trace("----- conditional marker ($token)");
@@ -4746,9 +4765,10 @@ sub _process_conditional_division_marker {
 
 sub _process_start_region_marker {
 
-  my $self     = shift;
-  my $line     = shift;
-  my $name     = shift;
+  my $self = shift;
+  my $line = shift;
+  my $name = shift;
+
   my $location = $line->get_location;
   my $sml      = SML->instance;
   my $ontology = $sml->get_ontology;
@@ -4822,9 +4842,10 @@ sub _process_start_region_marker {
 
 sub _process_end_region_marker {
 
-  my $self     = shift;
-  my $line     = shift;
-  my $name     = shift;
+  my $self = shift;
+  my $line = shift;
+  my $name = shift;
+
   my $location = $line->get_location;
 
   $logger->trace("----- region end marker ($name)");
@@ -4881,9 +4902,10 @@ sub _process_end_region_marker {
 
 sub _process_environment_marker {
 
-  my $self      = shift;
-  my $line      = shift;
-  my $name      = shift;
+  my $self = shift;
+  my $line = shift;
+  my $name = shift;
+
   my $location  = $line->get_location;
   my $sml       = SML->instance;
   my $ontology  = $sml->get_ontology;
@@ -4968,9 +4990,10 @@ sub _process_environment_marker {
 
 sub _process_section_heading {
 
-  my $self     = shift;
-  my $line     = shift;
-  my $depth    = shift;
+  my $self  = shift;
+  my $line  = shift;
+  my $depth = shift;
+
   my $location = $line->get_location;
 
   $logger->trace("----- section heading");
@@ -5031,8 +5054,9 @@ sub _process_section_heading {
 
 sub _process_end_table_row {
 
-  my $self     = shift;
-  my $line     = shift;
+  my $self = shift;
+  my $line = shift;
+
   my $name     = 'ENDTABLEROW';
   my $location = $line->get_location;
 
@@ -5046,7 +5070,7 @@ sub _process_end_table_row {
   if ( not $self->_in_table_row )
     {
       $logger->warn("TABLE ROW END MARKER NOT IN TABLE ROW: at $location");
-      $self->set_valid(0);
+      $self->_set_is_valid(0);
     }
 
   else
@@ -5074,10 +5098,10 @@ sub _process_blank_line {
 
   $logger->trace("----- blank line");
 
-  if ( $self->get_block )
+  if ( $self->_get_block )
     {
-      $self->get_block->add_line($line);
-      $self->_end_block if not $self->get_block->isa('SML::PreformattedBlock');
+      $self->_get_block->add_line($line);
+      $self->_end_block if not $self->_get_block->isa('SML::PreformattedBlock');
     }
 
   else
@@ -5093,9 +5117,10 @@ sub _process_blank_line {
 
 sub _process_id_element {
 
-  my $self    = shift;
-  my $line    = shift;
-  my $id      = shift;
+  my $self = shift;
+  my $line = shift;
+  my $id   = shift;
+
   my $sml     = SML->instance;
   my $util    = $sml->get_util;
   my $library = $util->get_library;
@@ -5130,9 +5155,10 @@ sub _process_id_element {
 
 sub _process_start_element {
 
-  my $self     = shift;
-  my $line     = shift;
-  my $name     = shift;
+  my $self = shift;
+  my $line = shift;
+  my $name = shift;
+
   my $sml      = SML->instance;
   my $ontology = $sml->get_ontology;
   my $location = $line->get_location;
@@ -5151,7 +5177,7 @@ sub _process_start_element {
       $self->_end_baretable;
     }
 
-  if ( $self->in_preamble
+  if ( $self->_in_preamble
        and
        $ontology->allows_property($divname,$name) )
     {
@@ -5162,7 +5188,7 @@ sub _process_start_element {
       $division->add_property_element($element);
     }
 
-  elsif ( $self->in_preamble
+  elsif ( $self->_in_preamble
 	  and
 	  $ontology->allows_property('UNIVERSAL',$name) )
     {
@@ -5175,13 +5201,13 @@ sub _process_start_element {
       $division->add_property_element($element);
     }
 
-  elsif ( $self->in_preamble )
+  elsif ( $self->_in_preamble )
     {
       $logger->warn("UNKNOWN DIVISION ELEMENT: \'$divname\' \'$name\' at $location:");
-      $self->set_valid(0);
+      $self->_set_is_valid(0);
     }
 
-  elsif ( $self->in_preamble
+  elsif ( $self->_in_preamble
 	  and
 	  $ontology->allows_property('DOCUMENT',$name) )
     {
@@ -5192,7 +5218,7 @@ sub _process_start_element {
       $division->add_property_element($element);
     }
 
-  elsif ( $self->in_preamble
+  elsif ( $self->_in_preamble
 	  and
 	  $ontology->allows_property('UNIVERSAL',$name) )
     {
@@ -5222,11 +5248,12 @@ sub _process_start_element {
 
 sub _process_start_note {
 
-  my $self     = shift;
-  my $line     = shift;
-  my $tag      = shift;
-  my $divid    = shift;
-  my $name     = 'note';
+  my $self  = shift;
+  my $line  = shift;
+  my $tag   = shift;
+  my $divid = shift;
+
+  my $name = 'note';
 
   my $division = $self->_get_current_division;
   my $divname  = $division->get_name;
@@ -5249,7 +5276,7 @@ sub _process_start_note {
       $self->_end_baretable;
     }
 
-  if ( $self->in_preamble )
+  if ( $self->_in_preamble )
     {
       $logger->trace("..... note element in preamble");
 
@@ -5275,10 +5302,11 @@ sub _process_start_note {
 
 sub _process_start_glossary_entry {
 
-  my $self      = shift;
-  my $line      = shift;
-  my $term      = shift;
-  my $alt       = shift || '';
+  my $self = shift;
+  my $line = shift;
+  my $term = shift;
+  my $alt  = shift || '';
+
   my $sml       = SML->instance;
   my $util      = $sml->get_util;
   my $library   = $util->get_library;
@@ -5294,7 +5322,7 @@ sub _process_start_glossary_entry {
 
   $self->_end_baretable if $self->_in_baretable;
 
-  if ( $self->in_preamble )
+  if ( $self->_in_preamble )
     {
       $logger->trace("..... glossary definition in preamble");
 
@@ -5319,10 +5347,11 @@ sub _process_start_glossary_entry {
 
 sub _process_start_acronym_entry {
 
-  my $self      = shift;
-  my $line      = shift;
-  my $term      = shift;
-  my $alt       = shift || '';
+  my $self = shift;
+  my $line = shift;
+  my $term = shift;
+  my $alt  = shift || '';
+
   my $name      = 'acronym';
   my $sml       = SML->instance;
   my $util      = $sml->get_util;
@@ -5350,7 +5379,7 @@ sub _process_start_acronym_entry {
       $self->_end_baretable;
     }
 
-  if ( $self->in_preamble )
+  if ( $self->_in_preamble )
     {
       $logger->trace("..... acronym definition in preamble");
 
@@ -5376,10 +5405,11 @@ sub _process_start_acronym_entry {
 
 sub _process_start_variable_definition {
 
-  my $self     = shift;
-  my $line     = shift;
-  my $term     = shift;
-  my $alt      = shift || '';
+  my $self = shift;
+  my $line = shift;
+  my $term = shift;
+  my $alt  = shift || '';
+
   my $name     = 'var';
   my $sml      = SML->instance;
   my $util     = $sml->get_util;
@@ -5405,7 +5435,7 @@ sub _process_start_variable_definition {
       $self->_end_baretable;
     }
 
-  if ( $self->in_preamble )
+  if ( $self->_in_preamble )
     {
       $logger->trace("..... glossary definition in preamble");
 
@@ -5436,7 +5466,7 @@ sub _process_bull_list_item {
 
   $logger->trace("----- bullet list item");
 
-  $self->_end_preamble if $self->in_preamble;
+  $self->_end_preamble if $self->_in_preamble;
 
   if ( $self->_in_preformatted_division )
     {
@@ -5466,7 +5496,7 @@ sub _process_enum_list_item {
 
   $logger->trace("----- enumerated list item");
 
-  $self->_end_preamble if $self->in_preamble;
+  $self->_end_preamble if $self->_in_preamble;
 
   if ( $self->_in_preformatted_division )
     {
@@ -5496,7 +5526,7 @@ sub _process_def_list_item {
 
   $logger->trace("----- definition list item");
 
-  $self->_end_preamble if $self->in_preamble;
+  $self->_end_preamble if $self->_in_preamble;
 
   if ( $self->_in_preformatted_division )
     {
@@ -5526,7 +5556,7 @@ sub _process_start_table_cell {
 
   $logger->trace("----- table cell");
 
-  $self->_end_preamble if $self->in_preamble;
+  $self->_end_preamble if $self->_in_preamble;
 
   # new block
   my $block = SML::Block->new;
@@ -5672,13 +5702,13 @@ sub _process_paragraph_text {
   if ( $self->_in_paragraph )
     {
       $logger->trace("..... continue paragraph");
-      $self->get_block->add_line($line);
+      $self->_get_block->add_line($line);
     }
 
   elsif ( $self->_in_element )
     {
       $logger->trace("..... continue element");
-      $self->get_block->add_line($line);
+      $self->_get_block->add_line($line);
     }
 
   elsif ( $self->_in_preformatted_division )
@@ -5694,20 +5724,20 @@ sub _process_paragraph_text {
   elsif ( $self->_in_table_cell )
     {
       $logger->trace("..... adding to block in table cell");
-      $self->get_block->add_line( $line );
+      $self->_get_block->add_line( $line );
     }
 
   elsif ( $self->_in_listitem )
     {
       $logger->trace("..... adding to block in list item");
-      $self->get_block->add_line( $line );
+      $self->_get_block->add_line( $line );
     }
 
   else
     {
       $logger->trace("..... new paragraph");
 
-      $self->_end_preamble if $self->in_preamble;
+      $self->_end_preamble if $self->_in_preamble;
 
       if ( $self->_in_baretable )
 	{
@@ -5735,20 +5765,20 @@ sub _process_indented_text {
   if ( $self->_in_preformatted_block )
     {
       $logger->trace("..... continue preformatted block");
-      $self->get_block->add_line($line);
+      $self->_get_block->add_line($line);
     }
 
   elsif ( $self->_in_listitem )
     {
       $logger->trace("..... continue list item");
-      $self->get_block->add_line($line);
+      $self->_get_block->add_line($line);
     }
 
   else
     {
       $logger->trace("..... new preformatted block");
 
-      $self->_end_preamble if $self->in_preamble;
+      $self->_end_preamble if $self->_in_preamble;
 
       my $block = SML::PreformattedBlock->new;
       $block->add_line($line);
@@ -5763,8 +5793,9 @@ sub _process_indented_text {
 
 sub _process_non_blank_line {
 
-  my $self     = shift;
-  my $line     = shift;
+  my $self = shift;
+  my $line = shift;
+
   my $location = $line->get_location;
 
   $logger->trace("----- non-blank line");
@@ -5774,7 +5805,7 @@ sub _process_non_blank_line {
       and
       $self->_current_environment->isa('SML::Baretable')
       and
-      $self->get_column == 0
+      $self->_get_column == 0
      )
     {
       $self->_end_division;
@@ -5789,7 +5820,7 @@ sub _process_non_blank_line {
        $self->_current_environment->isa('SML::Preformatted')
       )
       and
-      not $self->get_block
+      not $self->_get_block
      )
     {
       my $block = SML::PreformattedBlock->new;
@@ -5798,7 +5829,7 @@ sub _process_non_blank_line {
       $self->environment->add_part($block);
     }
 
-  elsif ( not $self->get_block )
+  elsif ( not $self->_get_block )
     {
       $logger->logdie("UNRECOGNIZED BLOCK at $location");
     }
@@ -5806,7 +5837,7 @@ sub _process_non_blank_line {
   else
     {
       $logger->trace("..... add non-blank line to block");
-      $self->get_block->add_line($line);
+      $self->_get_block->add_line($line);
     }
 
   return 1;
@@ -5819,7 +5850,7 @@ sub _push_division_stack {
   my $self     = shift;
   my $division = shift;
 
-  push @{ $self->get_division_stack }, $division;
+  push @{ $self->_get_division_stack }, $division;
 
   return 1;
 }
@@ -5828,8 +5859,9 @@ sub _push_division_stack {
 
 sub _pop_division_stack {
 
-  my $self     = shift;
-  my $division = pop @{ $self->get_division_stack };
+  my $self = shift;
+
+  my $division = pop @{ $self->_get_division_stack };
 
   return $division;
 }
@@ -5839,9 +5871,10 @@ sub _pop_division_stack {
 sub _print_division_stack {
 
   my $self = shift;
-  my $i    = 0;
 
-  foreach my $division (@{ $self->get_division_stack })
+  my $i = 0;
+
+  foreach my $division (@{ $self->_get_division_stack })
     {
       $logger->trace("    division_stack: $i => $division");
       ++ $i;
@@ -5857,9 +5890,9 @@ sub _in_comment_block {
   my $self = shift;
 
   if (
-      $self->get_block
+      $self->_get_block
       and
-      $self->get_block->isa('SML::CommentBlock')
+      $self->_get_block->isa('SML::CommentBlock')
      )
     {
       return 1;
@@ -5878,9 +5911,9 @@ sub _in_preformatted_block {
   my $self = shift;
 
   if (
-      $self->get_block
+      $self->_get_block
       and
-      $self->get_block->isa('SML::PreformattedBlock')
+      $self->_get_block->isa('SML::PreformattedBlock')
      )
     {
       return 1;
@@ -5896,7 +5929,8 @@ sub _in_preformatted_block {
 
 sub _in_preformatted_division {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   return 0 if not $division;
@@ -5925,9 +5959,9 @@ sub _in_paragraph {
   my $self = shift;
 
   if (
-      $self->get_block
+      $self->_get_block
       and
-      $self->get_block->isa('SML::Paragraph')
+      $self->_get_block->isa('SML::Paragraph')
      )
     {
       return 1;
@@ -5946,9 +5980,9 @@ sub _in_listitem {
   my $self = shift;
 
   if (
-      $self->get_block
+      $self->_get_block
       and
-      $self->get_block->isa('SML::Listitem')
+      $self->_get_block->isa('SML::Listitem')
      )
     {
       return 1;
@@ -5967,9 +6001,9 @@ sub _in_element {
   my $self = shift;
 
   if (
-      $self->get_block
+      $self->_get_block
       and
-      $self->get_block->isa('SML::Element')
+      $self->_get_block->isa('SML::Element')
      )
     {
       return 1;
@@ -5985,7 +6019,8 @@ sub _in_element {
 
 sub _in_table_cell {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   if ( $division->is_in_a('SML::TableCell') )
@@ -6003,7 +6038,8 @@ sub _in_table_cell {
 
 sub _in_table_row {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   if ( $division->is_in_a('SML::TableRow') )
@@ -6021,7 +6057,8 @@ sub _in_table_row {
 
 sub _in_baretable {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   if ( $division->is_in_a('SML::Baretable') )
@@ -6039,7 +6076,8 @@ sub _in_baretable {
 
 sub _in_table {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   if ( $division->is_in_a('SML::Table') )
@@ -6057,7 +6095,8 @@ sub _in_table {
 
 sub _in_comment_division {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   if ( $division and $division->isa('SML::CommentDivision') )
@@ -6075,7 +6114,8 @@ sub _in_comment_division {
 
 sub _in_conditional {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   while ( $division and not $division->isa('SML::Fragment') )
@@ -6098,7 +6138,8 @@ sub _in_conditional {
 
 sub _current_conditional {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   while ( $division and not $division->isa('SML::Fragment') )
@@ -6121,10 +6162,11 @@ sub _current_conditional {
 
 sub _count_comment_divisions {
 
-  my $self  = shift;
+  my $self = shift;
+
   my $count = 0;
 
-  my $fragment      = $self->get_fragment;
+  my $fragment      = $self->_get_fragment;
   my $division_list = $fragment->get_division_list;
 
   foreach my $division (@{ $division_list })
@@ -6145,7 +6187,8 @@ sub _count_table_rows {
   # Return the number of rows in the current table.  Return 0 if not
   # currently in a table.
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   if (
@@ -6181,7 +6224,8 @@ sub _count_table_cells {
   # Return the number of cells in the current table row.  Return 0 if
   # not currently in a table row.
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   if ( not $division->is_in_a('SML::TableRow') )
@@ -6210,7 +6254,8 @@ sub _count_table_cells {
 
 sub _current_table {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   while ( not $division->isa('SML::Fragment') )
@@ -6237,7 +6282,8 @@ sub _current_table {
 
 sub _current_table_row {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   while ( not $division->isa('SML::Fragment') )
@@ -6260,10 +6306,11 @@ sub _current_table_row {
 
 sub _count_conditionals {
 
-  my $self  = shift;
+  my $self = shift;
+
   my $count = 0;
 
-  my $fragment      = $self->get_fragment;
+  my $fragment      = $self->_get_fragment;
   my $division_list = $fragment->get_division_list;
 
   foreach my $division (@{ $division_list })
@@ -6281,10 +6328,11 @@ sub _count_conditionals {
 
 sub _count_regions {
 
-  my $self  = shift;
+  my $self = shift;
+
   my $count = 0;
 
-  my $fragment      = $self->get_fragment;
+  my $fragment      = $self->_get_fragment;
   my $division_list = $fragment->get_division_list;
 
   foreach my $division (@{ $division_list })
@@ -6302,10 +6350,11 @@ sub _count_regions {
 
 sub _count_environments {
 
-  my $self  = shift;
+  my $self = shift;
+
   my $count = 0;
 
-  my $fragment      = $self->get_fragment;
+  my $fragment      = $self->_get_fragment;
   my $division_list = $fragment->get_division_list;
 
   foreach my $division (@{ $division_list })
@@ -6323,10 +6372,11 @@ sub _count_environments {
 
 sub _count_tables {
 
-  my $self  = shift;
+  my $self = shift;
+
   my $count = 0;
 
-  my $fragment      = $self->get_fragment;
+  my $fragment      = $self->_get_fragment;
   my $division_list = $fragment->get_division_list;
 
   foreach my $division (@{ $division_list })
@@ -6344,10 +6394,11 @@ sub _count_tables {
 
 sub _count_baretables {
 
-  my $self  = shift;
+  my $self = shift;
+
   my $count = 0;
 
-  my $fragment      = $self->get_fragment;
+  my $fragment      = $self->_get_fragment;
   my $division_list = $fragment->get_division_list;
 
   foreach my $division (@{ $division_list })
@@ -6365,10 +6416,11 @@ sub _count_baretables {
 
 sub _count_sections {
 
-  my $self  = shift;
+  my $self = shift;
+
   my $count = 0;
 
-  my $fragment      = $self->get_fragment;
+  my $fragment      = $self->_get_fragment;
   my $division_list = $fragment->get_division_list;
 
   foreach my $division (@{ $division_list })
@@ -6386,7 +6438,8 @@ sub _count_sections {
 
 sub _in_region {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   while ( $division and not $division->isa('SML::Fragment') )
@@ -6409,7 +6462,8 @@ sub _in_region {
 
 sub _in_environment {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   while ( $division and not $division->isa('SML::Fragment') )
@@ -6432,7 +6486,8 @@ sub _in_environment {
 
 sub _in_section {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   while ( $division and not $division->isa('SML::Fragment') )
@@ -6455,7 +6510,8 @@ sub _in_section {
 
 sub _in_document {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   while ( $division and not $division->isa('SML::Fragment') )
@@ -6478,7 +6534,8 @@ sub _in_document {
 
 sub _current_environment {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   while ( $division and not $division->isa('SML::Fragment') )
@@ -6501,7 +6558,8 @@ sub _current_environment {
 
 sub _current_region {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   while ( $division and not $division->isa('SML::Fragment') )
@@ -6524,7 +6582,8 @@ sub _current_region {
 
 sub _current_document {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self->_get_current_division;
 
   while ( $division and not $division->isa('SML::Fragment') )
@@ -6546,8 +6605,10 @@ sub _current_document {
 ######################################################################
 
 sub _get_current_division {
+
   my $self = shift;
-  return $self->get_division_stack->[-1];
+
+  return $self->_get_division_stack->[-1];
 }
 
 ######################################################################
@@ -6623,49 +6684,9 @@ A parser creates fragment objects from raw SML text stored in files.
 
 =head2 extract_narrative_lines
 
-=head2 get_fragment
-
-=head2 get_line_list
-
-=head2 get_block
-
-=head2 get_division_stack
-
-=head2 get_column
-
 =head2 in_preamble
 
-=head2 get_count_total_hash
-
-=head2 get_count_method_hash
-
 =head2 get_gen_countent_hash
-
-=head2 get_to_be_gen_hash
-
-=head2 get_outcome_hash
-
-=head2 get_review_hash
-
-=head2 get_acronym_hash
-
-=head2 get_source_hash
-
-=head2 get_index_hash
-
-=head2 get_table_data_hash
-
-=head2 get_baretable_data_hash
-
-=head2 get_template_hash
-
-=head2 requires_processing
-
-=head2 get_section_counter_hash
-
-=head2 get_division_counter_hash
-
-=head2 is_valid
 
 =head1 AUTHOR
 
