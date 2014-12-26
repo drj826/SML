@@ -23,8 +23,8 @@ $mm = '0' . $mm until length $mm == 2;
 $dd = '0' . $dd until length $dd == 2;
 my $date = "$yyyy-$mm-$dd";
 
-my $config_file = 'library/library.conf';
-my $library     = SML::Library->new(config_filespec=>$config_file);
+my $config_file = 'library.conf';
+my $library     = SML::Library->new(config_filename=>$config_file);
 my $parser      = $library->get_parser;
 my $fragment    = undef;
 my $block       = undef;          # SML::Block object
@@ -1366,7 +1366,7 @@ sub get_name_path_ok {
   # arrange
   my $testfile   = $testdata->{$testid}{testfile};
   my $config     = $testdata->{$testid}{config};
-  my $library    = SML::Library->new(config_filespec=>$config);
+  my $library    = SML::Library->new(config_filename=>$config);
   my $parser     = $library->get_parser;
   my $fragment   = $parser->parse($testfile);
   my $block_list = $fragment->get_block_list;
