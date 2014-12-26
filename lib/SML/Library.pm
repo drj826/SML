@@ -34,11 +34,21 @@ use SML::References;
 ######################################################################
 ######################################################################
 
+has 'config_filename' =>
+  (
+   isa      => 'Str',
+   reader   => 'get_config_filename',
+   required => 1,
+  );
+
+######################################################################
+
 has 'config_filespec' =>
   (
    isa      => 'Str',
    reader   => 'get_config_filespec',
-   required => 1,
+   lazy     => 1,
+   builder  => '_build_config_filespec',
   );
 
 ######################################################################
@@ -1980,6 +1990,36 @@ sub BUILD {
   $util->set_library($self);
 
   return 1;
+}
+
+######################################################################
+
+sub _build_config_filespec {
+
+  use FindBin qw($Bin);
+
+  my $self = shift;
+
+  my $filename = $self->get_config_filename;
+
+  my $dir_list =
+    [
+     "$Bin/library",
+     "$Bin/../library",
+     "$Bin/../../library",
+    ];
+
+  foreach my $dir (@{ $dir_list })
+    {
+      if ( -r "$dir/$filename" )
+	{
+	  $logger->info("library config filespec: $dir/$filename");
+	  return "$dir/$filename";
+	}
+    }
+
+  $logger->error("COULD NOT LOCATE LIBRARY CONFIG FILE");
+  return 0;
 }
 
 ######################################################################
