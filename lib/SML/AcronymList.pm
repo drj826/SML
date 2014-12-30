@@ -17,17 +17,12 @@ my $logger = Log::Log4perl::get_logger('sml.acronymlist');
 ######################################################################
 ######################################################################
 ##
-## Attributes
+## Public Attributes
 ##
 ######################################################################
 ######################################################################
 
-has 'acronym_hash' =>
-  (
-   isa     => 'HashRef',
-   reader  => 'get_acronym_hash',
-   default => sub {{}},
-  );
+# NONE.
 
 ######################################################################
 ######################################################################
@@ -48,7 +43,7 @@ sub add_acronym {
     {
       my $term = $definition->get_term;
       my $alt  = $definition->get_alt;
-      my $ah   = $self->get_acronym_hash;
+      my $ah   = $self->_get_acronym_hash;
 
       $ah->{$term}{$alt} = $definition;
 
@@ -70,7 +65,7 @@ sub has_acronym {
   my $self    = shift;
   my $acronym = shift;
   my $alt     = shift || q{};
-  my $ah      = $self->get_acronym_hash;
+  my $ah      = $self->_get_acronym_hash;
 
   if ( defined $ah->{$acronym}{$alt} )
     {
@@ -90,7 +85,7 @@ sub get_acronym {
   my $self    = shift;
   my $acronym = shift;
   my $alt     = shift || q{};
-  my $ah      = $self->get_acronym_hash;
+  my $ah      = $self->_get_acronym_hash;
 
   if ( defined $ah->{$acronym}{$alt} )
     {
@@ -112,7 +107,7 @@ sub get_acronym_list {
 
   my $self     = shift;
   my $acronyms = [];
-  my $ah       = $self->get_acronym_hash;
+  my $ah       = $self->_get_acronym_hash;
 
   foreach my $acronym ( sort keys %{ $ah } )
     {
@@ -124,6 +119,21 @@ sub get_acronym_list {
 
   return $acronyms;
 }
+
+######################################################################
+######################################################################
+##
+## Private Attributes
+##
+######################################################################
+######################################################################
+
+has 'acronym_hash' =>
+  (
+   isa     => 'HashRef',
+   reader  => '_get_acronym_hash',
+   default => sub {{}},
+  );
 
 ######################################################################
 
