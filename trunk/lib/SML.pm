@@ -25,18 +25,9 @@ use Cwd;
 ######################################################################
 ######################################################################
 ##
-## Attributes
+## Public Attributes
 ##
 ######################################################################
-######################################################################
-
-# has 'ontology_config_filespec' =>
-#   (
-#    isa     => 'Str',
-#    reader  => 'get_ontology_config_filespec',
-#    default => 'ontology.conf',
-#   );
-
 ######################################################################
 
 has 'syntax' =>
@@ -65,36 +56,6 @@ has 'util' =>
    reader  => 'get_util',
    lazy    => 1,
    builder => '_build_util',
-  );
-
-######################################################################
-
-has 'division_hash' =>
-  (
-   isa     => 'HashRef',
-   reader  => 'get_division_hash',
-   lazy    => 1,
-   builder => '_build_divisions',
-  );
-
-######################################################################
-
-has 'insert_name_hash' =>
-  (
-   isa     => 'HashRef',
-   reader  => 'get_insert_name_hash',
-   lazy    => 1,
-   builder => '_build_insert_name_hash',
-  );
-
-######################################################################
-
-has 'generated_content_type_hash' =>
-  (
-   isa     => 'HashRef',
-   reader  => 'get_generated_content_type_hash',
-   lazy    => 1,
-   builder => '_build_generated_content_type_hash',
   );
 
 ######################################################################
@@ -192,9 +153,9 @@ sub allows_insert {
   my $name = shift;
 
   if (
-      defined $self->get_insert_name_hash->{$name}
+      defined $self->_get_insert_name_hash->{$name}
       and
-      $self->get_insert_name_hash->{$name} == 1
+      $self->_get_insert_name_hash->{$name} == 1
      )
     {
       return 1;
@@ -212,7 +173,7 @@ sub allows_generate {
   my $self = shift;
   my $name = shift;
 
-  if ( defined $self->get_generated_content_type_hash->{$name} )
+  if ( defined $self->_get_generated_content_type_hash->{$name} )
     {
       return 1;
     }
@@ -222,6 +183,51 @@ sub allows_generate {
       return 0;
     }
 }
+
+######################################################################
+######################################################################
+##
+## Private Attributes
+##
+######################################################################
+######################################################################
+
+# has 'ontology_config_filespec' =>
+#   (
+#    isa     => 'Str',
+#    reader  => 'get_ontology_config_filespec',
+#    default => 'ontology.conf',
+#   );
+
+######################################################################
+
+has 'division_hash' =>
+  (
+   isa     => 'HashRef',
+   reader  => '_get_division_hash',
+   lazy    => 1,
+   builder => '_build_divisions',
+  );
+
+######################################################################
+
+has 'insert_name_hash' =>
+  (
+   isa     => 'HashRef',
+   reader  => '_get_insert_name_hash',
+   lazy    => 1,
+   builder => '_build_insert_name_hash',
+  );
+
+######################################################################
+
+has 'generated_content_type_hash' =>
+  (
+   isa     => 'HashRef',
+   reader  => '_get_generated_content_type_hash',
+   lazy    => 1,
+   builder => '_build_generated_content_type_hash',
+  );
 
 ######################################################################
 ######################################################################
@@ -259,7 +265,7 @@ sub _build_util {
 sub _build_division_names {
 
   my $self = shift;
-  my $list = [ sort keys %{ $self->get_division_hash } ];
+  my $list = [ sort keys %{ $self->_get_division_hash } ];
 
   return $list;
 }
@@ -273,13 +279,13 @@ sub _build_region_names {
   my $self      = shift;
   my $names     = [];
 
-  foreach my $name ( sort keys %{ $self->get_division_hash } )
+  foreach my $name ( sort keys %{ $self->_get_division_hash } )
     {
       if
 	(
-	 $self->get_division_hash->{$name}[0] eq 'SML::Region'
+	 $self->_get_division_hash->{$name}[0] eq 'SML::Region'
 	 or
-	 $self->get_division_hash->{$name}[0] eq 'SML::Entity'
+	 $self->_get_division_hash->{$name}[0] eq 'SML::Entity'
 	)
 	{
 	  push( @{ $names }, $name );

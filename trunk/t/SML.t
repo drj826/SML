@@ -5,7 +5,7 @@
 # tc-000004 -- unit test case for SML.pm (ci-000002)
 
 use lib "..";
-use Test::More tests => 9;
+use Test::More tests => 8;
 use Test::Exception;
 
 use Log::Log4perl;
@@ -49,9 +49,9 @@ my @public_methods =
    'get_syntax',
    'get_ontology',
    'get_util',
-   'get_division_hash',
-   'get_insert_name_hash',
-   'get_generated_content_type_hash',
+   # 'get_division_hash',
+   # 'get_insert_name_hash',
+   # 'get_generated_content_type_hash',
    'get_font_size_list',
    'get_font_weight_list',
    'get_font_shape_list',
@@ -63,23 +63,6 @@ my @public_methods =
   );
 
 can_ok( $obj, @public_methods );
-
-#---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-   '_build_syntax',
-   '_build_util',
-   '_build_division_names',
-   '_build_region_names',
-   '_build_environment_names',
-   '_build_ontology',
-   '_build_divisions',
-  );
-
-can_ok( $obj, @private_methods );
 
 #---------------------------------------------------------------------
 # Returns expected values?
