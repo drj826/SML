@@ -3,7 +3,7 @@
 # $Id: AcronymList.t 15151 2013-07-08 21:01:16Z don.johnson $
 
 use lib "..";
-use Test::More tests => 11;
+use Test::More tests => 10;
 
 use SML;
 use SML::Definition;
@@ -60,7 +60,7 @@ isa_ok( $obj, 'SML::AcronymList' );
 
 my @public_methods =
   (
-   'get_acronym_hash',
+   # 'get_acronym_hash',
    'add_acronym',
    'has_acronym',
    'get_acronym',
@@ -73,7 +73,7 @@ can_ok( $obj, @public_methods );
 # Returns expected values?
 #---------------------------------------------------------------------
 
-get_acronym_hash_ok();
+# get_acronym_hash_ok();
 
 add_acronym_ok( 'acronym_1' );
 add_acronym_ok( 'acronym_2' );
@@ -92,18 +92,18 @@ get_acronym_list_ok();
 
 ######################################################################
 
-sub get_acronym_hash_ok {
+# sub get_acronym_hash_ok {
 
-  # arrange
-  my $expected = 'HASH';
-  my $al       = SML::AcronymList->new;
+#   # arrange
+#   my $expected = 'HASH';
+#   my $al       = SML::AcronymList->new;
 
-  # act
-  my $result = ref $al->get_acronym_hash;
+#   # act
+#   my $result = ref $al->get_acronym_hash;
 
-  # assert
-  is($result, $expected, "get_acronym_hash");
-}
+#   # assert
+#   is($result, $expected, "get_acronym_hash");
+# }
 
 ######################################################################
 
