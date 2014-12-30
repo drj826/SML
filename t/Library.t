@@ -37,8 +37,8 @@ my @public_methods =
   (
    'get_id',
    'get_config_filespec',
-   'get_sml_ontology_config_filespec',
-   'get_lib_ontology_config_filespec',
+   # 'get_sml_ontology_config_filespec',
+   # 'get_lib_ontology_config_filespec',
    'get_sml',
    'get_parser',
    'get_reasoner',

@@ -233,7 +233,8 @@ sub allows_generate {
 
 sub _build_syntax {
 
-  my $self      = shift;
+  my $self = shift;
+
   my $syn       = {};
   my $syntax    = SML::Syntax->new;
   my $metaclass = $syntax->meta;

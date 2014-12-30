@@ -70,7 +70,7 @@ has 'modified' =>
   (
    isa     => 'Bool',
    reader  => 'has_been_modified',
-   writer  => 'set_has_been_modified_modified',
+   writer  => 'set_has_been_modified',
    default => 0,
   );
 
@@ -109,7 +109,7 @@ sub BUILD {
   my $sml      = SML->instance;
   my $util     = $sml->get_util;
   my $options  = $util->get_options;
-  my $svn      = $options->get_svn_executable;
+  my $svn      = $self->_find_svn_executable;
 
   #-------------------------------------------------------------------
   # Ensure the file exists
@@ -180,7 +180,7 @@ sub BUILD {
   if ( $status =~ /^M/ )
     {
       $logger->warn("UNCOMMITTED CHANGES in $filespec");
-      $self->set_modified(1);
+      $self->set_has_been_modified(1);
     }
 
   #-------------------------------------------------------------------
@@ -304,6 +304,40 @@ sub BUILD {
   #
   # The value of "modified" will be a boolean value of either 1 or 0.
 
+}
+
+######################################################################
+
+sub _find_svn_executable {
+
+  if ( $^O eq 'MSWin32')
+    {
+      my $sml     = SML->instance;
+      my $util    = $sml->get_util;
+      my $options = $util->get_options;
+
+      return $options->get_svn_executable;
+    }
+
+  elsif ( $^O eq 'linux' )
+    {
+      my $svn = `which svn`;
+      chomp($svn);
+
+      if ($svn)
+	{
+	  return $svn;
+	}
+
+      else
+	{
+	  $logger->error("SVN EXECUTABLE NOT FOUND");
+	  return 0;
+	}
+    }
+
+  $logger->error("SVN EXECUTABLE NOT FOUND");
+  return 0;
 }
 
 ######################################################################
