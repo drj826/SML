@@ -16,7 +16,7 @@ my $extension   = pop @part;
 my $id          = join('.', @part);
 
 my $config_filename = 'library.conf';
-my $library         = SML::Library->new(config_filespec=>$config_filename);
+my $library         = SML::Library->new(config_filename=>$config_filename);
 my $parser          = $library->get_parser;
 my $fragment        = $parser->parse($filespec);
 

@@ -8,8 +8,8 @@ use SML::File;
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
-my $config_file = 'library/library.conf';
-my $library     = SML::Library->new(config_filespec=>$config_file);
+my $config_file = 'library.conf';
+my $library     = SML::Library->new(config_filename=>$config_file);
 my $parser      = $library->get_parser;
 
 $parser->parse('library/frd-sml.txt');

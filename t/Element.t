@@ -14,8 +14,8 @@ use Test::Log4perl;
 my $t1logger = Test::Log4perl->get_logger('sml.element');
 my $t2logger = Test::Log4perl->get_logger('sml.document');
 
-my $config_file = 'library/library.conf';
-my $library     = SML::Library->new(config_filespec=>$config_file);
+my $config_file = 'library.conf';
+my $library     = SML::Library->new(config_filename=>$config_file);
 
 #---------------------------------------------------------------------
 # Test Data

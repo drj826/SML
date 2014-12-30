@@ -30,12 +30,12 @@ use Cwd;
 ######################################################################
 ######################################################################
 
-has 'ontology_config_filespec' =>
-  (
-   isa     => 'Str',
-   reader  => 'get_ontology_config_filespec',
-   default => 'ontology.conf',
-  );
+# has 'ontology_config_filespec' =>
+#   (
+#    isa     => 'Str',
+#    reader  => 'get_ontology_config_filespec',
+#    default => 'ontology.conf',
+#   );
 
 ######################################################################
 

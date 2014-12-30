@@ -31,9 +31,9 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $config_file = 'library/library.conf';
-my $library     = SML::Library->new(config_filespec=>$config_file);
-my $obj         = SML->instance;
+my $config_filename = 'library.conf';
+my $library         = SML::Library->new(config_filename=>$config_filename);
+my $obj             = SML->instance;
 
 isa_ok( $obj, 'SML' );
 
@@ -45,7 +45,7 @@ my @public_methods =
   (
    'allows_insert',
    'allows_generate',
-   'get_ontology_config_filespec',
+   # 'get_ontology_config_filespec',
    'get_syntax',
    'get_ontology',
    'get_util',

@@ -52,7 +52,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'td-000020',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 'SML::Fragment',
    },
 
@@ -60,7 +60,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'introduction',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 'SML::Document',
    },
 
@@ -68,7 +68,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'problem-1',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 'SML::Section',
    },
 
@@ -76,7 +76,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'tab-solution-types',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 'SML::Section',
    },
 
@@ -84,7 +84,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'td-000020',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 22,
    },
 
@@ -92,7 +92,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'introduction',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 7,
    },
 
@@ -100,7 +100,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'problem-1',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 10,
    },
 
@@ -108,7 +108,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'tab-solution-types',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 10,
    },
 
@@ -116,7 +116,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'td-000020',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 214,
    },
 
@@ -124,7 +124,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'introduction',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 17,
    },
 
@@ -132,7 +132,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'problem-1',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 40,
    },
 
@@ -140,7 +140,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'tab-solution-types',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 30,
    },
 
@@ -148,7 +148,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'td-000020',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 32,
    },
 
@@ -156,7 +156,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'introduction',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 0,
    },
 
@@ -164,7 +164,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'problem-1',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 10,
    },
 
@@ -172,7 +172,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'tab-solution-types',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 12,
    },
 
@@ -180,7 +180,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'td-000020',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 5,
    },
 
@@ -188,7 +188,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'td-000020',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 92,
    },
 
@@ -196,7 +196,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'introduction',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 7,
    },
 
@@ -204,7 +204,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'problem-1',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 18,
    },
 
@@ -212,7 +212,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'tab-solution-types',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 15,
    },
 
@@ -220,7 +220,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'td-000020',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 39,
    },
 
@@ -228,7 +228,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'introduction',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 4,
    },
 
@@ -236,7 +236,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'problem-1',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 5,
    },
 
@@ -244,7 +244,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'tab-solution-types',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 2,
    },
 
@@ -252,7 +252,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'td-000020',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 18,
    },
 
@@ -260,7 +260,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'introduction',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 4,
    },
 
@@ -268,7 +268,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'problem-1',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 10,
    },
 
@@ -276,7 +276,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'tab-solution-types',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 4,
    },
 
@@ -284,7 +284,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'td-000020',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 193,
    },
 
@@ -292,7 +292,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'introduction',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 9,
    },
 
@@ -300,7 +300,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'problem-1',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 26,
    },
 
@@ -308,7 +308,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'tab-solution-types',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 22,
    },
 
@@ -316,7 +316,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'td-000020',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 'SML::PreformattedBlock',
    },
 
@@ -324,7 +324,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'introduction',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 'SML::Element',
    },
 
@@ -332,7 +332,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'problem-1',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 'SML::PreformattedBlock',
    },
 
@@ -340,7 +340,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'tab-solution-types',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 'SML::PreformattedBlock',
    },
 
@@ -348,7 +348,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'td-000020',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => '>>>DOCUMENT',
    },
 
@@ -356,7 +356,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'introduction',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => '* Introduction',
    },
 
@@ -364,7 +364,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'problem-1',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => '>>>problem',
    },
 
@@ -372,7 +372,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'tab-solution-types',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => '---TABLE',
    },
 
@@ -380,7 +380,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'td-000020',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 9,
    },
 
@@ -388,7 +388,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'introduction',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 4,
    },
 
@@ -396,7 +396,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'problem-1',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 5,
    },
 
@@ -404,7 +404,7 @@ my $testdata =
    {
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'tab-solution-types',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 2,
    },
 
@@ -413,7 +413,7 @@ my $testdata =
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'td-000020',
     name      => 'title',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 'SML::Property',
    },
 
@@ -422,7 +422,7 @@ my $testdata =
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'introduction',
     name      => 'type',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 'SML::Property',
    },
 
@@ -431,7 +431,7 @@ my $testdata =
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'problem-1',
     name      => 'title',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 'SML::Property',
    },
 
@@ -440,7 +440,7 @@ my $testdata =
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'tab-solution-types',
     name      => 'id',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 'SML::Property',
    },
 
@@ -449,7 +449,7 @@ my $testdata =
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'td-000020',
     name      => 'title',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 'Section Structure With Regions',
    },
 
@@ -458,7 +458,7 @@ my $testdata =
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'introduction',
     name      => 'type',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 'chapter',
    },
 
@@ -467,7 +467,7 @@ my $testdata =
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'problem-1',
     name      => 'title',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 'Problem One',
    },
 
@@ -476,7 +476,7 @@ my $testdata =
     testfile  => 'library/testdata/td-000020.txt',
     divid     => 'tab-solution-types',
     name      => 'id',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
     expected  => 'tab-solution-types',
    },
 
@@ -497,7 +497,7 @@ my $testdata =
    get_id_path_test_1 =>
    {
     testfile  => 'library/testdata/td-000020.txt',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
    },
 
   };
@@ -741,7 +741,7 @@ sub get_containing_division_ok {
   my $divid    = $testdata->{$testid}{divid};
   my $config   = $testdata->{$testid}{config};
   my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filespec=>$config);
+  my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
   my $fragment = $parser->parse($testfile);
   my $division = $library->get_division($divid);
@@ -764,7 +764,7 @@ sub get_part_list_ok {
   my $divid    = $testdata->{$testid}{divid};
   my $config   = $testdata->{$testid}{config};
   my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filespec=>$config);
+  my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
   my $fragment = $parser->parse($testfile);
   my $division = $library->get_division($divid);
@@ -787,7 +787,7 @@ sub get_line_list_ok {
   my $divid    = $testdata->{$testid}{divid};
   my $config   = $testdata->{$testid}{config};
   my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filespec=>$config);
+  my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
   my $fragment = $parser->parse($testfile);
   my $division = $library->get_division($divid);
@@ -810,7 +810,7 @@ sub get_division_list_ok {
   my $divid    = $testdata->{$testid}{divid};
   my $config   = $testdata->{$testid}{config};
   my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filespec=>$config);
+  my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
   my $fragment = $parser->parse($testfile);
   my $division = $library->get_division($divid);
@@ -833,7 +833,7 @@ sub get_section_list_ok {
   my $divid    = $testdata->{$testid}{divid};
   my $config   = $testdata->{$testid}{config};
   my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filespec=>$config);
+  my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
   my $fragment = $parser->parse($testfile);
   my $division = $library->get_division($divid);
@@ -856,7 +856,7 @@ sub get_block_list_ok {
   my $divid    = $testdata->{$testid}{divid};
   my $config   = $testdata->{$testid}{config};
   my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filespec=>$config);
+  my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
   my $fragment = $parser->parse($testfile);
   my $division = $library->get_division($divid);
@@ -879,7 +879,7 @@ sub get_element_list_ok {
   my $divid    = $testdata->{$testid}{divid};
   my $config   = $testdata->{$testid}{config};
   my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filespec=>$config);
+  my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
   my $fragment = $parser->parse($testfile);
   my $division = $library->get_division($divid);
@@ -902,7 +902,7 @@ sub get_preamble_line_list_ok {
   my $divid    = $testdata->{$testid}{divid};
   my $config   = $testdata->{$testid}{config};
   my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filespec=>$config);
+  my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
   my $fragment = $parser->parse($testfile);
   my $division = $library->get_division($divid);
@@ -925,7 +925,7 @@ sub get_narrative_line_list_ok {
   my $divid    = $testdata->{$testid}{divid};
   my $config   = $testdata->{$testid}{config};
   my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filespec=>$config);
+  my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
   my $fragment = $parser->parse($testfile);
   my $division = $library->get_division($divid);
@@ -948,7 +948,7 @@ sub get_first_part_ok {
   my $divid    = $testdata->{$testid}{divid};
   my $config   = $testdata->{$testid}{config};
   my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filespec=>$config);
+  my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
   my $fragment = $parser->parse($testfile);
   my $division = $library->get_division($divid);
@@ -971,7 +971,7 @@ sub get_first_line_ok {
   my $divid    = $testdata->{$testid}{divid};
   my $config   = $testdata->{$testid}{config};
   my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filespec=>$config);
+  my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
   my $fragment = $parser->parse($testfile);
   my $division = $library->get_division($divid);
@@ -999,7 +999,7 @@ sub get_property_list_ok {
   my $divid    = $testdata->{$testid}{divid};
   my $config   = $testdata->{$testid}{config};
   my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filespec=>$config);
+  my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
   my $fragment = $parser->parse($testfile);
   my $division = $library->get_division($divid);
@@ -1023,7 +1023,7 @@ sub get_property_ok {
   my $name     = $testdata->{$testid}{name};
   my $config   = $testdata->{$testid}{config};
   my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filespec=>$config);
+  my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
   my $fragment = $parser->parse($testfile);
   my $division = $library->get_division($divid);
@@ -1047,7 +1047,7 @@ sub get_property_value_ok {
   my $name     = $testdata->{$testid}{name};
   my $config   = $testdata->{$testid}{config};
   my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filespec=>$config);
+  my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
   my $fragment = $parser->parse($testfile);
   my $division = $library->get_division($divid);
@@ -1088,8 +1088,8 @@ sub warning_ok {
   my $warning_1 = $testdata->{$testid}{warning_1};
   my $warning_2 = $testdata->{$testid}{warning_2};
 
-  my $config    = 'library/library.conf';
-  my $library   = SML::Library->new(config_filespec=>$config);
+  my $config    = 'library.conf';
+  my $library   = SML::Library->new(config_filename=>$config);
   my $parser    = $library->get_parser;
 
   my $t1logger  = Test::Log4perl->get_logger('sml.division');
@@ -1118,7 +1118,7 @@ sub get_id_path_ok {
   # arrange
   my $testfile      = $testdata->{$testid}{testfile};
   my $config        = $testdata->{$testid}{config};
-  my $library       = SML::Library->new(config_filespec=>$config);
+  my $library       = SML::Library->new(config_filename=>$config);
   my $parser        = $library->get_parser;
   my $fragment      = $parser->parse($testfile);
   my $division_list = $fragment->get_division_list;
