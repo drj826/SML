@@ -23,16 +23,16 @@ $mm = '0' . $mm until length $mm == 2;
 $dd = '0' . $dd until length $dd == 2;
 my $date = "$yyyy-$mm-$dd";
 
-my $config_file = 'library.conf';
-my $library     = SML::Library->new(config_filename=>$config_file);
-my $parser      = $library->get_parser;
-my $fragment    = undef;
-my $block       = undef;          # SML::Block object
-my $line        = undef;          # SML::Line object
-my $testid      = '';             # Test Data ID
-my $content     = '';             # content string
-my $html        = '';             # HTML string
-my $error       = '';             # expected error
+my $config_filename = 'library.conf';
+my $library         = SML::Library->new(config_filename=>$config_filename);
+my $parser          = $library->get_parser;
+my $fragment        = undef;
+my $block           = undef;          # SML::Block object
+my $line            = undef;          # SML::Line object
+my $testid          = '';             # Test Data ID
+my $content         = '';             # content string
+my $html            = '';             # HTML string
+my $error           = '';             # expected error
 
 #---------------------------------------------------------------------
 # Test Data
@@ -807,7 +807,7 @@ my $testdata =
    get_name_path_test_1 =>
    {
     testfile  => 'library/testdata/td-000020.txt',
-    config    => 'library/library.conf',
+    config    => 'library.conf',
    },
 
   };

@@ -12,6 +12,8 @@ use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.division');
 
+use lib "..";
+
 use SML;
 use SML::Property;
 
@@ -743,7 +745,8 @@ sub get_first_part {
 
 sub get_first_line {
 
-  my $self       = shift;
+  my $self = shift;
+
   my $first_part = $self->get_first_part;
   my $first_line = $first_part->get_first_line;
 

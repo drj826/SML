@@ -24,7 +24,6 @@ revision:: $Revision: 15146 $
 date:: $Date: 2013-07-07 11:42:01 -0600 (Sun, 07 Jul 2013) $
 
 ######################################################################
-# Revisions
 
 ---REVISIONS
 
@@ -6973,17 +6972,4 @@ e5ae1c93144c5a9a81eeb30f3884d65e12fa6988 incl/glossary-cmmi.txt
 857c45a18e45b63f73d596d4bd32fbb7f83b3cb3 incl/sources-cmmi.txt
 a6b1000962d5a72f3cb7a4e0636aaa289f697188 incl/sources-ieee.txt
 0b65740376b5d9a28d38d2280693cca8829d707d incl/sources.txt
-<<<RESOURCES
->>>RESOURCES
-7d1a480a9a1e1c0a338cb00b632651af364ba7c9 incl/bugs.txt
-a3137427c73ff3bd57c7fdc8e17af7300d85f2ac incl/glossary-cmmi.txt
-6e50ef1849b6c2aa6b0fad625ecc87732234a9c5 incl/glossary-ieee.txt
-b55a793faca0a603098d2efc97f4ecf1f3dd92ef incl/glossary-sml.txt
-c7ae1a97b452170a62edf0b858df44ca22547ee5 incl/sml-content-summary.txt
-ead85c7a2d83e5d2b42546e579126499d5901513 incl/sml-presentation-summary.txt
-69e7ec6e4adb782a2df49967856972b3376fd70c incl/sml-special-summary.txt
-cf5b51333a67b060b3586a2fc5a23b16b48a3406 incl/sml-structure-summary.txt
-332002a6ac00ad4bf9280c138272be193590e466 incl/sources-cmmi.txt
-7fe63a30872708baab2f4c9932b8ffd5b34a66ed incl/sources-ieee.txt
-9f9a3cef0186f611bd99e55b038df7c19604a692 incl/sources.txt
 <<<RESOURCES

@@ -14,7 +14,7 @@ use Carp;
 
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
-my $logger = Log::Log4perl::get_logger('sml.ontology');
+my $logger = Log::Log4perl::get_logger('sml.Ontology');
 
 use SML;
 use SML::OntologyRule;
@@ -127,30 +127,39 @@ has 'required_properties_hash' =>
 
 sub add_rules {
 
-  my $self      = shift;
-  my $rule_file = shift;
-  my $sml       = SML->instance;
-  my $syntax    = $sml->get_syntax;
+  my $self          = shift;
+  my $rule_filename = shift;
+
+  local $_;
+
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
 
   #-------------------------------------------------------------------
   # rule file not readable?
   #
-  if ( not -r "$rule_file" )
+  if ( not -r "$rule_filename" )
     {
       my $dir = getcwd;
-      $logger->logdie("$rule_file not readable from $dir");
+      $logger->logdie("$rule_filename not readable from $dir");
     }
 
   #-------------------------------------------------------------------
   # Read ontology configuration file
   #
-  open my $fh, '<', $rule_file or croak("Couldn't open $rule_file");
-  my @rules_file_lines = <$fh>;
-  close $fh or croak("Couldn't close $rule_file");
+  my $line_list = [];
 
-  for (@rules_file_lines)
+  open my $fh, '<', $rule_filename or croak("Couldn't open $rule_filename");
+  @{ $line_list } = <$fh>;
+  close $fh;
+
+  for (@{ $line_list })
     {
-      chomp;
+      # chomp;
+
+      s/\\n$//;                         # why doesn't chomp work?
+
+      # $logger->debug("line: $_");
 
       if ( /$syntax->{comment_line}/ ) {
 	next;
@@ -177,7 +186,7 @@ sub add_rules {
       my $required        = $util->trim_whitespace( $field->[8] );
       my $imply_only      = $util->trim_whitespace( $field->[9] );
 
-      # $logger->warn("$rule_id $rule_type $entity_name $property_name $name_or_value");
+      $logger->debug("$rule_id $rule_type $entity_name $property_name $name_or_value");
 
       my $rule = SML::OntologyRule->new
 	(

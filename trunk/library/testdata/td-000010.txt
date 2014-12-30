@@ -14,7 +14,7 @@ into the document.
 
 ---PREFORMATTED
 
-script:: ipconfig
+script:: dir
 
 ---PREFORMATTED
 

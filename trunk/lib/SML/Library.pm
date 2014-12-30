@@ -16,7 +16,7 @@ use File::Basename;
 
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
-my $logger = Log::Log4perl::get_logger('sml.library');
+my $logger = Log::Log4perl::get_logger('sml.Library');
 
 use SML;
 use SML::Parser;
@@ -38,7 +38,7 @@ has 'config_filename' =>
   (
    isa      => 'Str',
    reader   => 'get_config_filename',
-   required => 1,
+   default  => 'library.conf',
   );
 
 ######################################################################
@@ -122,14 +122,42 @@ has 'references' =>
 
 ######################################################################
 
+has 'lib_ontology_config_filename' =>
+  (
+   isa       => 'Str',
+   reader    => '_get_lib_ontology_config_filename',
+   writer    => '_set_lib_ontology_config_filename',
+   default   => 'ontology_rules_lib.conf',
+  );
+
+######################################################################
+
+has 'lib_ontology_config_filespec' =>
+  (
+   isa       => 'Str',
+   reader    => '_get_lib_ontology_config_filespec',
+   lazy      => 1,
+   builder   => '_build_lib_ontology_config_filespec',
+  );
+
+######################################################################
+
+has 'sml_ontology_config_filename' =>
+  (
+   isa       => 'Str',
+   reader    => '_get_sml_ontology_config_filename',
+   writer    => '_set_sml_ontology_config_filename',
+   default   => 'ontology_rules_sml.conf',
+  );
+
+######################################################################
+
 has 'sml_ontology_config_filespec' =>
   (
    isa       => 'Str',
-   reader    => 'get_sml_ontology_config_filespec',
-   writer    => '_set_sml_ontology_config_filespec',
-   clearer   => '_clear_sml_ontology_config_filespec',
-   predicate => '_has_sml_ontology_config_filespec',
-   default   => 'sml_ontology.conf',
+   reader    => '_get_sml_ontology_config_filespec',
+   lazy      => 1,
+   builder   => '_build_sml_ontology_config_filespec',
   );
 
 # The SML ontology configuration file contains the core rules for the
@@ -140,11 +168,9 @@ has 'sml_ontology_config_filespec' =>
 has 'lib_ontology_config_filespec' =>
   (
    isa       => 'Str',
-   reader    => 'get_lib_ontology_config_filespec',
-   writer    => '_set_lib_ontology_config_filespec',
-   clearer   => '_clear_lib_ontology_config_filespec',
-   predicate => '_has_lib_ontology_config_filespec',
-   default   => 'lib_ontology.conf',
+   reader    => '_get_lib_ontology_config_filespec',
+   lazy      => 1,
+   builder   => '_build_lib_ontology_config_filespec',
   );
 
 # The library ontology configuration file contains the ontology rules
@@ -209,6 +235,17 @@ has 'revision' =>
    predicate => '_has_revision',
    default   => 'lib',
   );
+
+######################################################################
+
+has 'directory_name' =>
+  (
+   isa       => 'Str',
+   reader    => 'get_directory_name',
+   default   => 'library',
+  );
+
+# This is the name of the directory containing the library.
 
 ######################################################################
 
@@ -1875,16 +1912,17 @@ sub update_status_from_outcome {
 
 sub BUILD {
 
-  my $self           = shift;
-  my $config_file    = $self->get_config_filespec;
-  my $sml            = SML->instance;
-  my $syntax         = $sml->get_syntax;
-  my $ontology       = $sml->get_ontology;
-  my %config         = ();
-  my $directory_path = q{};
-  my $catalog_file   = q{};
-  my $current_dir    = getcwd;
-  my $library_dir    = dirname($config_file);
+  my $self = shift;
+
+  my $config_filespec = $self->get_config_filespec;
+  my $sml             = SML->instance;
+  my $syntax          = $sml->get_syntax;
+  my $ontology        = $sml->get_ontology;
+  my %config          = ();
+  my $directory_path  = q{};
+  my $catalog_file    = q{};
+  my $current_dir     = getcwd;
+  my $library_dir     = dirname($config_filespec);
 
   use Config::General;
   use SML::Parser;
@@ -1892,14 +1930,14 @@ sub BUILD {
   #-------------------------------------------------------------------
   # read the config file
   #
-  if ( not -f $config_file )
+  if ( not -f $config_filespec )
     {
-      die "Couldn't read $config_file\n";
+      die "Couldn't read $config_filespec\n";
     }
 
   else
     {
-      my $config = Config::General->new($config_file);
+      my $config = Config::General->new($config_filespec);
       %config = $config->getall;
     }
 
@@ -1945,20 +1983,28 @@ sub BUILD {
   #
   if ( $config{'sml_ontology_config_file'} )
     {
-      my $sml_ont_config_file = "$library_dir/$config{'sml_ontology_config_file'}";
-      $self->_set_sml_ontology_config_filespec($sml_ont_config_file);
-      $ontology->add_rules($sml_ont_config_file);
+      my $filename = "$config{'sml_ontology_config_file'}";
+      $self->_set_sml_ontology_config_filename($filename);
     }
+
+  my $sml_ontology_config_filespec = $self->_get_sml_ontology_config_filespec;
+  $ontology->add_rules($sml_ontology_config_filespec);
+
+  $logger->debug("added ontology rules from $sml_ontology_config_filespec");
 
   #-------------------------------------------------------------------
   # add LIB ontology rules
   #
   if ( $config{'lib_ontology_config_file'} )
     {
-      my $lib_ont_config_file = "$library_dir/$config{'lib_ontology_config_file'}";
-      $self->_set_lib_ontology_config_filespec($lib_ont_config_file);
-      $ontology->add_rules($lib_ont_config_file);
+      my $filename = "$config{'lib_ontology_config_file'}";
+      $self->_set_lib_ontology_config_filename($filename);
     }
+
+  my $lib_ontology_config_filespec = $self->_get_lib_ontology_config_filespec;
+  $ontology->add_rules($lib_ontology_config_filespec);
+
+  $logger->debug("added ontology rules from $lib_ontology_config_filespec");
 
   #-------------------------------------------------------------------
   # read the catalog file
@@ -1996,17 +2042,21 @@ sub BUILD {
 
 sub _build_config_filespec {
 
+  # Find the configuration file by looking for it in a list of
+  # directories.
+
   use FindBin qw($Bin);
 
   my $self = shift;
 
-  my $filename = $self->get_config_filename;
+  my $directory_name = $self->get_directory_name;
+  my $filename       = $self->get_config_filename;
 
   my $dir_list =
     [
-     "$Bin/library",
-     "$Bin/../library",
-     "$Bin/../../library",
+     "$Bin/$directory_name",
+     "$Bin/../$directory_name",
+     "$Bin/../../$directory_name",
     ];
 
   foreach my $dir (@{ $dir_list })
@@ -2019,6 +2069,67 @@ sub _build_config_filespec {
     }
 
   $logger->error("COULD NOT LOCATE LIBRARY CONFIG FILE");
+  return 0;
+}
+
+######################################################################
+
+sub _build_sml_ontology_config_filespec {
+
+  use FindBin qw($Bin);
+
+  my $self = shift;
+
+  my $directory_name = $self->get_directory_name;
+  my $filename       = $self->_get_sml_ontology_config_filename;
+
+  my $dir_list =
+    [
+     "$Bin/$directory_name",
+     "$Bin/../$directory_name",
+     "$Bin/../../$directory_name",
+    ];
+
+  foreach my $dir (@{ $dir_list })
+    {
+      if ( -r "$dir/$filename" )
+	{
+	  $logger->info("SML ontology config filespec: $dir/$filename");
+	  return "$dir/$filename";
+	}
+    }
+
+  $logger->error("COULD NOT LOCATE SML ONTOLOGY CONFIG FILE");
+  return 0;
+}
+
+######################################################################
+
+sub _build_lib_ontology_config_filespec {
+
+  use FindBin qw($Bin);
+
+  my $self = shift;
+
+  my $filename = $self->_get_lib_ontology_config_filename;
+
+  my $dir_list =
+    [
+     "$Bin/library",
+     "$Bin/../library",
+     "$Bin/../../library",
+    ];
+
+  foreach my $dir (@{ $dir_list })
+    {
+      if ( -r "$dir/$filename" )
+	{
+	  $logger->info("library ontology config filespec: $dir/$filename");
+	  return "$dir/$filename";
+	}
+    }
+
+  $logger->error("COULD NOT LOCATE LIBRARY ONTOLOGY CONFIG FILE");
   return 0;
 }
 

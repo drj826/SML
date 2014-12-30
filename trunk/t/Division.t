@@ -980,7 +980,9 @@ sub get_first_line_ok {
   my $line     = $division->get_first_line;
   my $result   = $line->get_content;
 
-  chomp $result;
+  # chomp($result);
+
+  $result =~ s/[\r\n]*$//;
 
   # assert
   is($result, $expected, "get_first_line ($divid) $result");
@@ -1124,9 +1126,9 @@ sub get_id_path_ok {
   # act
   foreach my $division (@{ $division_list })
     {
-      my $path    = $division->get_id_path;
+      my $path = $division->get_id_path;
 
-      print "$path\n";
+      # print "$path\n";
     }
 
   # assert

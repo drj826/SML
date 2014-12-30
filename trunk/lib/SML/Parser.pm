@@ -8,6 +8,7 @@ use version; our $VERSION = qv('2.0.0');
 
 use namespace::autoclean;
 
+use lib "..";
 use Text::Wrap;
 use Cwd;
 use Carp;
@@ -119,7 +120,7 @@ sub parse {
   my $fragment = SML::Fragment->new(file=>$file);
 
   $self->_init;
-  $self->_set_line_list( $fragment->_get_line_list );
+  $self->_set_line_list( $fragment->get_line_list );
   $self->_set_fragment( $fragment );
 
   do
@@ -1002,7 +1003,7 @@ sub _resolve_includes {
 	  elsif ( $incl_id and $library->has_division( $incl_id ) )
 	    {
 	      $division = $library->get_division($incl_id);
-	      $included_lines = $division->_get_line_list;
+	      $included_lines = $division->get_line_list;
 	    }
 
 	  #-----------------------------------------------------------
@@ -1077,7 +1078,7 @@ sub _resolve_includes {
 		 $args =~ /flat:/
 		)
 	    {
-	      foreach my $line (@{ $division->_get_line_list }) {
+	      foreach my $line (@{ $division->get_line_list }) {
 		my $content = $line->get_content;
 		if ($content =~ /^(title::\s|\*+\s)/)
 		  {
@@ -1101,7 +1102,7 @@ sub _resolve_includes {
 
 	      push @{ $included_lines }, $begin_line;
 
-	      foreach my $line (@{ $division->_get_line_list })
+	      foreach my $line (@{ $division->get_line_list })
 		{
 		  push @{ $included_lines }, $line;
 		}
@@ -1118,7 +1119,7 @@ sub _resolve_includes {
 		 $args =~ /raw:/
 		)
 	    {
-	      foreach my $line (@{ $division->_get_line_list })
+	      foreach my $line (@{ $division->get_line_list })
 		{
 		  push @{ $included_lines }, $line;
 		}
@@ -1153,7 +1154,7 @@ sub _resolve_includes {
 		{
 		  $fragment = $library->get_fragment($included_filespec);
 
-		  foreach my $line (@{ $fragment->_get_line_list })
+		  foreach my $line (@{ $fragment->get_line_list })
 		    {
 		      push @{ $included_lines }, $line;
 		    }
