@@ -55,8 +55,8 @@ BEGIN {
 #---------------------------------------------------------------------
 
 # arrange
-my $config   = 'library/library.conf';
-my $library  = SML::Library->new(config_filespec=>$config);
+my $config   = 'library.conf';
+my $library  = SML::Library->new(config_filename=>$config);
 my $filespec = 'library/testdata/td-000001.txt';
 my $file     = SML::File->new(filespec=>$filespec);
 

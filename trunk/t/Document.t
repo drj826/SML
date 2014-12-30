@@ -243,8 +243,8 @@ sub warning_ok {
   my $warning_1 = $testdata->{$testid}{warning_1};
   my $warning_2 = $testdata->{$testid}{warning_2};
 
-  my $config    = 'library/library.conf';
-  my $library   = SML::Library->new(config_filespec=>$config);
+  my $config    = 'library.conf';
+  my $library   = SML::Library->new(config_filename=>$config);
   my $parser    = $library->get_parser;
 
   my $t1logger  = Test::Log4perl->get_logger('sml.document');

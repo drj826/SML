@@ -409,8 +409,8 @@ sub parse_ok {
   my $testid = shift;
 
   # arrange
-  my $config_file = 'library/library.conf';
-  my $library     = SML::Library->new(config_filespec=>$config_file);
+  my $config_file = 'library.conf';
+  my $library     = SML::Library->new(config_filename=>$config_file);
   my $parser      = $library->get_parser;
   my $filespec    = $testdata->{$testid}{'testfile'};
   my $expected    = 1;
@@ -430,8 +430,8 @@ sub extract_division_name_ok {
   my $testid = shift;
 
   # arrange
-  my $config_file = 'library/library.conf';
-  my $library     = SML::Library->new(config_filespec=>$config_file);
+  my $config_file = 'library.conf';
+  my $library     = SML::Library->new(config_filename=>$config_file);
   my $parser      = $library->get_parser;
   my $filespec    = $testdata->{$testid}{'testfile'};
   my $expected    = $testdata->{$testid}{'divname'};
@@ -452,8 +452,8 @@ sub extract_title_text_ok {
   my $testid = shift;
 
   # arrange
-  my $config_file = 'library/library.conf';
-  my $library     = SML::Library->new(config_filespec=>$config_file);
+  my $config_file = 'library.conf';
+  my $library     = SML::Library->new(config_filename=>$config_file);
   my $parser      = $library->get_parser;
   my $filespec    = $testdata->{$testid}{'testfile'};
   my $expected    = $testdata->{$testid}{'title'};
@@ -474,8 +474,8 @@ sub extract_preamble_lines_ok {
   my $testid = shift;
 
   # arrange
-  my $config_file = 'library/library.conf';
-  my $library     = SML::Library->new(config_filespec=>$config_file);
+  my $config_file = 'library.conf';
+  my $library     = SML::Library->new(config_filename=>$config_file);
   my $parser      = $library->get_parser;
   my $filespec    = $testdata->{$testid}{'testfile'};
   my $expected    = $testdata->{$testid}{'preamble_size'};
@@ -497,8 +497,8 @@ sub extract_narrative_lines_ok {
   my $testid = shift;
 
   # arrange
-  my $config_file = 'library/library.conf';
-  my $library     = SML::Library->new(config_filespec=>$config_file);
+  my $config_file = 'library.conf';
+  my $library     = SML::Library->new(config_filename=>$config_file);
   my $parser      = $library->get_parser;
   my $filespec    = $testdata->{$testid}{'testfile'};
   my $expected    = $testdata->{$testid}{'narrative_size'};

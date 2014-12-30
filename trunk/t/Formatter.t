@@ -71,7 +71,7 @@ sub format_block_ok {
   my $style     = $testdata->{$testid}{style};
   my $expected  = $testdata->{$testid}{expected};
   my $config    = $testdata->{$testid}{config};
-  my $library   = SML::Library->new(config_filespec=>$config);
+  my $library   = SML::Library->new(config_filename=>$config);
   my $line      = SML::Line->new();
   my $block     = SML::block->new();
   my $formatter = $library->get_formatter;
@@ -94,7 +94,7 @@ sub format_division_ok {
   my $style     = $testdata->{$testid}{style};
   my $expected  = $testdata->{$testid}{expected};
   my $config    = $testdata->{$testid}{config};
-  my $library   = SML::Library->new(config_filespec=>$config);
+  my $library   = SML::Library->new(config_filename=>$config);
   my $line      = SML::Line->new();
   my $block     = SML::block->new();
   my $formatter = $library->get_formatter;

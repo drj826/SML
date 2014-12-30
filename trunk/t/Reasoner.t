@@ -28,8 +28,8 @@ BEGIN {
 #---------------------------------------------------------------------
 
 # arrange
-my $config_file = 'library/library.conf';
-my $library     = SML::Library->new(config_filespec=>$config_file);
+my $config_file = 'library.conf';
+my $library     = SML::Library->new(config_filename=>$config_file);
 
 # act
 my $obj = SML::Reasoner->new(id=>'reasoner-0',library=>$library);
