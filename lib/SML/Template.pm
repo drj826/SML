@@ -1,55 +1,12 @@
 #!/usr/bin/perl
 
+# $Id: Template.pm 11633 2012-12-04 23:07:21Z don.johnson $
+
 package SML::Template;
 
 use Moose;
 
 use version; our $VERSION = qv('2.0.0');
-
-#---------------------------------------------------------------------
-# $Id: template.pm 11633 2012-12-04 23:07:21Z don.johnson $
-#
-#     ci-000nnn
-#
-#---------------------------------------------------------------------
-# Public Methods
-#
-#     name                                 type
-#     -----------------------------------  ---------------------------
-#     <NONE>
-#
-#---------------------------------------------------------------------
-# Attributes
-#
-#     name                                 type
-#     -----------------------------------  ---------------------------
-#   + name                       	   Str
-#
-#---------------------------------------------------------------------
-# Private Methods
-#
-#     name                                 type
-#     -----------------------------------  ---------------------------
-#     <NONE>
-#
-#---------------------------------------------------------------------
-# Copyright
-#
-#     Copyright (c) 2012, Don Johnson (drj826@acm.org)
-#
-#     Distributed under the terms of the Gnu General Public License
-#     (version 2, 1991)
-#
-#     This software is distributed in the hope that it will be
-#     useful, but WITHOUT ANY WARRANTY; without even the implied
-#     warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-#     PURPOSE.  See the GNU License for more details.
-#
-#     MODIFICATIONS AND ENHANCEMENTS TO THIS SOFTWARE OR WORKS
-#     DERIVED FROM THIS SOFTWARE MUST BE MADE FREELY AVAILABLE
-#     UNDER THESE SAME TERMS.
-#
-#---------------------------------------------------------------------
 
 use namespace::autoclean;
 
@@ -60,7 +17,7 @@ my $logger = Log::Log4perl::get_logger('sml.template');
 ######################################################################
 ######################################################################
 ##
-## Attributes
+## Public Attributes
 ##
 ######################################################################
 ######################################################################
@@ -69,6 +26,14 @@ my $logger = Log::Log4perl::get_logger('sml.template');
 ######################################################################
 ##
 ## Public Methods
+##
+######################################################################
+######################################################################
+
+######################################################################
+######################################################################
+##
+## Private Attributes
 ##
 ######################################################################
 ######################################################################
