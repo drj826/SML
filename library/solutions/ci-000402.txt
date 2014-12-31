@@ -28,7 +28,7 @@ label::     lis-audio-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Audio.pm
+file::      ../../lib/SML/Audio.pm
 ---LISTING
 
 [clearpage]

@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../Entity.t
+file::        ../../t/Entity.t
 ---LISTING
 
 [ref:lis-item-pm-unit-test-results] shows the results of executing the

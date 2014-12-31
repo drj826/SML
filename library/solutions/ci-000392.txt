@@ -28,7 +28,7 @@ label::     lis-section-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Section.pm
+file::      ../../lib/SML/Section.pm
 ---LISTING
 
 [clearpage]

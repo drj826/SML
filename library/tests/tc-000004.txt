@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../SML.t
+file::        ../../t/SML.t
 ---LISTING
 
 [ref:lis-sml-pm-unit-test-results] shows the results of executing the

@@ -28,7 +28,7 @@ label::     lis-figure-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Figure.pm
+file::      ../../lib/SML/Figure.pm
 ---LISTING
 
 [clearpage]

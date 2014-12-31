@@ -28,7 +28,7 @@ label::     lis-comment-block-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/CommentBlock.pm
+file::      ../../lib/SML/CommentBlock.pm
 ---LISTING
 
 [clearpage]

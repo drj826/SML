@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../Conditional.t
+file::        ../../t/Conditional.t
 ---LISTING
 
 [ref:lis-conditional-pm-unit-test-results] shows the results of executing

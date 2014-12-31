@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../PreformattedDivision.t
+file::        ../../t/PreformattedDivision.t
 ---LISTING
 
 [ref:lis-preformatted-pm-unit-test-results] shows the results of

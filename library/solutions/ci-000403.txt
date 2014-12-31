@@ -28,7 +28,7 @@ label::     lis-video-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Video.pm
+file::      ../../lib/SML/Video.pm
 ---LISTING
 
 [clearpage]

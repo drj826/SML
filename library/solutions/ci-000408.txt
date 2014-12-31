@@ -28,7 +28,7 @@ label::     lis-keypoints-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Keypoints.pm
+file::      ../../lib/SML/Keypoints.pm
 ---LISTING
 
 [clearpage]

@@ -28,7 +28,7 @@ label::     lis-environment-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Environment.pm
+file::      ../../lib/SML/Environment.pm
 ---LISTING
 
 [clearpage]

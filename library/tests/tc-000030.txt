@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../Audio.t
+file::        ../../t/Audio.t
 ---LISTING
 
 [ref:lis-audio-pm-unit-test-results] shows the results of executing

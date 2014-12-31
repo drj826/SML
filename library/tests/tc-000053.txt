@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../Formatter.t
+file::        ../../t/Formatter.t
 ---LISTING
 
 [ref:lis-formatter-pm-unit-test-results] shows the results of

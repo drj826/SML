@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../Sidebar.t
+file::        ../../t/Sidebar.t
 ---LISTING
 
 [ref:lis-sidebar-pm-unit-test-results] shows the results of executing

@@ -28,7 +28,7 @@ label::     lis-region-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Region.pm
+file::      ../../lib/SML/Region.pm
 ---LISTING
 
 [clearpage]

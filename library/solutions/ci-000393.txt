@@ -28,7 +28,7 @@ label::     lis-attachment-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Attachment.pm
+file::      ../../lib/SML/Attachment.pm
 ---LISTING
 
 [clearpage]

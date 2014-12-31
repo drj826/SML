@@ -28,7 +28,7 @@ label::     lis-element-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Element.pm
+file::      ../../lib/SML/Element.pm
 ---LISTING
 
 [clearpage]

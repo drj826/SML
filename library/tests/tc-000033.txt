@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../Assertion.t
+file::        ../../t/Assertion.t
 ---LISTING
 
 [ref:lis-assertion-pm-unit-test-results] shows the results of

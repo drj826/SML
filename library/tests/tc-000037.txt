@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../Keypoints.t
+file::        ../../t/Keypoints.t
 ---LISTING
 
 [ref:lis-keypoints-pm-unit-test-results] shows the results of

@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../BulletListItem.t
+file::        ../../t/BulletListItem.t
 ---LISTING
 
 [ref:lis-bullet-listitem-pm-unit-test-results] shows the results of

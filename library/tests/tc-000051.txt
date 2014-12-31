@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../Definition.t
+file::        ../../t/Definition.t
 ---LISTING
 
 [ref:lis-definition-pm-unit-test-results] shows the results of

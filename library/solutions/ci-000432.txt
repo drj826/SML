@@ -30,7 +30,7 @@ label::     lis-definition-list-item-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/DefinitionListItem.pm
+file::      ../../lib/SML/DefinitionListItem.pm
 ---LISTING
 
 [clearpage]

@@ -29,7 +29,7 @@ label::     lis-bullet-list-item-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/BulletListItem.pm
+file::      ../../lib/SML/BulletListItem.pm
 ---LISTING
 
 [clearpage]

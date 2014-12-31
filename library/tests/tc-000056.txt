@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../Paragraph.t
+file::        ../../t/Paragraph.t
 ---LISTING
 
 [ref:lis-paragraph-pm-unit-test-results] shows the results of

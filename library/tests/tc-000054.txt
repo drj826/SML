@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../Inline.t
+file::        ../../t/Inline.t
 ---LISTING
 
 [ref:lis-inline-pm-unit-test-results] shows the results of executing

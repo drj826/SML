@@ -28,7 +28,7 @@ label::     lis-preformatted-block-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/PreformattedBlock.pm
+file::      ../../lib/SML/PreformattedBlock.pm
 ---LISTING
 
 [clearpage]

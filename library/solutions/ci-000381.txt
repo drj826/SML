@@ -50,7 +50,7 @@ label::     lis-division-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Division.pm
+file::      ../../lib/SML/Division.pm
 ---LISTING
 
 [clearpage]

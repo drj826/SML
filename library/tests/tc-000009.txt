@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../File.t
+file::        ../../t/File.t
 ---LISTING
 
 [ref:lis-file-pm-unit-test-results] shows the results of executing

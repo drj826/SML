@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../TableRow.t
+file::        ../../t/TableRow.t
 ---LISTING
 
 [ref:lis-tablerow-pm-unit-test-results] shows the results of executing

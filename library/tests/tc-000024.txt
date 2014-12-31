@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../Figure.t
+file::        ../../t/Figure.t
 ---LISTING
 
 [ref:lis-figure-pm-unit-test-results] shows the results of executing
