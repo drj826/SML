@@ -1034,6 +1034,16 @@ sub validate {
       $valid = 0;
     }
 
+  if ($valid)
+    {
+      $logger->info("valid");
+    }
+
+  else
+    {
+      $logger->warn("NOT VALID");
+    }
+
   return $valid;
 }
 
