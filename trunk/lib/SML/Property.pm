@@ -117,7 +117,8 @@ sub get_value {
 
 	  $_ = $element->get_content;
 
-	  chomp;
+	  s/[\r\n]*$//;
+	  # chomp;
 
 	  if (/$syntax->{outcome_element}/)
 	    {

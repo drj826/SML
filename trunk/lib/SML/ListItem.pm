@@ -53,7 +53,8 @@ sub get_value {
 
   $_ = $self->get_content || q{};
 
-  chomp;
+  s/[\r\n]*$//;
+  # chomp;
 
   if ( /$syntax->{'list_item'}/xms )
     {

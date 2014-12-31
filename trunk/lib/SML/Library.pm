@@ -680,7 +680,8 @@ sub add_outcome {
 
   $_ = $outcome->get_content;
 
-  chomp;
+  s/[\r\n]*$//;
+  # chomp;
 
   if ( /$syntax->{outcome_element}/xms )
     {
@@ -726,7 +727,8 @@ sub add_review {
 
   $_ = $review->get_content;
 
-  chomp;
+  s/[\r\n]*$//;
+  # chomp;
 
   if ( /$syntax->{review_element}/xms )
     {
@@ -1856,7 +1858,8 @@ sub update_status_from_outcome {
 
   $_ = $outcome->get_content;
 
-  chomp;
+  s/[\r\n]*$//;
+  # chomp;
 
   if ( /$syntax->{outcome_element}/xms )
     {

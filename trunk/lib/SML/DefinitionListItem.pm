@@ -52,7 +52,8 @@ sub get_term {
 
   $_ = $self->get_content || q{};
 
-  chomp;
+  s/[\r\n]*$//;
+  # chomp;
 
   if ( /$syntax->{'def_list_item'}/xms )
     {

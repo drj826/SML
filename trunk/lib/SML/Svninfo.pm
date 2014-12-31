@@ -322,7 +322,9 @@ sub _find_svn_executable {
   elsif ( $^O eq 'linux' )
     {
       my $svn = `which svn`;
-      chomp($svn);
+
+      $svn =~ s/[\r\n]*$//;
+      # chomp($svn);
 
       if ($svn)
 	{
