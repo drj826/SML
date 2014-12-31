@@ -12,7 +12,7 @@ use Date::Pcalc qw(:all);
 
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
-my $logger = Log::Log4perl::get_logger('sml.svninfo');
+my $logger = Log::Log4perl::get_logger('sml.Svninfo');
 
 use SML::Options;
 

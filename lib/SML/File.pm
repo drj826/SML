@@ -19,7 +19,7 @@ use Digest::MD5 qw(md5_hex);
 
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
-my $logger = Log::Log4perl::get_logger('sml.file');
+my $logger = Log::Log4perl::get_logger('sml.File');
 
 use SML::Svninfo;
 
