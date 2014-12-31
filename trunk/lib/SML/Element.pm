@@ -202,7 +202,7 @@ sub validate_outcome_semantics {
       # date valid?
       if ( not $date =~ /$syntax->{valid_date}/xms )
 	{
-	  my $location = $self->location;
+	  my $location = $self->get_location;
 	  $logger->error("INVALID OUTCOME DATE at $location: \'$date\'");
 	  $valid = 0;
 	}
@@ -210,7 +210,7 @@ sub validate_outcome_semantics {
       # item under test valid?
       if ( not $library->has_division($entity_id) )
 	{
-	  my $location = $self->location;
+	  my $location = $self->get_location;
 	  $logger->error("INVALID OUTCOME ITEM at $location: \'$entity_id\'");
 	  $valid = 0;
 	}
@@ -218,7 +218,7 @@ sub validate_outcome_semantics {
       # status valid?
       if ( not $status =~ /$syntax->{valid_status}/xms )
 	{
-	  my $location = $self->location;
+	  my $location = $self->get_location;
 	  $logger->error("INVALID OUTCOME STATUS at $location: must be green, yellow, red, or grey");
 	  $valid = 0;
 	}
@@ -226,7 +226,7 @@ sub validate_outcome_semantics {
       # description valid?
       if ( not $description =~ /$syntax->{valid_description}/xms )
 	{
-	  my $location = $self->location;
+	  my $location = $self->get_location;
 	  $logger->error("INVALID OUTCOME DESCRIPTION at $location: description not provided");
 	  $valid = 0;
 	}
@@ -236,7 +236,7 @@ sub validate_outcome_semantics {
 
   else
     {
-      my $location = $self->location;
+      my $location = $self->get_location;
       $logger->error("This should never happen (at $location)");
       $valid = 0;
     }
