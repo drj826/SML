@@ -13,7 +13,7 @@ use namespace::autoclean;
 
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
-my $logger = Log::Log4perl::get_logger('sml.sml');
+my $logger = Log::Log4perl::get_logger('sml.SML');
 
 use SML::Syntax;
 use SML::Ontology;

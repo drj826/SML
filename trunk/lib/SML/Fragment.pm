@@ -17,7 +17,7 @@ use Carp;
 
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
-my $logger = Log::Log4perl::get_logger('sml.fragment');
+my $logger = Log::Log4perl::get_logger('sml.Fragment');
 
 ######################################################################
 ######################################################################

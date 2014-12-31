@@ -12,7 +12,7 @@ use namespace::autoclean;
 
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
-my $logger = Log::Log4perl::get_logger('sml.paragraph');
+my $logger = Log::Log4perl::get_logger('sml.Paragraph');
 
 ######################################################################
 ######################################################################

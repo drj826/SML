@@ -17,7 +17,7 @@ use English;
 
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
-my $logger = Log::Log4perl::get_logger('sml.parser');
+my $logger = Log::Log4perl::get_logger('sml.Parser');
 
 # core classes
 use SML;                        # ci-000002
