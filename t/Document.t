@@ -14,7 +14,7 @@ use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
 use Test::Log4perl;
-my $t1logger = Test::Log4perl->get_logger('sml.document');
+my $t1logger = Test::Log4perl->get_logger('sml.Document');
 
 #---------------------------------------------------------------------
 # Test Data
@@ -247,7 +247,7 @@ sub warning_ok {
   my $library   = SML::Library->new(config_filename=>$config);
   my $parser    = $library->get_parser;
 
-  my $t1logger  = Test::Log4perl->get_logger('sml.document');
+  my $t1logger  = Test::Log4perl->get_logger('sml.Document');
 
   Test::Log4perl->start( ignore_priority => "info" );
   $t1logger->warn(qr/$warning_1/);

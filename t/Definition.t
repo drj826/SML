@@ -12,7 +12,7 @@ use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
 use Test::Log4perl;
-my $t1logger = Test::Log4perl->get_logger('sml.definition');
+my $t1logger = Test::Log4perl->get_logger('sml.Definition');
 
 #---------------------------------------------------------------------
 # Test Data

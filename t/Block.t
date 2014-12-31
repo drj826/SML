@@ -12,8 +12,8 @@ use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
 use Test::Log4perl;
-my $t1logger = Test::Log4perl->get_logger('sml.block');
-my $t2logger = Test::Log4perl->get_logger('sml.document');
+my $t1logger = Test::Log4perl->get_logger('sml.Block');
+my $t2logger = Test::Log4perl->get_logger('sml.Document');
 
 # create a yyyy-mm-dd date stamp
 #
