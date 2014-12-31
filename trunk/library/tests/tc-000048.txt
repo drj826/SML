@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../Baretable.t
+file::        ../../t/Baretable.t
 ---LISTING
 
 [ref:lis-baretable-pm-unit-test-results] shows the results of

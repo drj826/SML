@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../TableCell.t
+file::        ../../t/TableCell.t
 ---LISTING
 
 [ref:lis-tablecell-pm-unit-test-results] shows the results of

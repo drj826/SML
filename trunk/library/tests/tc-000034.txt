@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../Slide.t
+file::        ../../t/Slide.t
 ---LISTING
 
 [ref:lis-slide-pm-unit-test-results] shows the results of executing

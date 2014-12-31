@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../EnumeratedListItem.t
+file::        ../../t/EnumeratedListItem.t
 ---LISTING
 
 [ref:lis-enumeratedlistitem-pm-unit-test-results] shows the results of

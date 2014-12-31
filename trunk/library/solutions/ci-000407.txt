@@ -28,7 +28,7 @@ label::     lis-exercise-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Exercise.pm
+file::      ../../lib/SML/Exercise.pm
 ---LISTING
 
 [clearpage]

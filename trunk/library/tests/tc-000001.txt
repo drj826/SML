@@ -31,7 +31,7 @@ title::    test.bat - Run All Unit Tests
 label::    lis-test-bat
 numbers::  left
 language:: Perl
-file::     ../../test.bat
+file::     ../../t/test.bat
 ---LISTING
 
 [ref:lis-test-bat-unit-test-results] shows the result of running each

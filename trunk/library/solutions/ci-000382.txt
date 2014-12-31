@@ -28,7 +28,7 @@ label::     lis-options-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Options.pm
+file::      ../../lib/SML/Options.pm
 ---LISTING
 
 [clearpage]

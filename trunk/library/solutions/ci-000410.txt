@@ -42,7 +42,7 @@ label::     lis-library-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Library.pm
+file::      ../../lib/SML/Library.pm
 ---LISTING
 
 [clearpage]

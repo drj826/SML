@@ -28,7 +28,7 @@ label::     lis-quotation-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Quotation.pm
+file::      ../../lib/SML/Quotation.pm
 ---LISTING
 
 [clearpage]

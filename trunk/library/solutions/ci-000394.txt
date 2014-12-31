@@ -28,7 +28,7 @@ label::     lis-revisions-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Revisions.pm
+file::      ../../lib/SML/Revisions.pm
 ---LISTING
 
 [clearpage]

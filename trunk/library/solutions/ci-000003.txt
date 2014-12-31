@@ -91,7 +91,7 @@ label::     lis-parser-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Parser.pm
+file::      ../../lib/SML/Parser.pm
 ---LISTING
 
 [ref:fig-ad-parsefile] is an activity diagram that describes how the

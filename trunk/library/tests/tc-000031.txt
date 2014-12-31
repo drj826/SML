@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../Video.t
+file::        ../../t/Video.t
 ---LISTING
 
 [ref:lis-video-pm-unit-test-results] shows the results of executing

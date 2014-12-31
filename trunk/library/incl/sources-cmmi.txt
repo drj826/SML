@@ -1,3 +1,37 @@
+# CMMI SOURCES
+
+######################################################################
+
+---SOURCE
+
+source:: misc
+
+label:: cmmi
+
+title:: CMMI for Development, Version 1.2
+
+month:: August
+
+year:: 2006
+
+note:: CMU/SEI-2006-TR-008, ESC-TR-2006-008
+
+file:: ../files/cmmi/CMMI-DEV-v1-2.pdf
+
+---SOURCE
+
+######################################################################
+
+# Local Emacs Variables
+
+# Local Variables:
+# mode: outline
+# coding: us-ascii
+# fill-column: 70
+# End:
+
+######################################################################
+
 >>>RESOURCES
-67d3df5cb776582121abf265c8b0b556665fe1ca ../files/cmmi/CMMI-DEV-v1-2.pdf
+67d3df5cb776582121abf265c8b0b556665fe1ca files/cmmi/CMMI-DEV-v1-2.pdf
 <<<RESOURCES

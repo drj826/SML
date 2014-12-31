@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../Reasoner.t
+file::        ../../t/Reasoner.t
 ---LISTING
 
 [ref:lis-reasoner-pm-unit-test-results] shows the results of executing

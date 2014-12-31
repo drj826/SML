@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../Block.t
+file::        ../../t/Block.t
 ---LISTING
 
 [ref:lis-block-pm-unit-test-results] shows the results of executing

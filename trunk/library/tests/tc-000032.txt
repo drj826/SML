@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../Region.t
+file::        ../../t/Region.t
 ---LISTING
 
 [ref:lis-region-pm-unit-test-results] shows the results of executing

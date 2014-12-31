@@ -1,10 +1,283 @@
+# IEEE SOURCES
+
+######################################################################
+
+---SOURCE
+
+source:: misc
+
+label:: ieee-std-1012-1986
+
+title:: IEEE Std 1012-1986 - IEEE Standard for Software Verification
+and Validation
+
+year:: 1986
+
+organization:: IEEE
+
+institution:: The Institute of Electrical and Electronics Engineers,
+Inc.
+
+address:: 3 Park Avenue, New York, NY 10016-5997, USA
+
+note:: This standard has been superseded by [cite:ieee-std-1012-2004]
+
+---SOURCE
+
+######################################################################
+
+---SOURCE
+
+source:: misc
+
+label:: ieee-std-1012-2004
+
+title:: IEEE Std 1012-2004 - IEEE Standard for Software Verification
+and Validation
+
+month:: April
+
+year:: 2005
+
+organization:: IEEE
+
+institution:: The Institute of Electrical and Electronics Engineers,
+Inc.
+
+address:: 3 Park Avenue, New York, NY 10016-5997, USA
+
+note:: Software verification and validation (V&V) processes determine
+whether the development products of a given activity conform to the
+requirements of that activity and whether the software satisfies its
+intended use and user needs.  Software V&V life cycle process
+requirements are specified for different software integrity levels.
+The scope of V&V processes encompasses software-based systems,
+computer software, hardware, and interfaces.  This standard applies to
+software being developed, maintained, or reused (legacy, commercial
+off-the-shelf (COTS), non-developmental items).  The term software
+also includes firmware, microcode, and documentation.  Software V&V
+processes include analysis, evaluation, review, inspection,
+assessment, and testing of software products.
+
+file:: ../files/ieee/ieee-std-1012-2004.pdf
+
+---SOURCE
+
+######################################################################
+
+---SOURCE
+
+source:: misc
+
+title:: IEEE Recommended Practice for Architectural Description for
+Software-Intensive Systems
+
+label:: ieee-std-1471-2000
+
+year:: 2000
+
+note:: This recommended practice addresses the activities of the
+creation, analysis, and sustainment of architectures of
+software-intensive systems, and the recording of such architectures in
+terms of architectural descriptions.  A conceptual framework for
+architectural description is established.  The content of an
+architectural description is defined.  Annexes provide the rationale
+for key concepts and terminology, the relationships to other
+standards, and examples of usage.
+
+file:: ../files/ieee/ieee-std-1471-2000.pdf
+
+---SOURCE
+
+######################################################################
+
+---SOURCE
+
+source:: misc
+
+title:: IEEE Standard Glossary of Software Engineering Terminology
+
+label:: ieee-std-610-12-1990
+
+year:: 1990
+
+note:: This glossary defines terms in the field of Software
+Engineering. Topics covered include addressing; assembling, compiling,
+linking, loading; computer performance evaluation; configuration
+management; data types; errors, faults, and failures; evaluation
+techniques; instruction types; language types; libraries;
+microprogramming; operating systems; quality attributes; software
+documentation; software and system testing; software architecture;
+software development process; software development techniques; and
+software tools.
+
+file:: ../files/ieee/ieee-std-610-12-1990.pdf
+
+---SOURCE
+
+######################################################################
+
+---SOURCE
+
+source:: misc
+
+title:: IEEE Standard Taxonomy for Software Engineering Standards
+
+label:: ieee-std-1002-1987
+
+year:: 1987
+
+note:: This document describes the form and content of a software
+engineering standards taxonomy. Applicability is not restricted by
+software application, size, complexity, criticality, or hardware
+environment. This taxonomy applies to standards (from the related
+disciplines of engineering management, systems engineering, computer
+hardware engineering, computer science, and information science) with
+which a software engineer would be reasonably acquainted.
+
+file:: ../files/ieee/ieee-std-1002-1987.pdf
+
+---SOURCE
+
+######################################################################
+
+---SOURCE
+
+source:: misc
+
+title:: IEEE Standard for Software Unit Testing
+
+label:: ieee-std-1008-1987
+
+year:: 1987
+
+note:: This standard's primary objective is to specify a standard
+approach to software unit testing that can be used as a basis for
+sound software engineering practice.  A second objective is to
+describe the software engineering concepts and testing assumptions on
+which this standard approach is based. This information is contained
+in Appendix B. Note that Appendix B is not a part of this standard.  A
+third objective is to provide guidance and resource information to
+assist with the implementation and usage of the standard unit testing
+approach. This information is contained in Appendixes A, C, and
+D. Note that these Appendixes are not a part of this standard.
+
+file:: ../files/ieee/ieee-std-1008-1987.pdf
+
+---SOURCE
+
+######################################################################
+
+---SOURCE
+
+source:: misc
+
+title:: Systems and software engineering -- Software Life cycle
+processes
+
+label:: ieee-std-12207-2008
+
+year:: 2008
+
+note:: This International Standard establishes a common framework for
+software life cycle processes, with well-defined terminology, that can
+be referenced by the software industry. It applies to the acquisition
+of systems and software products and services, to the supply,
+development, operation, maintenance, and disposal of software products
+and the software portion of a system, whether performed internally or
+externally to an organization. Those aspects of system definition
+needed to provide the context for software products and services are
+included. Software includes the software portion of firmware. This
+revision integrates ISO/IEC 12207:1995 with its two amendments and was
+coordinated with the parallel revision of ISO/IEC 15288:2002 (System
+life cycle processes) to align structure, terms, and corresponding
+organizational and project processes. This standard may be used stand
+alone or jointly with ISO/IEC 15288, and supplies a process reference
+model that supports process capability assessment in accordance with
+ISO/IEC 15504-2 (Process assessment). An annex provides support for
+IEEE users and describes relationships of this International Standard
+to IEEE standards.
+
+file:: ../files/ieee/ieee-std-12207-2008.pdf
+
+---SOURCE
+
+######################################################################
+
+---SOURCE
+
+source:: misc
+
+title:: Systems and software engineering -- System life cycle processes
+
+label:: ieee-std-15288-2008
+
+year:: 2008
+
+note:: This International Standard establishes a common process
+framework for describing the life cycle of man-made systems. It
+defines a set of processes and associated terminology for the full
+life cycle, including conception, development, production,
+utilization, support and retirement. This standard also supports the
+definition, control, assessment, and improvement of these
+processes. These processes can be applied concurrently, iteratively,
+and recursively to a system and its elements throughout the life cycle
+of a system.
+
+file:: ../files/ieee/ieee-std-15288-2008.pdf
+
+---SOURCE
+
+######################################################################
+
+---SOURCE
+
+source:: misc
+
+title:: IEEE Standard for Software and System Test Documentation
+
+label:: ieee-std-829-2008
+
+year:: 2008
+
+note:: Test processes determine whether the development products of a
+given activity conform to the requirements of that activity and
+whether the system and/or software satisfies its intended use and user
+needs. Testing process tasks are specified for different integrity
+levels.  These process tasks determine the appropriate breadth and
+depth of test documentation. The documentation elements for each type
+of test documentation can then be selected. The scope of testing
+encompasses software-based systems, computer software, hardware, and
+their interfaces. This standard applies to software-based systems
+being developed, maintained, or reused (legacy, commercial
+off-the-shelf, Non-Developmental Items). The term ``software'' also
+includes firmware, microcode, and documentation. Test processes can
+include inspection, analysis, demonstration, verification, and
+validation of software and software-based system products.
+
+file:: ../files/ieee/ieee-std-829-2008.pdf
+
+---SOURCE
+
+######################################################################
+
+# Local Emacs Variables
+
+# Local Variables:
+# mode: outline
+# coding: us-ascii
+# fill-column: 70
+# End:
+
+######################################################################
+
 >>>RESOURCES
-3a5a1ec73a23a5f723330c1ef62e7d0699553154 ../files/ieee/ieee-std-1002-1987.pdf
-3f8187032096bf84364c5654181bd0ea6558e4ae ../files/ieee/ieee-std-1008-1987.pdf
-e225609e4435cdafe263a2b507b99bd55af0fd7d ../files/ieee/ieee-std-1012-2004.pdf
-ef0ade388ee373f6df1d55648c3a7c74f76bc8c7 ../files/ieee/ieee-std-12207-2008.pdf
-c66405c43ad09cabf38d6768da823f2527b7b7a0 ../files/ieee/ieee-std-1471-2000.pdf
-2286e4403a749b5019172ddba73e40916ef34f54 ../files/ieee/ieee-std-15288-2008.pdf
-d34deaebe780c9441ac802ba2f4ed60b3d91bbff ../files/ieee/ieee-std-610-12-1990.pdf
-cb7347feba83d901f42b162fbb7d5d24b7c10f04 ../files/ieee/ieee-std-829-2008.pdf
+3a5a1ec73a23a5f723330c1ef62e7d0699553154 files/ieee/ieee-std-1002-1987.pdf
+3f8187032096bf84364c5654181bd0ea6558e4ae files/ieee/ieee-std-1008-1987.pdf
+e225609e4435cdafe263a2b507b99bd55af0fd7d files/ieee/ieee-std-1012-2004.pdf
+ef0ade388ee373f6df1d55648c3a7c74f76bc8c7 files/ieee/ieee-std-12207-2008.pdf
+c66405c43ad09cabf38d6768da823f2527b7b7a0 files/ieee/ieee-std-1471-2000.pdf
+2286e4403a749b5019172ddba73e40916ef34f54 files/ieee/ieee-std-15288-2008.pdf
+d34deaebe780c9441ac802ba2f4ed60b3d91bbff files/ieee/ieee-std-610-12-1990.pdf
+cb7347feba83d901f42b162fbb7d5d24b7c10f04 files/ieee/ieee-std-829-2008.pdf
 <<<RESOURCES

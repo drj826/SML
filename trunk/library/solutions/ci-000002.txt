@@ -46,7 +46,7 @@ orientation:: landscape
 numbers::     left
 language::    Perl
 fontsize::    footnotesize
-file::        ../../../SML.pm
+file::        ../../lib/SML.pm
 ---LISTING
 
 <<<solution

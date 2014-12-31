@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../Listing.t
+file::        ../../t/Listing.t
 ---LISTING
 
 [ref:lis-listing-pm-unit-test-results] shows the results of executing

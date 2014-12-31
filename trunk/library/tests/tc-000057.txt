@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../PreformattedBlock.t
+file::        ../../t/PreformattedBlock.t
 ---LISTING
 
 [ref:lis-preformattedblock-pm-unit-test-results] shows the results of

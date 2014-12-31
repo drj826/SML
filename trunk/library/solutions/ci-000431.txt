@@ -30,7 +30,7 @@ label::     lis-enumerated-list-item-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/EnumeratedListItem.pm
+file::      ../../lib/SML/EnumeratedListItem.pm
 ---LISTING
 
 [clearpage]

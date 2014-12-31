@@ -29,7 +29,7 @@ label::     lis-table-row-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/TableRow.pm
+file::      ../../lib/SML/TableRow.pm
 ---LISTING
 
 [clearpage]

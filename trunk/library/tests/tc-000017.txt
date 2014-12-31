@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../CommentDivision.t
+file::        ../../t/CommentDivision.t
 ---LISTING
 
 [ref:lis-comment-pm-unit-test-results] shows the results of executing

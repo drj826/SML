@@ -28,7 +28,7 @@ label::     lis-preformatted-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/PreformattedDivision.pm
+file::      ../../lib/SML/PreformattedDivision.pm
 ---LISTING
 
 [clearpage]

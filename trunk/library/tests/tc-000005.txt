@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../Parser.t
+file::        ../../t/Parser.t
 ---LISTING
 
 [ref:lis-parser-pm-unit-test-results] shows the results of executing

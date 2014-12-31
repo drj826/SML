@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../Options.t
+file::        ../../t/Options.t
 ---LISTING
 
 [ref:lis-options-pm-unit-test-results] shows the results of executing

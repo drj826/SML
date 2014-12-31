@@ -35,7 +35,7 @@ numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../Epigraph.t
+file::        ../../t/Epigraph.t
 ---LISTING
 
 [ref:lis-epigraph-pm-unit-test-results] shows the results of executing

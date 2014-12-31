@@ -79,7 +79,7 @@ label::     lis-block-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Block.pm
+file::      ../../lib/SML/Block.pm
 ---LISTING
 
 [clearpage]

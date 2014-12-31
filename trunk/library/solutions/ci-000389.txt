@@ -28,7 +28,7 @@ label::     lis-conditional-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Conditional.pm
+file::      ../../lib/SML/Conditional.pm
 ---LISTING
 
 [clearpage]

@@ -28,7 +28,7 @@ label::     lis-sidebar-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Sidebar.pm
+file::      ../../lib/SML/Sidebar.pm
 ---LISTING
 
 [clearpage]

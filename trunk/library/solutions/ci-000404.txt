@@ -28,7 +28,7 @@ label::     lis-assertion-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../../SML/Assertion.pm
+file::      ../../lib/SML/Assertion.pm
 ---LISTING
 
 [clearpage]
