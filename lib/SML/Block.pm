@@ -1465,7 +1465,10 @@ sub _build_content {
   foreach my $line (@{ $self->get_line_list })
     {
       my $text = $line->get_content;
-      chomp $text;
+
+      $text =~ s/[\r\n]*$//;
+      # chomp $text;
+
       push @{ $lines }, $text;
     }
 

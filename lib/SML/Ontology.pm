@@ -155,9 +155,8 @@ sub add_rules {
 
   for (@{ $line_list })
     {
+      s/[\r\n]*$//;
       # chomp;
-
-      s/\\n$//;                         # why doesn't chomp work?
 
       # $logger->debug("line: $_");
 

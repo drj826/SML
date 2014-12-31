@@ -48,7 +48,8 @@ sub get_term {
 
   $_ = $self->get_content;
 
-  chomp;
+  s/[\r\n]*$//;
+  # chomp;
 
   if ( /$syntax->{definition_element}/xms )
     {
@@ -72,7 +73,8 @@ sub get_alt {
 
   $_ = $self->get_content;
 
-  chomp;
+  s/[\r\n]*$//;
+  # chomp;
 
   if ( /$syntax->{definition_element}/xms )
     {
@@ -96,7 +98,8 @@ sub get_value {
 
   $_ = $self->get_content;
 
-  chomp;
+  s/[\r\n]*$//;
+  # chomp;
 
   if ( /$syntax->{definition_element}/xms )
     {

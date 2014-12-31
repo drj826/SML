@@ -53,7 +53,8 @@ sub get_value {
 
   $_ = $self->get_content || q{};
 
-  chomp;
+  s/[\r\n]*$//;
+  # chomp;
 
   if ( /$syntax->{'start_element'}/xms )
     {
@@ -188,7 +189,8 @@ sub validate_outcome_semantics {
 
   $_ = $self->get_content;
 
-  chomp;
+  s/[\r\n]*$//;
+  # chomp;
 
   if ( /$syntax->{outcome_element}/xms )
     {

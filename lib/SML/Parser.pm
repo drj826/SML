@@ -213,7 +213,8 @@ sub extract_title_text {
     {
       $_ = $line->get_content;
 
-      chomp;
+      s/[\r\n]*$//;
+      # chomp;
 
       # skip first line if it starts a division
       if (
@@ -328,7 +329,9 @@ sub extract_preamble_lines {
   foreach my $line (@{ $lines })
     {
       $_ = $line->get_content;
-      chomp;
+
+      s/[\r\n]*$//;
+      # chomp;
       ++ $i;
 
       next if $i == 1;     # skip first line
@@ -419,7 +422,9 @@ sub extract_narrative_lines {
   foreach my $line (@{ $lines })
     {
       $_ = $line->get_content;
-      chomp;
+
+      s/[\r\n]*$//;
+      # chomp;
       ++ $i;
 
       next if $i == 1;     # skip first line
@@ -921,7 +926,8 @@ sub _resolve_includes {
       $_        = $oldline->get_content;
       my $location = $oldline->get_location;
 
-      chomp;
+      s/[\r\n]*$//;
+      # chomp;
 
       #---------------------------------------------------------------
       # Ignore comments in containing document
@@ -1458,7 +1464,8 @@ sub _gather_data {
       $_        = $line->get_content;
       my $location = $line->get_location;
 
-      chomp;
+      s/[\r\n]*$//;
+      # chomp;
 
       $logger->trace("line: $_");
 
@@ -2936,7 +2943,8 @@ sub _contains_include {
     {
       $_ = $line->get_content;
 
-      chomp;
+      s/[\r\n]*$//;
+      # chomp;
 
       #---------------------------------------------------------------
       # Ignore comments
@@ -2992,7 +3000,8 @@ sub _contains_script {
     {
       $_ = $line->get_content;
 
-      chomp;
+      s/[\r\n]*$//;
+      # chomp;
 
       #---------------------------------------------------------------
       # Ignore comments
@@ -3037,7 +3046,8 @@ sub _contains_insert {
     {
       $_ = $element->get_content;
 
-      chomp;
+      s/[\r\n]*$//;
+      # chomp;
 
       if (
   	     /$syntax->{'insert_element'}/
@@ -3075,7 +3085,8 @@ sub _contains_variable {
 
       $_ = $block->get_content;
 
-      chomp;
+      s/[\r\n]*$//;
+      # chomp;
 
       next if /$syntax->{'comment_line'}/;
 
@@ -3111,7 +3122,8 @@ sub _contains_lookup {
 
       $_ = $block->get_content;
 
-      chomp;
+      s/[\r\n]*$//;
+      # chomp;
 
       next if /$syntax->{'comment_line'}/;
 
@@ -3145,7 +3157,8 @@ sub _contains_template {
 
       $_ = $block->get_content;
 
-      chomp;
+      s/[\r\n]*$//;
+      # chomp;
 
       if (    /^template::/                   # deprecate someday
 	   or /^(-){3,}template/              # deprecate someday
@@ -4480,7 +4493,8 @@ sub _add_review {
   my $library  = $util->get_library;
   $_           = $element->get_content;
 
-  chomp;
+  s/[\r\n]*$//;
+  # chomp;
 
   if (/$syntax->{review_element}/)
     {

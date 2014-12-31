@@ -187,7 +187,8 @@ sub extract_division_lines {
     {
       $_ = $line->get_content;
 
-      chomp;
+      s/[\r\n]*$//;
+      # chomp;
 
       if ( /$syntax->{comment_marker}/ )
 	{

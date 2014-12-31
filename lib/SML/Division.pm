@@ -618,7 +618,9 @@ sub get_preamble_line_list {
     {
       $_ = $block->get_content;
 
-      chomp;
+      s/[\r\n]*$//;
+      # chomp;
+
       ++ $i;
 
       next if $i == 1;
@@ -680,7 +682,9 @@ sub get_narrative_line_list {
     {
       $_ = $block->get_content;
 
-      chomp;
+      s/[\r\n]*$//;
+      # chomp;
+
       ++ $i;
 
       next if $i == 1;
