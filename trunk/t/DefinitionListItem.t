@@ -12,7 +12,7 @@ use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
 use Test::Log4perl;
-my $t1logger = Test::Log4perl->get_logger('sml.definitionlistitem');
+my $t1logger = Test::Log4perl->get_logger('sml.DefinitionListItem');
 
 # create a yyyy-mm-dd date stamp
 #
