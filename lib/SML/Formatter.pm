@@ -1,4 +1,4 @@
-#!/Usr/bin/perl
+#!/usr/bin/perl
 
 package SML::Formatter;
 
@@ -31,24 +31,14 @@ my $logger = Log::Log4perl::get_logger('sml.Formatter');
 ######################################################################
 ######################################################################
 
-sub format_block {
+sub format {
 
-  my $self  = shift;
-  my $block = shift;
-  my $style = shift || 'DEFAULT' ;
-  my $text  = q{};
+  my $self      = shift;
+  my $fragment  = shift;
+  my $rendition = shift || 'HTML';
+  my $style     = shift || 'DEFAULT' ;
 
-  return $text;
-}
-
-######################################################################
-
-sub format_division {
-
-  my $self     = shift;
-  my $division = shift;
-  my $style    = shift || 'DEFAULT' ;
-  my $text     = q{};
+  my $text = q{};
 
   return $text;
 }
@@ -87,9 +77,11 @@ A formatter generates output text from SML content objects.
 
 =head1 METHODS
 
-=head2 format_block
+=head2 format
 
-=head2 format_division
+  $fmtr->format($document);                # render HTML
+  $fmtr->format($document,'HTML');         # render HTML
+  $fmtr->format($document,'HTML','FANCY'); # render fancy HTML
 
 =head1 AUTHOR
 
