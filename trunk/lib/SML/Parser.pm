@@ -84,7 +84,12 @@ $OUTPUT_AUTOFLUSH = 1;
 ######################################################################
 ######################################################################
 
-# NONE.
+has 'library' =>
+  (
+   isa       => 'SML::Library',
+   reader    => 'get_library',
+   required  => 1,
+  );
 
 ######################################################################
 ######################################################################
@@ -102,6 +107,7 @@ sub parse {
   my $self     = shift;
   my $filespec = shift;
 
+  my $library  = $self->get_library;
   my $startdir = getcwd;
   my $fragdir  = dirname($filespec);
   my $basename = basename($filespec);
@@ -138,6 +144,14 @@ sub parse {
     }
 
       while $self->_text_requires_processing;
+
+  foreach my $division (@{ $fragment->get_division_list })
+    {
+      if ( $division->isa('SML::Document') )
+	{
+	  $library->add_document($division);
+	}
+    }
 
   chdir($startdir);
 
@@ -902,7 +916,7 @@ sub _resolve_includes {
   my $sml            = SML->instance;
   my $syntax         = $sml->get_syntax;
   my $util           = $sml->get_util;
-  my $library        = $util->get_library;
+  my $library        = $self->get_library;
   my $count_method   = $self->_get_count_method_hash;
   my $options        = $util->get_options;
   my $max_iterations = $options->get_MAX_RESOLVE_INCLUDES;
@@ -1289,7 +1303,7 @@ sub _run_scripts {
   my $oldlines       = $self->_get_line_list;
   my $gen_content    = $self->_get_gen_content_hash;
   my $options        = $util->get_options;
-  my $library        = $util->get_library;
+  my $library        = $self->get_library;
   my $glossary       = $library->get_glossary;
   my $max_iterations = $options->get_MAX_RUN_SCRIPTS;
   my $count          = ++ $count_method->{'_run_scripts'};
@@ -1438,7 +1452,7 @@ sub _gather_data {
   $self->_set_column(0);
   $self->_set_requires_processing(0);
 
-  my $library     = $util->get_library;
+  my $library     = $self->get_library;
   my $reasoner    = $library->get_reasoner;
 
   my $fragment    = $self->_get_fragment;
@@ -1666,7 +1680,7 @@ sub _begin_division {
   my $type    = ref $division;
   my $sml     = SML->instance;
   my $util    = $sml->get_util;
-  my $library = $util->get_library;
+  my $library = $self->get_library;
 
   $logger->trace("..... begin division $type");
 
@@ -1776,7 +1790,7 @@ sub _end_division {
   my $type     = ref $division;
   my $sml      = SML->instance;
   my $util     = $sml->get_util;
-  my $library  = $util->get_library;
+  my $library  = $self->get_library;
 
   return 0 if not $division;
 
@@ -2052,7 +2066,7 @@ sub _insert_content {
   my $oldlines       = $self->_get_line_list;
   my $gen_content    = $self->_get_gen_content_hash;
   my $options        = $util->get_options;
-  my $library        = $util->get_library;
+  my $library        = $self->get_library;
   my $glossary       = $library->get_glossary;
   my $max_iterations = $options->get_MAX_INSERT_CONTENT;
   my $count          = ++ $count_method->{'_insert_content'};
@@ -2227,7 +2241,7 @@ sub _substitute_variables {
   my $syntax         = $sml->get_syntax;
   my $util           = $sml->get_util;
   my $options        = $util->get_options;
-  my $library        = $util->get_library;
+  my $library        = $self->get_library;
   my $fragment       = $self->_get_fragment;
   my $block_list     = $fragment->get_block_list;
   my $count_method   = $self->_get_count_method_hash;
@@ -2303,7 +2317,7 @@ sub _resolve_lookups {
   my $options        = $util->get_options;
   my $max_iterations = $options->get_MAX_RESOLVE_LOOKUPS;
   my $count          = ++ $count_method->{'_resolve_lookups'};
-  my $library        = $util->get_library;
+  my $library        = $self->get_library;
 
   $logger->info("($count) resolve lookups");
 
@@ -2837,7 +2851,7 @@ sub _end_element {
 
   my $sml      = SML->instance;
   my $util     = $sml->get_util;
-  my $library  = $util->get_library;
+  my $library  = $self->get_library;
   my $name     = $element->get_name;
   my $division = $element->get_containing_division;
   my $divname  = $element->get_containing_division->get_name;
@@ -3326,7 +3340,7 @@ sub _traceability_matrix {
 
   my $sml     = SML->instance;
   my $util    = $sml->get_util;
-  my $library = $util->get_library;
+  my $library = $self->get_library;
   my $text    = q{};
 
   # Generate and return the structured manuscript language (SML) text
@@ -3799,7 +3813,7 @@ sub _generate_prioritized_problem_listing {
 
   my $sml         = SML->instance;
   my $util        = $sml->get_util;
-  my $library     = $util->get_library;
+  my $library     = $self->get_library;
   my $lookup      = $library->get_lookup_hash;
   my $count_total = $self->_get_count_total_hash;
 
@@ -3958,7 +3972,7 @@ sub _generate_prioritized_solution_listing {
 
   my $sml         = SML->instance;
   my $util        = $sml->get_util;
-  my $library     = $util->get_library;
+  my $library     = $self->get_library;
   my $lookup      = $library->get_lookup_hash;
   my $count_total = $self->_get_count_total_hash;
 
@@ -4116,7 +4130,7 @@ sub _generate_associated_problem_listing {
   my $sml     = SML->instance;
   my $syntax  = $sml->get_syntax;
   my $util    = $sml->get_util;
-  my $library = $util->get_library;
+  my $library = $self->get_library;
   my $lookup  = $library->get_lookup_hash;
 
   $logger->trace("$id");
@@ -4189,7 +4203,7 @@ sub _generate_associated_solution_listing {
 
   my $sml     = SML->instance;
   my $util    = $sml->get_util;
-  my $library = $util->get_library;
+  my $library = $self->get_library;
   my $lookup  = $library->get_lookup_hash;
 
   $logger->trace("$id");
@@ -4302,7 +4316,7 @@ sub _divname_for {
 
   my $sml     = SML->instance;
   my $util    = $sml->get_util;
-  my $library = $util->get_library;
+  my $library = $self->get_library;
 
   if ( $library->has_division($id) )
     {
@@ -4490,7 +4504,7 @@ sub _add_review {
   my $division = $element->get_containing_division;
   my $div_id   = $division->get_id;
   my $location = $element->get_location;
-  my $library  = $util->get_library;
+  my $library  = $self->get_library;
   $_           = $element->get_content;
 
   s/[\r\n]*$//;
@@ -4586,7 +4600,7 @@ sub _add_source {
   my $id       = $division->get_id;
   my $sml      = SML->instance;
   my $util     = $sml->get_util;
-  my $library  = $util->get_library;
+  my $library  = $self->get_library;
 
   $library->get_references->add_source($division);
 
@@ -4617,7 +4631,7 @@ sub _add_template {
 #   my $fragment = shift;
 #   my $sml      = SML->instance;
 #   my $util     = $sml->get_util;
-#   my $library  = $util->get_library;
+#   my $library  = $self->get_library;
 
 #   $library->add_fragment($filename,$fragment);
 #
@@ -5138,7 +5152,7 @@ sub _process_id_element {
 
   my $sml     = SML->instance;
   my $util    = $sml->get_util;
-  my $library = $util->get_library;
+  my $library = $self->get_library;
 
   $logger->trace("----- id element ($id)");
 
@@ -5324,7 +5338,7 @@ sub _process_start_glossary_entry {
 
   my $sml       = SML->instance;
   my $util      = $sml->get_util;
-  my $library   = $util->get_library;
+  my $library   = $self->get_library;
   my $blockname = 'glossary';
 
   $logger->trace("----- element (glossary)");
@@ -5370,7 +5384,7 @@ sub _process_start_acronym_entry {
   my $name      = 'acronym';
   my $sml       = SML->instance;
   my $util      = $sml->get_util;
-  my $library   = $util->get_library;
+  my $library   = $self->get_library;
   my $document  = $self->_current_document || undef;
 
   my $division = $self->_get_current_division;
@@ -5428,7 +5442,7 @@ sub _process_start_variable_definition {
   my $name     = 'var';
   my $sml      = SML->instance;
   my $util     = $sml->get_util;
-  my $library  = $util->get_library;
+  my $library  = $self->get_library;
   my $division = $self->_get_current_division;
   my $divname  = $division->get_name;
 
