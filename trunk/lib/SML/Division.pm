@@ -362,11 +362,13 @@ sub add_property_element {
 sub add_attribute {
 
   # What's the difference between attributes and properties?
+  #
   # Attributes are not declared in the ontology and therefore cannot
   # be validated like properties.
 
-  my $self       = shift;
-  my $element    = shift;
+  my $self    = shift;
+  my $element = shift;
+
   my $sml        = SML->instance;
   my $syntax     = $sml->get_syntax;
   my $attributes = $self->get_attribute_hash;
