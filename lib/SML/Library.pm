@@ -34,21 +34,21 @@ use SML::References;
 ######################################################################
 ######################################################################
 
-has 'config_filename' =>
-  (
-   isa      => 'Str',
-   reader   => 'get_config_filename',
-   default  => 'library.conf',
-  );
-
-######################################################################
-
 has 'config_filespec' =>
   (
    isa      => 'Str',
    reader   => 'get_config_filespec',
    lazy     => 1,
    builder  => '_build_config_filespec',
+  );
+
+######################################################################
+
+has 'config_filename' =>
+  (
+   isa      => 'Str',
+   reader   => 'get_config_filename',
+   default  => 'library.conf',
   );
 
 ######################################################################
@@ -521,6 +521,27 @@ sub add_fragment {
 
 ######################################################################
 
+sub add_document {
+
+  my $self     = shift;
+  my $document = shift;
+
+  if ( $document->isa('SML::Document') )
+    {
+      my $id = $document->get_id;
+      $self->get_document_hash->{$id} = $document;
+      return 1;
+    }
+
+  else
+    {
+      $logger->error("CAN'T ADD DOCUMENT \'$document\' is not a SML::Document");
+      return 0;
+    }
+}
+
+######################################################################
+
 sub add_entity {
 
   my $self   = shift;
@@ -963,7 +984,7 @@ sub get_fragment {
 
 ######################################################################
 
-sub get_fragments {
+sub get_fragment_list {
 
   my $self = shift;
   my $list = [];
@@ -986,20 +1007,21 @@ sub get_document {
   my $self = shift;
   my $id   = shift;
 
-  foreach my $document (@{ $self->get_documents })
+  foreach my $document (@{ $self->get_document_list })
     {
       return $document if $document->get_id eq $id;
     }
 
-  $logger->error("CAN'T GET DOCUMENT \'$id\'");
+  $logger->error("NO DOCUMENT IN LIBRARY WITH ID \'$id\'");
   return 0;
 }
 
 ######################################################################
 
-sub get_documents {
+sub get_document_list {
 
   my $self = shift;
+
   my $list = [];
 
   foreach my $division ( values %{ $self->get_division_hash })
