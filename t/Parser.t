@@ -12,6 +12,9 @@ use SML::Library;
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
+my $config_file = 'library.conf';
+my $library     = SML::Library->new(config_filename=>$config_file);
+
 #---------------------------------------------------------------------
 # Test Data
 #---------------------------------------------------------------------
@@ -295,7 +298,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Parser->new();
+my $obj = SML::Parser->new(library=>$library);
 isa_ok( $obj, 'SML::Parser' );
 
 #---------------------------------------------------------------------
