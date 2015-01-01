@@ -6,6 +6,8 @@ title:: Functional Requirements Document
 
 subtitle:: SML Data Format[linebreak]and[linebreak]SML Software Library
 
+id:: frd-sml
+
 author:: Don Johnson (drj826@acm.org)
 
 copyright:: 2002-2012, Don Johnson
@@ -27,7 +29,6 @@ use_formal_status:: 1
 # [#v:tmpl/item-summary.txt:6530]
 
 ######################################################################
-# Revisions
 
 ---REVISIONS
 
