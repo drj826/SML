@@ -27,8 +27,6 @@ my $logger = Log::Log4perl::get_logger('sml.Fragment');
 ######################################################################
 ######################################################################
 
-######################################################################
-
 has 'file' =>
   (
    isa      => 'SML::File',
@@ -386,7 +384,8 @@ sub extract_division_lines {
 
 sub BUILD {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $file     = $self->get_file;
   my $filespec = $file->get_filespec;
   my $from     = $self->get_included_from_line;
