@@ -1,0 +1,8 @@
+<html>
+<head>
+<title>[% document.get_property_value('title') %]</title>
+</head>
+<body>
+<h1>[% document.get_property_value('title') %]</h1>
+</body>
+</html>
