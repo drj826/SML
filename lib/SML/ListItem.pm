@@ -72,25 +72,25 @@ sub get_value {
 
 ######################################################################
 
-sub start_html {
+# sub start_html {
 
-  my $self = shift;
-  my $html = shift;
+#   my $self = shift;
+#   my $html = shift;
 
-  return '<li>' . $html;
+#   return '<li>' . $html;
 
-}
+# }
 
 ######################################################################
 
-sub end_html {
+# sub end_html {
 
-  my $self = shift;
-  my $html = shift;
+#   my $self = shift;
+#   my $html = shift;
 
-  return $html . '</li>';
+#   return $html . '</li>';
 
-}
+# }
 
 ######################################################################
 
