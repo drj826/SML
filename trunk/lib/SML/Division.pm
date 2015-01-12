@@ -68,6 +68,27 @@ has 'number' =>
    isa      => 'Str',
    reader   => 'get_number',
    writer   => 'set_number',
+   default  => '',
+  );
+
+######################################################################
+
+has 'previous_number' =>
+  (
+   isa      => 'Str',
+   reader   => 'get_previous_number',
+   writer   => 'set_previous_number',
+   default  => '',
+  );
+
+######################################################################
+
+has 'next_number' =>
+  (
+   isa      => 'Str',
+   reader   => 'get_next_number',
+   writer   => 'set_next_number',
+   default  => '',
   );
 
 ######################################################################
