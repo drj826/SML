@@ -42,23 +42,23 @@ has '+type' =>
 ######################################################################
 ######################################################################
 
-sub start_html {
+# sub start_html {
 
-  my $self = shift;
-  my $html = shift;
+#   my $self = shift;
+#   my $html = shift;
 
-  return '<p>' . $html;
-}
+#   return '<p>' . $html;
+# }
 
 ######################################################################
 
-sub end_html {
+# sub end_html {
 
-  my $self = shift;
-  my $html = shift;
+#   my $self = shift;
+#   my $html = shift;
 
-  return $html . '</p>';
-}
+#   return $html . '</p>';
+# }
 
 ######################################################################
 
