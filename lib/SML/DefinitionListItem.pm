@@ -24,7 +24,7 @@ my $logger = Log::Log4perl::get_logger('sml.DefinitionListItem');
 
 has '+name' =>
   (
-   required => 1,
+   default  => 'definition_list_item',
   );
 
 ######################################################################
@@ -69,6 +69,19 @@ sub get_term {
 
 ######################################################################
 
+sub get_term_as_html {
+
+  my $self = shift;
+
+  my $text = $self->get_term;
+
+  my $block = SML::Block->new(content=>$text);
+
+  return $block->as_html;
+}
+
+######################################################################
+
 sub get_definition {
 
   # Return the definition of the term being defined by the definition
@@ -93,6 +106,19 @@ sub get_definition {
       return q{};
     }
 };
+
+######################################################################
+
+sub get_definition_as_html {
+
+  my $self = shift;
+
+  my $text = $self->get_definition;
+
+  my $block = SML::Block->new(content=>$text);
+
+  return $block->as_html;
+}
 
 ######################################################################
 
