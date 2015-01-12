@@ -8,8 +8,9 @@ use version; our $VERSION = qv('2.0.0');
 
 use namespace::autoclean;
 
-# use Template;
+use Template;
 use Text::Wrap;
+use File::Copy::Recursive qw( dircopy );
 
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
@@ -31,16 +32,75 @@ my $logger = Log::Log4perl::get_logger('sml.Formatter');
 ######################################################################
 ######################################################################
 
-sub format {
+sub publish_html_by_section {
 
-  my $self      = shift;
-  my $fragment  = shift;
-  my $rendition = shift || 'HTML';
-  my $style     = shift || 'DEFAULT' ;
+  my $self         = shift;
+  my $document     = shift;
+  my $template_dir = shift;
+  my $output_dir   = shift;
 
-  my $text = q{};
+  if (
+      not ref $document
+      or
+      not $document->isa('SML::Document')
+     )
+    {
+      $logger->error("NOT A DOCUMENT $document");
+      return 0;
+    }
 
-  return $text;
+  if ( not -d $template_dir )
+    {
+      $logger->error("NOT A DIRECTORY $template_dir");
+      return 0;
+    }
+
+  my $id = $document->get_id;
+
+  my $tt_config =
+    {
+     INCLUDE_PATH => $template_dir,
+     OUTPUT_PATH  => $output_dir,
+    };
+
+  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+
+  my $vars =
+    {
+     document => $document,
+    };
+
+  foreach my $page ('titlepage','toc','glossary','index','references')
+    {
+      my $outfile = "$id.$page.html";
+      $logger->info("formatting $outfile");
+      $tt->process("$page.tt",$vars,$outfile) || die $tt->error(), "\n";
+    }
+
+  foreach my $section (@{ $document->get_section_list })
+    {
+      my $num = $section->get_number;
+
+      my $outfile = "$id.$num.html";
+
+      my $vars =
+	{
+	 document => $document,
+	 section  => $section,
+	};
+
+      $logger->info("formatting $outfile");
+      $tt->process('section.tt',$vars,$outfile)
+	|| die $tt->error(), "\n";
+    }
+
+  if ( -d "$template_dir/images" )
+    {
+      dircopy("$template_dir/images","$output_dir/images")
+	|| die "Couldn't copy images directory";
+    }
+
+  return 1;
 }
 
 ######################################################################
