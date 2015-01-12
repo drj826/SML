@@ -1,0 +1,36 @@
+[%#
+
+$Id: $
+
+-%]
+<table>
+<tr>
+<td>title:</td>
+<td><b>[% part.get_property_value('title') %]</b></td>
+</tr>
+<tr>
+<td>ID:</td>
+<td>[% part.get_property_value('id') %]</td>
+</tr>
+<tr>
+<td>revision:</td>
+<td>[% part.get_property_value('revision') %]</td>
+</tr>
+<tr>
+<td>date:</td>
+<td>[% part.get_property_value('date') %]</td>
+</tr>
+<tr>
+<td>author:</td>
+<td>[% part.get_property_value('author') %]</td>
+</tr>
+<tr>
+<td>type:</td>
+<td>[% part.get_property_value('type') %]</td>
+</tr>
+<tr>
+<td>description:</td>
+<td>[% part.get_property_value('description') %]</td>
+</tr>
+</table>
+

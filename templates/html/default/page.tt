@@ -1,0 +1,47 @@
+[%#
+
+$Id: $
+
+-%]
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<!-- ============================================================= -->
+<!--                                                               -->
+<!--   This HTML document was pulished using the publish.pl        -->
+<!--   Perl script that takes plain (but structured) text and      -->
+<!--   converts it to a set of HTML files.  publish.pl together    -->
+<!--   with PDFLaTeX can produce PDF output for nicely formatted   -->
+<!--   printed pages.                                              -->
+<!--                                                               -->
+<!--   For more information write to me:                           -->
+<!--                                                               -->
+<!--     Don Johnson                                               -->
+<!--     drj826\@acm.org                                            -->
+<!--                                                               -->
+<!-- ============================================================= -->
+
+<html>
+<head>
+
+<title>[% document.get_property_value('title') %]</title>
+
+[% INCLUDE js_popimage.tt -%]
+[% INCLUDE js_treetable.tt -%]
+[% INCLUDE js_gotoa.tt -%]
+[% INCLUDE css.tt -%]
+
+</head>
+<body>
+
+[% PROCESS header.tt -%]
+[% PROCESS footer.tt -%]
+[% PROCESS navigation.tt -%]
+
+<div id="content">
+
+[% content -%]
+
+</div>
+
+</body>
+</html>
