@@ -2721,13 +2721,15 @@ sub _generate_section_numbers {
   my $self = shift;
 
   # initialize section counter
-  my $section_counter  = $self->_get_section_counter_hash;
+  my $section_counter = $self->_get_section_counter_hash;
 
-  $section_counter  = {};
+  $section_counter = {};
 
-  my $previous_depth = 1;
-  my $fragment       = $self->_get_fragment;
-  my $section_list   = $fragment->get_section_list;
+  my $previous_section;
+  my $previous_number = q{};
+  my $previous_depth  = 1;
+  my $fragment        = $self->_get_fragment;
+  my $section_list    = $fragment->get_section_list;
 
   foreach my $section (@{ $section_list }) {
 
@@ -2746,7 +2748,7 @@ sub _generate_section_numbers {
     ++ $section_counter->{$current_depth};
 
     # formulate section number
-    my $number = '';
+    my $number = q{};
     my $depth  = 1;
     $number = $section_counter->{$depth};
     while ($depth < $current_depth) {
@@ -2759,8 +2761,18 @@ sub _generate_section_numbers {
     $section->set_top_number($top_number);
     $section->set_number($number);
 
+    # previous and next
+    $section->set_previous_number($previous_number);
+
+    if ( $previous_section )
+      {
+	$previous_section->set_next_number($number);
+      }
+
     # prepare for next iteration
-    $previous_depth = $current_depth;
+    $previous_depth   = $current_depth;
+    $previous_section = $section;
+    $previous_number  = $number;
 
   }
 
