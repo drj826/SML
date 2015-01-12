@@ -319,7 +319,7 @@ sub as_html {
   $html = $self->start_html($html);
   $html = $self->end_html($html);
 
-  return "\n" . $html . "\n";
+  return $html;
 }
 
 ######################################################################
