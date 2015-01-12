@@ -34,6 +34,32 @@ use SML::References;
 ######################################################################
 ######################################################################
 
+has 'id' =>
+  (
+   isa       => 'Str',
+   reader    => 'get_id',
+   writer    => '_set_id',
+   clearer   => '_clear_id',
+   predicate => '_has_id',
+   default   => 'lib',
+  );
+
+# Specify the library ID in the configuration file.
+
+######################################################################
+
+has 'name' =>
+  (
+   isa      => 'Str',
+   reader   => 'get_name',
+   writer   => '_set_name',
+   default  => 'library',
+  );
+
+# Specify the library name in the configuration file.
+
+######################################################################
+
 has 'config_filespec' =>
   (
    isa      => 'Str',
@@ -69,6 +95,9 @@ has 'parser' =>
    lazy     => 1,
    builder  => '_build_parser',
   );
+
+# A parser object is tightly coupled to a library because it
+# implements the semantics of the library.
 
 ######################################################################
 
@@ -186,18 +215,6 @@ has 'title' =>
    clearer   => '_clear_title',
    predicate => '_has_title',
    default   => 'library',
-  );
-
-######################################################################
-
-has 'id' =>
-  (
-   isa       => 'Str',
-   reader    => 'get_id',
-   writer    => '_set_id',
-   clearer   => '_clear_id',
-   predicate => '_has_id',
-   default   => 'lib',
   );
 
 ######################################################################
@@ -1964,6 +1981,18 @@ sub BUILD {
     {
       my $config = Config::General->new($config_filespec);
       %config = $config->getall;
+    }
+
+  # library ID
+  if ( $config{'id'} )
+    {
+      $self->_set_id($config{'id'});
+    }
+
+  # library name
+  if ( $config{'name'} )
+    {
+      $self->_set_name($config{'name'});
     }
 
   #-------------------------------------------------------------------
