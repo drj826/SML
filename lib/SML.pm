@@ -48,6 +48,10 @@ has 'ontology' =>
    builder => '_build_ontology',
   );
 
+# BUG HERE -- The ontology should belong to a library and not to the
+# SML singleton because an SML singleton can have multiple libraries
+# and each library can have its own semantics (ontology).
+
 ######################################################################
 
 has 'util' =>
@@ -68,6 +72,8 @@ has 'font_size_list' =>
    builder => '_build_font_size_list',
   );
 
+# BUG HERE -- Perhaps this should be part of SML::Formatter?
+
 ######################################################################
 
 has 'font_weight_list' =>
@@ -77,6 +83,8 @@ has 'font_weight_list' =>
    lazy    => 1,
    builder => '_build_font_weight_list',
   );
+
+# BUG HERE -- Perhaps this should be part of SML::Formatter?
 
 ######################################################################
 
@@ -88,6 +96,8 @@ has 'font_shape_list' =>
    builder => '_build_font_shape_list',
   );
 
+# BUG HERE -- Perhaps this should be part of SML::Formatter?
+
 ######################################################################
 
 has 'font_family_list' =>
@@ -97,6 +107,8 @@ has 'font_family_list' =>
    lazy    => 1,
    builder => '_build_font_family_list',
   );
+
+# BUG HERE -- Perhaps this should be part of SML::Formatter?
 
 ######################################################################
 
@@ -108,6 +120,8 @@ has 'background_color_list' =>
    builder => '_build_background_color_list',
   );
 
+# BUG HERE -- Perhaps this should be part of SML::Formatter?
+
 ######################################################################
 
 has 'division_name_list' =>
@@ -117,6 +131,8 @@ has 'division_name_list' =>
    lazy    => 1,
    builder => '_build_division_names',
   );
+
+# BUG HERE -- Perhaps this should be part of SML::Library?
 
 ######################################################################
 
@@ -128,6 +144,8 @@ has 'region_name_list' =>
    builder => '_build_region_names',
   );
 
+# BUG HERE -- Perhaps this should be part of SML::Library?
+
 ######################################################################
 
 has 'environment_name_list' =>
@@ -138,6 +156,7 @@ has 'environment_name_list' =>
    builder => '_build_environment_names',
   );
 
+# BUG HERE -- Perhaps this should be part of SML::Library?
 
 ######################################################################
 ######################################################################
@@ -145,6 +164,80 @@ has 'environment_name_list' =>
 ## Public Methods
 ##
 ######################################################################
+######################################################################
+
+sub get_library {
+
+  my $self = shift;
+  my $id   = shift;
+
+  if ( not $id )
+    {
+      $logger->error("YOU MUST SUPPLY THE ID OF THE LIBRARY YOU WANT");
+      return 0;
+    }
+
+  my $hash = $self->_get_library_hash;
+
+  if ( exists $hash->{$id} )
+    {
+      return $hash->{$id};
+    }
+
+  else
+    {
+      $logger->error("LIBRARY DOESN'T EXIST: $id");
+      return 0;
+    }
+}
+
+######################################################################
+
+sub add_library {
+
+  my $self    = shift;
+  my $library = shift;
+
+  if ( not ref $library and $library->isa('SML::Library') )
+    {
+      $logger->error("CAN'T ADD NON-LIBRARY OBJECT: $library");
+      return 0;
+    }
+
+  my $hash = $self->_get_library_hash;
+  my $id = $library->get_id;
+
+  $hash->{$id} = $library;
+
+  return 1;
+}
+
+######################################################################
+
+sub has_library {
+
+  my $self = shift;
+  my $id   = shift;
+
+  if ( not $id )
+    {
+      $logger->error("YOU MUST SUPPLY A LIBRARY ID");
+      return 0;
+    }
+
+  my $hash = $self->_get_library_hash;
+
+  if ( exists $hash->{$id} )
+    {
+      return 1;
+    }
+
+  else
+    {
+      return 0;
+    }
+}
+
 ######################################################################
 
 sub allows_insert {
@@ -190,6 +283,19 @@ sub allows_generate {
 ## Private Attributes
 ##
 ######################################################################
+######################################################################
+
+######################################################################
+
+has 'library_hash' =>
+  (
+   isa     => 'HashRef',
+   reader  => '_get_library_hash',
+   default => sub {{}},
+  );
+
+# A hash of libraries keyed by library name.
+
 ######################################################################
 
 # has 'ontology_config_filespec' =>
