@@ -1,0 +1,19 @@
+[%#
+
+$Id: $
+
+%]
+<!-- header -->
+<div id="head">
+<div id="pad1"></div>
+<div align="center">
+<table width="80%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td align="left"></td>
+<td align="center"><b></b></td>
+<td align="right"></td>
+</tr>
+</table>
+</div>
+</div>
+

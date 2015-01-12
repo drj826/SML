@@ -1,0 +1,35 @@
+[%#
+
+$Id: $
+
+-%]
+<!-- navigation -->
+<div id="left">
+<div class="pad4"></div>
+<div align="center">
+<a href="../index.html">
+<img src="images/logo.png" style="border:0px">
+</a>
+</div>
+
+<table border="0" cellpadding="4" cellspacing="4">
+
+<tr>
+<td>
+<a href="[% document.get_id %].1.html"><b>Document</b></a><br/>
+- <a href="[% document.get_id %].toc.html">Contents</a><br/>
+- <a href="[% document.get_id %].table.html">Tables</a><br/>
+- <a href="[% document.get_id %].figure.html">Figures</a><br/>
+- <a href="[% document.get_id %].attachment.html">Attachments</a><br/>
+- <a href="[% document.get_id %].listing.html">Listings</a><br/>
+- <a href="[% document.get_id %].glossary.html">Glossary</a><br/>
+- <a href="[% document.get_id %].source.html">References</a><br/>
+- <a href="[% document.get_id %].pdf">PDF</a><br/>
+</td>
+</tr>
+
+[% PROCESS version.tt -%]
+
+</table>
+</div>
+

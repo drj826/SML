@@ -1,0 +1,11 @@
+[%#
+
+$Id: $
+
+%]
+<script type="text/javascript">
+<!--
+function goToA(target) {window.location.hash=target}
+//-->
+</script>
+
