@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: AcronymList.pm 11632 2012-12-04 23:06:32Z don.johnson $
+# $Id$
 
 package SML::AcronymList;
 
