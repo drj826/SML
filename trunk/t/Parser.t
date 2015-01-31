@@ -24,241 +24,241 @@ my $testdata =
 
    simple_fragment =>
    {
-    testfile => 'library/testdata/td-000001.txt',
+    testfile => 'td-000001.txt',
     docid    => 'td-000001',
    },
 
    fragment_containing_comment_division =>
    {
-    testfile => 'library/testdata/td-000002.txt',
+    testfile => 'td-000002.txt',
     docid    => 'td-000002',
    },
 
    fragment_containing_comment_line =>
    {
-    testfile => 'library/testdata/td-000003.txt',
+    testfile => 'td-000003.txt',
     docid    => 'td-000003',
    },
 
    fragment_containing_conditional_division =>
    {
-    testfile => 'library/testdata/td-000004.txt',
+    testfile => 'td-000004.txt',
     docid    => 'td-000004',
    },
 
    fragment_containing_region_division =>
    {
-    testfile => 'library/testdata/td-000005.txt',
+    testfile => 'td-000005.txt',
     docid    => 'td-000005',
    },
 
    fragment_containing_environment_division =>
    {
-    testfile => 'library/testdata/td-000006.txt',
+    testfile => 'td-000006.txt',
     docid    => 'td-000006',
    },
 
    fragment_containing_lists =>
    {
-    testfile => 'library/testdata/td-000007.txt',
+    testfile => 'td-000007.txt',
     docid    => 'td-000007',
    },
 
    fragment_containing_generate_element =>
    {
-    testfile => 'library/testdata/td-000008.txt',
+    testfile => 'td-000008.txt',
     docid    => 'td-000008',
    },
 
    fragment_containing_image_element =>
    {
-    testfile => 'library/testdata/td-000011.txt',
+    testfile => 'td-000011.txt',
     docid    => 'td-000011',
    },
 
    fragment_containing_footnote_element =>
    {
-    testfile => 'library/testdata/td-000012.txt',
+    testfile => 'td-000012.txt',
     docid    => 'td-000012',
    },
 
    fragment_containing_glossary_element =>
    {
-    testfile => 'library/testdata/td-000013.txt',
+    testfile => 'td-000013.txt',
     docid    => 'td-000013',
    },
 
    fragment_containing_var_element =>
    {
-    testfile => 'library/testdata/td-000014.txt',
+    testfile => 'td-000014.txt',
     docid    => 'td-000014',
    },
 
    fragment_containing_acronym_element =>
    {
-    testfile => 'library/testdata/td-000015.txt',
+    testfile => 'td-000015.txt',
     docid    => 'td-000015',
    },
 
    fragment_containing_index_element =>
    {
-    testfile => 'library/testdata/td-000016.txt',
+    testfile => 'td-000016.txt',
     docid    => 'td-000016',
    },
 
    fragment_containing_sections_and_regions =>
    {
-    testfile => 'library/testdata/td-000020.txt',
+    testfile => 'td-000020.txt',
     docid    => 'td-000020',
    },
 
    fragment_containing_raw_include_element =>
    {
-    testfile => 'library/testdata/td-000021.txt',
+    testfile => 'td-000021.txt',
     docid    => 'td-000021',
    },
 
    fragment_containing_included_entity =>
    {
-    testfile => 'library/testdata/td-000023.txt',
+    testfile => 'td-000023.txt',
     docid    => 'td-000023',
    },
 
    fragment_containing_included_section_style_1 =>
    {
-    testfile => 'library/testdata/td-000018.txt',
+    testfile => 'td-000018.txt',
     docid    => 'td-000018',
    },
 
    fragment_containing_included_section_style_2 =>
    {
-    testfile => 'library/testdata/td-000019.txt',
+    testfile => 'td-000019.txt',
     docid    => 'td-000019',
    },
 
    fragment_containing_include_from_subdir =>
    {
-    testfile => 'library/testdata/td-000073.txt',
+    testfile => 'td-000073.txt',
     docid    => 'td-000073',
    },
 
    fragment_containing_variable_substitutions =>
    {
-    testfile => 'library/testdata/td-000025.txt',
+    testfile => 'td-000025.txt',
     docid    => 'td-000025',
    },
 
    fragment_containing_template =>
    {
-    testfile => 'library/testdata/td-000060.txt',
+    testfile => 'td-000060.txt',
     docid    => 'td-000060',
    },
 
    fragment_containing_default_includes =>
    {
-    testfile => 'library/testdata/td-000061.txt',
+    testfile => 'td-000061.txt',
     docid    => 'td-000061',
    },
 
    fragment_containing_glossary_term_reference_1 =>
    {
-    testfile => 'library/testdata/td-000026.txt',
+    testfile => 'td-000026.txt',
     docid    => 'td-000026',
    },
 
    fragment_containing_glossary_term_reference_2 =>
    {
-    testfile => 'library/testdata/td-000077.txt',
+    testfile => 'td-000077.txt',
     docid    => 'td-000077',
    },
 
    fragment_containing_source_citation =>
    {
-    testfile => 'library/testdata/td-000028.txt',
+    testfile => 'td-000028.txt',
     docid    => 'td-000028',
    },
 
    fragment_containing_cross_reference =>
    {
-    testfile => 'library/testdata/td-000032.txt',
+    testfile => 'td-000032.txt',
     docid    => 'td-000032',
    },
 
    fragment_containing_id_reference =>
    {
-    testfile => 'library/testdata/td-000034.txt',
+    testfile => 'td-000034.txt',
     docid    => 'td-000034',
    },
 
    fragment_containing_page_reference =>
    {
-    testfile => 'library/testdata/td-000036.txt',
+    testfile => 'td-000036.txt',
     docid    => 'td-000036',
    },
 
    fragment_containing_bold_markup =>
    {
-    testfile => 'library/testdata/td-000038.txt',
+    testfile => 'td-000038.txt',
     docid    => 'td-000038',
    },
 
    fragment_containing_italics_markup =>
    {
-    testfile => 'library/testdata/td-000040.txt',
+    testfile => 'td-000040.txt',
     docid    => 'td-000040',
    },
 
    fragment_containing_fixedwidth_markup =>
    {
-    testfile => 'library/testdata/td-000042.txt',
+    testfile => 'td-000042.txt',
     docid    => 'td-000042',
    },
 
    fragment_containing_underline_markup =>
    {
-    testfile => 'library/testdata/td-000044.txt',
+    testfile => 'td-000044.txt',
     docid    => 'td-000044',
    },
 
    fragment_containing_superscript_markup =>
    {
-    testfile => 'library/testdata/td-000046.txt',
+    testfile => 'td-000046.txt',
     docid    => 'td-000046',
    },
 
    fragment_containing_subscript_markup =>
    {
-    testfile => 'library/testdata/td-000048.txt',
+    testfile => 'td-000048.txt',
     docid    => 'td-000048',
    },
 
    fragment_containing_file_element =>
    {
-    testfile => 'library/testdata/td-000065.txt',
+    testfile => 'td-000065.txt',
     docid    => 'td-000065',
    },
 
    fragment_containing_image_element =>
    {
-    testfile => 'library/testdata/td-000067.txt',
+    testfile => 'td-000067.txt',
     docid    => 'td-000067',
    },
 
    fragment_containing_insert_element =>
    {
-    testfile => 'library/testdata/td-000009.txt',
+    testfile => 'td-000009.txt',
     docid    => 'td-000009',
    },
 
    fragment_containing_script_element =>
    {
-    testfile => 'library/testdata/td-000010.txt',
+    testfile => 'td-000010.txt',
     docid    => 'td-000010',
    },
 
    fragment_containing_problem_division =>
    {
-    testfile => 'library/testdata/td-000022.txt',
+    testfile => 'td-000022.txt',
     divname  => 'problem',
     title    => 'Sample Problem For `Include\' Tests',
     preamble_size  => 17,
@@ -267,7 +267,7 @@ my $testdata =
 
    fragment_containing_listing_environment =>
    {
-    testfile => 'library/testdata/td-000075.txt',
+    testfile => 'td-000075.txt',
     divname  => 'LISTING',
     title    => 'Sample Listing',
     preamble_size  => 5,
@@ -276,7 +276,7 @@ my $testdata =
 
    fragment_containing_section =>
    {
-    testfile => 'library/testdata/td-000076.txt',
+    testfile => 'td-000076.txt',
     divname  => 'SECTION',
     title    => 'Section Fragment',
     preamble_size  => 2,

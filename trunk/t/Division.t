@@ -50,7 +50,7 @@ my $testdata =
 
    get_containing_division_test_1 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     config    => 'library.conf',
     expected  => 'SML::Fragment',
@@ -58,7 +58,7 @@ my $testdata =
 
    get_containing_division_test_2 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'introduction',
     config    => 'library.conf',
     expected  => 'SML::Document',
@@ -66,7 +66,7 @@ my $testdata =
 
    get_containing_division_test_3 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
     expected  => 'SML::Section',
@@ -74,7 +74,7 @@ my $testdata =
 
    get_containing_division_test_4 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'tab-solution-types',
     config    => 'library.conf',
     expected  => 'SML::Section',
@@ -82,7 +82,7 @@ my $testdata =
 
    get_part_list_test_1 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     config    => 'library.conf',
     expected  => 22,
@@ -90,7 +90,7 @@ my $testdata =
 
    get_part_list_test_2 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'introduction',
     config    => 'library.conf',
     expected  => 7,
@@ -98,7 +98,7 @@ my $testdata =
 
    get_part_list_test_3 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
     expected  => 10,
@@ -106,7 +106,7 @@ my $testdata =
 
    get_part_list_test_4 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'tab-solution-types',
     config    => 'library.conf',
     expected  => 10,
@@ -114,7 +114,7 @@ my $testdata =
 
    get_line_list_test_1 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     config    => 'library.conf',
     expected  => 214,
@@ -122,7 +122,7 @@ my $testdata =
 
    get_line_list_test_2 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'introduction',
     config    => 'library.conf',
     expected  => 17,
@@ -130,7 +130,7 @@ my $testdata =
 
    get_line_list_test_3 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
     expected  => 40,
@@ -138,7 +138,7 @@ my $testdata =
 
    get_line_list_test_4 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'tab-solution-types',
     config    => 'library.conf',
     expected  => 30,
@@ -146,7 +146,7 @@ my $testdata =
 
    get_division_list_test_1 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     config    => 'library.conf',
     expected  => 32,
@@ -154,7 +154,7 @@ my $testdata =
 
    get_division_list_test_2 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'introduction',
     config    => 'library.conf',
     expected  => 0,
@@ -162,7 +162,7 @@ my $testdata =
 
    get_division_list_test_3 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
     expected  => 10,
@@ -170,7 +170,7 @@ my $testdata =
 
    get_division_list_test_4 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'tab-solution-types',
     config    => 'library.conf',
     expected  => 12,
@@ -178,7 +178,7 @@ my $testdata =
 
    get_section_list_test_1 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     config    => 'library.conf',
     expected  => 5,
@@ -186,7 +186,7 @@ my $testdata =
 
    get_block_list_test_1 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     config    => 'library.conf',
     expected  => 92,
@@ -194,7 +194,7 @@ my $testdata =
 
    get_block_list_test_2 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'introduction',
     config    => 'library.conf',
     expected  => 7,
@@ -202,7 +202,7 @@ my $testdata =
 
    get_block_list_test_3 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
     expected  => 18,
@@ -210,7 +210,7 @@ my $testdata =
 
    get_block_list_test_4 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'tab-solution-types',
     config    => 'library.conf',
     expected  => 15,
@@ -218,7 +218,7 @@ my $testdata =
 
    get_element_list_test_1 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     config    => 'library.conf',
     expected  => 39,
@@ -226,7 +226,7 @@ my $testdata =
 
    get_element_list_test_2 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'introduction',
     config    => 'library.conf',
     expected  => 4,
@@ -234,7 +234,7 @@ my $testdata =
 
    get_element_list_test_3 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
     expected  => 5,
@@ -242,7 +242,7 @@ my $testdata =
 
    get_element_list_test_4 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'tab-solution-types',
     config    => 'library.conf',
     expected  => 2,
@@ -250,7 +250,7 @@ my $testdata =
 
    get_preamble_line_list_test_1 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     config    => 'library.conf',
     expected  => 18,
@@ -258,7 +258,7 @@ my $testdata =
 
    get_preamble_line_list_test_2 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'introduction',
     config    => 'library.conf',
     expected  => 4,
@@ -266,7 +266,7 @@ my $testdata =
 
    get_preamble_line_list_test_3 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
     expected  => 10,
@@ -274,7 +274,7 @@ my $testdata =
 
    get_preamble_line_list_test_4 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'tab-solution-types',
     config    => 'library.conf',
     expected  => 4,
@@ -282,7 +282,7 @@ my $testdata =
 
    get_narrative_line_list_test_1 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     config    => 'library.conf',
     expected  => 193,
@@ -290,7 +290,7 @@ my $testdata =
 
    get_narrative_line_list_test_2 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'introduction',
     config    => 'library.conf',
     expected  => 9,
@@ -298,7 +298,7 @@ my $testdata =
 
    get_narrative_line_list_test_3 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
     expected  => 26,
@@ -306,7 +306,7 @@ my $testdata =
 
    get_narrative_line_list_test_4 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'tab-solution-types',
     config    => 'library.conf',
     expected  => 22,
@@ -314,7 +314,7 @@ my $testdata =
 
    get_first_part_test_1 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     config    => 'library.conf',
     expected  => 'SML::PreformattedBlock',
@@ -322,7 +322,7 @@ my $testdata =
 
    get_first_part_test_2 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'introduction',
     config    => 'library.conf',
     expected  => 'SML::Element',
@@ -330,7 +330,7 @@ my $testdata =
 
    get_first_part_test_3 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
     expected  => 'SML::PreformattedBlock',
@@ -338,7 +338,7 @@ my $testdata =
 
    get_first_part_test_4 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'tab-solution-types',
     config    => 'library.conf',
     expected  => 'SML::PreformattedBlock',
@@ -346,7 +346,7 @@ my $testdata =
 
    get_first_line_test_1 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     config    => 'library.conf',
     expected  => '>>>DOCUMENT',
@@ -354,7 +354,7 @@ my $testdata =
 
    get_first_line_test_2 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'introduction',
     config    => 'library.conf',
     expected  => '* Introduction',
@@ -362,7 +362,7 @@ my $testdata =
 
    get_first_line_test_3 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
     expected  => '>>>problem',
@@ -370,7 +370,7 @@ my $testdata =
 
    get_first_line_test_4 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'tab-solution-types',
     config    => 'library.conf',
     expected  => '---TABLE',
@@ -378,7 +378,7 @@ my $testdata =
 
    get_property_list_test_1 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     config    => 'library.conf',
     expected  => 9,
@@ -386,7 +386,7 @@ my $testdata =
 
    get_property_list_test_2 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'introduction',
     config    => 'library.conf',
     expected  => 4,
@@ -394,7 +394,7 @@ my $testdata =
 
    get_property_list_test_3 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
     expected  => 5,
@@ -402,7 +402,7 @@ my $testdata =
 
    get_property_list_test_4 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'tab-solution-types',
     config    => 'library.conf',
     expected  => 2,
@@ -410,7 +410,7 @@ my $testdata =
 
    get_property_test_1 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     name      => 'title',
     config    => 'library.conf',
@@ -419,7 +419,7 @@ my $testdata =
 
    get_property_test_2 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'introduction',
     name      => 'type',
     config    => 'library.conf',
@@ -428,7 +428,7 @@ my $testdata =
 
    get_property_test_3 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     name      => 'title',
     config    => 'library.conf',
@@ -437,7 +437,7 @@ my $testdata =
 
    get_property_test_4 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'tab-solution-types',
     name      => 'id',
     config    => 'library.conf',
@@ -446,7 +446,7 @@ my $testdata =
 
    get_property_value_test_1 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     name      => 'title',
     config    => 'library.conf',
@@ -455,7 +455,7 @@ my $testdata =
 
    get_property_value_test_2 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'introduction',
     name      => 'type',
     config    => 'library.conf',
@@ -464,7 +464,7 @@ my $testdata =
 
    get_property_value_test_3 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     name      => 'title',
     config    => 'library.conf',
@@ -473,7 +473,7 @@ my $testdata =
 
    get_property_value_test_4 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     divid     => 'tab-solution-types',
     name      => 'id',
     config    => 'library.conf',
@@ -496,7 +496,7 @@ my $testdata =
 
    get_id_path_test_1 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     config    => 'library.conf',
    },
 

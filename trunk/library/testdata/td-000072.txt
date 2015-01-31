@@ -25,19 +25,19 @@ id:: introduction
 The purpose of this introduction section is to serve as a target for
 internal document cross references.
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#---------------------------------------
 # glossary entries
 
 glossary:: document {sml} = (SML) A written work about a topic.  SML
 document types are: book, report, and article. An SML document is
 composed of a document preamble followed by a document narrative
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#---------------------------------------
 # acronyms
 
 acronym:: TLA {sml} = Three Letter Acronym
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#---------------------------------------
 # notes
 
 note::1: This is a footnote.

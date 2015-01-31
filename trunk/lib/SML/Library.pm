@@ -60,21 +60,12 @@ has 'name' =>
 
 ######################################################################
 
-has 'config_filespec' =>
+has 'revision' =>
   (
-   isa      => 'Str',
-   reader   => 'get_config_filespec',
-   lazy     => 1,
-   builder  => '_build_config_filespec',
-  );
-
-######################################################################
-
-has 'config_filename' =>
-  (
-   isa      => 'Str',
-   reader   => 'get_config_filename',
-   default  => 'library.conf',
+   isa       => 'Str',
+   reader    => 'get_revision',
+   lazy      => 1,
+   builder   => '_build_revision',
   );
 
 ######################################################################
@@ -151,176 +142,83 @@ has 'references' =>
 
 ######################################################################
 
-has 'lib_ontology_config_filename' =>
-  (
-   isa       => 'Str',
-   reader    => '_get_lib_ontology_config_filename',
-   writer    => '_set_lib_ontology_config_filename',
-   default   => 'ontology_rules_lib.conf',
-  );
+# has 'title' =>
+#   (
+#    isa       => 'Str',
+#    reader    => 'get_title',
+#    writer    => '_set_title',
+#    clearer   => '_clear_title',
+#    predicate => '_has_title',
+#    default   => 'library',
+#   );
 
 ######################################################################
 
-has 'lib_ontology_config_filespec' =>
-  (
-   isa       => 'Str',
-   reader    => '_get_lib_ontology_config_filespec',
-   lazy      => 1,
-   builder   => '_build_lib_ontology_config_filespec',
-  );
+# has 'author' =>
+#   (
+#    isa       => 'Str',
+#    reader    => 'get_author',
+#    writer    => '_set_author',
+#    clearer   => '_clear_author',
+#    predicate => '_has_author',
+#    default   => 'unknown',
+#   );
 
 ######################################################################
 
-has 'sml_ontology_config_filename' =>
-  (
-   isa       => 'Str',
-   reader    => '_get_sml_ontology_config_filename',
-   writer    => '_set_sml_ontology_config_filename',
-   default   => 'ontology_rules_sml.conf',
-  );
+# has 'date' =>
+#   (
+#    isa       => 'Str',
+#    reader    => 'get_date',
+#    writer    => '_set_date',
+#    clearer   => '_clear_date',
+#    predicate => '_has_date',
+#    default   => 'unknown',
+#   );
 
 ######################################################################
 
-has 'sml_ontology_config_filespec' =>
-  (
-   isa       => 'Str',
-   reader    => '_get_sml_ontology_config_filespec',
-   lazy      => 1,
-   builder   => '_build_sml_ontology_config_filespec',
-  );
-
-# The SML ontology configuration file contains the core rules for the
-# Structured Manuscript Language.
-
-######################################################################
-
-has 'lib_ontology_config_filespec' =>
-  (
-   isa       => 'Str',
-   reader    => '_get_lib_ontology_config_filespec',
-   lazy      => 1,
-   builder   => '_build_lib_ontology_config_filespec',
-  );
-
-# The library ontology configuration file contains the ontology rules
-# for a specific library.
+# has 'catalog_filespec' =>
+#   (
+#    isa       => 'Str',
+#    reader    => 'get_catalog_filespec',
+#    writer    => '_set_catalog_filespec',
+#    clearer   => '_clear_catalog_filespec',
+#    predicate => '_has_catalog_filespec',
+#    default   => 'catalog.txt',
+#   );
 
 ######################################################################
 
-has 'title' =>
-  (
-   isa       => 'Str',
-   reader    => 'get_title',
-   writer    => '_set_title',
-   clearer   => '_clear_title',
-   predicate => '_has_title',
-   default   => 'library',
-  );
-
-######################################################################
-
-has 'author' =>
-  (
-   isa       => 'Str',
-   reader    => 'get_author',
-   writer    => '_set_author',
-   clearer   => '_clear_author',
-   predicate => '_has_author',
-   default   => 'unknown',
-  );
-
-######################################################################
-
-has 'date' =>
-  (
-   isa       => 'Str',
-   reader    => 'get_date',
-   writer    => '_set_date',
-   clearer   => '_clear_date',
-   predicate => '_has_date',
-   default   => 'unknown',
-  );
-
-######################################################################
-
-has 'revision' =>
-  (
-   isa       => 'Str',
-   reader    => 'get_revision',
-   writer    => '_set_revision',
-   clearer   => '_clear_revision',
-   predicate => '_has_revision',
-   default   => 'lib',
-  );
-
-######################################################################
-
-has 'directory_name' =>
-  (
-   isa       => 'Str',
-   reader    => 'get_directory_name',
-   default   => 'library',
-  );
-
-# This is the name of the directory containing the library.
-
-######################################################################
-
-has 'directory_path' =>
-  (
-   isa       => 'Str',
-   reader    => 'get_directory_path',
-   writer    => '_set_directory_path',
-   clearer   => '_clear_directory_path',
-   predicate => '_has_directory_path',
-   default   => q{.},
-  );
-
-# This is the name of the directory containing the library.
-
-######################################################################
-
-has 'catalog_filespec' =>
-  (
-   isa       => 'Str',
-   reader    => 'get_catalog_filespec',
-   writer    => '_set_catalog_filespec',
-   clearer   => '_clear_catalog_filespec',
-   predicate => '_has_catalog_filespec',
-   default   => 'catalog.txt',
-  );
-
-######################################################################
-
-has 'file_list' =>
-  (
-   isa       => 'ArrayRef',
-   reader    => 'get_file_list',
-   default   => sub {[]},
-  );
+# has 'file_list' =>
+#   (
+#    isa       => 'ArrayRef',
+#    reader    => 'get_file_list',
+#    default   => sub {[]},
+#   );
 
 # This is a list of all files in the library.
 
 ######################################################################
 
-has 'fragment_file_list' =>
-  (
-   isa       => 'ArrayRef',
-   reader    => 'get_fragment_file_list',
-   default   => sub {[]},
-  );
+# has 'fragment_file_list' =>
+#   (
+#    isa       => 'ArrayRef',
+#    reader    => 'get_fragment_file_list',
+#    default   => sub {[]},
+#   );
 
 # This is a list of fragment files in the library.  A fragment file
 # contains SML text designed to be re-used in multiple documents.
 
 ######################################################################
 
-has 'reference_file_list' =>
-  (
-   isa       => 'ArrayRef',
-   reader    => 'get_reference_file_list',
-   default   => sub {[]},
-  );
+# has 'reference_file_list' =>
+#   (
+#    isa       => 'ArrayRef',
+#    reader    => 'get_reference_file_list',
+#    default   => sub {[]},
+#   );
 
 # This is a list of reference files in the library.  A reference file
 # is any non-SML file referenced by library documents.  Reference
@@ -328,48 +226,16 @@ has 'reference_file_list' =>
 
 ######################################################################
 
-has 'script_file_list' =>
-  (
-   isa       => 'ArrayRef',
-   reader    => 'get_script_file_list',
-   default   => sub {[]},
-  );
+# has 'script_file_list' =>
+#   (
+#    isa       => 'ArrayRef',
+#    reader    => 'get_script_file_list',
+#    default   => sub {[]},
+#   );
 
 # This is a list of script files in the library.  The purpose of a
 # script file is to automatically generate document content at publish
 # time.
-
-######################################################################
-
-has 'fragment_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_fragment_hash',
-   writer    => 'set_fragment_hash',
-   clearer   => 'clear_fragment_hash',
-   predicate => 'has_fragment_hash',
-   default   => sub {{}},
-  );
-
-# This is the collection of fragments in the library.  The keys of
-# this hash are the fragment file names and the values are the
-# fragment objects.
-
-######################################################################
-
-has 'document_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_document_hash',
-   writer    => 'set_document_hash',
-   clearer   => 'clear_document_hash',
-   predicate => 'has_document_hash',
-   default   => sub {{}},
-  );
-
-# This is the collection of documents in the library.  The keys of
-# this hash are the document IDs and the values are the document
-# objects.
 
 ######################################################################
 
@@ -517,6 +383,32 @@ has 'review_hash' =>
 ######################################################################
 ######################################################################
 
+sub get_filespec {
+
+  # Given and filename, find the file in the library by looking in
+  # each include path.
+
+  my $self     = shift;
+  my $filename = shift;
+
+  my $include_path   = $self->_get_include_path;
+  my $directory_path = $self->_get_directory_path;
+
+  foreach my $path (@{$include_path})
+    {
+      if ( -f "$directory_path/$path/$filename" )
+	{
+	  return "$directory_path/$path/$filename";
+	}
+    }
+
+  $logger->error("FILE NOT FOUND \'$filename\'");
+
+  return 0;
+}
+
+######################################################################
+
 sub add_fragment {
 
   my $self     = shift;
@@ -525,7 +417,7 @@ sub add_fragment {
   if ( $fragment->isa('SML::Fragment') )
     {
       my $id = $fragment->get_id;
-      $self->get_fragment_hash->{$id} = $fragment;
+      $self->_get_fragment_hash->{$id} = $fragment;
       return 1;
     }
 
@@ -546,7 +438,7 @@ sub add_document {
   if ( $document->isa('SML::Document') )
     {
       my $id = $document->get_id;
-      $self->get_document_hash->{$id} = $document;
+      $self->_get_document_hash->{$id} = $document;
       return 1;
     }
 
@@ -797,7 +689,7 @@ sub has_fragment {
   my $self = shift;
   my $id   = shift;
 
-  if ( exists $self->get_fragment_hash->{$id} )
+  if ( exists $self->_get_fragment_hash->{$id} )
     {
       return 1;
     }
@@ -816,7 +708,7 @@ sub has_document {
   my $self = shift;
   my $id   = shift;
 
-  if ( exists $self->get_document_hash->{$id} )
+  if ( exists $self->_get_document_hash->{$id} )
     {
       return 1;
     }
@@ -987,9 +879,9 @@ sub get_fragment {
   my $self     = shift;
   my $filespec = shift;
 
-  if ( exists $self->get_fragment_hash->{$filespec} )
+  if ( exists $self->_get_fragment_hash->{$filespec} )
     {
-      return $self->get_fragment_hash->{$filespec};
+      return $self->_get_fragment_hash->{$filespec};
     }
 
   else
@@ -1520,7 +1412,7 @@ sub summarize_content {
   # Return a summary of the library's content.
 
   my $self    = shift;
-  my $summary = "\n";
+  my $summary = q{};
 
   $summary .= $self->summarize_entities;
   $summary .= $self->summarize_fragments;
@@ -1571,6 +1463,8 @@ sub summarize_entities {
 
 	  $summary .= "\n";
 	}
+
+      $summary .= "\n";
     }
 
   return $summary;
@@ -1585,14 +1479,16 @@ sub summarize_fragments {
   my $self    = shift;
   my $summary = q{};
 
-  if ( keys %{ $self->get_fragment_hash } )
+  if ( keys %{ $self->_get_fragment_hash } )
     {
-      $summary .= "\nFragments:\n\n";
+      $summary .= "Fragments:\n\n";
 
-      foreach my $fragment_id (sort keys %{ $self->get_fragment_hash })
+      foreach my $fragment_id (sort keys %{ $self->_get_fragment_hash })
 	{
 	  $summary .= "  $fragment_id\n";
 	}
+
+      $summary .= "\n";
     }
 
   return $summary;
@@ -1623,7 +1519,7 @@ sub summarize_divisions {
 
   if ( keys %{ $self->get_division_hash } )
     {
-      $summary .= "\nDivisions:\n\n";
+      $summary .= "Divisions:\n\n";
 
       foreach my $division (sort by_division_name_and_id values %{ $self->get_division_hash })
 	{
@@ -1656,6 +1552,8 @@ sub summarize_divisions {
 
 	  $summary .= "\n";
 	}
+
+      $summary .= "\n";
     }
 
   return $summary;
@@ -1670,7 +1568,7 @@ sub summarize_glossary {
 
   if (@{ $self->get_glossary->get_entry_list })
     {
-      $summary .= "\nGlossary Entries:\n\n";
+      $summary .= "Glossary Entries:\n\n";
 
       foreach my $definition (@{ $self->get_glossary->get_entry_list })
 	{
@@ -1682,6 +1580,8 @@ sub summarize_glossary {
 	  }
 	  $summary .= "\n";
 	}
+
+      $summary .= "\n";
     }
 
   return $summary;
@@ -1696,7 +1596,7 @@ sub summarize_acronyms {
 
   if (@{ $self->get_acronym_list->get_acronym_list })
     {
-      $summary .= "\nAcronyms:\n\n";
+      $summary .= "Acronyms:\n\n";
 
       foreach my $definition (@{ $self->get_acronym_list->get_acronym_list })
 	{
@@ -1708,6 +1608,8 @@ sub summarize_acronyms {
 	  }
 	  $summary .= "\n";
 	}
+
+      $summary .= "\n";
     }
 
   return $summary;
@@ -1722,7 +1624,7 @@ sub summarize_variables {
 
   if (keys %{ $self->get_variable_hash })
     {
-      $summary .= "\nVariables:\n\n";
+      $summary .= "Variables:\n\n";
 
       foreach my $name (sort keys %{ $self->get_variable_hash })
 	{
@@ -1731,6 +1633,8 @@ sub summarize_variables {
 	      $summary .= "  $name \[$alt\]\n";
 	    }
 	}
+
+      $summary .= "\n";
     }
 
   return $summary;
@@ -1745,12 +1649,14 @@ sub summarize_resources {
 
   if (keys %{ $self->get_resource_hash })
     {
-      $summary .= "\nResources:\n\n";
+      $summary .= "Resources:\n\n";
 
       foreach my $filespec (sort keys %{ $self->get_resource_hash })
 	{
 	  $summary .= "  $filespec\n";
 	}
+
+      $summary .= "\n";
     }
 
   return $summary;
@@ -1765,7 +1671,7 @@ sub summarize_index {
 
   if (keys %{ $self->get_index_hash })
     {
-      $summary .= "\nIndexed Terms:\n\n";
+      $summary .= "Indexed Terms:\n\n";
 
       foreach my $term (sort keys %{ $self->get_index_hash })
 	{
@@ -1774,6 +1680,8 @@ sub summarize_index {
 
 	  $summary .= "  $term => $locations\n";
 	}
+
+      $summary .= "\n";
     }
 
   return $summary;
@@ -1788,7 +1696,7 @@ sub summarize_sources {
 
   if ( $self->get_references->has_sources )
     {
-      $summary .= "\nSource References:\n\n";
+      $summary .= "Source References:\n\n";
 
       foreach my $source ( values %{ $self->get_references->get_sources })
 	{
@@ -1797,6 +1705,8 @@ sub summarize_sources {
 
 	  $summary .= "  $id => $title\n";
 	}
+
+      $summary .= "\n";
     }
 
   return $summary;
@@ -1811,7 +1721,7 @@ sub summarize_outcomes {
 
   if ( keys %{ $self->get_outcome_hash } )
     {
-      $summary .= "\nTest Outcomes:\n\n";
+      $summary .= "Test Outcomes:\n\n";
 
       foreach my $entity (sort keys %{ $self->get_outcome_hash })
 	{
@@ -1822,6 +1732,8 @@ sub summarize_outcomes {
 	      $summary .= "  $entity $date => $status\n";
 	    }
 	}
+
+      $summary .= "\n";
     }
 
   return $summary;
@@ -1836,7 +1748,7 @@ sub summarize_reviews {
 
   if ( keys %{ $self->get_review_hash } )
     {
-      $summary .= "\nReview Results:\n\n";
+      $summary .= "Review Results:\n\n";
 
       foreach my $entity (sort keys %{ $self->get_review_hash })
 	{
@@ -1847,6 +1759,8 @@ sub summarize_reviews {
 	      $summary .= "  $entity $date => $status\n";
 	    }
 	}
+
+      $summary .= "\n";
     }
 
   return $summary;
@@ -1947,6 +1861,148 @@ sub update_status_from_outcome {
 ######################################################################
 ######################################################################
 ##
+## Private Attributes
+##
+######################################################################
+######################################################################
+
+has 'config_filespec' =>
+  (
+   isa      => 'Str',
+   reader   => '_get_config_filespec',
+   lazy     => 1,
+   builder  => '_build_config_filespec',
+  );
+
+######################################################################
+
+has 'config_filename' =>
+  (
+   isa      => 'Str',
+   reader   => '_get_config_filename',
+   default  => 'library.conf',
+  );
+
+######################################################################
+
+has 'include_path' =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => '_get_include_path',
+   default => sub {[]},
+  );
+
+######################################################################
+
+has 'lib_ontology_config_filename' =>
+  (
+   isa       => 'Str',
+   reader    => '_get_lib_ontology_config_filename',
+   writer    => '_set_lib_ontology_config_filename',
+   default   => 'ontology_rules_lib.conf',
+  );
+
+######################################################################
+
+has 'lib_ontology_config_filespec' =>
+  (
+   isa       => 'Str',
+   reader    => '_get_lib_ontology_config_filespec',
+   lazy      => 1,
+   builder   => '_build_lib_ontology_config_filespec',
+  );
+
+######################################################################
+
+has 'sml_ontology_config_filename' =>
+  (
+   isa       => 'Str',
+   reader    => '_get_sml_ontology_config_filename',
+   writer    => '_set_sml_ontology_config_filename',
+   default   => 'ontology_rules_sml.conf',
+  );
+
+######################################################################
+
+has 'sml_ontology_config_filespec' =>
+  (
+   isa       => 'Str',
+   reader    => '_get_sml_ontology_config_filespec',
+   lazy      => 1,
+   builder   => '_build_sml_ontology_config_filespec',
+  );
+
+# The SML ontology configuration file contains the core rules for the
+# Structured Manuscript Language.
+
+######################################################################
+
+has 'lib_ontology_config_filespec' =>
+  (
+   isa       => 'Str',
+   reader    => '_get_lib_ontology_config_filespec',
+   lazy      => 1,
+   builder   => '_build_lib_ontology_config_filespec',
+  );
+
+# The library ontology configuration file contains the ontology rules
+# for a specific library.
+
+######################################################################
+
+has 'directory_name' =>
+  (
+   isa       => 'Str',
+   reader    => '_get_directory_name',
+   default   => 'library',
+  );
+
+# This is the name of the directory containing the library.
+
+######################################################################
+
+has 'directory_path' =>
+  (
+   isa       => 'Str',
+   reader    => '_get_directory_path',
+   writer    => '_set_directory_path',
+   clearer   => '_clear_directory_path',
+   predicate => '_has_directory_path',
+   default   => q{.},
+  );
+
+# This is the name of the directory containing the library.
+
+######################################################################
+
+has 'fragment_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_fragment_hash',
+   default   => sub {{}},
+  );
+
+# This is the collection of fragments in the library.  The keys of
+# this hash are the fragment file names and the values are the
+# fragment objects.
+
+######################################################################
+
+has 'document_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_document_hash',
+   default   => sub {{}},
+  );
+
+# This is the collection of documents in the library.  The keys of
+# this hash are the document IDs and the values are the document
+# objects.
+
+######################################################################
+######################################################################
+##
 ## Private Methods
 ##
 ######################################################################
@@ -1956,7 +2012,7 @@ sub BUILD {
 
   my $self = shift;
 
-  my $config_filespec = $self->get_config_filespec;
+  my $config_filespec = $self->_get_config_filespec;
   my $sml             = SML->instance;
   my $syntax          = $sml->get_syntax;
   my $ontology        = $sml->get_ontology;
@@ -2011,26 +2067,45 @@ sub BUILD {
     }
 
   #-------------------------------------------------------------------
-  # determine the catalog file
+  # include_path
   #
-  if ( $config{'catalog_file'} )
+  if ( $config{'include_path'} )
     {
-      if ( -r "$library_dir/$config{'catalog_file'}" )
+      if ( ref $config{'include_path'} eq 'ARRAY' )
 	{
-	  $catalog_file = "$library_dir/$config{'catalog_file'}";
-	  $self->_set_catalog_filespec( $catalog_file );
+	  foreach my $path (@{$config{'include_path'}})
+	    {
+	      $self->_add_include_path($path);
+	    }
 	}
 
       else
 	{
-	  $logger->error("catalog not readable: $catalog_file from $current_dir");
+	  $self->_add_include_path($config{'include_path'});
 	}
     }
 
-  else
-    {
-      $logger->error("config file lacks \'catalog_file\'");
-    }
+  #-------------------------------------------------------------------
+  # determine the catalog file
+  #
+  # if ( $config{'catalog_file'} )
+  #   {
+  #     if ( -r "$library_dir/$config{'catalog_file'}" )
+  # 	{
+  # 	  $catalog_file = "$library_dir/$config{'catalog_file'}";
+  # 	  $self->_set_catalog_filespec( $catalog_file );
+  # 	}
+
+  #     else
+  # 	{
+  # 	  $logger->error("catalog not readable: $catalog_file from $current_dir");
+  # 	}
+  #   }
+
+  # else
+  #   {
+  #     $logger->error("config file lacks \'catalog_file\'");
+  #   }
 
   #-------------------------------------------------------------------
   # add SML ontology rules
@@ -2094,6 +2169,57 @@ sub BUILD {
 
 ######################################################################
 
+sub _add_include_path {
+
+  # Add a directory to the include_path array (if it exists).
+
+  my $self = shift;
+  my $path = shift;
+
+  my $include_path   = $self->_get_include_path;
+  my $directory_path = $self->_get_directory_path;
+
+  if ( not -d "$directory_path/$path" )
+    {
+      $logger->error("PATH NOT FOUND \'$path\'");
+      return 0;
+    }
+
+  push(@{$include_path},$path);
+
+  return 1;
+}
+
+######################################################################
+
+sub _build_revision {
+
+  my $self = shift;
+
+  my $directory_path = $self->_get_directory_path;
+  my $svn            = $self->_find_svn_executable;
+
+  if (not -e $svn) {
+    $logger->error("svn program $svn is not executable");
+    return 0;
+  }
+
+  my $info = eval { `$svn info \"$directory_path\"` };
+
+  if ($info =~ /Last\s+Changed\s+Rev:\s+(\d+)/)
+    {
+      return $1;
+    }
+
+  else
+    {
+      $logger->warn("unknown SVN revision: $directory_path");
+      return 0;
+    }
+}
+
+######################################################################
+
 sub _build_config_filespec {
 
   # Find the configuration file by looking for it in a list of
@@ -2103,8 +2229,8 @@ sub _build_config_filespec {
 
   my $self = shift;
 
-  my $directory_name = $self->get_directory_name;
-  my $filename       = $self->get_config_filename;
+  my $directory_name = $self->_get_directory_name;
+  my $filename       = $self->_get_config_filename;
 
   my $dir_list =
     [
@@ -2134,7 +2260,7 @@ sub _build_sml_ontology_config_filespec {
 
   my $self = shift;
 
-  my $directory_name = $self->get_directory_name;
+  my $directory_name = $self->_get_directory_name;
   my $filename       = $self->_get_sml_ontology_config_filename;
 
   my $dir_list =
@@ -2276,6 +2402,42 @@ sub by_date {
 
 ######################################################################
 
+sub _find_svn_executable {
+
+  if ( $^O eq 'MSWin32')
+    {
+      my $sml     = SML->instance;
+      my $util    = $sml->get_util;
+      my $options = $util->get_options;
+
+      return $options->get_svn_executable;
+    }
+
+  elsif ( $^O eq 'linux' )
+    {
+      my $svn = `which svn`;
+
+      $svn =~ s/[\r\n]*$//;
+      # chomp($svn);
+
+      if ($svn)
+	{
+	  return $svn;
+	}
+
+      else
+	{
+	  $logger->error("SVN EXECUTABLE NOT FOUND");
+	  return 0;
+	}
+    }
+
+  $logger->error("SVN EXECUTABLE NOT FOUND");
+  return 0;
+}
+
+######################################################################
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
@@ -2301,8 +2463,6 @@ A library is A collection of related SML documents and reusable
 document fragments.
 
 =head1 METHODS
-
-=head2 get_config_filespec
 
 =head2 get_sml
 
@@ -2330,8 +2490,6 @@ document fragments.
 
 =head2 get_revision
 
-=head2 get_directory_path
-
 =head2 get_catalog_filespec
 
 =head2 get_file_list
@@ -2341,10 +2499,6 @@ document fragments.
 =head2 get_reference_file_list
 
 =head2 get_script_file_list
-
-=head2 get_fragment_hash
-
-=head2 get_document_hash
 
 =head2 get_entity_hash
 

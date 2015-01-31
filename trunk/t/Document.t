@@ -25,7 +25,7 @@ my $testdata =
 
    invalid_non_unique_id =>
    {
-    testfile  => 'library/testdata/td-000070.txt',
+    testfile  => 'td-000070.txt',
     docid     => 'td-000070',
     warning_1 => 'INVALID NON-UNIQUE ID',
     warning_2 => 'THE DOCUMENT IS NOT VALID',

@@ -291,12 +291,11 @@ sub add_part {
 
   my $self = shift;
   my $part = shift;
-  my $type = ref $part;
 
   if (
       not
       (
-       $type
+       ref $part
        or
        $part->isa('SML::Block')
        or
@@ -312,7 +311,7 @@ sub add_part {
 
   push @{ $self->get_part_list }, $part;
 
-  $logger->trace("add part $type");
+  $logger->trace("add part $part");
 
   return 1;
 }
@@ -337,7 +336,11 @@ sub add_property_element {
   my $self    = shift;
   my $element = shift;
 
+  $logger->debug("element: $element");
+
   my $name = $element->get_name;
+
+  $logger->debug("name: $name");
 
   if ( not $name )
     {

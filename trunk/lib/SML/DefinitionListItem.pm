@@ -6,7 +6,7 @@ use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::ListItem';
+extends 'SML::Block';
 
 use namespace::autoclean;
 
@@ -29,10 +29,30 @@ has '+name' =>
 
 ######################################################################
 
-has '+type' =>
+has 'term' =>
   (
-   default  => 'definition_list_item',
+   isa      => 'SML::String',
+   reader   => 'get_term',
+   lazy     => 1,
+   builder  => '_build_term',
   );
+
+######################################################################
+
+has 'definition' =>
+  (
+   isa      => 'SML::String',
+   reader   => 'get_definition',
+   lazy     => 1,
+   builder  => '_build_definition',
+  );
+
+######################################################################
+
+# has '+type' =>
+#   (
+#    default  => 'definition_list_item',
+#   );
 
 ######################################################################
 ######################################################################
@@ -42,7 +62,15 @@ has '+type' =>
 ######################################################################
 ######################################################################
 
-sub get_term {
+######################################################################
+######################################################################
+##
+## Private Methods
+##
+######################################################################
+######################################################################
+
+sub _build_term {
 
   # Return the term being defined by the definition list item.
 
@@ -57,7 +85,11 @@ sub get_term {
 
   if ( /$syntax->{'def_list_item'}/xms )
     {
-      return $1; # see SML::Syntax
+      my $text = $1; # see SML::Syntax
+      my $string = SML::String->new(content=>$text);
+      $self->add_part( $string );
+
+      return $string;
     }
 
   else
@@ -69,20 +101,7 @@ sub get_term {
 
 ######################################################################
 
-sub get_term_as_html {
-
-  my $self = shift;
-
-  my $text = $self->get_term;
-
-  my $block = SML::Block->new(content=>$text);
-
-  return $block->as_html;
-}
-
-######################################################################
-
-sub get_definition {
+sub _build_definition {
 
   # Return the definition of the term being defined by the definition
   # list item.
@@ -97,7 +116,11 @@ sub get_definition {
 
   if ( /$syntax->{'def_list_item'}/xms )
     {
-      return $2; # see SML::Syntax
+      my $text = $2; # see SML::Syntax
+      my $string = SML::String->new(content=>$text);
+      $self->add_part( $string );
+
+      return $string;
     }
 
   else
@@ -106,19 +129,6 @@ sub get_definition {
       return q{};
     }
 };
-
-######################################################################
-
-sub get_definition_as_html {
-
-  my $self = shift;
-
-  my $text = $self->get_definition;
-
-  my $block = SML::Block->new(content=>$text);
-
-  return $block->as_html;
-}
 
 ######################################################################
 
