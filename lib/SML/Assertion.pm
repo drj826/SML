@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: Assertion.pm 11633 2012-12-04 23:07:21Z don.johnson $
+# $Id$
 
 package SML::Assertion;
 
