@@ -105,19 +105,20 @@ sub get_acronym_list {
 
   # Return an alphabetically sorted list of all acronyms.
 
-  my $self     = shift;
-  my $acronyms = [];
-  my $ah       = $self->_get_acronym_hash;
+  my $self = shift;
+
+  my $ah = $self->_get_acronym_hash;
+  my $al = [];                          # acronym list
 
   foreach my $acronym ( sort keys %{ $ah } )
     {
       foreach my $alt ( sort keys %{ $ah->{$acronym} } )
 	{
-	  push @{ $acronyms }, $ah->{$acronym}{$alt};
+	  push @{ $al }, $ah->{$acronym}{$alt};
 	}
     }
 
-  return $acronyms;
+  return $al;
 }
 
 ######################################################################
