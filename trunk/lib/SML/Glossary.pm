@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+# $Id$
+
 package SML::Glossary;
 
 use Moose;

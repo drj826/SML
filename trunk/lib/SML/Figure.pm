@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+# $Id$
+
 package SML::Figure;
 
 use Moose;
