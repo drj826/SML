@@ -19,6 +19,7 @@ var:: head-count = 26
 
 var:: disclaimer = Some assembly required.  Batteries not included.
 Your mileage may vary. Proceed at your own risk.  May contain
-peanuts. Do not use while sleeping.
+peanuts. Do not use while sleeping. Do not use if you are pregnant or
+may become pregnant.
 
 <<<DOCUMENT

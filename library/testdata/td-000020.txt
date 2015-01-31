@@ -46,7 +46,7 @@ This section is a chapter.[f:introduction:1] This is some introductory
 text.  It really doesn't say anything interesting so let's just move
 along.
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#---------------------------------------
 # footnotes
 
 footnote::1: This is a footnote.

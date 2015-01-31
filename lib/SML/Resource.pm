@@ -64,6 +64,10 @@ sub add_resource {
   my $resource  = shift;
   my $filespec  = $resource->get_filespec;
 
+  # !!! BUG HERE !!!
+  #
+  # SML::Resource does not provide 'get_filespec' method?
+
   $self->get_resource_hash->{$filespec} = $resource;
 
   return 1;

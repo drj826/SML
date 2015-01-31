@@ -77,6 +77,19 @@ has 'line_list' =>
 
 ######################################################################
 
+has 'part_list' =>
+  (
+   isa       => 'ArrayRef',
+   reader    => 'get_part_list',
+   default   => sub {[]},
+  );
+
+# The 'part_list' is the array of strings within this block.  All of
+# the content of a block can be represented by an array of strings.
+# Strings can contain substrings (a string within a string).
+
+######################################################################
+
 has 'containing_division' =>
   (
    isa       => 'SML::Division',
@@ -141,6 +154,37 @@ sub add_line {
       return 0;
     }
 
+}
+
+######################################################################
+
+sub add_part {
+
+  # Only a string can be part of a block.
+
+  my $self = shift;
+  my $part = shift;
+
+  if (
+      not
+      (
+       ref $part
+       or
+       $part->isa('SML::String')
+      )
+     )
+    {
+      $logger->error("CAN'T ADD PART \'$part\' is not a string");
+      return 0;
+    }
+
+  $part->set_containing_block( $self );
+
+  push @{ $self->get_part_list }, $part;
+
+  $logger->trace("add part $part");
+
+  return 1;
 }
 
 ######################################################################
@@ -383,7 +427,7 @@ sub as_latex {
   $latex = $self->_render_latex_literal_xml_tags($latex);
   $latex = $self->_render_latex_email_addresses($latex);
 
-  return "\n" . $latex . "\n";
+  return $latex;
 }
 
 ######################################################################
@@ -1475,7 +1519,6 @@ sub _build_content {
   my $content = join(q{ }, @{ $lines });
 
   return $content . "\n\n";
-
 }
 
 ######################################################################

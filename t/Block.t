@@ -44,176 +44,176 @@ my $testdata =
    cross_reference_1 =>
    {
     sml   => '[ref:introduction]',
-    latex => "\nSection~\\vref{introduction}\n\n\n",
-    html  => "\n<a href=\"td-000020-1.html#Section.1\">Section 1</a>\n\n\n",
-    xml   => "\n<a href=\"td-000020-1.html#Section.1\">Section 1</a>\n\n\n",
+    latex => "Section~\\vref{introduction}\n\n",
+    html  => "<a href=\"td-000020-1.html#Section.1\">Section 1</a>\n\n",
+    xml   => "<a href=\"td-000020-1.html#Section.1\">Section 1</a>\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    cross_reference_2 =>
    {
     sml   => '[r:introduction]',
-    latex => "\nSection~\\vref{introduction}\n\n\n",
-    html  => "\n<a href=\"td-000020-1.html#Section.1\">Section 1</a>\n\n\n",
-    xml   => "\n<a href=\"td-000020-1.html#Section.1\">Section 1</a>\n\n\n",
+    latex => "Section~\\vref{introduction}\n\n",
+    html  => "<a href=\"td-000020-1.html#Section.1\">Section 1</a>\n\n",
+    xml   => "<a href=\"td-000020-1.html#Section.1\">Section 1</a>\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    cross_reference_3 =>
    {
     sml   => '[ref:system-model]',
-    latex => "\nSection~\\vref{system-model}\n\n\n",
-    html  => "\n<a href=\"td-000020-2.html#Section.2\">Section 2</a>\n\n\n",
-    xml   => "\n<a href=\"td-000020-2.html#Section.2\">Section 2</a>\n\n\n",
+    latex => "Section~\\vref{system-model}\n\n",
+    html  => "<a href=\"td-000020-2.html#Section.2\">Section 2</a>\n\n",
+    xml   => "<a href=\"td-000020-2.html#Section.2\">Section 2</a>\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    cross_reference_4 =>
    {
     sml   => '[r:system-model]',
-    latex => "\nSection~\\vref{system-model}\n\n\n",
-    html  => "\n<a href=\"td-000020-2.html#Section.2\">Section 2</a>\n\n\n",
-    xml   => "\n<a href=\"td-000020-2.html#Section.2\">Section 2</a>\n\n\n",
+    latex => "Section~\\vref{system-model}\n\n",
+    html  => "<a href=\"td-000020-2.html#Section.2\">Section 2</a>\n\n",
+    xml   => "<a href=\"td-000020-2.html#Section.2\">Section 2</a>\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    url_reference_1 =>
    {
     sml   => '[url:http://www.cnn.com/]',
-    latex => "\n\\urlstyle{sf}\\url{http://www.cnn.com/}\n\n\n",
-    html  => "\n<a href=\"http://www.cnn.com/\">http://www.cnn.com/</a>\n\n\n",
-    xml   => "\n<a href=\"http://www.cnn.com/\">http://www.cnn.com/</a>\n\n\n",
+    latex => "\\urlstyle{sf}\\url{http://www.cnn.com/}\n\n",
+    html  => "<a href=\"http://www.cnn.com/\">http://www.cnn.com/</a>\n\n",
+    xml   => "<a href=\"http://www.cnn.com/\">http://www.cnn.com/</a>\n\n",
    },
 
    footnote_reference_1 =>
    {
     sml   => '[f:introduction:1]',
-    latex => "\n\\footnote{This is a footnote.}\n\n\n",
-    html  => "\n<span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.introduction.1\">1<\/a><\/sup><\/span>\n\n\n",
-    xml   => "\n<span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.introduction.1\">1<\/a><\/sup><\/span>\n\n\n",
+    latex => "\\footnote{This is a footnote.}\n\n",
+    html  => "<span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.introduction.1\">1<\/a><\/sup><\/span>\n\n",
+    xml   => "<span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.introduction.1\">1<\/a><\/sup><\/span>\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    glossary_reference_1 =>
    {
     sml   => '[g:sml:document]',
-    latex => "\n\\gls{document:sml}\n\n\n",
-    html  => "\n<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n\n",
-    xml   => "\n<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n\n",
+    latex => "\\gls{document:sml}\n\n",
+    html  => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
+    xml   => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    glossary_reference_2 =>
    {
     sml   => '[G:sml:document]',
-    latex => "\n\\Gls{document:sml}\n\n\n",
-    html  => "\n<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n\n",
-    xml   => "\n<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n\n",
+    latex => "\\Gls{document:sml}\n\n",
+    html  => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
+    xml   => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    glossary_reference_3 =>
    {
     sml   => '[gls:sml:document]',
-    latex => "\n\\gls{document:sml}\n\n\n",
-    html  => "\n<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n\n",
-    xml   => "\n<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n\n",
+    latex => "\\gls{document:sml}\n\n",
+    html  => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
+    xml   => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    glossary_reference_4 =>
    {
     sml   => '[Gls:sml:document]',
-    latex => "\n\\Gls{document:sml}\n\n\n",
-    html  => "\n<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n\n",
-    xml   => "\n<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n\n",
+    latex => "\\Gls{document:sml}\n\n",
+    html  => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
+    xml   => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    acronym_reference_1 =>
    {
     sml   => '[ac:sml:TLA]',
-    latex => "\n\\ac{TLA:sml}\n\n\n",
-    html  => "\n<a href=\"td-000020.acronyms.html#tla:sml\">TLA</a>\n\n\n",
-    xml   => "\n<a href=\"td-000020.acronyms.html#tla:sml\">TLA</a>\n\n\n",
+    latex => "\\ac{TLA:sml}\n\n",
+    html  => "<a href=\"td-000020.acronyms.html#tla:sml\">TLA</a>\n\n",
+    xml   => "<a href=\"td-000020.acronyms.html#tla:sml\">TLA</a>\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    acronym_reference_2 =>
    {
     sml   => '[acs:sml:TLA]',
-    latex => "\n\\acs{TLA:sml}\n\n\n",
-    html  => "\n<a href=\"td-000020.acronyms.html#tla:sml\">TLA</a>\n\n\n",
-    xml   => "\n<a href=\"td-000020.acronyms.html#tla:sml\">TLA</a>\n\n\n",
+    latex => "\\acs{TLA:sml}\n\n",
+    html  => "<a href=\"td-000020.acronyms.html#tla:sml\">TLA</a>\n\n",
+    xml   => "<a href=\"td-000020.acronyms.html#tla:sml\">TLA</a>\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    acronym_reference_3 =>
    {
     sml   => '[acl:sml:TLA]',
-    latex => "\n\\acl{TLA:sml}\n\n\n",
-    html  => "\n<a href=\"td-000020.acronyms.html#tla:sml\">Three Letter Acronym</a>\n\n\n",
-    xml   => "\n<a href=\"td-000020.acronyms.html#tla:sml\">Three Letter Acronym</a>\n\n\n",
+    latex => "\\acl{TLA:sml}\n\n",
+    html  => "<a href=\"td-000020.acronyms.html#tla:sml\">Three Letter Acronym</a>\n\n",
+    xml   => "<a href=\"td-000020.acronyms.html#tla:sml\">Three Letter Acronym</a>\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    index_reference_1 =>
    {
     sml   => '[i:structured manuscript language]',
-    latex => "\nstructured manuscript language \\index{structured manuscript language}\n\n\n",
-    html  => "\nstructured manuscript language\n\n\n",
-    xml   => "\nstructured manuscript language\n\n\n",
+    latex => "structured manuscript language \\index{structured manuscript language}\n\n",
+    html  => "structured manuscript language\n\n",
+    xml   => "structured manuscript language\n\n",
    },
 
    index_reference_2 =>
    {
     sml   => '[index:structured manuscript language]',
-    latex => "\nstructured manuscript language \\index{structured manuscript language}\n\n\n",
-    html  => "\nstructured manuscript language\n\n\n",
-    xml   => "\nstructured manuscript language\n\n\n",
+    latex => "structured manuscript language \\index{structured manuscript language}\n\n",
+    html  => "structured manuscript language\n\n",
+    xml   => "structured manuscript language\n\n",
    },
 
    id_reference_1 =>
    {
     sml   => '[id:introduction]',
-    latex => "\n\\hyperref[introduction]{introduction}\n\n\n",
-    html  => "\n<a href=\"td-000020-1.html#Section.1\">Section 1</a>\n\n\n",
-    xml   => "\n<a href=\"td-000020-1.html#Section.1\">Section 1</a>\n\n\n",
+    latex => "\\hyperref[introduction]{introduction}\n\n",
+    html  => "<a href=\"td-000020-1.html#Section.1\">Section 1</a>\n\n",
+    xml   => "<a href=\"td-000020-1.html#Section.1\">Section 1</a>\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    thepage_reference_1 =>
    {
     sml   => '[thepage]',
-    latex => "\n\\thepage\n\n\n",
-    html  => "\n\n\n\n",
-    xml   => "\n\n\n\n",
+    latex => "\\thepage\n\n",
+    html  => "\n\n",
+    xml   => "\n\n",
    },
 
    page_reference_1 =>
    {
     sml   => '[page:introduction]',
-    latex => "\np. \\pageref{introduction}\n\n\n",
-    html  => "\n<a href=\"td-000020-1.html#Section.1\">link</a>\n\n\n",
-    xml   => "\n<a href=\"td-000020-1.html#Section.1\">link</a>\n\n\n",
+    latex => "p. \\pageref{introduction}\n\n",
+    html  => "<a href=\"td-000020-1.html#Section.1\">link</a>\n\n",
+    xml   => "<a href=\"td-000020-1.html#Section.1\">link</a>\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    page_reference_2 =>
    {
     sml   => '[pg:introduction]',
-    latex => "\np. \\pageref{introduction}\n\n\n",
-    html  => "\n<a href=\"td-000020-1.html#Section.1\">link</a>\n\n\n",
-    xml   => "\n<a href=\"td-000020-1.html#Section.1\">link</a>\n\n\n",
+    latex => "p. \\pageref{introduction}\n\n",
+    html  => "<a href=\"td-000020-1.html#Section.1\">link</a>\n\n",
+    xml   => "<a href=\"td-000020-1.html#Section.1\">link</a>\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    version_reference_1 =>
    {
     sml     => '[version]',
-    latex   => "\n2.0\n\n\n",
-    html    => "\n2.0\n\n\n",
-    xml     => "\n2.0\n\n\n",
+    latex   => "2.0\n\n",
+    html    => "2.0\n\n",
+    xml     => "2.0\n\n",
     success => 'valid version reference passes validation',
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
@@ -221,9 +221,9 @@ my $testdata =
    revision_reference_1 =>
    {
     sml     => '[revision]',
-    latex   => "\n4444\n\n\n",
-    html    => "\n4444\n\n\n",
-    xml     => "\n4444\n\n\n",
+    latex   => "4444\n\n",
+    html    => "4444\n\n",
+    xml     => "4444\n\n",
     success => 'valid revision reference passes validation',
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
@@ -231,9 +231,9 @@ my $testdata =
    date_reference_1 =>
    {
     sml     => '[date]',
-    latex   => "\n2012-09-11\n\n\n",
-    html    => "\n2012-09-11\n\n\n",
-    xml     => "\n2012-09-11\n\n\n",
+    latex   => "2012-09-11\n\n",
+    html    => "2012-09-11\n\n",
+    xml     => "2012-09-11\n\n",
     success => 'valid date reference passes validation',
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
@@ -241,9 +241,9 @@ my $testdata =
    status_reference_1 =>
    {
     sml     => '[status:td-000020]',
-    latex   => "\n\\textcolor{fg-yellow}{\$\\blacksquare\$}\n\n\n",
-    html    => "\n<image src=\"status_yellow.png\" border=\"0\"/>\n\n\n",
-    xml     => "\n<image src=\"status_yellow.png\" border=\"0\"/>\n\n\n",
+    latex   => "\\textcolor{fg-yellow}{\$\\blacksquare\$}\n\n",
+    html    => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
+    xml     => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
     success => 'valid status reference passes validation',
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
@@ -251,9 +251,9 @@ my $testdata =
    status_reference_2 =>
    {
     sml     => '[status:grey]',
-    latex   => "\n\\textcolor{fg-grey}{\$\\blacksquare\$}\n\n\n",
-    html    => "\n<image src=\"status_grey.png\" border=\"0\"/>\n\n\n",
-    xml     => "\n<image src=\"status_grey.png\" border=\"0\"/>\n\n\n",
+    latex   => "\\textcolor{fg-grey}{\$\\blacksquare\$}\n\n",
+    html    => "<image src=\"status_grey.png\" border=\"0\"/>\n\n",
+    xml     => "<image src=\"status_grey.png\" border=\"0\"/>\n\n",
     success => 'valid status reference passes validation',
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
@@ -261,9 +261,9 @@ my $testdata =
    status_reference_3 =>
    {
     sml     => '[status:green]',
-    latex   => "\n\\textcolor{fg-green}{\$\\blacksquare\$}\n\n\n",
-    html    => "\n<image src=\"status_green.png\" border=\"0\"/>\n\n\n",
-    xml     => "\n<image src=\"status_green.png\" border=\"0\"/>\n\n\n",
+    latex   => "\\textcolor{fg-green}{\$\\blacksquare\$}\n\n",
+    html    => "<image src=\"status_green.png\" border=\"0\"/>\n\n",
+    xml     => "<image src=\"status_green.png\" border=\"0\"/>\n\n",
     success => 'valid status reference passes validation',
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
@@ -271,9 +271,9 @@ my $testdata =
    status_reference_4 =>
    {
     sml     => '[status:yellow]',
-    latex   => "\n\\textcolor{fg-yellow}{\$\\blacksquare\$}\n\n\n",
-    html    => "\n<image src=\"status_yellow.png\" border=\"0\"/>\n\n\n",
-    xml     => "\n<image src=\"status_yellow.png\" border=\"0\"/>\n\n\n",
+    latex   => "\\textcolor{fg-yellow}{\$\\blacksquare\$}\n\n",
+    html    => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
+    xml     => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
     success => 'valid status reference passes validation',
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
@@ -281,9 +281,9 @@ my $testdata =
    status_reference_5 =>
    {
     sml     => '[status:red]',
-    latex   => "\n\\textcolor{fg-red}{\$\\blacksquare\$}\n\n\n",
-    html    => "\n<image src=\"status_red.png\" border=\"0\"/>\n\n\n",
-    xml     => "\n<image src=\"status_red.png\" border=\"0\"/>\n\n\n",
+    latex   => "\\textcolor{fg-red}{\$\\blacksquare\$}\n\n",
+    html    => "<image src=\"status_red.png\" border=\"0\"/>\n\n",
+    xml     => "<image src=\"status_red.png\" border=\"0\"/>\n\n",
     success => 'valid status reference passes validation',
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
@@ -291,99 +291,99 @@ my $testdata =
    citation_reference_1 =>
    {
     sml   => '[cite:cms15]',
-    latex => "\n\\cite{cms15}\n\n\n",
-    html  => "\n[<a href=\"td-000020.source.html#cms15\">cms15</a>]\n\n\n",
-    xml   => "\n[<a href=\"td-000020.source.html#cms15\">cms15</a>]\n\n\n",
+    latex => "\\cite{cms15}\n\n",
+    html  => "[<a href=\"td-000020.source.html#cms15\">cms15</a>]\n\n",
+    xml   => "[<a href=\"td-000020.source.html#cms15\">cms15</a>]\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    citation_reference_2 =>
    {
     sml   => '[cite:cms15, pg 44]',
-    latex => "\n\\cite[pg 44]{cms15}\n\n\n",
-    html  => "\n[<a href=\"td-000020.source.html#cms15\">cms15, pg 44</a>]\n\n\n",
-    xml   => "\n[<a href=\"td-000020.source.html#cms15\">cms15, pg 44</a>]\n\n\n",
+    latex => "\\cite[pg 44]{cms15}\n\n",
+    html  => "[<a href=\"td-000020.source.html#cms15\">cms15, pg 44</a>]\n\n",
+    xml   => "[<a href=\"td-000020.source.html#cms15\">cms15, pg 44</a>]\n\n",
     no_doc_error => 'NOT IN DOCUMENT CONTEXT',
    },
 
    file_reference_1 =>
    {
     sml   => '[file:app.ini]',
-    latex => "\n\\path{app.ini}\n\n\n",
-    html  => "\n<tt>app.ini</tt>\n\n\n",
-    xml   => "\n<tt>app.ini</tt>\n\n\n",
+    latex => "\\path{app.ini}\n\n",
+    html  => "<tt>app.ini</tt>\n\n",
+    xml   => "<tt>app.ini</tt>\n\n",
    },
 
    file_reference_2 =>
    {
     sml   => '[file:My Document.doc]',
-    latex => "\n\\path{My Document.doc}\n\n\n",
-    html  => "\n<tt>My Document.doc</tt>\n\n\n",
-    xml   => "\n<tt>My Document.doc</tt>\n\n\n",
+    latex => "\\path{My Document.doc}\n\n",
+    html  => "<tt>My Document.doc</tt>\n\n",
+    xml   => "<tt>My Document.doc</tt>\n\n",
    },
 
    path_reference_1 =>
    {
     sml   => '[path:/path/to/folder]',
-    latex => "\n\\path{/path/to/folder}\n\n\n",
-    html  => "\n<tt>/path/to/folder</tt>\n\n\n",
-    xml   => "\n<tt>/path/to/folder</tt>\n\n\n",
+    latex => "\\path{/path/to/folder}\n\n",
+    html  => "<tt>/path/to/folder</tt>\n\n",
+    xml   => "<tt>/path/to/folder</tt>\n\n",
    },
 
    path_reference_2 =>
    {
     sml   => '[path:/path/to/my folder]',
-    latex => "\n\\path{/path/to/my folder}\n\n\n",
-    html  => "\n<tt>/path/to/my folder</tt>\n\n\n",
-    xml   => "\n<tt>/path/to/my folder</tt>\n\n\n",
+    latex => "\\path{/path/to/my folder}\n\n",
+    html  => "<tt>/path/to/my folder</tt>\n\n",
+    xml   => "<tt>/path/to/my folder</tt>\n\n",
    },
 
    path_reference_3 =>
    {
     sml   => '[path:C:\path\to\my folder\]',
-    latex => "\n\\path{C:\\path\\to\\my folder}\$\\backslash\$\n\n\n",
-    html  => "\n<tt>C:\\path\\to\\my folder\\</tt>\n\n\n",
-    xml   => "\n<tt>C:\\path\\to\\my folder\\</tt>\n\n\n",
+    latex => "\\path{C:\\path\\to\\my folder}\$\\backslash\$\n\n",
+    html  => "<tt>C:\\path\\to\\my folder\\</tt>\n\n",
+    xml   => "<tt>C:\\path\\to\\my folder\\</tt>\n\n",
    },
 
    user_entered_text_1 =>
    {
     sml   => '[enter:USERNAME]',
-    latex => "\n\\textbf{\\texttt{USERNAME}}\n\n\n",
-    html  => "\n<b><tt>USERNAME</tt></b>\n\n\n",
-    xml   => "\n<b><tt>USERNAME</tt></b>\n\n\n",
+    latex => "\\textbf{\\texttt{USERNAME}}\n\n",
+    html  => "<b><tt>USERNAME</tt></b>\n\n",
+    xml   => "<b><tt>USERNAME</tt></b>\n\n",
    },
 
    command_reference_1 =>
    {
     sml   => '[cmd:pwd]',
-    latex => "\n\\path{pwd}\n\n\n",
-    html  => "\n<tt>pwd</tt>\n\n\n",
-    xml   => "\n<tt>pwd</tt>\n\n\n",
+    latex => "\\path{pwd}\n\n",
+    html  => "<tt>pwd</tt>\n\n",
+    xml   => "<tt>pwd</tt>\n\n",
    },
 
    command_reference_2 =>
    {
     sml   => '[cmd:ls -al | grep -i bin | sort]',
-    latex => "\n\\path{ls -al | grep -i bin | sort}\n\n\n",
-    html  => "\n<tt>ls -al | grep -i bin | sort</tt>\n\n\n",
-    xml   => "\n<tt>ls -al | grep -i bin | sort</tt>\n\n\n",
+    latex => "\\path{ls -al | grep -i bin | sort}\n\n",
+    html  => "<tt>ls -al | grep -i bin | sort</tt>\n\n",
+    xml   => "<tt>ls -al | grep -i bin | sort</tt>\n\n",
    },
 
    literal_xml_tag_1 =>
    {
     sml   => '<html>',
-    latex => "\n<html>\n\n\n",
-    html  => "\n&lt;html&gt;\n\n\n",
-    xml   => "\n&lt;html&gt;\n\n\n",
+    latex => "<html>\n\n",
+    html  => "&lt;html&gt;\n\n",
+    xml   => "&lt;html&gt;\n\n",
    },
 
    literal_xml_tag_2 =>
    {
     sml   => '<para style="indented">',
-    latex => "\n<para style=\"indented\">\n\n\n",
-    html  => "\n&lt;para style=\"indented\"&gt;\n\n\n",
-    xml   => "\n&lt;para style=\"indented\"&gt;\n\n\n",
+    latex => "<para style=\"indented\">\n\n",
+    html  => "&lt;para style=\"indented\"&gt;\n\n",
+    xml   => "&lt;para style=\"indented\"&gt;\n\n",
    },
 
    literal_string_1 =>
@@ -397,201 +397,201 @@ my $testdata =
    email_address_1 =>
    {
     sml   => 'joe@example.com',
-    latex => "\njoe\@example.com\n\n\n",
-    html  => "\n<a href=\"mailto:joe\@example.com\">joe\@example.com</a>\n\n\n",
-    xml   => "\n<a href=\"mailto:joe\@example.com\">joe\@example.com</a>\n\n\n",
+    latex => "joe\@example.com\n\n",
+    html  => "<a href=\"mailto:joe\@example.com\">joe\@example.com</a>\n\n",
+    xml   => "<a href=\"mailto:joe\@example.com\">joe\@example.com</a>\n\n",
    },
 
    take_note_symbol =>
    {
     sml   => '[[take_note]]',
-    latex => "\n\\marginpar{\\Huge\\Writinghand}\n\n\n",
-    html  => "\n<b>(take note!)</b>\n\n\n",
-    xml   => "\n<b>(take note!)</b>\n\n\n",
+    latex => "\\marginpar{\\Huge\\Writinghand}\n\n",
+    html  => "<b>(take note!)</b>\n\n",
+    xml   => "<b>(take note!)</b>\n\n",
    },
 
    smiley_symbol =>
    {
     sml   => ':-)',
-    latex => "\n\\large\\Smiley\n\n\n",
-    html  => "\n(smiley)\n\n\n",
-    xml   => "\n(smiley)\n\n\n",
+    latex => "\\large\\Smiley\n\n",
+    html  => "(smiley)\n\n",
+    xml   => "(smiley)\n\n",
    },
 
    frowny_symbol =>
    {
     sml   => ':-(',
-    latex => "\n\\large\\Frowny\n\n\n",
-    html  => "\n(frowny)\n\n\n",
-    xml   => "\n(frowny)\n\n\n",
+    latex => "\\large\\Frowny\n\n",
+    html  => "(frowny)\n\n",
+    xml   => "(frowny)\n\n",
    },
 
    keystroke_symbol_1 =>
    {
     sml   => '[[Enter]]',
-    latex => "\n\\keystroke{Enter}\n\n\n",
-    html  => "\n<span class=\"keystroke\">Enter</span>\n\n\n",
-    xml   => "\n<span class=\"keystroke\">Enter</span>\n\n\n",
+    latex => "\\keystroke{Enter}\n\n",
+    html  => "<span class=\"keystroke\">Enter</span>\n\n",
+    xml   => "<span class=\"keystroke\">Enter</span>\n\n",
    },
 
    keystroke_symbol_2 =>
    {
     sml   => '[[Ctrl]]-[[Alt]]-[[Del]]',
-    latex => "\n\\keystroke{Ctrl}-\\keystroke{Alt}-\\keystroke{Del}\n\n\n",
-    html  => "\n<span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span>\n\n\n",
-    xml   => "\n<span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span>\n\n\n",
+    latex => "\\keystroke{Ctrl}-\\keystroke{Alt}-\\keystroke{Del}\n\n",
+    html  => "<span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span>\n\n",
+    xml   => "<span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span>\n\n",
    },
 
    left_arrow_symbol =>
    {
     sml   => '<-',
-    latex => "\n\$\\leftarrow\$\n\n",
-    html  => "\n&larr;\n\n",
-    xml   => "\n&larr;\n\n",
+    latex => "\$\\leftarrow\$\n",
+    html  => "&larr;\n",
+    xml   => "&larr;\n",
    },
 
    right_arrow_symbol =>
    {
     sml   => '->',
-    latex => "\n\$\\rightarrow\$\n\n\n",
-    html  => "\n&rarr;\n\n\n",
-    xml   => "\n&rarr;\n\n\n",
+    latex => "\$\\rightarrow\$\n\n",
+    html  => "&rarr;\n\n",
+    xml   => "&rarr;\n\n",
    },
 
    latex_symbol =>
    {
     sml   => 'LaTeX',
-    latex => "\n\\LaTeX{}\n\n\n",
-    html  => "\nLaTeX\n\n\n",
-    xml   => "\nLaTeX\n\n\n",
+    latex => "\\LaTeX{}\n\n",
+    html  => "LaTeX\n\n",
+    xml   => "LaTeX\n\n",
    },
 
    tex_symbol =>
    {
     sml   => 'TeX',
-    latex => "\n\\TeX{}\n\n\n",
-    html  => "\nTeX\n\n\n",
-    xml   => "\nTeX\n\n\n",
+    latex => "\\TeX{}\n\n",
+    html  => "TeX\n\n",
+    xml   => "TeX\n\n",
    },
 
    copyright_symbol =>
    {
     sml   => '[c]',
-    latex => "\n\\tiny\$^{\\copyright}\$\\normalsize\n\n\n",
-    html  => "\n&copy;\n\n\n",
-    xml   => "\n&copy;\n\n\n",
+    latex => "\\tiny\$^{\\copyright}\$\\normalsize\n\n",
+    html  => "&copy;\n\n",
+    xml   => "&copy;\n\n",
    },
 
    trademark_symbol =>
    {
     sml   => '[tm]',
-    latex => "\n\\tiny\$^{\\texttrademark}\$\\normalsize\n\n\n",
-    html  => "\n&trade;\n\n\n",
-    xml   => "\n&trade;\n\n\n",
+    latex => "\\tiny\$^{\\texttrademark}\$\\normalsize\n\n",
+    html  => "&trade;\n\n",
+    xml   => "&trade;\n\n",
    },
 
    reg_trademark_symbol =>
    {
     sml   => '[r]',
-    latex => "\n\\tiny\$^{\\textregistered}\$\\normalsize\n\n\n",
-    html  => "\n&reg;\n\n\n",
-    xml   => "\n&reg;\n\n\n",
+    latex => "\\tiny\$^{\\textregistered}\$\\normalsize\n\n",
+    html  => "&reg;\n\n",
+    xml   => "&reg;\n\n",
    },
 
    open_dblquote_symbol =>
    {
     sml   => '``',
-    latex => "\n\`\`\n\n\n",
-    html  => "\n&ldquo;\n\n\n",
-    xml   => "\n&ldquo;\n\n\n",
+    latex => "\`\`\n\n",
+    html  => "&ldquo;\n\n",
+    xml   => "&ldquo;\n\n",
    },
 
    close_dblquote_symbol =>
    {
     sml   => '\'\'',
-    latex => "\n\'\'\n\n\n",
-    html  => "\n&rdquo;\n\n\n",
-    xml   => "\n&rdquo;\n\n\n",
+    latex => "\'\'\n\n",
+    html  => "&rdquo;\n\n",
+    xml   => "&rdquo;\n\n",
    },
 
    open_sglquote_symbol =>
    {
     sml   => '`',
-    latex => "\n\`\n\n\n",
-    html  => "\n&lsquo;\n\n\n",
-    xml   => "\n&lsquo;\n\n\n",
+    latex => "\`\n\n",
+    html  => "&lsquo;\n\n",
+    xml   => "&lsquo;\n\n",
    },
 
    close_sglquote_symbol =>
    {
     sml   => '\'',
-    latex => "\n\'\n\n\n",
-    html  => "\n&rsquo;\n\n\n",
-    xml   => "\n&rsquo;\n\n\n",
+    latex => "\'\n\n",
+    html  => "&rsquo;\n\n",
+    xml   => "&rsquo;\n\n",
    },
 
    section_symbol =>
    {
     sml   => '[section]',
-    latex => "\n{\\S}\n\n\n",
-    html  => "\n&sect;\n\n\n",
-    xml   => "\n&sect;\n\n\n",
+    latex => "{\\S}\n\n",
+    html  => "&sect;\n\n",
+    xml   => "&sect;\n\n",
    },
 
    emdash_symbol =>
    {
     sml   => '--',
-    latex => "\n--\n\n\n",
-    html  => "\n&mdash;\n\n",
-    xml   => "\n&mdash;\n\n",
+    latex => "--\n\n",
+    html  => "&mdash;\n",
+    xml   => "&mdash;\n",
    },
 
    bold =>
    {
     sml   => '!!bold text!!',
-    latex => "\n\\textbf{bold text}\n\n\n",
-    html  => "\n<b>bold text</b>\n\n\n",
-    xml   => "\n<b>bold text</b>\n\n\n",
+    latex => "\\textbf{bold text}\n\n",
+    html  => "<b>bold text</b>\n\n",
+    xml   => "<b>bold text</b>\n\n",
    },
 
    italic =>
    {
     sml   => '~~italicized text~~',
-    latex => "\n\\textit{italicized text}\n\n\n",
-    html  => "\n<i>italicized text</i>\n\n\n",
-    xml   => "\n<i>italicized text</i>\n\n\n",
+    latex => "\\textit{italicized text}\n\n",
+    html  => "<i>italicized text</i>\n\n",
+    xml   => "<i>italicized text</i>\n\n",
    },
 
    underline =>
    {
     sml   => '__underlined text__',
-    latex => "\n\\underline{underlined text}\n\n\n",
-    html  => "\n<u>underlined text</u>\n\n\n",
-    xml   => "\n<u>underlined text</u>\n\n\n",
+    latex => "\\underline{underlined text}\n\n",
+    html  => "<u>underlined text</u>\n\n",
+    xml   => "<u>underlined text</u>\n\n",
    },
 
    fixedwidth =>
    {
     sml   => '||fixedwidth text||',
-    latex => "\n\\texttt{fixedwidth text}\n\n\n",
-    html  => "\n<tt>fixedwidth text</tt>\n\n\n",
-    xml   => "\n<tt>fixedwidth text</tt>\n\n\n",
+    latex => "\\texttt{fixedwidth text}\n\n",
+    html  => "<tt>fixedwidth text</tt>\n\n",
+    xml   => "<tt>fixedwidth text</tt>\n\n",
    },
 
    superscript =>
    {
     sml   => '^^superscripted text^^',
-    latex => "\n\\textsuperscript{superscripted text}\n\n\n",
-    html  => "\n<sup>superscripted text</sup>\n\n\n",
-    xml   => "\n<sup>superscripted text</sup>\n\n\n",
+    latex => "\\textsuperscript{superscripted text}\n\n",
+    html  => "<sup>superscripted text</sup>\n\n",
+    xml   => "<sup>superscripted text</sup>\n\n",
    },
 
    subscript =>
    {
     sml   => ',,subscripted text,,',
-    latex => "\n\\subscript{subscripted text}\n\n\n",
-    html  => "\n<sub>subscripted text</sub>\n\n\n",
-    xml   => "\n<sub>subscripted text</sub>\n\n\n",
+    latex => "\\subscript{subscripted text}\n\n",
+    html  => "<sub>subscripted text</sub>\n\n",
+    xml   => "<sub>subscripted text</sub>\n\n",
    },
 
    valid_bold_block =>
@@ -806,7 +806,7 @@ my $testdata =
 
    get_name_path_test_1 =>
    {
-    testfile  => 'library/testdata/td-000020.txt',
+    testfile  => 'td-000020.txt',
     config    => 'library.conf',
    },
 
@@ -1219,7 +1219,7 @@ sub html_ok {
   my $content  = $testdata->{$blockname}{'sml'}  || "$blockname content not defined";
   my $expected = $testdata->{$blockname}{'html'} || "$blockname expected output not defined";
 
-  my $fragment = $parser->parse('library/testdata/td-000020.txt');
+  my $fragment = $parser->parse('td-000020.txt');
   my $document = $library->get_document('td-000020');
   my $line     = SML::Line->new(content=>$content);
   my $block    = SML::Block->new;
@@ -1252,7 +1252,7 @@ sub latex_ok {
   my $content  = $testdata->{$blockname}{'sml'}   || "$blockname content not defined";
   my $expected = $testdata->{$blockname}{'latex'} || "$blockname expected output not defined";
 
-  my $fragment = $parser->parse('library/testdata/td-000020.txt');
+  my $fragment = $parser->parse('td-000020.txt');
   my $document = $library->get_document('td-000020');
   my $line     = SML::Line->new(content=>$content);
   my $block    = SML::Block->new;
@@ -1277,7 +1277,7 @@ sub latex_ok {
 sub create_test_block {
 
   my $content  = shift;
-  my $fragment = $parser->parse('library/testdata/td-000020.txt');
+  my $fragment = $parser->parse('td-000020.txt');
   my $document = $library->get_document('td-000020');
   my $line     = SML::Line->new(content=>$content);
   my $block    = SML::Block->new;

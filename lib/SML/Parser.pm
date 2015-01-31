@@ -25,6 +25,28 @@ use SML::Options;               # ci-000382
 use SML::File;                  # ci-000384
 use SML::Line;                  # ci-000385
 
+# string classes
+use SML::String;                # ci-000???
+use SML::AcronymTermReference;  # ci-000???
+use SML::CitationReference;     # ci-000???
+use SML::CommandReference;      # ci-000???
+use SML::CrossReference;        # ci-000???
+use SML::FileReference;         # ci-000???
+use SML::FootnoteReference;     # ci-000???
+use SML::GlossaryDefinitionReference; # ci-000???
+use SML::GlossaryTermReference; # ci-000???
+use SML::IDReference;           # ci-000???
+use SML::IndexReference;        # ci-000???
+use SML::PageReference;         # ci-000???
+use SML::PathReference;         # ci-000???
+use SML::StatusReference;       # ci-000???
+use SML::Symbol;                # ci-000???
+use SML::SyntaxErrorString;     # ci-000???
+use SML::URLReference;          # ci-000???
+use SML::UserEnteredText;       # ci-000???
+use SML::VariableReference;     # ci-000???
+use SML::EmailAddress;          # ci-000???
+
 # block classes
 use SML::Block;                 # ci-000387
 use SML::PreformattedBlock;     # ci-000427
@@ -105,10 +127,11 @@ sub parse {
   # the fragment object.
 
   my $self     = shift;
-  my $filespec = shift;
+  my $filename = shift;
 
   my $library  = $self->get_library;
   my $startdir = getcwd;
+  my $filespec = $library->get_filespec($filename);
   my $fragdir  = dirname($filespec);
   my $basename = basename($filespec);
 
@@ -145,6 +168,7 @@ sub parse {
 
       while $self->_text_requires_processing;
 
+  # add documents to the library
   foreach my $division (@{ $fragment->get_division_list })
     {
       if ( $division->isa('SML::Document') )
@@ -161,8 +185,6 @@ sub parse {
 ######################################################################
 
 sub extract_division_name {
-
-  $logger->debug("extract_division_name");
 
   # Extract a division name string from a sequence of lines.
 
@@ -204,8 +226,6 @@ sub extract_division_name {
 ######################################################################
 
 sub extract_title_text {
-
-  $logger->debug("extract_title_text");
 
   # Extract the preamble title from an array of lines and return it as
   # a string.
@@ -319,8 +339,6 @@ sub extract_title_text {
 
 sub extract_preamble_lines {
 
-  $logger->debug("extract_preamble_lines");
-
   # Extract preamble lines from a sequence of division lines.
 
   # !!! BUG HERE !!!
@@ -411,8 +429,6 @@ sub extract_preamble_lines {
 ######################################################################
 
 sub extract_narrative_lines {
-
-  $logger->debug("extract_narrative_lines");
 
   # Extract narrative lines from a sequence of division lines.
 
@@ -865,6 +881,17 @@ has 'valid' =>
   );
 
 ######################################################################
+
+has substring_type_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => '_get_substring_type_list',
+   lazy    => 1,
+   builder => '_build_substring_type_list',
+  );
+
+######################################################################
 ######################################################################
 ##
 ## Private Methods
@@ -873,8 +900,6 @@ has 'valid' =>
 ######################################################################
 
 sub _init {
-
-  $logger->debug("init");
 
   # Initialize parser.
 
@@ -886,8 +911,6 @@ sub _init {
   my $sml     = SML->instance;
   my $util    = $sml->get_util;
   my $options = $util->get_options;
-
-  $logger->debug("initialize parser");
 
   if ( not $options->use_svn )
     {
@@ -906,8 +929,6 @@ sub _init {
 ######################################################################
 
 sub _resolve_includes {
-
-  $logger->debug("_resolve_includes");
 
   # Scan lines, replace 'include' requests with 'included' lines.
 
@@ -992,8 +1013,6 @@ sub _resolve_includes {
 	    {
 	      $included_filespec = $3;
 	    }
-
-	  $logger->debug("including $included_filespec args \"$args\"");
 
 	  #-----------------------------------------------------------
 	  # Get Fragment From Library Or Die
@@ -1289,8 +1308,6 @@ sub _resolve_includes {
 
 sub _run_scripts {
 
-  $logger->debug("_run_scripts");
-
   # Scan lines, replace 'script' requests with script outputs.
 
   my $self = shift;
@@ -1406,8 +1423,6 @@ sub _run_scripts {
 ######################################################################
 
 sub _gather_data {
-
-  $logger->debug("_gather_data");
 
   # Scan lines, gather data into objects.
 
@@ -1773,7 +1788,7 @@ sub _begin_division {
   else
     {
       my $type = ref $division;
-      $logger->error("THIS SHOULD NEVER HAPPEN ($type)");
+      $logger->error("THIS SHOULD NEVER HAPPEN (1) ($type)");
       return 0;
     }
 }
@@ -2181,7 +2196,7 @@ sub _insert_content {
 
 	else
 	  {
-	    $logger->warn("THIS SHOULD NEVER HAPPEN");
+	    $logger->warn("THIS SHOULD NEVER HAPPEN (2)");
 	  }
 
 	next LINE;
@@ -2565,8 +2580,6 @@ sub _generate_content {
 	  my $name = $1;
 	  my $args = $2 || '';
 
-	  $logger->debug("$name $divid $args");
-
 	  my $newline = SML::Line->new
 	    (
 	     content  => "insert_gen:: $name;$divid;$args",
@@ -2716,8 +2729,6 @@ sub _generate_section_numbers {
 
   # Do this BEFORE generating division numbers!
 
-  $logger->debug("_generate_section_numbers");
-
   my $self = shift;
 
   # initialize section counter
@@ -2848,6 +2859,9 @@ sub _end_block {
     {
       $self->_end_element($block);
     }
+
+  # parse the block into parts (strings)
+  $self->_parse_block($block);
 
   $self->_clear_block;
 
@@ -5872,7 +5886,7 @@ sub _process_non_blank_line {
 
   elsif ( not $self->_get_block )
     {
-      $logger->logdie("UNRECOGNIZED BLOCK at $location");
+      $logger->logdie("UNRECOGNIZED BLOCK at $location Should I start a paragraph?");
     }
 
   else
@@ -6686,6 +6700,934 @@ sub _line_ends_preamble {
     {
       return 0;
     }
+}
+
+######################################################################
+
+sub _text_begins_with_substring {
+
+  my $self = shift;
+  my $text = shift;
+
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+
+  foreach my $substring_type (@{ $self->_get_substring_type_list })
+    {
+      if ( $text =~ /^$syntax->{$substring_type}/ )
+	{
+	  return $substring_type;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub _build_substring_type_list {
+
+  # each substring type is an attribute in the syntax object
+
+  return
+    [
+     # substrings that represent spanned content
+     'underline_string',
+     'superscript_string',
+     'subscript_string',
+     'italics_string',
+     'bold_string',
+     'fixedwidth_string',
+     'keystroke_symbol',
+
+     # substrings that form references
+     'cross_ref',
+     'url_ref',
+     'footnote_ref',
+     'gloss_def_ref',
+     'gloss_term_ref',
+     'acronym_term_ref',
+     'index_ref',
+     'id_ref',
+     'thepage_ref',
+     'page_ref',
+     'version_ref',
+     'revision_ref',
+     'date_ref',
+     'status_ref',
+     'citation_ref',
+     'file_ref',
+     'path_ref',
+     'variable_ref',
+
+     # substrings that represent immutable symbols
+     'take_note_symbol',
+     'smiley_symbol',
+     'frowny_symbol',
+     'left_arrow_symbol',
+     'right_arrow_symbol',
+     'latex_symbol',
+     'tex_symbol',
+     'copyright_symbol',
+     'trademark_symbol',
+     'reg_trademark_symbol',
+     'open_dblquote_symbol',
+     'close_dblquote_symbol',
+     'open_sglquote_symbol',
+     'close_sglquote_symbol',
+     'section_symbol',
+     'emdash_symbol',
+
+     # substrings that represent special meaning
+     'user_entered_text',
+     'command_ref',
+     'email_addr',
+    ];
+}
+
+######################################################################
+
+sub _parse_block {
+
+  # Parse a block into a list of strings.  This list of strings is the
+  # block's 'part_list'.
+
+  my $self  = shift;
+  my $block = shift;
+
+  $logger->trace("_parse_block");
+
+  if (
+      not ref $block
+      or
+      not $block->isa('SML::Block')
+     )
+    {
+      $logger->error("CAN'T PARSE NON-BLOCK \'$block\'");
+      return 0;
+    }
+
+  my $text = $block->get_content;
+
+  # If this is a comment block, don't parse it into parts.
+
+  if ( $block->isa('SML::CommentBlock') )
+    {
+      return 1;
+    }
+
+  while ( $text )
+    {
+      $text = $self->_parse_next_substring($block,$text);
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _parse_string {
+
+  # Parse a string into a list of strings.  This list of strings is
+  # the string's 'part_list'.
+
+  my $self   = shift;
+  my $string = shift;
+
+  if (
+      not ref $string
+      or
+      not $string->isa('SML::String')
+     )
+    {
+      $logger->error("CAN'T PARSE NON-STRING \'$string\'");
+      return 0;
+    }
+
+  my $text = $string->get_content;
+
+  while ( $text )
+    {
+      $text = $self->_parse_next_substring($string,$text);
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _parse_next_substring {
+
+  my $self = shift;
+  my $part = shift;
+  my $text = shift;
+
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+  my $block;
+
+  if (
+      ref $part
+      and
+      $part->isa('SML::Block')
+     )
+    {
+      $block = $part;
+    }
+
+  elsif (
+	 ref $part
+	 and
+	 $part->isa('SML::String')
+	)
+    {
+      $block = $part->get_containing_block;
+    }
+
+  else
+    {
+      $logger->error("THIS SHOULD NEVER HAPPEN (3) \'$part\'");
+    }
+
+  if ( my $substring_type = $self->_text_begins_with_substring($text) )
+    {
+      if ( $text =~ /^$syntax->{$substring_type}/p )
+	{
+	  my $substring = ${^MATCH};
+
+	  $logger->debug("found $substring_type in $text");
+	  my $newstring = _create_string($substring_type,$substring,$block);
+
+	  if (
+	      not
+	      (
+	       $substring_type eq 'email_addr'
+	      )
+	     )
+	    {
+	      $self->_parse_string($newstring); # recurse
+	    }
+
+	  $part->add_part($newstring);
+	  $text = ${^POSTMATCH};
+	}
+
+      else
+	{
+	  $logger->error("THIS SHOULD NEVER HAPPEN (4) \'$text\'");
+	}
+    }
+
+  else
+    {
+      if ( $text =~ /^$syntax->{non_substring}/p )
+	{
+	  my $non_substring = ${^MATCH};
+
+	  my $newstring = _create_string('STRING',$non_substring,$block);
+
+	  $part->add_part($newstring);
+	  $text = ${^POSTMATCH};
+	}
+
+      elsif ( $text =~ /^$syntax->{begin_gloss_term_ref}/p )
+	{
+	  my $non_substring = ${^MATCH};
+
+	  my $location = $part->get_location;
+	  $logger->warn("BROKEN GLOSSARY TERM REFERENCE NEAR LINE $location");
+
+	  my $newstring = _create_string('syntax_error',$non_substring,$block);
+
+	  $part->add_part($newstring);
+	  $text = ${^POSTMATCH};
+	}
+
+      elsif ( $text =~ /^$syntax->{begin_gloss_def_ref}/p )
+	{
+	  my $non_substring = ${^MATCH};
+
+	  my $location = $part->get_location;
+	  $logger->warn("BROKEN GLOSSARY DEFINITION REFERENCE NEAR LINE $location");
+
+	  my $newstring = _create_string('syntax_error',$non_substring,$block);
+
+	  $part->add_part($newstring);
+	  $text = ${^POSTMATCH};
+	}
+
+      elsif ( $text =~ /^$syntax->{begin_acronym_term_ref}/p )
+	{
+	  my $non_substring = ${^MATCH};
+
+	  my $location = $part->get_location;
+	  $logger->warn("BROKEN ACRONYM TERM REFERENCE NEAR LINE $location");
+
+	  my $newstring = _create_string('syntax_error',$non_substring,$block);
+
+	  $part->add_part($newstring);
+	  $text = ${^POSTMATCH};
+	}
+
+      elsif ( $text =~ /^$syntax->{begin_citation_ref}/p )
+	{
+	  my $non_substring = ${^MATCH};
+
+	  my $location = $part->get_location;
+	  $logger->warn("BROKEN SOURCE CITATION REFERENCE NEAR LINE $location");
+
+	  my $newstring = _create_string('syntax_error',$non_substring,$block);
+
+	  $part->add_part($newstring);
+	  $text = ${^POSTMATCH};
+	}
+
+      elsif ( $text =~ /^$syntax->{begin_cross_ref}/p )
+	{
+	  my $non_substring = ${^MATCH};
+
+	  my $location = $part->get_location;
+	  $logger->warn("BROKEN CROSS REFERENCE NEAR LINE $location");
+
+	  my $newstring = _create_string('syntax_error',$non_substring,$block);
+
+	  $part->add_part($newstring);
+	  $text = ${^POSTMATCH};
+	}
+
+      elsif ( $text =~ /^$syntax->{begin_id_ref}/p )
+	{
+	  my $non_substring = ${^MATCH};
+
+	  my $location = $part->get_location;
+	  $logger->warn("BROKEN ID REFERENCE NEAR LINE $location");
+
+	  my $newstring = _create_string('syntax_error',$non_substring,$block);
+
+	  $part->add_part($newstring);
+	  $text = ${^POSTMATCH};
+	}
+
+      elsif ( $text =~ /^$syntax->{begin_page_ref}/p )
+	{
+	  my $non_substring = ${^MATCH};
+
+	  my $location = $part->get_location;
+	  $logger->warn("BROKEN PAGE REFERENCE NEAR LINE $location");
+
+	  my $newstring = _create_string('syntax_error',$non_substring,$block);
+
+	  $part->add_part($newstring);
+	  $text = ${^POSTMATCH};
+	}
+
+      elsif ( $text =~ /^$syntax->{bold}/p )
+	{
+	  my $non_substring = ${^MATCH};
+
+	  my $location = $part->get_location;
+	  $logger->warn("UNMATCHED BOLD MARKUP NEAR $location");
+
+	  my $newstring = _create_string('syntax_error',$non_substring,$block);
+
+	  $part->add_part($newstring);
+	  $text = ${^POSTMATCH};
+	}
+
+      elsif ( $text =~ /^$syntax->{italics}/p )
+	{
+	  my $non_substring = ${^MATCH};
+
+	  my $location = $part->get_location;
+	  $logger->warn("UNMATCHED ITALICS MARKUP NEAR $location");
+
+	  my $newstring = _create_string('syntax_error',$non_substring,$block);
+
+	  $part->add_part($newstring);
+	  $text = ${^POSTMATCH};
+	}
+
+      elsif ( $text =~ /^$syntax->{fixedwidth}/p )
+	{
+	  my $non_substring = ${^MATCH};
+
+	  my $location = $part->get_location;
+	  $logger->warn("UNMATCHED FIXED-WIDTH MARKUP NEAR $location");
+
+	  my $newstring = _create_string('syntax_error',$non_substring,$block);
+
+	  $part->add_part($newstring);
+	  $text = ${^POSTMATCH};
+	}
+
+      elsif ( $text =~ /^$syntax->{underline}/p )
+	{
+	  my $non_substring = ${^MATCH};
+
+	  my $location = $part->get_location;
+	  $logger->warn("UNMATCHED UNDERLINE MARKUP NEAR $location");
+
+	  my $newstring = _create_string('syntax_error',$non_substring,$block);
+
+	  $part->add_part($newstring);
+	  $text = ${^POSTMATCH};
+	}
+
+      elsif ( $text =~ /^$syntax->{superscript}/p )
+	{
+	  my $non_substring = ${^MATCH};
+
+	  my $location = $part->get_location;
+	  $logger->warn("UNMATCHED SUPERSCRIPT MARKUP NEAR $location");
+
+	  my $newstring = _create_string('syntax_error',$non_substring,$block);
+
+	  $part->add_part($newstring);
+	  $text = ${^POSTMATCH};
+	}
+
+      elsif ( $text =~ /^$syntax->{subscript}/p )
+	{
+	  my $non_substring = ${^MATCH};
+
+	  my $location = $part->get_location;
+	  $logger->warn("UNMATCHED SUBSCRIPT MARKUP NEAR $location");
+
+	  my $newstring = _create_string('syntax_error',$non_substring,$block);
+
+	  $part->add_part($newstring);
+	  $text = ${^POSTMATCH};
+	}
+
+      else
+	{
+	  $logger->error("THIS SHOULD NEVER HAPPEN (5) \'$text\'");
+	  return 0;
+	}
+    }
+
+  return $text;
+}
+
+######################################################################
+
+sub _create_string {
+
+  my $substring_type = shift;           # i.e. bold_string
+  my $substring      = shift;           # i.e. !!my bold text!!
+  my $block          = shift;           # containing block
+
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+
+  if ( $substring_type eq 'STRING' )
+    {
+      return SML::String->new
+	(
+	 name             => 'STRING',
+	 content          => $substring,
+	 containing_block => $block,
+	);
+    }
+
+  elsif ( $substring_type eq 'syntax_error' )
+    {
+      return SML::SyntaxErrorString->new
+	(
+	 content          => $substring,
+	 containing_block => $block,
+	);
+    }
+
+  elsif (
+      $substring_type eq 'underline_string'
+      or
+      $substring_type eq 'superscript_string'
+      or
+      $substring_type eq 'subscript_string'
+      or
+      $substring_type eq 'italics_string'
+      or
+      $substring_type eq 'bold_string'
+      or
+      $substring_type eq 'fixedwidth_string'
+      or
+      $substring_type eq 'keystroke_symbol'
+     )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::String->new
+	    (
+	     name             => $substring_type,
+	     content          => $1,
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif (
+	 $substring_type eq 'take_note_symbol'
+	 or
+	 $substring_type eq 'smiley_symbol'
+	 or
+	 $substring_type eq 'frowny_symbol'
+	 or
+	 $substring_type eq 'left_arrow_symbol'
+	 or
+	 $substring_type eq 'right_arrow_symbol'
+	 or
+	 $substring_type eq 'latex_symbol'
+	 or
+	 $substring_type eq 'tex_symbol'
+	 or
+	 $substring_type eq 'copyright_symbol'
+	 or
+	 $substring_type eq 'trademark_symbol'
+	 or
+	 $substring_type eq 'reg_trademark_symbol'
+	 or
+	 $substring_type eq 'open_dblquote_symbol'
+	 or
+	 $substring_type eq 'close_dblquote_symbol'
+	 or
+	 $substring_type eq 'open_sglquote_symbol'
+	 or
+	 $substring_type eq 'close_sglquote_symbol'
+	 or
+	 $substring_type eq 'section_symbol'
+	 or
+	 $substring_type eq 'emdash_symbol'
+	)
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::Symbol->new
+	    (
+	     name             => $substring_type,
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'cross_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::CrossReference->new
+	    (
+	     target_id        => $2,    # target ID
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'url_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  my $content = $3 || '';
+
+	  return SML::URLReference->new
+	    (
+	     url              => $1,       # uniform resource locator
+	     content          => $content, # linked text content
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'footnote_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::FootnoteReference->new
+	    (
+	     section_id       => $1,    # section in which footnote occurs
+	     number           => $2,    # footnote number
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'gloss_term_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  my $namespace = $3 || '';
+
+	  return SML::GlossaryTermReference->new
+	    (
+	     tag              => $1,         # used as capitalization indicator
+	     term             => $4,         # glossary term
+	     namespace        => $namespace, # disambiguate identical terms
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'gloss_def_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  my $namespace = $2 || '';
+
+	  return SML::GlossaryDefinitionReference->new
+	    (
+	     term             => $3,         # glossary term
+	     namespace        => $namespace, # disambiguate identical terms
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'acronym_term_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  my $namespace = $2 || '';
+
+	  return SML::AcronymTermReference->new
+	    (
+	     tag              => $1,         # used as format indicator
+	     acronym          => $4,         # acronym
+	     namespace        => $namespace, # disambiguate identical acronyms
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'index_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::IndexReference->new
+	    (
+	     tag              => $1,    # not significant
+	     entry            => $2,    # index entry text
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'id_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::IDReference->new
+	    (
+	     target_id        => $1,    # referenced ID
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'thepage_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::Symbol->new
+	    (
+	     name             => 'thepage_ref',
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'page_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::PageReference->new
+	    (
+	     target_id        => $2,    # target ID
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'version_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::Symbol->new
+	    (
+	     name             => 'version_ref',
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'revision_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::Symbol->new
+	    (
+	     name             => 'revision_ref',
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'date_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::Symbol->new
+	    (
+	     name             => 'date_ref',
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'status_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::StatusReference->new
+	    (
+	     entity_id        => $1,    # referenced entity ID (or color)
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'citation_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  my $details = $4 || '';
+
+	  return SML::CitationReference->new
+	    (
+	     source_id        => $2,       # ID of cited source
+	     details          => $details, # details (citation location)
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'file_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::FileReference->new
+	    (
+	     filespec         => $1,    # file specification
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'path_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::PathReference->new
+	    (
+	     pathspec         => $1,    # path specification
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'variable_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  my $namespace = $3 || '';
+
+	  return SML::VariableReference->new
+	    (
+	     variable_name    => $1,         # variable name
+	     namespace        => $namespace, # namespace of variable
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'user_entered_text' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::UserEnteredText->new
+	    (
+	     content          => $2,   # user entered text
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'command_ref' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::CommandReference->new
+	    (
+	     content          => $1,   # command
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  elsif ( $substring_type eq 'email_addr' )
+    {
+      if ( $substring =~ /$syntax->{$substring_type}/ )
+	{
+	  return SML::EmailAddress->new
+	    (
+	     content          => $1,   # email address
+	     containing_block => $block,
+	    );
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
+	  return 0;
+	}
+    }
+
+  else
+    {
+      $logger->error("COULDN'T CREATE $substring_type STRING FROM \'$substring\'");
+      return 0;
+    }
+
 }
 
 ######################################################################

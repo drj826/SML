@@ -190,8 +190,23 @@ has 'paragraph_text' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^[^\s\-+=#><*:]',
+   default => '^[^\s#]',
   );
+
+# A paragraph can be just about any block of text.  The two main
+# exceptions are (1) a block of text that begins with a space is a
+# pre-formatted text, and (2) a block of text that begins with a '#'
+# is a comment.  The default regular expression above represents these
+# two exceptions.
+
+# There are other exceptions not represented by the default regular
+# expression above.  For instance a block of text that begins with a
+# '-', '+', or '=' (followed by one or more spaces) is a list item and
+# a block of text that begins with a '*' (followed by one or more
+# spaces) is a section heading. Parser logic is used to distinguish
+# these blocks from paragraph text.  The parser will detect that a
+# block is one of these before detecting that a block is a just a
+# plain paragraph.
 
 ######################################################################
 
@@ -240,11 +255,29 @@ has 'bold' =>
 
 ######################################################################
 
+has 'bold_string' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '!!([^!]+?)!!',
+  );
+
+######################################################################
+
 has 'italics' =>
   (
    is      => 'ro',
    isa     => 'Str',
    default => '([^~]?)~~([^~]?)',
+  );
+
+######################################################################
+
+has 'italics_string' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '~~([^~]+?)~~',
   );
 
 ######################################################################
@@ -258,11 +291,29 @@ has 'fixedwidth' =>
 
 ######################################################################
 
+has 'fixedwidth_string' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '\|\|([^\|]+?)\|\|',
+  );
+
+######################################################################
+
 has 'underline' =>
   (
    is      => 'ro',
    isa     => 'Str',
    default => '([^_]?)__([^_]?)',
+  );
+
+######################################################################
+
+has 'underline_string' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '__([^_]+?)__',
   );
 
 ######################################################################
@@ -276,11 +327,29 @@ has 'superscript' =>
 
 ######################################################################
 
+has 'superscript_string' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '\^\^([^\^]+?)\^\^',
+  );
+
+######################################################################
+
 has 'subscript' =>
   (
    is      => 'ro',
    isa     => 'Str',
    default => '([^\,]?)\,\,([^\,]?)',
+  );
+
+######################################################################
+
+has 'subscript_string' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '\,\,([^\,]+?)\,\,',
   );
 
 ######################################################################
@@ -720,7 +789,7 @@ has 'note_element' =>
    # $4 = division ID (optional)
    # $5 = note text
    # $6
-   # $7 = comment text
+   # $7 => comment text
   );
 
 ######################################################################
@@ -732,8 +801,8 @@ has 'lookup_ref' =>
    default => '\[(lookup|l):([^\]]+?):([\w\-\.]+)\]',
 
    # $1
-   # $2 = $property_name
-   # $3 = $division_id
+   # $2 => $property_name
+   # $3 => $division_id
   );
 
 ######################################################################
@@ -744,6 +813,11 @@ has 'gloss_term_ref' =>
    isa     => 'Str',
    default => '\[(g|G|gls|Gls):(([^\s\]]+?):)?([^\]]+?)\]',
   );
+
+# $1 => tag (used as capitalization indicator)
+# $2 => namespace
+# $3 =>
+# $4 => glossary term
 
 ######################################################################
 
@@ -778,7 +852,7 @@ has 'begin_acronym_term_ref' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '\[(ac|acs|acl):',
+   default => '\[(a|ac|acs|acl):',
   );
 
 ######################################################################
@@ -787,7 +861,7 @@ has 'acronym_term_ref' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '\[(ac|acs|acl):(([^\s\]]+?):)?([^\]]+?)\]',
+   default => '\[(a|ac|acs|acl):(([^\s\]]+?):)?([^\]]+?)\]',
   );
 
 ######################################################################
@@ -835,6 +909,9 @@ has 'page_ref' =>
    default => '\[(page|pg):\s*([^\s\]]+?)\s*\]',
   );
 
+# $1 => tag (not significant)
+# $2 => referenced ID
+
 ######################################################################
 
 has 'begin_page_ref' =>
@@ -865,6 +942,9 @@ has 'footnote_ref' =>
    default => '\[f:(\S+):(\S+)\]',
   );
 
+# $1 => section ID
+# $2 => footnote number
+
 ######################################################################
 
 has 'index_ref' =>
@@ -873,6 +953,9 @@ has 'index_ref' =>
    isa     => 'Str',
    default => '\[(index|i):\s*([^\]]+?)\s*\]',
   );
+
+# $1 => tag (not significant)
+# $2 => index entry text
 
 ######################################################################
 
@@ -917,9 +1000,10 @@ has 'status_ref' =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[status:\s*([^\s\]]+?)\s*\]',
-
-   # $1 = ID or color
   );
+
+
+# $1 = ID or color
 
 ######################################################################
 
@@ -929,6 +1013,11 @@ has 'citation_ref' =>
    isa     => 'Str',
    default => '\[(cite|c):\s*([^\s\]]+?)\s*(,\s*(.*))?\s*\]',
   );
+
+# $1 => tag (not significant)
+# $2 => id of cited source
+# $3 =>
+# $4 => additional details (usually of citation location)
 
 ######################################################################
 
@@ -965,6 +1054,9 @@ has 'user_entered_text' =>
    isa     => 'Str',
    default => '\[(enter|en):\s*([^\]]+?)\s*\]',
   );
+
+# $1 => tag (not significant)
+# $2 => user entered text
 
 ######################################################################
 
@@ -1173,6 +1265,8 @@ has 'email_addr' =>
    default => '\b([a-zA-Z0-9._]+@[a-zA-Z0-9._]+\.[a-zA-Z0-9._]+)\b',
   );
 
+# $1 => Email address
+
 ######################################################################
 
 has 'valid_date' =>
@@ -1225,6 +1319,16 @@ has 'key_value_pair' =>
    is      => 'ro',
    isa     => 'Str',
    default => '^\s*(.*?)\s*=\s*(.*?)\s*$',
+  );
+
+######################################################################
+
+has 'non_substring' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   # default => '([_,!~]?[A-Za-z\d\s><#\:\-\.\?\+\=\;\(\)\{\}\*\@\/\'\"\n]+)',
+   default => '([_,!~]?[^_,!~\[]+)',
   );
 
 ######################################################################
