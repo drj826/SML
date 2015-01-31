@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: SML.t 15151 2013-07-08 21:01:16Z don.johnson $
+# $Id$
 
 # tc-000004 -- unit test case for SML.pm (ci-000002)
 

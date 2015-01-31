@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: Document.t 15151 2013-07-08 21:01:16Z don.johnson $
+# $Id$
 
 # Document.pm (ci-000005) unit tests
 

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: Parser.t 15151 2013-07-08 21:01:16Z don.johnson $
+# $Id$
 
 # tc-000005 -- unit test case for Parser.pm (ci-000003)
 
