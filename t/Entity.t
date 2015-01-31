@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: Entity.t 15151 2013-07-08 21:01:16Z don.johnson $
+# $Id$
 
 use lib "..";
 use Test::More tests => 3;

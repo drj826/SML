@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: Note.t 15151 2013-07-08 21:01:16Z don.johnson $
+# $Id$
 
 use lib "..";
 use Test::More tests => 3;
