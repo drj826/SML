@@ -22,6 +22,28 @@ my $logger = Log::Log4perl::get_logger('sml.TestData');
 ######################################################################
 ######################################################################
 
+has acronym_list_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_acronym_list_test_case_list',
+   lazy    => 1,
+   builder => '_build_acronym_list_test_case_list',
+  );
+
+######################################################################
+
+has block_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_block_test_case_list',
+   lazy    => 1,
+   builder => '_build_block_test_case_list',
+  );
+
+######################################################################
+
 has library_test_case_list =>
   (
    is      => 'ro',
@@ -40,17 +62,6 @@ has parser_test_case_list =>
    reader  => 'get_parser_test_case_list',
    lazy    => 1,
    builder => '_build_parser_test_case_list',
-  );
-
-######################################################################
-
-has block_test_case_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => 'get_block_test_case_list',
-   lazy    => 1,
-   builder => '_build_block_test_case_list',
   );
 
 ######################################################################
@@ -86,6 +97,44 @@ has string_test_case_list =>
 ## Private Methods
 ##
 ######################################################################
+######################################################################
+
+sub _build_acronym_list_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name        => 'acronym_1',
+      content     => 'acronym:: TLA = Three Letter Acronym',
+      acronym     => 'TLA',
+      description => 'Three Letter Acronym',
+      alt         => '',
+      expected    =>
+      {
+       add_ok      => 1,
+       has_ok      => 1,
+       get_ok      => 1,
+      },
+     },
+
+     {
+      name        => 'acronym_2',
+      content     => 'acronym:: FRD {tsa} = (TSA) Functional Requirements Document',
+      acronym     => 'FRD',
+      description => '(TSA) Functional Requirements Document',
+      alt         => 'tsa',
+      expected    =>
+      {
+       add_ok      => 1,
+       has_ok      => 1,
+       get_ok      => 1,
+      }
+     },
+    ];
+}
+
 ######################################################################
 
 sub _build_library_test_case_list {
