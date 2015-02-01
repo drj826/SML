@@ -2871,9 +2871,6 @@ sub _end_block {
       $self->_end_element($block);
     }
 
-  # parse the block into parts (strings)
-  # $self->_parse_block($block);
-
   $self->_clear_block;
 
   return 1;
