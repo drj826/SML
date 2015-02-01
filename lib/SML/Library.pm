@@ -394,7 +394,12 @@ sub get_filespec {
   my $include_path   = $self->_get_include_path;
   my $directory_path = $self->_get_directory_path;
 
-  foreach my $path (@{$include_path})
+  if ( -f "$directory_path/$filename" )
+    {
+      return "$directory_path/$filename";
+    }
+
+  foreach my $path ( @{$include_path} )
     {
       if ( -f "$directory_path/$path/$filename" )
 	{
@@ -403,6 +408,13 @@ sub get_filespec {
     }
 
   $logger->error("FILE NOT FOUND \'$filename\'");
+
+  $logger->error("  checked path $directory_path");
+
+  foreach my $path ( @{$include_path} )
+    {
+      $logger->error("  checked path $directory_path/$path");
+    }
 
   return 0;
 }
