@@ -938,6 +938,16 @@ sub _build_parser_test_case_list {
       },
      },
 
+     {
+      name     => 'fragment_containing_title_with_linebreak',
+      testfile => 'td-000078.txt',
+      docid    => 'td-000078',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
     ];
 }
 
