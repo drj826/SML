@@ -5,7 +5,7 @@
 # tc-000005 -- unit test case for Parser.pm (ci-000003)
 
 use lib "..";
-use Test::More tests => 88;
+use Test::More tests => 89;
 
 use SML::Library;
 
