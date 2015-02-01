@@ -2,35 +2,55 @@
 
 # $Id$
 
-use lib "../lib";
+######################################################################
+
+use FindBin qw($Bin);
+use Getopt::Long;
+
+my $filespec;
+my $docid;
+my $doclibdir   = "$Bin/../library";
+my $templatedir = "$Bin/../templates";
+my $configdir   = "$Bin/../conf";
+my $outputdir   = "$Bin/..";
+my $inclibdir   = "$Bin/../lib";
+
+GetOptions
+  (
+   "f|filespec=s"    => \$filespec,
+   "d|docid=s"       => \$docid,
+   "l|doclibdir:s"   => \$doclibdir,
+   "t|templatedir:s" => \$templatedir,
+   "c|configdir:s"   => \$configdir,
+   "o|outputdir:s"   => \$outputdir,
+   "i|inclibdir:s"   => \$inclibdir,
+  );
+
+######################################################################
+
+use lib "lib";
 
 use Log::Log4perl;
-Log::Log4perl->init("../library/log.conf");
+Log::Log4perl->init("$doclibdir/log.conf");
 my $logger = Log::Log4perl::get_logger('sml.script');
 
 use Template;
 
 use SML::Library;
 
-my $id       = shift;                   # document ID
-my $filespec = shift;                   # document file
-
-my $template_dir = '/home/drj826/semlang/templates/html/default';
-my $output_dir   = "/home/drj826/$id";
-
-my $library   = SML::Library->new(config_filename => 'library.conf');
+my $library   = SML::Library->new(config_filename=>'library.conf');
 my $parser    = $library->get_parser;
 my $fragment  = $parser->parse($filespec);
-my $document  = $library->get_document($id);
+my $document  = $library->get_document($docid);
 my $formatter = $library->get_formatter;
 
-die "DOCUMENT NOT IN LIBRARY: \'$id\'" if not $document;
+die "DOCUMENT NOT IN LIBRARY: \'$docid\'" if not $document;
 
 $formatter->publish_html_by_section
   (
    $document,
-   $template_dir,
-   $output_dir,
+   $templatedir,
+   $outputdir,
   );
 
 ######################################################################
