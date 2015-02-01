@@ -557,7 +557,7 @@ sub get_block_list {
 
   # Return an ordered list of blocks within this division.
 
-  my $self   = shift;
+  my $self = shift;
   my $list = [];
 
   no warnings 'recursion';
