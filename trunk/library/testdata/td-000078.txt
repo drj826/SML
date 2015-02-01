@@ -1,0 +1,13 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: Title Containing[linebreak]A Line Break
+
+label:: td-000078
+
+######################################################################
+
+This test data file exhibits a title that contains a line break.
+
+<<<DOCUMENT
