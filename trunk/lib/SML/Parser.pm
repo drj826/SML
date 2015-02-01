@@ -170,6 +170,16 @@ sub parse {
 
       while $self->_text_requires_processing;
 
+  $logger->info("parse blocks");
+
+  foreach my $block (@{ $fragment->get_block_list })
+    {
+      next if $block->isa('SML::CommentBlock');
+      next if $block->isa('SML::PreformattedBlock');
+
+      $self->_parse_block($block);
+    }
+
   # add documents to the library
   foreach my $division (@{ $fragment->get_division_list })
     {
@@ -2357,8 +2367,6 @@ sub _resolve_lookups {
 
       next if /$syntax->{'comment_line'}/;
 
-      my $location = $block->get_location;
-
       while ( /$syntax->{lookup_ref}/ )
 	{
 	  my $name = $2;
@@ -2374,6 +2382,7 @@ sub _resolve_lookups {
 
 	  else
 	    {
+	      my $location = $block->get_location;
 	      my $msg = "LOOKUP FAILED: at $location: \'$id\' \'$name\'";
 	      $logger->warn($msg);
 	      $self->_set_is_valid(0);
@@ -2863,7 +2872,7 @@ sub _end_block {
     }
 
   # parse the block into parts (strings)
-  $self->_parse_block($block);
+  # $self->_parse_block($block);
 
   $self->_clear_block;
 
@@ -6751,18 +6760,14 @@ sub _build_substring_type_list {
      'acronym_term_ref',
      'index_ref',
      'id_ref',
-     'thepage_ref',
      'page_ref',
-     'version_ref',
-     'revision_ref',
-     'date_ref',
      'status_ref',
      'citation_ref',
      'file_ref',
      'path_ref',
      'variable_ref',
 
-     # substrings that represent immutable symbols
+     # substrings that represent symbols
      'take_note_symbol',
      'smiley_symbol',
      'frowny_symbol',
@@ -6779,6 +6784,11 @@ sub _build_substring_type_list {
      'close_sglquote_symbol',
      'section_symbol',
      'emdash_symbol',
+     'thepage_ref',
+     'version_ref',
+     'revision_ref',
+     'date_ref',
+     'linebreak_symbol',
 
      # substrings that represent special meaning
      'user_entered_text',
@@ -7103,7 +7113,8 @@ sub _parse_next_substring {
 
       else
 	{
-	  $logger->error("THIS SHOULD NEVER HAPPEN (5) \'$text\'");
+	  my $location = $block->get_location;
+	  $logger->error("THIS SHOULD NEVER HAPPEN (5) \'$text\' (at $location)");
 	  return 0;
 	}
     }
@@ -7206,6 +7217,16 @@ sub _create_string {
 	 $substring_type eq 'section_symbol'
 	 or
 	 $substring_type eq 'emdash_symbol'
+	 or
+	 $substring_type eq 'thepage_ref'
+	 or
+	 $substring_type eq 'version_ref'
+	 or
+	 $substring_type eq 'revision_ref'
+	 or
+	 $substring_type eq 'date_ref'
+	 or
+	 $substring_type eq 'linebreak_symbol'
 	)
     {
       if ( $substring =~ /$syntax->{$substring_type}/ )
@@ -7384,24 +7405,6 @@ sub _create_string {
 	}
     }
 
-  elsif ( $substring_type eq 'thepage_ref' )
-    {
-      if ( $substring =~ /$syntax->{$substring_type}/ )
-	{
-	  return SML::Symbol->new
-	    (
-	     name             => 'thepage_ref',
-	     containing_block => $block,
-	    );
-	}
-
-      else
-	{
-	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
-	  return 0;
-	}
-    }
-
   elsif ( $substring_type eq 'page_ref' )
     {
       if ( $substring =~ /$syntax->{$substring_type}/ )
@@ -7409,60 +7412,6 @@ sub _create_string {
 	  return SML::PageReference->new
 	    (
 	     target_id        => $2,    # target ID
-	     containing_block => $block,
-	    );
-	}
-
-      else
-	{
-	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
-	  return 0;
-	}
-    }
-
-  elsif ( $substring_type eq 'version_ref' )
-    {
-      if ( $substring =~ /$syntax->{$substring_type}/ )
-	{
-	  return SML::Symbol->new
-	    (
-	     name             => 'version_ref',
-	     containing_block => $block,
-	    );
-	}
-
-      else
-	{
-	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
-	  return 0;
-	}
-    }
-
-  elsif ( $substring_type eq 'revision_ref' )
-    {
-      if ( $substring =~ /$syntax->{$substring_type}/ )
-	{
-	  return SML::Symbol->new
-	    (
-	     name             => 'revision_ref',
-	     containing_block => $block,
-	    );
-	}
-
-      else
-	{
-	  $logger->error("DOESN'T LOOK LIKE A $substring_type: $substring");
-	  return 0;
-	}
-    }
-
-  elsif ( $substring_type eq 'date_ref' )
-    {
-      if ( $substring =~ /$syntax->{$substring_type}/ )
-	{
-	  return SML::Symbol->new
-	    (
-	     name             => 'date_ref',
 	     containing_block => $block,
 	    );
 	}
