@@ -368,7 +368,7 @@ processes by tailoring the organization's set of standard processes
 according to tailoring guidelines. (See the glossary for a definition
 of ``organization's set of standard processes.'') [cite:cmmi, pg 37]
 
-glossary:: defined [cmmi-2] = (CMMI) A capability level 3 process is
+glossary:: defined {cmmi-2} = (CMMI) A capability level 3 process is
 characterized as a ``defined process.'' A defined process is a managed
 (capability level 2) process that is tailored from the organization's
 set of standard processes according to the organization's tailoring
@@ -672,7 +672,7 @@ and are revised as needed. Work products are appropriately
 controlled. The work products and services satisfy their specified
 process descriptions, standards, and procedures. [cite:cmmi, pg 36]
 
-glossary:: managed [cmmi-2] = (CMMI) A capability level 2 process is
+glossary:: managed {cmmi-2} = (CMMI) A capability level 2 process is
 characterized as a ``managed process.'' A managed process is a
 performed (capability level 1) process that has the basic
 infrastructure in place to support the process. It is planned and
@@ -782,7 +782,7 @@ quantitative understanding of the common causes of variation inherent
 in processes. (See the definition of ``common cause of process
 variation'' in the glossary.) [cite:cmmi, pg 38]
 
-glossary:: optimizing [cmmi-2] = (CMMI) A capability level 5 process is
+glossary:: optimizing {cmmi-2} = (CMMI) A capability level 5 process is
 characterized as an ``optimizing process.'' An optimizing process is a
 quantitatively managed (capability level 4) process that is improved
 based on an understanding of the common causes of variation inherent
@@ -1206,10 +1206,10 @@ quality and process performance and use them as criteria in managing
 processes. Quantitative objectives are based on the needs of the
 customer, end users, organization, and process implementers. Quality
 and process performance is understood in statistical terms and is
-managed throughout the life of the processes [SEI 2001]. [cite:cmmi,
+managed throughout the life of the processes (SEI 2001). [cite:cmmi,
 pg 37]
 
-glossary:: quantitatively managed [cmmi-2] = (CMMI) A capability level
+glossary:: quantitatively managed {cmmi-2} = (CMMI) A capability level
 4 process is characterized as a ``quantitatively managed process.'' A
 quantitatively managed process is a defined (capability level 3)
 process that is controlled using statistical and other quantitative
