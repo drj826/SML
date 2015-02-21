@@ -248,11 +248,11 @@ id:: page_reference_2
 
 #---------------------------------------------------------------------
 
-** Version Reference 1
+** The Version Reference 1
 
-id:: version_reference_1
+id:: theversion_reference_1
 
-[version]
+[theversion]
 
 # LaTeX: 2.0
 # HTML:  2.0
@@ -260,11 +260,11 @@ id:: version_reference_1
 
 #---------------------------------------------------------------------
 
-** Revision Reference 1
+** The Revision Reference 1
 
-id:: revision_reference_1
+id:: therevision_reference_1
 
-[revision]
+[therevision]
 
 # LaTeX: 4444
 # HTML:  4444
@@ -276,7 +276,7 @@ id:: revision_reference_1
 
 id:: date_reference_1
 
-[date]
+[thedate]
 
 # LaTeX: 2012-09-11
 # HTML:  2012-09-11
@@ -636,7 +636,7 @@ id:: trademark_symbol
 
 id:: reg_trademark_symbol
 
-[r]
+[rtm]
 
 # LaTeX: \tiny$^{\textregistered}$\normalsize
 # HTML:  <sup><span style="font-size: 8pt;">&reg;</span></sup>
