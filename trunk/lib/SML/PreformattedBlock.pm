@@ -134,7 +134,7 @@ sub validate_page_refs {
 
 ######################################################################
 
-sub validate_version_refs {
+sub validate_theversion_refs {
 
   # Assume all preformatted blocks have valid version references.
 
@@ -143,7 +143,7 @@ sub validate_version_refs {
 
 ######################################################################
 
-sub validate_revision_refs {
+sub validate_therevision_refs {
 
   # Assume all preformatted blocks have valid revision references.
 
@@ -152,7 +152,7 @@ sub validate_revision_refs {
 
 ######################################################################
 
-sub validate_date_refs {
+sub validate_thedate_refs {
 
   # Assume all preformatted blocks have valid date references.
 
