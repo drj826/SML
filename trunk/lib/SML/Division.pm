@@ -6,6 +6,8 @@ package SML::Division;
 
 use Moose;
 
+extends 'SML::Part';
+
 use version; our $VERSION = qv('2.0.0');
 
 use namespace::autoclean;
@@ -44,24 +46,6 @@ has 'id_path' =>
    lazy     => 1,
    builder  => '_build_id_path',
   );
-
-######################################################################
-
-has 'name' =>
-  (
-   isa      => 'Str',
-   reader   => 'get_name',
-   required => 1,
-  );
-
-######################################################################
-
-# has 'type' =>
-#   (
-#    isa      => 'Str',
-#    reader   => 'get_type',
-#    default  => 'division',
-#   );
 
 ######################################################################
 
@@ -106,65 +90,6 @@ has 'containing_division' =>
 
 # The division to which this one belongs; the division containing this
 # one; the division of which this one is a part.
-
-######################################################################
-
-has 'part_list' =>
-  (
-   isa       => 'ArrayRef',
-   reader    => 'get_part_list',
-   writer    => '_set_part_list',
-   clearer   => '_clear_part_list',
-   predicate => '_has_part_list',
-   default   => sub {[]},
-  );
-
-# The sequential array of divisions and blocks within this one.
-
-######################################################################
-
-# has 'environment_list' =>
-#   (
-#    isa       => 'ArrayRef',
-#    reader    => 'get_environment_list',
-#    writer    => 'set_environment_list',
-#    clearer   => 'clear_environment_list',
-#    predicate => 'has_environment_list',
-#   );
-
-# This is a sequential array of all environments in the division.
-#
-# An environment is a division that describes the intended format,
-# structure, or content of the contained blocks of text.  Environments
-# are composed of a preamble followed by an optional environment
-# narrative.  Environments may not be nested. Environments may not
-# contain regions.  Environments commonly have titles, IDs, and
-# descriptions. Common environments include tables, figures, listings,
-# and attachments.
-#
-#     my $el = $self->get_environment_list;
-
-######################################################################
-
-# has 'region_list' =>
-#   (
-#    isa       => 'ArrayRef',
-#    reader    => 'get_region_list',
-#    writer    => 'set_region_list',
-#    clearer   => 'clear_region_list',
-#    predicate => 'has_region_list',
-#   );
-
-# This is a sequential array of all regions in the division.
-#
-# A region is a division that describes the intended content of the
-# text.  Regions consist of a preamble followed by an optional region
-# narrative. Regions may contain environments. Some regions represent
-# entitys (problems, solutions, tests, results, tasks, and
-# roles). Other common regions include demo, exercise, keypoints,
-# quotation, and slide.
-#
-#   my $rl = $self->get_region_list;
 
 ######################################################################
 
@@ -215,16 +140,6 @@ has 'attribute_hash' =>
 
 ######################################################################
 
-# has 'html' =>
-#   (
-#    isa     => 'Str',
-#    reader  => 'get_html',
-#    writer  => 'set_html',
-#    default => q{},
-#   );
-
-######################################################################
-
 has 'valid_syntax' =>
   (
    isa       => 'Bool',
@@ -255,18 +170,6 @@ has 'valid_semantics' =>
 ## Public Methods
 ##
 ######################################################################
-######################################################################
-
-sub init {
-
-  my $self = shift;
-
-  $self->_clear_part_list;
-  $self->_set_part_list([]);
-
-  return 1;
-}
-
 ######################################################################
 
 sub add_division {
@@ -994,55 +897,6 @@ sub as_text {
   }
 
   return $text;
-}
-
-######################################################################
-
-sub as_html {
-
-  my $self = shift;
-  my $html = q{};
-
-  $html .= $self->start_html;
-
-  foreach my $part (@{ $self->get_part_list })
-    {
-      $html .= $part->as_html;
-    }
-
-  $html .= $self->end_html;
-
-  return $html;
-}
-
-######################################################################
-
-sub start_html {
-
-  my $self = shift;
-  my $name = $self->get_name;
-  my $id   = $self->get_id || 'unknown';
-  my $html = q{};
-
-  $html .= "\n<!-- start $name $id -->\n";
-
-  return $html;
-
-}
-
-######################################################################
-
-sub end_html {
-
-  my $self = shift;
-  my $name = $self->get_name;
-  my $id   = $self->get_id || 'unknown';
-  my $html = q{};
-
-  $html .= "\n<!-- end $name $id -->\n";
-
-  return $html;
-
 }
 
 ######################################################################
