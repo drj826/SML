@@ -18,7 +18,7 @@ my $id          = join('.', @part);
 my $config_filename = 'library.conf';
 my $library         = SML::Library->new(config_filename=>$config_filename);
 my $parser          = $library->get_parser;
-my $fragment        = $parser->parse($filespec);
+my $fragment        = $parser->create_fragment($filespec);
 
 $fragment->validate;
 

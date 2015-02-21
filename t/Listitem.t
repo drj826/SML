@@ -39,8 +39,6 @@ my @public_methods =
    'get_name',
    'get_type',
    'get_value',
-   'start_html',
-   'end_html',
   );
 
 can_ok( $obj, @public_methods );

@@ -873,112 +873,9 @@ my @public_methods =
    'validate_source_citations',
 
    'is_in_a',
-
-   'as_sml',
-   'as_html',
-   'as_latex',
-   'start_html',
-   'end_html',
   );
 
 can_ok( $obj, @public_methods );
-
-#---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-   '_build_content',
-   '_render_html_internal_references',
-   '_render_html_url_references',
-   '_render_html_footnote_references',
-   '_render_html_glossary_references',
-   '_render_html_acronym_references',
-   '_render_html_index_references',
-   '_render_html_id_references',
-   '_render_html_thepage_references',
-   '_render_html_page_references',
-   '_render_html_version_references',
-   '_render_html_revision_references',
-   '_render_html_date_references',
-   '_render_html_status_references',
-   '_render_html_citation_references',
-   '_render_latex_internal_references',
-   '_render_latex_url_references',
-   '_render_latex_footnote_references',
-   '_render_latex_glossary_references',
-   '_render_latex_acronym_references',
-   '_render_latex_index_references',
-   '_render_latex_id_references',
-   '_render_latex_thepage_references',
-   '_render_latex_page_references',
-   '_render_latex_version_references',
-   '_render_latex_revision_references',
-   '_render_latex_date_references',
-   '_render_latex_status_references',
-   '_render_latex_citations',
-   '_render_html_take_note_symbols',
-   '_render_html_smiley_symbols',
-   '_render_html_frowny_symbols',
-   '_render_html_keystroke_symbols',
-   '_render_html_left_arrow_symbols',
-   '_render_html_right_arrow_symbols',
-   '_render_html_latex_symbols',
-   '_render_html_tex_symbols',
-   '_render_html_copyright_symbols',
-   '_render_html_trademark_symbols',
-   '_render_html_reg_trademark_symbols',
-   '_render_html_open_double_quote',
-   '_render_html_close_double_quote',
-   '_render_html_open_single_quote',
-   '_render_html_close_single_quote',
-   '_render_html_section_symbols',
-   '_render_html_emdash',
-   '_render_latex_take_note_symbols',
-   '_render_latex_smiley_symbols',
-   '_render_latex_frowny_symbols',
-   '_render_latex_keystroke_symbols',
-   '_render_latex_left_arrow_symbols',
-   '_render_latex_right_arrow_symbols',
-   '_render_latex_latex_symbols',
-   '_render_latex_tex_symbols',
-   '_render_latex_copyright_symbols',
-   '_render_latex_trademark_symbols',
-   '_render_latex_reg_trademark_symbols',
-   '_render_latex_open_double_quote',
-   '_render_latex_close_double_quote',
-   '_render_latex_open_single_quote',
-   '_render_latex_close_single_quote',
-   '_render_latex_section_symbols',
-   '_render_latex_emdash',
-   '_render_html_underlined_text',
-   '_render_html_superscripted_text',
-   '_render_html_subscripted_text',
-   '_render_html_italicized_text',
-   '_render_html_bold_text',
-   '_render_html_fixed_width_text',
-   '_render_html_file_references',
-   '_render_html_path_references',
-   '_render_html_user_entered_text',
-   '_render_html_commands',
-   '_render_html_literal_xml_tags',
-   '_render_html_email_addresses',
-   '_render_latex_underlined_text',
-   '_render_latex_superscripted_text',
-   '_render_latex_subscripted_text',
-   '_render_latex_italicized_text',
-   '_render_latex_bold_text',
-   '_render_latex_fixed_width_text',
-   '_render_latex_file_references',
-   '_render_latex_path_references',
-   '_render_latex_user_entered_text',
-   '_render_latex_commands',
-   '_render_latex_literal_xml_tags',
-   '_render_latex_email_addresses',
-  );
-
-can_ok( $obj, @private_methods );
 
 #---------------------------------------------------------------------
 # Returns expected values?
@@ -1219,7 +1116,7 @@ sub html_ok {
   my $content  = $testdata->{$blockname}{'sml'}  || "$blockname content not defined";
   my $expected = $testdata->{$blockname}{'html'} || "$blockname expected output not defined";
 
-  my $fragment = $parser->parse('td-000020.txt');
+  my $fragment = $parser->create_fragment('td-000020.txt');
   my $document = $library->get_document('td-000020');
   my $line     = SML::Line->new(content=>$content);
   my $block    = SML::Block->new;
@@ -1252,7 +1149,7 @@ sub latex_ok {
   my $content  = $testdata->{$blockname}{'sml'}   || "$blockname content not defined";
   my $expected = $testdata->{$blockname}{'latex'} || "$blockname expected output not defined";
 
-  my $fragment = $parser->parse('td-000020.txt');
+  my $fragment = $parser->create_fragment('td-000020.txt');
   my $document = $library->get_document('td-000020');
   my $line     = SML::Line->new(content=>$content);
   my $block    = SML::Block->new;
@@ -1277,7 +1174,7 @@ sub latex_ok {
 sub create_test_block {
 
   my $content  = shift;
-  my $fragment = $parser->parse('td-000020.txt');
+  my $fragment = $parser->create_fragment('td-000020.txt');
   my $document = $library->get_document('td-000020');
   my $line     = SML::Line->new(content=>$content);
   my $block    = SML::Block->new;
@@ -1368,7 +1265,7 @@ sub get_name_path_ok {
   my $config     = $testdata->{$testid}{config};
   my $library    = SML::Library->new(config_filename=>$config);
   my $parser     = $library->get_parser;
-  my $fragment   = $parser->parse($testfile);
+  my $fragment   = $parser->create_fragment($testfile);
   my $block_list = $fragment->get_block_list;
 
   # act
