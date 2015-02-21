@@ -142,103 +142,6 @@ has 'references' =>
 
 ######################################################################
 
-# has 'title' =>
-#   (
-#    isa       => 'Str',
-#    reader    => 'get_title',
-#    writer    => '_set_title',
-#    clearer   => '_clear_title',
-#    predicate => '_has_title',
-#    default   => 'library',
-#   );
-
-######################################################################
-
-# has 'author' =>
-#   (
-#    isa       => 'Str',
-#    reader    => 'get_author',
-#    writer    => '_set_author',
-#    clearer   => '_clear_author',
-#    predicate => '_has_author',
-#    default   => 'unknown',
-#   );
-
-######################################################################
-
-# has 'date' =>
-#   (
-#    isa       => 'Str',
-#    reader    => 'get_date',
-#    writer    => '_set_date',
-#    clearer   => '_clear_date',
-#    predicate => '_has_date',
-#    default   => 'unknown',
-#   );
-
-######################################################################
-
-# has 'catalog_filespec' =>
-#   (
-#    isa       => 'Str',
-#    reader    => 'get_catalog_filespec',
-#    writer    => '_set_catalog_filespec',
-#    clearer   => '_clear_catalog_filespec',
-#    predicate => '_has_catalog_filespec',
-#    default   => 'catalog.txt',
-#   );
-
-######################################################################
-
-# has 'file_list' =>
-#   (
-#    isa       => 'ArrayRef',
-#    reader    => 'get_file_list',
-#    default   => sub {[]},
-#   );
-
-# This is a list of all files in the library.
-
-######################################################################
-
-# has 'fragment_file_list' =>
-#   (
-#    isa       => 'ArrayRef',
-#    reader    => 'get_fragment_file_list',
-#    default   => sub {[]},
-#   );
-
-# This is a list of fragment files in the library.  A fragment file
-# contains SML text designed to be re-used in multiple documents.
-
-######################################################################
-
-# has 'reference_file_list' =>
-#   (
-#    isa       => 'ArrayRef',
-#    reader    => 'get_reference_file_list',
-#    default   => sub {[]},
-#   );
-
-# This is a list of reference files in the library.  A reference file
-# is any non-SML file referenced by library documents.  Reference
-# files can be used as attachments and cited as sources.
-
-######################################################################
-
-# has 'script_file_list' =>
-#   (
-#    isa       => 'ArrayRef',
-#    reader    => 'get_script_file_list',
-#    default   => sub {[]},
-#   );
-
-# This is a list of script files in the library.  The purpose of a
-# script file is to automatically generate document content at publish
-# time.
-
-######################################################################
-
 has 'entity_hash' =>
   (
    isa       => 'HashRef',
@@ -374,6 +277,17 @@ has 'review_hash' =>
 
 #   $review_ds->{$entity}{$date}{'status'}      = $status;
 #   $review_ds->{$entity}{$date}{'description'} = $description;
+
+######################################################################
+
+has 'template_dir' =>
+  (
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_template_dir',
+   writer    => '_set_template_dir',
+   default   => 'templates',
+  );
 
 ######################################################################
 ######################################################################
@@ -2079,6 +1993,17 @@ sub BUILD {
     }
 
   #-------------------------------------------------------------------
+  # template_dir
+  #
+  if ( $config{'template_dir'} )
+    {
+      my $directory_path = $self->_get_directory_path;
+      my $template_dir   = "$directory_path/$config{template_dir}";
+
+      $self->_set_template_dir($template_dir);
+    }
+
+  #-------------------------------------------------------------------
   # include_path
   #
   if ( $config{'include_path'} )
@@ -2096,28 +2021,6 @@ sub BUILD {
 	  $self->_add_include_path($config{'include_path'});
 	}
     }
-
-  #-------------------------------------------------------------------
-  # determine the catalog file
-  #
-  # if ( $config{'catalog_file'} )
-  #   {
-  #     if ( -r "$library_dir/$config{'catalog_file'}" )
-  # 	{
-  # 	  $catalog_file = "$library_dir/$config{'catalog_file'}";
-  # 	  $self->_set_catalog_filespec( $catalog_file );
-  # 	}
-
-  #     else
-  # 	{
-  # 	  $logger->error("catalog not readable: $catalog_file from $current_dir");
-  # 	}
-  #   }
-
-  # else
-  #   {
-  #     $logger->error("config file lacks \'catalog_file\'");
-  #   }
 
   #-------------------------------------------------------------------
   # add SML ontology rules
@@ -2150,25 +2053,25 @@ sub BUILD {
   #-------------------------------------------------------------------
   # read the catalog file
   #
-  if (-f $catalog_file)
-    {
-      open my $catalog, '<', $catalog_file or croak("Couldn't open $catalog_file");
-      my @catalog_lines = <$catalog>;
-      close $catalog or croak("Couldn't close $catalog_file");
+  # if (-f $catalog_file)
+  #   {
+  #     open my $catalog, '<', $catalog_file or croak("Couldn't open $catalog_file");
+  #     my @catalog_lines = <$catalog>;
+  #     close $catalog or croak("Couldn't close $catalog_file");
 
-      for (@catalog_lines)
-	{
-	  if    (/$syntax->{'comment_line'}/xms)           { next                          }
-	  elsif (/$syntax->{'title_element'}/xms)          { $self->_set_title($1)         }
-	  elsif (/$syntax->{'id_element'}/xms)             { $self->_set_id($2)            }
-	  elsif (/$syntax->{'author_element'}/xms)         { $self->_set_author($1)        }
-	  elsif (/$syntax->{'date_element'}/xms)           { $self->_set_date($1)          }
-	  elsif (/$syntax->{'revision_element'}/xms)       { $self->_set_revision($1)      }
-	  elsif (/$syntax->{'fragment_file_element'}/xms)  { $self->add_fragment_file($1)  }
-	  elsif (/$syntax->{'reference_file_element'}/xms) { $self->add_reference_file($1) }
-	  elsif (/$syntax->{'script_file_element'}/xms)    { $self->add_script_file($1)    }
-	}
-    }
+  #     for (@catalog_lines)
+  # 	{
+  # 	  if    (/$syntax->{'comment_line'}/xms)           { next                          }
+  # 	  elsif (/$syntax->{'title_element'}/xms)          { $self->_set_title($1)         }
+  # 	  elsif (/$syntax->{'id_element'}/xms)             { $self->_set_id($2)            }
+  # 	  elsif (/$syntax->{'author_element'}/xms)         { $self->_set_author($1)        }
+  # 	  elsif (/$syntax->{'date_element'}/xms)           { $self->_set_date($1)          }
+  # 	  elsif (/$syntax->{'revision_element'}/xms)       { $self->_set_revision($1)      }
+  # 	  elsif (/$syntax->{'fragment_file_element'}/xms)  { $self->add_fragment_file($1)  }
+  # 	  elsif (/$syntax->{'reference_file_element'}/xms) { $self->add_reference_file($1) }
+  # 	  elsif (/$syntax->{'script_file_element'}/xms)    { $self->add_script_file($1)    }
+  # 	}
+  #   }
 
   #-------------------------------------------------------------------
   # Teach util about library
