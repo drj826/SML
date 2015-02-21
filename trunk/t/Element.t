@@ -71,8 +71,6 @@ my @public_methods =
    'get_type',
    'get_value',
 
-   'as_html',
-
    'validate_syntax',
    'validate_semantics',
 

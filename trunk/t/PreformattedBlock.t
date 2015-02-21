@@ -39,7 +39,6 @@ my @public_methods =
    'get_name',
    'get_type',
    'add_line',
-   'as_sml',
   );
 
 can_ok( $obj, @public_methods );

@@ -49,7 +49,9 @@ my @public_methods =
    'get_library',
 
    # public methods
-   'parse',
+   'create_fragment',
+   'create_string',
+
    'extract_division_name',
    'extract_title_text',
    'extract_preamble_lines',
@@ -108,7 +110,7 @@ sub parse_ok {
   my $expected = $tc->{expected}{should_parse_ok};
 
   # act
-  my $fragment = $parser->parse($filespec);
+  my $fragment = $parser->create_fragment($filespec);
   my $result   = 0;
 
   if ( $fragment )
@@ -132,7 +134,7 @@ sub extract_division_name_ok {
   my $name     = $tc->{name};
   my $filespec = $tc->{testfile};
   my $expected = $tc->{expected}{divname};
-  my $fragment = $parser->parse($filespec);
+  my $fragment = $parser->create_fragment($filespec);
   my $lines    = $fragment->get_line_list;
 
   # act
@@ -154,7 +156,7 @@ sub extract_title_text_ok {
   my $name     = $tc->{name};
   my $filespec = $tc->{testfile};
   my $expected = $tc->{expected}{title};
-  my $fragment = $parser->parse($filespec);
+  my $fragment = $parser->create_fragment($filespec);
   my $lines    = $fragment->get_line_list;
 
   # act
@@ -176,7 +178,7 @@ sub extract_preamble_lines_ok {
   my $name        = $tc->{name};
   my $filespec    = $tc->{testfile};
   my $expected    = $tc->{expected}{preamble_size};
-  my $fragment    = $parser->parse($filespec);
+  my $fragment    = $parser->create_fragment($filespec);
   my $lines       = $fragment->get_line_list;
 
   # act
@@ -199,7 +201,7 @@ sub extract_narrative_lines_ok {
   my $name        = $tc->{name};
   my $filespec    = $tc->{testfile};
   my $expected    = $tc->{expected}{narrative_size};
-  my $fragment    = $parser->parse($filespec);
+  my $fragment    = $parser->create_fragment($filespec);
   my $lines       = $fragment->get_line_list;
 
   # act

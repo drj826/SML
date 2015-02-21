@@ -575,9 +575,6 @@ my @public_methods =
    'is_in_a',
    'as_sml',
    'as_text',
-   'as_html',
-   'start_html',
-   'end_html',
   );
 
 can_ok( $obj, @public_methods );
@@ -743,7 +740,7 @@ sub get_containing_division_ok {
   my $expected = $testdata->{$testid}{expected};
   my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
-  my $fragment = $parser->parse($testfile);
+  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($divid);
 
   # act
@@ -766,7 +763,7 @@ sub get_part_list_ok {
   my $expected = $testdata->{$testid}{expected};
   my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
-  my $fragment = $parser->parse($testfile);
+  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($divid);
 
   # act
@@ -789,7 +786,7 @@ sub get_line_list_ok {
   my $expected = $testdata->{$testid}{expected};
   my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
-  my $fragment = $parser->parse($testfile);
+  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($divid);
 
   # act
@@ -812,7 +809,7 @@ sub get_division_list_ok {
   my $expected = $testdata->{$testid}{expected};
   my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
-  my $fragment = $parser->parse($testfile);
+  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($divid);
 
   # act
@@ -835,7 +832,7 @@ sub get_section_list_ok {
   my $expected = $testdata->{$testid}{expected};
   my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
-  my $fragment = $parser->parse($testfile);
+  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($divid);
 
   # act
@@ -858,7 +855,7 @@ sub get_block_list_ok {
   my $expected = $testdata->{$testid}{expected};
   my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
-  my $fragment = $parser->parse($testfile);
+  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($divid);
 
   # act
@@ -881,7 +878,7 @@ sub get_element_list_ok {
   my $expected = $testdata->{$testid}{expected};
   my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
-  my $fragment = $parser->parse($testfile);
+  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($divid);
 
   # act
@@ -904,7 +901,7 @@ sub get_preamble_line_list_ok {
   my $expected = $testdata->{$testid}{expected};
   my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
-  my $fragment = $parser->parse($testfile);
+  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($divid);
 
   # act
@@ -927,7 +924,7 @@ sub get_narrative_line_list_ok {
   my $expected = $testdata->{$testid}{expected};
   my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
-  my $fragment = $parser->parse($testfile);
+  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($divid);
 
   # act
@@ -950,7 +947,7 @@ sub get_first_part_ok {
   my $expected = $testdata->{$testid}{expected};
   my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
-  my $fragment = $parser->parse($testfile);
+  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($divid);
 
   # act
@@ -973,7 +970,7 @@ sub get_first_line_ok {
   my $expected = $testdata->{$testid}{expected};
   my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
-  my $fragment = $parser->parse($testfile);
+  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($divid);
 
   # act
@@ -1001,7 +998,7 @@ sub get_property_list_ok {
   my $expected = $testdata->{$testid}{expected};
   my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
-  my $fragment = $parser->parse($testfile);
+  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($divid);
 
   # act
@@ -1025,7 +1022,7 @@ sub get_property_ok {
   my $expected = $testdata->{$testid}{expected};
   my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
-  my $fragment = $parser->parse($testfile);
+  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($divid);
 
   # act
@@ -1049,7 +1046,7 @@ sub get_property_value_ok {
   my $expected = $testdata->{$testid}{expected};
   my $library  = SML::Library->new(config_filename=>$config);
   my $parser   = $library->get_parser;
-  my $fragment = $parser->parse($testfile);
+  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($divid);
 
   # act
@@ -1099,7 +1096,7 @@ sub warning_ok {
   $t1logger->warn(qr/$warning_1/);
   $t2logger->warn(qr/$warning_2/);
 
-  my $fragment  = $parser->parse($testfile);
+  my $fragment  = $parser->create_fragment($testfile);
 
   # act
   $fragment->validate_semantics;
@@ -1120,7 +1117,7 @@ sub get_id_path_ok {
   my $config        = $testdata->{$testid}{config};
   my $library       = SML::Library->new(config_filename=>$config);
   my $parser        = $library->get_parser;
-  my $fragment      = $parser->parse($testfile);
+  my $fragment      = $parser->create_fragment($testfile);
   my $division_list = $fragment->get_division_list;
 
   # act

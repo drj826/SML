@@ -100,8 +100,6 @@ my @public_methods =
    'as_latex',
    'as_csv',
    'as_xml',
-   'start_html',
-   'end_html',
    'replace_division_id',
   );
 
@@ -253,7 +251,7 @@ sub warning_ok {
   $t1logger->warn(qr/$warning_1/);
   $t1logger->warn(qr/$warning_2/);
 
-  my $fragment = $parser->parse($testfile);
+  my $fragment = $parser->create_fragment($testfile);
   my $document = $library->get_document($docid);
 
   # act
