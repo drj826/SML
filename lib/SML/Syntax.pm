@@ -970,20 +970,29 @@ has 'thepage_ref' =>
 
 ######################################################################
 
-has 'version_ref' =>
+has 'theversion_ref' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '\[version\]',
+   default => '\[theversion\]',
   );
 
 ######################################################################
 
-has 'revision_ref' =>
+has 'therevision_ref' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '\[revision\]',
+   default => '\[therevision\]',
+  );
+
+######################################################################
+
+has 'thedate_ref' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '\[thedate\]',
   );
 
 ######################################################################
@@ -993,15 +1002,6 @@ has 'linebreak_symbol' =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[linebreak\]',
-  );
-
-######################################################################
-
-has 'date_ref' =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '\[date\]',
   );
 
 ######################################################################
@@ -1084,7 +1084,7 @@ has 'take_note_symbol' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '\[\[take_note\]\]',
+   default => '\[take_note\]',
   );
 
 ######################################################################
@@ -1174,7 +1174,7 @@ has 'reg_trademark_symbol' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '\[r\]',
+   default => '\[rtm\]',
   );
 
 ######################################################################
@@ -1246,7 +1246,7 @@ has 'valid_inline_tags' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '(linebreak|pagebreak|clearpage|section|version|thepage|pagecount|thesection|revision|copyright|date|tm|c|r)',
+   default => '(linebreak|pagebreak|clearpage|section|theversion|thepage|pagecount|thesection|therevision|copyright|thedate|tm|c|rtm|email)',
   );
 
 ######################################################################
@@ -1273,7 +1273,8 @@ has 'email_addr' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '\b([a-zA-Z0-9._]+@[a-zA-Z0-9._]+\.[a-zA-Z0-9._]+)\b',
+   default => '\[email:\s*([^\s\|\]]+?)(\|(.*))?\s*\]',
+   # default => '\b([a-zA-Z0-9._]+@[a-zA-Z0-9._]+\.[a-zA-Z0-9._]+)\b',
   );
 
 # $1 => Email address
@@ -1339,7 +1340,7 @@ has 'non_substring' =>
    is      => 'ro',
    isa     => 'Str',
    # default => '([_,!~]?[A-Za-z\d\s><#\:\-\.\?\+\=\;\(\)\{\}\*\@\/\'\"\n]+)',
-   default => '([_,!~]?[^_,!~\[]+)',
+   default => '([|^_,!~`\'\-]?[^|^_,!~\[`\'\-]+)',
   );
 
 ######################################################################
@@ -1521,11 +1522,11 @@ regular expressions used to parse document text.
 
 =head2 thepage_ref
 
-=head2 version_ref
+=head2 theversion_ref
 
-=head2 revision_ref
+=head2 therevision_ref
 
-=head2 date_ref
+=head2 thedate_ref
 
 =head2 status_ref
 
