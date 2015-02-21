@@ -22,6 +22,28 @@ my $logger = Log::Log4perl::get_logger('sml.TestData');
 ######################################################################
 ######################################################################
 
+has library =>
+  (
+   is      => 'ro',
+   isa     => 'SML::Library',
+   reader  => 'get_library',
+   lazy    => 1,
+   builder => '_build_library',
+  );
+
+######################################################################
+
+has string_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_string_test_case_list',
+   lazy    => 1,
+   builder => '_build_string_test_case_list',
+  );
+
+######################################################################
+
 has acronym_list_test_case_list =>
   (
    is      => 'ro',
@@ -97,6 +119,914 @@ has string_test_case_list =>
 ## Private Methods
 ##
 ######################################################################
+######################################################################
+
+sub _build_library {
+
+  use SML::Library;
+
+  return SML::Library->new(config_filename=>'library.conf');
+}
+
+######################################################################
+
+sub _build_string_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name     => 'plain_string_1',
+      content  => 'This is a plain string.',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'string',
+       content => 'This is a plain string.',
+       has_parts => 0,
+       html =>
+       {
+	default => 'This is a plain string.',
+       },
+      },
+     },
+
+     {
+      name     => 'bold_string_1',
+      content  => '!!this is bold!!',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'bold_string',
+       content => 'this is bold',
+       has_parts => 1,
+       html =>
+       {
+	default => '<b>this is bold</b>',
+       },
+      },
+     },
+
+     {
+      name     => 'italics_string_1',
+      content  => '~~this is italics~~',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'italics_string',
+       content => 'this is italics',
+       has_parts => 1,
+       html =>
+       {
+	default => '<i>this is italics</i>',
+       },
+      },
+     },
+
+     {
+      name     => 'fixed_width_string_1',
+      content  => '||this is fixed width||',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'fixedwidth_string',
+       content => 'this is fixed width',
+       has_parts => 1,
+       html =>
+       {
+	default => '<tt>this is fixed width</tt>',
+       },
+      },
+     },
+
+     {
+      name     => 'underline_string_1',
+      content  => '__this is underlined__',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'underline_string',
+       content => 'this is underlined',
+       has_parts => 1,
+       html =>
+       {
+	default => '<u>this is underlined</u>',
+       },
+      },
+     },
+
+     {
+      name     => 'superscript_string_1',
+      content  => '^^this is superscripted^^',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'superscript_string',
+       content => 'this is superscripted',
+       has_parts => 1,
+       html =>
+       {
+	default => '<sup>this is superscripted</sup>',
+       },
+      },
+     },
+
+     {
+      name     => 'subscript_string_1',
+      content  => ',,this is subscripted,,',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'subscript_string',
+       content => 'this is subscripted',
+       has_parts => 1,
+       html =>
+       {
+	default => '<sub>this is subscripted</sub>',
+       },
+      },
+     },
+
+     {
+      name     => 'linebreak_symbol_1',
+      content  => '[linebreak]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'linebreak_symbol',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '<br/>',
+       },
+      },
+     },
+
+     {
+      name     => 'user_entered_text_1',
+      content  => '[enter:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'user_entered_text',
+       content => 'bogus',
+       has_parts => 0,
+       html =>
+       {
+	default => '<b><tt>bogus</tt></b>',
+       },
+      },
+     },
+
+     {
+      name     => 'user_entered_text_2',
+      content  => '[en:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'user_entered_text',
+       content => 'bogus',
+       has_parts => 0,
+       html =>
+       {
+	default => '<b><tt>bogus</tt></b>',
+       },
+      },
+     },
+
+     {
+      name     => 'file_reference_1',
+      content  => '[file:bogus.txt]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'file_ref',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '<tt>bogus.txt</tt>',
+       },
+      },
+     },
+
+     {
+      name     => 'path_reference_1',
+      content  => '[path:path/to/bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'path_ref',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '<tt>path/to/bogus</tt>',
+       },
+      },
+     },
+
+     {
+      name     => 'url_reference_1',
+      content  => '[url:http://www.google.com/]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'url_ref',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '<a href="http://www.google.com/">http://www.google.com/</a>',
+       },
+      },
+     },
+
+     {
+      name     => 'url_reference_2',
+      content  => '[url:http://www.google.com/|google]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'url_ref',
+       content => 'google',
+       has_parts => 0,
+       html =>
+       {
+	default => '<a href="http://www.google.com/">google</a>',
+       },
+      },
+     },
+
+     {
+      name     => 'command_reference_1',
+      content  => '[cmd:ls -al | grep bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'command_ref',
+       content => 'ls -al | grep bogus',
+       has_parts => 0,
+       html =>
+       {
+	default => '<tt>ls -al | grep bogus</tt>',
+       },
+      },
+     },
+
+     {
+      name     => 'smiley_symbol_1',
+      content  => ':-)',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'smiley_symbol',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '&#9786;',
+       },
+      },
+     },
+
+     {
+      name     => 'frowny_symbol_1',
+      content  => ':-(',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'frowny_symbol',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '&#9785;',
+       },
+      },
+     },
+
+     {
+      name     => 'keystroke_symbol_1',
+      content  => '[[ESC]]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'keystroke_symbol',
+       content => 'ESC',
+       has_parts => 1,
+       html =>
+       {
+	default => '<span class="keystroke">ESC</span>',
+       },
+      },
+     },
+
+     {
+      name     => 'left_arrow_symbol_1',
+      content  => '<-',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'left_arrow_symbol',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '&#8592;',
+       },
+      },
+     },
+
+     {
+      name     => 'right_arrow_symbol_1',
+      content  => '->',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'right_arrow_symbol',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '&#8594;',
+       },
+      },
+     },
+
+     {
+      name     => 'latex_symbol_1',
+      content  => 'LaTeX',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'latex_symbol',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => 'L<sup>a</sup>T<sub>e</sub>X',
+       },
+      },
+     },
+
+     {
+      name     => 'tex_symbol_1',
+      content  => 'TeX',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'tex_symbol',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => 'T<sub>e</sub>X',
+       },
+      },
+     },
+
+     {
+      name     => 'copyright_symbol_1',
+      content  => '[c]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'copyright_symbol',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '&copy;',
+       },
+      },
+     },
+
+     {
+      name     => 'trademark_symbol_1',
+      content  => '[tm]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'trademark_symbol',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '&trade;',
+       },
+      },
+     },
+
+     {
+      name     => 'registered_trademark_symbol_1',
+      content  => '[rtm]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'reg_trademark_symbol',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '&reg;',
+       },
+      },
+     },
+
+     {
+      name     => 'open_dblquote_symbol_1',
+      content  => '``',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'open_dblquote_symbol',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '&#8220;',
+       },
+      },
+     },
+
+     {
+      name     => 'close_dblquote_symbol_1',
+      content  => '\'\'',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'close_dblquote_symbol',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '&#8221;',
+       },
+      },
+     },
+
+     {
+      name     => 'open_sglquote_symbol_1',
+      content  => '`',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'open_sglquote_symbol',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '&#8216;',
+       },
+      },
+     },
+
+     {
+      name     => 'close_sglquote_symbol_1',
+      content  => '\'',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'close_sglquote_symbol',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '&#8217;',
+       },
+      },
+     },
+
+     {
+      name     => 'section_symbol_1',
+      content  => '[section]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'section_symbol',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '&sect;',
+       },
+      },
+     },
+
+     {
+      name     => 'emdash_symbol_1',
+      content  => '--',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'emdash_symbol',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '&mdash;',
+       },
+      },
+     },
+
+     {
+      name     => 'email_address_1',
+      content  => '[email:help@example.com]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'email_addr',
+       content => '',
+       has_parts => 0,
+       html =>
+       {
+	default => '<a href="mailto:help@example.com">help@example.com</a>',
+       },
+      },
+     },
+
+     {
+      name     => 'email_address_2',
+      content  => '[email:john.smith@example.com|John Smith]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'email_addr',
+       content => 'John Smith',
+       has_parts => 0,
+       html =>
+       {
+	default => '<a href="mailto:john.smith@example.com">John Smith</a>',
+       },
+      },
+     },
+
+     {
+      name     => 'bold_inside_italics_1',
+      content  => '~~this is !!bold!! inside italics~~',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'italics_string',
+       content => 'this is !!bold!! inside italics',
+       has_parts => 3,
+       html =>
+       {
+	default => '<i>this is <b>bold</b> inside italics</i>',
+       },
+      },
+     },
+
+     {
+      name     => 'italics_inside_bold_1',
+      content  => '!!this is ~~italics~~ inside bold!!',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'bold_string',
+       content => 'this is ~~italics~~ inside bold',
+       has_parts => 3,
+       html =>
+       {
+	default => '<b>this is <i>italics</i> inside bold</b>',
+       },
+      },
+     },
+
+     {
+      name     => 'string_with_italics_and_bold_1',
+      content  => 'this string has ~~italics~~ and !!bold!!',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'string',
+       content => 'this string has ~~italics~~ and !!bold!!',
+       has_parts => 4,
+       html =>
+       {
+	default => 'this string has <i>italics</i> and <b>bold</b>',
+       },
+      },
+     },
+
+     {
+      name     => 'variable_reference_1',
+      content  => '[var:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'variable_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'glossary_term_reference_1',
+      content  => '[g:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'gloss_term_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'glossary_term_reference_2',
+      content  => '[G:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'gloss_term_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'glossary_term_reference_3',
+      content  => '[gls:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'gloss_term_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'glossary_term_reference_4',
+      content  => '[Gls:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'gloss_term_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'glossary_definition_reference_1',
+      content  => '[def:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'gloss_def_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'acronym_term_reference_1',
+      content  => '[a:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'acronym_term_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'acronym_term_reference_2',
+      content  => '[ac:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'acronym_term_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'acronym_term_reference_3',
+      content  => '[acs:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'acronym_term_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'acronym_term_reference_4',
+      content  => '[acl:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'acronym_term_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'cross_reference_1',
+      content  => '[r:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'cross_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'cross_reference_2',
+      content  => '[ref:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'cross_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'id_reference_1',
+      content  => '[id:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'id_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'page_reference_1',
+      content  => '[page:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'page_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'page_reference_2',
+      content  => '[pg:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'page_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'footnote_reference_1',
+      content  => '[f:introduction:1]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'footnote_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'index_reference_1',
+      content  => '[index:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'index_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'index_reference_2',
+      content  => '[i:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'index_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'thepage_symbol_1',
+      content  => '[thepage]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'thepage_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'theversion_symbol_1',
+      content  => '[theversion]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'theversion_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'therevision_symbol_1',
+      content  => '[therevision]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'therevision_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'thedate_symbol_1',
+      content  => '[thedate]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'thedate_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'status_reference_1',
+      content  => '[status:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'status_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'citation_reference_1',
+      content  => '[cite:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'citation_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'citation_reference_2',
+      content  => '[c:bogus]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'citation_ref',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+     {
+      name     => 'take_note_symbol_1',
+      content  => '[take_note]',
+      expected =>
+      {
+       type    => 'part',
+       name    => 'take_note_symbol',
+       content => '',
+       has_parts => 0,
+      },
+     },
+
+    ];
+}
+
 ######################################################################
 
 sub _build_acronym_list_test_case_list {
@@ -1127,8 +2057,8 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'version_reference_1',
-      sml     => '[version]',
+      name    => 'theversion_reference_1',
+      sml     => '[theversion]',
       latex   => "2.0\n\n",
       html    => "2.0\n\n",
       xml     => "2.0\n\n",
@@ -1137,8 +2067,8 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'revision_reference_1',
-      sml     => '[revision]',
+      name    => 'therevision_reference_1',
+      sml     => '[therevision]',
       latex   => "4444\n\n",
       html    => "4444\n\n",
       xml     => "4444\n\n",
@@ -1147,8 +2077,8 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'date_reference_1',
-      sml     => '[date]',
+      name    => 'thedate_reference_1',
+      sml     => '[thedate]',
       latex   => "2012-09-11\n\n",
       html    => "2012-09-11\n\n",
       xml     => "2012-09-11\n\n",
@@ -1728,21 +2658,6 @@ sub _build_block_test_case_list {
       config    => 'library.conf',
      },
 
-    ];
-}
-
-######################################################################
-
-sub _build_string_test_case_list {
-
-  my $self = shift;
-
-  return
-    [
-     {
-      name  => 'simple string',
-      value => 'This is a simple string.',
-     },
     ];
 }
 
