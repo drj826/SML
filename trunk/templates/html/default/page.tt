@@ -33,9 +33,9 @@ $Id: $
 </head>
 <body>
 
-[% PROCESS header.tt -%]
-[% PROCESS footer.tt -%]
-[% PROCESS navigation.tt -%]
+[% INCLUDE header.tt -%]
+[% INCLUDE footer.tt -%]
+[% INCLUDE navigation.tt -%]
 
 <div id="content">
 

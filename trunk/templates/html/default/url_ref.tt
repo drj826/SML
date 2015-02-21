@@ -1,0 +1,5 @@
+[%- IF self.has_content -%]
+<a href="[% self.get_url %]">[% self.get_content %]</a>
+[%- ELSE -%]
+<a href="[% self.get_url %]">[% self.get_url %]</a>
+[%- END -%]

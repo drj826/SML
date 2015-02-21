@@ -1,0 +1,1 @@
+<b><tt>[%- self.get_content -%]</tt></b>

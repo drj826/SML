@@ -1,2 +1,3 @@
-<dt>[%- part.get_term_as_html -%]</dt>
-<dd>[%- part.get_definition_as_html -%]</dd>
+<dt>[%- self.get_term.get_content -%]</dt>
+
+<dd>[%- self.get_definition.get_content -%]</dd>
