@@ -1,1 +1,1 @@
-<!-- [% part.get_content %] -->
+<!-- [% self.get_content %] -->

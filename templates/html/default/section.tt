@@ -4,7 +4,7 @@ $Id: $
 
 -%]
 [% WRAPPER page.tt -%]
-  [%- PROCESS previous_and_next.tt -%]
+  [%- INCLUDE previous_and_next.tt -%]
 
 <a name="section.[% section.get_number %]">
 <h2>[% section.get_number %] [% section.get_property_value('title') %] </h1>
@@ -14,13 +14,13 @@ $Id: $
     [%- ELSIF part.get_name == 'type' -%]
     [%- ELSIF part.get_name == 'id' -%]
     [%- ELSIF part.get_name == 'PARAGRAPH' -%]
-      [%- PROCESS paragraph.tt -%]
+      [%- INCLUDE paragraph.tt -%]
     [%- ELSIF part.get_name == 'COMMENT' -%]
-      [%- PROCESS comment.tt -%]
+      [%- INCLUDE comment.tt -%]
     [%- ELSIF part.get_name == 'definition_list_item' -%]
-      [%- PROCESS definition_list_item.tt -%]
+      [%- INCLUDE definition_list_item.tt -%]
     [%- ELSIF part.get_name == 'problem' -%]
-      [%- PROCESS problem.tt -%]
+      [%- INCLUDE problem.tt -%]
     [%- ELSE -%]
 <p style="color: red;">do something with this [% part.get_name %]!</p>
 

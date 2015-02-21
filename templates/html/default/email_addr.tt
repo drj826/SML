@@ -1,0 +1,5 @@
+[%- IF self.has_content -%]
+<a href="mailto:[% self.get_email_addr %]">[% self.get_content %]</a>
+[%- ELSE -%]
+<a href="mailto:[% self.get_email_addr %]">[% self.get_email_addr %]</a>
+[%- END -%]

@@ -28,7 +28,7 @@ $Id: $
 </td>
 </tr>
 
-[% PROCESS version.tt -%]
+[% INCLUDE version.tt -%]
 
 </table>
 </div>
