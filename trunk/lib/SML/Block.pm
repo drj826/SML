@@ -6,6 +6,8 @@ package SML::Block;
 
 use Moose;
 
+extends 'SML::Part';
+
 use version; our $VERSION = qv('2.0.0');
 
 use namespace::autoclean;
@@ -26,33 +28,16 @@ use SML;                 # ci-000002
 ######################################################################
 ######################################################################
 
-has 'type' =>
+has '+type' =>
   (
-   isa      => 'Str',
-   reader   => 'get_type',
    default  => 'block',
   );
 
 ######################################################################
 
-has 'name' =>
+has '+name' =>
   (
-   isa      => 'Str',
-   reader   => 'get_name',
    default  => 'BLOCK',
-  );
-
-######################################################################
-
-has 'content' =>
-  (
-   isa       => 'Str',
-   reader    => 'get_content',
-   writer    => 'set_content',
-   clearer   => 'clear_content',
-   predicate => 'has_content',
-   lazy      => 1,
-   builder   => '_build_content',
   );
 
 ######################################################################
@@ -76,19 +61,6 @@ has 'line_list' =>
    predicate => 'has_line_list',
    default   => sub {[]},
   );
-
-######################################################################
-
-has 'part_list' =>
-  (
-   isa       => 'ArrayRef',
-   reader    => 'get_part_list',
-   default   => sub {[]},
-  );
-
-# The 'part_list' is the array of strings within this block.  All of
-# the content of a block can be represented by an array of strings.
-# Strings can contain substrings (a string within a string).
 
 ######################################################################
 
@@ -191,32 +163,6 @@ sub add_part {
 
 ######################################################################
 
-sub get_containing_document {
-
-  # Return the document to which this block belongs.
-
-  my $self     = shift;
-  my $division = $self->get_containing_division;
-
-  if ( not defined $division )
-    {
-      # $logger->error("DIVISION DOESN'T EXIST");
-      return 0;
-    }
-
-  elsif ( $division->isa('SML::Document') )
-    {
-      return $division;
-    }
-
-  else
-    {
-      return $division->get_containing_document;
-    }
-}
-
-######################################################################
-
 sub get_first_line {
 
   # Return the first line of this block.
@@ -266,6 +212,7 @@ sub is_in_a {
 
   my $self     = shift;
   my $type     = shift;
+
   my $division = $self->get_containing_division || q{};
 
   while ( $division )
@@ -287,169 +234,6 @@ sub is_in_a {
     }
 
   return 0;
-}
-
-######################################################################
-
-sub as_sml {
-
-  # Return the content of this block as SML.
-
-  my $self = shift;
-
-  return $self->get_content;
-}
-
-######################################################################
-
-sub as_html {
-
-  # Return this block as HTML.
-
-  my $self = shift;
-  my $html = $self->get_content;
-
-  $html = $self->_render_html_literal_xml_tags($html);
-
-  # render HTML references
-  #
-  $html = $self->_render_html_internal_references($html);
-  $html = $self->_render_html_url_references($html);
-  $html = $self->_render_html_footnote_references($html);
-  $html = $self->_render_html_glossary_references($html);
-  $html = $self->_render_html_acronym_references($html);
-  $html = $self->_render_html_index_references($html);
-  $html = $self->_render_html_id_references($html);
-  $html = $self->_render_html_thepage_references($html);
-  $html = $self->_render_html_page_references($html);
-  $html = $self->_render_html_version_references($html);
-  $html = $self->_render_html_revision_references($html);
-  $html = $self->_render_html_date_references($html);
-  $html = $self->_render_html_status_references($html);
-  $html = $self->_render_html_citation_references($html);
-
-  # render HTML special symbols and characters
-  #
-  $html = $self->_render_html_take_note_symbols($html);
-  $html = $self->_render_html_smiley_symbols($html);
-  $html = $self->_render_html_frowny_symbols($html);
-  $html = $self->_render_html_keystroke_symbols($html);
-  $html = $self->_render_html_left_arrow_symbols($html);
-  $html = $self->_render_html_right_arrow_symbols($html);
-  $html = $self->_render_html_latex_symbols($html);
-  $html = $self->_render_html_tex_symbols($html);
-  $html = $self->_render_html_copyright_symbols($html);
-  $html = $self->_render_html_trademark_symbols($html);
-  $html = $self->_render_html_reg_trademark_symbols($html);
-  $html = $self->_render_html_open_double_quote($html);
-  $html = $self->_render_html_close_double_quote($html);
-  $html = $self->_render_html_open_single_quote($html);
-  $html = $self->_render_html_close_single_quote($html);
-  $html = $self->_render_html_section_symbols($html);
-  $html = $self->_render_html_emdash($html);
-
-  # render HTML spanned content
-  #
-  $html = $self->_render_html_underlined_text($html);
-  $html = $self->_render_html_superscripted_text($html);
-  $html = $self->_render_html_subscripted_text($html);
-  $html = $self->_render_html_italicized_text($html);
-  $html = $self->_render_html_bold_text($html);
-  $html = $self->_render_html_fixed_width_text($html);
-  $html = $self->_render_html_file_references($html);
-  $html = $self->_render_html_path_references($html);
-  $html = $self->_render_html_user_entered_text($html);
-  $html = $self->_render_html_commands($html);
-  $html = $self->_render_html_email_addresses($html);
-
-  $html = $self->start_html($html);
-  $html = $self->end_html($html);
-
-  return $html;
-}
-
-######################################################################
-
-sub as_latex {
-
-  # Return this block as LaTeX.
-
-  my $self  = shift;
-  my $latex = $self->get_content;
-
-  # render LaTeX references
-  #
-  $latex = $self->_render_latex_internal_references($latex);
-  $latex = $self->_render_latex_url_references($latex);
-  $latex = $self->_render_latex_footnote_references($latex);
-  $latex = $self->_render_latex_glossary_references($latex);
-  $latex = $self->_render_latex_acronym_references($latex);
-  $latex = $self->_render_latex_index_references($latex);
-  $latex = $self->_render_latex_id_references($latex);
-  $latex = $self->_render_latex_thepage_references($latex);
-  $latex = $self->_render_latex_page_references($latex);
-  $latex = $self->_render_latex_version_references($latex);
-  $latex = $self->_render_latex_revision_references($latex);
-  $latex = $self->_render_latex_date_references($latex);
-  $latex = $self->_render_latex_status_references($latex);
-  $latex = $self->_render_latex_citations($latex);
-
-  # render LaTeX special symbols and characters
-  #
-  $latex = $self->_render_latex_take_note_symbols($latex);
-  $latex = $self->_render_latex_smiley_symbols($latex);
-  $latex = $self->_render_latex_frowny_symbols($latex);
-  $latex = $self->_render_latex_keystroke_symbols($latex);
-  $latex = $self->_render_latex_left_arrow_symbols($latex);
-  $latex = $self->_render_latex_right_arrow_symbols($latex);
-  $latex = $self->_render_latex_tex_symbols($latex);
-  $latex = $self->_render_latex_latex_symbols($latex);
-  $latex = $self->_render_latex_copyright_symbols($latex);
-  $latex = $self->_render_latex_trademark_symbols($latex);
-  $latex = $self->_render_latex_reg_trademark_symbols($latex);
-  $latex = $self->_render_latex_open_double_quote($latex);
-  $latex = $self->_render_latex_close_double_quote($latex);
-  $latex = $self->_render_latex_open_single_quote($latex);
-  $latex = $self->_render_latex_close_single_quote($latex);
-  $latex = $self->_render_latex_section_symbols($latex);
-  $latex = $self->_render_latex_emdash($latex);
-
-  # render LaTeX spanned content
-  #
-  $latex = $self->_render_latex_underlined_text($latex);
-  $latex = $self->_render_latex_superscripted_text($latex);
-  $latex = $self->_render_latex_subscripted_text($latex);
-  $latex = $self->_render_latex_italicized_text($latex);
-  $latex = $self->_render_latex_bold_text($latex);
-  $latex = $self->_render_latex_fixed_width_text($latex);
-  $latex = $self->_render_latex_file_references($latex);
-  $latex = $self->_render_latex_path_references($latex);
-  $latex = $self->_render_latex_user_entered_text($latex);
-  $latex = $self->_render_latex_commands($latex);
-  $latex = $self->_render_latex_literal_xml_tags($latex);
-  $latex = $self->_render_latex_email_addresses($latex);
-
-  return $latex;
-}
-
-######################################################################
-
-sub start_html {
-
-  my $self = shift;
-  my $html = shift;
-
-  return $html;
-}
-
-######################################################################
-
-sub end_html {
-
-  my $self = shift;
-  my $html = shift;
-
-  return $html;
 }
 
 ######################################################################
@@ -524,17 +308,17 @@ sub validate_semantics {
       $valid = 0;
     }
 
-  if ( not $self->validate_version_refs )
+  if ( not $self->validate_theversion_refs )
     {
       $valid = 0;
     }
 
-  if ( not $self->validate_revision_refs )
+  if ( not $self->validate_therevision_refs )
     {
       $valid = 0;
     }
 
-  if ( not $self->validate_date_refs )
+  if ( not $self->validate_thedate_refs )
     {
       $valid = 0;
     }
@@ -1008,7 +792,7 @@ sub validate_page_refs {
 
 ######################################################################
 
-sub validate_version_refs {
+sub validate_theversion_refs {
 
   my $self   = shift;
   my $sml    = SML->instance;
@@ -1017,7 +801,7 @@ sub validate_version_refs {
 
   $_ = $self->get_content;
 
-  if ( not /$syntax->{version_ref}/xms )
+  if ( not /$syntax->{theversion_ref}/xms )
     {
       return 1;
     }
@@ -1033,7 +817,7 @@ sub validate_version_refs {
       return 0;
     }
 
-  while ( /$syntax->{version_ref}/xms )
+  while ( /$syntax->{theversion_ref}/xms )
     {
       if ( $doc->has_property('version') )
 	{
@@ -1047,7 +831,7 @@ sub validate_version_refs {
 	  $valid = 0;
 	}
 
-      s/$syntax->{version_ref}//xms;
+      s/$syntax->{theversion_ref}//xms;
     }
 
   return $valid;
@@ -1055,7 +839,7 @@ sub validate_version_refs {
 
 ######################################################################
 
-sub validate_revision_refs {
+sub validate_therevision_refs {
 
   my $self   = shift;
   my $sml    = SML->instance;
@@ -1064,7 +848,7 @@ sub validate_revision_refs {
 
   $_ = $self->get_content;
 
-  if ( not /$syntax->{revision_ref}/xms )
+  if ( not /$syntax->{therevision_ref}/xms )
     {
       return 1;
     }
@@ -1080,7 +864,7 @@ sub validate_revision_refs {
       return 0;
     }
 
-  while ( /$syntax->{revision_ref}/xms )
+  while ( /$syntax->{therevision_ref}/xms )
     {
       if ( $doc->has_property('revision') )
 	{
@@ -1094,7 +878,7 @@ sub validate_revision_refs {
 	  $valid = 0;
 	}
 
-      s/$syntax->{revision_ref}//xms;
+      s/$syntax->{therevision_ref}//xms;
     }
 
   return $valid;
@@ -1102,7 +886,7 @@ sub validate_revision_refs {
 
 ######################################################################
 
-sub validate_date_refs {
+sub validate_thedate_refs {
 
   my $self   = shift;
   my $sml    = SML->instance;
@@ -1111,7 +895,7 @@ sub validate_date_refs {
 
   $_ = $self->get_content;
 
-  if ( not /$syntax->{date_ref}/xms )
+  if ( not /$syntax->{thedate_ref}/xms )
     {
       return 1;
     }
@@ -1127,7 +911,7 @@ sub validate_date_refs {
       return 0;
     }
 
-  while ( /$syntax->{date_ref}/xms )
+  while ( /$syntax->{thedate_ref}/xms )
     {
       if ( $doc->has_property('date') )
 	{
@@ -1141,7 +925,7 @@ sub validate_date_refs {
 	  $valid = 0;
 	}
 
-      s/$syntax->{date_ref}//xms;
+      s/$syntax->{thedate_ref}//xms;
     }
 
   return $valid;
@@ -1954,14 +1738,14 @@ sub _render_html_page_references {
 
 ######################################################################
 
-sub _render_html_version_references {
+sub _render_html_theversion_references {
 
   my $self   = shift;
   my $html   = shift;
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  return $html if not $html =~ $syntax->{version_ref};
+  return $html if not $html =~ $syntax->{theversion_ref};
 
   my $doc = $self->get_containing_document;
 
@@ -1988,9 +1772,9 @@ sub _render_html_version_references {
       $version = '(no document version)';
     }
 
-  while ( $html =~ $syntax->{version_ref} )
+  while ( $html =~ $syntax->{theversion_ref} )
     {
-      $html =~ s/$syntax->{version_ref}/$version/xms;
+      $html =~ s/$syntax->{theversion_ref}/$version/xms;
     }
 
   return $html;
@@ -1998,14 +1782,14 @@ sub _render_html_version_references {
 
 ######################################################################
 
-sub _render_html_revision_references {
+sub _render_html_therevision_references {
 
   my $self   = shift;
   my $html   = shift;
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  return $html if not $html =~ $syntax->{revision_ref};
+  return $html if not $html =~ $syntax->{therevision_ref};
 
   my $doc = $self->get_containing_document;
 
@@ -2032,9 +1816,9 @@ sub _render_html_revision_references {
       $revision = '(no document revision)';
     }
 
-  while ( $html =~ $syntax->{revision_ref} )
+  while ( $html =~ $syntax->{therevision_ref} )
     {
-      $html =~ s/$syntax->{revision_ref}/$revision/xms;
+      $html =~ s/$syntax->{therevision_ref}/$revision/xms;
     }
 
   return $html;
@@ -2042,14 +1826,14 @@ sub _render_html_revision_references {
 
 ######################################################################
 
-sub _render_html_date_references {
+sub _render_html_thedate_references {
 
   my $self   = shift;
   my $html   = shift;
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  return $html if not $html =~ $syntax->{date_ref};
+  return $html if not $html =~ $syntax->{thedate_ref};
 
   my $doc = $self->get_containing_document;
 
@@ -2076,9 +1860,9 @@ sub _render_html_date_references {
       $date = '(no document date)';
     }
 
-  while ( $html =~ $syntax->{date_ref} )
+  while ( $html =~ $syntax->{thedate_ref} )
     {
-      $html =~ s/$syntax->{date_ref}/$date/xms;
+      $html =~ s/$syntax->{thedate_ref}/$date/xms;
     }
 
   return $html;
@@ -2576,14 +2360,14 @@ sub _render_latex_page_references {
 
 ######################################################################
 
-sub _render_latex_version_references {
+sub _render_latex_theversion_references {
 
   my $self   = shift;
   my $latex  = shift;
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  return $latex if not $latex =~ $syntax->{version_ref};
+  return $latex if not $latex =~ $syntax->{theversion_ref};
 
   my $doc = $self->get_containing_document;
 
@@ -2610,9 +2394,9 @@ sub _render_latex_version_references {
       $version = '(no document version)';
     }
 
-  while ( $latex =~ $syntax->{version_ref} )
+  while ( $latex =~ $syntax->{theversion_ref} )
     {
-      $latex =~ s/$syntax->{version_ref}/$version/xms;
+      $latex =~ s/$syntax->{theversion_ref}/$version/xms;
     }
 
   return $latex;
@@ -2620,14 +2404,14 @@ sub _render_latex_version_references {
 
 ######################################################################
 
-sub _render_latex_revision_references {
+sub _render_latex_therevision_references {
 
   my $self   = shift;
   my $latex  = shift;
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  return $latex if not $latex =~ $syntax->{revision_ref};
+  return $latex if not $latex =~ $syntax->{therevision_ref};
 
   my $doc = $self->get_containing_document;
 
@@ -2654,9 +2438,9 @@ sub _render_latex_revision_references {
       $revision = '(no document revision)';
     }
 
-  while ( $latex =~ $syntax->{revision_ref} )
+  while ( $latex =~ $syntax->{therevision_ref} )
     {
-      $latex =~ s/$syntax->{revision_ref}/$revision/xms;
+      $latex =~ s/$syntax->{therevision_ref}/$revision/xms;
     }
 
   return $latex;
@@ -2664,14 +2448,14 @@ sub _render_latex_revision_references {
 
 ######################################################################
 
-sub _render_latex_date_references {
+sub _render_latex_thedate_references {
 
   my $self   = shift;
   my $latex  = shift;
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  return $latex if not $latex =~ $syntax->{date_ref};
+  return $latex if not $latex =~ $syntax->{thedate_ref};
 
   my $doc = $self->get_containing_document;
 
@@ -2698,9 +2482,9 @@ sub _render_latex_date_references {
       $date = '(no document date)';
     }
 
-  while ( $latex =~ $syntax->{date_ref} )
+  while ( $latex =~ $syntax->{thedate_ref} )
     {
-      $latex =~ s/$syntax->{date_ref}/$date/xms;
+      $latex =~ s/$syntax->{thedate_ref}/$date/xms;
     }
 
   return $latex;
