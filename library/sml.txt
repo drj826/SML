@@ -7,6 +7,8 @@ title:: Structured Manuscript Language (SML)
 subtitle:: User Guide [linebreak] Professional Documents Using SML
 [linebreak] and the [cmd:publish] Program
 
+id:: sml
+
 author:: Don Johnson (drj826@acm.org)
 
 copyright:: 2002-2011, Don Johnson
