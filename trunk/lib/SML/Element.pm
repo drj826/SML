@@ -49,23 +49,23 @@ sub get_value {
   # Strip the element name off the beginning of the element content.
   # Strip any comment text off the end of the element content.
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  $_ = $self->get_content || q{};
+  my $text = $self->get_content || q{};
 
-  s/[\r\n]*$//;
-  # chomp;
+  $text =~ s/[\r\n]*$//;                # chomp;
 
-  if ( /$syntax->{'start_element'}/xms )
+  if ( $text =~ /$syntax->{'start_element'}/xms )
     {
       my $util = $sml->get_util;
 
       return $util->trim_whitespace($3);
     }
 
-  elsif ( /$syntax->{'start_section'}/xms )
+  elsif ( $text =~ /$syntax->{'start_section'}/xms )
     {
       my $util = $sml->get_util;
 
@@ -75,7 +75,7 @@ sub get_value {
   else
     {
       my $name = $self->get_name;
-      $logger->error("This should never happen $name $self (\'$_\')");
+      $logger->logcluck("This should never happen $name $self (\'$text\')");
       return q{};
     }
 }
