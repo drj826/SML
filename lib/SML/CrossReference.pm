@@ -54,6 +54,27 @@ has '+name' =>
 ######################################################################
 ######################################################################
 
+sub get_target_part {
+
+  # Return the SML::Part object the target ID points to.
+
+  my $self = shift;
+
+  my $id       = $self->get_target_id;
+  my $document = $self->get_containing_document;
+
+  if ( $document->has_part($id) )
+    {
+      return $document->get_part($id);
+    }
+
+  else
+    {
+      $logger->error("CAN'T GET TARGET PART: $id NOT IN DOCUMENT");
+      return 0;
+    }
+}
+
 ######################################################################
 ######################################################################
 ##
