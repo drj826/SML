@@ -38,6 +38,16 @@ has '+content' =>
 
 ######################################################################
 
+has 'containing_division' =>
+  (
+   isa       => 'SML::Division',
+   reader    => 'get_containing_division',
+   lazy      => 1,
+   builder   => '_build_containing_division',
+  );
+
+######################################################################
+
 has 'containing_block' =>
   (
    isa       => 'SML::Block',
@@ -122,6 +132,15 @@ sub get_containing_document {
 ##
 ######################################################################
 ######################################################################
+
+sub _build_containing_division {
+
+  my $self = shift;
+
+  my $block = $self->get_containing_block;
+
+  return $block->get_containing_division;
+}
 
 ######################################################################
 
