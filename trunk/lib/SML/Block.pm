@@ -198,7 +198,7 @@ sub get_location {
 
   else
     {
-      return 'UNKNOWN';
+      return 'UNKNOWN LOCATION';
     }
 
 }
