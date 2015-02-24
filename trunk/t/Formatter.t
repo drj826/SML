@@ -12,6 +12,12 @@ Log::Log4perl->init("log.test.conf");
 # Test Data
 #---------------------------------------------------------------------
 
+use SML::TestData;
+
+my $td      = SML::TestData->new();
+my $tcl     = $td->get_formatter_test_case_list;
+my $library = $td->get_library;
+
 #---------------------------------------------------------------------
 # Can use module?
 #---------------------------------------------------------------------
@@ -25,7 +31,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Formatter->new();
+my $obj = SML::Formatter->new(library=>$library);
 isa_ok( $obj, 'SML::Formatter' );
 
 #---------------------------------------------------------------------

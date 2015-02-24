@@ -12,13 +12,13 @@ use SML::Library;
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
-use SML::TestData;
-
 my $library = SML::Library->new(config_filename=>'library.conf');
 
 #---------------------------------------------------------------------
 # Test Data
 #---------------------------------------------------------------------
+
+use SML::TestData;
 
 my $td = SML::TestData->new();
 my $tcl = $td->get_parser_test_case_list;
