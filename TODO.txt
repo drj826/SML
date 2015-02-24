@@ -385,6 +385,12 @@ implement the ideas described here.
 
 # next: 021
 
+[ ] FEATURE-021 (ROUTINE) Enable Cross Reference Scope - Re-design
+    cross references so they can be used within two different scopes:
+    (1) within a document, or (2) within a library.  An ID may not be
+    unique within a library but must be unique within a
+    document. (opened 2015-02-22 by Don J)
+
 [ ] FEATURE-020 (ROUTINE) Simple Functional-to-Technical Requirement
     Mapping - Woody would like the capability to generate a simple
     mapping of functional requirements to technical requirements.  I
