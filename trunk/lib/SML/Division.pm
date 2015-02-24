@@ -29,22 +29,9 @@ use SML::Property;
 ######################################################################
 ######################################################################
 
-has 'id' =>
+has '+id' =>
   (
-   isa      => 'Str',
-   reader   => 'get_id',
-   writer   => 'set_id',
    required => 1,
-  );
-
-######################################################################
-
-has 'id_path' =>
-  (
-   isa      => 'Str',
-   reader   => 'get_id_path',
-   lazy     => 1,
-   builder  => '_build_id_path',
   );
 
 ######################################################################
@@ -192,23 +179,25 @@ sub add_division {
 
 sub add_part {
 
-  # A part is either a block or a division.
+  # A part of a division must be either a block or a division.
 
   my $self = shift;
   my $part = shift;
 
   if (
-      not
+      ( not ref $part )
+      or
       (
-       ref $part
-       or
-       $part->isa('SML::Block')
-       or
-       $part->isa('SML::Division')
+       not
+       (
+	$part->isa('SML::Block')
+	or
+	$part->isa('SML::Division')
+       )
       )
      )
     {
-      $logger->error("CAN'T ADD PART \'$part\' is not a block or division");
+      $logger->error("CAN'T ADD PART TO DIVISION \'$part\' is not a block or division");
       return 0;
     }
 
@@ -432,6 +421,25 @@ sub get_division_list {
     }
 
   return $list;
+}
+
+######################################################################
+
+sub has_sections {
+
+  # Return 1 if this division contains one or more sections.
+
+  my $self = shift;
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      if ( $part->isa('SML::Section') )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
 }
 
 ######################################################################
@@ -826,8 +834,9 @@ sub is_in_a {
   # is buried several divisions deep).  Don't use this method to find
   # out whether a block is in a SML::Fragment division.
 
-  my $self     = shift;
-  my $type     = shift;
+  my $self = shift;
+  my $type = shift;
+
   my $division = $self;
 
   while ( ref $division and not $division->isa('SML::Fragment') )
@@ -1362,30 +1371,6 @@ sub _line_ends_preamble {
       return 0;
     }
 
-}
-
-######################################################################
-
-sub _build_id_path {
-
-  my $self          = shift;
-  my $container_ids = [];
-  my $id            = $self->get_id;
-  my $container     = $self->get_containing_division;
-
-  push @{ $container_ids }, $id;
-
-  while ( ref $container )
-    {
-      my $container_id = $container->get_id;
-      push @{ $container_ids }, $container_id;
-
-      $container = $container->get_containing_division;
-    }
-
-  my $id_path = join('.', reverse @{ $container_ids });
-
-  return $id_path;
 }
 
 ######################################################################
