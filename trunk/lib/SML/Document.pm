@@ -661,8 +661,9 @@ sub get_html_outfile_for {
   #
   #   <filename>-<section>.html (i.e. all-items-1-1-3.html)
 
-  my $self     = shift;
-  my $id       = shift;
+  my $self = shift;
+  my $id   = shift;
+
   my $section  = q{};
   my $sml      = SML->instance;
   my $util     = $sml->get_util;
