@@ -14,9 +14,10 @@ Log::Log4perl->init("log.test.conf");
 # Test Data
 #---------------------------------------------------------------------
 
-my $testdata =
-  {
-  };
+use SML::TestData;
+
+my $td = SML::TestData->new();
+# my $tcl = $td->get_template_test_case_list;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -43,26 +44,6 @@ my @public_methods =
   );
 
 # can_ok( $obj, @public_methods );
-
-#---------------------------------------------------------------------
-# Implements designed attributes?
-#---------------------------------------------------------------------
-
-my @attributes =
-  (
-  );
-
-# can_ok( $obj, @attributes );
-
-#---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-  );
-
-# can_ok( $obj, @private_methods );
 
 #---------------------------------------------------------------------
 # Returns expected values?

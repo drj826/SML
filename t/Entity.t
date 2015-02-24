@@ -36,8 +36,6 @@ isa_ok( $obj, 'SML::Entity' );
 
 my @public_methods =
   (
-   'get_basename',
-
    'validate',
   );
 
