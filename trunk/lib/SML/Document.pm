@@ -610,13 +610,13 @@ sub has_source {
 
 sub get_acronym_definition {
 
-  my $self = shift;
-  my $term = shift;
-  my $alt  = shift || q{};
+  my $self    = shift;
+  my $acronym = shift;
+  my $alt     = shift || q{};
 
   my $acronyms = $self->acronyms;
 
-  return $acronyms->{$term}{$alt};
+  return $acronyms->{$acronym}{$alt};
 }
 
 ######################################################################
