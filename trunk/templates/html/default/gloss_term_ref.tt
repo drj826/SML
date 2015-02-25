@@ -1,0 +1,10 @@
+[%- SET document = self.get_containing_document -%]
+[%- SET docid = document.get_id -%]
+[%- SET tag = self.get_tag -%]
+[%- SET term = self.get_term -%]
+[%- SET namespace = self.get_namespace -%]
+[%- IF (tag == 'g') || (tag == 'gls') -%]
+<a href="[% docid %].glossary.html#[% term %]:[% namespace %]">[% term %]</a>
+[%- ELSIF (tag == 'G') || (tag == 'Gls') -%]
+<a href="[% docid %].glossary.html#[% term %]:[% namespace %]">[% term.ucfirst %]</a>
+[%- END -%]
