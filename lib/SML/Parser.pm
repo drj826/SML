@@ -451,7 +451,7 @@ sub create_string {
 
 	  $args->{tag}             = $1;
 	  $args->{acronym}         = $4;
-	  $args->{namespace}       = $2 || '';
+	  $args->{namespace}       = $3 || '';
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::AcronymTermReference->new(%{$args});
