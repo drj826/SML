@@ -85,7 +85,8 @@ sub get_acronym {
   my $self    = shift;
   my $acronym = shift;
   my $alt     = shift || q{};
-  my $ah      = $self->_get_acronym_hash;
+
+  my $ah = $self->_get_acronym_hash;
 
   if ( defined $ah->{$acronym}{$alt} )
     {
