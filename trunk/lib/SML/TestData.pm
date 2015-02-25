@@ -257,7 +257,7 @@ sub _build_block_test_case_list {
       {
        html =>
        {
-	default => "<a href=\"td-000020-1.html#SECTION.1\">SECTION 1</a>\n\n",
+	default => "<a href=\"td-000020-1.html#SECTION.1\">Section 1</a>\n\n",
        },
        latex =>
        {
@@ -265,7 +265,7 @@ sub _build_block_test_case_list {
        },
        xml =>
        {
-	default => "<a href=\"td-000020-1.xml#SECTION.1\">SECTION 1</a>\n\n",
+	default => "<a href=\"td-000020-1.xml#SECTION.1\">Section 1</a>\n\n",
        },
        error =>
        {
@@ -283,7 +283,7 @@ sub _build_block_test_case_list {
       {
        html =>
        {
-	default => "<a href=\"td-000020-1.html#SECTION.1\">SECTION 1</a>\n\n",
+	default => "<a href=\"td-000020-1.html#SECTION.1\">Section 1</a>\n\n",
        },
        latex =>
        {
@@ -291,7 +291,7 @@ sub _build_block_test_case_list {
        },
        xml =>
        {
-	default => "<a href=\"td-000020-1.xml#SECTION.1\">SECTION 1</a>\n\n",
+	default => "<a href=\"td-000020-1.xml#SECTION.1\">Section 1</a>\n\n",
        },
        error =>
        {
@@ -309,7 +309,7 @@ sub _build_block_test_case_list {
       {
        html =>
        {
-	default => "<a href=\"td-000020-2.html#SECTION.2\">SECTION 2</a>\n\n",
+	default => "<a href=\"td-000020-2.html#SECTION.2\">Section 2</a>\n\n",
        },
        latex =>
        {
@@ -335,7 +335,7 @@ sub _build_block_test_case_list {
       {
        html =>
        {
-	default => "<a href=\"td-000020-2.html#SECTION.2\">SECTION 2</a>\n\n",
+	default => "<a href=\"td-000020-2.html#SECTION.2\">Section 2</a>\n\n",
        },
        latex =>
        {
@@ -375,13 +375,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'footnote_reference_1',
-      content => '[f:introduction:1]',
+      name     => 'footnote_reference_1',
+      content  => '[f:introduction:1]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\footnote{This is a footnote.}\n\n",
-       html  => "<span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.introduction.1\">1<\/a><\/sup><\/span>\n\n",
-       xml   => "<span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.introduction.1\">1<\/a><\/sup><\/span>\n\n",
+       html =>
+       {
+	default => "<span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.introduction.1\">1<\/a><\/sup><\/span>\n\n",
+       },
+       latex =>
+       {
+	default => "\\footnote{This is a footnote.}\n\n",
+       },
+       xml =>
+       {
+	default => "<span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.introduction.1\">1<\/a><\/sup><\/span>\n\n",
+       },
        error =>
        {
 	no_doc => 'NOT IN DOCUMENT CONTEXT',
@@ -390,13 +401,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'glossary_reference_1',
-      content => '[g:sml:document]',
+      name     => 'glossary_reference_1',
+      content  => '[g:sml:document]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\gls{document:sml}\n\n",
-       html  => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
-       xml   => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
+       html =>
+       {
+	default => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
+       },
+       latex =>
+       {
+	default => "\\gls{document:sml}\n\n",
+       },
+       xml =>
+       {
+	default => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
+       },
        error =>
        {
 	no_doc => 'NOT IN DOCUMENT CONTEXT',
@@ -405,13 +427,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'glossary_reference_2',
-      content => '[G:sml:document]',
+      name     => 'glossary_reference_2',
+      content  => '[G:sml:document]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\Gls{document:sml}\n\n",
-       html  => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
-       xml   => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
+       html =>
+       {
+	default => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
+       },
+       latex =>
+       {
+	default => "\\Gls{document:sml}\n\n",
+       },
+       xml =>
+       {
+	default => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
+       },
        error =>
        {
 	no_doc => 'NOT IN DOCUMENT CONTEXT',
@@ -420,13 +453,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'glossary_reference_3',
-      content => '[gls:sml:document]',
+      name     => 'glossary_reference_3',
+      content  => '[gls:sml:document]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\gls{document:sml}\n\n",
-       html  => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
-       xml   => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
+       html =>
+       {
+	default => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
+       },
+       latex =>
+       {
+	default => "\\gls{document:sml}\n\n",
+       },
+       xml =>
+       {
+	default => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
+       },
        error =>
        {
 	no_doc => 'NOT IN DOCUMENT CONTEXT',
@@ -435,13 +479,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'glossary_reference_4',
-      content => '[Gls:sml:document]',
+      name     => 'glossary_reference_4',
+      content  => '[Gls:sml:document]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\Gls{document:sml}\n\n",
-       html  => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
-       xml   => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
+       html =>
+       {
+	default => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
+       },
+       latex =>
+       {
+	default => "\\Gls{document:sml}\n\n",
+       },
+       xml =>
+       {
+	default => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
+       },
        error =>
        {
 	no_doc => 'NOT IN DOCUMENT CONTEXT',
@@ -450,13 +505,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'acronym_reference_1',
-      content => '[ac:sml:TLA]',
+      name     => 'acronym_reference_1',
+      content  => '[a:sml:TLA]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\ac{TLA:sml}\n\n",
-       html  => "<a href=\"td-000020.acronyms.html#tla:sml\">TLA</a>\n\n",
-       xml   => "<a href=\"td-000020.acronyms.html#tla:sml\">TLA</a>\n\n",
+       html =>
+       {
+	default => "<a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a>\n\n",
+       },
+       latex =>
+       {
+	default => "\\ac{TLA:sml}\n\n",
+       },
+       xml =>
+       {
+	default => "<a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a>\n\n",
+       },
        error =>
        {
 	no_doc => 'NOT IN DOCUMENT CONTEXT',
@@ -465,13 +531,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'acronym_reference_2',
-      content => '[acs:sml:TLA]',
+      name     => 'acronym_reference_2',
+      content  => '[ac:sml:TLA]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\acs{TLA:sml}\n\n",
-       html  => "<a href=\"td-000020.acronyms.html#tla:sml\">TLA</a>\n\n",
-       xml   => "<a href=\"td-000020.acronyms.html#tla:sml\">TLA</a>\n\n",
+       html =>
+       {
+	default => "<a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a>\n\n",
+       },
+       latex =>
+       {
+	default => "\\acs{TLA:sml}\n\n",
+       },
+       xml =>
+       {
+	default => "<a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a>\n\n",
+       },
        error =>
        {
 	no_doc => 'NOT IN DOCUMENT CONTEXT',
@@ -480,13 +557,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'acronym_reference_3',
-      content => '[acl:sml:TLA]',
+      name     => 'acronym_reference_3',
+      content  => '[acs:sml:TLA]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\acl{TLA:sml}\n\n",
-       html  => "<a href=\"td-000020.acronyms.html#tla:sml\">Three Letter Acronym</a>\n\n",
-       xml   => "<a href=\"td-000020.acronyms.html#tla:sml\">Three Letter Acronym</a>\n\n",
+       html =>
+       {
+	default => "<a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a>\n\n",
+       },
+       latex =>
+       {
+	default => "\\acs{TLA:sml}\n\n",
+       },
+       xml =>
+       {
+	default => "<a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a>\n\n",
+       },
        error =>
        {
 	no_doc => 'NOT IN DOCUMENT CONTEXT',
@@ -495,35 +583,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'index_reference_1',
-      content => '[i:structured manuscript language]',
+      name     => 'acronym_reference_3',
+      content  => '[acl:sml:TLA]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "structured manuscript language \\index{structured manuscript language}\n\n",
-       html  => "structured manuscript language\n\n",
-       xml   => "structured manuscript language\n\n",
-      },
-     },
-
-     {
-      name    => 'index_reference_2',
-      content => '[index:structured manuscript language]',
-      expected =>
-      {
-       latex => "structured manuscript language \\index{structured manuscript language}\n\n",
-       html  => "structured manuscript language\n\n",
-       xml   => "structured manuscript language\n\n",
-      },
-     },
-
-     {
-      name    => 'id_reference_1',
-      content => '[id:introduction]',
-      expected =>
-      {
-       latex => "\\hyperref[introduction]{introduction}\n\n",
-       html  => "<a href=\"td-000020-1.html#Section.1\">Section 1</a>\n\n",
-       xml   => "<a href=\"td-000020-1.html#Section.1\">Section 1</a>\n\n",
+       html =>
+       {
+	default => "<a href=\"td-000020.acronyms.html#TLA:sml\">Three Letter Acronym</a>\n\n",
+       },
+       latex =>
+       {
+	default => "\\acl{TLA:sml}\n\n",
+       },
+       xml =>
+       {
+	default => "<a href=\"td-000020.acronyms.html#TLA:sml\">Three Letter Acronym</a>\n\n",
+       },
        error =>
        {
 	no_doc => 'NOT IN DOCUMENT CONTEXT',
@@ -532,24 +609,68 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'thepage_reference_1',
-      content => '[thepage]',
+      name     => 'index_reference_1',
+      content  => '[i:structured manuscript language]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\thepage\n\n",
-       html  => "\n\n",
-       xml   => "\n\n",
+       html =>
+       {
+	default => "structured manuscript language\n\n",
+       },
+       latex =>
+       {
+	default => "structured manuscript language \\index{structured manuscript language}\n\n",
+       },
+       xml =>
+       {
+	default => "structured manuscript language\n\n",
+       },
       },
      },
 
      {
-      name    => 'page_reference_1',
-      content => '[page:introduction]',
+      name     => 'index_reference_2',
+      content  => '[index:structured manuscript language]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "p. \\pageref{introduction}\n\n",
-       html  => "<a href=\"td-000020-1.html#Section.1\">link</a>\n\n",
-       xml   => "<a href=\"td-000020-1.html#Section.1\">link</a>\n\n",
+       html =>
+       {
+	default => "structured manuscript language\n\n",
+       },
+       latex =>
+       {
+	default => "structured manuscript language \\index{structured manuscript language}\n\n",
+       },
+       xml =>
+       {
+	default => "structured manuscript language\n\n",
+       },
+      },
+     },
+
+     {
+      name     => 'id_reference_1',
+      content  => '[id:introduction]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
+      expected =>
+      {
+       html =>
+       {
+	default => "<a href=\"td-000020-1.html#SECTION.1\">Section 1</a>\n\n",
+       },
+       latex =>
+       {
+	default => "\\hyperref[introduction]{introduction}\n\n",
+       },
+       xml =>
+       {
+	default => "<a href=\"td-000020-1.html#SECTION.1\">Section 1</a>\n\n",
+       },
        error =>
        {
 	no_doc => 'NOT IN DOCUMENT CONTEXT',
@@ -558,13 +679,46 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'page_reference_2',
-      content => '[pg:introduction]',
+      name     => 'thepage_reference_1',
+      content  => '[thepage]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "p. \\pageref{introduction}\n\n",
-       html  => "<a href=\"td-000020-1.html#Section.1\">link</a>\n\n",
-       xml   => "<a href=\"td-000020-1.html#Section.1\">link</a>\n\n",
+       html =>
+       {
+	default => "\n\n",
+       },
+       latex =>
+       {
+	default => "\\thepage\n\n",
+       },
+       xml =>
+       {
+	default => "\n\n",
+       },
+      },
+     },
+
+     {
+      name     => 'page_reference_1',
+      content  => '[page:introduction]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
+      expected =>
+      {
+       html =>
+       {
+	default => "<a href=\"td-000020-1.html#SECTION.1\">link</a>\n\n",
+       },
+       latex =>
+       {
+	default => "p. \\pageref{introduction}\n\n",
+       },
+       xml =>
+       {
+	default => "<a href=\"td-000020-1.html#SECTION.1\">link</a>\n\n",
+       },
        error =>
        {
 	no_doc => 'NOT IN DOCUMENT CONTEXT',
@@ -573,13 +727,50 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'version_reference_1',
-      content => '[version]',
+      name     => 'page_reference_2',
+      content  => '[pg:introduction]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex   => "2.0\n\n",
-       html    => "2.0\n\n",
-       xml     => "2.0\n\n",
+       html =>
+       {
+	default => "<a href=\"td-000020-1.html#SECTION.1\">link</a>\n\n",
+       },
+       latex =>
+       {
+	default => "p. \\pageref{introduction}\n\n",
+       },
+       xml =>
+       {
+	default => "<a href=\"td-000020-1.html#SECTION.1\">link</a>\n\n",
+       },
+       error =>
+       {
+	no_doc => 'NOT IN DOCUMENT CONTEXT',
+       },
+      },
+     },
+
+     {
+      name     => 'version_reference_1',
+      content  => '[theversion]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
+      expected =>
+      {
+       html =>
+       {
+	default => "2.0\n\n",
+       },
+       latex =>
+       {
+	default => "2.0\n\n",
+       },
+       xml =>
+       {
+	default => "2.0\n\n",
+       },
        success => 'valid version reference passes validation',
        error =>
        {
@@ -589,13 +780,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'revision_reference_1',
-      content => '[revision]',
+      name     => 'revision_reference_1',
+      content  => '[therevision]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex   => "4444\n\n",
-       html    => "4444\n\n",
-       xml     => "4444\n\n",
+       html =>
+       {
+	default => "4444\n\n",
+       },
+       latex =>
+       {
+	default => "4444\n\n",
+       },
+       xml =>
+       {
+	default => "4444\n\n",
+       },
        success => 'valid revision reference passes validation',
        error =>
        {
@@ -605,13 +807,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'date_reference_1',
-      content => '[date]',
+      name     => 'date_reference_1',
+      content  => '[thedate]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex   => "2012-09-11\n\n",
-       html    => "2012-09-11\n\n",
-       xml     => "2012-09-11\n\n",
+       html =>
+       {
+	default => "2012-09-11\n\n",
+       },
+       latex =>
+       {
+	default => "2012-09-11\n\n",
+       },
+       xml =>
+       {
+	default => "2012-09-11\n\n",
+       },
        success => 'valid date reference passes validation',
        error =>
        {
