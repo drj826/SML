@@ -101,7 +101,7 @@ my $testdata =
     testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
-    expected  => 10,
+    expected  => 11,
    },
 
    get_part_list_test_4 =>
@@ -117,7 +117,7 @@ my $testdata =
     testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     config    => 'library.conf',
-    expected  => 214,
+    expected  => 216,
    },
 
    get_line_list_test_2 =>
@@ -133,7 +133,7 @@ my $testdata =
     testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
-    expected  => 40,
+    expected  => 42,
    },
 
    get_line_list_test_4 =>
@@ -189,7 +189,7 @@ my $testdata =
     testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     config    => 'library.conf',
-    expected  => 92,
+    expected  => 93,
    },
 
    get_block_list_test_2 =>
@@ -205,7 +205,7 @@ my $testdata =
     testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
-    expected  => 18,
+    expected  => 19,
    },
 
    get_block_list_test_4 =>
@@ -221,7 +221,7 @@ my $testdata =
     testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     config    => 'library.conf',
-    expected  => 39,
+    expected  => 40,
    },
 
    get_element_list_test_2 =>
@@ -237,7 +237,7 @@ my $testdata =
     testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
-    expected  => 5,
+    expected  => 6,
    },
 
    get_element_list_test_4 =>
@@ -269,7 +269,7 @@ my $testdata =
     testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
-    expected  => 10,
+    expected  => 12,
    },
 
    get_preamble_line_list_test_4 =>
@@ -285,7 +285,7 @@ my $testdata =
     testfile  => 'td-000020.txt',
     divid     => 'td-000020',
     config    => 'library.conf',
-    expected  => 193,
+    expected  => 195,
    },
 
    get_narrative_line_list_test_2 =>
@@ -397,7 +397,7 @@ my $testdata =
     testfile  => 'td-000020.txt',
     divid     => 'problem-1',
     config    => 'library.conf',
-    expected  => 5,
+    expected  => 6,
    },
 
    get_property_list_test_4 =>
@@ -770,7 +770,7 @@ sub get_part_list_ok {
   my $result   = scalar @{ $division->get_part_list };
 
   # assert
-  is($result, $expected, "get_part_list ($divid part count) $result");
+  is($result, $expected, "$testid ($divid part count) $result");
 }
 
 ######################################################################
