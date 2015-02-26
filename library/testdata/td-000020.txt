@@ -79,6 +79,8 @@ id:: problem-1
 
 type:: technical
 
+status:: green
+
 description:: This is a description of my problem.  This purpose of
 this problem is to serve as a test for applications designed to
 process SML problem regions.
