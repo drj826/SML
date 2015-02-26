@@ -834,13 +834,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'status_reference_1',
-      content => '[status:td-000020]',
+      name     => 'status_reference_1',
+      content  => '[status:td-000020]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex   => "\\textcolor{fg-yellow}{\$\\blacksquare\$}\n\n",
-       html    => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
-       xml     => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
+       html =>
+       {
+	default => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
+       },
+       latex =>
+       {
+	default => "\\textcolor{fg-yellow}{\$\\blacksquare\$}\n\n",
+       },
+       xml =>
+       {
+	default => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
+       },
        success => 'valid status reference passes validation',
        error =>
        {
@@ -850,13 +861,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'status_reference_2',
-      content => '[status:grey]',
+      name     => 'status_reference_2',
+      content  => '[status:grey]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex   => "\\textcolor{fg-grey}{\$\\blacksquare\$}\n\n",
-       html    => "<image src=\"status_grey.png\" border=\"0\"/>\n\n",
-       xml     => "<image src=\"status_grey.png\" border=\"0\"/>\n\n",
+       html =>
+       {
+	default => "<image src=\"status_grey.png\" border=\"0\"/>\n\n",
+       },
+       latex =>
+       {
+	default => "\\textcolor{fg-grey}{\$\\blacksquare\$}\n\n",
+       },
+       xml =>
+       {
+	default => "<image src=\"status_grey.png\" border=\"0\"/>\n\n",
+       },
        success => 'valid status reference passes validation',
        error =>
        {
@@ -866,13 +888,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'status_reference_3',
-      content => '[status:green]',
+      name     => 'status_reference_3',
+      content  => '[status:green]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex   => "\\textcolor{fg-green}{\$\\blacksquare\$}\n\n",
-       html    => "<image src=\"status_green.png\" border=\"0\"/>\n\n",
-       xml     => "<image src=\"status_green.png\" border=\"0\"/>\n\n",
+       html =>
+       {
+	default => "<image src=\"status_green.png\" border=\"0\"/>\n\n",
+       },
+       latex =>
+       {
+	default => "\\textcolor{fg-green}{\$\\blacksquare\$}\n\n",
+       },
+       xml =>
+       {
+	default => "<image src=\"status_green.png\" border=\"0\"/>\n\n",
+       },
        success => 'valid status reference passes validation',
        error =>
        {
@@ -882,13 +915,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'status_reference_4',
-      content => '[status:yellow]',
+      name     => 'status_reference_4',
+      content  => '[status:yellow]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex   => "\\textcolor{fg-yellow}{\$\\blacksquare\$}\n\n",
-       html    => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
-       xml     => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
+       html =>
+       {
+	default => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
+       },
+       latex =>
+       {
+	default => "\\textcolor{fg-yellow}{\$\\blacksquare\$}\n\n",
+       },
+       xml =>
+       {
+	default => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
+       },
        success => 'valid status reference passes validation',
        error =>
        {
@@ -898,13 +942,51 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'status_reference_5',
-      content => '[status:red]',
+      name     => 'status_reference_5',
+      content  => '[status:red]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex   => "\\textcolor{fg-red}{\$\\blacksquare\$}\n\n",
-       html    => "<image src=\"status_red.png\" border=\"0\"/>\n\n",
-       xml     => "<image src=\"status_red.png\" border=\"0\"/>\n\n",
+       html =>
+       {
+	default => "<image src=\"status_red.png\" border=\"0\"/>\n\n",
+       },
+       latex =>
+       {
+	default => "\\textcolor{fg-red}{\$\\blacksquare\$}\n\n",
+       },
+       xml =>
+       {
+	default => "<image src=\"status_red.png\" border=\"0\"/>\n\n",
+       },
+       success => 'valid status reference passes validation',
+       error =>
+       {
+	no_doc => 'NOT IN DOCUMENT CONTEXT',
+       },
+      },
+     },
+
+     {
+      name     => 'status_reference_6',
+      content  => '[status:problem-1]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
+      expected =>
+      {
+       html =>
+       {
+	default => "<image src=\"status_green.png\" border=\"0\"/>\n\n",
+       },
+       latex =>
+       {
+	default => "\\textcolor{fg-green}{\$\\blacksquare\$}\n\n",
+       },
+       xml =>
+       {
+	default => "<image src=\"status_green.png\" border=\"0\"/>\n\n",
+       },
        success => 'valid status reference passes validation',
        error =>
        {
