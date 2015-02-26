@@ -1,0 +1,29 @@
+[%- SET status_or_id = self.get_entity_id -%]
+[%- IF status_or_id == 'green' -%]
+<image src="status_green.png" border="0"/>
+[%- ELSIF status_or_id == 'yellow' -%]
+<image src="status_yellow.png" border="0"/>
+[%- ELSIF status_or_id == 'red' -%]
+<image src="status_red.png" border="0"/>
+[%- ELSIF status_or_id == 'grey' -%]
+<image src="status_grey.png" border="0"/>
+[%- ELSE -%]
+  [%- SET status = 'grey' -%]
+  [%- SET library = self.get_library -%]
+  [%- IF library.has_entity(status_or_id) -%]
+    [%- SET entity = library.get_entity(status_or_id) -%]
+    [%- SET status = entity.get_property_value('status') -%]
+  [%- ELSIF library.has_document(status_or_id) -%]
+    [%- SET document = library.get_document(status_or_id) -%]
+    [%- SET status = document.get_property_value('status') -%]
+  [%- END -%]
+  [%- IF status == 'green' -%]
+<image src="status_green.png" border="0"/>
+  [%- ELSIF status == 'yellow' -%]
+<image src="status_yellow.png" border="0"/>
+  [%- ELSIF status == 'red' -%]
+<image src="status_red.png" border="0"/>
+  [%- ELSE -%]
+<image src="status_grey.png" border="0"/>
+  [%- END -%]
+[%- END -%]
