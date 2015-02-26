@@ -24,18 +24,6 @@ my $logger = Log::Log4perl::get_logger('sml.Entity');
 ######################################################################
 ######################################################################
 
-# has 'basename' =>
-#   (
-#    isa       => 'Str',
-#    reader    => 'get_basename',
-#    writer    => 'set_basename',
-#    clearer   => 'clear_basename',
-#    predicate => 'has_basename',
-#   );
-
-# This is the base filename.  It is the same as the basename of the
-# primary SML entity file.
-
 ######################################################################
 ######################################################################
 ##
