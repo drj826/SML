@@ -1731,16 +1731,16 @@ sub update_status_from_outcome {
 
   my $self    = shift;
   my $outcome = shift;
-  my $sml     = SML->instance;
-  my $syntax  = $sml->get_syntax;
-  my $util    = $sml->get_util;
 
-  $_ = $outcome->get_content;
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+  my $util   = $sml->get_util;
 
-  s/[\r\n]*$//;
-  # chomp;
+  my $text = $outcome->get_content;
 
-  if ( /$syntax->{outcome_element}/xms )
+  $text =~ s/[\r\n]*$//;                # chomp;
+
+  if ( $text =~ /$syntax->{outcome_element}/xms )
     {
       my $date        = $1;
       my $entity_id   = $2;
