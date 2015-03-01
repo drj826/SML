@@ -1,0 +1,5 @@
+[%- IF self.has_content -%]
+\urlstyle{sf}\href{[%self.get_url%]}{[%self.get_content%]}
+[%- ELSE -%]
+\urlstyle{sf}\url{[%self.get_url%]}
+[%- END -%]

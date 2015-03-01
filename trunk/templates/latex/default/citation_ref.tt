@@ -1,0 +1,9 @@
+[%- SET source_id = self.get_source_id -%]
+[%- SET details = self.get_details -%]
+[%- SET document = self.get_containing_document -%]
+[%- SET docid = document.get_id -%]
+[%- IF details -%]
+\cite[[%self.get_details%]]{[%self.get_source_id%]}
+[%- ELSE -%]
+\cite{[%self.get_source_id%]}
+[%- END -%]

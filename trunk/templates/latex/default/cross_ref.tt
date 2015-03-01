@@ -1,0 +1,5 @@
+[%- SET target_id = self.get_target_id -%]
+[%- SET document = self.get_containing_document -%]
+[%- SET target_part = document.get_part(target_id) -%]
+[%- SET target_name = target_part.get_name -%]
+[%target_name.lower.ucfirst%]~\vref{[%target_id%]}

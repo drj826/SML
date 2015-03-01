@@ -1,0 +1,4 @@
+[%- FOREACH part IN self.get_part_list -%]
+  [%- input = part.get_name _ '.tt' -%]
+  [%- INCLUDE $input self = part -%]
+[%- END -%]
