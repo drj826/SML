@@ -32,6 +32,8 @@ use SML::String;                # ci-000???
 use SML::AcronymTermReference;  # ci-000???
 use SML::CitationReference;     # ci-000???
 use SML::CommandReference;      # ci-000???
+use SML::XMLTag;                # ci-000???
+use SML::LiteralString;         # ci-000???
 use SML::CrossReference;        # ci-000???
 use SML::FileReference;         # ci-000???
 use SML::FootnoteReference;     # ci-000???
@@ -209,8 +211,6 @@ sub create_string {
   my $syntax = $sml->get_syntax;
 
   my $string_type = $self->_get_string_type($text);
-
-  $logger->debug("create_string: $string_type ($text)");
 
   if ( $string_type eq 'string' )
     {
@@ -648,6 +648,44 @@ sub create_string {
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::CommandReference->new(%{$args});
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $string_type: $text");
+	  return 0;
+	}
+    }
+
+  elsif ( $string_type eq 'xml_tag' )
+    {
+      if ( $text =~ /$syntax->{$string_type}/ )
+	{
+	  my $args = {};
+
+	  $args->{content}         = $1;
+	  $args->{containing_part} = $part if $part;
+
+	  return SML::XMLTag->new(%{$args});
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $string_type: $text");
+	  return 0;
+	}
+    }
+
+  elsif ( $string_type eq 'literal' )
+    {
+      if ( $text =~ /$syntax->{$string_type}/ )
+	{
+	  my $args = {};
+
+	  $args->{content}         = $1;
+	  $args->{containing_part} = $part if $part;
+
+	  return SML::LiteralString->new(%{$args});
 	}
 
       else
@@ -1431,6 +1469,17 @@ has string_type_list =>
    reader  => '_get_string_type_list',
    lazy    => 1,
    builder => '_build_string_type_list',
+  );
+
+######################################################################
+
+has single_string_type_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => '_get_single_string_type_list',
+   lazy    => 1,
+   builder => '_build_single_string_type_list',
   );
 
 ######################################################################
@@ -7277,6 +7326,12 @@ sub _text_contains_substring {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
+  if ( $self->_is_single_string($text) )
+    {
+      $logger->warn("text DOES NOT contain substring: $text");
+      return 0;
+    }
+
   foreach my $string_type (@{ $self->_get_string_type_list })
     {
       if ( not exists $syntax->{$string_type} )
@@ -7287,7 +7342,6 @@ sub _text_contains_substring {
 
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
-	  $logger->debug("_text_contains_substring: $string_type ($text)");
 	  return $string_type;
 	}
     }
@@ -7322,9 +7376,16 @@ sub _get_next_substring_type {
 
       if ( $text =~ /$syntax->{$string_type}/p )
 	{
-	  $logger->debug("_text_contains_substring: $string_type ($text)");
-	  my $prematch_length = length(${^PREMATCH});
-	  $href->{$prematch_length} = $string_type;
+	  if ( $self->_is_single_string_type($string_type) )
+	    {
+	      return $string_type;
+	    }
+
+	  else
+	    {
+	      my $prematch_length = length(${^PREMATCH});
+	      $href->{$prematch_length} = $string_type;
+	    }
 	}
     }
 
@@ -7401,6 +7462,43 @@ sub _build_string_type_list {
      # substrings that represent special meaning
      'user_entered_text',
      'command_ref',
+     'xml_tag',
+     'literal',
+     'email_addr',
+    ];
+}
+
+######################################################################
+
+sub _build_single_string_type_list {
+
+  # Each symbol is an attribute in the syntax object.
+
+  return
+    [
+     'keystroke_symbol',
+     'take_note_symbol',
+     'smiley_symbol',
+     'frowny_symbol',
+     'left_arrow_symbol',
+     'right_arrow_symbol',
+     'latex_symbol',
+     'tex_symbol',
+     'copyright_symbol',
+     'trademark_symbol',
+     'reg_trademark_symbol',
+     'open_dblquote_symbol',
+     'close_dblquote_symbol',
+     'open_sglquote_symbol',
+     'close_sglquote_symbol',
+     'section_symbol',
+     'emdash_symbol',
+     'thepage_ref',
+     'theversion_ref',
+     'therevision_ref',
+     'thedate_ref',
+     'linebreak_symbol',
+     'literal',
      'email_addr',
     ];
 }
@@ -7447,7 +7545,6 @@ sub _parse_block {
 
   while ( $text )
     {
-      $logger->debug("_parse_block: $text");
       $text = $self->_parse_next_substring($block,$text);
     }
 
@@ -7480,7 +7577,6 @@ sub _parse_text {
 
   while ( $text )
     {
-      $logger->debug("_parse_text: $text");
       $text = $self->_parse_next_substring($string,$text);
     }
 
@@ -7494,8 +7590,6 @@ sub _parse_next_substring {
   my $self = shift;
   my $part = shift;                     # part to which this text belongs
   my $text = shift;                     # text to parse
-
-  $logger->debug("_parse_next_substring: from ($text)");
 
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
@@ -7622,6 +7716,49 @@ sub _get_part {
   my $part_stack = $self->_get_part_stack;
 
   return $part_stack->[-1];
+}
+
+######################################################################
+
+sub _is_single_string {
+
+  # Return 1 if the text represents a symbol.
+
+  my $self = shift;
+  my $text = shift;
+
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+
+  foreach my $symbol (@{ $self->_get_single_string_type_list })
+    {
+      if ( $text =~ /^$syntax->{$symbol}$/ )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub _is_single_string_type {
+
+  # Return 1 if string type is a single string type.
+
+  my $self        = shift;
+  my $string_type = shift;
+
+  foreach my $type (@{ $self->_get_single_string_type_list })
+    {
+      if ( $string_type eq $type )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
 }
 
 ######################################################################
