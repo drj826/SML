@@ -1,1 +1,1 @@
-<tt>[% self.get_filespec %]</tt>
+<tt>[%self.get_filespec%]</tt>

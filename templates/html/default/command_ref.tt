@@ -1,1 +1,1 @@
-<tt>[%- self.get_content -%]</tt>
+<tt>[%self.get_content%]</tt>
