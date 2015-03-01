@@ -281,6 +281,41 @@ sub validate_syntax {
       $valid = 0;
     }
 
+  if ( not $self->validate_cross_ref_syntax )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_id_ref_syntax )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_page_ref_syntax )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_glossary_term_ref_syntax )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_glossary_def_ref_syntax )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_acronym_ref_syntax )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_source_citation_syntax )
+    {
+      $valid = 0;
+    }
+
   return $valid;
 }
 
@@ -593,31 +628,85 @@ sub validate_inline_tags {
 
 ######################################################################
 
-sub validate_cross_refs {
+sub validate_cross_ref_syntax {
 
-  # Validate this block's cross references.  Return 1 if valid, 0 if
-  # not.
+  # Validate this block's cross reference syntax.  Return 1 if valid,
+  # 0 if not.
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-
-  $_ = $self->get_content;
+  my $text   = $self->get_content;
 
   if (
       not
       (
-       /$syntax->{cross_ref}/xms
+       $text =~ /$syntax->{cross_ref}/xms
        or
-       /$syntax->{begin_cross_ref}/xms
+       $text =~ /$syntax->{begin_cross_ref}/xms
       )
      )
     {
       return 1;
     }
 
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{cross_ref}/xms )
+    {
+      $text =~ s/$syntax->{cross_ref}//xms;
+    }
+
+  # After gobbling through all the valid cross references in the while
+  # loop, check for any remaining 'begin cross reference' instances in
+  # which the author forgot to complete the cross reference.
+
+  if ( $text =~ /$syntax->{begin_cross_ref}/xms )
+    {
+      my $location = $self->get_location;
+      $logger->warn("INVALID CROSS REFERENCE SYNTAX at $location");
+      $valid = 0;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub validate_cross_refs {
+
+  # Validate this block's cross references.  Return 1 if valid, 0 if
+  # not.
+
+  my $self = shift;
+
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+  my $util   = $sml->get_util;
+  my $text   = $self->get_content;
+
+  $logger->debug("validate_cross_refs in ($text)");
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{cross_ref}/xms
+       or
+       $text =~ /$syntax->{begin_cross_ref}/xms
+      )
+     )
+    {
+      $logger->debug("  no sign of any cross reference here.");
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  $logger->debug("  text after removing literals: ($text)");
 
   my $valid = 1;
   my $doc   = $self->get_containing_document;
@@ -628,7 +717,7 @@ sub validate_cross_refs {
       return 0;
     }
 
-  while ( /$syntax->{cross_ref}/xms )
+  while ( $text =~ /$syntax->{cross_ref}/xms )
     {
       my $id = $2;
 
@@ -647,17 +736,59 @@ sub validate_cross_refs {
       # IMPORTANT: remove THIS cross reference from the matching space
       # to prevent an infinite while loop.
 
-      s/$syntax->{cross_ref}//xms;
+      $text =~ s/$syntax->{cross_ref}//xms;
     }
 
   # After gobbling through all the valid cross references in the while
   # loop, check for any remaining 'begin cross reference' instances in
   # which the author forgot to complete the cross reference.
 
-  if ( /$syntax->{begin_cross_ref}/xms )
+  if ( $text =~ /$syntax->{begin_cross_ref}/xms )
     {
       my $location = $self->get_location;
       $logger->warn("INVALID CROSS REFERENCE SYNTAX at $location");
+      $valid = 0;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub validate_id_ref_syntax {
+
+  my $self = shift;
+
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+  my $util   = $sml->get_util;
+  my $text   = $self->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{id_ref}/xms
+       or
+       $text =~ /$syntax->{begin_id_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{id_ref}/xms )
+    {
+      $text =~ s/$syntax->{id_ref}//xms;
+    }
+
+  if ( $text =~ /$syntax->{begin_id_ref}/xms )
+    {
+      my $location = $self->get_location;
+      $logger->warn("INVALID ID REFERENCE SYNTAX at $location");
       $valid = 0;
     }
 
@@ -721,6 +852,48 @@ sub validate_id_refs {
     {
       my $location = $self->get_location;
       $logger->warn("INVALID ID REFERENCE SYNTAX at $location");
+      $valid = 0;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub validate_page_ref_syntax {
+
+  my $self = shift;
+
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+  my $util   = $sml->get_util;
+  my $text   = $self->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{page_ref}/xms
+       or
+       $text =~ /$syntax->{begin_page_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{page_ref}/xms )
+    {
+      $text =~ s/$syntax->{page_ref}//xms;
+    }
+
+  if ( $text =~ /$syntax->{begin_page_ref}/xms )
+    {
+      my $location = $self->get_location;
+      $logger->warn("INVALID PAGE REFERENCE SYNTAX at $location");
       $valid = 0;
     }
 
@@ -1005,6 +1178,52 @@ sub validate_status_refs {
 
 ######################################################################
 
+sub validate_glossary_term_ref_syntax {
+
+  # Validate that each glossary term reference has a valid glossary
+  # entry.  Glossary term references are inline tags like '[g:term]'
+  # or '[g:alt:term]'.
+
+  my $self = shift;
+
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+  my $util   = $sml->get_util;
+  my $text   = $self->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{gloss_term_ref}/xms
+       or
+       $text =~ /$syntax->{begin_gloss_term_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{gloss_term_ref}/xms )
+    {
+      $text =~ s/$syntax->{gloss_term_ref}//xms;
+    }
+
+  if ( $text =~ /$syntax->{begin_gloss_term_ref}/xms )
+    {
+      my $location = $self->get_location;
+      $logger->warn("INVALID GLOSSARY TERM REFERENCE SYNTAX at $location");
+      $valid = 0;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
 sub validate_glossary_term_refs {
 
   # Validate that each glossary term reference has a valid glossary
@@ -1066,6 +1285,52 @@ sub validate_glossary_term_refs {
     {
       my $location = $self->get_location;
       $logger->warn("INVALID GLOSSARY TERM REFERENCE SYNTAX at $location");
+      $valid = 0;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub validate_glossary_def_ref_syntax {
+
+  # Validate that each glossary definition reference has a valid
+  # glossary entry.  Glossary definition references are inline tags
+  # like '[def:term]'.
+
+  my $self = shift;
+
+  my $sml     = SML->instance;
+  my $syntax  = $sml->get_syntax;
+  my $util    = $sml->get_util;
+  my $text    = $self->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{gloss_def_ref}/xms
+       or
+       $text =~ /$syntax->{begin_gloss_def_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{gloss_def_ref}/xms )
+    {
+      $text =~ s/$syntax->{gloss_def_ref}//xms;
+    }
+
+  if ( $text =~ /$syntax->{begin_gloss_def_ref}/xms )
+    {
+      my $location = $self->get_location;
+      $logger->warn("INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at $location");
       $valid = 0;
     }
 
@@ -1143,6 +1408,52 @@ sub validate_glossary_def_refs {
 
 ######################################################################
 
+sub validate_acronym_ref_syntax {
+
+  # Validate that each acronym reference has a valid acronym list
+  # entry.  Acronym references are inline tags like '[ac:term]'
+  # or '[ac:alt:term]'.
+
+  my $self = shift;
+
+  my $sml     = SML->instance;
+  my $syntax  = $sml->get_syntax;
+  my $util    = $sml->get_util;
+  my $text    = $self->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{acronym_term_ref}/xms
+       or
+       $text =~ /$syntax->{begin_acronym_term_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{acronym_term_ref}/xms )
+    {
+      $text =~ s/$syntax->{acronym_term_ref}//xms;
+    }
+
+  if ( $text =~ /$syntax->{begin_acronym_term_ref}/xms )
+    {
+      my $location = $self->get_location;
+      $logger->warn("INVALID ACRONYM REFERENCE SYNTAX: at $location");
+      $valid = 0;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
 sub validate_acronym_refs {
 
   # Validate that each acronym reference has a valid acronym list
@@ -1204,6 +1515,52 @@ sub validate_acronym_refs {
     {
       my $location = $self->get_location;
       $logger->warn("INVALID ACRONYM REFERENCE SYNTAX: at $location");
+      $valid = 0;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub validate_source_citation_syntax {
+
+  # Validate that each source citation has a valid source in the
+  # library's list of references.  Source citations are inline tags
+  # like '[cite:cms15]'
+
+  my $self = shift;
+
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+  my $util   = $sml->get_util;
+  my $text   = $self->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{citation_ref}/xms
+       or
+       $text =~ /$syntax->{begin_citation_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{citation_ref}/xms )
+    {
+      $text =~ s/$syntax->{citation_ref}//xms;
+    }
+
+  if ( $text =~ /$syntax->{begin_citation_ref}/xms )
+    {
+      my $location = $self->get_location;
+      $logger->warn("INVALID SOURCE CITATION SYNTAX at $location");
       $valid = 0;
     }
 
