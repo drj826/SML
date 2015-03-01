@@ -60,7 +60,7 @@ my @private_methods =
 #---------------------------------------------------------------------
 
 is( $obj->get_content,  'test line of text', 'returns expected content'  );
-is( $obj->get_location, 'UNKNOWN',           'returns expected line location'  );
+is( $obj->get_location, 'UNKNOWN LOCATION',  'returns expected line location'  );
 
 #---------------------------------------------------------------------
 # Throws expected exceptions?

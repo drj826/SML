@@ -11,17 +11,17 @@ use SML;
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
-# use Test::Log4perl;
-# my $t1logger = Test::Log4perl->get_logger('sml.Block');
-# my $t2logger = Test::Log4perl->get_logger('sml.Document');
+use Test::Log4perl;
+my $t1logger = Test::Log4perl->get_logger('sml.Block');
+my $t2logger = Test::Log4perl->get_logger('sml.Document');
 
 # create a yyyy-mm-dd date stamp
 #
-use Date::Pcalc;
-my ($yyyy,$mm,$dd) = Date::Pcalc::Today();
-$mm = '0' . $mm until length $mm == 2;
-$dd = '0' . $dd until length $dd == 2;
-my $date = "$yyyy-$mm-$dd";
+# use Date::Pcalc;
+# my ($yyyy,$mm,$dd) = Date::Pcalc::Today();
+# $mm = '0' . $mm until length $mm == 2;
+# $dd = '0' . $dd until length $dd == 2;
+# my $date = "$yyyy-$mm-$dd";
 
 my $config_filename = 'library.conf';
 my $library         = SML::Library->new(config_filename=>$config_filename);
@@ -137,20 +137,30 @@ foreach my $tc (@{ $tcl })
 	_renders_ok($tc,'html','default');
       }
 
-    # if ( defined $tc->{expected}{latex}{default} )
-    #   {
-    # 	_renders_ok($tc,'latex','default');
-    #   }
+    if ( defined $tc->{expected}{latex}{default} )
+      {
+    	_renders_ok($tc,'latex','default');
+      }
 
-    # if ( defined $tc->{expected}{has_valid_syntax} )
-    #   {
-    # 	_has_valid_syntax_ok($tc);
-    #   }
+    if ( defined $tc->{expected}{has_valid_syntax} )
+      {
+	_has_valid_syntax_ok($tc);
+      }
 
-    # if ( defined $tc->{expected}{name_path} )
-    #   {
-    # 	_get_name_path_ok($tc);
-    #   }
+    if ( defined $tc->{expected}{valid_syntax_warning} )
+      {
+	_valid_syntax_warning_ok($tc);
+      }
+
+    if ( defined $tc->{expected}{has_valid_semantics} )
+      {
+	_has_valid_semantics_ok($tc);
+      }
+
+    if ( defined $tc->{expected}{valid_semantics_warning} )
+      {
+	_valid_semantics_warning_ok($tc);
+      }
   }
 
 ######################################################################
@@ -161,11 +171,7 @@ sub _renders_ok {
   my $rendition = shift;                # e.g. html
   my $style     = shift;                # e.g. default
 
-  #-------------------------------------------------------------------
   # Arrange
-  #
-  my $rendition = 'html';
-  my $style     = 'default';
   my $tcname    = $tc->{name};
   my $content   = $tc->{content};
   my $expected  = $tc->{expected}{$rendition}{$style};
@@ -184,114 +190,145 @@ sub _renders_ok {
       $parser->_parse_block($block);
     }
 
-  #-------------------------------------------------------------------
   # Act
-  #
-  $html = $block->render($rendition,$style);
+  my $html = $block->render($rendition,$style);
 
-  #-------------------------------------------------------------------
   # Assert
-  #
   is($html, $expected, "$tcname renders $rendition $style");
-
 }
 
 ######################################################################
 
-sub warning_ok {
+sub _has_valid_syntax_ok {
 
-  my $method = shift;
-  my $testid = shift;
+  my $tc        = shift;                # test case
+
+  # Arrange
+  my $tcname    = $tc->{name};
+  my $content   = $tc->{content};
+  my $expected  = $tc->{expected}{has_valid_syntax};
+  my $filename  = $tc->{filename};
+  my $docid     = $tc->{docid};
+  my $fragment  = $parser->create_fragment($filename);
+  my $document  = $library->get_document($docid);
+  my $line      = SML::Line->new(content=>$content);
+  my $block     = SML::Block->new;
+
+  $block->add_line($line);
+  $document->add_part($block);
+
+  foreach my $block (@{ $fragment->get_block_list })
+    {
+      $parser->_parse_block($block);
+    }
+
+  # Act
+  my $result = $block->has_valid_syntax;
+
+  # Assert
+  is($result, $expected, "$tcname has_valid_syntax $result");
+}
+
+######################################################################
+
+sub _has_valid_semantics_ok {
+
+  my $tc = shift;                       # test case
+
+  # Arrange
+  my $tcname    = $tc->{name};
+  my $content   = $tc->{content};
+  my $expected  = $tc->{expected}{has_valid_semantics};
+  my $filename  = $tc->{filename};
+  my $docid     = $tc->{docid};
+  my $fragment  = $parser->create_fragment($filename);
+  my $document  = $library->get_document($docid);
+  my $line      = SML::Line->new(content=>$content);
+  my $block     = SML::Block->new;
+
+  $block->add_line($line);
+  $document->add_part($block);
+
+  foreach my $block (@{ $fragment->get_block_list })
+    {
+      $parser->_parse_block($block);
+    }
+
+  # Act
+  my $result = $block->has_valid_semantics;
+
+  # Assert
+  is($result, $expected, "$tcname has_valid_semantics $result");
+}
+
+######################################################################
+
+sub _valid_syntax_warning_ok {
+
+  my $tc = shift;                       # test case
 
   # arrange
-  my $content = $testdata->{$testid}{'sml'};
-  my $warning = $testdata->{$testid}{'warning'};
-  my $block   = create_test_block($content);
-
-  Test::Log4perl->start( ignore_priority => "info" );
-  $t1logger->warn(qr/$warning/);
-
-  # act
-  my $result = $block->$method;
-
-  # assert
-  Test::Log4perl->end("WARNING: $warning ($testid)");
-
-}
-
-######################################################################
-
-sub validate_ok {
-
-  my $method = shift;
-  my $testid = shift;
-
-  my $expected = 1;
-  my $content  = $testdata->{$testid}{'sml'};
-  my $success  = $testdata->{$testid}{'success'};
-
-  my $block    = create_test_block($content);
-
-  # act
-  my $result   = $block->$method;
-
-  # assert
-  is($result,$expected, "$success");
-
-}
-
-######################################################################
-
-sub no_doc_error_ok {
-
-  my $method = shift;
-  my $testid = shift;
-
-  my $content  = $testdata->{$testid}{'sml'};
-  my $error    = $testdata->{$testid}{'no_doc_error'};
+  my $tcname   = $tc->{name};
+  my $content  = $tc->{content};
+  my $expected = $tc->{expected}{valid_syntax_warning};
+  my $filename = $tc->{filename};
+  my $docid    = $tc->{docid};
+  my $fragment = $parser->create_fragment($filename);
+  my $document = $library->get_document($docid);
   my $line     = SML::Line->new(content=>$content);
   my $block    = SML::Block->new;
 
   $block->add_line($line);
+  $document->add_part($block);
 
-  Test::Log4perl->start( ignore_priority => "warn" );
-  $t1logger->error(qr/$error/);
+  foreach my $block (@{ $fragment->get_block_list })
+    {
+      $parser->_parse_block($block);
+    }
 
-  # Act
-  $html = $block->as_html;
+  Test::Log4perl->start( ignore_priority => "info" );
+  $t1logger->warn(qr/$expected/);
 
-  # Assert
-  Test::Log4perl->end("ERROR: $error ($testid)");
+  # act
+  my $result = $block->has_valid_syntax;
 
+  # assert
+  Test::Log4perl->end("$tcname warns $expected");
 }
 
 ######################################################################
 
-sub get_name_path_ok {
+sub _valid_semantics_warning_ok {
 
-  my $testid = shift;
+  my $tc = shift;                       # test case
 
   # arrange
-  my $testfile   = $testdata->{$testid}{testfile};
-  my $config     = $testdata->{$testid}{config};
-  my $library    = SML::Library->new(config_filename=>$config);
-  my $parser     = $library->get_parser;
-  my $fragment   = $parser->create_fragment($testfile);
-  my $block_list = $fragment->get_block_list;
+  my $tcname   = $tc->{name};
+  my $content  = $tc->{content};
+  my $expected = $tc->{expected}{valid_semantics_warning};
+  my $filename = $tc->{filename};
+  my $docid    = $tc->{docid};
+  my $fragment = $parser->create_fragment($filename);
+  my $document = $library->get_document($docid);
+  my $line     = SML::Line->new(content=>$content);
+  my $block    = SML::Block->new;
 
-  # act
-  foreach my $block (@{ $block_list })
+  $block->add_line($line);
+  $document->add_part($block);
+
+  foreach my $block (@{ $fragment->get_block_list })
     {
-      my $path    = $block->get_name_path;
-      my $content = $block->get_content;
-
-      # print "$path\n";
+      $parser->_parse_block($block);
     }
 
+  Test::Log4perl->start( ignore_priority => "info" );
+  $t1logger->warn(qr/$expected/);
+
+  # act
+  my $result = $block->has_valid_semantics;
+
   # assert
-  my $result   = 1;
-  my $expected = 1;
-  is($result, $expected, "get_name_path $testid")
+  Test::Log4perl->end("$tcname warns $expected");
 }
 
 ######################################################################
