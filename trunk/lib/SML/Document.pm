@@ -524,7 +524,9 @@ sub has_note {
   my $divid = shift;
   my $tag   = shift;
 
-  if ( exists $self->get_note_hash->{$divid}{$tag} )
+  my $nh = $self->get_note_hash;
+
+  if ( exists $nh->{$divid}{$tag} )
     {
       return 1;
     }
@@ -626,7 +628,8 @@ sub get_note {
   my $self  = shift;
   my $divid = shift;
   my $tag   = shift;
-  my $nh    = $self->get_note_hash;
+
+  my $nh = $self->get_note_hash;
 
   return $nh->{$divid}{$tag};
 }
