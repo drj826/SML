@@ -17,15 +17,15 @@ my $parser  = $library->get_parser;
 
 my $tc =
   {
-   name    => 'cross_reference_1',
-   content => '[ref:introduction]',
+   name     => 'cross_reference_1',
+   content  => '[ref:introduction]',
    filename => 'td-000020.txt',
    docid    => 'td-000020',
    expected =>
    {
     html =>
     {
-     default => "<a href=\"td-000020-1.html#Section.1\">Section 1</a>\n\n",
+     default => "<a href=\"td-000020-1.html#SECTION.1\">Section 1</a>\n\n",
     },
     latex =>
     {
@@ -33,7 +33,7 @@ my $tc =
     },
     xml =>
     {
-     default => "<a href=\"td-000020-1.html#Section.1\">Section 1</a>\n\n",
+     default => "<a href=\"td-000020-1.xml#SECTION.1\">Section 1</a>\n\n",
     },
     error =>
     {
@@ -42,7 +42,7 @@ my $tc =
    },
   };
 
-my $rendition = 'html';
+my $rendition = 'latex';
 my $style     = 'default';
 my $content   = $tc->{content};
 my $expected  = $tc->{expected}{$rendition}{$style};
@@ -61,8 +61,11 @@ foreach my $block (@{ $fragment->get_block_list })
     $parser->_parse_block($block);
   }
 
+print "INPUT:\n";
+print $tc->{content}, "\n\n";
+
 print "OUTPUT:\n";
-print $block->render('html','default'), "\n\n";
+print $block->render($rendition,$style), "\n\n";
 
 print "PART_STRUCTURE:\n";
 print $block->dump_part_structure, "\n";
