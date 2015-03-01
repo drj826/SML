@@ -375,6 +375,28 @@ sub _build_block_test_case_list {
      },
 
      {
+      name     => 'url_reference_2',
+      content  => '[url:http://www.cnn.com/|CNN News]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
+      expected =>
+      {
+       html =>
+       {
+	default => "<a href=\"http://www.cnn.com/\">CNN News</a>\n\n",
+       },
+       latex =>
+       {
+	default => "\\urlstyle{sf}\\href{http://www.cnn.com/}{CNN News}\n\n",
+       },
+       xml =>
+       {
+	default => "<a href=\"http://www.cnn.com/\">CNN News</a>\n\n",
+       },
+      },
+     },
+
+     {
       name     => 'footnote_reference_1',
       content  => '[f:introduction:1]',
       filename => 'td-000020.txt',
@@ -543,7 +565,7 @@ sub _build_block_test_case_list {
        },
        latex =>
        {
-	default => "\\acs{TLA:sml}\n\n",
+	default => "\\ac{TLA:sml}\n\n",
        },
        xml =>
        {
@@ -996,13 +1018,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'citation_reference_1',
-      content => '[cite:cms15]',
+      name     => 'citation_reference_1',
+      content  => '[cite:cms15]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\cite{cms15}\n\n",
-       html  => "[<a href=\"td-000020.source.html#cms15\">cms15</a>]\n\n",
-       xml   => "[<a href=\"td-000020.source.html#cms15\">cms15</a>]\n\n",
+       html =>
+       {
+	default => "[<a href=\"td-000020.source.html#cms15\">cms15</a>]\n\n",
+       },
+       latex =>
+       {
+	default => "\\cite{cms15}\n\n",
+       },
+       xml =>
+       {
+	default => "[<a href=\"td-000020.source.html#cms15\">cms15</a>]\n\n",
+       },
        error =>
        {
 	no_doc => 'NOT IN DOCUMENT CONTEXT',
@@ -1011,13 +1044,24 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'citation_reference_2',
-      content => '[cite:cms15, pg 44]',
+      name     => 'citation_reference_2',
+      content  => '[cite:cms15, pg 44]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\cite[pg 44]{cms15}\n\n",
-       html  => "[<a href=\"td-000020.source.html#cms15\">cms15, pg 44</a>]\n\n",
-       xml   => "[<a href=\"td-000020.source.html#cms15\">cms15, pg 44</a>]\n\n",
+       html =>
+       {
+	default => "[<a href=\"td-000020.source.html#cms15\">cms15, pg 44</a>]\n\n",
+       },
+       latex =>
+       {
+	default => "\\cite[pg 44]{cms15}\n\n",
+       },
+       xml =>
+       {
+	default => "[<a href=\"td-000020.source.html#cms15\">cms15, pg 44</a>]\n\n",
+       },
        error =>
        {
 	no_doc => 'NOT IN DOCUMENT CONTEXT',
@@ -1026,713 +1070,1229 @@ sub _build_block_test_case_list {
      },
 
      {
-      name    => 'file_reference_1',
-      content => '[file:app.ini]',
+      name     => 'file_reference_1',
+      content  => '[file:app.ini]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\path{app.ini}\n\n",
-       html  => "<tt>app.ini</tt>\n\n",
-       xml   => "<tt>app.ini</tt>\n\n",
+       html =>
+       {
+	default => "<tt>app.ini</tt>\n\n",
+       },
+       latex =>
+       {
+	default => "\\path{app.ini}\n\n",
+       },
+       xml =>
+       {
+	default => "<tt>app.ini</tt>\n\n",
+       },
       },
      },
 
      {
-      name    => 'file_reference_2',
-      content => '[file:My Document.doc]',
+      name     => 'file_reference_2',
+      content  => '[file:My Document.doc]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\path{My Document.doc}\n\n",
-       html  => "<tt>My Document.doc</tt>\n\n",
-       xml   => "<tt>My Document.doc</tt>\n\n",
+       html =>
+       {
+	default => "<tt>My Document.doc</tt>\n\n",
+       },
+       latex =>
+       {
+	default => "\\path{My Document.doc}\n\n",
+       },
+       xml =>
+       {
+	default => "<tt>My Document.doc</tt>\n\n",
+       },
       },
      },
 
      {
-      name    => 'path_reference_1',
-      content => '[path:/path/to/folder]',
+      name     => 'path_reference_1',
+      content  => '[path:/path/to/folder]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\path{/path/to/folder}\n\n",
-       html  => "<tt>/path/to/folder</tt>\n\n",
-       xml   => "<tt>/path/to/folder</tt>\n\n",
+       html =>
+       {
+	default => "<tt>/path/to/folder</tt>\n\n",
+       },
+       latex =>
+       {
+	default => "\\path{/path/to/folder}\n\n",
+       },
+       xml =>
+       {
+	default => "<tt>/path/to/folder</tt>\n\n",
+       },
       },
      },
 
      {
-      name    => 'path_reference_2',
-      content => '[path:/path/to/my folder]',
+      name     => 'path_reference_2',
+      content  => '[path:/path/to/my folder]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\path{/path/to/my folder}\n\n",
-       html  => "<tt>/path/to/my folder</tt>\n\n",
-       xml   => "<tt>/path/to/my folder</tt>\n\n",
+       html =>
+       {
+	default => "<tt>/path/to/my folder</tt>\n\n",
+       },
+       latex =>
+       {
+	default => "\\path{/path/to/my folder}\n\n",
+       },
+       xml =>
+       {
+	default => "<tt>/path/to/my folder</tt>\n\n",
+       },
       },
      },
 
      {
-      name    => 'path_reference_3',
-      content => '[path:C:\path\to\my folder\]',
+      name     => 'path_reference_3',
+      content  => '[path:C:\path\to\my folder\]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\path{C:\\path\\to\\my folder}\$\\backslash\$\n\n",
-       html  => "<tt>C:\\path\\to\\my folder\\</tt>\n\n",
-       xml   => "<tt>C:\\path\\to\\my folder\\</tt>\n\n",
+       html =>
+       {
+	default => "<tt>C:\\path\\to\\my folder\\</tt>\n\n",
+       },
+       # latex =>
+       # {
+       # 	default => "\\path{C:\\path\\to\\my folder}\$\\backslash\$\n\n",
+       # },
+       xml =>
+       {
+	default => "<tt>C:\\path\\to\\my folder\\</tt>\n\n",
+       },
       },
      },
 
      {
-      name    => 'user_entered_text_1',
-      content => '[enter:USERNAME]',
+      name     => 'user_entered_text_1',
+      content  => '[enter:USERNAME]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\textbf{\\texttt{USERNAME}}\n\n",
-       html  => "<b><tt>USERNAME</tt></b>\n\n",
-       xml   => "<b><tt>USERNAME</tt></b>\n\n",
+       html =>
+       {
+	default => "<b><tt>USERNAME</tt></b>\n\n",
+       },
+       latex =>
+       {
+	default => "\\textbf{\\texttt{USERNAME}}\n\n",
+       },
+       xml =>
+       {
+	default => "<b><tt>USERNAME</tt></b>\n\n",
+       },
       },
      },
 
      {
-      name    => 'command_reference_1',
-      content => '[cmd:pwd]',
+      name     => 'command_reference_1',
+      content  => '[cmd:pwd]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\path{pwd}\n\n",
-       html  => "<tt>pwd</tt>\n\n",
-       xml   => "<tt>pwd</tt>\n\n",
+       html =>
+       {
+	default => "<tt>pwd</tt>\n\n",
+       },
+       latex =>
+       {
+	default => "\\path{pwd}\n\n",
+       },
+       xml =>
+       {
+	default => "<tt>pwd</tt>\n\n",
+       },
       },
      },
 
      {
-      name    => 'command_reference_2',
-      content => '[cmd:ls -al | grep -i bin | sort]',
+      name     => 'command_reference_2',
+      content  => '[cmd:ls -al | grep -i bin | sort]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\path{ls -al | grep -i bin | sort}\n\n",
-       html  => "<tt>ls -al | grep -i bin | sort</tt>\n\n",
-       xml   => "<tt>ls -al | grep -i bin | sort</tt>\n\n",
+       html =>
+       {
+	default => "<tt>ls -al | grep -i bin | sort</tt>\n\n",
+       },
+       latex =>
+       {
+	default => "\\path{ls -al | grep -i bin | sort}\n\n",
+       },
+       xml =>
+       {
+	default => "<tt>ls -al | grep -i bin | sort</tt>\n\n",
+       },
       },
      },
 
      {
-      name    => 'literal_xml_tag_1',
-      content => '<html>',
+      name     => 'xml_tag_1',
+      content  => '<html>',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "<html>\n\n",
-       html  => "&lt;html&gt;\n\n",
-       xml   => "&lt;html&gt;\n\n",
+       html =>
+       {
+	default => "&lt;html&gt;\n\n",
+       },
+       latex =>
+       {
+	default => "<html>\n\n",
+       },
+       xml =>
+       {
+	default => "&lt;html&gt;\n\n",
+       },
       },
      },
 
      {
-      name    => 'literal_xml_tag_2',
-      content => '<para style="indented">',
+      name     => 'xml_tag_2',
+      content  => '<para style="indented">',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "<para style=\"indented\">\n\n",
-       html  => "&lt;para style=\"indented\"&gt;\n\n",
-       xml   => "&lt;para style=\"indented\"&gt;\n\n",
+       html =>
+       {
+	default => "&lt;para style=\"indented\"&gt;\n\n",
+       },
+       latex =>
+       {
+	default => "<para style=\"indented\">\n\n",
+       },
+       xml =>
+       {
+	default => "&lt;para style=\"indented\"&gt;\n\n",
+       },
       },
      },
 
      {
-      name    => 'literal_string_1',
-      content => '{lit:[cite:Goossens94]}',
+      name     => 'literal_string_1',
+      content  => '{lit:[cite:Goossens94]}',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => '[cite:Goossens94]',
-       html  => '[cite:Goossens94]',
-       xml   => '[cite:Goossens94]',
+       html =>
+       {
+	default => "[cite:Goossens94]\n\n",
+       },
+       latex =>
+       {
+	default => "[cite:Goossens94]\n\n",
+       },
+       xml =>
+       {
+	default => "[cite:Goossens94]\n\n",
+       },
       },
      },
 
      {
-      name    => 'email_address_1',
-      content => 'joe@example.com',
+      name     => 'email_address_1',
+      content  => '[email:joe@example.com]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "joe\@example.com\n\n",
-       html  => "<a href=\"mailto:joe\@example.com\">joe\@example.com</a>\n\n",
-       xml   => "<a href=\"mailto:joe\@example.com\">joe\@example.com</a>\n\n",
+       html =>
+       {
+	default => "<a href=\"mailto:joe\@example.com\">joe\@example.com</a>\n\n",
+       },
+       latex =>
+       {
+	default => "joe\@example.com\n\n",
+       },
+       xml =>
+       {
+	default => "<a href=\"mailto:joe\@example.com\">joe\@example.com</a>\n\n",
+       },
       },
      },
 
      {
-      name    => 'take_note_symbol',
-      content => '[[take_note]]',
+      name     => 'take_note_symbol',
+      content  => '[take_note]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\marginpar{\\Huge\\Writinghand}\n\n",
-       html  => "<b>(take note!)</b>\n\n",
-       xml   => "<b>(take note!)</b>\n\n",
+       html =>
+       {
+	default => "<b>(take note!)</b>\n\n",
+       },
+       latex =>
+       {
+	default => "\\marginpar{\\Huge\\Writinghand}\n\n",
+       },
+       xml =>
+       {
+	default => "<b>(take note!)</b>\n\n",
+       },
       },
      },
 
      {
-      name    => 'smiley_symbol',
-      content => ':-)',
+      name     => 'smiley_symbol',
+      content  => ':-)',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\large\\Smiley\n\n",
-       html  => "(smiley)\n\n",
-       xml   => "(smiley)\n\n",
+       html =>
+       {
+	default => "&#9786;\n\n",
+       },
+       latex =>
+       {
+	default => "\\large\\Smiley\n\n",
+       },
+       xml =>
+       {
+	default => "&#9786;\n\n",
+       },
       },
      },
 
      {
-      name    => 'frowny_symbol',
-      content => ':-(',
+      name     => 'frowny_symbol',
+      content  => ':-(',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\large\\Frowny\n\n",
-       html  => "(frowny)\n\n",
-       xml   => "(frowny)\n\n",
+       html =>
+       {
+	default => "&#9785;\n\n",
+       },
+       latex =>
+       {
+	default => "\\large\\Frowny\n\n",
+       },
+       xml =>
+       {
+	default => "&#9785;\n\n",
+       },
       },
      },
 
      {
-      name    => 'keystroke_symbol_1',
-      content => '[[Enter]]',
+      name     => 'keystroke_symbol_1',
+      content  => '[[Enter]]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\keystroke{Enter}\n\n",
-       html  => "<span class=\"keystroke\">Enter</span>\n\n",
-       xml   => "<span class=\"keystroke\">Enter</span>\n\n",
+       html =>
+       {
+	default => "<span class=\"keystroke\">Enter</span>\n\n",
+       },
+       latex =>
+       {
+	default => "\\keystroke{Enter}\n\n",
+       },
+       xml =>
+       {
+	default => "<span class=\"keystroke\">Enter</span>\n\n",
+       },
       },
      },
 
      {
-      name    => 'keystroke_symbol_2',
-      content => '[[Ctrl]]-[[Alt]]-[[Del]]',
+      name     => 'keystroke_symbol_2',
+      content  => '[[Ctrl]]-[[Alt]]-[[Del]]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\keystroke{Ctrl}-\\keystroke{Alt}-\\keystroke{Del}\n\n",
-       html  => "<span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span>\n\n",
-       xml   => "<span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span>\n\n",
+       html =>
+       {
+	default => "<span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span>\n\n",
+       },
+       latex =>
+       {
+	default => "\\keystroke{Ctrl}-\\keystroke{Alt}-\\keystroke{Del}\n\n",
+       },
+       xml =>
+       {
+	default => "<span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span>\n\n",
+       },
       },
      },
 
      {
-      name    => 'left_arrow_symbol',
-      content => '<-',
+      name     => 'left_arrow_symbol',
+      content  => '<-',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\$\\leftarrow\$\n",
-       html  => "&larr;\n",
-       xml   => "&larr;\n",
+       html =>
+       {
+	default => "&#8592;\n",
+       },
+       latex =>
+       {
+	default => "\$\\leftarrow\$\n",
+       },
+       xml =>
+       {
+	default => "&#8592;\n",
+       },
       },
      },
 
      {
-      name    => 'right_arrow_symbol',
-      content => '->',
+      name     => 'right_arrow_symbol',
+      content  => '->',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\$\\rightarrow\$\n\n",
-       html  => "&rarr;\n\n",
-       xml   => "&rarr;\n\n",
+       html =>
+       {
+	default => "&#8594;\n\n",
+       },
+       latex =>
+       {
+	default => "\$\\rightarrow\$\n\n",
+       },
+       xml =>
+       {
+	default => "&#8594;\n\n",
+       },
       },
      },
 
      {
-      name    => 'latex_symbol',
-      content => 'LaTeX',
+      name     => 'latex_symbol',
+      content  => 'LaTeX',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\LaTeX{}\n\n",
-       html  => "LaTeX\n\n",
-       xml   => "LaTeX\n\n",
+       html =>
+       {
+	default => "L<sup>a</sup>T<sub>e</sub>X\n\n",
+       },
+       latex =>
+       {
+	default => "\\LaTeX{}\n\n",
+       },
+       xml =>
+       {
+	default => "LaTeX\n\n",
+       },
       },
      },
 
      {
-      name    => 'tex_symbol',
-      content => 'TeX',
+      name     => 'tex_symbol',
+      content  => 'TeX',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\TeX{}\n\n",
-       html  => "TeX\n\n",
-       xml   => "TeX\n\n",
+       html =>
+       {
+	default => "T<sub>e</sub>X\n\n",
+       },
+       latex =>
+       {
+	default => "\\TeX{}\n\n",
+       },
+       xml =>
+       {
+	default => "TeX\n\n",
+       },
       },
      },
 
      {
-      name    => 'copyright_symbol',
-      content => '[c]',
+      name     => 'copyright_symbol',
+      content  => '[c]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\tiny\$^{\\copyright}\$\\normalsize\n\n",
-       html  => "&copy;\n\n",
-       xml   => "&copy;\n\n",
+       html =>
+       {
+	default => "&copy;\n\n",
+       },
+       latex =>
+       {
+	default => "\\tiny\$^{\\copyright}\$\\normalsize\n\n",
+       },
+       xml =>
+       {
+	default => "&copy;\n\n",
+       },
       },
      },
 
      {
-      name    => 'trademark_symbol',
-      content => '[tm]',
+      name     => 'trademark_symbol',
+      content  => '[tm]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\tiny\$^{\\texttrademark}\$\\normalsize\n\n",
-       html  => "&trade;\n\n",
-       xml   => "&trade;\n\n",
+       html =>
+       {
+	default => "&trade;\n\n",
+       },
+       latex =>
+       {
+	default => "\\tiny\$^{\\texttrademark}\$\\normalsize\n\n",
+       },
+       xml =>
+       {
+	default => "&trade;\n\n",
+       },
       },
      },
 
      {
-      name    => 'reg_trademark_symbol',
-      content => '[r]',
+      name     => 'reg_trademark_symbol',
+      content  => '[rtm]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\tiny\$^{\\textregistered}\$\\normalsize\n\n",
-       html  => "&reg;\n\n",
-       xml   => "&reg;\n\n",
+       html =>
+       {
+	default => "&reg;\n\n",
+       },
+       latex =>
+       {
+	default => "\\tiny\$^{\\textregistered}\$\\normalsize\n\n",
+       },
+       xml =>
+       {
+	default => "&reg;\n\n",
+       },
       },
      },
 
      {
-      name    => 'open_dblquote_symbol',
-      content => '``',
+      name     => 'open_dblquote_symbol',
+      content  => '``',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\`\`\n\n",
-       html  => "&ldquo;\n\n",
-       xml   => "&ldquo;\n\n",
+       html =>
+       {
+	default => "&#8220;\n\n",
+       },
+       latex =>
+       {
+	default => "\`\`\n\n",
+       },
+       xml =>
+       {
+	default => "&#8220;\n\n",
+       },
       },
      },
 
      {
-      name    => 'close_dblquote_symbol',
-      content => '\'\'',
+      name     => 'close_dblquote_symbol',
+      content  => '\'\'',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\'\'\n\n",
-       html  => "&rdquo;\n\n",
-       xml   => "&rdquo;\n\n",
+       html =>
+       {
+	default => "&#8221;\n\n",
+       },
+       latex =>
+       {
+	default => "\'\'\n\n",
+       },
+       xml =>
+       {
+	default => "&#8221;\n\n",
+       },
       },
      },
 
      {
-      name    => 'open_sglquote_symbol',
-      content => '`',
+      name     => 'open_sglquote_symbol',
+      content  => '`',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\`\n\n",
-       html  => "&lsquo;\n\n",
-       xml   => "&lsquo;\n\n",
+       html =>
+       {
+	default => "&#8216;\n\n",
+       },
+       latex =>
+       {
+	default => "\`\n\n",
+       },
+       xml =>
+       {
+	default => "&#8216;\n\n",
+       },
       },
      },
 
      {
-      name    => 'close_sglquote_symbol',
-      content => '\'',
+      name     => 'close_sglquote_symbol',
+      content  => '\'',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\'\n\n",
-       html  => "&rsquo;\n\n",
-       xml   => "&rsquo;\n\n",
+       html =>
+       {
+	default => "&#8217;\n\n",
+       },
+       latex =>
+       {
+	default => "\'\n\n",
+       },
+       xml =>
+       {
+	default => "&#8217;\n\n",
+       },
       },
      },
 
      {
-      name    => 'section_symbol',
-      content => '[section]',
+      name     => 'section_symbol',
+      content  => '[section]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "{\\S}\n\n",
-       html  => "&sect;\n\n",
-       xml   => "&sect;\n\n",
+       html =>
+       {
+	default => "&sect;\n\n",
+       },
+       latex =>
+       {
+	default => "{\\S}\n\n",
+       },
+       xml =>
+       {
+	default => "&sect;\n\n",
+       },
       },
      },
 
      {
-      name    => 'emdash_symbol',
-      content => '--',
+      name     => 'emdash_symbol',
+      content  => '--',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "--\n\n",
-       html  => "&mdash;\n",
-       xml   => "&mdash;\n",
+       html =>
+       {
+	default => "&mdash;\n",
+       },
+       latex =>
+       {
+	default => "--\n",
+       },
+       xml =>
+       {
+	default => "&mdash;\n",
+       },
       },
      },
 
      {
-      name    => 'bold',
-      content => '!!bold text!!',
+      name     => 'bold_1',
+      content  => '!!bold text!!',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\textbf{bold text}\n\n",
-       html  => "<b>bold text</b>\n\n",
-       xml   => "<b>bold text</b>\n\n",
+       html =>
+       {
+	default => "<b>bold text</b>\n\n",
+       },
+       latex =>
+       {
+	default => "\\textbf{bold text}\n\n",
+       },
+       xml =>
+       {
+	default => "<b>bold text</b>\n\n",
+       },
       },
      },
 
      {
-      name    => 'italic',
-      content => '~~italicized text~~',
+      name     => 'italics_1',
+      content  => '~~italicized text~~',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\textit{italicized text}\n\n",
-       html  => "<i>italicized text</i>\n\n",
-       xml   => "<i>italicized text</i>\n\n",
+       html =>
+       {
+	default => "<i>italicized text</i>\n\n",
+       },
+       latex =>
+       {
+	default => "\\textit{italicized text}\n\n",
+       },
+       xml =>
+       {
+	default => "<i>italicized text</i>\n\n",
+       },
       },
      },
 
      {
-      name    => 'underline',
-      content => '__underlined text__',
+      name     => 'underline_1',
+      content  => '__underlined text__',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\underline{underlined text}\n\n",
-       html  => "<u>underlined text</u>\n\n",
-       xml   => "<u>underlined text</u>\n\n",
+       html =>
+       {
+	default => "<u>underlined text</u>\n\n",
+       },
+       latex =>
+       {
+	default => "\\underline{underlined text}\n\n",
+       },
+       xml =>
+       {
+	default => "<u>underlined text</u>\n\n",
+       },
       },
      },
 
      {
-      name    => 'fixedwidth',
-      content => '||fixedwidth text||',
+      name     => 'fixedwidth_1',
+      content  => '||fixedwidth text||',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\texttt{fixedwidth text}\n\n",
-       html  => "<tt>fixedwidth text</tt>\n\n",
-       xml   => "<tt>fixedwidth text</tt>\n\n",
+       html =>
+       {
+	default => "<tt>fixedwidth text</tt>\n\n",
+       },
+       latex =>
+       {
+	default => "\\texttt{fixedwidth text}\n\n",
+       },
+       xml =>
+       {
+	default => "<tt>fixedwidth text</tt>\n\n",
+       },
       },
      },
 
      {
-      name    => 'superscript',
-      content => '^^superscripted text^^',
+      name     => 'superscript_1',
+      content  => '^^superscripted text^^',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\textsuperscript{superscripted text}\n\n",
-       html  => "<sup>superscripted text</sup>\n\n",
-       xml   => "<sup>superscripted text</sup>\n\n",
+       html =>
+       {
+	default => "<sup>superscripted text</sup>\n\n",
+       },
+       latex =>
+       {
+	default => "\\textsuperscript{superscripted text}\n\n",
+       },
+       xml =>
+       {
+	default => "<sup>superscripted text</sup>\n\n",
+       },
       },
      },
 
      {
-      name    => 'subscript',
-      content => ',,subscripted text,,',
+      name     => 'subscript_1',
+      content  => ',,subscripted text,,',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       latex => "\\subscript{subscripted text}\n\n",
-       html  => "<sub>subscripted text</sub>\n\n",
-       xml   => "<sub>subscripted text</sub>\n\n",
+       html =>
+       {
+	default => "<sub>subscripted text</sub>\n\n",
+       },
+       latex =>
+       {
+	default => "\\subscript{subscripted text}\n\n",
+       },
+       xml =>
+       {
+	default => "<sub>subscripted text</sub>\n\n",
+       },
       },
      },
 
      {
-      name    => 'valid_bold_block',
-      content => 'This is a valid !!bold!! block',
+      name     => 'valid_bold_block',
+      content  => 'This is a valid !!bold!! block',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       success => 'valid bold markup passes validation',
+       has_valid_syntax => 1,
       },
      },
 
      {
-      name    => 'invalid_bold_block',
-      content => 'This is an INVALID !!bold block',
+      name     => 'invalid_bold_block',
+      content  => 'This is an INVALID !!bold block',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID BOLD MARKUP',
+       has_valid_syntax => 0,
+       valid_syntax_warning => 'INVALID BOLD MARKUP',
       },
      },
 
      {
-      name    => 'valid_italics_block',
-      content => 'This is a valid ~~italics~~ block',
+      name     => 'valid_italics_block',
+      content  => 'This is a valid ~~italics~~ block',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       success => 'valid italics markup passes validation',
+       has_valid_syntax => 1,
       },
      },
 
      {
-      name    => 'invalid_italics_block',
-      content => 'This is an INVALID ~~italics block',
+      name     => 'invalid_italics_block',
+      content  => 'This is an INVALID ~~italics block',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID ITALICS MARKUP',
+       has_valid_syntax => 0,
+       valid_syntax_warning => 'INVALID ITALICS MARKUP',
       },
      },
 
      {
-      name    => 'valid_fixedwidth_block',
-      content => 'This is a valid ||fixed-width|| block',
+      name     => 'valid_fixedwidth_block',
+      content  => 'This is a valid ||fixed-width|| block',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       success => 'valid fixed-width markup passes validation',
+       has_valid_syntax => 1,
       },
      },
 
      {
-      name    => 'invalid_fixedwidth_block',
-      content => 'This is an INVALID ||fixed-width block',
+      name     => 'invalid_fixedwidth_block',
+      content  => 'This is an INVALID ||fixed-width block',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID FIXED-WIDTH MARKUP',
+       has_valid_syntax => 0,
+       valid_syntax_warning => 'INVALID FIXED-WIDTH MARKUP',
       },
      },
 
      {
-      name    => 'valid_underline_block',
-      content => 'This is a valid __underline__ block',
+      name     => 'valid_underline_block',
+      content  => 'This is a valid __underline__ block',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       success => 'valid underline markup passes validation',
+       has_valid_syntax => 1,
       },
      },
 
      {
-      name    => 'invalid_underline_block',
-      content => 'This is an INVALID __underline block',
+      name     => 'invalid_underline_block',
+      content  => 'This is an INVALID __underline block',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID UNDERLINE MARKUP',
+       has_valid_syntax => 0,
+       valid_syntax_warning => 'INVALID UNDERLINE MARKUP',
       },
      },
 
      {
-      name    => 'valid_superscript_block',
-      content => 'This is a valid ^^superscript^^ block',
+      name     => 'valid_superscript_block',
+      content  => 'This is a valid ^^superscript^^ block',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       success => 'valid superscript markup passes validation',
+       has_valid_syntax => 1,
       },
      },
 
      {
-      name    => 'invalid_superscript_block',
-      content => 'This is an INVALID ^^superscript block',
+      name     => 'invalid_superscript_block',
+      content  => 'This is an INVALID ^^superscript block',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID SUPERSCRIPT MARKUP',
+       has_valid_syntax => 0,
+       valid_syntax_warning => 'INVALID SUPERSCRIPT MARKUP',
       },
      },
 
      {
-      name    => 'valid_subscript_block',
-      content => 'This is a valid ,,subscript,, block',
+      name     => 'valid_subscript_block',
+      content  => 'This is a valid ,,subscript,, block',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       success => 'valid subscript markup passes validation',
+       has_valid_syntax => 1,
       },
      },
 
      {
-      name    => 'invalid_subscript_block',
-      content => 'This is an INVALID ,,subscript block',
+      name     => 'invalid_subscript_block',
+      content  => 'This is an INVALID ,,subscript block',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID SUBSCRIPT MARKUP',
+       has_valid_syntax => 0,
+       valid_syntax_warning => 'INVALID SUBSCRIPT MARKUP',
       },
      },
 
      {
-      name    => 'valid_cross_reference_1',
-      content => 'Here is a valid cross reference: [ref:introduction].',
+      name     => 'valid_cross_reference_1',
+      content  => 'Here is a valid cross reference: [ref:introduction].',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       success => 'valid cross reference 1 passes validation',
+       has_valid_syntax => 1,
+       has_valid_semantics => 1,
       },
      },
 
      {
-      name    => 'valid_cross_reference_2',
-      content => 'Here is a valid cross reference: [r:introduction].',
+      name     => 'valid_cross_reference_2',
+      content  => 'Here is a valid cross reference: [r:introduction].',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       success => 'valid cross reference 2 passes validation',
+       has_valid_syntax => 1,
+       has_valid_semantics => 1,
       },
      },
 
      {
-      name    => 'invalid_cross_reference_1',
-      content => 'Here is an INVALID cross reference: [ref:bogus].',
+      name     => 'invalid_cross_reference_1',
+      content  => 'Here is an INVALID cross reference: [ref:bogus].',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID CROSS REFERENCE',
+       has_valid_syntax => 1,
+       has_valid_semantics => 0,
+       valid_semantics_warning => 'INVALID CROSS REFERENCE',
       },
      },
 
      {
-      name    => 'invalid_cross_reference_2',
-      content => 'Here is an INVALID cross reference: [r:bogus].',
+      name     => 'invalid_cross_reference_2',
+      content  => 'Here is an INVALID cross reference: [r:bogus].',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID CROSS REFERENCE',
+       has_valid_syntax => 1,
+       has_valid_semantics => 0,
+       valid_semantics_warning => 'INVALID CROSS REFERENCE',
       },
      },
 
      {
-      name    => 'incomplete_cross_reference_1',
-      content => 'Here is an incomplete cross reference: [ref:introduction.',
+      name     => 'incomplete_cross_reference_1',
+      content  => 'Here is an incomplete cross reference: [ref:introduction.',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID CROSS REFERENCE SYNTAX',
+       has_valid_syntax => 0,
+       has_valid_semantics => 0,
+       valid_syntax_warning => 'INVALID CROSS REFERENCE SYNTAX',
       },
      },
 
      {
-      name    => 'incomplete_cross_reference_2',
-      content => 'Here is an incomplete cross reference: [r:introduction.',
+      name     => 'incomplete_cross_reference_2',
+      content  => 'Here is an incomplete cross reference: [r:introduction.',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID CROSS REFERENCE SYNTAX',
+       has_valid_syntax => 0,
+       has_valid_semantics => 0,
+       valid_syntax_warning => 'INVALID CROSS REFERENCE SYNTAX',
       },
      },
 
      {
-      name    => 'valid_id_reference',
-      content => 'Here is a valid id reference: [id:introduction].',
+      name     => 'valid_id_reference',
+      content  => 'Here is a valid id reference: [id:introduction].',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
+       has_valid_syntax => 1,
+       has_valid_semantics => 1,
        success => 'valid ID reference passes validation',
       },
      },
 
      {
-      name    => 'invalid_id_reference',
-      content => 'Here is an INVALID id reference: [id:bogus].',
+      name     => 'invalid_id_reference',
+      content  => 'Here is an INVALID id reference: [id:bogus].',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID ID REFERENCE',
+       has_valid_syntax => 1,
+       has_valid_semantics => 0,
+       valid_semantics_warning => 'INVALID ID REFERENCE',
       },
      },
 
      {
-      name    => 'incomplete_id_reference',
-      content => 'Here is an incomplete id reference: [id:introduction.',
+      name     => 'incomplete_id_reference',
+      content  => 'Here is an incomplete id reference: [id:introduction.',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID ID REFERENCE SYNTAX',
+       has_valid_syntax => 0,
+       has_valid_semantics => 0,
+       valid_syntax_warning => 'INVALID ID REFERENCE SYNTAX',
       },
      },
 
      {
-      name    => 'valid_page_reference_1',
-      content => 'Here is a valid page reference: [page:introduction].',
+      name     => 'valid_page_reference_1',
+      content  => 'Here is a valid page reference: [page:introduction].',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
+       has_valid_syntax => 1,
+       has_valid_semantics => 1,
        success => 'valid page reference 1 passes validation',
       },
      },
 
      {
-      name    => 'valid_page_reference_2',
-      content => 'Here is a valid page reference: [pg:introduction].',
+      name     => 'valid_page_reference_2',
+      content  => 'Here is a valid page reference: [pg:introduction].',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
+       has_valid_syntax => 1,
+       has_valid_semantics => 1,
        success => 'valid page reference 2 passes validation',
       },
      },
 
      {
-      name    => 'invalid_page_reference_1',
-      content => 'Here is an INVALID page reference: [page:bogus].',
+      name     => 'invalid_page_reference_1',
+      content  => 'Here is an INVALID page reference: [page:bogus].',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID PAGE REFERENCE',
+       has_valid_syntax => 1,
+       has_valid_semantics => 0,
+       valid_semantics_warning => 'INVALID PAGE REFERENCE',
       },
      },
 
      {
-      name    => 'invalid_page_reference_2',
-      content => 'Here is an INVALID page reference: [pg:bogus].',
+      name     => 'invalid_page_reference_2',
+      content  => 'Here is an INVALID page reference: [pg:bogus].',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID PAGE REFERENCE',
+       has_valid_syntax => 1,
+       has_valid_semantics => 0,
+       valid_semantics_warning => 'INVALID PAGE REFERENCE',
       },
      },
 
      {
-      name    => 'incomplete_page_reference_1',
-      content => 'Here is an incomplete page reference: [page:introduction.',
+      name     => 'incomplete_page_reference_1',
+      content  => 'Here is an incomplete page reference: [page:introduction.',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID PAGE REFERENCE SYNTAX',
+       has_valid_syntax => 0,
+       has_valid_semantics => 0,
+       valid_syntax_warning => 'INVALID PAGE REFERENCE SYNTAX',
       },
      },
 
      {
-      name    => 'incomplete_page_reference_2',
-      content => 'Here is an incomplete page reference: [pg:introduction.',
+      name     => 'incomplete_page_reference_2',
+      content  => 'Here is an incomplete page reference: [pg:introduction.',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID PAGE REFERENCE SYNTAX',
+       has_valid_syntax => 0,
+       has_valid_semantics => 0,
+       valid_syntax_warning => 'INVALID PAGE REFERENCE SYNTAX',
       },
      },
 
      {
-      name    => 'invalid_glossary_term_reference_1',
-      content => '[g:sml:bogus]',
+      name     => 'invalid_glossary_term_reference_1',
+      content  => '[g:sml:bogus]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'TERM NOT IN GLOSSARY',
+       has_valid_syntax => 1,
+       has_valid_semantics => 0,
+       valid_semantics_warning => 'TERM NOT IN GLOSSARY',
       },
      },
 
      {
-      name    => 'incomplete_glossary_term_reference_1',
-      content => '[g:sml:bogus',
+      name     => 'incomplete_glossary_term_reference_1',
+      content  => '[g:sml:bogus',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID GLOSSARY TERM REFERENCE SYNTAX',
+       has_valid_syntax => 0,
+       has_valid_semantics => 0,
+       valid_syntax_warning => 'INVALID GLOSSARY TERM REFERENCE SYNTAX',
       },
      },
 
      {
-      name    => 'invalid_glossary_def_reference_1',
-      content => '[def:sml:bogus]',
+      name     => 'invalid_glossary_def_reference_1',
+      content  => '[def:sml:bogus]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'DEFINITION NOT IN GLOSSARY',
+       has_valid_syntax => 1,
+       has_valid_semantics => 0,
+       valid_semantics_warning => 'DEFINITION NOT IN GLOSSARY',
       },
      },
 
      {
-      name    => 'incomplete_glossary_def_reference_1',
-      content => '[def:sml:bogus',
+      name     => 'incomplete_glossary_def_reference_1',
+      content  => '[def:sml:bogus',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID GLOSSARY DEFINITION REFERENCE SYNTAX',
+       has_valid_syntax => 0,
+       has_valid_semantics => 0,
+       valid_syntax_warning => 'INVALID GLOSSARY DEFINITION REFERENCE SYNTAX',
       },
      },
 
      {
-      name    => 'invalid_acronym_reference_1',
-      content => '[ac:sml:bogus]',
+      name     => 'invalid_acronym_reference_1',
+      content  => '[ac:sml:bogus]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'ACRONYM NOT IN ACRONYM LIST',
+       has_valid_syntax => 1,
+       has_valid_semantics => 0,
+       valid_semantics_warning => 'ACRONYM NOT IN ACRONYM LIST',
       },
      },
 
      {
-      name    => 'incomplete_acronym_reference_1',
-      content => '[ac:sml:bogus',
+      name     => 'incomplete_acronym_reference_1',
+      content  => '[ac:sml:bogus',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID ACRONYM REFERENCE SYNTAX',
+       has_valid_syntax => 0,
+       has_valid_semantics => 0,
+       valid_syntax_warning => 'INVALID ACRONYM REFERENCE SYNTAX',
       },
      },
 
      {
-      name    => 'invalid_source_citation_1',
-      content => '[cite:bogus]',
+      name     => 'invalid_source_citation_1',
+      content  => '[cite:bogus]',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID SOURCE CITATION',
+       has_valid_syntax => 1,
+       has_valid_semantics => 0,
+       valid_semantics_warning => 'INVALID SOURCE CITATION',
       },
      },
 
      {
-      name    => 'incomplete_source_citation_1',
-      content => '[cite:bogus',
+      name     => 'incomplete_source_citation_1',
+      content  => '[cite:bogus',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
       expected =>
       {
-       warning => 'INVALID SOURCE CITATION SYNTAX',
+       has_valid_syntax => 0,
+       has_valid_semantics => 0,
+       valid_syntax_warning => 'INVALID SOURCE CITATION SYNTAX',
       },
      },
 
