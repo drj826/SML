@@ -1,0 +1,12 @@
+[%- SET document = self.get_containing_document -%]
+[%- SET docid = document.get_id -%]
+[%- SET tag = self.get_tag -%]
+[%- SET acronym = self.get_acronym -%]
+[%- SET namespace = self.get_namespace -%]
+[%- IF (tag == 'a') || (tag == 'ac') -%]
+\ac{[%acronym%]:[%namespace%]}
+[%- ELSIF (tag == 'acs') -%]
+\acs{[%acronym%]:[%namespace%]}
+[%- ELSIF (tag == 'acl') -%]
+\acl{[%acronym%]:[%namespace%]}
+[%- END -%]

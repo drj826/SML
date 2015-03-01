@@ -1,0 +1,5 @@
+[%- SET document = self.get_containing_document -%]
+[%- SET section_id = self.get_section_id -%]
+[%- SET footnote_num = self.get_number -%]
+[%- SET note = document.get_note(section_id,footnote_num) -%]
+\footnote{[%note.get_value%]}

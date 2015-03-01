@@ -1,0 +1,5 @@
+[%- IF self.has_content -%]
+[% self.get_content %]
+[%- ELSE -%]
+[% self.get_email_addr %]
+[%- END -%]
