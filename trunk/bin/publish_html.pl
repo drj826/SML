@@ -27,6 +27,9 @@ GetOptions
    "s|style:s"       => \$style,        # formatting style
   );
 
+die "you must provide a filespec (-f)" if not $filespec;
+die "you must provide a docid (-d)"    if not $docid;
+
 ######################################################################
 
 use lib "lib";
@@ -41,7 +44,7 @@ use SML::Library;
 
 my $library  = SML::Library->new(config_filename=>'library.conf');
 my $parser   = $library->get_parser;
-my $fragment = $parser->parse($filespec);
+my $fragment = $parser->create_fragment($filespec);
 my $document = $library->get_document($docid);
 
 die "DOCUMENT NOT IN LIBRARY: \'$docid\'" if not $document;
