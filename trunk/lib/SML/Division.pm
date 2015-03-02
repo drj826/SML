@@ -71,7 +71,6 @@ has 'containing_division' =>
    isa       => 'SML::Division',
    reader    => 'get_containing_division',
    writer    => 'set_containing_division',
-   clearer   => 'clear_containing_division',
    predicate => 'has_containing_division',
   );
 
@@ -80,59 +79,12 @@ has 'containing_division' =>
 
 ######################################################################
 
-has 'division_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_division_hash',
-   writer    => 'set_division_hash',
-   clearer   => 'clear_division_hash',
-   predicate => 'has_division_hash',
-   default   => sub {{}},
-  );
-
-# This datastructure contains division objects (contained by this one)
-# indexed by division ID.
-#
-#   $dh->{$divid} = $division;
-
-######################################################################
-
-has 'property_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_property_hash',
-   writer    => 'set_property_hash',
-   clearer   => 'clear_property_hash',
-   predicate => 'has_property_hash',
-   default   => sub {{}},
-  );
-
-# This datastructure contains property values indexed by name. Allowed
-# properties are defined in the SML ontology.  Every property has a
-# name and value.  The value is an SML::Property object.
-#
-#   $ph->{$property_name} = $property;
-
-######################################################################
-
-has 'attribute_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_attribute_hash',
-   writer    => 'set_attribute_hash',
-   clearer   => 'clear_attribute_hash',
-   predicate => 'has_attribute_hash',
-   default   => sub {{}},
-  );
-
-######################################################################
-
 has 'valid_syntax' =>
   (
    isa       => 'Bool',
    reader    => 'has_valid_syntax',
    lazy      => 1,
-   builder   => 'validate_syntax',
+   builder   => '_validate_syntax',
   );
 
 ######################################################################
@@ -142,7 +94,7 @@ has 'valid_semantics' =>
    isa       => 'Bool',
    reader    => 'has_valid_semantics',
    lazy      => 1,
-   builder   => 'validate_semantics',
+   builder   => '_validate_semantics',
   );
 
 # division conforms with property cardinality rules
@@ -150,6 +102,66 @@ has 'valid_semantics' =>
 # division elements conform with allowed value rules
 # division conforms with required property rules
 # division conforms with composition rules
+
+######################################################################
+
+has 'valid_property_cardinality' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_property_cardinality',
+   lazy      => 1,
+   builder   => '_validate_property_cardinality',
+  );
+
+######################################################################
+
+has 'valid_property_values' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_property_values',
+   lazy      => 1,
+   builder   => '_validate_property_values',
+  );
+
+######################################################################
+
+has 'valid_infer_only_conformance' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_infer_only_conformance',
+   lazy      => 1,
+   builder   => '_validate_infer_only_conformance',
+  );
+
+######################################################################
+
+has 'valid_required_properties' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_required_properties',
+   lazy      => 1,
+   builder   => '_validate_required_properties',
+  );
+
+######################################################################
+
+has 'valid_composition' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_composition',
+   lazy      => 1,
+   builder   => '_validate_composition',
+  );
+
+######################################################################
+
+has 'valid_id_uniqueness' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_id_uniqueness',
+   lazy      => 1,
+   builder   => '_validate_id_uniqueness',
+  );
 
 ######################################################################
 ######################################################################
@@ -165,12 +177,12 @@ sub add_division {
   my $division = shift;
   my $id       = $division->get_id;
 
-  if ( exists $self->get_division_hash->{$id} )
+  if ( exists $self->_get_division_hash->{$id} )
     {
       $logger->warn("DIVISION ALREADY EXISTS $id");
     }
 
-  $self->get_division_hash->{$id} = $division;
+  $self->_get_division_hash->{$id} = $division;
 
   return 1;
 }
@@ -201,7 +213,7 @@ sub add_part {
       return 0;
     }
 
-  $part->set_containing_division( $self );
+  $part->set_containing_division($self);
 
   push @{ $self->get_part_list }, $part;
 
@@ -218,7 +230,7 @@ sub add_property {
   my $property = shift;
   my $name     = $property->get_name;
 
-  $self->get_property_hash->{$name} = $property;
+  $self->_get_property_hash->{$name} = $property;
 
   return 1;
 }
@@ -230,11 +242,7 @@ sub add_property_element {
   my $self    = shift;
   my $element = shift;
 
-  $logger->debug("element: $element");
-
   my $name = $element->get_name;
-
-  $logger->debug("name: $name");
 
   if ( not $name )
     {
@@ -289,7 +297,7 @@ sub add_attribute {
 
   my $sml        = SML->instance;
   my $syntax     = $sml->get_syntax;
-  my $attributes = $self->get_attribute_hash;
+  my $attributes = $self->_get_attribute_hash;
   my $value      = $element->get_value;
 
   if ( $value =~ /$syntax->{key_value_pair}/xms )
@@ -321,7 +329,7 @@ sub contains_division {
   my $self = shift;
   my $id   = shift;
 
-  if ( defined $self->get_division_hash->{$id} )
+  if ( defined $self->_get_division_hash->{$id} )
     {
       return 1;
     }
@@ -339,7 +347,7 @@ sub has_property {
   my $self = shift;
   my $name = shift;
 
-  if ( exists $self->get_property_hash->{$name} )
+  if ( exists $self->_get_property_hash->{$name} )
     {
       return 1;
     }
@@ -380,7 +388,7 @@ sub has_attribute {
   my $self      = shift;
   my $attribute = shift;
 
-  if ( exists $self->get_attribute_hash->{$attribute} )
+  if ( exists $self->_get_attribute_hash->{$attribute} )
     {
       return 1;
     }
@@ -703,9 +711,9 @@ sub get_property_list {
   my $self = shift;
   my $list = [];
 
-  foreach my $name ( sort keys %{ $self->get_property_hash } )
+  foreach my $name ( sort keys %{ $self->_get_property_hash } )
     {
-      push @{ $list }, $self->get_property_hash->{$name};
+      push @{ $list }, $self->_get_property_hash->{$name};
     }
 
   return $list;
@@ -720,7 +728,7 @@ sub get_property {
 
   if ( $self->has_property($name) )
     {
-      return $self->get_property_hash->{$name};
+      return $self->_get_property_hash->{$name};
     }
 
   else
@@ -857,56 +865,56 @@ sub is_in_a {
 
 ######################################################################
 
-sub as_sml {
+# sub as_sml {
 
-  my $self = shift;
-  my $text = q{};
+#   my $self = shift;
+#   my $text = q{};
 
-  foreach my $block (@{ $self->get_block_list })
-    {
-      $text .= $block->as_sml;
-    }
+#   foreach my $block (@{ $self->get_block_list })
+#     {
+#       $text .= $block->as_sml;
+#     }
 
-  return $text;
-}
+#   return $text;
+# }
 
 ######################################################################
 
-sub as_text {
+# sub as_text {
 
-  my $self       = shift;
-  my $sml        = SML->instance;
-  my $syntax     = $sml->get_syntax;
-  my $lines      = $self->get_line_list;
-  my $text       = q{};
-  my $in_comment = 0;
+#   my $self       = shift;
+#   my $sml        = SML->instance;
+#   my $syntax     = $sml->get_syntax;
+#   my $lines      = $self->get_line_list;
+#   my $text       = q{};
+#   my $in_comment = 0;
 
- LINE:
-  foreach my $line (@{ $lines }) {
+#  LINE:
+#   foreach my $line (@{ $lines }) {
 
-    $_ = $line->get_content;
+#     $_ = $line->get_content;
 
-      #---------------------------------------------------------------
-      # Ignore comments
-      #
-      if ( /$syntax->{comment_marker}/xms ) {
-	if ( $in_comment ) {
-	  $in_comment = 0;
-	} else {
-	  $in_comment = 1;
-	}
-	next LINE;
-      } elsif ( $in_comment ) {
-	next LINE;
-      } elsif ( /$syntax->{comment_line}/xms ) {
-	next LINE;
-      }
+#       #---------------------------------------------------------------
+#       # Ignore comments
+#       #
+#       if ( /$syntax->{comment_marker}/xms ) {
+# 	if ( $in_comment ) {
+# 	  $in_comment = 0;
+# 	} else {
+# 	  $in_comment = 1;
+# 	}
+# 	next LINE;
+#       } elsif ( $in_comment ) {
+# 	next LINE;
+#       } elsif ( /$syntax->{comment_line}/xms ) {
+# 	next LINE;
+#       }
 
-    $text .= $_;
-  }
+#     $text .= $_;
+#   }
 
-  return $text;
-}
+#   return $text;
+# }
 
 ######################################################################
 
@@ -939,18 +947,106 @@ sub validate {
 }
 
 ######################################################################
+######################################################################
+##
+## Private Attributes
+##
+######################################################################
+######################################################################
 
-sub validate_syntax {
+has 'division_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_division_hash',
+   default   => sub {{}},
+  );
+
+# This datastructure contains division objects (contained by this one)
+# indexed by division ID.
+#
+#   $dh->{$divid} = $division;
+
+######################################################################
+
+has 'property_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_property_hash',
+   default   => sub {{}},
+  );
+
+# This datastructure contains property values indexed by name. Allowed
+# properties are defined in the SML ontology.  Every property has a
+# name and value.  The value is an SML::Property object.
+#
+#   $ph->{$property_name} = $property;
+
+######################################################################
+
+has 'attribute_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_attribute_hash',
+   default   => sub {{}},
+  );
+
+######################################################################
+######################################################################
+##
+## Private Methods
+##
+######################################################################
+######################################################################
+
+sub _line_ends_preamble {
+
+  $_ = shift;
+
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+
+  if (
+         /$syntax->{start_region}/xms
+      or /$syntax->{start_environment}/xms
+      or /$syntax->{start_section}/xms
+      or /$syntax->{generate_element}/xms
+      or /$syntax->{insert_element}/xms
+      or /$syntax->{template_element}/
+      or /$syntax->{include_element}/xms
+      or /$syntax->{script_element}/xms
+      or /$syntax->{outcome_element}/xms
+      or /$syntax->{review_element}/xms
+      or /$syntax->{index_element}/xms
+      or /$syntax->{glossary_element}/xms
+      or /$syntax->{list_item}/xms
+      or /$syntax->{paragraph_text}/xms
+      or /$syntax->{indented_text}/xms
+      or /$syntax->{table_cell}/xms
+     )
+    {
+      return 1;
+    }
+
+  else
+    {
+      return 0;
+    }
+
+}
+
+######################################################################
+
+sub _validate_syntax {
 
   my $self     = shift;
   my $valid    = 1;
   my $blocks   = $self->get_block_list;
   my $elements = $self->get_element_list;
 
-  if ( not $self->validate_id_uniqueness )
-    {
-      $valid = 0;
-    }
+  # if ( not $self->_validate_id_uniqueness )
+  #   {
+  #     $valid = 0;
+  #   }
 
   foreach my $block (@{ $blocks })
     {
@@ -971,9 +1067,10 @@ sub validate_syntax {
 
 ######################################################################
 
-sub validate_semantics {
+sub _validate_semantics {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $valid    = 1;
   my $blocks   = $self->get_block_list;
   my $elements = $self->get_element_list;
@@ -992,32 +1089,32 @@ sub validate_semantics {
       }
     }
 
-  if ( not $self->validate_property_cardinality )
+  if ( not $self->has_valid_property_cardinality )
     {
       $valid = 0;
     }
 
-  if ( not $self->validate_property_values )
+  if ( not $self->has_valid_property_values )
     {
       $valid = 0;
     }
 
-  if ( not $self->validate_infer_only_conformance )
+  if ( not $self->has_valid_infer_only_conformance )
     {
       $valid = 0;
     }
 
-  if ( not $self->validate_required_properties )
+  if ( not $self->has_valid_required_properties )
     {
       $valid = 0;
     }
 
-  if ( not $self->validate_composition )
+  if ( not $self->has_valid_composition )
     {
       $valid = 0;
     }
 
-  if ( not $self->validate_id_uniqueness )
+  if ( not $self->has_valid_id_uniqueness )
     {
       $valid = 0;
     }
@@ -1027,7 +1124,7 @@ sub validate_semantics {
 
 ######################################################################
 
-sub validate_property_cardinality {
+sub _validate_property_cardinality {
 
   my $self     = shift;
   my $valid    = 1;
@@ -1074,7 +1171,7 @@ sub validate_property_cardinality {
 
 ######################################################################
 
-sub validate_property_values {
+sub _validate_property_values {
 
   my $self     = shift;
   my $valid    = 1;
@@ -1127,9 +1224,10 @@ sub validate_property_values {
 
 ######################################################################
 
-sub validate_infer_only_conformance {
+sub _validate_infer_only_conformance {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $valid    = 1;
   my $seen     = {};
   # my $divtype  = $self->get_type;
@@ -1178,7 +1276,7 @@ sub validate_infer_only_conformance {
 
 ######################################################################
 
-sub validate_required_properties {
+sub _validate_required_properties {
 
   my $self     = shift;
   my $valid    = 1;
@@ -1211,7 +1309,7 @@ sub validate_required_properties {
 
 ######################################################################
 
-sub validate_composition {
+sub _validate_composition {
 
   # 1. Validate conformance with division composition rules.
   #
@@ -1264,7 +1362,7 @@ sub validate_composition {
 
 ######################################################################
 
-sub validate_id_uniqueness {
+sub _validate_id_uniqueness {
 
   my $self   = shift;
   my $valid  = 1;
@@ -1330,50 +1428,6 @@ sub validate_id_uniqueness {
 }
 
 ######################################################################
-######################################################################
-##
-## Private Methods
-##
-######################################################################
-######################################################################
-
-sub _line_ends_preamble {
-
-  $_ = shift;
-
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-
-  if (
-         /$syntax->{start_region}/xms
-      or /$syntax->{start_environment}/xms
-      or /$syntax->{start_section}/xms
-      or /$syntax->{generate_element}/xms
-      or /$syntax->{insert_element}/xms
-      or /$syntax->{template_element}/
-      or /$syntax->{include_element}/xms
-      or /$syntax->{script_element}/xms
-      or /$syntax->{outcome_element}/xms
-      or /$syntax->{review_element}/xms
-      or /$syntax->{index_element}/xms
-      or /$syntax->{glossary_element}/xms
-      or /$syntax->{list_item}/xms
-      or /$syntax->{paragraph_text}/xms
-      or /$syntax->{indented_text}/xms
-      or /$syntax->{table_cell}/xms
-     )
-    {
-      return 1;
-    }
-
-  else
-    {
-      return 0;
-    }
-
-}
-
-######################################################################
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
@@ -1423,21 +1477,6 @@ Get a sequential list of environments contained in this division.
 =head2 get_region_list
 
 Get a sequential list of regions contained in this division.
-
-=head2 get_division_hash
-
-Get a hash, indexed by division ID, of all divisions contained by this
-division.
-
-=head2 get_property_hash
-
-Get a hash, indexed by property name, of all property values of this
-division.
-
-=head2 get_attribute_hash
-
-Get a hash, indexed by attribute name, of all attribute values of this
-division.
 
 =head2 get_html
 
