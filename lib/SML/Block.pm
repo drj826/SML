@@ -88,7 +88,7 @@ has 'valid_syntax' =>
    isa       => 'Bool',
    reader    => 'has_valid_syntax',
    lazy      => 1,
-   builder   => 'validate_syntax',
+   builder   => '_validate_syntax',
   );
 
 ######################################################################
@@ -98,7 +98,7 @@ has 'valid_semantics' =>
    isa       => 'Bool',
    reader    => 'has_valid_semantics',
    lazy      => 1,
-   builder   => 'validate_semantics',
+   builder   => '_validate_semantics',
   );
 
 ######################################################################
@@ -234,156 +234,6 @@ sub is_in_a {
     }
 
   return 0;
-}
-
-######################################################################
-
-sub validate_syntax {
-
-  # Validate the syntax of this block.  Syntax validation is possible
-  # even if the block is not in a document or library context.
-
-  my $self  = shift;
-  my $valid = 1;
-
-  if ( not $self->validate_bold_markup )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_italics_markup )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_fixedwidth_markup )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_underline_markup )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_superscript_markup )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_subscript_markup )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_inline_tags )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_cross_ref_syntax )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_id_ref_syntax )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_page_ref_syntax )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_glossary_term_ref_syntax )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_glossary_def_ref_syntax )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_acronym_ref_syntax )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_source_citation_syntax )
-    {
-      $valid = 0;
-    }
-
-  return $valid;
-}
-
-######################################################################
-
-sub validate_semantics {
-
-  # Validate the semantics of this block.
-
-  my $self  = shift;
-  my $valid = 1;
-
-  if ( not $self->validate_cross_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_id_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_page_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_theversion_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_therevision_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_thedate_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_status_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_glossary_term_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_glossary_def_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_acronym_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_source_citations )
-    {
-      $valid = 0;
-    }
-
-  return $valid;
 }
 
 ######################################################################
@@ -4021,6 +3871,156 @@ sub _render_latex_email_addresses {
   # Do nothing.
 
   return $latex;
+}
+
+######################################################################
+
+sub _validate_syntax {
+
+  # Validate the syntax of this block.  Syntax validation is possible
+  # even if the block is not in a document or library context.
+
+  my $self  = shift;
+  my $valid = 1;
+
+  if ( not $self->validate_bold_markup )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_italics_markup )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_fixedwidth_markup )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_underline_markup )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_superscript_markup )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_subscript_markup )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_inline_tags )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_cross_ref_syntax )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_id_ref_syntax )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_page_ref_syntax )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_glossary_term_ref_syntax )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_glossary_def_ref_syntax )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_acronym_ref_syntax )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_source_citation_syntax )
+    {
+      $valid = 0;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_semantics {
+
+  # Validate the semantics of this block.
+
+  my $self  = shift;
+  my $valid = 1;
+
+  if ( not $self->validate_cross_refs )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_id_refs )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_page_refs )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_theversion_refs )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_therevision_refs )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_thedate_refs )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_status_refs )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_glossary_term_refs )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_glossary_def_refs )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_acronym_refs )
+    {
+      $valid = 0;
+    }
+
+  if ( not $self->validate_source_citations )
+    {
+      $valid = 0;
+    }
+
+  return $valid;
 }
 
 ######################################################################
