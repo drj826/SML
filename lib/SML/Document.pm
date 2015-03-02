@@ -832,12 +832,12 @@ sub validate {
 	  next;
 	}
 
-      if ( not $division->validate_semantics )
+      if ( not $division->has_valid_semantics )
 	{
 	  $valid = 0;
 	}
 
-      if ( not $division->validate_composition )
+      if ( not $division->has_valid_composition )
 	{
 	  $valid = 0;
 	}
@@ -993,26 +993,6 @@ sub end_html {
 
 ######################################################################
 
-# sub division_with_id {
-
-#   # return the division with the specified ID.
-
-#   my $self = shift;
-#   my $id   = shift;
-
-#   if ( defined $self->get_division_hash->{$id} )
-#     {
-#       return $self->get_division_hash->{$id};
-#     }
-
-#   else
-#     {
-#       return undef;
-#     }
-# }
-
-######################################################################
-
 sub replace_division_id {
 
   # This is a hack.  I should change the syntax of the division start
@@ -1024,13 +1004,13 @@ sub replace_division_id {
   my $division = shift;
   my $id       = shift;
 
-  foreach my $stored_id (keys %{ $self->get_division_hash })
+  foreach my $stored_id (keys %{ $self->_get_division_hash })
     {
-      my $stored_division = $self->get_division_hash->{$stored_id};
+      my $stored_division = $self->_get_division_hash->{$stored_id};
       if ( $stored_division == $division )
 	{
-	  delete $self->get_division_hash->{$stored_id};
-	  $self->get_division_hash->{$id} = $division;
+	  delete $self->_get_division_hash->{$stored_id};
+	  $self->_get_division_hash->{$id} = $division;
 	}
     }
 
