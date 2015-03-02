@@ -157,22 +157,6 @@ has 'entity_hash' =>
 
 ######################################################################
 
-has 'division_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_division_hash',
-   writer    => '_set_division_hash',
-   clearer   => '_clear_division_hash',
-   predicate => '_has_division_hash',
-   default   => sub {{}},
-  );
-
-# This is a hash of all divisions indexed by division ID.
-#
-#   my $division = $dh->{$id};
-
-######################################################################
-
 has 'property_hash' =>
   (
    isa       => 'HashRef',
@@ -406,7 +390,7 @@ sub add_division {
   if ( $division->isa('SML::Division') )
     {
       my $id = $division->get_id;
-      $self->get_division_hash->{$id} = $division;
+      $self->_get_division_hash->{$id} = $division;
       return 1;
     }
 
@@ -670,7 +654,7 @@ sub has_division {
   my $self = shift;
   my $id   = shift;
 
-  if ( exists $self->get_division_hash->{$id} )
+  if ( exists $self->_get_division_hash->{$id} )
     {
       return 1;
     }
@@ -689,9 +673,9 @@ sub has_property {
   my $id   = shift;
   my $name = shift;
 
-  if ( exists $self->get_division_hash->{$id} )
+  if ( exists $self->_get_division_hash->{$id} )
     {
-      my $division = $self->get_division_hash->{$id};
+      my $division = $self->_get_division_hash->{$id};
 
       if ( $division->has_property($name) )
 	{
@@ -824,7 +808,7 @@ sub get_fragment_list {
   my $self = shift;
   my $list = [];
 
-  foreach my $division ( values %{ $self->get_division_hash })
+  foreach my $division ( values %{ $self->_get_division_hash })
     {
       if ( $division->isa('SML::Fragment') )
 	{
@@ -859,7 +843,7 @@ sub get_document_list {
 
   my $list = [];
 
-  foreach my $division ( values %{ $self->get_division_hash })
+  foreach my $division ( values %{ $self->_get_division_hash })
     {
       if ( $division->isa('SML::Document') )
 	{
@@ -896,9 +880,9 @@ sub get_division {
   my $self = shift;
   my $id   = shift;
 
-  if ( exists $self->get_division_hash->{$id} )
+  if ( exists $self->_get_division_hash->{$id} )
     {
-      return $self->get_division_hash->{$id};
+      return $self->_get_division_hash->{$id};
     }
 
   else
@@ -916,9 +900,9 @@ sub get_property {
   my $id   = shift;
   my $name = shift;
 
-  if ( exists $self->get_division_hash->{$id} )
+  if ( exists $self->_get_division_hash->{$id} )
     {
-      my $division = $self->get_division_hash->{$id};
+      my $division = $self->_get_division_hash->{$id};
 
       if ( $division->has_property($name) )
 	{
@@ -1102,9 +1086,9 @@ sub get_type {
   my $value = shift;
   my $name  = q{};
 
-  if ( defined $self->get_division_hash->{$value} )
+  if ( defined $self->_get_division_hash->{$value} )
     {
-      my $division = $self->get_division_hash->{$value};
+      my $division = $self->_get_division_hash->{$value};
       return $division->get_name;
     }
 
@@ -1443,11 +1427,11 @@ sub summarize_divisions {
      TABLEROW  => 1,
     };
 
-  if ( keys %{ $self->get_division_hash } )
+  if ( keys %{ $self->_get_division_hash } )
     {
       $summary .= "Divisions:\n\n";
 
-      foreach my $division (sort by_division_name_and_id values %{ $self->get_division_hash })
+      foreach my $division (sort by_division_name_and_id values %{ $self->_get_division_hash })
 	{
 	  my $id      = $division->get_id;
 	  my $divname = $division->get_name;
@@ -1705,13 +1689,13 @@ sub replace_division_id {
   my $division = shift;
   my $id       = shift;
 
-  foreach my $stored_id (keys %{ $self->get_division_hash })
+  foreach my $stored_id (keys %{ $self->_get_division_hash })
     {
-      my $stored_division = $self->get_division_hash->{$stored_id};
+      my $stored_division = $self->_get_division_hash->{$stored_id};
       if ( $stored_division == $division )
 	{
-	  delete $self->get_division_hash->{$stored_id};
-	  $self->get_division_hash->{$id} = $division;
+	  delete $self->_get_division_hash->{$stored_id};
+	  $self->_get_division_hash->{$id} = $division;
 	}
     }
 
@@ -1925,6 +1909,22 @@ has 'document_hash' =>
 # This is the collection of documents in the library.  The keys of
 # this hash are the document IDs and the values are the document
 # objects.
+
+######################################################################
+
+has 'division_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_division_hash',
+   writer    => '_set_division_hash',
+   clearer   => '_clear_division_hash',
+   predicate => '_has_division_hash',
+   default   => sub {{}},
+  );
+
+# This is a hash of all divisions indexed by division ID.
+#
+#   my $division = $dh->{$id};
 
 ######################################################################
 ######################################################################
@@ -2416,8 +2416,6 @@ document fragments.
 =head2 get_script_file_list
 
 =head2 get_entity_hash
-
-=head2 get_division_hash
 
 =head2 get_property_hash
 
