@@ -82,7 +82,7 @@ sub get_value {
 
 ######################################################################
 
-override 'validate_syntax' => sub {
+override '_validate_syntax' => sub {
 
   my $self  = shift;
   my $name  = $self->get_name;
@@ -101,7 +101,7 @@ override 'validate_syntax' => sub {
 
 ######################################################################
 
-override 'validate_semantics' => sub {
+override '_validate_semantics' => sub {
 
   # Validate there is an ontology rule for this element. In other
   # words, validate the ontology allows this element.
