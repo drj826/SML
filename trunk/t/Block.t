@@ -86,8 +86,6 @@ my @public_methods =
    'get_first_line',
    'get_location',
    'is_in_a',
-   'validate_syntax',
-   'validate_semantics',
    'validate_bold_markup',
    'validate_italics_markup',
    'validate_fixedwidth_markup',
@@ -132,40 +130,17 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{ $tcl })
   {
-    if ( defined $tc->{expected}{html}{default} )
-      {
-	_renders_ok($tc,'html','default');
-      }
-
-    if ( defined $tc->{expected}{latex}{default} )
-      {
-    	_renders_ok($tc,'latex','default');
-      }
-
-    if ( defined $tc->{expected}{has_valid_syntax} )
-      {
-	_has_valid_syntax_ok($tc);
-      }
-
-    if ( defined $tc->{expected}{valid_syntax_warning} )
-      {
-	_valid_syntax_warning_ok($tc);
-      }
-
-    if ( defined $tc->{expected}{has_valid_semantics} )
-      {
-	_has_valid_semantics_ok($tc);
-      }
-
-    if ( defined $tc->{expected}{valid_semantics_warning} )
-      {
-	_valid_semantics_warning_ok($tc);
-      }
+    renders_ok($tc,'html','default')  if defined $tc->{expected}{html}{default};
+    renders_ok($tc,'latex','default') if defined $tc->{expected}{latex}{default};
+    has_valid_syntax_ok($tc)          if defined $tc->{expected}{has_valid_syntax};
+    valid_syntax_warning_ok($tc)      if defined $tc->{expected}{valid_syntax_warning};
+    has_valid_semantics_ok($tc)       if defined $tc->{expected}{has_valid_semantics};
+    valid_semantics_warning_ok($tc)   if defined $tc->{expected}{valid_semantics_warning};
   }
 
 ######################################################################
 
-sub _renders_ok {
+sub renders_ok {
 
   my $tc        = shift;                # test case
   my $rendition = shift;                # e.g. html
@@ -199,7 +174,7 @@ sub _renders_ok {
 
 ######################################################################
 
-sub _has_valid_syntax_ok {
+sub has_valid_syntax_ok {
 
   my $tc        = shift;                # test case
 
@@ -231,7 +206,7 @@ sub _has_valid_syntax_ok {
 
 ######################################################################
 
-sub _has_valid_semantics_ok {
+sub has_valid_semantics_ok {
 
   my $tc = shift;                       # test case
 
@@ -263,7 +238,7 @@ sub _has_valid_semantics_ok {
 
 ######################################################################
 
-sub _valid_syntax_warning_ok {
+sub valid_syntax_warning_ok {
 
   my $tc = shift;                       # test case
 
@@ -298,7 +273,7 @@ sub _valid_syntax_warning_ok {
 
 ######################################################################
 
-sub _valid_semantics_warning_ok {
+sub valid_semantics_warning_ok {
 
   my $tc = shift;                       # test case
 

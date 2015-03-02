@@ -3,7 +3,7 @@
 # $Id$
 
 use lib "..";
-use Test::More tests => 61;
+use Test::More;
 
 use SML;
 
@@ -16,491 +16,12 @@ use Test::Log4perl;
 # Test Data
 #---------------------------------------------------------------------
 
-my $testdata =
-  {
+use SML::TestData;
 
-   init_test_1 =>
-   {
-    name     => 'test-division',
-    id       => 'td',
-    expected => '1',
-   },
-
-   get_id_test_1 =>
-   {
-    name     => 'test-division',
-    id       => 'td',
-    expected => 'td',
-   },
-
-   get_name_test_1 =>
-   {
-    name     => 'test-division',
-    id       => 'td',
-    expected => 'test-division',
-   },
-
-   get_number_test_1 =>
-   {
-    name      => 'test-division',
-    id        => 'td',
-    number    => '4-4-4',
-    expected  => '4-4-4',
-   },
-
-   get_containing_division_test_1 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'td-000020',
-    config    => 'library.conf',
-    expected  => 'SML::Fragment',
-   },
-
-   get_containing_division_test_2 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'introduction',
-    config    => 'library.conf',
-    expected  => 'SML::Document',
-   },
-
-   get_containing_division_test_3 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'problem-1',
-    config    => 'library.conf',
-    expected  => 'SML::Section',
-   },
-
-   get_containing_division_test_4 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'tab-solution-types',
-    config    => 'library.conf',
-    expected  => 'SML::Section',
-   },
-
-   get_part_list_test_1 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'td-000020',
-    config    => 'library.conf',
-    expected  => 22,
-   },
-
-   get_part_list_test_2 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'introduction',
-    config    => 'library.conf',
-    expected  => 7,
-   },
-
-   get_part_list_test_3 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'problem-1',
-    config    => 'library.conf',
-    expected  => 11,
-   },
-
-   get_part_list_test_4 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'tab-solution-types',
-    config    => 'library.conf',
-    expected  => 10,
-   },
-
-   get_line_list_test_1 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'td-000020',
-    config    => 'library.conf',
-    expected  => 216,
-   },
-
-   get_line_list_test_2 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'introduction',
-    config    => 'library.conf',
-    expected  => 17,
-   },
-
-   get_line_list_test_3 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'problem-1',
-    config    => 'library.conf',
-    expected  => 42,
-   },
-
-   get_line_list_test_4 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'tab-solution-types',
-    config    => 'library.conf',
-    expected  => 30,
-   },
-
-   get_division_list_test_1 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'td-000020',
-    config    => 'library.conf',
-    expected  => 32,
-   },
-
-   get_division_list_test_2 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'introduction',
-    config    => 'library.conf',
-    expected  => 0,
-   },
-
-   get_division_list_test_3 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'problem-1',
-    config    => 'library.conf',
-    expected  => 10,
-   },
-
-   get_division_list_test_4 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'tab-solution-types',
-    config    => 'library.conf',
-    expected  => 12,
-   },
-
-   get_section_list_test_1 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'td-000020',
-    config    => 'library.conf',
-    expected  => 5,
-   },
-
-   get_block_list_test_1 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'td-000020',
-    config    => 'library.conf',
-    expected  => 93,
-   },
-
-   get_block_list_test_2 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'introduction',
-    config    => 'library.conf',
-    expected  => 7,
-   },
-
-   get_block_list_test_3 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'problem-1',
-    config    => 'library.conf',
-    expected  => 19,
-   },
-
-   get_block_list_test_4 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'tab-solution-types',
-    config    => 'library.conf',
-    expected  => 15,
-   },
-
-   get_element_list_test_1 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'td-000020',
-    config    => 'library.conf',
-    expected  => 40,
-   },
-
-   get_element_list_test_2 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'introduction',
-    config    => 'library.conf',
-    expected  => 4,
-   },
-
-   get_element_list_test_3 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'problem-1',
-    config    => 'library.conf',
-    expected  => 6,
-   },
-
-   get_element_list_test_4 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'tab-solution-types',
-    config    => 'library.conf',
-    expected  => 2,
-   },
-
-   get_preamble_line_list_test_1 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'td-000020',
-    config    => 'library.conf',
-    expected  => 18,
-   },
-
-   get_preamble_line_list_test_2 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'introduction',
-    config    => 'library.conf',
-    expected  => 4,
-   },
-
-   get_preamble_line_list_test_3 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'problem-1',
-    config    => 'library.conf',
-    expected  => 12,
-   },
-
-   get_preamble_line_list_test_4 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'tab-solution-types',
-    config    => 'library.conf',
-    expected  => 4,
-   },
-
-   get_narrative_line_list_test_1 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'td-000020',
-    config    => 'library.conf',
-    expected  => 195,
-   },
-
-   get_narrative_line_list_test_2 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'introduction',
-    config    => 'library.conf',
-    expected  => 9,
-   },
-
-   get_narrative_line_list_test_3 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'problem-1',
-    config    => 'library.conf',
-    expected  => 26,
-   },
-
-   get_narrative_line_list_test_4 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'tab-solution-types',
-    config    => 'library.conf',
-    expected  => 22,
-   },
-
-   get_first_part_test_1 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'td-000020',
-    config    => 'library.conf',
-    expected  => 'SML::PreformattedBlock',
-   },
-
-   get_first_part_test_2 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'introduction',
-    config    => 'library.conf',
-    expected  => 'SML::Element',
-   },
-
-   get_first_part_test_3 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'problem-1',
-    config    => 'library.conf',
-    expected  => 'SML::PreformattedBlock',
-   },
-
-   get_first_part_test_4 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'tab-solution-types',
-    config    => 'library.conf',
-    expected  => 'SML::PreformattedBlock',
-   },
-
-   get_first_line_test_1 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'td-000020',
-    config    => 'library.conf',
-    expected  => '>>>DOCUMENT',
-   },
-
-   get_first_line_test_2 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'introduction',
-    config    => 'library.conf',
-    expected  => '* Introduction',
-   },
-
-   get_first_line_test_3 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'problem-1',
-    config    => 'library.conf',
-    expected  => '>>>problem',
-   },
-
-   get_first_line_test_4 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'tab-solution-types',
-    config    => 'library.conf',
-    expected  => '---TABLE',
-   },
-
-   get_property_list_test_1 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'td-000020',
-    config    => 'library.conf',
-    expected  => 9,
-   },
-
-   get_property_list_test_2 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'introduction',
-    config    => 'library.conf',
-    expected  => 4,
-   },
-
-   get_property_list_test_3 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'problem-1',
-    config    => 'library.conf',
-    expected  => 6,
-   },
-
-   get_property_list_test_4 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'tab-solution-types',
-    config    => 'library.conf',
-    expected  => 2,
-   },
-
-   get_property_test_1 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'td-000020',
-    name      => 'title',
-    config    => 'library.conf',
-    expected  => 'SML::Property',
-   },
-
-   get_property_test_2 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'introduction',
-    name      => 'type',
-    config    => 'library.conf',
-    expected  => 'SML::Property',
-   },
-
-   get_property_test_3 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'problem-1',
-    name      => 'title',
-    config    => 'library.conf',
-    expected  => 'SML::Property',
-   },
-
-   get_property_test_4 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'tab-solution-types',
-    name      => 'id',
-    config    => 'library.conf',
-    expected  => 'SML::Property',
-   },
-
-   get_property_value_test_1 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'td-000020',
-    name      => 'title',
-    config    => 'library.conf',
-    expected  => 'Section Structure With Regions',
-   },
-
-   get_property_value_test_2 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'introduction',
-    name      => 'type',
-    config    => 'library.conf',
-    expected  => 'chapter',
-   },
-
-   get_property_value_test_3 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'problem-1',
-    name      => 'title',
-    config    => 'library.conf',
-    expected  => 'Problem One',
-   },
-
-   get_property_value_test_4 =>
-   {
-    testfile  => 'td-000020.txt',
-    divid     => 'tab-solution-types',
-    name      => 'id',
-    config    => 'library.conf',
-    expected  => 'tab-solution-types',
-   },
-
-   invalid_explicit_property_declaration =>
-   {
-    testfile  => 'library/testdata/td-000063.txt',
-    warning_1 => 'INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY',
-    warning_2 => 'THE FRAGMENT IS NOT VALID',
-   },
-
-   missing_required_property =>
-   {
-    testfile  => 'library/testdata/td-000064.txt',
-    warning_1 => 'MISSING REQUIRED PROPERTY',
-    warning_2 => 'THE FRAGMENT IS NOT VALID',
-   },
-
-   get_id_path_test_1 =>
-   {
-    testfile  => 'td-000020.txt',
-    config    => 'library.conf',
-   },
-
-  };
+my $td      = SML::TestData->new();               # test data object
+my $tcl     = $td->get_division_test_case_list;   # test case list
+my $library = $td->get_library;
+my $parser  = $library->get_parser;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -524,19 +45,65 @@ isa_ok( $obj, 'SML::Division' );
 
 my @public_methods =
   (
-   'init',
-
+   # SML::Part public attribute accessors
    'get_id',
+   'set_id',
    'get_id_path',
+   'get_type',
    'get_name',
-   'get_number',
-   'get_containing_division',
+   'get_content',
+   'set_content',
    'get_part_list',
-   'get_line_list',
+
+   # SML::Part public methods
+   'init',
+   'has_content',
+   'has_parts',
+   'has_part',
+   'get_part',
+   'add_part',
+   'get_containing_document',
+   'is_in_section',
+   'get_containing_section',
+   'render',
+   'dump_part_structure',
+   'get_library',
+
+   # SML::Division public attribute accessors
+   'get_number',
+   'set_number',
+   'get_previous_number',
+   'set_previous_number',
+   'get_next_number',
+   'set_next_number',
+   'get_containing_division',
+   'set_containing_division',
+   'has_containing_division',
+   'has_valid_syntax',
+   'has_valid_semantics',
+   'has_valid_property_cardinality',
+   'has_valid_property_values',
+   'has_valid_infer_only_conformance',
+   'has_valid_required_properties',
+   'has_valid_composition',
+   'has_valid_id_uniqueness',
+
+   # SML::Division public methods
+   'add_division',
+   'add_part',
+   'add_property',
+   'add_property_element',
+   'add_attribute',
+   'contains_division',
+   'has_property',
+   'has_property_value',
+   'has_attribute',
    'get_division_list',
+   'has_sections',
    'get_section_list',
    'get_block_list',
    'get_element_list',
+   'get_line_list',
    'get_preamble_line_list',
    'get_narrative_line_list',
    'get_first_part',
@@ -547,34 +114,8 @@ my @public_methods =
    'get_containing_document',
    'get_location',
    'get_section',
-   'get_division_hash',
-   'get_property_hash',
-   'get_attribute_hash',
-
-   'has_valid_semantics',
-   'has_property',
-   'has_property_value',
-   'has_attribute',
-
-   'add_division',
-   'add_part',
-   'add_property',
-   'add_property_element',
-   'add_attribute',
-
-   'validate_semantics',
-
-   'validate_property_cardinality',
-   'validate_property_values',
-   'validate_infer_only_conformance',
-   'validate_required_properties',
-   'validate_composition',
-   'validate_id_uniqueness',
-
-   'contains_division',
    'is_in_a',
-   'as_sml',
-   'as_text',
+   'validate',
   );
 
 can_ok( $obj, @public_methods );
@@ -583,527 +124,438 @@ can_ok( $obj, @public_methods );
 # Returns expected values?
 #---------------------------------------------------------------------
 
-init_ok('init_test_1');
-
-get_id_ok('get_id_test_1');
-
-get_name_ok('get_name_test_1');
-
-get_number_ok('get_number_test_1');
-
-get_containing_division_ok('get_containing_division_test_1');
-get_containing_division_ok('get_containing_division_test_2');
-get_containing_division_ok('get_containing_division_test_3');
-get_containing_division_ok('get_containing_division_test_4');
-
-get_part_list_ok('get_part_list_test_1');
-get_part_list_ok('get_part_list_test_2');
-get_part_list_ok('get_part_list_test_3');
-get_part_list_ok('get_part_list_test_4');
-
-get_line_list_ok('get_line_list_test_1');
-get_line_list_ok('get_line_list_test_2');
-get_line_list_ok('get_line_list_test_3');
-get_line_list_ok('get_line_list_test_4');
-
-get_division_list_ok('get_division_list_test_1');
-get_division_list_ok('get_division_list_test_2');
-get_division_list_ok('get_division_list_test_3');
-get_division_list_ok('get_division_list_test_4');
-
-get_section_list_ok('get_section_list_test_1');
-
-get_block_list_ok('get_block_list_test_1');
-get_block_list_ok('get_block_list_test_2');
-get_block_list_ok('get_block_list_test_3');
-get_block_list_ok('get_block_list_test_4');
-
-get_element_list_ok('get_element_list_test_1');
-get_element_list_ok('get_element_list_test_2');
-get_element_list_ok('get_element_list_test_3');
-get_element_list_ok('get_element_list_test_4');
-
-get_preamble_line_list_ok('get_preamble_line_list_test_1');
-get_preamble_line_list_ok('get_preamble_line_list_test_2');
-get_preamble_line_list_ok('get_preamble_line_list_test_3');
-get_preamble_line_list_ok('get_preamble_line_list_test_4');
-
-get_narrative_line_list_ok('get_narrative_line_list_test_1');
-get_narrative_line_list_ok('get_narrative_line_list_test_2');
-get_narrative_line_list_ok('get_narrative_line_list_test_3');
-get_narrative_line_list_ok('get_narrative_line_list_test_4');
-
-get_first_part_ok('get_first_part_test_1');
-get_first_part_ok('get_first_part_test_2');
-get_first_part_ok('get_first_part_test_3');
-get_first_part_ok('get_first_part_test_4');
-
-get_first_line_ok('get_first_line_test_1');
-get_first_line_ok('get_first_line_test_2');
-get_first_line_ok('get_first_line_test_3');
-get_first_line_ok('get_first_line_test_4');
-
-get_property_list_ok('get_property_list_test_1');
-get_property_list_ok('get_property_list_test_2');
-get_property_list_ok('get_property_list_test_3');
-get_property_list_ok('get_property_list_test_4');
-
-get_property_ok('get_property_test_1');
-get_property_ok('get_property_test_2');
-get_property_ok('get_property_test_3');
-get_property_ok('get_property_test_4');
-
-get_property_value_ok('get_property_value_test_1');
-get_property_value_ok('get_property_value_test_2');
-get_property_value_ok('get_property_value_test_3');
-get_property_value_ok('get_property_value_test_4');
-
-get_id_path_ok('get_id_path_test_1');
+foreach my $tc (@{ $tcl })
+  {
+    init_ok($tc)                    if defined $tc->{expected}{init};
+    get_id_ok($tc)                  if defined $tc->{expected}{get_id};
+    get_name_ok($tc)                if defined $tc->{expected}{get_name};
+    get_number_ok($tc)              if defined $tc->{expected}{get_number};
+    get_containing_division_ok($tc) if defined $tc->{expected}{get_containing_division};
+    get_part_list_ok($tc)           if defined $tc->{expected}{get_part_list};
+    get_line_list_ok($tc)           if defined $tc->{expected}{get_line_list};
+    get_division_list_ok($tc)       if defined $tc->{expected}{get_division_list};
+    get_section_list_ok($tc)        if defined $tc->{expected}{get_section_list};
+    get_block_list_ok($tc)          if defined $tc->{expected}{get_block_list};
+    get_element_list_ok($tc)        if defined $tc->{expected}{get_element_list};
+    get_preamble_line_list_ok($tc)  if defined $tc->{expected}{get_preamble_line_list};
+    get_narrative_line_list_ok($tc) if defined $tc->{expected}{get_narrative_line_list};
+    get_first_part_ok($tc)          if defined $tc->{expected}{get_first_part};
+    get_first_line_ok($tc)          if defined $tc->{expected}{get_first_line};
+    get_property_list_ok($tc)       if defined $tc->{expected}{get_property_list};
+    get_property_ok($tc)            if defined $tc->{expected}{get_property};
+    get_property_value_ok($tc)      if defined $tc->{expected}{get_property_value};
+    valid_semantics_warning_ok($tc) if defined $tc->{expected}{valid_semantics_warning};
+  }
 
 #---------------------------------------------------------------------
 # Throws expected exceptions?
 #---------------------------------------------------------------------
 
-# warning_ok( 'invalid_explicit_property_declaration' );
-# warning_ok( 'missing_required_property' );
-
-######################################################################
-
-sub get_id_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $id       = $testdata->{$testid}{id};
-  my $name     = $testdata->{$testid}{name};
-  my $expected = $testdata->{$testid}{expected};
-  my $division = SML::Division->new(id=>$id,name=>$name);
-
-  # act
-  my $result   = $division->get_id;
-
-  # assert
-  is($result, $expected, "get_id $testid");
-}
-
-######################################################################
-
-sub get_name_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $id       = $testdata->{$testid}{id};
-  my $name     = $testdata->{$testid}{name};
-  my $expected = $testdata->{$testid}{expected};
-  my $division = SML::Division->new(id=>$id,name=>$name);
-
-  # act
-  my $result   = $division->get_name;
-
-  # assert
-  is($result, $expected, "get_name $testid");
-}
-
-######################################################################
-
-sub get_number_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $id       = $testdata->{$testid}{id};
-  my $name     = $testdata->{$testid}{name};
-  my $number   = $testdata->{$testid}{number};
-  my $expected = $testdata->{$testid}{expected};
-  my $division = SML::Division->new(id=>$id,name=>$name);
-
-  $division->set_number($number);
-
-  # act
-  my $result   = $division->get_number;
-
-  # assert
-  is($result, $expected, "get_number $testid");
-}
-
-######################################################################
-
-sub get_containing_division_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $testfile = $testdata->{$testid}{testfile};
-  my $divid    = $testdata->{$testid}{divid};
-  my $config   = $testdata->{$testid}{config};
-  my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filename=>$config);
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
-  my $division = $library->get_division($divid);
-
-  # act
-  my $result   = $division->get_containing_division;
-
-  # assert
-  isa_ok($result, $expected, "get_containing_division ($divid) $result");
-}
-
-######################################################################
-
-sub get_part_list_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $testfile = $testdata->{$testid}{testfile};
-  my $divid    = $testdata->{$testid}{divid};
-  my $config   = $testdata->{$testid}{config};
-  my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filename=>$config);
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
-  my $division = $library->get_division($divid);
-
-  # act
-  my $result   = scalar @{ $division->get_part_list };
-
-  # assert
-  is($result, $expected, "$testid ($divid part count) $result");
-}
-
-######################################################################
-
-sub get_line_list_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $testfile = $testdata->{$testid}{testfile};
-  my $divid    = $testdata->{$testid}{divid};
-  my $config   = $testdata->{$testid}{config};
-  my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filename=>$config);
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
-  my $division = $library->get_division($divid);
-
-  # act
-  my $result   = scalar @{ $division->get_line_list };
-
-  # assert
-  is($result, $expected, "get_line_list ($divid line count) $result");
-}
-
-######################################################################
-
-sub get_division_list_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $testfile = $testdata->{$testid}{testfile};
-  my $divid    = $testdata->{$testid}{divid};
-  my $config   = $testdata->{$testid}{config};
-  my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filename=>$config);
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
-  my $division = $library->get_division($divid);
-
-  # act
-  my $result   = scalar @{ $division->get_division_list };
-
-  # assert
-  is($result, $expected, "get_division_list ($divid division count) $result");
-}
-
-######################################################################
-
-sub get_section_list_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $testfile = $testdata->{$testid}{testfile};
-  my $divid    = $testdata->{$testid}{divid};
-  my $config   = $testdata->{$testid}{config};
-  my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filename=>$config);
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
-  my $division = $library->get_division($divid);
-
-  # act
-  my $result   = scalar @{ $division->get_section_list };
-
-  # assert
-  is($result, $expected, "get_section_list ($divid section count) $result");
-}
-
-######################################################################
-
-sub get_block_list_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $testfile = $testdata->{$testid}{testfile};
-  my $divid    = $testdata->{$testid}{divid};
-  my $config   = $testdata->{$testid}{config};
-  my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filename=>$config);
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
-  my $division = $library->get_division($divid);
-
-  # act
-  my $result   = scalar @{ $division->get_block_list };
-
-  # assert
-  is($result, $expected, "get_block_list ($divid block count) $result");
-}
-
-######################################################################
-
-sub get_element_list_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $testfile = $testdata->{$testid}{testfile};
-  my $divid    = $testdata->{$testid}{divid};
-  my $config   = $testdata->{$testid}{config};
-  my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filename=>$config);
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
-  my $division = $library->get_division($divid);
-
-  # act
-  my $result   = scalar @{ $division->get_element_list };
-
-  # assert
-  is($result, $expected, "get_element_list ($divid element count) $result");
-}
-
-######################################################################
-
-sub get_preamble_line_list_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $testfile = $testdata->{$testid}{testfile};
-  my $divid    = $testdata->{$testid}{divid};
-  my $config   = $testdata->{$testid}{config};
-  my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filename=>$config);
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
-  my $division = $library->get_division($divid);
-
-  # act
-  my $result   = scalar @{ $division->get_preamble_line_list };
-
-  # assert
-  is($result, $expected, "get_preamble_line_list ($divid preamble line count) $result");
-}
-
-######################################################################
-
-sub get_narrative_line_list_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $testfile = $testdata->{$testid}{testfile};
-  my $divid    = $testdata->{$testid}{divid};
-  my $config   = $testdata->{$testid}{config};
-  my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filename=>$config);
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
-  my $division = $library->get_division($divid);
-
-  # act
-  my $result   = scalar @{ $division->get_narrative_line_list };
-
-  # assert
-  is($result, $expected, "get_narrative_line_list ($divid narrative line count) $result");
-}
-
-######################################################################
-
-sub get_first_part_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $testfile = $testdata->{$testid}{testfile};
-  my $divid    = $testdata->{$testid}{divid};
-  my $config   = $testdata->{$testid}{config};
-  my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filename=>$config);
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
-  my $division = $library->get_division($divid);
-
-  # act
-  my $result   = ref $division->get_first_part;
-
-  # assert
-  is($result, $expected, "get_first_part ($divid) $result");
-}
-
-######################################################################
-
-sub get_first_line_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $testfile = $testdata->{$testid}{testfile};
-  my $divid    = $testdata->{$testid}{divid};
-  my $config   = $testdata->{$testid}{config};
-  my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filename=>$config);
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
-  my $division = $library->get_division($divid);
-
-  # act
-  my $line     = $division->get_first_line;
-  my $result   = $line->get_content;
-
-  # chomp($result);
-
-  $result =~ s/[\r\n]*$//;
-
-  # assert
-  is($result, $expected, "get_first_line ($divid) $result");
-}
-
-######################################################################
-
-sub get_property_list_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $testfile = $testdata->{$testid}{testfile};
-  my $divid    = $testdata->{$testid}{divid};
-  my $config   = $testdata->{$testid}{config};
-  my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filename=>$config);
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
-  my $division = $library->get_division($divid);
-
-  # act
-  my $result   = scalar @{ $division->get_property_list };
-
-  # assert
-  is($result, $expected, "get_property_list ($divid property count) $result");
-}
-
-######################################################################
-
-sub get_property_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $testfile = $testdata->{$testid}{testfile};
-  my $divid    = $testdata->{$testid}{divid};
-  my $name     = $testdata->{$testid}{name};
-  my $config   = $testdata->{$testid}{config};
-  my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filename=>$config);
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
-  my $division = $library->get_division($divid);
-
-  # act
-  my $result   = ref $division->get_property($name);
-
-  # assert
-  is($result, $expected, "get_property ($divid $name) $result");
-}
-
-######################################################################
-
-sub get_property_value_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $testfile = $testdata->{$testid}{testfile};
-  my $divid    = $testdata->{$testid}{divid};
-  my $name     = $testdata->{$testid}{name};
-  my $config   = $testdata->{$testid}{config};
-  my $expected = $testdata->{$testid}{expected};
-  my $library  = SML::Library->new(config_filename=>$config);
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
-  my $division = $library->get_division($divid);
-
-  # act
-  my $result   = $division->get_property_value($name);
-
-  # assert
-  is($result, $expected, "get_property_value ($divid $name) $result");
-}
-
 ######################################################################
 
 sub init_ok {
 
-  my $testid = shift;
+  my $tc = shift;                       # test case
 
   # arrange
-  my $id       = $testdata->{$testid}{id};
-  my $name     = $testdata->{$testid}{name};
-  my $expected = $testdata->{$testid}{expected};
+  my $tcname   = $tc->{name};
+  my $id       = $tc->{division_id};
+  my $name     = $tc->{division_name};
+  my $expected = $tc->{expected}{init};
   my $division = SML::Division->new(id=>$id,name=>$name);
 
   # act
   my $result = $division->init;
 
   # assert
-  is($result, $expected, "init $testid");
+  is($result,$expected,"$tcname init $result");
 }
 
 ######################################################################
 
-sub warning_ok {
+sub get_id_ok {
 
-  my $testid = shift;
+  my $tc = shift;                       # test case
 
-  my $testfile  = $testdata->{$testid}{testfile};
-  my $warning_1 = $testdata->{$testid}{warning_1};
-  my $warning_2 = $testdata->{$testid}{warning_2};
-
-  my $config    = 'library.conf';
-  my $library   = SML::Library->new(config_filename=>$config);
-  my $parser    = $library->get_parser;
-
-  my $t1logger  = Test::Log4perl->get_logger('sml.division');
-  my $t2logger  = Test::Log4perl->get_logger('sml.fragment');
-
-  Test::Log4perl->start( ignore_priority => "info" );
-  $t1logger->warn(qr/$warning_1/);
-  $t2logger->warn(qr/$warning_2/);
-
-  my $fragment  = $parser->create_fragment($testfile);
+  # arrange
+  my $tcname   = $tc->{name};
+  my $id       = $tc->{division_id};
+  my $name     = $tc->{division_name};
+  my $expected = $tc->{expected}{get_id};
+  my $division = SML::Division->new(id=>$id,name=>$name);
 
   # act
-  $fragment->validate_semantics;
+  my $result = $division->get_id;
 
   # assert
-  Test::Log4perl->end("WARNING: $warning_1 ($testid)");
+  is($result,$expected,"$tcname get_id $result");
+}
 
+######################################################################
+
+sub get_name_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $id       = $tc->{division_id};
+  my $name     = $tc->{division_name};
+  my $expected = $tc->{expected}{get_name};
+  my $division = SML::Division->new(id=>$id,name=>$name);
+
+  # act
+  my $result = $division->get_name;
+
+  # assert
+  is($result,$expected,"$tcname get_name $result");
+}
+
+######################################################################
+
+sub get_number_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $id       = $tc->{division_id};
+  my $name     = $tc->{division_name};
+  my $number   = $tc->{division_number};
+  my $expected = $tc->{expected}{get_number};
+  my $division = SML::Division->new(id=>$id,name=>$name);
+
+  $division->set_number($number);
+
+  # act
+  my $result = $division->get_number;
+
+  # assert
+  is($result,$expected,"$tcname get_number $result");
+}
+
+######################################################################
+
+sub get_containing_division_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $testfile = $tc->{testfile};
+  my $id       = $tc->{division_id};
+  my $expected = $tc->{expected}{get_containing_division};
+  my $fragment = $parser->create_fragment($testfile);
+  my $division = $library->get_division($id);
+
+  # act
+  my $result = ref $division->get_containing_division;
+
+  # assert
+  is($result,$expected,"$tcname get_containing_division $result");
+}
+
+######################################################################
+
+sub get_part_list_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $testfile = $tc->{testfile};
+  my $id       = $tc->{division_id};
+  my $expected = $tc->{expected}{get_part_list};
+  my $fragment = $parser->create_fragment($testfile);
+  my $division = $library->get_division($id);
+
+  # act
+  my $result = scalar @{ $division->get_part_list };
+
+  # assert
+  is($result,$expected,"$tcname get_part_list $result");
+}
+
+######################################################################
+
+sub get_line_list_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $testfile = $tc->{testfile};
+  my $id       = $tc->{division_id};
+  my $expected = $tc->{expected}{get_line_list};
+  my $fragment = $parser->create_fragment($testfile);
+  my $division = $library->get_division($id);
+
+  # act
+  my $result = scalar @{ $division->get_line_list };
+
+  # assert
+  is($result,$expected,"$tcname get_line_list $result");
+}
+
+######################################################################
+
+sub get_division_list_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $testfile = $tc->{testfile};
+  my $id       = $tc->{division_id};
+  my $expected = $tc->{expected}{get_division_list};
+  my $fragment = $parser->create_fragment($testfile);
+  my $division = $library->get_division($id);
+
+  # act
+  my $result = scalar @{ $division->get_division_list };
+
+  # assert
+  is($result,$expected,"$tcname get_division_list $result");
+}
+
+######################################################################
+
+sub get_section_list_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $testfile = $tc->{testfile};
+  my $id       = $tc->{division_id};
+  my $expected = $tc->{expected}{get_section_list};
+  my $fragment = $parser->create_fragment($testfile);
+  my $division = $library->get_division($id);
+
+  # act
+  my $result = scalar @{ $division->get_section_list };
+
+  # assert
+  is($result,$expected,"$tcname get_section_list $result");
+}
+
+######################################################################
+
+sub get_block_list_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $testfile = $tc->{testfile};
+  my $id       = $tc->{division_id};
+  my $expected = $tc->{expected}{get_block_list};
+  my $fragment = $parser->create_fragment($testfile);
+  my $division = $library->get_division($id);
+
+  # act
+  my $result = scalar @{ $division->get_block_list };
+
+  # assert
+  is($result,$expected,"$tcname get_block_list $result");
+}
+
+######################################################################
+
+sub get_element_list_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $testfile = $tc->{testfile};
+  my $id       = $tc->{division_id};
+  my $expected = $tc->{expected}{get_element_list};
+  my $fragment = $parser->create_fragment($testfile);
+  my $division = $library->get_division($id);
+
+  # act
+  my $result = scalar @{ $division->get_element_list };
+
+  # assert
+  is($result,$expected,"$tcname get_element_list $result");
+}
+
+######################################################################
+
+sub get_preamble_line_list_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $testfile = $tc->{testfile};
+  my $id       = $tc->{division_id};
+  my $expected = $tc->{expected}{get_preamble_line_list};
+  my $fragment = $parser->create_fragment($testfile);
+  my $division = $library->get_division($id);
+
+  # act
+  my $result = scalar @{ $division->get_preamble_line_list };
+
+  # assert
+  is($result,$expected,"$tcname get_preamble_line_list $result");
+}
+
+######################################################################
+
+sub get_narrative_line_list_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $testfile = $tc->{testfile};
+  my $id       = $tc->{division_id};
+  my $expected = $tc->{expected}{get_narrative_line_list};
+  my $fragment = $parser->create_fragment($testfile);
+  my $division = $library->get_division($id);
+
+  # act
+  my $result = scalar @{ $division->get_narrative_line_list };
+
+  # assert
+  is($result,$expected,"$tcname get_narrative_line_list $result");
+}
+
+######################################################################
+
+sub get_first_part_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $testfile = $tc->{testfile};
+  my $id       = $tc->{division_id};
+  my $expected = $tc->{expected}{get_first_part};
+  my $fragment = $parser->create_fragment($testfile);
+  my $division = $library->get_division($id);
+
+  # act
+  my $result = ref $division->get_first_part;
+
+  # assert
+  is($result,$expected,"$tcname get_first_part $result");
+}
+
+######################################################################
+
+sub get_first_line_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $testfile = $tc->{testfile};
+  my $id       = $tc->{division_id};
+  my $expected = $tc->{expected}{get_first_line};
+  my $fragment = $parser->create_fragment($testfile);
+  my $division = $library->get_division($id);
+
+  # act
+  my $line   = $division->get_first_line;
+  my $result = $line->get_content;
+
+  $result =~ s/[\r\n]*$//;              # chomp
+
+  # assert
+  is($result,$expected,"$tcname get_first_line $result");
+}
+
+######################################################################
+
+sub get_property_list_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $testfile = $tc->{testfile};
+  my $id       = $tc->{division_id};
+  my $expected = $tc->{expected}{get_property_list};
+  my $fragment = $parser->create_fragment($testfile);
+  my $division = $library->get_division($id);
+
+  # act
+  my $result = scalar @{ $division->get_property_list };
+
+  # assert
+  is($result,$expected,"$tcname get_property_list $result");
+}
+
+######################################################################
+
+sub get_property_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname        = $tc->{name};
+  my $testfile      = $tc->{testfile};
+  my $id            = $tc->{division_id};
+  my $property_name = $tc->{property_name};
+  my $fragment      = $parser->create_fragment($testfile);
+  my $division      = $library->get_division($id);
+  my $expected      = $tc->{expected}{get_property};
+
+  # act
+  my $result = ref $division->get_property($property_name);
+
+  # assert
+  is($result,$expected,"$tcname get_property $result");
+}
+
+######################################################################
+
+sub get_property_value_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname        = $tc->{name};
+  my $testfile      = $tc->{testfile};
+  my $id            = $tc->{division_id};
+  my $property_name = $tc->{property_name};
+  my $fragment      = $parser->create_fragment($testfile);
+  my $division      = $library->get_division($id);
+  my $expected      = $tc->{expected}{get_property_value};
+
+  # act
+  my $result = $division->get_property_value($property_name);
+
+  # assert
+  is($result,$expected,"$tcname get_property_value $result");
+}
+
+######################################################################
+
+sub valid_semantics_warning_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $testfile = $tc->{testfile};
+  my $id       = $tc->{division_id};
+  my $fragment = $parser->create_fragment($testfile);
+  my $division = $library->get_division($id);
+  my $expected = $tc->{expected}{valid_semantics_warning};
+  my $t1logger = Test::Log4perl->get_logger('sml.Division');
+
+  Test::Log4perl->start( ignore_priority => "info" );
+  $t1logger->warn(qr/$expected/);
+
+  # act
+  $division->has_valid_semantics;
+
+  # assert
+  Test::Log4perl->end("$tcname $expected");
 }
 
 ######################################################################
@@ -1135,3 +587,5 @@ sub get_id_path_ok {
 }
 
 ######################################################################
+
+done_testing();

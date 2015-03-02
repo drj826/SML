@@ -82,7 +82,6 @@ my @public_methods =
    'get_review_status',
    'get_outcome_description',
    'get_review_description',
-   'get_division_hash',
    'get_outcome_hash',
    'get_review_hash',
    'get_index_hash',
