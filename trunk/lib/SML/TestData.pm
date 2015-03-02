@@ -33,6 +33,17 @@ has library =>
 
 ######################################################################
 
+has division_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_division_test_case_list',
+   lazy    => 1,
+   builder => '_build_division_test_case_list',
+  );
+
+######################################################################
+
 has formatter_test_case_list =>
   (
    is      => 'ro',
@@ -170,6 +181,151 @@ sub _build_library {
   use SML::Library;
 
   return SML::Library->new(config_filename=>'library.conf');
+}
+
+######################################################################
+
+sub _build_division_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name          => 'division_1',
+      division_id   => 'td',
+      division_name => 'test-division',
+      division_number => '4-4-4',
+      expected =>
+      {
+       init       => 1,
+       get_id     => 'td',
+       get_name   => 'test-division',
+       get_number => '4-4-4',
+      }
+     },
+
+     {
+      name          => 'division_2',
+      testfile      => 'td-000020.txt',
+      division_id   => 'td-000020',
+      property_name => 'title',
+      expected  =>
+      {
+       get_containing_division => 'SML::Fragment',
+       get_part_list => 22,
+       get_line_list => 216,
+       get_division_list => 32,
+       get_section_list => 5,
+       get_block_list => 93,
+       get_element_list => 40,
+       get_preamble_line_list => 18,
+       get_narrative_line_list => 195,
+       get_first_part => 'SML::PreformattedBlock',
+       get_first_line => '>>>DOCUMENT',
+       get_property_list => 9,
+       get_property => 'SML::Property',
+       get_property_value => 'Section Structure With Regions',
+      },
+     },
+
+     {
+      name          => 'division_3',
+      testfile      => 'td-000020.txt',
+      division_id   => 'introduction',
+      property_name => 'type',
+      expected =>
+      {
+       get_containing_division => 'SML::Document',
+       get_part_list => 7,
+       get_line_list => 17,
+       get_division_list => 0,
+       get_block_list => 7,
+       get_element_list => 4,
+       get_preamble_line_list => 4,
+       get_narrative_line_list => 9,
+       get_first_part => 'SML::Element',
+       get_first_line => '* Introduction',
+       get_property_list => 4,
+       get_property => 'SML::Property',
+       get_property_value => 'chapter',
+      },
+     },
+
+     {
+      name          => 'division_4',
+      testfile      => 'td-000020.txt',
+      division_id   => 'problem-1',
+      property_name => 'title',
+      expected =>
+      {
+       get_containing_division => 'SML::Section',
+       get_part_list => 11,
+       get_line_list => 42,
+       get_division_list => 10,
+       get_block_list => 19,
+       get_element_list => 6,
+       get_preamble_line_list => 12,
+       get_narrative_line_list => 26,
+       get_first_part => 'SML::PreformattedBlock',
+       get_first_line => '>>>problem',
+       get_property_list => 6,
+       get_property => 'SML::Property',
+       get_property_value => 'Problem One',
+      },
+     },
+
+     {
+      name          => 'division_5',
+      testfile      => 'td-000020.txt',
+      division_id   => 'tab-solution-types',
+      property_name => 'id',
+      expected =>
+      {
+       get_containing_division => 'SML::Section',
+       get_part_list => 10,
+       get_line_list => 30,
+       get_division_list => 12,
+       get_block_list => 15,
+       get_element_list => 2,
+       get_preamble_line_list => 4,
+       get_narrative_line_list => 22,
+       get_first_part => 'SML::PreformattedBlock',
+       get_first_line => '---TABLE',
+       get_property_list => 2,
+       get_property => 'SML::Property',
+       get_property_value => 'tab-solution-types',
+      },
+     },
+
+     {
+      name        => 'invalid_semantics_division_1',
+      testfile    => 'td-000063.txt',
+      division_id => 'parent-problem',
+      expected =>
+      {
+       valid_semantics_warning => 'INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY',
+      },
+     },
+
+     {
+      name        => 'invalid_semantics_division_2',
+      testfile    => 'td-000064.txt',
+      division_id => 'problem-1',
+      expected =>
+      {
+       valid_semantics_warning => 'MISSING REQUIRED PROPERTY',
+      },
+     },
+
+     #################################################################
+
+     {
+      name => 'get_id_path_test_1',
+      testfile  => 'td-000020.txt',
+      config    => 'library.conf',
+     },
+    ];
 }
 
 ######################################################################
