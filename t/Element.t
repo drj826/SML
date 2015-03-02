@@ -71,9 +71,6 @@ my @public_methods =
    'get_type',
    'get_value',
 
-   'validate_syntax',
-   'validate_semantics',
-
    'validate_outcome_semantics',
    'validate_footnote_syntax',
   );

@@ -37,7 +37,6 @@ isa_ok( $obj, 'SML::Environment' );
 my @public_methods =
   (
    'get_id',
-   'as_text',
   );
 
 can_ok( $obj, @public_methods );
