@@ -371,7 +371,7 @@ sub dump_part_structure {
 
   my $structure = q{};
 
-  $structure .= $indent . $self->get_name . " (" . $self->get_content . ")\n";
+  $structure .= $indent . $self->get_name . " (" . $self->get_id . ")\n";
   # $structure .= $indent . $self->get_name . "\n";;
 
   $indent = $indent . '  ';
