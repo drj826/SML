@@ -147,7 +147,7 @@ sub get_resource {
 
 ######################################################################
 
-override 'validate_semantics' => sub {
+override '_validate_semantics' => sub {
 
   my $self     = shift;
   my $valid    = super();
