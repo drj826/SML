@@ -288,16 +288,12 @@ sub get_containing_section {
 
   my $self = shift;
 
-  $logger->debug("get_containing_section: $self");
-
   if ( $self->isa('SML::Section') )
     {
       return $self;
     }
 
   my $division = $self->get_containing_division;
-
-  $logger->debug("  containing division: $division");
 
   while ( ref $division and not $division->isa('SML::Fragment') )
     {
@@ -309,7 +305,6 @@ sub get_containing_section {
       else
 	{
 	  $division = $division->get_containing_division;
-	  $logger->debug("  next division: $division");
 	}
     }
 
@@ -333,8 +328,6 @@ sub render {
   my $name         = $self->get_name;
   my $input        = "$name.tt";
   my $text         = q{};
-
-  $logger->debug("render: $rendition $style using $input");
 
   $template_dir = "$template_dir/$rendition/$style";
 
