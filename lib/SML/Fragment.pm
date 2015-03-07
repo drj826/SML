@@ -101,6 +101,7 @@ sub add_resource {
 
   my $self     = shift;
   my $resource = shift;
+
   my $filespec = $resource->get_filespec;
 
   $self->get_resource_hash->{$filespec} = $resource;
@@ -149,7 +150,8 @@ sub get_resource {
 
 override '_validate_semantics' => sub {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $valid    = super();
   my $sml      = SML->instance;
   my $util     = $sml->get_util;
@@ -185,12 +187,11 @@ sub extract_division_lines {
 
   foreach my $line (@{ $self->get_line_list })
     {
-      $_ = $line->get_content;
+      my $text = $line->get_content;
 
-      s/[\r\n]*$//;
-      # chomp;
+      $text =~ s/[\r\n]*$//;            # chomp;
 
-      if ( /$syntax->{comment_marker}/ )
+      if ( $text =~ /$syntax->{comment_marker}/ )
 	{
 	  # If already in a comment division...
 	  if ( $in_comment ) {
@@ -215,7 +216,7 @@ sub extract_division_lines {
 	    }
 	}
 
-      elsif ( /$syntax->{start_region}/xms and not $in_comment )
+      elsif ( $text =~ /$syntax->{start_region}/xms and not $in_comment )
 	{
 	  my $region_name = $2;
 	  push @{ $div_stack }, $region_name;
@@ -231,7 +232,7 @@ sub extract_division_lines {
 	  push @{ $lines }, $line;
 	}
 
-      elsif ( /$syntax->{end_region}/xms and not $in_comment )
+      elsif ( $text =~ /$syntax->{end_region}/xms and not $in_comment )
 	{
 	  my $region_name = $2;
 
@@ -266,7 +267,7 @@ sub extract_division_lines {
 
 	}
 
-      elsif ( /$syntax->{start_environment}/xms and not $in_comment )
+      elsif ( $text =~ /$syntax->{start_environment}/xms and not $in_comment )
 	{
 	  my $found_env_name = $2;
 
@@ -315,7 +316,7 @@ sub extract_division_lines {
 	    }
 	}
 
-      elsif ( /$syntax->{start_section}/xms and not $in_comment )
+      elsif ( $text =~ /$syntax->{start_section}/xms and not $in_comment )
 	{
 	  # If not already in a section...
 	  if ( not $in_section )
@@ -349,7 +350,7 @@ sub extract_division_lines {
 	  push @{ $lines }, $line;
 	}
 
-      elsif ( /$syntax->{id_element}/xms and not $in_comment )
+      elsif ( $text =~ /$syntax->{id_element}/xms and not $in_comment )
 	{
 	  my $found_id = $2;
 
@@ -417,6 +418,7 @@ sub _read_file {
   my $self          = shift;
   my $file          = shift;
   my $included_from = shift;
+
   my $sml           = SML->instance;
   my $syntax        = $sml->get_syntax;
   my $util          = $sml->get_util;
@@ -429,8 +431,6 @@ sub _read_file {
   my $lines         = [];
 
   chdir($directories);
-
-  $logger->debug("reading $filename");
 
   if ( not -r $filename )
     {
@@ -456,7 +456,7 @@ sub _read_file {
 
   open my $fh, "<", "$filename" or croak("Can't open $filename");
 
-  while ( <$fh> )
+  while ( my $text = <$fh> )
     {
       # chomp;  # DON'T CHOMP HERE !!!
 
@@ -468,7 +468,7 @@ sub _read_file {
 	    (
 	     file          => $file,
 	     num           => $INPUT_LINE_NUMBER,
-	     content       => $_,
+	     content       => $text,
 	     included_from => $included_from,
 	    );
 
@@ -481,7 +481,7 @@ sub _read_file {
 	    (
 	     file          => $file,
 	     num           => $INPUT_LINE_NUMBER,
-	     content       => $_,
+	     content       => $text,
 	    );
 
 	  push( @{ $lines },$line );
@@ -490,7 +490,7 @@ sub _read_file {
       # Look for 'include statements' and 'resource files' (other
       # files used by this one)
       #
-      if (/$syntax->{'include_element'}/xms)
+      if ( $text =~ /$syntax->{include_element}/xms )
 	{
 	  my $include_spec = q{};
 
@@ -524,7 +524,7 @@ sub _read_file {
 	    );
 	}
 
-      elsif (/$syntax->{'file_element'}/xms)
+      elsif ( $text =~ /$syntax->{file_element}/xms )
 	{
 	  my $resource_spec = $1;
 	  my $resource = SML::File->new(filespec=>$resource_spec);
@@ -543,7 +543,7 @@ sub _read_file {
 	    }
 	}
 
-      elsif (/$syntax->{'image_element'}/xms)
+      elsif ( $text =~ /$syntax->{image_element}/xms )
 	{
 	  my $resource_spec = $3;
 	  my $resource = SML::File->new(filespec=>$resource_spec);
@@ -561,7 +561,7 @@ sub _read_file {
 	    }
 	}
 
-      elsif ( /$syntax->{'template_element'}/ )
+      elsif ( $text =~ /$syntax->{template_element}/ )
 	{
 	  my $resource_spec = $4;
 	  my $resource = SML::File->new(filespec=>$resource_spec);
