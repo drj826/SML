@@ -175,7 +175,19 @@ sub add_division {
 
   my $self     = shift;
   my $division = shift;
-  my $id       = $division->get_id;
+
+  # validate input
+  if (
+      not ref $division
+      or
+      not $division->isa('SML::Division')
+     )
+    {
+      $logger->error("NOT A DIVISION \'$division\'");
+      return 0;
+    }
+
+  my $id = $division->get_id;
 
   if ( exists $self->_get_division_hash->{$id} )
     {
@@ -196,6 +208,7 @@ sub add_part {
   my $self = shift;
   my $part = shift;
 
+  # validate input
   if (
       ( not ref $part )
       or
@@ -228,9 +241,22 @@ sub add_property {
 
   my $self     = shift;
   my $property = shift;
-  my $name     = $property->get_name;
 
-  $self->_get_property_hash->{$name} = $property;
+  # validate input
+  if (
+      not ref $property
+      or
+      not $property->isa('SML::Property')
+     )
+    {
+      $logger->error("NOT A PROPERTY \'$property\'");
+      return 0;
+    }
+
+  my $name = $property->get_name;
+  my $ph   = $self->_get_property_hash;
+
+  $ph->{$name} = $property;
 
   return 1;
 }
@@ -241,6 +267,17 @@ sub add_property_element {
 
   my $self    = shift;
   my $element = shift;
+
+  # validate input
+  if (
+      not ref $element
+      or
+      not $element->isa('SML::Element')
+     )
+    {
+      $logger->error("NOT AN ELEMENT \'$element\'");
+      return 0;
+    }
 
   my $name = $element->get_name;
 
@@ -295,6 +332,17 @@ sub add_attribute {
   my $self    = shift;
   my $element = shift;
 
+  # validate input
+  if (
+      not ref $element
+      or
+      not $element->isa('SML::Element')
+     )
+    {
+      $logger->error("NOT AN ELEMENT \'$element\'");
+      return 0;
+    }
+
   my $sml        = SML->instance;
   my $syntax     = $sml->get_syntax;
   my $attributes = $self->_get_attribute_hash;
@@ -329,6 +377,13 @@ sub contains_division {
   my $self = shift;
   my $id   = shift;
 
+  # validate input
+  if ( not $id )
+    {
+      $logger->error("YOU MUST SPECIFY AN ID");
+      return 0;
+    }
+
   if ( defined $self->_get_division_hash->{$id} )
     {
       return 1;
@@ -346,6 +401,13 @@ sub has_property {
 
   my $self = shift;
   my $name = shift;
+
+  # validate input
+  if ( not $name )
+    {
+      $logger->error("YOU MUST SPECIFY A NAME");
+      return 0;
+    }
 
   if ( exists $self->_get_property_hash->{$name} )
     {
@@ -369,6 +431,13 @@ sub has_property_value {
   my $name  = shift;
   my $value = shift;
 
+  # validate input
+  if ( not $name or not $value )
+    {
+      $logger->error("YOU MUST SPECIFY NAME AND VALUE");
+      return 0;
+    }
+
   if ( $self->has_property($name) )
     {
       my $property = $self->get_property($name);
@@ -388,6 +457,13 @@ sub has_attribute {
   my $self      = shift;
   my $attribute = shift;
 
+  # validate input
+  if ( not $attribute )
+    {
+      $logger->error("YOU MUST SPECIFY ATTRIBUTE");
+      return 0;
+    }
+
   if ( exists $self->_get_attribute_hash->{$attribute} )
     {
       return 1;
@@ -404,8 +480,9 @@ sub get_division_list {
 
   # Return an ordered list of divisions within this one.
 
-  my $self      = shift;
-  my $list = [];
+  my $self = shift;
+
+  my $list = [];                        # division list
 
   no warnings 'recursion';
 
@@ -457,7 +534,8 @@ sub get_section_list {
   # Return an ordered list of sections within this division.
 
   my $self = shift;
-  my $list = [];
+
+  my $list = [];                        # section list
 
   foreach my $part (@{ $self->get_division_list })
     {
@@ -477,7 +555,8 @@ sub get_block_list {
   # Return an ordered list of blocks within this division.
 
   my $self = shift;
-  my $list = [];
+
+  my $list = [];                        # block list
 
   no warnings 'recursion';
 
@@ -508,8 +587,9 @@ sub get_element_list {
 
   # Return an ordered list of elements within this division.
 
-  my $self     = shift;
-  my $list = [];
+  my $self = shift;
+
+  my $list = [];                        # element list
 
   foreach my $block (@{ $self->get_block_list })
     {
@@ -527,8 +607,9 @@ sub get_element_list {
 
 sub get_line_list {
 
-  my $self  = shift;
-  my $list = [];
+  my $self = shift;
+
+  my $list = [];                        # line list
 
   no warnings 'recursion';
 
@@ -551,8 +632,9 @@ sub get_preamble_line_list {
   # Extracting the preamble lines should be a parser function and not
   # a division function.
 
-  my $self        = shift;
-  my $list       = [];
+  my $self = shift;
+
+  my $list        = [];                 # preamble line list
   my $sml         = SML->instance;
   my $syntax      = $sml->get_syntax;
   my $ontology    = $sml->get_ontology;
@@ -563,10 +645,9 @@ sub get_preamble_line_list {
 
   foreach my $block (@{ $self->get_block_list })
     {
-      $_ = $block->get_content;
+      my $text = $block->get_content;
 
-      s/[\r\n]*$//;
-      # chomp;
+      $text =~ s/[\r\n]*$//;            # chomp;
 
       ++ $i;
 
@@ -576,7 +657,7 @@ sub get_preamble_line_list {
       if (
 	  $in_preamble
 	  and
-	  /$syntax->{start_element}/xms
+	  $text =~ /$syntax->{start_element}/xms
 	  and
 	  $ontology->allows_property($divname,$1)
 	 )
@@ -587,7 +668,7 @@ sub get_preamble_line_list {
 	    }
 	}
 
-      elsif ( _line_ends_preamble($_) )
+      elsif ( _line_ends_preamble($text) )
 	{
 	  return $list;
 	}
@@ -615,8 +696,9 @@ sub get_narrative_line_list {
   # Extracting the narrative lines should be a parser function and not
   # a division function.
 
-  my $self        = shift;
-  my $list       = [];
+  my $self = shift;
+
+  my $list        = [];                 # narrative line list
   my $sml         = SML->instance;
   my $syntax      = $sml->get_syntax;
   my $ontology    = $sml->get_ontology;
@@ -627,10 +709,9 @@ sub get_narrative_line_list {
 
   foreach my $block (@{ $self->get_block_list })
     {
-      $_ = $block->get_content;
+      my $text = $block->get_content;
 
-      s/[\r\n]*$//;
-      # chomp;
+      $text =~ s/[\r\n]*$//;            # chomp;
 
       ++ $i;
 
@@ -640,7 +721,7 @@ sub get_narrative_line_list {
       if (
 	  $in_preamble
 	  and
-	  /$syntax->{start_element}/xms
+	  $text =~ /$syntax->{start_element}/xms
 	  and
 	  $ontology->allows_property($divname,$1)
 	 )
@@ -648,7 +729,7 @@ sub get_narrative_line_list {
 	  next;
 	}
 
-      elsif ( _line_ends_preamble($_) )
+      elsif ( _line_ends_preamble($text) )
 	{
 	  $in_preamble = 0;
 	  foreach my $line (@{ $block->get_line_list })
@@ -709,7 +790,8 @@ sub get_first_line {
 sub get_property_list {
 
   my $self = shift;
-  my $list = [];
+
+  my $list = [];                        # property list
 
   foreach my $name ( sort keys %{ $self->_get_property_hash } )
     {
@@ -766,7 +848,8 @@ sub get_containing_document {
 
   # Return the document to which this division belongs (or undef).
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self;
 
   while ( ref $division and not $division->isa('SML::Fragment') )
@@ -793,7 +876,8 @@ sub get_location {
   # Return the location (filepec + line number) of the beginning of
   # this division.
 
-  my $self  = shift;
+  my $self = shift;
+
   my $block = $self->get_block_list->[0];
 
   if ( $block )
@@ -814,7 +898,8 @@ sub get_section {
   # Return the section containing this division.  If not in a section,
   # return undef.
 
-  my $self     = shift;
+  my $self = shift;
+
   my $division = $self;
 
   while ( $division )
@@ -865,62 +950,10 @@ sub is_in_a {
 
 ######################################################################
 
-# sub as_sml {
-
-#   my $self = shift;
-#   my $text = q{};
-
-#   foreach my $block (@{ $self->get_block_list })
-#     {
-#       $text .= $block->as_sml;
-#     }
-
-#   return $text;
-# }
-
-######################################################################
-
-# sub as_text {
-
-#   my $self       = shift;
-#   my $sml        = SML->instance;
-#   my $syntax     = $sml->get_syntax;
-#   my $lines      = $self->get_line_list;
-#   my $text       = q{};
-#   my $in_comment = 0;
-
-#  LINE:
-#   foreach my $line (@{ $lines }) {
-
-#     $_ = $line->get_content;
-
-#       #---------------------------------------------------------------
-#       # Ignore comments
-#       #
-#       if ( /$syntax->{comment_marker}/xms ) {
-# 	if ( $in_comment ) {
-# 	  $in_comment = 0;
-# 	} else {
-# 	  $in_comment = 1;
-# 	}
-# 	next LINE;
-#       } elsif ( $in_comment ) {
-# 	next LINE;
-#       } elsif ( /$syntax->{comment_line}/xms ) {
-# 	next LINE;
-#       }
-
-#     $text .= $_;
-#   }
-
-#   return $text;
-# }
-
-######################################################################
-
 sub validate {
 
-  my $self  = shift;
+  my $self = shift;
+
   my $valid = 1;
 
   if ( not $self->has_valid_syntax )
@@ -1000,28 +1033,28 @@ has 'attribute_hash' =>
 
 sub _line_ends_preamble {
 
-  $_ = shift;
+  my $text = shift;
 
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
   if (
-         /$syntax->{start_region}/xms
-      or /$syntax->{start_environment}/xms
-      or /$syntax->{start_section}/xms
-      or /$syntax->{generate_element}/xms
-      or /$syntax->{insert_element}/xms
-      or /$syntax->{template_element}/
-      or /$syntax->{include_element}/xms
-      or /$syntax->{script_element}/xms
-      or /$syntax->{outcome_element}/xms
-      or /$syntax->{review_element}/xms
-      or /$syntax->{index_element}/xms
-      or /$syntax->{glossary_element}/xms
-      or /$syntax->{list_item}/xms
-      or /$syntax->{paragraph_text}/xms
-      or /$syntax->{indented_text}/xms
-      or /$syntax->{table_cell}/xms
+         $text =~ /$syntax->{start_region}/xms
+      or $text =~ /$syntax->{start_environment}/xms
+      or $text =~ /$syntax->{start_section}/xms
+      or $text =~ /$syntax->{generate_element}/xms
+      or $text =~ /$syntax->{insert_element}/xms
+      or $text =~ /$syntax->{template_element}/
+      or $text =~ /$syntax->{include_element}/xms
+      or $text =~ /$syntax->{script_element}/xms
+      or $text =~ /$syntax->{outcome_element}/xms
+      or $text =~ /$syntax->{review_element}/xms
+      or $text =~ /$syntax->{index_element}/xms
+      or $text =~ /$syntax->{glossary_element}/xms
+      or $text =~ /$syntax->{list_item}/xms
+      or $text =~ /$syntax->{paragraph_text}/xms
+      or $text =~ /$syntax->{indented_text}/xms
+      or $text =~ /$syntax->{table_cell}/xms
      )
     {
       return 1;
@@ -1038,15 +1071,11 @@ sub _line_ends_preamble {
 
 sub _validate_syntax {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $valid    = 1;
   my $blocks   = $self->get_block_list;
   my $elements = $self->get_element_list;
-
-  # if ( not $self->_validate_id_uniqueness )
-  #   {
-  #     $valid = 0;
-  #   }
 
   foreach my $block (@{ $blocks })
     {
@@ -1126,7 +1155,8 @@ sub _validate_semantics {
 
 sub _validate_property_cardinality {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $valid    = 1;
   # my $divtype  = $self->get_type;
   my $divname  = $self->get_name;
@@ -1138,7 +1168,6 @@ sub _validate_property_cardinality {
     {
       my $property_name = $property->get_name;
       my $cardinality   = $ontology->property_allows_cardinality($divname,$property_name);
-      my $list          = $property->get_element_list;
 
       # Validate property cardinality
       if ( $ontology->property_is_universal($property_name) )
@@ -1156,7 +1185,8 @@ sub _validate_property_cardinality {
 
       else
 	{
-	  my $count = scalar @{ $list };
+	  my $list = $property->get_element_list;
+	  my $count = scalar(@{ $list });
 	  if ( $cardinality eq '1' and $count > 1 )
 	    {
 	      my $location = $self->get_location;
@@ -1173,7 +1203,8 @@ sub _validate_property_cardinality {
 
 sub _validate_property_values {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $valid    = 1;
   my $seen     = {};
   # my $divtype  = $self->get_type;
@@ -1278,7 +1309,8 @@ sub _validate_infer_only_conformance {
 
 sub _validate_required_properties {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $valid    = 1;
   my $seen     = {};
   my $divname  = $self->get_name;
@@ -1311,12 +1343,15 @@ sub _validate_required_properties {
 
 sub _validate_composition {
 
-  # 1. Validate conformance with division composition rules.
+  # Validate conformance with division composition rules. If this
+  # division is contained by another division, validate that a
+  # composition rule allows this relationship.
   #
-  #    If this division is contained by another division, validate
-  #    that a composition rule allows this relationship.
+  # This means check wether THIS division is allowed to be inside the
+  # one that contains it.
 
-  my $self      = shift;
+  my $self = shift;
+
   my $valid     = 1;
   my $container = $self->get_containing_division;
   my $sml       = SML->instance;
@@ -1336,7 +1371,8 @@ sub _validate_composition {
 	{
 	  my $location   = $self->get_location;
 	  my $first_line = $self->get_first_line;
-	  $self->set_valid(0);
+
+	  # $self->set_valid(0);
 
 	  if (
 	      ref $first_line
@@ -1364,7 +1400,8 @@ sub _validate_composition {
 
 sub _validate_id_uniqueness {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $valid  = 1;
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
@@ -1481,10 +1518,6 @@ Get a sequential list of regions contained in this division.
 =head2 get_html
 
 Get a string which is the HTML rendition of this division.
-
-=head2 is_valid
-
-Get a boolean value that represents whether this division is valid.
 
 =head1 AUTHOR
 
