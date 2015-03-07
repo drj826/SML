@@ -189,6 +189,7 @@ sub get_location {
   # this block.
 
   my $self = shift;
+
   my $line = $self->get_first_line;
 
   if ( ref $line and $line->isa('SML::Line') )
@@ -210,8 +211,8 @@ sub is_in_a {
   # Return 1 if this block is "in a" division of "type" (even if it is
   # buried several divisions deep).
 
-  my $self     = shift;
-  my $type     = shift;
+  my $self = shift;
+  my $type = shift;
 
   my $division = $self->get_containing_division || q{};
 
@@ -249,11 +250,11 @@ sub validate_bold_markup {
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
   my $count  = 0;
+  my $text   = $self->get_content;
 
-  $_ = $self->get_content;
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
 
-  while ( /$syntax->{bold}/gxms )
+  while ( $text =~ /$syntax->{bold}/gxms )
     {
       ++ $count;
     }
@@ -278,16 +279,17 @@ sub validate_italics_markup {
   # Return 1 if valid, 0 if not. Validate this block contains no
   # unbalanced italics markup.
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
   my $count  = 0;
+  my $text   = $self->get_content;
 
-  $_ = $self->get_content;
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
 
-  while ( /$syntax->{italics}/gxms )
+  while ( $text =~ /$syntax->{italics}/gxms )
     {
       ++ $count;
     }
@@ -312,16 +314,17 @@ sub validate_fixedwidth_markup {
   # Return 1 if valid, 0 if not. Validate this block contains no
   # unbalanced fixed-width markup.
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
   my $count  = 0;
+  my $text   = $self->get_content;
 
-  $_ = $self->get_content;
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
 
-  while ( /$syntax->{fixedwidth}/gxms )
+  while ( $text =~ /$syntax->{fixedwidth}/gxms )
     {
       ++ $count;
     }
@@ -346,16 +349,17 @@ sub validate_underline_markup {
   # Return 1 if valid, 0 if not. Validate this block contains no
   # unbalanced underline markup.
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
   my $count  = 0;
+  my $text   = $self->get_content;
 
-  $_ = $self->get_content;
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
 
-  while ( /$syntax->{underline}/gxms )
+  while ( $text =~ /$syntax->{underline}/gxms )
     {
       ++ $count;
     }
@@ -380,16 +384,17 @@ sub validate_superscript_markup {
   # Return 1 if valid, 0 if not. Validate this block contains no
   # unbalanced superscript markup.
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
   my $count  = 0;
+  my $text   = $self->get_content;
 
-  $_ = $self->get_content;
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
 
-  while ( /$syntax->{superscript}/gxms )
+  while ( $text =~ /$syntax->{superscript}/gxms )
     {
       ++ $count;
     }
@@ -414,16 +419,17 @@ sub validate_subscript_markup {
   # Return 1 if valid, 0 if not. Validate this block contains no
   # unbalanced subscript markup.
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
   my $count  = 0;
+  my $text   = $self->get_content;
 
-  $_ = $self->get_content;
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
 
-  while ( /$syntax->{subscript}/gxms )
+  while ( $text =~ /$syntax->{subscript}/gxms )
     {
       ++ $count;
     }
@@ -448,17 +454,18 @@ sub validate_inline_tags {
   # Return 1 if valid, 0 if not.  Validate this block contains only
   # valid inline tags.
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
   my $valid  = 1;
+  my $text   = $self->get_content;
 
-  $_ = $self->get_content;
-  $_ = $util->remove_literals($_);
-  $_ = $util->remove_keystroke_symbols($_);
+  $text = $util->remove_literals($text);
+  $text = $util->remove_keystroke_symbols($text);
 
-  while ( /$syntax->{inline_tag}/xms )
+  while ( $text =~ /$syntax->{inline_tag}/xms )
     {
       my $tag  = $1;
       my $name = $2;
@@ -470,7 +477,7 @@ sub validate_inline_tags {
 	  $valid = 0;
 	}
 
-      s/$syntax->{inline_tag}//xms;
+      $text =~ s/$syntax->{inline_tag}//xms;
     }
 
   return $valid;
@@ -539,8 +546,6 @@ sub validate_cross_refs {
   my $util   = $sml->get_util;
   my $text   = $self->get_content;
 
-  $logger->debug("validate_cross_refs in ($text)");
-
   if (
       not
       (
@@ -550,13 +555,10 @@ sub validate_cross_refs {
       )
      )
     {
-      $logger->debug("  no sign of any cross reference here.");
       return 1;
     }
 
   $text = $util->remove_literals($text);
-
-  $logger->debug("  text after removing literals: ($text)");
 
   my $valid = 1;
   my $doc   = $self->get_containing_document;
@@ -649,26 +651,26 @@ sub validate_id_ref_syntax {
 
 sub validate_id_refs {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-
-  $_ = $self->get_content;
+  my $text   = $self->get_content;
 
   if (
       not
       (
-       /$syntax->{id_ref}/xms
+       $text =~ /$syntax->{id_ref}/xms
        or
-       /$syntax->{begin_id_ref}/xms
+       $text =~ /$syntax->{begin_id_ref}/xms
       )
      )
     {
       return 1;
     }
 
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
 
   my $valid = 1;
   my $doc   = $self->get_containing_document;
@@ -679,7 +681,7 @@ sub validate_id_refs {
       return 0;
     }
 
-  while ( /$syntax->{id_ref}/xms )
+  while ( $text =~ /$syntax->{id_ref}/xms )
     {
       my $id = $1;
 
@@ -695,10 +697,10 @@ sub validate_id_refs {
 	  $valid = 0;
 	}
 
-      s/$syntax->{id_ref}//xms;
+      $text =~ s/$syntax->{id_ref}//xms;
     }
 
-  if ( /$syntax->{begin_id_ref}/xms )
+  if ( $text =~ /$syntax->{begin_id_ref}/xms )
     {
       my $location = $self->get_location;
       $logger->warn("INVALID ID REFERENCE SYNTAX at $location");
@@ -754,26 +756,26 @@ sub validate_page_ref_syntax {
 
 sub validate_page_refs {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-
-  $_ = $self->get_content;
+  my $text   = $self->get_content;
 
   if (
       not
       (
-       /$syntax->{page_ref}/xms
+       $text =~ /$syntax->{page_ref}/xms
        or
-       /$syntax->{begin_page_ref}/xms
+       $text =~ /$syntax->{begin_page_ref}/xms
       )
      )
     {
       return 1;
     }
 
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
 
   my $valid = 1;
   my $doc   = $self->get_containing_document;
@@ -784,7 +786,7 @@ sub validate_page_refs {
       return 0;
     }
 
-  while ( /$syntax->{page_ref}/xms )
+  while ( $text =~ /$syntax->{page_ref}/xms )
     {
       my $id = $2;
 
@@ -800,10 +802,10 @@ sub validate_page_refs {
 	  $valid = 0;
 	}
 
-      s/$syntax->{page_ref}//xms;
+      $text =~ s/$syntax->{page_ref}//xms;
     }
 
-  if ( /$syntax->{begin_page_ref}/xms )
+  if ( $text =~ /$syntax->{begin_page_ref}/xms )
     {
       my $location = $self->get_location;
       $logger->warn("INVALID PAGE REFERENCE SYNTAX at $location");
@@ -817,19 +819,19 @@ sub validate_page_refs {
 
 sub validate_theversion_refs {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
+  my $text   = $self->get_content;
 
-  $_ = $self->get_content;
-
-  if ( not /$syntax->{theversion_ref}/xms )
+  if ( not $text =~ /$syntax->{theversion_ref}/xms )
     {
       return 1;
     }
 
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
 
   my $valid = 1;
   my $doc   = $self->get_containing_document;
@@ -840,7 +842,7 @@ sub validate_theversion_refs {
       return 0;
     }
 
-  while ( /$syntax->{theversion_ref}/xms )
+  while ( $text =~ /$syntax->{theversion_ref}/xms )
     {
       if ( $doc->has_property('version') )
 	{
@@ -854,7 +856,7 @@ sub validate_theversion_refs {
 	  $valid = 0;
 	}
 
-      s/$syntax->{theversion_ref}//xms;
+      $text =~ s/$syntax->{theversion_ref}//xms;
     }
 
   return $valid;
@@ -864,19 +866,19 @@ sub validate_theversion_refs {
 
 sub validate_therevision_refs {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
+  my $text   = $self->get_content;
 
-  $_ = $self->get_content;
-
-  if ( not /$syntax->{therevision_ref}/xms )
+  if ( not $text =~ /$syntax->{therevision_ref}/xms )
     {
       return 1;
     }
 
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
 
   my $valid = 1;
   my $doc   = $self->get_containing_document;
@@ -887,7 +889,7 @@ sub validate_therevision_refs {
       return 0;
     }
 
-  while ( /$syntax->{therevision_ref}/xms )
+  while ( $text =~ /$syntax->{therevision_ref}/xms )
     {
       if ( $doc->has_property('revision') )
 	{
@@ -901,7 +903,7 @@ sub validate_therevision_refs {
 	  $valid = 0;
 	}
 
-      s/$syntax->{therevision_ref}//xms;
+      $text =~ s/$syntax->{therevision_ref}//xms;
     }
 
   return $valid;
@@ -911,19 +913,19 @@ sub validate_therevision_refs {
 
 sub validate_thedate_refs {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
+  my $text   = $self->get_content;
 
-  $_ = $self->get_content;
-
-  if ( not /$syntax->{thedate_ref}/xms )
+  if ( not $text =~ /$syntax->{thedate_ref}/xms )
     {
       return 1;
     }
 
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
 
   my $valid = 1;
   my $doc   = $self->get_containing_document;
@@ -934,7 +936,7 @@ sub validate_thedate_refs {
       return 0;
     }
 
-  while ( /$syntax->{thedate_ref}/xms )
+  while ( $text=~ /$syntax->{thedate_ref}/xms )
     {
       if ( $doc->has_property('date') )
 	{
@@ -948,7 +950,7 @@ sub validate_thedate_refs {
 	  $valid = 0;
 	}
 
-      s/$syntax->{thedate_ref}//xms;
+      $text =~ s/$syntax->{thedate_ref}//xms;
     }
 
   return $valid;
@@ -964,22 +966,22 @@ sub validate_status_refs {
   # [status:red]
   # [status:grey]
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
   my $valid  = 1;
+  my $text   = $self->get_content;
 
-  $_ = $self->get_content;
-
-  if ( not /$syntax->{status_ref}/xms )
+  if ( not $text =~ /$syntax->{status_ref}/xms )
     {
       return 1;
     }
 
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
 
-  while ( /$syntax->{status_ref}/xms )
+  while ( $text =~ /$syntax->{status_ref}/xms )
     {
       my $id_or_color = $1;
 
@@ -990,7 +992,7 @@ sub validate_status_refs {
 
       else
 	{
-	  my $id  = $id_or_color;
+	  my $id = $id_or_color;
 
 	  if ( not $self->get_containing_document )
 	    {
@@ -1020,7 +1022,7 @@ sub validate_status_refs {
 	    }
 	}
 
-      s/$syntax->{status_ref}//xms;
+      $text =~ s/$syntax->{status_ref}//xms;
     }
 
   return $valid;
@@ -1080,26 +1082,26 @@ sub validate_glossary_term_refs {
   # entry.  Glossary term references are inline tags like '[g:term]'
   # or '[g:alt:term]'.
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-
-  $_ = $self->get_content;
+  my $text   = $self->get_content;
 
   if (
       not
       (
-       /$syntax->{gloss_term_ref}/xms
+       $text =~ /$syntax->{gloss_term_ref}/xms
        or
-       /$syntax->{begin_gloss_term_ref}/xms
+       $text =~ /$syntax->{begin_gloss_term_ref}/xms
       )
      )
     {
       return 1;
     }
 
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
 
   my $valid = 1;
 
@@ -1111,7 +1113,7 @@ sub validate_glossary_term_refs {
 
   my $library = $util->get_library;
 
-  while ( /$syntax->{gloss_term_ref}/xms )
+  while ( $text =~ /$syntax->{gloss_term_ref}/xms )
     {
       my $alt  = $3 || q{};
       my $term = $4;
@@ -1128,10 +1130,10 @@ sub validate_glossary_term_refs {
 	  $valid = 0;
 	}
 
-      s/$syntax->{gloss_term_ref}//xms;
+      $text =~ s/$syntax->{gloss_term_ref}//xms;
     }
 
-  if ( /$syntax->{begin_gloss_term_ref}/xms )
+  if ( $text =~ /$syntax->{begin_gloss_term_ref}/xms )
     {
       my $location = $self->get_location;
       $logger->warn("INVALID GLOSSARY TERM REFERENCE SYNTAX at $location");
@@ -1195,26 +1197,26 @@ sub validate_glossary_def_refs {
   # glossary entry.  Glossary definition references are inline tags
   # like '[def:term]'.
 
-  my $self    = shift;
-  my $sml     = SML->instance;
-  my $syntax  = $sml->get_syntax;
-  my $util    = $sml->get_util;
+  my $self = shift;
 
-  $_ = $self->get_content;
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+  my $util   = $sml->get_util;
+  my $text   = $self->get_content;
 
   if (
       not
       (
-       /$syntax->{gloss_def_ref}/xms
+       $text =~ /$syntax->{gloss_def_ref}/xms
        or
-       /$syntax->{begin_gloss_def_ref}/xms
+       $text =~ /$syntax->{begin_gloss_def_ref}/xms
       )
      )
     {
       return 1;
     }
 
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
 
   my $valid = 1;
 
@@ -1226,7 +1228,7 @@ sub validate_glossary_def_refs {
 
   my $library = $util->get_library;
 
-  while ( /$syntax->{gloss_def_ref}/xms )
+  while ( $text =~ /$syntax->{gloss_def_ref}/xms )
     {
       my $alt  = $2 || q{};
       my $term = $3;
@@ -1243,10 +1245,10 @@ sub validate_glossary_def_refs {
 	  $valid = 0;
 	}
 
-      s/$syntax->{gloss_def_ref}//xms;
+      $text =~ s/$syntax->{gloss_def_ref}//xms;
     }
 
-  if ( /$syntax->{begin_gloss_def_ref}/xms )
+  if ( $text =~ /$syntax->{begin_gloss_def_ref}/xms )
     {
       my $location = $self->get_location;
       $logger->warn("INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at $location");
@@ -1266,10 +1268,10 @@ sub validate_acronym_ref_syntax {
 
   my $self = shift;
 
-  my $sml     = SML->instance;
-  my $syntax  = $sml->get_syntax;
-  my $util    = $sml->get_util;
-  my $text    = $self->get_content;
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+  my $util   = $sml->get_util;
+  my $text   = $self->get_content;
 
   if (
       not
@@ -1310,26 +1312,26 @@ sub validate_acronym_refs {
   # entry.  Acronym references are inline tags like '[ac:term]'
   # or '[ac:alt:term]'.
 
-  my $self    = shift;
-  my $sml     = SML->instance;
-  my $syntax  = $sml->get_syntax;
-  my $util    = $sml->get_util;
+  my $self = shift;
 
-  $_ = $self->get_content;
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+  my $util   = $sml->get_util;
+  my $text   = $self->get_content;
 
   if (
       not
       (
-       /$syntax->{acronym_term_ref}/xms
+       $text =~ /$syntax->{acronym_term_ref}/xms
        or
-       /$syntax->{begin_acronym_term_ref}/xms
+       $text =~ /$syntax->{begin_acronym_term_ref}/xms
       )
      )
     {
       return 1;
     }
 
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
 
   my $valid = 1;
 
@@ -1341,7 +1343,7 @@ sub validate_acronym_refs {
 
   my $library = $util->get_library;
 
-  while ( /$syntax->{acronym_term_ref}/xms )
+  while ( $text =~ /$syntax->{acronym_term_ref}/xms )
     {
       my $alt     = $3 || q{};
       my $acronym = $4;
@@ -1358,10 +1360,10 @@ sub validate_acronym_refs {
 	  $valid = 0;
 	}
 
-      s/$syntax->{acronym_term_ref}//xms;
+      $text =~ s/$syntax->{acronym_term_ref}//xms;
     }
 
-  if ( /$syntax->{begin_acronym_term_ref}/xms )
+  if ( $text =~ /$syntax->{begin_acronym_term_ref}/xms )
     {
       my $location = $self->get_location;
       $logger->warn("INVALID ACRONYM REFERENCE SYNTAX: at $location");
@@ -1425,26 +1427,26 @@ sub validate_source_citations {
   # library's list of references.  Source citations are inline tags
   # like '[cite:cms15]'
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
   my $util   = $sml->get_util;
-
-  $_ = $self->get_content;
+  my $text   = $self->get_content;
 
   if (
       not
       (
-       /$syntax->{citation_ref}/xms
+       $text =~ /$syntax->{citation_ref}/xms
        or
-       /$syntax->{begin_citation_ref}/xms
+       $text =~ /$syntax->{begin_citation_ref}/xms
       )
      )
     {
       return 1;
     }
 
-  $_ = $util->remove_literals($_);
+  $text = $util->remove_literals($text);
 
   my $valid = 1;
 
@@ -1456,7 +1458,7 @@ sub validate_source_citations {
 
   my $library = $util->get_library;
 
-  while ( /$syntax->{citation_ref}/xms )
+  while ( $text =~ /$syntax->{citation_ref}/xms )
     {
       my $source = $2;
       my $note   = $3;
@@ -1468,10 +1470,10 @@ sub validate_source_citations {
 	  $valid = 0;
 	}
 
-      s/$syntax->{citation_ref}//xms;
+      $text =~ s/$syntax->{citation_ref}//xms;
     }
 
-  if ( /$syntax->{begin_citation_ref}/xms )
+  if ( $text =~ /$syntax->{begin_citation_ref}/xms )
     {
       my $location = $self->get_location;
       $logger->warn("INVALID SOURCE CITATION SYNTAX at $location");
@@ -1503,8 +1505,7 @@ sub _build_content {
     {
       my $text = $line->get_content;
 
-      $text =~ s/[\r\n]*$//;
-      # chomp $text;
+      $text =~ s/[\r\n]*$//;            # chomp
 
       push @{ $lines }, $text;
     }
