@@ -220,15 +220,15 @@ sub remove_literals {
 
 sub remove_keystroke_symbols {
 
-  my $self   = shift;
+  my $self = shift;
+  my $text = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  $_ = shift;
+  $text =~ s/$syntax->{keystroke_symbol}//g;
 
-  s/$syntax->{keystroke_symbol}//g;
-
-  return $_;
+  return $text;
 }
 
 ######################################################################
@@ -238,6 +238,7 @@ sub walk_directory {
   my $self     = shift;
   my $filespec = shift;
   my $callback = shift;
+
   my $DIR;
 
   $callback->($filespec);
@@ -275,6 +276,7 @@ sub walk_directory {
 sub _build_blank_line {
 
   my $self = shift;
+
   my $line = SML::Line->new(content=>"\n");
 
   return $line;
