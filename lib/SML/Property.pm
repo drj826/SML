@@ -64,9 +64,8 @@ sub add_element {
 
   my $self     = shift;
   my $element  = shift;
-  my $el       = $self->get_element_list;
 
-  push @{ $el }, $element;
+  push @{ $self->get_element_list }, $element;
 
   return 1;
 }
@@ -93,7 +92,8 @@ sub has_value {
 
 sub get_value {
 
-  my $self    = shift;
+  my $self = shift;
+
   my $values  = [];
   my $name    = $self->get_name;
   my $sml     = SML->instance;
@@ -117,12 +117,11 @@ sub get_value {
 	{
 	  next if not $element->get_name eq 'outcome';
 
-	  $_ = $element->get_content;
+	  my $text = $element->get_content;
 
-	  s/[\r\n]*$//;
-	  # chomp;
+	  $text =~ s/[\r\n]*$//;	# chomp;
 
-	  if (/$syntax->{outcome_element}/)
+	  if ( $text =~ /$syntax->{outcome_element}/ )
 	    {
 	      my $date   = $1;
 	      my $status = $3;
@@ -133,7 +132,7 @@ sub get_value {
 	  else
 	    {
 	      my $location = $element->location;
-	      $logger->error("OUTCOME SYNTAX ERROR at $location ($_)");
+	      $logger->error("OUTCOME SYNTAX ERROR at $location ($text)");
 	    }
 	}
 
@@ -159,7 +158,8 @@ sub get_value {
 
 sub is_multi_valued {
 
-  my $self          = shift;
+  my $self = shift;
+
   my $element_count = scalar @{ $self->get_element_list };
 
   if ( $element_count > 1 )
@@ -186,7 +186,8 @@ sub get_element_count {
 
 sub get_elements_as_enum_list {
 
-  my $self    = shift;
+  my $self = shift;
+
   my $sml     = SML->instance;
   my $util    = $sml->get_util;
   my $library = $util->get_library;
