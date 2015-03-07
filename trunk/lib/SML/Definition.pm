@@ -44,16 +44,15 @@ my $logger = Log::Log4perl::get_logger('sml.Definition');
 
 sub get_term {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
+  my $text   = $self->get_content;
 
-  $_ = $self->get_content;
+  $text =~ s/[\r\n]*$//;                # chomp;
 
-  s/[\r\n]*$//;
-  # chomp;
-
-  if ( /$syntax->{definition_element}/xms )
+  if ( $text =~ /$syntax->{definition_element}/xms )
     {
       return $2;
     }
@@ -69,16 +68,15 @@ sub get_term {
 
 sub get_alt {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
+  my $text   = $self->get_content;
 
-  $_ = $self->get_content;
+  $text =~ s/[\r\n]*$//;                # chomp;
 
-  s/[\r\n]*$//;
-  # chomp;
-
-  if ( /$syntax->{definition_element}/xms )
+  if ( $text =~ /$syntax->{definition_element}/xms )
     {
       return $4 || q{};
     }
@@ -94,16 +92,15 @@ sub get_alt {
 
 sub get_value {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
+  my $text   = $self->get_content;
 
-  $_ = $self->get_content;
+  $text =~ s/[\r\n]*$//;                # chomp;
 
-  s/[\r\n]*$//;
-  # chomp;
-
-  if ( /$syntax->{definition_element}/xms )
+  if ( $text =~ /$syntax->{definition_element}/xms )
     {
       return $5;
     }
