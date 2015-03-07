@@ -49,16 +49,15 @@ sub get_value {
   # Strip the item indicator from the beginning of the listitem
   # content.
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
+  my $text   = $self->get_content || q{};
 
-  $_ = $self->get_content || q{};
+  $text =~ s/[\r\n]*$//;                # chomp;
 
-  s/[\r\n]*$//;
-  # chomp;
-
-  if ( /$syntax->{'list_item'}/xms )
+  if ( $text =~ /$syntax->{'list_item'}/xms )
     {
       my $util = $sml->get_util;
 
@@ -71,28 +70,6 @@ sub get_value {
       return 0;
     }
 };
-
-######################################################################
-
-# sub start_html {
-
-#   my $self = shift;
-#   my $html = shift;
-
-#   return '<li>' . $html;
-
-# }
-
-######################################################################
-
-# sub end_html {
-
-#   my $self = shift;
-#   my $html = shift;
-
-#   return $html . '</li>';
-
-# }
 
 ######################################################################
 
