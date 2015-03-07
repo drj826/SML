@@ -84,7 +84,8 @@ sub get_value {
 
 override '_validate_syntax' => sub {
 
-  my $self  = shift;
+  my $self = shift;
+
   my $name  = $self->get_name;
   my $valid = super();
 
@@ -106,7 +107,8 @@ override '_validate_semantics' => sub {
   # Validate there is an ontology rule for this element. In other
   # words, validate the ontology allows this element.
 
-  my $self  = shift;
+  my $self = shift;
+
   my $valid = super();
   my $name  = $self->get_name;
 
@@ -130,7 +132,8 @@ override '_validate_semantics' => sub {
 
 sub validate_element_allowed {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $sml      = SML->instance;
   my $ontology = $sml->get_ontology;
   my $name     = $self->get_name;
@@ -182,19 +185,18 @@ sub validate_element_allowed {
 
 sub validate_outcome_semantics {
 
-  my $self    = shift;
+  my $self = shift;
+
   my $valid   = 1;
   my $sml     = SML->instance;
   my $syntax  = $sml->get_syntax;
   my $util    = $sml->get_util;
   my $library = $util->get_library;
+  my $text    = $self->get_content;
 
-  $_ = $self->get_content;
+  $text =~ s/[\r\n]*$//;                # chomp;
 
-  s/[\r\n]*$//;
-  # chomp;
-
-  if ( /$syntax->{outcome_element}/xms )
+  if ( $text =~ /$syntax->{outcome_element}/xms )
     {
       my $date        = $1;
       my $entity_id   = $2;
@@ -250,14 +252,14 @@ sub validate_outcome_semantics {
 
 sub validate_footnote_syntax {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $valid  = 1;
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
+  my $text   = $self->get_content;
 
-  $_ = $self->get_content;
-
-  if ( not /$syntax->{footnote_element}/xms )
+  if ( not $text =~ /$syntax->{footnote_element}/xms )
     {
       my $location = $self->get_location;
       $logger->warn("INVALID FOOTNOTE SYNTAX: at $location");
@@ -281,8 +283,9 @@ sub _type_of {
   # Return the TYPE of the element value (object name, STRING, or
   # BOOLEAN)
 
-  my $self    = shift;
-  my $value   = shift;
+  my $self  = shift;
+  my $value = shift;
+
   my $sml     = SML->instance;
   my $util    = $sml->get_util;
   my $library = $util->get_library;
