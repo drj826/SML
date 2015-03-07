@@ -48,16 +48,15 @@ sub get_value {
 
   # Strip the plus sign off the beginning of the list item.
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
+  my $text   = $self->get_content || q{};
 
-  $_ = $self->get_content || q{};
+  $text =~ s/[\r\n]*$//;                # chomp;
 
-  s/[\r\n]*$//;
-  # chomp;
-
-  if ( /$syntax->{'enum_list_item'}/xms )
+  if ( $text =~ /$syntax->{'enum_list_item'}/xms )
     {
       my $util = $sml->get_util;
 
