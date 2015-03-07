@@ -510,20 +510,19 @@ sub add_outcome {
   # Add an outcome to the outcome data structure.  An outcome is a
   # SML::Element.
 
-  my $self       = shift;
-  my $outcome    = shift;
+  my $self    = shift;
+  my $outcome = shift;
+
   my $outcome_ds = $self->get_outcome_hash;
   my $sml        = SML->instance;
   my $syntax     = $sml->get_syntax;
   my $util       = $sml->get_util;
   my $options    = $util->get_options;
+  my $text       = $outcome->get_content;
 
-  $_ = $outcome->get_content;
+  $text =~ s/[\r\n]*$//;                # chomp;
 
-  s/[\r\n]*$//;
-  # chomp;
-
-  if ( /$syntax->{outcome_element}/xms )
+  if ( $text =~ /$syntax->{outcome_element}/xms )
     {
       my $date        = $1;
       my $entity_id   = $2;
@@ -557,20 +556,19 @@ sub add_review {
   # Add an review to the review data structure.  An review is a
   # SML::Element.
 
-  my $self      = shift;
-  my $review    = shift;
+  my $self   = shift;
+  my $review = shift;
+
   my $review_ds = $self->get_review_hash;
   my $sml       = SML->instance;
   my $syntax    = $sml->get_syntax;
   my $util      = $sml->get_util;
   my $options   = $util->get_options;
+  my $text      = $review->get_content;
 
-  $_ = $review->get_content;
+  $text =~ s/[\r\n]*$//;                # chomp;
 
-  s/[\r\n]*$//;
-  # chomp;
-
-  if ( /$syntax->{review_element}/xms )
+  if ( $text =~ /$syntax->{review_element}/xms )
     {
       my $date        = $1;
       my $entity_id   = $2;
@@ -806,6 +804,7 @@ sub get_fragment {
 sub get_fragment_list {
 
   my $self = shift;
+
   my $list = [];
 
   foreach my $division ( values %{ $self->_get_division_hash })
@@ -1039,8 +1038,9 @@ sub get_variable_value {
 
 sub get_preamble_line_list {
 
-  my $self     = shift;
-  my $id       = shift;
+  my $self = shift;
+  my $id   = shift;
+
   my $division = $self->get_division($id);
 
   if ( $division->isa('SML::Division') )
@@ -1059,8 +1059,9 @@ sub get_preamble_line_list {
 
 sub get_narrative_line_list {
 
-  my $self     = shift;
-  my $id       = shift;
+  my $self = shift;
+  my $id   = shift;
+
   my $division = $self->get_division($id);
 
   if ( $division->isa('SML::Division') )
@@ -1084,7 +1085,8 @@ sub get_type {
 
   my $self  = shift;
   my $value = shift;
-  my $name  = q{};
+
+  my $name = q{};
 
   if ( defined $self->_get_division_hash->{$value} )
     {
@@ -1150,7 +1152,8 @@ sub get_outcome_entity_id_list {
   # Return a list of entities for which there are outcome elements.
 
   my $self = shift;
-  my $oel  = []; # outcome entity list
+
+  my $oel = [];                         # outcome entity list
 
   foreach my $entity_id ( keys %{ $self->get_outcome_hash } )
     {
@@ -1167,7 +1170,8 @@ sub get_review_entity_id_list {
   # Return a list of entities for which there are review elements.
 
   my $self = shift;
-  my $rel  = []; # review entity list
+
+  my $rel = [];                         # review entity list
 
   foreach my $entity_id ( keys %{ $self->get_review_hash } )
     {
@@ -1186,16 +1190,17 @@ sub get_outcome_date_list {
 
   my $self      = shift;
   my $entity_id = shift;
-  my $dates     = [];
+
+  my $date_list = [];
 
   if ( exists $self->get_outcome_hash->{$entity_id} )
     {
       foreach my $date ( sort by_date keys %{ $self->get_outcome_hash->{$entity_id} } )
 	{
-	  push @{ $dates }, $date;
+	  push @{ $date_list }, $date;
 	}
 
-      return $dates;
+      return $date_list;
     }
 
   else
@@ -1203,7 +1208,7 @@ sub get_outcome_date_list {
       $logger->error("CAN'T GET OUTCOME DATE LIST no outcomes for \'$entity_id\'");
     }
 
-  return $dates;
+  return $date_list;
 }
 
 ######################################################################
@@ -1215,16 +1220,17 @@ sub get_review_date_list {
 
   my $self      = shift;
   my $entity_id = shift;
-  my $dates     = [];
+
+  my $date_list = [];
 
   if ( exists $self->get_review_hash->{$entity_id} )
     {
       foreach my $date ( sort by_date keys %{ $self->get_review_hash->{$entity_id} } )
 	{
-	  push @{ $dates }, $date;
+	  push @{ $date_list }, $date;
 	}
 
-      return $dates;
+      return $date_list;
     }
 
   else
@@ -1232,7 +1238,7 @@ sub get_review_date_list {
       $logger->error("CAN'T GET REVIEW DATE LIST no reviews for \'$entity_id\'");
     }
 
-  return $dates;
+  return $date_list;
 }
 
 ######################################################################
@@ -1321,7 +1327,8 @@ sub summarize_content {
 
   # Return a summary of the library's content.
 
-  my $self    = shift;
+  my $self = shift;
+
   my $summary = q{};
 
   $summary .= $self->summarize_entities;
@@ -1345,7 +1352,8 @@ sub summarize_entities {
 
   # Return a summary of the library's entities.
 
-  my $self    = shift;
+  my $self = shift;
+
   my $summary = q{};
 
   if ( keys %{ $self->get_entity_hash } )
@@ -1386,7 +1394,8 @@ sub summarize_fragments {
 
   # Return a summary of the library's fragments.
 
-  my $self    = shift;
+  my $self = shift;
+
   my $summary = q{};
 
   if ( keys %{ $self->_get_fragment_hash } )
@@ -1415,7 +1424,8 @@ sub summarize_divisions {
   #
   # - Don't include entities
 
-  my $self    = shift;
+  my $self = shift;
+
   my $summary = q{};
 
   my $ignore =
@@ -1473,7 +1483,8 @@ sub summarize_divisions {
 
 sub summarize_glossary {
 
-  my $self    = shift;
+  my $self = shift;
+
   my $summary = q{};
 
   if (@{ $self->get_glossary->get_entry_list })
@@ -1501,7 +1512,8 @@ sub summarize_glossary {
 
 sub summarize_acronyms {
 
-  my $self    = shift;
+  my $self = shift;
+
   my $summary = q{};
 
   if (@{ $self->get_acronym_list->get_acronym_list })
@@ -1529,7 +1541,8 @@ sub summarize_acronyms {
 
 sub summarize_variables {
 
-  my $self    = shift;
+  my $self = shift;
+
   my $summary = q{};
 
   if (keys %{ $self->get_variable_hash })
@@ -1554,7 +1567,8 @@ sub summarize_variables {
 
 sub summarize_resources {
 
-  my $self    = shift;
+  my $self = shift;
+
   my $summary = q{};
 
   if (keys %{ $self->get_resource_hash })
@@ -1576,7 +1590,8 @@ sub summarize_resources {
 
 sub summarize_index {
 
-  my $self    = shift;
+  my $self = shift;
+
   my $summary = q{};
 
   if (keys %{ $self->get_index_hash })
@@ -1601,7 +1616,8 @@ sub summarize_index {
 
 sub summarize_sources {
 
-  my $self    = shift;
+  my $self = shift;
+
   my $summary = q{};
 
   if ( $self->get_references->has_sources )
@@ -1626,7 +1642,8 @@ sub summarize_sources {
 
 sub summarize_outcomes {
 
-  my $self    = shift;
+  my $self = shift;
+
   my $summary = q{};
 
   if ( keys %{ $self->get_outcome_hash } )
@@ -1653,7 +1670,8 @@ sub summarize_outcomes {
 
 sub summarize_reviews {
 
-  my $self    = shift;
+  my $self = shift;
+
   my $summary = q{};
 
   if ( keys %{ $self->get_review_hash } )
@@ -1762,7 +1780,7 @@ sub update_status_from_outcome {
   else
     {
       my $location = $outcome->location;
-      $logger->error("OUTCOME SYNTAX ERROR at $location ($_)");
+      $logger->error("OUTCOME SYNTAX ERROR at $location ($text)");
       return 0;
     }
 
@@ -2034,8 +2052,6 @@ sub BUILD {
   my $sml_ontology_config_filespec = $self->_get_sml_ontology_config_filespec;
   $ontology->add_rules($sml_ontology_config_filespec);
 
-  $logger->debug("added ontology rules from $sml_ontology_config_filespec");
-
   #-------------------------------------------------------------------
   # add LIB ontology rules
   #
@@ -2047,31 +2063,6 @@ sub BUILD {
 
   my $lib_ontology_config_filespec = $self->_get_lib_ontology_config_filespec;
   $ontology->add_rules($lib_ontology_config_filespec);
-
-  $logger->debug("added ontology rules from $lib_ontology_config_filespec");
-
-  #-------------------------------------------------------------------
-  # read the catalog file
-  #
-  # if (-f $catalog_file)
-  #   {
-  #     open my $catalog, '<', $catalog_file or croak("Couldn't open $catalog_file");
-  #     my @catalog_lines = <$catalog>;
-  #     close $catalog or croak("Couldn't close $catalog_file");
-
-  #     for (@catalog_lines)
-  # 	{
-  # 	  if    (/$syntax->{'comment_line'}/xms)           { next                          }
-  # 	  elsif (/$syntax->{'title_element'}/xms)          { $self->_set_title($1)         }
-  # 	  elsif (/$syntax->{'id_element'}/xms)             { $self->_set_id($2)            }
-  # 	  elsif (/$syntax->{'author_element'}/xms)         { $self->_set_author($1)        }
-  # 	  elsif (/$syntax->{'date_element'}/xms)           { $self->_set_date($1)          }
-  # 	  elsif (/$syntax->{'revision_element'}/xms)       { $self->_set_revision($1)      }
-  # 	  elsif (/$syntax->{'fragment_file_element'}/xms)  { $self->add_fragment_file($1)  }
-  # 	  elsif (/$syntax->{'reference_file_element'}/xms) { $self->add_reference_file($1) }
-  # 	  elsif (/$syntax->{'script_file_element'}/xms)    { $self->add_script_file($1)    }
-  # 	}
-  #   }
 
   #-------------------------------------------------------------------
   # Teach util about library
