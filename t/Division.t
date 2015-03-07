@@ -144,7 +144,7 @@ foreach my $tc (@{ $tcl })
     get_property_list_ok($tc)       if defined $tc->{expected}{get_property_list};
     get_property_ok($tc)            if defined $tc->{expected}{get_property};
     get_property_value_ok($tc)      if defined $tc->{expected}{get_property_value};
-    valid_semantics_warning_ok($tc) if defined $tc->{expected}{valid_semantics_warning};
+    warn_invalid_semantics_ok($tc)  if defined $tc->{expected}{valid_semantics_warning};
   }
 
 #---------------------------------------------------------------------
@@ -535,7 +535,7 @@ sub get_property_value_ok {
 
 ######################################################################
 
-sub valid_semantics_warning_ok {
+sub warn_invalid_semantics_ok {
 
   my $tc = shift;                       # test case
 
