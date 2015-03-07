@@ -318,6 +318,46 @@ sub _build_division_test_case_list {
       },
      },
 
+     {
+      name        => 'invalid_semantics_division_3',
+      testfile    => 'td-000070.txt',
+      division_id => 'td-000070',
+      expected =>
+      {
+       valid_semantics_warning => 'INVALID NON-UNIQUE ID',
+      },
+     },
+
+     {
+      name        => 'invalid_semantics_division_4',
+      testfile    => 'td-000079.txt',
+      division_id => 'problem-1',
+      expected =>
+      {
+       valid_semantics_warning => 'INVALID PROPERTY CARDINALITY',
+      },
+     },
+
+     {
+      name        => 'invalid_semantics_division_5',
+      testfile    => 'td-000080.txt',
+      division_id => 'problem-1',
+      expected =>
+      {
+       valid_semantics_warning => 'INVALID PROPERTY VALUE',
+      },
+     },
+
+     {
+      name        => 'invalid_semantics_division_6',
+      testfile    => 'td-000081.txt',
+      division_id => 'solution-1',
+      expected =>
+      {
+       valid_semantics_warning => 'INVALID COMPOSITION',
+      },
+     },
+
      #################################################################
 
      {
