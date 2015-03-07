@@ -76,19 +76,19 @@ sub _build_term {
 
   # Return the term being defined by the definition list item.
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
+  my $text   = $self->get_content || q{};
 
-  $_ = $self->get_content || q{};
+  $text =~ s/[\r\n]*$//;                # chomp
 
-  s/[\r\n]*$//;
-  # chomp;
-
-  if ( /$syntax->{'def_list_item'}/xms )
+  if ( $text =~ /$syntax->{'def_list_item'}/xms )
     {
-      my $text = $1; # see SML::Syntax
-      my $string = SML::String->new(content=>$text);
+      my $term   = $1;                  # see SML::Syntax
+      my $string = SML::String->new(content=>$term);
+
       $self->add_part( $string );
 
       return $string;
@@ -108,18 +108,19 @@ sub _build_definition {
   # Return the definition of the term being defined by the definition
   # list item.
 
-  my $self   = shift;
+  my $self = shift;
+
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
+  my $text   = $self->get_content || q{};
 
-  $_ = $self->get_content || q{};
+  $text =~ s/[\r\n]*$//;                # chomp
 
-  chomp;
-
-  if ( /$syntax->{'def_list_item'}/xms )
+  if ( $text =~ /$syntax->{'def_list_item'}/xms )
     {
-      my $text = $2; # see SML::Syntax
-      my $string = SML::String->new(content=>$text);
+      my $definition = $2;              # see SML::Syntax
+      my $string     = SML::String->new(content=>$definition);
+
       $self->add_part( $string );
 
       return $string;
