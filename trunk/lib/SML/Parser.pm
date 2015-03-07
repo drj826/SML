@@ -738,20 +738,19 @@ sub extract_division_name {
 
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
+  my $text   = $lines->[0]->get_content;
 
-  $_ = $lines->[0]->get_content;
-
-  if ( /$syntax->{start_region}/ )
+  if ( $text =~ /$syntax->{start_region}/ )
     {
       return $2;
     }
 
-  elsif ( /$syntax->{start_environment}/ )
+  elsif ( $text =~ /$syntax->{start_environment}/ )
     {
       return $2;
     }
 
-  elsif ( /$syntax->{start_section}/ )
+  elsif ( $text =~ /$syntax->{start_section}/ )
     {
       return 'SECTION';
     }
@@ -786,19 +785,18 @@ sub extract_title_text {
  LINE:
   foreach my $line (@{ $lines })
     {
-      $_ = $line->get_content;
+      my $text = $line->get_content;
 
-      s/[\r\n]*$//;
-      # chomp;
+      $text =~ s/[\r\n]*$//;            # chomp;
 
       # skip first line if it starts a division
       if (
 	  $first_line
 	  and
 	  (
-	   /$syntax->{start_region}/
+	   $text =~ /$syntax->{start_region}/
 	   or
-	   /$syntax->{start_environment}/
+	   $text =~ /$syntax->{start_environment}/
 	  )
 	 )
 	{
@@ -807,12 +805,12 @@ sub extract_title_text {
 
       # begin title element
       elsif (
-	  $in_preamble
-	  and
-	  not $in_title
-	  and
-	  /$syntax->{title_element}/
-	 )
+	     $in_preamble
+	     and
+	     not $in_title
+	     and
+	     $text =~ /$syntax->{title_element}/
+	    )
 	{
 	  $first_line = 0;
 	  $in_title   = 1;
@@ -821,12 +819,12 @@ sub extract_title_text {
 
       # begin section title
       elsif (
-	  $in_preamble
-	  and
-	  not $in_title
-	  and
-	  /$syntax->{start_section}/
-	 )
+	     $in_preamble
+	     and
+	     not $in_title
+	     and
+	     $text =~ /$syntax->{start_section}/
+	    )
 	{
 	  $first_line = 0;
 	  $in_title   = 1;
@@ -837,7 +835,7 @@ sub extract_title_text {
       elsif (
 	     $in_title
 	     and
-	     /$syntax->{blank_line}/
+	     $text =~ /$syntax->{blank_line}/
 	    )
 	{
 	  $logger->trace("extracted title: \"$title_text\"");
@@ -848,7 +846,7 @@ sub extract_title_text {
       elsif (
 	     $in_title
 	     and
-	     /$syntax->{start_element}/
+	     $text =~ /$syntax->{start_element}/
 	    )
 	{
 	  $logger->trace("extracted title: \"$title_text\"");
@@ -856,9 +854,9 @@ sub extract_title_text {
 	}
 
       # preamble ending text?
-      elsif ( _line_ends_preamble($_) )
+      elsif ( _line_ends_preamble($text) )
 	{
-	  $logger->trace("preamble ending text: $_");
+	  $logger->trace("preamble ending text: $text");
 	  $logger->trace("extracted title: \"$title_text\"");
 	  return $title_text;
 	}
@@ -867,7 +865,7 @@ sub extract_title_text {
       elsif ( $in_title )
 	{
 	  $first_line = 0;
-	  $title_text .= " $_";
+	  $title_text .= " $text";
 	}
 
     }
@@ -901,16 +899,16 @@ sub extract_preamble_lines {
 
   foreach my $line (@{ $lines })
     {
-      $_ = $line->get_content;
+      my $text = $line->get_content;
 
-      s/[\r\n]*$//;
-      # chomp;
+      $text =~ s/[\r\n]*$//;            # chomp;
+
       ++ $i;
 
-      next if $i == 1;     # skip first line
-      last if $i == $last; # skip last line
+      next if $i == 1;                  # skip first line
+      last if $i == $last;              # skip last line
 
-      if ( _line_ends_preamble($_) )
+      if ( _line_ends_preamble($text) )
 	{
 	  return $preamble_lines;
 	}
@@ -918,7 +916,7 @@ sub extract_preamble_lines {
       elsif (
 	     $in_preamble
 	     and
-	     /$syntax->{start_element}/
+	     $text =~ /$syntax->{start_element}/
 	     and
 	     not $ontology->allows_property($divname,$1)
 	    )
@@ -929,7 +927,7 @@ sub extract_preamble_lines {
       elsif (
 	     $in_preamble
 	     and
-	     /$syntax->{start_element}/
+	     $text =~ /$syntax->{start_element}/
 	     and
 	     $ontology->allows_property($divname,$1)
 	    )
@@ -939,7 +937,7 @@ sub extract_preamble_lines {
 	}
 
       elsif (
-	     /$syntax->{paragraph_text}/
+	     $text =~ /$syntax->{paragraph_text}/
 	     and
 	     not $in_preamble_element
 	    )
@@ -947,7 +945,7 @@ sub extract_preamble_lines {
 	  return $preamble_lines;
 	}
 
-      elsif ( /$syntax->{blank_line}/ )
+      elsif ( $text =~ /$syntax->{blank_line}/ )
 	{
 	  $in_preamble_element = 0;
 	  push @{ $preamble_lines }, $line;
@@ -992,23 +990,23 @@ sub extract_narrative_lines {
 
   foreach my $line (@{ $lines })
     {
-      $_ = $line->get_content;
+      my $text = $line->get_content;
 
-      s/[\r\n]*$//;
-      # chomp;
+      $text =~ s/[\r\n]*$//;            # chomp;
+
       ++ $i;
 
-      next if $i == 1;     # skip first line
-      last if $i == $last; # skip last line
+      next if $i == 1;                  # skip first line
+      last if $i == $last;              # skip last line
 
-      if ( _line_ends_preamble($_) )
+      if ( _line_ends_preamble($text) )
 	{
 	  $in_preamble = 0;
 	  push @{ $narrative_lines }, $line;
 	}
 
       elsif (
-	     /$syntax->{start_element}/
+	     $text =~ /$syntax->{start_element}/
 	     and
 	     $in_preamble
 	     and
@@ -1020,7 +1018,7 @@ sub extract_narrative_lines {
 	}
 
       elsif (
-	     /$syntax->{start_element}/
+	     $text =~ /$syntax->{start_element}/
 	     and
 	     $in_preamble
 	     and
@@ -1031,7 +1029,7 @@ sub extract_narrative_lines {
 	}
 
       elsif (
-	     /$syntax->{paragraph_text}/
+	     $text =~ /$syntax->{paragraph_text}/
 	     and
 	     $in_preamble_element
 	    )
@@ -1040,7 +1038,7 @@ sub extract_narrative_lines {
 	}
 
       elsif (
-	     /$syntax->{paragraph_text}/
+	     $text =~ /$syntax->{paragraph_text}/
 	     and
 	     $in_preamble
 	     and
@@ -1052,7 +1050,7 @@ sub extract_narrative_lines {
 	}
 
       elsif (
-	     /$syntax->{blank_line}/
+	     $text =~ /$syntax->{blank_line}/
 	     and
 	     $in_preamble
 	     and
@@ -1549,43 +1547,55 @@ sub _resolve_includes {
  LINE:
   foreach my $oldline (@{ $oldlines })
     {
-      $_        = $oldline->get_content;
+      my $text     = $oldline->get_content;
       my $location = $oldline->get_location;
 
-      s/[\r\n]*$//;
-      # chomp;
+      $text =~ s/[\r\n]*$//;            # chomp;
 
       #---------------------------------------------------------------
       # Ignore comments in containing document
       #
-      if (/$syntax->{comment_marker}/) {
-	if ( $in_comment ) {
-	  $in_comment = 0;
-	} else {
-	  $in_comment = 1;
-	}
+      if ( $text =~ /$syntax->{comment_marker}/ )
+	{
+	  if ( $in_comment )
+	    {
+	      $in_comment = 0;
+	    }
+
+	  else
+	    {
+	      $in_comment = 1;
+	    }
+
 	push @{ $newlines }, $oldline;
 	next LINE;
-      } elsif ( $in_comment ) {
-	push @{ $newlines }, $oldline;
-	next LINE;
-      } elsif ( /$syntax->{'comment_line'}/ ) {
-	push @{ $newlines }, $oldline;
-	next LINE;
+
       }
+
+      elsif ( $in_comment )
+	{
+	  push @{ $newlines }, $oldline;
+	  next LINE;
+	}
+
+      elsif ( $text =~ /$syntax->{'comment_line'}/ )
+	{
+	  push @{ $newlines }, $oldline;
+	  next LINE;
+	}
 
       #---------------------------------------------------------------
       # ELSIF include statement
       #
-      elsif ( /$syntax->{include_element}/ )
+      elsif ( $text =~ /$syntax->{include_element}/ )
 	{
-	  my $asterisks          = $1 || '';
-	  my $args               = $2 || '';
-	  my $incl_id            = '';
-	  my $included_filespec  = '';
-	  my $included_lines     = undef;
-	  my $fragment           = undef;
-	  my $division           = undef;
+	  my $asterisks         = $1 || '';
+	  my $args              = $2 || '';
+	  my $incl_id           = '';
+	  my $included_filespec = '';
+	  my $included_lines    = undef;
+	  my $fragment          = undef;
+	  my $division          = undef;
 
 	  #-----------------------------------------------------------
 	  # Determine Division ID and Filespec
@@ -1805,7 +1815,7 @@ sub _resolve_includes {
       #---------------------------------------------------------------
       # Section headings (to track current depth)
       #
-      elsif (/^(\*+)/)
+      elsif ( $text =~ /^(\*+)/ )
 	{
 	  $depth = length($1);
 	  push @{ $newlines }, $oldline;
@@ -1932,12 +1942,12 @@ sub _run_scripts {
     {
       my $file = $line->get_file;
       my $num  = $line->get_num;
-      $_    = $line->get_content;
+      my $text = $line->get_content;
 
       #---------------------------------------------------------------
       # Ignore comments
       #
-      if ( /$syntax->{comment_marker}/ ) {
+      if ( $text =~ /$syntax->{comment_marker}/ ) {
 	if ( $in_comment ) {
 	  $in_comment = 0;
 	} else {
@@ -1948,7 +1958,7 @@ sub _run_scripts {
       } elsif ( $in_comment ) {
 	push @{ $newlines }, $line;
 	next LINE;
-      } elsif ( /$syntax->{'comment_line'}/ ) {
+      } elsif ( $text =~ /$syntax->{'comment_line'}/ ) {
 	push @{ $newlines }, $line;
 	next LINE;
       }
@@ -1962,7 +1972,7 @@ sub _run_scripts {
       #---------------------------------------------------------------
       # script:
       #
-      elsif ( /$syntax->{script_element}/ )
+      elsif ( $text =~ /$syntax->{script_element}/ )
 	{
 	  my $script_attr1 = $1 || '';
 	  my $command      = $2;
@@ -2687,13 +2697,13 @@ sub _insert_content {
  LINE:
   foreach my $line (@{ $oldlines })
     {
-      $_        = $line->get_content;
+      my $text     = $line->get_content;
       my $location = $line->get_location;
 
       #----------------------------------------------------------------
       # insert::
       #
-      if (/$syntax->{insert_element}/)
+      if ( $text =~ /$syntax->{insert_element}/ )
 	{
 	  my $string = $1;
 	  my $name   = $string;
@@ -2705,12 +2715,13 @@ sub _insert_content {
 	    {
 	      $logger->error("UNKNOWN INSERT NAME at $location: \"$name\"");
 	      $fragment->_set_is_valid(0);
-	      s/^(.*)/# $1/;
+
+	      $text =~ s/^(.*)/# $1/;
 
 	      my $newline = SML::Line->new
 		(
 		 included_from => $line,
-		 content       => $_,
+		 content       => $text,
 		);
 
 	      push @{ $newlines }, $newline;
@@ -2742,7 +2753,7 @@ sub _insert_content {
     #----------------------------------------------------------------
     # insert_ins::
     #
-    elsif (/$syntax->{'insert_ins_element'}/)
+    elsif ( $text =~ /$syntax->{'insert_ins_element'}/ )
       {
 	my $request           = $1;
 	my @parts             = split(';',$request);
@@ -2795,7 +2806,7 @@ sub _insert_content {
     #----------------------------------------------------------------
     # insert_gen::
     #
-    elsif (/$syntax->{'insert_gen_element'}/)
+    elsif ( $text =~ /$syntax->{'insert_gen_element'}/ )
       {
 	my $request = $1;
 	my @parts   = split(';',$request);
@@ -2807,12 +2818,12 @@ sub _insert_content {
 
 	my @new = split(/\n/s,"$replacement_text");
 
-	foreach my $text (@new)
+	foreach my $newtext (@new)
 	  {
 	    my $newline = SML::Line->new
 	      (
 	       included_from => $line,
-	       content       => "$text\n",
+	       content       => "$newtext\n",
 	      );
 	    push @{ $newlines }, $newline;
 	  }
@@ -2872,11 +2883,11 @@ sub _substitute_variables {
       next if $block->isa('SML::PreformattedBlock');
       next if $block->is_in_a('SML::PreformattedDivision');
 
-      $_ = $block->get_content;
+      my $text = $block->get_content;
 
-      next if /$syntax->{'comment_line'}/;
+      next if $text =~ /$syntax->{'comment_line'}/;
 
-      while ( /$syntax->{variable_ref}/ )
+      while ( $text =~ /$syntax->{variable_ref}/ )
 	{
 	  my $name = $1;
 	  my $alt  = $3 || '';
@@ -2885,7 +2896,8 @@ sub _substitute_variables {
 	    {
 	      # substitute variable value
 	      my $value = $library->get_variable_value($name,$alt);
-	      s/$syntax->{variable_ref}/$value/;
+
+	      $text =~ s/$syntax->{variable_ref}/$value/;
 
 	      $logger->trace("substituted $name $alt variable with $value");
 	    }
@@ -2897,11 +2909,12 @@ sub _substitute_variables {
 	      $logger->warn("UNDEFINED VARIABLE: \'$name\' at $location");
 	      $self->_set_is_valid(0);
 	      $fragment->_set_is_valid(0);
-	      s/$syntax->{variable_ref}/$name/;
+
+	      $text =~ s/$syntax->{variable_ref}/$name/;
 	    }
 	}
 
-      $block->set_content($_);
+      $block->set_content($text);
     }
 
   return 1;
@@ -2941,11 +2954,11 @@ sub _resolve_lookups {
       next if $block->isa('SML::PreformattedBlock');
       next if $block->is_in_a('SML::PreformattedDivision');
 
-      $_ = $block->get_content;
+      my $text = $block->get_content;
 
-      next if /$syntax->{'comment_line'}/;
+      next if $text =~ /$syntax->{'comment_line'}/;
 
-      while ( /$syntax->{lookup_ref}/ )
+      while ( $text =~ /$syntax->{lookup_ref}/ )
 	{
 	  my $name = $2;
 	  my $id   = $3;
@@ -2955,7 +2968,7 @@ sub _resolve_lookups {
 	      $logger->trace("..... $id $name is in library");
 	      my $value = $library->get_property_value($id,$name);
 
-	      s/$syntax->{lookup_ref}/$value/;
+	      $text =~ s/$syntax->{lookup_ref}/$value/;
 	    }
 
 	  else
@@ -2965,11 +2978,12 @@ sub _resolve_lookups {
 	      $logger->warn($msg);
 	      $self->_set_is_valid(0);
 	      $fragment->_set_is_valid(0);
-	      s/$syntax->{lookup_ref}/($msg)/;
+
+	      $text =~ s/$syntax->{lookup_ref}/($msg)/;
 	    }
 	}
 
-      $block->set_content($_);
+      $block->set_content($text);
     }
 
   return 1;
@@ -3004,13 +3018,13 @@ sub _resolve_templates {
  LINE:
   foreach my $line ( @{ $oldlines } )
     {
-      my $num = $line->get_num;            # line number in file
-      $_   = $line->get_content;        # line content
+      my $num  = $line->get_num;        # line number in file
+      my $text = $line->get_content;    # line content
 
       #---------------------------------------------------------------
       # Ignore comments
       #
-      if (/$syntax->{comment_marker}/) {
+      if ( $text =~ /$syntax->{comment_marker}/ ) {
 	if ( $in_comment ) {
 	  $in_comment = 0;
 	} else {
@@ -3021,7 +3035,7 @@ sub _resolve_templates {
       } elsif ( $in_comment ) {
 	push @{ $newlines }, $line;
 	next LINE;
-      } elsif ( /$syntax->{'comment_line'}/ ) {
+      } elsif ( $text =~ /$syntax->{'comment_line'}/ ) {
 	push @{ $newlines }, $line;
 	next LINE;
       }
@@ -3029,13 +3043,13 @@ sub _resolve_templates {
       #---------------------------------------------------------------
       # Process template element
       #
-      elsif (/$syntax->{template_element}/)
+      elsif ( $text =~ /$syntax->{template_element}/ )
 	{
 	  my $attrs     = $1;
 	  my $template  = $4;
 	  my $comment   = $6;
 	  my $variables = {};
-	  my $text      = '';
+	  my $tmpltext  = '';
 
 	  if ( not -f $template )
 	    {
@@ -3045,7 +3059,7 @@ sub _resolve_templates {
 
 	  elsif ( exists $self->_get_template_hash->{$template} )
 	    {
-	      $text = $self->_get_template_hash->{$template};
+	      $tmpltext = $self->_get_template_hash->{$template};
 	    }
 
 	  else
@@ -3058,8 +3072,8 @@ sub _resolve_templates {
 		  $logger->error("TEMPLATE FILE NOT FOUND \'$template\' at $location");
 		  $fragment->_set_is_valid(0);
 		}
-	      $text = $file->get_text;
-	      $self->_get_template_hash->{$template} = $text;
+	      $tmpltext = $file->get_text;
+	      $self->_get_template_hash->{$template} = $tmpltext;
 	    }
 
 	  my @vars = split(/:/,$attrs);
@@ -3079,10 +3093,10 @@ sub _resolve_templates {
 	  for my $key ( keys %{ $variables } )
 	    {
 	      my $value = $variables->{$key};
-	      $text =~ s/\[var:$key\]/$value/g;
+	      $tmpltext =~ s/\[var:$key\]/$value/g;
 	    }
 
-	  for my $newlinetext ( split(/\n/s, $text) )
+	  for my $newlinetext ( split(/\n/s, $tmpltext) )
 	    {
 	      my $newline = SML::Line->new
 		(
@@ -3140,7 +3154,7 @@ sub _generate_content {
  LINE:
   foreach my $line (@{ $oldlines })
     {
-      $_ = $line->get_content;         # line content
+      my $text = $line->get_content;    # line content
 
       # !!! BUG HERE !!!
       #
@@ -3157,14 +3171,14 @@ sub _generate_content {
       #
       #     <--- document
       #
-      $docid = '' if /$syntax->{start_document}/;
-      $docid = '' if /$syntax->{end_document}/;
-      $docid = $2 if /$syntax->{id_element}/ and not $docid;
+      $docid = '' if $text =~ /$syntax->{start_document}/;
+      $docid = '' if $text =~ /$syntax->{end_document}/;
+      $docid = $2 if $text =~ /$syntax->{id_element}/ and not $docid;
 
       #----------------------------------------------------------------
       # generate::
       #
-      if (/$syntax->{generate_element}/)
+      if ( $text =~ /$syntax->{generate_element}/ )
 	{
 	  my $name = $1;
 	  my $args = $2 || '';
@@ -3176,6 +3190,7 @@ sub _generate_content {
 
 	  push(@{ $newlines }, $newline);
 	}
+
       else
 	{
 	  push(@{ $newlines }, $line);
@@ -3568,15 +3583,14 @@ sub _contains_include {
  LINE:
   foreach my $line ( @{ $self->_get_line_list } )
     {
-      $_ = $line->get_content;
+      my $text = $line->get_content;
 
-      s/[\r\n]*$//;
-      # chomp;
+      $text =~ s/[\r\n]*$//;            # chomp;
 
       #---------------------------------------------------------------
       # Ignore comments
       #
-      if (/$syntax->{comment_marker}/) {
+      if ( $text =~ /$syntax->{comment_marker}/ ) {
 	if ( $in_comment ) {
 	  $in_comment = 0;
 	} else {
@@ -3585,7 +3599,7 @@ sub _contains_include {
 	next LINE;
       } elsif ( $in_comment ) {
 	next LINE;
-      } elsif ( /$syntax->{'comment_line'}/ ) {
+      } elsif ( $text =~ /$syntax->{'comment_line'}/ ) {
 	next LINE;
       }
 
@@ -3597,9 +3611,9 @@ sub _contains_include {
       #     tmpl/rq-summary.txt' because it doesn't allow for an equal
       #     sign in arguments.
       #
-      elsif (/$syntax->{include_element}/)
+      elsif ( $text =~ /$syntax->{include_element}/ )
 	{
-	  $logger->debug("$_");
+	  $logger->debug("$text");
 	  $logger->debug("unresolved include: $&");
 	  return 1;
 	}
@@ -3625,15 +3639,14 @@ sub _contains_script {
  LINE:
   foreach my $line ( @{ $self->_get_line_list } )
     {
-      $_ = $line->get_content;
+      my $text = $line->get_content;
 
-      s/[\r\n]*$//;
-      # chomp;
+      $text =~ s/[\r\n]*$//;            # chomp;
 
       #---------------------------------------------------------------
       # Ignore comments
       #
-      if (/$syntax->{comment_marker}/) {
+      if ( $text =~ /$syntax->{comment_marker}/ ) {
 	if ( $in_comment ) {
 	  $in_comment = 0;
 	} else {
@@ -3642,16 +3655,16 @@ sub _contains_script {
 	next LINE;
       } elsif ( $in_comment ) {
 	next LINE;
-      } elsif ( /$syntax->{'comment_line'}/ ) {
+      } elsif ( $text =~ /$syntax->{'comment_line'}/ ) {
 	next LINE;
       }
 
       #---------------------------------------------------------------
       # Script statement
       #
-      elsif ( /$syntax->{script_element}/ )
+      elsif ( $text =~ /$syntax->{script_element}/ )
 	{
-	  $logger->debug("$_");
+	  $logger->debug("$text");
 	  $logger->debug("unresolved script: $&");
 	  return 1;
 	}
@@ -3671,18 +3684,17 @@ sub _contains_insert {
 
   foreach my $element ( @{ $self->_get_fragment->get_element_list } )
     {
-      $_ = $element->get_content;
+      my $text = $element->get_content;
 
-      s/[\r\n]*$//;
-      # chomp;
+      $text =~ s/[\r\n]*$//;            # chomp;
 
       if (
-  	     /$syntax->{'insert_element'}/
-	  or /$syntax->{'insert_ins_element'}/
-	  or /$syntax->{'insert_gen_element'}/
+	     $text =~ /$syntax->{'insert_element'}/
+	  or $text =~ /$syntax->{'insert_ins_element'}/
+	  or $text =~ /$syntax->{'insert_gen_element'}/
 	 )
 	{
-	  $logger->debug("$_");
+	  $logger->debug("$text");
 	  $logger->debug("unresolved insert: $&");
 	  return 1;
 	}
@@ -3710,16 +3722,15 @@ sub _contains_variable {
       next if $block->isa('SML::PreformattedBlock');
       next if $block->is_in_a('SML::PreformattedDivision');
 
-      $_ = $block->get_content;
+      my $text = $block->get_content;
 
-      s/[\r\n]*$//;
-      # chomp;
+      $text =~ s/[\r\n]*$//;            # chomp;
 
-      next if /$syntax->{'comment_line'}/;
+      next if $text =~ /$syntax->{'comment_line'}/;
 
-      if ( /$syntax->{variable_ref}/ )
+      if ( $text =~ /$syntax->{variable_ref}/ )
 	{
-	  $logger->debug("$_");
+	  $logger->debug("$text");
 	  $logger->debug("unresolved variable: $&");
 	  return 1;
 	}
@@ -3747,16 +3758,15 @@ sub _contains_lookup {
       next if $block->isa('SML::PreformattedBlock');
       next if $block->is_in_a('SML::PreformattedDivision');
 
-      $_ = $block->get_content;
+      my $text = $block->get_content;
 
-      s/[\r\n]*$//;
-      # chomp;
+      $text =~ s/[\r\n]*$//;            # chomp;
 
-      next if /$syntax->{'comment_line'}/;
+      next if $text =~ /$syntax->{'comment_line'}/;
 
-      if ( /$syntax->{lookup_ref}/ )
+      if ( $text =~ /$syntax->{lookup_ref}/ )
 	{
-	  $logger->debug("$_");
+	  $logger->debug("$text");
 	  $logger->debug("unresolved lookup: $&");
 	  return 1;
 	}
@@ -3782,18 +3792,17 @@ sub _contains_template {
       next if $block->isa('CommentBlock');
       next if $block->is_in_a('SML::CommentDivision');
 
-      $_ = $block->get_content;
+      my $text = $block->get_content;
 
-      s/[\r\n]*$//;
-      # chomp;
+      $text =~ s/[\r\n]*$//;            # chomp;
 
-      if (    /^template::/                   # deprecate someday
-	   or /^(-){3,}template/              # deprecate someday
-	   or /^(\.){3,}template/             # deprecate someday
-	   or /$syntax->{template_element}/
+      if (    $text =~ /^template::/                   # deprecate someday
+	   or $text =~ /^(-){3,}template/              # deprecate someday
+	   or $text =~ /^(\.){3,}template/             # deprecate someday
+	   or $text =~ /$syntax->{template_element}/
 	 )
 	{
-	  $logger->debug("$_");
+	  $logger->debug("$text");
 	  $logger->debug("unresolved template: $&");
 	  return 1;
 	}
@@ -3842,42 +3851,42 @@ sub _text_requires_processing {
   # check for unresolved elements
   foreach my $element ( @{ $self->_get_fragment->get_element_list } )
     {
-      $_ = $element->get_content;
+      my $text = $element->get_content;
 
-      if (/$syntax->{include_element}/)
+      if ( $text =~ /$syntax->{include_element}/ )
 	{
-	  $logger->debug("$_");
+	  $logger->debug("$text");
 	  $logger->debug("unresolved include: $&");
 	  return 1;
 	}
 
-      elsif ( /$syntax->{script_element}/ )
+      elsif ( $text =~ /$syntax->{script_element}/ )
 	{
-	  $logger->debug("$_");
+	  $logger->debug("$text");
 	  $logger->debug("unresolved script: $&");
 	  return 1;
 	}
 
-      elsif (   /$syntax->{'insert_element'}/
-	     or /$syntax->{'insert_ins_element'}/
-	     or /$syntax->{'insert_gen_element'}/
+      elsif (   $text =~ /$syntax->{'insert_element'}/
+	     or $text =~ /$syntax->{'insert_ins_element'}/
+	     or $text =~ /$syntax->{'insert_gen_element'}/
 	    )
 	{
-	  $logger->debug("$_");
+	  $logger->debug("$text");
 	  $logger->debug("unresolved insert: $&");
 	  return 1;
 	}
 
-      elsif ( /^template::/ )
+      elsif ( $text =~ /^template::/ )
 	{
-	  $logger->debug("$_");
+	  $logger->debug("$text");
 	  $logger->debug("unresolved template: $&");
 	  return 1;
 	}
 
-      elsif ( /$syntax->{generate_element}/ )
+      elsif ( $text =~ /$syntax->{generate_element}/ )
 	{
-	  $logger->debug("$_");
+	  $logger->debug("$text");
 	  $logger->debug("unresolved generate: $&");
 	  return 1;
 	}
@@ -3894,29 +3903,29 @@ sub _text_requires_processing {
       next if $block->isa('SML::PreformattedBlock');
       next if $block->is_in_a('SML::PreformattedDivision');
 
-      $_ = $block->get_content;
+      my $text = $block->get_content;
 
-      next if /$syntax->{'comment_line'}/;
+      next if $text =~ /$syntax->{'comment_line'}/;
 
-      if ( /$syntax->{variable_ref}/ )
+      if ( $text =~ /$syntax->{variable_ref}/ )
 	{
-	  $logger->debug("$_");
+	  $logger->debug("$text");
 	  $logger->debug("unresolved variable: $&");
 	  return 1;
 	}
 
-      elsif ( /$syntax->{lookup_ref}/ )
+      elsif ( $text =~ /$syntax->{lookup_ref}/ )
 	{
-	  $logger->debug("$_");
+	  $logger->debug("$text");
 	  $logger->debug("unresolved lookup: $&");
 	  return 1;
 	}
 
-      elsif (   /^(-){3,}template/
-	     or /^(\.){3,}template/
+      elsif (   $text =~ /^(-){3,}template/
+	     or $text =~ /^(\.){3,}template/
 	 )
 	{
-	  $logger->debug("$_");
+	  $logger->debug("$text");
 	  $logger->debug("unresolved template: $&");
 	  return 1;
 	}
@@ -5079,7 +5088,6 @@ sub _add_generate_request {
 	  # GOOD generate request name
 	  my $divid = $element->get_containing_division->get_id || '';
 	  $to_be_gen->{$name}{$divid}{$args} = 1;
-	  $logger->debug("good generate request \"$name\" \"$divid\" \"$args\"");
 	  return 1;
 	}
 
@@ -5118,12 +5126,11 @@ sub _add_review {
   my $div_id   = $division->get_id;
   my $location = $element->get_location;
   my $library  = $self->get_library;
-  $_           = $element->get_content;
+  my $text     = $element->get_content;
 
-  s/[\r\n]*$//;
-  # chomp;
+  $text =~ s/[\r\n]*$//;                # chomp;
 
-  if (/$syntax->{review_element}/)
+  if ( $text =~ /$syntax->{review_element}/ )
     {
       my $date        = $1;
       my $item        = $2;
@@ -5167,7 +5174,7 @@ sub _add_review {
 
   else
     {
-      $logger->error("INVALID REVIEW SYNTAX at $location ($_)");
+      $logger->error("INVALID REVIEW SYNTAX at $location ($text)");
     }
 
   return 1;
@@ -5242,6 +5249,7 @@ sub _add_template {
 #   my $self     = shift;
 #   my $filename = shift;
 #   my $fragment = shift;
+
 #   my $sml      = SML->instance;
 #   my $util     = $sml->get_util;
 #   my $library  = $self->get_library;
@@ -7282,27 +7290,27 @@ sub _get_current_division {
 
 sub _line_ends_preamble {
 
-  $_ = shift;
+  my $text = shift;
 
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
   if (
-         /$syntax->{start_region}/
-      or /$syntax->{start_environment}/
-      or /$syntax->{start_section}/
-      or /$syntax->{generate_element}/
-      or /$syntax->{insert_element}/
-      or /$syntax->{template_element}/
-      or /$syntax->{include_element}/
-      or /$syntax->{script_element}/
-      or /$syntax->{outcome_element}/
-      or /$syntax->{review_element}/
-      or /$syntax->{index_element}/
-      or /$syntax->{glossary_element}/
-      or /$syntax->{list_item}/
-      # or /$syntax->{paragraph_text}/
-      # or /$syntax->{indented_text}/
+         $text =~ /$syntax->{start_region}/
+      or $text =~ /$syntax->{start_environment}/
+      or $text =~ /$syntax->{start_section}/
+      or $text =~ /$syntax->{generate_element}/
+      or $text =~ /$syntax->{insert_element}/
+      or $text =~ /$syntax->{template_element}/
+      or $text =~ /$syntax->{include_element}/
+      or $text =~ /$syntax->{script_element}/
+      or $text =~ /$syntax->{outcome_element}/
+      or $text =~ /$syntax->{review_element}/
+      or $text =~ /$syntax->{index_element}/
+      or $text =~ /$syntax->{glossary_element}/
+      or $text =~ /$syntax->{list_item}/
+      # or $text =~ /$syntax->{paragraph_text}/
+      # or $text =~ /$syntax->{indented_text}/
      )
     {
       return 1;
