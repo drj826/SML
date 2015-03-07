@@ -132,8 +132,6 @@ sub add_rules {
   my $self          = shift;
   my $rule_filename = shift;
 
-  local $_;
-
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
@@ -155,25 +153,24 @@ sub add_rules {
   @{ $line_list } = <$fh>;
   close $fh;
 
-  for (@{ $line_list })
+  foreach my $text (@{ $line_list })
     {
-      s/[\r\n]*$//;
-      # chomp;
+      $text =~ s/[\r\n]*$//;            # chomp;
 
-      # $logger->debug("line: $_");
+      if ( $text =~ /$syntax->{comment_line}/ )
+	{
+	  next;
+	}
 
-      if ( /$syntax->{comment_line}/ ) {
-	next;
-      }
-
-      if ( /$syntax->{blank_line}/ ) {
-	next;
-      }
+      if ( $text =~ /$syntax->{blank_line}/ )
+	{
+	  next;
+	}
 
       my $sml             = SML->instance;
       my $util            = $sml->get_util;
       my $csv             = Text::CSV->new();
-      my $status          = $csv->parse($_);
+      my $status          = $csv->parse($text);
       my $field           = [ $csv->fields() ];
 
       my $rule_id         = $util->trim_whitespace( $field->[0] );
@@ -186,8 +183,6 @@ sub add_rules {
       my $cardinality     = $util->trim_whitespace( $field->[7] );
       my $required        = $util->trim_whitespace( $field->[8] );
       my $imply_only      = $util->trim_whitespace( $field->[9] );
-
-      $logger->debug("$rule_id $rule_type $entity_name $property_name $name_or_value");
 
       my $rule = SML::OntologyRule->new
 	(
@@ -250,11 +245,12 @@ sub allowed_properties {
 
   my $self        = shift;
   my $entity_name = shift;
-  my $list        = $self->get_properties_by_entity_name_hash->{$entity_name};
+
+  my $list = $self->get_properties_by_entity_name_hash->{$entity_name};
 
   if ( not defined $list or not scalar @{ $list } )
     {
-      $logger->debug("NO PROPERTIES DEFINED for $entity_name");
+      $logger->warn("NO PROPERTIES DEFINED for $entity_name");
     }
 
   return $list;
@@ -265,7 +261,8 @@ sub allowed_properties {
 sub allowed_environments {
 
   my $self = shift;
-  my $list = []; # allowed environments
+
+  my $list = [];                        # allowed environments list
 
   foreach my $rule ( values %{ $self->get_rule_hash } )
     {
@@ -473,7 +470,8 @@ sub rule_for {
   my $entity_name   = shift;
   my $property_name = shift;
   my $name_or_value = shift;
-  my $prl           = $self->get_property_rules_lookup_hash;
+
+  my $prl = $self->get_property_rules_lookup_hash;
 
   my $rule = $prl->{$entity_name}{$property_name}{$name_or_value} || q{};
 
@@ -486,6 +484,7 @@ sub rule_with_id {
 
   my $self = shift;
   my $id   = shift;
+
   my $rule = $self->get_rule_hash->{$id};
 
   if ( defined $rule )
@@ -506,7 +505,8 @@ sub property_is_universal {
 
   my $self          = shift;
   my $property_name = shift;
-  my $lookup        = $self->get_property_rules_lookup_hash;
+
+  my $lookup = $self->get_property_rules_lookup_hash;
 
   if ( exists $lookup->{'UNIVERSAL'}{$property_name} )
     {
@@ -546,7 +546,8 @@ sub property_allows_cardinality {
 sub divisions_by_name {
 
   my $self = shift;
-  my $dbn  = {}; # divisions by name
+
+  my $dbn  = {};                        # divisions by name
 
   foreach my $rule ( values %{ $self->get_rule_hash } )
     {
@@ -639,8 +640,9 @@ sub _add_rule {
 
 sub _build_properties_by_entity_name_hash {
 
-  my $self  = shift;
-  my $pbenh = {}; # properties by entity name
+  my $self = shift;
+
+  my $pbenh = {};                       # properties by entity name
 
   foreach my $rule ( values %{ $self->get_rule_hash } )
     {
@@ -668,8 +670,9 @@ sub _build_properties_by_entity_name_hash {
 
 sub _build_types_by_entity_name_hash {
 
-  my $self  = shift;
-  my $tbenh = {}; # types by entity name
+  my $self = shift;
+
+  my $tbenh = {};                       # types by entity name
 
   foreach my $rule ( values %{ $self->get_rule_hash } )
     {
@@ -692,7 +695,8 @@ sub _build_types_by_entity_name_hash {
 sub _build_property_rules_lookup_hash {
 
   my $self = shift;
-  my $prlh = {}; # property rules lookup
+
+  my $prlh = {};                        # property rules lookup
 
   foreach my $rule ( values %{ $self->get_rule_hash } )
     {
@@ -717,7 +721,8 @@ sub _build_property_rules_lookup_hash {
 sub _build_allowed_property_values_hash {
 
   my $self = shift;
-  my $apvh = {}; # allowed property values hash
+
+  my $apvh = {};                        # allowed property values hash
 
   foreach my $rule ( values %{ $self->get_rule_hash } )
     {
@@ -747,7 +752,8 @@ sub _build_allowed_property_values_hash {
 sub _build_allowed_compositions_hash {
 
   my $self = shift;
-  my $ach  = {}; # allowed compositions hash
+
+  my $ach = {};                         # allowed compositions hash
 
   foreach my $rule ( values %{ $self->get_rule_hash } )
     {
@@ -774,7 +780,8 @@ sub _build_imply_only_properties_hash {
   # Return a hash of 'imply only' properties indexed by division name.
 
   my $self = shift;
-  my $ioph  = {}; # imply only properties
+
+  my $ioph = {};                        # imply only properties
 
   foreach my $rule ( values %{ $self->get_rule_hash } )
     {
@@ -802,7 +809,8 @@ sub _build_cardinality_of_properties_hash {
   # name and property.
 
   my $self = shift;
-  my $coph = {}; # cardinality of properties
+
+  my $coph = {};                        # cardinality of properties
 
   foreach my $rule ( values %{ $self->get_rule_hash } )
     {
@@ -828,7 +836,8 @@ sub _build_required_properties_hash {
   # Return a hash of required properties indexed by division name.
 
   my $self = shift;
-  my $rph  = {}; # required properties hash
+
+  my $rph = {};                         # required properties hash
 
   foreach my $rule ( values %{ $self->get_rule_hash } )
     {
