@@ -24,16 +24,6 @@ my $logger = Log::Log4perl::get_logger('sml.Definition');
 ######################################################################
 ######################################################################
 
-# has 'alt' =>
-#   (
-#    isa    => 'Str',
-#    reader => 'get_alt',
-#   );
-
-# This is an alternative namespace for this term.  Since terms may
-# have different meaning based on their context, this is a mechanism
-# for indicating context.
-
 ######################################################################
 ######################################################################
 ##
