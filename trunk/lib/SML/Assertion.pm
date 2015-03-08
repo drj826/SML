@@ -33,24 +33,27 @@ has '+name' =>
 
 has 'subject' =>
   (
-   isa    => 'Str',
-   reader => 'get_subject',
+   isa      => 'Str',
+   reader   => 'get_subject',
+   required => 1,
   );
 
 ######################################################################
 
 has 'predicate' =>
   (
-   isa    => 'Str',
-   reader => 'get_predicate',
+   isa      => 'Str',
+   reader   => 'get_predicate',
+   required => 1,
   );
 
 ######################################################################
 
 has 'object' =>
   (
-   isa    => 'Str',
-   reader => 'get_object',
+   isa      => 'Str',
+   reader   => 'get_object',
+   required => 1,
   );
 
 ######################################################################
