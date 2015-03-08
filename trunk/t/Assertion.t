@@ -3,7 +3,7 @@
 # $Id$
 
 use lib "..";
-use Test::More tests => 11;
+use Test::More tests => 9;
 
 use SML;
 
@@ -14,26 +14,10 @@ Log::Log4perl->init("log.test.conf");
 # Test Data
 #---------------------------------------------------------------------
 
-my $testdata =
-  {
+use SML::TestData;
 
-   assertion_1 =>
-   {
-    name      => 'ASSERTION',
-    subject   => 'My eyes',
-    predicate => 'are',
-    object    => 'blue',
-   },
-
-   assertion_2 =>
-   {
-    name      => 'ASSERTION',
-    subject   => 'rq-000331',
-    predicate => 'is_part_of',
-    object    => 'rq-000026',
-   },
-
-  };
+my $td = SML::TestData->new;
+my $tcl = $td->get_assertion_test_case_list;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -48,7 +32,15 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Assertion->new(id=>'ASSERTION-0');
+my $args = {};
+
+$args->{id}        = 'a1';
+$args->{subject}   = 'The sky';
+$args->{predicate} = 'is';
+$args->{object}    = 'blue.';
+
+my $obj = SML::Assertion->new(%{ $args });
+
 isa_ok( $obj, 'SML::Assertion' );
 
 #---------------------------------------------------------------------
@@ -57,20 +49,48 @@ isa_ok( $obj, 'SML::Assertion' );
 
 my @public_methods =
   (
-   'init',
+   # SML::Assertion attribute accessors
+   'get_subject',
+   'get_predicate',
+   'get_object',
 
+   # SML::Assertion public methods
+
+   # SML::Environment attribute accessors (inherited)
+
+   # SML::Environment public methods (inherited)
+
+   # SML::Division attribute accessors (inherited)
+   'get_number',
+   'set_number',
+   'get_previous_number',
+   'set_previous_number',
+   'get_next_number',
+   'set_next_number',
+   'get_containing_division',
+   'set_containing_division',
+   'has_containing_division',
+   'has_valid_syntax',
+   'has_valid_semantics',
+   'has_valid_property_cardinality',
+   'has_valid_property_values',
+   'has_valid_infer_only_conformance',
+   'has_valid_required_properties',
+   'has_valid_composition',
+   'has_valid_id_uniqueness',
+
+   # SML::Division public methods (inherited)
    'add_division',
    'add_part',
    'add_property',
    'add_property_element',
    'add_attribute',
-
-   'get_name',
-   'get_id',
-   'get_number',
-   'get_containing_division',
-   'get_part_list',
+   'contains_division',
+   'has_property',
+   'has_property_value',
+   'has_attribute',
    'get_division_list',
+   'has_sections',
    'get_section_list',
    'get_block_list',
    'get_element_list',
@@ -82,53 +102,36 @@ my @public_methods =
    'get_property_list',
    'get_property',
    'get_property_value',
+   'get_containing_document',
    'get_location',
    'get_section',
-
-   'has_valid_syntax',
-   'has_valid_semantics',
-   'has_property',
-   'has_property_value',
-   'has_attribute',
-
    'is_in_a',
-
-   'contains_division',
-
    'validate',
-
-   'get_subject',
-   'get_predicate',
-   'get_object',
   );
 
 can_ok( $obj, @public_methods );
 
 #---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-  );
-
-# can_ok( $obj, @private_methods );
-
-#---------------------------------------------------------------------
 # Returns expected values?
 #---------------------------------------------------------------------
 
-get_name_ok( 'assertion_1' );
-get_name_ok( 'assertion_2' );
+foreach my $tc (@{ $tcl })
+  {
+    if ( defined $tc->{expected}{get_subject} )
+      {
+	get_subject_ok($tc);
+      }
 
-get_subject_ok( 'assertion_1' );
-get_subject_ok( 'assertion_2' );
+    if ( defined $tc->{expected}{get_predicate} )
+      {
+	get_predicate_ok($tc);
+      }
 
-get_predicate_ok( 'assertion_1' );
-get_predicate_ok( 'assertion_2' );
-
-get_object_ok( 'assertion_1' );
-get_object_ok( 'assertion_2' );
+    if ( defined $tc->{expected}{get_object} )
+      {
+	get_object_ok($tc);
+      }
+  }
 
 #---------------------------------------------------------------------
 # Throws expected exceptions?
@@ -136,118 +139,76 @@ get_object_ok( 'assertion_2' );
 
 ######################################################################
 
-sub get_name_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $name      = $testdata->{$testid}{'name'};
-  my $subject   = $testdata->{$testid}{'subject'};
-  my $predicate = $testdata->{$testid}{'predicate'};
-  my $object    = $testdata->{$testid}{'object'};
-  my $expected  = $name;
-
-  my $assertion = SML::Assertion->new
-    (
-     id        => $testid,
-     name      => $name,
-     subject   => $subject,
-     predicate => $predicate,
-     object    => $object,
-    );
-
-  # act
-  my $result = $assertion->get_name;
-
-  # assert
-  is($result,$expected, "get_name $testid");
-}
-
-######################################################################
-
 sub get_subject_ok {
 
-  my $testid = shift;
+  my $tc = shift;                       # test case
 
   # arrange
-  my $name      = $testdata->{$testid}{'name'};
-  my $subject   = $testdata->{$testid}{'subject'};
-  my $predicate = $testdata->{$testid}{'predicate'};
-  my $object    = $testdata->{$testid}{'object'};
-  my $expected  = $subject;
-
+  my $tcname   = $tc->{name};
+  my $expected = $tc->{expected}{get_subject};
   my $assertion = SML::Assertion->new
     (
-     id        => $testid,
-     name      => $name,
-     subject   => $subject,
-     predicate => $predicate,
-     object    => $object,
+     id        => $tc->{id},
+     subject   => $tc->{subject},
+     predicate => $tc->{predicate},
+     object    => $tc->{object},
     );
 
   # act
   my $result = $assertion->get_subject;
 
   # assert
-  is($result,$expected, "get_subject $testid");
+  is($result,$expected,"$tcname get_subject $result");
 }
 
 ######################################################################
 
 sub get_predicate_ok {
 
-  my $testid = shift;
+  my $tc = shift;                       # test case
 
   # arrange
-  my $name      = $testdata->{$testid}{'name'};
-  my $subject   = $testdata->{$testid}{'subject'};
-  my $predicate = $testdata->{$testid}{'predicate'};
-  my $object    = $testdata->{$testid}{'object'};
-  my $expected  = $predicate;
-
+  my $tcname   = $tc->{name};
+  my $expected = $tc->{expected}{get_predicate};
   my $assertion = SML::Assertion->new
     (
-     id        => $testid,
-     name      => $name,
-     subject   => $subject,
-     predicate => $predicate,
-     object    => $object,
+     id        => $tc->{id},
+     subject   => $tc->{subject},
+     predicate => $tc->{predicate},
+     object    => $tc->{object},
     );
 
   # act
   my $result = $assertion->get_predicate;
 
   # assert
-  is($result,$expected, "get_predicate $testid");
+  is($result,$expected,"$tcname get_predicate $result");
 }
 
 ######################################################################
 
 sub get_object_ok {
 
-  my $testid = shift;
+  my $tc = shift;                       # test case
 
   # arrange
-  my $name      = $testdata->{$testid}{'name'};
-  my $subject   = $testdata->{$testid}{'subject'};
-  my $predicate = $testdata->{$testid}{'predicate'};
-  my $object    = $testdata->{$testid}{'object'};
-  my $expected  = $object;
-
+  my $tcname   = $tc->{name};
+  my $expected = $tc->{expected}{get_object};
   my $assertion = SML::Assertion->new
     (
-     id        => $testid,
-     name      => $name,
-     subject   => $subject,
-     predicate => $predicate,
-     object    => $object,
+     id        => $tc->{id},
+     subject   => $tc->{subject},
+     predicate => $tc->{predicate},
+     object    => $tc->{object},
     );
 
   # act
   my $result = $assertion->get_object;
 
   # assert
-  is($result,$expected, "get_object $testid");
+  is($result,$expected,"$tcname get_object $result");
 }
 
 ######################################################################
+
+1;
