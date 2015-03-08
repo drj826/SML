@@ -22,13 +22,24 @@ my $logger = Log::Log4perl::get_logger('sml.TestData');
 ######################################################################
 ######################################################################
 
-has library =>
+has acronym_list_test_case_list =>
   (
    is      => 'ro',
-   isa     => 'SML::Library',
-   reader  => 'get_library',
+   isa     => 'ArrayRef',
+   reader  => 'get_acronym_list_test_case_list',
    lazy    => 1,
-   builder => '_build_library',
+   builder => '_build_acronym_list_test_case_list',
+  );
+
+######################################################################
+
+has acronym_term_reference_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_acronym_term_reference_test_case_list',
+   lazy    => 1,
+   builder => '_build_acronym_term_reference_test_case_list',
   );
 
 ######################################################################
@@ -99,17 +110,6 @@ has string_test_case_list =>
 
 ######################################################################
 
-has acronym_list_test_case_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => 'get_acronym_list_test_case_list',
-   lazy    => 1,
-   builder => '_build_acronym_list_test_case_list',
-  );
-
-######################################################################
-
 has block_test_case_list =>
   (
    is      => 'ro',
@@ -160,6 +160,80 @@ has string_test_case_list =>
 ######################################################################
 ######################################################################
 
+sub add_test_object {
+
+  my $self   = shift;
+  my $object = shift;
+  my $name   = shift;
+
+  # validate input
+  if ( not ref $object )
+    {
+      $logger->error("NOT AN OBJECT $object");
+      return 0;
+    }
+
+  if ( not $name )
+    {
+      $logger->error("YOU MUST SPECIFY A NAME");
+      return 0;
+    }
+
+  my $type = ref $object;
+  my $toh  = $self->_get_test_object_hash;
+
+  $toh->{$type}{$name} = $object;
+
+  return 1;
+}
+
+######################################################################
+
+sub has_test_object {
+
+  # Return 1 if specified test object exists.
+
+  my $self = shift;
+  my $type = shift;
+  my $name = shift;
+
+  my $toh = $self->_get_test_object_hash;
+
+  if ( defined $toh->{$type}{$name} )
+    {
+      return 1;
+    }
+
+  else
+    {
+      return 0;
+    }
+}
+
+######################################################################
+
+sub get_test_object {
+
+  # Get a test object.
+
+  my $self = shift;
+  my $type = shift;
+  my $name = shift;
+
+  my $toh = $self->_get_test_object_hash;
+
+  if ( defined $toh->{$type}{$name} )
+    {
+      return $toh->{$type}{$name};
+    }
+
+  else
+    {
+      $logger->error("NO TEST OBJECT $type $name");
+      return 0;
+    }
+}
+
 ######################################################################
 ######################################################################
 ##
@@ -168,21 +242,20 @@ has string_test_case_list =>
 ######################################################################
 ######################################################################
 
+has '_test_object_hash' =>
+  (
+   isa     => 'HashRef',
+   reader  => '_get_test_object_hash',
+   lazy    => 1,
+   builder => '_build_test_object_hash',
+  );
+
 ######################################################################
 ######################################################################
 ##
 ## Private Methods
 ##
 ######################################################################
-######################################################################
-
-sub _build_library {
-
-  use SML::Library;
-
-  return SML::Library->new(config_filename=>'library.conf');
-}
-
 ######################################################################
 
 sub _build_division_test_case_list {
@@ -2510,12 +2583,12 @@ sub _build_string_test_case_list {
   return
     [
      {
-      name     => 'plain_string_1',
-      content  => 'This is a plain string.',
+      name => 'plain_string_1',
+      text => 'This is a plain string.',
       expected =>
       {
-       type    => 'part',
-       name    => 'string',
+       type => 'part',
+       name => 'string',
        content => 'This is a plain string.',
        has_parts => 0,
        html =>
@@ -2526,12 +2599,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'bold_string_1',
-      content  => '!!this is bold!!',
+      name => 'bold_string_1',
+      text => '!!this is bold!!',
       expected =>
       {
-       type    => 'part',
-       name    => 'bold_string',
+       type => 'part',
+       name => 'bold_string',
        content => 'this is bold',
        has_parts => 1,
        html =>
@@ -2542,12 +2615,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'italics_string_1',
-      content  => '~~this is italics~~',
+      name => 'italics_string_1',
+      text => '~~this is italics~~',
       expected =>
       {
-       type    => 'part',
-       name    => 'italics_string',
+       type => 'part',
+       name => 'italics_string',
        content => 'this is italics',
        has_parts => 1,
        html =>
@@ -2558,12 +2631,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'fixed_width_string_1',
-      content  => '||this is fixed width||',
+      name => 'fixed_width_string_1',
+      text => '||this is fixed width||',
       expected =>
       {
-       type    => 'part',
-       name    => 'fixedwidth_string',
+       type => 'part',
+       name => 'fixedwidth_string',
        content => 'this is fixed width',
        has_parts => 1,
        html =>
@@ -2574,12 +2647,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'underline_string_1',
-      content  => '__this is underlined__',
+      name => 'underline_string_1',
+      text => '__this is underlined__',
       expected =>
       {
-       type    => 'part',
-       name    => 'underline_string',
+       type => 'part',
+       name => 'underline_string',
        content => 'this is underlined',
        has_parts => 1,
        html =>
@@ -2590,12 +2663,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'superscript_string_1',
-      content  => '^^this is superscripted^^',
+      name => 'superscript_string_1',
+      text => '^^this is superscripted^^',
       expected =>
       {
-       type    => 'part',
-       name    => 'superscript_string',
+       type => 'part',
+       name => 'superscript_string',
        content => 'this is superscripted',
        has_parts => 1,
        html =>
@@ -2606,12 +2679,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'subscript_string_1',
-      content  => ',,this is subscripted,,',
+      name => 'subscript_string_1',
+      text => ',,this is subscripted,,',
       expected =>
       {
-       type    => 'part',
-       name    => 'subscript_string',
+       type => 'part',
+       name => 'subscript_string',
        content => 'this is subscripted',
        has_parts => 1,
        html =>
@@ -2622,12 +2695,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'linebreak_symbol_1',
-      content  => '[linebreak]',
+      name => 'linebreak_symbol_1',
+      text => '[linebreak]',
       expected =>
       {
-       type    => 'part',
-       name    => 'linebreak_symbol',
+       type => 'part',
+       name => 'linebreak_symbol',
        content => '',
        has_parts => 0,
        html =>
@@ -2638,12 +2711,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'user_entered_text_1',
-      content  => '[enter:bogus]',
+      name => 'user_entered_text_1',
+      text => '[enter:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'user_entered_text',
+       type => 'part',
+       name => 'user_entered_text',
        content => 'bogus',
        has_parts => 0,
        html =>
@@ -2654,12 +2727,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'user_entered_text_2',
-      content  => '[en:bogus]',
+      name => 'user_entered_text_2',
+      text => '[en:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'user_entered_text',
+       type => 'part',
+       name => 'user_entered_text',
        content => 'bogus',
        has_parts => 0,
        html =>
@@ -2670,12 +2743,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'file_reference_1',
-      content  => '[file:bogus.txt]',
+      name => 'file_reference_1',
+      text => '[file:bogus.txt]',
       expected =>
       {
-       type    => 'part',
-       name    => 'file_ref',
+       type => 'part',
+       name => 'file_ref',
        content => '',
        has_parts => 0,
        html =>
@@ -2686,12 +2759,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'path_reference_1',
-      content  => '[path:path/to/bogus]',
+      name => 'path_reference_1',
+      text => '[path:path/to/bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'path_ref',
+       type => 'part',
+       name => 'path_ref',
        content => '',
        has_parts => 0,
        html =>
@@ -2702,12 +2775,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'url_reference_1',
-      content  => '[url:http://www.google.com/]',
+      name => 'url_reference_1',
+      text => '[url:http://www.google.com/]',
       expected =>
       {
-       type    => 'part',
-       name    => 'url_ref',
+       type => 'part',
+       name => 'url_ref',
        content => '',
        has_parts => 0,
        html =>
@@ -2718,12 +2791,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'url_reference_2',
-      content  => '[url:http://www.google.com/|google]',
+      name => 'url_reference_2',
+      text => '[url:http://www.google.com/|google]',
       expected =>
       {
-       type    => 'part',
-       name    => 'url_ref',
+       type => 'part',
+       name => 'url_ref',
        content => 'google',
        has_parts => 0,
        html =>
@@ -2734,12 +2807,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'command_reference_1',
-      content  => '[cmd:ls -al | grep bogus]',
+      name => 'command_reference_1',
+      text => '[cmd:ls -al | grep bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'command_ref',
+       type => 'part',
+       name => 'command_ref',
        content => 'ls -al | grep bogus',
        has_parts => 0,
        html =>
@@ -2750,12 +2823,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'smiley_symbol_1',
-      content  => ':-)',
+      name => 'smiley_symbol_1',
+      text => ':-)',
       expected =>
       {
-       type    => 'part',
-       name    => 'smiley_symbol',
+       type => 'part',
+       name => 'smiley_symbol',
        content => '',
        has_parts => 0,
        html =>
@@ -2766,12 +2839,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'frowny_symbol_1',
-      content  => ':-(',
+      name => 'frowny_symbol_1',
+      text => ':-(',
       expected =>
       {
-       type    => 'part',
-       name    => 'frowny_symbol',
+       type => 'part',
+       name => 'frowny_symbol',
        content => '',
        has_parts => 0,
        html =>
@@ -2782,12 +2855,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'keystroke_symbol_1',
-      content  => '[[ESC]]',
+      name => 'keystroke_symbol_1',
+      text => '[[ESC]]',
       expected =>
       {
-       type    => 'part',
-       name    => 'keystroke_symbol',
+       type => 'part',
+       name => 'keystroke_symbol',
        content => 'ESC',
        has_parts => 1,
        html =>
@@ -2798,12 +2871,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'left_arrow_symbol_1',
-      content  => '<-',
+      name => 'left_arrow_symbol_1',
+      text => '<-',
       expected =>
       {
-       type    => 'part',
-       name    => 'left_arrow_symbol',
+       type => 'part',
+       name => 'left_arrow_symbol',
        content => '',
        has_parts => 0,
        html =>
@@ -2814,12 +2887,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'right_arrow_symbol_1',
-      content  => '->',
+      name => 'right_arrow_symbol_1',
+      text => '->',
       expected =>
       {
-       type    => 'part',
-       name    => 'right_arrow_symbol',
+       type => 'part',
+       name => 'right_arrow_symbol',
        content => '',
        has_parts => 0,
        html =>
@@ -2830,12 +2903,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'latex_symbol_1',
-      content  => 'LaTeX',
+      name => 'latex_symbol_1',
+      text => 'LaTeX',
       expected =>
       {
-       type    => 'part',
-       name    => 'latex_symbol',
+       type => 'part',
+       name => 'latex_symbol',
        content => '',
        has_parts => 0,
        html =>
@@ -2846,12 +2919,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'tex_symbol_1',
-      content  => 'TeX',
+      name => 'tex_symbol_1',
+      text => 'TeX',
       expected =>
       {
-       type    => 'part',
-       name    => 'tex_symbol',
+       type => 'part',
+       name => 'tex_symbol',
        content => '',
        has_parts => 0,
        html =>
@@ -2862,12 +2935,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'copyright_symbol_1',
-      content  => '[c]',
+      name => 'copyright_symbol_1',
+      text => '[c]',
       expected =>
       {
-       type    => 'part',
-       name    => 'copyright_symbol',
+       type => 'part',
+       name => 'copyright_symbol',
        content => '',
        has_parts => 0,
        html =>
@@ -2878,12 +2951,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'trademark_symbol_1',
-      content  => '[tm]',
+      name => 'trademark_symbol_1',
+      text => '[tm]',
       expected =>
       {
-       type    => 'part',
-       name    => 'trademark_symbol',
+       type => 'part',
+       name => 'trademark_symbol',
        content => '',
        has_parts => 0,
        html =>
@@ -2894,12 +2967,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'registered_trademark_symbol_1',
-      content  => '[rtm]',
+      name => 'registered_trademark_symbol_1',
+      text => '[rtm]',
       expected =>
       {
-       type    => 'part',
-       name    => 'reg_trademark_symbol',
+       type => 'part',
+       name => 'reg_trademark_symbol',
        content => '',
        has_parts => 0,
        html =>
@@ -2910,12 +2983,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'open_dblquote_symbol_1',
-      content  => '``',
+      name => 'open_dblquote_symbol_1',
+      text => '``',
       expected =>
       {
-       type    => 'part',
-       name    => 'open_dblquote_symbol',
+       type => 'part',
+       name => 'open_dblquote_symbol',
        content => '',
        has_parts => 0,
        html =>
@@ -2926,12 +2999,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'close_dblquote_symbol_1',
-      content  => '\'\'',
+      name => 'close_dblquote_symbol_1',
+      text => '\'\'',
       expected =>
       {
-       type    => 'part',
-       name    => 'close_dblquote_symbol',
+       type => 'part',
+       name => 'close_dblquote_symbol',
        content => '',
        has_parts => 0,
        html =>
@@ -2942,12 +3015,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'open_sglquote_symbol_1',
-      content  => '`',
+      name => 'open_sglquote_symbol_1',
+      text => '`',
       expected =>
       {
-       type    => 'part',
-       name    => 'open_sglquote_symbol',
+       type => 'part',
+       name => 'open_sglquote_symbol',
        content => '',
        has_parts => 0,
        html =>
@@ -2958,12 +3031,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'close_sglquote_symbol_1',
-      content  => '\'',
+      name => 'close_sglquote_symbol_1',
+      text => '\'',
       expected =>
       {
-       type    => 'part',
-       name    => 'close_sglquote_symbol',
+       type => 'part',
+       name => 'close_sglquote_symbol',
        content => '',
        has_parts => 0,
        html =>
@@ -2974,12 +3047,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'section_symbol_1',
-      content  => '[section]',
+      name => 'section_symbol_1',
+      text => '[section]',
       expected =>
       {
-       type    => 'part',
-       name    => 'section_symbol',
+       type => 'part',
+       name => 'section_symbol',
        content => '',
        has_parts => 0,
        html =>
@@ -2990,12 +3063,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'emdash_symbol_1',
-      content  => '--',
+      name => 'emdash_symbol_1',
+      text => '--',
       expected =>
       {
-       type    => 'part',
-       name    => 'emdash_symbol',
+       type => 'part',
+       name => 'emdash_symbol',
        content => '',
        has_parts => 0,
        html =>
@@ -3006,12 +3079,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'email_address_1',
-      content  => '[email:help@example.com]',
+      name => 'email_address_1',
+      text => '[email:help@example.com]',
       expected =>
       {
-       type    => 'part',
-       name    => 'email_addr',
+       type => 'part',
+       name => 'email_addr',
        content => '',
        has_parts => 0,
        html =>
@@ -3022,12 +3095,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'email_address_2',
-      content  => '[email:john.smith@example.com|John Smith]',
+      name => 'email_address_2',
+      text => '[email:john.smith@example.com|John Smith]',
       expected =>
       {
-       type    => 'part',
-       name    => 'email_addr',
+       type => 'part',
+       name => 'email_addr',
        content => 'John Smith',
        has_parts => 0,
        html =>
@@ -3038,12 +3111,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'bold_inside_italics_1',
-      content  => '~~this is !!bold!! inside italics~~',
+      name => 'bold_inside_italics_1',
+      text => '~~this is !!bold!! inside italics~~',
       expected =>
       {
-       type    => 'part',
-       name    => 'italics_string',
+       type => 'part',
+       name => 'italics_string',
        content => 'this is !!bold!! inside italics',
        has_parts => 3,
        html =>
@@ -3054,12 +3127,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'italics_inside_bold_1',
-      content  => '!!this is ~~italics~~ inside bold!!',
+      name => 'italics_inside_bold_1',
+      text => '!!this is ~~italics~~ inside bold!!',
       expected =>
       {
-       type    => 'part',
-       name    => 'bold_string',
+       type => 'part',
+       name => 'bold_string',
        content => 'this is ~~italics~~ inside bold',
        has_parts => 3,
        html =>
@@ -3070,12 +3143,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'string_with_italics_and_bold_1',
-      content  => 'this string has ~~italics~~ and !!bold!!',
+      name => 'string_with_italics_and_bold_1',
+      text => 'this string has ~~italics~~ and !!bold!!',
       expected =>
       {
-       type    => 'part',
-       name    => 'string',
+       type => 'part',
+       name => 'string',
        content => 'this string has ~~italics~~ and !!bold!!',
        has_parts => 4,
        html =>
@@ -3086,312 +3159,312 @@ sub _build_string_test_case_list {
      },
 
      {
-      name     => 'variable_reference_1',
-      content  => '[var:bogus]',
+      name => 'variable_reference_1',
+      text => '[var:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'variable_ref',
+       type => 'part',
+       name => 'variable_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'glossary_term_reference_1',
-      content  => '[g:bogus]',
+      name => 'glossary_term_reference_1',
+      text => '[g:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'gloss_term_ref',
+       type => 'part',
+       name => 'gloss_term_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'glossary_term_reference_2',
-      content  => '[G:bogus]',
+      name => 'glossary_term_reference_2',
+      text => '[G:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'gloss_term_ref',
+       type => 'part',
+       name => 'gloss_term_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'glossary_term_reference_3',
-      content  => '[gls:bogus]',
+      name => 'glossary_term_reference_3',
+      text => '[gls:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'gloss_term_ref',
+       type => 'part',
+       name => 'gloss_term_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'glossary_term_reference_4',
-      content  => '[Gls:bogus]',
+      name => 'glossary_term_reference_4',
+      text => '[Gls:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'gloss_term_ref',
+       type => 'part',
+       name => 'gloss_term_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'glossary_definition_reference_1',
-      content  => '[def:bogus]',
+      name => 'glossary_definition_reference_1',
+      text => '[def:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'gloss_def_ref',
+       type => 'part',
+       name => 'gloss_def_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'acronym_term_reference_1',
-      content  => '[a:bogus]',
+      name => 'acronym_term_reference_1',
+      text => '[a:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'acronym_term_ref',
+       type => 'part',
+       name => 'acronym_term_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'acronym_term_reference_2',
-      content  => '[ac:bogus]',
+      name => 'acronym_term_reference_2',
+      text => '[ac:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'acronym_term_ref',
+       type => 'part',
+       name => 'acronym_term_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'acronym_term_reference_3',
-      content  => '[acs:bogus]',
+      name => 'acronym_term_reference_3',
+      text => '[acs:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'acronym_term_ref',
+       type => 'part',
+       name => 'acronym_term_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'acronym_term_reference_4',
-      content  => '[acl:bogus]',
+      name => 'acronym_term_reference_4',
+      text => '[acl:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'acronym_term_ref',
+       type => 'part',
+       name => 'acronym_term_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'cross_reference_1',
-      content  => '[r:bogus]',
+      name => 'cross_reference_1',
+      text => '[r:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'cross_ref',
+       type => 'part',
+       name => 'cross_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'cross_reference_2',
-      content  => '[ref:bogus]',
+      name => 'cross_reference_2',
+      text => '[ref:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'cross_ref',
+       type => 'part',
+       name => 'cross_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'id_reference_1',
-      content  => '[id:bogus]',
+      name => 'id_reference_1',
+      text => '[id:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'id_ref',
+       type => 'part',
+       name => 'id_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'page_reference_1',
-      content  => '[page:bogus]',
+      name => 'page_reference_1',
+      text => '[page:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'page_ref',
+       type => 'part',
+       name => 'page_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'page_reference_2',
-      content  => '[pg:bogus]',
+      name => 'page_reference_2',
+      text => '[pg:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'page_ref',
+       type => 'part',
+       name => 'page_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'footnote_reference_1',
-      content  => '[f:introduction:1]',
+      name => 'footnote_reference_1',
+      text => '[f:introduction:1]',
       expected =>
       {
-       type    => 'part',
-       name    => 'footnote_ref',
+       type => 'part',
+       name => 'footnote_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'index_reference_1',
-      content  => '[index:bogus]',
+      name => 'index_reference_1',
+      text => '[index:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'index_ref',
+       type => 'part',
+       name => 'index_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'index_reference_2',
-      content  => '[i:bogus]',
+      name => 'index_reference_2',
+      text => '[i:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'index_ref',
+       type => 'part',
+       name => 'index_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'thepage_symbol_1',
-      content  => '[thepage]',
+      name => 'thepage_symbol_1',
+      text => '[thepage]',
       expected =>
       {
-       type    => 'part',
-       name    => 'thepage_ref',
+       type => 'part',
+       name => 'thepage_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'theversion_symbol_1',
-      content  => '[theversion]',
+      name => 'theversion_symbol_1',
+      text => '[theversion]',
       expected =>
       {
-       type    => 'part',
-       name    => 'theversion_ref',
+       type => 'part',
+       name => 'theversion_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'therevision_symbol_1',
-      content  => '[therevision]',
+      name => 'therevision_symbol_1',
+      text => '[therevision]',
       expected =>
       {
-       type    => 'part',
-       name    => 'therevision_ref',
+       type => 'part',
+       name => 'therevision_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'thedate_symbol_1',
-      content  => '[thedate]',
+      name => 'thedate_symbol_1',
+      text => '[thedate]',
       expected =>
       {
-       type    => 'part',
-       name    => 'thedate_ref',
+       type => 'part',
+       name => 'thedate_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'status_reference_1',
-      content  => '[status:bogus]',
+      name => 'status_reference_1',
+      text => '[status:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'status_ref',
+       type => 'part',
+       name => 'status_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'citation_reference_1',
-      content  => '[cite:bogus]',
+      name => 'citation_reference_1',
+      text => '[cite:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'citation_ref',
+       type => 'part',
+       name => 'citation_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'citation_reference_2',
-      content  => '[c:bogus]',
+      name => 'citation_reference_2',
+      text => '[c:bogus]',
       expected =>
       {
-       type    => 'part',
-       name    => 'citation_ref',
+       type => 'part',
+       name => 'citation_ref',
        content => '',
        has_parts => 0,
       },
      },
 
      {
-      name     => 'take_note_symbol_1',
-      content  => '[take_note]',
+      name => 'take_note_symbol_1',
+      text => '[take_note]',
       expected =>
       {
-       type    => 'part',
-       name    => 'take_note_symbol',
+       type => 'part',
+       name => 'take_note_symbol',
        content => '',
        has_parts => 0,
       },
@@ -3409,31 +3482,92 @@ sub _build_acronym_list_test_case_list {
   return
     [
      {
-      name        => 'acronym_1',
-      content     => 'acronym:: TLA = Three Letter Acronym',
-      acronym     => 'TLA',
-      description => 'Three Letter Acronym',
-      alt         => '',
-      expected    =>
+      name => 'acronym_1',
+      definition => $self->get_test_object('SML::Definition','tla'),
+      acronym => 'TLA',
+      alt => '',
+      expected =>
       {
-       add_ok      => 1,
-       has_ok      => 1,
-       get_ok      => 1,
+       add_acronym => 1,
+       has_acronym => 1,
+       get_acronym => 'SML::Definition',
       },
      },
 
      {
-      name        => 'acronym_2',
-      content     => 'acronym:: FRD {tsa} = (TSA) Functional Requirements Document',
-      acronym     => 'FRD',
-      description => '(TSA) Functional Requirements Document',
-      alt         => 'tsa',
-      expected    =>
+      name => 'acronym_2',
+      definition => $self->get_test_object('SML::Definition','frd'),
+      acronym => 'FRD',
+      alt => 'ieee',
+      expected =>
       {
-       add_ok      => 1,
-       has_ok      => 1,
-       get_ok      => 1,
+       add_acronym => 1,
+       has_acronym => 1,
+       get_acronym => 'SML::Definition',
       }
+     },
+
+     {
+      name => 'acronym_3',
+      definition => $self->get_test_object('SML::Definition','sla'),
+      acronym => 'bogus',
+      alt => '',
+      expected =>
+      {
+       add_acronym => 1,
+       has_acronym => 0,
+       get_acronym => '',
+      }
+     },
+
+     {
+      name => 'bad_acronym_1',
+      definition => 'bogus definition',
+      acronym => 'bogus',
+      alt => '',
+      expected =>
+      {
+       error =>
+       {
+	add_acronym => 'NOT A DEFINITION',
+       },
+      }
+     },
+
+     {
+      name => 'bad_acronym_2',
+      acronym => 'bogus',
+      alt => '',
+      expected =>
+      {
+       warning =>
+       {
+	get_acronym => 'FAILED ACRONYM LOOKUP',
+       },
+      }
+     },
+    ];
+}
+
+######################################################################
+
+sub _build_acronym_term_reference_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name => 'acronym_term_reference_1',
+      tag => 'ac',
+      acronym => 'TLA',
+      namespace => '',
+      expected =>
+      {
+       get_tag => 'ac',
+       get_acronym => 'TLA',
+       get_namespace => '',
+      },
      },
     ];
 }
@@ -4252,6 +4386,48 @@ sub _build_parser_test_case_list {
      },
 
     ];
+}
+
+######################################################################
+
+sub _build_test_object_hash {
+
+  my $self = shift;
+
+  my $toh  = {};                        # test object hash
+  my $text = q{};
+  my $name = q{};
+  my $line;
+  my $object;
+
+  use SML::Library;
+
+  $name = 'library';
+  $object = SML::Library->new(config_filename=>'library.conf');
+  $toh->{'SML::Library'}{$name} = $object;
+
+  use SML::Definition;
+
+  my $definition_list =
+    [
+     ['tla' => 'acronym:: TLA = Three Letter Acronym'],
+     ['fla' => 'acronym:: FLA = Four Letter Acronym'],
+     ['sla' => 'acronym:: SLA = Six Letter Acronym'],
+     ['frd' => 'acronym:: FRD {ieee} = (IEEE) Functional Requirements Document'],
+    ];
+
+  foreach my $definition (@{ $definition_list })
+    {
+      my $name = $definition->[0];
+      my $text = $definition->[1];
+
+      $line = SML::Line->new(content=>$text);
+      $object = SML::Definition->new;
+      $object->add_line($line);
+      $toh->{'SML::Definition'}{$name} = $object;
+    }
+
+  return $toh;
 }
 
 ######################################################################
