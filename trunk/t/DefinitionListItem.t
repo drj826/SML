@@ -67,7 +67,6 @@ isa_ok( $obj, 'SML::DefinitionListItem' );
 my @public_methods =
   (
    'get_name',
-   # 'get_type',
    'get_term',
    'get_definition',
   );

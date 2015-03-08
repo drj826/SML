@@ -62,7 +62,6 @@ isa_ok( $obj, 'SML::BulletListItem' );
 my @public_methods =
   (
    'get_name',
-   'get_type',
    'get_value',
   );
 

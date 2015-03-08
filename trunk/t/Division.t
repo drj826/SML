@@ -20,7 +20,7 @@ use SML::TestData;
 
 my $td      = SML::TestData->new();               # test data object
 my $tcl     = $td->get_division_test_case_list;   # test case list
-my $library = $td->get_library;
+my $library = $td->get_test_object('SML::Library','library');
 my $parser  = $library->get_parser;
 
 #---------------------------------------------------------------------
@@ -49,7 +49,6 @@ my @public_methods =
    'get_id',
    'set_id',
    'get_id_path',
-   'get_type',
    'get_name',
    'get_content',
    'set_content',

@@ -33,7 +33,6 @@ isa_ok( $obj, 'SML::CommentBlock' );
 my @public_methods =
   (
    'get_name',
-   'get_type',
   );
 
 can_ok( $obj, @public_methods );

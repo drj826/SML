@@ -18,7 +18,7 @@ use SML::TestData;
 
 my $td      = SML::TestData->new();
 my $tcl     = $td->get_string_test_case_list;
-my $library = $td->get_library;
+my $library = $td->get_test_object('SML::Library','library');
 my $parser  = $library->get_parser;
 
 #---------------------------------------------------------------------
@@ -44,7 +44,6 @@ isa_ok( $obj, 'SML::String' );
 my @public_methods =
   (
    # SML::Part public attribute methods
-   'get_type',
    'get_name',
    'get_content',
    'get_part_list',
@@ -74,7 +73,6 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{$tcl})
   {
-    get_type_ok($tc);
     get_name_ok($tc);
     get_content_ok($tc);
 
@@ -95,34 +93,15 @@ foreach my $tc (@{$tcl})
 
 ######################################################################
 
-sub get_type_ok {
-
-  my $tc = shift;                       # test case
-
-  # arrange
-  my $tc_name  = $tc->{name};
-  my $content  = $tc->{content};
-  my $expected = $tc->{expected}{type};
-  my $string   = $parser->create_string($content);
-
-  # act
-  my $result = $string->get_type;
-
-  # assert
-  is($result,$expected,"get_type $tc_name $result")
-}
-
-######################################################################
-
 sub get_name_ok {
 
   my $tc = shift;                       # test case
 
   # arrange
   my $tc_name  = $tc->{name};
-  my $content  = $tc->{content};
+  my $text     = $tc->{text};
   my $expected = $tc->{expected}{name};
-  my $string   = $parser->create_string($content);
+  my $string   = $parser->create_string($text);
 
   # act
   my $result = $string->get_name;
@@ -139,9 +118,9 @@ sub get_content_ok {
 
   # arrange
   my $tc_name  = $tc->{name};
-  my $content  = $tc->{content};
+  my $text     = $tc->{text};
   my $expected = $tc->{expected}{content};
-  my $string   = $parser->create_string($content);
+  my $string   = $parser->create_string($text);
 
   # act
   my $result = $string->get_content;
@@ -159,8 +138,8 @@ sub render_html_default_ok {
   # arrange
   my $tc_name  = $tc->{name};
   my $expected = $tc->{expected}{html}{default};
-  my $content  = $tc->{content};
-  my $string   = $parser->create_string($content);
+  my $text     = $tc->{text};
+  my $string   = $parser->create_string($text);
 
   # act
   my $html = $string->render('html','default');
@@ -178,8 +157,8 @@ sub has_parts_ok {
   # arrange
   my $tc_name  = $tc->{name};
   my $expected = $tc->{expected}{has_parts};
-  my $content  = $tc->{content};
-  my $string   = $parser->create_string($content);
+  my $text     = $tc->{text};
+  my $string   = $parser->create_string($text);
 
   # act
   my $result = $string->has_parts;
