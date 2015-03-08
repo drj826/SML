@@ -55,6 +55,49 @@ has assertion_test_case_list =>
 
 ######################################################################
 
+# attachment
+# audio
+# baretable
+
+######################################################################
+
+has block_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_block_test_case_list',
+   lazy    => 1,
+   builder => '_build_block_test_case_list',
+  );
+
+######################################################################
+
+# bullet_list_item
+# citation_reference
+# command_reference
+# comment_block
+# comment_division
+# conditional
+
+######################################################################
+
+has cross_reference_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_cross_reference_test_case_list',
+   lazy    => 1,
+   builder => '_build_cross_reference_test_case_list',
+  );
+
+######################################################################
+
+# definition_list_item
+# definition
+# demo
+
+######################################################################
+
 has division_test_case_list =>
   (
    is      => 'ro',
@@ -66,6 +109,22 @@ has division_test_case_list =>
 
 ######################################################################
 
+# document
+# element
+# email_address
+# entity
+# enumerated_list_item
+# environment
+# epigraph
+# exercise
+# figure
+# file
+# file_reference
+# footnote_reference
+# formattable
+
+######################################################################
+
 has formatter_test_case_list =>
   (
    is      => 'ro',
@@ -73,6 +132,52 @@ has formatter_test_case_list =>
    reader  => 'get_formatter_test_case_list',
    lazy    => 1,
    builder => '_build_formatter_test_case_list',
+  );
+
+######################################################################
+
+# fragment
+# glossary_definition_reference
+# glossary
+# glossary_term_reference
+# id_reference
+# index_reference
+# inline
+# keypoints
+
+######################################################################
+
+has library_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_library_test_case_list',
+   lazy    => 1,
+   builder => '_build_library_test_case_list',
+  );
+
+######################################################################
+
+# line
+# listing
+# list_item
+# literal_string
+# note
+# ontology
+# ontology_rule
+# options
+# page_reference
+# paragraph
+
+######################################################################
+
+has parser_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_parser_test_case_list',
+   lazy    => 1,
+   builder => '_build_parser_test_case_list',
   );
 
 ######################################################################
@@ -88,69 +193,22 @@ has part_test_case_list =>
 
 ######################################################################
 
-has cross_reference_test_case_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => 'get_cross_reference_test_case_list',
-   lazy    => 1,
-   builder => '_build_cross_reference_test_case_list',
-  );
-
-######################################################################
-
-has block_test_case_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => 'get_block_test_case_list',
-   lazy    => 1,
-   builder => '_build_block_test_case_list',
-  );
-
-######################################################################
-
-has string_test_case_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => 'get_string_test_case_list',
-   lazy    => 1,
-   builder => '_build_string_test_case_list',
-  );
-
-######################################################################
-
-has block_test_case_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => 'get_block_test_case_list',
-   lazy    => 1,
-   builder => '_build_block_test_case_list',
-  );
-
-######################################################################
-
-has library_test_case_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => 'get_library_test_case_list',
-   lazy    => 1,
-   builder => '_build_library_test_case_list',
-  );
-
-######################################################################
-
-has parser_test_case_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => 'get_parser_test_case_list',
-   lazy    => 1,
-   builder => '_build_parser_test_case_list',
-  );
+# path_reference
+# preformatted_block
+# preformatted_division
+# property
+# quotation
+# reasoner
+# references
+# region
+# resource
+# resources
+# revisions
+# section
+# sidebar
+# slide
+# source
+# status_reference
 
 ######################################################################
 
@@ -269,6 +327,105 @@ has '_test_object_hash' =>
 ######################################################################
 ######################################################################
 
+sub _build_acronym_list_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name => 'acronym_1',
+      definition => $self->get_test_object('SML::Definition','tla'),
+      acronym => 'TLA',
+      alt => '',
+      expected =>
+      {
+       add_acronym => 1,
+       has_acronym => 1,
+       get_acronym => 'SML::Definition',
+      },
+     },
+
+     {
+      name => 'acronym_2',
+      definition => $self->get_test_object('SML::Definition','frd'),
+      acronym => 'FRD',
+      alt => 'ieee',
+      expected =>
+      {
+       add_acronym => 1,
+       has_acronym => 1,
+       get_acronym => 'SML::Definition',
+      }
+     },
+
+     {
+      name => 'acronym_3',
+      definition => $self->get_test_object('SML::Definition','sla'),
+      acronym => 'bogus',
+      alt => '',
+      expected =>
+      {
+       add_acronym => 1,
+       has_acronym => 0,
+       get_acronym => '',
+      }
+     },
+
+     {
+      name => 'bad_acronym_1',
+      definition => 'bogus definition',
+      acronym => 'bogus',
+      alt => '',
+      expected =>
+      {
+       error =>
+       {
+	add_acronym => 'NOT A DEFINITION',
+       },
+      }
+     },
+
+     {
+      name => 'bad_acronym_2',
+      acronym => 'bogus',
+      alt => '',
+      expected =>
+      {
+       warning =>
+       {
+	get_acronym => 'FAILED ACRONYM LOOKUP',
+       },
+      }
+     },
+    ];
+}
+
+######################################################################
+
+sub _build_acronym_term_reference_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name => 'acronym_term_reference_1',
+      tag => 'ac',
+      acronym => 'TLA',
+      namespace => '',
+      expected =>
+      {
+       get_tag => 'ac',
+       get_acronym => 'TLA',
+       get_namespace => '',
+      },
+     },
+    ];
+}
+
+######################################################################
+
 sub _build_assertion_test_case_list {
 
   my $self = shift;
@@ -302,259 +459,6 @@ sub _build_assertion_test_case_list {
        get_object    => 'rq-000026',
       },
      },
-    ];
-}
-
-######################################################################
-
-sub _build_division_test_case_list {
-
-  my $self = shift;
-
-  return
-    [
-     {
-      name            => 'division_1',
-      division_id     => 'td',
-      division_name   => 'test-division',
-      division_number => '4-4-4',
-      expected =>
-      {
-       init       => 1,
-       get_id     => 'td',
-       get_name   => 'test-division',
-       get_number => '4-4-4',
-      }
-     },
-
-     {
-      name          => 'division_2',
-      testfile      => 'td-000020.txt',
-      division_id   => 'td-000020',
-      property_name => 'title',
-      expected  =>
-      {
-       get_containing_division => 'SML::Fragment',
-       get_first_part          => 'SML::PreformattedBlock',
-       get_property            => 'SML::Property',
-       get_property_value      => 'Section Structure With Regions',
-       get_first_line          => '>>>DOCUMENT',
-       get_part_list           => 22,
-       get_line_list           => 216,
-       get_division_list       => 32,
-       get_section_list        => 5,
-       get_block_list          => 93,
-       get_element_list        => 40,
-       get_preamble_line_list  => 18,
-       get_narrative_line_list => 195,
-       get_property_list       => 9,
-      },
-     },
-
-     {
-      name          => 'division_3',
-      testfile      => 'td-000020.txt',
-      division_id   => 'introduction',
-      property_name => 'type',
-      expected =>
-      {
-       get_containing_division => 'SML::Document',
-       get_first_part          => 'SML::Element',
-       get_property            => 'SML::Property',
-       get_property_value      => 'chapter',
-       get_first_line          => '* Introduction',
-       get_part_list           => 7,
-       get_line_list           => 17,
-       get_division_list       => 0,
-       get_block_list          => 7,
-       get_element_list        => 4,
-       get_preamble_line_list  => 4,
-       get_narrative_line_list => 9,
-       get_property_list       => 4,
-      },
-     },
-
-     {
-      name          => 'division_4',
-      testfile      => 'td-000020.txt',
-      division_id   => 'problem-1',
-      property_name => 'title',
-      expected =>
-      {
-       get_containing_division => 'SML::Section',
-       get_first_part          => 'SML::PreformattedBlock',
-       get_property            => 'SML::Property',
-       get_property_value      => 'Problem One',
-       get_first_line          => '>>>problem',
-       get_part_list           => 11,
-       get_line_list           => 42,
-       get_division_list       => 10,
-       get_block_list          => 19,
-       get_element_list        => 6,
-       get_preamble_line_list  => 12,
-       get_narrative_line_list => 26,
-       get_property_list       => 6,
-      },
-     },
-
-     {
-      name          => 'division_5',
-      testfile      => 'td-000020.txt',
-      division_id   => 'tab-solution-types',
-      property_name => 'id',
-      expected =>
-      {
-       get_containing_division => 'SML::Section',
-       get_first_part          => 'SML::PreformattedBlock',
-       get_property            => 'SML::Property',
-       get_property_value      => 'tab-solution-types',
-       get_first_line          => '---TABLE',
-       get_part_list           => 10,
-       get_line_list           => 30,
-       get_division_list       => 12,
-       get_block_list          => 15,
-       get_element_list        => 2,
-       get_preamble_line_list  => 4,
-       get_narrative_line_list => 22,
-       get_property_list       => 2,
-      },
-     },
-
-     {
-      name        => 'invalid_semantics_division_1',
-      testfile    => 'td-000063.txt',
-      division_id => 'parent-problem',
-      expected =>
-      {
-       valid_semantics_warning => 'INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY',
-      },
-     },
-
-     {
-      name        => 'invalid_semantics_division_2',
-      testfile    => 'td-000064.txt',
-      division_id => 'problem-1',
-      expected =>
-      {
-       valid_semantics_warning => 'MISSING REQUIRED PROPERTY',
-      },
-     },
-
-     {
-      name        => 'invalid_semantics_division_3',
-      testfile    => 'td-000070.txt',
-      division_id => 'td-000070',
-      expected =>
-      {
-       valid_semantics_warning => 'INVALID NON-UNIQUE ID',
-      },
-     },
-
-     {
-      name        => 'invalid_semantics_division_4',
-      testfile    => 'td-000079.txt',
-      division_id => 'problem-1',
-      expected =>
-      {
-       valid_semantics_warning => 'INVALID PROPERTY CARDINALITY',
-      },
-     },
-
-     {
-      name        => 'invalid_semantics_division_5',
-      testfile    => 'td-000080.txt',
-      division_id => 'problem-1',
-      expected =>
-      {
-       valid_semantics_warning => 'INVALID PROPERTY VALUE',
-      },
-     },
-
-     {
-      name        => 'invalid_semantics_division_6',
-      testfile    => 'td-000081.txt',
-      division_id => 'solution-1',
-      expected =>
-      {
-       valid_semantics_warning => 'INVALID COMPOSITION',
-      },
-     },
-
-     #################################################################
-
-     {
-      name => 'get_id_path_test_1',
-      testfile  => 'td-000020.txt',
-      config    => 'library.conf',
-     },
-    ];
-}
-
-######################################################################
-
-sub _build_formatter_test_case_list {
-
-  my $self = shift;
-
-  return
-    [
-    ];
-}
-
-######################################################################
-
-sub _build_part_test_case_list {
-
-  my $self = shift;
-
-  return
-    [
-     {
-      name     => 'part_test_1',
-      part_id  => 'introduction',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      expected =>
-      {
-       has_part => 1,
-       get_part => 'SML::Section',
-      },
-     },
-
-     {
-      name     => 'part_test_2',
-      part_id  => 'problem-1',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      expected =>
-      {
-       has_part => 1,
-       get_part => 'SML::Entity',
-      },
-     },
-
-     {
-      name     => 'part_test_3',
-      part_id  => 'bogus_id',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      expected =>
-      {
-       has_part => 0,
-      },
-     },
-
-    ];
-}
-
-######################################################################
-
-sub _build_cross_reference_test_case_list {
-
-  my $self = shift;
-
-  return
-    [
     ];
 }
 
@@ -2625,6 +2529,1075 @@ sub _build_block_test_case_list {
 
 ######################################################################
 
+sub _build_cross_reference_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+    ];
+}
+
+######################################################################
+
+sub _build_division_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name            => 'division_1',
+      division_id     => 'td',
+      division_name   => 'test-division',
+      division_number => '4-4-4',
+      expected =>
+      {
+       init       => 1,
+       get_id     => 'td',
+       get_name   => 'test-division',
+       get_number => '4-4-4',
+      }
+     },
+
+     {
+      name          => 'division_2',
+      testfile      => 'td-000020.txt',
+      division_id   => 'td-000020',
+      property_name => 'title',
+      expected  =>
+      {
+       get_containing_division => 'SML::Fragment',
+       get_first_part          => 'SML::PreformattedBlock',
+       get_property            => 'SML::Property',
+       get_property_value      => 'Section Structure With Regions',
+       get_first_line          => '>>>DOCUMENT',
+       get_part_list           => 22,
+       get_line_list           => 216,
+       get_division_list       => 32,
+       get_section_list        => 5,
+       get_block_list          => 93,
+       get_element_list        => 40,
+       get_preamble_line_list  => 18,
+       get_narrative_line_list => 195,
+       get_property_list       => 9,
+      },
+     },
+
+     {
+      name          => 'division_3',
+      testfile      => 'td-000020.txt',
+      division_id   => 'introduction',
+      property_name => 'type',
+      expected =>
+      {
+       get_containing_division => 'SML::Document',
+       get_first_part          => 'SML::Element',
+       get_property            => 'SML::Property',
+       get_property_value      => 'chapter',
+       get_first_line          => '* Introduction',
+       get_part_list           => 7,
+       get_line_list           => 17,
+       get_division_list       => 0,
+       get_block_list          => 7,
+       get_element_list        => 4,
+       get_preamble_line_list  => 4,
+       get_narrative_line_list => 9,
+       get_property_list       => 4,
+      },
+     },
+
+     {
+      name          => 'division_4',
+      testfile      => 'td-000020.txt',
+      division_id   => 'problem-1',
+      property_name => 'title',
+      expected =>
+      {
+       get_containing_division => 'SML::Section',
+       get_first_part          => 'SML::PreformattedBlock',
+       get_property            => 'SML::Property',
+       get_property_value      => 'Problem One',
+       get_first_line          => '>>>problem',
+       get_part_list           => 11,
+       get_line_list           => 42,
+       get_division_list       => 10,
+       get_block_list          => 19,
+       get_element_list        => 6,
+       get_preamble_line_list  => 12,
+       get_narrative_line_list => 26,
+       get_property_list       => 6,
+      },
+     },
+
+     {
+      name          => 'division_5',
+      testfile      => 'td-000020.txt',
+      division_id   => 'tab-solution-types',
+      property_name => 'id',
+      expected =>
+      {
+       get_containing_division => 'SML::Section',
+       get_first_part          => 'SML::PreformattedBlock',
+       get_property            => 'SML::Property',
+       get_property_value      => 'tab-solution-types',
+       get_first_line          => '---TABLE',
+       get_part_list           => 10,
+       get_line_list           => 30,
+       get_division_list       => 12,
+       get_block_list          => 15,
+       get_element_list        => 2,
+       get_preamble_line_list  => 4,
+       get_narrative_line_list => 22,
+       get_property_list       => 2,
+      },
+     },
+
+     {
+      name        => 'invalid_semantics_division_1',
+      testfile    => 'td-000063.txt',
+      division_id => 'parent-problem',
+      expected =>
+      {
+       valid_semantics_warning => 'INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY',
+      },
+     },
+
+     {
+      name        => 'invalid_semantics_division_2',
+      testfile    => 'td-000064.txt',
+      division_id => 'problem-1',
+      expected =>
+      {
+       valid_semantics_warning => 'MISSING REQUIRED PROPERTY',
+      },
+     },
+
+     {
+      name        => 'invalid_semantics_division_3',
+      testfile    => 'td-000070.txt',
+      division_id => 'td-000070',
+      expected =>
+      {
+       valid_semantics_warning => 'INVALID NON-UNIQUE ID',
+      },
+     },
+
+     {
+      name        => 'invalid_semantics_division_4',
+      testfile    => 'td-000079.txt',
+      division_id => 'problem-1',
+      expected =>
+      {
+       valid_semantics_warning => 'INVALID PROPERTY CARDINALITY',
+      },
+     },
+
+     {
+      name        => 'invalid_semantics_division_5',
+      testfile    => 'td-000080.txt',
+      division_id => 'problem-1',
+      expected =>
+      {
+       valid_semantics_warning => 'INVALID PROPERTY VALUE',
+      },
+     },
+
+     {
+      name        => 'invalid_semantics_division_6',
+      testfile    => 'td-000081.txt',
+      division_id => 'solution-1',
+      expected =>
+      {
+       valid_semantics_warning => 'INVALID COMPOSITION',
+      },
+     },
+
+     #################################################################
+
+     {
+      name => 'get_id_path_test_1',
+      testfile  => 'td-000020.txt',
+      config    => 'library.conf',
+     },
+    ];
+}
+
+######################################################################
+
+sub _build_formatter_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+    ];
+}
+
+######################################################################
+
+sub _build_library_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name            => 'library test case 1',
+      config_filename => 'library.conf',
+      expected =>
+      {
+       get_id           => 'sml_engineering_library',
+       get_name         => 'SML Engineering Library',
+       get_revision     => '/\d+/',
+       get_sml          => 'SML',
+       get_parser       => 'SML::Parser',
+       get_reasoner     => 'SML::Reasoner',
+       get_formatter    => 'SML::Formatter',
+       get_glossary     => 'SML::Glossary',
+       get_acronym_list => 'SML::AcronymList',
+       get_references   => 'SML::References',
+      },
+     },
+    ];
+}
+
+######################################################################
+
+sub _build_parser_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name     => 'simple_fragment',
+      testfile => 'td-000001.txt',
+      docid    => 'td-000001',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_comment_division',
+      testfile => 'td-000002.txt',
+      docid    => 'td-000002',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_comment_line',
+      testfile => 'td-000003.txt',
+      docid    => 'td-000003',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_conditional_division',
+      testfile => 'td-000004.txt',
+      docid    => 'td-000004',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_region_division',
+      testfile => 'td-000005.txt',
+      docid    => 'td-000005',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_environment_division',
+      testfile => 'td-000006.txt',
+      docid    => 'td-000006',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_lists',
+      testfile => 'td-000007.txt',
+      docid    => 'td-000007',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_generate_element',
+      testfile => 'td-000008.txt',
+      docid    => 'td-000008',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_insert_element',
+      testfile => 'td-000009.txt',
+      docid    => 'td-000009',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_script_element',
+      testfile => 'td-000010.txt',
+      docid    => 'td-000010',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_image_element',
+      testfile => 'td-000011.txt',
+      docid    => 'td-000011',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_footnote_element',
+      testfile => 'td-000012.txt',
+      docid    => 'td-000012',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_glossary_element',
+      testfile => 'td-000013.txt',
+      docid    => 'td-000013',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_var_element',
+      testfile => 'td-000014.txt',
+      docid    => 'td-000014',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_acronym_element',
+      testfile => 'td-000015.txt',
+      docid    => 'td-000015',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_index_element',
+      testfile => 'td-000016.txt',
+      docid    => 'td-000016',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_index_element',
+      testfile => 'td-000017.txt',
+      docid    => 'td-000017',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_included_section_style_1',
+      testfile => 'td-000018.txt',
+      docid    => 'td-000018',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_included_section_style_2',
+      testfile => 'td-000019.txt',
+      docid    => 'td-000019',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_sections_and_regions',
+      testfile => 'td-000020.txt',
+      docid    => 'td-000020',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_raw_include_element',
+      testfile => 'td-000021.txt',
+      docid    => 'td-000021',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_problem_division',
+      testfile => 'td-000022.txt',
+      expected =>
+      {
+       should_parse_ok => 1,
+       divname  => 'problem',
+       title    => 'Sample Problem For `Include\' Tests',
+       preamble_size  => 17,
+       narrative_size => 8,
+      }
+     },
+
+     {
+      name     => 'fragment_containing_included_entity',
+      testfile => 'td-000023.txt',
+      docid    => 'td-000023',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'single_paragraph',
+      testfile => 'td-000024.txt',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_variable_substitutions',
+      testfile => 'td-000025.txt',
+      docid    => 'td-000025',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_glossary_term_reference_1',
+      testfile => 'td-000026.txt',
+      docid    => 'td-000026',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_source_citation',
+      testfile => 'td-000028.txt',
+      docid    => 'td-000028',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_source_citation',
+      testfile => 'td-000029.txt',
+      docid    => 'td-000029',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     # {
+     #  name     => 'fragment_containing_invalid_begin_region',
+     #  testfile => 'td-000030.txt',
+     #  docid    => 'td-000030',
+     #  expected =>
+     #  {
+     #   should_parse_ok => 0,
+     #  },
+     # },
+
+     # {
+     #  name     => 'fragment_containing_undefined_region',
+     #  testfile => 'td-000031.txt',
+     #  docid    => 'td-000031',
+     #  expected =>
+     #  {
+     #   should_parse_ok => 0,
+     #  },
+     # },
+
+     {
+      name     => 'fragment_containing_cross_reference',
+      testfile => 'td-000032.txt',
+      docid    => 'td-000032',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_cross_reference',
+      testfile => 'td-000033.txt',
+      docid    => 'td-000033',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_id_reference',
+      testfile => 'td-000034.txt',
+      docid    => 'td-000034',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_id_reference',
+      testfile => 'td-000035.txt',
+      docid    => 'td-000035',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_page_reference',
+      testfile => 'td-000036.txt',
+      docid    => 'td-000036',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_page_reference',
+      testfile => 'td-000037.txt',
+      docid    => 'td-000037',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_bold_markup',
+      testfile => 'td-000038.txt',
+      docid    => 'td-000038',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_bold_markup',
+      testfile => 'td-000039.txt',
+      docid    => 'td-000039',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_italics_markup',
+      testfile => 'td-000040.txt',
+      docid    => 'td-000040',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_italics_markup',
+      testfile => 'td-000041.txt',
+      docid    => 'td-000041',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_fixedwidth_markup',
+      testfile => 'td-000042.txt',
+      docid    => 'td-000042',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_fixedwidth_markup',
+      testfile => 'td-000043.txt',
+      docid    => 'td-000043',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_underline_markup',
+      testfile => 'td-000044.txt',
+      docid    => 'td-000044',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_underline_markup',
+      testfile => 'td-000045.txt',
+      docid    => 'td-000045',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_superscript_markup',
+      testfile => 'td-000046.txt',
+      docid    => 'td-000046',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_superscript_markup',
+      testfile => 'td-000047.txt',
+      docid    => 'td-000047',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_subscript_markup',
+      testfile => 'td-000048.txt',
+      docid    => 'td-000048',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_subscript_markup',
+      testfile => 'td-000049.txt',
+      docid    => 'td-000049',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_glossary_term_syntax',
+      testfile => 'td-000050.txt',
+      docid    => 'td-000050',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_glossary_definition_reference',
+      testfile => 'td-000051.txt',
+      docid    => 'td-000051',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_glossary_definition_reference_syntax',
+      testfile => 'td-000052.txt',
+      docid    => 'td-000052',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_acronym_reference',
+      testfile => 'td-000053.txt',
+      docid    => 'td-000053',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_acronym_reference_syntax',
+      testfile => 'td-000054.txt',
+      docid    => 'td-000054',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_source_citation',
+      testfile => 'td-000055.txt',
+      docid    => 'td-000055',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_source_citation_syntax',
+      testfile => 'td-000056.txt',
+      docid    => 'td-000056',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_cross_reference_syntax',
+      testfile => 'td-000057.txt',
+      docid    => 'td-000057',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_id_reference_syntax',
+      testfile => 'td-000058.txt',
+      docid    => 'td-000058',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_page_reference_syntax',
+      testfile => 'td-000059.txt',
+      docid    => 'td-000059',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_template',
+      testfile => 'td-000060.txt',
+      docid    => 'td-000060',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_default_includes',
+      testfile => 'td-000061.txt',
+      docid    => 'td-000061',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_source_references',
+      testfile => 'td-000062.txt',
+      docid    => 'td-000062',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_explicit_declaration_of_infer_only_property',
+      testfile => 'td-000063.txt',
+      docid    => 'td-000063',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_entity_with_missing_required_property',
+      testfile => 'td-000064.txt',
+      docid    => 'td-000064',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_file_element',
+      testfile => 'td-000065.txt',
+      docid    => 'td-000065',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_reference_to_missing_file',
+      testfile => 'td-000066.txt',
+      docid    => 'td-000066',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_image_element',
+      testfile => 'td-000067.txt',
+      docid    => 'td-000067',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_reference_to_missing_image_file',
+      testfile => 'td-000068.txt',
+      docid    => 'td-000068',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_block_content',
+      testfile => 'td-000069.txt',
+      docid    => 'td-000069',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_invalid_non_unique_id',
+      testfile => 'td-000070.txt',
+      docid    => 'td-000070',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_baretable',
+      testfile => 'td-000071.txt',
+      docid    => 'td-000071',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_many_block_and_string_samples',
+      testfile => 'td-000072.txt',
+      docid    => 'td-000072',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_include_from_subdir',
+      testfile => 'td-000073.txt',
+      docid    => 'td-000073',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_divisions_for_extraction',
+      testfile => 'td-000074.txt',
+      docid    => 'td-000074',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_listing_environment',
+      testfile => 'td-000075.txt',
+      expected =>
+      {
+       should_parse_ok => 1,
+       divname  => 'LISTING',
+       title    => 'Sample Listing',
+       preamble_size  => 5,
+       narrative_size => 32,
+      }
+     },
+
+     {
+      name     => 'fragment_containing_section',
+      testfile => 'td-000076.txt',
+      expected =>
+      {
+       should_parse_ok => 1,
+       divname  => 'SECTION',
+       title    => 'Section Fragment',
+       preamble_size  => 1,
+      }
+     },
+
+     {
+      name     => 'fragment_containing_glossary_term_reference_2',
+      testfile => 'td-000077.txt',
+      docid    => 'td-000077',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+     {
+      name     => 'fragment_containing_title_with_linebreak',
+      testfile => 'td-000078.txt',
+      docid    => 'td-000078',
+      expected =>
+      {
+       should_parse_ok => 1,
+      },
+     },
+
+    ];
+}
+
+######################################################################
+
+sub _build_part_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name     => 'part_test_1',
+      part_id  => 'introduction',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
+      expected =>
+      {
+       has_part => 1,
+       get_part => 'SML::Section',
+      },
+     },
+
+     {
+      name     => 'part_test_2',
+      part_id  => 'problem-1',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
+      expected =>
+      {
+       has_part => 1,
+       get_part => 'SML::Entity',
+      },
+     },
+
+     {
+      name     => 'part_test_3',
+      part_id  => 'bogus_id',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
+      expected =>
+      {
+       has_part => 0,
+      },
+     },
+
+    ];
+}
+
+######################################################################
+
 sub _build_string_test_case_list {
 
   my $self = shift;
@@ -3524,922 +4497,10 @@ sub _build_string_test_case_list {
 
 ######################################################################
 
-sub _build_acronym_list_test_case_list {
-
-  my $self = shift;
-
-  return
-    [
-     {
-      name => 'acronym_1',
-      definition => $self->get_test_object('SML::Definition','tla'),
-      acronym => 'TLA',
-      alt => '',
-      expected =>
-      {
-       add_acronym => 1,
-       has_acronym => 1,
-       get_acronym => 'SML::Definition',
-      },
-     },
-
-     {
-      name => 'acronym_2',
-      definition => $self->get_test_object('SML::Definition','frd'),
-      acronym => 'FRD',
-      alt => 'ieee',
-      expected =>
-      {
-       add_acronym => 1,
-       has_acronym => 1,
-       get_acronym => 'SML::Definition',
-      }
-     },
-
-     {
-      name => 'acronym_3',
-      definition => $self->get_test_object('SML::Definition','sla'),
-      acronym => 'bogus',
-      alt => '',
-      expected =>
-      {
-       add_acronym => 1,
-       has_acronym => 0,
-       get_acronym => '',
-      }
-     },
-
-     {
-      name => 'bad_acronym_1',
-      definition => 'bogus definition',
-      acronym => 'bogus',
-      alt => '',
-      expected =>
-      {
-       error =>
-       {
-	add_acronym => 'NOT A DEFINITION',
-       },
-      }
-     },
-
-     {
-      name => 'bad_acronym_2',
-      acronym => 'bogus',
-      alt => '',
-      expected =>
-      {
-       warning =>
-       {
-	get_acronym => 'FAILED ACRONYM LOOKUP',
-       },
-      }
-     },
-    ];
-}
-
-######################################################################
-
-sub _build_acronym_term_reference_test_case_list {
-
-  my $self = shift;
-
-  return
-    [
-     {
-      name => 'acronym_term_reference_1',
-      tag => 'ac',
-      acronym => 'TLA',
-      namespace => '',
-      expected =>
-      {
-       get_tag => 'ac',
-       get_acronym => 'TLA',
-       get_namespace => '',
-      },
-     },
-    ];
-}
-
-######################################################################
-
-sub _build_library_test_case_list {
-
-  my $self = shift;
-
-  return
-    [
-     {
-      name            => 'library test case 1',
-      config_filename => 'library.conf',
-      expected =>
-      {
-       get_id           => 'sml_engineering_library',
-       get_name         => 'SML Engineering Library',
-       get_revision     => '/\d+/',
-       get_sml          => 'SML',
-       get_parser       => 'SML::Parser',
-       get_reasoner     => 'SML::Reasoner',
-       get_formatter    => 'SML::Formatter',
-       get_glossary     => 'SML::Glossary',
-       get_acronym_list => 'SML::AcronymList',
-       get_references   => 'SML::References',
-      },
-     },
-    ];
-}
-
-######################################################################
-
-sub _build_parser_test_case_list {
-
-  my $self = shift;
-
-  return
-    [
-     {
-      name     => 'simple_fragment',
-      testfile => 'td-000001.txt',
-      docid    => 'td-000001',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_comment_division',
-      testfile => 'td-000002.txt',
-      docid    => 'td-000002',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_comment_line',
-      testfile => 'td-000003.txt',
-      docid    => 'td-000003',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_conditional_division',
-      testfile => 'td-000004.txt',
-      docid    => 'td-000004',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_region_division',
-      testfile => 'td-000005.txt',
-      docid    => 'td-000005',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_environment_division',
-      testfile => 'td-000006.txt',
-      docid    => 'td-000006',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_lists',
-      testfile => 'td-000007.txt',
-      docid    => 'td-000007',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_generate_element',
-      testfile => 'td-000008.txt',
-      docid    => 'td-000008',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_insert_element',
-      testfile => 'td-000009.txt',
-      docid    => 'td-000009',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_script_element',
-      testfile => 'td-000010.txt',
-      docid    => 'td-000010',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_image_element',
-      testfile => 'td-000011.txt',
-      docid    => 'td-000011',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_footnote_element',
-      testfile => 'td-000012.txt',
-      docid    => 'td-000012',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_glossary_element',
-      testfile => 'td-000013.txt',
-      docid    => 'td-000013',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_var_element',
-      testfile => 'td-000014.txt',
-      docid    => 'td-000014',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_acronym_element',
-      testfile => 'td-000015.txt',
-      docid    => 'td-000015',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_index_element',
-      testfile => 'td-000016.txt',
-      docid    => 'td-000016',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_index_element',
-      testfile => 'td-000017.txt',
-      docid    => 'td-000017',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_included_section_style_1',
-      testfile => 'td-000018.txt',
-      docid    => 'td-000018',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_included_section_style_2',
-      testfile => 'td-000019.txt',
-      docid    => 'td-000019',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_sections_and_regions',
-      testfile => 'td-000020.txt',
-      docid    => 'td-000020',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_raw_include_element',
-      testfile => 'td-000021.txt',
-      docid    => 'td-000021',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_problem_division',
-      testfile => 'td-000022.txt',
-      expected =>
-      {
-       should_parse_ok => 1,
-       divname  => 'problem',
-       title    => 'Sample Problem For `Include\' Tests',
-       preamble_size  => 17,
-       narrative_size => 8,
-      }
-     },
-
-     {
-      name     => 'fragment_containing_included_entity',
-      testfile => 'td-000023.txt',
-      docid    => 'td-000023',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'single_paragraph',
-      testfile => 'td-000024.txt',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_variable_substitutions',
-      testfile => 'td-000025.txt',
-      docid    => 'td-000025',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_glossary_term_reference_1',
-      testfile => 'td-000026.txt',
-      docid    => 'td-000026',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_source_citation',
-      testfile => 'td-000028.txt',
-      docid    => 'td-000028',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_source_citation',
-      testfile => 'td-000029.txt',
-      docid    => 'td-000029',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     # {
-     #  name     => 'fragment_containing_invalid_begin_region',
-     #  testfile => 'td-000030.txt',
-     #  docid    => 'td-000030',
-     #  expected =>
-     #  {
-     #   should_parse_ok => 0,
-     #  },
-     # },
-
-     # {
-     #  name     => 'fragment_containing_undefined_region',
-     #  testfile => 'td-000031.txt',
-     #  docid    => 'td-000031',
-     #  expected =>
-     #  {
-     #   should_parse_ok => 0,
-     #  },
-     # },
-
-     {
-      name     => 'fragment_containing_cross_reference',
-      testfile => 'td-000032.txt',
-      docid    => 'td-000032',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_cross_reference',
-      testfile => 'td-000033.txt',
-      docid    => 'td-000033',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_id_reference',
-      testfile => 'td-000034.txt',
-      docid    => 'td-000034',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_id_reference',
-      testfile => 'td-000035.txt',
-      docid    => 'td-000035',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_page_reference',
-      testfile => 'td-000036.txt',
-      docid    => 'td-000036',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_page_reference',
-      testfile => 'td-000037.txt',
-      docid    => 'td-000037',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_bold_markup',
-      testfile => 'td-000038.txt',
-      docid    => 'td-000038',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_bold_markup',
-      testfile => 'td-000039.txt',
-      docid    => 'td-000039',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_italics_markup',
-      testfile => 'td-000040.txt',
-      docid    => 'td-000040',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_italics_markup',
-      testfile => 'td-000041.txt',
-      docid    => 'td-000041',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_fixedwidth_markup',
-      testfile => 'td-000042.txt',
-      docid    => 'td-000042',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_fixedwidth_markup',
-      testfile => 'td-000043.txt',
-      docid    => 'td-000043',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_underline_markup',
-      testfile => 'td-000044.txt',
-      docid    => 'td-000044',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_underline_markup',
-      testfile => 'td-000045.txt',
-      docid    => 'td-000045',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_superscript_markup',
-      testfile => 'td-000046.txt',
-      docid    => 'td-000046',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_superscript_markup',
-      testfile => 'td-000047.txt',
-      docid    => 'td-000047',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_subscript_markup',
-      testfile => 'td-000048.txt',
-      docid    => 'td-000048',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_subscript_markup',
-      testfile => 'td-000049.txt',
-      docid    => 'td-000049',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_glossary_term_syntax',
-      testfile => 'td-000050.txt',
-      docid    => 'td-000050',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_glossary_definition_reference',
-      testfile => 'td-000051.txt',
-      docid    => 'td-000051',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_glossary_definition_reference_syntax',
-      testfile => 'td-000052.txt',
-      docid    => 'td-000052',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_acronym_reference',
-      testfile => 'td-000053.txt',
-      docid    => 'td-000053',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_acronym_reference_syntax',
-      testfile => 'td-000054.txt',
-      docid    => 'td-000054',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_source_citation',
-      testfile => 'td-000055.txt',
-      docid    => 'td-000055',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_source_citation_syntax',
-      testfile => 'td-000056.txt',
-      docid    => 'td-000056',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_cross_reference_syntax',
-      testfile => 'td-000057.txt',
-      docid    => 'td-000057',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_id_reference_syntax',
-      testfile => 'td-000058.txt',
-      docid    => 'td-000058',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_page_reference_syntax',
-      testfile => 'td-000059.txt',
-      docid    => 'td-000059',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_template',
-      testfile => 'td-000060.txt',
-      docid    => 'td-000060',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_default_includes',
-      testfile => 'td-000061.txt',
-      docid    => 'td-000061',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_source_references',
-      testfile => 'td-000062.txt',
-      docid    => 'td-000062',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_explicit_declaration_of_infer_only_property',
-      testfile => 'td-000063.txt',
-      docid    => 'td-000063',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_entity_with_missing_required_property',
-      testfile => 'td-000064.txt',
-      docid    => 'td-000064',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_file_element',
-      testfile => 'td-000065.txt',
-      docid    => 'td-000065',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_reference_to_missing_file',
-      testfile => 'td-000066.txt',
-      docid    => 'td-000066',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_image_element',
-      testfile => 'td-000067.txt',
-      docid    => 'td-000067',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_reference_to_missing_image_file',
-      testfile => 'td-000068.txt',
-      docid    => 'td-000068',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_block_content',
-      testfile => 'td-000069.txt',
-      docid    => 'td-000069',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_invalid_non_unique_id',
-      testfile => 'td-000070.txt',
-      docid    => 'td-000070',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_baretable',
-      testfile => 'td-000071.txt',
-      docid    => 'td-000071',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_many_block_and_string_samples',
-      testfile => 'td-000072.txt',
-      docid    => 'td-000072',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_include_from_subdir',
-      testfile => 'td-000073.txt',
-      docid    => 'td-000073',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_divisions_for_extraction',
-      testfile => 'td-000074.txt',
-      docid    => 'td-000074',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_listing_environment',
-      testfile => 'td-000075.txt',
-      expected =>
-      {
-       should_parse_ok => 1,
-       divname  => 'LISTING',
-       title    => 'Sample Listing',
-       preamble_size  => 5,
-       narrative_size => 32,
-      }
-     },
-
-     {
-      name     => 'fragment_containing_section',
-      testfile => 'td-000076.txt',
-      expected =>
-      {
-       should_parse_ok => 1,
-       divname  => 'SECTION',
-       title    => 'Section Fragment',
-       preamble_size  => 1,
-      }
-     },
-
-     {
-      name     => 'fragment_containing_glossary_term_reference_2',
-      testfile => 'td-000077.txt',
-      docid    => 'td-000077',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-     {
-      name     => 'fragment_containing_title_with_linebreak',
-      testfile => 'td-000078.txt',
-      docid    => 'td-000078',
-      expected =>
-      {
-       should_parse_ok => 1,
-      },
-     },
-
-    ];
-}
-
-######################################################################
-
 sub _build_test_object_hash {
+
+  # The test object hash built by this private method provides
+  # known-good objects for unit testing.
 
   my $self = shift;
 
@@ -4449,11 +4510,15 @@ sub _build_test_object_hash {
   my $line;
   my $object;
 
+  #-------------------------------------------------------------------
+
   use SML::Library;
 
   $name = 'library';
   $object = SML::Library->new(config_filename=>'library.conf');
   $toh->{'SML::Library'}{$name} = $object;
+
+  #-------------------------------------------------------------------
 
   use SML::Definition;
 
@@ -4475,6 +4540,8 @@ sub _build_test_object_hash {
       $object->add_line($line);
       $toh->{'SML::Definition'}{$name} = $object;
     }
+
+  #-------------------------------------------------------------------
 
   return $toh;
 }
