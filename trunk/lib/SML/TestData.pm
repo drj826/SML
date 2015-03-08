@@ -44,6 +44,17 @@ has acronym_term_reference_test_case_list =>
 
 ######################################################################
 
+has assertion_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_assertion_test_case_list',
+   lazy    => 1,
+   builder => '_build_assertion_test_case_list',
+  );
+
+######################################################################
+
 has division_test_case_list =>
   (
    is      => 'ro',
@@ -256,6 +267,44 @@ has '_test_object_hash' =>
 ## Private Methods
 ##
 ######################################################################
+######################################################################
+
+sub _build_assertion_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name      => 'assertion_1',
+      id        => 'a1',
+      subject   => 'My eyes',
+      predicate => 'are',
+      object    => 'blue',
+      expected =>
+      {
+       get_subject   => 'My eyes',
+       get_predicate => 'are',
+       get_object    => 'blue',
+      },
+     },
+
+     {
+      name      => 'assertion_2',
+      id        => 'a2',
+      subject   => 'rq-000331',
+      predicate => 'is_part_of',
+      object    => 'rq-000026',
+      expected =>
+      {
+       get_subject   => 'rq-000331',
+       get_predicate => 'is_part_of',
+       get_object    => 'rq-000026',
+      },
+     },
+    ];
+}
+
 ######################################################################
 
 sub _build_division_test_case_list {
