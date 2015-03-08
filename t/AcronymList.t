@@ -3,13 +3,15 @@
 # $Id$
 
 use lib "..";
-use Test::More tests => 10;
+use Test::More tests => 15;
 
 use SML;
 use SML::Definition;
 
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
+
+use Test::Log4perl;
 
 use SML::TestData;
 
@@ -42,6 +44,7 @@ isa_ok( $obj, 'SML::AcronymList' );
 
 my @public_methods =
   (
+   # SML::AcronymList public methods
    'add_acronym',
    'has_acronym',
    'get_acronym',
@@ -56,19 +59,29 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{$tcl})
   {
-    if ( defined $tc->{expected}{add_ok} )
+    if ( defined $tc->{expected}{add_acronym} )
       {
 	add_acronym_ok($tc);
       }
 
-    if ( defined $tc->{expected}{has_ok} )
+    if ( defined $tc->{expected}{has_acronym} )
       {
 	has_acronym_ok($tc);
       }
 
-    if ( defined $tc->{expected}{get_ok} )
+    if ( defined $tc->{expected}{get_acronym} )
       {
 	get_acronym_ok($tc);
+      }
+
+    if ( defined $tc->{expected}{error}{add_acronym} )
+      {
+	error_add_acronym_ok($tc);
+      }
+
+    if ( defined $tc->{expected}{warning}{get_acronym} )
+      {
+	warn_get_acronym_ok($tc);
       }
   }
 
@@ -85,20 +98,16 @@ sub add_acronym_ok {
   my $tc = shift;                       # test case
 
   # arrange
-  my $name         = $tc->{name};
-  my $content      = $tc->{content};
-  my $expected     = $tc->{expected}{add_ok};
-  my $line         = SML::Line->new(content=>$content);
+  my $tcname       = $tc->{name};
+  my $definition   = $tc->{definition};
   my $acronym_list = SML::AcronymList->new;
-  my $definition   = SML::Definition->new;
-
-  $definition->add_line($line);
+  my $expected     = $tc->{expected}{add_acronym};
 
   # act
   my $result = $acronym_list->add_acronym($definition);
 
   # assert
-  is($result, $expected, "add_acronym $name");
+  is($result,$expected,"$tcname add_acronym $result");
 }
 
 ######################################################################
@@ -108,24 +117,20 @@ sub has_acronym_ok {
   my $tc = shift;                       # test case
 
   # arrange
-  my $name         = $tc->{name};
-  my $content      = $tc->{content};
+  my $tcname       = $tc->{name};
+  my $definition   = $tc->{definition};
   my $acronym      = $tc->{acronym};
   my $alt          = $tc->{alt};
-  my $line         = SML::Line->new(content=>$content);
   my $acronym_list = SML::AcronymList->new;
-  my $definition   = SML::Definition->new;
-  my $expected     = $tc->{expected}{has_ok};
+  my $expected     = $tc->{expected}{has_acronym};
 
-  $definition->add_line($line);
-
-  my $count        = $acronym_list->add_acronym($definition);
+  $acronym_list->add_acronym($definition);
 
   # act
   my $result = $acronym_list->has_acronym($acronym,$alt);
 
   # assert
-  is($result, $expected, "has_acronym $name");
+  is($result,$expected,"$tcname has_acronym $result");
 }
 
 ######################################################################
@@ -135,24 +140,67 @@ sub get_acronym_ok {
   my $tc = shift;                       # test case
 
   # arrange
-  my $name         = $tc->{name};
-  my $content      = $tc->{content};
+  my $tcname       = $tc->{name};
+  my $definition   = $tc->{definition};
   my $acronym      = $tc->{acronym};
   my $alt          = $tc->{alt};
-  my $line         = SML::Line->new(content=>$content);
   my $acronym_list = SML::AcronymList->new;
-  my $definition   = SML::Definition->new;
-  my $expected     = 'SML::Definition';
+  my $expected     = $tc->{expected}{get_acronym};
 
-  $definition->add_line($line);
-
-  my $count        = $acronym_list->add_acronym($definition);
+  $acronym_list->add_acronym($definition);
 
   # act
   my $result = ref $acronym_list->get_acronym($acronym,$alt);
 
   # assert
-  is($result, $expected, "get_acronym $name");
+  is($result,$expected,"$tcname get_acronym $result");
+}
+
+######################################################################
+
+sub error_add_acronym_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname       = $tc->{name};
+  my $definition   = $tc->{definition};
+  my $acronym_list = SML::AcronymList->new;
+  my $expected     = $tc->{expected}{error}{add_acronym};
+  my $t1logger     = Test::Log4perl->get_logger('sml.AcronymList');
+
+  Test::Log4perl->start( ignore_priority => "warn" );
+  $t1logger->error(qr/$expected/);
+
+  # act
+  $acronym_list->add_acronym($definition);
+
+  # assert
+  Test::Log4perl->end("$tcname $expected");
+}
+
+######################################################################
+
+sub warn_get_acronym_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname       = $tc->{name};
+  my $acronym      = $tc->{acronym};
+  my $alt          = $tc->{alt};
+  my $acronym_list = SML::AcronymList->new;
+  my $expected     = $tc->{expected}{warning}{get_acronym};
+  my $t1logger     = Test::Log4perl->get_logger('sml.AcronymList');
+
+  Test::Log4perl->start( ignore_priority => "info" );
+  $t1logger->warn(qr/$expected/);
+
+  # act
+  my $result = $acronym_list->get_acronym($acronym,$alt);
+
+  # assert
+  Test::Log4perl->end("$tcname $expected");
 }
 
 ######################################################################
@@ -167,7 +215,9 @@ sub get_acronym_list_ok {
   my $result = ref $al->get_acronym_list;
 
   # assert
-  is($result, $expected, "get_acronym_list")
+  is($result,$expected,"get_acronym_list")
 }
 
 ######################################################################
+
+1;
