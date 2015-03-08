@@ -37,7 +37,6 @@ isa_ok( $obj, 'SML::ListItem' );
 my @public_methods =
   (
    'get_name',
-   'get_type',
    'get_value',
   );
 

@@ -68,7 +68,6 @@ my @public_methods =
    'has_valid_semantics',
 
    'get_name',
-   'get_type',
    'get_value',
 
    'validate_outcome_semantics',

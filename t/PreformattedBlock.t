@@ -37,7 +37,6 @@ isa_ok( $obj, 'SML::PreformattedBlock' );
 my @public_methods =
   (
    'get_name',
-   'get_type',
    'add_line',
   );
 

@@ -42,7 +42,7 @@ use SML::TestData;
 
 my $td      = SML::TestData->new();
 my $tcl     = $td->get_block_test_case_list;
-my $library = $td->get_library;
+my $library = $td->get_test_object('SML::Library','library');
 my $parser  = $library->get_parser;
 
 #---------------------------------------------------------------------
@@ -106,7 +106,6 @@ my @public_methods =
    'validate_source_citations',
 
    # public attribute accessors inherited from SML::Part
-   'get_type',
    'get_name',
    'get_content',
    'set_content',
