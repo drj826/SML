@@ -39,23 +39,24 @@ sub add_acronym {
   my $self       = shift;
   my $definition = shift;
 
-  if ( $definition->isa('SML::Definition') )
+  # validate input
+  if (
+      not ref $definition
+      or
+      not $definition->isa('SML::Definition')
+     )
     {
-      my $term = $definition->get_term;
-      my $alt  = $definition->get_alt;
-      my $ah   = $self->_get_acronym_hash;
-
-      $ah->{$term}{$alt} = $definition;
-
-      return 1;
-    }
-
-  else
-    {
-      $logger->warn("CAN'T ADD ACRONYM: \'$definition\' is not a definition");
-
+      $logger->error("NOT A DEFINITION \'$definition\'");
       return 0;
     }
+
+  my $term = $definition->get_term;
+  my $alt  = $definition->get_alt;
+  my $ah   = $self->_get_acronym_hash;
+
+  $ah->{$term}{$alt} = $definition;
+
+  return 1;
 }
 
 ######################################################################
@@ -65,7 +66,8 @@ sub has_acronym {
   my $self    = shift;
   my $acronym = shift;
   my $alt     = shift || q{};
-  my $ah      = $self->_get_acronym_hash;
+
+  my $ah = $self->_get_acronym_hash;
 
   if ( defined $ah->{$acronym}{$alt} )
     {
