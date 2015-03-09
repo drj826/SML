@@ -72,7 +72,17 @@ has block_test_case_list =>
 
 ######################################################################
 
-# bullet_list_item
+has bullet_list_item_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_bullet_list_item_test_case_list',
+   lazy    => 1,
+   builder => '_build_bullet_list_item_test_case_list',
+  );
+
+######################################################################
+
 # citation_reference
 # command_reference
 # comment_block
@@ -92,8 +102,28 @@ has cross_reference_test_case_list =>
 
 ######################################################################
 
-# definition_list_item
-# definition
+has definition_list_item_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_definition_list_item_test_case_list',
+   lazy    => 1,
+   builder => '_build_definition_list_item_test_case_list',
+  );
+
+######################################################################
+
+has definition_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_definition_test_case_list',
+   lazy    => 1,
+   builder => '_build_definition_test_case_list',
+  );
+
+######################################################################
+
 # demo
 
 ######################################################################
@@ -109,16 +139,62 @@ has division_test_case_list =>
 
 ######################################################################
 
-# document
-# element
+has document_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_document_test_case_list',
+   lazy    => 1,
+   builder => '_build_document_test_case_list',
+  );
+
+######################################################################
+
+has element_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_element_test_case_list',
+   lazy    => 1,
+   builder => '_build_element_test_case_list',
+  );
+
+######################################################################
+
 # email_address
 # entity
-# enumerated_list_item
+
+######################################################################
+
+has enumerated_list_item_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_enumerated_list_item_test_case_list',
+   lazy    => 1,
+   builder => '_build_enumerated_list_item_test_case_list',
+  );
+
+######################################################################
+
 # environment
 # epigraph
 # exercise
 # figure
-# file
+
+######################################################################
+
+has file_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_file_test_case_list',
+   lazy    => 1,
+   builder => '_build_file_test_case_list',
+  );
+
+######################################################################
+
 # file_reference
 # footnote_reference
 # formattable
@@ -136,7 +212,17 @@ has formatter_test_case_list =>
 
 ######################################################################
 
-# fragment
+has fragment_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_fragment_test_case_list',
+   lazy    => 1,
+   builder => '_build_fragment_test_case_list',
+  );
+
+######################################################################
+
 # glossary_definition_reference
 # glossary
 # glossary_term_reference
@@ -220,6 +306,36 @@ has string_test_case_list =>
    lazy    => 1,
    builder => '_build_string_test_case_list',
   );
+
+######################################################################
+
+# svninfo
+# symbol
+# syntax_error_string
+# syntax
+# table_cell
+# table
+# table_row
+
+######################################################################
+
+has test_data_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_test_data_test_case_list',
+   lazy    => 1,
+   builder => '_build_test_data_test_case_list',
+  );
+
+######################################################################
+
+# url_reference
+# user_entered_text
+# util
+# variable_reference
+# video
+# xml_tag
 
 ######################################################################
 ######################################################################
@@ -2529,12 +2645,113 @@ sub _build_block_test_case_list {
 
 ######################################################################
 
+sub _build_bullet_list_item_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name => 'top_level_item',
+      text => '- top level item',
+      expected =>
+      {
+       get_value => 'top level item',
+      },
+     },
+
+     {
+      name => 'indented_item',
+      text => '  - indented item',
+      expected =>
+      {
+       get_value => 'indented item',
+      },
+     },
+    ];
+}
+
+######################################################################
+
 sub _build_cross_reference_test_case_list {
 
   my $self = shift;
 
   return
     [
+    ];
+}
+
+######################################################################
+
+sub _build_definition_list_item_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name => 'definition_list_item_1',
+      text => '= term 1 = definition of term 1',
+      expected =>
+      {
+       get_term => 'term 1',
+       get_definition => 'definition of term 1',
+      },
+     },
+
+     {
+      name => 'bad_definition_list_item_1',
+      text => 'This is not a definition list item',
+      expected =>
+      {
+       error => 'DEFINITION LIST ITEM SYNTAX ERROR',
+      },
+     },
+    ];
+}
+
+######################################################################
+
+sub _build_definition_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name => 'definition_1',
+      text => 'glossary:: BPEL = Business Process Execution Language',
+      expected =>
+      {
+       get_term => 'BPEL',
+       get_alt => '',
+       get_value => 'Business Process Execution Language',
+      },
+     },
+
+     {
+      name => 'definition_2',
+      text => 'glossary:: FRD {ieee} = (IEEE) Functional Requirements Document',
+      expected =>
+      {
+       get_term => 'FRD',
+       get_alt => 'ieee',
+       get_value => '(IEEE) Functional Requirements Document',
+      },
+     },
+
+     {
+      name => 'bad_definition_1',
+      text => 'This is not a definition',
+      expected =>
+      {
+       error =>
+       {
+	get_term => 'DEFINITION SYNTAX ERROR',
+       },
+      },
+     },
     ];
 }
 
@@ -2653,15 +2870,15 @@ sub _build_division_test_case_list {
       },
      },
 
-     {
-      name        => 'invalid_semantics_division_1',
-      testfile    => 'td-000063.txt',
-      division_id => 'parent-problem',
-      expected =>
-      {
-       valid_semantics_warning => 'INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY',
-      },
-     },
+     # {
+     #  name        => 'invalid_semantics_division_1',
+     #  testfile    => 'td-000063.txt',
+     #  division_id => 'parent-problem',
+     #  expected =>
+     #  {
+     #   valid_semantics_warning => 'INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY',
+     #  },
+     # },
 
      {
       name        => 'invalid_semantics_division_2',
@@ -2725,12 +2942,199 @@ sub _build_division_test_case_list {
 
 ######################################################################
 
+sub _build_document_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name => 'invalid_non_unique_id',
+      testfile => 'td-000070.txt',
+      docid => 'td-000070',
+      expected =>
+      {
+       warning =>
+       {
+	warning_1 => 'INVALID NON-UNIQUE ID',
+	warning_2 => 'THE DOCUMENT IS NOT VALID',
+       },
+      },
+     },
+
+     {
+      name     => 'add_note_1',
+      document => $self->get_test_object('SML::Document','td-000020'),
+      note     => $self->get_test_object('SML::Note','1'),
+      expected =>
+      {
+       add_note => 1,
+      },
+     },
+    ];
+}
+
+######################################################################
+
+sub _build_element_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name => 'element_1',
+      text => 'title:: This is My Title',
+      element_name => 'title',
+      expected =>
+      {
+       get_value => 'This is My Title',
+      },
+     },
+
+     {
+      name     => 'invalid_filespec',
+      testfile => 'td-000066.txt',
+      docid    => 'td-000066',
+      expected =>
+      {
+       warning =>
+       {
+	validate =>
+	[
+	 'INVALID FILE',
+	 'THE DOCUMENT IS NOT VALID',
+	]
+       },
+      },
+     },
+
+     {
+      name     => 'invalid_image_file',
+      testfile => 'td-000068.txt',
+      docid    => 'td-000068',
+      expected =>
+      {
+       warning =>
+       {
+	validate =>
+	[
+	 'INVALID IMAGE FILE',
+	 'THE DOCUMENT IS NOT VALID',
+	],
+       },
+      },
+     },
+    ];
+}
+
+######################################################################
+
+sub _build_enumerated_list_item_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name => 'top_level_item',
+      text => '+ top level item',
+      expected =>
+      {
+       get_value => 'top level item',
+      },
+     },
+
+     {
+      name => 'indented_item',
+      text => '  + indented item',
+      expected =>
+      {
+       get_value => 'indented item',
+      },
+     },
+
+    ];
+}
+
+######################################################################
+
+sub _build_file_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name     => 'file_1',
+      filespec => 'library/testdata/td-000001.txt',
+      expected =>
+      {
+       get_sha_digest => '3fc9a6743c4b2eb4d0cd27fd5ad90a75e94897da',
+       get_md5_digest => '0aeb40f8e68ce0faf0d780e732213408',
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'bad_file_1',
+      filespec => 'library/testdata/bogus.txt',
+      expected =>
+      {
+       is_valid => 0,
+      },
+     },
+    ];
+}
+
+######################################################################
+
 sub _build_formatter_test_case_list {
 
   my $self = shift;
 
   return
     [
+    ];
+}
+
+######################################################################
+
+sub _build_fragment_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name => 'fragment_1',
+      filespec => 'library/testdata/td-000074.txt',
+      divid => 'my-problem',
+      expected =>
+      {
+       extract_division_lines => 19,
+      },
+     },
+
+     {
+      name => 'fragment_2',
+      filespec => 'library/testdata/td-000074.txt',
+      divid => 'tab-solution-types',
+      expected =>
+      {
+       extract_division_lines => 29,
+      },
+     },
+
+     {
+      name => 'fragment_3',
+      filespec => 'library/testdata/td-000074.txt',
+      divid => 'introduction',
+      expected =>
+      {
+       extract_division_lines => 16,
+      },
+     },
     ];
 }
 
@@ -4497,6 +4901,38 @@ sub _build_string_test_case_list {
 
 ######################################################################
 
+sub _build_test_data_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name        => 'test_data_1',
+      object_type => 'SML::Note',
+      object_name => '1',
+      test_data   => $self,
+      expected =>
+      {
+       get_test_object => 'SML::Note',
+      },
+     },
+
+     {
+      name        => 'test_data_2',
+      object_type => 'SML::Document',
+      object_name => 'td-000020',
+      test_data   => $self,
+      expected =>
+      {
+       get_test_object => 'SML::Document',
+      },
+     },
+    ];
+}
+
+######################################################################
+
 sub _build_test_object_hash {
 
   # The test object hash built by this private method provides
@@ -4505,43 +4941,80 @@ sub _build_test_object_hash {
   my $self = shift;
 
   my $toh  = {};                        # test object hash
-  my $text = q{};
-  my $name = q{};
-  my $line;
-  my $object;
-
-  #-------------------------------------------------------------------
 
   use SML::Library;
-
-  $name = 'library';
-  $object = SML::Library->new(config_filename=>'library.conf');
-  $toh->{'SML::Library'}{$name} = $object;
-
-  #-------------------------------------------------------------------
-
+  use SML::Document;
   use SML::Definition;
-
-  my $definition_list =
-    [
-     ['tla' => 'acronym:: TLA = Three Letter Acronym'],
-     ['fla' => 'acronym:: FLA = Four Letter Acronym'],
-     ['sla' => 'acronym:: SLA = Six Letter Acronym'],
-     ['frd' => 'acronym:: FRD {ieee} = (IEEE) Functional Requirements Document'],
-    ];
-
-  foreach my $definition (@{ $definition_list })
-    {
-      my $name = $definition->[0];
-      my $text = $definition->[1];
-
-      $line = SML::Line->new(content=>$text);
-      $object = SML::Definition->new;
-      $object->add_line($line);
-      $toh->{'SML::Definition'}{$name} = $object;
-    }
+  use SML::Note;
 
   #-------------------------------------------------------------------
+  # library object
+  {
+    my $library = SML::Library->new(config_filename=>'library.conf');
+    $toh->{'SML::Library'}{library} = $library;
+  }
+
+  #-------------------------------------------------------------------
+  # document objects
+  {
+    my $library  = SML::Library->new(config_filename=>'library.conf');
+    my $parser   = $library->get_parser;
+    my $fragment = $parser->create_fragment('td-000020.txt');
+    my $document = $library->get_document('td-000020');
+
+    $toh->{'SML::Document'}{'td-000020'} = $document;
+  }
+
+  #-------------------------------------------------------------------
+  # definition objects
+  {
+    my $pair_list =
+      [
+       ['tla' => 'acronym:: TLA = Three Letter Acronym'],
+       ['fla' => 'acronym:: FLA = Four Letter Acronym'],
+       ['sla' => 'acronym:: SLA = Six Letter Acronym'],
+       ['frd' => 'acronym:: FRD {ieee} = (IEEE) Functional Requirements Document'],
+      ];
+
+    foreach my $pair (@{ $pair_list })
+      {
+	my $name = $pair->[0];
+	my $text = $pair->[1];
+	my $line = SML::Line->new(content=>$text);
+	my $definition = SML::Definition->new;
+
+	$definition->add_line($line);
+
+	$toh->{'SML::Definition'}{$name} = $definition;
+      }
+  }
+
+  #-------------------------------------------------------------------
+  # note objects
+  {
+    my $pair_list =
+      [
+       ['1','note::1: This is a note.'],
+       ['2','note::2:intro: This is a note with a division ID.'],
+      ];
+
+    foreach my $pair (@{ $pair_list })
+      {
+	my $name = $pair->[0];
+	my $text = $pair->[1];
+	my $line = SML::Line->new(content=>$text);
+	my $args = {};
+
+	$args->{name} = 'note';
+	$args->{tag}  = $name;
+
+	my $note = SML::Note->new(%{$args});
+
+	$note->add_line($line);
+
+	$toh->{'SML::Note'}{$name} = $note;
+      }
+  }
 
   return $toh;
 }
