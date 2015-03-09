@@ -59,30 +59,11 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{$tcl})
   {
-    if ( defined $tc->{expected}{add_acronym} )
-      {
-	add_acronym_ok($tc);
-      }
-
-    if ( defined $tc->{expected}{has_acronym} )
-      {
-	has_acronym_ok($tc);
-      }
-
-    if ( defined $tc->{expected}{get_acronym} )
-      {
-	get_acronym_ok($tc);
-      }
-
-    if ( defined $tc->{expected}{error}{add_acronym} )
-      {
-	error_add_acronym_ok($tc);
-      }
-
-    if ( defined $tc->{expected}{warning}{get_acronym} )
-      {
-	warn_get_acronym_ok($tc);
-      }
+    add_acronym_ok($tc)       if defined $tc->{expected}{add_acronym};
+    has_acronym_ok($tc)       if defined $tc->{expected}{has_acronym};
+    get_acronym_ok($tc)       if defined $tc->{expected}{get_acronym};
+    error_add_acronym_ok($tc) if defined $tc->{expected}{error}{add_acronym};
+    warn_get_acronym_ok($tc)  if defined $tc->{expected}{warning}{get_acronym};
   }
 
 get_acronym_list_ok();

@@ -32,7 +32,11 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::CrossReference->new(target_id=>'introduction');
+my $args = {};
+
+$args->{target_id} = 'introduction';
+
+my $obj = SML::CrossReference->new(%{$args});
 isa_ok( $obj, 'SML::CrossReference' );
 
 #---------------------------------------------------------------------
@@ -41,10 +45,10 @@ isa_ok( $obj, 'SML::CrossReference' );
 
 my @public_methods =
   (
-   # public attribute accessor methods
+   # SML::CrossReference public attribute accessors
    'get_target_id',
 
-   # public methods
+   # SML::CrossReference public methods
    'get_target_part',
   );
 

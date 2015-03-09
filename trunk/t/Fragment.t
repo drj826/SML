@@ -3,7 +3,7 @@
 # $Id$
 
 use lib "..";
-use Test::More tests => 7;
+use Test::More tests => 6;
 
 use SML;
 use SML::File;
@@ -15,31 +15,10 @@ Log::Log4perl->init("log.test.conf");
 # Test Data
 #---------------------------------------------------------------------
 
-my $testdata =
-  {
+use SML::TestData;
 
-   problem_region_in_fragment_1 =>
-   {
-    filespec  => 'library/testdata/td-000074.txt',
-    divid     => 'my-problem',
-    linecount => 19,
-   },
-
-   table_environment_in_fragment_1 =>
-   {
-    filespec  => 'library/testdata/td-000074.txt',
-    divid     => 'tab-solution-types',
-    linecount => 29,
-   },
-
-   section_in_fragment_1 =>
-   {
-    filespec  => 'library/testdata/td-000074.txt',
-    divid     => 'introduction',
-    linecount => 16,
-   },
-
-  };
+my $td  = SML::TestData->new;
+my $tcl = $td->get_fragment_test_case_list;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -72,45 +51,24 @@ isa_ok( $obj, 'SML::Fragment' );
 
 my @public_methods =
   (
-   'get_name',
-   'get_id',
-   'get_line_list',
-   'get_resource',
+   # SML::Fragment public attribute accessors
    'get_file',
-   'get_included_from_line',
-   'get_resource_hash',
+   'get_line_list',
 
-   'has_resource',
-
-   'add_resource',
-
-   'has_valid_syntax',
-   'has_valid_semantics',
-
+   # SML::Fragment public methods
    'extract_division_lines',
   );
 
 can_ok( $obj, @public_methods );
 
 #---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-   'BUILD',
-   '_read_file',
-  );
-
-can_ok( $obj, @private_methods );
-
-#---------------------------------------------------------------------
 # Returns expected values?
 #---------------------------------------------------------------------
 
-extracts_division_lines_ok( 'problem_region_in_fragment_1' );
-extracts_division_lines_ok( 'table_environment_in_fragment_1' );
-extracts_division_lines_ok( 'section_in_fragment_1' );
+foreach my $tc (@{ $tcl })
+  {
+    extract_division_lines_ok($tc) if defined $tc->{expected}{extract_division_lines};
+  }
 
 #---------------------------------------------------------------------
 # Throws expected exceptions?
@@ -118,23 +76,26 @@ extracts_division_lines_ok( 'section_in_fragment_1' );
 
 ######################################################################
 
-sub extracts_division_lines_ok {
+sub extract_division_lines_ok {
 
-  my $testid    = shift;
+  my $tc = shift;                       # test case
 
   # arrange
-  my $filespec  = $testdata->{$testid}{filespec};
-  my $expected  = $testdata->{$testid}{linecount};
-  my $target_id = $testdata->{$testid}{divid};
-  my $file      = SML::File->new(filespec=>$filespec);
-  my $fragment  = SML::Fragment->new(file=>$file);
+  my $tcname   = $tc->{name};
+  my $filespec = $tc->{filespec};
+  my $divid    = $tc->{divid};
+  my $file     = SML::File->new(filespec=>$filespec);
+  my $fragment = SML::Fragment->new(file=>$file);
+  my $expected = $tc->{expected}{extract_division_lines};
 
   # act
-  my $lines = $fragment->extract_division_lines($target_id);
-  my $count = scalar @{ $lines };
+  my $lines  = $fragment->extract_division_lines($divid);
+  my $result = scalar @{ $lines };
 
   # assert
-  is($count, $expected, "extract_division_lines returns expected number of lines ($testid)" );
+  is($result,$expected,"$tcname extract_division_lines $result");
 }
 
 ######################################################################
+
+1;

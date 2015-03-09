@@ -17,7 +17,7 @@ Log::Log4perl->init("log.test.conf");
 use SML::TestData;
 
 my $td = SML::TestData->new();
-# my $tcl = $td->get_template_test_case_list;
+my $tcl = $td->get_test_data_test_case_list;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -66,9 +66,34 @@ can_ok( $obj, @public_methods );
 # Returns expected values?
 #---------------------------------------------------------------------
 
+foreach my $tc (@{ $tcl })
+  {
+    get_test_object_ok($tc) if defined $tc->{expected}{get_test_object};
+  }
+
 #---------------------------------------------------------------------
 # Throws expected exceptions?
 #---------------------------------------------------------------------
+
+######################################################################
+
+sub get_test_object_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname      = $tc->{name};
+  my $object_type = $tc->{object_type};
+  my $object_name = $tc->{object_name};
+  my $expected    = $tc->{expected}{get_test_object};
+  my $td          = $tc->{test_data};
+
+  # act
+  my $result = ref $td->get_test_object($object_type,$object_name);
+
+  # assert
+  is($result,$expected,"$tcname get_test_object $result");
+}
 
 ######################################################################
 

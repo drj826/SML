@@ -45,29 +45,6 @@ isa_ok( $obj, 'SML::Division' );
 
 my @public_methods =
   (
-   # SML::Part public attribute accessors
-   'get_id',
-   'set_id',
-   'get_id_path',
-   'get_name',
-   'get_content',
-   'set_content',
-   'get_part_list',
-
-   # SML::Part public methods
-   'init',
-   'has_content',
-   'has_parts',
-   'has_part',
-   'get_part',
-   'add_part',
-   'get_containing_document',
-   'is_in_section',
-   'get_containing_section',
-   'render',
-   'dump_part_structure',
-   'get_library',
-
    # SML::Division public attribute accessors
    'get_number',
    'set_number',
@@ -115,6 +92,29 @@ my @public_methods =
    'get_section',
    'is_in_a',
    'validate',
+
+   # SML::Part public attribute accessors (inherited)
+   'get_id',
+   'set_id',
+   'get_id_path',
+   'get_name',
+   'get_content',
+   'set_content',
+   'get_part_list',
+
+   # SML::Part public methods (inherited)
+   'init',
+   'has_content',
+   'has_parts',
+   'has_part',
+   'get_part',
+   'add_part',
+   'get_containing_document',
+   'is_in_section',
+   'get_containing_section',
+   'render',
+   'dump_part_structure',
+   'get_library',
   );
 
 can_ok( $obj, @public_methods );
@@ -143,12 +143,16 @@ foreach my $tc (@{ $tcl })
     get_property_list_ok($tc)       if defined $tc->{expected}{get_property_list};
     get_property_ok($tc)            if defined $tc->{expected}{get_property};
     get_property_value_ok($tc)      if defined $tc->{expected}{get_property_value};
-    warn_invalid_semantics_ok($tc)  if defined $tc->{expected}{valid_semantics_warning};
   }
 
 #---------------------------------------------------------------------
 # Throws expected exceptions?
 #---------------------------------------------------------------------
+
+foreach my $tc (@{ $tcl })
+  {
+    warn_invalid_semantics_ok($tc) if defined $tc->{expected}{valid_semantics_warning};
+  }
 
 ######################################################################
 

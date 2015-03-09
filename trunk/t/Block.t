@@ -15,25 +15,6 @@ use Test::Log4perl;
 my $t1logger = Test::Log4perl->get_logger('sml.Block');
 my $t2logger = Test::Log4perl->get_logger('sml.Document');
 
-# create a yyyy-mm-dd date stamp
-#
-# use Date::Pcalc;
-# my ($yyyy,$mm,$dd) = Date::Pcalc::Today();
-# $mm = '0' . $mm until length $mm == 2;
-# $dd = '0' . $dd until length $dd == 2;
-# my $date = "$yyyy-$mm-$dd";
-
-my $config_filename = 'library.conf';
-my $library         = SML::Library->new(config_filename=>$config_filename);
-my $parser          = $library->get_parser;
-my $fragment        = undef;
-my $block           = undef;          # SML::Block object
-my $line            = undef;          # SML::Line object
-my $testid          = '';             # Test Data ID
-my $content         = '';             # content string
-my $html            = '';             # HTML string
-my $error           = '';             # expected error
-
 #---------------------------------------------------------------------
 # Test Data
 #---------------------------------------------------------------------
@@ -67,7 +48,7 @@ isa_ok( $obj, 'SML::Block' );
 
 my @public_methods =
   (
-   # public attribute accessors
+   # SML::Block public attribute accessors
    'get_name_path',
    'get_line_list',
    'set_line_list',
@@ -80,7 +61,7 @@ my @public_methods =
    'has_valid_syntax',
    'has_valid_semantics',
 
-   # public methods
+   # SML::Block public methods
    'add_line',
    'add_part',
    'get_first_line',
@@ -93,32 +74,46 @@ my @public_methods =
    'validate_superscript_markup',
    'validate_subscript_markup',
    'validate_inline_tags',
+   'validate_cross_ref_syntax',
    'validate_cross_refs',
+   'validate_id_ref_syntax',
    'validate_id_refs',
+   'validate_page_ref_syntax',
    'validate_page_refs',
    'validate_theversion_refs',
    'validate_therevision_refs',
    'validate_thedate_refs',
    'validate_status_refs',
+   'validate_glossary_term_ref_syntax',
    'validate_glossary_term_refs',
+   'validate_glossary_def_ref_syntax',
    'validate_glossary_def_refs',
+   'validate_acronym_ref_syntax',
    'validate_acronym_refs',
+   'validate_source_citation_syntax',
    'validate_source_citations',
 
-   # public attribute accessors inherited from SML::Part
+   # SML::Part public attribute accessors (inherited)
+   'get_id',
+   'get_id_path',
    'get_name',
    'get_content',
    'set_content',
    'get_part_list',
 
-   # public methods inherited from SML::Part
+   # SML::Part public methods (inherited)
    'init',
    'has_content',
    'has_parts',
+   'has_part',
+   'get_part',
    'add_part',
    'get_containing_document',
+   'is_in_section',
+   'get_containing_section',
    'render',
    'dump_part_structure',
+   'get_library',
   );
 
 can_ok( $obj, @public_methods );

@@ -36,30 +36,14 @@ isa_ok( $obj, 'SML::Entity' );
 
 my @public_methods =
   (
+   # SML::Entity public attribute accessors
+   # <none>
+
+   # SML::Entity public methods
    'validate',
   );
 
 can_ok( $obj, @public_methods );
-
-#---------------------------------------------------------------------
-# Implements designed attributes?
-#---------------------------------------------------------------------
-
-my @attributes =
-  (
-  );
-
-# can_ok( $obj, @attributes );
-
-#---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-  );
-
-# can_ok( $obj, @private_methods );
 
 #---------------------------------------------------------------------
 # Returns expected values?

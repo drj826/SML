@@ -10,34 +10,14 @@ use SML;
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
-# create a yyyy-mm-dd date stamp
-#
-use Date::Pcalc;
-my ($yyyy,$mm,$dd) = Date::Pcalc::Today();
-$mm = '0' . $mm until length $mm == 2;
-$dd = '0' . $dd until length $dd == 2;
-my $date = "$yyyy-$mm-$dd";
-
 #---------------------------------------------------------------------
 # Test Data
 #---------------------------------------------------------------------
 
-my $testdata =
-  {
+use SML::TestData;
 
-   top_level_item =>
-   {
-    sml   => '- top level item',
-    value => 'top level item',
-   },
-
-   indented_item =>
-   {
-    sml   => '  - indented item',
-    value => 'indented item',
-   },
-
-  };
+my $td  = SML::TestData->new;
+my $tcl = $td->get_bullet_list_item_test_case_list;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -61,28 +41,96 @@ isa_ok( $obj, 'SML::BulletListItem' );
 
 my @public_methods =
   (
-   'get_name',
+   # SML::BulletListItem public attribute accessors
+   # <none>
+
+   # SML::BulletListItem public methods
    'get_value',
+
+   # SML::ListItem public attribute accessors (inherited)
+   # <none>
+
+   # SML::ListItem public methods (inherited)
+   # get_value (overridden by SML::BulletListItem)
+
+   # SML::Block public attribute accessors (inherited)
+   'get_name_path',
+   'get_line_list',
+   'set_line_list',
+   'clear_line_list',
+   'has_line_list',
+   'get_containing_division',
+   'set_containing_division',
+   'clear_containing_division',
+   'has_containing_division',
+   'has_valid_syntax',
+   'has_valid_semantics',
+
+   # SML::Block public methods (inherited)
+   'add_line',
+   'add_part',
+   'get_first_line',
+   'get_location',
+   'is_in_a',
+   'validate_bold_markup',
+   'validate_italics_markup',
+   'validate_fixedwidth_markup',
+   'validate_underline_markup',
+   'validate_superscript_markup',
+   'validate_subscript_markup',
+   'validate_inline_tags',
+   'validate_cross_ref_syntax',
+   'validate_cross_refs',
+   'validate_id_ref_syntax',
+   'validate_id_refs',
+   'validate_page_ref_syntax',
+   'validate_page_refs',
+   'validate_theversion_refs',
+   'validate_therevision_refs',
+   'validate_thedate_refs',
+   'validate_status_refs',
+   'validate_glossary_term_ref_syntax',
+   'validate_glossary_term_refs',
+   'validate_glossary_def_ref_syntax',
+   'validate_glossary_def_refs',
+   'validate_acronym_ref_syntax',
+   'validate_acronym_refs',
+   'validate_source_citation_syntax',
+   'validate_source_citations',
+
+   # SML::Part public attribute accessors (inherited)
+   'get_id',
+   'get_id_path',
+   'get_name',
+   'get_content',
+   'set_content',
+   'get_part_list',
+
+   # SML::Part public methods (inherited)
+   'init',
+   'has_content',
+   'has_parts',
+   'has_part',
+   'get_part',
+   'add_part',
+   'get_containing_document',
+   'is_in_section',
+   'get_containing_section',
+   'render',
+   'dump_part_structure',
+   'get_library',
   );
 
 can_ok( $obj, @public_methods );
 
 #---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-  );
-
-# can_ok( $obj, @private_methods );
-
-#---------------------------------------------------------------------
 # Returns expected values?
 #---------------------------------------------------------------------
 
-get_value_ok( 'top_level_item', 'al-000406' );
-get_value_ok( 'indented_item',  'al-000406' );
+foreach my $tc (@{ $tcl })
+  {
+    get_value_ok($tc) if defined $tc->{expected}{get_value};
+  }
 
 #---------------------------------------------------------------------
 # Throws expected exceptions?
@@ -92,29 +140,22 @@ get_value_ok( 'indented_item',  'al-000406' );
 
 sub get_value_ok {
 
-  my $testid     = shift;
-  my $allocation = shift;
+  my $tc = shift;                       # test case
 
-  #-------------------------------------------------------------------
-  # Arrange
-  #
-  my $content  = $testdata->{$testid}{'sml'};
-  my $expected = $testdata->{$testid}{'value'};
-
-  my $line = SML::Line->new(content=>$content);
-  my $item = SML::BulletListItem->new(name=>'bullet_list_item');
+  # arrange
+  my $tcname   = $tc->{name};
+  my $expected = $tc->{expected}{get_value};
+  my $text     = $tc->{text};
+  my $line     = SML::Line->new(content=>$text);
+  my $item     = SML::BulletListItem->new(name=>'bullet_list_item');
 
   $item->add_line($line);
 
-  #-------------------------------------------------------------------
-  # Act
-  #
-  my $value = $item->get_value;
+  # act
+  my $result = $item->get_value;
 
-  #-------------------------------------------------------------------
-  # Assert
-  #
-  is($value, $expected, "$date $allocation $testid returns correct value OK");
+  # assert
+  is($result,$expected,"$tcname get_value $result");
 }
 
 ######################################################################
