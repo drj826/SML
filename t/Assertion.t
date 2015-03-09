@@ -117,20 +117,9 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{ $tcl })
   {
-    if ( defined $tc->{expected}{get_subject} )
-      {
-	get_subject_ok($tc);
-      }
-
-    if ( defined $tc->{expected}{get_predicate} )
-      {
-	get_predicate_ok($tc);
-      }
-
-    if ( defined $tc->{expected}{get_object} )
-      {
-	get_object_ok($tc);
-      }
+    get_subject_ok($tc)   if defined $tc->{expected}{get_subject};
+    get_predicate_ok($tc) if defined $tc->{expected}{get_predicate};
+    get_object_ok($tc)    if defined $tc->{expected}{get_object};
   }
 
 #---------------------------------------------------------------------

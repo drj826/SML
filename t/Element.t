@@ -3,44 +3,25 @@
 # $Id$
 
 use lib "..";
-use Test::More tests => 5;
+use Test::More tests => 4;
 
 use SML;
 
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
-use Test::Log4perl;
-my $t1logger = Test::Log4perl->get_logger('sml.element');
-my $t2logger = Test::Log4perl->get_logger('sml.document');
-
-my $config_file = 'library.conf';
-my $library     = SML::Library->new(config_filename=>$config_file);
+# use Test::Log4perl;
+# my $t1logger = Test::Log4perl->get_logger('sml.element');
+# my $t2logger = Test::Log4perl->get_logger('sml.document');
 
 #---------------------------------------------------------------------
 # Test Data
 #---------------------------------------------------------------------
 
-my $testdata =
-  {
+use SML::TestData;
 
-   invalid_filespec =>
-   {
-    testfile  => 'library/testdata/td-000066.txt',
-    docid     => 'td-000066',
-    warning_1 => 'INVALID FILE',
-    warning_2 => 'THE DOCUMENT IS NOT VALID',
-   },
-
-   invalid_image_file =>
-   {
-    testfile  => 'library/testdata/td-000068.txt',
-    docid     => 'td-000068',
-    warning_1 => 'INVALID IMAGE FILE',
-    warning_2 => 'THE DOCUMENT IS NOT VALID',
-   },
-
-  };
+my $td  = SML::TestData->new;
+my $tcl = $td->get_element_test_case_list;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -64,12 +45,12 @@ isa_ok( $obj, 'SML::Element' );
 
 my @public_methods =
   (
-   'has_valid_syntax',
-   'has_valid_semantics',
+   # SML::Element public attribute accessors
+   # <none>
 
-   'get_name',
+   # SML::Element public methods
    'get_value',
-
+   'validate_element_allowed',
    'validate_outcome_semantics',
    'validate_footnote_syntax',
   );
@@ -77,22 +58,41 @@ my @public_methods =
 can_ok( $obj, @public_methods );
 
 #---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-@private_methods =
-  (
-   '_type_of',
-  );
-
-can_ok( $obj, @private_methods );
-
-#---------------------------------------------------------------------
 # Returns expected values?
 #---------------------------------------------------------------------
+
+foreach my $tc (@{ $tcl })
+  {
+    get_value_ok($tc) if defined $tc->{expected}{get_value};
+  }
 
 #---------------------------------------------------------------------
 # Throws expected exceptions?
 #---------------------------------------------------------------------
 
 ######################################################################
+
+sub get_value_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $name     = $tc->{element_name};
+  my $text     = $tc->{text};
+  my $line     = SML::Line->new(content=>$text);
+  my $element  = SML::Element->new(name=>$name);
+  my $expected = $tc->{expected}{get_value};
+
+  $element->add_line($line);
+
+  # act
+  my $result = $element->get_value;
+
+  # assert
+  is($result,$expected,"$tcname get_value $result");
+}
+
+######################################################################
+
+1;

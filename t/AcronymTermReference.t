@@ -94,20 +94,9 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{ $tcl })
   {
-    if ( defined $tc->{expected}{get_tag} )
-      {
-	get_tag_ok($tc);
-      }
-
-    if ( defined $tc->{expected}{get_acronym} )
-      {
-	get_acronym_ok($tc);
-      }
-
-    if ( defined $tc->{expected}{get_namespace} )
-      {
-	get_namespace_ok($tc);
-      }
+    get_tag_ok($tc)       if defined $tc->{expected}{get_tag};
+    get_acronym_ok($tc)   if defined $tc->{expected}{get_acronym};
+    get_namespace_ok($tc) if defined $tc->{expected}{get_namespace};
   }
 
 #---------------------------------------------------------------------

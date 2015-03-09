@@ -3,7 +3,7 @@
 # $Id$
 
 use lib "..";
-use Test::More tests => 5;
+use Test::More tests => 3;
 
 use SML;
 
@@ -13,16 +13,6 @@ Log::Log4perl->init("log.test.conf");
 #---------------------------------------------------------------------
 # Test Data
 #---------------------------------------------------------------------
-
-my $testdata =
-  {
-
-   conditional_1 =>
-   {
-    token => 'version_1',
-   },
-
-  };
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -37,7 +27,12 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Conditional->new(id=>'c1',token=>'v2');
+my $args = {};
+
+$args->{id}    = 'c1';
+$args->{token} = 'v2';
+
+my $obj = SML::Conditional->new(%{$args});
 isa_ok( $obj, 'SML::Conditional' );
 
 #---------------------------------------------------------------------
@@ -53,31 +48,8 @@ my @public_methods =
 can_ok( $obj, @public_methods );
 
 #---------------------------------------------------------------------
-# Implements designed attributes?
-#---------------------------------------------------------------------
-
-my @attributes =
-  (
-   'token',
-  );
-
-can_ok( $obj, @attributes );
-
-#---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-  );
-
-# can_ok( $obj, @private_methods );
-
-#---------------------------------------------------------------------
 # Returns expected values?
 #---------------------------------------------------------------------
-
-get_token_ok( 'conditional_1' );
 
 #---------------------------------------------------------------------
 # Throws expected exceptions?
@@ -85,20 +57,4 @@ get_token_ok( 'conditional_1' );
 
 ######################################################################
 
-sub get_token_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $token       = $testdata->{$testid}{token};
-  my $expected    = $testdata->{$testid}{token};
-  my $conditional = SML::Conditional->new(id=>$testid,token=>$token);
-
-  # act
-  my $result = $conditional->get_token;
-
-  # assert
-  is($result,$expected,"get_token $testid");
-}
-
-######################################################################
+1;

@@ -3,7 +3,7 @@
 # $Id$
 
 use lib "..";
-use Test::More tests => 9;
+use Test::More tests => 10;
 use Test::Exception;
 
 use SML;
@@ -12,30 +12,15 @@ use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
 use Test::Log4perl;
-my $t1logger = Test::Log4perl->get_logger('sml.Definition');
 
 #---------------------------------------------------------------------
 # Test Data
 #---------------------------------------------------------------------
 
-my $testdata =
-  {
+use SML::TestData;
 
-   definition_1 =>
-   {
-    content => 'glossary:: BPEL = Business Process Execution Language',
-    term    => 'BPEL',
-    alt     => '',
-    value   => 'Business Process Execution Language',
-   },
-
-   bad_definition_1 =>
-   {
-    content => 'This is not a definition',
-    error   => 'DEFINITION SYNTAX ERROR',
-   },
-
-  };
+my $td  = SML::TestData->new;
+my $tcl = $td->get_definition_test_case_list;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -59,49 +44,48 @@ isa_ok( $obj, 'SML::Definition' );
 
 my @public_methods =
   (
-   'get_value',
+   # SML::Definition public attribute accessor methods
+   # <none>
+
+   # SML::Definition public methods
    'get_term',
    'get_alt',
+   'get_value',
   );
 
 can_ok( $obj, @public_methods );
 
 #---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-  );
-
-# can_ok( $obj, @private_methods );
-
-#---------------------------------------------------------------------
 # Returns expected values?
 #---------------------------------------------------------------------
 
-get_value_ok( 'definition_1' );
-get_term_ok( 'definition_1' );
-get_alt_ok( 'definition_1' );
+foreach my $tc (@{ $tcl })
+  {
+    get_term_ok($tc)  if defined $tc->{expected}{get_term};
+    get_alt_ok($tc)   if defined $tc->{expected}{get_alt};
+    get_value_ok($tc) if defined $tc->{expected}{get_value};
+  }
 
 #---------------------------------------------------------------------
 # Throws expected exceptions?
 #---------------------------------------------------------------------
 
-error_ok( 'get_term',  'bad_definition_1' );
-error_ok( 'get_alt',   'bad_definition_1' );
-error_ok( 'get_value', 'bad_definition_1' );
+foreach my $tc (@{ $tcl })
+  {
+    error_get_term_ok($tc) if defined $tc->{expected}{error}{get_term};
+  }
 
 ######################################################################
 
 sub get_term_ok {
 
-  my $testid = shift;
+  my $tc = shift;                       # test case
 
   # arrange
-  my $content    = $testdata->{$testid}{content};
-  my $expected   = $testdata->{$testid}{term};
-  my $line       = SML::Line->new(content=>$content);
+  my $tcname     = $tc->{name};
+  my $text       = $tc->{text};
+  my $expected   = $tc->{expected}{get_term};
+  my $line       = SML::Line->new(content=>$text);
   my $definition = SML::Definition->new();
 
   $definition->add_line($line);
@@ -110,19 +94,20 @@ sub get_term_ok {
   my $result = $definition->get_term;
 
   # assert
-  is($result,$expected,"get_term $testid");
+  is($result,$expected,"$tcname get_term $result");
 }
 
 ######################################################################
 
 sub get_alt_ok {
 
-  my $testid = shift;
+  my $tc = shift;                       # test case
 
   # arrange
-  my $content    = $testdata->{$testid}{content};
-  my $expected   = $testdata->{$testid}{alt};
-  my $line       = SML::Line->new(content=>$content);
+  my $tcname     = $tc->{name};
+  my $text       = $tc->{text};
+  my $expected   = $tc->{expected}{get_alt};
+  my $line       = SML::Line->new(content=>$text);
   my $definition = SML::Definition->new();
 
   $definition->add_line($line);
@@ -131,19 +116,20 @@ sub get_alt_ok {
   my $result = $definition->get_alt;
 
   # assert
-  is($result,$expected,"get_alt $testid");
+  is($result,$expected,"$tcname get_alt $result");
 }
 
 ######################################################################
 
 sub get_value_ok {
 
-  my $testid = shift;
+  my $tc = shift;                       # test case
 
   # arrange
-  my $content    = $testdata->{$testid}{content};
-  my $expected   = $testdata->{$testid}{value};
-  my $line       = SML::Line->new(content=>$content);
+  my $tcname     = $tc->{name};
+  my $text       = $tc->{text};
+  my $expected   = $tc->{expected}{get_value};
+  my $line       = SML::Line->new(content=>$text);
   my $definition = SML::Definition->new();
 
   $definition->add_line($line);
@@ -152,29 +138,35 @@ sub get_value_ok {
   my $result = $definition->get_value;
 
   # assert
-  is($result,$expected,"get_value $testid");
+  is($result,$expected,"$tcname get_value $result");
 }
 
 ######################################################################
 
-sub error_ok {
+sub error_get_term_ok {
 
-  my $method = shift;
-  my $testid = shift;
+  my $tc = shift;                       # test case
 
   # arrange
-  my $content    = $testdata->{$testid}{content};
-  my $error      = $testdata->{$testid}{error};
+  my $tcname     = $tc->{name};
+  my $text       = $tc->{text};
+  my $expected   = $tc->{expected}{error}{get_term};
+  my $line       = SML::Line->new(content=>$text);
   my $definition = SML::Definition->new();
 
+  $definition->add_line($line);
+
   Test::Log4perl->start( ignore_priority => "warn" );
-  $t1logger->error(qr/$error/);
+  my $t1logger = Test::Log4perl->get_logger('sml.Definition');
+  $t1logger->error(qr/$expected/);
 
   # act
-  my $result = $definition->$method;
+  my $result = $definition->get_term;
 
   # assert
-  Test::Log4perl->end("ERROR: $error ($testid)");
+  Test::Log4perl->end("$tcname get_term $result");
 }
 
 ######################################################################
+
+1;

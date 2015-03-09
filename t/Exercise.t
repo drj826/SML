@@ -3,12 +3,16 @@
 # $Id$
 
 use lib "..";
-use Test::More tests => 3;
+use Test::More tests => 2;
 
 use SML;
 
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
+
+#---------------------------------------------------------------------
+# Test Data
+#---------------------------------------------------------------------
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -32,20 +36,14 @@ isa_ok( $obj, 'SML::Exercise' );
 
 my @public_methods =
   (
-   'get_name',
+   # SML::Exercise public attribute accessors
+   # <none>
+
+   # SML::Exercise public methods
+   # <none>
   );
 
-can_ok( $obj, @public_methods );
-
-#---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-  );
-
-# can_ok( $obj, @private_methods );
+# can_ok( $obj, @public_methods );
 
 #---------------------------------------------------------------------
 # Returns expected values?

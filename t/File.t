@@ -3,50 +3,21 @@
 # $Id$
 
 use lib "..";
-use Test::More tests => 11;
+use Test::More tests => 7;
 
 use SML;
 
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
-# use Test::Log4perl;
-# my $t1logger = Test::Log4perl->get_logger('sml.file');
-
-my $sml     = SML->instance;
-my $util    = $sml->get_util;
-my $options = $util->get_options;
-my $doc;
-my $file;
-my $expected;
-my $result;
-
 #---------------------------------------------------------------------
 # Test Data
 #---------------------------------------------------------------------
 
-my $testdata =
-  {
+use SML::TestData;
 
-   valid_file =>
-   {
-    filespec    => 'library/testdata/td-000001.txt',
-    filename    => 'td-000001.txt',
-    directories => 'library/testdata/',
-    sha_digest  => '3fc9a6743c4b2eb4d0cd27fd5ad90a75e94897da',
-    md5_digest  => '0aeb40f8e68ce0faf0d780e732213408',
-    valid       => 1,
-   },
-
-   bogus_file =>
-   {
-    filespec    => 'library/testdata/bogus.txt',
-    filename    => 'bogus.txt',
-    directories => 'library/testdata/',
-    valid       => 0,
-   },
-
-  };
+my $td  = SML::TestData->new;
+my $tcl = $td->get_file_test_case_list;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -61,8 +32,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $filespec = $testdata->{valid_file}{filespec};
-my $obj = SML::File->new(filespec=>$filespec);
+my $obj = SML::File->new(filespec=>'td-000001.txt');
 isa_ok( $obj, 'SML::File' );
 
 #---------------------------------------------------------------------
@@ -71,12 +41,7 @@ isa_ok( $obj, 'SML::File' );
 
 my @public_methods =
   (
-   'is_valid',
-
-   'get_filespec',
-   'get_filename',
-   'get_directories',
-   'get_path',
+   # SML::File public attribute accessors
    'get_filespec',
    'get_filename',
    'get_directories',
@@ -87,41 +52,24 @@ my @public_methods =
    'get_md5_digest',
    'get_svninfo',
    'get_fragment',
+   'is_valid',
 
-   'has_been_parsed',
-
-   'validate',
+   # SML::File public methods
+   # <none>
   );
 
 can_ok( $obj, @public_methods );
 
 #---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-   'BUILD',
-   '_build_filename',
-   '_build_directories',
-   '_build_path',
-   '_build_sha_digest',
-   '_build_md5_digest',
-  );
-
-can_ok( $obj, @private_methods );
-
-#---------------------------------------------------------------------
 # Returns expected values?
 #---------------------------------------------------------------------
 
-get_text_ok(         'valid_file' );
-filename_ok(      'valid_file' );
-directories_ok(   'valid_file' );
-sha_digest_ok(    'valid_file' );
-md5_digest_ok(    'valid_file' );
-validates_ok(     'valid_file' );
-not_validates_ok( 'bogus_file' );
+foreach my $tc (@{ $tcl })
+  {
+    get_sha_digest_ok($tc) if defined $tc->{expected}{get_sha_digest};
+    get_md5_digest_ok($tc) if defined $tc->{expected}{get_md5_digest};
+    is_valid_ok($tc)       if defined $tc->{expected}{is_valid};
+  }
 
 #---------------------------------------------------------------------
 # Throws expected exceptions?
@@ -129,164 +77,61 @@ not_validates_ok( 'bogus_file' );
 
 ######################################################################
 
-sub get_text_ok {
+sub get_sha_digest_ok {
 
-  my $testid = shift;
-
-  # arrange
-  my $filespec = $testdata->{$testid}{filespec};
-  my $file     = SML::File->new(filespec=>$filespec);
-  my $expected = <<'END_OF_TEXT';
->>>DOCUMENT
-
-######################################################################
-
-title:: Simple Document With One Paragraph
-
-id:: td-000001
-
-######################################################################
-
-The purpose of this simple document is to test applications designed
-to process SML formatted files.  This is a ~~very~~ simple document
-with only one paragraph.
-
-<<<DOCUMENT
-END_OF_TEXT
-
-  # act
-  my $result = $file->get_text;
-
-  # assert
-  is( $result, $expected, "get_file $testid file correctly" );
-}
-
-######################################################################
-
-sub filename_ok {
-
-  my $testid = shift;
+  my $tc = shift;                       # test case
 
   # arrange
-  my $filespec = $testdata->{$testid}{filespec};
-  my $expected = $testdata->{$testid}{filename};
+  my $tcname   = $tc->{name};
+  my $filespec = $tc->{filespec};
   my $file     = SML::File->new(filespec=>$filespec);
-
-  # act
-  my $result = $file->get_filename;
-
-  # assert
-  is( $result, $expected, "returns expected $testid filename" );
-}
-
-######################################################################
-
-sub directories_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $filespec = $testdata->{$testid}{filespec};
-  my $expected = $testdata->{$testid}{directories};
-  my $file     = SML::File->new(filespec=>$filespec);
-
-  # act
-  my $result = $file->get_directories;
-
-  # assert
-  is( $result, $expected, "returns expected $testid directories" );
-}
-
-######################################################################
-
-sub sha_digest_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $filespec = $testdata->{$testid}{filespec};
-  my $expected = $testdata->{$testid}{sha_digest};
-  my $file     = SML::File->new(filespec=>$filespec);
+  my $expected = $tc->{expected}{get_sha_digest};
 
   # act
   my $result = $file->get_sha_digest;
 
   # assert
-  is( $result, $expected, "returns expected $testid SHA digest" );
+  is($result,$expected,"$tcname get_sha_digest $result" );
 }
 
 ######################################################################
 
-sub md5_digest_ok {
+sub get_md5_digest_ok {
 
-  my $testid = shift;
+  my $tc = shift;                       # test case
 
   # arrange
-  my $filespec = $testdata->{$testid}{filespec};
-  my $expected = $testdata->{$testid}{md5_digest};
+  my $tcname   = $tc->{name};
+  my $filespec = $tc->{filespec};
   my $file     = SML::File->new(filespec=>$filespec);
+  my $expected = $tc->{expected}{get_md5_digest};
 
   # act
   my $result = $file->get_md5_digest;
 
   # assert
-  is( $result, $expected, "returns expected $testid MD5 digest" );
+  is($result,$expected,"$tcname get_md5_digest $result" );
 }
 
 ######################################################################
 
-sub validates_ok {
+sub is_valid_ok {
 
-  my $testid = shift;
+  my $tc = shift;                       # test case
 
   # arrange
-  my $filespec = $testdata->{$testid}{filespec};
-  my $expected = $testdata->{$testid}{valid};
+  my $tcname   = $tc->{name};
+  my $filespec = $tc->{filespec};
   my $file     = SML::File->new(filespec=>$filespec);
+  my $expected = $tc->{expected}{is_valid};
 
   # act
-  my $result = $file->validate;
+  my $result = $file->is_valid;
 
   # assert
-  is( $result, $expected, "validates valid $testid file" );
+  is($result,$expected,"$tcname is_valid $result");
 }
 
 ######################################################################
 
-sub not_validates_ok {
-
-  my $testid = shift;
-
-  # arrange
-  my $filespec = $testdata->{$testid}{filespec};
-  my $expected = $testdata->{$testid}{valid};
-  my $file     = SML::File->new(filespec=>$filespec);
-
-  # act
-  my $result = $file->validate;
-
-  # assert
-  is( $result, $expected, "doesn't validate invalid $testid file" );
-}
-
-######################################################################
-
-# sub warning_ok {
-
-#   my $testid = shift;
-
-#   # arrange
-#   my $filespec = $testdata->{$testid}{filespec};
-#   my $warning  = $testdata->{$testid}{warning};
-
-#   Test::Log4perl->start( ignore_priority => "info" );
-#   $t1logger->warn(qr/$warning/);
-
-#   # act
-#   my $file = SML::File->new(filespec=>$filespec);
-
-#   # assert
-#   Test::Log4perl->end("WARNING: $warning ($testid)");
-# }
-
-######################################################################
+1;

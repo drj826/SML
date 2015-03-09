@@ -37,24 +37,17 @@ isa_ok( $obj, 'SML::Glossary' );
 
 my @public_methods =
   (
+   # SML::Glossary public attribute accessors
+   # <none>
+
+   # SML::Glossary public methods
    'add_entry',
    'has_entry',
    'get_entry',
    'get_entry_list',
-   'get_entry_hash',
   );
 
 can_ok( $obj, @public_methods );
-
-#---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-  );
-
-# can_ok( $obj, @private_methods );
 
 #---------------------------------------------------------------------
 # Returns expected values?
@@ -65,3 +58,5 @@ my @private_methods =
 #---------------------------------------------------------------------
 
 ######################################################################
+
+1;

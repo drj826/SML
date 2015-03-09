@@ -36,29 +36,14 @@ isa_ok( $obj, 'SML::Epigraph' );
 
 my @public_methods =
   (
+   # SML::Epigraph public attribute accessors
+   # <none>
+
+   # SML::Epigraph public methods
+   # <none>
   );
 
 # can_ok( $obj, @public_methods );
-
-#---------------------------------------------------------------------
-# Implements designed attributes?
-#---------------------------------------------------------------------
-
-my @attributes =
-  (
-  );
-
-# can_ok( $obj, @attributes );
-
-#---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-  );
-
-# can_ok( $obj, @private_methods );
 
 #---------------------------------------------------------------------
 # Returns expected values?

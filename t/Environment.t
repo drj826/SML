@@ -3,7 +3,7 @@
 # $Id$
 
 use lib "..";
-use Test::More tests => 3;
+use Test::More tests => 2;
 
 use SML;
 
@@ -36,20 +36,14 @@ isa_ok( $obj, 'SML::Environment' );
 
 my @public_methods =
   (
-   'get_id',
+   # SML::Environment public attribute accessors
+   # <none>
+
+   # SML::Environment public methods
+   # <none>
   );
 
-can_ok( $obj, @public_methods );
-
-#---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-  );
-
-# can_ok( $obj, @private_methods );
+# can_ok( $obj, @public_methods );
 
 #---------------------------------------------------------------------
 # Returns expected values?
