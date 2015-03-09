@@ -132,15 +132,15 @@ has 'fragment' =>
 
 ######################################################################
 
-has 'parsed' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_been_parsed',
-   writer    => 'set_has_been_parsed',
-   clearer   => 'clear_has_been_parsed',
-   predicate => 'has_has_been_parsed',
-   default   => '0',
-  );
+# has 'parsed' =>
+#   (
+#    isa       => 'Bool',
+#    reader    => 'has_been_parsed',
+#    writer    => 'set_has_been_parsed',
+#    clearer   => 'clear_has_been_parsed',
+#    predicate => 'has_has_been_parsed',
+#    default   => '0',
+#   );
 
 ######################################################################
 
@@ -148,10 +148,9 @@ has 'valid' =>
   (
    isa       => 'Bool',
    reader    => 'is_valid',
-   writer    => 'set_valid',
-   clearer   => 'clear_valid',
-   predicate => 'has_valid',
-   default   => 1,
+   writer    => '_set_valid',
+   lazy      => 1,
+   builder   => '_validate',
   );
 
 ######################################################################
@@ -161,35 +160,6 @@ has 'valid' =>
 ##
 ######################################################################
 ######################################################################
-
-sub validate {
-
-  my $self     = shift;
-  my $path     = $self->get_path;
-  my $filename = $self->get_filename;
-  my $filespec = File::Spec->catdir($path,$filename);
-  my $valid    = 1;
-
-  if ( not -e $filespec )
-    {
-      $valid = 0;
-    }
-
-  elsif ( not -r $filespec )
-    {
-      $valid = 0;
-    }
-
-  else
-    {
-      # File is valid.
-    }
-
-
-  $self->set_valid($valid);
-
-  return $valid;
-}
 
 ######################################################################
 ######################################################################
@@ -215,6 +185,37 @@ sub BUILD {
     }
 
   return 1;
+}
+
+######################################################################
+
+sub _validate {
+
+  my $self     = shift;
+  my $path     = $self->get_path;
+  my $filename = $self->get_filename;
+  my $filespec = File::Spec->catdir($path,$filename);
+  my $valid    = 1;
+
+  if ( not -e $filespec )
+    {
+      $valid = 0;
+    }
+
+  elsif ( not -r $filespec )
+    {
+      $valid = 0;
+    }
+
+  else
+    {
+      # File is valid.
+    }
+
+
+  $self->_set_valid($valid);
+
+  return $valid;
 }
 
 ######################################################################
