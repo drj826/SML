@@ -35,14 +35,14 @@ has '+name' =>
 
 ######################################################################
 
-has 'lookup_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_lookup_hash',
-   writer    => 'set_lookup_hash',
-   clearer   => 'clear_lookup_hash',
-   predicate => 'has_lookup_hash',
-  );
+# has 'lookup_hash' =>
+#   (
+#    isa       => 'HashRef',
+#    reader    => 'get_lookup_hash',
+#    writer    => 'set_lookup_hash',
+#    clearer   => 'clear_lookup_hash',
+#    predicate => 'has_lookup_hash',
+#   );
 
 # This is a hash of division properties indexed by ID and property
 # name.
@@ -125,54 +125,38 @@ has 'lookup_hash' =>
 #     my $sl = $self->get_section_list;
 
 ######################################################################
+######################################################################
 
-has 'note_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_note_hash',
-   # writer    => '_set_note_hash',
-   # clearer   => '_clear_note_hash',
-   # predicate => '_has_note_hash',
-   default   => sub {{}},
-  );
-
-# This data structure contains note text indexed by division ID and
-# note tag.
-
-#   my $note = $nh->{section-2}{a};
+# has 'outcome_hash' =>
+#   (
+#    isa       => 'HashRef',
+#    reader    => 'get_outcome_hash',
+#    writer    => 'set_outcome_hash',
+#    clearer   => 'clear_outcome_hash',
+#    predicate => 'has_outcome_hash',
+#   );
 
 ######################################################################
 
-has 'outcome_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_outcome_hash',
-   writer    => 'set_outcome_hash',
-   clearer   => 'clear_outcome_hash',
-   predicate => 'has_outcome_hash',
-  );
+# has 'review_hash' =>
+#   (
+#    isa       => 'HashRef',
+#    reader    => 'get_review_hash',
+#    writer    => 'set_review_hash',
+#    clearer   => 'clear_review_hash',
+#    predicate => 'has_review_hash',
+#   );
 
 ######################################################################
 
-has 'review_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_review_hash',
-   writer    => 'set_review_hash',
-   clearer   => 'clear_review_hash',
-   predicate => 'has_review_hash',
-  );
-
-######################################################################
-
-has 'define_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_define_hash',
-   writer    => 'set_define_hash',
-   clearer   => 'clear_define_hash',
-   predicate => 'has_define_hash',
-  );
+# has 'define_hash' =>
+#   (
+#    isa       => 'HashRef',
+#    reader    => 'get_define_hash',
+#    writer    => 'set_define_hash',
+#    clearer   => 'clear_define_hash',
+#    predicate => 'has_define_hash',
+#   );
 
 ######################################################################
 
@@ -210,62 +194,21 @@ has 'source_hash' =>
   (
    isa       => 'HashRef',
    reader    => 'get_source_hash',
-   writer    => 'set_source_hash',
-   clearer   => 'clear_source_hash',
-   predicate => 'has_source_hash',
+   writer    => '_set_source_hash',
+   clearer   => '_clear_source_hash',
+   predicate => '_has_source_hash',
   );
 
 ######################################################################
 
-has 'previous_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_previous_hash',
-   writer    => 'set_previous_hash',
-   clearer   => 'clear_previous_hash',
-   predicate => 'has_previous_hash',
-  );
-
-######################################################################
-
-has 'index_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_index_hash',
-   writer    => 'set_index_hash',
-   clearer   => 'clear_index_hash',
-   predicate => 'has_index_hash',
-   default   => sub {{}},
-  );
-
-# Index term data structure.  This is a hash of all index terms.  The
-# hash keys are the indexed terms.  The hash values are anonymous
-# hashes in which the key is the division ID in which the term
-# appears, and the value is simply a boolean.
-#
-#   $index_ds->{$term} = { $divid_1 => 1, $divid_2 => 1, ... };
-
-######################################################################
-
-has 'table_data_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_table_data_hash',
-   writer    => 'set_table_data_hash',
-   clearer   => 'clear_table_data_hash',
-   predicate => 'has_table_data_hash',
-  );
-
-######################################################################
-
-has 'baretable_data_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_baretable_data_hash',
-   writer    => 'set_baretable_data_hash',
-   clearer   => 'clear_baretable_data_hash',
-   predicate => 'has_baretable_data_hash',
-  );
+# has 'previous_hash' =>
+#   (
+#    isa       => 'HashRef',
+#    reader    => 'get_previous_hash',
+#    writer    => 'set_previous_hash',
+#    clearer   => 'clear_previous_hash',
+#    predicate => 'has_previous_hash',
+#   );
 
 ######################################################################
 
@@ -295,33 +238,33 @@ has 'baretable_data_hash' =>
 
 ######################################################################
 
-has 'html_glossary_filename' =>
-  (
-   isa       => 'Str',
-   reader    => 'get_html_glossary_filename',
-   lazy      => 1,
-   builder   => '_build_html_glossary_filename',
-  );
+# has 'html_glossary_filename' =>
+#   (
+#    isa       => 'Str',
+#    reader    => 'get_html_glossary_filename',
+#    lazy      => 1,
+#    builder   => '_build_html_glossary_filename',
+#   );
 
 ######################################################################
 
-has 'html_acronyms_filename' =>
-  (
-   isa       => 'Str',
-   reader    => 'get_html_acronyms_filename',
-   lazy      => 1,
-   builder   => '_build_html_acronyms_filename',
-  );
+# has 'html_acronyms_filename' =>
+#   (
+#    isa       => 'Str',
+#    reader    => 'get_html_acronyms_filename',
+#    lazy      => 1,
+#    builder   => '_build_html_acronyms_filename',
+#   );
 
 ######################################################################
 
-has 'html_sources_filename' =>
-  (
-   isa       => 'Str',
-   reader    => 'get_html_sources_filename',
-   lazy      => 1,
-   builder   => '_build_html_sources_filename',
-  );
+# has 'html_sources_filename' =>
+#   (
+#    isa       => 'Str',
+#    reader    => 'get_html_sources_filename',
+#    lazy      => 1,
+#    builder   => '_build_html_sources_filename',
+#   );
 
 ######################################################################
 
@@ -441,11 +384,11 @@ has 'using_supertabular',      is => 'ro', isa => 'Boolean';
 
 ######################################################################
 
-has 'text_line_list' =>
-  (
-   isa    => 'ArrayRef',
-   reader => 'get_text_line_list',
-  );
+# has 'text_line_list' =>
+#   (
+#    isa    => 'ArrayRef',
+#    reader => 'get_text_line_list',
+#   );
 
 ######################################################################
 
@@ -472,26 +415,34 @@ sub add_note {
   my $self = shift;
   my $note = shift;
 
-  if ( $note->isa('SML::Note') )
+  # validate $note is a SML::Note
+  if (
+      not ref $note
+      or
+      not $note->isa('SML::Note')
+     )
     {
-      my $divid = $note->get_containing_division->get_id;
-      my $tag   = $note->get_tag;
-
-      if ( exists $self->get_note_hash->{$divid}{$tag} )
-	{
-	  $logger->warn("NOTE ALREADY EXISTS: \'$divid\' \'$tag\'");
-	}
-
-      $self->get_note_hash->{$divid}{$tag} = $note;
-
-      return 1;
+      $logger->error("NOT A NOTE: $note");
     }
 
-  else
+  my $divid = q{};
+
+  if ( $note->has_containing_division )
     {
-      $logger->error("CAN'T ADD NOTE: \'$note\' is not a SML::Note");
-      return 0;
+      my $division = $note->get_containing_division;
+      $divid = $division->get_id;
     }
+
+  my $tag = $note->get_tag;
+
+  if ( exists $self->_get_note_hash->{$divid}{$tag} )
+    {
+      $logger->warn("NOTE ALREADY EXISTS: \'$divid\' \'$tag\'");
+    }
+
+  $self->_get_note_hash->{$divid}{$tag} = $note;
+
+  return 1;
 }
 
 ######################################################################
@@ -502,15 +453,15 @@ sub add_index_term {
   my $term  = shift;
   my $divid = shift;
 
-  if ( exists $self->get_index_hash->{$term} )
+  if ( exists $self->_get_index_hash->{$term} )
     {
-      my $index = $self->get_index_hash->{$term};
+      my $index = $self->_get_index_hash->{$term};
       $index->{ $divid } = 1;
     }
 
   else
     {
-      $self->get_index_hash->{$term} = { $divid => 1 };
+      $self->_get_index_hash->{$term} = { $divid => 1 };
     }
 
   return 1;
@@ -524,7 +475,7 @@ sub has_note {
   my $divid = shift;
   my $tag   = shift;
 
-  my $nh = $self->get_note_hash;
+  my $nh = $self->_get_note_hash;
 
   if ( exists $nh->{$divid}{$tag} )
     {
@@ -544,7 +495,7 @@ sub has_index_term {
   my $self  = shift;
   my $term  = shift;
 
-  if ( exists $self->get_index_hash->{$term} )
+  if ( exists $self->_get_index_hash->{$term} )
     {
       return 1;
     }
@@ -629,7 +580,7 @@ sub get_note {
   my $divid = shift;
   my $tag   = shift;
 
-  my $nh = $self->get_note_hash;
+  my $nh = $self->_get_note_hash;
 
   return $nh->{$divid}{$tag};
 }
@@ -641,9 +592,9 @@ sub get_index_term {
   my $self  = shift;
   my $term  = shift;
 
-  if ( exists $self->get_index_hash->{$term} )
+  if ( exists $self->_get_index_hash->{$term} )
     {
-      return $self->get_index_hash->{$term};
+      return $self->_get_index_hash->{$term};
     }
 
   else
@@ -655,133 +606,133 @@ sub get_index_term {
 
 ######################################################################
 
-sub get_html_outfile_for {
+# sub get_html_outfile_for {
 
-  # Given an ID, return the filespec for the HTML output file that
-  # contains the content of the identified division.
-  #
-  # Static HTML file naming convention:
-  #
-  #   <filename>-<section>.html (i.e. all-items-1-1-3.html)
+#   # Given an ID, return the filespec for the HTML output file that
+#   # contains the content of the identified division.
+#   #
+#   # Static HTML file naming convention:
+#   #
+#   #   <filename>-<section>.html (i.e. all-items-1-1-3.html)
 
-  my $self = shift;
-  my $id   = shift;
+#   my $self = shift;
+#   my $id   = shift;
 
-  my $section  = q{};
-  my $sml      = SML->instance;
-  my $util     = $sml->get_util;
-  my $library  = $util->get_library;
-  my $division = undef;
+#   my $section  = q{};
+#   my $sml      = SML->instance;
+#   my $util     = $sml->get_util;
+#   my $library  = $util->get_library;
+#   my $division = undef;
 
-  if ( $library->has_division($id) )
-    {
-      $division = $library->get_division($id);
-    }
+#   if ( $library->has_division($id) )
+#     {
+#       $division = $library->get_division($id);
+#     }
 
-  else
-    {
-      $logger->error("NO DIVISION CONTAINS ID \"$id\"");
-      return q{};
-    }
+#   else
+#     {
+#       $logger->error("NO DIVISION CONTAINS ID \"$id\"");
+#       return q{};
+#     }
 
-  if ( $division->isa('SML::Section') )
-    {
-      $section = $division;
-    }
+#   if ( $division->isa('SML::Section') )
+#     {
+#       $section = $division;
+#     }
 
-  else
-    {
-      $section = $division->get_section;
-    }
+#   else
+#     {
+#       $section = $division->get_section;
+#     }
 
-  if ( not $section->isa('SML::Section') )
-    {
-      $logger->error("NO SECTION CONTAINS DIVISION \"$id\"");
-    }
+#   if ( not $section->isa('SML::Section') )
+#     {
+#       $logger->error("NO SECTION CONTAINS DIVISION \"$id\"");
+#     }
 
-  my $number            = $section->get_number;
-  my $hyphenated_number = $util->hyphenate($number);
-  my $docid             = $self->get_id;
+#   my $number            = $section->get_number;
+#   my $hyphenated_number = $util->hyphenate($number);
+#   my $docid             = $self->get_id;
 
-  my $filename = $docid . q{-} . $hyphenated_number . '.html';
+#   my $filename = $docid . q{-} . $hyphenated_number . '.html';
 
-  return $filename;
-}
-
-######################################################################
-
-sub get_html_status_icon {
-
-  my $self    = shift;
-  my $status  = shift;
-  my $sml     = SML->instance;
-  my $util    = $sml->get_util;
-  my $options = $util->get_options;
-
-  my $grey_icon = $options->get_status_icon_grey_filespec;
-
-  # default to grey
-  #
-  my $icon = "<image src=\"$grey_icon\" border=\"0\"/>";
-
-  # green?
-  #
-  if ( $status =~ /green/xms ) {
-    my $green_icon = $options->get_status_icon_green_filespec;
-    $icon = "<image src=\"$green_icon\" border=\"0\"/>";
-  }
-
-  # yellow?
-  #
-  elsif ( $status =~ /yellow/xms ) {
-    my $yellow_icon = $options->get_status_icon_yellow_filespec;
-    $icon = "<image src=\"$yellow_icon\" border=\"0\"/>";
-  }
-
-  # red?
-  #
-  elsif ( $status =~ /red/xms ) {
-    my $red_icon = $options->get_status_icon_red_filespec;
-    $icon = "<image src=\"$red_icon\" border=\"0\"/>";
-  }
-
-  return $icon;
-}
+#   return $filename;
+# }
 
 ######################################################################
 
-sub get_latex_status_icon {
+# sub get_html_status_icon {
 
-  my $self    = shift;
-  my $status  = shift;
-  my $sml     = SML->instance;
-  my $util    = $sml->get_util;
-  my $options = $util->get_options;
+#   my $self    = shift;
+#   my $status  = shift;
+#   my $sml     = SML->instance;
+#   my $util    = $sml->get_util;
+#   my $options = $util->get_options;
 
-  # default to grey
-  #
-  my $icon = '\textcolor{fg-grey}{$\blacksquare$}';
+#   my $grey_icon = $options->get_status_icon_grey_filespec;
 
-  # green?
-  #
-  if ( $status =~ /green/xms ) {
-    $icon = '\textcolor{fg-green}{$\blacksquare$}';
-  }
+#   # default to grey
+#   #
+#   my $icon = "<image src=\"$grey_icon\" border=\"0\"/>";
 
-  # yellow?
-  #
-  elsif ( $status =~ /yellow/xms ) {
-    $icon = '\textcolor{fg-yellow}{$\blacksquare$}';
-  }
+#   # green?
+#   #
+#   if ( $status =~ /green/xms ) {
+#     my $green_icon = $options->get_status_icon_green_filespec;
+#     $icon = "<image src=\"$green_icon\" border=\"0\"/>";
+#   }
 
-  # red?
-  #
-  elsif ( $status =~ /red/xms ) {
-    $icon = '\textcolor{fg-red}{$\blacksquare$}';
-  }
+#   # yellow?
+#   #
+#   elsif ( $status =~ /yellow/xms ) {
+#     my $yellow_icon = $options->get_status_icon_yellow_filespec;
+#     $icon = "<image src=\"$yellow_icon\" border=\"0\"/>";
+#   }
 
-  return $icon;
-}
+#   # red?
+#   #
+#   elsif ( $status =~ /red/xms ) {
+#     my $red_icon = $options->get_status_icon_red_filespec;
+#     $icon = "<image src=\"$red_icon\" border=\"0\"/>";
+#   }
+
+#   return $icon;
+# }
+
+######################################################################
+
+# sub get_latex_status_icon {
+
+#   my $self    = shift;
+#   my $status  = shift;
+#   my $sml     = SML->instance;
+#   my $util    = $sml->get_util;
+#   my $options = $util->get_options;
+
+#   # default to grey
+#   #
+#   my $icon = '\textcolor{fg-grey}{$\blacksquare$}';
+
+#   # green?
+#   #
+#   if ( $status =~ /green/xms ) {
+#     $icon = '\textcolor{fg-green}{$\blacksquare$}';
+#   }
+
+#   # yellow?
+#   #
+#   elsif ( $status =~ /yellow/xms ) {
+#     $icon = '\textcolor{fg-yellow}{$\blacksquare$}';
+#   }
+
+#   # red?
+#   #
+#   elsif ( $status =~ /red/xms ) {
+#     $icon = '\textcolor{fg-red}{$\blacksquare$}';
+#   }
+
+#   return $icon;
+# }
 
 ######################################################################
 
@@ -937,59 +888,59 @@ sub validate_id_uniqueness {
 
 ######################################################################
 
-sub as_latex {
+# sub as_latex {
 
-  my $self  = shift;
-  my $latex = q{};
+#   my $self  = shift;
+#   my $latex = q{};
 
-  return $latex;
-}
-
-######################################################################
-
-sub as_csv {
-
-  my $self = shift;
-  my $csv  = q{};
-
-  return $csv;
-}
+#   return $latex;
+# }
 
 ######################################################################
 
-sub as_xml {
+# sub as_csv {
 
-  my $self = shift;
-  my $xml  = q{};
+#   my $self = shift;
+#   my $csv  = q{};
 
-  return $xml;
-}
-
-######################################################################
-
-sub start_html {
-
-  my $self = shift;
-  my $name = $self->get_name;
-  my $html = q{};
-
-  $html .= "\n<html>\n";
-
-  return $html;
-}
+#   return $csv;
+# }
 
 ######################################################################
 
-sub end_html {
+# sub as_xml {
 
-  my $self = shift;
-  my $name = $self->get_name;
-  my $html = q{};
+#   my $self = shift;
+#   my $xml  = q{};
 
-  $html .= "\n</html>\n";
+#   return $xml;
+# }
 
-  return $html;
-}
+######################################################################
+
+# sub start_html {
+
+#   my $self = shift;
+#   my $name = $self->get_name;
+#   my $html = q{};
+
+#   $html .= "\n<html>\n";
+
+#   return $html;
+# }
+
+######################################################################
+
+# sub end_html {
+
+#   my $self = shift;
+#   my $name = $self->get_name;
+#   my $html = q{};
+
+#   $html .= "\n</html>\n";
+
+#   return $html;
+# }
 
 ######################################################################
 
@@ -1016,6 +967,60 @@ sub replace_division_id {
 
   return 1;
 }
+
+######################################################################
+######################################################################
+##
+## Private Attributes
+##
+######################################################################
+######################################################################
+
+has 'note_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_note_hash',
+   default   => sub {{}},
+  );
+
+# This data structure contains note text indexed by division ID and
+# note tag.
+
+#   my $note = $nh->{section-2}{a};
+
+######################################################################
+
+has 'index_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_index_hash',
+   default   => sub {{}},
+  );
+
+# Index term data structure.  This is a hash of all index terms.  The
+# hash keys are the indexed terms.  The hash values are anonymous
+# hashes in which the key is the division ID in which the term
+# appears, and the value is simply a boolean.
+#
+#   $index_ds->{$term} = { $divid_1 => 1, $divid_2 => 1, ... };
+
+######################################################################
+
+has 'table_data_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_table_data_hash',
+   default   => sub {{}},
+  );
+
+######################################################################
+
+has 'baretable_data_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_baretable_data_hash',
+   default   => sub {{}},
+  );
 
 ######################################################################
 ######################################################################
@@ -1365,8 +1370,6 @@ block followed by a narrative block.
 =head2 get_environment_list
 
 =head2 get_section_list
-
-=head2 get_note_hash
 
 =head2 get_outcome_hash
 
