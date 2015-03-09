@@ -29,15 +29,6 @@ my $logger = Log::Log4perl::get_logger('sml.Fragment');
 ######################################################################
 ######################################################################
 
-has 'file' =>
-  (
-   isa      => 'SML::File',
-   reader   => 'get_file',
-   required => 1,
-  );
-
-######################################################################
-
 has '+id' =>
   (
    required => 0,
@@ -52,34 +43,21 @@ has '+name' =>
 
 ######################################################################
 
+has 'file' =>
+  (
+   isa      => 'SML::File',
+   reader   => 'get_file',
+   required => 1,
+  );
+
+######################################################################
+
 has 'line_list' =>
   (
    isa       => 'ArrayRef',
    reader    => 'get_line_list',
-   writer    => 'set_line_list',
-   clearer   => 'clear_line_list',
-   predicate => 'has_line_list',
+   writer    => '_set_line_list',
    default   => sub {[]},
-  );
-
-######################################################################
-
-has 'included_from_line' =>
-  (
-   isa      => 'SML::Line',
-   reader   => 'get_included_from_line',
-  );
-
-######################################################################
-
-has 'resource_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_resource_hash',
-   writer    => 'set_resource_hash',
-   clearer   => 'clear_resource_hash',
-   predicate => 'has_resource_hash',
-   default   => sub {{}},
   );
 
 ######################################################################
@@ -90,76 +68,54 @@ has 'resource_hash' =>
 ######################################################################
 ######################################################################
 
-sub add_resource {
+# sub add_resource {
 
-  my $self     = shift;
-  my $resource = shift;
+#   my $self     = shift;
+#   my $resource = shift;
 
-  my $filespec = $resource->get_filespec;
+#   my $filespec = $resource->get_filespec;
 
-  $self->get_resource_hash->{$filespec} = $resource;
+#   $self->_get_resource_hash->{$filespec} = $resource;
 
-  return scalar keys %{ $self->get_resource_hash }; # resource count
-}
-
-######################################################################
-
-sub has_resource {
-
-  my $self     = shift;
-  my $filespec = shift;
-
-  if ( exists $self->get_resource_hash->{$filespec} )
-    {
-      return 1;
-    }
-
-  else
-    {
-      return 0;
-    }
-}
+#   return scalar keys %{ $self->_get_resource_hash }; # resource count
+# }
 
 ######################################################################
 
-sub get_resource {
+# sub has_resource {
 
-  my $self     = shift;
-  my $filespec = shift;
+#   my $self     = shift;
+#   my $filespec = shift;
 
-  if ( exists $self->get_resource_hash->{$filespec} )
-    {
-      return $self->get_resource_hash->{$filespec};
-    }
+#   if ( exists $self->_get_resource_hash->{$filespec} )
+#     {
+#       return 1;
+#     }
 
-  else
-    {
-      # $logger->error("CAN'T GET RESOURCE \'$filespec\'");
-      return 0;
-    }
-}
+#   else
+#     {
+#       return 0;
+#     }
+# }
 
 ######################################################################
 
-override '_validate_semantics' => sub {
+# sub get_resource {
 
-  my $self = shift;
+#   my $self     = shift;
+#   my $filespec = shift;
 
-  my $valid    = super();
-  my $sml      = SML->instance;
-  my $util     = $sml->get_util;
-  my $library  = $util->get_library;
-  my $filespec = $self->get_file->get_filespec;
+#   if ( exists $self->_get_resource_hash->{$filespec} )
+#     {
+#       return $self->_get_resource_hash->{$filespec};
+#     }
 
-  foreach my $resource (values %{ $self->get_resource_hash })
-    {
-      if ( not $resource->is_valid ) {
-	$valid = 0;
-      }
-    }
-
-  return $valid;
-};
+#   else
+#     {
+#       # $logger->error("CAN'T GET RESOURCE \'$filespec\'");
+#       return 0;
+#     }
+# }
 
 ######################################################################
 
@@ -373,6 +329,29 @@ sub extract_division_lines {
 ######################################################################
 ######################################################################
 ##
+## Private Attributes
+##
+######################################################################
+######################################################################
+
+has 'included_from_line' =>
+  (
+   isa      => 'SML::Line',
+   reader   => '_get_included_from_line',
+  );
+
+######################################################################
+
+has 'resource_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_resource_hash',
+   default   => sub {{}},
+  );
+
+######################################################################
+######################################################################
+##
 ## Private Methods
 ##
 ######################################################################
@@ -384,19 +363,41 @@ sub BUILD {
 
   my $file     = $self->get_file;
   my $filespec = $file->get_filespec;
-  my $from     = $self->get_included_from_line;
+  my $from     = $self->_get_included_from_line;
   my $lines    = $self->_read_file($file,$from);
   my $sml      = SML->instance;
   my $util     = $sml->get_util;
   my $library  = $util->get_library;
 
-  $self->set_line_list($lines);
+  $self->_set_line_list($lines);
   $self->set_id($filespec);
 
   $library->add_fragment($self);
 
   return 1;
 }
+
+######################################################################
+
+override '_validate_semantics' => sub {
+
+  my $self = shift;
+
+  my $valid    = super();
+  my $sml      = SML->instance;
+  my $util     = $sml->get_util;
+  my $library  = $util->get_library;
+  my $filespec = $self->get_file->get_filespec;
+
+  foreach my $resource (values %{ $self->_get_resource_hash })
+    {
+      if ( not $resource->is_valid ) {
+	$valid = 0;
+      }
+    }
+
+  return $valid;
+};
 
 ######################################################################
 
@@ -607,13 +608,6 @@ L<"SML::Document">.
 =head2 get_type
 
 =head2 get_line_list
-
-=head2 get_included_from_line
-
-=head2 get_resource_hash
-
-This is a hash of all resources (i.e. files) indexed by filespec used
-by this fragment.
 
 =head2 add_resource
 
