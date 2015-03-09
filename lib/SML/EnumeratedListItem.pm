@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.EnumeratedListItem');
 
 has '+name' =>
   (
-   required => 1,
+   default => 'enum_list_item',
   );
 
 ######################################################################
