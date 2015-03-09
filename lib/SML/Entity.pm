@@ -40,7 +40,6 @@ sub validate {
   foreach my $block (@{ $self->get_block_list })
     {
       if ( not $block->validate_syntax ) {
-	# $self->set_valid(0);
 	$valid = 0;
       }
     }
@@ -48,12 +47,10 @@ sub validate {
   foreach my $element (@{ $self->get_element_list })
     {
       if ( not $element->validate_syntax ) {
-	# $self->set_valid(0);
 	$valid = 0;
       }
 
       if ( not $element->validate_resource_availability ) {
-	# $self->set_valid(0);
 	$valid = 0;
       }
     }
@@ -61,12 +58,10 @@ sub validate {
   foreach my $division (@{ $self->get_division_list })
     {
       if ( not $division->validate_semantics ) {
-	# $self->set_valid(0);
 	$valid = 0;
       }
 
       if ( not $division->validate_composition ) {
-	# $self->set_valid(0);
 	$valid = 0;
       }
     }
