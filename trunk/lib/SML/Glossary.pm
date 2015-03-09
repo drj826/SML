@@ -22,15 +22,6 @@ my $logger = Log::Log4perl::get_logger('sml.Glossary');
 ######################################################################
 ######################################################################
 
-has 'entry_hash' =>
-  (
-   isa     => 'HashRef',
-   reader  => 'get_entry_hash',
-   default => sub {{}},
-  );
-
-#   $eh->{$term}{$alt} = $definition;
-
 ######################################################################
 ######################################################################
 ##
@@ -46,7 +37,7 @@ sub add_entry {
 
   if ( $definition->isa('SML::Definition') )
     {
-      my $eh   = $self->get_entry_hash;
+      my $eh   = $self->_get_entry_hash;
       my $term = $definition->get_term;
       my $alt  = $definition->get_alt;
 
@@ -61,7 +52,6 @@ sub add_entry {
 
       return 0;
     }
-
 }
 
 ######################################################################
@@ -71,7 +61,7 @@ sub has_entry {
   my $self = shift;
   my $term = shift;
   my $alt  = shift || q{};
-  my $eh   = $self->get_entry_hash;
+  my $eh   = $self->_get_entry_hash;
 
   if ( exists $eh->{$term}{$alt} )
     {
@@ -94,7 +84,7 @@ sub get_entry {
 
   if ( $self->has_entry($term,$alt) )
     {
-      my $eh = $self->get_entry_hash;
+      my $eh = $self->_get_entry_hash;
 
       return $eh->{$term}{$alt};
     }
@@ -112,7 +102,7 @@ sub get_entry_list {
 
   my $self = shift;
   my $list = [];
-  my $eh   = $self->get_entry_hash;
+  my $eh   = $self->_get_entry_hash;
 
   foreach my $term ( sort keys %{ $eh } )
     {
@@ -124,6 +114,23 @@ sub get_entry_list {
 
   return $list;
 }
+
+######################################################################
+######################################################################
+##
+## Private Attributes
+##
+######################################################################
+######################################################################
+
+has 'entry_hash' =>
+  (
+   isa     => 'HashRef',
+   reader  => '_get_entry_hash',
+   default => sub {{}},
+  );
+
+#   $eh->{$term}{$alt} = $definition;
 
 ######################################################################
 ######################################################################
@@ -160,8 +167,6 @@ A glossary is a list of terms in a special subject, field, or area of
 usage, with accompanying definitions.
 
 =head1 METHODS
-
-=head2 get_entry_hash
 
 =head2 add_entry
 
