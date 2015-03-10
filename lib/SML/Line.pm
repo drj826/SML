@@ -26,9 +26,6 @@ has 'content' =>
   (
    isa       => 'Str',
    reader    => 'get_content',
-   writer    => 'set_content',
-   clearer   => 'clear_content',
-   predicate => 'has_content',
    required  => 1,
   );
 
@@ -54,9 +51,6 @@ has 'included_from_line' =>
   (
    isa       => 'SML::Line',
    reader    => 'get_included_from_line',
-   writer    => 'set_included_from_line',
-   clearer   => 'clear_included_from_line',
-   predicate => 'has_included_from_line',
   );
 
 ######################################################################
