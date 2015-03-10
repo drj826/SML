@@ -3,7 +3,7 @@
 # $Id$
 
 use lib "..";
-use Test::More tests => 5;
+use Test::More tests => 3;
 
 use SML;
 
@@ -27,7 +27,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Line->new(content=>'test line of text');
+my $obj = SML::Line->new(content=>'test test test');
 isa_ok( $obj, 'SML::Line' );
 
 #---------------------------------------------------------------------
@@ -36,31 +36,22 @@ isa_ok( $obj, 'SML::Line' );
 
 my @public_methods =
   (
-   'get_filespec',
+   # SML::Line public attribute accessors
    'get_content',
    'get_file',
-   'get_included_from_line',
    'get_num',
+   'get_included_from_line',
+
+   # SML::Line public methods
+   'get_filespec',
+   'get_location',
   );
 
 can_ok( $obj, @public_methods );
 
 #---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-  );
-
-# can_ok( $obj, @private_methods );
-
-#---------------------------------------------------------------------
 # Returns expected values?
 #---------------------------------------------------------------------
-
-is( $obj->get_content,  'test line of text', 'returns expected content'  );
-is( $obj->get_location, 'UNKNOWN LOCATION',  'returns expected line location'  );
 
 #---------------------------------------------------------------------
 # Throws expected exceptions?
