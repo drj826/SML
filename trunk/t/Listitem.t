@@ -36,21 +36,14 @@ isa_ok( $obj, 'SML::ListItem' );
 
 my @public_methods =
   (
-   'get_name',
+   # SML::ListItem public attribute accessors
+   # <none>
+
+   # SML::ListItem public methods
    'get_value',
   );
 
 can_ok( $obj, @public_methods );
-
-#---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-  );
-
-# can_ok( $obj, @private_methods );
 
 #---------------------------------------------------------------------
 # Returns expected values?
