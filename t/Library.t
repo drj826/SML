@@ -30,8 +30,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $config_file = 'library.conf';
-my $obj         = SML::Library->new(config_filename=>$config_file);
+my $obj = SML::Library->new(config_filename=>'library.conf');
 ok( $obj->isa('SML::Library'), 'library is a SML::Library' );
 
 #---------------------------------------------------------------------
