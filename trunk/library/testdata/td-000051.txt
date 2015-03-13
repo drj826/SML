@@ -2,7 +2,7 @@
 
 ######################################################################
 
-title:: TERM NOT IN GLOSSARY
+title:: DEFINITION NOT IN GLOSSARY
 
 id:: td-000051
 

@@ -2,7 +2,7 @@
 
 ######################################################################
 
-title:: INVALID PROPERTY COMPOSITION
+title:: INVALID COMPOSITION
 
 id:: td-000081
 
