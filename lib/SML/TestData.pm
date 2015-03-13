@@ -2395,7 +2395,7 @@ sub _build_block_test_case_list {
       expected =>
       {
        has_valid_syntax => 0,
-       has_valid_semantics => 0,
+       has_valid_semantics => 1,
        valid_syntax_warning => 'INVALID CROSS REFERENCE SYNTAX',
       },
      },
@@ -2408,7 +2408,7 @@ sub _build_block_test_case_list {
       expected =>
       {
        has_valid_syntax => 0,
-       has_valid_semantics => 0,
+       has_valid_semantics => 1,
        valid_syntax_warning => 'INVALID CROSS REFERENCE SYNTAX',
       },
      },
@@ -2447,7 +2447,7 @@ sub _build_block_test_case_list {
       expected =>
       {
        has_valid_syntax => 0,
-       has_valid_semantics => 0,
+       has_valid_semantics => 1,
        valid_syntax_warning => 'INVALID ID REFERENCE SYNTAX',
       },
      },
@@ -2512,7 +2512,7 @@ sub _build_block_test_case_list {
       expected =>
       {
        has_valid_syntax => 0,
-       has_valid_semantics => 0,
+       has_valid_semantics => 1,
        valid_syntax_warning => 'INVALID PAGE REFERENCE SYNTAX',
       },
      },
@@ -2525,7 +2525,7 @@ sub _build_block_test_case_list {
       expected =>
       {
        has_valid_syntax => 0,
-       has_valid_semantics => 0,
+       has_valid_semantics => 1,
        valid_syntax_warning => 'INVALID PAGE REFERENCE SYNTAX',
       },
      },
@@ -2551,7 +2551,7 @@ sub _build_block_test_case_list {
       expected =>
       {
        has_valid_syntax => 0,
-       has_valid_semantics => 0,
+       has_valid_semantics => 1,
        valid_syntax_warning => 'INVALID GLOSSARY TERM REFERENCE SYNTAX',
       },
      },
@@ -2577,7 +2577,7 @@ sub _build_block_test_case_list {
       expected =>
       {
        has_valid_syntax => 0,
-       has_valid_semantics => 0,
+       has_valid_semantics => 1,
        valid_syntax_warning => 'INVALID GLOSSARY DEFINITION REFERENCE SYNTAX',
       },
      },
@@ -2603,7 +2603,7 @@ sub _build_block_test_case_list {
       expected =>
       {
        has_valid_syntax => 0,
-       has_valid_semantics => 0,
+       has_valid_semantics => 1,
        valid_syntax_warning => 'INVALID ACRONYM REFERENCE SYNTAX',
       },
      },
@@ -2629,7 +2629,7 @@ sub _build_block_test_case_list {
       expected =>
       {
        has_valid_syntax => 0,
-       has_valid_semantics => 0,
+       has_valid_semantics => 1,
        valid_syntax_warning => 'INVALID SOURCE CITATION SYNTAX',
       },
      },
@@ -2949,15 +2949,997 @@ sub _build_document_test_case_list {
   return
     [
      {
-      name => 'invalid_non_unique_id',
-      testfile => 'td-000070.txt',
-      docid => 'td-000070',
+      name     => 'td-000001',
+      testfile => 'td-000001.txt',
+      docid    => 'td-000001',
       expected =>
       {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000002',
+      testfile => 'td-000002.txt',
+      docid    => 'td-000002',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000003',
+      testfile => 'td-000003.txt',
+      docid    => 'td-000003',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000004',
+      testfile => 'td-000004.txt',
+      docid    => 'td-000004',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000005',
+      testfile => 'td-000005.txt',
+      docid    => 'td-000005',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000006',
+      testfile => 'td-000006.txt',
+      docid    => 'td-000006',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000007',
+      testfile => 'td-000007.txt',
+      docid    => 'td-000007',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000008',
+      testfile => 'td-000008.txt',
+      docid    => 'td-000008',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000009',
+      testfile => 'td-000009.txt',
+      docid    => 'td-000009',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000010',
+      testfile => 'td-000010.txt',
+      docid    => 'td-000010',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000011',
+      testfile => 'td-000011.txt',
+      docid    => 'td-000011',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000012',
+      testfile => 'td-000012.txt',
+      docid    => 'td-000012',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000013',
+      testfile => 'td-000013.txt',
+      docid    => 'td-000013',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000014',
+      testfile => 'td-000014.txt',
+      docid    => 'td-000014',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000015',
+      testfile => 'td-000015.txt',
+      docid    => 'td-000015',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000016',
+      testfile => 'td-000016.txt',
+      docid    => 'td-000016',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000017',
+      testfile => 'td-000017.txt',
+      docid    => 'td-000017',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000018',
+      testfile => 'td-000018.txt',
+      docid    => 'td-000018',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000019',
+      testfile => 'td-000019.txt',
+      docid    => 'td-000019',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000020',
+      testfile => 'td-000020.txt',
+      docid    => 'td-000020',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000021',
+      testfile => 'td-000021.txt',
+      docid    => 'td-000021',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000023',
+      testfile => 'td-000023.txt',
+      docid    => 'td-000023',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000025',
+      testfile => 'td-000025.txt',
+      docid    => 'td-000025',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000026',
+      testfile => 'td-000026.txt',
+      docid    => 'td-000026',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000027',
+      testfile => 'td-000027.txt',
+      docid    => 'td-000027',
+      expected =>
+      {
+       is_valid => 0,
        warning =>
        {
-	warning_1 => 'INVALID NON-UNIQUE ID',
-	warning_2 => 'THE DOCUMENT IS NOT VALID',
+	is_valid =>
+	[
+	 ['sml.Block'    => 'TERM NOT IN GLOSSARY'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000028',
+      testfile => 'td-000028.txt',
+      docid    => 'td-000028',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000029',
+      testfile => 'td-000029.txt',
+      docid    => 'td-000029',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID SOURCE CITATION'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       }
+      },
+     },
+
+     {
+      name     => 'td-000030',
+      testfile => 'td-000030.txt',
+      docid    => 'td-000030',
+      expected =>
+      {
+       fatal =>
+       {
+	is_valid =>
+	[
+	 ['sml.Parser' => 'INVALID BEGIN REGION'],
+	 ['sml.Parser' => 'INVALID END REGION'],
+	],
+       }
+      },
+     },
+
+     {
+      name     => 'td-000031',
+      testfile => 'td-000031.txt',
+      docid    => 'td-000031',
+      expected =>
+      {
+       fatal =>
+       {
+	is_valid =>
+	[
+	 ['sml.Parser' => 'UNDEFINED REGION'],
+	],
+       }
+      },
+     },
+
+     {
+      name     => 'td-000032',
+      testfile => 'td-000032.txt',
+      docid    => 'td-000032',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000033',
+      testfile => 'td-000033.txt',
+      docid    => 'td-000033',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID CROSS REFERENCE'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000034',
+      testfile => 'td-000034.txt',
+      docid    => 'td-000034',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000035',
+      testfile => 'td-000035.txt',
+      docid    => 'td-000035',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID ID REFERENCE'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000036',
+      testfile => 'td-000036.txt',
+      docid    => 'td-000036',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000037',
+      testfile => 'td-000037.txt',
+      docid    => 'td-000037',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID PAGE REFERENCE'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000038',
+      testfile => 'td-000038.txt',
+      docid    => 'td-000038',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000039',
+      testfile => 'td-000039.txt',
+      docid    => 'td-000039',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID BOLD MARKUP'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000040',
+      testfile => 'td-000040.txt',
+      docid    => 'td-000040',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000041',
+      testfile => 'td-000041.txt',
+      docid    => 'td-000041',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID ITALICS MARKUP'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000042',
+      testfile => 'td-000042.txt',
+      docid    => 'td-000042',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000043',
+      testfile => 'td-000043.txt',
+      docid    => 'td-000043',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID FIXED-WIDTH MARKUP'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000044',
+      testfile => 'td-000044.txt',
+      docid    => 'td-000044',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000045',
+      testfile => 'td-000045.txt',
+      docid    => 'td-000045',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID UNDERLINE MARKUP'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000046',
+      testfile => 'td-000046.txt',
+      docid    => 'td-000046',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000047',
+      testfile => 'td-000047.txt',
+      docid    => 'td-000047',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID SUPERSCRIPT MARKUP'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000048',
+      testfile => 'td-000048.txt',
+      docid    => 'td-000048',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000049',
+      testfile => 'td-000049.txt',
+      docid    => 'td-000049',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID SUBSCRIPT MARKUP'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000050',
+      testfile => 'td-000050.txt',
+      docid    => 'td-000050',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID GLOSSARY TERM REFERENCE SYNTAX'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000051',
+      testfile => 'td-000051.txt',
+      docid    => 'td-000051',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'DEFINITION NOT IN GLOSSARY'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000052',
+      testfile => 'td-000052.txt',
+      docid    => 'td-000052',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID GLOSSARY DEFINITION REFERENCE SYNTAX'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000053',
+      testfile => 'td-000053.txt',
+      docid    => 'td-000053',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'ACRONYM NOT IN ACRONYM LIST'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000054',
+      testfile => 'td-000054.txt',
+      docid    => 'td-000054',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID ACRONYM REFERENCE SYNTAX'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000055',
+      testfile => 'td-000055.txt',
+      docid    => 'td-000055',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID SOURCE CITATION'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000056',
+      testfile => 'td-000056.txt',
+      docid    => 'td-000056',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID SOURCE CITATION SYNTAX'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000057',
+      testfile => 'td-000057.txt',
+      docid    => 'td-000057',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID CROSS REFERENCE SYNTAX'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000058',
+      testfile => 'td-000058.txt',
+      docid    => 'td-000058',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID ID REFERENCE SYNTAX'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000059',
+      testfile => 'td-000059.txt',
+      docid    => 'td-000059',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'INVALID PAGE REFERENCE SYNTAX'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000060',
+      testfile => 'td-000060.txt',
+      docid    => 'td-000060',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000061',
+      testfile => 'td-000061.txt',
+      docid    => 'td-000061',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000063',
+      testfile => 'td-000063.txt',
+      docid    => 'td-000063',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Division' => 'INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000064',
+      testfile => 'td-000064.txt',
+      docid    => 'td-000064',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Division' => 'MISSING REQUIRED PROPERTY'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000065',
+      testfile => 'td-000065.txt',
+      docid    => 'td-000065',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000066',
+      testfile => 'td-000066.txt',
+      docid    => 'td-000066',
+      expected =>
+      {
+       is_valid => 0,
+       # warning =>
+       # {
+       # 	is_valid =>
+       # 	[
+       # 	 ['sml.Fragment' => 'FILE NOT FOUND'],
+       # 	 ['sml.Block'    => 'FILE NOT FOUND'],
+       # 	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+       # 	],
+       # },
+      },
+     },
+
+     {
+      name     => 'td-000067',
+      testfile => 'td-000067.txt',
+      docid    => 'td-000067',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000068',
+      testfile => 'td-000068.txt',
+      docid    => 'td-000068',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Block'    => 'FILE NOT FOUND'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000069',
+      testfile => 'td-000069.txt',
+      docid    => 'td-000069',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000070',
+      testfile => 'td-000070.txt',
+      docid    => 'td-000070',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Division' => 'INVALID NON-UNIQUE ID'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000071',
+      testfile => 'td-000071.txt',
+      docid    => 'td-000071',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000072',
+      testfile => 'td-000072.txt',
+      docid    => 'td-000072',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000073',
+      testfile => 'td-000073.txt',
+      docid    => 'td-000073',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000077',
+      testfile => 'td-000077.txt',
+      docid    => 'td-000077',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000078',
+      testfile => 'td-000078.txt',
+      docid    => 'td-000078',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
+      name     => 'td-000079',
+      testfile => 'td-000079.txt',
+      docid    => 'td-000079',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Division' => 'INVALID PROPERTY CARDINALITY'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000080',
+      testfile => 'td-000080.txt',
+      docid    => 'td-000080',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Division' => 'INVALID PROPERTY VALUE'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
+       },
+      },
+     },
+
+     {
+      name     => 'td-000081',
+      testfile => 'td-000081.txt',
+      docid    => 'td-000081',
+      expected =>
+      {
+       is_valid => 0,
+       warning =>
+       {
+	is_valid =>
+	[
+	 ['sml.Division' => 'INVALID COMPOSITION'],
+	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+	],
        },
       },
      },

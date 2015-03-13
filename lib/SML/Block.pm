@@ -18,6 +18,8 @@ use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Block');
 
+use Cwd;
+
 use SML;                 # ci-000002
 
 ######################################################################
@@ -232,7 +234,7 @@ sub is_in_a {
 
 ######################################################################
 
-sub validate_bold_markup {
+sub _validate_bold_markup_syntax {
 
   # Return 1 if valid, 0 if not. Validate this block contains no
   # unbalanced bold markup.
@@ -267,7 +269,7 @@ sub validate_bold_markup {
 
 ######################################################################
 
-sub validate_italics_markup {
+sub _validate_italics_markup_syntax {
 
   # Return 1 if valid, 0 if not. Validate this block contains no
   # unbalanced italics markup.
@@ -302,7 +304,7 @@ sub validate_italics_markup {
 
 ######################################################################
 
-sub validate_fixedwidth_markup {
+sub _validate_fixedwidth_markup_syntax {
 
   # Return 1 if valid, 0 if not. Validate this block contains no
   # unbalanced fixed-width markup.
@@ -337,7 +339,7 @@ sub validate_fixedwidth_markup {
 
 ######################################################################
 
-sub validate_underline_markup {
+sub _validate_underline_markup_syntax {
 
   # Return 1 if valid, 0 if not. Validate this block contains no
   # unbalanced underline markup.
@@ -372,7 +374,7 @@ sub validate_underline_markup {
 
 ######################################################################
 
-sub validate_superscript_markup {
+sub _validate_superscript_markup_syntax {
 
   # Return 1 if valid, 0 if not. Validate this block contains no
   # unbalanced superscript markup.
@@ -407,7 +409,7 @@ sub validate_superscript_markup {
 
 ######################################################################
 
-sub validate_subscript_markup {
+sub _validate_subscript_markup_syntax {
 
   # Return 1 if valid, 0 if not. Validate this block contains no
   # unbalanced subscript markup.
@@ -442,7 +444,7 @@ sub validate_subscript_markup {
 
 ######################################################################
 
-sub validate_inline_tags {
+sub _validate_inline_tags {
 
   # Return 1 if valid, 0 if not.  Validate this block contains only
   # valid inline tags.
@@ -478,7 +480,7 @@ sub validate_inline_tags {
 
 ######################################################################
 
-sub validate_cross_ref_syntax {
+sub _validate_cross_ref_syntax {
 
   # Validate this block's cross reference syntax.  Return 1 if valid,
   # 0 if not.
@@ -527,7 +529,7 @@ sub validate_cross_ref_syntax {
 
 ######################################################################
 
-sub validate_cross_refs {
+sub _validate_cross_ref_semantics {
 
   # Validate this block's cross references.  Return 1 if valid, 0 if
   # not.
@@ -588,19 +590,12 @@ sub validate_cross_refs {
   # loop, check for any remaining 'begin cross reference' instances in
   # which the author forgot to complete the cross reference.
 
-  if ( $text =~ /$syntax->{begin_cross_ref}/xms )
-    {
-      my $location = $self->get_location;
-      $logger->warn("INVALID CROSS REFERENCE SYNTAX at $location");
-      $valid = 0;
-    }
-
   return $valid;
 }
 
 ######################################################################
 
-sub validate_id_ref_syntax {
+sub _validate_id_ref_syntax {
 
   my $self = shift;
 
@@ -642,7 +637,7 @@ sub validate_id_ref_syntax {
 
 ######################################################################
 
-sub validate_id_refs {
+sub _validate_id_ref_semantics {
 
   my $self = shift;
 
@@ -693,19 +688,12 @@ sub validate_id_refs {
       $text =~ s/$syntax->{id_ref}//xms;
     }
 
-  if ( $text =~ /$syntax->{begin_id_ref}/xms )
-    {
-      my $location = $self->get_location;
-      $logger->warn("INVALID ID REFERENCE SYNTAX at $location");
-      $valid = 0;
-    }
-
   return $valid;
 }
 
 ######################################################################
 
-sub validate_page_ref_syntax {
+sub _validate_page_ref_syntax {
 
   my $self = shift;
 
@@ -747,7 +735,7 @@ sub validate_page_ref_syntax {
 
 ######################################################################
 
-sub validate_page_refs {
+sub _validate_page_ref_semantics {
 
   my $self = shift;
 
@@ -798,19 +786,12 @@ sub validate_page_refs {
       $text =~ s/$syntax->{page_ref}//xms;
     }
 
-  if ( $text =~ /$syntax->{begin_page_ref}/xms )
-    {
-      my $location = $self->get_location;
-      $logger->warn("INVALID PAGE REFERENCE SYNTAX at $location");
-      $valid = 0;
-    }
-
   return $valid;
 }
 
 ######################################################################
 
-sub validate_theversion_refs {
+sub _validate_theversion_ref_semantics {
 
   my $self = shift;
 
@@ -857,7 +838,7 @@ sub validate_theversion_refs {
 
 ######################################################################
 
-sub validate_therevision_refs {
+sub _validate_therevision_ref_semantics {
 
   my $self = shift;
 
@@ -904,7 +885,7 @@ sub validate_therevision_refs {
 
 ######################################################################
 
-sub validate_thedate_refs {
+sub _validate_thedate_ref_semantics {
 
   my $self = shift;
 
@@ -951,7 +932,7 @@ sub validate_thedate_refs {
 
 ######################################################################
 
-sub validate_status_refs {
+sub _validate_status_ref_semantics {
 
   # [status:td-000020]
   # [status:green]
@@ -1023,7 +1004,7 @@ sub validate_status_refs {
 
 ######################################################################
 
-sub validate_glossary_term_ref_syntax {
+sub _validate_glossary_term_ref_syntax {
 
   # Validate that each glossary term reference has a valid glossary
   # entry.  Glossary term references are inline tags like '[g:term]'
@@ -1069,7 +1050,7 @@ sub validate_glossary_term_ref_syntax {
 
 ######################################################################
 
-sub validate_glossary_term_refs {
+sub _validate_glossary_term_ref_semantics {
 
   # Validate that each glossary term reference has a valid glossary
   # entry.  Glossary term references are inline tags like '[g:term]'
@@ -1126,19 +1107,12 @@ sub validate_glossary_term_refs {
       $text =~ s/$syntax->{gloss_term_ref}//xms;
     }
 
-  if ( $text =~ /$syntax->{begin_gloss_term_ref}/xms )
-    {
-      my $location = $self->get_location;
-      $logger->warn("INVALID GLOSSARY TERM REFERENCE SYNTAX at $location");
-      $valid = 0;
-    }
-
   return $valid;
 }
 
 ######################################################################
 
-sub validate_glossary_def_ref_syntax {
+sub _validate_glossary_def_ref_syntax {
 
   # Validate that each glossary definition reference has a valid
   # glossary entry.  Glossary definition references are inline tags
@@ -1184,7 +1158,7 @@ sub validate_glossary_def_ref_syntax {
 
 ######################################################################
 
-sub validate_glossary_def_refs {
+sub _validate_glossary_def_ref_semantics {
 
   # Validate that each glossary definition reference has a valid
   # glossary entry.  Glossary definition references are inline tags
@@ -1241,19 +1215,12 @@ sub validate_glossary_def_refs {
       $text =~ s/$syntax->{gloss_def_ref}//xms;
     }
 
-  if ( $text =~ /$syntax->{begin_gloss_def_ref}/xms )
-    {
-      my $location = $self->get_location;
-      $logger->warn("INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at $location");
-      $valid = 0;
-    }
-
   return $valid;
 }
 
 ######################################################################
 
-sub validate_acronym_ref_syntax {
+sub _validate_acronym_ref_syntax {
 
   # Validate that each acronym reference has a valid acronym list
   # entry.  Acronym references are inline tags like '[ac:term]'
@@ -1299,7 +1266,7 @@ sub validate_acronym_ref_syntax {
 
 ######################################################################
 
-sub validate_acronym_refs {
+sub _validate_acronym_ref_semantics {
 
   # Validate that each acronym reference has a valid acronym list
   # entry.  Acronym references are inline tags like '[ac:term]'
@@ -1356,19 +1323,12 @@ sub validate_acronym_refs {
       $text =~ s/$syntax->{acronym_term_ref}//xms;
     }
 
-  if ( $text =~ /$syntax->{begin_acronym_term_ref}/xms )
-    {
-      my $location = $self->get_location;
-      $logger->warn("INVALID ACRONYM REFERENCE SYNTAX: at $location");
-      $valid = 0;
-    }
-
   return $valid;
 }
 
 ######################################################################
 
-sub validate_source_citation_syntax {
+sub _validate_source_citation_syntax {
 
   # Validate that each source citation has a valid source in the
   # library's list of references.  Source citations are inline tags
@@ -1414,7 +1374,7 @@ sub validate_source_citation_syntax {
 
 ######################################################################
 
-sub validate_source_citations {
+sub _validate_source_citation_semantics {
 
   # Validate that each source citation has a valid source in the
   # library's list of references.  Source citations are inline tags
@@ -1466,15 +1426,331 @@ sub validate_source_citations {
       $text =~ s/$syntax->{citation_ref}//xms;
     }
 
-  if ( $text =~ /$syntax->{begin_citation_ref}/xms )
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_file_ref_semantics {
+
+  # Validate that each file reference ('file:: file.txt' or 'image::
+  # image.png') points to a valid file.
+
+  my $self = shift;
+
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+  my $util   = $sml->get_util;
+  my $text   = $self->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{file_element}/xms
+       or
+       $text =~ /$syntax->{image_element}/xms
+      )
+     )
     {
-      my $location = $self->get_location;
-      $logger->warn("INVALID SOURCE CITATION SYNTAX at $location");
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $library        = $self->get_library;
+  my $directory_path = $library->get_directory_path;
+  my $valid          = 1;
+  my $found_file     = 0;
+  my $resource_spec;
+
+  if ( $text =~ /$syntax->{file_element}/xms )
+    {
+      $resource_spec = $1;
+    }
+
+  if ( $text =~ /$syntax->{image_element}/xms )
+    {
+      $resource_spec = $3;
+    }
+
+  if ( -f "$directory_path/$resource_spec" )
+    {
+      $found_file = 1;
+    }
+
+  foreach my $path (@{ $library->get_include_path })
+    {
+      if ( -f "$directory_path/$path/$resource_spec" )
+	{
+	  $found_file = 1;
+	}
+    }
+
+  if ( not $found_file )
+    {
       $valid = 0;
+      my $location = $self->get_location;
+      $logger->warn("FILE NOT FOUND \'$resource_spec\' at $location");
     }
 
   return $valid;
 }
+
+######################################################################
+######################################################################
+##
+## Private Attributes
+##
+######################################################################
+######################################################################
+
+has 'valid_bold_markup_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_bold_markup_syntax',
+   lazy      => 1,
+   builder   => '_validate_bold_markup_syntax',
+  );
+
+######################################################################
+
+has 'valid_italics_markup_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_italics_markup_syntax',
+   lazy      => 1,
+   builder   => '_validate_italics_markup_syntax',
+  );
+
+######################################################################
+
+has 'valid_fixedwidth_markup_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_fixedwidth_markup_syntax',
+   lazy      => 1,
+   builder   => '_validate_fixedwidth_markup_syntax',
+  );
+
+######################################################################
+
+has 'valid_underline_markup_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_underline_markup_syntax',
+   lazy      => 1,
+   builder   => '_validate_underline_markup_syntax',
+  );
+
+######################################################################
+
+has 'valid_superscript_markup_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_superscript_markup_syntax',
+   lazy      => 1,
+   builder   => '_validate_superscript_markup_syntax',
+  );
+
+######################################################################
+
+has 'valid_subscript_markup_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_subscript_markup_syntax',
+   lazy      => 1,
+   builder   => '_validate_subscript_markup_syntax',
+  );
+
+######################################################################
+
+has 'valid_cross_ref_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_cross_ref_syntax',
+   lazy      => 1,
+   builder   => '_validate_cross_ref_syntax',
+  );
+
+######################################################################
+
+has 'valid_id_ref_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_id_ref_syntax',
+   lazy      => 1,
+   builder   => '_validate_id_ref_syntax',
+  );
+
+######################################################################
+
+has 'valid_page_ref_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_page_ref_syntax',
+   lazy      => 1,
+   builder   => '_validate_page_ref_syntax',
+  );
+
+######################################################################
+
+has 'valid_glossary_term_ref_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_glossary_term_ref_syntax',
+   lazy      => 1,
+   builder   => '_validate_glossary_term_ref_syntax',
+  );
+
+######################################################################
+
+has 'valid_glossary_def_ref_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_glossary_def_ref_syntax',
+   lazy      => 1,
+   builder   => '_validate_glossary_def_ref_syntax',
+  );
+
+######################################################################
+
+has 'valid_acronym_ref_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_acronym_ref_syntax',
+   lazy      => 1,
+   builder   => '_validate_acronym_ref_syntax',
+  );
+
+######################################################################
+
+has 'valid_source_citation_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_source_citation_syntax',
+   lazy      => 1,
+   builder   => '_validate_source_citation_syntax',
+  );
+
+######################################################################
+
+has 'valid_cross_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_cross_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_cross_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_id_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_id_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_id_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_page_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_page_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_page_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_theversion_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_theversion_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_theversion_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_therevision_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_therevision_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_therevision_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_thedate_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_thedate_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_thedate_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_status_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_status_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_status_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_glossary_term_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_glossary_term_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_glossary_term_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_glossary_def_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_glossary_def_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_glossary_def_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_acronym_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_acronym_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_acronym_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_source_citation_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_source_citation_semantics',
+   lazy      => 1,
+   builder   => '_validate_source_citation_semantics',
+  );
+
+######################################################################
+
+has 'valid_file_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_file_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_file_ref_semantics',
+  );
 
 ######################################################################
 ######################################################################
@@ -3877,75 +4153,19 @@ sub _validate_syntax {
   my $self  = shift;
   my $valid = 1;
 
-  if ( not $self->validate_bold_markup )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_italics_markup )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_fixedwidth_markup )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_underline_markup )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_superscript_markup )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_subscript_markup )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_inline_tags )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_cross_ref_syntax )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_id_ref_syntax )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_page_ref_syntax )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_glossary_term_ref_syntax )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_glossary_def_ref_syntax )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_acronym_ref_syntax )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_source_citation_syntax )
-    {
-      $valid = 0;
-    }
+  $valid = 0 if not $self->has_valid_bold_markup_syntax;
+  $valid = 0 if not $self->has_valid_italics_markup_syntax;
+  $valid = 0 if not $self->has_valid_fixedwidth_markup_syntax;
+  $valid = 0 if not $self->has_valid_underline_markup_syntax;
+  $valid = 0 if not $self->has_valid_superscript_markup_syntax;
+  $valid = 0 if not $self->has_valid_subscript_markup_syntax;
+  $valid = 0 if not $self->has_valid_cross_ref_syntax;
+  $valid = 0 if not $self->has_valid_id_ref_syntax;
+  $valid = 0 if not $self->has_valid_page_ref_syntax;
+  $valid = 0 if not $self->has_valid_glossary_term_ref_syntax;
+  $valid = 0 if not $self->has_valid_glossary_def_ref_syntax;
+  $valid = 0 if not $self->has_valid_acronym_ref_syntax;
+  $valid = 0 if not $self->has_valid_source_citation_syntax;
 
   return $valid;
 }
@@ -3959,60 +4179,18 @@ sub _validate_semantics {
   my $self  = shift;
   my $valid = 1;
 
-  if ( not $self->validate_cross_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_id_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_page_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_theversion_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_therevision_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_thedate_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_status_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_glossary_term_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_glossary_def_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_acronym_refs )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->validate_source_citations )
-    {
-      $valid = 0;
-    }
+  $valid = 0 if not $self->has_valid_cross_ref_semantics;
+  $valid = 0 if not $self->has_valid_id_ref_semantics;
+  $valid = 0 if not $self->has_valid_page_ref_semantics;
+  $valid = 0 if not $self->has_valid_theversion_ref_semantics;
+  $valid = 0 if not $self->has_valid_therevision_ref_semantics;
+  $valid = 0 if not $self->has_valid_thedate_ref_semantics;
+  $valid = 0 if not $self->has_valid_status_ref_semantics;
+  $valid = 0 if not $self->has_valid_glossary_term_ref_semantics;
+  $valid = 0 if not $self->has_valid_glossary_def_ref_semantics;
+  $valid = 0 if not $self->has_valid_acronym_ref_semantics;
+  $valid = 0 if not $self->has_valid_source_citation_semantics;
+  $valid = 0 if not $self->has_valid_file_ref_semantics;
 
   return $valid;
 }

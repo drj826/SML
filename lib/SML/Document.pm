@@ -396,10 +396,8 @@ has 'valid' =>
   (
    isa       => 'Bool',
    reader    => 'is_valid',
-   writer    => 'set_valid',
-   clearer   => 'clear_valid',
-   predicate => 'has_valid',
-   default   => 1,
+   lazy      => 1,
+   builder   => '_validate_document',
   );
 
 ######################################################################
@@ -736,155 +734,77 @@ sub get_index_term {
 
 ######################################################################
 
-sub validate {
+# sub validate_id_uniqueness {
 
-  my $self    = shift;
-  my $sml     = SML->instance;
-  my $util    = $sml->get_util;
-  my $library = $util->get_library;
-  my $valid   = 1;
-  my $id      = $self->get_id;
+#   my $self   = shift;
+#   my $valid  = 1;
+#   my $sml    = SML->instance;
+#   my $syntax = $sml->get_syntax;
+#   my $seen   = {};
 
-  foreach my $block (@{ $self->get_block_list })
-    {
-      if ( not $block->has_valid_syntax )
-	{
-	  $valid = 0;
-	}
+#   foreach my $element (@{ $self->get_element_list })
+#     {
+#       if ( $element->get_name ne 'id' )
+# 	{
+# 	  next;
+# 	}
 
-      if ( not $block->has_valid_semantics )
-	{
-	  $valid = 0;
-	}
-    }
+#       my $id = $element->get_value;
 
-  foreach my $element (@{ $self->get_element_list })
-    {
-      if ( not $element->has_valid_syntax )
-	{
-	  $valid = 0;
-	}
+#       if ( not exists $seen->{$id} )
+# 	{
+# 	  $seen->{$id} = $element;
+# 	}
 
-      if ( not $element->has_valid_semantics )
-	{
-	  $valid = 0;
-	}
-    }
+#       else
+# 	{
+# 	  my $current_line  = $element->get_first_line;
+# 	  my $filespec      = $current_line->get_file->get_filespec;
+# 	  my $num           = $current_line->get_num;
+# 	  my $previous      = $seen->{$id};
+# 	  my $previous_line = $previous->get_first_line;
 
-  if ( not $self->validate_id_uniqueness )
-    {
-      $valid = 0;
-    }
+# 	  if (
+# 	      defined $current_line->get_included_from_line
+# 	      and
+# 	      defined $previous_line->get_included_from_line
+# 	     )
+# 	    {
+# 	      my $line_filespec = $current_line->get_included_from_line->get_file->get_filespec;
+# 	      my $line_num      = $current_line->get_included_from_line->get_num;
+# 	      my $prev_filespec = $previous_line->get_file->get_filespec;
+# 	      my $prev_num      = $previous_line->get_num;
+# 	      my $incl_filespec = $previous_line->get_included_from_line->get_file->get_filespec;
+# 	      my $incl_num      = $previous_line->get_included_from_line->get_num;
+# 	      $logger->warn("INVALID NON-UNIQUE ID \"$id\" at $filespec:$num: (included at $line_filespec:$line_num) previously defined in $prev_filespec:$prev_num (included at $incl_filespec:$incl_num)");
+# 	      $self->set_valid(0);
+# 	      $valid = 0;
+# 	    }
 
-  foreach my $division (@{ $self->get_division_list })
-    {
-      if ( $division->get_name eq 'document' )
-	{
-	  next;
-	}
+# 	  elsif ( defined $previous_line->get_included_from_line )
+# 	    {
+# 	      my $prev_filespec = $previous_line->get_file->get_filespec;
+# 	      my $prev_num      = $previous_line->get_num;
+# 	      my $incl_filespec = $previous_line->get_included_from_line->get_file->get_filespec;
+# 	      my $incl_num      = $previous_line->get_included_from_line->get_num;
+# 	      $logger->warn("INVALID NON-UNIQUE ID \"$id\" at $filespec:$num: previously defined in $prev_filespec:$prev_num (included at $incl_filespec:$incl_num)");
+# 	      $self->set_valid(0);
+# 	      $valid = 0;
+# 	    }
 
-      if ( not $division->has_valid_semantics )
-	{
-	  $valid = 0;
-	}
+# 	  else
+# 	    {
+# 	      my $prev_filespec = $previous_line->get_file->get_filespec;
+# 	      my $prev_num      = $previous_line->get_num;
+# 	      $logger->warn("INVALID NON-UNIQUE ID \"$id\" at $filespec:$num: previously defined at $prev_filespec:$prev_num");
+# 	      $self->set_valid(0);
+# 	      $valid = 0;
+# 	    }
+# 	}
+#     }
 
-      if ( not $division->has_valid_composition )
-	{
-	  $valid = 0;
-	}
-    }
-
-  if ( not $valid )
-    {
-      $self->set_valid(0);
-    }
-
-  if ( $self->is_valid )
-    {
-      $logger->info("the document is valid \'$id\'");
-    }
-
-  else
-    {
-      $logger->warn("THE DOCUMENT IS NOT VALID \'$id\'");
-    }
-
-  return $valid;
-}
-
-######################################################################
-
-sub validate_id_uniqueness {
-
-  my $self   = shift;
-  my $valid  = 1;
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $seen   = {};
-
-  foreach my $element (@{ $self->get_element_list })
-    {
-      if ( $element->get_name ne 'id' )
-	{
-	  next;
-	}
-
-      my $id = $element->get_value;
-
-      if ( not exists $seen->{$id} )
-	{
-	  $seen->{$id} = $element;
-	}
-
-      else
-	{
-	  my $current_line  = $element->get_first_line;
-	  my $filespec      = $current_line->get_file->get_filespec;
-	  my $num           = $current_line->get_num;
-	  my $previous      = $seen->{$id};
-	  my $previous_line = $previous->get_first_line;
-
-	  if (
-	      defined $current_line->get_included_from_line
-	      and
-	      defined $previous_line->get_included_from_line
-	     )
-	    {
-	      my $line_filespec = $current_line->get_included_from_line->get_file->get_filespec;
-	      my $line_num      = $current_line->get_included_from_line->get_num;
-	      my $prev_filespec = $previous_line->get_file->get_filespec;
-	      my $prev_num      = $previous_line->get_num;
-	      my $incl_filespec = $previous_line->get_included_from_line->get_file->get_filespec;
-	      my $incl_num      = $previous_line->get_included_from_line->get_num;
-	      $logger->warn("INVALID NON-UNIQUE ID \"$id\" at $filespec:$num: (included at $line_filespec:$line_num) previously defined in $prev_filespec:$prev_num (included at $incl_filespec:$incl_num)");
-	      $self->set_valid(0);
-	      $valid = 0;
-	    }
-
-	  elsif ( defined $previous_line->get_included_from_line )
-	    {
-	      my $prev_filespec = $previous_line->get_file->get_filespec;
-	      my $prev_num      = $previous_line->get_num;
-	      my $incl_filespec = $previous_line->get_included_from_line->get_file->get_filespec;
-	      my $incl_num      = $previous_line->get_included_from_line->get_num;
-	      $logger->warn("INVALID NON-UNIQUE ID \"$id\" at $filespec:$num: previously defined in $prev_filespec:$prev_num (included at $incl_filespec:$incl_num)");
-	      $self->set_valid(0);
-	      $valid = 0;
-	    }
-
-	  else
-	    {
-	      my $prev_filespec = $previous_line->get_file->get_filespec;
-	      my $prev_num      = $previous_line->get_num;
-	      $logger->warn("INVALID NON-UNIQUE ID \"$id\" at $filespec:$num: previously defined at $prev_filespec:$prev_num");
-	      $self->set_valid(0);
-	      $valid = 0;
-	    }
-	}
-    }
-
-  return $valid;
-}
+#   return $valid;
+# }
 
 ######################################################################
 
@@ -1030,25 +950,48 @@ has 'baretable_data_hash' =>
 ######################################################################
 ######################################################################
 
-# sub _init {
+sub _validate_document {
 
-#   my $self = shift;
+  my $self    = shift;
+  my $sml     = SML->instance;
+  my $util    = $sml->get_util;
+  my $library = $util->get_library;
+  my $valid   = 1;
+  my $id      = $self->get_id;
 
-#   $self->clear_footnote;
-#   $self->clear_lookup;
-#   $self->clear_outcome;
-#   $self->clear_review;
-#   $self->clear_define;
-#   $self->clear_glossary;
-#   $self->clear_acronym;
-#   $self->clear_previous;
-#   $self->clear_index;
-#   $self->clear_table_data;
-#   $self->clear_baretable_data;
-#   $self->clear_specials;
-#   $self->clear_html;
+  $valid = 0 if not $self->has_valid_id_uniqueness;
 
-# }
+  foreach my $block (@{ $self->get_block_list })
+    {
+      $valid = 0 if not $block->has_valid_syntax;
+      $valid = 0 if not $block->has_valid_semantics;
+    }
+
+  foreach my $element (@{ $self->get_element_list })
+    {
+      $valid = 0 if not $element->has_valid_syntax;
+      $valid = 0 if not $element->has_valid_semantics;
+    }
+
+  foreach my $division (@{ $self->get_division_list })
+    {
+      next if $division->get_name eq 'document';
+
+      $valid = 0 if not $division->has_valid_semantics;
+    }
+
+  if ( $valid )
+    {
+      $logger->info("the document is valid \'$id\'");
+    }
+
+  else
+    {
+      $logger->warn("THE DOCUMENT IS NOT VALID \'$id\'");
+    }
+
+  return $valid;
+}
 
 ######################################################################
 
