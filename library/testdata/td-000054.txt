@@ -2,7 +2,7 @@
 
 ######################################################################
 
-title:: INVALID ACRONYM SYNTAX
+title:: INVALID ACRONYM REFERENCE SYNTAX
 
 id:: td-000054
 
