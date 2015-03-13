@@ -21,10 +21,8 @@ my $t2logger = Test::Log4perl->get_logger('sml.Document');
 
 use SML::TestData;
 
-my $td      = SML::TestData->new();
-my $tcl     = $td->get_block_test_case_list;
-my $library = $td->get_test_object('SML::Library','library');
-my $parser  = $library->get_parser;
+my $td  = SML::TestData->new();
+my $tcl = $td->get_block_test_case_list;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -121,6 +119,8 @@ sub renders_ok {
   my $expected  = $tc->{expected}{$rendition}{$style};
   my $filename  = $tc->{filename};
   my $docid     = $tc->{docid};
+  my $library   = SML::Library->new(config_file=>'library.conf');
+  my $parser    = $library->get_parser;
   my $fragment  = $parser->create_fragment($filename);
   my $document  = $library->get_document($docid);
   my $line      = SML::Line->new(content=>$content);
@@ -153,6 +153,8 @@ sub has_valid_syntax_ok {
   my $expected  = $tc->{expected}{has_valid_syntax};
   my $filename  = $tc->{filename};
   my $docid     = $tc->{docid};
+  my $library   = SML::Library->new(config_file=>'library.conf');
+  my $parser    = $library->get_parser;
   my $fragment  = $parser->create_fragment($filename);
   my $document  = $library->get_document($docid);
   my $line      = SML::Line->new(content=>$content);
@@ -185,6 +187,8 @@ sub has_valid_semantics_ok {
   my $expected  = $tc->{expected}{has_valid_semantics};
   my $filename  = $tc->{filename};
   my $docid     = $tc->{docid};
+  my $library   = SML::Library->new(config_file=>'library.conf');
+  my $parser    = $library->get_parser;
   my $fragment  = $parser->create_fragment($filename);
   my $document  = $library->get_document($docid);
   my $line      = SML::Line->new(content=>$content);
@@ -217,6 +221,8 @@ sub valid_syntax_warning_ok {
   my $expected = $tc->{expected}{valid_syntax_warning};
   my $filename = $tc->{filename};
   my $docid    = $tc->{docid};
+  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
   my $line     = SML::Line->new(content=>$content);
@@ -252,6 +258,8 @@ sub valid_semantics_warning_ok {
   my $expected = $tc->{expected}{valid_semantics_warning};
   my $filename = $tc->{filename};
   my $docid    = $tc->{docid};
+  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
   my $line     = SML::Line->new(content=>$content);

@@ -18,8 +18,8 @@ use SML::TestData;
 
 my $td      = SML::TestData->new();
 my $tcl     = $td->get_part_test_case_list;
-my $library = $td->get_test_object('SML::Library','library');
-my $parser  = $library->get_parser;
+# my $library = $td->get_test_object('SML::Library','library');
+# my $parser  = $library->get_parser;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -74,15 +74,8 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{ $tcl })
   {
-    if ( defined $tc->{expected}{has_part} )
-      {
-	has_part_ok($tc);
-      }
-
-    if ( defined $tc->{expected}{get_part} )
-      {
-	get_part_ok($tc);
-      }
+    has_part_ok($tc) if defined $tc->{expected}{has_part};
+    get_part_ok($tc) if defined $tc->{expected}{get_part};
   }
 
 #---------------------------------------------------------------------
@@ -101,6 +94,8 @@ sub has_part_ok {
   my $filename = $tc->{filename};
   my $docid    = $tc->{docid};
   my $expected = $tc->{expected}{has_part};
+  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
 
@@ -108,7 +103,7 @@ sub has_part_ok {
   my $result = $document->has_part($part_id);
 
   # assert
-  is($result,$expected,"$tcname has_part $result $docid has $part_id");
+  is($result,$expected,"$tcname has_part $result");
 }
 
 ######################################################################
@@ -123,6 +118,8 @@ sub get_part_ok {
   my $filename = $tc->{filename};
   my $docid    = $tc->{docid};
   my $expected = $tc->{expected}{get_part};
+  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
 
@@ -130,7 +127,7 @@ sub get_part_ok {
   my $result = $document->get_part($part_id);
 
   # assert
-  isa_ok($result,$expected);
+  isa_ok($result,$expected,"$tcname get_part $result");
 }
 
 ######################################################################

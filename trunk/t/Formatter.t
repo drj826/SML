@@ -16,7 +16,7 @@ use SML::TestData;
 
 my $td      = SML::TestData->new();
 my $tcl     = $td->get_formatter_test_case_list;
-my $library = $td->get_test_object('SML::Library','library');
+# my $library = $td->get_test_object('SML::Library','library');
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -31,6 +31,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
+my $library = SML::Library->new(config_file=>'library.conf');
 my $obj = SML::Formatter->new(library=>$library);
 isa_ok( $obj, 'SML::Formatter' );
 
