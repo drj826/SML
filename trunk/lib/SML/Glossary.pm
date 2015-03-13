@@ -41,6 +41,8 @@ sub add_entry {
       my $term = $definition->get_term;
       my $alt  = $definition->get_alt;
 
+      $logger->debug("add glossary entry: \'$term\' ($alt)");
+
       $eh->{$term}{$alt} = $definition;
 
       return 1;

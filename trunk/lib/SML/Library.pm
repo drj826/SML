@@ -142,6 +142,30 @@ has 'references' =>
 
 ######################################################################
 
+has 'directory_path' =>
+  (
+   isa       => 'Str',
+   reader    => 'get_directory_path',
+   writer    => '_set_directory_path',
+   clearer   => '_clear_directory_path',
+   predicate => '_has_directory_path',
+   default   => q{.},
+  );
+
+# This is the name of the directory containing the library.
+
+######################################################################
+
+has 'include_path' =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_include_path',
+   default => sub {[]},
+  );
+
+######################################################################
+
 has 'entity_hash' =>
   (
    isa       => 'HashRef',
@@ -283,14 +307,14 @@ has 'template_dir' =>
 
 sub get_filespec {
 
-  # Given and filename, find the file in the library by looking in
-  # each include path.
+  # Given a filename, find the file in the library by looking in each
+  # include path.
 
   my $self     = shift;
   my $filename = shift;
 
-  my $include_path   = $self->_get_include_path;
-  my $directory_path = $self->_get_directory_path;
+  my $include_path   = $self->get_include_path;
+  my $directory_path = $self->get_directory_path;
 
   if ( -f "$directory_path/$filename" )
     {
@@ -1813,16 +1837,6 @@ has 'config_filename' =>
 
 ######################################################################
 
-has 'include_path' =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => '_get_include_path',
-   default => sub {[]},
-  );
-
-######################################################################
-
 has 'lib_ontology_config_filename' =>
   (
    isa       => 'Str',
@@ -1884,20 +1898,6 @@ has 'directory_name' =>
    isa       => 'Str',
    reader    => '_get_directory_name',
    default   => 'library',
-  );
-
-# This is the name of the directory containing the library.
-
-######################################################################
-
-has 'directory_path' =>
-  (
-   isa       => 'Str',
-   reader    => '_get_directory_path',
-   writer    => '_set_directory_path',
-   clearer   => '_clear_directory_path',
-   predicate => '_has_directory_path',
-   default   => q{.},
   );
 
 # This is the name of the directory containing the library.
@@ -2015,7 +2015,7 @@ sub BUILD {
   #
   if ( $config{'template_dir'} )
     {
-      my $directory_path = $self->_get_directory_path;
+      my $directory_path = $self->get_directory_path;
       my $template_dir   = "$directory_path/$config{template_dir}";
 
       $self->_set_template_dir($template_dir);
@@ -2082,8 +2082,8 @@ sub _add_include_path {
   my $self = shift;
   my $path = shift;
 
-  my $include_path   = $self->_get_include_path;
-  my $directory_path = $self->_get_directory_path;
+  my $include_path   = $self->get_include_path;
+  my $directory_path = $self->get_directory_path;
 
   if ( not -d "$directory_path/$path" )
     {
@@ -2102,7 +2102,7 @@ sub _build_revision {
 
   my $self = shift;
 
-  my $directory_path = $self->_get_directory_path;
+  my $directory_path = $self->get_directory_path;
   my $svn            = $self->_find_svn_executable;
 
   if (not -e $svn) {

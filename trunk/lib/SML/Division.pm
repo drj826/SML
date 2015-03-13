@@ -102,6 +102,7 @@ has 'valid_semantics' =>
 # division elements conform with allowed value rules
 # division conforms with required property rules
 # division conforms with composition rules
+# division IDs are all unique
 
 ######################################################################
 
@@ -1079,16 +1080,12 @@ sub _validate_syntax {
 
   foreach my $block (@{ $blocks })
     {
-      if ( not $block->has_valid_syntax ) {
-	$valid = 0
-      }
+      $valid = 0 if not $block->has_valid_syntax;
     }
 
   foreach my $element (@{ $elements })
     {
-      if ( not $element->has_valid_syntax ) {
-	$valid = 0;
-      }
+      $valid = 0 if not $element->has_valid_syntax;
     }
 
   return $valid;
@@ -1106,47 +1103,20 @@ sub _validate_semantics {
 
   foreach my $block (@{ $blocks })
     {
-      if ( not $block->has_valid_semantics ) {
-	$valid = 0
-      }
+      $valid = 0 if not $block->has_valid_semantics;
     }
 
   foreach my $element (@{ $elements })
     {
-      if ( not $element->has_valid_semantics ) {
-	$valid = 0;
-      }
+      $valid = 0 if not $element->has_valid_semantics;
     }
 
-  if ( not $self->has_valid_property_cardinality )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->has_valid_property_values )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->has_valid_infer_only_conformance )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->has_valid_required_properties )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->has_valid_composition )
-    {
-      $valid = 0;
-    }
-
-  if ( not $self->has_valid_id_uniqueness )
-    {
-      $valid = 0;
-    }
+  $valid = 0 if not $self->has_valid_property_cardinality;
+  $valid = 0 if not $self->has_valid_property_values;
+  $valid = 0 if not $self->has_valid_infer_only_conformance;
+  $valid = 0 if not $self->has_valid_required_properties;
+  $valid = 0 if not $self->has_valid_composition;
+  $valid = 0 if not $self->has_valid_id_uniqueness;
 
   return $valid;
 }

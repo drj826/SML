@@ -3481,8 +3481,8 @@ sub _end_element {
   my $library  = $self->get_library;
   my $name     = $element->get_name;
   my $division = $element->get_containing_division;
-  my $divname  = $element->get_containing_division->get_name;
-  my $divid    = $element->get_containing_division->get_id;
+  my $divname  = $division->get_name;
+  my $divid    = $division->get_id;
   my $document = $self->_current_document;
   my $reasoner = $library->get_reasoner;
 
@@ -4039,7 +4039,9 @@ END_OF_TEXT
 
     else
       {
-	$logger->warn("NO CHILD PROPERTY");
+	my $name = $division->get_name;
+	my $id   = $division->get_id;
+	$logger->warn("NO CHILD PROPERTY ($name $id)");
       }
 
     #---------------------------------------------------------------

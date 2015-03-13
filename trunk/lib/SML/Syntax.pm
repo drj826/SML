@@ -694,14 +694,15 @@ has 'glossary_element' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^glossary::\s*(.*?)\s*(\{(.*?)\})?\s*=\s*(.*?)\s*(\#(.*))?$',
+   default => '^(glossary)::\s*(.*?)\s*(\{(.*?)\})?\s*=\s*(.*?)\s*(\#(.*))?$',
 
-   # $1 = glossary term
-   # $2
-   # $3 = alt namespace
-   # $4 = definition text
-   # $5
-   # $6 = comment text
+   # $1 = tag name
+   # $2 = glossary term
+   # $3
+   # $4 = alt namespace
+   # $5 = definition text
+   # $6
+   # $7 = comment text
   );
 
 ######################################################################
@@ -723,14 +724,15 @@ has 'variable_element' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^var::\s*(.*?)\s*(\{(.*?)\})?\s*=\s*(.*?)\s*(\#(.*))?$',
+   default => '^(var)::\s*(.*?)\s*(\{(.*?)\})?\s*=\s*(.*?)\s*(\#(.*))?$',
 
-   # $1 = variable name
-   # $2
-   # $3 = alt namespace
-   # $4 = variable value
-   # $5
-   # $6 = comment text
+   # $1 = tag name
+   # $2 = variable name
+   # $3
+   # $4 = alt namespace
+   # $5= variable value
+   # $6
+   # $7 = comment text
   );
 
 ######################################################################
@@ -739,14 +741,15 @@ has 'acronym_element' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^acronym::\s*(.*?)\s*(\{(.*?)\})?\s*=\s*(.*?)\s*(\#(.*))?$',
+   default => '^(acronym)::\s*(.*?)\s*(\{(.*?)\})?\s*=\s*(.*?)\s*(\#(.*))?$',
 
-   # $1 = acronym
-   # $2
-   # $3 = alt namespace
-   # $4 = acronym definition
-   # $5
-   # $6 = comment text
+   # $1 = tag name
+   # $2 = acronym
+   # $3
+   # $4 = alt namespace
+   # $5 = acronym definition
+   # $6
+   # $7 = comment text
   );
 
 ######################################################################

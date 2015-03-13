@@ -615,8 +615,6 @@ L<"SML::Document">.
 
 =head2 get_resource
 
-=head2 validate_id_uniqueness
-
 =head2 validate
 
  1. Validate the syntax of each block in the fragment.
