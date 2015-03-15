@@ -70,6 +70,7 @@ sub publish_html_by_section {
     {
      INCLUDE_PATH => $template_dir,
      OUTPUT_PATH  => $output_dir,
+     RECURSION    => 1,
     };
 
   my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
@@ -88,19 +89,13 @@ sub publish_html_by_section {
 
   foreach my $section (@{ $document->get_section_list })
     {
-      my $num = $section->get_number;
-
+      my $num     = $section->get_number;
       my $outfile = "$id.$num.html";
-
-      my $vars =
-	{
-	 document => $document,
-	 section  => $section,
-	};
+      my $vars    = { self => $section };
 
       $logger->info("formatting $outfile");
-      $tt->process('section.tt',$vars,$outfile)
-	|| die $tt->error(), "\n";
+
+      $tt->process('section.tt',$vars,$outfile)	|| die $tt->error(), "\n";
     }
 
   if ( -d "$template_dir/images" )
