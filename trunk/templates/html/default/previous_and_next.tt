@@ -3,17 +3,18 @@
 $Id: $
 
 %]
+[%- SET document = self.get_containing_document -%]
 <!-- previous and next sections -->
 <table width="100%">
 <tr>
-[% IF section.get_previous_number -%]
-<td width="20%" align="left"><a href="[% document.get_id %].[% section.get_previous_number%].html">&lt; PREVIOUS [% section.get_previous_number%]</a></td>
+[% IF self.get_previous_number -%]
+<td width="20%" align="left"><a href="[% document.get_id %].[% self.get_previous_number%].html">&lt; PREVIOUS [% self.get_previous_number%]</a></td>
 [% ELSE -%]
 <td width="20%" align="left"></td>
 [% END -%]
 <td width="60%" align="center"><a href="[% document.get_id %].toc.html">[% document.get_property_value('title') %]</a></td>
-[% IF section.get_next_number -%]
-<td width="20%" align="right"><a href="[% document.get_id %].[% section.get_next_number%].html">[% section.get_next_number%] NEXT &gt;</a></td>
+[% IF self.get_next_number -%]
+<td width="20%" align="right"><a href="[% document.get_id %].[% self.get_next_number%].html">[% self.get_next_number%] NEXT &gt;</a></td>
 [% ELSE -%]
 <td width="20%" align="right"></td>
 [% END -%]

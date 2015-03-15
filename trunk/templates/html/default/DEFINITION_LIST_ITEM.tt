@@ -1,3 +1,2 @@
 <dt>[%- self.get_term.get_content -%]</dt>
-
 <dd>[%- self.get_definition.get_content -%]</dd>
