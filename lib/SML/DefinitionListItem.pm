@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.DefinitionListItem');
 
 has '+name' =>
   (
-   default  => 'definition_list_item',
+   default  => 'DEFINITION_LIST_ITEM',
   );
 
 ######################################################################
@@ -82,7 +82,7 @@ sub _build_term {
       my $term   = $1;                  # see SML::Syntax
       my $string = SML::String->new(content=>$term);
 
-      $self->add_part( $string );
+      $self->add_part($string);
 
       return $string;
     }
@@ -114,7 +114,7 @@ sub _build_definition {
       my $definition = $2;              # see SML::Syntax
       my $string     = SML::String->new(content=>$definition);
 
-      $self->add_part( $string );
+      $self->add_part($string);
 
       return $string;
     }
