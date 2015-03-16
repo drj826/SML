@@ -96,6 +96,8 @@ multiple different document renditions.
 This section defines key terms used in this document.  The glossary
 contains a complete collection of terms and their definitions.
 
+= TLA = Three Letter Acronym
+
 = [g:ieee:baseline] = [def:ieee:baseline]
 
 = [g:ieee:allocated baseline] = [def:ieee:allocated baseline]
