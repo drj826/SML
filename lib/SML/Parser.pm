@@ -200,6 +200,8 @@ sub create_string {
   my $self = shift;
   my $text = shift;                     # i.e. !!my bold text!!
 
+  $logger->debug("create_string");
+
   my $part;                             # containing part
 
   if ( $self->_has_part )
@@ -211,6 +213,8 @@ sub create_string {
   my $syntax = $sml->get_syntax;
 
   my $string_type = $self->_get_string_type($text);
+
+  $logger->debug("  string type: $string_type");
 
   if ( $string_type eq 'string' )
     {
@@ -7537,21 +7541,21 @@ sub _parse_block {
 
   $self->_set_block($block);
 
-  my $text = $block->get_content;
-
   # If this is a comment block, don't parse it into parts.
-
   if ( $block->isa('SML::CommentBlock') )
     {
       $self->_clear_block;
       return 1;
     }
 
+  # If this is a pre-formatted block, don't parse it into parts.
   if ( $block->isa('SML::PreformattedBlock') )
     {
       $self->_clear_block;
       return 1;
     }
+
+  my $text = $block->get_content;
 
   while ( $text )
     {
