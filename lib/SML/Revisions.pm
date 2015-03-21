@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.Revisions');
 
 has '+name' =>
   (
-   default => 'revisions',
+   default => 'REVISIONS',
   );
 
 ######################################################################

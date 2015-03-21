@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.Quotation');
 
 has '+name' =>
   (
-   default => 'quotation',
+   default => 'QUOTATION',
   );
 
 ######################################################################

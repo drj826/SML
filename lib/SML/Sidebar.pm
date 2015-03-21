@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.Sidebar');
 
 has '+name' =>
   (
-   default => 'sidebar',
+   default => 'SIDEBAR',
   );
 
 ######################################################################

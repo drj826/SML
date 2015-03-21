@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.Note');
 
 has '+name' =>
   (
-   default => 'note',
+   default => 'NOTE',
   );
 
 ######################################################################

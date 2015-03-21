@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.Epigraph');
 
 has '+name' =>
   (
-   default => 'epigraph',
+   default => 'EPIGRAPH',
   );
 
 ######################################################################

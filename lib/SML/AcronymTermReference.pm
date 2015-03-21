@@ -63,7 +63,7 @@ has '+content' =>
 
 has '+name' =>
   (
-   default => 'acronym_term_ref',
+   default => 'ACRONYM_TERM_REF',
   );
 
 ######################################################################

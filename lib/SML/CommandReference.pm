@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.CommandReference');
 
 has '+name' =>
   (
-   default => 'command_ref',
+   default => 'COMMAND_REF',
   );
 
 ######################################################################

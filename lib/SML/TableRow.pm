@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.TableRow');
 
 has '+name' =>
   (
-   default => 'TABLEROW',
+   default => 'TABLE_ROW',
   );
 
 ######################################################################

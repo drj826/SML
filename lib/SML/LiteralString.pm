@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.LiteralString');
 
 has '+name' =>
   (
-   default => 'literal',
+   default => 'LITERAL_STRING',
   );
 
 ######################################################################

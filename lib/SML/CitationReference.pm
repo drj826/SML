@@ -53,7 +53,7 @@ has '+content' =>
 
 has '+name' =>
   (
-   default => 'citation_ref',
+   default => 'CITATION_REF',
   );
 
 ######################################################################

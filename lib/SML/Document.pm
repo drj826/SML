@@ -30,7 +30,7 @@ use SML::Glossary;
 
 has '+name' =>
   (
-   default => 'document',
+   default => 'DOCUMENT',
   );
 
 ######################################################################

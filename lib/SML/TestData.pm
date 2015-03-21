@@ -5006,8 +5006,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'string',
-       content => 'This is a plain string.',
+       get_name => 'string',
+       get_content => 'This is a plain string.',
        has_parts => 0,
        html =>
        {
@@ -5022,8 +5022,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'bold_string',
-       content => 'this is bold',
+       get_name => 'bold_string',
+       get_content => 'this is bold',
        has_parts => 1,
        html =>
        {
@@ -5038,8 +5038,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'italics_string',
-       content => 'this is italics',
+       get_name => 'italics_string',
+       get_content => 'this is italics',
        has_parts => 1,
        html =>
        {
@@ -5054,8 +5054,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'fixedwidth_string',
-       content => 'this is fixed width',
+       get_name => 'fixedwidth_string',
+       get_content => 'this is fixed width',
        has_parts => 1,
        html =>
        {
@@ -5070,8 +5070,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'underline_string',
-       content => 'this is underlined',
+       get_name => 'underline_string',
+       get_content => 'this is underlined',
        has_parts => 1,
        html =>
        {
@@ -5086,8 +5086,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'superscript_string',
-       content => 'this is superscripted',
+       get_name => 'superscript_string',
+       get_content => 'this is superscripted',
        has_parts => 1,
        html =>
        {
@@ -5102,8 +5102,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'subscript_string',
-       content => 'this is subscripted',
+       get_name => 'subscript_string',
+       get_content => 'this is subscripted',
        has_parts => 1,
        html =>
        {
@@ -5118,8 +5118,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'linebreak_symbol',
-       content => '',
+       get_name => 'linebreak_symbol',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5134,8 +5134,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'user_entered_text',
-       content => 'bogus',
+       get_name => 'USER_ENTERED_TEXT',
+       get_content => 'bogus',
        has_parts => 0,
        html =>
        {
@@ -5150,8 +5150,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'user_entered_text',
-       content => 'bogus',
+       get_name => 'USER_ENTERED_TEXT',
+       get_content => 'bogus',
        has_parts => 0,
        html =>
        {
@@ -5166,8 +5166,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'file_ref',
-       content => '',
+       get_name => 'FILE_REF',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5182,8 +5182,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'path_ref',
-       content => '',
+       get_name => 'PATH_REF',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5198,8 +5198,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'url_ref',
-       content => '',
+       get_name => 'URL_REF',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5214,8 +5214,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'url_ref',
-       content => 'google',
+       get_name => 'URL_REF',
+       get_content => 'google',
        has_parts => 0,
        html =>
        {
@@ -5230,8 +5230,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'command_ref',
-       content => 'ls -al | grep bogus',
+       get_name => 'COMMAND_REF',
+       get_content => 'ls -al | grep bogus',
        has_parts => 0,
        html =>
        {
@@ -5246,8 +5246,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'smiley_symbol',
-       content => '',
+       get_name => 'smiley_symbol',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5262,8 +5262,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'frowny_symbol',
-       content => '',
+       get_name => 'frowny_symbol',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5278,8 +5278,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'keystroke_symbol',
-       content => 'ESC',
+       get_name => 'keystroke_symbol',
+       get_content => 'ESC',
        has_parts => 1,
        html =>
        {
@@ -5294,8 +5294,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'left_arrow_symbol',
-       content => '',
+       get_name => 'left_arrow_symbol',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5310,8 +5310,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'right_arrow_symbol',
-       content => '',
+       get_name => 'right_arrow_symbol',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5326,8 +5326,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'latex_symbol',
-       content => '',
+       get_name => 'latex_symbol',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5342,8 +5342,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'tex_symbol',
-       content => '',
+       get_name => 'tex_symbol',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5358,8 +5358,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'copyright_symbol',
-       content => '',
+       get_name => 'copyright_symbol',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5374,8 +5374,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'trademark_symbol',
-       content => '',
+       get_name => 'trademark_symbol',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5390,8 +5390,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'reg_trademark_symbol',
-       content => '',
+       get_name => 'reg_trademark_symbol',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5406,8 +5406,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'open_dblquote_symbol',
-       content => '',
+       get_name => 'open_dblquote_symbol',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5422,8 +5422,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'close_dblquote_symbol',
-       content => '',
+       get_name => 'close_dblquote_symbol',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5438,8 +5438,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'open_sglquote_symbol',
-       content => '',
+       get_name => 'open_sglquote_symbol',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5454,8 +5454,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'close_sglquote_symbol',
-       content => '',
+       get_name => 'close_sglquote_symbol',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5470,8 +5470,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'section_symbol',
-       content => '',
+       get_name => 'section_symbol',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5486,8 +5486,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'emdash_symbol',
-       content => '',
+       get_name => 'emdash_symbol',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5502,8 +5502,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'email_addr',
-       content => '',
+       get_name => 'EMAIL_ADDR',
+       get_content => '',
        has_parts => 0,
        html =>
        {
@@ -5518,8 +5518,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'email_addr',
-       content => 'John Smith',
+       get_name => 'EMAIL_ADDR',
+       get_content => 'John Smith',
        has_parts => 0,
        html =>
        {
@@ -5534,8 +5534,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'italics_string',
-       content => 'this is !!bold!! inside italics',
+       get_name => 'italics_string',
+       get_content => 'this is !!bold!! inside italics',
        has_parts => 3,
        html =>
        {
@@ -5550,8 +5550,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'bold_string',
-       content => 'this is ~~italics~~ inside bold',
+       get_name => 'bold_string',
+       get_content => 'this is ~~italics~~ inside bold',
        has_parts => 3,
        html =>
        {
@@ -5566,8 +5566,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'string',
-       content => 'this string has ~~italics~~ and !!bold!!',
+       get_name => 'string',
+       get_content => 'this string has ~~italics~~ and !!bold!!',
        has_parts => 4,
        html =>
        {
@@ -5582,8 +5582,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'variable_ref',
-       content => '',
+       get_name => 'VARIABLE_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5594,8 +5594,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'gloss_term_ref',
-       content => '',
+       get_name => 'GLOSS_TERM_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5606,8 +5606,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'gloss_term_ref',
-       content => '',
+       get_name => 'GLOSS_TERM_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5618,8 +5618,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'gloss_term_ref',
-       content => '',
+       get_name => 'GLOSS_TERM_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5630,8 +5630,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'gloss_term_ref',
-       content => '',
+       get_name => 'GLOSS_TERM_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5642,8 +5642,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'gloss_def_ref',
-       content => '',
+       get_name => 'GLOSS_DEF_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5654,8 +5654,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'acronym_term_ref',
-       content => '',
+       get_name => 'ACRONYM_TERM_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5666,8 +5666,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'acronym_term_ref',
-       content => '',
+       get_name => 'ACRONYM_TERM_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5678,8 +5678,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'acronym_term_ref',
-       content => '',
+       get_name => 'ACRONYM_TERM_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5690,8 +5690,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'acronym_term_ref',
-       content => '',
+       get_name => 'ACRONYM_TERM_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5702,8 +5702,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'cross_ref',
-       content => '',
+       get_name => 'CROSS_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5714,8 +5714,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'cross_ref',
-       content => '',
+       get_name => 'CROSS_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5726,8 +5726,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'id_ref',
-       content => '',
+       get_name => 'ID_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5738,8 +5738,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'page_ref',
-       content => '',
+       get_name => 'PAGE_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5750,8 +5750,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'page_ref',
-       content => '',
+       get_name => 'PAGE_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5762,8 +5762,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'footnote_ref',
-       content => '',
+       get_name => 'FOOTNOTE_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5774,8 +5774,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'index_ref',
-       content => '',
+       get_name => 'INDEX_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5786,8 +5786,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'index_ref',
-       content => '',
+       get_name => 'INDEX_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5798,8 +5798,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'thepage_ref',
-       content => '',
+       get_name => 'thepage_ref',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5810,8 +5810,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'theversion_ref',
-       content => '',
+       get_name => 'theversion_ref',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5822,8 +5822,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'therevision_ref',
-       content => '',
+       get_name => 'therevision_ref',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5834,8 +5834,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'thedate_ref',
-       content => '',
+       get_name => 'thedate_ref',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5846,8 +5846,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'status_ref',
-       content => '',
+       get_name => 'STATUS_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5858,8 +5858,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'citation_ref',
-       content => '',
+       get_name => 'CITATION_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5870,8 +5870,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'citation_ref',
-       content => '',
+       get_name => 'CITATION_REF',
+       get_content => '',
        has_parts => 0,
       },
      },
@@ -5882,8 +5882,8 @@ sub _build_string_test_case_list {
       expected =>
       {
        type => 'part',
-       name => 'take_note_symbol',
-       content => '',
+       get_name => 'take_note_symbol',
+       get_content => '',
        has_parts => 0,
       },
      },

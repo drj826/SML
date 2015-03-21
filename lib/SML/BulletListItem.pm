@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.BulletListItem');
 
 has '+name' =>
   (
-   required => 1,
+   default => 'BULLET_LIST_ITEM',
   );
 
 ######################################################################

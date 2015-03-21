@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.Keypoints');
 
 has '+name' =>
   (
-   default => 'keypoints',
+   default => 'KEYPOINTS',
   );
 
 ######################################################################

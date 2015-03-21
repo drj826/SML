@@ -53,7 +53,7 @@ has '+content' =>
 
 has '+name' =>
   (
-   default => 'footnote_ref',
+   default => 'FOOTNOTE_REF',
   );
 
 ######################################################################

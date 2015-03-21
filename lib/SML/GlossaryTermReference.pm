@@ -63,7 +63,7 @@ has '+content' =>
 
 has '+name' =>
   (
-   default => 'gloss_term_ref',
+   default => 'GLOSS_TERM_REF',
   );
 
 ######################################################################
