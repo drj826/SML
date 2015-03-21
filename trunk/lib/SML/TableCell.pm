@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.TableCell');
 
 has '+name' =>
   (
-   default => 'TABLECELL',
+   default => 'TABLE_CELL',
   );
 
 ######################################################################

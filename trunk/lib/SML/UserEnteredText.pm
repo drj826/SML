@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.UserEnteredText');
 
 has '+name' =>
   (
-   default => 'user_entered_text',
+   default => 'USER_ENTERED_TEXT',
   );
 
 ######################################################################

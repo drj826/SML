@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.ListItem');
 
 has '+name' =>
   (
-   default => 'listitem',
+   default => 'LIST_ITEM',
   );
 
 ######################################################################

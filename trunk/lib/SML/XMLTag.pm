@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.XMLTag');
 
 has '+name' =>
   (
-   default => 'xml_tag',
+   default => 'XML_TAG',
   );
 
 ######################################################################

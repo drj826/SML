@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.SyntaxErrorString');
 
 has '+name' =>
   (
-   default => 'syntax_error',
+   default => 'SYNTAX_ERROR_STRING',
   );
 
 ######################################################################

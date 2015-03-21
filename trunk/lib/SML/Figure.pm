@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.Figure');
 
 has '+name' =>
   (
-   default => 'figure',
+   default => 'FIGURE',
   );
 
 ######################################################################

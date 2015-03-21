@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.EmailAddress');
 
 has '+name' =>
   (
-   default => 'email_addr',
+   default => 'EMAIL_ADDR',
   );
 
 ######################################################################

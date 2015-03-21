@@ -53,7 +53,7 @@ has '+content' =>
 
 has '+name' =>
   (
-   default => 'gloss_def_ref',
+   default => 'GLOSS_DEF_REF',
   );
 
 ######################################################################

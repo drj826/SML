@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.Demo');
 
 has '+name' =>
   (
-   default => 'demo',
+   default => 'DEMO',
   );
 
 ######################################################################

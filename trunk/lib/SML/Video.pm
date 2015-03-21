@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.Video');
 
 has '+name' =>
   (
-   default => 'video',
+   default => 'VIDEO',
   );
 
 ######################################################################

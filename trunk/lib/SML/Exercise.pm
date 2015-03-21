@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.Exercise');
 
 has '+name' =>
   (
-   default => 'exercise',
+   default => 'EXERCISE',
   );
 
 ######################################################################

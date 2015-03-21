@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.Slide');
 
 has '+name' =>
   (
-   default => 'slide',
+   default => 'SLIDE',
   );
 
 ######################################################################

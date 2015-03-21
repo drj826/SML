@@ -43,7 +43,7 @@ has '+content' =>
 
 has '+name' =>
   (
-   default => 'status_ref',
+   default => 'STATUS_REF',
   );
 
 ######################################################################

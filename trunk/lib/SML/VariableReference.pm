@@ -53,7 +53,7 @@ has '+content' =>
 
 has '+name' =>
   (
-   default => 'variable_ref',
+   default => 'VARIABLE_REF',
   );
 
 ######################################################################
