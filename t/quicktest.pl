@@ -4,8 +4,8 @@
 
 ######################################################################
 
-my $filename = 'td-000001.txt';
-my $docid    = 'td-000001';
+my $filename = 'td-000082.txt';
+my $docid    = 'td-000082';
 
 use SML::Library;
 
@@ -17,6 +17,10 @@ my $library  = SML::Library->new(config_filename=>'library.conf');
 my $parser   = $library->get_parser;
 my $fragment = $parser->create_fragment($filename);
 my $document = $library->get_document($docid);
+
+my $valid = $document->is_valid;
+
+print "valid: $valid\n\n";
 
 print $document->dump_part_structure, "\n\n";
 
