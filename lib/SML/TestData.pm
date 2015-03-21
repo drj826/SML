@@ -3945,6 +3945,16 @@ sub _build_document_test_case_list {
      },
 
      {
+      name     => 'td-000082',
+      testfile => 'td-000082.txt',
+      docid    => 'td-000082',
+      expected =>
+      {
+       is_valid => 1,
+      },
+     },
+
+     {
       name     => 'add_note_1',
       document => $self->get_test_object('SML::Document','td-000020'),
       note     => $self->get_test_object('SML::Note','1'),
