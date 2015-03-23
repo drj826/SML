@@ -35,7 +35,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Definition->new;
+my $obj = SML::Definition->new(name=>'glossary');
 isa_ok( $obj, 'SML::Definition' );
 
 #---------------------------------------------------------------------
@@ -84,9 +84,10 @@ sub get_term_ok {
   # arrange
   my $tcname     = $tc->{name};
   my $text       = $tc->{text};
+  my $defname    = $tc->{defname};
   my $expected   = $tc->{expected}{get_term};
   my $line       = SML::Line->new(content=>$text);
-  my $definition = SML::Definition->new();
+  my $definition = SML::Definition->new(name=>$defname);
 
   $definition->add_line($line);
 
@@ -106,9 +107,10 @@ sub get_alt_ok {
   # arrange
   my $tcname     = $tc->{name};
   my $text       = $tc->{text};
+  my $defname    = $tc->{defname};
   my $expected   = $tc->{expected}{get_alt};
   my $line       = SML::Line->new(content=>$text);
-  my $definition = SML::Definition->new();
+  my $definition = SML::Definition->new(name=>$defname);
 
   $definition->add_line($line);
 
@@ -128,9 +130,10 @@ sub get_value_ok {
   # arrange
   my $tcname     = $tc->{name};
   my $text       = $tc->{text};
+  my $defname    = $tc->{defname};
   my $expected   = $tc->{expected}{get_value};
   my $line       = SML::Line->new(content=>$text);
-  my $definition = SML::Definition->new();
+  my $definition = SML::Definition->new(name=>$defname);
 
   $definition->add_line($line);
 
@@ -150,9 +153,10 @@ sub error_get_term_ok {
   # arrange
   my $tcname     = $tc->{name};
   my $text       = $tc->{text};
+  my $defname    = $tc->{defname};
   my $expected   = $tc->{expected}{error}{get_term};
   my $line       = SML::Line->new(content=>$text);
-  my $definition = SML::Definition->new();
+  my $definition = SML::Definition->new(name=>$defname);
 
   $definition->add_line($line);
 

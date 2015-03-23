@@ -37,7 +37,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Block->new;
+my $obj = SML::Block->new(name=>'PARAGRAPH');
 isa_ok( $obj, 'SML::Block' );
 
 #---------------------------------------------------------------------
@@ -97,8 +97,8 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{ $tcl })
   {
-    renders_ok($tc,'html','default')  if defined $tc->{expected}{html}{default};
-    renders_ok($tc,'latex','default') if defined $tc->{expected}{latex}{default};
+    renders_ok($tc,'html','default')  if defined $tc->{expected}{render}{html}{default};
+    renders_ok($tc,'latex','default') if defined $tc->{expected}{render}{latex}{default};
     has_valid_syntax_ok($tc)          if defined $tc->{expected}{has_valid_syntax};
     valid_syntax_warning_ok($tc)      if defined $tc->{expected}{valid_syntax_warning};
     has_valid_semantics_ok($tc)       if defined $tc->{expected}{has_valid_semantics};
@@ -116,7 +116,8 @@ sub renders_ok {
   # Arrange
   my $tcname    = $tc->{name};
   my $content   = $tc->{content};
-  my $expected  = $tc->{expected}{$rendition}{$style};
+  my $subclass  = $tc->{subclass};
+  my $expected  = $tc->{expected}{render}{$rendition}{$style};
   my $filename  = $tc->{filename};
   my $docid     = $tc->{docid};
   my $library   = SML::Library->new(config_file=>'library.conf');
@@ -124,7 +125,7 @@ sub renders_ok {
   my $fragment  = $parser->create_fragment($filename);
   my $document  = $library->get_document($docid);
   my $line      = SML::Line->new(content=>$content);
-  my $block     = SML::Block->new;
+  my $block     = $subclass->new;
 
   $block->add_line($line);
   $document->add_part($block);
@@ -135,10 +136,13 @@ sub renders_ok {
     }
 
   # Act
-  my $html = $block->render($rendition,$style);
+  my $result = $block->render($rendition,$style);
+
+  my $summary = substr($result,0,20);
+  $summary =~ s/[\n\r]+//g;
 
   # Assert
-  is($html, $expected, "$tcname renders $rendition $style");
+  is($result,$expected,"$tcname renders $rendition $style ($summary...)");
 }
 
 ######################################################################
@@ -150,6 +154,7 @@ sub has_valid_syntax_ok {
   # Arrange
   my $tcname    = $tc->{name};
   my $content   = $tc->{content};
+  my $subclass  = $tc->{subclass};
   my $expected  = $tc->{expected}{has_valid_syntax};
   my $filename  = $tc->{filename};
   my $docid     = $tc->{docid};
@@ -158,7 +163,7 @@ sub has_valid_syntax_ok {
   my $fragment  = $parser->create_fragment($filename);
   my $document  = $library->get_document($docid);
   my $line      = SML::Line->new(content=>$content);
-  my $block     = SML::Block->new;
+  my $block     = $subclass->new;
 
   $block->add_line($line);
   $document->add_part($block);
@@ -184,6 +189,7 @@ sub has_valid_semantics_ok {
   # Arrange
   my $tcname    = $tc->{name};
   my $content   = $tc->{content};
+  my $subclass  = $tc->{subclass};
   my $expected  = $tc->{expected}{has_valid_semantics};
   my $filename  = $tc->{filename};
   my $docid     = $tc->{docid};
@@ -192,7 +198,7 @@ sub has_valid_semantics_ok {
   my $fragment  = $parser->create_fragment($filename);
   my $document  = $library->get_document($docid);
   my $line      = SML::Line->new(content=>$content);
-  my $block     = SML::Block->new;
+  my $block     = $subclass->new;
 
   $block->add_line($line);
   $document->add_part($block);
@@ -218,6 +224,7 @@ sub valid_syntax_warning_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $content  = $tc->{content};
+  my $subclass = $tc->{subclass};
   my $expected = $tc->{expected}{valid_syntax_warning};
   my $filename = $tc->{filename};
   my $docid    = $tc->{docid};
@@ -226,7 +233,7 @@ sub valid_syntax_warning_ok {
   my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
   my $line     = SML::Line->new(content=>$content);
-  my $block    = SML::Block->new;
+  my $block    = $subclass->new;
 
   $block->add_line($line);
   $document->add_part($block);
@@ -255,6 +262,7 @@ sub valid_semantics_warning_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $content  = $tc->{content};
+  my $subclass = $tc->{subclass};
   my $expected = $tc->{expected}{valid_semantics_warning};
   my $filename = $tc->{filename};
   my $docid    = $tc->{docid};
@@ -263,7 +271,7 @@ sub valid_semantics_warning_ok {
   my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
   my $line     = SML::Line->new(content=>$content);
-  my $block    = SML::Block->new;
+  my $block    = $subclass->new;
 
   $block->add_line($line);
   $document->add_part($block);

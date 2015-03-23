@@ -4,25 +4,73 @@
 
 ######################################################################
 
-my $filename = 'td-000082.txt';
-my $docid    = 'td-000082';
-
 use SML::Library;
+use SML::Line;
+use SML::Paragraph;
 
-use Log::Log4perl;
-Log::Log4perl->init("log.test.conf");
-my $logger = Log::Log4perl::get_logger('sml.application');
+my $tc =
+  {
+   name     => 'cross_reference_1',
+   content  => '[ref:introduction]',
+   subclass => 'SML::Paragraph',
+   filename => 'td-000020.txt',
+   docid    => 'td-000020',
+   expected =>
+   {
+    render =>
+    {
+     html =>
+     {
+      default => "<p><a href=\"td-000020-1.html#SECTION.1\">Section 1</a></p>\n\n",
+     },
+     latex =>
+     {
+      default => "Section~\\vref{introduction}\n\n",
+     },
+     xml =>
+     {
+      default => "<a href=\"td-000020-1.xml#SECTION.1\">Section 1</a>\n\n",
+     },
+    },
+    error =>
+    {
+     no_doc => 'NOT IN DOCUMENT CONTEXT',
+    },
+   },
+  },
 
-my $library  = SML::Library->new(config_filename=>'library.conf');
-my $parser   = $library->get_parser;
-my $fragment = $parser->create_fragment($filename);
-my $document = $library->get_document($docid);
+my $rendition = 'html';
+my $style     = 'default';
 
-my $valid = $document->is_valid;
+# Arrange
+my $tcname    = $tc->{name};
+my $content   = $tc->{content};
+my $subclass  = $tc->{subclass};
+my $expected  = $tc->{expected}{render}{$rendition}{$style};
+my $filename  = $tc->{filename};
+my $docid     = $tc->{docid};
+my $library   = SML::Library->new(config_file=>'library.conf');
+my $parser    = $library->get_parser;
+my $fragment  = $parser->create_fragment($filename);
+my $document  = $library->get_document($docid);
+my $line      = SML::Line->new(content=>$content);
+my $block     = $subclass->new;
 
-print "valid: $valid\n\n";
+$block->add_line($line);
+$document->add_part($block);
 
-print $document->dump_part_structure, "\n\n";
+foreach my $block (@{ $fragment->get_block_list }) {
+  $parser->_parse_block($block);
+}
+
+# Act
+my $result = $block->render($rendition,$style);
+
+print "\'$result\'\n\n";
+
+print "============================================================\n\n";
+
+print $block->dump_part_structure, "\n";
 
 ######################################################################
 
