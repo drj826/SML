@@ -5464,11 +5464,7 @@ sub _process_start_region_marker {
       my $id      = "$name-$num";
       my $class   = $self->_class_for($name);
 
-      $region = $class->new
-	(
-	 name => $name,
-	 id   => $id,
-	);
+      $region = $class->new(id=>$id);
 
       $region->add_part($block);
     }
@@ -5624,8 +5620,8 @@ sub _process_environment_marker {
       my $class       = $self->_class_for($name);
       my $environment = $class->new
 	(
-	 name        => $name,
-	 id          => $id,
+	 name => $name,
+	 id   => $id,
 	);
 
       $environment->add_part($block);
@@ -5915,16 +5911,13 @@ sub _process_start_note {
   my $tag   = shift;
   my $divid = shift;
 
-  my $name = 'note';
-
   my $division = $self->_get_current_division;
   my $divname  = $division->get_name;
 
-  $logger->trace("----- element ($name)");
+  $logger->trace("----- element (NOTE)");
 
   my $element = SML::Note->new
     (
-     name     => $name,
      tag      => $tag,
      division => $division,
     );
@@ -5976,7 +5969,10 @@ sub _process_start_glossary_entry {
 
   $logger->trace("----- element (glossary)");
 
-  my $definition = SML::Definition->new(name=>$blockname);
+  my $definition = SML::Definition->new
+    (
+     name => 'glossary',
+    );
 
   $definition->add_line($line);
 
@@ -6014,7 +6010,6 @@ sub _process_start_acronym_entry {
   my $term = shift;
   my $alt  = shift || '';
 
-  my $name      = 'acronym';
   my $sml       = SML->instance;
   my $util      = $sml->get_util;
   my $library   = $self->get_library;
@@ -6023,11 +6018,11 @@ sub _process_start_acronym_entry {
   my $division = $self->_get_current_division;
   my $divname  = $division->get_name;
 
-  $logger->trace("----- element ($name)");
+  $logger->trace("----- element (ACRONYM DEFINITION)");
 
   my $definition = SML::Definition->new
     (
-     name => $name,
+     name => 'acronym',
      term => $term,
      alt  => $alt,
     );
@@ -6072,20 +6067,19 @@ sub _process_start_variable_definition {
   my $term = shift;
   my $alt  = shift || '';
 
-  my $name     = 'var';
   my $sml      = SML->instance;
   my $util     = $sml->get_util;
   my $library  = $self->get_library;
   my $division = $self->_get_current_division;
   my $divname  = $division->get_name;
 
-  $logger->trace("----- element ($name)");
+  $logger->trace("----- element (VARIABLE DEFINITION)");
 
   my $definition = SML::Definition->new
     (
-     name       => $name,
-     term       => $term,
-     alt        => $alt,
+     name => 'var',
+     term => $term,
+     alt  => $alt,
     );
 
   $definition->add_line($line);
@@ -6221,7 +6215,7 @@ sub _process_start_table_cell {
   $self->_end_preamble if $self->_in_preamble;
 
   # new block
-  my $block = SML::Block->new;
+  my $block = SML::Block->new(name=>'paragraph');
   $block->add_line($line);
   $self->_begin_block($block);
 
