@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.CommentDivision');
 
 has '+name' =>
   (
-   default => 'COMMENT',
+   default => 'COMMENT_DIVISION',
   );
 
 ######################################################################
