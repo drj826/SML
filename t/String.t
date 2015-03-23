@@ -71,10 +71,10 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{$tcl})
   {
-    get_name_ok($tc)    if exists $tc->{expected}{get_name};
-    get_content_ok($tc) if exists $tc->{expected}{get_content};
-    has_parts_ok($tc)   if exists $tc->{expected}{has_parts};
-    render_ok($tc,'html','default') if exists $tc->{expected}{html}{default};
+    get_name_ok($tc)                if exists $tc->{expected}{get_name};
+    get_content_ok($tc)             if exists $tc->{expected}{get_content};
+    has_parts_ok($tc)               if exists $tc->{expected}{has_parts};
+    render_ok($tc,'html','default') if exists $tc->{expected}{render}{html}{default};
   }
 
 #---------------------------------------------------------------------
@@ -154,7 +154,7 @@ sub render_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $expected = $tc->{expected}{$rendition}{$style};
+  my $expected = $tc->{expected}{render}{$rendition}{$style};
   my $text     = $tc->{text};
   my $library  = $td->get_test_object('SML::Library','library');
   my $parser   = $library->get_parser;
@@ -164,7 +164,7 @@ sub render_ok {
   my $result = $string->render($rendition,$style);
 
   # assert
-  my $summary = substr($result,0,10);
+  my $summary = substr($result,0,20);
   is($result,$expected,"$tcname render $rendition $style ($summary...)");
 }
 

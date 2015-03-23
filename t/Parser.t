@@ -20,7 +20,7 @@ my $library = SML::Library->new(config_filename=>'library.conf');
 
 use SML::TestData;
 
-my $td = SML::TestData->new();
+my $td  = SML::TestData->new();
 my $tcl = $td->get_parser_test_case_list;
 
 #---------------------------------------------------------------------
@@ -66,30 +66,11 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{$tcl})
   {
-    if ( defined $tc->{expected}{should_parse_ok} )
-      {
-	parse_ok($tc);
-      }
-
-    if ( defined $tc->{expected}{divname} )
-      {
-	extract_division_name_ok($tc);
-      }
-
-    if ( defined $tc->{expected}{title} )
-      {
-	extract_title_text_ok($tc);
-      }
-
-    if ( defined $tc->{expected}{preamble_size} )
-      {
-	extract_preamble_lines_ok($tc);
-      }
-
-    if ( defined $tc->{expected}{narrative_size} )
-      {
-	extract_preamble_lines_ok($tc);
-      }
+    create_fragment_ok($tc)         if defined $tc->{expected}{create_fragment};
+    extract_division_name_ok($tc)   if defined $tc->{expected}{extract_division_name};
+    extract_title_text_ok($tc)      if defined $tc->{expected}{extract_title_text};
+    extract_preamble_lines_ok($tc)  if defined $tc->{expected}{extract_preamble_lines};
+    extract_narrative_lines_ok($tc) if defined $tc->{expected}{extract_narrative_lines};
   }
 
 #---------------------------------------------------------------------
@@ -98,28 +79,24 @@ foreach my $tc (@{$tcl})
 
 ######################################################################
 
-sub parse_ok {
+sub create_fragment_ok {
 
   my $tc = shift;
 
   # arrange
+  my $tcname   = $tc->{name};
   my $library  = SML::Library->new(config_filename=>'library.conf');
   my $parser   = $library->get_parser;
   my $filespec = $tc->{testfile};
   my $name     = $tc->{name};
-  my $expected = $tc->{expected}{should_parse_ok};
+  my $expected = $tc->{expected}{create_fragment};
 
   # act
   my $fragment = $parser->create_fragment($filespec);
-  my $result   = 0;
-
-  if ( $fragment )
-    {
-      $result = 1;
-    }
+  my $result   = ref $fragment;
 
   # assert
-  is($result, $expected, "parse $filespec $name");
+  is($result,$expected,"$tcname create_fragment $result");
 }
 
 ######################################################################
@@ -129,11 +106,12 @@ sub extract_division_name_ok {
   my $tc = shift;
 
   # arrange
+  my $tcname   = $tc->{name};
   my $library  = SML::Library->new(config_filename=>'library.conf');
   my $parser   = $library->get_parser;
   my $name     = $tc->{name};
   my $filespec = $tc->{testfile};
-  my $expected = $tc->{expected}{divname};
+  my $expected = $tc->{expected}{extract_division_name};
   my $fragment = $parser->create_fragment($filespec);
   my $lines    = $fragment->get_line_list;
 
@@ -141,7 +119,7 @@ sub extract_division_name_ok {
   my $result = $parser->extract_division_name($lines);
 
   # assert
-  is($result, $expected, "extract_division_name $filespec $name");
+  is($result,$expected,"$tcname extract_division_name $result");
 }
 
 ######################################################################
@@ -151,11 +129,12 @@ sub extract_title_text_ok {
   my $tc = shift;
 
   # arrange
+  my $tcname   = $tc->{name};
   my $library  = SML::Library->new(config_filename=>'library.conf');
   my $parser   = $library->get_parser;
   my $name     = $tc->{name};
   my $filespec = $tc->{testfile};
-  my $expected = $tc->{expected}{title};
+  my $expected = $tc->{expected}{extract_title_text};
   my $fragment = $parser->create_fragment($filespec);
   my $lines    = $fragment->get_line_list;
 
@@ -163,7 +142,7 @@ sub extract_title_text_ok {
   my $result = $parser->extract_title_text($lines);
 
   # assert
-  is($result, $expected, "extract_title_text $filespec $name");
+  is($result,$expected,"$tcname extract_title_text $result");
 }
 
 ######################################################################
@@ -173,20 +152,21 @@ sub extract_preamble_lines_ok {
   my $tc = shift;
 
   # arrange
-  my $library     = SML::Library->new(config_filename=>'library.conf');
-  my $parser      = $library->get_parser;
-  my $name        = $tc->{name};
-  my $filespec    = $tc->{testfile};
-  my $expected    = $tc->{expected}{preamble_size};
-  my $fragment    = $parser->create_fragment($filespec);
-  my $lines       = $fragment->get_line_list;
+  my $tcname   = $tc->{name};
+  my $library  = SML::Library->new(config_filename=>'library.conf');
+  my $parser   = $library->get_parser;
+  my $name     = $tc->{name};
+  my $filespec = $tc->{testfile};
+  my $expected = $tc->{expected}{extract_preamble_lines};
+  my $fragment = $parser->create_fragment($filespec);
+  my $lines    = $fragment->get_line_list;
 
   # act
   my $preamble_lines = $parser->extract_preamble_lines($lines);
   my $result         = scalar @{ $preamble_lines };
 
   # assert
-  is($result, $expected, "extract_preamble_lines $filespec $name");
+  is($result,$expected,"$tcname extract_preamble_lines $result");
 }
 
 ######################################################################
@@ -196,20 +176,23 @@ sub extract_narrative_lines_ok {
   my $tc = shift;
 
   # arrange
-  my $library     = SML::Library->new(config_filename=>'library.conf');
-  my $parser      = $library->get_parser;
-  my $name        = $tc->{name};
-  my $filespec    = $tc->{testfile};
-  my $expected    = $tc->{expected}{narrative_size};
-  my $fragment    = $parser->create_fragment($filespec);
-  my $lines       = $fragment->get_line_list;
+  my $tcname   = $tc->{name};
+  my $library  = SML::Library->new(config_filename=>'library.conf');
+  my $parser   = $library->get_parser;
+  my $name     = $tc->{name};
+  my $filespec = $tc->{testfile};
+  my $expected = $tc->{expected}{extract_narrative_lines};
+  my $fragment = $parser->create_fragment($filespec);
+  my $lines    = $fragment->get_line_list;
 
   # act
   my $narrative_lines = $parser->extract_narrative_lines($lines);
   my $result          = scalar @{ $narrative_lines };
 
   # assert
-  is($result, $expected, "extract_narrative_lines $filespec $name");
+  is($result,$expected,"$tcname extract_narrative_lines $result");
 }
 
 ######################################################################
+
+1;

@@ -3,7 +3,7 @@
 # $Id$
 
 use lib "..";
-use Test::More tests => 4;
+use Test::More tests => 5;
 
 use SML;
 
@@ -63,7 +63,8 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{ $tcl })
   {
-    get_value_ok($tc) if defined $tc->{expected}{get_value};
+    get_value_ok($tc)                if defined $tc->{expected}{get_value};
+    validate_element_allowed_ok($tc) if defined $tc->{expected}{validate_element_allowed};
   }
 
 #---------------------------------------------------------------------
@@ -91,6 +92,27 @@ sub get_value_ok {
 
   # assert
   is($result,$expected,"$tcname get_value $result");
+}
+
+######################################################################
+
+sub validate_element_allowed_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $name     = $tc->{element_name};
+  my $text     = $tc->{text};
+  my $line     = SML::Line->new(content=>$text);
+  my $element  = SML::Element->new(name=>$name);
+  my $expected = $tc->{expected}{validate_element_allowed};
+
+  # act
+  my $result = $element->validate_element_allowed;
+
+  # assert
+  is($result,$expected,"$tcname validate_element_allowed $result");
 }
 
 ######################################################################

@@ -149,7 +149,7 @@ foreach my $tc (@{ $tcl })
 
 foreach my $tc (@{ $tcl })
   {
-    warn_invalid_semantics_ok($tc) if defined $tc->{expected}{valid_semantics_warning};
+    warn_has_valid_semantics_ok($tc) if defined $tc->{expected}{warning}{has_valid_semantics};
   }
 
 ######################################################################
@@ -564,7 +564,7 @@ sub get_property_value_ok {
 
 ######################################################################
 
-sub warn_invalid_semantics_ok {
+sub warn_has_valid_semantics_ok {
 
   my $tc = shift;                       # test case
 
@@ -576,7 +576,7 @@ sub warn_invalid_semantics_ok {
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
-  my $expected = $tc->{expected}{valid_semantics_warning};
+  my $expected = $tc->{expected}{warning}{has_valid_semantics};
   my $t1logger = Test::Log4perl->get_logger('sml.Division');
 
   Test::Log4perl->start( ignore_priority => "info" );
