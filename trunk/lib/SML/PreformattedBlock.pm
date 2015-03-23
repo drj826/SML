@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.PreformattedBlock');
 
 has '+name' =>
   (
-   default => 'PREFORMATTED',
+   default => 'PREFORMATTED_BLOCK',
   );
 
 ######################################################################
