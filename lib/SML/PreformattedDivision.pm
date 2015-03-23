@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.PreformattedDivision');
 
 has '+name' =>
   (
-   default => 'PREFORMATTED',
+   default => 'PREFORMATTED_DIVISION',
   );
 
 ######################################################################
