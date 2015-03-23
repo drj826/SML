@@ -589,21 +589,25 @@ sub _build_block_test_case_list {
      {
       name     => 'cross_reference_1',
       content  => '[ref:introduction]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"td-000020-1.html#SECTION.1\">Section 1</a>\n\n",
-       },
-       latex =>
-       {
-	default => "Section~\\vref{introduction}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"td-000020-1.xml#SECTION.1\">Section 1</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"td-000020-1.html#SECTION.1\">Section 1</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "Section~\\vref{introduction}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"td-000020-1.xml#SECTION.1\">Section 1</a>\n\n",
+	},
        },
        error =>
        {
@@ -615,21 +619,25 @@ sub _build_block_test_case_list {
      {
       name     => 'cross_reference_2',
       content  => '[r:introduction]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"td-000020-1.html#SECTION.1\">Section 1</a>\n\n",
-       },
-       latex =>
-       {
-	default => "Section~\\vref{introduction}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"td-000020-1.xml#SECTION.1\">Section 1</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"td-000020-1.html#SECTION.1\">Section 1</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "Section~\\vref{introduction}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"td-000020-1.xml#SECTION.1\">Section 1</a>\n\n",
+	},
        },
        error =>
        {
@@ -641,21 +649,25 @@ sub _build_block_test_case_list {
      {
       name     => 'cross_reference_3',
       content  => '[ref:system-model]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"td-000020-2.html#SECTION.2\">Section 2</a>\n\n",
-       },
-       latex =>
-       {
-	default => "Section~\\vref{system-model}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"td-000020-2.html#Section.2\">Section 2</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"td-000020-2.html#SECTION.2\">Section 2</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "Section~\\vref{system-model}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"td-000020-2.html#Section.2\">Section 2</a>\n\n",
+	},
        },
        error =>
        {
@@ -667,21 +679,25 @@ sub _build_block_test_case_list {
      {
       name     => 'cross_reference_4',
       content  => '[r:system-model]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"td-000020-2.html#SECTION.2\">Section 2</a>\n\n",
-       },
-       latex =>
-       {
-	default => "Section~\\vref{system-model}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"td-000020-2.html#Section.2\">Section 2</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"td-000020-2.html#SECTION.2\">Section 2</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "Section~\\vref{system-model}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"td-000020-2.html#Section.2\">Section 2</a>\n\n",
+	},
        },
        error =>
        {
@@ -693,21 +709,25 @@ sub _build_block_test_case_list {
      {
       name     => 'url_reference_1',
       content  => '[url:http://www.cnn.com/]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"http://www.cnn.com/\">http://www.cnn.com/</a>\n\n",
-       },
-       latex =>
-       {
-	default => "\\urlstyle{sf}\\url{http://www.cnn.com/}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"http://www.cnn.com/\">http://www.cnn.com/</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"http://www.cnn.com/\">http://www.cnn.com/</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\urlstyle{sf}\\url{http://www.cnn.com/}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"http://www.cnn.com/\">http://www.cnn.com/</a>\n\n",
+	},
        },
       },
      },
@@ -715,21 +735,25 @@ sub _build_block_test_case_list {
      {
       name     => 'url_reference_2',
       content  => '[url:http://www.cnn.com/|CNN News]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"http://www.cnn.com/\">CNN News</a>\n\n",
-       },
-       latex =>
-       {
-	default => "\\urlstyle{sf}\\href{http://www.cnn.com/}{CNN News}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"http://www.cnn.com/\">CNN News</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"http://www.cnn.com/\">CNN News</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\urlstyle{sf}\\href{http://www.cnn.com/}{CNN News}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"http://www.cnn.com/\">CNN News</a>\n\n",
+	},
        },
       },
      },
@@ -737,21 +761,25 @@ sub _build_block_test_case_list {
      {
       name     => 'footnote_reference_1',
       content  => '[f:introduction:1]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.introduction.1\">1<\/a><\/sup><\/span>\n\n",
-       },
-       latex =>
-       {
-	default => "\\footnote{This is a footnote.}\n\n",
-       },
-       xml =>
-       {
-	default => "<span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.introduction.1\">1<\/a><\/sup><\/span>\n\n",
+	html =>
+	{
+	 default => "<p><span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.introduction.1\">1<\/a><\/sup><\/span></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\footnote{This is a footnote.}\n\n",
+	},
+	xml =>
+	{
+	 default => "<span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.introduction.1\">1<\/a><\/sup><\/span>\n\n",
+	},
        },
        error =>
        {
@@ -763,21 +791,25 @@ sub _build_block_test_case_list {
      {
       name     => 'glossary_reference_1',
       content  => '[g:sml:document]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
-       },
-       latex =>
-       {
-	default => "\\gls{document:sml}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"td-000020.glossary.html#document:sml\">document</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\gls{document:sml}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
+	},
        },
        error =>
        {
@@ -789,21 +821,25 @@ sub _build_block_test_case_list {
      {
       name     => 'glossary_reference_2',
       content  => '[G:sml:document]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
-       },
-       latex =>
-       {
-	default => "\\Gls{document:sml}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"td-000020.glossary.html#document:sml\">Document</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\Gls{document:sml}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
+	},
        },
        error =>
        {
@@ -815,21 +851,25 @@ sub _build_block_test_case_list {
      {
       name     => 'glossary_reference_3',
       content  => '[gls:sml:document]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
-       },
-       latex =>
-       {
-	default => "\\gls{document:sml}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"td-000020.glossary.html#document:sml\">document</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\gls{document:sml}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"td-000020.glossary.html#document:sml\">document</a>\n\n",
+	},
        },
        error =>
        {
@@ -841,21 +881,25 @@ sub _build_block_test_case_list {
      {
       name     => 'glossary_reference_4',
       content  => '[Gls:sml:document]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
-       },
-       latex =>
-       {
-	default => "\\Gls{document:sml}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"td-000020.glossary.html#document:sml\">Document</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\Gls{document:sml}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"td-000020.glossary.html#document:sml\">Document</a>\n\n",
+	},
        },
        error =>
        {
@@ -867,21 +911,25 @@ sub _build_block_test_case_list {
      {
       name     => 'acronym_reference_1',
       content  => '[a:sml:TLA]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a>\n\n",
-       },
-       latex =>
-       {
-	default => "\\ac{TLA:sml}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\ac{TLA:sml}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a>\n\n",
+	},
        },
        error =>
        {
@@ -893,21 +941,25 @@ sub _build_block_test_case_list {
      {
       name     => 'acronym_reference_2',
       content  => '[ac:sml:TLA]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a>\n\n",
-       },
-       latex =>
-       {
-	default => "\\ac{TLA:sml}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\ac{TLA:sml}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a>\n\n",
+	},
        },
        error =>
        {
@@ -919,21 +971,25 @@ sub _build_block_test_case_list {
      {
       name     => 'acronym_reference_3',
       content  => '[acs:sml:TLA]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a>\n\n",
-       },
-       latex =>
-       {
-	default => "\\acs{TLA:sml}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\acs{TLA:sml}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"td-000020.acronyms.html#TLA:sml\">TLA</a>\n\n",
+	},
        },
        error =>
        {
@@ -943,23 +999,27 @@ sub _build_block_test_case_list {
      },
 
      {
-      name     => 'acronym_reference_3',
+      name     => 'acronym_reference_4',
       content  => '[acl:sml:TLA]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"td-000020.acronyms.html#TLA:sml\">Three Letter Acronym</a>\n\n",
-       },
-       latex =>
-       {
-	default => "\\acl{TLA:sml}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"td-000020.acronyms.html#TLA:sml\">Three Letter Acronym</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"td-000020.acronyms.html#TLA:sml\">Three Letter Acronym</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\acl{TLA:sml}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"td-000020.acronyms.html#TLA:sml\">Three Letter Acronym</a>\n\n",
+	},
        },
        error =>
        {
@@ -971,21 +1031,25 @@ sub _build_block_test_case_list {
      {
       name     => 'index_reference_1',
       content  => '[i:structured manuscript language]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "structured manuscript language\n\n",
-       },
-       latex =>
-       {
-	default => "structured manuscript language \\index{structured manuscript language}\n\n",
-       },
-       xml =>
-       {
-	default => "structured manuscript language\n\n",
+	html =>
+	{
+	 default => "<p>structured manuscript language</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "structured manuscript language \\index{structured manuscript language}\n\n",
+	},
+	xml =>
+	{
+	 default => "structured manuscript language\n\n",
+	},
        },
       },
      },
@@ -993,21 +1057,25 @@ sub _build_block_test_case_list {
      {
       name     => 'index_reference_2',
       content  => '[index:structured manuscript language]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "structured manuscript language\n\n",
-       },
-       latex =>
-       {
-	default => "structured manuscript language \\index{structured manuscript language}\n\n",
-       },
-       xml =>
-       {
-	default => "structured manuscript language\n\n",
+	html =>
+	{
+	 default => "<p>structured manuscript language</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "structured manuscript language \\index{structured manuscript language}\n\n",
+	},
+	xml =>
+	{
+	 default => "structured manuscript language\n\n",
+	},
        },
       },
      },
@@ -1015,21 +1083,25 @@ sub _build_block_test_case_list {
      {
       name     => 'id_reference_1',
       content  => '[id:introduction]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"td-000020-1.html#SECTION.1\">Section 1</a>\n\n",
-       },
-       latex =>
-       {
-	default => "\\hyperref[introduction]{introduction}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"td-000020-1.html#SECTION.1\">Section 1</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"td-000020-1.html#SECTION.1\">Section 1</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\hyperref[introduction]{introduction}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"td-000020-1.html#SECTION.1\">Section 1</a>\n\n",
+	},
        },
        error =>
        {
@@ -1041,21 +1113,25 @@ sub _build_block_test_case_list {
      {
       name     => 'thepage_reference_1',
       content  => '[thepage]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "\n\n",
-       },
-       latex =>
-       {
-	default => "\\thepage\n\n",
-       },
-       xml =>
-       {
-	default => "\n\n",
+	html =>
+	{
+	 default => "<p></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\thepage\n\n",
+	},
+	xml =>
+	{
+	 default => "\n\n",
+	},
        },
       },
      },
@@ -1063,21 +1139,25 @@ sub _build_block_test_case_list {
      {
       name     => 'page_reference_1',
       content  => '[page:introduction]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"td-000020-1.html#SECTION.1\">link</a>\n\n",
-       },
-       latex =>
-       {
-	default => "p. \\pageref{introduction}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"td-000020-1.html#SECTION.1\">link</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"td-000020-1.html#SECTION.1\">link</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "p. \\pageref{introduction}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"td-000020-1.html#SECTION.1\">link</a>\n\n",
+	},
        },
        error =>
        {
@@ -1089,21 +1169,25 @@ sub _build_block_test_case_list {
      {
       name     => 'page_reference_2',
       content  => '[pg:introduction]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"td-000020-1.html#SECTION.1\">link</a>\n\n",
-       },
-       latex =>
-       {
-	default => "p. \\pageref{introduction}\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"td-000020-1.html#SECTION.1\">link</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"td-000020-1.html#SECTION.1\">link</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "p. \\pageref{introduction}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"td-000020-1.html#SECTION.1\">link</a>\n\n",
+	},
        },
        error =>
        {
@@ -1115,21 +1199,25 @@ sub _build_block_test_case_list {
      {
       name     => 'version_reference_1',
       content  => '[theversion]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "2.0\n\n",
-       },
-       latex =>
-       {
-	default => "2.0\n\n",
-       },
-       xml =>
-       {
-	default => "2.0\n\n",
+	html =>
+	{
+	 default => "<p>2.0</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "2.0\n\n",
+	},
+	xml =>
+	{
+	 default => "2.0\n\n",
+	},
        },
        success => 'valid version reference passes validation',
        error =>
@@ -1142,21 +1230,25 @@ sub _build_block_test_case_list {
      {
       name     => 'revision_reference_1',
       content  => '[therevision]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "4444\n\n",
-       },
-       latex =>
-       {
-	default => "4444\n\n",
-       },
-       xml =>
-       {
-	default => "4444\n\n",
+	html =>
+	{
+	 default => "<p>4444</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "4444\n\n",
+	},
+	xml =>
+	{
+	 default => "4444\n\n",
+	},
        },
        success => 'valid revision reference passes validation',
        error =>
@@ -1169,21 +1261,25 @@ sub _build_block_test_case_list {
      {
       name     => 'date_reference_1',
       content  => '[thedate]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "2012-09-11\n\n",
-       },
-       latex =>
-       {
-	default => "2012-09-11\n\n",
-       },
-       xml =>
-       {
-	default => "2012-09-11\n\n",
+	html =>
+	{
+	 default => "<p>2012-09-11</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "2012-09-11\n\n",
+	},
+	xml =>
+	{
+	 default => "2012-09-11\n\n",
+	},
        },
        success => 'valid date reference passes validation',
        error =>
@@ -1196,21 +1292,25 @@ sub _build_block_test_case_list {
      {
       name     => 'status_reference_1',
       content  => '[status:td-000020]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
-       },
-       latex =>
-       {
-	default => "\\textcolor{fg-yellow}{\$\\blacksquare\$}\n\n",
-       },
-       xml =>
-       {
-	default => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
+	html =>
+	{
+	 default => "<p><image src=\"status_yellow.png\" border=\"0\"/></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\textcolor{fg-yellow}{\$\\blacksquare\$}\n\n",
+	},
+	xml =>
+	{
+	 default => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
+	},
        },
        success => 'valid status reference passes validation',
        error =>
@@ -1223,21 +1323,25 @@ sub _build_block_test_case_list {
      {
       name     => 'status_reference_2',
       content  => '[status:grey]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<image src=\"status_grey.png\" border=\"0\"/>\n\n",
-       },
-       latex =>
-       {
-	default => "\\textcolor{fg-grey}{\$\\blacksquare\$}\n\n",
-       },
-       xml =>
-       {
-	default => "<image src=\"status_grey.png\" border=\"0\"/>\n\n",
+	html =>
+	{
+	 default => "<p><image src=\"status_grey.png\" border=\"0\"/></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\textcolor{fg-grey}{\$\\blacksquare\$}\n\n",
+	},
+	xml =>
+	{
+	 default => "<image src=\"status_grey.png\" border=\"0\"/>\n\n",
+	},
        },
        success => 'valid status reference passes validation',
        error =>
@@ -1250,21 +1354,25 @@ sub _build_block_test_case_list {
      {
       name     => 'status_reference_3',
       content  => '[status:green]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<image src=\"status_green.png\" border=\"0\"/>\n\n",
-       },
-       latex =>
-       {
-	default => "\\textcolor{fg-green}{\$\\blacksquare\$}\n\n",
-       },
-       xml =>
-       {
-	default => "<image src=\"status_green.png\" border=\"0\"/>\n\n",
+	html =>
+	{
+	 default => "<p><image src=\"status_green.png\" border=\"0\"/></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\textcolor{fg-green}{\$\\blacksquare\$}\n\n",
+	},
+	xml =>
+	{
+	 default => "<image src=\"status_green.png\" border=\"0\"/>\n\n",
+	},
        },
        success => 'valid status reference passes validation',
        error =>
@@ -1277,21 +1385,25 @@ sub _build_block_test_case_list {
      {
       name     => 'status_reference_4',
       content  => '[status:yellow]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
-       },
-       latex =>
-       {
-	default => "\\textcolor{fg-yellow}{\$\\blacksquare\$}\n\n",
-       },
-       xml =>
-       {
-	default => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
+	html =>
+	{
+	 default => "<p><image src=\"status_yellow.png\" border=\"0\"/></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\textcolor{fg-yellow}{\$\\blacksquare\$}\n\n",
+	},
+	xml =>
+	{
+	 default => "<image src=\"status_yellow.png\" border=\"0\"/>\n\n",
+	},
        },
        success => 'valid status reference passes validation',
        error =>
@@ -1304,21 +1416,25 @@ sub _build_block_test_case_list {
      {
       name     => 'status_reference_5',
       content  => '[status:red]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<image src=\"status_red.png\" border=\"0\"/>\n\n",
-       },
-       latex =>
-       {
-	default => "\\textcolor{fg-red}{\$\\blacksquare\$}\n\n",
-       },
-       xml =>
-       {
-	default => "<image src=\"status_red.png\" border=\"0\"/>\n\n",
+	html =>
+	{
+	 default => "<p><image src=\"status_red.png\" border=\"0\"/></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\textcolor{fg-red}{\$\\blacksquare\$}\n\n",
+	},
+	xml =>
+	{
+	 default => "<image src=\"status_red.png\" border=\"0\"/>\n\n",
+	},
        },
        success => 'valid status reference passes validation',
        error =>
@@ -1331,21 +1447,25 @@ sub _build_block_test_case_list {
      {
       name     => 'status_reference_6',
       content  => '[status:problem-1]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<image src=\"status_green.png\" border=\"0\"/>\n\n",
-       },
-       latex =>
-       {
-	default => "\\textcolor{fg-green}{\$\\blacksquare\$}\n\n",
-       },
-       xml =>
-       {
-	default => "<image src=\"status_green.png\" border=\"0\"/>\n\n",
+	html =>
+	{
+	 default => "<p><image src=\"status_green.png\" border=\"0\"/></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\textcolor{fg-green}{\$\\blacksquare\$}\n\n",
+	},
+	xml =>
+	{
+	 default => "<image src=\"status_green.png\" border=\"0\"/>\n\n",
+	},
        },
        success => 'valid status reference passes validation',
        error =>
@@ -1358,21 +1478,25 @@ sub _build_block_test_case_list {
      {
       name     => 'citation_reference_1',
       content  => '[cite:cms15]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "[<a href=\"td-000020.source.html#cms15\">cms15</a>]\n\n",
-       },
-       latex =>
-       {
-	default => "\\cite{cms15}\n\n",
-       },
-       xml =>
-       {
-	default => "[<a href=\"td-000020.source.html#cms15\">cms15</a>]\n\n",
+	html =>
+	{
+	 default => "<p>[<a href=\"td-000020.source.html#cms15\">cms15</a>]</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\cite{cms15}\n\n",
+	},
+	xml =>
+	{
+	 default => "[<a href=\"td-000020.source.html#cms15\">cms15</a>]\n\n",
+	},
        },
        error =>
        {
@@ -1384,21 +1508,25 @@ sub _build_block_test_case_list {
      {
       name     => 'citation_reference_2',
       content  => '[cite:cms15, pg 44]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "[<a href=\"td-000020.source.html#cms15\">cms15, pg 44</a>]\n\n",
-       },
-       latex =>
-       {
-	default => "\\cite[pg 44]{cms15}\n\n",
-       },
-       xml =>
-       {
-	default => "[<a href=\"td-000020.source.html#cms15\">cms15, pg 44</a>]\n\n",
+	html =>
+	{
+	 default => "<p>[<a href=\"td-000020.source.html#cms15\">cms15, pg 44</a>]</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\cite[pg 44]{cms15}\n\n",
+	},
+	xml =>
+	{
+	 default => "[<a href=\"td-000020.source.html#cms15\">cms15, pg 44</a>]\n\n",
+	},
        },
        error =>
        {
@@ -1410,21 +1538,25 @@ sub _build_block_test_case_list {
      {
       name     => 'file_reference_1',
       content  => '[file:app.ini]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<tt>app.ini</tt>\n\n",
-       },
-       latex =>
-       {
-	default => "\\path{app.ini}\n\n",
-       },
-       xml =>
-       {
-	default => "<tt>app.ini</tt>\n\n",
+	html =>
+	{
+	 default => "<p><tt>app.ini</tt></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\path{app.ini}\n\n",
+	},
+	xml =>
+	{
+	 default => "<tt>app.ini</tt>\n\n",
+	},
        },
       },
      },
@@ -1432,21 +1564,25 @@ sub _build_block_test_case_list {
      {
       name     => 'file_reference_2',
       content  => '[file:My Document.doc]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<tt>My Document.doc</tt>\n\n",
-       },
-       latex =>
-       {
-	default => "\\path{My Document.doc}\n\n",
-       },
-       xml =>
-       {
-	default => "<tt>My Document.doc</tt>\n\n",
+	html =>
+	{
+	 default => "<p><tt>My Document.doc</tt></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\path{My Document.doc}\n\n",
+	},
+	xml =>
+	{
+	 default => "<tt>My Document.doc</tt>\n\n",
+	},
        },
       },
      },
@@ -1454,21 +1590,25 @@ sub _build_block_test_case_list {
      {
       name     => 'path_reference_1',
       content  => '[path:/path/to/folder]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<tt>/path/to/folder</tt>\n\n",
-       },
-       latex =>
-       {
-	default => "\\path{/path/to/folder}\n\n",
-       },
-       xml =>
-       {
-	default => "<tt>/path/to/folder</tt>\n\n",
+	html =>
+	{
+	 default => "<p><tt>/path/to/folder</tt></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\path{/path/to/folder}\n\n",
+	},
+	xml =>
+	{
+	 default => "<tt>/path/to/folder</tt>\n\n",
+	},
        },
       },
      },
@@ -1476,21 +1616,25 @@ sub _build_block_test_case_list {
      {
       name     => 'path_reference_2',
       content  => '[path:/path/to/my folder]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<tt>/path/to/my folder</tt>\n\n",
-       },
-       latex =>
-       {
-	default => "\\path{/path/to/my folder}\n\n",
-       },
-       xml =>
-       {
-	default => "<tt>/path/to/my folder</tt>\n\n",
+	html =>
+	{
+	 default => "<p><tt>/path/to/my folder</tt></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\path{/path/to/my folder}\n\n",
+	},
+	xml =>
+	{
+	 default => "<tt>/path/to/my folder</tt>\n\n",
+	},
        },
       },
      },
@@ -1498,21 +1642,25 @@ sub _build_block_test_case_list {
      {
       name     => 'path_reference_3',
       content  => '[path:C:\path\to\my folder\]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<tt>C:\\path\\to\\my folder\\</tt>\n\n",
-       },
-       # latex =>
-       # {
-       # 	default => "\\path{C:\\path\\to\\my folder}\$\\backslash\$\n\n",
-       # },
-       xml =>
-       {
-	default => "<tt>C:\\path\\to\\my folder\\</tt>\n\n",
+	html =>
+	{
+	 default => "<p><tt>C:\\path\\to\\my folder\\</tt></p>\n\n",
+	},
+	# latex =>
+	# {
+	# 	default => "\\path{C:\\path\\to\\my folder}\$\\backslash\$\n\n",
+	# },
+	xml =>
+	{
+	 default => "<tt>C:\\path\\to\\my folder\\</tt>\n\n",
+	},
        },
       },
      },
@@ -1520,21 +1668,25 @@ sub _build_block_test_case_list {
      {
       name     => 'user_entered_text_1',
       content  => '[enter:USERNAME]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<b><tt>USERNAME</tt></b>\n\n",
-       },
-       latex =>
-       {
-	default => "\\textbf{\\texttt{USERNAME}}\n\n",
-       },
-       xml =>
-       {
-	default => "<b><tt>USERNAME</tt></b>\n\n",
+	html =>
+	{
+	 default => "<p><b><tt>USERNAME</tt></b></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\textbf{\\texttt{USERNAME}}\n\n",
+	},
+	xml =>
+	{
+	 default => "<b><tt>USERNAME</tt></b>\n\n",
+	},
        },
       },
      },
@@ -1542,21 +1694,25 @@ sub _build_block_test_case_list {
      {
       name     => 'command_reference_1',
       content  => '[cmd:pwd]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<tt>pwd</tt>\n\n",
-       },
-       latex =>
-       {
-	default => "\\path{pwd}\n\n",
-       },
-       xml =>
-       {
-	default => "<tt>pwd</tt>\n\n",
+	html =>
+	{
+	 default => "<p><tt>pwd</tt></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\path{pwd}\n\n",
+	},
+	xml =>
+	{
+	 default => "<tt>pwd</tt>\n\n",
+	},
        },
       },
      },
@@ -1564,21 +1720,25 @@ sub _build_block_test_case_list {
      {
       name     => 'command_reference_2',
       content  => '[cmd:ls -al | grep -i bin | sort]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<tt>ls -al | grep -i bin | sort</tt>\n\n",
-       },
-       latex =>
-       {
-	default => "\\path{ls -al | grep -i bin | sort}\n\n",
-       },
-       xml =>
-       {
-	default => "<tt>ls -al | grep -i bin | sort</tt>\n\n",
+	html =>
+	{
+	 default => "<p><tt>ls -al | grep -i bin | sort</tt></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\path{ls -al | grep -i bin | sort}\n\n",
+	},
+	xml =>
+	{
+	 default => "<tt>ls -al | grep -i bin | sort</tt>\n\n",
+	},
        },
       },
      },
@@ -1586,21 +1746,25 @@ sub _build_block_test_case_list {
      {
       name     => 'xml_tag_1',
       content  => '<html>',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "&lt;html&gt;\n\n",
-       },
-       latex =>
-       {
-	default => "<html>\n\n",
-       },
-       xml =>
-       {
-	default => "&lt;html&gt;\n\n",
+	html =>
+	{
+	 default => "<p>&lt;html&gt;</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "<html>\n\n",
+	},
+	xml =>
+	{
+	 default => "&lt;html&gt;\n\n",
+	},
        },
       },
      },
@@ -1608,21 +1772,25 @@ sub _build_block_test_case_list {
      {
       name     => 'xml_tag_2',
       content  => '<para style="indented">',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "&lt;para style=\"indented\"&gt;\n\n",
-       },
-       latex =>
-       {
-	default => "<para style=\"indented\">\n\n",
-       },
-       xml =>
-       {
-	default => "&lt;para style=\"indented\"&gt;\n\n",
+	html =>
+	{
+	 default => "<p>&lt;para style=\"indented\"&gt;</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "<para style=\"indented\">\n\n",
+	},
+	xml =>
+	{
+	 default => "&lt;para style=\"indented\"&gt;\n\n",
+	},
        },
       },
      },
@@ -1630,21 +1798,25 @@ sub _build_block_test_case_list {
      {
       name     => 'literal_string_1',
       content  => '{lit:[cite:Goossens94]}',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "[cite:Goossens94]\n\n",
-       },
-       latex =>
-       {
-	default => "[cite:Goossens94]\n\n",
-       },
-       xml =>
-       {
-	default => "[cite:Goossens94]\n\n",
+	html =>
+	{
+	 default => "<p>[cite:Goossens94]</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "[cite:Goossens94]\n\n",
+	},
+	xml =>
+	{
+	 default => "[cite:Goossens94]\n\n",
+	},
        },
       },
      },
@@ -1652,21 +1824,25 @@ sub _build_block_test_case_list {
      {
       name     => 'email_address_1',
       content  => '[email:joe@example.com]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<a href=\"mailto:joe\@example.com\">joe\@example.com</a>\n\n",
-       },
-       latex =>
-       {
-	default => "joe\@example.com\n\n",
-       },
-       xml =>
-       {
-	default => "<a href=\"mailto:joe\@example.com\">joe\@example.com</a>\n\n",
+	html =>
+	{
+	 default => "<p><a href=\"mailto:joe\@example.com\">joe\@example.com</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "joe\@example.com\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"mailto:joe\@example.com\">joe\@example.com</a>\n\n",
+	},
        },
       },
      },
@@ -1674,21 +1850,25 @@ sub _build_block_test_case_list {
      {
       name     => 'take_note_symbol',
       content  => '[take_note]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<b>(take note!)</b>\n\n",
-       },
-       latex =>
-       {
-	default => "\\marginpar{\\Huge\\Writinghand}\n\n",
-       },
-       xml =>
-       {
-	default => "<b>(take note!)</b>\n\n",
+	html =>
+	{
+	 default => "<p><b>(take note!)</b></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\marginpar{\\Huge\\Writinghand}\n\n",
+	},
+	xml =>
+	{
+	 default => "<b>(take note!)</b>\n\n",
+	},
        },
       },
      },
@@ -1696,21 +1876,25 @@ sub _build_block_test_case_list {
      {
       name     => 'smiley_symbol',
       content  => ':-)',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "&#9786;\n\n",
-       },
-       latex =>
-       {
-	default => "\\large\\Smiley\n\n",
-       },
-       xml =>
-       {
-	default => "&#9786;\n\n",
+	html =>
+	{
+	 default => "<p>&#9786;</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\large\\Smiley\n\n",
+	},
+	xml =>
+	{
+	 default => "&#9786;\n\n",
+	},
        },
       },
      },
@@ -1718,21 +1902,25 @@ sub _build_block_test_case_list {
      {
       name     => 'frowny_symbol',
       content  => ':-(',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "&#9785;\n\n",
-       },
-       latex =>
-       {
-	default => "\\large\\Frowny\n\n",
-       },
-       xml =>
-       {
-	default => "&#9785;\n\n",
+	html =>
+	{
+	 default => "<p>&#9785;</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\large\\Frowny\n\n",
+	},
+	xml =>
+	{
+	 default => "&#9785;\n\n",
+	},
        },
       },
      },
@@ -1740,21 +1928,25 @@ sub _build_block_test_case_list {
      {
       name     => 'keystroke_symbol_1',
       content  => '[[Enter]]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<span class=\"keystroke\">Enter</span>\n\n",
-       },
-       latex =>
-       {
-	default => "\\keystroke{Enter}\n\n",
-       },
-       xml =>
-       {
-	default => "<span class=\"keystroke\">Enter</span>\n\n",
+	html =>
+	{
+	 default => "<p><span class=\"keystroke\">Enter</span></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\keystroke{Enter}\n\n",
+	},
+	xml =>
+	{
+	 default => "<span class=\"keystroke\">Enter</span>\n\n",
+	},
        },
       },
      },
@@ -1762,21 +1954,25 @@ sub _build_block_test_case_list {
      {
       name     => 'keystroke_symbol_2',
       content  => '[[Ctrl]]-[[Alt]]-[[Del]]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span>\n\n",
-       },
-       latex =>
-       {
-	default => "\\keystroke{Ctrl}-\\keystroke{Alt}-\\keystroke{Del}\n\n",
-       },
-       xml =>
-       {
-	default => "<span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span>\n\n",
+	html =>
+	{
+	 default => "<p><span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\keystroke{Ctrl}-\\keystroke{Alt}-\\keystroke{Del}\n\n",
+	},
+	xml =>
+	{
+	 default => "<span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span></p>\n\n",
+	},
        },
       },
      },
@@ -1784,21 +1980,25 @@ sub _build_block_test_case_list {
      {
       name     => 'left_arrow_symbol',
       content  => '<-',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "&#8592;\n",
-       },
-       latex =>
-       {
-	default => "\$\\leftarrow\$\n",
-       },
-       xml =>
-       {
-	default => "&#8592;\n",
+	html =>
+	{
+	 default => "<p>&#8592;</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\$\\leftarrow\$\n\n",
+	},
+	xml =>
+	{
+	 default => "&#8592;\n",
+	},
        },
       },
      },
@@ -1806,21 +2006,25 @@ sub _build_block_test_case_list {
      {
       name     => 'right_arrow_symbol',
       content  => '->',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "&#8594;\n\n",
-       },
-       latex =>
-       {
-	default => "\$\\rightarrow\$\n\n",
-       },
-       xml =>
-       {
-	default => "&#8594;\n\n",
+	html =>
+	{
+	 default => "<p>&#8594;</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\$\\rightarrow\$\n\n",
+	},
+	xml =>
+	{
+	 default => "&#8594;\n\n",
+	},
        },
       },
      },
@@ -1828,21 +2032,25 @@ sub _build_block_test_case_list {
      {
       name     => 'latex_symbol',
       content  => 'LaTeX',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "L<sup>a</sup>T<sub>e</sub>X\n\n",
-       },
-       latex =>
-       {
-	default => "\\LaTeX{}\n\n",
-       },
-       xml =>
-       {
-	default => "LaTeX\n\n",
+	html =>
+	{
+	 default => "<p>L<sup>a</sup>T<sub>e</sub>X</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\LaTeX{}\n\n",
+	},
+	xml =>
+	{
+	 default => "LaTeX\n\n",
+	},
        },
       },
      },
@@ -1850,21 +2058,25 @@ sub _build_block_test_case_list {
      {
       name     => 'tex_symbol',
       content  => 'TeX',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "T<sub>e</sub>X\n\n",
-       },
-       latex =>
-       {
-	default => "\\TeX{}\n\n",
-       },
-       xml =>
-       {
-	default => "TeX\n\n",
+	html =>
+	{
+	 default => "<p>T<sub>e</sub>X</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\TeX{}\n\n",
+	},
+	xml =>
+	{
+	 default => "TeX\n\n",
+	},
        },
       },
      },
@@ -1872,21 +2084,25 @@ sub _build_block_test_case_list {
      {
       name     => 'copyright_symbol',
       content  => '[c]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "&copy;\n\n",
-       },
-       latex =>
-       {
-	default => "\\tiny\$^{\\copyright}\$\\normalsize\n\n",
-       },
-       xml =>
-       {
-	default => "&copy;\n\n",
+	html =>
+	{
+	 default => "<p>&copy;</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\tiny\$^{\\copyright}\$\\normalsize\n\n",
+	},
+	xml =>
+	{
+	 default => "&copy;\n\n",
+	},
        },
       },
      },
@@ -1894,21 +2110,25 @@ sub _build_block_test_case_list {
      {
       name     => 'trademark_symbol',
       content  => '[tm]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "&trade;\n\n",
-       },
-       latex =>
-       {
-	default => "\\tiny\$^{\\texttrademark}\$\\normalsize\n\n",
-       },
-       xml =>
-       {
-	default => "&trade;\n\n",
+	html =>
+	{
+	 default => "<p>&trade;</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\tiny\$^{\\texttrademark}\$\\normalsize\n\n",
+	},
+	xml =>
+	{
+	 default => "&trade;\n\n",
+	},
        },
       },
      },
@@ -1916,21 +2136,25 @@ sub _build_block_test_case_list {
      {
       name     => 'reg_trademark_symbol',
       content  => '[rtm]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "&reg;\n\n",
-       },
-       latex =>
-       {
-	default => "\\tiny\$^{\\textregistered}\$\\normalsize\n\n",
-       },
-       xml =>
-       {
-	default => "&reg;\n\n",
+	html =>
+	{
+	 default => "<p>&reg;</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\tiny\$^{\\textregistered}\$\\normalsize\n\n",
+	},
+	xml =>
+	{
+	 default => "&reg;\n\n",
+	},
        },
       },
      },
@@ -1938,21 +2162,25 @@ sub _build_block_test_case_list {
      {
       name     => 'open_dblquote_symbol',
       content  => '``',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "&#8220;\n\n",
-       },
-       latex =>
-       {
-	default => "\`\`\n\n",
-       },
-       xml =>
-       {
-	default => "&#8220;\n\n",
+	html =>
+	{
+	 default => "<p>&#8220;</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\`\`\n\n",
+	},
+	xml =>
+	{
+	 default => "&#8220;\n\n",
+	},
        },
       },
      },
@@ -1960,21 +2188,25 @@ sub _build_block_test_case_list {
      {
       name     => 'close_dblquote_symbol',
       content  => '\'\'',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "&#8221;\n\n",
-       },
-       latex =>
-       {
-	default => "\'\'\n\n",
-       },
-       xml =>
-       {
-	default => "&#8221;\n\n",
+	html =>
+	{
+	 default => "<p>&#8221;</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\'\'\n\n",
+	},
+	xml =>
+	{
+	 default => "&#8221;\n\n",
+	},
        },
       },
      },
@@ -1982,21 +2214,25 @@ sub _build_block_test_case_list {
      {
       name     => 'open_sglquote_symbol',
       content  => '`',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "&#8216;\n\n",
-       },
-       latex =>
-       {
-	default => "\`\n\n",
-       },
-       xml =>
-       {
-	default => "&#8216;\n\n",
+	html =>
+	{
+	 default => "<p>&#8216;</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\`\n\n",
+	},
+	xml =>
+	{
+	 default => "&#8216;\n\n",
+	},
        },
       },
      },
@@ -2004,21 +2240,25 @@ sub _build_block_test_case_list {
      {
       name     => 'close_sglquote_symbol',
       content  => '\'',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "&#8217;\n\n",
-       },
-       latex =>
-       {
-	default => "\'\n\n",
-       },
-       xml =>
-       {
-	default => "&#8217;\n\n",
+	html =>
+	{
+	 default => "<p>&#8217;</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\'\n\n",
+	},
+	xml =>
+	{
+	 default => "&#8217;\n\n",
+	},
        },
       },
      },
@@ -2026,21 +2266,25 @@ sub _build_block_test_case_list {
      {
       name     => 'section_symbol',
       content  => '[section]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "&sect;\n\n",
-       },
-       latex =>
-       {
-	default => "{\\S}\n\n",
-       },
-       xml =>
-       {
-	default => "&sect;\n\n",
+	html =>
+	{
+	 default => "<p>&sect;</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "{\\S}\n\n",
+	},
+	xml =>
+	{
+	 default => "&sect;\n\n",
+	},
        },
       },
      },
@@ -2048,21 +2292,25 @@ sub _build_block_test_case_list {
      {
       name     => 'emdash_symbol',
       content  => '--',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "&mdash;\n",
-       },
-       latex =>
-       {
-	default => "--\n",
-       },
-       xml =>
-       {
-	default => "&mdash;\n",
+	html =>
+	{
+	 default => "<p>&mdash;</p>\n\n",
+	},
+	latex =>
+	{
+	 default => "--\n\n",
+	},
+	xml =>
+	{
+	 default => "&mdash;\n\n",
+	},
        },
       },
      },
@@ -2070,21 +2318,25 @@ sub _build_block_test_case_list {
      {
       name     => 'bold_1',
       content  => '!!bold text!!',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<b>bold text</b>\n\n",
-       },
-       latex =>
-       {
-	default => "\\textbf{bold text}\n\n",
-       },
-       xml =>
-       {
-	default => "<b>bold text</b>\n\n",
+	html =>
+	{
+	 default => "<p><b>bold text</b></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\textbf{bold text}\n\n",
+	},
+	xml =>
+	{
+	 default => "<b>bold text</b>\n\n",
+	},
        },
       },
      },
@@ -2092,21 +2344,25 @@ sub _build_block_test_case_list {
      {
       name     => 'italics_1',
       content  => '~~italicized text~~',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<i>italicized text</i>\n\n",
-       },
-       latex =>
-       {
-	default => "\\textit{italicized text}\n\n",
-       },
-       xml =>
-       {
-	default => "<i>italicized text</i>\n\n",
+	html =>
+	{
+	 default => "<p><i>italicized text</i></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\textit{italicized text}\n\n",
+	},
+	xml =>
+	{
+	 default => "<i>italicized text</i>\n\n",
+	},
        },
       },
      },
@@ -2114,21 +2370,25 @@ sub _build_block_test_case_list {
      {
       name     => 'underline_1',
       content  => '__underlined text__',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<u>underlined text</u>\n\n",
-       },
-       latex =>
-       {
-	default => "\\underline{underlined text}\n\n",
-       },
-       xml =>
-       {
-	default => "<u>underlined text</u>\n\n",
+	html =>
+	{
+	 default => "<p><u>underlined text</u></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\underline{underlined text}\n\n",
+	},
+	xml =>
+	{
+	 default => "<u>underlined text</u>\n\n",
+	},
        },
       },
      },
@@ -2136,21 +2396,25 @@ sub _build_block_test_case_list {
      {
       name     => 'fixedwidth_1',
       content  => '||fixedwidth text||',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<tt>fixedwidth text</tt>\n\n",
-       },
-       latex =>
-       {
-	default => "\\texttt{fixedwidth text}\n\n",
-       },
-       xml =>
-       {
-	default => "<tt>fixedwidth text</tt>\n\n",
+	html =>
+	{
+	 default => "<p><tt>fixedwidth text</tt></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\texttt{fixedwidth text}\n\n",
+	},
+	xml =>
+	{
+	 default => "<tt>fixedwidth text</tt>\n\n",
+	},
        },
       },
      },
@@ -2158,21 +2422,25 @@ sub _build_block_test_case_list {
      {
       name     => 'superscript_1',
       content  => '^^superscripted text^^',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<sup>superscripted text</sup>\n\n",
-       },
-       latex =>
-       {
-	default => "\\textsuperscript{superscripted text}\n\n",
-       },
-       xml =>
-       {
-	default => "<sup>superscripted text</sup>\n\n",
+	html =>
+	{
+	 default => "<p><sup>superscripted text</sup></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\textsuperscript{superscripted text}\n\n",
+	},
+	xml =>
+	{
+	 default => "<sup>superscripted text</sup>\n\n",
+	},
        },
       },
      },
@@ -2180,21 +2448,25 @@ sub _build_block_test_case_list {
      {
       name     => 'subscript_1',
       content  => ',,subscripted text,,',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
       {
-       html =>
+       render =>
        {
-	default => "<sub>subscripted text</sub>\n\n",
-       },
-       latex =>
-       {
-	default => "\\subscript{subscripted text}\n\n",
-       },
-       xml =>
-       {
-	default => "<sub>subscripted text</sub>\n\n",
+	html =>
+	{
+	 default => "<p><sub>subscripted text</sub></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "\\subscript{subscripted text}\n\n",
+	},
+	xml =>
+	{
+	 default => "<sub>subscripted text</sub>\n\n",
+	},
        },
       },
      },
@@ -2202,6 +2474,7 @@ sub _build_block_test_case_list {
      {
       name     => 'valid_bold_block',
       content  => 'This is a valid !!bold!! block',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2213,6 +2486,7 @@ sub _build_block_test_case_list {
      {
       name     => 'invalid_bold_block',
       content  => 'This is an INVALID !!bold block',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2225,6 +2499,7 @@ sub _build_block_test_case_list {
      {
       name     => 'valid_italics_block',
       content  => 'This is a valid ~~italics~~ block',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2236,6 +2511,7 @@ sub _build_block_test_case_list {
      {
       name     => 'invalid_italics_block',
       content  => 'This is an INVALID ~~italics block',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2248,6 +2524,7 @@ sub _build_block_test_case_list {
      {
       name     => 'valid_fixedwidth_block',
       content  => 'This is a valid ||fixed-width|| block',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2259,6 +2536,7 @@ sub _build_block_test_case_list {
      {
       name     => 'invalid_fixedwidth_block',
       content  => 'This is an INVALID ||fixed-width block',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2271,6 +2549,7 @@ sub _build_block_test_case_list {
      {
       name     => 'valid_underline_block',
       content  => 'This is a valid __underline__ block',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2282,6 +2561,7 @@ sub _build_block_test_case_list {
      {
       name     => 'invalid_underline_block',
       content  => 'This is an INVALID __underline block',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2294,6 +2574,7 @@ sub _build_block_test_case_list {
      {
       name     => 'valid_superscript_block',
       content  => 'This is a valid ^^superscript^^ block',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2305,6 +2586,7 @@ sub _build_block_test_case_list {
      {
       name     => 'invalid_superscript_block',
       content  => 'This is an INVALID ^^superscript block',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2317,6 +2599,7 @@ sub _build_block_test_case_list {
      {
       name     => 'valid_subscript_block',
       content  => 'This is a valid ,,subscript,, block',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2328,6 +2611,7 @@ sub _build_block_test_case_list {
      {
       name     => 'invalid_subscript_block',
       content  => 'This is an INVALID ,,subscript block',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2340,6 +2624,7 @@ sub _build_block_test_case_list {
      {
       name     => 'valid_cross_reference_1',
       content  => 'Here is a valid cross reference: [ref:introduction].',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2352,6 +2637,7 @@ sub _build_block_test_case_list {
      {
       name     => 'valid_cross_reference_2',
       content  => 'Here is a valid cross reference: [r:introduction].',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2364,6 +2650,7 @@ sub _build_block_test_case_list {
      {
       name     => 'invalid_cross_reference_1',
       content  => 'Here is an INVALID cross reference: [ref:bogus].',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2377,6 +2664,7 @@ sub _build_block_test_case_list {
      {
       name     => 'invalid_cross_reference_2',
       content  => 'Here is an INVALID cross reference: [r:bogus].',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2390,6 +2678,7 @@ sub _build_block_test_case_list {
      {
       name     => 'incomplete_cross_reference_1',
       content  => 'Here is an incomplete cross reference: [ref:introduction.',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2403,6 +2692,7 @@ sub _build_block_test_case_list {
      {
       name     => 'incomplete_cross_reference_2',
       content  => 'Here is an incomplete cross reference: [r:introduction.',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2416,6 +2706,7 @@ sub _build_block_test_case_list {
      {
       name     => 'valid_id_reference',
       content  => 'Here is a valid id reference: [id:introduction].',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2429,6 +2720,7 @@ sub _build_block_test_case_list {
      {
       name     => 'invalid_id_reference',
       content  => 'Here is an INVALID id reference: [id:bogus].',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2442,6 +2734,7 @@ sub _build_block_test_case_list {
      {
       name     => 'incomplete_id_reference',
       content  => 'Here is an incomplete id reference: [id:introduction.',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2455,6 +2748,7 @@ sub _build_block_test_case_list {
      {
       name     => 'valid_page_reference_1',
       content  => 'Here is a valid page reference: [page:introduction].',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2468,6 +2762,7 @@ sub _build_block_test_case_list {
      {
       name     => 'valid_page_reference_2',
       content  => 'Here is a valid page reference: [pg:introduction].',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2481,6 +2776,7 @@ sub _build_block_test_case_list {
      {
       name     => 'invalid_page_reference_1',
       content  => 'Here is an INVALID page reference: [page:bogus].',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2494,6 +2790,7 @@ sub _build_block_test_case_list {
      {
       name     => 'invalid_page_reference_2',
       content  => 'Here is an INVALID page reference: [pg:bogus].',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2507,6 +2804,7 @@ sub _build_block_test_case_list {
      {
       name     => 'incomplete_page_reference_1',
       content  => 'Here is an incomplete page reference: [page:introduction.',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2520,6 +2818,7 @@ sub _build_block_test_case_list {
      {
       name     => 'incomplete_page_reference_2',
       content  => 'Here is an incomplete page reference: [pg:introduction.',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2533,6 +2832,7 @@ sub _build_block_test_case_list {
      {
       name     => 'invalid_glossary_term_reference_1',
       content  => '[g:sml:bogus]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2546,6 +2846,7 @@ sub _build_block_test_case_list {
      {
       name     => 'incomplete_glossary_term_reference_1',
       content  => '[g:sml:bogus',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2559,6 +2860,7 @@ sub _build_block_test_case_list {
      {
       name     => 'invalid_glossary_def_reference_1',
       content  => '[def:sml:bogus]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2572,6 +2874,7 @@ sub _build_block_test_case_list {
      {
       name     => 'incomplete_glossary_def_reference_1',
       content  => '[def:sml:bogus',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2585,6 +2888,7 @@ sub _build_block_test_case_list {
      {
       name     => 'invalid_acronym_reference_1',
       content  => '[ac:sml:bogus]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2598,6 +2902,7 @@ sub _build_block_test_case_list {
      {
       name     => 'incomplete_acronym_reference_1',
       content  => '[ac:sml:bogus',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2611,6 +2916,7 @@ sub _build_block_test_case_list {
      {
       name     => 'invalid_source_citation_1',
       content  => '[cite:bogus]',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2624,6 +2930,7 @@ sub _build_block_test_case_list {
      {
       name     => 'incomplete_source_citation_1',
       content  => '[cite:bogus',
+      subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       expected =>
@@ -2722,6 +3029,7 @@ sub _build_definition_test_case_list {
      {
       name => 'definition_1',
       text => 'glossary:: BPEL = Business Process Execution Language',
+      defname => 'glossary',
       expected =>
       {
        get_term => 'BPEL',
@@ -2733,6 +3041,7 @@ sub _build_definition_test_case_list {
      {
       name => 'definition_2',
       text => 'glossary:: FRD {ieee} = (IEEE) Functional Requirements Document',
+      defname => 'glossary',
       expected =>
       {
        get_term => 'FRD',
@@ -2744,6 +3053,7 @@ sub _build_definition_test_case_list {
      {
       name => 'bad_definition_1',
       text => 'This is not a definition',
+      defname => 'glossary',
       expected =>
       {
        error =>
@@ -2870,15 +3180,18 @@ sub _build_division_test_case_list {
       },
      },
 
-     # {
-     #  name        => 'invalid_semantics_division_1',
-     #  testfile    => 'td-000063.txt',
-     #  division_id => 'parent-problem',
-     #  expected =>
-     #  {
-     #   valid_semantics_warning => 'INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY',
-     #  },
-     # },
+     {
+      name        => 'invalid_semantics_division_1',
+      testfile    => 'td-000063.txt',
+      division_id => 'parent-problem',
+      expected =>
+      {
+       warning =>
+       {
+	has_valid_semantics => 'INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY',
+       },
+      },
+     },
 
      {
       name        => 'invalid_semantics_division_2',
@@ -2886,7 +3199,10 @@ sub _build_division_test_case_list {
       division_id => 'problem-1',
       expected =>
       {
-       valid_semantics_warning => 'MISSING REQUIRED PROPERTY',
+       warning =>
+       {
+	has_valid_semantics => 'MISSING REQUIRED PROPERTY',
+       },
       },
      },
 
@@ -2896,7 +3212,10 @@ sub _build_division_test_case_list {
       division_id => 'td-000070',
       expected =>
       {
-       valid_semantics_warning => 'INVALID NON-UNIQUE ID',
+       warning =>
+       {
+	has_valid_semantics => 'INVALID NON-UNIQUE ID',
+       },
       },
      },
 
@@ -2906,7 +3225,10 @@ sub _build_division_test_case_list {
       division_id => 'problem-1',
       expected =>
       {
-       valid_semantics_warning => 'INVALID PROPERTY CARDINALITY',
+       warning =>
+       {
+	has_valid_semantics => 'INVALID PROPERTY CARDINALITY',
+       },
       },
      },
 
@@ -2916,7 +3238,10 @@ sub _build_division_test_case_list {
       division_id => 'problem-1',
       expected =>
       {
-       valid_semantics_warning => 'INVALID PROPERTY VALUE',
+       warning =>
+       {
+	has_valid_semantics => 'INVALID PROPERTY VALUE',
+       },
       },
      },
 
@@ -2926,7 +3251,10 @@ sub _build_division_test_case_list {
       division_id => 'solution-1',
       expected =>
       {
-       valid_semantics_warning => 'INVALID COMPOSITION',
+       warning =>
+       {
+	has_valid_semantics => 'INVALID COMPOSITION',
+       },
       },
      },
 
@@ -3772,15 +4100,15 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 0,
-       # warning =>
-       # {
-       # 	is_valid =>
-       # 	[
-       # 	 ['sml.Fragment' => 'FILE NOT FOUND'],
-       # 	 ['sml.Block'    => 'FILE NOT FOUND'],
-       # 	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
-       # 	],
-       # },
+       warning =>
+       {
+       	is_valid =>
+       	[
+       	 ['sml.Block'    => 'FILE NOT FOUND'],
+       	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+       	 # ['sml.Fragment' => 'FILE NOT FOUND'],
+       	],
+       },
       },
      },
 
@@ -3981,6 +4309,7 @@ sub _build_element_test_case_list {
       expected =>
       {
        get_value => 'This is My Title',
+       validate_element_allowed => 0,
       },
      },
 
@@ -4139,7 +4468,7 @@ sub _build_library_test_case_list {
   return
     [
      {
-      name            => 'library test case 1',
+      name            => 'library_1',
       config_filename => 'library.conf',
       expected =>
       {
@@ -4172,7 +4501,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000001',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4182,7 +4511,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000002',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4192,7 +4521,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000003',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4202,7 +4531,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000004',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4212,7 +4541,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000005',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4222,7 +4551,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000006',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4232,7 +4561,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000007',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4242,7 +4571,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000008',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4252,7 +4581,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000009',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4262,7 +4591,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000010',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4272,7 +4601,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000011',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4282,7 +4611,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000012',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4292,7 +4621,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000013',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4302,7 +4631,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000014',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4312,7 +4641,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000015',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4322,7 +4651,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000016',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4332,7 +4661,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000017',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4342,7 +4671,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000018',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4352,7 +4681,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000019',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4362,7 +4691,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000020',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4372,7 +4701,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000021',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4381,11 +4710,11 @@ sub _build_parser_test_case_list {
       testfile => 'td-000022.txt',
       expected =>
       {
-       should_parse_ok => 1,
-       divname  => 'problem',
-       title    => 'Sample Problem For `Include\' Tests',
-       preamble_size  => 17,
-       narrative_size => 8,
+       create_fragment => 'SML::Fragment',
+       extract_division_name  => 'problem',
+       extract_title_text    => 'Sample Problem For `Include\' Tests',
+       extract_preamble_lines  => 17,
+       extract_narrative_lines => 8,
       }
      },
 
@@ -4395,7 +4724,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000023',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4404,7 +4733,7 @@ sub _build_parser_test_case_list {
       testfile => 'td-000024.txt',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4414,7 +4743,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000025',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4424,7 +4753,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000026',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4434,7 +4763,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000028',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4444,7 +4773,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000029',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4454,7 +4783,7 @@ sub _build_parser_test_case_list {
      #  docid    => 'td-000030',
      #  expected =>
      #  {
-     #   should_parse_ok => 0,
+     #   create_fragment => 'SML::Fragment',
      #  },
      # },
 
@@ -4464,7 +4793,7 @@ sub _build_parser_test_case_list {
      #  docid    => 'td-000031',
      #  expected =>
      #  {
-     #   should_parse_ok => 0,
+     #   create_fragment => 'SML::Fragment',
      #  },
      # },
 
@@ -4474,7 +4803,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000032',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4484,7 +4813,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000033',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4494,7 +4823,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000034',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4504,7 +4833,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000035',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4514,7 +4843,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000036',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4524,7 +4853,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000037',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4534,7 +4863,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000038',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4544,7 +4873,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000039',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4554,7 +4883,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000040',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4564,7 +4893,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000041',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4574,7 +4903,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000042',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4584,7 +4913,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000043',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4594,7 +4923,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000044',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4604,7 +4933,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000045',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4614,7 +4943,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000046',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4624,7 +4953,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000047',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4634,7 +4963,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000048',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4644,7 +4973,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000049',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4654,7 +4983,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000050',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4664,7 +4993,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000051',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4674,7 +5003,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000052',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4684,7 +5013,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000053',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4694,7 +5023,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000054',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4704,7 +5033,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000055',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4714,7 +5043,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000056',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4724,7 +5053,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000057',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4734,7 +5063,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000058',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4744,7 +5073,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000059',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4754,7 +5083,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000060',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4764,7 +5093,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000061',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4774,7 +5103,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000062',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4784,7 +5113,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000063',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4794,7 +5123,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000064',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4804,7 +5133,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000065',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4814,7 +5143,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000066',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4824,7 +5153,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000067',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4834,7 +5163,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000068',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4844,7 +5173,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000069',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4854,7 +5183,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000070',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4864,7 +5193,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000071',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4874,7 +5203,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000072',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4884,7 +5213,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000073',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4894,7 +5223,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000074',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4903,11 +5232,11 @@ sub _build_parser_test_case_list {
       testfile => 'td-000075.txt',
       expected =>
       {
-       should_parse_ok => 1,
-       divname  => 'LISTING',
-       title    => 'Sample Listing',
-       preamble_size  => 5,
-       narrative_size => 32,
+       create_fragment => 'SML::Fragment',
+       extract_division_name  => 'LISTING',
+       extract_title_text    => 'Sample Listing',
+       extract_preamble_lines  => 5,
+       extract_narrative_lines => 32,
       }
      },
 
@@ -4916,10 +5245,10 @@ sub _build_parser_test_case_list {
       testfile => 'td-000076.txt',
       expected =>
       {
-       should_parse_ok => 1,
-       divname  => 'SECTION',
-       title    => 'Section Fragment',
-       preamble_size  => 1,
+       create_fragment => 'SML::Fragment',
+       extract_division_name  => 'SECTION',
+       extract_title_text    => 'Section Fragment',
+       extract_preamble_lines  => 1,
       }
      },
 
@@ -4929,7 +5258,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000077',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -4939,7 +5268,7 @@ sub _build_parser_test_case_list {
       docid    => 'td-000078',
       expected =>
       {
-       should_parse_ok => 1,
+       create_fragment => 'SML::Fragment',
       },
      },
 
@@ -5005,13 +5334,15 @@ sub _build_string_test_case_list {
       text => 'This is a plain string.',
       expected =>
       {
-       type => 'part',
        get_name => 'string',
        get_content => 'This is a plain string.',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => 'This is a plain string.',
+	html =>
+	{
+	 default => 'This is a plain string.',
+	},
        },
       },
      },
@@ -5021,13 +5352,15 @@ sub _build_string_test_case_list {
       text => '!!this is bold!!',
       expected =>
       {
-       type => 'part',
        get_name => 'bold_string',
        get_content => 'this is bold',
        has_parts => 1,
-       html =>
+       render =>
        {
-	default => '<b>this is bold</b>',
+	html =>
+	{
+	 default => '<b>this is bold</b>',
+	},
        },
       },
      },
@@ -5037,13 +5370,15 @@ sub _build_string_test_case_list {
       text => '~~this is italics~~',
       expected =>
       {
-       type => 'part',
        get_name => 'italics_string',
        get_content => 'this is italics',
        has_parts => 1,
-       html =>
+       render =>
        {
-	default => '<i>this is italics</i>',
+	html =>
+	{
+	 default => '<i>this is italics</i>',
+	},
        },
       },
      },
@@ -5053,13 +5388,15 @@ sub _build_string_test_case_list {
       text => '||this is fixed width||',
       expected =>
       {
-       type => 'part',
        get_name => 'fixedwidth_string',
        get_content => 'this is fixed width',
        has_parts => 1,
-       html =>
+       render =>
        {
-	default => '<tt>this is fixed width</tt>',
+	html =>
+	{
+	 default => '<tt>this is fixed width</tt>',
+	},
        },
       },
      },
@@ -5069,13 +5406,15 @@ sub _build_string_test_case_list {
       text => '__this is underlined__',
       expected =>
       {
-       type => 'part',
        get_name => 'underline_string',
        get_content => 'this is underlined',
        has_parts => 1,
-       html =>
+       render =>
        {
-	default => '<u>this is underlined</u>',
+	html =>
+	{
+	 default => '<u>this is underlined</u>',
+	},
        },
       },
      },
@@ -5085,13 +5424,15 @@ sub _build_string_test_case_list {
       text => '^^this is superscripted^^',
       expected =>
       {
-       type => 'part',
        get_name => 'superscript_string',
        get_content => 'this is superscripted',
        has_parts => 1,
-       html =>
+       render =>
        {
-	default => '<sup>this is superscripted</sup>',
+	html =>
+	{
+	 default => '<sup>this is superscripted</sup>',
+	},
        },
       },
      },
@@ -5101,13 +5442,15 @@ sub _build_string_test_case_list {
       text => ',,this is subscripted,,',
       expected =>
       {
-       type => 'part',
        get_name => 'subscript_string',
        get_content => 'this is subscripted',
        has_parts => 1,
-       html =>
+       render =>
        {
-	default => '<sub>this is subscripted</sub>',
+	html =>
+	{
+	 default => '<sub>this is subscripted</sub>',
+	},
        },
       },
      },
@@ -5117,13 +5460,15 @@ sub _build_string_test_case_list {
       text => '[linebreak]',
       expected =>
       {
-       type => 'part',
        get_name => 'linebreak_symbol',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '<br/>',
+	html =>
+	{
+	 default => '<br/>',
+	},
        },
       },
      },
@@ -5133,13 +5478,15 @@ sub _build_string_test_case_list {
       text => '[enter:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'USER_ENTERED_TEXT',
        get_content => 'bogus',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '<b><tt>bogus</tt></b>',
+	html =>
+	{
+	 default => '<b><tt>bogus</tt></b>',
+	},
        },
       },
      },
@@ -5149,13 +5496,15 @@ sub _build_string_test_case_list {
       text => '[en:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'USER_ENTERED_TEXT',
        get_content => 'bogus',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '<b><tt>bogus</tt></b>',
+	html =>
+	{
+	 default => '<b><tt>bogus</tt></b>',
+	},
        },
       },
      },
@@ -5165,13 +5514,15 @@ sub _build_string_test_case_list {
       text => '[file:bogus.txt]',
       expected =>
       {
-       type => 'part',
        get_name => 'FILE_REF',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '<tt>bogus.txt</tt>',
+	html =>
+	{
+	 default => '<tt>bogus.txt</tt>',
+	},
        },
       },
      },
@@ -5181,13 +5532,15 @@ sub _build_string_test_case_list {
       text => '[path:path/to/bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'PATH_REF',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '<tt>path/to/bogus</tt>',
+	html =>
+	{
+	 default => '<tt>path/to/bogus</tt>',
+	},
        },
       },
      },
@@ -5197,13 +5550,15 @@ sub _build_string_test_case_list {
       text => '[url:http://www.google.com/]',
       expected =>
       {
-       type => 'part',
        get_name => 'URL_REF',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '<a href="http://www.google.com/">http://www.google.com/</a>',
+	html =>
+	{
+	 default => '<a href="http://www.google.com/">http://www.google.com/</a>',
+	},
        },
       },
      },
@@ -5213,13 +5568,15 @@ sub _build_string_test_case_list {
       text => '[url:http://www.google.com/|google]',
       expected =>
       {
-       type => 'part',
        get_name => 'URL_REF',
        get_content => 'google',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '<a href="http://www.google.com/">google</a>',
+	html =>
+	{
+	 default => '<a href="http://www.google.com/">google</a>',
+	},
        },
       },
      },
@@ -5229,13 +5586,15 @@ sub _build_string_test_case_list {
       text => '[cmd:ls -al | grep bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'COMMAND_REF',
        get_content => 'ls -al | grep bogus',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '<tt>ls -al | grep bogus</tt>',
+	html =>
+	{
+	 default => '<tt>ls -al | grep bogus</tt>',
+	},
        },
       },
      },
@@ -5245,13 +5604,15 @@ sub _build_string_test_case_list {
       text => ':-)',
       expected =>
       {
-       type => 'part',
        get_name => 'smiley_symbol',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '&#9786;',
+	html =>
+	{
+	 default => '&#9786;',
+	},
        },
       },
      },
@@ -5261,13 +5622,15 @@ sub _build_string_test_case_list {
       text => ':-(',
       expected =>
       {
-       type => 'part',
        get_name => 'frowny_symbol',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '&#9785;',
+	html =>
+	{
+	 default => '&#9785;',
+	},
        },
       },
      },
@@ -5277,13 +5640,15 @@ sub _build_string_test_case_list {
       text => '[[ESC]]',
       expected =>
       {
-       type => 'part',
        get_name => 'keystroke_symbol',
        get_content => 'ESC',
        has_parts => 1,
-       html =>
+       render =>
        {
-	default => '<span class="keystroke">ESC</span>',
+	html =>
+	{
+	 default => '<span class="keystroke">ESC</span>',
+	},
        },
       },
      },
@@ -5293,13 +5658,15 @@ sub _build_string_test_case_list {
       text => '<-',
       expected =>
       {
-       type => 'part',
        get_name => 'left_arrow_symbol',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '&#8592;',
+	html =>
+	{
+	 default => '&#8592;',
+	},
        },
       },
      },
@@ -5309,13 +5676,15 @@ sub _build_string_test_case_list {
       text => '->',
       expected =>
       {
-       type => 'part',
        get_name => 'right_arrow_symbol',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '&#8594;',
+	html =>
+	{
+	 default => '&#8594;',
+	},
        },
       },
      },
@@ -5325,13 +5694,15 @@ sub _build_string_test_case_list {
       text => 'LaTeX',
       expected =>
       {
-       type => 'part',
        get_name => 'latex_symbol',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => 'L<sup>a</sup>T<sub>e</sub>X',
+	html =>
+	{
+	 default => 'L<sup>a</sup>T<sub>e</sub>X',
+	},
        },
       },
      },
@@ -5341,13 +5712,15 @@ sub _build_string_test_case_list {
       text => 'TeX',
       expected =>
       {
-       type => 'part',
        get_name => 'tex_symbol',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => 'T<sub>e</sub>X',
+	html =>
+	{
+	 default => 'T<sub>e</sub>X',
+	},
        },
       },
      },
@@ -5357,13 +5730,15 @@ sub _build_string_test_case_list {
       text => '[c]',
       expected =>
       {
-       type => 'part',
        get_name => 'copyright_symbol',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '&copy;',
+	html =>
+	{
+	 default => '&copy;',
+	},
        },
       },
      },
@@ -5373,13 +5748,15 @@ sub _build_string_test_case_list {
       text => '[tm]',
       expected =>
       {
-       type => 'part',
        get_name => 'trademark_symbol',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '&trade;',
+	html =>
+	{
+	 default => '&trade;',
+	},
        },
       },
      },
@@ -5389,13 +5766,15 @@ sub _build_string_test_case_list {
       text => '[rtm]',
       expected =>
       {
-       type => 'part',
        get_name => 'reg_trademark_symbol',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '&reg;',
+	html =>
+	{
+	 default => '&reg;',
+	},
        },
       },
      },
@@ -5405,13 +5784,15 @@ sub _build_string_test_case_list {
       text => '``',
       expected =>
       {
-       type => 'part',
        get_name => 'open_dblquote_symbol',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '&#8220;',
+	html =>
+	{
+	 default => '&#8220;',
+	},
        },
       },
      },
@@ -5421,13 +5802,15 @@ sub _build_string_test_case_list {
       text => '\'\'',
       expected =>
       {
-       type => 'part',
        get_name => 'close_dblquote_symbol',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '&#8221;',
+	html =>
+	{
+	 default => '&#8221;',
+	},
        },
       },
      },
@@ -5437,13 +5820,15 @@ sub _build_string_test_case_list {
       text => '`',
       expected =>
       {
-       type => 'part',
        get_name => 'open_sglquote_symbol',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '&#8216;',
+	html =>
+	{
+	 default => '&#8216;',
+	},
        },
       },
      },
@@ -5453,13 +5838,15 @@ sub _build_string_test_case_list {
       text => '\'',
       expected =>
       {
-       type => 'part',
        get_name => 'close_sglquote_symbol',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '&#8217;',
+	html =>
+	{
+	 default => '&#8217;',
+	},
        },
       },
      },
@@ -5469,13 +5856,15 @@ sub _build_string_test_case_list {
       text => '[section]',
       expected =>
       {
-       type => 'part',
        get_name => 'section_symbol',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '&sect;',
+	html =>
+	{
+	 default => '&sect;',
+	},
        },
       },
      },
@@ -5485,13 +5874,15 @@ sub _build_string_test_case_list {
       text => '--',
       expected =>
       {
-       type => 'part',
        get_name => 'emdash_symbol',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '&mdash;',
+	html =>
+	{
+	 default => '&mdash;',
+	},
        },
       },
      },
@@ -5501,13 +5892,15 @@ sub _build_string_test_case_list {
       text => '[email:help@example.com]',
       expected =>
       {
-       type => 'part',
        get_name => 'EMAIL_ADDR',
        get_content => '',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '<a href="mailto:help@example.com">help@example.com</a>',
+	html =>
+	{
+	 default => '<a href="mailto:help@example.com">help@example.com</a>',
+	},
        },
       },
      },
@@ -5517,13 +5910,15 @@ sub _build_string_test_case_list {
       text => '[email:john.smith@example.com|John Smith]',
       expected =>
       {
-       type => 'part',
        get_name => 'EMAIL_ADDR',
        get_content => 'John Smith',
        has_parts => 0,
-       html =>
+       render =>
        {
-	default => '<a href="mailto:john.smith@example.com">John Smith</a>',
+	html =>
+	{
+	 default => '<a href="mailto:john.smith@example.com">John Smith</a>',
+	},
        },
       },
      },
@@ -5533,13 +5928,15 @@ sub _build_string_test_case_list {
       text => '~~this is !!bold!! inside italics~~',
       expected =>
       {
-       type => 'part',
        get_name => 'italics_string',
        get_content => 'this is !!bold!! inside italics',
        has_parts => 3,
-       html =>
+       render =>
        {
-	default => '<i>this is <b>bold</b> inside italics</i>',
+	html =>
+	{
+	 default => '<i>this is <b>bold</b> inside italics</i>',
+	},
        },
       },
      },
@@ -5549,13 +5946,15 @@ sub _build_string_test_case_list {
       text => '!!this is ~~italics~~ inside bold!!',
       expected =>
       {
-       type => 'part',
        get_name => 'bold_string',
        get_content => 'this is ~~italics~~ inside bold',
        has_parts => 3,
-       html =>
+       render =>
        {
-	default => '<b>this is <i>italics</i> inside bold</b>',
+	html =>
+	{
+	 default => '<b>this is <i>italics</i> inside bold</b>',
+	},
        },
       },
      },
@@ -5565,13 +5964,15 @@ sub _build_string_test_case_list {
       text => 'this string has ~~italics~~ and !!bold!!',
       expected =>
       {
-       type => 'part',
        get_name => 'string',
        get_content => 'this string has ~~italics~~ and !!bold!!',
        has_parts => 4,
-       html =>
+       render =>
        {
-	default => 'this string has <i>italics</i> and <b>bold</b>',
+	html =>
+	{
+	 default => 'this string has <i>italics</i> and <b>bold</b>',
+	},
        },
       },
      },
@@ -5581,7 +5982,6 @@ sub _build_string_test_case_list {
       text => '[var:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'VARIABLE_REF',
        get_content => '',
        has_parts => 0,
@@ -5593,7 +5993,6 @@ sub _build_string_test_case_list {
       text => '[g:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'GLOSS_TERM_REF',
        get_content => '',
        has_parts => 0,
@@ -5605,7 +6004,6 @@ sub _build_string_test_case_list {
       text => '[G:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'GLOSS_TERM_REF',
        get_content => '',
        has_parts => 0,
@@ -5617,7 +6015,6 @@ sub _build_string_test_case_list {
       text => '[gls:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'GLOSS_TERM_REF',
        get_content => '',
        has_parts => 0,
@@ -5629,7 +6026,6 @@ sub _build_string_test_case_list {
       text => '[Gls:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'GLOSS_TERM_REF',
        get_content => '',
        has_parts => 0,
@@ -5641,7 +6037,6 @@ sub _build_string_test_case_list {
       text => '[def:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'GLOSS_DEF_REF',
        get_content => '',
        has_parts => 0,
@@ -5653,7 +6048,6 @@ sub _build_string_test_case_list {
       text => '[a:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'ACRONYM_TERM_REF',
        get_content => '',
        has_parts => 0,
@@ -5665,7 +6059,6 @@ sub _build_string_test_case_list {
       text => '[ac:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'ACRONYM_TERM_REF',
        get_content => '',
        has_parts => 0,
@@ -5677,7 +6070,6 @@ sub _build_string_test_case_list {
       text => '[acs:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'ACRONYM_TERM_REF',
        get_content => '',
        has_parts => 0,
@@ -5689,7 +6081,6 @@ sub _build_string_test_case_list {
       text => '[acl:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'ACRONYM_TERM_REF',
        get_content => '',
        has_parts => 0,
@@ -5701,7 +6092,6 @@ sub _build_string_test_case_list {
       text => '[r:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'CROSS_REF',
        get_content => '',
        has_parts => 0,
@@ -5713,7 +6103,6 @@ sub _build_string_test_case_list {
       text => '[ref:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'CROSS_REF',
        get_content => '',
        has_parts => 0,
@@ -5725,7 +6114,6 @@ sub _build_string_test_case_list {
       text => '[id:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'ID_REF',
        get_content => '',
        has_parts => 0,
@@ -5737,7 +6125,6 @@ sub _build_string_test_case_list {
       text => '[page:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'PAGE_REF',
        get_content => '',
        has_parts => 0,
@@ -5749,7 +6136,6 @@ sub _build_string_test_case_list {
       text => '[pg:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'PAGE_REF',
        get_content => '',
        has_parts => 0,
@@ -5761,7 +6147,6 @@ sub _build_string_test_case_list {
       text => '[f:introduction:1]',
       expected =>
       {
-       type => 'part',
        get_name => 'FOOTNOTE_REF',
        get_content => '',
        has_parts => 0,
@@ -5773,7 +6158,6 @@ sub _build_string_test_case_list {
       text => '[index:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'INDEX_REF',
        get_content => '',
        has_parts => 0,
@@ -5785,7 +6169,6 @@ sub _build_string_test_case_list {
       text => '[i:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'INDEX_REF',
        get_content => '',
        has_parts => 0,
@@ -5797,7 +6180,6 @@ sub _build_string_test_case_list {
       text => '[thepage]',
       expected =>
       {
-       type => 'part',
        get_name => 'thepage_ref',
        get_content => '',
        has_parts => 0,
@@ -5809,7 +6191,6 @@ sub _build_string_test_case_list {
       text => '[theversion]',
       expected =>
       {
-       type => 'part',
        get_name => 'theversion_ref',
        get_content => '',
        has_parts => 0,
@@ -5821,7 +6202,6 @@ sub _build_string_test_case_list {
       text => '[therevision]',
       expected =>
       {
-       type => 'part',
        get_name => 'therevision_ref',
        get_content => '',
        has_parts => 0,
@@ -5833,7 +6213,6 @@ sub _build_string_test_case_list {
       text => '[thedate]',
       expected =>
       {
-       type => 'part',
        get_name => 'thedate_ref',
        get_content => '',
        has_parts => 0,
@@ -5845,7 +6224,6 @@ sub _build_string_test_case_list {
       text => '[status:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'STATUS_REF',
        get_content => '',
        has_parts => 0,
@@ -5857,7 +6235,6 @@ sub _build_string_test_case_list {
       text => '[cite:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'CITATION_REF',
        get_content => '',
        has_parts => 0,
@@ -5869,7 +6246,6 @@ sub _build_string_test_case_list {
       text => '[c:bogus]',
       expected =>
       {
-       type => 'part',
        get_name => 'CITATION_REF',
        get_content => '',
        has_parts => 0,
@@ -5881,7 +6257,6 @@ sub _build_string_test_case_list {
       text => '[take_note]',
       expected =>
       {
-       type => 'part',
        get_name => 'take_note_symbol',
        get_content => '',
        has_parts => 0,
@@ -5973,7 +6348,7 @@ sub _build_test_object_hash {
 	my $name = $pair->[0];
 	my $text = $pair->[1];
 	my $line = SML::Line->new(content=>$text);
-	my $definition = SML::Definition->new;
+	my $definition = SML::Definition->new(name=>'acronym');
 
 	$definition->add_line($line);
 
