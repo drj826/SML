@@ -2050,7 +2050,7 @@ sub BUILD {
     }
 
   my $sml_ontology_config_filespec = $self->_get_sml_ontology_config_filespec;
-  $ontology->add_rules($sml_ontology_config_filespec);
+  $ontology->add_rules_from_file($sml_ontology_config_filespec);
 
   #-------------------------------------------------------------------
   # add LIB ontology rules
@@ -2062,7 +2062,7 @@ sub BUILD {
     }
 
   my $lib_ontology_config_filespec = $self->_get_lib_ontology_config_filespec;
-  $ontology->add_rules($lib_ontology_config_filespec);
+  $ontology->add_rules_from_file($lib_ontology_config_filespec);
 
   #-------------------------------------------------------------------
   # Teach util about library
