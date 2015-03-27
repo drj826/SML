@@ -67,7 +67,7 @@ sub infer_inverse_property {
   my $element_value         = $element->get_value;
   my $inverse_division_id   = $element_value;
   my $inverse_division_name = $library->get_type($inverse_division_id);
-  my $rule                  = $ontology->rule_for($division_name,$element_name,$inverse_division_name);
+  my $rule                  = $ontology->get_rule_for($division_name,$element_name,$inverse_division_name);
   my $inverse_rule_id       = '';
 
   if ( $rule )
@@ -84,7 +84,7 @@ sub infer_inverse_property {
     {
       my $inverse_division      = $library->get_division($inverse_division_id);
       my $inverse_division_name = $inverse_division->get_name;
-      my $inverse_rule          = $ontology->rule_with_id($inverse_rule_id);
+      my $inverse_rule          = $ontology->get_rule_with_id($inverse_rule_id);
       my $inverse_property_name = $inverse_rule->get_property_name;
 
       if ( $ontology->allows_property($inverse_division_name,$inverse_property_name ) )

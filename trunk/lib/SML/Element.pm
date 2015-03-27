@@ -93,9 +93,9 @@ sub validate_element_allowed {
 
   if
     (
-     $ontology->rule_for($divname,$name,$object_type)
+     $ontology->get_rule_for($divname,$name,$object_type)
      or
-     $ontology->rule_for($divname,$name,'STRING')
+     $ontology->get_rule_for($divname,$name,'STRING')
     )
       {
 	# valid
@@ -103,9 +103,9 @@ sub validate_element_allowed {
 
   elsif
     (
-     $ontology->rule_for('UNIVERSAL',$name,$object_type)
+     $ontology->get_rule_for('UNIVERSAL',$name,$object_type)
      or
-     $ontology->rule_for('UNIVERSAL',$name,'STRING')
+     $ontology->get_rule_for('UNIVERSAL',$name,'STRING')
     )
       {
 	# valid
