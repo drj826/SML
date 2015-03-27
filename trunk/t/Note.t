@@ -14,10 +14,6 @@ Log::Log4perl->init("log.test.conf");
 # Test Data
 #---------------------------------------------------------------------
 
-my $testdata =
-  {
-  };
-
 #---------------------------------------------------------------------
 # Can use module?
 #---------------------------------------------------------------------
@@ -40,7 +36,11 @@ isa_ok( $obj, 'SML::Note' );
 
 my @public_methods =
   (
+   # SML::Note public attribute accessors
    'get_tag',
+
+   # SML::Note public methods
+   # <none>
   );
 
 can_ok( $obj, @public_methods );
