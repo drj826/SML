@@ -32,8 +32,8 @@ BEGIN {
 
 my $obj = SML->instance->get_ontology;
 
-$obj->add_rules('library/ontology_rules_sml.conf');
-$obj->add_rules('library/ontology_rules_lib.conf');
+$obj->add_rules_from_file('library/ontology_rules_sml.conf');
+$obj->add_rules_from_file('library/ontology_rules_lib.conf');
 
 isa_ok( $obj, 'SML::Ontology' );
 
@@ -43,18 +43,12 @@ isa_ok( $obj, 'SML::Ontology' );
 
 my @public_methods =
   (
-   'get_rule_hash',
-   'get_types_by_entity_name_hash',
-   'get_property_rules_lookup_hash',
-   'get_properties_by_entity_name_hash',
-   'get_allowed_property_values_hash',
-   'get_allowed_compositions_hash',
-   'get_imply_only_properties_hash',
-   'get_cardinality_of_properties_hash',
-   'get_required_properties_hash',
+   # SML::Ontology public attribute accessors
+   # <none>
 
-   'add_rules',
-   'get_allowed_property_values',
+   # SML::Ontology public methods
+   'add_rules_from_file',
+   'get_allowed_property_value_list',
    'contains_entity_named',
    'allowed_properties',
    'allowed_environments',
@@ -72,6 +66,7 @@ my @public_methods =
    'divisions_by_name',
    'allows_property_value',
    'class_for_entity_name',
+   'get_required_property_list',
   );
 
 can_ok( $obj, @public_methods );
