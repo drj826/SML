@@ -131,27 +131,7 @@ sub get_allowed_property_value_list {
 
 ######################################################################
 
-sub contains_entity_named {
-
-  my $self        = shift;
-  my $entity_name = shift;
-
-  foreach my $rule ( values %{ $self->_get_rule_hash } )
-    {
-      my $name = $rule->get_entity_name;
-
-      if ( $name eq $entity_name )
-	{
-	  return 1;
-	}
-    }
-
-  return 0;
-}
-
-######################################################################
-
-sub allowed_properties {
+sub get_entity_allowed_property_list {
 
   my $self        = shift;
   my $entity_name = shift;
@@ -161,6 +141,7 @@ sub allowed_properties {
   if ( not defined $list or not scalar @{ $list } )
     {
       $logger->warn("NO PROPERTIES DEFINED for $entity_name");
+      return 0;
     }
 
   return $list;
@@ -168,7 +149,7 @@ sub allowed_properties {
 
 ######################################################################
 
-sub allowed_environments {
+sub get_allowed_environment_list {
 
   my $self = shift;
 
@@ -193,7 +174,7 @@ sub allowed_environments {
 
 ######################################################################
 
-sub type_of {
+sub get_entity_type {
 
   my $self        = shift;
   my $entity_name = shift;
@@ -212,7 +193,113 @@ sub type_of {
 
 ######################################################################
 
-sub has_entity {
+sub get_rule_for {
+
+  # Return the rule for (1) the entity named $entity_name, (2) the
+  # property named $property_name, and (3) that has an optional
+  # inverse entity named $inverse_entity_name.
+
+  my $self          = shift;
+  my $entity_name   = shift;
+  my $property_name = shift;
+  my $name_or_value = shift;
+
+  my $prl = $self->_get_property_rules_lookup_hash;
+
+  my $rule = $prl->{$entity_name}{$property_name}{$name_or_value} || q{};
+
+  return $rule;
+}
+
+######################################################################
+
+sub get_rule_with_id {
+
+  my $self = shift;
+  my $id   = shift;
+
+  my $rule = $self->_get_rule_hash->{$id};
+
+  if ( defined $rule )
+    {
+      return $rule;
+    }
+
+  else
+    {
+      $logger->error("CAN'T GET RULE \'$id\'");
+      return 0;
+    }
+}
+
+######################################################################
+
+sub get_divisions_by_name_hash {
+
+  my $self = shift;
+
+  my $dbn  = {};                        # divisions by name
+
+  foreach my $rule ( values %{ $self->_get_rule_hash } )
+    {
+      my $rule_type = $rule->get_rule_type;
+
+      if ($rule_type ne 'cls') {
+	next;
+      }
+
+      my $entity_name = $rule->get_entity_name;
+      my $value_type  = $rule->get_value_type;
+
+      $dbn->{$entity_name} = [ $value_type ];
+    }
+
+  return $dbn;
+}
+
+######################################################################
+
+sub get_class_for_entity_name {
+
+  my $self        = shift;
+  my $entity_name = shift;
+
+  return $self->_get_types_by_entity_name_hash->{$entity_name};
+}
+
+######################################################################
+
+sub get_required_property_list {
+
+  my $self    = shift;
+  my $divname = shift;
+
+  return [ keys %{ $self->_get_required_properties_hash->{$divname} } ];
+}
+
+######################################################################
+
+sub contains_entity_named {
+
+  my $self        = shift;
+  my $entity_name = shift;
+
+  foreach my $rule ( values %{ $self->_get_rule_hash } )
+    {
+      my $name = $rule->get_entity_name;
+
+      if ( $name eq $entity_name )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub allows_entity {
 
   my $self        = shift;
   my $entity_name = shift;
@@ -330,12 +417,14 @@ sub allows_property {
   my $entity_name   = shift;
   my $property_name = shift;
 
-  if ( not $self->allowed_properties($entity_name) )
+  my $list = $self->get_entity_allowed_property_list($entity_name);
+
+  if ( not $list )
     {
       return 0;
     }
 
-  foreach my $name (@{ $self->allowed_properties($entity_name) })
+  foreach my $name (@{ $list })
     {
       if ( $name eq $property_name )
 	{
@@ -370,43 +459,33 @@ sub allows_composition {
 
 ######################################################################
 
-sub rule_for {
-
-  # Return the rule for (1) the entity named $entity_name, (2) the
-  # property named $property_name, and (3) that has an optional
-  # inverse entity named $inverse_entity_name.
+sub allows_property_value {
 
   my $self          = shift;
   my $entity_name   = shift;
   my $property_name = shift;
-  my $name_or_value = shift;
+  my $value         = shift;
 
-  my $prl = $self->_get_property_rules_lookup_hash;
+  my $apv = $self->_get_allowed_property_values_hash->{$entity_name}{$property_name};
 
-  my $rule = $prl->{$entity_name}{$property_name}{$name_or_value} || q{};
-
-  return $rule;
-}
-
-######################################################################
-
-sub rule_with_id {
-
-  my $self = shift;
-  my $id   = shift;
-
-  my $rule = $self->_get_rule_hash->{$id};
-
-  if ( defined $rule )
+  if (
+      ( not defined $apv )
+      or
+      ( defined $apv and not scalar @{ $apv } )
+     )
     {
-      return $rule;
+      return 1;
     }
 
-  else
+  foreach my $allowed_value ( @{ $apv } )
     {
-      $logger->error("CAN'T GET RULE \'$id\'");
-      return 0;
+      if ( $value eq $allowed_value )
+	{
+	  return 1;
+	}
     }
+
+  return 0;
 }
 
 ######################################################################
@@ -449,82 +528,6 @@ sub property_allows_cardinality {
   my $property_name = shift;
 
   return $self->_get_cardinality_of_properties_hash->{$divname}{$property_name};
-}
-
-######################################################################
-
-sub divisions_by_name {
-
-  my $self = shift;
-
-  my $dbn  = {};                        # divisions by name
-
-  foreach my $rule ( values %{ $self->_get_rule_hash } )
-    {
-      my $rule_type = $rule->get_rule_type;
-
-      if ($rule_type ne 'cls') {
-	next;
-      }
-
-      my $entity_name = $rule->get_entity_name;
-      my $value_type  = $rule->get_value_type;
-
-      $dbn->{$entity_name} = [ $value_type ];
-    }
-
-  return $dbn;
-}
-
-######################################################################
-
-sub allows_property_value {
-
-  my $self          = shift;
-  my $entity_name   = shift;
-  my $property_name = shift;
-  my $value         = shift;
-
-  my $apv = $self->_get_allowed_property_values_hash->{$entity_name}{$property_name};
-
-  if (
-      ( not defined $apv )
-      or
-      ( defined $apv and not scalar @{ $apv } )
-     )
-    {
-      return 1;
-    }
-
-  foreach my $allowed_value ( @{ $apv } )
-    {
-      if ( $value eq $allowed_value )
-	{
-	  return 1;
-	}
-    }
-
-  return 0;
-}
-
-######################################################################
-
-sub class_for_entity_name {
-
-  my $self        = shift;
-  my $entity_name = shift;
-
-  return $self->_get_types_by_entity_name_hash->{$entity_name};
-}
-
-######################################################################
-
-sub get_required_property_list {
-
-  my $self    = shift;
-  my $divname = shift;
-
-  return [ keys %{ $self->_get_required_properties_hash->{$divname} } ];
 }
 
 ######################################################################

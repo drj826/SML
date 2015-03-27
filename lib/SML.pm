@@ -410,7 +410,7 @@ sub _build_environment_names {
   my $self     = shift;
   my $ontology = $self->get_ontology;
 
-  return $ontology->allowed_environments;
+  return $ontology->get_allowed_environment_list;
 }
 
 ######################################################################

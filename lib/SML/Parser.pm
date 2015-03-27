@@ -4969,7 +4969,7 @@ sub _class_for {
   my $sml      = SML->instance;
   my $ontology = $sml->get_ontology;
 
-  return $ontology->class_for_entity_name($name);
+  return $ontology->get_class_for_entity_name($name);
 }
 
 ######################################################################
