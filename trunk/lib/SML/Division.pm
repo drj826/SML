@@ -1210,8 +1210,8 @@ sub _validate_property_values {
 	  if ( not $ontology->allows_property_value($divname,$property_name,$value) )
 	    {
 	      my $location = $element->get_location;
-	      my $allowed_property_values = $ontology->get_allowed_property_values($divname,$property_name);
-	      my $valid_property_values = join(', ', @{ $allowed_property_values });
+	      my $list = $ontology->get_allowed_property_value_list($divname,$property_name);
+	      my $valid_property_values = join(', ', @{ $list });
 	      $logger->warn("INVALID PROPERTY VALUE \'$value\' at $location: $divname $property_name must be one of: $valid_property_values");
 	      $valid = 0;
 	    }
@@ -1296,7 +1296,8 @@ sub _validate_required_properties {
     }
 
   # Validate that all required properties are declared
-  foreach my $required ( keys %{ $ontology->get_required_properties_hash->{$divname} } )
+  # foreach my $required ( keys %{ $ontology->get_required_properties_hash->{$divname} } )
+  foreach my $required (@{ $ontology->get_required_property_list($divname) })
     {
       if ( not $seen->{$required} )
 	{
