@@ -17,8 +17,9 @@ Log::Log4perl->init("log.test.conf");
 
 use SML::TestData;
 
-my $td  = SML::TestData->new;
-my $tcl = $td->get_fragment_test_case_list;
+my $td      = SML::TestData->new;
+my $tcl     = $td->get_fragment_test_case_list;
+my $library = $td->get_test_object('SML::Library','library');
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -34,13 +35,11 @@ BEGIN {
 #---------------------------------------------------------------------
 
 # arrange
-my $config   = 'library.conf';
-my $library  = SML::Library->new(config_filename=>$config);
 my $filespec = 'library/testdata/td-000001.txt';
 my $file     = SML::File->new(filespec=>$filespec);
 
 # act
-my $obj = SML::Fragment->new(file=>$file);
+my $obj = SML::Fragment->new(file=>$file,library=>$library);
 
 # assert
 isa_ok( $obj, 'SML::Fragment' );
@@ -84,9 +83,10 @@ sub extract_division_lines_ok {
   my $tcname   = $tc->{name};
   my $filespec = $tc->{filespec};
   my $divid    = $tc->{divid};
+  my $library  = $tc->{library};
   my $file     = SML::File->new(filespec=>$filespec);
-  my $fragment = SML::Fragment->new(file=>$file);
   my $expected = $tc->{expected}{extract_division_lines};
+  my $fragment = SML::Fragment->new(file=>$file,library=>$library);
 
   # act
   my $lines  = $fragment->extract_division_lines($divid);

@@ -14,6 +14,11 @@ Log::Log4perl->init("log.test.conf");
 # Test Data
 #---------------------------------------------------------------------
 
+use SML::TestData;
+
+my $td      = SML::TestData->new;
+my $library = $td->get_test_object('SML::Library','library');
+
 #---------------------------------------------------------------------
 # Can use module?
 #---------------------------------------------------------------------
@@ -27,7 +32,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::CommentBlock->new(name=>'comment-block');
+my $obj = SML::CommentBlock->new(library=>$library);
 isa_ok( $obj, 'SML::CommentBlock' );
 
 #---------------------------------------------------------------------

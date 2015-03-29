@@ -16,8 +16,9 @@ Log::Log4perl->init("log.test.conf");
 
 use SML::TestData;
 
-my $td = SML::TestData->new;
-my $tcl = $td->get_assertion_test_case_list;
+my $td      = SML::TestData->new;
+my $tcl     = $td->get_assertion_test_case_list;
+my $library = $td->get_test_object('SML::Library','library');
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -38,6 +39,7 @@ $args->{id}        = 'a1';
 $args->{subject}   = 'The sky';
 $args->{predicate} = 'is';
 $args->{object}    = 'blue.';
+$args->{library}   = $library;
 
 my $obj = SML::Assertion->new(%{ $args });
 
@@ -141,6 +143,7 @@ sub get_subject_ok {
      subject   => $tc->{subject},
      predicate => $tc->{predicate},
      object    => $tc->{object},
+     library   => $tc->{library},
     );
 
   # act
@@ -165,6 +168,7 @@ sub get_predicate_ok {
      subject   => $tc->{subject},
      predicate => $tc->{predicate},
      object    => $tc->{object},
+     library   => $tc->{library},
     );
 
   # act
@@ -189,6 +193,7 @@ sub get_object_ok {
      subject   => $tc->{subject},
      predicate => $tc->{predicate},
      object    => $tc->{object},
+     library   => $tc->{library},
     );
 
   # act

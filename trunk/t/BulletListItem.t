@@ -16,8 +16,9 @@ Log::Log4perl->init("log.test.conf");
 
 use SML::TestData;
 
-my $td  = SML::TestData->new;
-my $tcl = $td->get_bullet_list_item_test_case_list;
+my $td      = SML::TestData->new;
+my $tcl     = $td->get_bullet_list_item_test_case_list;
+my $library = $td->get_test_object('SML::Library','library');
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -32,7 +33,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::BulletListItem->new(name=>'bullet-list-item');
+my $obj = SML::BulletListItem->new(name=>'bullet-list-item',library=>$library);
 isa_ok( $obj, 'SML::BulletListItem' );
 
 #---------------------------------------------------------------------
@@ -122,7 +123,10 @@ sub get_value_ok {
   my $expected = $tc->{expected}{get_value};
   my $text     = $tc->{text};
   my $line     = SML::Line->new(content=>$text);
-  my $item     = SML::BulletListItem->new(name=>'bullet_list_item');
+  my $item     = SML::BulletListItem->new
+    (
+     library => $tc->{library},
+    );
 
   $item->add_line($line);
 

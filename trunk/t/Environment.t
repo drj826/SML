@@ -14,6 +14,11 @@ Log::Log4perl->init("log.test.conf");
 # Test Data
 #---------------------------------------------------------------------
 
+use SML::TestData;
+
+my $td      = SML::TestData->new;
+my $library = $td->get_test_object('SML::Library','library');
+
 #---------------------------------------------------------------------
 # Can use module?
 #---------------------------------------------------------------------
@@ -27,8 +32,14 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Environment->new(id=>'env1',name=>'environment');
-isa_ok( $obj, 'SML::Environment' );
+my $args = {};
+
+$args->{id}      = 'env1';
+$args->{name}    = 'environment';
+$args->{library} = $library;
+
+my $obj = SML::Environment->new(%{$args});
+isa_ok($obj,'SML::Environment');
 
 #---------------------------------------------------------------------
 # Implements designed public methods?

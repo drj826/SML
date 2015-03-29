@@ -17,8 +17,9 @@ Log::Log4perl->init("log.test.conf");
 
 use SML::TestData;
 
-my $td  = SML::TestData->new;
-my $tcl = $td->get_definition_list_item_test_case_list;
+my $td      = SML::TestData->new;
+my $tcl     = $td->get_definition_list_item_test_case_list;
+my $library = $td->get_test_object('SML::Library','library');
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -33,8 +34,8 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::DefinitionListItem->new();
-isa_ok( $obj, 'SML::DefinitionListItem' );
+my $obj = SML::DefinitionListItem->new(library=>$library);
+isa_ok($obj,'SML::DefinitionListItem' );
 
 #---------------------------------------------------------------------
 # Implements designed public methods?
@@ -76,8 +77,9 @@ sub get_term_ok {
   my $tcname   = $tc->{name};
   my $expected = $tc->{expected}{get_term};
   my $text     = $tc->{text};
+  my $library  = $tc->{library};
   my $line     = SML::Line->new(content=>$text);
-  my $item     = SML::DefinitionListItem->new();
+  my $item     = SML::DefinitionListItem->new(library=>$library);
 
   $item->add_line($line);
 
@@ -99,8 +101,9 @@ sub get_definition_ok {
   my $tcname   = $tc->{name};
   my $expected = $tc->{expected}{get_definition};
   my $text     = $tc->{text};
+  my $library  = $tc->{library};
   my $line     = SML::Line->new(content=>$text);
-  my $item     = SML::DefinitionListItem->new();
+  my $item     = SML::DefinitionListItem->new(library=>$library);
 
   $item->add_line($line);
 

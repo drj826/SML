@@ -20,8 +20,9 @@ Log::Log4perl->init("log.test.conf");
 
 use SML::TestData;
 
-my $td  = SML::TestData->new;
-my $tcl = $td->get_element_test_case_list;
+my $td      = SML::TestData->new;
+my $tcl     = $td->get_element_test_case_list;
+my $library = $td->get_test_object('SML::Library','library');
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -36,7 +37,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Element->new(name=>'element',);
+my $obj = SML::Element->new(name=>'element',library=>$library);
 isa_ok( $obj, 'SML::Element' );
 
 #---------------------------------------------------------------------
@@ -79,11 +80,15 @@ sub get_value_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $name     = $tc->{element_name};
   my $text     = $tc->{text};
   my $line     = SML::Line->new(content=>$text);
-  my $element  = SML::Element->new(name=>$name);
   my $expected = $tc->{expected}{get_value};
+  my $element  = SML::Element->new
+    (
+     name    => $tc->{element_name},
+     library => $tc->{library},
+    );
+
 
   $element->add_line($line);
 
@@ -102,11 +107,14 @@ sub validate_element_allowed_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $name     = $tc->{element_name};
   my $text     = $tc->{text};
   my $line     = SML::Line->new(content=>$text);
-  my $element  = SML::Element->new(name=>$name);
   my $expected = $tc->{expected}{validate_element_allowed};
+  my $element  = SML::Element->new
+    (
+     name    => $tc->{element_name},
+     library => $tc->{library},
+    );
 
   # act
   my $result = $element->validate_element_allowed;

@@ -3,7 +3,7 @@
 # $Id$
 
 use lib "..";
-use Test::More tests => 3;
+use Test::More;
 
 use SML;
 
@@ -16,6 +16,12 @@ use Cwd;
 #---------------------------------------------------------------------
 # Test Data
 #---------------------------------------------------------------------
+
+use SML::TestData;
+
+my $td      = SML::TestData->new;
+my $tcl     = $td->get_ontology_test_case_list;
+my $library = $td->get_test_object('SML::Library','library');
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -30,12 +36,12 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML->instance->get_ontology;
+my $obj = SML::Ontology->new();
 
-$obj->add_rules_from_file('library/ontology_rules_sml.conf');
-$obj->add_rules_from_file('library/ontology_rules_lib.conf');
+# $obj->add_rules_from_file('library/ontology_rules_sml.conf');
+# $obj->add_rules_from_file('library/ontology_rules_lib.conf');
 
-isa_ok( $obj, 'SML::Ontology' );
+isa_ok($obj,'SML::Ontology');
 
 #---------------------------------------------------------------------
 # Implements designed public methods?
@@ -75,8 +81,34 @@ can_ok( $obj, @public_methods );
 # Returns expected values?
 #---------------------------------------------------------------------
 
+foreach my $tc (@{ $tcl })
+  {
+    add_rules_from_file_ok($tc) if defined $tc->{expected}{add_rules_from_file};
+  }
+
 #---------------------------------------------------------------------
 # Throws expected exceptions?
 #---------------------------------------------------------------------
 
 ######################################################################
+
+sub add_rules_from_file_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $file     = $tc->{rules_file};
+  my $ontology = SML::Ontology->new();
+  my $expected = $tc->{expected}{add_rules_from_file};
+
+  # act
+  my $result = $ontology->add_rules_from_file($file);
+
+  # assert
+  is($result,$expected,"$tcname add_rules_from_file $result");
+}
+
+######################################################################
+
+done_testing();

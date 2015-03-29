@@ -39,23 +39,44 @@ ok( $obj->isa('SML::Library'), 'library is a SML::Library' );
 
 my @public_methods =
   (
-   # attribute readers and writers
+   # SML::Library public attribute accessors
    'get_id',
    'get_name',
+   'get_revision',
    'get_sml',
+   'get_ontology',
    'get_parser',
    'get_reasoner',
    'get_formatter',
    'get_glossary',
    'get_acronym_list',
    'get_references',
-   'get_revision',
+   'get_directory_path',
+   'get_include_path',
+   'get_division_name_list',
+   'get_region_name_list',
+   'get_environment_name_list',
+
+   # SML::Library public methods
+   'get_filespec',
 
    'add_fragment',
+   'add_document',
+   'add_entity',
+   'add_division',
+   'add_variable',
+   'add_resource',
+   'add_index_term',
+   'add_fragment_file',
+   'add_reference_file',
+   'add_script_file',
+   'add_outcome',
+   'add_review',
+
+
    'has_fragment',
    'get_fragment',
 
-   'add_document',
    'has_document',
    'get_document',
 
@@ -98,18 +119,6 @@ my @public_methods =
    'has_index_term',
    'has_outcome',
    'has_review',
-
-   'add_fragment',
-   'add_entity',
-   'add_division',
-   'add_variable',
-   'add_resource',
-   'add_index_term',
-   'add_fragment_file',
-   'add_reference_file',
-   'add_script_file',
-   'add_outcome',
-   'add_review',
 
    'summarize_content',
    'summarize_entities',
