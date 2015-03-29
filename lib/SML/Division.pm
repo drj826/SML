@@ -638,7 +638,8 @@ sub get_preamble_line_list {
   my $list        = [];                 # preamble line list
   my $sml         = SML->instance;
   my $syntax      = $sml->get_syntax;
-  my $ontology    = $sml->get_ontology;
+  my $library     = $self->get_library;
+  my $ontology    = $library->get_ontology;
   my $in_preamble = 1;
   my $i           = 0;
   my $lastblock   = scalar @{ $self->get_block_list };
@@ -702,7 +703,8 @@ sub get_narrative_line_list {
   my $list        = [];                 # narrative line list
   my $sml         = SML->instance;
   my $syntax      = $sml->get_syntax;
-  my $ontology    = $sml->get_ontology;
+  my $library     = $self->get_library;
+  my $ontology    = $library->get_ontology;
   my $in_preamble = 1;
   my $i           = 0;
   my $lastblock   = scalar @{ $self->get_block_list };
@@ -1132,7 +1134,8 @@ sub _validate_property_cardinality {
   my $divname  = $self->get_name;
   my $divid    = $self->get_id;
   my $sml      = SML->instance;
-  my $ontology = $sml->get_ontology;
+  my $library  = $self->get_library;
+  my $ontology = $library->get_ontology;
 
   foreach my $property (@{ $self->get_property_list })
     {
@@ -1181,7 +1184,8 @@ sub _validate_property_values {
   my $divname  = $self->get_name;
   my $divid    = $self->get_id;
   my $sml      = SML->instance;
-  my $ontology = $sml->get_ontology;
+  my $library  = $self->get_library;
+  my $ontology = $library->get_ontology;
 
   foreach my $property (@{ $self->get_property_list })
     {
@@ -1235,7 +1239,8 @@ sub _validate_infer_only_conformance {
   my $divname  = $self->get_name;
   my $divid    = $self->get_id;
   my $sml      = SML->instance;
-  my $ontology = $sml->get_ontology;
+  my $library  = $self->get_library;
+  my $ontology = $library->get_ontology;
 
   foreach my $property (@{ $self->get_property_list })
     {
@@ -1286,7 +1291,8 @@ sub _validate_required_properties {
   my $divname  = $self->get_name;
   my $divid    = $self->get_id;
   my $sml      = SML->instance;
-  my $ontology = $sml->get_ontology;
+  my $library  = $self->get_library;
+  my $ontology = $library->get_ontology;
 
   foreach my $property (@{ $self->get_property_list })
     {
@@ -1326,7 +1332,8 @@ sub _validate_composition {
   my $valid     = 1;
   my $container = $self->get_containing_division;
   my $sml       = SML->instance;
-  my $ontology  = $sml->get_ontology;
+  my $library   = $self->get_library;
+  my $ontology  = $library->get_ontology;
 
   if ( $container )
     {

@@ -249,7 +249,20 @@ has library_test_case_list =>
 # list_item
 # literal_string
 # note
-# ontology
+
+######################################################################
+
+has ontology_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_ontology_test_case_list',
+   lazy    => 1,
+   builder => '_build_ontology_test_case_list',
+  );
+
+######################################################################
+
 # ontology_rule
 # options
 # page_reference
@@ -530,6 +543,7 @@ sub _build_acronym_term_reference_test_case_list {
       tag => 'ac',
       acronym => 'TLA',
       namespace => '',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        get_tag => 'ac',
@@ -554,6 +568,7 @@ sub _build_assertion_test_case_list {
       subject   => 'My eyes',
       predicate => 'are',
       object    => 'blue',
+      library   => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        get_subject   => 'My eyes',
@@ -568,6 +583,7 @@ sub _build_assertion_test_case_list {
       subject   => 'rq-000331',
       predicate => 'is_part_of',
       object    => 'rq-000026',
+      library   => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        get_subject   => 'rq-000331',
@@ -2961,6 +2977,7 @@ sub _build_bullet_list_item_test_case_list {
      {
       name => 'top_level_item',
       text => '- top level item',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        get_value => 'top level item',
@@ -2970,6 +2987,7 @@ sub _build_bullet_list_item_test_case_list {
      {
       name => 'indented_item',
       text => '  - indented item',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        get_value => 'indented item',
@@ -3000,6 +3018,7 @@ sub _build_definition_list_item_test_case_list {
      {
       name => 'definition_list_item_1',
       text => '= term 1 = definition of term 1',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        get_term => 'term 1',
@@ -3010,6 +3029,7 @@ sub _build_definition_list_item_test_case_list {
      {
       name => 'bad_definition_list_item_1',
       text => 'This is not a definition list item',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        error => 'DEFINITION LIST ITEM SYNTAX ERROR',
@@ -3030,6 +3050,7 @@ sub _build_definition_test_case_list {
       name => 'definition_1',
       text => 'glossary:: BPEL = Business Process Execution Language',
       defname => 'glossary',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        get_term => 'BPEL',
@@ -3042,6 +3063,7 @@ sub _build_definition_test_case_list {
       name => 'definition_2',
       text => 'glossary:: FRD {ieee} = (IEEE) Functional Requirements Document',
       defname => 'glossary',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        get_term => 'FRD',
@@ -3054,6 +3076,7 @@ sub _build_definition_test_case_list {
       name => 'bad_definition_1',
       text => 'This is not a definition',
       defname => 'glossary',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        error =>
@@ -3078,6 +3101,7 @@ sub _build_division_test_case_list {
       division_id     => 'td',
       division_name   => 'test-division',
       division_number => '4-4-4',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        init       => 1,
@@ -3092,6 +3116,7 @@ sub _build_division_test_case_list {
       testfile      => 'td-000020.txt',
       division_id   => 'td-000020',
       property_name => 'title',
+      library => $self->get_test_object('SML::Library','library'),
       expected  =>
       {
        get_containing_division => 'SML::Fragment',
@@ -3116,6 +3141,7 @@ sub _build_division_test_case_list {
       testfile      => 'td-000020.txt',
       division_id   => 'introduction',
       property_name => 'type',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        get_containing_division => 'SML::Document',
@@ -3139,6 +3165,7 @@ sub _build_division_test_case_list {
       testfile      => 'td-000020.txt',
       division_id   => 'problem-1',
       property_name => 'title',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        get_containing_division => 'SML::Section',
@@ -3162,6 +3189,7 @@ sub _build_division_test_case_list {
       testfile      => 'td-000020.txt',
       division_id   => 'tab-solution-types',
       property_name => 'id',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        get_containing_division => 'SML::Section',
@@ -3184,6 +3212,7 @@ sub _build_division_test_case_list {
       name        => 'invalid_semantics_division_1',
       testfile    => 'td-000063.txt',
       division_id => 'parent-problem',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        warning =>
@@ -3197,6 +3226,7 @@ sub _build_division_test_case_list {
       name        => 'invalid_semantics_division_2',
       testfile    => 'td-000064.txt',
       division_id => 'problem-1',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        warning =>
@@ -3210,6 +3240,7 @@ sub _build_division_test_case_list {
       name        => 'invalid_semantics_division_3',
       testfile    => 'td-000070.txt',
       division_id => 'td-000070',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        warning =>
@@ -3223,6 +3254,7 @@ sub _build_division_test_case_list {
       name        => 'invalid_semantics_division_4',
       testfile    => 'td-000079.txt',
       division_id => 'problem-1',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        warning =>
@@ -3236,6 +3268,7 @@ sub _build_division_test_case_list {
       name        => 'invalid_semantics_division_5',
       testfile    => 'td-000080.txt',
       division_id => 'problem-1',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        warning =>
@@ -3249,6 +3282,7 @@ sub _build_division_test_case_list {
       name        => 'invalid_semantics_division_6',
       testfile    => 'td-000081.txt',
       division_id => 'solution-1',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        warning =>
@@ -4306,6 +4340,7 @@ sub _build_element_test_case_list {
       name => 'element_1',
       text => 'title:: This is My Title',
       element_name => 'title',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        get_value => 'This is My Title',
@@ -4317,6 +4352,7 @@ sub _build_element_test_case_list {
       name     => 'invalid_filespec',
       testfile => 'td-000066.txt',
       docid    => 'td-000066',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        warning =>
@@ -4334,6 +4370,7 @@ sub _build_element_test_case_list {
       name     => 'invalid_image_file',
       testfile => 'td-000068.txt',
       docid    => 'td-000068',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        warning =>
@@ -4360,6 +4397,7 @@ sub _build_enumerated_list_item_test_case_list {
      {
       name => 'top_level_item',
       text => '+ top level item',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        get_value => 'top level item',
@@ -4369,6 +4407,7 @@ sub _build_enumerated_list_item_test_case_list {
      {
       name => 'indented_item',
       text => '  + indented item',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        get_value => 'indented item',
@@ -4431,6 +4470,7 @@ sub _build_fragment_test_case_list {
       name => 'fragment_1',
       filespec => 'library/testdata/td-000074.txt',
       divid => 'my-problem',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        extract_division_lines => 19,
@@ -4441,6 +4481,7 @@ sub _build_fragment_test_case_list {
       name => 'fragment_2',
       filespec => 'library/testdata/td-000074.txt',
       divid => 'tab-solution-types',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        extract_division_lines => 29,
@@ -4451,6 +4492,7 @@ sub _build_fragment_test_case_list {
       name => 'fragment_3',
       filespec => 'library/testdata/td-000074.txt',
       divid => 'introduction',
+      library => $self->get_test_object('SML::Library','library'),
       expected =>
       {
        extract_division_lines => 16,
@@ -4484,6 +4526,34 @@ sub _build_library_test_case_list {
        get_references   => 'SML::References',
       },
      },
+    ];
+}
+
+######################################################################
+
+sub _build_ontology_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name       => 'ontology_1',
+      rules_file => 'library/ontology_rules_sml.conf',
+      expected   =>
+      {
+       add_rules_from_file => 1,
+      },
+     },
+
+     # {
+     #  name       => 'ontology_2',
+     #  rules_file => 'library/ontology_rules_lib.conf',
+     #  expected   =>
+     #  {
+     #   add_rules_from_file => 1,
+     #  },
+     # },
     ];
 }
 
@@ -6335,6 +6405,8 @@ sub _build_test_object_hash {
   #-------------------------------------------------------------------
   # definition objects
   {
+    my $library = $toh->{'SML::Library'}{library};
+
     my $pair_list =
       [
        ['tla' => 'acronym:: TLA = Three Letter Acronym'],
@@ -6348,7 +6420,7 @@ sub _build_test_object_hash {
 	my $name = $pair->[0];
 	my $text = $pair->[1];
 	my $line = SML::Line->new(content=>$text);
-	my $definition = SML::Definition->new(name=>'acronym');
+	my $definition = SML::Definition->new(name=>'acronym',library=>$library);
 
 	$definition->add_line($line);
 
@@ -6359,6 +6431,8 @@ sub _build_test_object_hash {
   #-------------------------------------------------------------------
   # note objects
   {
+    my $library = $toh->{'SML::Library'}{library};
+
     my $pair_list =
       [
        ['1','note::1: This is a note.'],
@@ -6372,8 +6446,9 @@ sub _build_test_object_hash {
 	my $line = SML::Line->new(content=>$text);
 	my $args = {};
 
-	$args->{name} = 'note';
-	$args->{tag}  = $name;
+	$args->{name}    = 'note';
+	$args->{tag}     = $name;
+	$args->{library} = $library;
 
 	my $note = SML::Note->new(%{$args});
 

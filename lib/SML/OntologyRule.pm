@@ -150,10 +150,11 @@ has 'imply_only' =>
 
 sub BUILD {
 
-  my $self        = shift;
+  my $self = shift;
+
   my $sml         = SML->instance;
   my $syntax      = $sml->get_syntax;
-  my $ontology    = $sml->get_ontology;
+  my $ontology    = $self->get_ontology;
   my $id          = $self->get_id;
   my $rule_type   = $self->get_rule_type;
   my $entity_name = $self->get_entity_name;

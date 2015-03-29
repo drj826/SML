@@ -42,6 +42,15 @@ has 'id_path' =>
 
 ######################################################################
 
+has 'library' =>
+  (
+   isa      => 'SML::Library',
+   reader   => 'get_library',
+   required => 1,
+  );
+
+######################################################################
+
 has 'name' =>
   (
    isa      => 'Str',
@@ -370,13 +379,13 @@ sub dump_part_structure {
 
 ######################################################################
 
-sub get_library {
+# sub get_library {
 
-  my $sml  = SML->instance;
-  my $util = $sml->get_util;
+#   my $sml  = SML->instance;
+#   my $util = $sml->get_util;
 
-  return $util->get_library;
-}
+#   return $util->get_library;
+# }
 
 ######################################################################
 ######################################################################

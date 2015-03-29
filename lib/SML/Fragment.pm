@@ -515,6 +515,7 @@ sub _read_file {
 	    (
 	     file          => $included_file,
 	     included_from => $line,
+	     library       => $library,
 	    );
 	}
 
