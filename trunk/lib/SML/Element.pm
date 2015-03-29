@@ -79,8 +79,8 @@ sub validate_element_allowed {
 
   my $self = shift;
 
-  my $sml      = SML->instance;
-  my $ontology = $sml->get_ontology;
+  my $library  = $self->get_library;
+  my $ontology = $library->get_ontology;
   my $name     = $self->get_name;
   my $division = $self->get_containing_division;
   my $valid    = 1;

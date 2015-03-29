@@ -57,9 +57,9 @@ sub infer_inverse_property {
   my $element = shift;
 
   my $sml                   = SML->instance;
-  my $ontology              = $sml->get_ontology;
+  my $library               = $self->get_library;
+  my $ontology              = $library->get_ontology;
   my $util                  = $sml->get_util;
-  my $library               = $util->get_library;
   my $division              = $element->get_containing_division;
   my $division_id           = $division->get_id;
   my $division_name         = $division->get_name;
@@ -108,8 +108,9 @@ sub infer_inverse_property {
 
 	      my $inverse_element = SML::Element->new
 		(
-		 name       => $inverse_property_name,
-		 division   => $inverse_division,
+		 name     => $inverse_property_name,
+		 division => $inverse_division,
+		 library  => $self->get_library,
 		);
 
 	      $inverse_element->add_line($inverse_line);

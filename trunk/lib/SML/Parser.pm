@@ -150,7 +150,7 @@ sub create_fragment {
       $logger->logcroak("CAN'T PARSE \'$basename\'");
     }
 
-  my $fragment = SML::Fragment->new(file=>$file);
+  my $fragment = SML::Fragment->new(file=>$file,library=>$library);
 
   $self->_init;
   $self->_set_line_list( $fragment->get_line_list );
@@ -222,6 +222,7 @@ sub create_string {
 
       $args->{name}            = 'string';
       $args->{content}         = $text;
+      $args->{library}         = $self->get_library;
       $args->{containing_part} = $part if $part;
 
       my $newstring = SML::String->new(%{$args});
@@ -239,6 +240,7 @@ sub create_string {
       my $args = {};
 
       $args->{content}         = $text;
+      $args->{library}         = $self->get_library;
       $args->{containing_part} = $part if $part;
 
       my $newstring = SML::SyntaxErrorString->new(%{$args});
@@ -269,6 +271,7 @@ sub create_string {
 
 	    $args->{name}            = $string_type;
 	    $args->{content}         = $1;
+	    $args->{library}         = $self->get_library;
 	    $args->{containing_part} = $part if $part;
 
 	    my $newstring = SML::String->new(%{$args});
@@ -335,6 +338,7 @@ sub create_string {
 	    my $args = {};
 
 	    $args->{name}            = $string_type;
+	    $args->{library}         = $self->get_library;
 	    $args->{containing_part} = $part if $part;
 
 	    return SML::Symbol->new(%{$args});
@@ -354,6 +358,7 @@ sub create_string {
 	  my $args = {};
 
 	  $args->{target_id}       = $2;
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::CrossReference->new(%{$args});
@@ -374,6 +379,7 @@ sub create_string {
 
 	  $args->{url}             = $1;
 	  $args->{content}         = $3    if $3;
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::URLReference->new(%{$args});
@@ -394,6 +400,7 @@ sub create_string {
 
 	  $args->{section_id}      = $1;
 	  $args->{number}          = $2;
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::FootnoteReference->new(%{$args});
@@ -415,6 +422,7 @@ sub create_string {
 	  $args->{tag}             = $1;
 	  $args->{term}            = $4;
 	  $args->{namespace}       = $3 || '';
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::GlossaryTermReference->new(%{$args});
@@ -435,6 +443,7 @@ sub create_string {
 
 	  $args->{term}            = $3;
 	  $args->{namespace}       = $2 || '';
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::GlossaryDefinitionReference->new(%{$args});
@@ -456,6 +465,7 @@ sub create_string {
 	  $args->{tag}             = $1;
 	  $args->{acronym}         = $4;
 	  $args->{namespace}       = $3 || '';
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::AcronymTermReference->new(%{$args});
@@ -476,6 +486,7 @@ sub create_string {
 
 	  $args->{tag}             = $1;
 	  $args->{entry}           = $2;
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::IndexReference->new(%{$args});
@@ -495,6 +506,7 @@ sub create_string {
 	  my $args = {};
 
 	  $args->{target_id}       = $1;
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::IDReference->new(%{$args});
@@ -514,6 +526,7 @@ sub create_string {
 	  my $args = {};
 
 	  $args->{target_id}       = $2;
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::PageReference->new(%{$args});
@@ -533,6 +546,7 @@ sub create_string {
 	  my $args = {};
 
 	  $args->{entity_id}       = $1;
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::StatusReference->new(%{$args});
@@ -553,6 +567,7 @@ sub create_string {
 
 	  $args->{source_id}       = $2;
 	  $args->{details}         = $4 || '';
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::CitationReference->new(%{$args});
@@ -572,6 +587,7 @@ sub create_string {
 	  my $args = {};
 
 	  $args->{filespec}        = $1;
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::FileReference->new(%{$args});
@@ -591,6 +607,7 @@ sub create_string {
 	  my $args = {};
 
 	  $args->{pathspec}        = $1;
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::PathReference->new(%{$args});
@@ -611,6 +628,7 @@ sub create_string {
 
 	  $args->{variable_name}   = $1;
 	  $args->{namespace}       = $3 || '';
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::VariableReference->new(%{$args});
@@ -630,6 +648,7 @@ sub create_string {
 	  my $args = {};
 
 	  $args->{content}         = $2;
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::UserEnteredText->new(%{$args});
@@ -649,6 +668,7 @@ sub create_string {
 	  my $args = {};
 
 	  $args->{content}         = $1;
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::CommandReference->new(%{$args});
@@ -668,6 +688,7 @@ sub create_string {
 	  my $args = {};
 
 	  $args->{content}         = $1;
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::XMLTag->new(%{$args});
@@ -687,6 +708,7 @@ sub create_string {
 	  my $args = {};
 
 	  $args->{content}         = $1;
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::LiteralString->new(%{$args});
@@ -707,6 +729,7 @@ sub create_string {
 
 	  $args->{email_addr}      = $1;
 	  $args->{content}         = $3 || '';
+	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
 
 	  return SML::EmailAddress->new(%{$args});
@@ -893,7 +916,8 @@ sub extract_preamble_lines {
 
   my $sml                 = SML->instance;
   my $syntax              = $sml->get_syntax;
-  my $ontology            = $sml->get_ontology;
+  my $library             = $self->get_library;
+  my $ontology            = $library->get_ontology;
   my $preamble_lines      = [];
   my $divname             = $self->extract_division_name($lines);
   my $in_preamble         = 1;
@@ -984,7 +1008,8 @@ sub extract_narrative_lines {
 
   my $sml                 = SML->instance;
   my $syntax              = $sml->get_syntax;
-  my $ontology            = $sml->get_ontology;
+  my $library             = $self->get_library;
+  my $ontology            = $library->get_ontology;
   my $narrative_lines     = [];
   my $divname             = $self->extract_division_name($lines);
   my $in_preamble         = 1;
@@ -4966,8 +4991,8 @@ sub _class_for {
   my $self = shift;                     # SML::Parser object
   my $name = shift;                     # string
 
-  my $sml      = SML->instance;
-  my $ontology = $sml->get_ontology;
+  my $library  = $self->get_library;
+  my $ontology = $library->get_ontology;
 
   return $ontology->get_class_for_entity_name($name);
 }
@@ -5274,8 +5299,10 @@ sub _process_comment_division_marker {
 
   $logger->trace("----- comment division marker");
 
+  my $library = $self->get_library;
+
   # new preformatted block
-  my $block = SML::PreformattedBlock->new;
+  my $block = SML::PreformattedBlock->new(library=>$library);
   $block->add_line($line);
   $self->_begin_block($block);
 
@@ -5285,7 +5312,7 @@ sub _process_comment_division_marker {
       my $name    = 'comment';
       my $num     = $self->_count_comment_divisions;
       my $id      = "$name-$num";
-      my $comment = SML::CommentDivision->new(id=>$id);
+      my $comment = SML::CommentDivision->new(id=>$id,library=>$library);
 
       $comment->add_part($block);
 
@@ -5309,13 +5336,15 @@ sub _process_comment_line {
   my $self = shift;
   my $line = shift;
 
+  my $library = $self->get_library;
+
   $logger->trace("----- comment line");
 
   if ( not $self->_in_comment_block )
     {
       $logger->trace("..... begin comment block");
 
-      my $block = SML::CommentBlock->new;
+      my $block = SML::CommentBlock->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
       $self->_get_current_division->add_part( $block );
@@ -5338,11 +5367,13 @@ sub _process_comment_division_line {
   my $self = shift;
   my $line = shift;
 
+  my $library = $self->get_library;
+
   $logger->trace("----- line in comment division");
 
   if ( not $self->_get_block )
     {
-      my $block = SML::PreformattedBlock->new;
+      my $block = SML::PreformattedBlock->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
     }
@@ -5363,6 +5394,7 @@ sub _process_conditional_division_marker {
   my $line  = shift;
   my $token = shift;
 
+  my $library   = $self->get_library;
   my $blockname = '';
 
   $logger->trace("----- conditional marker ($token)");
@@ -5377,7 +5409,7 @@ sub _process_conditional_division_marker {
       $blockname = 'BEGIN';
     }
 
-  my $block = SML::PreformattedBlock->new(name=>$blockname);
+  my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
   $block->add_line($line);
   $self->_begin_block($block);
 
@@ -5407,6 +5439,7 @@ sub _process_conditional_division_marker {
 	(
 	 id          => $id,
 	 token       => $token,
+	 library     => $library,
 	);
 
       $conditional->add_part($block);
@@ -5426,8 +5459,8 @@ sub _process_start_region_marker {
   my $name = shift;
 
   my $location = $line->get_location;
-  my $sml      = SML->instance;
-  my $ontology = $sml->get_ontology;
+  my $library  = $self->get_library;
+  my $ontology = $library->get_ontology;
 
   $logger->trace("----- region begin marker ($name)");
 
@@ -5451,7 +5484,7 @@ sub _process_start_region_marker {
     }
 
   # new preformatted block
-  my $block = SML::PreformattedBlock->new(name=>'BEGIN');
+  my $block = SML::PreformattedBlock->new(name=>'BEGIN',library=>$library);
   $block->add_line($line);
   $self->_begin_block($block);
 
@@ -5464,7 +5497,7 @@ sub _process_start_region_marker {
       my $id      = "$name-$num";
       my $class   = $self->_class_for($name);
 
-      $region = $class->new(id=>$id);
+      $region = $class->new(id=>$id,library=>$library);
 
       $region->add_part($block);
     }
@@ -5478,8 +5511,9 @@ sub _process_start_region_marker {
 
       $region = $class->new
 	(
-	 name => $name,
-	 id   => $id,
+	 name    => $name,
+	 id      => $id,
+	 library => $library,
 	);
 
       $region->add_part($block);
@@ -5498,6 +5532,7 @@ sub _process_end_region_marker {
   my $line = shift;
   my $name = shift;
 
+  my $library  = $self->get_library;
   my $location = $line->get_location;
 
   $logger->trace("----- region end marker ($name)");
@@ -5541,7 +5576,7 @@ sub _process_end_region_marker {
     }
 
   # new preformatted block
-  my $block = SML::PreformattedBlock->new(name=>'END');
+  my $block = SML::PreformattedBlock->new(name=>'END',library=>$library);
   $block->add_line($line);
   $self->_begin_block($block);
   $self->_get_current_division->add_part($block);
@@ -5559,8 +5594,8 @@ sub _process_environment_marker {
   my $name = shift;
 
   my $location  = $line->get_location;
-  my $sml       = SML->instance;
-  my $ontology  = $sml->get_ontology;
+  my $library   = $self->get_library;
+  my $ontology  = $library->get_ontology;
   my $blockname = '';
 
   $logger->trace("----- environment marker ($name)");
@@ -5601,7 +5636,7 @@ sub _process_environment_marker {
       $blockname = 'BEGIN';
     }
 
-  my $block = SML::PreformattedBlock->new(name=>$blockname);
+  my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
   $block->add_line($line);
   $self->_begin_block($block);
 
@@ -5620,8 +5655,9 @@ sub _process_environment_marker {
       my $class       = $self->_class_for($name);
       my $environment = $class->new
 	(
-	 name => $name,
-	 id   => $id,
+	 name    => $name,
+	 id      => $id,
+	 library => $library,
 	);
 
       $environment->add_part($block);
@@ -5646,6 +5682,7 @@ sub _process_section_heading {
   my $line  = shift;
   my $depth = shift;
 
+  my $library  = $self->get_library;
   my $location = $line->get_location;
 
   $logger->trace("----- section heading");
@@ -5681,7 +5718,7 @@ sub _process_section_heading {
 
   # new title element
   $logger->trace("..... new title");
-  my $element = SML::Element->new(name=>'title');
+  my $element = SML::Element->new(name=>'title',library=>$library);
   $element->add_line($line);
   $self->_begin_block($element);
 
@@ -5692,6 +5729,7 @@ sub _process_section_heading {
     (
      depth    => $depth,
      id       => $id,
+     library  => $library,
     );
 
   $section->add_part($element);
@@ -5710,6 +5748,7 @@ sub _process_end_table_row {
   my $line = shift;
 
   my $name     = 'ENDTABLEROW';
+  my $library  = $self->get_library;
   my $location = $line->get_location;
 
   $logger->trace("----- end table row marker");
@@ -5731,7 +5770,7 @@ sub _process_end_table_row {
     }
 
   # new preformatted block
-  my $block = SML::PreformattedBlock->new(name=>$name);
+  my $block = SML::PreformattedBlock->new(name=>$name,library=>$library);
   $block->add_line($line);
   $self->_begin_block($block);
 
@@ -5786,7 +5825,7 @@ sub _process_id_element {
   $logger->trace("----- id element ($id)");
 
   # block/element handling
-  my $element = SML::Element->new(name=>'id');
+  my $element = SML::Element->new(name=>'id',library=>$library);
   $element->add_line($line);
   $self->_begin_block($element);
 
@@ -5817,13 +5856,13 @@ sub _process_start_element {
   my $line = shift;
   my $name = shift;
 
-  my $sml      = SML->instance;
-  my $ontology = $sml->get_ontology;
+  my $library  = $self->get_library;
+  my $ontology = $library->get_ontology;
   my $location = $line->get_location;
   my $division = $self->_get_current_division;
   my $divname  = $division->get_name;
 
-  my $element = SML::Element->new(name=>$name);
+  my $element = SML::Element->new(name=>$name,library=>$library);
 
   $logger->trace("----- element ($name) \'$element\'");
 
@@ -5911,6 +5950,7 @@ sub _process_start_note {
   my $tag   = shift;
   my $divid = shift;
 
+  my $library  = $self->get_library;
   my $division = $self->_get_current_division;
   my $divname  = $division->get_name;
 
@@ -5920,6 +5960,7 @@ sub _process_start_note {
     (
      tag      => $tag,
      division => $division,
+     library  => $library,
     );
 
   $element->add_line($line);
@@ -5971,7 +6012,8 @@ sub _process_start_glossary_entry {
 
   my $definition = SML::Definition->new
     (
-     name => 'glossary',
+     name    => 'glossary',
+     library => $library,
     );
 
   $definition->add_line($line);
@@ -6022,9 +6064,10 @@ sub _process_start_acronym_entry {
 
   my $definition = SML::Definition->new
     (
-     name => 'acronym',
-     term => $term,
-     alt  => $alt,
+     name    => 'acronym',
+     term    => $term,
+     alt     => $alt,
+     library => $library,
     );
 
   $definition->add_line($line);
@@ -6077,9 +6120,10 @@ sub _process_start_variable_definition {
 
   my $definition = SML::Definition->new
     (
-     name => 'var',
-     term => $term,
-     alt  => $alt,
+     name    => 'var',
+     term    => $term,
+     alt     => $alt,
+     library => $library,
     );
 
   $definition->add_line($line);
@@ -6120,13 +6164,15 @@ sub _process_bull_list_item {
   my $self = shift;
   my $line = shift;
 
+  my $library = $self->get_library;
+
   $logger->trace("----- bullet list item");
 
   $self->_end_preamble if $self->_in_preamble;
 
   if ( $self->_in_preformatted_division )
     {
-      my $block = SML::PreformattedBlock->new;
+      my $block = SML::PreformattedBlock->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
       $self->_get_current_division->add_part($block);
@@ -6134,7 +6180,7 @@ sub _process_bull_list_item {
 
   else
     {
-      my $block = SML::BulletListItem->new;
+      my $block = SML::BulletListItem->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
       $self->_get_current_division->add_part($block);
@@ -6150,13 +6196,15 @@ sub _process_enum_list_item {
   my $self = shift;
   my $line = shift;
 
+  my $library = $self->get_library;
+
   $logger->trace("----- enumerated list item");
 
   $self->_end_preamble if $self->_in_preamble;
 
   if ( $self->_in_preformatted_division )
     {
-      my $block = SML::PreformattedBlock->new;
+      my $block = SML::PreformattedBlock->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
       $self->_get_current_division->add_part($block);
@@ -6164,7 +6212,7 @@ sub _process_enum_list_item {
 
   else
     {
-      my $block = SML::EnumeratedListItem->new;
+      my $block = SML::EnumeratedListItem->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
       $self->_get_current_division->add_part($block);
@@ -6180,13 +6228,15 @@ sub _process_def_list_item {
   my $self = shift;
   my $line = shift;
 
+  my $library = $self->get_library;
+
   $logger->trace("----- definition list item");
 
   $self->_end_preamble if $self->_in_preamble;
 
   if ( $self->_in_preformatted_division )
     {
-      my $block = SML::PreformattedBlock->new;
+      my $block = SML::PreformattedBlock->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
       $self->_get_current_division->add_part($block);
@@ -6194,7 +6244,7 @@ sub _process_def_list_item {
 
   else
     {
-      my $block = SML::DefinitionListItem->new;
+      my $block = SML::DefinitionListItem->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
       $self->_get_current_division->add_part($block);
@@ -6210,12 +6260,14 @@ sub _process_start_table_cell {
   my $self = shift;
   my $line = shift;
 
+  my $library = $self->get_library;
+
   $logger->trace("----- table cell");
 
   $self->_end_preamble if $self->_in_preamble;
 
   # new block
-  my $block = SML::Block->new(name=>'paragraph');
+  my $block = SML::Block->new(name=>'paragraph',library=>$library);
   $block->add_line($line);
   $self->_begin_block($block);
 
@@ -6229,7 +6281,7 @@ sub _process_start_table_cell {
       #
       my $tnum      = $self->_count_baretables + 1;
       my $tid       = "BARETABLE-$tnum";
-      my $baretable = SML::Baretable->new(id=>$tid);
+      my $baretable = SML::Baretable->new(id=>$tid,library=>$library);
 
       $self->_begin_division($baretable);
 
@@ -6237,7 +6289,7 @@ sub _process_start_table_cell {
       #
       my $rnum     = $self->_count_table_rows + 1;
       my $rid      = "BARETABLEROW-$tnum-$rnum";
-      my $tablerow = SML::TableRow->new(id=>$rid);
+      my $tablerow = SML::TableRow->new(id=>$rid,library=>$library);
 
       $self->_begin_division($tablerow);
 
@@ -6245,7 +6297,7 @@ sub _process_start_table_cell {
       #
       my $cnum      = $self->_count_table_cells + 1;
       my $cid       = "BARETABLECELL-$tnum-$rnum-$cnum";
-      my $tablecell = SML::TableCell->new(id=>$cid);
+      my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
       $tablecell->add_part($block);
       $self->_begin_division($tablecell);
@@ -6262,7 +6314,7 @@ sub _process_start_table_cell {
       my $tnum     = $self->_count_baretables;
       my $rnum     = $self->_count_table_rows + 1;
       my $rid      = "BARETABLEROW-$tnum-$rnum";
-      my $tablerow = SML::TableRow->new(id=>$rid);
+      my $tablerow = SML::TableRow->new(id=>$rid,library=>$library);
 
       $self->_begin_division($tablerow);
 
@@ -6270,7 +6322,7 @@ sub _process_start_table_cell {
       #
       my $cnum      = $self->_count_table_cells + 1;
       my $cid       = "BARETABLECELL-$tnum-$rnum-$cnum";
-      my $tablecell = SML::TableCell->new(id=>$cid);
+      my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
       $tablecell->add_part($block);
       $self->_begin_division($tablecell);
@@ -6287,7 +6339,7 @@ sub _process_start_table_cell {
       my $tnum     = $self->_count_tables;
       my $rnum     = $self->_count_table_rows + 1;
       my $rid      = "TABLEROW-$tnum-$rnum";
-      my $tablerow = SML::TableRow->new(id=>$rid);
+      my $tablerow = SML::TableRow->new(id=>$rid,library=>$library);
 
       $self->_begin_division($tablerow);
 
@@ -6295,7 +6347,7 @@ sub _process_start_table_cell {
       #
       my $cnum      = $self->_count_table_cells + 1;
       my $cid       = "TABLECELL-$tnum-$rnum-$cnum";
-      my $tablecell = SML::TableCell->new(id=>$cid);
+      my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
       $tablecell->add_part($block);
       $self->_begin_division($tablecell);
@@ -6313,7 +6365,7 @@ sub _process_start_table_cell {
       my $rnum      = $self->_count_table_rows;
       my $cnum      = $self->_count_table_cells + 1;
       my $cid       = "BARETABLECELL-$tnum-$rnum-$cnum";
-      my $tablecell = SML::TableCell->new(id=>$cid);
+      my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
       $tablecell->add_part($block);
       $self->_begin_division($tablecell);
@@ -6331,7 +6383,7 @@ sub _process_start_table_cell {
       my $rnum      = $self->_count_table_rows;
       my $cnum      = $self->_count_table_cells + 1;
       my $cid       = "TABLECELL-$tnum-$rnum-$cnum";
-      my $tablecell = SML::TableCell->new(id=>$cid);
+      my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
       $tablecell->add_part($block);
       $self->_begin_division($tablecell);
@@ -6353,6 +6405,8 @@ sub _process_paragraph_text {
   my $self = shift;
   my $line = shift;
 
+  my $library = $self->get_library;
+
   $logger->trace("----- paragraph text");
 
   if ( $self->_in_paragraph )
@@ -6371,7 +6425,7 @@ sub _process_paragraph_text {
     {
       $logger->trace("..... new preformatted block");
 
-      my $block = SML::PreformattedBlock->new;
+      my $block = SML::PreformattedBlock->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
       $self->_get_current_division->add_part($block);
@@ -6400,7 +6454,7 @@ sub _process_paragraph_text {
 	  $self->_end_baretable;
 	}
 
-      my $paragraph = SML::Paragraph->new;
+      my $paragraph = SML::Paragraph->new(library=>$library);
       $paragraph->add_line($line);
       $self->_begin_block($paragraph);
       $self->_get_current_division->add_part($paragraph);
@@ -6415,6 +6469,8 @@ sub _process_indented_text {
 
   my $self = shift;
   my $line = shift;
+
+  my $library = $self->get_library;
 
   $logger->trace("----- indented text");
 
@@ -6436,7 +6492,7 @@ sub _process_indented_text {
 
       $self->_end_preamble if $self->_in_preamble;
 
-      my $block = SML::PreformattedBlock->new;
+      my $block = SML::PreformattedBlock->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
       $self->_get_current_division->add_part($block);
@@ -6452,6 +6508,7 @@ sub _process_non_blank_line {
   my $self = shift;
   my $line = shift;
 
+  my $library  = $self->get_library;
   my $location = $line->get_location;
 
   $logger->trace("----- non-blank line");
@@ -6479,7 +6536,7 @@ sub _process_non_blank_line {
       not $self->_get_block
      )
     {
-      my $block = SML::PreformattedBlock->new;
+      my $block = SML::PreformattedBlock->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
       $self->environment->add_part($block);

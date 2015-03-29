@@ -63,16 +63,16 @@ sub add_rules_from_file {
   @{ $line_list } = <$fh>;
   close $fh;
 
-  foreach my $text (@{ $line_list })
+  foreach my $line (@{ $line_list })
     {
-      $text =~ s/[\r\n]*$//;            # chomp;
+      $line =~ s/[\r\n]*$//;            # chomp;
 
-      if ( $text =~ /$syntax->{comment_line}/ )
+      if ( $line =~ /$syntax->{comment_line}/ )
 	{
 	  next;
 	}
 
-      if ( $text =~ /$syntax->{blank_line}/ )
+      if ( $line =~ /$syntax->{blank_line}/ )
 	{
 	  next;
 	}
@@ -80,7 +80,7 @@ sub add_rules_from_file {
       my $sml             = SML->instance;
       my $util            = $sml->get_util;
       my $csv             = Text::CSV->new();
-      my $status          = $csv->parse($text);
+      my $status          = $csv->parse($line);
       my $field           = [ $csv->fields() ];
 
       my $rule_id         = $util->trim_whitespace( $field->[0] );
@@ -154,8 +154,9 @@ sub get_allowed_environment_list {
   my $self = shift;
 
   my $list = [];                        # allowed environments list
+  my $hash = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $self->_get_rule_hash } )
+  foreach my $rule ( values %{ $hash } )
     {
       my $entity_name = $rule->get_entity_name;
       my $rule_type   = $rule->get_rule_type;
@@ -218,7 +219,8 @@ sub get_rule_with_id {
   my $self = shift;
   my $id   = shift;
 
-  my $rule = $self->_get_rule_hash->{$id};
+  my $hash = $self->_get_rule_hash;
+  my $rule = $hash->{$id};
 
   if ( defined $rule )
     {
@@ -239,8 +241,9 @@ sub get_divisions_by_name_hash {
   my $self = shift;
 
   my $dbn  = {};                        # divisions by name
+  my $hash = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $self->_get_rule_hash } )
+  foreach my $rule ( values %{ $hash } )
     {
       my $rule_type = $rule->get_rule_type;
 
@@ -284,7 +287,9 @@ sub contains_entity_named {
   my $self        = shift;
   my $entity_name = shift;
 
-  foreach my $rule ( values %{ $self->_get_rule_hash } )
+  my $hash = $self->_get_rule_hash;
+
+  foreach my $rule ( values %{ $hash } )
     {
       my $name = $rule->get_entity_name;
 
@@ -542,9 +547,6 @@ has 'rule_hash' =>
   (
    isa       => 'HashRef',
    reader    => '_get_rule_hash',
-   writer    => '_set_rule_hash',
-   clearer   => '_clear_rule_hash',
-   predicate => '_has_rule_hash',
    default   => sub {{}},
   );
 
@@ -643,9 +645,11 @@ sub _add_rule {
 
   if ( $rule->isa('SML::OntologyRule') )
     {
-      my $rules  = $self->_get_rule_hash;
+      my $hash   = $self->_get_rule_hash;
       my $ruleid = $rule->get_id;
-      $rules->{$ruleid} = $rule;
+
+      $hash->{$ruleid} = $rule;
+
       return 1;
     }
 
@@ -664,8 +668,9 @@ sub _build_properties_by_entity_name_hash {
   my $self = shift;
 
   my $pbenh = {};                       # properties by entity name
+  my $hash  = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $self->_get_rule_hash } )
+  foreach my $rule ( values %{ $hash } )
     {
       my $rule_type = $rule->get_rule_type;
 
@@ -694,8 +699,9 @@ sub _build_types_by_entity_name_hash {
   my $self = shift;
 
   my $tbenh = {};                       # types by entity name
+  my $hash  = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $self->_get_rule_hash } )
+  foreach my $rule ( values %{ $hash } )
     {
       my $rule_type = $rule->get_rule_type;
 
@@ -718,8 +724,9 @@ sub _build_property_rules_lookup_hash {
   my $self = shift;
 
   my $prlh = {};                        # property rules lookup
+  my $hash = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $self->_get_rule_hash } )
+  foreach my $rule ( values %{ $hash } )
     {
       my $rule_type = $rule->get_rule_type;
 
@@ -744,8 +751,9 @@ sub _build_allowed_property_values_hash {
   my $self = shift;
 
   my $apvh = {};                        # allowed property values hash
+  my $hash = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $self->_get_rule_hash } )
+  foreach my $rule ( values %{ $hash } )
     {
       my $rule_type = $rule->get_rule_type;
 
@@ -774,9 +782,10 @@ sub _build_allowed_compositions_hash {
 
   my $self = shift;
 
-  my $ach = {};                         # allowed compositions hash
+  my $ach  = {};                        # allowed compositions hash
+  my $hash = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $self->_get_rule_hash } )
+  foreach my $rule ( values %{ $hash } )
     {
       my $rule_type = $rule->get_rule_type;
 
@@ -803,8 +812,9 @@ sub _build_imply_only_properties_hash {
   my $self = shift;
 
   my $ioph = {};                        # imply only properties
+  my $hash = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $self->_get_rule_hash } )
+  foreach my $rule ( values %{ $hash } )
     {
       if ($rule->get_rule_type ne 'prp') {
 	next;
@@ -832,8 +842,9 @@ sub _build_cardinality_of_properties_hash {
   my $self = shift;
 
   my $coph = {};                        # cardinality of properties
+  my $hash = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $self->_get_rule_hash } )
+  foreach my $rule ( values %{ $hash } )
     {
       if ($rule->get_rule_type ne 'prp') {
 	next;
@@ -858,9 +869,10 @@ sub _build_required_properties_hash {
 
   my $self = shift;
 
-  my $rph = {};                         # required properties hash
+  my $rph  = {};                        # required properties hash
+  my $hash = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $self->_get_rule_hash } )
+  foreach my $rule ( values %{ $hash } )
     {
       if ($rule->get_rule_type ne 'prp') {
 	next;

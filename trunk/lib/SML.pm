@@ -40,20 +40,6 @@ has 'syntax' =>
 
 ######################################################################
 
-has 'ontology' =>
-  (
-   isa     => 'SML::Ontology',
-   reader  => 'get_ontology',
-   lazy    => 1,
-   builder => '_build_ontology',
-  );
-
-# BUG HERE -- The ontology should belong to a library and not to the
-# SML singleton because an SML singleton can have multiple libraries
-# and each library can have its own semantics (ontology).
-
-######################################################################
-
 has 'util' =>
   (
    isa     => 'SML::Util',
@@ -121,42 +107,6 @@ has 'background_color_list' =>
   );
 
 # BUG HERE -- Perhaps this should be part of SML::Formatter?
-
-######################################################################
-
-has 'division_name_list' =>
-  (
-   isa     => 'ArrayRef',
-   reader  => 'get_division_name_list',
-   lazy    => 1,
-   builder => '_build_division_names',
-  );
-
-# BUG HERE -- Perhaps this should be part of SML::Library?
-
-######################################################################
-
-has 'region_name_list' =>
-  (
-   isa     => 'ArrayRef',
-   reader  => 'get_region_name_list',
-   lazy    => 1,
-   builder => '_build_region_names',
-  );
-
-# BUG HERE -- Perhaps this should be part of SML::Library?
-
-######################################################################
-
-has 'environment_name_list' =>
-  (
-   isa     => 'ArrayRef',
-   reader  => 'get_environment_name_list',
-   lazy    => 1,
-   builder => '_build_environment_names',
-  );
-
-# BUG HERE -- Perhaps this should be part of SML::Library?
 
 ######################################################################
 ######################################################################
@@ -298,15 +248,6 @@ has 'library_hash' =>
 
 ######################################################################
 
-# has 'ontology_config_filespec' =>
-#   (
-#    isa     => 'Str',
-#    reader  => 'get_ontology_config_filespec',
-#    default => 'ontology.conf',
-#   );
-
-######################################################################
-
 has 'division_hash' =>
   (
    isa     => 'HashRef',
@@ -364,60 +305,6 @@ sub _build_syntax {
 sub _build_util {
   my $self = shift;
   return SML::Util->new;
-}
-
-######################################################################
-
-sub _build_division_names {
-
-  my $self = shift;
-  my $list = [ sort keys %{ $self->_get_division_hash } ];
-
-  return $list;
-}
-
-######################################################################
-
-sub _build_region_names {
-
-  # Return a list of region names.
-
-  my $self      = shift;
-  my $names     = [];
-
-  foreach my $name ( sort keys %{ $self->_get_division_hash } )
-    {
-      if
-	(
-	 $self->_get_division_hash->{$name}[0] eq 'SML::Region'
-	 or
-	 $self->_get_division_hash->{$name}[0] eq 'SML::Entity'
-	)
-	{
-	  push( @{ $names }, $name );
-	}
-    }
-
-  return $names;
-}
-
-######################################################################
-
-sub _build_environment_names {
-
-  # Return a list of environment names.
-
-  my $self     = shift;
-  my $ontology = $self->get_ontology;
-
-  return $ontology->get_allowed_environment_list;
-}
-
-######################################################################
-
-sub _build_ontology {
-  my $self = shift;
-  return SML::Ontology->new;
 }
 
 ######################################################################

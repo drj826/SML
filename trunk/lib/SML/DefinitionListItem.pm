@@ -71,16 +71,21 @@ sub _build_term {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $text   = $self->get_content || q{};
+  my $sml     = SML->instance;
+  my $syntax  = $sml->get_syntax;
+  my $text    = $self->get_content || q{};
+  my $library = $self->get_library;
 
   $text =~ s/[\r\n]*$//;                # chomp
 
   if ( $text =~ /$syntax->{'def_list_item'}/xms )
     {
       my $term   = $1;                  # see SML::Syntax
-      my $string = SML::String->new(content=>$term);
+      my $string = SML::String->new
+	(
+	 content => $term,
+	 library => $library,
+	);
 
       $self->add_part($string);
 
@@ -103,16 +108,21 @@ sub _build_definition {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $text   = $self->get_content || q{};
+  my $sml     = SML->instance;
+  my $syntax  = $sml->get_syntax;
+  my $text    = $self->get_content || q{};
+  my $library = $self->get_library;
 
   $text =~ s/[\r\n]*$//;                # chomp
 
   if ( $text =~ /$syntax->{'def_list_item'}/xms )
     {
       my $definition = $2;              # see SML::Syntax
-      my $string     = SML::String->new(content=>$definition);
+      my $string     = SML::String->new
+	(
+	 content => $definition,
+	 library => $library,
+	);
 
       $self->add_part($string);
 

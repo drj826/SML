@@ -19,6 +19,7 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Library');
 
 use SML;
+use SML::Ontology;
 use SML::Parser;
 use SML::Reasoner;
 use SML::Formatter;
@@ -75,6 +76,16 @@ has 'sml' =>
    isa      => 'SML',
    reader   => 'get_sml',
    default  => sub { SML->instance },
+  );
+
+######################################################################
+
+has 'ontology' =>
+  (
+   isa     => 'SML::Ontology',
+   reader  => 'get_ontology',
+   lazy    => 1,
+   builder => '_build_ontology',
   );
 
 ######################################################################
@@ -162,6 +173,36 @@ has 'include_path' =>
    isa     => 'ArrayRef',
    reader  => 'get_include_path',
    default => sub {[]},
+  );
+
+######################################################################
+
+has 'division_name_list' =>
+  (
+   isa     => 'ArrayRef',
+   reader  => 'get_division_name_list',
+   lazy    => 1,
+   builder => '_build_division_names',
+  );
+
+######################################################################
+
+has 'region_name_list' =>
+  (
+   isa     => 'ArrayRef',
+   reader  => 'get_region_name_list',
+   lazy    => 1,
+   builder => '_build_region_names',
+  );
+
+######################################################################
+
+has 'environment_name_list' =>
+  (
+   isa     => 'ArrayRef',
+   reader  => 'get_environment_name_list',
+   lazy    => 1,
+   builder => '_build_environment_names',
   );
 
 ######################################################################
@@ -1959,7 +2000,7 @@ sub BUILD {
   my $config_filespec = $self->_get_config_filespec;
   my $sml             = SML->instance;
   my $syntax          = $sml->get_syntax;
-  my $ontology        = $sml->get_ontology;
+  my $ontology        = $self->get_ontology;
   my %config          = ();
   my $directory_path  = q{};
   my $catalog_file    = q{};
@@ -2221,6 +2262,13 @@ sub _build_lib_ontology_config_filespec {
 
 ######################################################################
 
+sub _build_ontology {
+  my $self = shift;
+  return SML::Ontology->new;
+}
+
+######################################################################
+
 sub _build_parser {
   my $self = shift;
   return SML::Parser->new(library=>$self);
@@ -2259,6 +2307,53 @@ sub _build_acronym_list {
 sub _build_references {
   my $self = shift;
   return SML::References->new;
+}
+
+######################################################################
+
+sub _build_division_names {
+
+  my $self = shift;
+  my $list = [ sort keys %{ $self->_get_division_hash } ];
+
+  return $list;
+}
+
+######################################################################
+
+sub _build_region_names {
+
+  # Return a list of region names.
+
+  my $self      = shift;
+  my $names     = [];
+
+  foreach my $name ( sort keys %{ $self->_get_division_hash } )
+    {
+      if
+	(
+	 $self->_get_division_hash->{$name}[0] eq 'SML::Region'
+	 or
+	 $self->_get_division_hash->{$name}[0] eq 'SML::Entity'
+	)
+	{
+	  push( @{ $names }, $name );
+	}
+    }
+
+  return $names;
+}
+
+######################################################################
+
+sub _build_environment_names {
+
+  # Return a list of environment names.
+
+  my $self     = shift;
+  my $ontology = $self->get_ontology;
+
+  return $ontology->get_allowed_environment_list;
 }
 
 ######################################################################
