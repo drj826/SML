@@ -16,8 +16,9 @@ Log::Log4perl->init("log.test.conf");
 
 use SML::TestData;
 
-my $td  = SML::TestData->new();
-my $tcl = $td->get_string_test_case_list;
+my $td      = SML::TestData->new();
+my $tcl     = $td->get_string_test_case_list;
+my $library = $td->get_test_object('SML::Library','library');
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -32,8 +33,9 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::String->new(content=>'my test content');
-isa_ok( $obj, 'SML::String' );
+my $obj = SML::String->new(content=>'my test content',library=>$library);
+
+isa_ok($obj,'SML::String');
 
 #---------------------------------------------------------------------
 # Implements designed public methods?

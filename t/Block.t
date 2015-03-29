@@ -21,8 +21,9 @@ my $t2logger = Test::Log4perl->get_logger('sml.Document');
 
 use SML::TestData;
 
-my $td  = SML::TestData->new();
-my $tcl = $td->get_block_test_case_list;
+my $td      = SML::TestData->new();
+my $tcl     = $td->get_block_test_case_list;
+my $library = $td->get_test_object('SML::Library','library');
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -37,7 +38,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Block->new(name=>'PARAGRAPH');
+my $obj = SML::Block->new(name=>'PARAGRAPH',library=>$library);
 isa_ok( $obj, 'SML::Block' );
 
 #---------------------------------------------------------------------
@@ -125,7 +126,7 @@ sub renders_ok {
   my $fragment  = $parser->create_fragment($filename);
   my $document  = $library->get_document($docid);
   my $line      = SML::Line->new(content=>$content);
-  my $block     = $subclass->new;
+  my $block     = $subclass->new(library=>$library);
 
   $block->add_line($line);
   $document->add_part($block);
@@ -163,7 +164,7 @@ sub has_valid_syntax_ok {
   my $fragment  = $parser->create_fragment($filename);
   my $document  = $library->get_document($docid);
   my $line      = SML::Line->new(content=>$content);
-  my $block     = $subclass->new;
+  my $block     = $subclass->new(library=>$library);
 
   $block->add_line($line);
   $document->add_part($block);
@@ -198,7 +199,7 @@ sub has_valid_semantics_ok {
   my $fragment  = $parser->create_fragment($filename);
   my $document  = $library->get_document($docid);
   my $line      = SML::Line->new(content=>$content);
-  my $block     = $subclass->new;
+  my $block     = $subclass->new(library=>$library);
 
   $block->add_line($line);
   $document->add_part($block);
@@ -233,7 +234,7 @@ sub valid_syntax_warning_ok {
   my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
   my $line     = SML::Line->new(content=>$content);
-  my $block    = $subclass->new;
+  my $block    = $subclass->new(library=>$library);
 
   $block->add_line($line);
   $document->add_part($block);
@@ -271,7 +272,7 @@ sub valid_semantics_warning_ok {
   my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
   my $line     = SML::Line->new(content=>$content);
-  my $block    = $subclass->new;
+  my $block    = $subclass->new(library=>$library);
 
   $block->add_line($line);
   $document->add_part($block);

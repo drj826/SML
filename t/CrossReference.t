@@ -16,8 +16,9 @@ Log::Log4perl->init("log.test.conf");
 
 use SML::TestData;
 
-my $td = SML::TestData->new();
-my $tcl = $td->get_cross_reference_test_case_list;
+my $td      = SML::TestData->new();
+my $tcl     = $td->get_cross_reference_test_case_list;
+my $library = $td->get_test_object('SML::Library','library');
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -35,6 +36,7 @@ BEGIN {
 my $args = {};
 
 $args->{target_id} = 'introduction';
+$args->{library}   = $library;
 
 my $obj = SML::CrossReference->new(%{$args});
 isa_ok( $obj, 'SML::CrossReference' );

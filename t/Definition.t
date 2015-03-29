@@ -19,8 +19,9 @@ use Test::Log4perl;
 
 use SML::TestData;
 
-my $td  = SML::TestData->new;
-my $tcl = $td->get_definition_test_case_list;
+my $td      = SML::TestData->new;
+my $tcl     = $td->get_definition_test_case_list;
+my $library = $td->get_test_object('SML::Library','library');
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -35,8 +36,8 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Definition->new(name=>'glossary');
-isa_ok( $obj, 'SML::Definition' );
+my $obj = SML::Definition->new(name=>'glossary',library=>$library);
+isa_ok($obj,'SML::Definition' );
 
 #---------------------------------------------------------------------
 # Implements designed public methods?
@@ -85,9 +86,10 @@ sub get_term_ok {
   my $tcname     = $tc->{name};
   my $text       = $tc->{text};
   my $defname    = $tc->{defname};
+  my $library    = $tc->{library};
   my $expected   = $tc->{expected}{get_term};
   my $line       = SML::Line->new(content=>$text);
-  my $definition = SML::Definition->new(name=>$defname);
+  my $definition = SML::Definition->new(name=>$defname,library=>$library);
 
   $definition->add_line($line);
 
@@ -108,9 +110,10 @@ sub get_alt_ok {
   my $tcname     = $tc->{name};
   my $text       = $tc->{text};
   my $defname    = $tc->{defname};
+  my $library    = $tc->{library};
   my $expected   = $tc->{expected}{get_alt};
   my $line       = SML::Line->new(content=>$text);
-  my $definition = SML::Definition->new(name=>$defname);
+  my $definition = SML::Definition->new(name=>$defname,library=>$library);
 
   $definition->add_line($line);
 
@@ -131,9 +134,10 @@ sub get_value_ok {
   my $tcname     = $tc->{name};
   my $text       = $tc->{text};
   my $defname    = $tc->{defname};
+  my $library    = $tc->{library};
   my $expected   = $tc->{expected}{get_value};
   my $line       = SML::Line->new(content=>$text);
-  my $definition = SML::Definition->new(name=>$defname);
+  my $definition = SML::Definition->new(name=>$defname,library=>$library);
 
   $definition->add_line($line);
 
@@ -154,9 +158,10 @@ sub error_get_term_ok {
   my $tcname     = $tc->{name};
   my $text       = $tc->{text};
   my $defname    = $tc->{defname};
+  my $library    = $tc->{library};
   my $expected   = $tc->{expected}{error}{get_term};
   my $line       = SML::Line->new(content=>$text);
-  my $definition = SML::Definition->new(name=>$defname);
+  my $definition = SML::Definition->new(name=>$defname,library=>$library);
 
   $definition->add_line($line);
 

@@ -18,8 +18,9 @@ use Test::Log4perl;
 
 use SML::TestData;
 
-my $td  = SML::TestData->new();               # test data object
-my $tcl = $td->get_division_test_case_list;   # test case list
+my $td      = SML::TestData->new();               # test data object
+my $tcl     = $td->get_division_test_case_list;   # test case list
+my $library = $td->get_test_object('SML::Library','library');
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -34,7 +35,13 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Division->new(name=>'div',id=>'my-div');
+my $args = {};
+
+$args->{name}    = 'div';
+$args->{id}      = 'my-div';
+$args->{library} = $library;
+
+my $obj = SML::Division->new(%{$args});
 isa_ok( $obj, 'SML::Division' );
 
 #---------------------------------------------------------------------
@@ -160,10 +167,13 @@ sub init_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $id       = $tc->{division_id};
-  my $name     = $tc->{division_name};
   my $expected = $tc->{expected}{init};
-  my $division = SML::Division->new(id=>$id,name=>$name);
+  my $division = SML::Division->new
+    (
+     id      => $tc->{division_id},
+     name    => $tc->{division_name},
+     library => $tc->{library},
+    );
 
   # act
   my $result = $division->init;
@@ -180,10 +190,13 @@ sub get_id_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $id       = $tc->{division_id};
-  my $name     = $tc->{division_name};
   my $expected = $tc->{expected}{get_id};
-  my $division = SML::Division->new(id=>$id,name=>$name);
+  my $division = SML::Division->new
+    (
+     id      => $tc->{division_id},
+     name    => $tc->{division_name},
+     library => $tc->{library},
+    );
 
   # act
   my $result = $division->get_id;
@@ -200,10 +213,13 @@ sub get_name_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $id       = $tc->{division_id};
-  my $name     = $tc->{division_name};
   my $expected = $tc->{expected}{get_name};
-  my $division = SML::Division->new(id=>$id,name=>$name);
+  my $division = SML::Division->new
+    (
+     id      => $tc->{division_id},
+     name    => $tc->{division_name},
+     library => $tc->{library},
+    );
 
   # act
   my $result = $division->get_name;
@@ -220,11 +236,14 @@ sub get_number_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $id       = $tc->{division_id};
-  my $name     = $tc->{division_name};
   my $number   = $tc->{division_number};
   my $expected = $tc->{expected}{get_number};
-  my $division = SML::Division->new(id=>$id,name=>$name);
+  my $division = SML::Division->new
+    (
+     id      => $tc->{division_id},
+     name    => $tc->{division_name},
+     library => $tc->{library},
+    );
 
   $division->set_number($number);
 

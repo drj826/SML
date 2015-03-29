@@ -21,8 +21,9 @@ use Test::Log4perl;
 
 use SML::TestData;
 
-my $td  = SML::TestData->new;
-my $tcl = $td->get_document_test_case_list;
+my $td      = SML::TestData->new;
+my $tcl     = $td->get_document_test_case_list;
+my $library = $td->get_test_object('SML::Library','library');
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -37,7 +38,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Document->new(id=>'doc');
+my $obj = SML::Document->new(id=>'doc',library=>$library);
 isa_ok( $obj, 'SML::Document' );
 
 #---------------------------------------------------------------------

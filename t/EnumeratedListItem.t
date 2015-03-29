@@ -16,8 +16,9 @@ Log::Log4perl->init("log.test.conf");
 
 use SML::TestData;
 
-my $td = SML::TestData->new;
-my $tcl = $td->get_enumerated_list_item_test_case_list;
+my $td      = SML::TestData->new;
+my $tcl     = $td->get_enumerated_list_item_test_case_list;
+my $library = $td->get_test_object('SML::Library','library');
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -32,7 +33,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::EnumeratedListItem->new(name=>'li1');
+my $obj = SML::EnumeratedListItem->new(library=>$library);
 isa_ok( $obj, 'SML::EnumeratedListItem' );
 
 #---------------------------------------------------------------------
@@ -72,9 +73,10 @@ sub get_value_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $text     = $tc->{text};
+  my $library  = $tc->{library};
   my $line     = SML::Line->new(content=>$text);
   my $expected = $tc->{expected}{get_value};
-  my $item     = SML::EnumeratedListItem->new();
+  my $item     = SML::EnumeratedListItem->new(library=>$library);
 
   $item->add_line($line);
 

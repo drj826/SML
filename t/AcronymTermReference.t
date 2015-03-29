@@ -16,8 +16,9 @@ Log::Log4perl->init("log.test.conf");
 
 use SML::TestData;
 
-my $td = SML::TestData->new();
-my $tcl = $td->get_acronym_term_reference_test_case_list;
+my $td      = SML::TestData->new();
+my $tcl     = $td->get_acronym_term_reference_test_case_list;
+my $library = $td->get_test_object('SML::Library','library');
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -37,6 +38,7 @@ my $obj = SML::AcronymTermReference->new
    tag       => 'ac',
    acronym   => 'TLA',
    namespace => '',
+   library   => $library,
   );
 
 isa_ok( $obj, 'SML::AcronymTermReference' );
@@ -117,6 +119,7 @@ sub get_tag_ok {
      tag       => $tc->{tag},
      acronym   => $tc->{acronym},
      namespace => $tc->{namespace},
+     library   => $tc->{library},
     );
 
   # act
@@ -140,6 +143,7 @@ sub get_acronym_ok {
      tag       => $tc->{tag},
      acronym   => $tc->{acronym},
      namespace => $tc->{namespace},
+     library   => $tc->{library},
     );
 
   # act
@@ -163,6 +167,7 @@ sub get_namespace_ok {
      tag       => $tc->{tag},
      acronym   => $tc->{acronym},
      namespace => $tc->{namespace},
+     library   => $tc->{library},
     );
 
   # act

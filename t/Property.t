@@ -14,6 +14,11 @@ Log::Log4perl->init("log.test.conf");
 # Test Data
 #---------------------------------------------------------------------
 
+use SML::TestData;
+
+my $td      = SML::TestData->new;
+my $library = $td->get_test_object('SML::Library','library');
+
 #---------------------------------------------------------------------
 # Can use module?
 #---------------------------------------------------------------------
@@ -54,21 +59,11 @@ my @public_methods =
 can_ok( $obj, @public_methods );
 
 #---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-  );
-
-# can_ok( $obj, @private_methods );
-
-#---------------------------------------------------------------------
 # Returns expected values?
 #---------------------------------------------------------------------
 
 # arrange
-my $element_0 = SML::Element->new(name=>'el0');
+my $element_0 = SML::Element->new(name=>'el0',library=>$library);
 my $property  = SML::Property->new(id=>'diameter',name=>'pr1');
 my $expected  = 0;
 
@@ -84,7 +79,7 @@ is($answer,$expected,'returns correct is_multi_valued = 0');
 
 # arrange
 $expected = 1;
-my $element_1 = SML::Element->new(name=>'el1');
+my $element_1 = SML::Element->new(name=>'el1',library=>$library);
 
 $property->add_element($element_1);
 
