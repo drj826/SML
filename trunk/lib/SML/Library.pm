@@ -90,6 +90,16 @@ has 'ontology' =>
 
 ######################################################################
 
+has 'ontology_rule_filespec_list' =>
+  (
+   isa       => 'ArrayRef',
+   reader    => 'get_ontology_rule_filespec_list',
+   lazy      => 1,
+   builder   => '_build_ontology_rule_filespec_list',
+  );
+
+######################################################################
+
 has 'parser' =>
   (
    isa      => 'SML::Parser',
@@ -1878,56 +1888,46 @@ has 'config_filename' =>
 
 ######################################################################
 
-has 'lib_ontology_config_filename' =>
+has 'ontology_rule_filename_list' =>
   (
-   isa       => 'Str',
-   reader    => '_get_lib_ontology_config_filename',
-   writer    => '_set_lib_ontology_config_filename',
-   default   => 'ontology_rules_lib.conf',
+   isa       => 'ArrayRef',
+   reader    => '_get_ontology_rule_filename_list',
+   writer    => '_set_ontology_rule_filename_list',
+   default   => sub {['ontology_rules_sml.conf','ontology_rules_lib.conf']}
   );
 
 ######################################################################
 
-has 'lib_ontology_config_filespec' =>
-  (
-   isa       => 'Str',
-   reader    => '_get_lib_ontology_config_filespec',
-   lazy      => 1,
-   builder   => '_build_lib_ontology_config_filespec',
-  );
+# has 'sml_ontology_rule_filename' =>
+#   (
+#    isa       => 'Str',
+#    reader    => '_get_sml_ontology_rule_filename',
+#    writer    => '_set_sml_ontology_rule_filename',
+#    default   => 'ontology_rules_sml.conf',
+#   );
 
 ######################################################################
 
-has 'sml_ontology_config_filename' =>
-  (
-   isa       => 'Str',
-   reader    => '_get_sml_ontology_config_filename',
-   writer    => '_set_sml_ontology_config_filename',
-   default   => 'ontology_rules_sml.conf',
-  );
-
-######################################################################
-
-has 'sml_ontology_config_filespec' =>
-  (
-   isa       => 'Str',
-   reader    => '_get_sml_ontology_config_filespec',
-   lazy      => 1,
-   builder   => '_build_sml_ontology_config_filespec',
-  );
+# has 'sml_ontology_rule_filespec' =>
+#   (
+#    isa       => 'Str',
+#    reader    => '_get_sml_ontology_rule_filespec',
+#    lazy      => 1,
+#    builder   => '_build_sml_ontology_rule_filespec',
+#   );
 
 # The SML ontology configuration file contains the core rules for the
 # Structured Manuscript Language.
 
 ######################################################################
 
-has 'lib_ontology_config_filespec' =>
-  (
-   isa       => 'Str',
-   reader    => '_get_lib_ontology_config_filespec',
-   lazy      => 1,
-   builder   => '_build_lib_ontology_config_filespec',
-  );
+# has 'lib_ontology_rule_filespec' =>
+#   (
+#    isa       => 'Str',
+#    reader    => '_get_lib_ontology_rule_filespec',
+#    lazy      => 1,
+#    builder   => '_build_lib_ontology_rule_filespec',
+#   );
 
 # The library ontology configuration file contains the ontology rules
 # for a specific library.
@@ -2084,26 +2084,25 @@ sub BUILD {
   #-------------------------------------------------------------------
   # add SML ontology rules
   #
-  if ( $config{'sml_ontology_config_file'} )
+  my $rule_file_list = [];
+
+  if ( $config{'ontology_rule_file'} )
     {
-      my $filename = "$config{'sml_ontology_config_file'}";
-      $self->_set_sml_ontology_config_filename($filename);
+      if ( ref $config{'ontology_rule_file'} eq 'ARRAY' )
+	{
+	  foreach my $filename (@{ $config{'ontology_rule_file'} })
+	    {
+	      push @{$rule_file_list}, $filename;
+	    }
+	}
+
+      else
+	{
+	  push @{$rule_file_list}, $config{'ontology_rule_file'};
+	}
     }
 
-  my $sml_ontology_config_filespec = $self->_get_sml_ontology_config_filespec;
-  $ontology->add_rules_from_file($sml_ontology_config_filespec);
-
-  #-------------------------------------------------------------------
-  # add LIB ontology rules
-  #
-  if ( $config{'lib_ontology_config_file'} )
-    {
-      my $filename = "$config{'lib_ontology_config_file'}";
-      $self->_set_lib_ontology_config_filename($filename);
-    }
-
-  my $lib_ontology_config_filespec = $self->_get_lib_ontology_config_filespec;
-  $ontology->add_rules_from_file($lib_ontology_config_filespec);
+  $self->_set_ontology_rule_filename_list($rule_file_list);
 
   #-------------------------------------------------------------------
   # Teach util about library
@@ -2201,14 +2200,14 @@ sub _build_config_filespec {
 
 ######################################################################
 
-sub _build_sml_ontology_config_filespec {
+sub _build_sml_ontology_rule_filespec {
 
   use FindBin qw($Bin);
 
   my $self = shift;
 
   my $directory_name = $self->_get_directory_name;
-  my $filename       = $self->_get_sml_ontology_config_filename;
+  my $filename       = $self->_get_sml_ontology_rule_filename;
 
   my $dir_list =
     [
@@ -2232,13 +2231,14 @@ sub _build_sml_ontology_config_filespec {
 
 ######################################################################
 
-sub _build_lib_ontology_config_filespec {
+sub _build_ontology_rule_filespec_list {
 
   use FindBin qw($Bin);
 
   my $self = shift;
 
-  my $filename = $self->_get_lib_ontology_config_filename;
+  my $fslist = [];                      # filespec list
+  my $fnlist = $self->_get_ontology_rule_filename_list;
 
   my $dir_list =
     [
@@ -2247,24 +2247,33 @@ sub _build_lib_ontology_config_filespec {
      "$Bin/../../library",
     ];
 
-  foreach my $dir (@{ $dir_list })
+  foreach my $filename (@{ $fnlist })
     {
-      if ( -r "$dir/$filename" )
+      my $found = 0;
+      foreach my $dir (@{ $dir_list })
 	{
-	  $logger->info("library ontology config filespec: $dir/$filename");
-	  return "$dir/$filename";
+	  if ( -r "$dir/$filename" )
+	    {
+	      $found = 1;
+	      $logger->info("library ontology config filespec: $dir/$filename");
+	      push(@{$fslist},"$dir/$filename");
+	    }
+	}
+
+      if ( not $found )
+	{
+	  $logger->error("COULD NOT LOCATE LIBRARY ONTOLOGY CONFIG FILE");
 	}
     }
 
-  $logger->error("COULD NOT LOCATE LIBRARY ONTOLOGY CONFIG FILE");
-  return 0;
+  return $fslist;
 }
 
 ######################################################################
 
 sub _build_ontology {
   my $self = shift;
-  return SML::Ontology->new;
+  return SML::Ontology->new(library=>$self);
 }
 
 ######################################################################
@@ -2476,10 +2485,6 @@ document fragments.
 =head2 get_acronym_list
 
 =head2 get_references
-
-=head2 get_sml_ontology_config_filespec
-
-=head2 get_lib_ontology_config_filespec
 
 =head2 get_title
 

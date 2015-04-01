@@ -4538,20 +4538,35 @@ sub _build_ontology_test_case_list {
   return
     [
      {
-      name       => 'ontology_1',
-      rules_file => 'library/ontology_rules_sml.conf',
-      expected   =>
+      name      => 'ontology_1',
+      file_list =>
+      [
+       'library/ontology_rules_sml.conf',
+       'library/ontology_rules_lib.conf',
+      ],
+      expected  =>
       {
        add_rules_from_file => 1,
       },
      },
 
      # {
-     #  name       => 'ontology_2',
-     #  rules_file => 'library/ontology_rules_lib.conf',
-     #  expected   =>
+     #  name      => 'ontology_2',
+     #  file_list =>
+     #  [
+     #   'library/ontology_rules_lib.conf',
+     #  ],
+     #  expected  =>
      #  {
-     #   add_rules_from_file => 1,
+     #   warning =>
+     #   {
+     # 	  add_rules_from_file =>
+     # 	  [
+     # 	   ['SML::OntologyRule','INVALID ENTITY'],
+     # 	   ['SML::OntologyRule','INVALID ENTITY'],
+     # 	   ['SML::OntologyRule','INVALID ENTITY'],
+     # 	  ],
+     #   },
      #  },
      # },
     ];

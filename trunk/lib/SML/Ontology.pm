@@ -29,6 +29,13 @@ use SML::OntologyRule;
 ######################################################################
 ######################################################################
 
+has 'library' =>
+  (
+   isa       => 'SML::Library',
+   reader    => 'get_library',
+   required  => 1,
+  );
+
 ######################################################################
 ######################################################################
 ##
@@ -39,80 +46,28 @@ use SML::OntologyRule;
 
 sub add_rules_from_file {
 
-  my $self          = shift;
-  my $rule_filename = shift;
+  my $self      = shift;
+  my $file_list = shift;                # list of rules files
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-
-  #-------------------------------------------------------------------
-  # rule file not readable?
-  #
-  if ( not -r "$rule_filename" )
+  if ( not ref $file_list eq 'ARRAY' )
     {
-      my $dir = getcwd;
-      $logger->logdie("$rule_filename not readable from $dir");
+      $logger->logcluck("NOT A LIST $file_list");
+      return 0;
     }
 
-  #-------------------------------------------------------------------
-  # Read ontology configuration file
-  #
-  my $line_list = [];
+  my $result = 1;
 
-  open my $fh, '<', $rule_filename or croak("Couldn't open $rule_filename");
-  @{ $line_list } = <$fh>;
-  close $fh;
-
-  foreach my $line (@{ $line_list })
+  foreach my $filespec (@{ $file_list })
     {
-      $line =~ s/[\r\n]*$//;            # chomp;
+      my $outcome = $self->_read_rule_file($filespec);
 
-      if ( $line =~ /$syntax->{comment_line}/ )
+      if ( $outcome == 0 )
 	{
-	  next;
+	  $result = 0;
 	}
-
-      if ( $line =~ /$syntax->{blank_line}/ )
-	{
-	  next;
-	}
-
-      my $sml             = SML->instance;
-      my $util            = $sml->get_util;
-      my $csv             = Text::CSV->new();
-      my $status          = $csv->parse($line);
-      my $field           = [ $csv->fields() ];
-
-      my $rule_id         = $util->trim_whitespace( $field->[0] );
-      my $rule_type       = $util->trim_whitespace( $field->[1] );
-      my $entity_name     = $util->trim_whitespace( $field->[2] );
-      my $property_name   = $util->trim_whitespace( $field->[3] );
-      my $value_type      = $util->trim_whitespace( $field->[4] );
-      my $name_or_value   = $util->trim_whitespace( $field->[5] );
-      my $inverse_rule_id = $util->trim_whitespace( $field->[6] );
-      my $cardinality     = $util->trim_whitespace( $field->[7] );
-      my $required        = $util->trim_whitespace( $field->[8] );
-      my $imply_only      = $util->trim_whitespace( $field->[9] );
-
-      my $rule = SML::OntologyRule->new
-	(
-	 ontology        => $self,
-	 id              => $rule_id,
-	 rule_type       => $rule_type,
-	 entity_name     => $entity_name,
-	 property_name   => $property_name,
-	 value_type      => $value_type,
-	 name_or_value   => $name_or_value,
-	 inverse_rule_id => $inverse_rule_id,
-	 cardinality     => $cardinality,
-	 required        => $required,
-	 imply_only      => $imply_only,
-	);
-
-      $self->_add_rule($rule);
     }
 
-  return 1;
+  return $result;
 }
 
 ######################################################################
@@ -636,6 +591,102 @@ has 'required_properties_hash' =>
 ## Private Methods
 ##
 ######################################################################
+######################################################################
+
+sub BUILD {
+
+  my $self = shift;
+
+  my $library = $self->get_library;
+  my $result  = 1;
+
+  foreach my $filespec (@{ $library->get_ontology_rule_filespec_list })
+    {
+      my $outcome = $self->_read_rule_file($filespec);
+
+      if ( $outcome == 0 )
+	{
+	  $result = 0;
+	}
+    }
+
+  return $result;
+}
+
+######################################################################
+
+sub _read_rule_file {
+
+  my $self     = shift;
+  my $filespec = shift;                 # rule file filespec
+
+  if ( not -r "$filespec" )
+    {
+      my $dir = getcwd;
+      $logger->logdie("$filespec not readable from $dir");
+      return 0;
+    }
+
+  my $sml       = SML->instance;
+  my $syntax    = $sml->get_syntax;
+  my $line_list = [];
+
+  open my $fh, '<', $filespec or croak("Couldn't open $filespec");
+  @{ $line_list } = <$fh>;
+  close $fh;
+
+  foreach my $line (@{ $line_list })
+    {
+      $line =~ s/[\r\n]*$//;            # chomp;
+
+      if ( $line =~ /$syntax->{comment_line}/ )
+	{
+	  next;
+	}
+
+      if ( $line =~ /$syntax->{blank_line}/ )
+	{
+	  next;
+	}
+
+      my $sml             = SML->instance;
+      my $util            = $sml->get_util;
+      my $csv             = Text::CSV->new();
+      my $status          = $csv->parse($line);
+      my $field           = [ $csv->fields() ];
+
+      my $rule_id         = $util->trim_whitespace( $field->[0] );
+      my $rule_type       = $util->trim_whitespace( $field->[1] );
+      my $entity_name     = $util->trim_whitespace( $field->[2] );
+      my $property_name   = $util->trim_whitespace( $field->[3] );
+      my $value_type      = $util->trim_whitespace( $field->[4] );
+      my $name_or_value   = $util->trim_whitespace( $field->[5] );
+      my $inverse_rule_id = $util->trim_whitespace( $field->[6] );
+      my $cardinality     = $util->trim_whitespace( $field->[7] );
+      my $required        = $util->trim_whitespace( $field->[8] );
+      my $imply_only      = $util->trim_whitespace( $field->[9] );
+
+      my $rule = SML::OntologyRule->new
+	(
+	 ontology        => $self,
+	 id              => $rule_id,
+	 rule_type       => $rule_type,
+	 entity_name     => $entity_name,
+	 property_name   => $property_name,
+	 value_type      => $value_type,
+	 name_or_value   => $name_or_value,
+	 inverse_rule_id => $inverse_rule_id,
+	 cardinality     => $cardinality,
+	 required        => $required,
+	 imply_only      => $imply_only,
+	);
+
+      $self->_add_rule($rule);
+    }
+
+  return 1;
+}
+
 ######################################################################
 
 sub _add_rule {
