@@ -45,6 +45,7 @@ my @public_methods =
    'get_revision',
    'get_sml',
    'get_ontology',
+   'get_ontology_rule_filespec_list',
    'get_parser',
    'get_reasoner',
    'get_formatter',

@@ -78,14 +78,16 @@ foreach my $tc (@{ $tcl })
   {
     add_note_ok($tc)      if defined $tc->{expected}{add_note};
     is_valid_ok($tc)      if defined $tc->{expected}{is_valid};
-    warn_is_valid_ok($tc) if defined $tc->{expected}{warning}{is_valid};
   }
 
 #---------------------------------------------------------------------
 # Throws expected exceptions?
 #---------------------------------------------------------------------
 
-# warning_ok( 'invalid_non_unique_id' );
+foreach my $tc (@{ $tcl })
+  {
+    warn_is_valid_ok($tc) if defined $tc->{expected}{warning}{is_valid};
+  }
 
 ######################################################################
 

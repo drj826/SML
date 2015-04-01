@@ -4,6 +4,7 @@
 
 use lib "..";
 use Test::More;
+use Test::Exception;
 
 use SML;
 
@@ -11,7 +12,9 @@ use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 my $logger = Log::Log4perl::get_logger('sml.ontology');
 
-use Cwd;
+use Test::Log4perl;
+
+# use Cwd;
 
 #---------------------------------------------------------------------
 # Test Data
@@ -36,10 +39,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Ontology->new();
-
-# $obj->add_rules_from_file('library/ontology_rules_sml.conf');
-# $obj->add_rules_from_file('library/ontology_rules_lib.conf');
+my $obj = SML::Ontology->new(library=>$library);
 
 isa_ok($obj,'SML::Ontology');
 
@@ -90,6 +90,11 @@ foreach my $tc (@{ $tcl })
 # Throws expected exceptions?
 #---------------------------------------------------------------------
 
+foreach my $tc (@{ $tcl })
+  {
+    warn_add_rules_from_file_ok($tc) if defined $tc->{expected}{warning}{add_rules_from_file};
+  }
+
 ######################################################################
 
 sub add_rules_from_file_ok {
@@ -97,16 +102,50 @@ sub add_rules_from_file_ok {
   my $tc = shift;                       # test case
 
   # arrange
+  my $tcname    = $tc->{name};
+  my $file_list = $tc->{file_list};
+  my $library   = SML::Library->new(config_filename=>'library.conf');
+  my $ontology  = SML::Ontology->new(library=>$library);
+  my $expected  = $tc->{expected}{add_rules_from_file};
+
+  # act
+  my $result = $ontology->add_rules_from_file($file_list);
+
+  # assert
+  is($result,$expected,"$tcname add_rules_from_file $result");
+}
+
+######################################################################
+
+sub warn_add_rules_from_file_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
   my $tcname   = $tc->{name};
   my $file     = $tc->{rules_file};
-  my $ontology = SML::Ontology->new();
-  my $expected = $tc->{expected}{add_rules_from_file};
+  my $library  = SML::Library->new(config_filename=>'library.conf');
+  my $ontology = SML::Ontology->new(library=>$library);
+  my $expected = $tc->{expected}{warning}{add_rules_from_file};
+
+  Test::Log4perl->start( ignore_priority => "info" );
+
+  my $logger_hash = {};
+
+  foreach my $warning (@{ $expected })
+    {
+      my $logger  = $warning->[0];
+      my $message = $warning->[1];
+
+      $logger_hash->{$logger} = Test::Log4perl->get_logger($logger);
+      $logger_hash->{$logger}->warn(qr/$message/);
+    }
 
   # act
   my $result = $ontology->add_rules_from_file($file);
 
   # assert
-  is($result,$expected,"$tcname add_rules_from_file $result");
+  Test::Log4perl->end("$tcname add_rules_from_file WARNS OK");
 }
 
 ######################################################################
