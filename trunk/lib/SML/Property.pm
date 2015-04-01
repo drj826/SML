@@ -190,11 +190,11 @@ sub get_elements_as_enum_list {
 
   my $sml     = SML->instance;
   my $util    = $sml->get_util;
-  my $library = $util->get_library;
 
   foreach my $element (@{ $self->get_element_list })
     {
-      my $value = $element->get_value;
+      my $library = $element->get_library;
+      my $value   = $element->get_value;
 
       # is this element value actually a division ID?
       #

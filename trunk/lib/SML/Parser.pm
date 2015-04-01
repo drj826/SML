@@ -6267,7 +6267,7 @@ sub _process_start_table_cell {
   $self->_end_preamble if $self->_in_preamble;
 
   # new block
-  my $block = SML::Block->new(name=>'paragraph',library=>$library);
+  my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
   $block->add_line($line);
   $self->_begin_block($block);
 

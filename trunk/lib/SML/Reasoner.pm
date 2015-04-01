@@ -139,7 +139,7 @@ sub infer_status_from_outcomes {
   my $self    = shift;
   my $sml     = SML->instance;
   my $util    = $sml->get_util;
-  my $library = $util->get_library;
+  my $library = $self->get_library;
 
   foreach my $entity_id (@{ $library->get_outcome_entity_id_list })
     {

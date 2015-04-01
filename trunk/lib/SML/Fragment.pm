@@ -367,7 +367,7 @@ sub BUILD {
   my $lines    = $self->_read_file($file,$from);
   my $sml      = SML->instance;
   my $util     = $sml->get_util;
-  my $library  = $util->get_library;
+  my $library  = $self->get_library;
 
   $self->_set_line_list($lines);
   $self->set_id($filespec);
@@ -386,7 +386,7 @@ override '_validate_semantics' => sub {
   my $valid    = super();
   my $sml      = SML->instance;
   my $util     = $sml->get_util;
-  my $library  = $util->get_library;
+  my $library  = $self->get_library;
   my $filespec = $self->get_file->get_filespec;
 
   foreach my $resource (values %{ $self->_get_resource_hash })
@@ -417,7 +417,7 @@ sub _read_file {
   my $syntax        = $sml->get_syntax;
   my $util          = $sml->get_util;
   my $options       = $util->get_options;
-  my $library       = $util->get_library;
+  my $library       = $self->get_library;
   my $filespec      = $file->get_filespec;
   my $filename      = $file->get_filename;
   my $directories   = $file->get_directories;
