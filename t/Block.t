@@ -38,7 +38,12 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Block->new(name=>'PARAGRAPH',library=>$library);
+my $args = {};
+
+$args->{name}    = 'PARAGRAPH';
+$args->{library} = $library;
+
+my $obj = SML::Block->new(%{$args});
 isa_ok( $obj, 'SML::Block' );
 
 #---------------------------------------------------------------------
@@ -121,7 +126,7 @@ sub renders_ok {
   my $expected  = $tc->{expected}{render}{$rendition}{$style};
   my $filename  = $tc->{filename};
   my $docid     = $tc->{docid};
-  my $library   = SML::Library->new(config_file=>'library.conf');
+  my $library   = $tc->{library};
   my $parser    = $library->get_parser;
   my $fragment  = $parser->create_fragment($filename);
   my $document  = $library->get_document($docid);
@@ -159,7 +164,7 @@ sub has_valid_syntax_ok {
   my $expected  = $tc->{expected}{has_valid_syntax};
   my $filename  = $tc->{filename};
   my $docid     = $tc->{docid};
-  my $library   = SML::Library->new(config_file=>'library.conf');
+  my $library   = $tc->{library};
   my $parser    = $library->get_parser;
   my $fragment  = $parser->create_fragment($filename);
   my $document  = $library->get_document($docid);
@@ -194,7 +199,7 @@ sub has_valid_semantics_ok {
   my $expected  = $tc->{expected}{has_valid_semantics};
   my $filename  = $tc->{filename};
   my $docid     = $tc->{docid};
-  my $library   = SML::Library->new(config_file=>'library.conf');
+  my $library   = $tc->{library};
   my $parser    = $library->get_parser;
   my $fragment  = $parser->create_fragment($filename);
   my $document  = $library->get_document($docid);
@@ -229,7 +234,7 @@ sub valid_syntax_warning_ok {
   my $expected = $tc->{expected}{valid_syntax_warning};
   my $filename = $tc->{filename};
   my $docid    = $tc->{docid};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $library  = $tc->{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
@@ -267,7 +272,7 @@ sub valid_semantics_warning_ok {
   my $expected = $tc->{expected}{valid_semantics_warning};
   my $filename = $tc->{filename};
   my $docid    = $tc->{docid};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $library  = $tc->{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);

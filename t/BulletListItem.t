@@ -33,7 +33,11 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::BulletListItem->new(name=>'bullet-list-item',library=>$library);
+my $args = {};
+
+$args->{library} = $library;
+
+my $obj = SML::BulletListItem->new(%{$args});
 isa_ok( $obj, 'SML::BulletListItem' );
 
 #---------------------------------------------------------------------
@@ -121,12 +125,9 @@ sub get_value_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $expected = $tc->{expected}{get_value};
-  my $text     = $tc->{text};
-  my $line     = SML::Line->new(content=>$text);
-  my $item     = SML::BulletListItem->new
-    (
-     library => $tc->{library},
-    );
+  my $line     = $tc->{line};
+  my $args     = $tc->{args};
+  my $item     = SML::BulletListItem->new(%{$args});
 
   $item->add_line($line);
 

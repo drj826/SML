@@ -36,7 +36,12 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Definition->new(name=>'glossary',library=>$library);
+my $args = {};
+
+$args->{name}    = 'glossary';
+$args->{library} = $library;
+
+my $obj = SML::Definition->new(%{$args});
 isa_ok($obj,'SML::Definition' );
 
 #---------------------------------------------------------------------
@@ -84,12 +89,10 @@ sub get_term_ok {
 
   # arrange
   my $tcname     = $tc->{name};
-  my $text       = $tc->{text};
-  my $defname    = $tc->{defname};
-  my $library    = $tc->{library};
+  my $line       = $tc->{line};
+  my $args       = $tc->{args};
   my $expected   = $tc->{expected}{get_term};
-  my $line       = SML::Line->new(content=>$text);
-  my $definition = SML::Definition->new(name=>$defname,library=>$library);
+  my $definition = SML::Definition->new(%{$args});
 
   $definition->add_line($line);
 
@@ -108,12 +111,10 @@ sub get_alt_ok {
 
   # arrange
   my $tcname     = $tc->{name};
-  my $text       = $tc->{text};
-  my $defname    = $tc->{defname};
-  my $library    = $tc->{library};
+  my $line       = $tc->{line};
+  my $args       = $tc->{args};
   my $expected   = $tc->{expected}{get_alt};
-  my $line       = SML::Line->new(content=>$text);
-  my $definition = SML::Definition->new(name=>$defname,library=>$library);
+  my $definition = SML::Definition->new(%{$args});
 
   $definition->add_line($line);
 
@@ -132,12 +133,10 @@ sub get_value_ok {
 
   # arrange
   my $tcname     = $tc->{name};
-  my $text       = $tc->{text};
-  my $defname    = $tc->{defname};
-  my $library    = $tc->{library};
+  my $line       = $tc->{line};
+  my $args       = $tc->{args};
   my $expected   = $tc->{expected}{get_value};
-  my $line       = SML::Line->new(content=>$text);
-  my $definition = SML::Definition->new(name=>$defname,library=>$library);
+  my $definition = SML::Definition->new(%{$args});
 
   $definition->add_line($line);
 
@@ -156,12 +155,10 @@ sub error_get_term_ok {
 
   # arrange
   my $tcname     = $tc->{name};
-  my $text       = $tc->{text};
-  my $defname    = $tc->{defname};
-  my $library    = $tc->{library};
+  my $line       = $tc->{line};
+  my $args       = $tc->{args};
   my $expected   = $tc->{expected}{error}{get_term};
-  my $line       = SML::Line->new(content=>$text);
-  my $definition = SML::Definition->new(name=>$defname,library=>$library);
+  my $definition = SML::Definition->new(%{$args});
 
   $definition->add_line($line);
 

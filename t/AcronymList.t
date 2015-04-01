@@ -63,7 +63,6 @@ foreach my $tc (@{$tcl})
     has_acronym_ok($tc)       if defined $tc->{expected}{has_acronym};
     get_acronym_ok($tc)       if defined $tc->{expected}{get_acronym};
     error_add_acronym_ok($tc) if defined $tc->{expected}{error}{add_acronym};
-    warn_get_acronym_ok($tc)  if defined $tc->{expected}{warning}{get_acronym};
   }
 
 get_acronym_list_ok();
@@ -71,6 +70,11 @@ get_acronym_list_ok();
 #---------------------------------------------------------------------
 # Throws expected exceptions?
 #---------------------------------------------------------------------
+
+foreach my $tc (@{$tcl})
+  {
+    warn_get_acronym_ok($tc)  if defined $tc->{expected}{warning}{get_acronym};
+  }
 
 ######################################################################
 

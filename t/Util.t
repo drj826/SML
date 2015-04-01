@@ -42,7 +42,6 @@ my @public_methods =
    'get_empty_file',
    'get_empty_document',
    'get_default_section',
-   'get_library',
    'trim_whitespace',
    'compress_whitespace',
    'remove_newlines',

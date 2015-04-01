@@ -32,7 +32,12 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Demo->new(id=>'demo',library=>$library);
+my $args = {};
+
+$args->{id}      = 'demo';
+$args->{library} = $library;
+
+my $obj = SML::Demo->new(%{$args});
 isa_ok($obj,'SML::Demo');
 
 #---------------------------------------------------------------------
