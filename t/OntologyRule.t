@@ -3,7 +3,7 @@
 # $Id$
 
 use lib "..";
-use Test::More tests => 4;
+use Test::More tests => 3;
 
 use SML::Ontology;
 
@@ -13,6 +13,11 @@ Log::Log4perl->init("log.test.conf");
 #---------------------------------------------------------------------
 # Test Data
 #---------------------------------------------------------------------
+
+use SML::TestData;
+
+my $td      = SML::TestData->new;
+my $library = $td->get_test_object('SML::Library','library');
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -27,7 +32,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $ontology = SML::Ontology->new;
+my $ontology = SML::Ontology->new(library=>$library);
 
 my $obj = SML::OntologyRule->new
   (
@@ -66,17 +71,6 @@ my @public_methods =
   );
 
 can_ok( $obj, @public_methods );
-
-#---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-   'BUILD',
-  );
-
-can_ok( $obj, @private_methods );
 
 #---------------------------------------------------------------------
 # Returns expected values?
