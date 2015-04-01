@@ -3,7 +3,7 @@
 # $Id: AcronymTermReference.t 125 2015-02-24 02:43:25Z drj826@gmail.com $
 
 use lib "..";
-use Test::More;
+use Test::More tests => 6;
 
 use SML;
 
@@ -114,13 +114,8 @@ sub get_tag_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $expected = $tc->{expected}{get_tag};
-  my $atr = SML::AcronymTermReference->new
-    (
-     tag       => $tc->{tag},
-     acronym   => $tc->{acronym},
-     namespace => $tc->{namespace},
-     library   => $tc->{library},
-    );
+  my $args     = $tc->{args};
+  my $atr      = SML::AcronymTermReference->new(%{$args});
 
   # act
   my $result = $atr->get_tag;
@@ -138,13 +133,8 @@ sub get_acronym_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $expected = $tc->{expected}{get_acronym};
-  my $atr = SML::AcronymTermReference->new
-    (
-     tag       => $tc->{tag},
-     acronym   => $tc->{acronym},
-     namespace => $tc->{namespace},
-     library   => $tc->{library},
-    );
+  my $args     = $tc->{args};
+  my $atr      = SML::AcronymTermReference->new(%{$args});
 
   # act
   my $result = $atr->get_acronym;
@@ -162,13 +152,8 @@ sub get_namespace_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $expected = $tc->{expected}{get_namespace};
-  my $atr = SML::AcronymTermReference->new
-    (
-     tag       => $tc->{tag},
-     acronym   => $tc->{acronym},
-     namespace => $tc->{namespace},
-     library   => $tc->{library},
-    );
+  my $args     = $tc->{args};
+  my $atr      = SML::AcronymTermReference->new(%{$args});
 
   # act
   my $result = $atr->get_namespace;
@@ -179,4 +164,4 @@ sub get_namespace_ok {
 
 ######################################################################
 
-done_testing()
+1;

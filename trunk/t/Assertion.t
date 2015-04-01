@@ -135,16 +135,10 @@ sub get_subject_ok {
   my $tc = shift;                       # test case
 
   # arrange
-  my $tcname   = $tc->{name};
-  my $expected = $tc->{expected}{get_subject};
-  my $assertion = SML::Assertion->new
-    (
-     id        => $tc->{id},
-     subject   => $tc->{subject},
-     predicate => $tc->{predicate},
-     object    => $tc->{object},
-     library   => $tc->{library},
-    );
+  my $tcname    = $tc->{name};
+  my $expected  = $tc->{expected}{get_subject};
+  my $args      = $tc->{args};
+  my $assertion = SML::Assertion->new(%{$args});
 
   # act
   my $result = $assertion->get_subject;
@@ -160,16 +154,10 @@ sub get_predicate_ok {
   my $tc = shift;                       # test case
 
   # arrange
-  my $tcname   = $tc->{name};
-  my $expected = $tc->{expected}{get_predicate};
-  my $assertion = SML::Assertion->new
-    (
-     id        => $tc->{id},
-     subject   => $tc->{subject},
-     predicate => $tc->{predicate},
-     object    => $tc->{object},
-     library   => $tc->{library},
-    );
+  my $tcname    = $tc->{name};
+  my $expected  = $tc->{expected}{get_predicate};
+  my $args      = $tc->{args};
+  my $assertion = SML::Assertion->new(%{$args});
 
   # act
   my $result = $assertion->get_predicate;
@@ -185,16 +173,10 @@ sub get_object_ok {
   my $tc = shift;                       # test case
 
   # arrange
-  my $tcname   = $tc->{name};
-  my $expected = $tc->{expected}{get_object};
-  my $assertion = SML::Assertion->new
-    (
-     id        => $tc->{id},
-     subject   => $tc->{subject},
-     predicate => $tc->{predicate},
-     object    => $tc->{object},
-     library   => $tc->{library},
-    );
+  my $tcname    = $tc->{name};
+  my $expected  = $tc->{expected}{get_object};
+  my $args      = $tc->{args};
+  my $assertion = SML::Assertion->new(%{$args});
 
   # act
   my $result = $assertion->get_object;

@@ -167,13 +167,9 @@ sub init_ok {
 
   # arrange
   my $tcname   = $tc->{name};
+  my $args     = $tc->{args};
   my $expected = $tc->{expected}{init};
-  my $division = SML::Division->new
-    (
-     id      => $tc->{division_id},
-     name    => $tc->{division_name},
-     library => $tc->{library},
-    );
+  my $division = SML::Division->new(%{$args});
 
   # act
   my $result = $division->init;
@@ -190,13 +186,9 @@ sub get_id_ok {
 
   # arrange
   my $tcname   = $tc->{name};
+  my $args     = $tc->{args};
   my $expected = $tc->{expected}{get_id};
-  my $division = SML::Division->new
-    (
-     id      => $tc->{division_id},
-     name    => $tc->{division_name},
-     library => $tc->{library},
-    );
+  my $division = SML::Division->new(%{$args});
 
   # act
   my $result = $division->get_id;
@@ -213,13 +205,9 @@ sub get_name_ok {
 
   # arrange
   my $tcname   = $tc->{name};
+  my $args     = $tc->{args};
   my $expected = $tc->{expected}{get_name};
-  my $division = SML::Division->new
-    (
-     id      => $tc->{division_id},
-     name    => $tc->{division_name},
-     library => $tc->{library},
-    );
+  my $division = SML::Division->new(%{$args});
 
   # act
   my $result = $division->get_name;
@@ -236,14 +224,10 @@ sub get_number_ok {
 
   # arrange
   my $tcname   = $tc->{name};
+  my $args     = $tc->{args};
   my $number   = $tc->{division_number};
   my $expected = $tc->{expected}{get_number};
-  my $division = SML::Division->new
-    (
-     id      => $tc->{division_id},
-     name    => $tc->{division_name},
-     library => $tc->{library},
-    );
+  my $division = SML::Division->new(%{$args});
 
   $division->set_number($number);
 
@@ -263,9 +247,9 @@ sub get_containing_division_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $testfile = $tc->{testfile};
-  my $id       = $tc->{division_id};
+  my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_containing_division};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $library  = $tc->{args}{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
@@ -286,9 +270,9 @@ sub get_part_list_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $testfile = $tc->{testfile};
-  my $id       = $tc->{division_id};
+  my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_part_list};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $library  = $tc->{args}{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
@@ -309,9 +293,9 @@ sub get_line_list_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $testfile = $tc->{testfile};
-  my $id       = $tc->{division_id};
+  my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_line_list};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $library  = $tc->{args}{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
@@ -332,9 +316,9 @@ sub get_division_list_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $testfile = $tc->{testfile};
-  my $id       = $tc->{division_id};
+  my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_division_list};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $library  = $tc->{args}{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
@@ -355,9 +339,9 @@ sub get_section_list_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $testfile = $tc->{testfile};
-  my $id       = $tc->{division_id};
+  my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_section_list};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $library  = $tc->{args}{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
@@ -378,9 +362,9 @@ sub get_block_list_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $testfile = $tc->{testfile};
-  my $id       = $tc->{division_id};
+  my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_block_list};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $library  = $tc->{args}{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
@@ -401,9 +385,9 @@ sub get_element_list_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $testfile = $tc->{testfile};
-  my $id       = $tc->{division_id};
+  my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_element_list};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $library  = $tc->{args}{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
@@ -424,9 +408,9 @@ sub get_preamble_line_list_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $testfile = $tc->{testfile};
-  my $id       = $tc->{division_id};
+  my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_preamble_line_list};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $library  = $tc->{args}{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
@@ -447,9 +431,9 @@ sub get_narrative_line_list_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $testfile = $tc->{testfile};
-  my $id       = $tc->{division_id};
+  my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_narrative_line_list};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $library  = $tc->{args}{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
@@ -470,9 +454,9 @@ sub get_first_part_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $testfile = $tc->{testfile};
-  my $id       = $tc->{division_id};
+  my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_first_part};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $library  = $tc->{args}{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
@@ -493,9 +477,9 @@ sub get_first_line_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $testfile = $tc->{testfile};
-  my $id       = $tc->{division_id};
+  my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_first_line};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $library  = $tc->{args}{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
@@ -519,9 +503,9 @@ sub get_property_list_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $testfile = $tc->{testfile};
-  my $id       = $tc->{division_id};
+  my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_property_list};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $library  = $tc->{args}{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
@@ -542,9 +526,9 @@ sub get_property_ok {
   # arrange
   my $tcname        = $tc->{name};
   my $testfile      = $tc->{testfile};
-  my $id            = $tc->{division_id};
+  my $id            = $tc->{args}{id};
   my $property_name = $tc->{property_name};
-  my $library       = SML::Library->new(config_file=>'library.conf');
+  my $library       = $tc->{args}{library};
   my $parser        = $library->get_parser;
   my $fragment      = $parser->create_fragment($testfile);
   my $division      = $library->get_division($id);
@@ -566,9 +550,9 @@ sub get_property_value_ok {
   # arrange
   my $tcname        = $tc->{name};
   my $testfile      = $tc->{testfile};
-  my $id            = $tc->{division_id};
+  my $id            = $tc->{args}{id};
   my $property_name = $tc->{property_name};
-  my $library       = SML::Library->new(config_file=>'library.conf');
+  my $library       = $tc->{args}{library};
   my $parser        = $library->get_parser;
   my $fragment      = $parser->create_fragment($testfile);
   my $division      = $library->get_division($id);
@@ -590,8 +574,8 @@ sub warn_has_valid_semantics_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $testfile = $tc->{testfile};
-  my $id       = $tc->{division_id};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $id       = $tc->{args}{id};
+  my $library  = $tc->{args}{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);

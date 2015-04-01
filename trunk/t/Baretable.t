@@ -32,7 +32,12 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Baretable->new(id=>'BARETABLE-0',library=>$library);
+my $args = {};
+
+$args->{id}      = 'BARETABLE=0';
+$args->{library} = $library;
+
+my $obj = SML::Baretable->new(%{$args});
 isa_ok( $obj, 'SML::Baretable' );
 
 #---------------------------------------------------------------------

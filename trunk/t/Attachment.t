@@ -32,7 +32,12 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Attachment->new(id=>'ATTACHMENT-0',library=>$library);
+my $args = {};
+
+$args->{id}      = 'ATTACHMENT-0';
+$args->{library} = $library;
+
+my $obj = SML::Attachment->new(%{$args});
 isa_ok( $obj, 'SML::Attachment' );
 
 #---------------------------------------------------------------------

@@ -32,7 +32,12 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Audio->new(id=>'AUDIO-0',library=>$library);
+my $args = {};
+
+$args->{id}      = 'AUDIO-0';
+$args->{library} = $library;
+
+my $obj = SML::Audio->new(%{$args});
 isa_ok( $obj, 'SML::Audio' );
 
 #---------------------------------------------------------------------

@@ -75,11 +75,10 @@ sub get_term_ok {
 
   # Arrange
   my $tcname   = $tc->{name};
+  my $line     = $tc->{line};
+  my $args     = $tc->{args};
   my $expected = $tc->{expected}{get_term};
-  my $text     = $tc->{text};
-  my $library  = $tc->{library};
-  my $line     = SML::Line->new(content=>$text);
-  my $item     = SML::DefinitionListItem->new(library=>$library);
+  my $item     = SML::DefinitionListItem->new(%{$args});
 
   $item->add_line($line);
 
@@ -99,11 +98,10 @@ sub get_definition_ok {
 
   # Arrange
   my $tcname   = $tc->{name};
+  my $line     = $tc->{line};
+  my $args     = $tc->{args};
   my $expected = $tc->{expected}{get_definition};
-  my $text     = $tc->{text};
-  my $library  = $tc->{library};
-  my $line     = SML::Line->new(content=>$text);
-  my $item     = SML::DefinitionListItem->new(library=>$library);
+  my $item     = SML::DefinitionListItem->new(%{$args});
 
   $item->add_line($line);
 
