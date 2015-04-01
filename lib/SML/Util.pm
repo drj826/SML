@@ -19,7 +19,7 @@ use SML::Line;
 use SML::Block;
 use SML::File;
 use SML::Document;
-use SML::Library;
+# use SML::Library;
 
 ######################################################################
 ######################################################################
@@ -47,14 +47,14 @@ has 'options' =>
 
 ######################################################################
 
-has 'library' =>
-  (
-   isa       => 'SML::Library',
-   reader    => 'get_library',
-   writer    => 'set_library',
-   clearer   => 'clear_library',
-   predicate => 'has_library',
-  );
+# has 'library' =>
+#   (
+#    isa       => 'SML::Library',
+#    reader    => 'get_library',
+#    writer    => 'set_library',
+#    clearer   => 'clear_library',
+#    predicate => 'has_library',
+#   );
 
 ######################################################################
 
@@ -330,8 +330,6 @@ amazing feats.
 =head1 METHODS
 
 =head2 get_options
-
-=head2 get_library
 
 =head2 get_blank_line
 

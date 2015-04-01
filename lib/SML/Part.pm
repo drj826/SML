@@ -323,7 +323,7 @@ sub render {
 
   my $sml          = SML->instance;
   my $util         = $sml->get_util;
-  my $library      = $util->get_library;
+  my $library      = $self->get_library;
   my $template_dir = $library->get_template_dir;
   my $name         = $self->get_name;
   my $input        = "$name.tt";
@@ -376,16 +376,6 @@ sub dump_part_structure {
 
   return $structure;
 }
-
-######################################################################
-
-# sub get_library {
-
-#   my $sml  = SML->instance;
-#   my $util = $sml->get_util;
-
-#   return $util->get_library;
-# }
 
 ######################################################################
 ######################################################################

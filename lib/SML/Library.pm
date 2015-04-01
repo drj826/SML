@@ -2104,12 +2104,6 @@ sub BUILD {
 
   $self->_set_ontology_rule_filename_list($rule_file_list);
 
-  #-------------------------------------------------------------------
-  # Teach util about library
-  #
-  my $util = $sml->get_util;
-  $util->set_library($self);
-
   return 1;
 }
 

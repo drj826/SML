@@ -136,7 +136,7 @@ sub validate_outcome_semantics {
   my $sml     = SML->instance;
   my $syntax  = $sml->get_syntax;
   my $util    = $sml->get_util;
-  my $library = $util->get_library;
+  my $library = $self->get_library;
   my $text    = $self->get_content;
 
   $text =~ s/[\r\n]*$//;                # chomp;
@@ -281,7 +281,7 @@ sub _type_of {
 
   my $sml     = SML->instance;
   my $util    = $sml->get_util;
-  my $library = $util->get_library;
+  my $library = $self->get_library;
   my $name    = q{};
 
   if ( $library->has_division($value) )
