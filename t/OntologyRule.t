@@ -58,6 +58,7 @@ isa_ok( $obj, 'SML::OntologyRule' );
 
 my @public_methods =
   (
+   # SML::OntologyRule public attribute accessors
    'get_id',
    'get_ontology',
    'get_rule_type',
@@ -65,10 +66,13 @@ my @public_methods =
    'get_property_name',
    'get_value_type',
    'get_name_or_value',
+   'get_inverse_rule_id',
    'get_cardinality',
-
    'is_required',
    'is_imply_only',
+
+   # SML::OntologyRule public methods
+   # <none>
   );
 
 can_ok( $obj, @public_methods );
