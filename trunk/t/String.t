@@ -18,7 +18,7 @@ use SML::TestData;
 
 my $td      = SML::TestData->new();
 my $tcl     = $td->get_string_test_case_list;
-my $library = $td->get_test_object('SML::Library','library');
+my $library = $td->get_test_library_1;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -93,7 +93,7 @@ sub get_name_ok {
   my $tcname   = $tc->{name};
   my $text     = $tc->{text};
   my $expected = $tc->{expected}{get_name};
-  my $library  = $td->get_test_object('SML::Library','library');
+  my $library  = $td->get_test_library_1;
   my $parser   = $library->get_parser;
   my $string   = $parser->create_string($text);
 
@@ -114,7 +114,7 @@ sub get_content_ok {
   my $tcname   = $tc->{name};
   my $text     = $tc->{text};
   my $expected = $tc->{expected}{get_content};
-  my $library  = $td->get_test_object('SML::Library','library');
+  my $library  = $td->get_test_library_1;
   my $parser   = $library->get_parser;
   my $string   = $parser->create_string($text);
 
@@ -135,7 +135,7 @@ sub has_parts_ok {
   my $tcname   = $tc->{name};
   my $expected = $tc->{expected}{has_parts};
   my $text     = $tc->{text};
-  my $library  = $td->get_test_object('SML::Library','library');
+  my $library  = $td->get_test_library_1;
   my $parser   = $library->get_parser;
   my $string   = $parser->create_string($text);
 
@@ -158,7 +158,7 @@ sub render_ok {
   my $tcname   = $tc->{name};
   my $expected = $tc->{expected}{render}{$rendition}{$style};
   my $text     = $tc->{text};
-  my $library  = $td->get_test_object('SML::Library','library');
+  my $library  = $td->get_test_library_1;
   my $parser   = $library->get_parser;
   my $string   = $parser->create_string($text);
 

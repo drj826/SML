@@ -18,7 +18,7 @@ Log::Log4perl->init("log.test.conf");
 use SML::TestData;
 
 my $td      = SML::TestData->new;
-my $library = $td->get_test_object('SML::Library','library');
+my $library = $td->get_test_library_1;
 
 #---------------------------------------------------------------------
 # Can use module?

@@ -20,7 +20,7 @@ use SML::TestData;
 
 my $td      = SML::TestData->new();               # test data object
 my $tcl     = $td->get_division_test_case_list;   # test case list
-my $library = $td->get_test_object('SML::Library','library');
+my $library = $td->get_test_library_1;
 
 #---------------------------------------------------------------------
 # Can use module?
