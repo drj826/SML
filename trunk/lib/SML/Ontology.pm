@@ -91,15 +91,15 @@ sub get_entity_allowed_property_list {
   my $self        = shift;
   my $entity_name = shift;
 
-  my $list = $self->_get_properties_by_entity_name_hash->{$entity_name};
+  my $href = $self->_get_properties_by_entity_name_hash->{$entity_name};
 
-  if ( not defined $list or not scalar @{ $list } )
+  if ( not defined $href or not scalar keys %{ $href } )
     {
       $logger->warn("NO PROPERTIES DEFINED for $entity_name");
       return 0;
     }
 
-  return $list;
+  return [ sort keys %{ $href } ];
 }
 
 ######################################################################
@@ -130,22 +130,22 @@ sub get_allowed_environment_list {
 
 ######################################################################
 
-sub get_entity_type {
+# sub get_entity_type {
 
-  my $self        = shift;
-  my $entity_name = shift;
+#   my $self        = shift;
+#   my $entity_name = shift;
 
-  if ( not defined $self->_get_types_by_entity_name_hash->{$entity_name} )
-    {
-      $logger->info("NO TYPE DEFINED: for $entity_name");
-      return 0;
-    }
+#   if ( not defined $self->_get_types_by_entity_name_hash->{$entity_name} )
+#     {
+#       $logger->info("NO TYPE DEFINED: for $entity_name");
+#       return 0;
+#     }
 
-  else
-    {
-      return $self->_get_types_by_entity_name_hash->{$entity_name};
-    }
-}
+#   else
+#     {
+#       return $self->_get_types_by_entity_name_hash->{$entity_name};
+#     }
+# }
 
 ######################################################################
 
@@ -191,29 +191,29 @@ sub get_rule_with_id {
 
 ######################################################################
 
-sub get_divisions_by_name_hash {
+# sub get_divisions_by_name_hash {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $dbn  = {};                        # divisions by name
-  my $hash = $self->_get_rule_hash;
+#   my $dbn  = {};                        # divisions by name
+#   my $hash = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $hash } )
-    {
-      my $rule_type = $rule->get_rule_type;
+#   foreach my $rule ( values %{ $hash } )
+#     {
+#       my $rule_type = $rule->get_rule_type;
 
-      if ($rule_type ne 'cls') {
-	next;
-      }
+#       if ($rule_type ne 'cls') {
+# 	next;
+#       }
 
-      my $entity_name = $rule->get_entity_name;
-      my $value_type  = $rule->get_value_type;
+#       my $entity_name = $rule->get_entity_name;
+#       my $value_type  = $rule->get_value_type;
 
-      $dbn->{$entity_name} = [ $value_type ];
-    }
+#       $dbn->{$entity_name} = [ $value_type ];
+#     }
 
-  return $dbn;
-}
+#   return $dbn;
+# }
 
 ######################################################################
 
@@ -232,12 +232,21 @@ sub get_required_property_list {
   my $self    = shift;
   my $divname = shift;
 
-  return [ keys %{ $self->_get_required_properties_hash->{$divname} } ];
+  return [ sort keys %{ $self->_get_required_properties_hash->{$divname} } ];
 }
 
 ######################################################################
 
-sub contains_entity_named {
+sub has_entity_with_name {
+
+  # If, DURING the reading of rule files you need to know whether an
+  # entity with a specified name has been defined use THIS method.
+  #
+  # Notice that this method loops through the rule hash to determine
+  # whether the ontology defines an entity with the specified name.
+  # The rule hash is built bit by bit as the rule files are read.
+  # This means this method will return an answer based on the rules
+  # read SO FAR.
 
   my $self        = shift;
   my $entity_name = shift;
@@ -260,6 +269,9 @@ sub contains_entity_named {
 ######################################################################
 
 sub allows_entity {
+
+  # If, AFTER the reading of rule files you need to know whether an
+  # entity with a specified name has been defined use THIS method.
 
   my $self        = shift;
   my $entity_name = shift;
@@ -476,12 +488,20 @@ sub property_is_imply_only {
   my $divname       = shift;
   my $property_name = shift;
 
-  return $self->_get_imply_only_properties_hash->{$divname}{$property_name};
+  if ( not $self->_get_imply_only_properties_hash->{$divname}{$property_name} )
+    {
+      return 0;
+    }
+
+  return 1;
 }
 
 ######################################################################
 
 sub property_allows_cardinality {
+
+  # Return the allowed cardinality of the specified division and
+  # property.
 
   my $self          = shift;
   my $divname       = shift;
@@ -732,12 +752,8 @@ sub _build_properties_by_entity_name_hash {
       my $rule_entity_name   = $rule->get_entity_name;
       my $rule_property_name = $rule->get_property_name;
 
-      if ( not defined $pbenh->{$rule_entity_name} )
-	{
-	  $pbenh->{$rule_entity_name} = [];
-	}
+      $pbenh->{$rule_entity_name}{$rule_property_name} = 1;
 
-      push @{ $pbenh->{$rule_entity_name} }, $rule_property_name;
     }
 
   return $pbenh;
