@@ -50,20 +50,18 @@ isa_ok($obj,'SML::Ontology');
 my @public_methods =
   (
    # SML::Ontology public attribute accessors
-   # <none>
+   'get_library',
 
    # SML::Ontology public methods
    'add_rules_from_file',
    'get_allowed_property_value_list',
    'get_entity_allowed_property_list',
    'get_allowed_environment_list',
-   'get_entity_type',
    'get_rule_for',
    'get_rule_with_id',
-   'get_divisions_by_name_hash',
    'get_class_for_entity_name',
    'get_required_property_list',
-   'contains_entity_named',
+   'has_entity_with_name',
    'allows_entity',
    'allows_region',
    'allows_environment',
@@ -83,8 +81,61 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{ $tcl })
   {
-    add_rules_from_file_ok($tc) if defined $tc->{expected}{add_rules_from_file};
-  }
+    add_rules_from_file_ok($tc)
+      if defined $tc->{expected}{add_rules_from_file};
+
+    get_allowed_property_value_list_ok($tc)
+      if defined $tc->{expected}{get_allowed_property_value_list};
+
+    get_entity_allowed_property_list_ok($tc)
+      if defined $tc->{expected}{get_entity_allowed_property_list};
+
+    get_allowed_environment_list_ok($tc)
+      if defined $tc->{expected}{get_allowed_environment_list};
+
+    get_rule_for_ok($tc)
+      if defined $tc->{expected}{get_rule_for};
+
+    get_rule_with_id_ok($tc)
+      if defined $tc->{expected}{get_rule_with_id};
+
+    get_class_for_entity_name_ok($tc)
+      if defined $tc->{expected}{get_class_for_entity_name};
+
+    get_required_property_list_ok($tc)
+      if defined $tc->{expected}{get_required_property_list};
+
+    has_entity_with_name_ok($tc)
+      if defined $tc->{expected}{has_entity_with_name};
+
+    allows_entity_ok($tc)
+      if defined $tc->{expected}{allows_entity};
+
+    allows_region_ok($tc)
+      if defined $tc->{expected}{allows_region};
+
+    allows_environment_ok($tc)
+      if defined $tc->{expected}{allows_environment};
+
+    allows_property_ok($tc)
+      if defined $tc->{expected}{allows_property};
+
+    allows_composition_ok($tc)
+      if defined $tc->{expected}{allows_composition};
+
+    allows_property_value_ok($tc)
+      if defined $tc->{expected}{allows_property_value};
+
+    property_is_universal_ok($tc)
+      if defined $tc->{expected}{property_is_universal};
+
+    property_is_imply_only_ok($tc)
+      if defined $tc->{expected}{property_is_imply_only};
+
+    property_allows_cardinality_ok($tc)
+      if defined $tc->{expected}{property_allows_cardinality};
+
+}
 
 #---------------------------------------------------------------------
 # Throws expected exceptions?
@@ -92,7 +143,8 @@ foreach my $tc (@{ $tcl })
 
 foreach my $tc (@{ $tcl })
   {
-    warn_add_rules_from_file_ok($tc) if defined $tc->{expected}{warning}{add_rules_from_file};
+    warn_add_rules_from_file_ok($tc)
+      if defined $tc->{expected}{warning}{add_rules_from_file};
   }
 
 ######################################################################
@@ -104,7 +156,7 @@ sub add_rules_from_file_ok {
   # arrange
   my $tcname    = $tc->{name};
   my $file_list = $tc->{file_list};
-  my $library   = SML::Library->new(config_filename=>'library.conf');
+  my $library   = $tc->{library};
   my $ontology  = SML::Ontology->new(library=>$library);
   my $expected  = $tc->{expected}{add_rules_from_file};
 
@@ -113,6 +165,408 @@ sub add_rules_from_file_ok {
 
   # assert
   is($result,$expected,"$tcname add_rules_from_file $result");
+}
+
+######################################################################
+
+sub get_allowed_property_value_list_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{get_allowed_property_value_list};
+
+  # act
+  my $result = $ontology->get_allowed_property_value_list
+    (
+     $tc->{entity_name},
+     $tc->{property_name},
+    );
+
+  # assert
+  is_deeply($result,$expected,"$tcname get_allowed_property_value_list");
+}
+
+######################################################################
+
+sub get_entity_allowed_property_list_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{get_entity_allowed_property_list};
+
+  # act
+  my $result = $ontology->get_entity_allowed_property_list
+    (
+     $tc->{entity_name},
+    );
+
+  # assert
+  is_deeply($result,$expected,"$tcname get_entity_allowed_property_list");
+}
+
+######################################################################
+
+sub get_allowed_environment_list_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{get_allowed_environment_list};
+
+  # act
+  my $result = $ontology->get_allowed_environment_list;
+
+  # assert
+  is_deeply($result,$expected,"$tcname get_allowed_environment_list");
+}
+
+######################################################################
+
+# sub get_entity_type_ok {
+
+#   my $tc = shift;                       # test case
+
+#   # arrange
+#   my $tcname    = $tc->{name};
+#   my $library   = $tc->{library};
+#   my $ontology  = $library->get_ontology;
+#   my $expected  = $tc->{expected}{get_entity_type};
+
+#   # act
+#   my $result = $ontology->get_entity_type
+#     (
+#      $tc->{entity_name},
+#     );
+
+#   # assert
+#   is($result,$expected,"$tcname get_entity_type $result");
+# }
+
+######################################################################
+
+sub get_rule_for_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{get_rule_for};
+
+  # act
+  my $result = $ontology->get_rule_for
+    (
+     $tc->{entity_name},
+     $tc->{property_name},
+     $tc->{name_or_value},
+    );
+
+  # assert
+  isa_ok($result,$expected,"$tcname get_rule_for return value");
+}
+
+######################################################################
+
+sub get_rule_with_id_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{get_rule_with_id};
+
+  # act
+  my $result = $ontology->get_rule_with_id
+    (
+     $tc->{rule_id},
+    );
+
+  # assert
+  isa_ok($result,$expected,"$tcname get_rule_with_id return value");
+}
+
+######################################################################
+
+sub get_class_for_entity_name_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{get_class_for_entity_name};
+
+  # act
+  my $result = $ontology->get_class_for_entity_name
+    (
+     $tc->{entity_name},
+    );
+
+  # assert
+  is($result,$expected,"$tcname get_class_for_entity_name $result");
+}
+
+######################################################################
+
+sub get_required_property_list_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{get_required_property_list};
+
+  # act
+  my $result = $ontology->get_required_property_list
+    (
+     $tc->{entity_name},
+    );
+
+  # assert
+  is_deeply($result,$expected,"$tcname get_required_property_list");
+}
+
+######################################################################
+
+sub has_entity_with_name_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{has_entity_with_name};
+
+  # act
+  my $result = $ontology->has_entity_with_name
+    (
+     $tc->{entity_name},
+    );
+
+  # assert
+  is($result,$expected,"$tcname has_entity_with_name $result");
+}
+
+######################################################################
+
+sub allows_entity_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{allows_entity};
+
+  # act
+  my $result = $ontology->allows_entity
+    (
+     $tc->{entity_name},
+    );
+
+  # assert
+  is($result,$expected,"$tcname allows_entity $result");
+}
+
+######################################################################
+
+sub allows_region_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{allows_region};
+
+  # act
+  my $result = $ontology->allows_region
+    (
+     $tc->{entity_name},
+    );
+
+  # assert
+  is($result,$expected,"$tcname allows_region $result");
+}
+
+######################################################################
+
+sub allows_environment_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{allows_environment};
+
+  # act
+  my $result = $ontology->allows_environment
+    (
+     $tc->{environment_name},
+    );
+
+  # assert
+  is($result,$expected,"$tcname allows_environment $result");
+}
+
+######################################################################
+
+sub allows_property_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{allows_property};
+
+  # act
+  my $result = $ontology->allows_property
+    (
+     $tc->{entity_name},
+     $tc->{property_name},
+    );
+
+  # assert
+  is($result,$expected,"$tcname allows_property $result");
+}
+
+######################################################################
+
+sub allows_composition_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{allows_composition};
+
+  # act
+  my $result = $ontology->allows_composition
+    (
+     $tc->{division_a},
+     $tc->{division_b},
+    );
+
+  # assert
+  is($result,$expected,"$tcname allows_composition $result");
+}
+
+######################################################################
+
+sub allows_property_value_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{allows_property_value};
+
+  # act
+  my $result = $ontology->allows_property_value
+    (
+     $tc->{entity_name},
+     $tc->{property_name},
+     $tc->{property_value},
+    );
+
+  # assert
+  is($result,$expected,"$tcname allows_property_value $result");
+}
+
+######################################################################
+
+sub property_is_universal_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{property_is_universal};
+
+  # act
+  my $result = $ontology->property_is_universal
+    (
+     $tc->{property_name},
+    );
+
+  # assert
+  is($result,$expected,"$tcname property_is_universal $result");
+}
+
+######################################################################
+
+sub property_is_imply_only_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{property_is_imply_only};
+
+  # act
+  my $result = $ontology->property_is_imply_only
+    (
+     $tc->{entity_name},
+     $tc->{property_name},
+    );
+
+  # assert
+  is($result,$expected,"$tcname property_is_imply_only $result");
+}
+
+######################################################################
+
+sub property_allows_cardinality_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname    = $tc->{name};
+  my $library   = $tc->{library};
+  my $ontology  = $library->get_ontology;
+  my $expected  = $tc->{expected}{property_allows_cardinality};
+
+  # act
+  my $result = $ontology->property_allows_cardinality
+    (
+     $tc->{entity_name},
+     $tc->{property_name},
+    );
+
+  # assert
+  is($result,$expected,"$tcname property_allows_cardinality $result");
 }
 
 ######################################################################
