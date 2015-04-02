@@ -352,85 +352,164 @@ has test_data_test_case_list =>
 
 ######################################################################
 ######################################################################
+######################################################################
+
+has test_library_1 =>
+  (
+   is      => 'ro',
+   isa     => 'SML::Library',
+   reader  => 'get_test_library_1',
+   lazy    => 1,
+   builder => '_build_test_library_1',
+  );
+
+######################################################################
+
+has test_document_1 =>
+  (
+   is      => 'ro',
+   isa     => 'SML::Document',
+   reader  => 'get_test_document_1',
+   lazy    => 1,
+   builder => '_build_test_document_1',
+  );
+
+######################################################################
+
+has test_definition_1 =>
+  (
+   is      => 'ro',
+   isa     => 'SML::Definition',
+   reader  => 'get_test_definition_1',
+   lazy    => 1,
+   builder => '_build_test_definition_1',
+  );
+
+######################################################################
+
+has test_definition_2 =>
+  (
+   is      => 'ro',
+   isa     => 'SML::Definition',
+   reader  => 'get_test_definition_2',
+   lazy    => 1,
+   builder => '_build_test_definition_2',
+  );
+
+######################################################################
+
+has test_definition_3 =>
+  (
+   is      => 'ro',
+   isa     => 'SML::Definition',
+   reader  => 'get_test_definition_3',
+   lazy    => 1,
+   builder => '_build_test_definition_3',
+  );
+
+######################################################################
+
+has test_definition_4 =>
+  (
+   is      => 'ro',
+   isa     => 'SML::Definition',
+   reader  => 'get_test_definition_4',
+   lazy    => 1,
+   builder => '_build_test_definition_4',
+  );
+
+######################################################################
+
+has test_note_1 =>
+  (
+   is      => 'ro',
+   isa     => 'SML::Note',
+   reader  => 'get_test_note_1',
+   lazy    => 1,
+   builder => '_build_test_note_1',
+  );
+
+######################################################################
+######################################################################
 ##
 ## Public Methods
 ##
 ######################################################################
 ######################################################################
 
-sub add_test_object {
+# sub add_test_object {
 
-  my $self   = shift;
-  my $object = shift;
-  my $name   = shift;
+#   my $self   = shift;
+#   my $object = shift;
+#   my $name   = shift;
 
-  # validate input
-  if ( not ref $object )
-    {
-      $logger->error("NOT AN OBJECT $object");
-      return 0;
-    }
+#   # validate input
+#   if ( not ref $object )
+#     {
+#       $logger->error("NOT AN OBJECT $object");
+#       return 0;
+#     }
 
-  if ( not $name )
-    {
-      $logger->error("YOU MUST SPECIFY A NAME");
-      return 0;
-    }
+#   if ( not $name )
+#     {
+#       $logger->error("YOU MUST SPECIFY A NAME");
+#       return 0;
+#     }
 
-  my $type = ref $object;
-  my $toh  = $self->_get_test_object_hash;
+#   my $type = ref $object;
+#   my $toh  = $self->_get_test_object_hash;
 
-  $toh->{$type}{$name} = $object;
+#   $toh->{$type}{$name} = $object;
 
-  return 1;
-}
-
-######################################################################
-
-sub has_test_object {
-
-  # Return 1 if specified test object exists.
-
-  my $self = shift;
-  my $type = shift;
-  my $name = shift;
-
-  my $toh = $self->_get_test_object_hash;
-
-  if ( defined $toh->{$type}{$name} )
-    {
-      return 1;
-    }
-
-  else
-    {
-      return 0;
-    }
-}
+#   return 1;
+# }
 
 ######################################################################
 
-sub get_test_object {
+# sub has_test_object {
 
-  # Get a test object.
+#   # Return 1 if specified test object exists.
 
-  my $self = shift;
-  my $type = shift;
-  my $name = shift;
+#   my $self = shift;
+#   my $type = shift;
+#   my $name = shift;
 
-  my $toh = $self->_get_test_object_hash;
+#   my $toh = $self->_get_test_object_hash;
 
-  if ( defined $toh->{$type}{$name} )
-    {
-      return $toh->{$type}{$name};
-    }
+#   if ( defined $toh->{$type}{$name} )
+#     {
+#       return 1;
+#     }
 
-  else
-    {
-      $logger->error("NO TEST OBJECT $type $name");
-      return 0;
-    }
-}
+#   else
+#     {
+#       return 0;
+#     }
+# }
+
+######################################################################
+
+# sub get_test_object {
+
+#   # Get a test object.
+
+#   my $self = shift;
+#   my $type = shift;
+#   my $name = shift;
+
+#   my $toh = $self->_get_test_object_hash;
+
+#   if ( defined $toh->{$type}{$name} )
+#     {
+#       return $toh->{$type}{$name};
+#     }
+
+#   else
+#     {
+#       $logger->error("NO TEST OBJECT $type $name");
+#       return 0;
+#     }
+# }
 
 ######################################################################
 ######################################################################
@@ -440,13 +519,13 @@ sub get_test_object {
 ######################################################################
 ######################################################################
 
-has '_test_object_hash' =>
-  (
-   isa     => 'HashRef',
-   reader  => '_get_test_object_hash',
-   lazy    => 1,
-   builder => '_build_test_object_hash',
-  );
+# has '_test_object_hash' =>
+#   (
+#    isa     => 'HashRef',
+#    reader  => '_get_test_object_hash',
+#    lazy    => 1,
+#    builder => '_build_test_object_hash',
+#   );
 
 ######################################################################
 ######################################################################
@@ -464,7 +543,7 @@ sub _build_acronym_list_test_case_list {
     [
      {
       name => 'acronym_1',
-      definition => $self->get_test_object('SML::Definition','tla'),
+      definition => $self->get_test_definition_1,
       acronym => 'TLA',
       alt => '',
       expected =>
@@ -477,7 +556,7 @@ sub _build_acronym_list_test_case_list {
 
      {
       name => 'acronym_2',
-      definition => $self->get_test_object('SML::Definition','frd'),
+      definition => $self->get_test_definition_4,
       acronym => 'FRD',
       alt => 'ieee',
       expected =>
@@ -490,7 +569,7 @@ sub _build_acronym_list_test_case_list {
 
      {
       name => 'acronym_3',
-      definition => $self->get_test_object('SML::Definition','sla'),
+      definition => $self->get_test_definition_3,
       acronym => 'bogus',
       alt => '',
       expected =>
@@ -545,7 +624,7 @@ sub _build_acronym_term_reference_test_case_list {
        tag => 'ac',
        acronym => 'TLA',
        namespace => '',
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -573,7 +652,7 @@ sub _build_assertion_test_case_list {
        subject   => 'My eyes',
        predicate => 'are',
        object    => 'blue',
-       library   => $self->get_test_object('SML::Library','library'),
+       library   => $self->get_test_library_1,
       },
       expected =>
       {
@@ -591,7 +670,7 @@ sub _build_assertion_test_case_list {
        subject   => 'rq-000331',
        predicate => 'is_part_of',
        object    => 'rq-000026',
-       library   => $self->get_test_object('SML::Library','library'),
+       library   => $self->get_test_library_1,
       },
       expected =>
       {
@@ -617,7 +696,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -648,7 +727,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -679,7 +758,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -710,7 +789,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -741,7 +820,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -768,7 +847,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -795,7 +874,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -826,7 +905,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -857,7 +936,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -888,7 +967,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -919,7 +998,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -950,7 +1029,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -981,7 +1060,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1012,7 +1091,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1043,7 +1122,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1074,7 +1153,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1101,7 +1180,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1128,7 +1207,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1159,7 +1238,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1186,7 +1265,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1217,7 +1296,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1248,7 +1327,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1280,7 +1359,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1312,7 +1391,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1344,7 +1423,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1376,7 +1455,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1408,7 +1487,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1440,7 +1519,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1472,7 +1551,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1504,7 +1583,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1536,7 +1615,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1567,7 +1646,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1598,7 +1677,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1625,7 +1704,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1652,7 +1731,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1679,7 +1758,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1706,7 +1785,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1733,7 +1812,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1760,7 +1839,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1787,7 +1866,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1814,7 +1893,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1841,7 +1920,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1868,7 +1947,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1895,7 +1974,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1922,7 +2001,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1949,7 +2028,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -1976,7 +2055,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2003,7 +2082,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2030,7 +2109,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2057,7 +2136,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2084,7 +2163,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2111,7 +2190,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2138,7 +2217,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2165,7 +2244,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2192,7 +2271,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2219,7 +2298,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2246,7 +2325,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2273,7 +2352,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2300,7 +2379,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2327,7 +2406,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2354,7 +2433,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2381,7 +2460,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2408,7 +2487,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2435,7 +2514,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2462,7 +2541,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2489,7 +2568,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2516,7 +2595,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2543,7 +2622,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        render =>
@@ -2570,7 +2649,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2583,7 +2662,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2597,7 +2676,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2610,7 +2689,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2624,7 +2703,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2637,7 +2716,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2651,7 +2730,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2664,7 +2743,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2678,7 +2757,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2691,7 +2770,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2705,7 +2784,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2718,7 +2797,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2732,7 +2811,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2746,7 +2825,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2760,7 +2839,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2775,7 +2854,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2790,7 +2869,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2805,7 +2884,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2820,7 +2899,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2835,7 +2914,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2850,7 +2929,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2865,7 +2944,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2880,7 +2959,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2895,7 +2974,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2910,7 +2989,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2925,7 +3004,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2940,7 +3019,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2955,7 +3034,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2970,7 +3049,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2985,7 +3064,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -3000,7 +3079,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -3015,7 +3094,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -3030,7 +3109,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -3045,7 +3124,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -3060,7 +3139,7 @@ sub _build_block_test_case_list {
       subclass => 'SML::Paragraph',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
-      library  => $self->get_test_object('SML::Library','library'),
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -3091,7 +3170,7 @@ sub _build_bullet_list_item_test_case_list {
       line => SML::Line->new(content=>'- top level item'),
       args =>
       {
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -3104,7 +3183,7 @@ sub _build_bullet_list_item_test_case_list {
       line => SML::Line->new(content=>'  - indented item'),
       args =>
       {
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -3138,7 +3217,7 @@ sub _build_definition_list_item_test_case_list {
       line => SML::Line->new(content=>'= term 1 = definition of term 1'),
       args =>
       {
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -3152,7 +3231,7 @@ sub _build_definition_list_item_test_case_list {
       line => SML::Line->new(content=>'This is not a definition list item'),
       args =>
       {
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -3176,7 +3255,7 @@ sub _build_definition_test_case_list {
       args =>
       {
        name => 'glossary',
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -3192,7 +3271,7 @@ sub _build_definition_test_case_list {
       args =>
       {
        name => 'glossary',
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -3208,7 +3287,7 @@ sub _build_definition_test_case_list {
       args =>
       {
        name => 'glossary',
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -3236,7 +3315,7 @@ sub _build_division_test_case_list {
       {
        id      => 'td',
        name    => 'test-division',
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -3254,7 +3333,7 @@ sub _build_division_test_case_list {
       args =>
       {
        id      => 'td-000020',
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected  =>
       {
@@ -3282,7 +3361,7 @@ sub _build_division_test_case_list {
       args =>
       {
        id      => 'introduction',
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -3309,7 +3388,7 @@ sub _build_division_test_case_list {
       args =>
       {
        id      => 'problem-1',
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -3336,7 +3415,7 @@ sub _build_division_test_case_list {
       args =>
       {
        id      => 'tab-solution-types',
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -3362,7 +3441,7 @@ sub _build_division_test_case_list {
       args =>
       {
        id      => 'parent-problem',
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -3379,7 +3458,7 @@ sub _build_division_test_case_list {
       args =>
       {
        id      => 'problem-1',
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -3396,7 +3475,7 @@ sub _build_division_test_case_list {
       args =>
       {
        id      => 'td-000070',
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -3413,7 +3492,7 @@ sub _build_division_test_case_list {
       args =>
       {
        id      => 'problem-1',
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -3430,7 +3509,7 @@ sub _build_division_test_case_list {
       args =>
       {
        id      => 'problem-1',
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -3447,7 +3526,7 @@ sub _build_division_test_case_list {
       args =>
       {
        id      => 'solution-1',
-       library => $self->get_test_object('SML::Library','library'),
+       library => $self->get_test_library_1,
       },
       expected =>
       {
@@ -4484,8 +4563,8 @@ sub _build_document_test_case_list {
 
      {
       name     => 'add_note_1',
-      document => $self->get_test_object('SML::Document','td-000020'),
-      note     => $self->get_test_object('SML::Note','1'),
+      document => $self->get_test_document_1,
+      note     => $self->get_test_note_1,
       expected =>
       {
        add_note => 1,
@@ -4506,7 +4585,7 @@ sub _build_element_test_case_list {
       name => 'element_1',
       text => 'title:: This is My Title',
       element_name => 'title',
-      library => $self->get_test_object('SML::Library','library'),
+      library => $self->get_test_library_1,
       expected =>
       {
        get_value => 'This is My Title',
@@ -4518,7 +4597,7 @@ sub _build_element_test_case_list {
       name     => 'invalid_filespec',
       testfile => 'td-000066.txt',
       docid    => 'td-000066',
-      library => $self->get_test_object('SML::Library','library'),
+      library => $self->get_test_library_1,
       expected =>
       {
        warning =>
@@ -4536,7 +4615,7 @@ sub _build_element_test_case_list {
       name     => 'invalid_image_file',
       testfile => 'td-000068.txt',
       docid    => 'td-000068',
-      library => $self->get_test_object('SML::Library','library'),
+      library => $self->get_test_library_1,
       expected =>
       {
        warning =>
@@ -4563,7 +4642,7 @@ sub _build_enumerated_list_item_test_case_list {
      {
       name => 'top_level_item',
       text => '+ top level item',
-      library => $self->get_test_object('SML::Library','library'),
+      library => $self->get_test_library_1,
       expected =>
       {
        get_value => 'top level item',
@@ -4573,7 +4652,7 @@ sub _build_enumerated_list_item_test_case_list {
      {
       name => 'indented_item',
       text => '  + indented item',
-      library => $self->get_test_object('SML::Library','library'),
+      library => $self->get_test_library_1,
       expected =>
       {
        get_value => 'indented item',
@@ -4636,7 +4715,7 @@ sub _build_fragment_test_case_list {
       name => 'fragment_1',
       filespec => 'library/testdata/td-000074.txt',
       divid => 'my-problem',
-      library => $self->get_test_object('SML::Library','library'),
+      library => $self->get_test_library_1,
       expected =>
       {
        extract_division_lines => 19,
@@ -4647,7 +4726,7 @@ sub _build_fragment_test_case_list {
       name => 'fragment_2',
       filespec => 'library/testdata/td-000074.txt',
       divid => 'tab-solution-types',
-      library => $self->get_test_object('SML::Library','library'),
+      library => $self->get_test_library_1,
       expected =>
       {
        extract_division_lines => 29,
@@ -4658,7 +4737,7 @@ sub _build_fragment_test_case_list {
       name => 'fragment_3',
       filespec => 'library/testdata/td-000074.txt',
       divid => 'introduction',
-      library => $self->get_test_object('SML::Library','library'),
+      library => $self->get_test_library_1,
       expected =>
       {
        extract_division_lines => 16,
@@ -4705,7 +4784,7 @@ sub _build_ontology_test_case_list {
     [
      {
       name => 'ontology_1',
-      library => $self->get_test_object('SML::Library','library'),
+      library => $self->get_test_library_1,
       file_list =>
       [
        'library/ontology_rules_sml.conf',
@@ -4822,7 +4901,7 @@ sub _build_ontology_test_case_list {
 
      {
       name => 'ontology_2',
-      library => $self->get_test_object('SML::Library','library'),
+      library => $self->get_test_library_1,
       file_list =>
       [
        'library/ontology_rules_sml.conf',
@@ -4848,7 +4927,7 @@ sub _build_ontology_test_case_list {
 
      {
       name => 'ontology_3',
-      library => $self->get_test_object('SML::Library','library'),
+      library => $self->get_test_library_1,
       file_list =>
       [
        'library/ontology_rules_sml.conf',
@@ -4868,7 +4947,7 @@ sub _build_ontology_test_case_list {
 
      {
       name => 'ontology_4',
-      library => $self->get_test_object('SML::Library','library'),
+      library => $self->get_test_library_1,
       file_list =>
       [
        'library/ontology_rules_sml.conf',
@@ -4883,7 +4962,7 @@ sub _build_ontology_test_case_list {
 
      {
       name => 'ontology_3',
-      library => $self->get_test_object('SML::Library','library'),
+      library => $self->get_test_library_1,
       file_list =>
       [
        'library/ontology_rules_sml.conf',
@@ -6803,6 +6882,156 @@ sub _build_test_object_hash {
   }
 
   return $toh;
+}
+
+######################################################################
+
+sub _build_test_library_1 {
+
+  return SML::Library->new(config_filename=>'library.conf');
+}
+
+######################################################################
+
+sub _build_test_document_1 {
+
+  my $self = shift;
+
+  my $library  = $self->get_test_library_1;
+  my $parser   = $library->get_parser;
+  my $fragment = $parser->create_fragment('td-000020.txt');
+
+  return $library->get_document('td-000020');
+}
+
+######################################################################
+
+sub _build_test_definition_1 {
+
+  my $self = shift;
+
+  my $text    = 'acronym:: TLA = Three Letter Acronym';
+  my $library = $self->get_test_library_1;
+
+  my $definition = SML::Definition->new
+    (
+     name    => 'acronym',
+     library => $library
+    );
+
+  my $line = SML::Line->new(content=>$text);
+
+  $definition->add_line($line);
+
+  return $definition;
+}
+
+######################################################################
+
+sub _build_test_definition_2 {
+
+  my $self = shift;
+
+  my $text    = 'acronym:: FLA = Four Letter Acronym';
+  my $library = $self->get_test_library_1;
+
+  my $definition = SML::Definition->new
+    (
+     name    => 'acronym',
+     library => $library
+    );
+
+  my $line = SML::Line->new(content=>$text);
+
+  $definition->add_line($line);
+
+  return $definition;
+}
+
+######################################################################
+
+sub _build_test_definition_3 {
+
+  my $self = shift;
+
+  my $text    = 'acronym:: SLA = Six Letter Acronym';
+  my $library = $self->get_test_library_1;
+
+  my $definition = SML::Definition->new
+    (
+     name    => 'acronym',
+     library => $library
+    );
+
+  my $line = SML::Line->new(content=>$text);
+
+  $definition->add_line($line);
+
+  return $definition;
+}
+
+######################################################################
+
+sub _build_test_definition_4 {
+
+  my $self = shift;
+
+  my $text    = 'acronym:: FRD {ieee} = (IEEE) Functional Requirements Document';
+  my $library = $self->get_test_library_1;
+
+  my $definition = SML::Definition->new
+    (
+     name    => 'acronym',
+     library => $library
+    );
+
+  my $line = SML::Line->new(content=>$text);
+
+  $definition->add_line($line);
+
+  return $definition;
+}
+
+######################################################################
+
+sub _build_test_note_1 {
+
+  my $self = shift;
+
+  my $text = 'note::1: This is a note.';
+  my $args = {};
+
+  $args->{tag}     = '1';
+  $args->{library} = $self->get_test_library_1;
+
+  my $note = SML::Note->new(%{$args});
+
+  my $line = SML::Line->new(content=>$text);
+
+  $note->add_line($line);
+
+  return $note;
+}
+
+######################################################################
+
+sub _build_test_note_2 {
+
+  my $self = shift;
+
+  my $text = 'note::2:intro: This is a note with a division ID.';
+  my $args = {};
+
+  $args->{tag}     = '2';
+  $args->{library} = $self->get_test_library_1;
+
+  my $note = SML::Note->new(%{$args});
+
+  my $line = SML::Line->new(content=>$text);
+
+  $note->add_line($line);
+
+  return $note;
 }
 
 ######################################################################
