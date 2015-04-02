@@ -17,7 +17,7 @@ Log::Log4perl->init("log.test.conf");
 use SML::TestData;
 
 my $td      = SML::TestData->new;
-my $library = $td->get_test_object('SML::Library','library');
+my $library = $td->get_test_library_1;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -34,20 +34,21 @@ BEGIN {
 
 my $ontology = SML::Ontology->new(library=>$library);
 
-my $obj = SML::OntologyRule->new
-  (
-   ontology        => $ontology,
-   id              => 'rul001',
-   rule_type       => 'cls',
-   entity_name     => 'table',
-   property_name   => 'exists',
-   value_type      => 'Str',
-   name_or_value   => '',
-   inverse_rule_id => '',
-   cardinality     => '1',
-   required        => 0,
-   imply_only      => 0,
-  );
+my $args = {};
+
+$args->{ontology}        = $ontology;
+$args->{id}              = 'rul001';
+$args->{rule_type}       = 'cls';
+$args->{entity_name}     = 'TABLE';
+$args->{property_name}   = 'exists';
+$args->{value_type}      = 'Str';
+$args->{name_or_value}   = '';
+$args->{inverse_rule_id} = '';
+$args->{cardinality}     = 1;
+$args->{required}        = 0;
+$args->{imply_only}      = 0;
+
+my $obj = SML::OntologyRule->new(%{$args});
 
 isa_ok( $obj, 'SML::OntologyRule' );
 

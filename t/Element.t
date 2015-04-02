@@ -22,7 +22,7 @@ use SML::TestData;
 
 my $td      = SML::TestData->new;
 my $tcl     = $td->get_element_test_case_list;
-my $library = $td->get_test_object('SML::Library','library');
+my $library = $td->get_test_library_1;
 
 #---------------------------------------------------------------------
 # Can use module?
