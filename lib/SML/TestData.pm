@@ -4704,37 +4704,200 @@ sub _build_ontology_test_case_list {
   return
     [
      {
-      name      => 'ontology_1',
+      name => 'ontology_1',
+      library => $self->get_test_object('SML::Library','library'),
       file_list =>
       [
        'library/ontology_rules_sml.conf',
        'library/ontology_rules_lib.conf',
       ],
+      entity_name => 'problem',
+      environment_name => 'TABLE',
+      property_name => 'status',
+      property_value => 'green',
+      name_or_value => 'STRING',
+      rule_id => 'prb005',
+      division_a => 'TABLE',
+      division_b => 'SECTION',
       expected  =>
       {
        add_rules_from_file => 1,
+       get_allowed_property_value_list =>
+       [
+	'grey',
+	'green',
+	'yellow',
+	'red',
+       ],
+       get_entity_allowed_property_list =>
+       [
+	'allocation',
+	'assignee',
+	'assignment',
+	'associated',
+	'attr',
+	'author',
+	'changed_by',
+	'child',
+	'class_of',
+	'copyright',
+	'created_by',
+	'date',
+	'date_changed',
+	'date_created',
+	'derived',
+	'derived_from',
+	'description',
+	'directed_by',
+	'directs',
+	'effort',
+	'extended_by',
+	'extends',
+	'generalizes',
+	'id',
+	'instance_of',
+	'next',
+	'order',
+	'owner',
+	'parent',
+	'previous',
+	'priority',
+	'realized_by',
+	'realizes',
+	'request',
+	'revision',
+	'solution',
+	'specializes',
+	'stakeholder',
+	'state',
+	'status',
+	'task',
+	'test',
+	'title',
+	'type',
+	'used_by',
+	'uses',
+	'validated_by',
+	'version',
+	'work_product',
+       ],
+       get_allowed_environment_list =>
+       [
+	'ASSERTION',
+	'ATTACHMENT',
+	'AUDIO',
+	'BARETABLE',
+	'EPIGRAPH',
+	'FIGURE',
+	'FOOTER',
+	'HEADER',
+	'KEYPOINTS',
+	'LISTING',
+	'PREFORMATTED',
+	'REVISIONS',
+	'SIDEBAR',
+	'SOURCE',
+	'TABLE',
+	'VIDEO',
+       ],
+       get_rule_for => 'SML::OntologyRule',
+       get_rule_with_id => 'SML::OntologyRule',
+       get_class_for_entity_name => 'SML::Entity',
+       get_required_property_list =>
+       [
+	'description',
+	'id',
+	'title',
+	'type',
+       ],
+       has_entity_with_name => 1,
+       allows_entity => 1,
+       allows_region => 1,
+       allows_environment => 1,
+       allows_property => 1,
+       allows_composition => 1,
+       allows_property_value => 1,
       },
      },
 
-     # {
-     #  name      => 'ontology_2',
-     #  file_list =>
-     #  [
-     #   'library/ontology_rules_lib.conf',
-     #  ],
-     #  expected  =>
-     #  {
-     #   warning =>
-     #   {
-     # 	  add_rules_from_file =>
-     # 	  [
-     # 	   ['SML::OntologyRule','INVALID ENTITY'],
-     # 	   ['SML::OntologyRule','INVALID ENTITY'],
-     # 	   ['SML::OntologyRule','INVALID ENTITY'],
-     # 	  ],
-     #   },
-     #  },
-     # },
+     {
+      name => 'ontology_2',
+      library => $self->get_test_object('SML::Library','library'),
+      file_list =>
+      [
+       'library/ontology_rules_sml.conf',
+       'library/ontology_rules_lib.conf',
+      ],
+      entity_name => 'bogus',
+      property_name => 'bogus',
+      property_value => 'bogus',
+      environment_name => 'bogus',
+      division_a => 'TABLE',
+      division_b => 'TABLE',
+      expected =>
+      {
+       has_entity_with_name => 0,
+       allows_entity => 0,
+       allows_region => 0,
+       allows_environment => 0,
+       allows_property => 0,
+       allows_composition => 0,
+       allows_property_value => 1,
+      },
+     },
+
+     {
+      name => 'ontology_3',
+      library => $self->get_test_object('SML::Library','library'),
+      file_list =>
+      [
+       'library/ontology_rules_sml.conf',
+       'library/ontology_rules_lib.conf',
+      ],
+      entity_name => 'problem',
+      property_name => 'status',
+      property_value => 'pink',
+      expected =>
+      {
+       allows_property_value => 0,
+       property_is_universal => 0,
+       property_is_imply_only => 0,
+       property_allows_cardinality => 1,
+      },
+     },
+
+     {
+      name => 'ontology_4',
+      library => $self->get_test_object('SML::Library','library'),
+      file_list =>
+      [
+       'library/ontology_rules_sml.conf',
+       'library/ontology_rules_lib.conf',
+      ],
+      property_name => 'glossary',
+      expected =>
+      {
+       property_is_universal => 1,
+      },
+     },
+
+     {
+      name => 'ontology_3',
+      library => $self->get_test_object('SML::Library','library'),
+      file_list =>
+      [
+       'library/ontology_rules_sml.conf',
+       'library/ontology_rules_lib.conf',
+      ],
+      entity_name => 'problem',
+      property_name => 'child',
+      expected =>
+      {
+       property_is_imply_only => 1,
+       property_allows_cardinality => 'many',
+      },
+     },
+
     ];
 }
 

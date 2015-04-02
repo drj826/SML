@@ -4986,19 +4986,6 @@ sub _divname_for {
 
 ######################################################################
 
-sub _class_for {
-
-  my $self = shift;                     # SML::Parser object
-  my $name = shift;                     # string
-
-  my $library  = $self->get_library;
-  my $ontology = $library->get_ontology;
-
-  return $ontology->get_class_for_entity_name($name);
-}
-
-######################################################################
-
 sub _region_tag {
 
   # Create and return a region begin or end tag line.
@@ -5493,9 +5480,9 @@ sub _process_start_region_marker {
   if ( $name eq 'DOCUMENT' )
     {
       # new document region
-      my $num     = $self->_count_regions;
-      my $id      = "$name-$num";
-      my $class   = $self->_class_for($name);
+      my $num   = $self->_count_regions;
+      my $id    = "$name-$num";
+      my $class = $ontology->get_class_for_entity_name($name);
 
       $region = $class->new(id=>$id,library=>$library);
 
@@ -5507,7 +5494,7 @@ sub _process_start_region_marker {
       # new non-document region
       my $num   = $self->_count_regions;
       my $id    = "$name-$num";
-      my $class = $self->_class_for($name);
+      my $class = $ontology->get_class_for_entity_name($name);
 
       $region = $class->new
 	(
@@ -5652,7 +5639,7 @@ sub _process_environment_marker {
     {
       my $num         = $self->_count_environments;
       my $id          = "$name-$num";
-      my $class       = $self->_class_for($name);
+      my $class       = $ontology->get_class_for_entity_name($name);
       my $environment = $class->new
 	(
 	 name    => $name,

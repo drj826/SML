@@ -175,7 +175,7 @@ sub BUILD {
        $rule_type eq 'cmp'
       )
       and
-      not $ontology->contains_entity_named($entity_name)
+      not $ontology->has_entity_with_name($entity_name)
      )
     {
       $logger->warn("INVALID ENTITY: \'$entity_name\' in \'$id\'");
