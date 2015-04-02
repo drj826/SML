@@ -38,7 +38,7 @@ has 'gui' =>
    isa     => 'Bool',
    reader  => 'using_gui',
    default => 0,
-   writer  => 'set_gui',
+   writer  => 'set_using_gui',
   );
 
 ######################################################################
@@ -48,7 +48,7 @@ has 'verbose' =>
    isa     => 'Bool',
    reader  => 'be_verbose',
    default => 0,
-   writer  => 'set_verbose',
+   writer  => 'set_be_verbose',
   );
 
 ######################################################################
@@ -58,7 +58,7 @@ has 'scripts' =>
    isa     => 'Bool',
    reader  => 'run_scripts',
    default => 1,
-   writer  => 'set_scripts',
+   writer  => 'set_run_scripts',
   );
 
 ######################################################################
@@ -78,7 +78,7 @@ has 'svn' =>
    isa     => 'Str',
    reader  => 'get_svn_executable',
    default => 'svn.exe',
-   writer  => 'set_svn',
+   writer  => 'set_svn_executable',
   );
 
 ######################################################################
@@ -88,7 +88,7 @@ has 'pdflatex' =>
    isa     => 'Str',
    reader  => 'get_pdflatex_executable',
    default => 'pdflatex.exe',
-   writer  => 'set_pdflatex',
+   writer  => 'set_pdflatex_executable',
 );
 
 ######################################################################
@@ -108,7 +108,7 @@ has 'bibtex' =>
    isa     => 'Str',
    reader  => 'get_bibtex_executable',
    default => 'bibtex.exe',
-   writer  => 'set_bibtex',
+   writer  => 'set_bibtex_executable',
   );
 
 ######################################################################
@@ -118,7 +118,7 @@ has 'makeindex' =>
    isa     => 'Str',
    reader  => 'get_makeindex_executable',
    default => 'makeindex.exe',
-   writer  => 'set_makeindex',
+   writer  => 'set_makeindex_executable',
   );
 
 ######################################################################
@@ -128,7 +128,7 @@ has 'convert' =>
    isa     => 'Str',
    reader  => 'get_convert_executable',
    default => 'convert.exe',
-   writer  => 'set_convert',
+   writer  => 'set_convert_executable',
   );
 
 ######################################################################
@@ -356,11 +356,11 @@ sub BUILD {
       }
 
       if ($config{'svn'}) {
-	$self->set_svn($config{'svn'});
+	$self->set_svn_executable($config{'svn'});
       }
 
       if ($config{'pdflatex'}) {
-	$self->set_pdflatex($config{'pdflatex'});
+	$self->set_pdflatex_executable($config{'pdflatex'});
       }
 
       if ($config{'pdflatex_args'}) {
@@ -368,15 +368,15 @@ sub BUILD {
       }
 
       if ($config{'bibtex'}) {
-	$self->set_bibtex($config{'bibtex'});
+	$self->set_bibtex_executable($config{'bibtex'});
       }
 
       if ($config{'makeindex'}) {
-	$self->set_makeindex($config{'makeindex'});
+	$self->set_makeindex_executable($config{'makeindex'});
       }
 
       if ($config{'convert'}) {
-	$self->set_convert($config{'convert'});
+	$self->set_convert_executable($config{'convert'});
       }
 
       if ($config{'trigger_resource_updates'}) {
