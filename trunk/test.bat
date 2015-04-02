@@ -3,9 +3,9 @@
 set begin=%DATE% %TIME%
 echo BEGIN: %begin%
 
-cd t
-..\..\app\perl\perl\bin\perl.exe run_unit_tests.pl
-cd ..
+..\perl\perl\bin\prove -I lib
 
 echo BEGIN: %begin%
 echo END:   %DATE% %TIME%
+
+PAUSE
