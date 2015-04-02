@@ -437,80 +437,6 @@ has test_note_1 =>
 ######################################################################
 ######################################################################
 
-# sub add_test_object {
-
-#   my $self   = shift;
-#   my $object = shift;
-#   my $name   = shift;
-
-#   # validate input
-#   if ( not ref $object )
-#     {
-#       $logger->error("NOT AN OBJECT $object");
-#       return 0;
-#     }
-
-#   if ( not $name )
-#     {
-#       $logger->error("YOU MUST SPECIFY A NAME");
-#       return 0;
-#     }
-
-#   my $type = ref $object;
-#   my $toh  = $self->_get_test_object_hash;
-
-#   $toh->{$type}{$name} = $object;
-
-#   return 1;
-# }
-
-######################################################################
-
-# sub has_test_object {
-
-#   # Return 1 if specified test object exists.
-
-#   my $self = shift;
-#   my $type = shift;
-#   my $name = shift;
-
-#   my $toh = $self->_get_test_object_hash;
-
-#   if ( defined $toh->{$type}{$name} )
-#     {
-#       return 1;
-#     }
-
-#   else
-#     {
-#       return 0;
-#     }
-# }
-
-######################################################################
-
-# sub get_test_object {
-
-#   # Get a test object.
-
-#   my $self = shift;
-#   my $type = shift;
-#   my $name = shift;
-
-#   my $toh = $self->_get_test_object_hash;
-
-#   if ( defined $toh->{$type}{$name} )
-#     {
-#       return $toh->{$type}{$name};
-#     }
-
-#   else
-#     {
-#       $logger->error("NO TEST OBJECT $type $name");
-#       return 0;
-#     }
-# }
-
 ######################################################################
 ######################################################################
 ##
@@ -518,14 +444,6 @@ has test_note_1 =>
 ##
 ######################################################################
 ######################################################################
-
-# has '_test_object_hash' =>
-#   (
-#    isa     => 'HashRef',
-#    reader  => '_get_test_object_hash',
-#    lazy    => 1,
-#    builder => '_build_test_object_hash',
-#   );
 
 ######################################################################
 ######################################################################
