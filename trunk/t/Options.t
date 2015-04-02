@@ -34,13 +34,29 @@ isa_ok( $obj, 'SML::Options' );
 
 my @public_methods =
   (
+   # SML::Options public attribute accessors
    'get_config_filespec',
+   'using_gui',
+   'set_using_gui',
+   'be_verbose',
+   'set_be_verbose',
+   'run_scripts',
+   'set_run_scripts',
+   'use_svn',
+   'set_use_svn',
    'get_svn_executable',
+   'set_svn_executable',
    'get_pdflatex_executable',
+   'set_pdflatex_executable',
    'get_pdflatex_args',
+   'set_pdflatex_args',
    'get_bibtex_executable',
+   'set_bibtex_executable',
    'get_makeindex_executable',
+   'set_makeindex_executable',
    'get_convert_executable',
+   'set_convert_executable',
+
    'get_MAX_SEC_DEPTH',
    'get_MAX_RESOLVE_INCLUDES',
    'get_MAX_RUN_SCRIPTS',
@@ -52,15 +68,12 @@ my @public_methods =
    'get_MAX_RESOLVE_TEMPLATES',
    'get_MAX_GENERATE_CONTENT',
    'get_MAX_ID_HIERARCHY_DEPTH',
+
    'get_status_icon_grey_filespec',
    'get_status_icon_green_filespec',
    'get_status_icon_yellow_filespec',
    'get_status_icon_red_filespec',
 
-   'using_gui',
-   'be_verbose',
-   'run_scripts',
-   'use_svn',
    'trigger_resource_updates',
    'use_formal_status',
   );
