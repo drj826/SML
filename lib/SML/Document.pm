@@ -699,6 +699,8 @@ sub _validate_document {
   my $valid   = 1;
   my $id      = $self->get_id;
 
+  $logger->debug("validate document $id in library $library");
+
   $valid = 0 if not $self->has_valid_id_uniqueness;
 
   foreach my $block (@{ $self->get_block_list })
