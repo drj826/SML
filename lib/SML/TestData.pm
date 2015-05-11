@@ -1917,7 +1917,7 @@ sub _build_block_test_case_list {
 	},
 	latex =>
 	{
-	 default => "joe\@example.com\n\n",
+	 default => "\\href{mailto:joe\@example.com}{joe\@example.com}\n\n",
 	},
 	xml =>
 	{
