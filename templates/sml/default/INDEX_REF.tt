@@ -1,0 +1,1 @@
+[[% self.get_tag %]:[% self.get_entry %]]

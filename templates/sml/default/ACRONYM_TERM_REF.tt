@@ -1,0 +1,8 @@
+[%- SET tag = self.get_tag -%]
+[%- SET acronym = self.get_acronym -%]
+[%- SET namespace = self.get_namespace -%]
+[%- IF namespace -%]
+[[%tag%]:[%namespace%]:[%acronym%]]
+[%- ELSE -%]
+[[%tag%]:[%acronym%]]
+[%- END -%]

@@ -1,0 +1,5 @@
+[%- IF self.get_details -%]
+[[% self.get_tag %]:[% self.get_source_id %],[% self.get_details %]]
+[%- ELSE -%]
+[[% self.get_tag %]:[% self.get_source_id %]]
+[%- END -%]

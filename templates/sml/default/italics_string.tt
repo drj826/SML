@@ -1,0 +1,5 @@
+[%- IF self.has_parts -%]
+~~[%- INCLUDE part_list.tt -%]~~
+[%- ELSE -%]
+~~[%- self.get_content -%]~~
+[%- END -%]
