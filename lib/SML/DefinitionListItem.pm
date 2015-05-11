@@ -8,7 +8,7 @@ use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Block';
+extends 'SML::ListItem';
 
 use namespace::autoclean;
 
