@@ -1364,7 +1364,7 @@ sub _validate_composition {
 
 	  else
 	    {
-	      $logger->warn("INVALID COMPOSITION at $location: $name in $container_name");
+	      $logger->warn("INVALID COMPOSITION at $location: $name in $container_name library $library");
 	    }
 
 	  return 0;
