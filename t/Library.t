@@ -14,8 +14,9 @@ use SML::TestData;
 # Test Data
 #---------------------------------------------------------------------
 
-my $td  = SML::TestData->new();
-my $tcl = $td->get_library_test_case_list;
+my $td      = SML::TestData->new();
+my $tcl     = $td->get_library_test_case_list;
+my $library = $td->get_test_library_1;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -30,8 +31,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Library->new(config_filename=>'library.conf');
-ok( $obj->isa('SML::Library'), 'library is a SML::Library' );
+ok( $library->isa('SML::Library'), 'library is a SML::Library' );
 
 #---------------------------------------------------------------------
 # Implements designed public methods?
@@ -59,6 +59,7 @@ my @public_methods =
    'get_environment_name_list',
 
    # SML::Library public methods
+   'has_filespec',
    'get_filespec',
 
    'add_fragment',
@@ -141,7 +142,7 @@ my @public_methods =
    'by_date',
   );
 
-can_ok( $obj, @public_methods );
+can_ok( $library, @public_methods );
 
 #---------------------------------------------------------------------
 # Returns expected output?

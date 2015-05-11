@@ -73,10 +73,12 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{$tcl})
   {
-    get_name_ok($tc)                if exists $tc->{expected}{get_name};
-    get_content_ok($tc)             if exists $tc->{expected}{get_content};
-    has_parts_ok($tc)               if exists $tc->{expected}{has_parts};
-    render_ok($tc,'html','default') if exists $tc->{expected}{render}{html}{default};
+    get_name_ok($tc)                 if exists $tc->{expected}{get_name};
+    get_content_ok($tc)              if exists $tc->{expected}{get_content};
+    has_parts_ok($tc)                if exists $tc->{expected}{has_parts};
+    render_ok($tc,'sml','default')   if exists $tc->{expected}{render}{sml}{default};
+    render_ok($tc,'html','default')  if exists $tc->{expected}{render}{html}{default};
+    render_ok($tc,'latex','default') if exists $tc->{expected}{render}{latex}{default};
   }
 
 #---------------------------------------------------------------------
@@ -93,7 +95,7 @@ sub get_name_ok {
   my $tcname   = $tc->{name};
   my $text     = $tc->{text};
   my $expected = $tc->{expected}{get_name};
-  my $library  = $td->get_test_library_1;
+  my $library  = $tc->{library};
   my $parser   = $library->get_parser;
   my $string   = $parser->create_string($text);
 
@@ -114,7 +116,7 @@ sub get_content_ok {
   my $tcname   = $tc->{name};
   my $text     = $tc->{text};
   my $expected = $tc->{expected}{get_content};
-  my $library  = $td->get_test_library_1;
+  my $library  = $tc->{library};
   my $parser   = $library->get_parser;
   my $string   = $parser->create_string($text);
 
@@ -135,7 +137,7 @@ sub has_parts_ok {
   my $tcname   = $tc->{name};
   my $expected = $tc->{expected}{has_parts};
   my $text     = $tc->{text};
-  my $library  = $td->get_test_library_1;
+  my $library  = $tc->{library};
   my $parser   = $library->get_parser;
   my $string   = $parser->create_string($text);
 
@@ -156,18 +158,22 @@ sub render_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $expected = $tc->{expected}{render}{$rendition}{$style};
   my $text     = $tc->{text};
-  my $library  = $td->get_test_library_1;
+  my $library  = $tc->{library};
+  my $expected = $tc->{expected}{render}{$rendition}{$style};
   my $parser   = $library->get_parser;
   my $string   = $parser->create_string($text);
 
   # act
-  my $result = $string->render($rendition,$style);
+  my $result  = $string->render($rendition,$style);
+  my $summary = $result;
+  $summary = substr($result,0,20) . '...' if length($result) > 20;
+
+  # print "STRUCTURE:\n\n";
+  # print $string->dump_part_structure, "\n\n";
 
   # assert
-  my $summary = substr($result,0,20);
-  is($result,$expected,"$tcname render $rendition $style ($summary...)");
+  is($result,$expected,"$tcname render $rendition $style \'$summary\'");
 }
 
 ######################################################################

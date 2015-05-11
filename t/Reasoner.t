@@ -14,6 +14,11 @@ Log::Log4perl->init("log.test.conf");
 # Test Data
 #---------------------------------------------------------------------
 
+use SML::TestData;
+
+my $td      = SML::TestData->new;
+my $library = $td->get_test_library_1;
+
 #---------------------------------------------------------------------
 # Can use module?
 #---------------------------------------------------------------------
@@ -27,14 +32,8 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-# arrange
-my $config_file = 'library.conf';
-my $library     = SML::Library->new(config_filename=>$config_file);
+my $obj = $library->get_reasoner;
 
-# act
-my $obj = SML::Reasoner->new(id=>'reasoner-0',library=>$library);
-
-# assert
 isa_ok( $obj, 'SML::Reasoner' );
 
 #---------------------------------------------------------------------
@@ -49,16 +48,6 @@ my @public_methods =
   );
 
 can_ok( $obj, @public_methods );
-
-#---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-  );
-
-# can_ok( $obj, @private_methods );
 
 #---------------------------------------------------------------------
 # Returns expected values?

@@ -578,9 +578,9 @@ sub warn_add_rules_from_file_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $file     = $tc->{rules_file};
-  my $library  = SML::Library->new(config_filename=>'library.conf');
-  my $ontology = SML::Ontology->new(library=>$library);
+  my $library  = $tc->{library};
   my $expected = $tc->{expected}{warning}{add_rules_from_file};
+  my $ontology = SML::Ontology->new(library=>$library);
 
   Test::Log4perl->start( ignore_priority => "info" );
 
