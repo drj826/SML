@@ -7,12 +7,8 @@
 use lib "..";
 use Test::More tests => 89;
 
-use SML::Library;
-
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
-
-my $library = SML::Library->new(config_filename=>'library.conf');
 
 #---------------------------------------------------------------------
 # Test Data
@@ -20,8 +16,9 @@ my $library = SML::Library->new(config_filename=>'library.conf');
 
 use SML::TestData;
 
-my $td  = SML::TestData->new();
-my $tcl = $td->get_parser_test_case_list;
+my $td      = SML::TestData->new();
+my $tcl     = $td->get_parser_test_case_list;
+my $library = $td->get_test_library_1;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -36,7 +33,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Parser->new(library=>$library);
+my $obj = $library->get_parser;
 isa_ok( $obj, 'SML::Parser' );
 
 #---------------------------------------------------------------------
@@ -85,11 +82,12 @@ sub create_fragment_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $library  = SML::Library->new(config_filename=>'library.conf');
-  my $parser   = $library->get_parser;
+  my $library  = $tc->{library};
   my $filespec = $tc->{testfile};
   my $name     = $tc->{name};
   my $expected = $tc->{expected}{create_fragment};
+  my $library  = $tc->{library};
+  my $parser   = $library->get_parser;
 
   # act
   my $fragment = $parser->create_fragment($filespec);
@@ -107,11 +105,11 @@ sub extract_division_name_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $library  = SML::Library->new(config_filename=>'library.conf');
-  my $parser   = $library->get_parser;
+  my $library  = $tc->{library};
   my $name     = $tc->{name};
   my $filespec = $tc->{testfile};
   my $expected = $tc->{expected}{extract_division_name};
+  my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($filespec);
   my $lines    = $fragment->get_line_list;
 
@@ -130,11 +128,11 @@ sub extract_title_text_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $library  = SML::Library->new(config_filename=>'library.conf');
-  my $parser   = $library->get_parser;
+  my $library  = $tc->{library};
   my $name     = $tc->{name};
   my $filespec = $tc->{testfile};
   my $expected = $tc->{expected}{extract_title_text};
+  my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($filespec);
   my $lines    = $fragment->get_line_list;
 
@@ -153,11 +151,11 @@ sub extract_preamble_lines_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $library  = SML::Library->new(config_filename=>'library.conf');
-  my $parser   = $library->get_parser;
+  my $library  = $tc->{library};
   my $name     = $tc->{name};
   my $filespec = $tc->{testfile};
   my $expected = $tc->{expected}{extract_preamble_lines};
+  my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($filespec);
   my $lines    = $fragment->get_line_list;
 
@@ -177,11 +175,11 @@ sub extract_narrative_lines_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $library  = SML::Library->new(config_filename=>'library.conf');
-  my $parser   = $library->get_parser;
+  my $library  = $tc->{library};
   my $name     = $tc->{name};
   my $filespec = $tc->{testfile};
   my $expected = $tc->{expected}{extract_narrative_lines};
+  my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($filespec);
   my $lines    = $fragment->get_line_list;
 

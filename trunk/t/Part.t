@@ -73,8 +73,9 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{ $tcl })
   {
-    has_part_ok($tc) if defined $tc->{expected}{has_part};
-    get_part_ok($tc) if defined $tc->{expected}{get_part};
+    has_part_ok($tc)               if defined $tc->{expected}{has_part};
+    get_part_ok($tc)               if defined $tc->{expected}{get_part};
+    render_ok($tc,'sml','default') if defined $tc->{expected}{render}{sml}{default};
   }
 
 #---------------------------------------------------------------------
@@ -93,7 +94,7 @@ sub has_part_ok {
   my $filename = $tc->{filename};
   my $docid    = $tc->{docid};
   my $expected = $tc->{expected}{has_part};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $library  = $tc->{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
@@ -117,7 +118,7 @@ sub get_part_ok {
   my $filename = $tc->{filename};
   my $docid    = $tc->{docid};
   my $expected = $tc->{expected}{get_part};
-  my $library  = SML::Library->new(config_file=>'library.conf');
+  my $library  = $tc->{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
@@ -127,6 +128,34 @@ sub get_part_ok {
 
   # assert
   isa_ok($result,$expected,"$tcname get_part $result");
+}
+
+######################################################################
+
+sub render_ok {
+
+  my $tc        = shift;                # test case
+  my $rendition = shift;                # e.g. sml, html, latex
+  my $style     = shift;                # e.g. default
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $text     = $tc->{text};
+  my $library  = $tc->{library};
+  my $expected = $tc->{expected}{render}{$rendition}{$style};
+  my $parser   = $library->get_parser;
+  my $part     = $parser->create_string($text);
+
+  # act
+  my $result  = $part->render($rendition,$style);
+  my $summary = $result;
+  $summary = substr($result,0,20) . '...' if length($result) > 20;
+
+  print "STRUCTURE:\n\n";
+  print $part->dump_part_structure, "\n\n";
+
+  # assert
+  is($result,$expected,"$tcname render $rendition $style \'$summary\'");
 }
 
 ######################################################################

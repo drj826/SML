@@ -119,7 +119,7 @@ sub is_valid_ok {
   my $filename = $tc->{testfile};
   my $docid    = $tc->{docid};
   my $expected = $tc->{expected}{is_valid};
-  my $library  = SML::Library->new(config_filename=>'library.conf');
+  my $library  = $tc->{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
@@ -141,7 +141,7 @@ sub warn_is_valid_ok {
   my $tcname   = $tc->{name};
   my $filename = $tc->{testfile};
   my $docid    = $tc->{docid};
-  my $library  = SML::Library->new(config_filename=>'library.conf');
+  my $library  = $tc->{library};
   my $parser   = $library->get_parser;
   my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);

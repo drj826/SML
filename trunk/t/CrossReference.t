@@ -35,6 +35,7 @@ BEGIN {
 
 my $args = {};
 
+$args->{tag}       = 'ref';
 $args->{target_id} = 'introduction';
 $args->{library}   = $library;
 

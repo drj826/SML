@@ -36,58 +36,62 @@ isa_ok( $obj, 'SML::Syntax' );
 
 my @public_methods =
   (
-  );
-
-# can_ok( $obj, @public_methods );
-
-#---------------------------------------------------------------------
-# Implements designed attributes?
-#---------------------------------------------------------------------
-
-my @attributes =
-  (
+   # document markup
    'start_document',
    'end_document',
-   'comment_line',
-   'comment_marker',
-   'start_conditional',
-   'end_conditional',
-   'end_table_row',
+
+   # region markup
    'start_region',
    'end_region',
+
+   # environment markup
    'start_environment',
-   'end_environmnent',
+   'end_environment',
+
+   # conditional markup
+   'start_conditional',
+   'end_conditional',
+
+   # comment markup
+   'comment_line',
+   'comment_marker',
+
+   # table markup
+   'end_table_row',
+   'table_cell',
+
+   # section markup
    'start_section',
+
+   # block markup
+   'paragraph_text',
+   'indented_text',
    'list_item',
    'bull_list_item',
    'enum_list_item',
    'def_list_item',
-   'paragraph_text',
-   'indented_text',
-   'blank_line',
-   'non_blank_line',
-   'table_cell',
+
+   # string markup
    'bold',
+   'bold_string',
    'italics',
+   'italics_string',
    'fixedwidth',
+   'fixedwidth_string',
    'underline',
+   'underline_string',
    'superscript',
+   'superscript_string',
    'subscript',
+   'subscript_string',
+
+   # element markup
    'start_element',
    'title_element',
    'id_element',
-   'author_element',
-   'date_element',
-   'revision_element',
-   'document_file_element',
-   'fragment_file_element',
-   'entity_file_element',
-   'reference_file_element',
-   'script_file_element',
    'insert_element',
    'insert_ins_element',
    'insert_gen_element',
-   'insert_string',
    'template_element',
    'generate_element',
    'include_element',
@@ -98,19 +102,21 @@ my @attributes =
    'index_element',
    'definition_element',
    'glossary_element',
-   'variable_ref',
    'variable_element',
    'acronym_element',
    'file_element',
    'image_element',
    'note_element',
+
+   # string references
+   'variable_ref',
    'lookup_ref',
    'gloss_term_ref',
    'begin_gloss_term_ref',
    'gloss_def_ref',
    'begin_gloss_def_ref',
-   'begin_acronym_term_ref',
    'acronym_term_ref',
+   'begin_acronym_term_ref',
    'cross_ref',
    'begin_cross_ref',
    'id_ref',
@@ -121,6 +127,8 @@ my @attributes =
    'footnote_ref',
    'index_ref',
    'thepage_ref',
+   'pagecount_ref',
+   'thesection_ref',
    'theversion_ref',
    'therevision_ref',
    'thedate_ref',
@@ -129,8 +137,13 @@ my @attributes =
    'begin_citation_ref',
    'file_ref',
    'path_ref',
-   'user_entered_text',
    'command_ref',
+   'email_addr',
+
+   # symbol markup
+   'linebreak_symbol',
+   'pagebreak_symbol',
+   'clearpage_symbol',
    'take_note_symbol',
    'smiley_symbol',
    'frowny_symbol',
@@ -148,11 +161,19 @@ my @attributes =
    'close_sglquote_symbol',
    'section_symbol',
    'emdash_symbol',
+
+   # special strings
+   'user_entered_text',
+
+   # other markup
+   'blank_line',
+   'non_blank_line',
    'inline_tag',
-   'valid_inline_tags',
    'literal',
    'xml_tag',
-   'email_addr',
+
+   # validation regular expressions
+   'valid_inline_tags',
    'valid_date',
    'valid_status',
    'valid_description',
@@ -161,17 +182,7 @@ my @attributes =
    'key_value_pair',
   );
 
-can_ok( $obj, @attributes );
-
-#---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-  );
-
-# can_ok( $obj, @private_methods );
+can_ok( $obj, @public_methods );
 
 #---------------------------------------------------------------------
 # Returns expected values?
