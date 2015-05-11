@@ -14,6 +14,8 @@ use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.TestData');
 
+use File::Slurp;
+
 ######################################################################
 ######################################################################
 ##
@@ -323,7 +325,19 @@ has string_test_case_list =>
 ######################################################################
 
 # svninfo
-# symbol
+
+######################################################################
+
+has symbol_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_symbol_test_case_list',
+   lazy    => 1,
+   builder => '_build_symbol_test_case_list',
+  );
+
+######################################################################
 # syntax_error_string
 # syntax
 # table_cell
@@ -1320,7 +1334,7 @@ sub _build_block_test_case_list {
 	},
 	latex =>
 	{
-	 default => "2012-09-11\n\n",
+	 default => "\\today\n\n",
 	},
 	xml =>
 	{
@@ -1913,491 +1927,491 @@ sub _build_block_test_case_list {
       },
      },
 
-     {
-      name     => 'take_note_symbol',
-      content  => '[take_note]',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p><b>(take note!)</b></p>\n\n",
-	},
-	latex =>
-	{
-	 default => "\\marginpar{\\Huge\\Writinghand}\n\n",
-	},
-	xml =>
-	{
-	 default => "<b>(take note!)</b>\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'take_note_symbol',
+     #  content  => '[take_note]',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p><b>(take note!)</b></p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\\marginpar{\\Huge\\Writinghand}\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "<b>(take note!)</b>\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'smiley_symbol',
-      content  => ':-)',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p>&#9786;</p>\n\n",
-	},
-	latex =>
-	{
-	 default => "\\large\\Smiley\n\n",
-	},
-	xml =>
-	{
-	 default => "&#9786;\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'smiley_symbol',
+     #  content  => ':-)',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p>&#9786;</p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\\large\\Smiley\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&#9786;\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'frowny_symbol',
-      content  => ':-(',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p>&#9785;</p>\n\n",
-	},
-	latex =>
-	{
-	 default => "\\large\\Frowny\n\n",
-	},
-	xml =>
-	{
-	 default => "&#9785;\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'frowny_symbol',
+     #  content  => ':-(',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p>&#9785;</p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\\large\\Frowny\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&#9785;\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'keystroke_symbol_1',
-      content  => '[[Enter]]',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p><span class=\"keystroke\">Enter</span></p>\n\n",
-	},
-	latex =>
-	{
-	 default => "\\keystroke{Enter}\n\n",
-	},
-	xml =>
-	{
-	 default => "<span class=\"keystroke\">Enter</span>\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'keystroke_symbol_1',
+     #  content  => '[[Enter]]',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p><span class=\"keystroke\">Enter</span></p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\\keystroke{Enter}\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "<span class=\"keystroke\">Enter</span>\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'keystroke_symbol_2',
-      content  => '[[Ctrl]]-[[Alt]]-[[Del]]',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p><span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span></p>\n\n",
-	},
-	latex =>
-	{
-	 default => "\\keystroke{Ctrl}-\\keystroke{Alt}-\\keystroke{Del}\n\n",
-	},
-	xml =>
-	{
-	 default => "<span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span></p>\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'keystroke_symbol_2',
+     #  content  => '[[Ctrl]]-[[Alt]]-[[Del]]',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p><span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span></p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\\keystroke{Ctrl}-\\keystroke{Alt}-\\keystroke{Del}\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "<span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span></p>\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'left_arrow_symbol',
-      content  => '<-',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p>&#8592;</p>\n\n",
-	},
-	latex =>
-	{
-	 default => "\$\\leftarrow\$\n\n",
-	},
-	xml =>
-	{
-	 default => "&#8592;\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'left_arrow_symbol',
+     #  content  => '<-',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p>&#8592;</p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\$\\leftarrow\$\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&#8592;\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'right_arrow_symbol',
-      content  => '->',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p>&#8594;</p>\n\n",
-	},
-	latex =>
-	{
-	 default => "\$\\rightarrow\$\n\n",
-	},
-	xml =>
-	{
-	 default => "&#8594;\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'right_arrow_symbol',
+     #  content  => '->',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p>&#8594;</p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\$\\rightarrow\$\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&#8594;\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'latex_symbol',
-      content  => 'LaTeX',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p>L<sup>a</sup>T<sub>e</sub>X</p>\n\n",
-	},
-	latex =>
-	{
-	 default => "\\LaTeX{}\n\n",
-	},
-	xml =>
-	{
-	 default => "LaTeX\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'latex_symbol',
+     #  content  => 'LaTeX',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p>L<sup>a</sup>T<sub>e</sub>X</p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\\LaTeX{}\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "LaTeX\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'tex_symbol',
-      content  => 'TeX',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p>T<sub>e</sub>X</p>\n\n",
-	},
-	latex =>
-	{
-	 default => "\\TeX{}\n\n",
-	},
-	xml =>
-	{
-	 default => "TeX\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'tex_symbol',
+     #  content  => 'TeX',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p>T<sub>e</sub>X</p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\\TeX{}\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "TeX\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'copyright_symbol',
-      content  => '[c]',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p>&copy;</p>\n\n",
-	},
-	latex =>
-	{
-	 default => "\\tiny\$^{\\copyright}\$\\normalsize\n\n",
-	},
-	xml =>
-	{
-	 default => "&copy;\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'copyright_symbol',
+     #  content  => '[c]',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p>&copy;</p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\\tiny\$^{\\copyright}\$\\normalsize\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&copy;\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'trademark_symbol',
-      content  => '[tm]',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p>&trade;</p>\n\n",
-	},
-	latex =>
-	{
-	 default => "\\tiny\$^{\\texttrademark}\$\\normalsize\n\n",
-	},
-	xml =>
-	{
-	 default => "&trade;\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'trademark_symbol',
+     #  content  => '[tm]',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p>&trade;</p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\\tiny\$^{\\texttrademark}\$\\normalsize\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&trade;\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'reg_trademark_symbol',
-      content  => '[rtm]',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p>&reg;</p>\n\n",
-	},
-	latex =>
-	{
-	 default => "\\tiny\$^{\\textregistered}\$\\normalsize\n\n",
-	},
-	xml =>
-	{
-	 default => "&reg;\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'reg_trademark_symbol',
+     #  content  => '[rtm]',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p>&reg;</p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\\tiny\$^{\\textregistered}\$\\normalsize\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&reg;\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'open_dblquote_symbol',
-      content  => '``',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p>&#8220;</p>\n\n",
-	},
-	latex =>
-	{
-	 default => "\`\`\n\n",
-	},
-	xml =>
-	{
-	 default => "&#8220;\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'open_dblquote_symbol',
+     #  content  => '``',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p>&#8220;</p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\`\`\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&#8220;\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'close_dblquote_symbol',
-      content  => '\'\'',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p>&#8221;</p>\n\n",
-	},
-	latex =>
-	{
-	 default => "\'\'\n\n",
-	},
-	xml =>
-	{
-	 default => "&#8221;\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'close_dblquote_symbol',
+     #  content  => '\'\'',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p>&#8221;</p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\'\'\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&#8221;\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'open_sglquote_symbol',
-      content  => '`',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p>&#8216;</p>\n\n",
-	},
-	latex =>
-	{
-	 default => "\`\n\n",
-	},
-	xml =>
-	{
-	 default => "&#8216;\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'open_sglquote_symbol',
+     #  content  => '`',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p>&#8216;</p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\`\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&#8216;\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'close_sglquote_symbol',
-      content  => '\'',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p>&#8217;</p>\n\n",
-	},
-	latex =>
-	{
-	 default => "\'\n\n",
-	},
-	xml =>
-	{
-	 default => "&#8217;\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'close_sglquote_symbol',
+     #  content  => '\'',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p>&#8217;</p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\'\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&#8217;\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'section_symbol',
-      content  => '[section]',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p>&sect;</p>\n\n",
-	},
-	latex =>
-	{
-	 default => "{\\S}\n\n",
-	},
-	xml =>
-	{
-	 default => "&sect;\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'section_symbol',
+     #  content  => '[section]',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p>&sect;</p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "{\\S}\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&sect;\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'emdash_symbol',
-      content  => '--',
-      subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	html =>
-	{
-	 default => "<p>&mdash;</p>\n\n",
-	},
-	latex =>
-	{
-	 default => "--\n\n",
-	},
-	xml =>
-	{
-	 default => "&mdash;\n\n",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'emdash_symbol',
+     #  content  => '--',
+     #  subclass => 'SML::Paragraph',
+     #  filename => 'td-000020.txt',
+     #  docid    => 'td-000020',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	html =>
+     # 	{
+     # 	 default => "<p>&mdash;</p>\n\n",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "--\n\n",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&mdash;\n\n",
+     # 	},
+     #   },
+     #  },
+     # },
 
      {
       name     => 'bold_1',
@@ -3477,6 +3491,7 @@ sub _build_document_test_case_list {
       name     => 'td-000001',
       testfile => 'td-000001.txt',
       docid    => 'td-000001',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3487,6 +3502,7 @@ sub _build_document_test_case_list {
       name     => 'td-000002',
       testfile => 'td-000002.txt',
       docid    => 'td-000002',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3497,6 +3513,7 @@ sub _build_document_test_case_list {
       name     => 'td-000003',
       testfile => 'td-000003.txt',
       docid    => 'td-000003',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3507,6 +3524,7 @@ sub _build_document_test_case_list {
       name     => 'td-000004',
       testfile => 'td-000004.txt',
       docid    => 'td-000004',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3517,6 +3535,7 @@ sub _build_document_test_case_list {
       name     => 'td-000005',
       testfile => 'td-000005.txt',
       docid    => 'td-000005',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3527,6 +3546,7 @@ sub _build_document_test_case_list {
       name     => 'td-000006',
       testfile => 'td-000006.txt',
       docid    => 'td-000006',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3537,6 +3557,7 @@ sub _build_document_test_case_list {
       name     => 'td-000007',
       testfile => 'td-000007.txt',
       docid    => 'td-000007',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3547,6 +3568,7 @@ sub _build_document_test_case_list {
       name     => 'td-000008',
       testfile => 'td-000008.txt',
       docid    => 'td-000008',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3557,6 +3579,7 @@ sub _build_document_test_case_list {
       name     => 'td-000009',
       testfile => 'td-000009.txt',
       docid    => 'td-000009',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3567,6 +3590,7 @@ sub _build_document_test_case_list {
       name     => 'td-000010',
       testfile => 'td-000010.txt',
       docid    => 'td-000010',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3577,6 +3601,7 @@ sub _build_document_test_case_list {
       name     => 'td-000011',
       testfile => 'td-000011.txt',
       docid    => 'td-000011',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3587,6 +3612,7 @@ sub _build_document_test_case_list {
       name     => 'td-000012',
       testfile => 'td-000012.txt',
       docid    => 'td-000012',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3597,6 +3623,7 @@ sub _build_document_test_case_list {
       name     => 'td-000013',
       testfile => 'td-000013.txt',
       docid    => 'td-000013',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3607,6 +3634,7 @@ sub _build_document_test_case_list {
       name     => 'td-000014',
       testfile => 'td-000014.txt',
       docid    => 'td-000014',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3617,6 +3645,7 @@ sub _build_document_test_case_list {
       name     => 'td-000015',
       testfile => 'td-000015.txt',
       docid    => 'td-000015',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3627,6 +3656,7 @@ sub _build_document_test_case_list {
       name     => 'td-000016',
       testfile => 'td-000016.txt',
       docid    => 'td-000016',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3637,6 +3667,7 @@ sub _build_document_test_case_list {
       name     => 'td-000017',
       testfile => 'td-000017.txt',
       docid    => 'td-000017',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3647,6 +3678,7 @@ sub _build_document_test_case_list {
       name     => 'td-000018',
       testfile => 'td-000018.txt',
       docid    => 'td-000018',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3657,6 +3689,7 @@ sub _build_document_test_case_list {
       name     => 'td-000019',
       testfile => 'td-000019.txt',
       docid    => 'td-000019',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3667,6 +3700,7 @@ sub _build_document_test_case_list {
       name     => 'td-000020',
       testfile => 'td-000020.txt',
       docid    => 'td-000020',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3677,6 +3711,7 @@ sub _build_document_test_case_list {
       name     => 'td-000021',
       testfile => 'td-000021.txt',
       docid    => 'td-000021',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3687,6 +3722,7 @@ sub _build_document_test_case_list {
       name     => 'td-000023',
       testfile => 'td-000023.txt',
       docid    => 'td-000023',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3697,6 +3733,7 @@ sub _build_document_test_case_list {
       name     => 'td-000025',
       testfile => 'td-000025.txt',
       docid    => 'td-000025',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3707,6 +3744,7 @@ sub _build_document_test_case_list {
       name     => 'td-000026',
       testfile => 'td-000026.txt',
       docid    => 'td-000026',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3717,6 +3755,7 @@ sub _build_document_test_case_list {
       name     => 'td-000027',
       testfile => 'td-000027.txt',
       docid    => 'td-000027',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -3735,6 +3774,7 @@ sub _build_document_test_case_list {
       name     => 'td-000028',
       testfile => 'td-000028.txt',
       docid    => 'td-000028',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3745,6 +3785,7 @@ sub _build_document_test_case_list {
       name     => 'td-000029',
       testfile => 'td-000029.txt',
       docid    => 'td-000029',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -3763,6 +3804,7 @@ sub _build_document_test_case_list {
       name     => 'td-000030',
       testfile => 'td-000030.txt',
       docid    => 'td-000030',
+      library  => $self->get_test_library_1,
       expected =>
       {
        fatal =>
@@ -3780,6 +3822,7 @@ sub _build_document_test_case_list {
       name     => 'td-000031',
       testfile => 'td-000031.txt',
       docid    => 'td-000031',
+      library  => $self->get_test_library_1,
       expected =>
       {
        fatal =>
@@ -3796,6 +3839,7 @@ sub _build_document_test_case_list {
       name     => 'td-000032',
       testfile => 'td-000032.txt',
       docid    => 'td-000032',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3806,6 +3850,7 @@ sub _build_document_test_case_list {
       name     => 'td-000033',
       testfile => 'td-000033.txt',
       docid    => 'td-000033',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -3824,6 +3869,7 @@ sub _build_document_test_case_list {
       name     => 'td-000034',
       testfile => 'td-000034.txt',
       docid    => 'td-000034',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3834,6 +3880,7 @@ sub _build_document_test_case_list {
       name     => 'td-000035',
       testfile => 'td-000035.txt',
       docid    => 'td-000035',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -3852,6 +3899,7 @@ sub _build_document_test_case_list {
       name     => 'td-000036',
       testfile => 'td-000036.txt',
       docid    => 'td-000036',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3862,6 +3910,7 @@ sub _build_document_test_case_list {
       name     => 'td-000037',
       testfile => 'td-000037.txt',
       docid    => 'td-000037',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -3880,6 +3929,7 @@ sub _build_document_test_case_list {
       name     => 'td-000038',
       testfile => 'td-000038.txt',
       docid    => 'td-000038',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3890,6 +3940,7 @@ sub _build_document_test_case_list {
       name     => 'td-000039',
       testfile => 'td-000039.txt',
       docid    => 'td-000039',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -3908,6 +3959,7 @@ sub _build_document_test_case_list {
       name     => 'td-000040',
       testfile => 'td-000040.txt',
       docid    => 'td-000040',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3918,6 +3970,7 @@ sub _build_document_test_case_list {
       name     => 'td-000041',
       testfile => 'td-000041.txt',
       docid    => 'td-000041',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -3936,6 +3989,7 @@ sub _build_document_test_case_list {
       name     => 'td-000042',
       testfile => 'td-000042.txt',
       docid    => 'td-000042',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3946,6 +4000,7 @@ sub _build_document_test_case_list {
       name     => 'td-000043',
       testfile => 'td-000043.txt',
       docid    => 'td-000043',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -3964,6 +4019,7 @@ sub _build_document_test_case_list {
       name     => 'td-000044',
       testfile => 'td-000044.txt',
       docid    => 'td-000044',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -3974,6 +4030,7 @@ sub _build_document_test_case_list {
       name     => 'td-000045',
       testfile => 'td-000045.txt',
       docid    => 'td-000045',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -3992,6 +4049,7 @@ sub _build_document_test_case_list {
       name     => 'td-000046',
       testfile => 'td-000046.txt',
       docid    => 'td-000046',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -4002,6 +4060,7 @@ sub _build_document_test_case_list {
       name     => 'td-000047',
       testfile => 'td-000047.txt',
       docid    => 'td-000047',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4020,6 +4079,7 @@ sub _build_document_test_case_list {
       name     => 'td-000048',
       testfile => 'td-000048.txt',
       docid    => 'td-000048',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -4030,6 +4090,7 @@ sub _build_document_test_case_list {
       name     => 'td-000049',
       testfile => 'td-000049.txt',
       docid    => 'td-000049',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4048,6 +4109,7 @@ sub _build_document_test_case_list {
       name     => 'td-000050',
       testfile => 'td-000050.txt',
       docid    => 'td-000050',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4066,6 +4128,7 @@ sub _build_document_test_case_list {
       name     => 'td-000051',
       testfile => 'td-000051.txt',
       docid    => 'td-000051',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4084,6 +4147,7 @@ sub _build_document_test_case_list {
       name     => 'td-000052',
       testfile => 'td-000052.txt',
       docid    => 'td-000052',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4102,6 +4166,7 @@ sub _build_document_test_case_list {
       name     => 'td-000053',
       testfile => 'td-000053.txt',
       docid    => 'td-000053',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4120,6 +4185,7 @@ sub _build_document_test_case_list {
       name     => 'td-000054',
       testfile => 'td-000054.txt',
       docid    => 'td-000054',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4138,6 +4204,7 @@ sub _build_document_test_case_list {
       name     => 'td-000055',
       testfile => 'td-000055.txt',
       docid    => 'td-000055',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4156,6 +4223,7 @@ sub _build_document_test_case_list {
       name     => 'td-000056',
       testfile => 'td-000056.txt',
       docid    => 'td-000056',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4174,6 +4242,7 @@ sub _build_document_test_case_list {
       name     => 'td-000057',
       testfile => 'td-000057.txt',
       docid    => 'td-000057',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4192,6 +4261,7 @@ sub _build_document_test_case_list {
       name     => 'td-000058',
       testfile => 'td-000058.txt',
       docid    => 'td-000058',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4210,6 +4280,7 @@ sub _build_document_test_case_list {
       name     => 'td-000059',
       testfile => 'td-000059.txt',
       docid    => 'td-000059',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4228,6 +4299,7 @@ sub _build_document_test_case_list {
       name     => 'td-000060',
       testfile => 'td-000060.txt',
       docid    => 'td-000060',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -4238,6 +4310,7 @@ sub _build_document_test_case_list {
       name     => 'td-000061',
       testfile => 'td-000061.txt',
       docid    => 'td-000061',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -4248,6 +4321,7 @@ sub _build_document_test_case_list {
       name     => 'td-000063',
       testfile => 'td-000063.txt',
       docid    => 'td-000063',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4266,6 +4340,7 @@ sub _build_document_test_case_list {
       name     => 'td-000064',
       testfile => 'td-000064.txt',
       docid    => 'td-000064',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4284,6 +4359,7 @@ sub _build_document_test_case_list {
       name     => 'td-000065',
       testfile => 'td-000065.txt',
       docid    => 'td-000065',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -4294,6 +4370,7 @@ sub _build_document_test_case_list {
       name     => 'td-000066',
       testfile => 'td-000066.txt',
       docid    => 'td-000066',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4313,6 +4390,7 @@ sub _build_document_test_case_list {
       name     => 'td-000067',
       testfile => 'td-000067.txt',
       docid    => 'td-000067',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -4323,6 +4401,7 @@ sub _build_document_test_case_list {
       name     => 'td-000068',
       testfile => 'td-000068.txt',
       docid    => 'td-000068',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4341,6 +4420,7 @@ sub _build_document_test_case_list {
       name     => 'td-000069',
       testfile => 'td-000069.txt',
       docid    => 'td-000069',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -4351,6 +4431,7 @@ sub _build_document_test_case_list {
       name     => 'td-000070',
       testfile => 'td-000070.txt',
       docid    => 'td-000070',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4369,6 +4450,7 @@ sub _build_document_test_case_list {
       name     => 'td-000071',
       testfile => 'td-000071.txt',
       docid    => 'td-000071',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -4379,6 +4461,7 @@ sub _build_document_test_case_list {
       name     => 'td-000072',
       testfile => 'td-000072.txt',
       docid    => 'td-000072',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -4389,6 +4472,7 @@ sub _build_document_test_case_list {
       name     => 'td-000073',
       testfile => 'td-000073.txt',
       docid    => 'td-000073',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -4399,6 +4483,7 @@ sub _build_document_test_case_list {
       name     => 'td-000077',
       testfile => 'td-000077.txt',
       docid    => 'td-000077',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -4409,6 +4494,7 @@ sub _build_document_test_case_list {
       name     => 'td-000078',
       testfile => 'td-000078.txt',
       docid    => 'td-000078',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -4419,6 +4505,7 @@ sub _build_document_test_case_list {
       name     => 'td-000079',
       testfile => 'td-000079.txt',
       docid    => 'td-000079',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4437,6 +4524,7 @@ sub _build_document_test_case_list {
       name     => 'td-000080',
       testfile => 'td-000080.txt',
       docid    => 'td-000080',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4455,6 +4543,7 @@ sub _build_document_test_case_list {
       name     => 'td-000081',
       testfile => 'td-000081.txt',
       docid    => 'td-000081',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -4473,6 +4562,7 @@ sub _build_document_test_case_list {
       name     => 'td-000082',
       testfile => 'td-000082.txt',
       docid    => 'td-000082',
+      library  => $self->get_test_library_1,
       expected =>
       {
        is_valid => 1,
@@ -4910,6 +5000,7 @@ sub _build_parser_test_case_list {
       name     => 'simple_fragment',
       testfile => 'td-000001.txt',
       docid    => 'td-000001',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -4920,6 +5011,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_comment_division',
       testfile => 'td-000002.txt',
       docid    => 'td-000002',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -4930,6 +5022,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_comment_line',
       testfile => 'td-000003.txt',
       docid    => 'td-000003',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -4940,6 +5033,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_conditional_division',
       testfile => 'td-000004.txt',
       docid    => 'td-000004',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -4950,6 +5044,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_region_division',
       testfile => 'td-000005.txt',
       docid    => 'td-000005',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -4960,6 +5055,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_environment_division',
       testfile => 'td-000006.txt',
       docid    => 'td-000006',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -4970,6 +5066,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_lists',
       testfile => 'td-000007.txt',
       docid    => 'td-000007',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -4980,6 +5077,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_generate_element',
       testfile => 'td-000008.txt',
       docid    => 'td-000008',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -4990,6 +5088,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_insert_element',
       testfile => 'td-000009.txt',
       docid    => 'td-000009',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5000,6 +5099,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_script_element',
       testfile => 'td-000010.txt',
       docid    => 'td-000010',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5010,6 +5110,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_image_element',
       testfile => 'td-000011.txt',
       docid    => 'td-000011',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5020,6 +5121,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_footnote_element',
       testfile => 'td-000012.txt',
       docid    => 'td-000012',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5030,6 +5132,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_glossary_element',
       testfile => 'td-000013.txt',
       docid    => 'td-000013',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5040,6 +5143,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_var_element',
       testfile => 'td-000014.txt',
       docid    => 'td-000014',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5050,6 +5154,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_acronym_element',
       testfile => 'td-000015.txt',
       docid    => 'td-000015',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5060,6 +5165,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_index_element',
       testfile => 'td-000016.txt',
       docid    => 'td-000016',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5070,6 +5176,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_index_element',
       testfile => 'td-000017.txt',
       docid    => 'td-000017',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5080,6 +5187,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_included_section_style_1',
       testfile => 'td-000018.txt',
       docid    => 'td-000018',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5090,6 +5198,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_included_section_style_2',
       testfile => 'td-000019.txt',
       docid    => 'td-000019',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5100,6 +5209,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_sections_and_regions',
       testfile => 'td-000020.txt',
       docid    => 'td-000020',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5110,6 +5220,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_raw_include_element',
       testfile => 'td-000021.txt',
       docid    => 'td-000021',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5119,6 +5230,7 @@ sub _build_parser_test_case_list {
      {
       name     => 'fragment_containing_problem_division',
       testfile => 'td-000022.txt',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5133,6 +5245,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_included_entity',
       testfile => 'td-000023.txt',
       docid    => 'td-000023',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5142,6 +5255,7 @@ sub _build_parser_test_case_list {
      {
       name     => 'single_paragraph',
       testfile => 'td-000024.txt',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5152,6 +5266,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_variable_substitutions',
       testfile => 'td-000025.txt',
       docid    => 'td-000025',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5162,6 +5277,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_glossary_term_reference_1',
       testfile => 'td-000026.txt',
       docid    => 'td-000026',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5172,6 +5288,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_source_citation',
       testfile => 'td-000028.txt',
       docid    => 'td-000028',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5182,6 +5299,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_source_citation',
       testfile => 'td-000029.txt',
       docid    => 'td-000029',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5192,6 +5310,7 @@ sub _build_parser_test_case_list {
      #  name     => 'fragment_containing_invalid_begin_region',
      #  testfile => 'td-000030.txt',
      #  docid    => 'td-000030',
+     #  library  => $self->get_test_library_1,
      #  expected =>
      #  {
      #   create_fragment => 'SML::Fragment',
@@ -5202,6 +5321,7 @@ sub _build_parser_test_case_list {
      #  name     => 'fragment_containing_undefined_region',
      #  testfile => 'td-000031.txt',
      #  docid    => 'td-000031',
+     #  library  => $self->get_test_library_1,
      #  expected =>
      #  {
      #   create_fragment => 'SML::Fragment',
@@ -5212,6 +5332,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_cross_reference',
       testfile => 'td-000032.txt',
       docid    => 'td-000032',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5222,6 +5343,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_cross_reference',
       testfile => 'td-000033.txt',
       docid    => 'td-000033',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5232,6 +5354,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_id_reference',
       testfile => 'td-000034.txt',
       docid    => 'td-000034',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5242,6 +5365,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_id_reference',
       testfile => 'td-000035.txt',
       docid    => 'td-000035',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5252,6 +5376,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_page_reference',
       testfile => 'td-000036.txt',
       docid    => 'td-000036',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5262,6 +5387,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_page_reference',
       testfile => 'td-000037.txt',
       docid    => 'td-000037',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5272,6 +5398,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_bold_markup',
       testfile => 'td-000038.txt',
       docid    => 'td-000038',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5282,6 +5409,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_bold_markup',
       testfile => 'td-000039.txt',
       docid    => 'td-000039',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5292,6 +5420,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_italics_markup',
       testfile => 'td-000040.txt',
       docid    => 'td-000040',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5302,6 +5431,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_italics_markup',
       testfile => 'td-000041.txt',
       docid    => 'td-000041',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5312,6 +5442,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_fixedwidth_markup',
       testfile => 'td-000042.txt',
       docid    => 'td-000042',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5322,6 +5453,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_fixedwidth_markup',
       testfile => 'td-000043.txt',
       docid    => 'td-000043',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5332,6 +5464,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_underline_markup',
       testfile => 'td-000044.txt',
       docid    => 'td-000044',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5342,6 +5475,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_underline_markup',
       testfile => 'td-000045.txt',
       docid    => 'td-000045',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5352,6 +5486,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_superscript_markup',
       testfile => 'td-000046.txt',
       docid    => 'td-000046',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5362,6 +5497,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_superscript_markup',
       testfile => 'td-000047.txt',
       docid    => 'td-000047',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5372,6 +5508,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_subscript_markup',
       testfile => 'td-000048.txt',
       docid    => 'td-000048',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5382,6 +5519,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_subscript_markup',
       testfile => 'td-000049.txt',
       docid    => 'td-000049',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5392,6 +5530,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_glossary_term_syntax',
       testfile => 'td-000050.txt',
       docid    => 'td-000050',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5402,6 +5541,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_glossary_definition_reference',
       testfile => 'td-000051.txt',
       docid    => 'td-000051',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5412,6 +5552,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_glossary_definition_reference_syntax',
       testfile => 'td-000052.txt',
       docid    => 'td-000052',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5422,6 +5563,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_acronym_reference',
       testfile => 'td-000053.txt',
       docid    => 'td-000053',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5432,6 +5574,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_acronym_reference_syntax',
       testfile => 'td-000054.txt',
       docid    => 'td-000054',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5442,6 +5585,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_source_citation',
       testfile => 'td-000055.txt',
       docid    => 'td-000055',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5452,6 +5596,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_source_citation_syntax',
       testfile => 'td-000056.txt',
       docid    => 'td-000056',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5462,6 +5607,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_cross_reference_syntax',
       testfile => 'td-000057.txt',
       docid    => 'td-000057',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5472,6 +5618,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_id_reference_syntax',
       testfile => 'td-000058.txt',
       docid    => 'td-000058',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5482,6 +5629,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_page_reference_syntax',
       testfile => 'td-000059.txt',
       docid    => 'td-000059',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5492,6 +5640,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_template',
       testfile => 'td-000060.txt',
       docid    => 'td-000060',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5502,6 +5651,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_default_includes',
       testfile => 'td-000061.txt',
       docid    => 'td-000061',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5512,6 +5662,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_source_references',
       testfile => 'td-000062.txt',
       docid    => 'td-000062',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5522,6 +5673,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_explicit_declaration_of_infer_only_property',
       testfile => 'td-000063.txt',
       docid    => 'td-000063',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5532,6 +5684,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_entity_with_missing_required_property',
       testfile => 'td-000064.txt',
       docid    => 'td-000064',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5542,6 +5695,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_file_element',
       testfile => 'td-000065.txt',
       docid    => 'td-000065',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5552,6 +5706,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_reference_to_missing_file',
       testfile => 'td-000066.txt',
       docid    => 'td-000066',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5562,6 +5717,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_image_element',
       testfile => 'td-000067.txt',
       docid    => 'td-000067',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5572,6 +5728,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_reference_to_missing_image_file',
       testfile => 'td-000068.txt',
       docid    => 'td-000068',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5582,6 +5739,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_block_content',
       testfile => 'td-000069.txt',
       docid    => 'td-000069',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5592,6 +5750,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_invalid_non_unique_id',
       testfile => 'td-000070.txt',
       docid    => 'td-000070',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5602,6 +5761,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_baretable',
       testfile => 'td-000071.txt',
       docid    => 'td-000071',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5612,6 +5772,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_many_block_and_string_samples',
       testfile => 'td-000072.txt',
       docid    => 'td-000072',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5622,6 +5783,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_include_from_subdir',
       testfile => 'td-000073.txt',
       docid    => 'td-000073',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5632,6 +5794,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_divisions_for_extraction',
       testfile => 'td-000074.txt',
       docid    => 'td-000074',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5641,6 +5804,7 @@ sub _build_parser_test_case_list {
      {
       name     => 'fragment_containing_listing_environment',
       testfile => 'td-000075.txt',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5654,6 +5818,7 @@ sub _build_parser_test_case_list {
      {
       name     => 'fragment_containing_section',
       testfile => 'td-000076.txt',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5667,6 +5832,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_glossary_term_reference_2',
       testfile => 'td-000077.txt',
       docid    => 'td-000077',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5677,6 +5843,7 @@ sub _build_parser_test_case_list {
       name     => 'fragment_containing_title_with_linebreak',
       testfile => 'td-000078.txt',
       docid    => 'td-000078',
+      library  => $self->get_test_library_1,
       expected =>
       {
        create_fragment => 'SML::Fragment',
@@ -5699,6 +5866,7 @@ sub _build_part_test_case_list {
       part_id  => 'introduction',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_part => 1,
@@ -5711,6 +5879,7 @@ sub _build_part_test_case_list {
       part_id  => 'problem-1',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_part => 1,
@@ -5723,9 +5892,109 @@ sub _build_part_test_case_list {
       part_id  => 'bogus_id',
       filename => 'td-000020.txt',
       docid    => 'td-000020',
+      library  => $self->get_test_library_1,
       expected =>
       {
        has_part => 0,
+      },
+     },
+
+     {
+      name     => 'plain_string_1',
+      text     => 'This is a plain string.',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => 'This is a plain string.',
+	},
+       },
+      },
+     },
+
+     #-----------------------------------------------------------------
+     # SPECIAL STRINGS
+     #-----------------------------------------------------------------
+
+     {
+      name     => 'user_entered_text_1',
+      text     => '[enter:your age]',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '[enter:your age]',
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'user_entered_text_2',
+      text     => '[en:your age]',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '[en:your age]',
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'literal_1',
+      text     => '{lit:[c]}',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '{lit:[c]}',
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'cross_reference_1',
+      content  => '[ref:introduction]',
+      subclass => 'SML::Paragraph',
+      filename => 'td-000020.txt',
+      docid    => 'td-000020',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	html =>
+	{
+	 default => "<p><a href=\"td-000020-1.html#SECTION.1\">Section 1</a></p>\n\n",
+	},
+	latex =>
+	{
+	 default => "Section~\\vref{introduction}\n\n",
+	},
+	xml =>
+	{
+	 default => "<a href=\"td-000020-1.xml#SECTION.1\">Section 1</a>\n\n",
+	},
+       },
+       error =>
+       {
+	no_doc => 'NOT IN DOCUMENT CONTEXT',
+       },
       },
      },
 
@@ -5740,9 +6009,14 @@ sub _build_string_test_case_list {
 
   return
     [
+     #-----------------------------------------------------------------
+     # NON-REFERENCE STRINGS
+     #-----------------------------------------------------------------
+
      {
       name => 'plain_string_1',
       text => 'This is a plain string.',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'string',
@@ -5750,7 +6024,15 @@ sub _build_string_test_case_list {
        has_parts => 0,
        render =>
        {
+	sml =>
+	{
+	 default => 'This is a plain string.',
+	},
 	html =>
+	{
+	 default => 'This is a plain string.',
+	},
+	latex =>
 	{
 	 default => 'This is a plain string.',
 	},
@@ -5761,6 +6043,7 @@ sub _build_string_test_case_list {
      {
       name => 'bold_string_1',
       text => '!!this is bold!!',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'bold_string',
@@ -5768,9 +6051,17 @@ sub _build_string_test_case_list {
        has_parts => 1,
        render =>
        {
+	sml =>
+	{
+	 default => '!!this is bold!!',
+	},
 	html =>
 	{
 	 default => '<b>this is bold</b>',
+	},
+	latex =>
+	{
+	 default => '\textbf{this is bold}',
 	},
        },
       },
@@ -5779,6 +6070,7 @@ sub _build_string_test_case_list {
      {
       name => 'italics_string_1',
       text => '~~this is italics~~',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'italics_string',
@@ -5786,17 +6078,26 @@ sub _build_string_test_case_list {
        has_parts => 1,
        render =>
        {
+	sml =>
+	{
+	 default => '~~this is italics~~',
+	},
 	html =>
 	{
 	 default => '<i>this is italics</i>',
+	},
+	latex =>
+	{
+	 default => '\textit{this is italics}',
 	},
        },
       },
      },
 
      {
-      name => 'fixed_width_string_1',
+      name => 'fixedwidth_string_1',
       text => '||this is fixed width||',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'fixedwidth_string',
@@ -5804,9 +6105,17 @@ sub _build_string_test_case_list {
        has_parts => 1,
        render =>
        {
+	sml =>
+	{
+	 default => '||this is fixed width||',
+	},
 	html =>
 	{
 	 default => '<tt>this is fixed width</tt>',
+	},
+	latex =>
+	{
+	 default => '\texttt{this is fixed width}',
 	},
        },
       },
@@ -5815,6 +6124,7 @@ sub _build_string_test_case_list {
      {
       name => 'underline_string_1',
       text => '__this is underlined__',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'underline_string',
@@ -5822,9 +6132,17 @@ sub _build_string_test_case_list {
        has_parts => 1,
        render =>
        {
+	sml =>
+	{
+	 default => '__this is underlined__',
+	},
 	html =>
 	{
 	 default => '<u>this is underlined</u>',
+	},
+	latex =>
+	{
+	 default => '\underline{this is underlined}',
 	},
        },
       },
@@ -5833,6 +6151,7 @@ sub _build_string_test_case_list {
      {
       name => 'superscript_string_1',
       text => '^^this is superscripted^^',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'superscript_string',
@@ -5840,9 +6159,17 @@ sub _build_string_test_case_list {
        has_parts => 1,
        render =>
        {
+	sml =>
+	{
+	 default => '^^this is superscripted^^',
+	},
 	html =>
 	{
 	 default => '<sup>this is superscripted</sup>',
+	},
+	latex =>
+	{
+	 default => '\textsuperscript{this is superscripted}',
 	},
        },
       },
@@ -5851,6 +6178,7 @@ sub _build_string_test_case_list {
      {
       name => 'subscript_string_1',
       text => ',,this is subscripted,,',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'subscript_string',
@@ -5858,27 +6186,79 @@ sub _build_string_test_case_list {
        has_parts => 1,
        render =>
        {
+	sml =>
+	{
+	 default => ',,this is subscripted,,',
+	},
 	html =>
 	{
 	 default => '<sub>this is subscripted</sub>',
+	},
+	latex =>
+	{
+	 default => '\subscript{this is subscripted}',
 	},
        },
       },
      },
 
      {
-      name => 'linebreak_symbol_1',
-      text => '[linebreak]',
+      name     => 'keystroke_symbol_1',
+      text     => '[[Enter]]',
+      library  => $self->get_test_library_1,
       expected =>
       {
-       get_name => 'linebreak_symbol',
-       get_content => '',
-       has_parts => 0,
+       get_name => 'keystroke_symbol',
+       get_content => 'Enter',
+       has_parts => 1,
        render =>
        {
+	sml =>
+	{
+	 default => '[[Enter]]',
+	},
 	html =>
 	{
-	 default => '<br/>',
+	 default => "<span class=\"keystroke\">Enter</span>",
+	},
+	latex =>
+	{
+	 default => "\\keystroke{Enter}",
+	},
+	xml =>
+	{
+	 default => "<span class=\"keystroke\">Enter</span>",
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'keystroke_symbol_2',
+      text     => '[[Ctrl]]-[[Alt]]-[[Del]]',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'string',
+       get_content => '[[Ctrl]]-[[Alt]]-[[Del]]',
+       has_parts => 5,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[[Ctrl]]-[[Alt]]-[[Del]]',
+	},
+	html =>
+	{
+	 default => "<span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span>",
+	},
+	latex =>
+	{
+	 default => "\\keystroke{Ctrl}-\\keystroke{Alt}-\\keystroke{Del}",
+	},
+	xml =>
+	{
+	 default => "<span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span>",
 	},
        },
       },
@@ -5887,6 +6267,7 @@ sub _build_string_test_case_list {
      {
       name => 'user_entered_text_1',
       text => '[enter:bogus]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'USER_ENTERED_TEXT',
@@ -5894,9 +6275,17 @@ sub _build_string_test_case_list {
        has_parts => 0,
        render =>
        {
+	sml =>
+	{
+	 default => '[enter:bogus]',
+	},
 	html =>
 	{
 	 default => '<b><tt>bogus</tt></b>',
+	},
+	latex =>
+	{
+	 default => '\\textbf{\\texttt{bogus}}',
 	},
        },
       },
@@ -5905,6 +6294,7 @@ sub _build_string_test_case_list {
      {
       name => 'user_entered_text_2',
       text => '[en:bogus]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'USER_ENTERED_TEXT',
@@ -5912,423 +6302,17 @@ sub _build_string_test_case_list {
        has_parts => 0,
        render =>
        {
+	sml =>
+	{
+	 default => '[en:bogus]',
+	},
 	html =>
 	{
 	 default => '<b><tt>bogus</tt></b>',
 	},
-       },
-      },
-     },
-
-     {
-      name => 'file_reference_1',
-      text => '[file:bogus.txt]',
-      expected =>
-      {
-       get_name => 'FILE_REF',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
+	latex =>
 	{
-	 default => '<tt>bogus.txt</tt>',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'path_reference_1',
-      text => '[path:path/to/bogus]',
-      expected =>
-      {
-       get_name => 'PATH_REF',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '<tt>path/to/bogus</tt>',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'url_reference_1',
-      text => '[url:http://www.google.com/]',
-      expected =>
-      {
-       get_name => 'URL_REF',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '<a href="http://www.google.com/">http://www.google.com/</a>',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'url_reference_2',
-      text => '[url:http://www.google.com/|google]',
-      expected =>
-      {
-       get_name => 'URL_REF',
-       get_content => 'google',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '<a href="http://www.google.com/">google</a>',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'command_reference_1',
-      text => '[cmd:ls -al | grep bogus]',
-      expected =>
-      {
-       get_name => 'COMMAND_REF',
-       get_content => 'ls -al | grep bogus',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '<tt>ls -al | grep bogus</tt>',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'smiley_symbol_1',
-      text => ':-)',
-      expected =>
-      {
-       get_name => 'smiley_symbol',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '&#9786;',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'frowny_symbol_1',
-      text => ':-(',
-      expected =>
-      {
-       get_name => 'frowny_symbol',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '&#9785;',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'keystroke_symbol_1',
-      text => '[[ESC]]',
-      expected =>
-      {
-       get_name => 'keystroke_symbol',
-       get_content => 'ESC',
-       has_parts => 1,
-       render =>
-       {
-	html =>
-	{
-	 default => '<span class="keystroke">ESC</span>',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'left_arrow_symbol_1',
-      text => '<-',
-      expected =>
-      {
-       get_name => 'left_arrow_symbol',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '&#8592;',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'right_arrow_symbol_1',
-      text => '->',
-      expected =>
-      {
-       get_name => 'right_arrow_symbol',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '&#8594;',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'latex_symbol_1',
-      text => 'LaTeX',
-      expected =>
-      {
-       get_name => 'latex_symbol',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => 'L<sup>a</sup>T<sub>e</sub>X',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'tex_symbol_1',
-      text => 'TeX',
-      expected =>
-      {
-       get_name => 'tex_symbol',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => 'T<sub>e</sub>X',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'copyright_symbol_1',
-      text => '[c]',
-      expected =>
-      {
-       get_name => 'copyright_symbol',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '&copy;',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'trademark_symbol_1',
-      text => '[tm]',
-      expected =>
-      {
-       get_name => 'trademark_symbol',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '&trade;',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'registered_trademark_symbol_1',
-      text => '[rtm]',
-      expected =>
-      {
-       get_name => 'reg_trademark_symbol',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '&reg;',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'open_dblquote_symbol_1',
-      text => '``',
-      expected =>
-      {
-       get_name => 'open_dblquote_symbol',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '&#8220;',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'close_dblquote_symbol_1',
-      text => '\'\'',
-      expected =>
-      {
-       get_name => 'close_dblquote_symbol',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '&#8221;',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'open_sglquote_symbol_1',
-      text => '`',
-      expected =>
-      {
-       get_name => 'open_sglquote_symbol',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '&#8216;',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'close_sglquote_symbol_1',
-      text => '\'',
-      expected =>
-      {
-       get_name => 'close_sglquote_symbol',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '&#8217;',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'section_symbol_1',
-      text => '[section]',
-      expected =>
-      {
-       get_name => 'section_symbol',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '&sect;',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'emdash_symbol_1',
-      text => '--',
-      expected =>
-      {
-       get_name => 'emdash_symbol',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '&mdash;',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'email_address_1',
-      text => '[email:help@example.com]',
-      expected =>
-      {
-       get_name => 'EMAIL_ADDR',
-       get_content => '',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '<a href="mailto:help@example.com">help@example.com</a>',
-	},
-       },
-      },
-     },
-
-     {
-      name => 'email_address_2',
-      text => '[email:john.smith@example.com|John Smith]',
-      expected =>
-      {
-       get_name => 'EMAIL_ADDR',
-       get_content => 'John Smith',
-       has_parts => 0,
-       render =>
-       {
-	html =>
-	{
-	 default => '<a href="mailto:john.smith@example.com">John Smith</a>',
+	 default => '\textbf{\texttt{bogus}}',
 	},
        },
       },
@@ -6337,6 +6321,7 @@ sub _build_string_test_case_list {
      {
       name => 'bold_inside_italics_1',
       text => '~~this is !!bold!! inside italics~~',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'italics_string',
@@ -6344,9 +6329,17 @@ sub _build_string_test_case_list {
        has_parts => 3,
        render =>
        {
+	sml =>
+	{
+	 default => '~~this is !!bold!! inside italics~~',
+	},
 	html =>
 	{
 	 default => '<i>this is <b>bold</b> inside italics</i>',
+	},
+	latex =>
+	{
+	 default => '\textit{this is \textbf{bold} inside italics}',
 	},
        },
       },
@@ -6355,6 +6348,7 @@ sub _build_string_test_case_list {
      {
       name => 'italics_inside_bold_1',
       text => '!!this is ~~italics~~ inside bold!!',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'bold_string',
@@ -6362,9 +6356,17 @@ sub _build_string_test_case_list {
        has_parts => 3,
        render =>
        {
+	sml =>
+	{
+	 default => '!!this is ~~italics~~ inside bold!!',
+	},
 	html =>
 	{
 	 default => '<b>this is <i>italics</i> inside bold</b>',
+	},
+	latex =>
+	{
+	 default => '\textbf{this is \textit{italics} inside bold}',
 	},
        },
       },
@@ -6373,6 +6375,7 @@ sub _build_string_test_case_list {
      {
       name => 'string_with_italics_and_bold_1',
       text => 'this string has ~~italics~~ and !!bold!!',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'string',
@@ -6380,9 +6383,366 @@ sub _build_string_test_case_list {
        has_parts => 4,
        render =>
        {
+	sml =>
+	{
+	 default => 'this string has ~~italics~~ and !!bold!!',
+	},
 	html =>
 	{
 	 default => 'this string has <i>italics</i> and <b>bold</b>',
+	},
+	latex =>
+	{
+	 default => 'this string has \textit{italics} and \textbf{bold}',
+	},
+       },
+      },
+     },
+
+     #-----------------------------------------------------------------
+     # EXTERNAL REFERENCE STRINGS (not validated)
+     #-----------------------------------------------------------------
+
+     {
+      name => 'file_reference_1',
+      text => '[file:bogus.txt]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'FILE_REF',
+       get_content => '',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[file:bogus.txt]',
+	},
+	html =>
+	{
+	 default => '<tt>bogus.txt</tt>',
+	},
+	latex =>
+	{
+	 default => '\path{bogus.txt}',
+	},
+       },
+      },
+     },
+
+     {
+      name => 'path_reference_1',
+      text => '[path:path/to/bogus]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'PATH_REF',
+       get_content => '',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[path:path/to/bogus]',
+	},
+	html =>
+	{
+	 default => '<tt>path/to/bogus</tt>',
+	},
+	latex =>
+	{
+	 default => '\path{path/to/bogus}',
+	},
+       },
+      },
+     },
+
+     {
+      name => 'url_reference_1',
+      text => '[url:http://www.google.com/]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'URL_REF',
+       get_content => '',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[url:http://www.google.com/]',
+	},
+	html =>
+	{
+	 default => '<a href="http://www.google.com/">http://www.google.com/</a>',
+	},
+	latex =>
+	{
+	 default => '\urlstyle{sf}\url{http://www.google.com/}',
+	},
+       },
+      },
+     },
+
+     {
+      name => 'url_reference_2',
+      text => '[url:http://www.google.com/|google]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'URL_REF',
+       get_content => 'google',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[url:http://www.google.com/|google]',
+	},
+	html =>
+	{
+	 default => '<a href="http://www.google.com/">google</a>',
+	},
+	latex =>
+	{
+	 default => '\urlstyle{sf}\href{http://www.google.com/}{google}',
+	},
+       },
+      },
+     },
+
+     {
+      name => 'command_reference_1',
+      text => '[cmd:ls -al | grep bogus]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'COMMAND_REF',
+       get_content => 'ls -al | grep bogus',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[cmd:ls -al | grep bogus]',
+	},
+	html =>
+	{
+	 default => '<tt>ls -al | grep bogus</tt>',
+	},
+	latex =>
+	{
+	 default => '\path{ls -al | grep bogus}',
+	},
+       },
+      },
+     },
+
+     {
+      name => 'email_address_1',
+      text => '[email:help@example.com]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'EMAIL_ADDR',
+       get_content => '',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[email:help@example.com]',
+	},
+	html =>
+	{
+	 default => '<a href="mailto:help@example.com">help@example.com</a>',
+	},
+	latex =>
+	{
+	 default => '\href{mailto:help@example.com}{help@example.com}',
+	},
+       },
+      },
+     },
+
+     {
+      name => 'email_address_2',
+      text => '[email:john.smith@example.com|John Smith]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'EMAIL_ADDR',
+       get_content => 'John Smith',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[email:john.smith@example.com|John Smith]',
+	},
+	html =>
+	{
+	 default => '<a href="mailto:john.smith@example.com">John Smith</a>',
+	},
+	latex =>
+	{
+	 default => '\href{mailto:john.smith@example.com}{John Smith}',
+	},
+       },
+      },
+     },
+
+     #-----------------------------------------------------------------
+     # INTERNAL REFERENCE STRINGS (validated)
+     #-----------------------------------------------------------------
+
+     {
+      name => 'cross_reference_1',
+      text => '[r:bogus]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'CROSS_REF',
+       get_content => '',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[r:bogus]',
+	},
+       },
+      },
+     },
+
+     {
+      name => 'cross_reference_2',
+      text => '[ref:bogus]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'CROSS_REF',
+       get_content => '',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[ref:bogus]',
+	},
+       },
+      },
+     },
+
+     {
+      name => 'id_reference_1',
+      text => '[id:bogus]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'ID_REF',
+       get_content => '',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[id:bogus]',
+	},
+       },
+      },
+     },
+
+     {
+      name => 'page_reference_1',
+      text => '[page:bogus]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'PAGE_REF',
+       get_content => '',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[page:bogus]',
+	},
+       },
+      },
+     },
+
+     {
+      name => 'page_reference_2',
+      text => '[pg:bogus]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'PAGE_REF',
+       get_content => '',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[pg:bogus]',
+	},
+       },
+      },
+     },
+
+     {
+      name => 'footnote_reference_1',
+      text => '[f:introduction:1]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'FOOTNOTE_REF',
+       get_content => '',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[f:introduction:1]',
+	},
+       },
+      },
+     },
+
+     {
+      name => 'index_reference_1',
+      text => '[index:bogus]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'INDEX_REF',
+       get_content => '',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[index:bogus]',
+	},
+       },
+      },
+     },
+
+     {
+      name => 'index_reference_2',
+      text => '[i:bogus]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'INDEX_REF',
+       get_content => '',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[i:bogus]',
 	},
        },
       },
@@ -6391,286 +6751,928 @@ sub _build_string_test_case_list {
      {
       name => 'variable_reference_1',
       text => '[var:bogus]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'VARIABLE_REF',
        get_content => '',
        has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[var:bogus]',
+	},
+       },
       },
      },
 
      {
       name => 'glossary_term_reference_1',
       text => '[g:bogus]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'GLOSS_TERM_REF',
        get_content => '',
        has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[g:bogus]',
+	},
+       },
       },
      },
 
      {
       name => 'glossary_term_reference_2',
       text => '[G:bogus]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'GLOSS_TERM_REF',
        get_content => '',
        has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[G:bogus]',
+	},
+       },
       },
      },
 
      {
       name => 'glossary_term_reference_3',
       text => '[gls:bogus]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'GLOSS_TERM_REF',
        get_content => '',
        has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[gls:bogus]',
+	},
+       },
       },
      },
 
      {
       name => 'glossary_term_reference_4',
       text => '[Gls:bogus]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'GLOSS_TERM_REF',
        get_content => '',
        has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[Gls:bogus]',
+	},
+       },
       },
      },
 
      {
       name => 'glossary_definition_reference_1',
       text => '[def:bogus]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'GLOSS_DEF_REF',
        get_content => '',
        has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[def:bogus]',
+	},
+       },
       },
      },
 
      {
       name => 'acronym_term_reference_1',
       text => '[a:bogus]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'ACRONYM_TERM_REF',
        get_content => '',
        has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[a:bogus]',
+	},
+       },
       },
      },
 
      {
       name => 'acronym_term_reference_2',
       text => '[ac:bogus]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'ACRONYM_TERM_REF',
        get_content => '',
        has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[ac:bogus]',
+	},
+       },
       },
      },
 
      {
       name => 'acronym_term_reference_3',
       text => '[acs:bogus]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'ACRONYM_TERM_REF',
        get_content => '',
        has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[acs:bogus]',
+	},
+       },
       },
      },
 
      {
       name => 'acronym_term_reference_4',
       text => '[acl:bogus]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'ACRONYM_TERM_REF',
        get_content => '',
        has_parts => 0,
-      },
-     },
-
-     {
-      name => 'cross_reference_1',
-      text => '[r:bogus]',
-      expected =>
-      {
-       get_name => 'CROSS_REF',
-       get_content => '',
-       has_parts => 0,
-      },
-     },
-
-     {
-      name => 'cross_reference_2',
-      text => '[ref:bogus]',
-      expected =>
-      {
-       get_name => 'CROSS_REF',
-       get_content => '',
-       has_parts => 0,
-      },
-     },
-
-     {
-      name => 'id_reference_1',
-      text => '[id:bogus]',
-      expected =>
-      {
-       get_name => 'ID_REF',
-       get_content => '',
-       has_parts => 0,
-      },
-     },
-
-     {
-      name => 'page_reference_1',
-      text => '[page:bogus]',
-      expected =>
-      {
-       get_name => 'PAGE_REF',
-       get_content => '',
-       has_parts => 0,
-      },
-     },
-
-     {
-      name => 'page_reference_2',
-      text => '[pg:bogus]',
-      expected =>
-      {
-       get_name => 'PAGE_REF',
-       get_content => '',
-       has_parts => 0,
-      },
-     },
-
-     {
-      name => 'footnote_reference_1',
-      text => '[f:introduction:1]',
-      expected =>
-      {
-       get_name => 'FOOTNOTE_REF',
-       get_content => '',
-       has_parts => 0,
-      },
-     },
-
-     {
-      name => 'index_reference_1',
-      text => '[index:bogus]',
-      expected =>
-      {
-       get_name => 'INDEX_REF',
-       get_content => '',
-       has_parts => 0,
-      },
-     },
-
-     {
-      name => 'index_reference_2',
-      text => '[i:bogus]',
-      expected =>
-      {
-       get_name => 'INDEX_REF',
-       get_content => '',
-       has_parts => 0,
-      },
-     },
-
-     {
-      name => 'thepage_symbol_1',
-      text => '[thepage]',
-      expected =>
-      {
-       get_name => 'thepage_ref',
-       get_content => '',
-       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[acl:bogus]',
+	},
+       },
       },
      },
 
      {
       name => 'theversion_symbol_1',
       text => '[theversion]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'theversion_ref',
        get_content => '',
        has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[theversion]',
+	},
+       },
       },
      },
 
      {
       name => 'therevision_symbol_1',
       text => '[therevision]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'therevision_ref',
        get_content => '',
        has_parts => 0,
-      },
-     },
-
-     {
-      name => 'thedate_symbol_1',
-      text => '[thedate]',
-      expected =>
-      {
-       get_name => 'thedate_ref',
-       get_content => '',
-       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[therevision]',
+	},
+       },
       },
      },
 
      {
       name => 'status_reference_1',
       text => '[status:bogus]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'STATUS_REF',
        get_content => '',
        has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[status:bogus]',
+	},
+       },
       },
      },
 
      {
       name => 'citation_reference_1',
       text => '[cite:bogus]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'CITATION_REF',
        get_content => '',
        has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[cite:bogus]',
+	},
+       },
       },
      },
 
      {
       name => 'citation_reference_2',
       text => '[c:bogus]',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_name => 'CITATION_REF',
        get_content => '',
        has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[c:bogus]',
+	},
+       },
+      },
+     },
+
+     #-----------------------------------------------------------------
+     # REPLACEMENT STRINGS
+     #-----------------------------------------------------------------
+
+     {
+      name => 'thepage_replacement_string_1',
+      text => '[thepage]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'thepage_ref',
+       get_content => '',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[thepage]',
+	},
+	html =>
+	{
+	 default => '',
+	},
+	latex =>
+	{
+	 default => '\thepage',
+	},
+       },
       },
      },
 
      {
-      name => 'take_note_symbol_1',
-      text => '[take_note]',
+      name => 'thedate_replacement_string_1',
+      text => '[thedate]',
+      library => $self->get_test_library_1,
       expected =>
       {
-       get_name => 'take_note_symbol',
+       get_name => 'thedate_ref',
        get_content => '',
        has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[thedate]',
+	},
+	html =>
+	{
+	 default => '', # <-- !!! BUG HERE !!!
+	},
+	latex =>
+	{
+	 default => '\today',
+	},
+       },
+      },
+     },
+
+     {
+      name => 'pagecount_replacement_string_1',
+      text => '[pagecount]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'pagecount_ref',
+       get_content => '',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[pagecount]',
+	},
+	html =>
+	{
+	 default => '',
+	},
+	latex =>
+	{
+	 default => '\pageref{LastPage}',
+	},
+       },
+      },
+     },
+
+     {
+      name => 'thesection_replacement_string_1',
+      text => '[thesection]',
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'thesection_ref',
+       get_content => '',
+       has_parts => 0,
+       render =>
+       {
+	sml =>
+	{
+	 default => '[thesection]',
+	},
+	html =>
+	{
+	 default => '',
+	},
+	latex =>
+	{
+	 default => '\thesection',
+	},
+       },
+      },
+     },
+
+    ];
+}
+
+######################################################################
+
+sub _build_symbol_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name     => 'linebreak_symbol_1',
+      text     => '[linebreak]',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '[linebreak]',
+	},
+	html =>
+	{
+	 default => '<br/>',
+	},
+	latex =>
+	{
+	 default => '\linebreak',
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'pagebreak_symbol_1',
+      text     => '[pagebreak]',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '[pagebreak]',
+	},
+	html =>
+	{
+	 default => '',
+	},
+	latex =>
+	{
+	 default => '\pagebreak',
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'clearpage_symbol_1',
+      text     => '[clearpage]',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '[clearpage]',
+	},
+	html =>
+	{
+	 default => '',
+	},
+	latex =>
+	{
+	 default => '\clearpage',
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'take_note_symbol_1',
+      text     => '[take_note]',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '[take_note]',
+	},
+	html =>
+	{
+	 default => "<b>(take note!)</b>",
+	},
+	latex =>
+	{
+	 default => "\\marginpar{\\Huge\\Writinghand}",
+	},
+	xml =>
+	{
+	 default => "<b>(take note!)</b>",
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'smiley_symbol_1',
+      text     => ':-)',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => ':-)',
+	},
+	html =>
+	{
+	 default => "&#9786;",
+	},
+	latex =>
+	{
+	 default => "\\large\\Smiley",
+	},
+	xml =>
+	{
+	 default => "&#9786;",
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'frowny_symbol_1',
+      text     => ':-(',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => ':-(',
+	},
+	html =>
+	{
+	 default => "&#9785;",
+	},
+	latex =>
+	{
+	 default => "\\large\\Frowny",
+	},
+	xml =>
+	{
+	 default => "&#9785;",
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'left_arrow_symbol_1',
+      text     => '<-',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '<-',
+	},
+	html =>
+	{
+	 default => "&#8592;",
+	},
+	latex =>
+	{
+	 default => "\$\\leftarrow\$",
+	},
+	xml =>
+	{
+	 default => "&#8592;",
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'right_arrow_symbol_1',
+      text     => '->',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '->',
+	},
+	html =>
+	{
+	 default => "&#8594;",
+	},
+	latex =>
+	{
+	 default => "\$\\rightarrow\$",
+	},
+	xml =>
+	{
+	 default => "&#8594;",
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'latex_symbol_1',
+      text     => 'LaTeX',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => 'LaTeX',
+	},
+	html =>
+	{
+	 default => "L<sup>a</sup>T<sub>e</sub>X",
+	},
+	latex =>
+	{
+	 default => "\\LaTeX{}",
+	},
+	xml =>
+	{
+	 default => "LaTeX",
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'tex_symbol_1',
+      text     => 'TeX',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => 'TeX',
+	},
+	html =>
+	{
+	 default => "T<sub>e</sub>X",
+	},
+	latex =>
+	{
+	 default => "\\TeX{}",
+	},
+	xml =>
+	{
+	 default => "TeX",
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'copyright_symbol_1',
+      text     => '[c]',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '[c]',
+	},
+	html =>
+	{
+	 default => "&copy;",
+	},
+	latex =>
+	{
+	 default => "\\tiny\$^{\\copyright}\$\\normalsize",
+	},
+	xml =>
+	{
+	 default => "&copy;",
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'trademark_symbol_1',
+      text     => '[tm]',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '[tm]',
+	},
+	html =>
+	{
+	 default => "&trade;",
+	},
+	latex =>
+	{
+	 default => "\\tiny\$^{\\texttrademark}\$\\normalsize",
+	},
+	xml =>
+	{
+	 default => "&trade;",
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'reg_trademark_symbol_1',
+      text     => '[rtm]',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '[rtm]',
+	},
+	html =>
+	{
+	 default => "&reg;",
+	},
+	latex =>
+	{
+	 default => "\\tiny\$^{\\textregistered}\$\\normalsize",
+	},
+	xml =>
+	{
+	 default => "&reg;",
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'open_dblquote_symbol_1',
+      text     => '``',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '``',
+	},
+	html =>
+	{
+	 default => "&#8220;",
+	},
+	latex =>
+	{
+	 default => "\`\`",
+	},
+	xml =>
+	{
+	 default => "&#8220;",
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'close_dblquote_symbol_1',
+      text     => '\'\'',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '\'\'',
+	},
+	html =>
+	{
+	 default => "&#8221;",
+	},
+	latex =>
+	{
+	 default => "\'\'",
+	},
+	xml =>
+	{
+	 default => "&#8221;",
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'open_sglquote_symbol_1',
+      text     => '`',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '`',
+	},
+	html =>
+	{
+	 default => "&#8216;",
+	},
+	latex =>
+	{
+	 default => "\`",
+	},
+	xml =>
+	{
+	 default => "&#8216;",
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'close_sglquote_symbol_1',
+      text     => '\'',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '\'',
+	},
+	html =>
+	{
+	 default => "&#8217;",
+	},
+	latex =>
+	{
+	 default => "\'",
+	},
+	xml =>
+	{
+	 default => "&#8217;",
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'section_symbol_1',
+      text     => '[section]',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '[section]',
+	},
+	html =>
+	{
+	 default => "&sect;",
+	},
+	latex =>
+	{
+	 default => "{\\S}",
+	},
+	xml =>
+	{
+	 default => "&sect;",
+	},
+       },
+      },
+     },
+
+     {
+      name     => 'emdash_symbol_1',
+      text     => '--',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       render =>
+       {
+	sml =>
+	{
+	 default => '--',
+	},
+	html =>
+	{
+	 default => "&mdash;",
+	},
+	latex =>
+	{
+	 default => "--",
+	},
+	xml =>
+	{
+	 default => "&mdash;",
+	},
+       },
       },
      },
 
