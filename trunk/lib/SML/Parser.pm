@@ -128,7 +128,8 @@ has 'library' =>
 sub create_fragment {
 
   # Create an SML fragment by parsing the content of a file. Add
-  # parsed entities to the library. Return the fragment object.
+  # parsed documents and entities to the library. Return the fragment
+  # object.
 
   my $self     = shift;
   my $filename = shift;
@@ -141,13 +142,13 @@ sub create_fragment {
 
   chdir($fragdir);
 
-  $logger->info("parse $basename");
+  $logger->info("create_fragment $basename");
 
   my $file = SML::File->new(filespec=>$basename);
 
   if ( not $file->validate )
     {
-      $logger->logcroak("CAN'T PARSE \'$basename\'");
+      $logger->logcroak("FILE NOT VALID \'$basename\'");
     }
 
   my $fragment = SML::Fragment->new(file=>$file,library=>$library);
@@ -199,6 +200,12 @@ sub create_string {
 
   my $self = shift;
   my $text = shift;                     # i.e. !!my bold text!!
+
+  # !!! BUG HERE !!!
+  #
+  # lookup_ref -> This method doesn't know what to do with a lookup
+  # reference.  Is this a problem?  Perhaps lookups are all 'resolved'
+  # before this code is invoked?
 
   $logger->debug("create_string");
 
@@ -330,7 +337,15 @@ sub create_string {
      or
      $string_type eq 'thedate_ref'
      or
+     $string_type eq 'pagecount_ref'
+     or
+     $string_type eq 'thesection_ref'
+     or
      $string_type eq 'linebreak_symbol'
+     or
+     $string_type eq 'pagebreak_symbol'
+     or
+     $string_type eq 'clearpage_symbol'
     )
       {
 	if ( $text =~ /$syntax->{$string_type}/ )
@@ -357,6 +372,7 @@ sub create_string {
 	{
 	  my $args = {};
 
+	  $args->{tag}             = $1;
 	  $args->{target_id}       = $2;
 	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
@@ -525,6 +541,7 @@ sub create_string {
 	{
 	  my $args = {};
 
+	  $args->{tag}             = $1;
 	  $args->{target_id}       = $2;
 	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
@@ -565,6 +582,7 @@ sub create_string {
 	{
 	  my $args = {};
 
+	  $args->{tag}             = $1;
 	  $args->{source_id}       = $2;
 	  $args->{details}         = $4 || '';
 	  $args->{library}         = $self->get_library;
@@ -647,6 +665,7 @@ sub create_string {
 	{
 	  my $args = {};
 
+	  $args->{tag}             = $1;
 	  $args->{content}         = $2;
 	  $args->{library}         = $self->get_library;
 	  $args->{containing_part} = $part if $part;
@@ -1546,7 +1565,7 @@ sub _init {
 
 ######################################################################
 
-sub _resolve_includes {
+sub _old_resolve_includes {
 
   # Scan lines, replace 'include' requests with 'included' lines.
 
@@ -1626,6 +1645,8 @@ sub _resolve_includes {
 	  my $fragment          = undef;
 	  my $division          = undef;
 
+	  $logger->trace("  include element 1:$1 2:$2 3:$3 4:$4 5:$5");
+
 	  #-----------------------------------------------------------
 	  # Determine Division ID and Filespec
 	  #
@@ -1666,11 +1687,13 @@ sub _resolve_includes {
 	  #
 	  if ( $incl_id and not $library->has_division( $incl_id ) )
 	    {
+	      $logger->trace("  library DOESN'T have division $incl_id, extracting it from fragment...");
 	      $included_lines = $fragment->extract_division_lines( $incl_id );
 	    }
 
 	  elsif ( $incl_id and $library->has_division( $incl_id ) )
 	    {
+	      $logger->trace("  library HAS division $incl_id");
 	      $division = $library->get_division($incl_id);
 	      $included_lines = $division->get_line_list;
 	    }
@@ -1848,6 +1871,7 @@ sub _resolve_includes {
 	{
 	  $depth = length($1);
 	  push @{ $newlines }, $oldline;
+	  next LINE;
 	}
 
       # no include statement on this line
@@ -1927,12 +1951,98 @@ sub _resolve_includes {
 #
 #       If the included file contains an environment like a table or
 #       listing the author needs it included in it's 'raw' state.
-#       In other words, don't convert the title to and section, and
+#       In other words, don't convert the title to a section, and
 #       also don't convert the title to a bold string.
 #
 #         include::raw: my-table.txt
 #
 #---------------------------------------------------------------------
+
+######################################################################
+
+sub _resolve_includes {
+
+  my $self = shift;
+
+  my $count_method   = $self->_get_count_method_hash;
+  my $count          = ++ $count_method->{'_resolve_includes'};
+  my $sml            = SML->instance;
+  my $util           = $sml->get_util;
+  my $options        = $util->get_options;
+  my $max_iterations = $options->get_MAX_RESOLVE_INCLUDES;
+
+  $logger->info("($count) resolve includes");
+
+  if ( $count > $max_iterations )
+    {
+      my $msg = "EXCEEDED MAX ITERATIONS ($max_iterations)";
+      $logger->logcroak("$msg");
+    }
+
+  my $syntax         = $sml->get_syntax;
+  my $in_comment     = 0;
+  my $depth          = 1;
+  my $old_line_list  = $self->_get_line_list;
+  my $new_line_list  = [];
+
+ LINE:
+  foreach my $old_line (@{ $old_line_list })
+    {
+      my $text = $old_line->get_content;
+
+      # process comment markers
+      if ( $text =~ /$syntax->{comment_marker}/ )
+	{
+	  $in_comment = $self->_toggle_boolean($in_comment);
+	  push @{ $new_line_list }, $old_line;
+	  next LINE;
+	}
+
+      # keep lines in comments as-is
+      elsif ( $in_comment )
+	{
+	  push @{ $new_line_list }, $old_line;
+	  next LINE;
+	}
+
+      # keep comment lines as-is
+      elsif ( $text =~ /$syntax->{comment_line}/ )
+	{
+	  push @{ $new_line_list }, $old_line;
+	  next LINE;
+	}
+
+      # resolve include line into replacement lines
+      elsif ( $text =~ /$syntax->{include_element}/ )
+	{
+	  my $repl_line_list = $self->_resolve_include_line($depth,$1,$2,$3,$4,$5);
+	  foreach my $repl_line (@{ $repl_line_list })
+	    {
+	      push @{ $new_line_list }, $repl_line;
+	    }
+	  next LINE;
+	}
+
+      # track current section depth
+      elsif ( $text =~ /$syntax->{start_section}/ )
+	{
+	  $depth = length($1);
+	  push @{ $new_line_list }, $old_line;
+	  next LINE;
+	}
+
+      # nothing special about this line
+      else
+	{
+	  push @{ $new_line_list }, $old_line;
+	  next LINE;
+	}
+    }
+
+  $self->_set_line_list($new_line_list);
+
+  return 1;
+}
 
 ######################################################################
 
@@ -2261,13 +2371,13 @@ sub _gather_data {
     {
       my $region = $self->_current_region;
       my $name   = $region->get_name;
-      $logger->logdie("FILE ENDED WHILE IN REGION $name");
+      $logger->error("FILE ENDED WHILE IN REGION \'$name\'");
     }
 
   if ( $self->_in_environment )
     {
       my $name = $self->_current_environment->get_name;
-      $logger->logdie("FILE ENDED WHILE IN ENVIRONMENT $name");
+      $logger->error("FILE ENDED WHILE IN ENVIRONMENT \'$name\'");
     }
 
   my $division = $self->_get_current_division;
@@ -7509,7 +7619,11 @@ sub _build_string_type_list {
      'theversion_ref',
      'therevision_ref',
      'thedate_ref',
+     'pagecount_ref',
+     'thesection_ref',
      'linebreak_symbol',
+     'pagebreak_symbol',
+     'clearpage_symbol',
 
      # substrings that represent special meaning
      'user_entered_text',
@@ -7549,7 +7663,11 @@ sub _build_single_string_type_list {
      'theversion_ref',
      'therevision_ref',
      'thedate_ref',
+     'pagecount_ref',
+     'thesection_ref',
      'linebreak_symbol',
+     'pagebreak_symbol',
+     'clearpage_symbol',
      'literal',
      'email_addr',
     ];
@@ -7815,6 +7933,214 @@ sub _is_single_string_type {
 
 ######################################################################
 
+sub _toggle_boolean {
+
+  my $self    = shift;
+  my $boolean = shift;
+
+  if ( $boolean )
+    {
+      return 0;
+    }
+
+  else
+    {
+      return 1;
+    }
+}
+
+######################################################################
+
+sub _resolve_include_line {
+
+  my $self  = shift;
+  my $depth = shift;                    # current section depth
+  my $one   = shift;                    # asterisks
+  my $two   = shift;                    # args
+  my $three = shift;                    # included id or filespec
+  my $four  = shift;                    # not used
+  my $five  = shift;                    # included filespec
+
+  my $library = $self->get_library;
+
+  my $asterisks         = $one || '';   # desired section depth
+  my $args              = $two || '';   # arguments
+  my $included_id       = '';           # ID of included division
+  my $included_filename = '';           # filename to include
+  my $repl_line_list    = [];           # replacement line list
+
+  # NOTE: The SML::Library object maintains a hash of divisions
+  # indexed by division ID.  Since fragments are divisions, they are
+  # registered in the library's division hash.  The fragment filename
+  # is the fragment ID.  So if the library knows about a fragment the
+  # following will return true:
+  #
+  #   my $result = $library->has_division($filename);
+
+  # determine included ID/filespec (i.e. sort out $three and $five)
+  if ( $three and $five )
+    {
+      $included_id       = $three;
+      $included_filename = $five;
+    }
+
+  elsif ( $three )
+    {
+      if ( $library->has_division($three) )
+	{
+	  $included_id = $three;
+	}
+
+      elsif ( $library->has_filespec($three) )
+	{
+	  $included_filename = $three;
+	}
+
+      else
+	{
+	  $logger->logcroak("CAN'T INCLUDE UNKNOWN DIVISION: $3");
+	}
+    }
+
+  else
+    {
+      $logger->logcroak("THIS SHOULD NEVER HAPPEN");
+    }
+
+  # get list of lines to include
+  my $line_list;
+
+  if ( $included_id )
+    {
+      my $division = $library->get_division($included_id);
+
+      $line_list = $division->get_line_list;
+    }
+
+  elsif ( $included_filename )
+    {
+      my $fragment = $self->create_fragment($included_filename);
+
+      $line_list = $fragment->get_line_list;
+    }
+
+  else
+    {
+      $logger->logcroak("THIS SHOULD NEVER HAPPEN");
+    }
+
+  # flatten (i.e. include::flat: my-division)
+  if ( $args =~ /flat:/ )
+    {
+      return $self->_flatten_line_list($line_list);
+    }
+
+  # hide (i.e. include::hide: my-division)
+  elsif ( $args =~ /hide:/ )
+    {
+      return $self->_hide_line_list($line_list);
+    }
+
+  # as section at specified depth (i.e. ** include:: my-division)
+  elsif ( $asterisks =~ /\*+/ or $args =~ /\*+/ )
+    {
+      my $depth = length($1);
+
+      return $self->_convert_to_section_line_list($line_list,$depth);
+    }
+
+  # raw (i.e. include::raw: my-division)
+  elsif ( $args =~ /raw:/ )
+    {
+      return $line_list;
+    }
+
+  # as section at current depth (i.e. include:: my-division)
+  else
+    {
+      return $self->_convert_to_section_line_list($line_list,$depth);
+    }
+}
+
+######################################################################
+
+sub _flatten_line_list {
+
+  my $self = shift;
+  my $oll  = shift;                     # old line list
+
+  my $nll = [];                         # new line list
+
+  foreach my $line (@{ $oll })
+    {
+      my $content = $line->get_content;
+      if ($content =~ /^(title::\s|\*+\s)/)
+	{
+	  $line = $self->_flatten($line);
+	}
+      push( @{ $nll }, $line );
+    }
+
+  return $nll;
+}
+
+######################################################################
+
+sub _hide_line_list {
+
+  my $self = shift;
+  my $oll  = shift;                     # old line list
+
+  my $nll = [];                         # new line list
+
+  my $begin_line = $self->_hide_tag;
+  my $end_line   = $self->_hide_tag;
+
+  push @{ $nll }, $begin_line;
+
+  foreach my $line (@{ $oll })
+    {
+      push @{ $nll }, $line;
+    }
+
+  push @{ $nll }, $end_line;
+
+  return $nll;
+}
+
+######################################################################
+
+sub _convert_to_section_line_list {
+
+  my $self  = shift;
+  my $oll   = shift;                    # old line list
+  my $depth = shift || 1;               # section depth
+
+  my $sml  = SML->instance;
+  my $util = $sml->get_util;
+  my $nll  = [];                        # new line list
+
+  my $title     = $self->extract_title_text($oll);
+  my $narrative = $self->extract_narrative_lines($oll);
+  my $asterisks = q{};
+
+  $asterisks .= '*' until length($asterisks) == $depth;
+
+  my $sechead = $self->_sechead_line($asterisks,$title);
+
+  push @{ $nll }, $sechead;
+  push @{ $nll }, $util->get_blank_line;
+
+  foreach my $line (@{ $narrative })
+    {
+      push @{ $nll }, $line;
+    }
+
+  return $nll;
+}
+
+######################################################################
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
@@ -7832,7 +8158,9 @@ This documentation refers to L<"SML::Parser"> version 2.0.0.
 
 =head1 SYNOPSIS
 
-  my $parser = SML::Parser->new();
+  my $parser = SML::Parser->new(library=>$library);
+
+  my $parser = $library->get_parser;
 
 =head1 DESCRIPTION
 
