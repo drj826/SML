@@ -356,6 +356,35 @@ has 'template_dir' =>
 ######################################################################
 ######################################################################
 
+sub has_filespec {
+
+  # Given a filename, determine if the file is in the library by
+  # looking in each include path.
+
+  my $self     = shift;
+  my $filename = shift;
+
+  my $include_path   = $self->get_include_path;
+  my $directory_path = $self->get_directory_path;
+
+  if ( -f "$directory_path/$filename" )
+    {
+      return 1;
+    }
+
+  foreach my $path ( @{$include_path} )
+    {
+      if ( -f "$directory_path/$path/$filename" )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
 sub get_filespec {
 
   # Given a filename, find the file in the library by looking in each
