@@ -1,0 +1,5 @@
+[%- IF self.get_content -%]
+[url:[% self.get_url %]|[% self.get_content %]]
+[%- ELSE -%]
+[url:[% self.get_url %]]
+[%- END -%]
