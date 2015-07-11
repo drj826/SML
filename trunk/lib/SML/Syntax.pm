@@ -723,8 +723,8 @@ has 'emdash_symbol' =>
    default => '([^\-])?--([^\-])?',
   );
 
-# $1 = prechar
-# $2 = postchar
+# $1 = preceding character
+# $2 = following character
 
 # !!! BUG HERE !!!
 #
