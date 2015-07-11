@@ -152,9 +152,9 @@ sub has_parts_ok {
 
 sub render_ok {
 
-  my $tc        = shift;
-  my $rendition = shift;
-  my $style     = shift;
+  my $tc        = shift;                # test case
+  my $rendition = shift;                # e.g. html
+  my $style     = shift;                # e.g. default
 
   # arrange
   my $tcname   = $tc->{name};

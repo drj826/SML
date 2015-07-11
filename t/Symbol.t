@@ -66,7 +66,8 @@ my @public_methods =
    'get_containing_document',
 
    # SML::Symbol public attribute accessor methods
-   # <none>
+   'get_preceding_character',
+   'get_following_character',
 
    # SML::Symbol public methods
    # <none>
