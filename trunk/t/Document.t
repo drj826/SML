@@ -76,8 +76,9 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{ $tcl })
   {
-    add_note_ok($tc)      if defined $tc->{expected}{add_note};
-    is_valid_ok($tc)      if defined $tc->{expected}{is_valid};
+    add_note_ok($tc)               if defined $tc->{expected}{add_note};
+    is_valid_ok($tc)               if defined $tc->{expected}{is_valid};
+    render_ok($tc,'sml','default') if defined $tc->{expected}{render}{sml}{default};
   }
 
 #---------------------------------------------------------------------
@@ -129,6 +130,40 @@ sub is_valid_ok {
 
   # assert
   is($result,$expected,"$tcname is_valid $result");
+}
+
+######################################################################
+
+sub render_ok {
+
+  my $tc        = shift;                # test case
+  my $rendition = shift;                # e.g. html
+  my $style     = shift;                # e.g. default
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $filename = $tc->{testfile};
+  my $docid    = $tc->{docid};
+  my $library  = $tc->{library};
+  my $expected = $tc->{expected}{render}{$rendition}{$style};
+  my $parser   = $library->get_parser;
+  my $fragment = $parser->create_fragment($filename);
+  my $document = $library->get_document($docid);
+
+  # act
+  my $result  = $document->render($rendition,$style);
+  my $summary = $result;
+  $summary = substr($result,0,20) . '...' if length($result) > 20;
+
+  print "STRUCTURE:\n\n";
+  print $document->dump_part_structure, "\n\n";
+
+  open my $fh, '>', 'library/testdata/expected/sml/default/result.txt';
+  print $fh $result;
+  close $fh;
+
+  # assert
+  is($result,$expected,"$tcname renders $rendition $style");
 }
 
 ######################################################################
