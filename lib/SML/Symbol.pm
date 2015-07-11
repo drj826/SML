@@ -30,6 +30,28 @@ has '+content' =>
   );
 
 ######################################################################
+
+has 'preceding_character' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   reader  => 'get_preceding_character',
+   default => '',
+  );
+
+# This is the single character immediately preceding
+
+######################################################################
+
+has 'following_character' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   reader  => 'get_following_character',
+   default => '',
+  );
+
+######################################################################
 ######################################################################
 ##
 ## Public Methods
