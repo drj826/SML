@@ -1,5 +1,4 @@
 >>>DOCUMENT
 
-[%- INCLUDE part_list.tt -%]
-
+[% INCLUDE part_list.tt -%]
 <<<DOCUMENT
