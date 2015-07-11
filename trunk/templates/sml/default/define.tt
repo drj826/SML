@@ -1,0 +1,2 @@
+define:: [% self.get_value %]
+
