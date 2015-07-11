@@ -349,6 +349,8 @@ sub render {
 
   $tt->process($input,$vars,\$text);
 
+  $text =~ s/\r\n?/\n/g;
+
   return $text;
 }
 
