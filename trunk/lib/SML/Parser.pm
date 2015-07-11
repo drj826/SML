@@ -127,7 +127,7 @@ has 'library' =>
 
 sub create_fragment {
 
-  # Create an SML fragment by parsing the content of a file. Add
+  # Create an SML fragment by parsing the contents of a file. Add
   # parsed documents and entities to the library. Return the fragment
   # object.
 
@@ -295,6 +295,28 @@ sub create_string {
 	  }
       }
 
+  elsif ( $string_type eq 'emdash_symbol' )
+    {
+      if ( $text =~ /$syntax->{$string_type}/ )
+	{
+	  my $args = {};
+
+	  $args->{name}                = $string_type;
+	  $args->{library}             = $self->get_library;
+	  $args->{containing_part}     = $part if $part;
+	  $args->{preceding_character} = $1;
+	  $args->{following_character} = $2;
+
+	  return SML::Symbol->new(%{$args});
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $string_type: $text");
+	  return 0;
+	}
+    }
+
   elsif
     (
      $string_type eq 'take_note_symbol'
@@ -326,8 +348,6 @@ sub create_string {
      $string_type eq 'close_sglquote_symbol'
      or
      $string_type eq 'section_symbol'
-     or
-     $string_type eq 'emdash_symbol'
      or
      $string_type eq 'thepage_ref'
      or
@@ -2242,14 +2262,19 @@ sub _gather_data {
 	  $self->_process_comment_division_marker($line);
 	}
 
-      elsif ( $text =~ /$syntax->{comment_line}/ )
-	{
-	  $self->_process_comment_line($line);
-	}
-
       elsif ( $self->_in_comment_division )
 	{
 	  $self->_process_comment_division_line($line);
+	}
+
+      elsif ( $text =~ /$syntax->{blank_line}/ )
+	{
+	  $self->_process_blank_line($line);
+	}
+
+      elsif ( $text =~ /$syntax->{comment_line}/ )
+	{
+	  $self->_process_comment_line($line);
 	}
 
       elsif ( $text =~ /$syntax->{start_conditional}/ )
@@ -2280,11 +2305,6 @@ sub _gather_data {
       elsif ( $text =~ /$syntax->{end_table_row}/ )
 	{
 	  $self->_process_end_table_row($line);
-	}
-
-      elsif ( $text =~ /$syntax->{blank_line}/ )
-	{
-	  $self->_process_blank_line($line);
 	}
 
       elsif ( $text =~ /$syntax->{id_element}/ )
@@ -5398,20 +5418,20 @@ sub _process_comment_division_marker {
 
   my $library = $self->get_library;
 
-  # new preformatted block
-  my $block = SML::PreformattedBlock->new(library=>$library);
-  $block->add_line($line);
-  $self->_begin_block($block);
-
   if ( not $self->_in_comment_division )
     {
+      # new preformatted block
+      # my $block = SML::PreformattedBlock->new(library=>$library);
+      # $block->add_line($line);
+      # $self->_begin_block($block);
+
       # new comment division
       my $name    = 'comment';
       my $num     = $self->_count_comment_divisions;
       my $id      = "$name-$num";
       my $comment = SML::CommentDivision->new(id=>$id,library=>$library);
 
-      $comment->add_part($block);
+      # $comment->add_part($block);
 
       $self->_begin_division($comment);
     }
@@ -5419,7 +5439,7 @@ sub _process_comment_division_marker {
   else
     {
       # end comment division
-      $self->_get_current_division->add_part( $block );
+      # $self->_get_current_division->add_part( $block );
       $self->_end_division;
     }
 
@@ -5473,6 +5493,8 @@ sub _process_comment_division_line {
       my $block = SML::PreformattedBlock->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
+
+      $self->_get_current_division->add_part( $block );
     }
 
   else
@@ -5496,19 +5518,19 @@ sub _process_conditional_division_marker {
 
   $logger->trace("----- conditional marker ($token)");
 
-  if ( $self->_in_conditional )
-    {
-      $blockname = 'END';
-    }
+  # if ( $self->_in_conditional )
+  #   {
+  #     $blockname = 'END';
+  #   }
 
-  else
-    {
-      $blockname = 'BEGIN';
-    }
+  # else
+  #   {
+  #     $blockname = 'BEGIN';
+  #   }
 
-  my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
-  $block->add_line($line);
-  $self->_begin_block($block);
+  # my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
+  # $block->add_line($line);
+  # $self->_begin_block($block);
 
   if ( $self->_in_conditional )
     {
@@ -5523,7 +5545,7 @@ sub _process_conditional_division_marker {
 	  $logger->logcroak("$msg");
 	}
 
-      $conditional->add_part($block);
+      # $conditional->add_part($block);
       $self->_end_division;
     }
 
@@ -5539,7 +5561,7 @@ sub _process_conditional_division_marker {
 	 library     => $library,
 	);
 
-      $conditional->add_part($block);
+      # $conditional->add_part($block);
 
       $self->_begin_division($conditional);
     }
@@ -5573,6 +5595,7 @@ sub _process_start_region_marker {
       $self->_end_baretable;
     }
 
+  # can't have a region inside an environment
   if ( $self->_in_environment )
     {
       my $environment = $self->_current_environment;
@@ -5580,10 +5603,10 @@ sub _process_start_region_marker {
       $logger->fatal("INVALID BEGIN REGION at $location: $name inside $envname");
     }
 
-  # new preformatted block
-  my $block = SML::PreformattedBlock->new(name=>'BEGIN',library=>$library);
-  $block->add_line($line);
-  $self->_begin_block($block);
+  # # new preformatted BEGIN block
+  # my $block = SML::PreformattedBlock->new(name=>'BEGIN',library=>$library);
+  # $block->add_line($line);
+  # $self->_begin_block($block);
 
   my $region = undef;
 
@@ -5596,7 +5619,7 @@ sub _process_start_region_marker {
 
       $region = $class->new(id=>$id,library=>$library);
 
-      $region->add_part($block);
+      # $region->add_part($block);
     }
 
   else
@@ -5613,7 +5636,7 @@ sub _process_start_region_marker {
 	 library => $library,
 	);
 
-      $region->add_part($block);
+      # $region->add_part($block);
     }
 
   $self->_begin_division($region);
@@ -5673,10 +5696,10 @@ sub _process_end_region_marker {
     }
 
   # new preformatted block
-  my $block = SML::PreformattedBlock->new(name=>'END',library=>$library);
-  $block->add_line($line);
-  $self->_begin_block($block);
-  $self->_get_current_division->add_part($block);
+  # my $block = SML::PreformattedBlock->new(name=>'END',library=>$library);
+  # $block->add_line($line);
+  # $self->_begin_block($block);
+  # $self->_get_current_division->add_part($block);
   $self->_end_division;
 
   return 1;
@@ -5719,29 +5742,29 @@ sub _process_environment_marker {
     }
 
 
-  if (
-      $self->_in_environment
-      and
-      $self->_current_environment->get_name eq $name
-     )
-    {
-      $blockname = 'END';
-    }
+  # if (
+  #     $self->_in_environment
+  #     and
+  #     $self->_current_environment->get_name eq $name
+  #    )
+  #   {
+  #     $blockname = 'END';
+  #   }
 
-  else
-    {
-      $blockname = 'BEGIN';
-    }
+  # else
+  #   {
+  #     $blockname = 'BEGIN';
+  #   }
 
-  my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
-  $block->add_line($line);
-  $self->_begin_block($block);
+  # my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
+  # $block->add_line($line);
+  # $self->_begin_block($block);
 
   my $division = $self->_get_current_division;
 
   if ( $self->_in_table )
     {
-      $division->add_part($block);
+      # $division->add_part($block);
       $self->_end_table;
     }
 
@@ -5757,14 +5780,14 @@ sub _process_environment_marker {
 	 library => $library,
 	);
 
-      $environment->add_part($block);
+      # $environment->add_part($block);
 
       $self->_begin_division($environment);
     }
 
   else
     {
-      $division->add_part($block);
+      # $division->add_part($block);
       $self->_end_division;
     }
 
@@ -5890,7 +5913,7 @@ sub _process_blank_line {
     {
       my $block = $self->_get_block;
 
-      $block->add_line($line);
+      # $block->add_line($line);
 
       if ( not $self->_get_block->isa('SML::PreformattedBlock') )
 	{
