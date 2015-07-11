@@ -3495,6 +3495,13 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       render =>
+       {
+	sml =>
+	{
+	 default => slurp('library/testdata/expected/sml/default/td-000001.txt'),
+	},
+       },
       },
      },
 
@@ -3506,6 +3513,13 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       render =>
+       {
+	sml =>
+	{
+	 default => slurp('library/testdata/expected/sml/default/td-000002.txt'),
+	},
+       },
       },
      },
 
@@ -7952,6 +7966,17 @@ sub _build_test_note_2 {
   $note->add_line($line);
 
   return $note;
+}
+
+######################################################################
+
+sub slurp {
+
+  my $filespec = shift;
+
+  my $content = read_file($filespec);
+
+  return $content;
 }
 
 ######################################################################
