@@ -45,13 +45,13 @@ sub infer_inverse_property {
   # An element is a single value of a potentially multi-valued
   # property.
   #
-  # Properties may have inverse (a.k.a. bi-directional) relationships
-  # declared in the ontology.
+  # This is possible because properties may have inverse
+  # (a.k.a. bi-directional) relationships declared in the ontology.
   #
-  # For instance imagine an entity 'problem-A' has a 'solution'
-  # property with value 'solution-A'.  This means that 'problem-A' is
-  # 'solved by' 'solution-A'. The inverse may be infered that entity
-  # 'solution-A' 'solves' the problem 'problem-A'.
+  # Imagine an entity 'problem-A' has a property named 'solution' with
+  # value 'solution-A'.  This means that 'problem-A' is 'solved by'
+  # 'solution-A'. The inverse may be infered that entity 'solution-A'
+  # 'solves' the problem 'problem-A'.
 
   my $self    = shift;
   my $element = shift;
@@ -194,16 +194,20 @@ __END__
 
 =head1 NAME
 
-C<SML::Reasoner> - a piece of software able to infer logical
-consequences from a set of asserted facts, rules or axioms.
+C<SML::Reasoner> - object able to infer logical consequences from a
+set of asserted facts, rules or axioms
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Reasoner"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
-  my $rsnr = SML::Reasoner->new();
+  my $reasoner = SML::Reasoner->new(library=>$library);
+
+  my $library  = $reasoner->get_libary;
+  my $property = $reasoner->infer_inverse_property($element);
+  my $boolean  = $reasoner->infer_status_from_outcomes;
 
 =head1 DESCRIPTION
 
