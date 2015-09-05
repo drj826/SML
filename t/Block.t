@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Block.t 259 2015-04-02 20:27:00Z drj826@gmail.com $
 
-use lib "..";
+use lib "../lib";
 use Test::More;
 use Test::Exception;
 
@@ -13,7 +13,6 @@ Log::Log4perl->init("log.test.conf");
 
 use Test::Log4perl;
 my $t1logger = Test::Log4perl->get_logger('sml.Block');
-my $t2logger = Test::Log4perl->get_logger('sml.Document');
 
 #---------------------------------------------------------------------
 # Test Data
@@ -44,6 +43,7 @@ $args->{name}    = 'PARAGRAPH';
 $args->{library} = $library;
 
 my $obj = SML::Block->new(%{$args});
+
 isa_ok( $obj, 'SML::Block' );
 
 #---------------------------------------------------------------------
@@ -55,12 +55,8 @@ my @public_methods =
    # SML::Block public attribute accessors
    'get_name_path',
    'get_line_list',
-   'set_line_list',
-   'clear_line_list',
-   'has_line_list',
    'get_containing_division',
    'set_containing_division',
-   'clear_containing_division',
    'has_containing_division',
    'has_valid_syntax',
    'has_valid_semantics',
@@ -103,6 +99,7 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{ $tcl })
   {
+    renders_ok($tc,'sml','default')   if defined $tc->{expected}{render}{sml}{default};
     renders_ok($tc,'html','default')  if defined $tc->{expected}{render}{html}{default};
     renders_ok($tc,'latex','default') if defined $tc->{expected}{render}{latex}{default};
     has_valid_syntax_ok($tc)          if defined $tc->{expected}{has_valid_syntax};

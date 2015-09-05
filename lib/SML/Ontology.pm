@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Ontology.pm 258 2015-04-02 13:56:17Z drj826@gmail.com $
 
 package SML::Ontology;
 
@@ -90,6 +90,11 @@ sub get_entity_allowed_property_list {
 
   my $self        = shift;
   my $entity_name = shift;
+
+  if ( not $entity_name )
+    {
+      $logger->logcluck("YOU MUST PROVIDE AN ENTITY NAME");
+    }
 
   my $href = $self->_get_properties_by_entity_name_hash->{$entity_name};
 
@@ -388,6 +393,16 @@ sub allows_property {
   my $self          = shift;
   my $entity_name   = shift;
   my $property_name = shift;
+
+  if ( not $entity_name )
+    {
+      $logger->logcluck("YOU MUST PROVIDE AN ENTITY NAME");
+    }
+
+  if ( not $property_name )
+    {
+      $logger->logcluck("YOU MUST PROVIDE A PROPERTY NAME");
+    }
 
   my $list = $self->get_entity_allowed_property_list($entity_name);
 

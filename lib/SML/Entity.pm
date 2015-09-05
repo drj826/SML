@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Entity.pm 200 2015-03-09 21:46:10Z drj826@gmail.com $
 
 package SML::Entity;
 
@@ -97,6 +97,8 @@ meaning.
 This documentation refers to L<"SML::Entity"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Region
 
   my $ent = SML::Entity->new();
 

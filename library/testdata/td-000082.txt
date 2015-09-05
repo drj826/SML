@@ -1,0 +1,77 @@
+>>>DOCUMENT
+
+######################################################################
+
+title:: Definition List Test
+
+id:: td-000082
+
+######################################################################
+
+This document contains definition lists to test the systems capability
+to parse and render definition lists.
+
+= TLA = Three Letter Acronym
+
+= [g:BRD] = [def:BRD]
+
+= [g:sml:business requirement] = [def:sml:business requirement]
+
+###
+
+glossary:: BRD = Business Requirements Document
+
+glossary:: business requirement {sml} = (SML) A requirement that
+describes what an organization or role must do for another
+organization or role.  Business requirements begin with the phrase,
+``The organization shall...'' [G:sml:system requirement]s are derived
+from business requirements and consist of [g:sml:functional
+requirement]s, [g:sml:non-functional requirement]s, and
+[g:sml:technical requirement]s
+
+glossary:: system requirement {sml} = (SML) A requirement that
+describes what a system must ~~do~~ or ~~be~~.  Vetting Operations
+engineering uses three types of system requirements: [g:sml:functional
+requirement]s, [g:sml:non-functional requirement]s, and
+[g:sml:technical requirement]s
+
+glossary:: functional requirement {sml} = (SML) A requirement that
+describes what a system or system component must do for a user.
+Functional requirements begin with the phrase, ``The system shall
+enable the user to...'' Functional requirements are typically derived
+from [g:sml:business requirement]s. Functional requirements are
+independent of system implementation. See also [g:sml:non-functional
+requirement] and [g:sml:system requirement]
+
+glossary:: non-functional requirement {sml} = (SML) A type of
+[g:sml:system requirement] that defines something a system must ~~be~~
+(i.e. be secure, be maintainable, be scalable, be usable, be
+available, etc.).  Non-functional requirements are often called
+`ilities' (security, maintainability, scalability, usability,
+availability, etc.).  Non-functional requirements begin with the
+phrase, ``The system shall be...'' Non-functional requirements are
+often derived from [g:sml:business requirement]s.See also
+[g:sml:functional requirement] and [g:sml:technical requirement]
+
+glossary:: technical requirement {sml} = (SML) A [g:sml:requirement]
+that describes something a system must ~~do~~ to support another
+system function.  Note the difference between a ~~technical
+requirement~~ and a ~~[g:sml:functional requirement]~~.  A ~~technical
+requirement~~ describes what the system must do for another system or
+[g:sml:system component].  A ~~functional requirement~~ describes what
+the system must do for a ~~user~~.  Technical requirements begin with
+the phrase, ``The system shall...''  Technical requirements may be
+implementation specific/dependent. See also DHS definition of
+[g:sml:system requirement].  Technical requirements are derived from
+[g:sml:functional requirement]s and [g:sml:non-functional
+requirement]s.
+
+glossary:: requirement {sml} = (SML) A statement of needed
+organizational or system capability.  Requirements for organizational
+capability are called [g:sml:business requirement]s.  Requirements for
+system capability are called [g:sml:system requirement]s
+
+glossary:: system component {sml} = (SML) Any discrete item that is
+part of a system or subsystem
+
+<<<DOCUMENT

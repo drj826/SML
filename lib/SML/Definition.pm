@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Definition.pm 235 2015-03-23 20:21:38Z drj826@gmail.com $
 
 package SML::Definition;
 
@@ -132,6 +132,8 @@ triple.
 This documentation refers to L<"SML::Definition"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Element
 
   my $def = SML::Definition->new();
 

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Document.pm 273 2015-05-11 12:05:04Z drj826@gmail.com $
 
 package SML::Document;
 
@@ -186,17 +186,6 @@ has 'references' =>
    reader   => 'get_references',
    lazy     => 1,
    builder  => '_build_references',
-  );
-
-######################################################################
-
-has 'source_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_source_hash',
-   writer    => '_set_source_hash',
-   clearer   => '_clear_source_hash',
-   predicate => '_has_source_hash',
   );
 
 ######################################################################
@@ -544,10 +533,10 @@ sub has_acronym {
 
 sub has_source {
 
-  my $self   = shift;
-  my $source = shift;
+  my $self = shift;
+  my $id   = shift;
 
-  if ( defined $self->get_source_hash->{$source} )
+  if ( defined $self->_get_source_hash->{$id} )
     {
       return 1;
     }
@@ -606,7 +595,7 @@ sub get_index_term {
 
 sub replace_division_id {
 
-  # This is a hack.  I should change the syntax of the division start
+  # THIS IS A HACK.  I should change the syntax of the division start
   # markup to include the ID so this isn't necessary.  That way the
   # document can remember the correct division ID at the start of the
   # division.
@@ -680,6 +669,17 @@ has 'baretable_data_hash' =>
    isa       => 'HashRef',
    reader    => '_get_baretable_data_hash',
    default   => sub {{}},
+  );
+
+######################################################################
+
+has 'source_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_source_hash',
+   writer    => '_set_source_hash',
+   clearer   => '_clear_source_hash',
+   predicate => '_has_source_hash',
   );
 
 ######################################################################
@@ -1026,15 +1026,41 @@ __END__
 
 =head1 NAME
 
-C<SML::Document> - a written work about a topic.
+C<SML::Document> - a written work about a topic
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Document"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
-  my $doc = SML::Document->new();
+  extends SML::Region
+
+  my $document = SML::Document->new
+                   (
+                     id      => $id,
+                     library => $library,
+                   );
+
+  my $glossary     = $document->get_glossary;
+  my $acronym_list = $document->get_acronym_list;
+  my $references   = $document->get_references;
+  my $string       = $document->get_author;
+  my $string       = $document->get_date;
+  my $string       = $document->get_revision;
+  my $boolean      = $document->is_valid;
+
+  my $boolean      = $document->add_note($note);
+  my $boolean      = $document->add_index_term($term,$division_id);
+  my $boolean      = $document->has_note($division_id,$tag);
+  my $boolean      = $document->has_index_term($term);
+  my $boolean      = $document->has_glossary_term($term,$alt);
+  my $boolean      = $document->has_acronym($term,$alt);
+  my $boolean      = $document->has_source($id);
+  my $definition   = $document->get_acronym_definition($acronym,$alt);
+  my $note         = $document->get_note($division_id,$tag);
+  my $term         = $document->get_index_term($term);
+  my $boolean      = $document->replace_division_id($division,$id);
 
 =head1 DESCRIPTION
 
@@ -1044,45 +1070,41 @@ block followed by a narrative block.
 
 =head1 METHODS
 
-=head2 get_type
-
-=head2 get_name
-
-=head2 get_lookup_hash
-
-=head2 get_region_list
-
-=head2 get_environment_list
-
-=head2 get_section_list
-
-=head2 get_outcome_hash
-
-=head2 get_review_hash
-
-=head2 get_define_hash
-
 =head2 get_glossary
 
 =head2 get_acronym_list
 
 =head2 get_references
 
-=head2 get_source_hash
+=head2 get_author
 
-=head2 get_previous_hash
+=head2 get_date
 
-=head2 get_index_hash
+=head2 get_revision
 
-=head2 get_table_data_hash
+=head2 is_valid
 
-=head2 get_baretable_data_hash
+=head2 add_note($note)
 
-=head2 get_html_glossary_filename
+=head2 add_index_term($term,$division_id)
 
-=head2 get_html_acronyms_filename
+=head2 has_note($division_id,$tag)
 
-=head2 get_html_sources_filename
+=head2 has_index_term($term)
+
+=head2 has_glossary_term($term,$alt)
+
+=head2 has_acronym($term,$alt)
+
+=head2 has_source($id)
+
+=head2 get_acronym_definition($acronym,$alt)
+
+=head2 get_note($division_id,$tag)
+
+=head2 get_index_term($term)
+
+=head2 replace_division_id($division,$id)
 
 =head1 AUTHOR
 

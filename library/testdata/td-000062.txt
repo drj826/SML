@@ -6,7 +6,7 @@ SOURCES (BIBLIOGRAPHY)
 
 ---SOURCE
 
-source:: misc
+source_type:: misc
 
 label:: cmmi
 
@@ -24,7 +24,7 @@ note:: CMU/SEI-2006-TR-008, ESC-TR-2006-008
 
 ---SOURCE
 
-source:: misc
+source_type:: misc
 
 label:: cmmi-levels
 
@@ -40,7 +40,7 @@ year:: 2006
 
 ---SOURCE
 
-source:: misc
+source_type:: misc
 
 label:: cmmi-pa
 

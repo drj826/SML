@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Demo.pm 230 2015-03-21 17:50:52Z drj826@gmail.com $
 
 package SML::Demo;
 
@@ -47,6 +47,8 @@ instructor might give during a classroom presentation.
 This documentation refers to L<"SML::Demo"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Region
 
   my $demo = SML::Demo->new();
 

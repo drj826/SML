@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: BulletListItem.pm 230 2015-03-21 17:50:52Z drj826@gmail.com $
 
 package SML::BulletListItem;
 
@@ -80,6 +80,8 @@ C<SML::BulletListItem> - an item in a bullet list.
 This documentation refers to L<"SML::BulletListItem"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::ListItem
 
   my $bli = SML::BulletListItem->new();
 

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: References.pm 77 2015-01-31 17:48:03Z drj826@gmail.com $
 
 package SML::References;
 

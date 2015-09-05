@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Quotation.pm 230 2015-03-21 17:50:52Z drj826@gmail.com $
 
 package SML::Quotation;
 
@@ -46,6 +46,8 @@ C<SML::Quotation> - a region that represents a quotation.
 This documentation refers to L<"SML::Quotation"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Region
 
   my $quo = SML::Quotation->new();
 

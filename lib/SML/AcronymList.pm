@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: AcronymList.pm 183 2015-03-08 12:54:06Z drj826@gmail.com $
 
 package SML::AcronymList;
 
@@ -154,19 +154,16 @@ field, or area of usage, with accompanying definitions.
 
 =head1 VERSION
 
-This documentation refers to L<"SML::AcronymList"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
-  my $acl = SML::AcronymList->new();
+  my $acronym_list = SML::AcronymList->new();
 
-  $acl->add_acronym($definition);
-
-  if ( $acl->has_acronym($acronym,$alternative) ) {
-    my $acronym = $acl->get_acronym($acronym,$alternative);
-  }
-
-  my $alphabetized_acronym_list = $acl->get_acronym_list;
+  my $boolean = $acronym_list->add_acronym($definition);
+  my $boolean = $acronym_list->has_acronym($acronym,$alt);
+  my $acronym = $acronym_list->get_acronym($acronym,$alt);
+  my $list    = $acronym_list->get_acronym_list;  # alphabetized
 
 =head1 DESCRIPTION
 
@@ -176,7 +173,7 @@ list may contain multiple alternative definitions of the same acronym.
 
 =head1 METHODS
 
-=head2 add_acronym
+=head2 add_acronym($definition)
 
 Add an acronym definition (must be an object of type
 L<"SML::Definition">).

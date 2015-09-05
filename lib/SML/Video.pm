@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Video.pm 230 2015-03-21 17:50:52Z drj826@gmail.com $
 
 package SML::Video;
 
@@ -47,6 +47,8 @@ application to insert a video clip into the document.
 This documentation refers to L<"SML::Video"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Environment
 
   my $vid = SML::Video->new();
 

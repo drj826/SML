@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: BulletListItem.t 259 2015-04-02 20:27:00Z drj826@gmail.com $
 
-use lib "..";
+use lib "../lib";
 use Test::More tests => 5;
 
 use SML;
@@ -61,12 +61,8 @@ my @public_methods =
    # SML::Block public attribute accessors (inherited)
    'get_name_path',
    'get_line_list',
-   'set_line_list',
-   'clear_line_list',
-   'has_line_list',
    'get_containing_division',
    'set_containing_division',
-   'clear_containing_division',
    'has_containing_division',
    'has_valid_syntax',
    'has_valid_semantics',

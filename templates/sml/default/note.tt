@@ -1,0 +1,6 @@
+[%- IF self.get_tag -%]
+note::[% self.get_tag %]: [% self.get_value %]
+[%- ELSE -%]
+note:: [% self.get_value %]
+
+[%- END %]

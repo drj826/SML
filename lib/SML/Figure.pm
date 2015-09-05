@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Figure.pm 230 2015-03-21 17:50:52Z drj826@gmail.com $
 
 package SML::Figure;
 
@@ -48,7 +48,9 @@ This documentation refers to L<"SML::Figure"> version 2.0.0.
 
 =head1 SYNOPSIS
 
-  my $fig = SML::Figure->new();
+  extends SML::Environment
+
+  my $figure = SML::Figure->new();
 
 =head1 DESCRIPTION
 

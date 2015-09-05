@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: TestData.pm 279 2015-07-11 12:51:39Z drj826@gmail.com $
 
 package SML::TestData;
 
@@ -9,6 +9,8 @@ use Moose;
 use version; our $VERSION = qv('2.0.0');
 
 use namespace::autoclean;
+
+use Cwd;
 
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
@@ -3488,24 +3490,27 @@ sub _build_document_test_case_list {
   return
     [
      {
+      # Simple Document With One Paragraph
       name     => 'td-000001',
       testfile => 'td-000001.txt',
       docid    => 'td-000001',
       library  => $self->get_test_library_1,
       expected =>
       {
+       get_glossary => 'SML::Glossary',
        is_valid => 1,
        render =>
        {
 	sml =>
 	{
-	 default => slurp('library/testdata/expected/sml/default/td-000001.txt'),
+	 default => slurp('expected/sml/default/td-000001.txt'),
 	},
        },
       },
      },
 
      {
+      # Comment Division
       name     => 'td-000002',
       testfile => 'td-000002.txt',
       docid    => 'td-000002',
@@ -3517,13 +3522,14 @@ sub _build_document_test_case_list {
        {
 	sml =>
 	{
-	 default => slurp('library/testdata/expected/sml/default/td-000002.txt'),
+	 default => slurp('expected/sml/default/td-000002.txt'),
 	},
        },
       },
      },
 
      {
+      # Comment Line
       name     => 'td-000003',
       testfile => 'td-000003.txt',
       docid    => 'td-000003',
@@ -3531,10 +3537,18 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       render =>
+       {
+	sml =>
+	{
+	 default => slurp('expected/sml/default/td-000003.txt'),
+	},
+       },
       },
      },
 
      {
+      # Conditional Divisions
       name     => 'td-000004',
       testfile => 'td-000004.txt',
       docid    => 'td-000004',
@@ -3542,10 +3556,18 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       render =>
+       {
+	sml =>
+	{
+	 default => slurp('expected/sml/default/td-000004.txt'),
+	},
+       },
       },
      },
 
      {
+      # Problem Region
       name     => 'td-000005',
       testfile => 'td-000005.txt',
       docid    => 'td-000005',
@@ -3553,10 +3575,18 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       render =>
+       {
+	sml =>
+	{
+	 default => slurp('expected/sml/default/td-000005.txt'),
+	},
+       },
       },
      },
 
      {
+      # Listing Environment
       name     => 'td-000006',
       testfile => 'td-000006.txt',
       docid    => 'td-000006',
@@ -3564,10 +3594,18 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       render =>
+       {
+	sml =>
+	{
+	 default => slurp('expected/sml/default/td-000006.txt'),
+	},
+       },
       },
      },
 
      {
+      # Lists
       name     => 'td-000007',
       testfile => 'td-000007.txt',
       docid    => 'td-000007',
@@ -3575,10 +3613,18 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       render =>
+       {
+	sml =>
+	{
+	 default => slurp('expected/sml/default/td-000007.txt'),
+	},
+       },
       },
      },
 
      {
+      # Generate Content
       name     => 'td-000008',
       testfile => 'td-000008.txt',
       docid    => 'td-000008',
@@ -3590,6 +3636,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Insert Content
       name     => 'td-000009',
       testfile => 'td-000009.txt',
       docid    => 'td-000009',
@@ -3601,6 +3648,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Script Content
       name     => 'td-000010',
       testfile => 'td-000010.txt',
       docid    => 'td-000010',
@@ -3612,6 +3660,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Image Element
       name     => 'td-000011',
       testfile => 'td-000011.txt',
       docid    => 'td-000011',
@@ -3623,6 +3672,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Footnote Element
       name     => 'td-000012',
       testfile => 'td-000012.txt',
       docid    => 'td-000012',
@@ -3630,10 +3680,18 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       render =>
+       {
+	sml =>
+	{
+	 default => slurp('expected/sml/default/td-000012.txt'),
+	},
+       },
       },
      },
 
      {
+      # Glossary Element
       name     => 'td-000013',
       testfile => 'td-000013.txt',
       docid    => 'td-000013',
@@ -3645,6 +3703,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Var Element
       name     => 'td-000014',
       testfile => 'td-000014.txt',
       docid    => 'td-000014',
@@ -3656,6 +3715,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Acronym Element
       name     => 'td-000015',
       testfile => 'td-000015.txt',
       docid    => 'td-000015',
@@ -3667,6 +3727,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Index Element
       name     => 'td-000016',
       testfile => 'td-000016.txt',
       docid    => 'td-000016',
@@ -3678,6 +3739,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Very Long Multi-Line Title
       name     => 'td-000017',
       testfile => 'td-000017.txt',
       docid    => 'td-000017',
@@ -3689,6 +3751,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Include File As A Section (Asterisk Argument Method)
       name     => 'td-000018',
       testfile => 'td-000018.txt',
       docid    => 'td-000018',
@@ -3700,6 +3763,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Include File As A Section (Leading Asterisk Method)
       name     => 'td-000019',
       testfile => 'td-000019.txt',
       docid    => 'td-000019',
@@ -3711,6 +3775,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Section Structure With Regions
       name     => 'td-000020',
       testfile => 'td-000020.txt',
       docid    => 'td-000020',
@@ -3722,6 +3787,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Include Raw Content
       name     => 'td-000021',
       testfile => 'td-000021.txt',
       docid    => 'td-000021',
@@ -3733,6 +3799,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Include A Problem Region
       name     => 'td-000023',
       testfile => 'td-000023.txt',
       docid    => 'td-000023',
@@ -3744,6 +3811,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Substitute Variables
       name     => 'td-000025',
       testfile => 'td-000025.txt',
       docid    => 'td-000025',
@@ -3755,6 +3823,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Valid Glossary Term Reference
       name     => 'td-000026',
       testfile => 'td-000026.txt',
       docid    => 'td-000026',
@@ -3766,6 +3835,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID Glossary Term Reference
       name     => 'td-000027',
       testfile => 'td-000027.txt',
       docid    => 'td-000027',
@@ -3785,6 +3855,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Valid Source Citation
       name     => 'td-000028',
       testfile => 'td-000028.txt',
       docid    => 'td-000028',
@@ -3796,6 +3867,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID SOURCE CITATION, NOT A SOURCE DIVISION
       name     => 'td-000029',
       testfile => 'td-000029.txt',
       docid    => 'td-000029',
@@ -3815,6 +3887,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID BEGIN REGION (DEMO inside LISTING)
       name     => 'td-000030',
       testfile => 'td-000030.txt',
       docid    => 'td-000030',
@@ -3833,6 +3906,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # UNDEFINED REGION
       name     => 'td-000031',
       testfile => 'td-000031.txt',
       docid    => 'td-000031',
@@ -3850,6 +3924,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Valid Cross Reference
       name     => 'td-000032',
       testfile => 'td-000032.txt',
       docid    => 'td-000032',
@@ -3861,6 +3936,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID CROSS REFERENCE
       name     => 'td-000033',
       testfile => 'td-000033.txt',
       docid    => 'td-000033',
@@ -3880,6 +3956,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Valid ID Reference
       name     => 'td-000034',
       testfile => 'td-000034.txt',
       docid    => 'td-000034',
@@ -3891,6 +3968,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID ID REFERENCE
       name     => 'td-000035',
       testfile => 'td-000035.txt',
       docid    => 'td-000035',
@@ -3910,6 +3988,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Valid Page Reference
       name     => 'td-000036',
       testfile => 'td-000036.txt',
       docid    => 'td-000036',
@@ -3921,6 +4000,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID PAGE REFERENCE
       name     => 'td-000037',
       testfile => 'td-000037.txt',
       docid    => 'td-000037',
@@ -3940,6 +4020,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Valid Bold Markup
       name     => 'td-000038',
       testfile => 'td-000038.txt',
       docid    => 'td-000038',
@@ -3951,6 +4032,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID BOLD MARKUP
       name     => 'td-000039',
       testfile => 'td-000039.txt',
       docid    => 'td-000039',
@@ -3970,6 +4052,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Valid Italics Markup
       name     => 'td-000040',
       testfile => 'td-000040.txt',
       docid    => 'td-000040',
@@ -3981,6 +4064,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID ITALICS MARKUP
       name     => 'td-000041',
       testfile => 'td-000041.txt',
       docid    => 'td-000041',
@@ -4000,6 +4084,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Valid Fixed-Width Markup
       name     => 'td-000042',
       testfile => 'td-000042.txt',
       docid    => 'td-000042',
@@ -4011,6 +4096,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID FIXED-WIDTH MARKUP
       name     => 'td-000043',
       testfile => 'td-000043.txt',
       docid    => 'td-000043',
@@ -4030,6 +4116,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Valid Underline Markup
       name     => 'td-000044',
       testfile => 'td-000044.txt',
       docid    => 'td-000044',
@@ -4041,6 +4128,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID UNDERLINE MARKUP
       name     => 'td-000045',
       testfile => 'td-000045.txt',
       docid    => 'td-000045',
@@ -4060,6 +4148,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Valid Superscript Markup
       name     => 'td-000046',
       testfile => 'td-000046.txt',
       docid    => 'td-000046',
@@ -4071,6 +4160,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID SUPERSCRIPT MARKUP
       name     => 'td-000047',
       testfile => 'td-000047.txt',
       docid    => 'td-000047',
@@ -4090,6 +4180,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Valid Subscript Markup
       name     => 'td-000048',
       testfile => 'td-000048.txt',
       docid    => 'td-000048',
@@ -4101,6 +4192,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID SUBSCRIPT MARKUP
       name     => 'td-000049',
       testfile => 'td-000049.txt',
       docid    => 'td-000049',
@@ -4120,6 +4212,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID GLOSSARY TERM SYNTAX
       name     => 'td-000050',
       testfile => 'td-000050.txt',
       docid    => 'td-000050',
@@ -4139,6 +4232,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # DEFINITION NOT IN GLOSSARY
       name     => 'td-000051',
       testfile => 'td-000051.txt',
       docid    => 'td-000051',
@@ -4158,6 +4252,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID GLOSSARY DEFINITION REF SYNTAX
       name     => 'td-000052',
       testfile => 'td-000052.txt',
       docid    => 'td-000052',
@@ -4177,6 +4272,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # ACRONYM NOT IN ACRONYM LIST
       name     => 'td-000053',
       testfile => 'td-000053.txt',
       docid    => 'td-000053',
@@ -4196,6 +4292,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID ACRONYM REFERENCE SYNTAX
       name     => 'td-000054',
       testfile => 'td-000054.txt',
       docid    => 'td-000054',
@@ -4215,6 +4312,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID SOURCE CITATION
       name     => 'td-000055',
       testfile => 'td-000055.txt',
       docid    => 'td-000055',
@@ -4234,6 +4332,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID SOURCE CITATION SYNTAX
       name     => 'td-000056',
       testfile => 'td-000056.txt',
       docid    => 'td-000056',
@@ -4253,6 +4352,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID CROSS REFERENCE SYNTAX
       name     => 'td-000057',
       testfile => 'td-000057.txt',
       docid    => 'td-000057',
@@ -4272,6 +4372,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID ID REFERENCE SYNTAX
       name     => 'td-000058',
       testfile => 'td-000058.txt',
       docid    => 'td-000058',
@@ -4291,6 +4392,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID PAGE REFERENCE SYNTAX
       name     => 'td-000059',
       testfile => 'td-000059.txt',
       docid    => 'td-000059',
@@ -4310,6 +4412,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Resolve Template
       name     => 'td-000060',
       testfile => 'td-000060.txt',
       docid    => 'td-000060',
@@ -4321,6 +4424,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Include File Default Method
       name     => 'td-000061',
       testfile => 'td-000061.txt',
       docid    => 'td-000061',
@@ -4328,10 +4432,18 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       render =>
+       {
+	sml =>
+	{
+	 default => slurp('expected/sml/default/td-000061.txt'),
+	},
+       },
       },
      },
 
      {
+      # INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY
       name     => 'td-000063',
       testfile => 'td-000063.txt',
       docid    => 'td-000063',
@@ -4351,6 +4463,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # MISSING REQUIRED PROPERTY
       name     => 'td-000064',
       testfile => 'td-000064.txt',
       docid    => 'td-000064',
@@ -4370,6 +4483,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Valid File Element
       name     => 'td-000065',
       testfile => 'td-000065.txt',
       docid    => 'td-000065',
@@ -4381,6 +4495,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # FILE NOT FOUND
       name     => 'td-000066',
       testfile => 'td-000066.txt',
       docid    => 'td-000066',
@@ -4401,6 +4516,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Valid Image File Element
       name     => 'td-000067',
       testfile => 'td-000067.txt',
       docid    => 'td-000067',
@@ -4412,6 +4528,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # FILE NOT FOUND
       name     => 'td-000068',
       testfile => 'td-000068.txt',
       docid    => 'td-000068',
@@ -4431,6 +4548,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Block Content
       name     => 'td-000069',
       testfile => 'td-000069.txt',
       docid    => 'td-000069',
@@ -4442,6 +4560,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID NON-UNIQUE ID
       name     => 'td-000070',
       testfile => 'td-000070.txt',
       docid    => 'td-000070',
@@ -4461,6 +4580,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Baretable
       name     => 'td-000071',
       testfile => 'td-000071.txt',
       docid    => 'td-000071',
@@ -4472,6 +4592,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Block Unit Test Data
       name     => 'td-000072',
       testfile => 'td-000072.txt',
       docid    => 'td-000072',
@@ -4483,6 +4604,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Include From Different Directory
       name     => 'td-000073',
       testfile => 'td-000073.txt',
       docid    => 'td-000073',
@@ -4494,6 +4616,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Glossary Term Reference Containing Newline
       name     => 'td-000077',
       testfile => 'td-000077.txt',
       docid    => 'td-000077',
@@ -4505,6 +4628,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Title Containing[linebreak]A Line Break
       name     => 'td-000078',
       testfile => 'td-000078.txt',
       docid    => 'td-000078',
@@ -4516,6 +4640,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID PROPERTY CARDINALITY
       name     => 'td-000079',
       testfile => 'td-000079.txt',
       docid    => 'td-000079',
@@ -4535,6 +4660,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID PROPERTY VALUE
       name     => 'td-000080',
       testfile => 'td-000080.txt',
       docid    => 'td-000080',
@@ -4554,6 +4680,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # INVALID COMPOSITION
       name     => 'td-000081',
       testfile => 'td-000081.txt',
       docid    => 'td-000081',
@@ -4573,6 +4700,7 @@ sub _build_document_test_case_list {
      },
 
      {
+      # Definition List Test
       name     => 'td-000082',
       testfile => 'td-000082.txt',
       docid    => 'td-000082',
@@ -4887,7 +5015,7 @@ sub _build_ontology_test_case_list {
 	'ASSERTION',
 	'ATTACHMENT',
 	'AUDIO',
-	'BARETABLE',
+	'BARE_TABLE',
 	'EPIGRAPH',
 	'FIGURE',
 	'FOOTER',
@@ -6029,7 +6157,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'plain_string_1',
-      text => 'This is a plain string.',
+      text => q{This is a plain string.},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6056,7 +6184,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'bold_string_1',
-      text => '!!this is bold!!',
+      text => q{!!this is bold!!},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6083,7 +6211,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'italics_string_1',
-      text => '~~this is italics~~',
+      text => q{~~this is italics~~},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6110,7 +6238,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'fixedwidth_string_1',
-      text => '||this is fixed width||',
+      text => q{||this is fixed width||},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6137,7 +6265,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'underline_string_1',
-      text => '__this is underlined__',
+      text => q{__this is underlined__},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6164,7 +6292,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'superscript_string_1',
-      text => '^^this is superscripted^^',
+      text => q{^^this is superscripted^^},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6191,7 +6319,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'subscript_string_1',
-      text => ',,this is subscripted,,',
+      text => q{,,this is subscripted,,},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6218,7 +6346,7 @@ sub _build_string_test_case_list {
 
      {
       name     => 'keystroke_symbol_1',
-      text     => '[[Enter]]',
+      text     => q{[[Enter]]},
       library  => $self->get_test_library_1,
       expected =>
       {
@@ -6249,7 +6377,7 @@ sub _build_string_test_case_list {
 
      {
       name     => 'keystroke_symbol_2',
-      text     => '[[Ctrl]]-[[Alt]]-[[Del]]',
+      text     => q{[[Ctrl]]-[[Alt]]-[[Del]]},
       library  => $self->get_test_library_1,
       expected =>
       {
@@ -6280,7 +6408,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'user_entered_text_1',
-      text => '[enter:bogus]',
+      text => q{[enter:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6307,7 +6435,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'user_entered_text_2',
-      text => '[en:bogus]',
+      text => q{[en:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6334,7 +6462,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'bold_inside_italics_1',
-      text => '~~this is !!bold!! inside italics~~',
+      text => q{~~this is !!bold!! inside italics~~},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6361,7 +6489,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'italics_inside_bold_1',
-      text => '!!this is ~~italics~~ inside bold!!',
+      text => q{!!this is ~~italics~~ inside bold!!},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6388,7 +6516,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'string_with_italics_and_bold_1',
-      text => 'this string has ~~italics~~ and !!bold!!',
+      text => q{this string has ~~italics~~ and !!bold!!},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6413,13 +6541,40 @@ sub _build_string_test_case_list {
       },
      },
 
+     {
+      name => 'sglquote_string_1',
+      text => q{`this is a single quoted string'},
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'sglquote_string',
+       get_content => q{this is a single quoted string},
+       has_parts => 1,
+       render =>
+       {
+	sml =>
+	{
+	 default => q{`this is a single quoted string'},
+	},
+	html =>
+	{
+	 default => q{&#8216;this is a single quoted string&#8217;},
+	},
+	latex =>
+	{
+	 default => q{`this is a single quoted string'},
+	},
+       },
+      },
+     },
+
      #-----------------------------------------------------------------
      # EXTERNAL REFERENCE STRINGS (not validated)
      #-----------------------------------------------------------------
 
      {
       name => 'file_reference_1',
-      text => '[file:bogus.txt]',
+      text => q{[file:bogus.txt]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6446,7 +6601,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'path_reference_1',
-      text => '[path:path/to/bogus]',
+      text => q{[path:path/to/bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6473,7 +6628,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'url_reference_1',
-      text => '[url:http://www.google.com/]',
+      text => q{[url:http://www.google.com/]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6500,7 +6655,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'url_reference_2',
-      text => '[url:http://www.google.com/|google]',
+      text => q{[url:http://www.google.com/|google]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6527,7 +6682,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'command_reference_1',
-      text => '[cmd:ls -al | grep bogus]',
+      text => q{[cmd:ls -al | grep bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6554,7 +6709,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'email_address_1',
-      text => '[email:help@example.com]',
+      text => q{[email:help@example.com]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6581,7 +6736,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'email_address_2',
-      text => '[email:john.smith@example.com|John Smith]',
+      text => q{[email:john.smith@example.com|John Smith]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6612,7 +6767,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'cross_reference_1',
-      text => '[r:bogus]',
+      text => q{[r:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6631,7 +6786,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'cross_reference_2',
-      text => '[ref:bogus]',
+      text => q{[ref:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6650,7 +6805,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'id_reference_1',
-      text => '[id:bogus]',
+      text => q{[id:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6669,7 +6824,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'page_reference_1',
-      text => '[page:bogus]',
+      text => q{[page:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6688,7 +6843,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'page_reference_2',
-      text => '[pg:bogus]',
+      text => q{[pg:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6707,7 +6862,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'footnote_reference_1',
-      text => '[f:introduction:1]',
+      text => q{[f:introduction:1]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6726,7 +6881,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'index_reference_1',
-      text => '[index:bogus]',
+      text => q{[index:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6745,7 +6900,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'index_reference_2',
-      text => '[i:bogus]',
+      text => q{[i:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6764,7 +6919,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'variable_reference_1',
-      text => '[var:bogus]',
+      text => q{[var:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6783,7 +6938,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'glossary_term_reference_1',
-      text => '[g:bogus]',
+      text => q{[g:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6802,7 +6957,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'glossary_term_reference_2',
-      text => '[G:bogus]',
+      text => q{[G:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6821,7 +6976,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'glossary_term_reference_3',
-      text => '[gls:bogus]',
+      text => q{[gls:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6840,7 +6995,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'glossary_term_reference_4',
-      text => '[Gls:bogus]',
+      text => q{[Gls:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6859,7 +7014,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'glossary_definition_reference_1',
-      text => '[def:bogus]',
+      text => q{[def:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6878,7 +7033,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'acronym_term_reference_1',
-      text => '[a:bogus]',
+      text => q{[a:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6897,7 +7052,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'acronym_term_reference_2',
-      text => '[ac:bogus]',
+      text => q{[ac:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6916,7 +7071,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'acronym_term_reference_3',
-      text => '[acs:bogus]',
+      text => q{[acs:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6935,7 +7090,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'acronym_term_reference_4',
-      text => '[acl:bogus]',
+      text => q{[acl:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6954,7 +7109,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'theversion_symbol_1',
-      text => '[theversion]',
+      text => q{[theversion]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6973,7 +7128,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'therevision_symbol_1',
-      text => '[therevision]',
+      text => q{[therevision]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -6992,7 +7147,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'status_reference_1',
-      text => '[status:bogus]',
+      text => q{[status:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -7011,7 +7166,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'citation_reference_1',
-      text => '[cite:bogus]',
+      text => q{[cite:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -7030,7 +7185,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'citation_reference_2',
-      text => '[c:bogus]',
+      text => q{[c:bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -7053,7 +7208,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'thepage_replacement_string_1',
-      text => '[thepage]',
+      text => q{[thepage]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -7080,7 +7235,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'thedate_replacement_string_1',
-      text => '[thedate]',
+      text => q{[thedate]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -7107,7 +7262,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'pagecount_replacement_string_1',
-      text => '[pagecount]',
+      text => q{[pagecount]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -7134,7 +7289,7 @@ sub _build_string_test_case_list {
 
      {
       name => 'thesection_replacement_string_1',
-      text => '[thesection]',
+      text => q{[thesection]},
       library => $self->get_test_library_1,
       expected =>
       {
@@ -7154,6 +7309,37 @@ sub _build_string_test_case_list {
 	latex =>
 	{
 	 default => '\thesection',
+	},
+       },
+      },
+     },
+
+     #-----------------------------------------------------------------
+     # COMPLEX STRINGS
+     #-----------------------------------------------------------------
+
+     {
+      name => 'complex_string_1',
+      text => q{Prefix `single' and ``double.''},
+      library => $self->get_test_library_1,
+      expected =>
+      {
+       get_name => 'string',
+       get_content => q{Prefix `single' and ``double.''},
+       has_parts => 4,
+       render =>
+       {
+	sml =>
+	{
+	 default => q{Prefix `single' and ``double.''},
+	},
+	html =>
+	{
+	 default => q{Prefix &#8216;single&#8217; and &#8220;double.&#8221;},
+	},
+	latex =>
+	{
+	 default => q{Prefix `single' and ``double.''},
 	},
        },
       },
@@ -7522,117 +7708,117 @@ sub _build_symbol_test_case_list {
       },
      },
 
-     {
-      name     => 'open_dblquote_symbol_1',
-      text     => '``',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	sml =>
-	{
-	 default => '``',
-	},
-	html =>
-	{
-	 default => "&#8220;",
-	},
-	latex =>
-	{
-	 default => "\`\`",
-	},
-	xml =>
-	{
-	 default => "&#8220;",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'open_dblquote_symbol_1',
+     #  text     => '``',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	sml =>
+     # 	{
+     # 	 default => '``',
+     # 	},
+     # 	html =>
+     # 	{
+     # 	 default => "&#8220;",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\`\`",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&#8220;",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'close_dblquote_symbol_1',
-      text     => '\'\'',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	sml =>
-	{
-	 default => '\'\'',
-	},
-	html =>
-	{
-	 default => "&#8221;",
-	},
-	latex =>
-	{
-	 default => "\'\'",
-	},
-	xml =>
-	{
-	 default => "&#8221;",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'close_dblquote_symbol_1',
+     #  text     => '\'\'',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	sml =>
+     # 	{
+     # 	 default => '\'\'',
+     # 	},
+     # 	html =>
+     # 	{
+     # 	 default => "&#8221;",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\'\'",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&#8221;",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'open_sglquote_symbol_1',
-      text     => '`',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	sml =>
-	{
-	 default => '`',
-	},
-	html =>
-	{
-	 default => "&#8216;",
-	},
-	latex =>
-	{
-	 default => "\`",
-	},
-	xml =>
-	{
-	 default => "&#8216;",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'open_sglquote_symbol_1',
+     #  text     => '`',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	sml =>
+     # 	{
+     # 	 default => '`',
+     # 	},
+     # 	html =>
+     # 	{
+     # 	 default => "&#8216;",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\`",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&#8216;",
+     # 	},
+     #   },
+     #  },
+     # },
 
-     {
-      name     => 'close_sglquote_symbol_1',
-      text     => '\'',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	sml =>
-	{
-	 default => '\'',
-	},
-	html =>
-	{
-	 default => "&#8217;",
-	},
-	latex =>
-	{
-	 default => "\'",
-	},
-	xml =>
-	{
-	 default => "&#8217;",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'close_sglquote_symbol_1',
+     #  text     => '\'',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	sml =>
+     # 	{
+     # 	 default => '\'',
+     # 	},
+     # 	html =>
+     # 	{
+     # 	 default => "&#8217;",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "\'",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&#8217;",
+     # 	},
+     #   },
+     #  },
+     # },
 
      {
       name     => 'section_symbol_1',
@@ -7974,7 +8160,22 @@ sub slurp {
 
   my $filespec = shift;
 
-  my $content = read_file($filespec);
+  my $content = q{};
+
+  if ( -f "../library/testdata/$filespec" )
+    {
+      $content = read_file("../library/testdata/$filespec");
+    }
+
+  elsif ( -f "library/testdata/$filespec" )
+    {
+      $content = read_file("library/testdata/$filespec");
+    }
+
+  else
+    {
+      $logger->warn("CAN'T FIND $filespec");
+    }
 
   return $content;
 }
@@ -7984,3 +8185,133 @@ sub slurp {
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
+
+__END__
+
+=head1 NAME
+
+C<SML::TestData> - unit test cases and test data
+
+=head1 VERSION
+
+2.0.0
+
+=head1 SYNOPSIS
+
+  my $td = SML::TestData->new();
+
+  my $tcl = $td->get_acronym_list_test_case_list;
+  my $tcl = $td->get_acronym_term_reference_test_case_list;
+  my $tcl = $td->get_assertion_test_case_list;
+  my $tcl = $td->get_block_test_case_list;
+  my $tcl = $td->get_bullet_list_item_test_case_list;
+  my $tcl = $td->get_cross_reference_test_case_list;
+  my $tcl = $td->get_definition_list_item_test_case_list;
+  my $tcl = $td->get_definition_test_case_list;
+  my $tcl = $td->get_division_test_case_list;
+  my $tcl = $td->get_document_test_case_list;
+  my $tcl = $td->get_element_test_case_list;
+  my $tcl = $td->get_enumerated_list_item_test_case_list;
+  my $tcl = $td->get_file_test_case_list;
+  my $tcl = $td->get_formatter_test_case_list;
+  my $tcl = $td->get_fragment_test_case_list;
+  my $tcl = $td->get_library_test_case_list;
+  my $tcl = $td->get_ontology_test_case_list;
+  my $tcl = $td->get_parser_test_case_list;
+  my $tcl = $td->get_part_test_case_list;
+  my $tcl = $td->get_string_test_case_list;
+  my $tcl = $td->get_symbol_test_case_list;
+  my $tcl = $td->get_test_data_test_case_list;
+
+  my $library    = $td->get_test_library_1;
+  my $document   = $td->get_test_document_1;
+  my $definition = $td->get_test_definition_1;
+  my $definition = $td->get_test_definition_2;
+  my $definition = $td->get_test_definition_3;
+  my $definition = $td->get_test_definition_4;
+  my $note       = $td->get_test_note_1;
+
+=head1 DESCRIPTION
+
+A class that contains and provides test cases and test data.
+
+=head1 METHODS
+
+=head2 get_acronym_list_test_case_list
+
+=head2 get_acronym_term_reference_test_case_list
+
+=head2 get_assertion_test_case_list
+
+=head2 get_block_test_case_list
+
+=head2 get_bullet_list_item_test_case_list
+
+=head2 get_cross_reference_test_case_list
+
+=head2 get_definition_list_item_test_case_list
+
+=head2 get_definition_test_case_list
+
+=head2 get_division_test_case_list
+
+=head2 get_document_test_case_list
+
+=head2 get_element_test_case_list
+
+=head2 get_enumerated_list_item_test_case_list
+
+=head2 get_file_test_case_list
+
+=head2 get_formatter_test_case_list
+
+=head2 get_fragment_test_case_list
+
+=head2 get_library_test_case_list
+
+=head2 get_ontology_test_case_list
+
+=head2 get_parser_test_case_list
+
+=head2 get_part_test_case_list
+
+=head2 get_string_test_case_list
+
+=head2 get_symbol_test_case_list
+
+=head2 get_test_data_test_case_list
+
+=head2 get_test_library_1
+
+=head2 get_test_document_1
+
+=head2 get_test_definition_1
+
+=head2 get_test_definition_2
+
+=head2 get_test_definition_3
+
+=head2 get_test_definition_4
+
+=head2 get_test_note_1
+
+=head1 AUTHOR
+
+Don Johnson (drj826@acm.org)
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+
+Distributed under the terms of the Gnu General Public License (version
+2, 1991)
+
+This software is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+License for more details.
+
+MODIFICATIONS AND ENHANCEMENTS TO THIS SOFTWARE OR WORKS DERIVED FROM
+THIS SOFTWARE MUST BE MADE FREELY AVAILABLE UNDER THESE SAME TERMS.
+
+=cut

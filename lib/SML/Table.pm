@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Table.pm 77 2015-01-31 17:48:03Z drj826@gmail.com $
 
 package SML::Table;
 
@@ -47,6 +47,8 @@ application to insert a table into the document.
 This documentation refers to L<"SML::Table"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Environment
 
   my $tbl = SML::Table->new();
 

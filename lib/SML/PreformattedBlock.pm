@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: PreformattedBlock.pm 238 2015-03-23 20:24:35Z drj826@gmail.com $
 
 package SML::PreformattedBlock;
 
@@ -240,6 +240,8 @@ This documentation refers to L<"SML::PreformattedBlock"> version
 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Block
 
   my $pfb = SML::PreformattedBlock->new();
 

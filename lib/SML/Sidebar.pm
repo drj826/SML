@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Sidebar.pm 230 2015-03-21 17:50:52Z drj826@gmail.com $
 
 package SML::Sidebar;
 
@@ -47,6 +47,8 @@ application to insert content as a side bar.
 This documentation refers to L<"SML::Sidebar"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Environment
 
   my $sb = SML::Sidebar->new();
 

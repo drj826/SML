@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: URLReference.pm 230 2015-03-21 17:50:52Z drj826@gmail.com $
 
 package SML::URLReference;
 
@@ -68,3 +68,58 @@ has '+name' =>
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
+
+__END__
+
+=head1 NAME
+
+C<SML::URLReference> - a string that represents a URL
+
+=head1 VERSION
+
+2.0.0
+
+=head1 SYNOPSIS
+
+  extends SML::String
+
+  example: [url:http://www.cnn.com/|Cable News Network]
+
+  my $ref = SML::URLReference->new
+                (
+                  url             => $url,        # 'http://www.cnn.com/'
+                  content         => $content,    # 'Cable News Network'
+                  library         => $library,
+                  containing_part => $part,
+                );
+
+  my $string = $url->get_url;   # 'http://www.cnn.com/'
+
+=head1 DESCRIPTION
+
+Extends C<SML::String> to represent a URL.
+
+=head1 METHODS
+
+=head2 get_url
+
+=head1 AUTHOR
+
+Don Johnson (drj826@acm.org)
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+
+Distributed under the terms of the Gnu General Public License (version
+2, 1991)
+
+This software is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+License for more details.
+
+MODIFICATIONS AND ENHANCEMENTS TO THIS SOFTWARE OR WORKS DERIVED FROM
+THIS SOFTWARE MUST BE MADE FREELY AVAILABLE UNDER THESE SAME TERMS.
+
+=cut

@@ -1,10 +1,10 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Document.t 286 2015-07-11 12:59:53Z drj826@gmail.com $
 
 # Document.pm (ci-000005) unit tests
 
-use lib "..";
+use lib "../lib";
 use Test::More;
 use Test::Exception;
 
@@ -51,7 +51,9 @@ my @public_methods =
    'get_glossary',
    'get_acronym_list',
    'get_references',
-   'get_source_hash',
+   'get_author',
+   'get_date',
+   'get_revision',
    'is_valid',
 
    # SML::Document public methods
@@ -76,6 +78,7 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{ $tcl })
   {
+    get_glossary_ok($tc)           if defined $tc->{expected}{get_glossary};
     add_note_ok($tc)               if defined $tc->{expected}{add_note};
     is_valid_ok($tc)               if defined $tc->{expected}{is_valid};
     render_ok($tc,'sml','default') if defined $tc->{expected}{render}{sml}{default};
@@ -89,6 +92,29 @@ foreach my $tc (@{ $tcl })
   {
     warn_is_valid_ok($tc) if defined $tc->{expected}{warning}{is_valid};
   }
+
+######################################################################
+
+sub get_glossary_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $filename = $tc->{testfile};
+  my $docid    = $tc->{docid};
+  my $library  = $tc->{library};
+  my $expected = $tc->{expected}{get_glossary};
+  my $parser   = $library->get_parser;
+  my $fragment = $parser->create_fragment($filename);
+  my $document = $library->get_document($docid);
+
+  # act
+  my $result = $document->get_glossary;
+
+  # assert
+  isa_ok($result,$expected,"$tcname get_glossary");
+}
 
 ######################################################################
 
@@ -155,8 +181,8 @@ sub render_ok {
   my $summary = $result;
   $summary = substr($result,0,20) . '...' if length($result) > 20;
 
-  print "STRUCTURE:\n\n";
-  print $document->dump_part_structure, "\n\n";
+  # print "STRUCTURE:\n\n";
+  # print $document->dump_part_structure, "\n\n";
 
   open my $fh, '>', 'library/testdata/expected/sml/default/result.txt';
   print $fh $result;

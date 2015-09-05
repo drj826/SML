@@ -727,7 +727,7 @@ id:: subscript
 
 ---SOURCE
 
-source:: book
+source_type:: book
 
 title:: The Chicago Manual of Style
 

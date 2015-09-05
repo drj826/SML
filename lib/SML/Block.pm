@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Block.pm 255 2015-04-01 16:07:27Z drj826@gmail.com $
 
 package SML::Block;
 
@@ -44,9 +44,9 @@ has 'line_list' =>
   (
    isa       => 'ArrayRef',
    reader    => 'get_line_list',
-   writer    => 'set_line_list',
-   clearer   => 'clear_line_list',
-   predicate => 'has_line_list',
+   # writer    => 'set_line_list',
+   # clearer   => 'clear_line_list',
+   # predicate => 'has_line_list',
    default   => sub {[]},
   );
 
@@ -57,7 +57,7 @@ has 'containing_division' =>
    isa       => 'SML::Division',
    reader    => 'get_containing_division',
    writer    => 'set_containing_division',
-   clearer   => 'clear_containing_division',
+   # clearer   => 'clear_containing_division',
    predicate => 'has_containing_division',
   );
 
@@ -65,7 +65,7 @@ has 'containing_division' =>
 
 after 'set_containing_division' => sub {
   my $self = shift;
-  my $cd = $self->get_containing_division;
+  my $cd   = $self->get_containing_division;
   $logger->trace("..... containing division for \'$self\' now: \'$cd\'");
 };
 
@@ -223,6 +223,508 @@ sub is_in_a {
     }
 
   return 0;
+}
+
+######################################################################
+######################################################################
+##
+## Private Attributes
+##
+######################################################################
+######################################################################
+
+has 'valid_bold_markup_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_bold_markup_syntax',
+   lazy      => 1,
+   builder   => '_validate_bold_markup_syntax',
+  );
+
+######################################################################
+
+has 'valid_italics_markup_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_italics_markup_syntax',
+   lazy      => 1,
+   builder   => '_validate_italics_markup_syntax',
+  );
+
+######################################################################
+
+has 'valid_fixedwidth_markup_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_fixedwidth_markup_syntax',
+   lazy      => 1,
+   builder   => '_validate_fixedwidth_markup_syntax',
+  );
+
+######################################################################
+
+has 'valid_underline_markup_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_underline_markup_syntax',
+   lazy      => 1,
+   builder   => '_validate_underline_markup_syntax',
+  );
+
+######################################################################
+
+has 'valid_superscript_markup_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_superscript_markup_syntax',
+   lazy      => 1,
+   builder   => '_validate_superscript_markup_syntax',
+  );
+
+######################################################################
+
+has 'valid_subscript_markup_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_subscript_markup_syntax',
+   lazy      => 1,
+   builder   => '_validate_subscript_markup_syntax',
+  );
+
+######################################################################
+
+has 'valid_cross_ref_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_cross_ref_syntax',
+   lazy      => 1,
+   builder   => '_validate_cross_ref_syntax',
+  );
+
+######################################################################
+
+has 'valid_id_ref_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_id_ref_syntax',
+   lazy      => 1,
+   builder   => '_validate_id_ref_syntax',
+  );
+
+######################################################################
+
+has 'valid_page_ref_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_page_ref_syntax',
+   lazy      => 1,
+   builder   => '_validate_page_ref_syntax',
+  );
+
+######################################################################
+
+has 'valid_glossary_term_ref_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_glossary_term_ref_syntax',
+   lazy      => 1,
+   builder   => '_validate_glossary_term_ref_syntax',
+  );
+
+######################################################################
+
+has 'valid_glossary_def_ref_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_glossary_def_ref_syntax',
+   lazy      => 1,
+   builder   => '_validate_glossary_def_ref_syntax',
+  );
+
+######################################################################
+
+has 'valid_acronym_ref_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_acronym_ref_syntax',
+   lazy      => 1,
+   builder   => '_validate_acronym_ref_syntax',
+  );
+
+######################################################################
+
+has 'valid_source_citation_syntax' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_source_citation_syntax',
+   lazy      => 1,
+   builder   => '_validate_source_citation_syntax',
+  );
+
+######################################################################
+
+has 'valid_cross_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_cross_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_cross_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_id_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_id_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_id_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_page_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_page_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_page_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_theversion_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_theversion_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_theversion_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_therevision_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_therevision_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_therevision_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_thedate_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_thedate_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_thedate_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_status_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_status_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_status_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_glossary_term_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_glossary_term_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_glossary_term_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_glossary_def_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_glossary_def_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_glossary_def_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_acronym_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_acronym_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_acronym_ref_semantics',
+  );
+
+######################################################################
+
+has 'valid_source_citation_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_source_citation_semantics',
+   lazy      => 1,
+   builder   => '_validate_source_citation_semantics',
+  );
+
+######################################################################
+
+has 'valid_file_ref_semantics' =>
+  (
+   isa       => 'Bool',
+   reader    => 'has_valid_file_ref_semantics',
+   lazy      => 1,
+   builder   => '_validate_file_ref_semantics',
+  );
+
+######################################################################
+######################################################################
+##
+## Private Methods
+##
+######################################################################
+######################################################################
+
+sub _build_content {
+
+  my $self  = shift;
+  my $lines = [];
+
+  if ( $self->get_name eq 'empty_block' )
+    {
+      return q{};
+    }
+
+  foreach my $line (@{ $self->get_line_list })
+    {
+      my $text = $line->get_content;
+
+      $text =~ s/[\r\n]*$//;            # chomp
+
+      push @{ $lines }, $text;
+    }
+
+  my $content = join(q{ }, @{ $lines });
+
+  # trim whitespace from end of content
+  $content =~ s/\s*$//;
+
+  return $content;
+}
+
+######################################################################
+
+sub _build_name_path {
+
+  my $self       = shift;
+  my $containers = [];
+  my $name       = $self->get_name;
+  my $container  = $self->get_containing_division;
+
+  push @{ $containers }, $name;
+
+  while ( ref $container )
+    {
+      my $container_name = $container->get_name;
+      push @{ $containers }, $container_name;
+
+      $container = $container->get_containing_division;
+    }
+
+  my $name_path = join('.', reverse @{ $containers });
+
+  return $name_path;
+}
+
+######################################################################
+
+sub _render_html_internal_references {
+
+  # [ref:fig-drawing] ==> <a href="figure-1-2">Figure 1.2</a>
+  #   [r:fig-drawing] ==> <a href="figure-1-2">Figure 1.2</a>
+
+  my $self   = shift;
+  my $html   = shift;
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+  my $util   = $sml->get_util;
+
+  return $html if not $html =~ $syntax->{cross_ref};
+
+  my $doc = $self->get_containing_document;
+
+  if ( not $doc )
+    {
+      $logger->error("NOT IN DOCUMENT CONTEXT can't resolve internal cross references");
+
+      while ( $html =~ $syntax->{cross_ref} )
+	{
+	  my $id     = $2;
+	  my $string = "(broken ref to \'$id\')";
+	  $html =~ s/$syntax->{cross_ref}/$string/xms;
+	}
+
+      return $html;
+    }
+
+  my $library = $self->get_library;
+
+  while ( $html =~ $syntax->{cross_ref} ) {
+
+    my $id     = $2;
+    my $string = q{};
+
+    if ( $library->has_division($id) )
+      {
+	my $division = $library->get_division($id);
+	my $name     = $division->get_name;   # i.e. SECTION
+
+	$name = lc( $name );
+	$name = ucfirst ( $name );
+
+	my $number   = $division->get_number; # i.e. 1-2
+	my $outfile  = $doc->get_html_outfile_for($id);
+	my $target   = "$outfile#$name.$number";
+
+	$string = "<a href=\"$target\">$name $number<\/a>";
+      }
+
+    else
+      {
+	my $location = $self->get_location;
+	$logger->warn("REFERENCED ID DOESN'T EXIST \'$id\' at $location");
+
+	$string = "<font color=\"red\">(broken cross ref to $id)<\/font>";
+      }
+
+    $html =~ s/$syntax->{cross_ref}/$string/xms;
+  }
+
+  return $html;
+}
+
+######################################################################
+
+sub _render_html_url_references {
+
+  my $self   = shift;
+  my $html   = shift;
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+
+  if ( not $html =~ $syntax->{url_ref} )
+    {
+      return $html;
+    }
+
+  while ( $html =~ $syntax->{url_ref} )
+    {
+      my $url    = $1;
+      my $string = "<a href=\"$url\">$url<\/a>";
+
+      $html =~ s/$syntax->{url_ref}/$string/xms;
+    }
+
+  return $html;
+}
+
+######################################################################
+
+sub _render_html_footnote_references {
+
+  my $self   = shift;
+  my $html   = shift;
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+
+  return $html if not $html =~ $syntax->{footnote_ref};
+
+  my $doc = $self->get_containing_document;
+
+  if ( not $doc )
+    {
+      $logger->error("NOT IN DOCUMENT CONTEXT can't resolve footnote references");
+      return $html;
+    }
+
+  while ( $html =~ $syntax->{footnote_ref} )
+    {
+      my $id     = $1;
+      my $tag    = $2;
+      my $string = q{};
+
+      if ( $doc->has_note($id,$tag) )
+	{
+	  $string = "<span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.$id.$tag\">$tag<\/a><\/sup><\/span>";
+	}
+
+      else
+	{
+	  my $location = $self->get_location;
+	  $logger->warn("NOTE NOT FOUND: \'$id\' \'$tag\'");
+	  $string = "(note not found \'$id\' \'$tag\')";
+	}
+
+      $html =~ s/$syntax->{footnote_ref}/$string/xms;
+  }
+
+  return $html;
+}
+
+######################################################################
+
+sub _validate_syntax {
+
+  # Validate the syntax of this block.  Syntax validation is possible
+  # even if the block is not in a document or library context.
+
+  my $self  = shift;
+  my $valid = 1;
+
+  $valid = 0 if not $self->has_valid_bold_markup_syntax;
+  $valid = 0 if not $self->has_valid_italics_markup_syntax;
+  $valid = 0 if not $self->has_valid_fixedwidth_markup_syntax;
+  $valid = 0 if not $self->has_valid_underline_markup_syntax;
+  $valid = 0 if not $self->has_valid_superscript_markup_syntax;
+  $valid = 0 if not $self->has_valid_subscript_markup_syntax;
+  $valid = 0 if not $self->has_valid_cross_ref_syntax;
+  $valid = 0 if not $self->has_valid_id_ref_syntax;
+  $valid = 0 if not $self->has_valid_page_ref_syntax;
+  $valid = 0 if not $self->has_valid_glossary_term_ref_syntax;
+  $valid = 0 if not $self->has_valid_glossary_def_ref_syntax;
+  $valid = 0 if not $self->has_valid_acronym_ref_syntax;
+  $valid = 0 if not $self->has_valid_source_citation_syntax;
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_semantics {
+
+  # Validate the semantics of this block.
+
+  my $self  = shift;
+  my $valid = 1;
+
+  $valid = 0 if not $self->has_valid_cross_ref_semantics;
+  $valid = 0 if not $self->has_valid_id_ref_semantics;
+  $valid = 0 if not $self->has_valid_page_ref_semantics;
+  $valid = 0 if not $self->has_valid_theversion_ref_semantics;
+  $valid = 0 if not $self->has_valid_therevision_ref_semantics;
+  $valid = 0 if not $self->has_valid_thedate_ref_semantics;
+  $valid = 0 if not $self->has_valid_status_ref_semantics;
+  $valid = 0 if not $self->has_valid_glossary_term_ref_semantics;
+  $valid = 0 if not $self->has_valid_glossary_def_ref_semantics;
+  $valid = 0 if not $self->has_valid_acronym_ref_semantics;
+  $valid = 0 if not $self->has_valid_source_citation_semantics;
+  $valid = 0 if not $self->has_valid_file_ref_semantics;
+
+  return $valid;
 }
 
 ######################################################################
@@ -1487,505 +1989,6 @@ sub _validate_file_ref_semantics {
 }
 
 ######################################################################
-######################################################################
-##
-## Private Attributes
-##
-######################################################################
-######################################################################
-
-has 'valid_bold_markup_syntax' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_bold_markup_syntax',
-   lazy      => 1,
-   builder   => '_validate_bold_markup_syntax',
-  );
-
-######################################################################
-
-has 'valid_italics_markup_syntax' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_italics_markup_syntax',
-   lazy      => 1,
-   builder   => '_validate_italics_markup_syntax',
-  );
-
-######################################################################
-
-has 'valid_fixedwidth_markup_syntax' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_fixedwidth_markup_syntax',
-   lazy      => 1,
-   builder   => '_validate_fixedwidth_markup_syntax',
-  );
-
-######################################################################
-
-has 'valid_underline_markup_syntax' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_underline_markup_syntax',
-   lazy      => 1,
-   builder   => '_validate_underline_markup_syntax',
-  );
-
-######################################################################
-
-has 'valid_superscript_markup_syntax' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_superscript_markup_syntax',
-   lazy      => 1,
-   builder   => '_validate_superscript_markup_syntax',
-  );
-
-######################################################################
-
-has 'valid_subscript_markup_syntax' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_subscript_markup_syntax',
-   lazy      => 1,
-   builder   => '_validate_subscript_markup_syntax',
-  );
-
-######################################################################
-
-has 'valid_cross_ref_syntax' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_cross_ref_syntax',
-   lazy      => 1,
-   builder   => '_validate_cross_ref_syntax',
-  );
-
-######################################################################
-
-has 'valid_id_ref_syntax' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_id_ref_syntax',
-   lazy      => 1,
-   builder   => '_validate_id_ref_syntax',
-  );
-
-######################################################################
-
-has 'valid_page_ref_syntax' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_page_ref_syntax',
-   lazy      => 1,
-   builder   => '_validate_page_ref_syntax',
-  );
-
-######################################################################
-
-has 'valid_glossary_term_ref_syntax' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_glossary_term_ref_syntax',
-   lazy      => 1,
-   builder   => '_validate_glossary_term_ref_syntax',
-  );
-
-######################################################################
-
-has 'valid_glossary_def_ref_syntax' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_glossary_def_ref_syntax',
-   lazy      => 1,
-   builder   => '_validate_glossary_def_ref_syntax',
-  );
-
-######################################################################
-
-has 'valid_acronym_ref_syntax' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_acronym_ref_syntax',
-   lazy      => 1,
-   builder   => '_validate_acronym_ref_syntax',
-  );
-
-######################################################################
-
-has 'valid_source_citation_syntax' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_source_citation_syntax',
-   lazy      => 1,
-   builder   => '_validate_source_citation_syntax',
-  );
-
-######################################################################
-
-has 'valid_cross_ref_semantics' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_cross_ref_semantics',
-   lazy      => 1,
-   builder   => '_validate_cross_ref_semantics',
-  );
-
-######################################################################
-
-has 'valid_id_ref_semantics' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_id_ref_semantics',
-   lazy      => 1,
-   builder   => '_validate_id_ref_semantics',
-  );
-
-######################################################################
-
-has 'valid_page_ref_semantics' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_page_ref_semantics',
-   lazy      => 1,
-   builder   => '_validate_page_ref_semantics',
-  );
-
-######################################################################
-
-has 'valid_theversion_ref_semantics' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_theversion_ref_semantics',
-   lazy      => 1,
-   builder   => '_validate_theversion_ref_semantics',
-  );
-
-######################################################################
-
-has 'valid_therevision_ref_semantics' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_therevision_ref_semantics',
-   lazy      => 1,
-   builder   => '_validate_therevision_ref_semantics',
-  );
-
-######################################################################
-
-has 'valid_thedate_ref_semantics' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_thedate_ref_semantics',
-   lazy      => 1,
-   builder   => '_validate_thedate_ref_semantics',
-  );
-
-######################################################################
-
-has 'valid_status_ref_semantics' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_status_ref_semantics',
-   lazy      => 1,
-   builder   => '_validate_status_ref_semantics',
-  );
-
-######################################################################
-
-has 'valid_glossary_term_ref_semantics' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_glossary_term_ref_semantics',
-   lazy      => 1,
-   builder   => '_validate_glossary_term_ref_semantics',
-  );
-
-######################################################################
-
-has 'valid_glossary_def_ref_semantics' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_glossary_def_ref_semantics',
-   lazy      => 1,
-   builder   => '_validate_glossary_def_ref_semantics',
-  );
-
-######################################################################
-
-has 'valid_acronym_ref_semantics' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_acronym_ref_semantics',
-   lazy      => 1,
-   builder   => '_validate_acronym_ref_semantics',
-  );
-
-######################################################################
-
-has 'valid_source_citation_semantics' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_source_citation_semantics',
-   lazy      => 1,
-   builder   => '_validate_source_citation_semantics',
-  );
-
-######################################################################
-
-has 'valid_file_ref_semantics' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_file_ref_semantics',
-   lazy      => 1,
-   builder   => '_validate_file_ref_semantics',
-  );
-
-######################################################################
-######################################################################
-##
-## Private Methods
-##
-######################################################################
-######################################################################
-
-sub _build_content {
-
-  my $self  = shift;
-  my $lines = [];
-
-  if ( $self->get_name eq 'empty_block' )
-    {
-      return q{};
-    }
-
-  foreach my $line (@{ $self->get_line_list })
-    {
-      my $text = $line->get_content;
-
-      $text =~ s/[\r\n]*$//;            # chomp
-
-      push @{ $lines }, $text;
-    }
-
-  my $content = join(q{ }, @{ $lines });
-
-  return $content;
-}
-
-######################################################################
-
-sub _build_name_path {
-
-  my $self       = shift;
-  my $containers = [];
-  my $name       = $self->get_name;
-  my $container  = $self->get_containing_division;
-
-  push @{ $containers }, $name;
-
-  while ( ref $container )
-    {
-      my $container_name = $container->get_name;
-      push @{ $containers }, $container_name;
-
-      $container = $container->get_containing_division;
-    }
-
-  my $name_path = join('.', reverse @{ $containers });
-
-  return $name_path;
-}
-
-######################################################################
-
-sub _render_html_internal_references {
-
-  # [ref:fig-drawing] ==> <a href="figure-1-2">Figure 1.2</a>
-  #   [r:fig-drawing] ==> <a href="figure-1-2">Figure 1.2</a>
-
-  my $self   = shift;
-  my $html   = shift;
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-
-  return $html if not $html =~ $syntax->{cross_ref};
-
-  my $doc = $self->get_containing_document;
-
-  if ( not $doc )
-    {
-      $logger->error("NOT IN DOCUMENT CONTEXT can't resolve internal cross references");
-
-      while ( $html =~ $syntax->{cross_ref} )
-	{
-	  my $id     = $2;
-	  my $string = "(broken ref to \'$id\')";
-	  $html =~ s/$syntax->{cross_ref}/$string/xms;
-	}
-
-      return $html;
-    }
-
-  my $library = $self->get_library;
-
-  while ( $html =~ $syntax->{cross_ref} ) {
-
-    my $id     = $2;
-    my $string = q{};
-
-    if ( $library->has_division($id) )
-      {
-	my $division = $library->get_division($id);
-	my $name     = $division->get_name;   # i.e. SECTION
-
-	$name = lc( $name );
-	$name = ucfirst ( $name );
-
-	my $number   = $division->get_number; # i.e. 1-2
-	my $outfile  = $doc->get_html_outfile_for($id);
-	my $target   = "$outfile#$name.$number";
-
-	$string = "<a href=\"$target\">$name $number<\/a>";
-      }
-
-    else
-      {
-	my $location = $self->get_location;
-	$logger->warn("REFERENCED ID DOESN'T EXIST \'$id\' at $location");
-
-	$string = "<font color=\"red\">(broken cross ref to $id)<\/font>";
-      }
-
-    $html =~ s/$syntax->{cross_ref}/$string/xms;
-  }
-
-  return $html;
-}
-
-######################################################################
-
-sub _render_html_url_references {
-
-  my $self   = shift;
-  my $html   = shift;
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-
-  if ( not $html =~ $syntax->{url_ref} )
-    {
-      return $html;
-    }
-
-  while ( $html =~ $syntax->{url_ref} )
-    {
-      my $url    = $1;
-      my $string = "<a href=\"$url\">$url<\/a>";
-
-      $html =~ s/$syntax->{url_ref}/$string/xms;
-    }
-
-  return $html;
-}
-
-######################################################################
-
-sub _render_html_footnote_references {
-
-  my $self   = shift;
-  my $html   = shift;
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-
-  return $html if not $html =~ $syntax->{footnote_ref};
-
-  my $doc = $self->get_containing_document;
-
-  if ( not $doc )
-    {
-      $logger->error("NOT IN DOCUMENT CONTEXT can't resolve footnote references");
-      return $html;
-    }
-
-  while ( $html =~ $syntax->{footnote_ref} )
-    {
-      my $id     = $1;
-      my $tag    = $2;
-      my $string = q{};
-
-      if ( $doc->has_note($id,$tag) )
-	{
-	  $string = "<span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.$id.$tag\">$tag<\/a><\/sup><\/span>";
-	}
-
-      else
-	{
-	  my $location = $self->get_location;
-	  $logger->warn("NOTE NOT FOUND: \'$id\' \'$tag\'");
-	  $string = "(note not found \'$id\' \'$tag\')";
-	}
-
-      $html =~ s/$syntax->{footnote_ref}/$string/xms;
-  }
-
-  return $html;
-}
-
-######################################################################
-
-sub _validate_syntax {
-
-  # Validate the syntax of this block.  Syntax validation is possible
-  # even if the block is not in a document or library context.
-
-  my $self  = shift;
-  my $valid = 1;
-
-  $valid = 0 if not $self->has_valid_bold_markup_syntax;
-  $valid = 0 if not $self->has_valid_italics_markup_syntax;
-  $valid = 0 if not $self->has_valid_fixedwidth_markup_syntax;
-  $valid = 0 if not $self->has_valid_underline_markup_syntax;
-  $valid = 0 if not $self->has_valid_superscript_markup_syntax;
-  $valid = 0 if not $self->has_valid_subscript_markup_syntax;
-  $valid = 0 if not $self->has_valid_cross_ref_syntax;
-  $valid = 0 if not $self->has_valid_id_ref_syntax;
-  $valid = 0 if not $self->has_valid_page_ref_syntax;
-  $valid = 0 if not $self->has_valid_glossary_term_ref_syntax;
-  $valid = 0 if not $self->has_valid_glossary_def_ref_syntax;
-  $valid = 0 if not $self->has_valid_acronym_ref_syntax;
-  $valid = 0 if not $self->has_valid_source_citation_syntax;
-
-  return $valid;
-}
-
-######################################################################
-
-sub _validate_semantics {
-
-  # Validate the semantics of this block.
-
-  my $self  = shift;
-  my $valid = 1;
-
-  $valid = 0 if not $self->has_valid_cross_ref_semantics;
-  $valid = 0 if not $self->has_valid_id_ref_semantics;
-  $valid = 0 if not $self->has_valid_page_ref_semantics;
-  $valid = 0 if not $self->has_valid_theversion_ref_semantics;
-  $valid = 0 if not $self->has_valid_therevision_ref_semantics;
-  $valid = 0 if not $self->has_valid_thedate_ref_semantics;
-  $valid = 0 if not $self->has_valid_status_ref_semantics;
-  $valid = 0 if not $self->has_valid_glossary_term_ref_semantics;
-  $valid = 0 if not $self->has_valid_glossary_def_ref_semantics;
-  $valid = 0 if not $self->has_valid_acronym_ref_semantics;
-  $valid = 0 if not $self->has_valid_source_citation_semantics;
-  $valid = 0 if not $self->has_valid_file_ref_semantics;
-
-  return $valid;
-}
-
-######################################################################
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
@@ -1999,9 +2002,30 @@ C<SML::Block> - one or more contiguous L<"SML::Line">s.
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Block"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
+
+  extends SML::Part
+
+  my $block = SML::Block->new
+                (
+                  name    => $name,
+                  library => $library,
+                );
+
+  my $string   = $block->get_name_path;
+  my $list     = $block->get_line_list;
+  my $division = $block->get_containing_division;
+  my $boolean  = $block->set_containing_division($division);
+  my $boolean  = $block->has_containing_division;
+  my $boolean  = $block->has_valid_syntax;
+  my $boolean  = $block->has_valid_semantics;
+  my $boolean  = $block->add_line($line);
+  my $boolean  = $block->add_part($part);
+  my $line     = $block->get_first_line;
+  my $string   = $block->get_location;
+  my $boolean  = $block->is_in_a($division_type);
 
 =head1 DESCRIPTION
 
@@ -2011,19 +2035,29 @@ Blocks may contain inline text elements
 
 =head1 METHODS
 
-=head2 get_type
+=head2 get_name_path
 
-=head2 get_name
+=head2 get_line_list
 
-=head2 get_content
+=head2 get_containing_division
 
-=head2 get_lines
+=head2 set_containing_division($division)
 
-=head2 get_division
+=head2 has_containing_division
 
 =head2 has_valid_syntax
 
 =head2 has_valid_semantics
+
+=head2 add_line($line)
+
+=head2 add_part($part)
+
+=head2 get_first_line
+
+=head2 get_location
+
+=head2 is_in_a($division_type)
 
 =head1 AUTHOR
 

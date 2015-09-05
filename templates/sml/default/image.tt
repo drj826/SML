@@ -1,0 +1,2 @@
+image:: [% self.get_value %]
+

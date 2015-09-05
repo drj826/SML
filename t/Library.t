@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Library.t 264 2015-05-11 11:56:25Z drj826@gmail.com $
 
-use lib "..";
+use lib "../lib";
 use Test::More tests => 13;
 
 use Log::Log4perl;
@@ -104,12 +104,6 @@ my @public_methods =
    'get_review_status',
    'get_outcome_description',
    'get_review_description',
-   'get_outcome_hash',
-   'get_review_hash',
-   'get_index_hash',
-   'get_entity_hash',
-   'get_variable_hash',
-   'get_resource_hash',
 
    'has_fragment',
    'has_document',

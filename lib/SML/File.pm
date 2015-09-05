@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: File.pm 202 2015-03-09 21:48:01Z drj826@gmail.com $
 
 package SML::File;
 
@@ -336,6 +336,8 @@ in a filesystem.
 This documentation refers to L<"SML::File"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Resource
 
   my $file = SML::File->new();
 

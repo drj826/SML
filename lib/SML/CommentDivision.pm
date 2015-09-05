@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: CommentDivision.pm 234 2015-03-23 20:20:45Z drj826@gmail.com $
 
 package SML::CommentDivision;
 
@@ -47,6 +47,8 @@ rendered in published output.
 This documentation refers to L<"SML::CommentDivision"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Division
 
   my $cd = SML::CommentDivision->new();
 

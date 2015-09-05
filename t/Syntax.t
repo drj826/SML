@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Syntax.t 264 2015-05-11 11:56:25Z drj826@gmail.com $
 
-use lib "..";
+use lib "../lib";
 use Test::More tests => 3;
 
 use SML;
@@ -84,6 +84,8 @@ my @public_methods =
    'superscript_string',
    'subscript',
    'subscript_string',
+   'sglquote_string',
+   'dblquote_string',
 
    # element markup
    'start_element',
@@ -155,10 +157,10 @@ my @public_methods =
    'copyright_symbol',
    'trademark_symbol',
    'reg_trademark_symbol',
-   'open_dblquote_symbol',
-   'close_dblquote_symbol',
-   'open_sglquote_symbol',
-   'close_sglquote_symbol',
+   # 'open_dblquote_symbol',
+   # 'close_dblquote_symbol',
+   # 'open_sglquote_symbol',
+   # 'close_sglquote_symbol',
    'section_symbol',
    'emdash_symbol',
 

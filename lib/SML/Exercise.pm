@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Exercise.pm 230 2015-03-21 17:50:52Z drj826@gmail.com $
 
 package SML::Exercise;
 
@@ -47,6 +47,8 @@ might work though to better understand concepts described in the text.
 This documentation refers to L<"SML::Exercise"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Region
 
   my $exr = SML::Exercise->new();
 

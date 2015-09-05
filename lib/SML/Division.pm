@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Division.pm 274 2015-05-11 12:05:43Z drj826@gmail.com $
 
 package SML::Division;
 
@@ -1333,6 +1333,7 @@ sub _validate_composition {
   my $container = $self->get_containing_division;
   my $sml       = SML->instance;
   my $library   = $self->get_library;
+  my $libname   = $library->get_name;
   my $ontology  = $library->get_ontology;
 
   if ( $container )
@@ -1364,7 +1365,7 @@ sub _validate_composition {
 
 	  else
 	    {
-	      $logger->warn("INVALID COMPOSITION at $location: $name in $container_name library $library");
+	      $logger->warn("INVALID COMPOSITION at $location: $name in $container_name library \'$libname\'");
 	    }
 
 	  return 0;
@@ -1452,15 +1453,69 @@ __END__
 
 =head1 NAME
 
-C<SML::Division> - a contiguous sequence of L<"SML::Block">s.
+C<SML::Division> - a L<"SML::Part"> which is a contiguous sequence of
+L<"SML::Block">s.
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Division"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
-  my $division = SML::Division->new();
+  extends SML::Part
+
+  my $division = SML::Division->new
+                   (
+                     id      => $id,
+                     library => $library,
+                     name    => $name,
+                   );
+
+  my $string   = $division->get_number;
+  my $boolean  = $division->set_number;
+  my $string   = $division->get_previous_number;
+  my $boolean  = $division->set_previous_number($number);
+  my $string   = $division->get_next_number;
+  my $boolean  = $division->set_next_number($number);
+  my $division = $division->get_containing_division;
+  my $boolean  = $division->set_containing_division($division);
+  my $boolean  = $division->has_containing_division;
+  my $boolean  = $division->has_valid_syntax;
+  my $boolean  = $division->has_valid_semantics;
+  my $boolean  = $division->has_valid_property_cardinality;
+  my $boolean  = $division->has_valid_property_values;
+  my $boolean  = $division->has_valid_infer_only_conformance;
+  my $boolean  = $division->has_valid_required_properties;
+  my $boolean  = $division->has_valid_composition;
+  my $boolean  = $division->has_valid_id_uniqueness;
+
+  my $boolean  = $division->add_division($division);
+  my $boolean  = $division->add_part($part);
+  my $boolean  = $division->add_property($property);
+  my $boolean  = $division->add_property_element($element);
+  my $boolean  = $division->add_attribute($element);
+  my $boolean  = $division->contains_division($id);
+  my $boolean  = $division->has_property($property_name);
+  my $boolean  = $division->has_property_value($property_name,$value);
+  my $boolean  = $division->has_attribute($attribute_name);
+  my $list     = $division->get_division_list;
+  my $boolean  = $division->has_sections;
+  my $list     = $division->get_section_list;
+  my $list     = $division->get_block_list;
+  my $list     = $division->get_element_list;
+  my $list     = $division->get_line_list;
+  my $list     = $division->get_preamble_line_list;
+  my $list     = $division->get_narrative_line_list;
+  my $part     = $division->get_first_part;
+  my $line     = $division->get_first_line;
+  my $list     = $division->get_property_list;
+  my $property = $division->get_property($name);
+  my $string   = $division->get_property_value($name);
+  my $document = $division->get_containing_document;
+  my $string   = $division->get_location;
+  my $section  = $division->get_section;
+  my $boolean  = $division->is_in_a($division_type);
+  my $boolean  = $division->validate;
 
 =head1 DESCRIPTION
 
@@ -1471,31 +1526,93 @@ Divisions may contain other divisions.
 
 =head1 METHODS
 
-=head2 get_name
-
-=head2 get_id
-
-=head2 get_type
-
 =head2 get_number
 
-=head2 get_division
+=head2 set_number
 
-Get the division to which this one belongs.
+=head2 get_previous_number
 
-=head2 get_part_list
+=head2 set_previous_number($number)
 
-=head2 get_environment_list
+=head2 get_next_number
 
-Get a sequential list of environments contained in this division.
+=head2 set_next_number($number)
 
-=head2 get_region_list
+=head2 get_containing_division
 
-Get a sequential list of regions contained in this division.
+=head2 set_containing_division($division)
 
-=head2 get_html
+=head2 has_containing_division
 
-Get a string which is the HTML rendition of this division.
+=head2 has_valid_syntax
+
+=head2 has_valid_semantics
+
+=head2 has_valid_property_cardinality
+
+=head2 has_valid_property_values
+
+=head2 has_valid_infer_only_conformance
+
+=head2 has_valid_required_properties
+
+=head2 has_valid_composition
+
+=head2 has_valid_id_uniqueness
+
+=head2 add_division($division)
+
+=head2 add_part($part)
+
+=head2 add_property($property)
+
+=head2 add_property_element($element)
+
+=head2 add_attribute($element)
+
+=head2 contains_division($id)
+
+=head2 has_property($property_name)
+
+=head2 has_property_value($property_name,$value)
+
+=head2 has_attribute($attribute_name)
+
+=head2 get_division_list
+
+=head2 has_sections
+
+=head2 get_section_list
+
+=head2 get_block_list
+
+=head2 get_element_list
+
+=head2 get_line_list
+
+=head2 get_preamble_line_list
+
+=head2 get_narrative_line_list
+
+=head2 get_first_part
+
+=head2 get_first_line
+
+=head2 get_property_list
+
+=head2 get_property($name)
+
+=head2 get_property_value($name)
+
+=head2 get_containing_document
+
+=head2 get_location
+
+=head2 get_section
+
+=head2 is_in_a($division_type)
+
+=head2 validate
 
 =head1 AUTHOR
 

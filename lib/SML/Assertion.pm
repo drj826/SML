@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Assertion.pm 194 2015-03-08 13:46:17Z drj826@gmail.com $
 
 package SML::Assertion;
 
@@ -81,7 +81,13 @@ This documentation refers to L<"SML::Assertion"> version 2.0.0.
 
 =head1 SYNOPSIS
 
-  my $asr = SML::Assertion->new();
+  extends SML::Environment
+
+  my $assertion = SML::Assertion->new();
+
+  my $subject   = $assertion->get_subject;
+  my $predicate = $assertion->get_predicate;
+  my $object    = $assertion->get_object;
 
 =head1 DESCRIPTION
 

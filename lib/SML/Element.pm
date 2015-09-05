@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Element.pm 255 2015-04-01 16:07:27Z drj826@gmail.com $
 
 package SML::Element;
 
@@ -68,7 +68,7 @@ sub get_value {
   else
     {
       my $name = $self->get_name;
-      $logger->logcluck("This should never happen $name $self (\'$text\')");
+      $logger->error("This should never happen $name $self (\'$text\')");
       return q{};
     }
 }
@@ -317,11 +317,22 @@ the publishing application to take some action (procedural markup).
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Element"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
-  my $el = SML::Element->new();
+  extends SML::Block
+
+  my $element = SML::Element->new
+                  (
+                    name    => $name,
+                    library => $library,
+                  );
+
+  my $string  = $element->get_value;
+  my $boolean = $element->validate_element_allowed;
+  my $boolean = $element->validate_outcome_semantics;
+  my $boolean = $element->validate_footnote_syntax;
 
 =head1 DESCRIPTION
 
@@ -333,17 +344,9 @@ several 'universal' elements that may be used in narratives as well.
 
 =head1 METHODS
 
-=head2 is_valid
-
-=head2 get_name
-
-=head2 get_type
-
 =head2 get_value
 
-=head2 validate_syntax
-
-=head2 validate_semantics
+=head2 validate_element_allowed
 
 =head2 validate_outcome_semantics
 

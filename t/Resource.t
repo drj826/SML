@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Resource.t 78 2015-01-31 17:51:43Z drj826@gmail.com $
 
-use lib "..";
+use lib "../lib";
 use Test::More tests => 3;
 
 use SML;

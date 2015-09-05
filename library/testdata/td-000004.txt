@@ -2,7 +2,7 @@
 
 ######################################################################
 
-title:: Conditional Blocks
+title:: Conditional Divisions
 
 id:: td-000004
 
@@ -10,7 +10,7 @@ define:: version_1
 
 ######################################################################
 
-This SML document contains two conditional blocks.  The first will
+This SML document contains two conditional divisions.  The first will
 appear in the rendered document if `version_1' is defined.  The second
 will appear if `version_2' is defined.
 

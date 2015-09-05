@@ -1,0 +1,2 @@
+= [% self.get_term.get_content %] = [% self.get_definition.get_content %]
+

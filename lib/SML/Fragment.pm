@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Fragment.pm 255 2015-04-01 16:07:27Z drj826@gmail.com $
 
 package SML::Fragment;
 
@@ -454,6 +454,8 @@ sub _read_file {
     {
       # chomp;  # DON'T CHOMP HERE !!!
 
+      $logger->trace("line: \'$text\'");
+
       my $line = undef;
 
       if ( defined $included_from )
@@ -582,15 +584,27 @@ __END__
 
 =head1 NAME
 
-C<SML::Fragment> - A piece of SML formatted text.
+C<SML::Fragment> - A piece of SML formatted text stored in a file
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Fragment"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
-  my $frag = SML::Fragment->new();
+  extends SML::Division
+
+  my $fragment = SML::Fragment->new
+                   (
+                     file    => $file,
+                     library => $library,
+                     name    => $name,
+                   );
+
+  my $file = $fragment->get_file;
+  my $list = $fragment->get_line_list;
+
+  my $list = $fragment->extract_division_lines($id);
 
 =head1 DESCRIPTION
 
@@ -602,31 +616,7 @@ L<"SML::Document">.
 
 =head2 get_file
 
-=head2 get_id
-
-=head2 get_name
-
-=head2 get_type
-
 =head2 get_line_list
-
-=head2 add_resource
-
-=head2 has_resource
-
-=head2 get_resource
-
-=head2 validate
-
- 1. Validate the syntax of each block in the fragment.
- 2. Validate the library semantics of each block.
- 3. Validate the document semantics of each block.
- 4. Validate the syntax of each element in the fragment.
- 5. Validate resource availability for each resource element.
- 6. Validate semantics of each element in the fragment.
- 7. Validate uniqueness of each ID in the fragment.
- 8. Validate the semantics of each division in the fragment.
- 9. Validate the composition of each division in the fragment.
 
 =head2 extract_division_lines
 

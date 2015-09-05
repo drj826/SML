@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Attachment.pm 77 2015-01-31 17:48:03Z drj826@gmail.com $
 
 package SML::Attachment;
 
@@ -48,6 +48,8 @@ within an SML document.
 This documentation refers to L<"SML::Attachment"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Environment
 
   my $att = SML::Attachment->new();
 

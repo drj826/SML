@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Inline.t 196 2015-03-09 21:40:06Z drj826@gmail.com $
 
-use lib "..";
+use lib "../lib";
 use Test::More tests => 2;
 
 use Log::Log4perl;

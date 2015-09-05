@@ -29,7 +29,7 @@ compliance with specified requirements. [cite:ieee-std-610-12-1990]
 
 ---SOURCE
 
-source:: misc
+source_type:: misc
 
 title:: IEEE Standard Glossary of Software Engineering Terminology
 

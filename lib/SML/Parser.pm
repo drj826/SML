@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Parser.pm 283 2015-07-11 12:56:40Z drj826@gmail.com $
 
 package SML::Parser;
 
@@ -191,6 +191,15 @@ sub create_fragment {
 
   chdir($startdir);
 
+  $logger->trace("created fragment \'$basename\'");
+
+  foreach my $line (@{ $fragment->get_line_list })
+    {
+      my $text = $line->get_content;
+      chomp $text;
+      $logger->trace("-> $text");
+    }
+
   return $fragment;
 }
 
@@ -207,8 +216,6 @@ sub create_string {
   # reference.  Is this a problem?  Perhaps lookups are all 'resolved'
   # before this code is invoked?
 
-  $logger->debug("create_string");
-
   my $part;                             # containing part
 
   if ( $self->_has_part )
@@ -220,8 +227,6 @@ sub create_string {
   my $syntax = $sml->get_syntax;
 
   my $string_type = $self->_get_string_type($text);
-
-  $logger->debug("  string type: $string_type");
 
   if ( $string_type eq 'string' )
     {
@@ -270,6 +275,10 @@ sub create_string {
      $string_type eq 'fixedwidth_string'
      or
      $string_type eq 'keystroke_symbol'
+     or
+     $string_type eq 'sglquote_string'
+     or
+     $string_type eq 'dblquote_string'
     )
       {
 	if ( $text =~ /$syntax->{$string_type}/ )
@@ -295,7 +304,13 @@ sub create_string {
 	  }
       }
 
-  elsif ( $string_type eq 'emdash_symbol' )
+  elsif (
+	 $string_type eq 'emdash_symbol'
+	 # or
+	 # $string_type eq 'open_sglquote_symbol'
+	 # or
+	 # $string_type eq 'close_sglquote_symbol'
+	)
     {
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
@@ -304,8 +319,8 @@ sub create_string {
 	  $args->{name}                = $string_type;
 	  $args->{library}             = $self->get_library;
 	  $args->{containing_part}     = $part if $part;
-	  $args->{preceding_character} = $1;
-	  $args->{following_character} = $2;
+	  $args->{preceding_character} = $1 || q{};
+	  $args->{following_character} = $2 || q{};
 
 	  return SML::Symbol->new(%{$args});
 	}
@@ -338,14 +353,10 @@ sub create_string {
      $string_type eq 'trademark_symbol'
      or
      $string_type eq 'reg_trademark_symbol'
-     or
-     $string_type eq 'open_dblquote_symbol'
-     or
-     $string_type eq 'close_dblquote_symbol'
-     or
-     $string_type eq 'open_sglquote_symbol'
-     or
-     $string_type eq 'close_sglquote_symbol'
+     # or
+     # $string_type eq 'open_dblquote_symbol'
+     # or
+     # $string_type eq 'close_dblquote_symbol'
      or
      $string_type eq 'section_symbol'
      or
@@ -799,6 +810,11 @@ sub extract_division_name {
   # division.  In other words, the first line must be a division
   # starting line.
 
+  # !!! BUG HERE !!!
+  #
+  # This subroutine doesn't work anymore since I changed the parser to
+  # ignore the lines containing division markers.
+
   my $self  = shift;
   my $lines = shift;
 
@@ -821,10 +837,22 @@ sub extract_division_name {
       return 'SECTION';
     }
 
+  elsif ( $text =~ /$syntax->{comment_marker}/ )
+    {
+      return 'COMMENT_DIVISION';
+    }
+
   else
     {
-      $logger->error("DIVISION NAME NOT FOUND");
-      return '';
+      # $logger->warn("DIVISION NAME NOT FOUND IN...");
+
+      # foreach my $line (@{$lines})
+      # 	{
+      # 	  my $text = $line->get_content;
+      # 	  $logger->warn($text);
+      # 	}
+      # return '';
+
     }
 
 }
@@ -904,7 +932,6 @@ sub extract_title_text {
 	     $text =~ /$syntax->{blank_line}/
 	    )
 	{
-	  $logger->trace("extracted title: \"$title_text\"");
 	  return $title_text;
 	}
 
@@ -915,15 +942,12 @@ sub extract_title_text {
 	     $text =~ /$syntax->{start_element}/
 	    )
 	{
-	  $logger->trace("extracted title: \"$title_text\"");
 	  return $title_text;
 	}
 
       # preamble ending text?
       elsif ( _line_ends_preamble($text) )
 	{
-	  $logger->trace("preamble ending text: $text");
-	  $logger->trace("extracted title: \"$title_text\"");
 	  return $title_text;
 	}
 
@@ -936,7 +960,6 @@ sub extract_title_text {
 
     }
 
-  $logger->trace("extracted title: \"$title_text\"");
   return $title_text;
 }
 
@@ -2061,6 +2084,15 @@ sub _resolve_includes {
 
   $self->_set_line_list($new_line_list);
 
+  # TRACE
+  $logger->trace("NEW LINE LIST after resolving includes...");
+  foreach my $line (@{ $new_line_list })
+    {
+      my $text = $line->get_content;
+      chomp $text;
+      $logger->trace("-> $text");
+    }
+
   return 1;
 }
 
@@ -2389,15 +2421,19 @@ sub _gather_data {
 
   if ( $self->_in_region )
     {
-      my $region = $self->_current_region;
-      my $name   = $region->get_name;
-      $logger->error("FILE ENDED WHILE IN REGION \'$name\'");
+      my $region   = $self->_current_region;
+      my $name     = $region->get_name;
+      my $file     = $fragment->get_file;
+      my $filename = $file->get_filename;
+      $logger->error("FILE ENDED WHILE IN REGION \'$name\' ($filename)");
     }
 
   if ( $self->_in_environment )
     {
       my $name = $self->_current_environment->get_name;
-      $logger->error("FILE ENDED WHILE IN ENVIRONMENT \'$name\'");
+      my $file     = $fragment->get_file;
+      my $filename = $file->get_filename;
+      $logger->error("FILE ENDED WHILE IN ENVIRONMENT \'$name\' ($filename)");
     }
 
   my $division = $self->_get_current_division;
@@ -5418,20 +5454,20 @@ sub _process_comment_division_marker {
 
   my $library = $self->get_library;
 
+  # new preformatted block
+  my $block = SML::PreformattedBlock->new(library=>$library);
+  $block->add_line($line);
+  $self->_begin_block($block);
+
   if ( not $self->_in_comment_division )
     {
-      # new preformatted block
-      # my $block = SML::PreformattedBlock->new(library=>$library);
-      # $block->add_line($line);
-      # $self->_begin_block($block);
-
       # new comment division
       my $name    = 'comment';
       my $num     = $self->_count_comment_divisions;
       my $id      = "$name-$num";
       my $comment = SML::CommentDivision->new(id=>$id,library=>$library);
 
-      # $comment->add_part($block);
+      $comment->add_part($block);
 
       $self->_begin_division($comment);
     }
@@ -5439,7 +5475,10 @@ sub _process_comment_division_marker {
   else
     {
       # end comment division
-      # $self->_get_current_division->add_part( $block );
+      my $division = $self->_get_current_division;
+
+      $division->add_part( $block );
+
       $self->_end_division;
     }
 
@@ -5464,14 +5503,17 @@ sub _process_comment_line {
       my $block = SML::CommentBlock->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
-      $self->_get_current_division->add_part( $block );
+
+      my $division = $self->_get_current_division;
+      $division->add_part( $block );
     }
 
   else
     {
       $logger->trace("..... continue comment block");
 
-      $self->_get_block->add_line($line);
+      my $block = $self->_get_block;
+      $block->add_line($line);
     }
 
   return 1;
@@ -5494,12 +5536,14 @@ sub _process_comment_division_line {
       $block->add_line($line);
       $self->_begin_block($block);
 
-      $self->_get_current_division->add_part( $block );
+      my $division = $self->_get_current_division;
+      $division->add_part( $block );
     }
 
   else
     {
-      $self->_get_block->add_line($line);
+      my $block = $self->_get_block;
+      $block->add_line($line);
     }
 
   return 1;
@@ -5518,19 +5562,19 @@ sub _process_conditional_division_marker {
 
   $logger->trace("----- conditional marker ($token)");
 
-  # if ( $self->_in_conditional )
-  #   {
-  #     $blockname = 'END';
-  #   }
+  if ( $self->_in_conditional )
+    {
+      $blockname = 'END_CONDITIONAL';
+    }
 
-  # else
-  #   {
-  #     $blockname = 'BEGIN';
-  #   }
+  else
+    {
+      $blockname = 'BEGIN_CONDITIONAL';
+    }
 
-  # my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
-  # $block->add_line($line);
-  # $self->_begin_block($block);
+  my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
+  $block->add_line($line);
+  $self->_begin_block($block);
 
   if ( $self->_in_conditional )
     {
@@ -5545,7 +5589,7 @@ sub _process_conditional_division_marker {
 	  $logger->logcroak("$msg");
 	}
 
-      # $conditional->add_part($block);
+      $conditional->add_part($block);
       $self->_end_division;
     }
 
@@ -5561,7 +5605,7 @@ sub _process_conditional_division_marker {
 	 library     => $library,
 	);
 
-      # $conditional->add_part($block);
+      $conditional->add_part($block);
 
       $self->_begin_division($conditional);
     }
@@ -5603,10 +5647,15 @@ sub _process_start_region_marker {
       $logger->fatal("INVALID BEGIN REGION at $location: $name inside $envname");
     }
 
-  # # new preformatted BEGIN block
-  # my $block = SML::PreformattedBlock->new(name=>'BEGIN',library=>$library);
-  # $block->add_line($line);
-  # $self->_begin_block($block);
+  # new preformatted BEGIN block
+  my $block = SML::PreformattedBlock->new
+    (
+     name    => 'BEGIN_REGION',
+     library => $library,
+    );
+
+  $block->add_line($line);
+  $self->_begin_block($block);
 
   my $region = undef;
 
@@ -5619,7 +5668,7 @@ sub _process_start_region_marker {
 
       $region = $class->new(id=>$id,library=>$library);
 
-      # $region->add_part($block);
+      $region->add_part($block);
     }
 
   else
@@ -5636,7 +5685,7 @@ sub _process_start_region_marker {
 	 library => $library,
 	);
 
-      # $region->add_part($block);
+      $region->add_part($block);
     }
 
   $self->_begin_division($region);
@@ -5696,10 +5745,15 @@ sub _process_end_region_marker {
     }
 
   # new preformatted block
-  # my $block = SML::PreformattedBlock->new(name=>'END',library=>$library);
-  # $block->add_line($line);
-  # $self->_begin_block($block);
-  # $self->_get_current_division->add_part($block);
+  my $block = SML::PreformattedBlock->new
+    (
+     name    => 'END_REGION',
+     library => $library,
+    );
+
+  $block->add_line($line);
+  $self->_begin_block($block);
+  $self->_get_current_division->add_part($block);
   $self->_end_division;
 
   return 1;
@@ -5742,29 +5796,29 @@ sub _process_environment_marker {
     }
 
 
-  # if (
-  #     $self->_in_environment
-  #     and
-  #     $self->_current_environment->get_name eq $name
-  #    )
-  #   {
-  #     $blockname = 'END';
-  #   }
+  if (
+      $self->_in_environment
+      and
+      $self->_current_environment->get_name eq $name
+     )
+    {
+      $blockname = 'END_ENVIRONMENT';
+    }
 
-  # else
-  #   {
-  #     $blockname = 'BEGIN';
-  #   }
+  else
+    {
+      $blockname = 'BEGIN_ENVIRONMENT';
+    }
 
-  # my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
-  # $block->add_line($line);
-  # $self->_begin_block($block);
+  my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
+  $block->add_line($line);
+  $self->_begin_block($block);
 
   my $division = $self->_get_current_division;
 
   if ( $self->_in_table )
     {
-      # $division->add_part($block);
+      $division->add_part($block);
       $self->_end_table;
     }
 
@@ -5780,14 +5834,14 @@ sub _process_environment_marker {
 	 library => $library,
 	);
 
-      # $environment->add_part($block);
+      $environment->add_part($block);
 
       $self->_begin_division($environment);
     }
 
   else
     {
-      # $division->add_part($block);
+      $division->add_part($block);
       $self->_end_division;
     }
 
@@ -5867,7 +5921,7 @@ sub _process_end_table_row {
   my $self = shift;
   my $line = shift;
 
-  my $name     = 'ENDTABLEROW';
+  my $name     = 'END_TABLE_ROW';
   my $library  = $self->get_library;
   my $location = $line->get_location;
 
@@ -5913,9 +5967,9 @@ sub _process_blank_line {
     {
       my $block = $self->_get_block;
 
-      # $block->add_line($line);
+      $block->add_line($line);
 
-      if ( not $self->_get_block->isa('SML::PreformattedBlock') )
+      if ( not $block->isa('SML::PreformattedBlock') )
 	{
 	  $self->_end_block;
 	}
@@ -6397,26 +6451,23 @@ sub _process_start_table_cell {
       not $self->_in_baretable
      )
     {
-      # new BARETABLE
-      #
+      # new BARE_TABLE
       my $tnum      = $self->_count_baretables + 1;
-      my $tid       = "BARETABLE-$tnum";
+      my $tid       = "BARE_TABLE-$tnum";
       my $baretable = SML::Baretable->new(id=>$tid,library=>$library);
 
       $self->_begin_division($baretable);
 
-      # new BARETABLEROW
-      #
+      # new BARE_TABLE_ROW
       my $rnum     = $self->_count_table_rows + 1;
-      my $rid      = "BARETABLEROW-$tnum-$rnum";
+      my $rid      = "BARE_TABLE_ROW-$tnum-$rnum";
       my $tablerow = SML::TableRow->new(id=>$rid,library=>$library);
 
       $self->_begin_division($tablerow);
 
-      # new BARETABLECELL
-      #
+      # new BARE_TABLE_CELL
       my $cnum      = $self->_count_table_cells + 1;
-      my $cid       = "BARETABLECELL-$tnum-$rnum-$cnum";
+      my $cid       = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
       my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
       $tablecell->add_part($block);
@@ -6429,19 +6480,17 @@ sub _process_start_table_cell {
 	 not $self->_in_table_row
 	)
     {
-      # new BARETABLEROW
-      #
+      # new BARE_TABLE_ROW
       my $tnum     = $self->_count_baretables;
       my $rnum     = $self->_count_table_rows + 1;
-      my $rid      = "BARETABLEROW-$tnum-$rnum";
+      my $rid      = "BARE_TABLE_ROW-$tnum-$rnum";
       my $tablerow = SML::TableRow->new(id=>$rid,library=>$library);
 
       $self->_begin_division($tablerow);
 
-      # new BARETABLECELL
-      #
+      # new BARE_TABLE_CELL
       my $cnum      = $self->_count_table_cells + 1;
-      my $cid       = "BARETABLECELL-$tnum-$rnum-$cnum";
+      my $cid       = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
       my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
       $tablecell->add_part($block);
@@ -6454,19 +6503,17 @@ sub _process_start_table_cell {
 	 not $self->_in_table_row
 	)
     {
-      # new TABLEROW
-      #
+      # new TABLE_ROW
       my $tnum     = $self->_count_tables;
       my $rnum     = $self->_count_table_rows + 1;
-      my $rid      = "TABLEROW-$tnum-$rnum";
+      my $rid      = "TABLE_ROW-$tnum-$rnum";
       my $tablerow = SML::TableRow->new(id=>$rid,library=>$library);
 
       $self->_begin_division($tablerow);
 
-      # new TABLECELL
-      #
+      # new TABLE_CELL
       my $cnum      = $self->_count_table_cells + 1;
-      my $cid       = "TABLECELL-$tnum-$rnum-$cnum";
+      my $cid       = "TABLE_CELL-$tnum-$rnum-$cnum";
       my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
       $tablecell->add_part($block);
@@ -6475,16 +6522,14 @@ sub _process_start_table_cell {
 
   elsif ( $self->_in_baretable )
     {
-      # end previous TABLECELL
-      #
+      # end previous TABLE_CELL
       $self->_end_division;
 
-      # new TABLECELL
-      #
+      # new TABLE_CELL
       my $tnum      = $self->_count_baretables;
       my $rnum      = $self->_count_table_rows;
       my $cnum      = $self->_count_table_cells + 1;
-      my $cid       = "BARETABLECELL-$tnum-$rnum-$cnum";
+      my $cid       = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
       my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
       $tablecell->add_part($block);
@@ -6493,16 +6538,14 @@ sub _process_start_table_cell {
 
   elsif ( $self->_in_table )
     {
-      # end previous TABLECELL
-      #
+      # end previous TABLE_CELL
       $self->_end_division;
 
-      # new TABLECELL
-      #
+      # new TABLE_CELL
       my $tnum      = $self->_count_tables;
       my $rnum      = $self->_count_table_rows;
       my $cnum      = $self->_count_table_cells + 1;
-      my $cid       = "TABLECELL-$tnum-$rnum-$cnum";
+      my $cid       = "TABLE_CELL-$tnum-$rnum-$cnum";
       my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
       $tablecell->add_part($block);
@@ -7561,16 +7604,8 @@ sub _get_next_substring_type {
 
       if ( $text =~ /$syntax->{$string_type}/p )
 	{
-	  if ( $self->_is_single_string_type($string_type) )
-	    {
-	      return $string_type;
-	    }
-
-	  else
-	    {
-	      my $prematch_length = length(${^PREMATCH});
-	      $href->{$prematch_length} = $string_type;
-	    }
+	  my $prematch_length = length(${^PREMATCH});
+	  $href->{$prematch_length} = $string_type;
 	}
     }
 
@@ -7581,7 +7616,7 @@ sub _get_next_substring_type {
 
   else
     {
-      my $list = [ sort keys %{$href} ];
+      my $list = [ sort {$a <=> $b} keys %{$href} ];
       my $next_substring_type = $list->[0];
 
       return $href->{$next_substring_type};
@@ -7604,6 +7639,8 @@ sub _build_string_type_list {
      'bold_string',
      'fixedwidth_string',
      'keystroke_symbol',
+     'dblquote_string',
+     'sglquote_string',
 
      # substrings that form references
      'cross_ref',
@@ -7632,10 +7669,10 @@ sub _build_string_type_list {
      'copyright_symbol',
      'trademark_symbol',
      'reg_trademark_symbol',
-     'open_dblquote_symbol',
-     'close_dblquote_symbol',
-     'open_sglquote_symbol',
-     'close_sglquote_symbol',
+     # 'open_dblquote_symbol',
+     # 'close_dblquote_symbol',
+     # 'open_sglquote_symbol',
+     # 'close_sglquote_symbol',
      'section_symbol',
      'emdash_symbol',
      'thepage_ref',
@@ -7676,10 +7713,10 @@ sub _build_single_string_type_list {
      'copyright_symbol',
      'trademark_symbol',
      'reg_trademark_symbol',
-     'open_dblquote_symbol',
-     'close_dblquote_symbol',
-     'open_sglquote_symbol',
-     'close_sglquote_symbol',
+     # 'open_dblquote_symbol',
+     # 'close_dblquote_symbol',
+     # 'open_sglquote_symbol',
+     # 'close_sglquote_symbol',
      'section_symbol',
      'emdash_symbol',
      'thepage_ref',
@@ -7705,8 +7742,6 @@ sub _parse_block {
 
   my $self  = shift;
   my $block = shift;
-
-  $logger->trace("_parse_block");
 
   if (
       not ref $block
@@ -7978,7 +8013,7 @@ sub _resolve_include_line {
 
   my $self  = shift;
   my $depth = shift;                    # current section depth
-  my $one   = shift;                    # asterisks
+  my $one   = shift;                    # leading asterisks
   my $two   = shift;                    # args
   my $three = shift;                    # included id or filespec
   my $four  = shift;                    # not used
@@ -8005,6 +8040,8 @@ sub _resolve_include_line {
     {
       $included_id       = $three;
       $included_filename = $five;
+
+      $logger->trace("resolve include line: $included_id FROM $included_filename");
     }
 
   elsif ( $three )
@@ -8033,7 +8070,16 @@ sub _resolve_include_line {
   # get list of lines to include
   my $line_list;
 
-  if ( $included_id )
+  if ( $included_filename and $included_id )
+    {
+      $self->create_fragment($included_filename);
+
+      my $division = $library->get_division($included_id);
+
+      $line_list = $division->get_line_list;
+    }
+
+  elsif ( $included_id )
     {
       my $division = $library->get_division($included_id);
 
@@ -8055,33 +8101,38 @@ sub _resolve_include_line {
   # flatten (i.e. include::flat: my-division)
   if ( $args =~ /flat:/ )
     {
+      $logger->trace("including flattened line list");
       return $self->_flatten_line_list($line_list);
     }
 
   # hide (i.e. include::hide: my-division)
   elsif ( $args =~ /hide:/ )
     {
+      $logger->trace("including hidden line list");
       return $self->_hide_line_list($line_list);
     }
 
   # as section at specified depth (i.e. ** include:: my-division)
-  elsif ( $asterisks =~ /\*+/ or $args =~ /\*+/ )
+  elsif ( $asterisks =~ /(\*+)/ or $args =~ /(\*+)/ )
     {
       my $depth = length($1);
 
+      $logger->trace("including line list converted to section (depth: $depth)");
       return $self->_convert_to_section_line_list($line_list,$depth);
     }
 
   # raw (i.e. include::raw: my-division)
   elsif ( $args =~ /raw:/ )
     {
+      $logger->trace("including raw line list");
       return $line_list;
     }
 
-  # as section at current depth (i.e. include:: my-division)
+  # raw (default behavior)
   else
     {
-      return $self->_convert_to_section_line_list($line_list,$depth);
+      $logger->trace("including raw line list (default)");
+      return $line_list;
     }
 }
 
@@ -8172,38 +8223,47 @@ __END__
 
 =head1 NAME
 
-C<SML::Parser> - a mechanism that creates fragment objects from raw
-SML text stored in files.
+C<SML::Parser> - create fragment objects from raw SML text stored in
+files; create string objects from blocks of text; extract data from
+text
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Parser"> version 2.0.0.
+2.0.0.
 
 =head1 SYNOPSIS
 
   my $parser = SML::Parser->new(library=>$library);
 
-  my $parser = $library->get_parser;
+  my $library  = $parser->get_library;
+  my $fragment = $parser->create_fragment($filename);
+  my $object   = $parser->create_string($text);
+  my $string   = $parser->extract_division_name($lines);
+  my $string   = $parser->extract_title_text($lines);
+  my $lines    = $parser->extract_preamble_lines($lines);
+  my $lines    = $parser->extract_narrative_lines($lines);
 
 =head1 DESCRIPTION
 
-A parser creates fragment objects from raw SML text stored in files.
+A parser creates fragment objects from raw SML text stored in files,
+creates string objects from blocks of text, and extracts data from
+sequences of line objects.
 
 =head1 METHODS
 
-=head2 parse
+=head2 get_library
 
-=head2 extract_division_name
+=head2 create_fragment($filename)
 
-=head2 extract_title_text
+=head2 create_string($text)
 
-=head2 extract_preamble_lines
+=head2 extract_division_name($lines)
 
-=head2 extract_narrative_lines
+=head2 extract_title_text($lines)
 
-=head2 in_preamble
+=head2 extract_preamble_lines($lines)
 
-=head2 get_gen_countent_hash
+=head2 extract_narrative_lines($lines)
 
 =head1 AUTHOR
 

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: PreformattedDivision.pm 239 2015-03-23 20:25:15Z drj826@gmail.com $
 
 package SML::PreformattedDivision;
 
@@ -49,6 +49,8 @@ This documentation refers to L<"SML::PreformattedDivision"> version
 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Environment
 
   my $pfd = SML::PreformattedDivision->new();
 

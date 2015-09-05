@@ -18,7 +18,7 @@ source. Design patterns are nifty. [cite:dp95, pg 6]
 
 ---SOURCE
 
-source:: book
+source_type:: book
 
 title:: Design Patterns -- Elements of Reusable Object-Oriented
 Software

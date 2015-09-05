@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Audio.pm 77 2015-01-31 17:48:03Z drj826@gmail.com $
 
 package SML::Audio;
 
@@ -47,6 +47,8 @@ application to insert an audio clip into the document.
 This documentation refers to L<"SML::Audio"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Environment
 
   my $aud = SML::Audio->new();
 

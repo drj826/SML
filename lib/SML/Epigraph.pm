@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Epigraph.pm 230 2015-03-21 17:50:52Z drj826@gmail.com $
 
 package SML::Epigraph;
 
@@ -47,6 +47,8 @@ application to render the content text as an epigraph.
 This documentation refers to L<"SML::Epigraph"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Environment
 
   my $epi = SML::Epigraph->new();
 

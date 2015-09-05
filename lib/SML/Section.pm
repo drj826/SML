@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Section.pm 185 2015-03-08 12:57:49Z drj826@gmail.com $
 
 package SML::Section;
 
@@ -68,8 +68,8 @@ has 'top_number' =>
    isa       => 'Str',
    reader    => 'get_top_number',
    writer    => 'set_top_number',
-   clearer   => 'clear_top_number',
-   predicate => 'has_top_number',
+   # clearer   => 'clear_top_number',
+   # predicate => 'has_top_number',
   );
 
 ######################################################################
@@ -95,32 +95,35 @@ section heading, and contains information about a specific topic.
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Section"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
-  my $sec = SML::Section->new();
+  extends SML::Division
+
+  my $section = SML::Section->new
+                  (
+                    depth   => $depth,
+                    id      => $id,
+                    library => $library,
+                  );
+
+  my $integer = $section->get_depth;
+  my $string  = $section->get_sectype;
+  my $string  = $section->get_top_number;
 
 =head1 DESCRIPTION
 
-An SML section is an element of document structure, that begins with a
+An SML section is an element of document structure that begins with a
 section heading, and contains information about a specific topic.
 Authors may create section headings at different levels to create a
 hierarchy of sections to organize document content.
 
 =head1 METHODS
 
-=head2 get_type
-
-=head2 get_name
-
-=head2 get_id
-
 =head2 get_depth
 
 =head2 get_sectype
-
-=head2 get_number
 
 =head2 get_top_number
 

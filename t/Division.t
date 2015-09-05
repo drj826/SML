@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Division.t 259 2015-04-02 20:27:00Z drj826@gmail.com $
 
-use lib "..";
+use lib "../lib";
 use Test::More;
 
 use SML;

@@ -5,12 +5,14 @@
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
+use lib "../lib";
+
 ######################################################################
 
 use SML::Library;
 
-my $filename = 'td-000004.txt';
-my $docid    = 'td-000004';
+my $filename = 'td-000001.txt';
+my $docid    = 'td-000001';
 my $library  = SML::Library->new(config_file=>'library.conf');
 my $parser   = $library->get_parser;
 my $fragment = $parser->create_fragment($filename);
@@ -18,7 +20,13 @@ my $document = $library->get_document($docid);
 
 print $document->dump_part_structure,"\n\n";
 
-print $document->render('sml','default'),"\n\n";
+my $result = $document->render('html','default'),"\n\n";
+
+print $result, "\n\n";
+
+open my $fh, '>', '../library/testdata/expected/sml/default/result.txt';
+print $fh $result;
+close $fh;
 
 ######################################################################
 

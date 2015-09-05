@@ -1,0 +1,935 @@
+2015/09/04 09:12:19 AcronymList.pm WARN SML::AcronymList::get_acronym> FAILED ACRONYM LOOKUP: 'bogus' '' 
+2015/09/04 09:12:49 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:12:50 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:12:50 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:12:51 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:12:51 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:12:52 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:12:53 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:12:53 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:12:54 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:12:54 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:12:55 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:12:55 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:12:57 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:12:57 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:12:58 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:12:58 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:12:59 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/04 09:12:59 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:13:00 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/04 09:13:00 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:13:01 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'bogus' 'sml' at UNKNOWN LOCATION 
+2015/09/04 09:13:01 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at UNKNOWN LOCATION 
+2015/09/04 09:13:02 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:13:02 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:13:30 TestData.pm WARN SML::TestData::slurp> CAN'T FIND expected/sml/default/td-000001.txt 
+2015/09/04 09:13:30 TestData.pm WARN SML::TestData::slurp> CAN'T FIND expected/sml/default/td-000002.txt 
+2015/09/04 09:13:30 TestData.pm WARN SML::TestData::slurp> CAN'T FIND expected/sml/default/td-000003.txt 
+2015/09/04 09:13:30 TestData.pm WARN SML::TestData::slurp> CAN'T FIND expected/sml/default/td-000004.txt 
+2015/09/04 09:13:30 TestData.pm WARN SML::TestData::slurp> CAN'T FIND expected/sml/default/td-000005.txt 
+2015/09/04 09:13:30 TestData.pm WARN SML::TestData::slurp> CAN'T FIND expected/sml/default/td-000006.txt 
+2015/09/04 09:13:30 TestData.pm WARN SML::TestData::slurp> CAN'T FIND expected/sml/default/td-000007.txt 
+2015/09/04 09:13:30 TestData.pm WARN SML::TestData::slurp> CAN'T FIND expected/sml/default/td-000012.txt 
+2015/09/04 09:13:30 TestData.pm WARN SML::TestData::slurp> CAN'T FIND expected/sml/default/td-000061.txt 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY '' 'Functional Requirement' at td-000027.txt:16 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000027' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000029.txt:11 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000029' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at td-000033.txt:11 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000033' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at td-000035.txt:11 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000035' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at td-000037.txt:11 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000037' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at td-000039.txt:13 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000039' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at td-000041.txt:13 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000041' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at td-000043.txt:13 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000043' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at td-000045.txt:13 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000045' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at td-000047.txt:13 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000047' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at td-000049.txt:13 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000049' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at td-000050.txt:11 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000050' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY '' 'bogus' at td-000051.txt:11 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000051' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at td-000052.txt:11 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000052' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'BUGUS' '' at td-000053.txt:11 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000053' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at td-000054.txt:11 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000054' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000055.txt:11 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000055' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at td-000056.txt:11 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000056' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at td-000057.txt:11 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000057' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at td-000058.txt:11 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000058' 
+2015/09/04 09:13:32 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at td-000059.txt:11 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000059' 
+2015/09/04 09:13:32 Division.pm WARN SML::Division::_validate_infer_only_conformance> INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY 'child' at td-000063.txt:24: problem parent-problem 
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000063' 
+2015/09/04 09:13:32 Division.pm WARN SML::Division::_validate_required_properties> MISSING REQUIRED PROPERTY at td-000064.txt:14: problem problem-1 requires 'id'  
+2015/09/04 09:13:32 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000064' 
+2015/09/04 09:13:33 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 09:13:33 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 
+2015/09/04 09:13:33 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000066' 
+2015/09/04 09:13:33 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'image.1.jgp' at td-000068.txt:20 
+2015/09/04 09:13:33 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000068' 
+2015/09/04 09:13:33 Division.pm WARN SML::Division::_validate_id_uniqueness> INVALID NON-UNIQUE ID at td-000070.txt:33: "problem-1" previously defined at td-000070.txt:19 
+2015/09/04 09:13:33 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000070' 
+2015/09/04 09:13:33 Division.pm WARN SML::Division::_validate_property_cardinality> INVALID PROPERTY CARDINALITY at td-000079.txt:15: problem allows only 1 title 
+2015/09/04 09:13:33 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000079' 
+2015/09/04 09:13:33 Division.pm WARN SML::Division::_validate_property_values> INVALID PROPERTY VALUE 'bogus' at td-000080.txt:23: problem status must be one of: grey, green, yellow, red 
+2015/09/04 09:13:33 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000080' 
+2015/09/04 09:13:33 Division.pm WARN SML::Division::_validate_composition> INVALID COMPOSITION at td-000081.txt:26: solution in problem library 'SML Engineering Library' 
+2015/09/04 09:13:33 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000081' 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec> FILE NOT FOUND 'td-000082.txt' 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec>   checked path C:/work/vetting-operations/app/semlang/t/../library 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec>   checked path C:/work/vetting-operations/app/semlang/t/../library/allocations 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec>   checked path C:/work/vetting-operations/app/semlang/t/../library/auto 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec>   checked path C:/work/vetting-operations/app/semlang/t/../library/files 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec>   checked path C:/work/vetting-operations/app/semlang/t/../library/incl 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec>   checked path C:/work/vetting-operations/app/semlang/t/../library/problems 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec>   checked path C:/work/vetting-operations/app/semlang/t/../library/results 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec>   checked path C:/work/vetting-operations/app/semlang/t/../library/roles 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec>   checked path C:/work/vetting-operations/app/semlang/t/../library/scripts 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec>   checked path C:/work/vetting-operations/app/semlang/t/../library/solutions 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec>   checked path C:/work/vetting-operations/app/semlang/t/../library/tasks 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec>   checked path C:/work/vetting-operations/app/semlang/t/../library/testdata 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec>   checked path C:/work/vetting-operations/app/semlang/t/../library/tests 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec>   checked path C:/work/vetting-operations/app/semlang/t/../library/textfiles 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec>   checked path C:/work/vetting-operations/app/semlang/t/../library/tmpl 
+2015/09/04 09:13:33 Library.pm ERROR SML::Library::get_filespec>   checked path C:/work/vetting-operations/app/semlang/t/../library/utility 
+2015/09/04 09:14:03 Library.pm WARN SML::Library::_build_revision> unknown SVN revision: C:/work/vetting-operations/app/semlang/t/../library 
+2015/09/04 09:14:16 Ontology.pm WARN SML::Ontology::get_entity_allowed_property_list> NO PROPERTIES DEFINED for bogus 
+2015/09/04 09:14:25 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 09:15:06 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN revision: library/testdata/td-000001.txt 
+2015/09/04 09:15:06 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN date: library/testdata/td-000001.txt 
+2015/09/04 09:15:06 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN author: library/testdata/td-000001.txt 
+2015/09/04 09:16:46 AcronymList.pm WARN SML::AcronymList::get_acronym> FAILED ACRONYM LOOKUP: 'bogus' '' 
+2015/09/04 09:17:17 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:17:17 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:17:18 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:17:18 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:17:19 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:17:19 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:17:20 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:17:21 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:17:21 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:17:22 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:17:23 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:17:23 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:17:24 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:17:25 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:17:25 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:17:26 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:17:26 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/04 09:17:27 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:17:27 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/04 09:17:27 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:17:28 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'bogus' 'sml' at UNKNOWN LOCATION 
+2015/09/04 09:17:29 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at UNKNOWN LOCATION 
+2015/09/04 09:17:29 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:17:30 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:18:01 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY '' 'Functional Requirement' at td-000027.txt:16 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000027' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000029.txt:11 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000029' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at td-000033.txt:11 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000033' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at td-000035.txt:11 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000035' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at td-000037.txt:11 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000037' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at td-000039.txt:13 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000039' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at td-000041.txt:13 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000041' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at td-000043.txt:13 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000043' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at td-000045.txt:13 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000045' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at td-000047.txt:13 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000047' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at td-000049.txt:13 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000049' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at td-000050.txt:11 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000050' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY '' 'bogus' at td-000051.txt:11 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000051' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at td-000052.txt:11 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000052' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'BUGUS' '' at td-000053.txt:11 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000053' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at td-000054.txt:11 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000054' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000055.txt:11 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000055' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at td-000056.txt:11 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000056' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at td-000057.txt:11 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000057' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at td-000058.txt:11 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000058' 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at td-000059.txt:11 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000059' 
+2015/09/04 09:18:02 Division.pm WARN SML::Division::_validate_infer_only_conformance> INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY 'child' at td-000063.txt:24: problem parent-problem 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000063' 
+2015/09/04 09:18:02 Division.pm WARN SML::Division::_validate_required_properties> MISSING REQUIRED PROPERTY at td-000064.txt:14: problem problem-1 requires 'id'  
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000064' 
+2015/09/04 09:18:02 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 09:18:02 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 
+2015/09/04 09:18:02 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000066' 
+2015/09/04 09:18:03 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'image.1.jgp' at td-000068.txt:20 
+2015/09/04 09:18:03 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000068' 
+2015/09/04 09:18:03 Division.pm WARN SML::Division::_validate_id_uniqueness> INVALID NON-UNIQUE ID at td-000070.txt:33: "problem-1" previously defined at td-000070.txt:19 
+2015/09/04 09:18:03 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000070' 
+2015/09/04 09:18:03 Division.pm WARN SML::Division::_validate_property_cardinality> INVALID PROPERTY CARDINALITY at td-000079.txt:15: problem allows only 1 title 
+2015/09/04 09:18:03 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000079' 
+2015/09/04 09:18:03 Division.pm WARN SML::Division::_validate_property_values> INVALID PROPERTY VALUE 'bogus' at td-000080.txt:23: problem status must be one of: grey, green, yellow, red 
+2015/09/04 09:18:03 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000080' 
+2015/09/04 09:18:03 Division.pm WARN SML::Division::_validate_composition> INVALID COMPOSITION at td-000081.txt:26: solution in problem library 'SML Engineering Library' 
+2015/09/04 09:18:03 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000081' 
+2015/09/04 09:18:04 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 09:18:37 Library.pm WARN SML::Library::_build_revision> unknown SVN revision: C:/work/vetting-operations/app/semlang/t/../library 
+2015/09/04 09:18:51 Ontology.pm WARN SML::Ontology::get_entity_allowed_property_list> NO PROPERTIES DEFINED for bogus 
+2015/09/04 09:19:00 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 09:19:40 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN revision: library/testdata/td-000001.txt 
+2015/09/04 09:19:40 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN date: library/testdata/td-000001.txt 
+2015/09/04 09:19:40 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN author: library/testdata/td-000001.txt 
+2015/09/04 09:36:59 AcronymList.pm WARN SML::AcronymList::get_acronym> FAILED ACRONYM LOOKUP: 'bogus' '' 
+2015/09/04 09:37:30 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:37:31 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:37:31 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:37:32 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:37:32 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:37:32 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:37:34 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:37:34 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:37:35 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:37:35 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:37:36 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:37:36 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:37:38 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:37:38 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:37:39 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:37:39 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:37:40 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/04 09:37:40 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:37:41 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/04 09:37:41 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:37:42 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'bogus' 'sml' at UNKNOWN LOCATION 
+2015/09/04 09:37:42 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at UNKNOWN LOCATION 
+2015/09/04 09:37:43 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:37:43 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:38:13 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY '' 'Functional Requirement' at td-000027.txt:16 
+2015/09/04 09:38:13 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000027' 
+2015/09/04 09:38:13 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000029.txt:11 
+2015/09/04 09:38:13 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000029' 
+2015/09/04 09:38:13 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at td-000033.txt:11 
+2015/09/04 09:38:13 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000033' 
+2015/09/04 09:38:13 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at td-000035.txt:11 
+2015/09/04 09:38:13 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000035' 
+2015/09/04 09:38:13 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at td-000037.txt:11 
+2015/09/04 09:38:13 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000037' 
+2015/09/04 09:38:13 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at td-000039.txt:13 
+2015/09/04 09:38:13 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000039' 
+2015/09/04 09:38:13 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at td-000041.txt:13 
+2015/09/04 09:38:13 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000041' 
+2015/09/04 09:38:13 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at td-000043.txt:13 
+2015/09/04 09:38:13 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000043' 
+2015/09/04 09:38:14 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at td-000045.txt:13 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000045' 
+2015/09/04 09:38:14 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at td-000047.txt:13 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000047' 
+2015/09/04 09:38:14 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at td-000049.txt:13 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000049' 
+2015/09/04 09:38:14 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at td-000050.txt:11 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000050' 
+2015/09/04 09:38:14 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY '' 'bogus' at td-000051.txt:11 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000051' 
+2015/09/04 09:38:14 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at td-000052.txt:11 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000052' 
+2015/09/04 09:38:14 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'BUGUS' '' at td-000053.txt:11 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000053' 
+2015/09/04 09:38:14 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at td-000054.txt:11 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000054' 
+2015/09/04 09:38:14 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000055.txt:11 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000055' 
+2015/09/04 09:38:14 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at td-000056.txt:11 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000056' 
+2015/09/04 09:38:14 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at td-000057.txt:11 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000057' 
+2015/09/04 09:38:14 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at td-000058.txt:11 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000058' 
+2015/09/04 09:38:14 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at td-000059.txt:11 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000059' 
+2015/09/04 09:38:14 Division.pm WARN SML::Division::_validate_infer_only_conformance> INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY 'child' at td-000063.txt:24: problem parent-problem 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000063' 
+2015/09/04 09:38:14 Division.pm WARN SML::Division::_validate_required_properties> MISSING REQUIRED PROPERTY at td-000064.txt:14: problem problem-1 requires 'id'  
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000064' 
+2015/09/04 09:38:14 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 09:38:14 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000066' 
+2015/09/04 09:38:14 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'image.1.jgp' at td-000068.txt:20 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000068' 
+2015/09/04 09:38:14 Division.pm WARN SML::Division::_validate_id_uniqueness> INVALID NON-UNIQUE ID at td-000070.txt:33: "problem-1" previously defined at td-000070.txt:19 
+2015/09/04 09:38:14 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000070' 
+2015/09/04 09:38:15 Division.pm WARN SML::Division::_validate_property_cardinality> INVALID PROPERTY CARDINALITY at td-000079.txt:15: problem allows only 1 title 
+2015/09/04 09:38:15 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000079' 
+2015/09/04 09:38:15 Division.pm WARN SML::Division::_validate_property_values> INVALID PROPERTY VALUE 'bogus' at td-000080.txt:23: problem status must be one of: grey, green, yellow, red 
+2015/09/04 09:38:15 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000080' 
+2015/09/04 09:38:15 Division.pm WARN SML::Division::_validate_composition> INVALID COMPOSITION at td-000081.txt:26: solution in problem library 'SML Engineering Library' 
+2015/09/04 09:38:15 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000081' 
+2015/09/04 09:38:15 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 09:38:46 Library.pm WARN SML::Library::_build_revision> unknown SVN revision: C:/work/vetting-operations/app/semlang/t/../library 
+2015/09/04 09:38:59 Ontology.pm WARN SML::Ontology::get_entity_allowed_property_list> NO PROPERTIES DEFINED for bogus 
+2015/09/04 09:39:08 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 09:39:49 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN revision: library/testdata/td-000001.txt 
+2015/09/04 09:39:49 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN date: library/testdata/td-000001.txt 
+2015/09/04 09:39:49 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN author: library/testdata/td-000001.txt 
+2015/09/04 09:45:12 AcronymList.pm WARN SML::AcronymList::get_acronym> FAILED ACRONYM LOOKUP: 'bogus' '' 
+2015/09/04 09:45:43 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:45:43 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:45:44 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:45:44 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:45:45 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:45:45 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/04 09:45:46 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:45:47 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:45:47 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:45:48 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:45:49 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:45:49 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:45:51 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:45:51 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:45:51 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:45:52 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:45:53 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/04 09:45:53 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:45:54 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/04 09:45:54 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:45:55 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'bogus' 'sml' at UNKNOWN LOCATION 
+2015/09/04 09:45:55 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at UNKNOWN LOCATION 
+2015/09/04 09:45:56 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 09:45:56 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at UNKNOWN LOCATION 
+2015/09/04 09:46:26 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY '' 'Functional Requirement' at td-000027.txt:16 
+2015/09/04 09:46:26 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000027' 
+2015/09/04 09:46:26 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000029.txt:11 
+2015/09/04 09:46:26 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000029' 
+2015/09/04 09:46:26 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at td-000033.txt:11 
+2015/09/04 09:46:26 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000033' 
+2015/09/04 09:46:26 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at td-000035.txt:11 
+2015/09/04 09:46:26 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000035' 
+2015/09/04 09:46:26 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at td-000037.txt:11 
+2015/09/04 09:46:26 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000037' 
+2015/09/04 09:46:26 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at td-000039.txt:13 
+2015/09/04 09:46:26 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000039' 
+2015/09/04 09:46:26 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at td-000041.txt:13 
+2015/09/04 09:46:26 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000041' 
+2015/09/04 09:46:26 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at td-000043.txt:13 
+2015/09/04 09:46:26 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000043' 
+2015/09/04 09:46:26 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at td-000045.txt:13 
+2015/09/04 09:46:26 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000045' 
+2015/09/04 09:46:26 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at td-000047.txt:13 
+2015/09/04 09:46:26 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000047' 
+2015/09/04 09:46:27 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at td-000049.txt:13 
+2015/09/04 09:46:27 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000049' 
+2015/09/04 09:46:27 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at td-000050.txt:11 
+2015/09/04 09:46:27 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000050' 
+2015/09/04 09:46:27 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY '' 'bogus' at td-000051.txt:11 
+2015/09/04 09:46:27 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000051' 
+2015/09/04 09:46:27 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at td-000052.txt:11 
+2015/09/04 09:46:27 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000052' 
+2015/09/04 09:46:27 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'BUGUS' '' at td-000053.txt:11 
+2015/09/04 09:46:27 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000053' 
+2015/09/04 09:46:27 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at td-000054.txt:11 
+2015/09/04 09:46:27 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000054' 
+2015/09/04 09:46:27 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000055.txt:11 
+2015/09/04 09:46:27 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000055' 
+2015/09/04 09:46:27 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at td-000056.txt:11 
+2015/09/04 09:46:27 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000056' 
+2015/09/04 09:46:27 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at td-000057.txt:11 
+2015/09/04 09:46:27 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000057' 
+2015/09/04 09:46:27 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at td-000058.txt:11 
+2015/09/04 09:46:27 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000058' 
+2015/09/04 09:46:27 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at td-000059.txt:11 
+2015/09/04 09:46:27 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000059' 
+2015/09/04 09:46:27 Division.pm WARN SML::Division::_validate_infer_only_conformance> INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY 'child' at td-000063.txt:24: problem parent-problem 
+2015/09/04 09:46:27 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000063' 
+2015/09/04 09:46:27 Division.pm WARN SML::Division::_validate_required_properties> MISSING REQUIRED PROPERTY at td-000064.txt:14: problem problem-1 requires 'id'  
+2015/09/04 09:46:27 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000064' 
+2015/09/04 09:46:27 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 09:46:27 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 
+2015/09/04 09:46:27 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000066' 
+2015/09/04 09:46:27 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'image.1.jgp' at td-000068.txt:20 
+2015/09/04 09:46:27 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000068' 
+2015/09/04 09:46:27 Division.pm WARN SML::Division::_validate_id_uniqueness> INVALID NON-UNIQUE ID at td-000070.txt:33: "problem-1" previously defined at td-000070.txt:19 
+2015/09/04 09:46:27 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000070' 
+2015/09/04 09:46:28 Division.pm WARN SML::Division::_validate_property_cardinality> INVALID PROPERTY CARDINALITY at td-000079.txt:15: problem allows only 1 title 
+2015/09/04 09:46:28 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000079' 
+2015/09/04 09:46:28 Division.pm WARN SML::Division::_validate_property_values> INVALID PROPERTY VALUE 'bogus' at td-000080.txt:23: problem status must be one of: grey, green, yellow, red 
+2015/09/04 09:46:28 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000080' 
+2015/09/04 09:46:28 Division.pm WARN SML::Division::_validate_composition> INVALID COMPOSITION at td-000081.txt:26: solution in problem library 'SML Engineering Library' 
+2015/09/04 09:46:28 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000081' 
+2015/09/04 09:46:28 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 09:46:58 Library.pm WARN SML::Library::_build_revision> unknown SVN revision: C:/work/vetting-operations/app/semlang/t/../library 
+2015/09/04 09:47:11 Ontology.pm WARN SML::Ontology::get_entity_allowed_property_list> NO PROPERTIES DEFINED for bogus 
+2015/09/04 09:47:20 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 09:48:02 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN revision: library/testdata/td-000001.txt 
+2015/09/04 09:48:02 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN date: library/testdata/td-000001.txt 
+2015/09/04 09:48:02 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN author: library/testdata/td-000001.txt 
+2015/09/04 11:49:12 AcronymList.pm WARN SML::AcronymList::get_acronym> FAILED ACRONYM LOOKUP: 'bogus' '' 
+2015/09/04 11:49:42 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at UNKNOWN LOCATION 
+2015/09/04 11:49:42 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at UNKNOWN LOCATION 
+2015/09/04 11:49:43 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at UNKNOWN LOCATION 
+2015/09/04 11:49:43 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at UNKNOWN LOCATION 
+2015/09/04 11:49:44 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/04 11:49:44 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/04 11:49:45 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 11:49:46 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 11:49:46 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 11:49:47 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 11:49:48 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 11:49:48 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 11:49:49 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 11:49:50 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 11:49:50 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 11:49:51 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 11:49:51 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/04 11:49:52 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 11:49:52 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/04 11:49:53 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 11:49:53 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'bogus' 'sml' at UNKNOWN LOCATION 
+2015/09/04 11:49:53 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at UNKNOWN LOCATION 
+2015/09/04 11:49:54 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 11:49:54 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at UNKNOWN LOCATION 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY '' 'Functional Requirement' at td-000027.txt:16 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000027' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000029.txt:11 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000029' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at td-000033.txt:11 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000033' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at td-000035.txt:11 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000035' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at td-000037.txt:11 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000037' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at td-000039.txt:13 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000039' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at td-000041.txt:13 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000041' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at td-000043.txt:13 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000043' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at td-000045.txt:13 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000045' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at td-000047.txt:13 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000047' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at td-000049.txt:13 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000049' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at td-000050.txt:11 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000050' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY '' 'bogus' at td-000051.txt:11 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000051' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at td-000052.txt:11 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000052' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'BUGUS' '' at td-000053.txt:11 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000053' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at td-000054.txt:11 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000054' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000055.txt:11 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000055' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at td-000056.txt:11 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000056' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at td-000057.txt:11 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000057' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at td-000058.txt:11 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000058' 
+2015/09/04 11:50:24 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at td-000059.txt:11 
+2015/09/04 11:50:24 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000059' 
+2015/09/04 11:50:25 Division.pm WARN SML::Division::_validate_infer_only_conformance> INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY 'child' at td-000063.txt:24: problem parent-problem 
+2015/09/04 11:50:25 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000063' 
+2015/09/04 11:50:25 Division.pm WARN SML::Division::_validate_required_properties> MISSING REQUIRED PROPERTY at td-000064.txt:14: problem problem-1 requires 'id'  
+2015/09/04 11:50:25 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000064' 
+2015/09/04 11:50:25 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 11:50:25 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 
+2015/09/04 11:50:25 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000066' 
+2015/09/04 11:50:25 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'image.1.jgp' at td-000068.txt:20 
+2015/09/04 11:50:25 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000068' 
+2015/09/04 11:50:25 Division.pm WARN SML::Division::_validate_id_uniqueness> INVALID NON-UNIQUE ID at td-000070.txt:33: "problem-1" previously defined at td-000070.txt:19 
+2015/09/04 11:50:25 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000070' 
+2015/09/04 11:50:25 Division.pm WARN SML::Division::_validate_property_cardinality> INVALID PROPERTY CARDINALITY at td-000079.txt:15: problem allows only 1 title 
+2015/09/04 11:50:25 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000079' 
+2015/09/04 11:50:25 Division.pm WARN SML::Division::_validate_property_values> INVALID PROPERTY VALUE 'bogus' at td-000080.txt:23: problem status must be one of: grey, green, yellow, red 
+2015/09/04 11:50:25 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000080' 
+2015/09/04 11:50:25 Division.pm WARN SML::Division::_validate_composition> INVALID COMPOSITION at td-000081.txt:26: solution in problem library 'SML Engineering Library' 
+2015/09/04 11:50:25 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000081' 
+2015/09/04 11:50:26 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 11:50:55 Library.pm WARN SML::Library::_build_revision> unknown SVN revision: C:/work/vetting-operations/app/semlang/t/../library 
+2015/09/04 11:51:08 Ontology.pm WARN SML::Ontology::get_entity_allowed_property_list> NO PROPERTIES DEFINED for bogus 
+2015/09/04 11:51:16 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 11:51:57 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN revision: library/testdata/td-000001.txt 
+2015/09/04 11:51:57 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN date: library/testdata/td-000001.txt 
+2015/09/04 11:51:57 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN author: library/testdata/td-000001.txt 
+2015/09/04 14:46:34 AcronymList.pm WARN SML::AcronymList::get_acronym> FAILED ACRONYM LOOKUP: 'bogus' '' 
+2015/09/04 14:47:04 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at UNKNOWN LOCATION 
+2015/09/04 14:47:04 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at UNKNOWN LOCATION 
+2015/09/04 14:47:05 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at UNKNOWN LOCATION 
+2015/09/04 14:47:05 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at UNKNOWN LOCATION 
+2015/09/04 14:47:06 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/04 14:47:06 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/04 14:47:07 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 14:47:08 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 14:47:08 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 14:47:09 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 14:47:10 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 14:47:10 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 14:47:11 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 14:47:12 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 14:47:12 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 14:47:13 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 14:47:13 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/04 14:47:14 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 14:47:14 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/04 14:47:15 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 14:47:15 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'bogus' 'sml' at UNKNOWN LOCATION 
+2015/09/04 14:47:16 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at UNKNOWN LOCATION 
+2015/09/04 14:47:16 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 14:47:17 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at UNKNOWN LOCATION 
+2015/09/04 14:47:46 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY '' 'Functional Requirement' at td-000027.txt:16 
+2015/09/04 14:47:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000027' 
+2015/09/04 14:47:46 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000029.txt:11 
+2015/09/04 14:47:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000029' 
+2015/09/04 14:47:46 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at td-000033.txt:11 
+2015/09/04 14:47:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000033' 
+2015/09/04 14:47:46 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at td-000035.txt:11 
+2015/09/04 14:47:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000035' 
+2015/09/04 14:47:46 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at td-000037.txt:11 
+2015/09/04 14:47:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000037' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at td-000039.txt:13 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000039' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at td-000041.txt:13 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000041' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at td-000043.txt:13 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000043' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at td-000045.txt:13 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000045' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at td-000047.txt:13 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000047' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at td-000049.txt:13 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000049' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at td-000050.txt:11 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000050' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY '' 'bogus' at td-000051.txt:11 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000051' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at td-000052.txt:11 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000052' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'BUGUS' '' at td-000053.txt:11 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000053' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at td-000054.txt:11 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000054' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000055.txt:11 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000055' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at td-000056.txt:11 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000056' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at td-000057.txt:11 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000057' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at td-000058.txt:11 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000058' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at td-000059.txt:11 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000059' 
+2015/09/04 14:47:47 Division.pm WARN SML::Division::_validate_infer_only_conformance> INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY 'child' at td-000063.txt:24: problem parent-problem 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000063' 
+2015/09/04 14:47:47 Division.pm WARN SML::Division::_validate_required_properties> MISSING REQUIRED PROPERTY at td-000064.txt:14: problem problem-1 requires 'id'  
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000064' 
+2015/09/04 14:47:47 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000066' 
+2015/09/04 14:47:47 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'image.1.jgp' at td-000068.txt:20 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000068' 
+2015/09/04 14:47:47 Division.pm WARN SML::Division::_validate_id_uniqueness> INVALID NON-UNIQUE ID at td-000070.txt:33: "problem-1" previously defined at td-000070.txt:19 
+2015/09/04 14:47:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000070' 
+2015/09/04 14:47:48 Division.pm WARN SML::Division::_validate_property_cardinality> INVALID PROPERTY CARDINALITY at td-000079.txt:15: problem allows only 1 title 
+2015/09/04 14:47:48 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000079' 
+2015/09/04 14:47:48 Division.pm WARN SML::Division::_validate_property_values> INVALID PROPERTY VALUE 'bogus' at td-000080.txt:23: problem status must be one of: grey, green, yellow, red 
+2015/09/04 14:47:48 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000080' 
+2015/09/04 14:47:48 Division.pm WARN SML::Division::_validate_composition> INVALID COMPOSITION at td-000081.txt:26: solution in problem library 'SML Engineering Library' 
+2015/09/04 14:47:48 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000081' 
+2015/09/04 14:47:48 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 14:48:18 Library.pm WARN SML::Library::_build_revision> unknown SVN revision: C:/work/vetting-operations/app/semlang/t/../library 
+2015/09/04 14:48:31 Ontology.pm WARN SML::Ontology::get_entity_allowed_property_list> NO PROPERTIES DEFINED for bogus 
+2015/09/04 14:48:39 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 14:49:20 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN revision: library/testdata/td-000001.txt 
+2015/09/04 14:49:20 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN date: library/testdata/td-000001.txt 
+2015/09/04 14:49:20 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN author: library/testdata/td-000001.txt 
+2015/09/04 15:15:30 AcronymList.pm WARN SML::AcronymList::get_acronym> FAILED ACRONYM LOOKUP: 'bogus' '' 
+2015/09/04 15:16:00 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at UNKNOWN LOCATION 
+2015/09/04 15:16:00 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at UNKNOWN LOCATION 
+2015/09/04 15:16:01 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at UNKNOWN LOCATION 
+2015/09/04 15:16:01 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at UNKNOWN LOCATION 
+2015/09/04 15:16:02 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/04 15:16:02 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/04 15:16:03 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 15:16:04 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 15:16:04 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 15:16:05 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 15:16:05 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 15:16:06 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 15:16:07 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 15:16:08 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 15:16:08 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 15:16:08 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 15:16:09 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/04 15:16:09 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 15:16:10 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/04 15:16:10 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/04 15:16:11 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'bogus' 'sml' at UNKNOWN LOCATION 
+2015/09/04 15:16:11 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at UNKNOWN LOCATION 
+2015/09/04 15:16:12 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/04 15:16:12 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at UNKNOWN LOCATION 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY '' 'Functional Requirement' at td-000027.txt:16 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000027' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000029.txt:11 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000029' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at td-000033.txt:11 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000033' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at td-000035.txt:11 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000035' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at td-000037.txt:11 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000037' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at td-000039.txt:13 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000039' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at td-000041.txt:13 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000041' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at td-000043.txt:13 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000043' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at td-000045.txt:13 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000045' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at td-000047.txt:13 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000047' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at td-000049.txt:13 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000049' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at td-000050.txt:11 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000050' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY '' 'bogus' at td-000051.txt:11 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000051' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at td-000052.txt:11 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000052' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'BUGUS' '' at td-000053.txt:11 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000053' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at td-000054.txt:11 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000054' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000055.txt:11 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000055' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at td-000056.txt:11 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000056' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at td-000057.txt:11 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000057' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at td-000058.txt:11 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000058' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at td-000059.txt:11 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000059' 
+2015/09/04 15:16:42 Division.pm WARN SML::Division::_validate_infer_only_conformance> INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY 'child' at td-000063.txt:24: problem parent-problem 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000063' 
+2015/09/04 15:16:42 Division.pm WARN SML::Division::_validate_required_properties> MISSING REQUIRED PROPERTY at td-000064.txt:14: problem problem-1 requires 'id'  
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000064' 
+2015/09/04 15:16:42 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000066' 
+2015/09/04 15:16:42 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'image.1.jgp' at td-000068.txt:20 
+2015/09/04 15:16:42 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000068' 
+2015/09/04 15:16:42 Division.pm WARN SML::Division::_validate_id_uniqueness> INVALID NON-UNIQUE ID at td-000070.txt:33: "problem-1" previously defined at td-000070.txt:19 
+2015/09/04 15:16:43 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000070' 
+2015/09/04 15:16:43 Division.pm WARN SML::Division::_validate_property_cardinality> INVALID PROPERTY CARDINALITY at td-000079.txt:15: problem allows only 1 title 
+2015/09/04 15:16:43 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000079' 
+2015/09/04 15:16:43 Division.pm WARN SML::Division::_validate_property_values> INVALID PROPERTY VALUE 'bogus' at td-000080.txt:23: problem status must be one of: grey, green, yellow, red 
+2015/09/04 15:16:43 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000080' 
+2015/09/04 15:16:43 Division.pm WARN SML::Division::_validate_composition> INVALID COMPOSITION at td-000081.txt:26: solution in problem library 'SML Engineering Library' 
+2015/09/04 15:16:43 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000081' 
+2015/09/04 15:16:44 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 15:17:13 Library.pm WARN SML::Library::_build_revision> unknown SVN revision: C:/work/vetting-operations/app/semlang/t/../library 
+2015/09/04 15:17:26 Ontology.pm WARN SML::Ontology::get_entity_allowed_property_list> NO PROPERTIES DEFINED for bogus 
+2015/09/04 15:17:34 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/04 15:18:15 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN revision: library/testdata/td-000001.txt 
+2015/09/04 15:18:15 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN date: library/testdata/td-000001.txt 
+2015/09/04 15:18:15 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN author: library/testdata/td-000001.txt 
+2015/09/05 07:24:36 AcronymList.pm WARN SML::AcronymList::get_acronym> FAILED ACRONYM LOOKUP: 'bogus' '' 
+2015/09/05 07:25:06 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:25:07 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:25:07 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:25:08 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:25:08 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:25:09 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:25:10 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:25:11 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:25:11 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:25:11 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:25:12 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:25:13 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:25:14 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:25:15 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:25:15 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:25:15 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:25:16 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/05 07:25:16 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:25:17 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/05 07:25:17 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:25:18 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'bogus' 'sml' at UNKNOWN LOCATION 
+2015/09/05 07:25:18 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at UNKNOWN LOCATION 
+2015/09/05 07:25:19 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:25:19 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:25:49 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY '' 'Functional Requirement' at td-000027.txt:16 
+2015/09/05 07:25:49 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000027' 
+2015/09/05 07:25:49 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000029.txt:11 
+2015/09/05 07:25:49 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000029' 
+2015/09/05 07:25:49 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at td-000033.txt:11 
+2015/09/05 07:25:49 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000033' 
+2015/09/05 07:25:49 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at td-000035.txt:11 
+2015/09/05 07:25:49 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000035' 
+2015/09/05 07:25:49 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at td-000037.txt:11 
+2015/09/05 07:25:49 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000037' 
+2015/09/05 07:25:49 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at td-000039.txt:13 
+2015/09/05 07:25:49 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000039' 
+2015/09/05 07:25:49 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at td-000041.txt:13 
+2015/09/05 07:25:49 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000041' 
+2015/09/05 07:25:49 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at td-000043.txt:13 
+2015/09/05 07:25:49 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000043' 
+2015/09/05 07:25:49 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at td-000045.txt:13 
+2015/09/05 07:25:49 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000045' 
+2015/09/05 07:25:50 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at td-000047.txt:13 
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000047' 
+2015/09/05 07:25:50 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at td-000049.txt:13 
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000049' 
+2015/09/05 07:25:50 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at td-000050.txt:11 
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000050' 
+2015/09/05 07:25:50 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY '' 'bogus' at td-000051.txt:11 
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000051' 
+2015/09/05 07:25:50 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at td-000052.txt:11 
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000052' 
+2015/09/05 07:25:50 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'BUGUS' '' at td-000053.txt:11 
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000053' 
+2015/09/05 07:25:50 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at td-000054.txt:11 
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000054' 
+2015/09/05 07:25:50 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000055.txt:11 
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000055' 
+2015/09/05 07:25:50 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at td-000056.txt:11 
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000056' 
+2015/09/05 07:25:50 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at td-000057.txt:11 
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000057' 
+2015/09/05 07:25:50 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at td-000058.txt:11 
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000058' 
+2015/09/05 07:25:50 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at td-000059.txt:11 
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000059' 
+2015/09/05 07:25:50 Division.pm WARN SML::Division::_validate_infer_only_conformance> INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY 'child' at td-000063.txt:24: problem parent-problem 
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000063' 
+2015/09/05 07:25:50 Division.pm WARN SML::Division::_validate_required_properties> MISSING REQUIRED PROPERTY at td-000064.txt:14: problem problem-1 requires 'id'  
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000064' 
+2015/09/05 07:25:50 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/05 07:25:50 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000066' 
+2015/09/05 07:25:50 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'image.1.jgp' at td-000068.txt:20 
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000068' 
+2015/09/05 07:25:50 Division.pm WARN SML::Division::_validate_id_uniqueness> INVALID NON-UNIQUE ID at td-000070.txt:33: "problem-1" previously defined at td-000070.txt:19 
+2015/09/05 07:25:50 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000070' 
+2015/09/05 07:25:51 Division.pm WARN SML::Division::_validate_property_cardinality> INVALID PROPERTY CARDINALITY at td-000079.txt:15: problem allows only 1 title 
+2015/09/05 07:25:51 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000079' 
+2015/09/05 07:25:51 Division.pm WARN SML::Division::_validate_property_values> INVALID PROPERTY VALUE 'bogus' at td-000080.txt:23: problem status must be one of: grey, green, yellow, red 
+2015/09/05 07:25:51 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000080' 
+2015/09/05 07:25:51 Division.pm WARN SML::Division::_validate_composition> INVALID COMPOSITION at td-000081.txt:26: solution in problem library 'SML Engineering Library' 
+2015/09/05 07:25:51 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000081' 
+2015/09/05 07:25:51 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/05 07:26:21 Library.pm WARN SML::Library::_build_revision> unknown SVN revision: C:/work/vetting-operations/app/semlang/t/../library 
+2015/09/05 07:26:34 Ontology.pm WARN SML::Ontology::get_entity_allowed_property_list> NO PROPERTIES DEFINED for bogus 
+2015/09/05 07:26:42 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/05 07:27:23 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN revision: library/testdata/td-000001.txt 
+2015/09/05 07:27:23 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN date: library/testdata/td-000001.txt 
+2015/09/05 07:27:23 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN author: library/testdata/td-000001.txt 
+2015/09/05 07:33:33 AcronymList.pm WARN SML::AcronymList::get_acronym> FAILED ACRONYM LOOKUP: 'bogus' '' 
+2015/09/05 07:34:03 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:34:04 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:34:04 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:34:05 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:34:05 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:34:06 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:34:07 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:34:08 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:34:08 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:34:08 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:34:09 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:34:10 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:34:11 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:34:11 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:34:12 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:34:12 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:34:13 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/05 07:34:13 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:34:14 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/05 07:34:14 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:34:15 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'bogus' 'sml' at UNKNOWN LOCATION 
+2015/09/05 07:34:15 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at UNKNOWN LOCATION 
+2015/09/05 07:34:16 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:34:16 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY '' 'Functional Requirement' at td-000027.txt:16 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000027' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000029.txt:11 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000029' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at td-000033.txt:11 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000033' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at td-000035.txt:11 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000035' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at td-000037.txt:11 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000037' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at td-000039.txt:13 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000039' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at td-000041.txt:13 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000041' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at td-000043.txt:13 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000043' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at td-000045.txt:13 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000045' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at td-000047.txt:13 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000047' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at td-000049.txt:13 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000049' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at td-000050.txt:11 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000050' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY '' 'bogus' at td-000051.txt:11 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000051' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at td-000052.txt:11 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000052' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'BUGUS' '' at td-000053.txt:11 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000053' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at td-000054.txt:11 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000054' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000055.txt:11 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000055' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at td-000056.txt:11 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000056' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at td-000057.txt:11 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000057' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at td-000058.txt:11 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000058' 
+2015/09/05 07:34:46 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at td-000059.txt:11 
+2015/09/05 07:34:46 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000059' 
+2015/09/05 07:34:47 Division.pm WARN SML::Division::_validate_infer_only_conformance> INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY 'child' at td-000063.txt:24: problem parent-problem 
+2015/09/05 07:34:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000063' 
+2015/09/05 07:34:47 Division.pm WARN SML::Division::_validate_required_properties> MISSING REQUIRED PROPERTY at td-000064.txt:14: problem problem-1 requires 'id'  
+2015/09/05 07:34:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000064' 
+2015/09/05 07:34:47 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/05 07:34:47 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 
+2015/09/05 07:34:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000066' 
+2015/09/05 07:34:47 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'image.1.jgp' at td-000068.txt:20 
+2015/09/05 07:34:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000068' 
+2015/09/05 07:34:47 Division.pm WARN SML::Division::_validate_id_uniqueness> INVALID NON-UNIQUE ID at td-000070.txt:33: "problem-1" previously defined at td-000070.txt:19 
+2015/09/05 07:34:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000070' 
+2015/09/05 07:34:47 Division.pm WARN SML::Division::_validate_property_cardinality> INVALID PROPERTY CARDINALITY at td-000079.txt:15: problem allows only 1 title 
+2015/09/05 07:34:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000079' 
+2015/09/05 07:34:47 Division.pm WARN SML::Division::_validate_property_values> INVALID PROPERTY VALUE 'bogus' at td-000080.txt:23: problem status must be one of: grey, green, yellow, red 
+2015/09/05 07:34:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000080' 
+2015/09/05 07:34:47 Division.pm WARN SML::Division::_validate_composition> INVALID COMPOSITION at td-000081.txt:26: solution in problem library 'SML Engineering Library' 
+2015/09/05 07:34:47 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000081' 
+2015/09/05 07:34:48 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/05 07:35:21 Library.pm WARN SML::Library::_build_revision> unknown SVN revision: C:/work/vetting-operations/app/semlang/t/../library 
+2015/09/05 07:35:34 Ontology.pm WARN SML::Ontology::get_entity_allowed_property_list> NO PROPERTIES DEFINED for bogus 
+2015/09/05 07:35:43 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/05 07:36:26 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN revision: library/testdata/td-000001.txt 
+2015/09/05 07:36:26 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN date: library/testdata/td-000001.txt 
+2015/09/05 07:36:26 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN author: library/testdata/td-000001.txt 
+2015/09/05 07:59:07 AcronymList.pm WARN SML::AcronymList::get_acronym> FAILED ACRONYM LOOKUP: 'bogus' '' 
+2015/09/05 07:59:38 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:59:39 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:59:39 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:59:40 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:59:40 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:59:41 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at UNKNOWN LOCATION 
+2015/09/05 07:59:42 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:59:42 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:59:43 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:59:43 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:59:44 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:59:44 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:59:46 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:59:46 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:59:47 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:59:47 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:59:48 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/05 07:59:48 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:59:49 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY 'sml' 'bogus' at UNKNOWN LOCATION 
+2015/09/05 07:59:49 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at UNKNOWN LOCATION 
+2015/09/05 07:59:50 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'bogus' 'sml' at UNKNOWN LOCATION 
+2015/09/05 07:59:50 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at UNKNOWN LOCATION 
+2015/09/05 07:59:51 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at UNKNOWN LOCATION 
+2015/09/05 07:59:51 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at UNKNOWN LOCATION 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_glossary_term_ref_semantics> TERM NOT IN GLOSSARY '' 'Functional Requirement' at td-000027.txt:16 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000027' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000029.txt:11 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000029' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_cross_ref_semantics> INVALID CROSS REFERENCE 'bogus' not defined at td-000033.txt:11 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000033' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_id_ref_semantics> INVALID ID REFERENCE 'bogus' not defined at td-000035.txt:11 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000035' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_page_ref_semantics> INVALID PAGE REFERENCE 'bogus' not defined at td-000037.txt:11 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000037' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_bold_markup_syntax> INVALID BOLD MARKUP at td-000039.txt:13 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000039' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_italics_markup_syntax> INVALID ITALICS MARKUP at td-000041.txt:13 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000041' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_fixedwidth_markup_syntax> INVALID FIXED-WIDTH MARKUP at td-000043.txt:13 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000043' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_underline_markup_syntax> INVALID UNDERLINE MARKUP at td-000045.txt:13 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000045' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_superscript_markup_syntax> INVALID SUPERSCRIPT MARKUP at td-000047.txt:13 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000047' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_subscript_markup_syntax> INVALID SUBSCRIPT MARKUP at td-000049.txt:13 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000049' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_glossary_term_ref_syntax> INVALID GLOSSARY TERM REFERENCE SYNTAX at td-000050.txt:11 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000050' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_glossary_def_ref_semantics> DEFINITION NOT IN GLOSSARY '' 'bogus' at td-000051.txt:11 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000051' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_glossary_def_ref_syntax> INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at td-000052.txt:11 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000052' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_acronym_ref_semantics> ACRONYM NOT IN ACRONYM LIST: 'BUGUS' '' at td-000053.txt:11 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000053' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_acronym_ref_syntax> INVALID ACRONYM REFERENCE SYNTAX: at td-000054.txt:11 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000054' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_source_citation_semantics> INVALID SOURCE CITATION source 'bogus' not defined at td-000055.txt:11 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000055' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_source_citation_syntax> INVALID SOURCE CITATION SYNTAX at td-000056.txt:11 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000056' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_cross_ref_syntax> INVALID CROSS REFERENCE SYNTAX at td-000057.txt:11 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000057' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_id_ref_syntax> INVALID ID REFERENCE SYNTAX at td-000058.txt:11 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000058' 
+2015/09/05 08:00:21 Block.pm WARN SML::Block::_validate_page_ref_syntax> INVALID PAGE REFERENCE SYNTAX at td-000059.txt:11 
+2015/09/05 08:00:21 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000059' 
+2015/09/05 08:00:22 Division.pm WARN SML::Division::_validate_infer_only_conformance> INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY 'child' at td-000063.txt:24: problem parent-problem 
+2015/09/05 08:00:22 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000063' 
+2015/09/05 08:00:22 Division.pm WARN SML::Division::_validate_required_properties> MISSING REQUIRED PROPERTY at td-000064.txt:14: problem problem-1 requires 'id'  
+2015/09/05 08:00:22 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000064' 
+2015/09/05 08:00:22 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/05 08:00:22 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 
+2015/09/05 08:00:22 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000066' 
+2015/09/05 08:00:22 Block.pm WARN SML::Block::_validate_file_ref_semantics> FILE NOT FOUND 'image.1.jgp' at td-000068.txt:20 
+2015/09/05 08:00:22 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000068' 
+2015/09/05 08:00:22 Division.pm WARN SML::Division::_validate_id_uniqueness> INVALID NON-UNIQUE ID at td-000070.txt:33: "problem-1" previously defined at td-000070.txt:19 
+2015/09/05 08:00:22 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000070' 
+2015/09/05 08:00:22 Division.pm WARN SML::Division::_validate_property_cardinality> INVALID PROPERTY CARDINALITY at td-000079.txt:15: problem allows only 1 title 
+2015/09/05 08:00:22 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000079' 
+2015/09/05 08:00:22 Division.pm WARN SML::Division::_validate_property_values> INVALID PROPERTY VALUE 'bogus' at td-000080.txt:23: problem status must be one of: grey, green, yellow, red 
+2015/09/05 08:00:22 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000080' 
+2015/09/05 08:00:22 Division.pm WARN SML::Division::_validate_composition> INVALID COMPOSITION at td-000081.txt:26: solution in problem library 'SML Engineering Library' 
+2015/09/05 08:00:22 Document.pm WARN SML::Document::_validate_document> THE DOCUMENT IS NOT VALID 'td-000081' 
+2015/09/05 08:00:23 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/05 08:00:53 Library.pm WARN SML::Library::_build_revision> unknown SVN revision: C:/work/vetting-operations/app/semlang/t/../library 
+2015/09/05 08:01:05 Ontology.pm WARN SML::Ontology::get_entity_allowed_property_list> NO PROPERTIES DEFINED for bogus 
+2015/09/05 08:01:14 Fragment.pm WARN SML::Fragment::_read_file> FILE NOT FOUND 'td-000001.xtx' at td-000066.txt:20 (from C:/work/vetting-operations/app/semlang/library/testdata) 
+2015/09/05 08:01:55 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN revision: library/testdata/td-000001.txt 
+2015/09/05 08:01:55 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN date: library/testdata/td-000001.txt 
+2015/09/05 08:01:55 Svninfo.pm WARN SML::Svninfo::BUILD> unknown SVN author: library/testdata/td-000001.txt 

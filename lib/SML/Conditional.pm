@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Conditional.pm 198 2015-03-09 21:42:49Z drj826@gmail.com $
 
 package SML::Conditional;
 
@@ -66,6 +66,8 @@ whether a flag is set.
 This documentation refers to L<"SML::Conditional"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Division
 
   my $cnd = SML::Conditional->new();
 

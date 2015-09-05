@@ -1,0 +1,17 @@
+[%- IF self.get_depth == 1 -%]
+* [% self.get_property_value('title') %]
+[%- ELSIF self.get_depth == 2 -%]
+** [% self.get_property_value('title') %]
+[%- ELSIF self.get_depth == 3 -%]
+*** [% self.get_property_value('title') %]
+[%- ELSE -%]
+**** [% self.get_property_value('title') %]
+[%- END %]
+
+[% FOREACH part IN self.get_part_list -%]
+  [%- UNLESS part.get_name == 'title' -%]
+    [%- input = part.get_name _ '.tt' -%]
+    [%- INCLUDE $input self = part -%]
+  [%- END -%]
+[%- END -%]
+

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: ListItem.pm 230 2015-03-21 17:50:52Z drj826@gmail.com $
 
 package SML::ListItem;
 
@@ -82,6 +82,8 @@ sequence or hierarchy of items.
 This documentation refers to L<"SML::Listitem"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Block
 
   my $item = SML::Listitem->new();
 

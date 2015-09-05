@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Options.t 261 2015-04-02 22:36:39Z drj826@gmail.com $
 
-use lib "..";
+use lib "../lib";
 use Test::More tests => 5;
 
 use Log::Log4perl;

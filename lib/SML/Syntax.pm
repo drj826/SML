@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Syntax.pm 280 2015-07-11 12:52:43Z drj826@gmail.com $
 
 package SML::Syntax;
 
@@ -194,6 +194,28 @@ has 'xml_tag' =>
    default => '<([^>]+)>',
   );
 
+######################################################################
+
+has 'sglquote_string' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => q{`([^'`]*?)'},
+  );
+
+# $1 = quoted string
+
+######################################################################
+
+has 'dblquote_string' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => q{``([^']*)''},
+  );
+
+# $1 = quoted string
+
 #---------------------------------------------------------------------
 # EXTERNAL REFERENCE STRINGS
 #---------------------------------------------------------------------
@@ -204,6 +226,8 @@ has 'file_ref' =>
    isa     => 'Str',
    default => '\[file:\s*([^\]]+?)\s*\]',
   );
+
+# $1 => filespec
 
 ######################################################################
 
@@ -293,6 +317,8 @@ has 'id_ref' =>
    isa     => 'Str',
    default => '\[id:\s*([^\s\]]+?)\s*\]',
   );
+
+# $1 = id
 
 ######################################################################
 
@@ -417,6 +443,10 @@ has 'gloss_def_ref' =>
    isa     => 'Str',
    default => '\[def:(([^\s\]]+?):)?([^\]]+?)\]',
   );
+
+# $1 =
+# $2 = namespace
+# $3 = term
 
 ######################################################################
 
@@ -671,39 +701,45 @@ has 'reg_trademark_symbol' =>
 
 ######################################################################
 
-has 'open_dblquote_symbol' =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '\`\`',
-  );
+# has 'open_dblquote_symbol' =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => q{``},
+#   );
 
 ######################################################################
 
-has 'close_dblquote_symbol' =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '\'\'',
-  );
+# has 'close_dblquote_symbol' =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => q{''},
+#   );
 
 ######################################################################
 
-has 'open_sglquote_symbol' =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '\`',
-  );
+# has 'open_sglquote_symbol' =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => q{([^`])`([^`])},
+#   );
+
+# $1 = preceding character
+# $2 = following character
 
 ######################################################################
 
-has 'close_sglquote_symbol' =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '\'',
-  );
+# has 'close_sglquote_symbol' =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => q{([^'])'([^'])},
+#   );
+
+# $1 = preceding character
+# $2 = following character
 
 ######################################################################
 
@@ -1070,8 +1106,8 @@ has 'include_element' =>
   );
 
 # $1 = leading asterisks
-# $2 = options
-# $3 = $id or $filespec
+# $2 = args
+# $3 = id or filespec
 # $4
 # $5 = filespec
 # $6

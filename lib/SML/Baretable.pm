@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Baretable.pm 77 2015-01-31 17:48:03Z drj826@gmail.com $
 
 package SML::Baretable;
 
@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.Baretable');
 
 has '+name' =>
   (
-   default => 'BARETABLE',
+   default => 'BARE_TABLE',
   );
 
 ######################################################################
@@ -47,6 +47,8 @@ application to insert a baretable into the document
 This documentation refers to L<"SML::Baretable"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Environment
 
   my $bt = SML::Baretable->new();
 

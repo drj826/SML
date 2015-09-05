@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: validate.pl 75 2015-01-31 17:38:53Z drj826@gmail.com $
 
 use lib "../lib";
 

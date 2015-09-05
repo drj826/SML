@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: CommentBlock.pm 185 2015-03-08 12:57:49Z drj826@gmail.com $
 
 package SML::CommentBlock;
 
@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.CommentBlock');
 
 has '+name' =>
   (
-   default => 'COMMENT',
+   default => 'COMMENT_BLOCK',
   );
 
 ######################################################################
@@ -47,6 +47,8 @@ rendered in published output.
 This documentation refers to L<"SML::CommentBlock"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::PreformattedBlock
 
   my $cb = SML::CommentBlock->new();
 

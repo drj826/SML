@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Environment.pm 192 2015-03-08 13:45:00Z drj826@gmail.com $
 
 package SML::Environment;
 
@@ -50,6 +50,8 @@ structure, or content of the contained blocks of text.
 This documentation refers to L<"SML::Environment"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Division
 
   my $env = SML::Environment->new();
 

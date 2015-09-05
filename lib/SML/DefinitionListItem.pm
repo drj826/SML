@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: DefinitionListItem.pm 275 2015-05-11 12:06:26Z drj826@gmail.com $
 
 package SML::DefinitionListItem;
 
@@ -154,6 +154,8 @@ This documentation refers to L<"SML::DefinitionListItem"> version
 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::ListItem
 
   my $dle = SML::DefinitionListItem->new();
 

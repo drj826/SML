@@ -1,0 +1,5 @@
+>>>problem
+
+[% INCLUDE part_list.tt -%]
+<<<problem
+

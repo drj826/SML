@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Source.pm 230 2015-03-21 17:50:52Z drj826@gmail.com $
 
 package SML::Source;
 
@@ -296,6 +296,8 @@ bibliographic source.
 This documentation refers to L<"SML::Source"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Environment
 
   my $src = SML::Source->new();
 

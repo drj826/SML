@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Paragraph.pm 185 2015-03-08 12:57:49Z drj826@gmail.com $
 
 package SML::Paragraph;
 
@@ -55,6 +55,8 @@ sequence or hierarchy of items.
 This documentation refers to L<"SML::Paragraph"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Block
 
   my $para = SML::Paragraph->new();
 

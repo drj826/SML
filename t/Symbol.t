@@ -2,7 +2,7 @@
 
 # $Id: Symbol.t 125 2015-02-24 02:43:25Z drj826@gmail.com $
 
-use lib "..";
+use lib "../lib";
 use Test::More;
 
 use SML;

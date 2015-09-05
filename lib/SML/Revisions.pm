@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Revisions.pm 230 2015-03-21 17:50:52Z drj826@gmail.com $
 
 package SML::Revisions;
 
@@ -47,6 +47,8 @@ of a document.
 This documentation refers to L<"SML::Revisions"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Environment
 
   my $revs = SML::Revisions->new();
 

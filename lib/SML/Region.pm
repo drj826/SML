@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Region.pm 185 2015-03-08 12:57:49Z drj826@gmail.com $
 
 package SML::Region;
 
@@ -93,6 +93,8 @@ text that describes the intended content of the text.
 This documentation refers to L<"SML::Region"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Division
 
   my $reg = SML::Region->new();
 

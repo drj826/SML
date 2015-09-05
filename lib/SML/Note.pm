@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Note.pm 236 2015-03-23 20:22:31Z drj826@gmail.com $
 
 package SML::Note;
 
@@ -82,6 +82,8 @@ footnote or an end note.
 This documentation refers to L<"SML::Note"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Element
 
   my $note = SML::Note->new();
 

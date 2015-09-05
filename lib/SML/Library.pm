@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: Library.pm 272 2015-05-11 12:04:25Z drj826@gmail.com $
 
 package SML::Library; # ci-000410
 
@@ -217,128 +217,6 @@ has 'environment_name_list' =>
 
 ######################################################################
 
-has 'entity_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_entity_hash',
-   writer    => 'set_entity_hash',
-   clearer   => 'clear_entity_hash',
-   predicate => 'has_entity_hash',
-   default   => sub {{}},
-  );
-
-# This is the collection of entities in the library.  The keys of this
-# hash are the entity IDs and the values are the entity objects.
-
-######################################################################
-
-has 'property_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_property_hash',
-   writer    => '_set_property_hash',
-   clearer   => '_clear_property_hash',
-   predicate => '_has_property_hash',
-   default   => sub {{}},
-  );
-
-# Property data structure.  This is a hash of all properties indexed
-# by division ID and property name.
-#
-#   my $property = $ph->{$division_id}{$property_name};
-
-######################################################################
-
-has 'variable_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_variable_hash',
-   writer    => 'set_variable_hash',
-   clearer   => 'clear_variable_hash',
-   predicate => 'has_variable_hash',
-   default   => sub {{}},
-  );
-
-#   $variable_ds->{$name}{$alt} = $definition;
-
-######################################################################
-
-has 'resource_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_resource_hash',
-   writer    => 'set_resource_hash',
-   clearer   => 'clear_resource_hash',
-   predicate => 'has_resource_hash',
-   default   => sub {{}},
-  );
-
-#   $resource_ds->{$filespec} = $resource;
-
-######################################################################
-
-has 'index_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_index_hash',
-   writer    => 'set_index_hash',
-   clearer   => 'clear_index_hash',
-   predicate => 'has_index_hash',
-   default   => sub {{}},
-  );
-
-# Index term data structure.  This is a hash of all index terms.  The
-# hash keys are the indexed terms.  The hash values are anonymous
-# hashes in which the key is the division ID in which the term
-# appears, and the value is simply a boolean.
-#
-#   $ih->{$term} = { $divid_1 => 1, $divid_2 => 1, ... };
-
-######################################################################
-
-has 'outcome_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_outcome_hash',
-   writer    => 'set_outcome_hash',
-   clearer   => 'clear_outcome_hash',
-   predicate => 'has_outcome_hash',
-   default   => sub {{}},
-  );
-
-# Outcome Data structure.  An outcome describes the result of a test
-# or audit of an entity.
-
-# PROBLEM: This outcome data structure does not allow for more than
-# one test or audit of an entity in the same day.
-
-# PROBLEM: The semantics of outcomes and the status of entities are
-# specific to the engineering domain.  Perhaps this functionality
-# should be in a PLUG-IN rather than in the core code.
-
-#   $outcome_ds->{$entity}{$date}{'status'}      = $status;
-#   $outcome_ds->{$entity}{$date}{'description'} = $description;
-
-######################################################################
-
-has 'review_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => 'get_review_hash',
-   writer    => 'set_review_hash',
-   clearer   => 'clear_review_hash',
-   predicate => 'has_review_hash',
-   default   => sub {{}},
-  );
-
-# Review Data structure.  A review describes the result of an informal
-# test or informal audit of an entity.
-
-#   $review_ds->{$entity}{$date}{'status'}      = $status;
-#   $review_ds->{$entity}{$date}{'description'} = $description;
-
-######################################################################
-
 has 'template_dir' =>
   (
    is        => 'ro',
@@ -473,7 +351,7 @@ sub add_entity {
   if ( $entity->isa('SML::Entity') )
     {
       my $id = $entity->get_id;
-      $self->get_entity_hash->{$id} = $entity;
+      $self->_get_entity_hash->{$id} = $entity;
       return 1;
     }
 
@@ -517,7 +395,7 @@ sub add_variable {
     {
       my $name = $definition->get_term;
       my $alt  = $definition->get_alt;
-      $self->get_variable_hash->{$name}{$alt} = $definition;
+      $self->_get_variable_hash->{$name}{$alt} = $definition;
       return 1;
     }
 
@@ -538,7 +416,7 @@ sub add_resource {
   if ( $resource->isa('SML::Resource') )
     {
       my $filespec = $resource->get_filespec;
-      $self->get_resource_hash->{$filespec} = $resource;
+      $self->_get_resource_hash->{$filespec} = $resource;
       return 1;
     }
 
@@ -557,15 +435,15 @@ sub add_index_term {
   my $term  = shift;
   my $divid = shift;
 
-  if ( exists $self->get_index_hash->{$term} )
+  if ( exists $self->_get_index_hash->{$term} )
     {
-      my $index = $self->get_index_hash->{$term};
+      my $index = $self->_get_index_hash->{$term};
       $index->{ $divid } = 1;
     }
 
   else
     {
-      $self->get_index_hash->{$term} = { $divid => 1 };
+      $self->_get_index_hash->{$term} = { $divid => 1 };
     }
 
   return 1;
@@ -617,7 +495,7 @@ sub add_outcome {
   my $self    = shift;
   my $outcome = shift;
 
-  my $outcome_ds = $self->get_outcome_hash;
+  my $outcome_ds = $self->_get_outcome_hash;
   my $sml        = SML->instance;
   my $syntax     = $sml->get_syntax;
   my $util       = $sml->get_util;
@@ -663,7 +541,7 @@ sub add_review {
   my $self   = shift;
   my $review = shift;
 
-  my $review_ds = $self->get_review_hash;
+  my $review_ds = $self->_get_review_hash;
   my $sml       = SML->instance;
   my $syntax    = $sml->get_syntax;
   my $util      = $sml->get_util;
@@ -738,7 +616,7 @@ sub has_entity {
   my $self = shift;
   my $id   = shift;
 
-  if ( exists $self->get_entity_hash->{$id} )
+  if ( exists $self->_get_entity_hash->{$id} )
     {
       return 1;
     }
@@ -799,7 +677,7 @@ sub has_variable {
   my $name = shift;
   my $alt  = shift || q{};
 
-  if ( exists $self->get_variable_hash->{$name}{$alt} )
+  if ( exists $self->_get_variable_hash->{$name}{$alt} )
     {
       return 1;
     }
@@ -817,7 +695,7 @@ sub has_resource {
   my $self     = shift;
   my $filespec = shift;
 
-  if ( exists $self->get_resource_hash->{$filespec} )
+  if ( exists $self->_get_resource_hash->{$filespec} )
     {
       return 1;
     }
@@ -835,7 +713,7 @@ sub has_index_term {
   my $self  = shift;
   my $term  = shift;
 
-  if ( exists $self->get_index_hash->{$term} )
+  if ( exists $self->_get_index_hash->{$term} )
     {
       return 1;
     }
@@ -854,7 +732,7 @@ sub has_outcome {
   my $entity_id = shift;
   my $date      = shift;
 
-  if ( defined $self->get_outcome_hash->{$entity_id}{$date} )
+  if ( defined $self->_get_outcome_hash->{$entity_id}{$date} )
     {
       return 1;
     }
@@ -873,7 +751,7 @@ sub has_review {
   my $entity_id = shift;
   my $date      = shift;
 
-  if ( defined $self->get_review_hash->{$entity_id}{$date} )
+  if ( defined $self->_get_review_hash->{$entity_id}{$date} )
     {
       return 1;
     }
@@ -964,9 +842,9 @@ sub get_entity {
   my $self = shift;
   my $id   = shift;
 
-  if ( exists $self->get_entity_hash->{$id} )
+  if ( exists $self->_get_entity_hash->{$id} )
     {
-      return $self->get_entity_hash->{$id};
+      return $self->_get_entity_hash->{$id};
     }
 
   else
@@ -1034,9 +912,9 @@ sub get_variable {
   my $name = shift;
   my $alt  = shift || q{};
 
-  if ( exists $self->get_variable_hash->{$name}{$alt} )
+  if ( exists $self->_get_variable_hash->{$name}{$alt} )
     {
-      return $self->get_variable_hash->{$name}{$alt};
+      return $self->_get_variable_hash->{$name}{$alt};
     }
 
   else
@@ -1053,9 +931,9 @@ sub get_resource {
   my $self     = shift;
   my $filespec = shift;
 
-  if ( exists $self->get_resource_hash->{$filespec} )
+  if ( exists $self->_get_resource_hash->{$filespec} )
     {
-      return $self->get_resource_hash->{$filespec};
+      return $self->_get_resource_hash->{$filespec};
     }
 
   else
@@ -1072,9 +950,9 @@ sub get_index_term {
   my $self  = shift;
   my $term  = shift;
 
-  if ( exists $self->get_index_hash->{$term} )
+  if ( exists $self->_get_index_hash->{$term} )
     {
-      return $self->get_index_hash->{$term};
+      return $self->_get_index_hash->{$term};
     }
 
   else
@@ -1125,9 +1003,9 @@ sub get_variable_value {
   my $name = shift;
   my $alt  = shift || q{};
 
-  if ( exists $self->get_variable_hash->{$name}{$alt} )
+  if ( exists $self->_get_variable_hash->{$name}{$alt} )
     {
-      my $definition = $self->get_variable_hash->{$name}{$alt};
+      my $definition = $self->_get_variable_hash->{$name}{$alt};
       return $definition->get_value;
     }
 
@@ -1217,9 +1095,9 @@ sub get_outcome {
   my $entity_id = shift;
   my $date      = shift;
 
-  if ( exists $self->get_outcome_hash->{$entity_id}{$date}{outcome} )
+  if ( exists $self->_get_outcome_hash->{$entity_id}{$date}{outcome} )
     {
-      return $self->get_outcome_hash->{$entity_id}{$date}{outcome};
+      return $self->_get_outcome_hash->{$entity_id}{$date}{outcome};
     }
 
   else
@@ -1237,9 +1115,9 @@ sub get_review {
   my $entity_id = shift;
   my $date      = shift;
 
-  if ( exists $self->get_review_hash->{$entity_id}{$date}{review} )
+  if ( exists $self->_get_review_hash->{$entity_id}{$date}{review} )
     {
-      return $self->get_review_hash->{$entity_id}{$date}{review};
+      return $self->_get_review_hash->{$entity_id}{$date}{review};
     }
 
   else
@@ -1259,7 +1137,7 @@ sub get_outcome_entity_id_list {
 
   my $oel = [];                         # outcome entity list
 
-  foreach my $entity_id ( keys %{ $self->get_outcome_hash } )
+  foreach my $entity_id ( keys %{ $self->_get_outcome_hash } )
     {
       push @{ $oel }, $entity_id;
     }
@@ -1277,7 +1155,7 @@ sub get_review_entity_id_list {
 
   my $rel = [];                         # review entity list
 
-  foreach my $entity_id ( keys %{ $self->get_review_hash } )
+  foreach my $entity_id ( keys %{ $self->_get_review_hash } )
     {
       push @{ $rel }, $entity_id;
     }
@@ -1297,9 +1175,9 @@ sub get_outcome_date_list {
 
   my $date_list = [];
 
-  if ( exists $self->get_outcome_hash->{$entity_id} )
+  if ( exists $self->_get_outcome_hash->{$entity_id} )
     {
-      foreach my $date ( sort by_date keys %{ $self->get_outcome_hash->{$entity_id} } )
+      foreach my $date ( sort by_date keys %{ $self->_get_outcome_hash->{$entity_id} } )
 	{
 	  push @{ $date_list }, $date;
 	}
@@ -1327,9 +1205,9 @@ sub get_review_date_list {
 
   my $date_list = [];
 
-  if ( exists $self->get_review_hash->{$entity_id} )
+  if ( exists $self->_get_review_hash->{$entity_id} )
     {
-      foreach my $date ( sort by_date keys %{ $self->get_review_hash->{$entity_id} } )
+      foreach my $date ( sort by_date keys %{ $self->_get_review_hash->{$entity_id} } )
 	{
 	  push @{ $date_list }, $date;
 	}
@@ -1353,9 +1231,9 @@ sub get_outcome_status {
   my $entity_id = shift;
   my $date      = shift;
 
-  if ( defined $self->get_outcome_hash->{$entity_id}{$date}{status} )
+  if ( defined $self->_get_outcome_hash->{$entity_id}{$date}{status} )
     {
-      return $self->get_outcome_hash->{$entity_id}{$date}{status};
+      return $self->_get_outcome_hash->{$entity_id}{$date}{status};
     }
 
   else
@@ -1373,9 +1251,9 @@ sub get_review_status {
   my $entity_id = shift;
   my $date      = shift;
 
-  if ( defined $self->get_review_hash->{$entity_id}{$date}{status} )
+  if ( defined $self->_get_review_hash->{$entity_id}{$date}{status} )
     {
-      return $self->get_review_hash->{$entity_id}{$date}{status};
+      return $self->_get_review_hash->{$entity_id}{$date}{status};
     }
 
   else
@@ -1393,9 +1271,9 @@ sub get_outcome_description {
   my $entity_id = shift;
   my $date      = shift;
 
-  if ( defined $self->get_outcome_hash->{$entity_id}{$date}{description} )
+  if ( defined $self->_get_outcome_hash->{$entity_id}{$date}{description} )
     {
-      return $self->get_outcome_hash->{$entity_id}{$date}{description};
+      return $self->_get_outcome_hash->{$entity_id}{$date}{description};
     }
 
   else
@@ -1413,9 +1291,9 @@ sub get_review_description {
   my $entity_id = shift;
   my $date      = shift;
 
-  if ( defined $self->get_review_hash->{$entity_id}{$date}{description} )
+  if ( defined $self->_get_review_hash->{$entity_id}{$date}{description} )
     {
-      return $self->get_review_hash->{$entity_id}{$date}{description};
+      return $self->_get_review_hash->{$entity_id}{$date}{description};
     }
 
   else
@@ -1460,11 +1338,11 @@ sub summarize_entities {
 
   my $summary = q{};
 
-  if ( keys %{ $self->get_entity_hash } )
+  if ( keys %{ $self->_get_entity_hash } )
     {
       $summary .= "Entities:\n\n";
 
-      foreach my $entity (sort by_division_name_and_id values %{ $self->get_entity_hash })
+      foreach my $entity (sort by_division_name_and_id values %{ $self->_get_entity_hash })
 	{
 	  my $id      = $entity->get_id;
 	  my $entname = $entity->get_name;
@@ -1523,8 +1401,8 @@ sub summarize_divisions {
 
   # Return a summary of the library's divisions.
   #
-  # - Don't include divisions of type: BARETABLE, COMMENT, REVISIONS,
-  #   TABLECELL, or TABLEROW.
+  # - Don't include divisions of type: BARE_TABLE, COMMENT, REVISIONS,
+  #   TABLE_CELL, or TABLE_ROW.
   #
   # - Don't include entities
 
@@ -1534,11 +1412,11 @@ sub summarize_divisions {
 
   my $ignore =
     {
-     BARETABLE => 1,
-     COMMENT   => 1,
-     REVISIONS => 1,
-     TABLECELL => 1,
-     TABLEROW  => 1,
+     BARE_TABLE => 1,
+     COMMENT    => 1,
+     REVISIONS  => 1,
+     TABLE_CELL => 1,
+     TABLE_ROW  => 1,
     };
 
   if ( keys %{ $self->_get_division_hash } )
@@ -1649,13 +1527,13 @@ sub summarize_variables {
 
   my $summary = q{};
 
-  if (keys %{ $self->get_variable_hash })
+  if (keys %{ $self->_get_variable_hash })
     {
       $summary .= "Variables:\n\n";
 
-      foreach my $name (sort keys %{ $self->get_variable_hash })
+      foreach my $name (sort keys %{ $self->_get_variable_hash })
 	{
-	  foreach my $alt ( sort keys %{ $self->get_variable_hash->{$name} } )
+	  foreach my $alt ( sort keys %{ $self->_get_variable_hash->{$name} } )
 	    {
 	      $summary .= "  $name \[$alt\]\n";
 	    }
@@ -1675,11 +1553,11 @@ sub summarize_resources {
 
   my $summary = q{};
 
-  if (keys %{ $self->get_resource_hash })
+  if (keys %{ $self->_get_resource_hash })
     {
       $summary .= "Resources:\n\n";
 
-      foreach my $filespec (sort keys %{ $self->get_resource_hash })
+      foreach my $filespec (sort keys %{ $self->_get_resource_hash })
 	{
 	  $summary .= "  $filespec\n";
 	}
@@ -1698,13 +1576,13 @@ sub summarize_index {
 
   my $summary = q{};
 
-  if (keys %{ $self->get_index_hash })
+  if (keys %{ $self->_get_index_hash })
     {
       $summary .= "Indexed Terms:\n\n";
 
-      foreach my $term (sort keys %{ $self->get_index_hash })
+      foreach my $term (sort keys %{ $self->_get_index_hash })
 	{
-	  my $index     = $self->get_index_hash->{$term};
+	  my $index     = $self->_get_index_hash->{$term};
 	  my $locations = join(', ', sort keys %{$index});
 
 	  $summary .= "  $term => $locations\n";
@@ -1750,15 +1628,15 @@ sub summarize_outcomes {
 
   my $summary = q{};
 
-  if ( keys %{ $self->get_outcome_hash } )
+  if ( keys %{ $self->_get_outcome_hash } )
     {
       $summary .= "Test Outcomes:\n\n";
 
-      foreach my $entity (sort keys %{ $self->get_outcome_hash })
+      foreach my $entity (sort keys %{ $self->_get_outcome_hash })
 	{
-	  foreach my $date (sort keys %{ $self->get_outcome_hash->{$entity} })
+	  foreach my $date (sort keys %{ $self->_get_outcome_hash->{$entity} })
 	    {
-	      my $status = $self->get_outcome_hash->{$entity}{$date}{status};
+	      my $status = $self->_get_outcome_hash->{$entity}{$date}{status};
 
 	      $summary .= "  $entity $date => $status\n";
 	    }
@@ -1778,15 +1656,15 @@ sub summarize_reviews {
 
   my $summary = q{};
 
-  if ( keys %{ $self->get_review_hash } )
+  if ( keys %{ $self->_get_review_hash } )
     {
       $summary .= "Review Results:\n\n";
 
-      foreach my $entity (sort keys %{ $self->get_review_hash })
+      foreach my $entity (sort keys %{ $self->_get_review_hash })
 	{
-	  foreach my $date (sort keys %{ $self->get_review_hash->{$entity} })
+	  foreach my $date (sort keys %{ $self->_get_review_hash->{$entity} })
 	    {
-	      my $status = $self->get_review_hash->{$entity}{$date}{status};
+	      my $status = $self->_get_review_hash->{$entity}{$date}{status};
 
 	      $summary .= "  $entity $date => $status\n";
 	    }
@@ -2013,6 +1891,128 @@ has 'division_hash' =>
 # This is a hash of all divisions indexed by division ID.
 #
 #   my $division = $dh->{$id};
+
+######################################################################
+
+has 'entity_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_entity_hash',
+   # writer    => '_set_entity_hash',
+   # clearer   => '_clear_entity_hash',
+   predicate => 'has_entity_hash',
+   default   => sub {{}},
+  );
+
+# This is the collection of entities in the library.  The keys of this
+# hash are the entity IDs and the values are the entity objects.
+
+######################################################################
+
+has 'property_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_property_hash',
+   writer    => '_set_property_hash',
+   clearer   => '_clear_property_hash',
+   predicate => '_has_property_hash',
+   default   => sub {{}},
+  );
+
+# Property data structure.  This is a hash of all properties indexed
+# by division ID and property name.
+#
+#   my $property = $ph->{$division_id}{$property_name};
+
+######################################################################
+
+has 'variable_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_variable_hash',
+   # writer    => 'set_variable_hash',
+   # clearer   => 'clear_variable_hash',
+   # predicate => 'has_variable_hash',
+   default   => sub {{}},
+  );
+
+#   $variable_ds->{$name}{$alt} = $definition;
+
+######################################################################
+
+has 'resource_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_resource_hash',
+   # writer    => 'set_resource_hash',
+   # clearer   => 'clear_resource_hash',
+   # predicate => 'has_resource_hash',
+   default   => sub {{}},
+  );
+
+#   $resource_ds->{$filespec} = $resource;
+
+######################################################################
+
+has 'index_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_index_hash',
+   # writer    => 'set_index_hash',
+   # clearer   => 'clear_index_hash',
+   # predicate => 'has_index_hash',
+   default   => sub {{}},
+  );
+
+# Index term data structure.  This is a hash of all index terms.  The
+# hash keys are the indexed terms.  The hash values are anonymous
+# hashes in which the key is the division ID in which the term
+# appears, and the value is simply a boolean.
+#
+#   $ih->{$term} = { $divid_1 => 1, $divid_2 => 1, ... };
+
+######################################################################
+
+has 'outcome_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_outcome_hash',
+   # writer    => 'set_outcome_hash',
+   # clearer   => 'clear_outcome_hash',
+   # predicate => 'has_outcome_hash',
+   default   => sub {{}},
+  );
+
+# Outcome Data structure.  An outcome describes the result of a test
+# or audit of an entity.
+
+# PROBLEM: This outcome data structure does not allow for more than
+# one test or audit of an entity in the same day.
+
+# PROBLEM: The semantics of outcomes and the status of entities are
+# specific to the engineering domain.  Perhaps this functionality
+# should be in a PLUG-IN rather than in the core code.
+
+#   $outcome_ds->{$entity}{$date}{'status'}      = $status;
+#   $outcome_ds->{$entity}{$date}{'description'} = $description;
+
+######################################################################
+
+has 'review_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_review_hash',
+   # writer    => 'set_review_hash',
+   # clearer   => 'clear_review_hash',
+   # predicate => 'has_review_hash',
+   default   => sub {{}},
+  );
+
+# Review Data structure.  A review describes the result of an informal
+# test or informal audit of an entity.
+
+#   $review_ds->{$entity}{$date}{'status'}      = $status;
+#   $review_ds->{$entity}{$date}{'description'} = $description;
 
 ######################################################################
 ######################################################################
@@ -2484,11 +2484,96 @@ reusable L<"SML::Fragment">s.
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Library"> version 2.0.0.
+2.0.0.
 
 =head1 SYNOPSIS
 
-  my $lib = SML::Library->new();
+  my $library = SML::Library->new
+                  (
+                    config_filename => 'library.conf',
+                  );
+
+  my $id           = $library->get_id;
+  my $name         = $library->get_name;
+  my $revision     = $library->get_revision;
+  my $sml          = $library->get_sml;
+  my $ontology     = $library->get_ontology;
+  my $list         = $library->get_ontology_rule_filespec_list;
+  my $parser       = $library->get_parser;
+  my $reasoner     = $library->get_reasoner;
+  my $formatter    = $library->get_formatter;
+  my $glossary     = $library->get_glossary;
+  my $acronym_list = $library->get_acronym_list;
+  my $references   = $library->get_references;
+  my $string       = $library->get_directory_path;
+  my $list         = $library->get_include_path;
+  my $list         = $library->get_division_name_list;
+  my $list         = $library->get_region_name_list;
+  my $list         = $library->get_environment_name_list;
+  my $string       = $library->get_template_dir;
+  my $boolean      = $library->has_filespec($filespec);
+  my $string       = $library->get_filespec($filename);
+  my $boolean      = $library->add_fragment($fragment);
+  my $boolean      = $library->add_document($document);
+  my $boolean      = $library->add_entity($entity);
+  my $boolean      = $library->add_division($division);
+  my $boolean      = $library->add_variable($definition);
+  my $boolean      = $library->add_resource($resource);
+  my $boolean      = $library->add_index_term($term,$divid);
+  my $boolean      = $library->add_fragment_file($filespec);
+  my $boolean      = $library->add_reference_file($filespec);
+  my $boolean      = $library->add_script_file($filespec);
+  my $boolean      = $library->add_outcome($outcome);
+  my $boolean      = $library->add_review($review);
+  my $boolean      = $library->has_fragment($id);
+  my $boolean      = $library->has_document($id);
+  my $boolean      = $library->has_entity($id);
+  my $boolean      = $library->has_division($id);
+  my $boolean      = $library->has_property($id,$name);
+  my $boolean      = $library->has_variable($name,$alt);
+  my $boolean      = $library->has_resource($filespec);
+  my $boolean      = $library->has_index_term($term);
+  my $boolean      = $library->has_outcome($entity_id,$date);
+  my $boolean      = $library->has_review($entity_id,$date);
+  my $fragment     = $library->get_fragment($filespec);
+  my $list         = $library->get_fragment_list;
+  my $document     = $library->get_document($id);
+  my $list         = $library->get_document_list;
+  my $entity       = $library->get_entity($id);
+  my $division     = $library->get_division($id);
+  my $property     = $library->get_property($id,$name);
+  my $variable     = $library->get_variable($name,$alt);
+  my $resource     = $library->get_resource($filespec);
+  my $term         = $library->get_index_term($term);
+  my $string       = $library->get_property_value($id,$name);
+  my $string       = $library->get_variable_value($name,$alt);
+  my $list         = $library->get_preamble_line_list($id);
+  my $list         = $library->get_narrative_line_list($id);
+  my $type         = $library->get_type($value);
+  my $outcome      = $library->get_outcome($entity_id,$date);
+  my $review       = $library->get_review($entity_id,$date);
+  my $list         = $library->get_outcome_entity_id_list;
+  my $list         = $library->get_review_entity_id_list;
+  my $list         = $library->get_outcome_date_list($entity_id);
+  my $list         = $library->get_review_date_list($entity_id);
+  my $list         = $library->get_outcome_status($entity_id,$date);
+  my $list         = $library->get_review_status($entity_id,$date);
+  my $description  = $library->get_outcome_description($entity_id,$date);
+  my $description  = $library->get_review_description($entity_id,$date);
+  my $string       = $library->summarize_content;
+  my $string       = $library->summarize_entities;
+  my $string       = $library->summarize_fragments;
+  my $string       = $library->summarize_divisions;
+  my $string       = $library->summarize_glossary;
+  my $string       = $library->summarize_acronyms;
+  my $string       = $library->summarize_variables;
+  my $string       = $library->summarize_resources;
+  my $string       = $library->summarize_index;
+  my $string       = $library->summarize_sources;
+  my $string       = $library->summarize_outcomes;
+  my $string       = $library->summarize_reviews;
+  my $boolean      = $library->replace_division_id($division,$id);
+  my $boolean      = $library->update_status_from_outcome($outcome);
 
 =head1 DESCRIPTION
 
@@ -2497,11 +2582,23 @@ document fragments.
 
 =head1 METHODS
 
+=head2 get_id
+
+=head2 get_name
+
+=head2 get_revision
+
 =head2 get_sml
+
+=head2 get_ontology
+
+=head2 get_ontology_rule_filespec_list
 
 =head2 get_parser
 
 =head2 get_reasoner
+
+=head2 get_formatter
 
 =head2 get_glossary
 
@@ -2509,39 +2606,143 @@ document fragments.
 
 =head2 get_references
 
-=head2 get_title
+=head2 get_directory_path
 
-=head2 get_id
+=head2 get_include_path
 
-=head2 get_author
+=head2 get_division_name_list
 
-=head2 get_date
+=head2 get_region_name_list
 
-=head2 get_revision
+=head2 get_environment_name_list
 
-=head2 get_catalog_filespec
+=head2 get_template_dir
 
-=head2 get_file_list
+=head2 has_filespec($filespec)
 
-=head2 get_fragment_file_list
+=head2 get_filespec($filename)
 
-=head2 get_reference_file_list
+=head2 add_fragment($fragment)
 
-=head2 get_script_file_list
+=head2 add_document($document)
 
-=head2 get_entity_hash
+=head2 add_entity($entity)
 
-=head2 get_property_hash
+=head2 add_division($division)
 
-=head2 get_variable_hash
+=head2 add_variable($definition)
 
-=head2 get_resource_hash
+=head2 add_resource($resource)
 
-=head2 get_index_hash
+=head2 add_index_term($term,$divid)
 
-=head2 get_outcome_hash
+=head2 add_fragment_file($filespec)
 
-=head2 get_review_hash
+=head2 add_reference_file($filespec)
+
+=head2 add_script_file($filespec)
+
+=head2 add_outcome($outcome)
+
+=head2 add_review($review)
+
+=head2 has_fragment($id)
+
+=head2 has_document($id)
+
+=head2 has_entity($id)
+
+=head2 has_division($id)
+
+=head2 has_property($id,$name)
+
+=head2 has_variable($name,$alt)
+
+=head2 has_resource($filespec)
+
+=head2 has_index_term($term)
+
+=head2 has_outcome($entity_id,$date)
+
+=head2 has_review($entity_id,$date)
+
+=head2 get_fragment($filespec)
+
+=head2 get_fragment_list
+
+=head2 get_document($id)
+
+=head2 get_document_list
+
+=head2 get_entity($id)
+
+=head2 get_division($id)
+
+=head2 get_property($id,$name)
+
+=head2 get_variable($name,$alt)
+
+=head2 get_resource($filespec)
+
+=head2 get_index_term($term)
+
+=head2 get_property_value($id,$name)
+
+=head2 get_variable_value($name,$alt)
+
+=head2 get_preamble_line_list($id)
+
+=head2 get_narrative_line_list($id)
+
+=head2 get_type($value)
+
+=head2 get_outcome($entity_id,$date)
+
+=head2 get_review($entity_id,$date)
+
+=head2 get_outcome_entity_id_list
+
+=head2 get_review_entity_id_list
+
+=head2 get_outcome_date_list($entity_id)
+
+=head2 get_review_date_list($entity_id)
+
+=head2 get_outcome_status($entity_id,$date)
+
+=head2 get_review_status($entity_id,$date)
+
+=head2 get_outcome_description($entity_id,$date)
+
+=head2 get_review_description($entity_id,$date)
+
+=head2 summarize_content
+
+=head2 summarize_entities
+
+=head2 summarize_fragments
+
+=head2 summarize_divisions
+
+=head2 summarize_glossary
+
+=head2 summarize_acronyms
+
+=head2 summarize_variables
+
+=head2 summarize_resources
+
+=head2 summarize_index
+
+=head2 summarize_sources
+
+=head2 summarize_outcomes
+
+=head2 summarize_reviews
+
+=head2 replace_division_id($division,$id)
+
+=head2 update_status_from_outcome($outcome)
 
 =head1 AUTHOR
 

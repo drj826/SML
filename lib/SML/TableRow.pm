@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id$
+# $Id: TableRow.pm 230 2015-03-21 17:50:52Z drj826@gmail.com $
 
 package SML::TableRow;
 
@@ -47,6 +47,8 @@ application to insert a table row into the document.
 This documentation refers to L<"SML::TableRow"> version 2.0.0.
 
 =head1 SYNOPSIS
+
+  extends SML::Division
 
   my $tblrow = SML::TableRow->new();
 
