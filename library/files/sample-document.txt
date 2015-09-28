@@ -1,3 +1,5 @@
+>>>DOCUMENT.sample
+
 title:: A Sample Document
 
 author:: Bilbo Baggins
@@ -25,3 +27,5 @@ This ``structured'' text format has many other features like tables,
 sections, figures, footnotes, bibliographies, indexes, etc.  We won't
 include them in this simple example document because we want to keep
 it, well, simple.
+
+<<<DOCUMENT

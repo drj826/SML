@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000095
 
 title:: Represent a Formal Outcome
-
-label:: rq-000095
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000035
+part_of:: rq-000035
 
 type:: data format
 
@@ -27,7 +23,7 @@ represent the date of review, label of item tested/audited, item
 status determined by the test/audit, and a one-paragraph explanation
 of how the status was determined.
 
-######################################################################
+===
 
 index:: rq-000094
 

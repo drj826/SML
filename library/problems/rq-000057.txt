@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000057
 
 title:: Represent a Left Arrow
-
-label:: rq-000057
 
 revision:: $Revision: 10973 $
 
@@ -14,14 +10,14 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000124
+part_of:: rq-000124
 
 type:: data format
 
 description:: The data format shall have the capability to represent a
 left arrow.
 
-######################################################################
+===
 
 index:: rq-000057; left arrow
 

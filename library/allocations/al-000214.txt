@@ -1,8 +1,4 @@
->>>allocation
-
-#---------------------------------------------------------------------
-
-label::    al-000214
+>>>allocation.al-000214
 
 solution:: ci-000197 # escape_latex Subroutine
 
@@ -10,15 +6,13 @@ problem::  rq-000130 # Substitute Variables
 
 test::     tc-000041 # Demonstration
 
-#---------------------------------------------------------------------
-
 revision:: $Revision: 10970 $
 
 date::     $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
 
 author::   $Author: don.johnson $
 
-#---------------------------------------------------------------------
+===
 
 outcome::2012-04-01:al-000214:green: OK
 

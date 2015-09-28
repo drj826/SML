@@ -26,6 +26,7 @@ use SML::Formatter;
 use SML::Glossary;
 use SML::AcronymList;
 use SML::References;
+use SML::Publisher;
 
 ######################################################################
 ######################################################################
@@ -123,12 +124,12 @@ has 'reasoner' =>
 
 ######################################################################
 
-has 'formatter' =>
+has 'publisher' =>
   (
-   isa      => 'SML::Formatter',
-   reader   => 'get_formatter',
+   isa      => 'SML::Publisher',
+   reader   => 'get_publisher',
    lazy     => 1,
-   builder  => '_build_formatter',
+   builder  => '_build_publisher',
   );
 
 ######################################################################
@@ -227,11 +228,72 @@ has 'template_dir' =>
   );
 
 ######################################################################
+
+has 'published_dir' =>
+  (
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_published_dir',
+   writer    => '_set_published_dir',
+   default   => 'published',
+  );
+
+######################################################################
 ######################################################################
 ##
 ## Public Methods
 ##
 ######################################################################
+######################################################################
+
+sub publish {
+
+  # Publish a document.
+
+  my $self      = shift;
+  my $id        = shift;                # document ID
+  my $rendition = shift;                # html, latex, pdf...
+  my $style     = shift;                # default, fancy...
+
+  my $publisher = $self->get_publisher;
+
+  my $result = $publisher->publish($id,$rendition,$style);
+
+  return $result;
+}
+
+######################################################################
+
+sub get_file_containing {
+
+  # Return the SML::File containing the specified division ID.
+
+  my $self = shift;
+  my $id   = shift;
+
+  # validate the library has a division with this ID
+  if ( not $self->has_division_id($id) )
+    {
+      $logger->error("LIBRARY HAS NO DIVISION \'$id\'");
+      return 0;
+    }
+
+  my $id_hash   = $self->_get_id_hash;
+  my $filename  = $id_hash->{$id}->[0];
+
+  if ( not $self->has_file($filename) )
+    {
+      my $filespec = $self->get_filespec($filename);
+      my $file = SML::File->new(filespec=>$filespec);
+
+      return $file;
+    }
+
+  my $file_hash = $self->_get_file_hash;
+
+  return $file_hash->{$filename};
+}
+
 ######################################################################
 
 sub has_filespec {
@@ -301,21 +363,21 @@ sub get_filespec {
 
 ######################################################################
 
-sub add_fragment {
+sub add_file {
 
-  my $self     = shift;
-  my $fragment = shift;
+  my $self = shift;
+  my $file = shift;
 
-  if ( $fragment->isa('SML::Fragment') )
+  if ( $file->isa('SML::File') )
     {
-      my $id = $fragment->get_id;
-      $self->_get_fragment_hash->{$id} = $fragment;
+      my $id = $file->get_id;
+      $self->_get_file_hash->{$id} = $file;
       return 1;
     }
 
   else
     {
-      $logger->error("CAN'T ADD FRAGMENT \'$fragment\' is not a SML::Fragment");
+      $logger->error("CAN'T ADD FILE \'$file\' is not a SML::File");
       return 0;
     }
 }
@@ -451,15 +513,15 @@ sub add_index_term {
 
 ######################################################################
 
-sub add_fragment_file {
+# sub add_fragment_file {
 
-  my $self     = shift;
-  my $filespec = shift;
+#   my $self     = shift;
+#   my $filespec = shift;
 
-  push @{ $self->fragment_files }, $filespec;
+#   push @{ $self->fragment_files }, $filespec;
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
@@ -574,12 +636,12 @@ sub add_review {
 
 ######################################################################
 
-sub has_fragment {
+sub has_file {
 
   my $self = shift;
   my $id   = shift;
 
-  if ( exists $self->_get_fragment_hash->{$id} )
+  if ( exists $self->_get_file_hash->{$id} )
     {
       return 1;
     }
@@ -595,6 +657,10 @@ sub has_fragment {
 
 sub has_document {
 
+  # Return 1 if the document object is in the library.  This means the
+  # document has already been parsed and the document object is
+  # available for use.
+
   my $self = shift;
   my $id   = shift;
 
@@ -607,6 +673,51 @@ sub has_document {
     {
       return 0;
     }
+}
+
+######################################################################
+
+sub has_document_id {
+
+  # Return 1 if the document ID exists in the library.  This means
+  # that some file in the library contains a DOCUMENT division with
+  # the specified ID.
+
+  my $self = shift;
+  my $id   = shift;
+
+  my $id_hash = $self->_get_id_hash;
+
+  if ( exists $id_hash->{$id} )
+    {
+      if ( $id_hash->{$id}->[1] eq 'DOCUMENT' )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub has_division_id {
+
+  # Return 1 if the division ID exists in the library.  This means
+  # that some file in the library contains a division with the
+  # specified ID.
+
+  my $self = shift;
+  my $id   = shift;
+
+  my $id_hash = $self->_get_id_hash;
+
+  if ( exists $id_hash->{$id} )
+    {
+      return 1;
+    }
+
+  return 0;
 }
 
 ######################################################################
@@ -764,41 +875,41 @@ sub has_review {
 
 ######################################################################
 
-sub get_fragment {
+sub get_file {
 
   my $self     = shift;
-  my $filespec = shift;
+  my $filename = shift;
 
-  if ( exists $self->_get_fragment_hash->{$filespec} )
+  if ( exists $self->_get_file_hash->{$filename} )
     {
-      return $self->_get_fragment_hash->{$filespec};
+      return $self->_get_file_hash->{$filename};
     }
 
   else
     {
-      $logger->error("CAN'T GET FRAGMENT \'$filespec\'");
+      $logger->error("CAN'T GET FILE \'$filename\'");
       return 0;
     }
 }
 
 ######################################################################
 
-sub get_fragment_list {
+# sub get_fragment_list {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $list = [];
+#   my $list = [];
 
-  foreach my $division ( values %{ $self->_get_division_hash })
-    {
-      if ( $division->isa('SML::Fragment') )
-	{
-	  push @{ $list }, $division;
-	}
-    }
+#   foreach my $division ( values %{ $self->_get_division_hash })
+#     {
+#       if ( $division->isa('SML::Fragment') )
+# 	{
+# 	  push @{ $list }, $division;
+# 	}
+#     }
 
-  return $list;
-}
+#   return $list;
+# }
 
 ######################################################################
 
@@ -1314,7 +1425,7 @@ sub summarize_content {
   my $summary = q{};
 
   $summary .= $self->summarize_entities;
-  $summary .= $self->summarize_fragments;
+  # $summary .= $self->summarize_fragments;
   $summary .= $self->summarize_divisions;
   $summary .= $self->summarize_glossary;
   $summary .= $self->summarize_acronyms;
@@ -1372,28 +1483,28 @@ sub summarize_entities {
 
 ######################################################################
 
-sub summarize_fragments {
+# sub summarize_fragments {
 
-  # Return a summary of the library's fragments.
+#   # Return a summary of the library's fragments.
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $summary = q{};
+#   my $summary = q{};
 
-  if ( keys %{ $self->_get_fragment_hash } )
-    {
-      $summary .= "Fragments:\n\n";
+#   if ( keys %{ $self->_get_fragment_hash } )
+#     {
+#       $summary .= "Fragments:\n\n";
 
-      foreach my $fragment_id (sort keys %{ $self->_get_fragment_hash })
-	{
-	  $summary .= "  $fragment_id\n";
-	}
+#       foreach my $fragment_id (sort keys %{ $self->_get_fragment_hash })
+# 	{
+# 	  $summary .= "  $fragment_id\n";
+# 	}
 
-      $summary .= "\n";
-    }
+#       $summary .= "\n";
+#     }
 
-  return $summary;
-}
+#   return $summary;
+# }
 
 ######################################################################
 
@@ -1805,42 +1916,6 @@ has 'ontology_rule_filename_list' =>
 
 ######################################################################
 
-# has 'sml_ontology_rule_filename' =>
-#   (
-#    isa       => 'Str',
-#    reader    => '_get_sml_ontology_rule_filename',
-#    writer    => '_set_sml_ontology_rule_filename',
-#    default   => 'ontology_rules_sml.conf',
-#   );
-
-######################################################################
-
-# has 'sml_ontology_rule_filespec' =>
-#   (
-#    isa       => 'Str',
-#    reader    => '_get_sml_ontology_rule_filespec',
-#    lazy      => 1,
-#    builder   => '_build_sml_ontology_rule_filespec',
-#   );
-
-# The SML ontology configuration file contains the core rules for the
-# Structured Manuscript Language.
-
-######################################################################
-
-# has 'lib_ontology_rule_filespec' =>
-#   (
-#    isa       => 'Str',
-#    reader    => '_get_lib_ontology_rule_filespec',
-#    lazy      => 1,
-#    builder   => '_build_lib_ontology_rule_filespec',
-#   );
-
-# The library ontology configuration file contains the ontology rules
-# for a specific library.
-
-######################################################################
-
 has 'directory_name' =>
   (
    isa       => 'Str',
@@ -1852,16 +1927,41 @@ has 'directory_name' =>
 
 ######################################################################
 
-has 'fragment_hash' =>
+has 'id_hash' =>
   (
    isa       => 'HashRef',
-   reader    => '_get_fragment_hash',
+   reader    => '_get_id_hash',
    default   => sub {{}},
   );
 
-# This is the collection of fragments in the library.  The keys of
-# this hash are the fragment file names and the values are the
-# fragment objects.
+# $id_hash->{$id} = [$filename,$division_name];
+#
+# This is the collection of IDs in the library.
+
+######################################################################
+
+has 'textfile_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_textfile_hash',
+   default   => sub {{}},
+  );
+
+# $textfile_hash->{$filename} = "$path/$filename";
+#
+# This is the collection of all text files in the library.
+
+######################################################################
+
+has 'file_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_file_hash',
+   default   => sub {{}},
+  );
+
+# This is the collection of text files in the library.  The keys of
+# this hash are the file names and the values are the file objects.
 
 ######################################################################
 
@@ -2092,6 +2192,17 @@ sub BUILD {
     }
 
   #-------------------------------------------------------------------
+  # published_dir
+  #
+  if ( $config{'published_dir'} )
+    {
+      my $directory_path = $self->get_directory_path;
+      my $published_dir  = "$directory_path/$config{published_dir}";
+
+      $self->_set_published_dir($published_dir);
+    }
+
+  #-------------------------------------------------------------------
   # include_path
   #
   if ( $config{'include_path'} )
@@ -2132,6 +2243,149 @@ sub BUILD {
     }
 
   $self->_set_ontology_rule_filename_list($rule_file_list);
+
+  #-------------------------------------------------------------------
+  # scan for divisions, populate id_hash
+  #
+  my $cwd = getcwd();
+  chdir($library_dir);
+
+  my $id_hash        = $self->_get_id_hash;
+  my $textfile_hash  = $self->_get_textfile_hash;
+  my $division_count = {};
+
+  foreach my $directory (@{ $self->get_include_path })
+    {
+      opendir(DIR,"$directory")
+	or die "Couldn't open dir: $directory from $cwd";
+      my @filelist = grep { /\.txt$/} readdir(DIR);
+      closedir(DIR);
+
+      foreach my $textfile ( @filelist )
+	{
+	  $logger->debug("scanning $directory/$textfile...");
+
+	  # validate file name uniqueness
+	  if ( exists $textfile_hash->{$textfile} )
+	    {
+	      my $other = $textfile_hash->{$textfile};
+	      $logger->logdie("DUPLICATE TEXT FILE NAME \'$textfile\' IN \'$directory\' (already in $other)");
+	    }
+
+	  else
+	    {
+	      $textfile_hash->{$textfile} = "$directory/$textfile";
+	    }
+
+	  my $in_comment_division = 0;
+
+	  my $lines = [];
+	  open my $fh, "<", "$directory/$textfile"
+	    or die "Can't open $textfile: $!\n";
+	  @{ $lines } = <$fh>;
+	  close $fh;
+
+	  foreach (@{ $lines })
+	    {
+	      if (/$syntax->{comment_line}/)
+		{
+		  next;
+		}
+
+	      elsif (/$syntax->{start_comment}/)
+		{
+		  $in_comment_division = 1;
+		}
+
+	      elsif (/$syntax->{end_comment}/)
+		{
+		  $in_comment_division = 0;
+		}
+
+	      elsif ( $in_comment_division )
+		{
+		  next;
+		}
+
+	      elsif (/$syntax->{start_division}/)
+		{
+		  my $name = $1;
+
+		  if ( not $ontology->allows_division($name) )
+		    {
+		      $logger->logdie("UNKNOWN DIVISION \'$name\' IN \'$textfile\'");
+		    }
+
+		  ++ $division_count->{$name};
+
+		  my $id   = $3 || $name . "-" . $division_count->{$name};
+
+		  $logger->debug("division: $name $id");
+
+		  if ( exists $id_hash->{$id} )
+		    {
+		      my $firstfile = $id_hash->{$id}->[0];
+		      $logger->logdie("DUPLICATE ID \'$id\' IN \'$textfile\' (ALSO IN \'$firstfile\')");
+		    }
+
+		  else
+		    {
+		      $id_hash->{$id} = [$textfile,$name];
+		    }
+		}
+
+	      elsif (/$syntax->{start_section}/)
+		{
+		  my $name = 'SECTION';
+
+		  ++ $division_count->{$name};
+
+		  my $id   = $3 || $name . "-" . $division_count->{$name};
+
+		  $logger->debug("division: $name $id");
+
+		  if ( exists $id_hash->{$id} )
+		    {
+		      my $firstfile = $id_hash->{$id}->[0];
+		      $logger->logdie("DUPLICATE ID \'$id\' IN \'$textfile\' (ALSO IN \'$firstfile\')");
+		    }
+
+		  else
+		    {
+		      $id_hash->{$id} = [$textfile,$name];
+		    }
+		}
+	    }
+	}
+    }
+
+  my $total = 0;
+
+  foreach my $name ( sort keys %{ $division_count } )
+    {
+      my $count = $division_count->{$name};
+      $total = $total + $count;
+      my $msg = sprintf
+	(
+	 "%-20s %5d",
+	 "$name count:",
+	 $count,
+	);
+
+      $logger->info("$msg");
+    }
+
+  my $msg = sprintf
+    (
+     "%-20s %5d",
+     "TOTAL ITEM COUNT:",
+     $total,
+    );
+
+  $logger->info("-------------------- -----");
+  $logger->info("$msg");
+
+  chdir($cwd);
 
   return 1;
 }
@@ -2212,7 +2466,7 @@ sub _build_config_filespec {
     {
       if ( -r "$dir/$filename" )
 	{
-	  $logger->info("library config filespec: $dir/$filename");
+	  $logger->debug("library config filespec: $dir/$filename");
 	  return "$dir/$filename";
 	}
     }
@@ -2243,7 +2497,7 @@ sub _build_sml_ontology_rule_filespec {
     {
       if ( -r "$dir/$filename" )
 	{
-	  $logger->info("SML ontology config filespec: $dir/$filename");
+	  $logger->debug("SML ontology config filespec: $dir/$filename");
 	  return "$dir/$filename";
 	}
     }
@@ -2278,7 +2532,7 @@ sub _build_ontology_rule_filespec_list {
 	  if ( -r "$dir/$filename" )
 	    {
 	      $found = 1;
-	      $logger->info("library ontology config filespec: $dir/$filename");
+	      $logger->debug("library ontology config filespec: $dir/$filename");
 	      push(@{$fslist},"$dir/$filename");
 	    }
 	}
@@ -2315,9 +2569,9 @@ sub _build_reasoner {
 
 ######################################################################
 
-sub _build_formatter {
+sub _build_publisher {
   my $self = shift;
-  return SML::Formatter->new(library=>$self);
+  return SML::Publisher->new(library=>$self);
 }
 
 ######################################################################
@@ -2480,7 +2734,7 @@ __END__
 =head1 NAME
 
 C<SML::Library> - a collection of related L<"SML::Document">s and
-reusable L<"SML::Fragment">s.
+reusable content.
 
 =head1 VERSION
 
@@ -2501,7 +2755,7 @@ reusable L<"SML::Fragment">s.
   my $list         = $library->get_ontology_rule_filespec_list;
   my $parser       = $library->get_parser;
   my $reasoner     = $library->get_reasoner;
-  my $formatter    = $library->get_formatter;
+  my $publisher    = $library->get_publisher;
   my $glossary     = $library->get_glossary;
   my $acronym_list = $library->get_acronym_list;
   my $references   = $library->get_references;
@@ -2511,21 +2765,23 @@ reusable L<"SML::Fragment">s.
   my $list         = $library->get_region_name_list;
   my $list         = $library->get_environment_name_list;
   my $string       = $library->get_template_dir;
+  my $string       = $library->get_published_dir;
+
+  my $boolean      = $library->publish($id,$rendition,$style);
   my $boolean      = $library->has_filespec($filespec);
   my $string       = $library->get_filespec($filename);
-  my $boolean      = $library->add_fragment($fragment);
+  my $boolean      = $library->add_file($file);
   my $boolean      = $library->add_document($document);
   my $boolean      = $library->add_entity($entity);
   my $boolean      = $library->add_division($division);
   my $boolean      = $library->add_variable($definition);
   my $boolean      = $library->add_resource($resource);
   my $boolean      = $library->add_index_term($term,$divid);
-  my $boolean      = $library->add_fragment_file($filespec);
   my $boolean      = $library->add_reference_file($filespec);
   my $boolean      = $library->add_script_file($filespec);
   my $boolean      = $library->add_outcome($outcome);
   my $boolean      = $library->add_review($review);
-  my $boolean      = $library->has_fragment($id);
+  my $boolean      = $library->has_file($filename);
   my $boolean      = $library->has_document($id);
   my $boolean      = $library->has_entity($id);
   my $boolean      = $library->has_division($id);
@@ -2535,8 +2791,7 @@ reusable L<"SML::Fragment">s.
   my $boolean      = $library->has_index_term($term);
   my $boolean      = $library->has_outcome($entity_id,$date);
   my $boolean      = $library->has_review($entity_id,$date);
-  my $fragment     = $library->get_fragment($filespec);
-  my $list         = $library->get_fragment_list;
+  my $file         = $library->get_file($filename);
   my $document     = $library->get_document($id);
   my $list         = $library->get_document_list;
   my $entity       = $library->get_entity($id);
@@ -2562,7 +2817,6 @@ reusable L<"SML::Fragment">s.
   my $description  = $library->get_review_description($entity_id,$date);
   my $string       = $library->summarize_content;
   my $string       = $library->summarize_entities;
-  my $string       = $library->summarize_fragments;
   my $string       = $library->summarize_divisions;
   my $string       = $library->summarize_glossary;
   my $string       = $library->summarize_acronyms;
@@ -2577,8 +2831,23 @@ reusable L<"SML::Fragment">s.
 
 =head1 DESCRIPTION
 
-A library is A collection of related SML documents and reusable
-document fragments.
+A library is a collection of SML documents and reusable content stored
+in text files.
+
+Library rules:
+
+Each file name must be unique.  Even though you can organize text files
+into directories, each filename must be unique in the library.
+
+Each division name must be valid.  Every division name in the library
+mus be declared in the ontology.
+
+Each division ID must be unique.  Every division in the library must
+have a unique ID.
+
+If you violate any of these rules you won't be able to even
+instantiate your library object.  Don't worry.  It will tell you where
+you went wrong.
 
 =head1 METHODS
 
@@ -2598,7 +2867,7 @@ document fragments.
 
 =head2 get_reasoner
 
-=head2 get_formatter
+=head2 get_publisher
 
 =head2 get_glossary
 
@@ -2622,7 +2891,7 @@ document fragments.
 
 =head2 get_filespec($filename)
 
-=head2 add_fragment($fragment)
+=head2 add_file($file)
 
 =head2 add_document($document)
 
@@ -2636,8 +2905,6 @@ document fragments.
 
 =head2 add_index_term($term,$divid)
 
-=head2 add_fragment_file($filespec)
-
 =head2 add_reference_file($filespec)
 
 =head2 add_script_file($filespec)
@@ -2646,7 +2913,7 @@ document fragments.
 
 =head2 add_review($review)
 
-=head2 has_fragment($id)
+=head2 has_file($filename)
 
 =head2 has_document($id)
 
@@ -2666,9 +2933,7 @@ document fragments.
 
 =head2 has_review($entity_id,$date)
 
-=head2 get_fragment($filespec)
-
-=head2 get_fragment_list
+=head2 get_file($filename)
 
 =head2 get_document($id)
 
@@ -2719,8 +2984,6 @@ document fragments.
 =head2 summarize_content
 
 =head2 summarize_entities
-
-=head2 summarize_fragments
 
 =head2 summarize_divisions
 

@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000157
 
 title:: Represent Update Triggers
-
-label:: rq-000157
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000009
+part_of:: rq-000009
 
 type:: data format
 
@@ -30,7 +26,7 @@ containing document when the included document is updated.  The data
 format must implement three types of update triggers: (1) revision,
 (2) author, and (3) date.
 
-######################################################################
+===
 
 index:: rq-000157; update triggers
 

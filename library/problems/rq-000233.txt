@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000233
 
 title:: Format an HTML Registered Trademark Symbol
-
-label:: rq-000233
 
 revision:: $Revision: 11687 $
 
@@ -12,14 +8,14 @@ date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000205
+part_of:: rq-000205
 
 type:: technical
 
 description:: The software shall format an HTML registered trademark
 symbol.
 
-######################################################################
+===
 
 index:: rq-000233; registered trademark symbol!format HTML
 

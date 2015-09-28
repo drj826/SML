@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000134
 
 title:: Represent a Fill in the Blank
-
-label:: rq-000134
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000124
+part_of:: rq-000124
 
 type:: data format
 
@@ -22,7 +18,7 @@ description:: The data format shall have the capability to represent a
 fill-in-the-blank symbol.  Furthermore, data format shall allow
 authors to specify the width of the symbol.
 
-######################################################################
+===
 
 index:: rq-000134; fill-in-the-blank
 

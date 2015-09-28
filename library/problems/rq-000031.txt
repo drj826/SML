@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000031
 
 title:: Represent Key Points
-
-label:: rq-000031
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000195
+part_of:: rq-000195
 
 type:: data format
 
@@ -25,7 +21,7 @@ section.  The purpose of identifying content as a list of key points
 is to enable a concise summary of concepts, make the list of key
 points re-usable, and to enable special listings of key points lists.
 
-######################################################################
+===
 
 index:: rq-000031; key points; list of key points
 

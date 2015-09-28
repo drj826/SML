@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000027
 
 ######################################################################
 
 title:: Sidebar.pm Unit Test Case Results
-
-label:: tr-000027
 
 revision:: $Revision: 15128 $
 

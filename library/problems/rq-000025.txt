@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000025
 
 title:: Represent a Glossary Entry
-
-label:: rq-000025
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000327
+part_of:: rq-000327
 
 type:: data format
 
@@ -24,7 +20,7 @@ definitions of terms used in a document.  The data format
 representation of a glossary entry must allow but not mandate newline
 characters within a glossary entry.
 
-######################################################################
+===
 
 index:: rq-000025; glossary entry
 

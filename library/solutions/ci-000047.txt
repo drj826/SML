@@ -1,10 +1,12 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000047
 
 title:: `end_row_context' Subroutine
 
-label:: ci-000047
+type:: software
+
+part_of:: ci-000007
+
+description:: The [cmd:end_row_context] subroutine 
 
 revision:: $Revision: 10975 $
 
@@ -12,13 +14,7 @@ date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-type:: software
-
-parent:: ci-000007
-
-description:: The [cmd:end_row_context] subroutine 
-
-######################################################################
+===
 
 index:: ci-000047; subroutine![cmd:end_row_context]
 

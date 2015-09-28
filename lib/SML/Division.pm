@@ -530,6 +530,82 @@ sub has_sections {
 
 ######################################################################
 
+sub has_tables {
+
+  # Return 1 if this division contains one or more tables.
+
+  my $self = shift;
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      if ( $part->isa('SML::Table') )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub has_figures {
+
+  # Return 1 if this division contains one or more figures.
+
+  my $self = shift;
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      if ( $part->isa('SML::Figure') )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub has_attachments {
+
+  # Return 1 if this division contains one or more attachments.
+
+  my $self = shift;
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      if ( $part->isa('SML::Attachment') )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub has_listings {
+
+  # Return 1 if this division contains one or more listings.
+
+  my $self = shift;
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      if ( $part->isa('SML::Listing') )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
 sub get_section_list {
 
   # Return an ordered list of sections within this division.
@@ -1500,6 +1576,10 @@ L<"SML::Block">s.
   my $boolean  = $division->has_attribute($attribute_name);
   my $list     = $division->get_division_list;
   my $boolean  = $division->has_sections;
+  my $boolean  = $division->has_tables;
+  my $boolean  = $division->has_figures;
+  my $boolean  = $division->has_attachments;
+  my $boolean  = $division->has_listings;
   my $list     = $division->get_section_list;
   my $list     = $division->get_block_list;
   my $list     = $division->get_element_list;

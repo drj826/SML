@@ -1,11 +1,7 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000338
 
 title:: Gather Every Division of Every Parsed File to a Containing
 Division or to the Document Itself
-
-label:: rq-000338
 
 revision:: $Revision: 11687 $
 
@@ -13,7 +9,7 @@ date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000128
+part_of:: rq-000128
 
 priority:: routine
 
@@ -27,7 +23,7 @@ of this requirement is to ensure the data gathered into memory from
 parsed files can be used to re-write those files back out to permanent
 storage.
 
-######################################################################
+===
 
 index:: rq-000338
 

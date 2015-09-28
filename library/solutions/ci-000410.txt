@@ -1,10 +1,12 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000410
 
 title:: SML/Library.pm Module
 
-label:: ci-000410
+type:: software
+
+part_of:: ci-000004
+
+description:: The SML/Library.pm Module...
 
 revision:: $Revision: 15144 $
 
@@ -12,13 +14,7 @@ date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-type:: software
-
-parent:: ci-000004
-
-description:: The SML/Library.pm Module...
-
-######################################################################
+===
 
 index:: ci-000410
 
@@ -29,21 +25,20 @@ class. [ref:fig-class-diagram-library] shows the composition of an SML
 [g:sml:library].  The library class does not inherit attributes or
 methods from any other class.
 
----FIGURE
+>>>FIGURE.fig-class-diagram-library
 title:: SML Library Composition
-label:: fig-class-diagram-library
 image:: ../files/images/class-diagram-library.png
 width:: 3.75in
----FIGURE
+<<<FIGURE
 
----LISTING
-title::     Library.pm
-label::     lis-library-pm
-numbers::   left
-language::  Perl
-fontsize::  footnotesize
-file::      ../../lib/SML/Library.pm
----LISTING
+>>>LISTING.lis-library-pm
+title::    Library.pm
+numbers::  left
+language:: Perl
+fontsize:: footnotesize
+===
+file:: ../../lib/SML/Library.pm
+<<<LISTING
 
 [clearpage]
 

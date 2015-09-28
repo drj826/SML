@@ -1,6 +1,4 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.sml-quick-ref
 
 title:: SML Quick Reference
 
@@ -10,17 +8,15 @@ date:: $Date: 2013-07-07 09:35:23 -0600 (Sun, 07 Jul 2013) $
 
 logo_image_small:: files/images/sml_logo.png
 
-######################################################################
+===
 
 #---------------------------------------------------------------------
 # Structure Summary
 #---------------------------------------------------------------------
 
----TABLE
+>>>TABLE.ref-tab-structure-features
 
 title:: Summary of Structure Features
-
-label:: tab-structure-features
 
 column::1:width: 50
 column::2:width: 50
@@ -28,19 +24,19 @@ column::2:width: 50
 column::1:head: Feature
 column::2:head: Example
 
-include::raw:$r5074$: incl/sml-structure-summary.txt
+===
 
----TABLE
+include::raw: sml-structure-summary
+
+<<<TABLE
 
 #---------------------------------------------------------------------
 # Content Summary
 #---------------------------------------------------------------------
 
----TABLE
+>>>TABLE.ref-tab-content-features
 
 title:: Summary of Content Features
-
-label:: tab-content-features
 
 column::1:width: 50
 column::2:width: 50
@@ -48,19 +44,19 @@ column::2:width: 50
 column::1:head: Feature
 column::2:head: Example
 
-include::$r4974$: incl/sml-content-summary.txt
+===
 
----TABLE
+include::raw: sml-content-summary
+
+<<<TABLE
 
 #---------------------------------------------------------------------
 # Presentation Summary
 #---------------------------------------------------------------------
 
----TABLE
+>>>TABLE.ref-tab-presentation-features
 
 title:: Summary of Presentation Features
-
-label:: tab-presentation-features
 
 column::1:width: 50
 column::2:width: 50
@@ -68,19 +64,19 @@ column::2:width: 50
 column::1:head: Feature
 column::2:head: Example
 
-include::$r9805$: incl/sml-presentation-summary.txt
+===
 
----TABLE
+include::raw: sml-presentation-summary
+
+<<<TABLE
 
 #---------------------------------------------------------------------
 # Special Features Summary
 #---------------------------------------------------------------------
 
----TABLE
+>>>TABLE.ref-tab-special-features
 
 title:: Summary of Special Features
-
-label:: tab-special-features
 
 column::1:width: 50
 column::2:width: 50
@@ -88,8 +84,10 @@ column::2:width: 50
 column::1:head: Feature
 column::2:head: Example
 
-include::$r10205$: incl/sml-special-summary.txt
+===
 
----TABLE
+include::raw: sml-special-summary
+
+<<<TABLE
 
 <<<DOCUMENT

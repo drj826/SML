@@ -300,6 +300,20 @@ has part_test_case_list =>
 # preformatted_block
 # preformatted_division
 # property
+
+######################################################################
+
+has publisher_test_case_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_publisher_test_case_list',
+   lazy    => 1,
+   builder => '_build_publisher_test_case_list',
+  );
+
+######################################################################
+
 # quotation
 # reasoner
 # references
@@ -633,6 +647,7 @@ sub _build_block_test_case_list {
       library  => $self->get_test_library_1,
       expected =>
       {
+       has_parts => 1,
        render =>
        {
 	html =>
@@ -3497,6 +3512,7 @@ sub _build_document_test_case_list {
       library  => $self->get_test_library_1,
       expected =>
       {
+       dump_part_structure => slurp('expected/part-structure/td-000001.txt'),
        get_glossary => 'SML::Glossary',
        is_valid => 1,
        render =>
@@ -3518,6 +3534,7 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       dump_part_structure => slurp('expected/part-structure/td-000002.txt'),
        render =>
        {
 	sml =>
@@ -3537,6 +3554,7 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       dump_part_structure => slurp('expected/part-structure/td-000003.txt'),
        render =>
        {
 	sml =>
@@ -3556,6 +3574,7 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       dump_part_structure => slurp('expected/part-structure/td-000004.txt'),
        render =>
        {
 	sml =>
@@ -3575,6 +3594,7 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       dump_part_structure => slurp('expected/part-structure/td-000005.txt'),
        render =>
        {
 	sml =>
@@ -3594,6 +3614,7 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       dump_part_structure => slurp('expected/part-structure/td-000006.txt'),
        render =>
        {
 	sml =>
@@ -3613,6 +3634,7 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       dump_part_structure => slurp('expected/part-structure/td-000007.txt'),
        render =>
        {
 	sml =>
@@ -3632,6 +3654,7 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       dump_part_structure => slurp('expected/part-structure/td-000008.txt'),
       },
      },
 
@@ -3644,6 +3667,7 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       dump_part_structure => slurp('expected/part-structure/td-000009.txt'),
       },
      },
 
@@ -3656,6 +3680,7 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       dump_part_structure => slurp('expected/part-structure/td-000010.txt'),
       },
      },
 
@@ -3668,6 +3693,7 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       dump_part_structure => slurp('expected/part-structure/td-000011.txt'),
       },
      },
 
@@ -3680,6 +3706,7 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       dump_part_structure => slurp('expected/part-structure/td-000012.txt'),
        render =>
        {
 	sml =>
@@ -3699,6 +3726,7 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       dump_part_structure => slurp('expected/part-structure/td-000013.txt'),
       },
      },
 
@@ -3711,6 +3739,7 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       dump_part_structure => slurp('expected/part-structure/td-000014.txt'),
       },
      },
 
@@ -3723,6 +3752,7 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       dump_part_structure => slurp('expected/part-structure/td-000015.txt'),
       },
      },
 
@@ -3735,6 +3765,7 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       dump_part_structure => slurp('expected/part-structure/td-000016.txt'),
       },
      },
 
@@ -3747,6 +3778,7 @@ sub _build_document_test_case_list {
       expected =>
       {
        is_valid => 1,
+       dump_part_structure => slurp('expected/part-structure/td-000017.txt'),
       },
      },
 
@@ -6140,6 +6172,35 @@ sub _build_part_test_case_list {
       },
      },
 
+    ];
+}
+
+######################################################################
+
+sub _build_publisher_test_case_list {
+
+  my $self = shift;
+
+  return
+    [
+     {
+      name => 'document_1',
+      object => $self->get_test_document_1,
+      args =>
+      {
+       library => $self->get_test_library_1,
+      },
+      expected =>
+      {
+       publish =>
+       {
+	html =>
+	{
+	 default => 1,
+	},
+       },
+      },
+     },
     ];
 }
 

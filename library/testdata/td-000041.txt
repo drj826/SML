@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000041
 
 title:: INVALID ITALICS MARKUP
 
-id:: td-000041
-
-######################################################################
+===
 
 This document contains an example of INVALID italics markup.
 

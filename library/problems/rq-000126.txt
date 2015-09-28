@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000126
 
 title:: Render Documents from SML to SML
-
-label:: rq-000126
 
 revision:: $Revision: 11579 $
 
@@ -12,14 +8,14 @@ date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000098
+part_of:: rq-000098
 
 priority:: routine
 
 type:: functional
 
 description:: The software shall enable a user to render
-[g:sml:document]s from [g:sml:Structured Manuscript Language] (SML) to
+[g:sml:document]s from [g:sml:Semantic Manuscript Language] (SML) to
 finalized [g:sml:SML].  That might seem odd.  It means the publishing
 function shall produce SML documents with the following functions
 completed: (1) resolve `includes', (2) run scripts, (3) resolve
@@ -27,7 +23,7 @@ completed: (1) resolve `includes', (2) run scripts, (3) resolve
 requests, (6) fill in templates, and (7) resolve requests to generate
 content.
 
-######################################################################
+===
 
 index:: rq-000126; SML!render
 

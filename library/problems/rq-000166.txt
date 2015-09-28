@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000166
 
 title:: Represent an Option to `Include Flat'
-
-label:: rq-000166
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000065
+part_of:: rq-000065
 
 type:: data format
 
@@ -29,7 +25,7 @@ author to reuse a file containing a section structure in an
 ``exercise;'' a division which is not allowed to contain section
 headings.
 
-######################################################################
+===
 
 index:: rq-000166; include!flat
 

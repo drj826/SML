@@ -26,6 +26,7 @@ use SML;                        # ci-000002
 use SML::Options;               # ci-000382
 use SML::File;                  # ci-000384
 use SML::Line;                  # ci-000385
+use SML::Fragment;              # ci-000nnn
 
 # string classes
 use SML::String;                # ci-000???
@@ -66,16 +67,12 @@ use SML::Note;                  # ci-000???
 
 # division classes
 use SML::Division;              # ci-000381
-use SML::Fragment;              # ci-000nnn
 use SML::Document;              # ci-000005
 use SML::CommentDivision;       # ci-000388
 use SML::Conditional;           # ci-000389
 use SML::Section;               # ci-000392
 use SML::TableRow;              # ci-000429
 use SML::TableCell;             # ci-000428
-
-# environment classes
-use SML::Environment;           # ci-000391
 use SML::Attachment;            # ci-000393
 use SML::Revisions;             # ci-000394
 use SML::Epigraph;              # ci-000395
@@ -88,9 +85,6 @@ use SML::Table;                 # ci-000401
 use SML::Baretable;             # ci-000414
 use SML::Audio;                 # ci-000402
 use SML::Video;                 # ci-000403
-
-# region classes
-use SML::Region;                # ci-000390
 use SML::Entity;                # ci-000416
 use SML::Assertion;             # ci-000404
 use SML::Slide;                 # ci-000405
@@ -125,44 +119,33 @@ has 'library' =>
 ######################################################################
 ######################################################################
 
-sub create_fragment {
+sub parse {
 
-  # Create an SML fragment by parsing the contents of a file. Add
-  # parsed documents and entities to the library. Return the fragment
-  # object.
+  # Create a division object by parsing a sequence of lines. Add the
+  # new division to library. Return the division object.
 
-  my $self     = shift;
-  my $filename = shift;
-
-  my $library  = $self->get_library;
-  my $startdir = getcwd;
-  my $filespec = $library->get_filespec($filename);
-  my $fragdir  = dirname($filespec);
-  my $basename = basename($filespec);
-
-  chdir($fragdir);
-
-  $logger->info("create_fragment $basename");
-
-  my $file = SML::File->new(filespec=>$basename);
-
-  if ( not $file->validate )
-    {
-      $logger->logcroak("FILE NOT VALID \'$basename\'");
-    }
-
-  my $fragment = SML::Fragment->new(file=>$file,library=>$library);
+  my $self = shift;
+  my $id   = shift;
 
   $self->_init;
-  $self->_set_line_list( $fragment->get_line_list );
-  $self->_set_fragment( $fragment );
+
+  my $library = $self->get_library;
+  my $file    = $library->get_file_containing($id);
+
+  my $file_line_list = $file->get_line_list;
+  my $division_line_list = $self->_extract_division_lines($file_line_list,$id);
+
+  $self->_set_line_list( $division_line_list );
+
+  my $division = $self->_create_empty_division($division_line_list);
+  $self->_set_division( $division );
 
   do
     {
       $self->_resolve_includes  while $self->_contains_include;
       $self->_run_scripts       while $self->_contains_script;
 
-      $self->_gather_data;
+      $self->_parse_lines;
 
       $self->_insert_content       if $self->_contains_insert;
       $self->_resolve_templates    if $self->_contains_template;
@@ -173,34 +156,14 @@ sub create_fragment {
 
       while $self->_text_requires_processing;
 
-  $logger->info("parse blocks");
-
-  foreach my $block (@{ $fragment->get_block_list })
+  foreach my $block (@{ $division->get_block_list })
     {
       $self->_parse_block($block);
     }
 
-  # add documents to the library
-  foreach my $division (@{ $fragment->get_division_list })
-    {
-      if ( $division->isa('SML::Document') )
-	{
-	  $library->add_document($division);
-	}
-    }
+  $library->add_division($division);
 
-  chdir($startdir);
-
-  $logger->trace("created fragment \'$basename\'");
-
-  foreach my $line (@{ $fragment->get_line_list })
-    {
-      my $text = $line->get_content;
-      chomp $text;
-      $logger->trace("-> $text");
-    }
-
-  return $fragment;
+  return $division;
 }
 
 ######################################################################
@@ -810,11 +773,6 @@ sub extract_division_name {
   # division.  In other words, the first line must be a division
   # starting line.
 
-  # !!! BUG HERE !!!
-  #
-  # This subroutine doesn't work anymore since I changed the parser to
-  # ignore the lines containing division markers.
-
   my $self  = shift;
   my $lines = shift;
 
@@ -822,24 +780,14 @@ sub extract_division_name {
   my $syntax = $sml->get_syntax;
   my $text   = $lines->[0]->get_content;
 
-  if ( $text =~ /$syntax->{start_region}/ )
+  if ( $text =~ /$syntax->{start_division}/ )
     {
-      return $2;
-    }
-
-  elsif ( $text =~ /$syntax->{start_environment}/ )
-    {
-      return $2;
+      return $1;                        # $1 = name (see Syntax.pm)
     }
 
   elsif ( $text =~ /$syntax->{start_section}/ )
     {
       return 'SECTION';
-    }
-
-  elsif ( $text =~ /$syntax->{comment_marker}/ )
-    {
-      return 'COMMENT_DIVISION';
     }
 
   else
@@ -853,6 +801,51 @@ sub extract_division_name {
       # 	}
       # return '';
 
+    }
+
+}
+
+######################################################################
+
+sub extract_division_id {
+
+  # Extract a division ID string from a sequence of lines.
+
+  # NOTE: This ONLY works for a sequence of lines that represents a
+  # division.  In other words, the first line must be a division
+  # starting line.
+
+  my $self  = shift;
+  my $lines = shift;
+
+  my $sml    = SML->instance;
+  my $syntax = $sml->get_syntax;
+  my $text   = $lines->[0]->get_content;
+
+  # !!! BUG HERE !!!
+  #
+  # What happens if a division marker lacks an ID?
+
+  if ( $text =~ /$syntax->{start_division}/ )
+    {
+      return $3;                        # $3 = ID (see Syntax.pm)
+    }
+
+  elsif ( $text =~ /$syntax->{start_section}/ )
+    {
+      return $3;                        # $3 = ID (see Syntax.pm)
+    }
+
+  else
+    {
+      # $logger->warn("DIVISION NAME NOT FOUND IN...");
+
+      # foreach my $line (@{$lines})
+      # 	{
+      # 	  my $text = $line->get_content;
+      # 	  $logger->warn($text);
+      # 	}
+      # return '';
     }
 
 }
@@ -922,7 +915,7 @@ sub extract_title_text {
 	{
 	  $first_line = 0;
 	  $in_title   = 1;
-	  $title_text = $2;
+	  $title_text = $4;
 	}
 
       # blank line ends title
@@ -1173,15 +1166,27 @@ sub extract_narrative_lines {
 ######################################################################
 ######################################################################
 
-has 'fragment' =>
-  (
-   isa       => 'SML::Fragment',
-   reader    => '_get_fragment',
-   writer    => '_set_fragment',
-  );
+# has 'fragment' =>
+#   (
+#    isa       => 'SML::Fragment',
+#    reader    => '_get_fragment',
+#    writer    => '_set_fragment',
+#   );
 
 # This is the object returned by parse method, usually a document or
 # an entity.
+
+######################################################################
+
+has 'division' =>
+  (
+   isa       => 'SML::Division',
+   reader    => '_get_division',
+   writer    => '_set_division',
+  );
+
+# This is the division object being parsed by parse method, often a
+# document.
 
 ######################################################################
 
@@ -1594,7 +1599,7 @@ sub _init {
 
   if ( not $options->use_svn )
     {
-      $logger->info("not using SVN, won't warn about uncommitted changes");
+      $logger->debug("not using SVN, won't warn about uncommitted changes");
     }
 
   $self->_clear_line_list;
@@ -1608,326 +1613,453 @@ sub _init {
 
 ######################################################################
 
-sub _old_resolve_includes {
+sub _create_empty_division {
 
-  # Scan lines, replace 'include' requests with 'included' lines.
+  # Return a division object.
 
-  my $self = shift;
+  my $self      = shift;
+  my $line_list = shift;
 
-  my $sml            = SML->instance;
-  my $syntax         = $sml->get_syntax;
-  my $util           = $sml->get_util;
-  my $library        = $self->get_library;
-  my $count_method   = $self->_get_count_method_hash;
-  my $options        = $util->get_options;
-  my $max_iterations = $options->get_MAX_RESOLVE_INCLUDES;
-  my $count          = ++ $count_method->{'_resolve_includes'};
-  my $newlines       = [];
-  my $oldlines       = $self->_get_line_list;
-  my $in_comment     = 0;
-  my $depth          = 1;
+  my $library  = $self->get_library;
+  my $name     = $self->extract_division_name($line_list);
+  my $id       = $self->extract_division_id($line_list);
+  my $ontology = $library->get_ontology;
+  my $class    = $ontology->get_class_for_entity_name($name);
 
-  $logger->info("($count) resolve includes");
+  return $class->new(id=>$id,library=>$library);
+}
 
-  if ( $count > $max_iterations )
+######################################################################
+
+sub _extract_division_lines {
+
+  # Extract a sequence of lines representing a division with target_id
+  # from another sequence of lines.
+
+  my $self      = shift;
+  my $line_list = shift;                # lines from which to extract division
+  my $target_id = shift;                # ID of division to be extracted
+
+  my $sml                = SML->instance;
+  my $syntax             = $sml->get_syntax;
+  my $lines              = [];  # Extracted lines
+  my $div_stack          = [];  # stack of division names
+  my $in_comment         = 0;   # in a comment division?
+  my $in_target_division = 0;   # in the division targeted for extraction?
+
+  foreach my $line (@{ $line_list })
     {
-      my $msg = "EXCEEDED MAX ITERATIONS ($max_iterations)";
-      $logger->logcroak("$msg");
-    }
-
- LINE:
-  foreach my $oldline (@{ $oldlines })
-    {
-      my $text     = $oldline->get_content;
-      my $location = $oldline->get_location;
+      my $text = $line->get_content;
 
       $text =~ s/[\r\n]*$//;            # chomp;
 
-      #---------------------------------------------------------------
-      # Ignore comments in containing document
-      #
-      if ( $text =~ /$syntax->{comment_marker}/ )
+      if ( $text =~ /$syntax->{start_division}/xms )
 	{
-	  if ( $in_comment )
+	  my $division_name = $1;       # $1 = division name (see Syntax.pm)
+	  my $division_id   = $3 || q{};
+
+	  if ( $division_id eq $target_id )
 	    {
-	      $in_comment = 0;
+	      # This is the beginning of the division we're looking for.
+	      $in_target_division = 1;
+
+	      push @{ $div_stack }, $division_name;
+
+	      push @{ $lines }, $line;
+	    }
+
+	  elsif ( $in_target_division )
+	    {
+	      push @{ $div_stack }, $division_name;
+
+	      push @{ $lines }, $line;
 	    }
 
 	  else
 	    {
-	      $in_comment = 1;
+	      # This is not the division we're looking for and we're
+	      # not yet inside the target division.
 	    }
-
-	push @{ $newlines }, $oldline;
-	next LINE;
-
-      }
-
-      elsif ( $in_comment )
-	{
-	  push @{ $newlines }, $oldline;
-	  next LINE;
 	}
 
-      elsif ( $text =~ /$syntax->{'comment_line'}/ )
+      elsif ( $text =~ /$syntax->{start_section}/xms )
 	{
-	  push @{ $newlines }, $oldline;
-	  next LINE;
-	}
+	  my $division_id = $3 || q{};
 
-      #---------------------------------------------------------------
-      # ELSIF include statement
-      #
-      elsif ( $text =~ /$syntax->{include_element}/ )
-	{
-	  my $asterisks         = $1 || '';
-	  my $args              = $2 || '';
-	  my $incl_id           = '';
-	  my $included_filespec = '';
-	  my $included_lines    = undef;
-	  my $fragment          = undef;
-	  my $division          = undef;
-
-	  $logger->trace("  include element 1:$1 2:$2 3:$3 4:$4 5:$5");
-
-	  #-----------------------------------------------------------
-	  # Determine Division ID and Filespec
-	  #
-	  #   If the include statement syntax has BOTH a division ID
-	  #   AND a filespec the author's intent is to extract the
-	  #   division from the fragment.
-	  #
-	  if ( $3 and $5 )
+	  if ( $division_id eq $target_id )
 	    {
-	      $incl_id           = $3;
-	      $included_filespec = $5;
+	      # This is the division we're looking for.
+	      $in_target_division = 1;
+
+	      push @{ $lines }, $line;
 	    }
 
-	  elsif ( $3 )
+	  elsif ( $in_target_division )
 	    {
-	      $included_filespec = $3;
-	    }
-
-	  #-----------------------------------------------------------
-	  # Get Fragment From Library Or Die
-	  #
-	  #   The fragment object should have been created by the
-	  #   SML::Fragment::_read_file method and added to the
-	  #   library when the fragment was created.
-	  #
-	  if ( $library->has_fragment( $included_filespec ) )
-	    {
-	      $fragment = $library->get_fragment( $included_filespec );
+	      push @{ $lines }, $line;
 	    }
 
 	  else
 	    {
-	      $logger->logcroak("RESOURCE DETECTED BY _resolve_includes: \'$included_filespec\'");
+	      # This is NOT the division we're looking for.
 	    }
+	}
 
-	  #-----------------------------------------------------------
-	  # Get Division (If Necessary)
-	  #
-	  if ( $incl_id and not $library->has_division( $incl_id ) )
-	    {
-	      $logger->trace("  library DOESN'T have division $incl_id, extracting it from fragment...");
-	      $included_lines = $fragment->extract_division_lines( $incl_id );
-	    }
-
-	  elsif ( $incl_id and $library->has_division( $incl_id ) )
-	    {
-	      $logger->trace("  library HAS division $incl_id");
-	      $division = $library->get_division($incl_id);
-	      $included_lines = $division->get_line_list;
-	    }
-
-	  #-----------------------------------------------------------
-	  # IF (1) division is in the library AND (2) one or more
-	  # asterisks are present in arguments, THEN include parsed
-	  # division as section
-	  #
+      elsif ( $text =~ /$syntax->{end_division}/xms )
+	{
+	  # If this is the end of the division being extracted...
 	  if (
-	      $division
+	      $in_target_division
 	      and
-	      (
-	       $asterisks =~ /(\*+)/
-	       or
-	       $args =~ /(\*+):/
-	      )
+	      scalar @{ $div_stack } == 1
 	     )
 	    {
-	      my $asterisks  = $1;
-	      my $level      = length($asterisks);
-	      my $title      = $division->get_property_value('title');
-	      my $narrative  = $division->get_narrative_line_list;
-	      my $sechead    = $self->_sechead_line($asterisks,$title);
+	      $in_target_division = 0;
 
-	      push @{ $included_lines }, $sechead;
-	      push @{ $included_lines }, $util->get_blank_line;
+	      push @{ $lines }, $line;
 
-	      foreach my $line (@{ $narrative })
-		{
-		  push @{ $included_lines }, $line;
-		}
+	      return $lines;
 	    }
 
-	  #-----------------------------------------------------------
-	  # IF (1) we have included lines AND (2) one or more
-	  # asterisks are present in arguments, THEN include narrative
-	  # part of extracted division lines as section
-	  #
-	  elsif (
-	      $included_lines
-	      and
-	      (
-	       $asterisks =~ /(\*+)/
-	       or
-	       $args =~ /(\*+):/
-	      )
-	     )
+	  else
 	    {
-	      my $asterisks = $1;
-	      my $level     = length($asterisks);
-	      my $title     = $self->extract_title_text($included_lines);
-	      my $narrative = $self->extract_narrative_lines($included_lines);
-	      my $sechead   = $self->_sechead_line($asterisks,$title);
-	      my $replacement_lines = [];
+	      pop @{ $div_stack };
 
-	      push @{ $replacement_lines }, $sechead;
-	      push @{ $replacement_lines }, $util->get_blank_line;
-
-	      foreach my $line (@{ $narrative })
-		{
-		  push @{ $replacement_lines }, $line;
-		}
-
-	      $included_lines = $replacement_lines;
-	    }
-
-	  #-----------------------------------------------------------
-	  # include flat
-	  #
-	  elsif (
-		 $division
-		 and
-		 $args =~ /flat:/
-		)
-	    {
-	      foreach my $line (@{ $division->get_line_list }) {
-		my $content = $line->get_content;
-		if ($content =~ /^(title::\s|\*+\s)/)
-		  {
-		    $line = $self->_flatten($line);
-		  }
-		push( @{ $included_lines }, $line );
-	      }
-	    }
-
-	  #-----------------------------------------------------------
-	  # include hide
-	  #
-	  elsif (
-		 $division
-		 and
-		 $args =~ /hide:/
-		)
-	    {
-	      my $begin_line = $self->_hide_tag;
-	      my $end_line   = $self->_hide_tag;
-
-	      push @{ $included_lines }, $begin_line;
-
-	      foreach my $line (@{ $division->get_line_list })
-		{
-		  push @{ $included_lines }, $line;
-		}
-
-	      push @{ $included_lines }, $end_line;
-	    }
-
-	  #-----------------------------------------------------------
-	  # include raw
-	  #
-	  elsif (
-		 $division
-		 and
-		 $args =~ /raw:/
-		)
-	    {
-	      foreach my $line (@{ $division->get_line_list })
-		{
-		  push @{ $included_lines }, $line;
-		}
-	    }
-
-	  #-----------------------------------------------------------
-	  # default
-	  #
-	  elsif ( $division )
-	    {
-	      my $asterisks  = '';
-	      $asterisks .= '*' until length($asterisks) == $depth;
-
-	      my $title      = $division->get_property_value('title');
-	      my $narrative  = $division->get_narrative_line_list;
-	      my $sechead    = $self->_sechead_line($asterisks,$title);
-
-	      push @{ $included_lines }, $sechead;
-	      push @{ $included_lines }, $util->get_blank_line;
-
-	      foreach my $line (@{ $narrative })
-		{
-		  push @{ $included_lines }, $line;
-		}
-	    }
-
-	  else # NOT $incl_id
-	    {
-	      my $fragment = undef;
-
-	      if ( $library->has_fragment($included_filespec) )
-		{
-		  $fragment = $library->get_fragment($included_filespec);
-
-		  foreach my $line (@{ $fragment->get_line_list })
-		    {
-		      push @{ $included_lines }, $line;
-		    }
-		}
-
-	      else
-		{
-		  $logger->warn("LIBRARY DOESN'T HAVE FRAGMENT: \'$included_filespec\' at $location");
-		}
-	    }
-
-	  foreach my $line (@{ $included_lines })
-	    {
-	      push @{ $newlines }, $line;
+	      push @{ $lines }, $line;
 	    }
 	}
 
-      #---------------------------------------------------------------
-      # Section headings (to track current depth)
-      #
-      elsif ( $text =~ /^(\*+)/ )
+      elsif ( $in_target_division )
 	{
-	  $depth = length($1);
-	  push @{ $newlines }, $oldline;
-	  next LINE;
-	}
-
-      # no include statement on this line
-      else
-	{
-	  push @{ $newlines }, $oldline;
+	  push @{ $lines }, $line;
 	}
     }
 
-  $self->_set_line_list($newlines);
-
-  return 1;
+  return $lines;
 }
+
+######################################################################
+
+# sub _old_resolve_includes {
+
+#   # Scan lines, replace 'include' requests with 'included' lines.
+
+#   my $self = shift;
+
+#   my $sml            = SML->instance;
+#   my $syntax         = $sml->get_syntax;
+#   my $util           = $sml->get_util;
+#   my $library        = $self->get_library;
+#   my $count_method   = $self->_get_count_method_hash;
+#   my $options        = $util->get_options;
+#   my $max_iterations = $options->get_MAX_RESOLVE_INCLUDES;
+#   my $count          = ++ $count_method->{'_resolve_includes'};
+#   my $newlines       = [];
+#   my $oldlines       = $self->_get_line_list;
+#   my $in_comment     = 0;
+#   my $depth          = 1;
+
+#   $logger->info("($count) resolve includes");
+
+#   if ( $count > $max_iterations )
+#     {
+#       my $msg = "EXCEEDED MAX ITERATIONS ($max_iterations)";
+#       $logger->logcroak("$msg");
+#     }
+
+#  LINE:
+#   foreach my $oldline (@{ $oldlines })
+#     {
+#       my $text     = $oldline->get_content;
+#       my $location = $oldline->get_location;
+
+#       $text =~ s/[\r\n]*$//;            # chomp;
+
+#       #---------------------------------------------------------------
+#       # Ignore comments in containing document
+#       #
+#       if ( $text =~ /$syntax->{comment_marker}/ )
+# 	{
+# 	  if ( $in_comment )
+# 	    {
+# 	      $in_comment = 0;
+# 	    }
+
+# 	  else
+# 	    {
+# 	      $in_comment = 1;
+# 	    }
+
+# 	push @{ $newlines }, $oldline;
+# 	next LINE;
+
+#       }
+
+#       elsif ( $in_comment )
+# 	{
+# 	  push @{ $newlines }, $oldline;
+# 	  next LINE;
+# 	}
+
+#       elsif ( $text =~ /$syntax->{'comment_line'}/ )
+# 	{
+# 	  push @{ $newlines }, $oldline;
+# 	  next LINE;
+# 	}
+
+#       #---------------------------------------------------------------
+#       # ELSIF include statement
+#       #
+#       elsif ( $text =~ /$syntax->{include_element}/ )
+# 	{
+# 	  my $asterisks         = $1 || '';
+# 	  my $args              = $2 || '';
+# 	  my $incl_id           = '';
+# 	  my $included_filespec = '';
+# 	  my $included_lines    = undef;
+# 	  my $fragment          = undef;
+# 	  my $division          = undef;
+
+# 	  $logger->trace("  include element 1:$1 2:$2 3:$3 4:$4 5:$5");
+
+# 	  #-----------------------------------------------------------
+# 	  # Determine Division ID and Filespec
+# 	  #
+# 	  #   If the include statement syntax has BOTH a division ID
+# 	  #   AND a filespec the author's intent is to extract the
+# 	  #   division from the fragment.
+# 	  #
+# 	  if ( $3 and $5 )
+# 	    {
+# 	      $incl_id           = $3;
+# 	      $included_filespec = $5;
+# 	    }
+
+# 	  elsif ( $3 )
+# 	    {
+# 	      $included_filespec = $3;
+# 	    }
+
+# 	  #-----------------------------------------------------------
+# 	  # Get Fragment From Library Or Die
+# 	  #
+# 	  #   The fragment object should have been created by the
+# 	  #   SML::Fragment::_read_file method and added to the
+# 	  #   library when the fragment was created.
+# 	  #
+# 	  if ( $library->has_fragment( $included_filespec ) )
+# 	    {
+# 	      $fragment = $library->get_fragment( $included_filespec );
+# 	    }
+
+# 	  else
+# 	    {
+# 	      $logger->logcroak("RESOURCE DETECTED BY _resolve_includes: \'$included_filespec\'");
+# 	    }
+
+# 	  #-----------------------------------------------------------
+# 	  # Get Division (If Necessary)
+# 	  #
+# 	  if ( $incl_id and not $library->has_division( $incl_id ) )
+# 	    {
+# 	      $logger->trace("  library DOESN'T have division $incl_id, extracting it from fragment...");
+# 	      $included_lines = $fragment->extract_division_lines( $incl_id );
+# 	    }
+
+# 	  elsif ( $incl_id and $library->has_division( $incl_id ) )
+# 	    {
+# 	      $logger->trace("  library HAS division $incl_id");
+# 	      $division = $library->get_division($incl_id);
+# 	      $included_lines = $division->get_line_list;
+# 	    }
+
+# 	  #-----------------------------------------------------------
+# 	  # IF (1) division is in the library AND (2) one or more
+# 	  # asterisks are present in arguments, THEN include parsed
+# 	  # division as section
+# 	  #
+# 	  if (
+# 	      $division
+# 	      and
+# 	      (
+# 	       $asterisks =~ /(\*+)/
+# 	       or
+# 	       $args =~ /(\*+):/
+# 	      )
+# 	     )
+# 	    {
+# 	      my $asterisks  = $1;
+# 	      my $level      = length($asterisks);
+# 	      my $title      = $division->get_property_value('title');
+# 	      my $narrative  = $division->get_narrative_line_list;
+# 	      my $sechead    = $self->_sechead_line($asterisks,$title);
+
+# 	      push @{ $included_lines }, $sechead;
+# 	      push @{ $included_lines }, $util->get_blank_line;
+
+# 	      foreach my $line (@{ $narrative })
+# 		{
+# 		  push @{ $included_lines }, $line;
+# 		}
+# 	    }
+
+# 	  #-----------------------------------------------------------
+# 	  # IF (1) we have included lines AND (2) one or more
+# 	  # asterisks are present in arguments, THEN include narrative
+# 	  # part of extracted division lines as section
+# 	  #
+# 	  elsif (
+# 	      $included_lines
+# 	      and
+# 	      (
+# 	       $asterisks =~ /(\*+)/
+# 	       or
+# 	       $args =~ /(\*+):/
+# 	      )
+# 	     )
+# 	    {
+# 	      my $asterisks = $1;
+# 	      my $level     = length($asterisks);
+# 	      my $title     = $self->extract_title_text($included_lines);
+# 	      my $narrative = $self->extract_narrative_lines($included_lines);
+# 	      my $sechead   = $self->_sechead_line($asterisks,$title);
+# 	      my $replacement_lines = [];
+
+# 	      push @{ $replacement_lines }, $sechead;
+# 	      push @{ $replacement_lines }, $util->get_blank_line;
+
+# 	      foreach my $line (@{ $narrative })
+# 		{
+# 		  push @{ $replacement_lines }, $line;
+# 		}
+
+# 	      $included_lines = $replacement_lines;
+# 	    }
+
+# 	  #-----------------------------------------------------------
+# 	  # include flat
+# 	  #
+# 	  elsif (
+# 		 $division
+# 		 and
+# 		 $args =~ /flat:/
+# 		)
+# 	    {
+# 	      foreach my $line (@{ $division->get_line_list }) {
+# 		my $content = $line->get_content;
+# 		if ($content =~ /^(title::\s|\*+\s)/)
+# 		  {
+# 		    $line = $self->_flatten($line);
+# 		  }
+# 		push( @{ $included_lines }, $line );
+# 	      }
+# 	    }
+
+# 	  #-----------------------------------------------------------
+# 	  # include hide
+# 	  #
+# 	  elsif (
+# 		 $division
+# 		 and
+# 		 $args =~ /hide:/
+# 		)
+# 	    {
+# 	      my $begin_line = $self->_hide_tag;
+# 	      my $end_line   = $self->_hide_tag;
+
+# 	      push @{ $included_lines }, $begin_line;
+
+# 	      foreach my $line (@{ $division->get_line_list })
+# 		{
+# 		  push @{ $included_lines }, $line;
+# 		}
+
+# 	      push @{ $included_lines }, $end_line;
+# 	    }
+
+# 	  #-----------------------------------------------------------
+# 	  # include raw
+# 	  #
+# 	  elsif (
+# 		 $division
+# 		 and
+# 		 $args =~ /raw:/
+# 		)
+# 	    {
+# 	      foreach my $line (@{ $division->get_line_list })
+# 		{
+# 		  push @{ $included_lines }, $line;
+# 		}
+# 	    }
+
+# 	  #-----------------------------------------------------------
+# 	  # default
+# 	  #
+# 	  elsif ( $division )
+# 	    {
+# 	      my $asterisks  = '';
+# 	      $asterisks .= '*' until length($asterisks) == $depth;
+
+# 	      my $title      = $division->get_property_value('title');
+# 	      my $narrative  = $division->get_narrative_line_list;
+# 	      my $sechead    = $self->_sechead_line($asterisks,$title);
+
+# 	      push @{ $included_lines }, $sechead;
+# 	      push @{ $included_lines }, $util->get_blank_line;
+
+# 	      foreach my $line (@{ $narrative })
+# 		{
+# 		  push @{ $included_lines }, $line;
+# 		}
+# 	    }
+
+# 	  else # NOT $incl_id
+# 	    {
+# 	      my $fragment = undef;
+
+# 	      if ( $library->has_fragment($included_filespec) )
+# 		{
+# 		  $fragment = $library->get_fragment($included_filespec);
+
+# 		  foreach my $line (@{ $fragment->get_line_list })
+# 		    {
+# 		      push @{ $included_lines }, $line;
+# 		    }
+# 		}
+
+# 	      else
+# 		{
+# 		  $logger->warn("LIBRARY DOESN'T HAVE FRAGMENT: \'$included_filespec\' at $location");
+# 		}
+# 	    }
+
+# 	  foreach my $line (@{ $included_lines })
+# 	    {
+# 	      push @{ $newlines }, $line;
+# 	    }
+# 	}
+
+#       #---------------------------------------------------------------
+#       # Section headings (to track current depth)
+#       #
+#       elsif ( $text =~ /^(\*+)/ )
+# 	{
+# 	  $depth = length($1);
+# 	  push @{ $newlines }, $oldline;
+# 	  next LINE;
+# 	}
+
+#       # no include statement on this line
+#       else
+# 	{
+# 	  push @{ $newlines }, $oldline;
+# 	}
+#     }
+
+#   $self->_set_line_list($newlines);
+
+#   return 1;
+# }
 
 #---------------------------------------------------------------------
 #
@@ -2034,9 +2166,16 @@ sub _resolve_includes {
       my $text = $old_line->get_content;
 
       # process comment markers
-      if ( $text =~ /$syntax->{comment_marker}/ )
+      if ( $text =~ /$syntax->{start_comment}/ )
 	{
-	  $in_comment = $self->_toggle_boolean($in_comment);
+	  $in_comment = 1;
+	  push @{ $new_line_list }, $old_line;
+	  next LINE;
+	}
+
+      elsif ( $text =~ /$syntax->{end_comment}/ )
+	{
+	  $in_comment = 0;
 	  push @{ $new_line_list }, $old_line;
 	  next LINE;
 	}
@@ -2138,21 +2277,27 @@ sub _run_scripts {
       #---------------------------------------------------------------
       # Ignore comments
       #
-      if ( $text =~ /$syntax->{comment_marker}/ ) {
-	if ( $in_comment ) {
-	  $in_comment = 0;
-	} else {
+      if ( $text =~ /$syntax->{start_comment}/ )
+	{
 	  $in_comment = 1;
+	  next LINE;
 	}
-	push @{ $newlines }, $line;
-	next LINE;
-      } elsif ( $in_comment ) {
-	push @{ $newlines }, $line;
-	next LINE;
-      } elsif ( $text =~ /$syntax->{'comment_line'}/ ) {
-	push @{ $newlines }, $line;
-	next LINE;
-      }
+
+      elsif ( $text =~ /$syntax->{end_comment}/ )
+	{
+	  $in_comment = 0;
+	  next LINE;
+	}
+
+      elsif ( $in_comment )
+	{
+	  next LINE;
+	}
+
+      elsif ( $text =~ /$syntax->{'comment_line'}/ )
+	{
+	  next LINE;
+	}
 
       # !!! BUG HERE !!!
       #
@@ -2214,9 +2359,9 @@ sub _run_scripts {
 
 ######################################################################
 
-sub _gather_data {
+sub _parse_lines {
 
-  # Scan lines, gather data into objects.
+  # parse lines to gather data into blocks and divisions.
 
   my $self = shift;
 
@@ -2225,8 +2370,8 @@ sub _gather_data {
   my $util           = $sml->get_util;
   my $options        = $util->get_options;
   my $count_method   = $self->_get_count_method_hash;
-  my $max_iterations = $options->get_MAX_GATHER_DATA;
-  my $count          = ++ $count_method->{'_gather_data'};
+  my $max_iterations = $options->get_MAX_PARSE_LINES;
+  my $count          = ++ $count_method->{'_parse_lines'};
 
   $logger->info("($count) gather data");
 
@@ -2262,7 +2407,7 @@ sub _gather_data {
   my $library     = $self->get_library;
   my $reasoner    = $library->get_reasoner;
 
-  my $fragment    = $self->_get_fragment;
+  my $division    = $self->_get_division;
   my $acronyms    = $self->_get_acronym_hash;
   my $sources     = $self->_get_source_hash;
   my $index       = $self->_get_index_hash;
@@ -2272,9 +2417,9 @@ sub _gather_data {
   my $to_be_gen   = $self->_get_to_be_gen_hash;
   my $count_total = $self->_get_count_total_hash;
 
-  $fragment->init;
+  $division->init;
 
-  $self->_begin_division($fragment);
+  $self->_begin_division($division);
 
   #-------------------------------------------------------------------
   # parse line-by-line
@@ -2419,31 +2564,7 @@ sub _gather_data {
       $self->_end_baretable;
     }
 
-  if ( $self->_in_region )
-    {
-      my $region   = $self->_current_region;
-      my $name     = $region->get_name;
-      my $file     = $fragment->get_file;
-      my $filename = $file->get_filename;
-      $logger->error("FILE ENDED WHILE IN REGION \'$name\' ($filename)");
-    }
-
-  if ( $self->_in_environment )
-    {
-      my $name = $self->_current_environment->get_name;
-      my $file     = $fragment->get_file;
-      my $filename = $file->get_filename;
-      $logger->error("FILE ENDED WHILE IN ENVIRONMENT \'$name\' ($filename)");
-    }
-
-  my $division = $self->_get_current_division;
-  while ( not $division->isa('SML::Fragment') )
-    {
-      $self->_end_division;
-      $division = $self->_get_current_division;
-    }
-
-  $self->_end_division;
+  # $self->_end_division;
 
   $self->_generate_section_numbers;
   $self->_generate_division_numbers;
@@ -2539,10 +2660,10 @@ sub _begin_division {
       return 1;
     }
 
-  elsif ( $division->isa('SML::Region') )
-    {
-      return 1;
-    }
+  # elsif ( $division->isa('SML::Region') )
+  #   {
+  #     return 1;
+  #   }
 
   elsif ( $division->isa('SML::TableCell') )
     {
@@ -2560,10 +2681,10 @@ sub _begin_division {
       return 1;
     }
 
-  elsif ( $division->isa('SML::Environment') )
-    {
-      return 1;
-    }
+  # elsif ( $division->isa('SML::Environment') )
+  #   {
+  #     return 1;
+  #   }
 
   elsif ( $division->isa('SML::Section') )
     {
@@ -3172,7 +3293,7 @@ sub _resolve_lookups {
 	      my $msg = "LOOKUP FAILED: at $location: \'$id\' \'$name\'";
 	      $logger->warn($msg);
 	      $self->_set_is_valid(0);
-	      $fragment->_set_is_valid(0);
+	      # $fragment->_set_is_valid(0);
 
 	      $text =~ s/$syntax->{lookup_ref}/($msg)/;
 	    }
@@ -3219,21 +3340,27 @@ sub _resolve_templates {
       #---------------------------------------------------------------
       # Ignore comments
       #
-      if ( $text =~ /$syntax->{comment_marker}/ ) {
-	if ( $in_comment ) {
-	  $in_comment = 0;
-	} else {
+      if ( $text =~ /$syntax->{start_comment}/ )
+	{
 	  $in_comment = 1;
+	  next LINE;
 	}
-	push @{ $newlines }, $line;
-	next LINE;
-      } elsif ( $in_comment ) {
-	push @{ $newlines }, $line;
-	next LINE;
-      } elsif ( $text =~ /$syntax->{'comment_line'}/ ) {
-	push @{ $newlines }, $line;
-	next LINE;
-      }
+
+      elsif ( $text =~ /$syntax->{end_comment}/ )
+	{
+	  $in_comment = 0;
+	  next LINE;
+	}
+
+      elsif ( $in_comment )
+	{
+	  next LINE;
+	}
+
+      elsif ( $text =~ /$syntax->{'comment_line'}/ )
+	{
+	  next LINE;
+	}
 
       #---------------------------------------------------------------
       # Process template element
@@ -3765,7 +3892,7 @@ sub _contains_include {
   # Return 1 if text contains an 'include' statement.  Ignore
   # 'include' statements within comments.  This method MUST parse
   # line-by-line (rather than block-by-block or element-by-element)
-  # because it is called BEFORE _gather_data builds arrays of blocks
+  # because it is called BEFORE _parse_lines builds arrays of blocks
   # and elements.
 
   my $self = shift;
@@ -3782,30 +3909,28 @@ sub _contains_include {
 
       $text =~ s/[\r\n]*$//;            # chomp;
 
-      #---------------------------------------------------------------
-      # Ignore comments
-      #
-      if ( $text =~ /$syntax->{comment_marker}/ ) {
-	if ( $in_comment ) {
-	  $in_comment = 0;
-	} else {
+      if ( $text =~ /$syntax->{start_comment}/ )
+	{
 	  $in_comment = 1;
+	  next LINE;                    # ignore start of comment
 	}
-	next LINE;
-      } elsif ( $in_comment ) {
-	next LINE;
-      } elsif ( $text =~ /$syntax->{'comment_line'}/ ) {
-	next LINE;
-      }
 
-      #---------------------------------------------------------------
-      # Include statments
-      #
-      #     NOTE: The following regexp does NOT match 'template'
-      #     includes like 'include::id=rq-001234:
-      #     tmpl/rq-summary.txt' because it doesn't allow for an equal
-      #     sign in arguments.
-      #
+      elsif ( $text =~ /$syntax->{end_comment}/ )
+	{
+	  $in_comment = 0;
+	  next LINE;                    # ignore end of comment
+	}
+
+      elsif ( $in_comment )
+	{
+	  next LINE;                    # ignore comment line
+	}
+
+      elsif ( $text =~ /$syntax->{'comment_line'}/ )
+	{
+	  next LINE;                    # ignore comment line
+	}
+
       elsif ( $text =~ /$syntax->{include_element}/ )
 	{
 	  $logger->debug("$text");
@@ -3822,7 +3947,7 @@ sub _contains_include {
 sub _contains_script {
 
   # This method MUST parse line-by-line (rather than block-by-block or
-  # element-by-element) because it is called BEFORE _gather_data
+  # element-by-element) because it is called BEFORE _parse_lines
   # builds arrays of blocks and elements.
 
   my $self = shift;
@@ -3841,18 +3966,27 @@ sub _contains_script {
       #---------------------------------------------------------------
       # Ignore comments
       #
-      if ( $text =~ /$syntax->{comment_marker}/ ) {
-	if ( $in_comment ) {
-	  $in_comment = 0;
-	} else {
+      if ( $text =~ /$syntax->{start_comment}/ )
+	{
 	  $in_comment = 1;
+	  next LINE;
 	}
-	next LINE;
-      } elsif ( $in_comment ) {
-	next LINE;
-      } elsif ( $text =~ /$syntax->{'comment_line'}/ ) {
-	next LINE;
-      }
+
+      elsif ( $text =~ /$syntax->{end_comment}/ )
+	{
+	  $in_comment = 0;
+	  next LINE;
+	}
+
+      elsif ( $in_comment )
+	{
+	  next LINE;
+	}
+
+      elsif ( $text =~ /$syntax->{'comment_line'}/ )
+	{
+	  next LINE;
+	}
 
       #---------------------------------------------------------------
       # Script statement
@@ -5220,7 +5354,7 @@ sub _flatten {
   my $content = $line->get_content;
 
   $content =~ s/$syntax->{'title_element'}/!!$1!!/;
-  $content =~ s/$syntax->{'start_section'}/!!$2!!/;
+  $content =~ s/$syntax->{'start_section'}/!!$4!!/;
 
   my $newline = SML::Line->new
     (
@@ -6586,12 +6720,21 @@ sub _process_paragraph_text {
 
   elsif ( $self->_in_preformatted_division )
     {
-      $logger->trace("..... new preformatted block");
+      if ( $self->_has_block )
+	{
+	  my $block = $self->_get_block;
+	  $block->add_line($line);
+	}
 
-      my $block = SML::PreformattedBlock->new(library=>$library);
-      $block->add_line($line);
-      $self->_begin_block($block);
-      $self->_get_current_division->add_part($block);
+      else
+	{
+	  $logger->trace("..... new preformatted block");
+
+	  my $block = SML::PreformattedBlock->new(library=>$library);
+	  $block->add_line($line);
+	  $self->_begin_block($block);
+	  $self->_get_current_division->add_part($block);
+	}
     }
 
   elsif ( $self->_in_table_cell )
@@ -7221,47 +7364,47 @@ sub _count_conditionals {
 
 ######################################################################
 
-sub _count_regions {
+# sub _count_regions {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $count = 0;
+#   my $count = 0;
 
-  my $fragment      = $self->_get_fragment;
-  my $division_list = $fragment->get_division_list;
+#   my $fragment      = $self->_get_fragment;
+#   my $division_list = $fragment->get_division_list;
 
-  foreach my $division (@{ $division_list })
-    {
-      if ( $division->isa('SML::Region') )
-	{
-	  ++ $count;
-	}
-    }
+#   foreach my $division (@{ $division_list })
+#     {
+#       if ( $division->isa('SML::Region') )
+# 	{
+# 	  ++ $count;
+# 	}
+#     }
 
-  return $count;
-}
+#   return $count;
+# }
 
 ######################################################################
 
-sub _count_environments {
+# sub _count_environments {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $count = 0;
+#   my $count = 0;
 
-  my $fragment      = $self->_get_fragment;
-  my $division_list = $fragment->get_division_list;
+#   my $fragment      = $self->_get_fragment;
+#   my $division_list = $fragment->get_division_list;
 
-  foreach my $division (@{ $division_list })
-    {
-      if ( $division->isa('SML::Environment') )
-	{
-	  ++ $count;
-	}
-    }
+#   foreach my $division (@{ $division_list })
+#     {
+#       if ( $division->isa('SML::Environment') )
+# 	{
+# 	  ++ $count;
+# 	}
+#     }
 
-  return $count;
-}
+#   return $count;
+# }
 
 ######################################################################
 
@@ -7331,51 +7474,51 @@ sub _count_sections {
 
 ######################################################################
 
-sub _in_region {
+# sub _in_region {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $division = $self->_get_current_division;
+#   my $division = $self->_get_current_division;
 
-  while ( $division and not $division->isa('SML::Fragment') )
-    {
-      if ( $division->isa('SML::Region') )
-	{
-	  return 1;
-	}
+#   while ( $division and not $division->isa('SML::Fragment') )
+#     {
+#       if ( $division->isa('SML::Region') )
+# 	{
+# 	  return 1;
+# 	}
 
-      else
-	{
-	  $division = $division->get_containing_division;
-	}
-    }
+#       else
+# 	{
+# 	  $division = $division->get_containing_division;
+# 	}
+#     }
 
-  return 0;
-}
+#   return 0;
+# }
 
 ######################################################################
 
-sub _in_environment {
+# sub _in_environment {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $division = $self->_get_current_division;
+#   my $division = $self->_get_current_division;
 
-  while ( $division and not $division->isa('SML::Fragment') )
-    {
-      if ( $division->isa('SML::Environment') )
-	{
-	  return 1;
-	}
+#   while ( $division and not $division->isa('SML::Fragment') )
+#     {
+#       if ( $division->isa('SML::Environment') )
+# 	{
+# 	  return 1;
+# 	}
 
-      else
-	{
-	  $division = $division->get_containing_division;
-	}
-    }
+#       else
+# 	{
+# 	  $division = $division->get_containing_division;
+# 	}
+#     }
 
-  return 0;
-}
+#   return 0;
+# }
 
 ######################################################################
 
@@ -7427,51 +7570,51 @@ sub _in_document {
 
 ######################################################################
 
-sub _current_environment {
+# sub _current_environment {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $division = $self->_get_current_division;
+#   my $division = $self->_get_current_division;
 
-  while ( $division and not $division->isa('SML::Fragment') )
-    {
-      if ( $division->isa('SML::Environment') )
-	{
-	  return $division;
-	}
+#   while ( $division and not $division->isa('SML::Fragment') )
+#     {
+#       if ( $division->isa('SML::Environment') )
+# 	{
+# 	  return $division;
+# 	}
 
-      else
-	{
-	  $division = $division->get_containing_division;
-	}
-    }
+#       else
+# 	{
+# 	  $division = $division->get_containing_division;
+# 	}
+#     }
 
-  return 0;
-}
+#   return 0;
+# }
 
 ######################################################################
 
-sub _current_region {
+# sub _current_region {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $division = $self->_get_current_division;
+#   my $division = $self->_get_current_division;
 
-  while ( $division and not $division->isa('SML::Fragment') )
-    {
-      if ( $division->isa('SML::Region') )
-	{
-	  return $division;
-	}
+#   while ( $division and not $division->isa('SML::Fragment') )
+#     {
+#       if ( $division->isa('SML::Region') )
+# 	{
+# 	  return $division;
+# 	}
 
-      else
-	{
-	  $division = $division->get_containing_division;
-	}
-    }
+#       else
+# 	{
+# 	  $division = $division->get_containing_division;
+# 	}
+#     }
 
-  return 0;
-}
+#   return 0;
+# }
 
 ######################################################################
 
@@ -7823,20 +7966,12 @@ sub _parse_next_substring {
   my $syntax = $sml->get_syntax;
   my $block;
 
-  if (
-      ref $part
-      and
-      $part->isa('SML::Block')
-     )
+  if ( ref $part and $part->isa('SML::Block') )
     {
       $block = $part;
     }
 
-  elsif (
-	 ref $part
-	 and
-	 $part->isa('SML::String')
-	)
+  elsif ( ref $part and $part->isa('SML::String') )
     {
       $block = $part->get_containing_block;
     }
@@ -8015,82 +8150,24 @@ sub _resolve_include_line {
   my $depth = shift;                    # current section depth
   my $one   = shift;                    # leading asterisks
   my $two   = shift;                    # args
-  my $three = shift;                    # included id or filespec
+  my $three = shift;                    # included ID
   my $four  = shift;                    # not used
-  my $five  = shift;                    # included filespec
+  my $five  = shift;                    # comment text
 
   my $library = $self->get_library;
 
-  my $asterisks         = $one || '';   # desired section depth
-  my $args              = $two || '';   # arguments
-  my $included_id       = '';           # ID of included division
-  my $included_filename = '';           # filename to include
-  my $repl_line_list    = [];           # replacement line list
-
-  # NOTE: The SML::Library object maintains a hash of divisions
-  # indexed by division ID.  Since fragments are divisions, they are
-  # registered in the library's division hash.  The fragment filename
-  # is the fragment ID.  So if the library knows about a fragment the
-  # following will return true:
-  #
-  #   my $result = $library->has_division($filename);
-
-  # determine included ID/filespec (i.e. sort out $three and $five)
-  if ( $three and $five )
-    {
-      $included_id       = $three;
-      $included_filename = $five;
-
-      $logger->trace("resolve include line: $included_id FROM $included_filename");
-    }
-
-  elsif ( $three )
-    {
-      if ( $library->has_division($three) )
-	{
-	  $included_id = $three;
-	}
-
-      elsif ( $library->has_filespec($three) )
-	{
-	  $included_filename = $three;
-	}
-
-      else
-	{
-	  $logger->logcroak("CAN'T INCLUDE UNKNOWN DIVISION: $3");
-	}
-    }
-
-  else
-    {
-      $logger->logcroak("THIS SHOULD NEVER HAPPEN");
-    }
+  my $asterisks      = $one || '';      # desired section depth
+  my $args           = $two || '';      # arguments
+  my $included_id    = $three;          # ID of included division
+  my $repl_line_list = [];              # replacement line list
 
   # get list of lines to include
   my $line_list;
 
-  if ( $included_filename and $included_id )
+  if ( $included_id )
     {
-      $self->create_fragment($included_filename);
-
-      my $division = $library->get_division($included_id);
-
-      $line_list = $division->get_line_list;
-    }
-
-  elsif ( $included_id )
-    {
-      my $division = $library->get_division($included_id);
-
-      $line_list = $division->get_line_list;
-    }
-
-  elsif ( $included_filename )
-    {
-      my $fragment = $self->create_fragment($included_filename);
-
-      $line_list = $fragment->get_line_list;
+      my $file = $library->get_file_containing($included_id);
+      $line_list = $file->get_line_list;
     }
 
   else

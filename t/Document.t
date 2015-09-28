@@ -68,6 +68,85 @@ my @public_methods =
    'get_note',
    'get_index_term',
    'replace_division_id',
+
+   # SML::Region public attribute accessors
+
+   # SML::Region public methods
+
+   # SML::Division public attribute accessors
+   'get_number',
+   'set_number',
+   'get_previous_number',
+   'set_previous_number',
+   'get_next_number',
+   'set_next_number',
+   'get_containing_division',
+   'set_containing_division',
+   'has_containing_division',
+   'has_valid_syntax',
+   'has_valid_semantics',
+   'has_valid_property_cardinality',
+   'has_valid_property_values',
+   'has_valid_infer_only_conformance',
+   'has_valid_required_properties',
+   'has_valid_composition',
+   'has_valid_id_uniqueness',
+
+   # SML::Division public methods
+   'add_division',
+   'add_part',
+   'add_property',
+   'add_property_element',
+   'add_attribute',
+   'contains_division',
+   'has_property',
+   'has_property_value',
+   'has_attribute',
+   'get_division_list',
+   'has_sections',
+   'has_tables',
+   'has_figures',
+   'has_attachments',
+   'has_listings',
+   'get_section_list',
+   'get_block_list',
+   'get_element_list',
+   'get_line_list',
+   'get_preamble_line_list',
+   'get_narrative_line_list',
+   'get_first_part',
+   'get_first_line',
+   'get_property_list',
+   'get_property',
+   'get_property_value',
+   'get_containing_document',
+   'get_location',
+   'get_section',
+   'is_in_a',
+   'validate',
+
+   # SML::Part public attribute accessors
+   'get_id',
+   'set_id',
+   'get_id_path',
+   'get_library',
+   'get_name',
+   'get_content',
+   'set_content',
+   'get_part_list',
+
+   # SML::Part public methods
+   'init',
+   'has_content',
+   'has_parts',
+   'has_part',
+   'get_part',
+   'add_part',
+   'get_containing_document',
+   'is_in_section',
+   'get_containing_section',
+   'render',
+   'dump_part_structure',
   );
 
 can_ok( $obj, @public_methods );
@@ -82,6 +161,7 @@ foreach my $tc (@{ $tcl })
     add_note_ok($tc)               if defined $tc->{expected}{add_note};
     is_valid_ok($tc)               if defined $tc->{expected}{is_valid};
     render_ok($tc,'sml','default') if defined $tc->{expected}{render}{sml}{default};
+    dump_part_structure_ok($tc)    if defined $tc->{expected}{dump_part_structure};
   }
 
 #---------------------------------------------------------------------
@@ -156,6 +236,29 @@ sub is_valid_ok {
 
   # assert
   is($result,$expected,"$tcname is_valid $result");
+}
+
+######################################################################
+
+sub dump_part_structure_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $filename = $tc->{testfile};
+  my $docid    = $tc->{docid};
+  my $expected = $tc->{expected}{dump_part_structure};
+  my $library  = $tc->{library};
+  my $parser   = $library->get_parser;
+  my $fragment = $parser->create_fragment($filename);
+  my $document = $library->get_document($docid);
+
+  # act
+  my $result = $document->dump_part_structure;
+
+  # assert
+  is($result,$expected,"$tcname dump_part_structure");
 }
 
 ######################################################################

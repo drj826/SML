@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000170
 
 title:: Implement SML Data Format
-
-label:: rq-000170
 
 revision:: $Revision: 11579 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000199
+part_of:: rq-000199
 
 priority:: routine
 
@@ -20,9 +16,9 @@ type:: technical
 
 description:: The software shall implement the SML data format.  This
 means the software shall implement the syntax and semantics of the
-structured manuscript language.
+semantic manuscript language.
 
-######################################################################
+===
 
 index:: rq-000170; data format!implement
 

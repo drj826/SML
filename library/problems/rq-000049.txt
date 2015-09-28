@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000049
 
 title:: Represent a Copyright Symbol
-
-label:: rq-000049
 
 revision:: $Revision: 10973 $
 
@@ -14,14 +10,14 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000124
+part_of:: rq-000124
 
 type:: data format
 
 description:: The data format shall have the capability to represent
 a copyright symbol.
 
-######################################################################
+===
 
 index:: rq-000049; copyright symbol
 

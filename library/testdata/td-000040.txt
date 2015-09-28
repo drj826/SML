@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000040
 
 title:: Valid Italics Markup
 
-id:: td-000040
-
-######################################################################
+===
 
 This document contains several examples of valid italics markup.
 

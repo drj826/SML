@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000060
 
 title:: Resolve Template
 
-id:: td-000060
-
-######################################################################
+===
 
 This document contains a template to be resolved by the parser.
 

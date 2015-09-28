@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000375
 
 title:: `in_any_environment' Subroutine
-
-label:: ci-000375
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:in_any_environment] subroutine 
 
-######################################################################
+===
 
 index:: ci-000375; subroutine![cmd:in_any_environment]
 

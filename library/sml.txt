@@ -1,13 +1,9 @@
->>>DOCUMENT
+>>>DOCUMENT.sml
 
-######################################################################
-
-title:: Structured Manuscript Language (SML)
+title:: Semantic Manuscript Language (SML)
 
 subtitle:: User Guide [linebreak] Professional Documents Using SML
 [linebreak] and the [cmd:publish] Program
-
-id:: sml
 
 author:: Don Johnson (drj826@acm.org)
 
@@ -25,9 +21,9 @@ revision:: $Revision: 15146 $
 
 date:: $Date: 2013-07-07 11:42:01 -0600 (Sun, 07 Jul 2013) $
 
-######################################################################
+===
 
----REVISIONS
+>>>REVISIONS
 
 rev:: 1.6 = 2012-09-18 = Updated description of footnote syntax.
 
@@ -44,21 +40,25 @@ descriptions of ``items'' ([ref:advanced-document-structures]),
 ([ref:outcomes]), ``reviews'' ([ref:reviews]), ``tasks''
 ([ref:tasks]), and ``roles'' ([ref:roles]).
 
----REVISIONS
+<<<REVISIONS
 
 [pagebreak]
 
 ######################################################################
 
-* Getting Started
+*.getting-started Getting Started
 
-label:: getting-started
+===
 
----EPIGRAPH
+>>>EPIGRAPH
+
 text:: The document is nothing; the documenting is everything.
+
 source:: Exploring Requirements
+
 author:: Donald C. Gause & Gerald M. Weinberg
----EPIGRAPH
+
+<<<EPIGRAPH
 
 This book describes how to construct documents using the
 [g:sml:Structured Manuscript Language] ([g:sml:SML]) and how to
@@ -102,18 +102,20 @@ elements of the document to a spreadsheet or database.
 
 ** Documentation Is Like Software
 
+===
+
 ~~Why don't we write software the way we write documentation?~~
 Because that would be ~~terribly~~ inefficient.
 
 Documents are like programs that are processed by the human brain
 rather than a computer.
 
-###COMMENT
+>>>COMMENT
 
 When people first began writing computer programs, they wrote the
 exact steps they wanted the computer to perform.  This was tedious.
 
-###COMMENT
+<<<COMMENT
 
 Most people write documentation using a word processor like Microsoft
 Word[tm].  They use practices long ago discarded as barbaric
@@ -157,9 +159,9 @@ compliance mindset of `churning out' required documentation.  Such
 
 #---------------------------------------------------------------------
 
-** Why Use SML/||publish||?
+**.why-use-sml Why Use SML/||publish||?
 
-label:: why-use-sml
+===
 
 Why Use SML/||publish||? Productivity.  Most people use a `modern'
 word processor, like Microsoft Word or OpenOffice.org Writer, to write
@@ -355,9 +357,9 @@ of problems.
 
 #---------------------------------------------------------------------
 
-** A Step-By-Step Example
+**.example A Step-By-Step Example
 
-label:: example
+===
 
 index::begin: sample document
 
@@ -376,11 +378,15 @@ step:: ~~Type The Following.~~ [ref:lis-sample-document] shows a simple
 document with a title, author, a handful of paragraphs and a list.
 Type this (or cut and paste it) into the text editor.
 
----LISTING
+>>>LISTING.lis-sample-document
+
 title:: A Sample Document
-label:: lis-sample-document
+
+===
+
 file:: files/sample-document.txt
----LISTING
+
+<<<LISTING
 
 step:: ~~Save.~~ Save the text in a file named ||sample-document.txt||.
 
@@ -404,12 +410,15 @@ publishing the document.  If everything is set up correctly, after a
 little while you'll be presented with a PDF rendition of the sample
 document ([ref:fig-sample-document-pdf]).
 
----FIGURE
+>>>FIGURE.fig-sample-document-pdf
+
 title:: PDF Rendition Of The Sample Document
-label:: fig-sample-document-pdf
+
 image:: files/images/sample-document-pdf.png
+
 width:: 6in
----FIGURE
+
+<<<FIGURE
 
 You can also publish an HTML rendition.
 
@@ -421,12 +430,15 @@ Again, if everything is set up right, after a little while you'll be
 presented with an HTML rendition of the sample document
 ([ref:fig-sample-document-html]).
 
----FIGURE
+>>>FIGURE.fig-sample-document-html
+
 title:: HTML Rendition Of The Sample Document
-label:: fig-sample-document-html
+
 image:: files/images/sample-document-html.png
+
 width:: 4in
----FIGURE
+
+<<<FIGURE
 
 index::end: sample document
 
@@ -448,9 +460,9 @@ document with the command `||publish -r pdf sample-document.txt||
 
 #---------------------------------------------------------------------
 
-** Summary of Structure Features
+**.summary-of-structure-features Summary of Structure Features
 
-label:: summary-of-structure-features
+===
 
 index::begin: structure features
 
@@ -459,11 +471,9 @@ titles, paragraphs, sections, lists, list items, tables, and
 figures. The elements of structure supported by SML are summarized in
 [ref:tab-structure-features].
 
----TABLE
+>>>TABLE.tab-structure-features
 
 title:: Summary of Structure Features
-
-label:: tab-structure-features
 
 column::1:width: 50
 column::2:width: 50
@@ -471,9 +481,11 @@ column::2:width: 50
 column::1:head: Feature
 column::2:head: Example
 
-include:: incl/sml-structure-summary.txt
+===
 
----TABLE
+include:: sml-structure-summary
+
+<<<TABLE
 
 index::end: structure features
 
@@ -492,6 +504,8 @@ being labeled: ||tab-|| for table labels, ||fig-|| for figure labels,
 #---------------------------------------------------------------------
 
 ** Summary of Content Features
+
+===
 
 index::begin: content features
 
@@ -535,11 +549,9 @@ significance like:
 The content features supported by SML are summarized in
 [ref:tab-content-features].
 
----TABLE
+>>>TABLE.tab-content-features
 
 title:: Summary of Content Features
-
-label:: tab-content-features
 
 column::1:width: 50
 column::2:width: 50
@@ -547,17 +559,19 @@ column::2:width: 50
 column::1:head: Feature
 column::2:head: Example
 
-include:: incl/sml-content-summary.txt
+===
 
----TABLE
+include:: sml-content-summary
+
+<<<TABLE
 
 index::end: content features
 
 #---------------------------------------------------------------------
 
-** Summary of Presentation Features
+**.summary-of-presentation-features Summary of Presentation Features
 
-label:: summary-of-presentation-features
+===
 
 index::begin: presentation features
 
@@ -568,11 +582,9 @@ presented.  These include features like: bold, italics, font-family,
 and font-size.  [ref:tab-presentation-features] lists supported presentation
 features.
 
----TABLE
+>>>TABLE.tab-presentation-features
 
 title:: Summary of Presentation Features
-
-label:: tab-presentation-features
 
 column::1:width: 50
 column::2:width: 50
@@ -580,15 +592,19 @@ column::2:width: 50
 column::1:head: Feature
 column::2:head: Example
 
-include:: incl/sml-presentation-summary.txt
+===
 
----TABLE
+include:: sml-presentation-summary
+
+<<<TABLE
 
 index::end: presentation features
 
 #---------------------------------------------------------------------
 
 ** Summary of Special Features
+
+===
 
 index::begin: special features
 
@@ -597,11 +613,9 @@ of instructor notes for training courses, system requirements and
 design documentation, and publishing of full length books.
 [ref:tab-special-features] summarizes these special features.
 
----TABLE
+>>>TABLE.tab-special-features
 
 title:: Summary of Special Features
-
-label:: tab-special-features
 
 column::1:width: 50
 column::2:width: 50
@@ -609,9 +623,11 @@ column::2:width: 50
 column::1:head: Feature
 column::2:head: Example
 
-include:: incl/sml-special-summary.txt
+===
 
----TABLE
+include:: sml-special-summary
+
+<<<TABLE
 
 You'll see features in SML specifically designed to help you produce
 course materials such as presentation slides, demonstrations, and
@@ -631,6 +647,8 @@ index::end: special features
 
 ** Alternatives
 
+===
+
 There are alternative programs with features similar to the ||publish||
 program:
 
@@ -640,9 +658,9 @@ program:
 
 #---------------------------------------------------------------------
 
-** Pros and Cons
+**.pros-and-cons Pros and Cons
 
-label:: pros-and-cons
+===
 
 index::begin: pros and cons
 
@@ -730,6 +748,8 @@ implemented but is planned for the future.
 
 ** What Makes A Document Easy To Read?
 
+===
+
 Despite my best efforts to make the ||publish|| program a tool that
 produces professional looking, easy-to-read documents, it still gives
 you the flexibility to produce hard-to-read documents.  What makes a
@@ -747,6 +767,8 @@ professional looking, readable documents:
 
 ** Characteristics of Poor Technical Documentation
 
+===
+
 Technical documentation is any documentation in which the meaning of
 terms must be used with precision.  Characteristics of poor technical
 documentation include:
@@ -761,15 +783,15 @@ documentation include:
 
 #---------------------------------------------------------------------
 
-* Running The Publish Program
+*.running-publish Running The Publish Program
 
-label:: running-publish
+===
 
 #---------------------------------------------------------------------
 
-** Using the Graphical User Interface
+**.using-the-gui Using the Graphical User Interface
 
-label:: using-the-gui
+===
 
 Publishing is easy: start it up, choose a file, choose one or more
 renditions (i.e. HTML, PDF, RTF, XML and/or CSV), then push the
@@ -781,24 +803,30 @@ step:: Start the Program.  The easiest way to use the ||publish||
 program is to use the graphical user interface.  Double-click on
 ||publish.exe||.[f:using-the-gui:1]
 
----FIGURE
-label:: fig-publish-window
-width:: 5in
-image:: files/images/publish-1.png
+>>>FIGURE.fig-publish-window
+
 title:: ||publish|| Program Window
----FIGURE
+
+width:: 5in
+
+image:: files/images/publish-1.png
+
+<<<FIGURE
 
 step:: Choose a File to Publish.  Click the ``Browse'' button and
 select the text file you want to publish.  The file selector box will
 look different depending on the operating system you're using.  The
 one shown in [ref:fig-choose-file] is from Windows XP.
 
----FIGURE
-label:: fig-choose-file
-width:: 4in
-image:: files/images/publish-3.png
+>>>FIGURE.fig-choose-file
+
 title:: Choose A File To Publish
----FIGURE
+
+width:: 4in
+
+image:: files/images/publish-3.png
+
+<<<FIGURE
 
 step:: Choose One or More Renditions.  You can choose among HTML, PDF,
 RTF, and/or XML output renditions.  A tab for each of these renditions
@@ -814,22 +842,27 @@ as the document is published.[f:using-the-gui:2] The green ``Publish
 Document'' button turns into a red ``Publishing...'' button until
 publishing is complete.
 
----FIGURE
-label:: fig-messages
-image:: files/images/publish-2.png
-width:: 5in
+>>>FIGURE.fig-messages
+
 title:: Publishing Messages Scroll By In Window
----FIGURE
+
+image:: files/images/publish-2.png
+
+width:: 5in
+
+<<<FIGURE
 
 The HTML rendition of the published document will automatically be
 displayed in a web browser when publishing is complete.  The PDF
 rendition will automatically be displayed in Adobe Acrobat.
 
----FIGURE
-label:: fig-doc-in-browser
-image:: files/images/publish-4.png
+>>>FIGURE.fig-doc-in-browser
+
 title:: Published Document Is Automatically Displayed In Browser
----FIGURE
+
+image:: files/images/publish-4.png
+
+<<<FIGURE
 
 If you are __re-publishing__ a document, the program will skip certain
 steps it doesn't need to re-accomplish like creating thumbnail images,
@@ -850,6 +883,8 @@ document you're reading.
 
 ** Running ||publish|| From the Command Line
 
+===
+
 You can run ||publish|| like this:
 
   publish mybook.txt
@@ -860,15 +895,14 @@ in the middle if you choose.
 
 All command line options are listed in [ref:tab-command-line-options].
 
----TABLE
+>>>TABLE.tab-command-line-options
 
 title:: ||publish|| Program Command Line Options
 
-label:: tab-command-line-options
-
 column::1:head: option
-
 column::2:head: description
+
+===
 
 : ||-h, --help||
 
@@ -1554,20 +1588,24 @@ column::2:head: description
 
 : don't lanuch RTF viewer after publishing
 
----TABLE
+<<<TABLE
+
+#---------------------------------------------------------------------
 
 ** Output Goes To The Output Directory
+
+===
 
 The ||publish|| program creates a directory containing all of its
 output.  For example, if you publish an SML file called
 ``my-notes.txt'' it will create the directory structure shown in
 [ref:fig-dir-output] as output.
 
----FIGURE
+>>>FIGURE.fig-dir-output
 
 title:: Directory Structure Created To Hold Published Output
 
-label:: fig-dir-output
+===
 
         my-notes
           |
@@ -1616,11 +1654,13 @@ label:: fig-dir-output
           |     +-- image_2.png
           |     +-- image_3.png
 
----FIGURE
+<<<FIGURE
 
-** How It Works
+#---------------------------------------------------------------------
 
-label:: how-it-works
+**.how-it-works How It Works
+
+===
 
 We kind of jumped right into how to run the program and publish a
 document.  Let's take a moment to step back and look at the big
@@ -1628,12 +1668,11 @@ picture of what's going on.  [ref:fig-publishing-flowchart] shows a
 flowchart of the steps in creating and publishing both HTML and LaTeX
 documents with the ||publish|| program.
 
----FIGURE
-label:: fig-publishing-flowchart
+>>>FIGURE.fig-publishing-flowchart
 title:: Publishing Flowchart
 image:: files/images/publishing-flowchart.png
 width:: 5in
----FIGURE
+<<<FIGURE
 
 This publishing process is a lot like creating, organizing and
 compiling source code into a working program.  The process of
@@ -1697,6 +1736,8 @@ The rest of this document teaches you the rules of SML.
 
 ** Organizing the Input Files
 
+===
+
 Simple documents can be fully contained in a single file.  In more
 complicated situations, however, you might have additional files that
 get combined to create your document:
@@ -1724,9 +1765,9 @@ file as in these examples:
 
 #---------------------------------------------------------------------
 
-** Dependencies
+**.dependencies Dependencies
 
-label:: dependencies
+===
 
 The ||publish|| program depends on some other software.  You may need
 to install some additional software if the program doesn't work.
@@ -1751,18 +1792,18 @@ step:: Install Perl Modules:
 
 #---------------------------------------------------------------------
 
-* The Structured Manuscript Language
+*.structuring-text The Structured Manuscript Language
 
-label:: structuring-text
+===
 
----EPIGRAPH
+>>>EPIGRAPH
 
 text:: Things should be made as simple as possible, but not any
 simpler.
 
 author:: Albert Einstein
 
----EPIGRAPH
+<<<EPIGRAPH
 
 SML is simple, but not too simple. It is designed with the philosophy
 that simple things should be simple and hard things should be
@@ -1781,9 +1822,9 @@ the document?  These are simple ``data elements.''
 
 #---------------------------------------------------------------------
 
-** Data Elements
+**.data-elements Data Elements
 
-label:: data-elements
+===
 
 index:: Data Elements
 
@@ -1840,9 +1881,9 @@ problem solved).
 
 #---------------------------------------------------------------------
 
-** Environments and Regions
+**.environments-and-regions Environments and Regions
 
-label:: environments-and-regions
+===
 
 index:: Environments and Regions
 
@@ -1888,9 +1929,8 @@ Elsewhere in this document, regions are called ``items.''
 Environments begin and end with three or more hyphens and the name of
 the environment like this example table:
 
-  ---table
+  >>>TABLE.tab-my-table
   title:: My Table
-  label:: tab-my-table
 
   :: column 1 heading
   :: column 2 heading
@@ -1900,7 +1940,7 @@ the environment like this example table:
   ---
   : row 2 column 1
   : row 2 column 2
-  ---table
+  <<<TABLE
 
 ~~Regions,~~ which describe semantic document elements, are:
 
@@ -1933,11 +1973,9 @@ A region begins with three or more greater-than signs (>) and the name
 of the region.  A region ends with three or more less-than signs (<)
 and the name of the region.  For example:
 
-  >>>problem
+  >>>problem.problem-2006-01-02-001
 
   title:: Conflict between Emacs and screen use of C-a
-
-  label:: problem-2006-01-02-001
 
   description:: In Emacs, C-a is a commonly used keystroke that takes
   you to the beginning of the line.  In screen, C-a is the prefix
@@ -1985,9 +2023,9 @@ itself.
 
 #---------------------------------------------------------------------
 
-** Document Preamble
+**.preamble Document Preamble
 
-label:: preamble
+===
 
 Let's start at the beginning. Every document automatically begins with
 a portion of text called the preamble.  The preamble contains metadata
@@ -2191,22 +2229,21 @@ published work.
 = use_formal_status = Boolean value.  1 means use only formal test
 outcomes to set the status of items in the document
 
----SOURCE
-source:: book
-label:: chicago
+>>>SOURCE.chicago
+source_type:: book
 title:: The Chicago Manual of Style
 subtitle:: The Essential Guide for Writers, Editors, and Publishers
 editor:: Margaret D.F. Mahan
 publisher:: The University of Chicago Press
 year:: 2003
 edition:: 15th Edition
----SOURCE
+<<<SOURCE
 
 #---------------------------------------------------------------------
 
-** Simple Document Structures
+**.ordinary-structures Simple Document Structures
 
-label:: ordinary-structures
+===
 
 This section introduces the simple document structures you might use
 in any document: titles, paragraphs, sections, bold, italics, lists,
@@ -2214,9 +2251,9 @@ footnotes, images, pre-formatted text, and so on.
 
 #---------------------------------------------------------------------
 
-*** Document Title
+***.document-title Document Title
 
-label:: document-title
+===
 
 The document title is simply the first title element encountered in
 the document:[f:document-title:1]
@@ -2235,9 +2272,9 @@ than a document title because it is indented.
 
 #---------------------------------------------------------------------
 
-*** Paragraphs
+***.paragraphs Paragraphs
 
-label:: paragraphs
+===
 
 A paragraph is simply a non-indented block of text that ends with a
 blank line.
@@ -2258,13 +2295,13 @@ paragraph:
 An easier way is to enclose the paragraph in a comment block like
 this:
 
-  ###comment
+  >>>COMMENT
 
   This paragraph has been `commented out' because it is enclosed
   within a comment block.  Enclosing any section of text within a
   comment block will cause the publisher to ignore it.
 
-  ###comment
+  <<<COMMENT
 
 Some people find it more visually appealing to represent comment
 blocks like this:
@@ -2285,19 +2322,19 @@ another version for SuSE Linux 10.0.  Enclosing paragraphs inside
 `conditional' markers indicates in which versions of the document the
 text should appear:
 
-  ???RedHat10
+  >>>CONDITIONAL.RedHat10
 
   This is a paragraph that should only appear in the Red Hat 10.0
   version of the document.
 
-  ???RedHat10
+  <<<CONDITIONAL
 
-  ???SuSE10
+  >>>CONDITIONAL.SuSE10
 
   This is a paragraph that should only appear in the SuSE 10.0 version
   of the documents.
 
-  ???SuSE10
+  <<<CONDITIONAL
 
 To specify which version of the document you wish to publish, add a
 ||define|| data element in the preamble of the document like:
@@ -2329,9 +2366,9 @@ paragraphs in a list item.
 
 #---------------------------------------------------------------------
 
-*** Inline Text Elements
+***.sec-inline-markup Inline Text Elements
 
-label:: sec-inline-markup
+===
 
 You can make words !!bold!! by bracketing them in double exclamation
 marks !!like this!!.
@@ -2347,9 +2384,9 @@ double tildes ~~like this~~.
 
 #---------------------------------------------------------------------
 
-*** Sections
+***.sections Sections
 
-label:: sections
+===
 
 ~~Section Headings.~~ You can organize your document into sections by
 inserting section headings in the text.  A section heading is a line
@@ -2387,9 +2424,9 @@ maximum section depth on the command line:
 
 #---------------------------------------------------------------------
 
-*** Lists
+***.lists Lists
 
-label:: lists
+===
 
 SML supports unordered (bulletized), ordered (numbered), and
 definition lists.
@@ -2448,9 +2485,9 @@ another equal sign and the definition of the term.  For example:
 
 #---------------------------------------------------------------------
 
-*** Footnotes
+***.footnotes Footnotes
 
-label:: footnotes
+===
 
 Indicate that a footnote[f:footnotes:1] applies to your text by
 inserting ||{lit:[f:<label>:<tag>]}|| where you want the footnote
@@ -2471,9 +2508,9 @@ footnote::1: This is a footnote
 
 #---------------------------------------------------------------------
 
-*** Images
+***.images Images
 
-label:: images
+===
 
 Insert an image by putting ``image: <image-file>'' starting in column 5.
 
@@ -2483,32 +2520,30 @@ must fit on one line.  Figure captions are used to build a list of
 figures.  If you insert an image in your document but leave out the
 figure caption, that image won't be listed in the list of figures.
 
----FIGURE
+>>>FIGURE.fig-apache-stats
 title:: Apache Runs More Active Web Sites Than All Others Combined
-label:: fig-apache-stats
 image:: files/images/netcraft-activesite-usage.png
 width:: 6in
----FIGURE
+<<<FIGURE
 
 Large images will automatically scaled to about 600 pixels wide and
 made clickable to bring up the full sized original image in it's own
 window.  [ref:fig-knoppix-screenshot] shows an example of an image
 that gets scaled because it is bigger than 600 pixels wide:
 
----FIGURE
+>>>FIGURE.fig-knoppix-screenshot
 title:: Knoppix Linux Packs a Lot of Software Onto One CDROM
-label:: fig-knoppix-screenshot
 image:: files/images/knoppix-4.png
 width:: 6in
----FIGURE
+<<<FIGURE
 
 [clearpage]
 
 #---------------------------------------------------------------------
 
-*** Preformatted Text
+***.preformatted-text Preformatted Text
 
-label:: preformatted-text
+===
 
 Insert pre-formatted text by indenting each line in the preformatted
 block.  Here's an example:
@@ -2528,9 +2563,9 @@ block.  Here's an example:
 
 #---------------------------------------------------------------------
 
-*** Labels and References
+***.labels-and-references Labels and References
 
-label:: labels-and-references
+===
 
 ~~Labels~~ mark specific locations within a document. ~~References~~
 point to the locations marked by labels.  For example, here's a
@@ -2546,11 +2581,10 @@ Here's an example showing how to assign a label to a figure then refer
 to that figure from anywhere else in the text.  You might insert a
 figure into your document that looks like this
 
-  ---figure
-  image::    files/images/my-figure.png
-  label::    fig-example-figure
-  title::    My Example Figure
-  ---figure
+  >>>FIGURE.fig-example-figure
+  title:: My Example Figure
+  image:: files/images/my-figure.png
+  <<<FIGURE
 
 Notice the line, ||label: fig-example-figure||.  This assigns the
 label ``fig-example-figure'' to this table.  You can now refer to this
@@ -2578,60 +2612,61 @@ have any trouble:
 
 #---------------------------------------------------------------------
 
-*** Hyperlinks, Commands and Paths
+***.hyperlinks-commands-paths Hyperlinks, Commands and Paths
 
-label:: hyperlinks-commands-paths
-
-#---------------------------------------------------------------------
-
-*** Procedural Steps
-
-label:: steps
+===
 
 #---------------------------------------------------------------------
 
-** Intermediate Document Structures
+***.steps Procedural Steps
 
-label:: environments
+===
+
+#---------------------------------------------------------------------
+
+**.environments Intermediate Document Structures
+
+===
 
 Environments are blocks of text representing elements of !!structure!!
 like tables, figures, listings, sidebars, bibliographic sources, and
 preformatted environments.  Environemnts begin and end like
-`||---table||.'  Environments are:
+`||>>>TABLE.my-table-id||' and ||<<<TABLE||  Environments are:
 
-- figure
+- FIGURE
 
-- listing
+- LISTING
 
-- preformatted
+- PREFORMATTED
 
-- sidebar
+- SIDEBAR
 
-- source
+- SOURCE
 
-- table
+- TABLE
 
-- audio
+- AUDIO
 
-- video
+- VIDEO
 
 Environments !!cannot!! contain other environments.
 
 #---------------------------------------------------------------------
 
-*** Tables
+***.tables Tables
 
-label:: tables
+===
 
 The ability to create both simple and complicated tables is one of the
 features that sets the ||publish|| program apart from alternatives.
 
 Example:
 
-  ---table
+  >>>TABLE.tab-sample
 
   title:: A Sample Table
-  label:: tab-sample
+
+  ===
 
   :: heading of column 1
   :: heading of column 2
@@ -2642,15 +2677,15 @@ Example:
   : row 2 column 1
   : row 2 column 2
 
-  ---table
+  <<<TABLE
 
 Here's a simple example:
 
----TABLE
-
-label:: tab-osi-model
+>>>TABLE.tab-osi-model
 
 title:: OSI 7-layer Reference Model
+
+===
 
 :: Layer
 
@@ -2725,16 +2760,16 @@ data
 
 - Defines electrical and mechanical characteristics
 
----TABLE
+<<<TABLE
 
 You can use the certain meta-data elements to specify formatting
 options of tables:
 
----TABLE
-
-label:: tab-metadata-elements
+>>>TABLE.tab-metadata-elements
 
 title:: Meta-data elements that effect the formatting of tables
+
+===
 
 :: option
 
@@ -2774,7 +2809,7 @@ title:: Meta-data elements that effect the formatting of tables
 
 : specify number of pixels of spacing between cells
 
----TABLE
+<<<TABLE
 
 Remember, when you specify a background color using the ``bgcolor''
 meta-data element, all table cells will have that background color
@@ -2782,11 +2817,11 @@ until you change it to something else.  In the following example, I
 set bgcolor back to nothing so that the next table in the document
 won't be pink:
 
----TABLE
-
-label:: tab-security-problems
+>>>TABLE.tab-security-problems
 
 title:: The Most Common Security Problems
+
+===
 
 ::grey: Type
 
@@ -2924,7 +2959,7 @@ sometimes misconfigure software.  It's not unusual to find
 misconfigured firewall rules that leave certain ports open to all
 traffic.  An open port is easy for a hacker to discover and exploit.
 
----TABLE
+<<<TABLE
 
 Here is a complete list of table data elements:
 
@@ -2946,18 +2981,17 @@ which to render the PDF rendition
 
 #---------------------------------------------------------------------
 
-*** Figures
+***.figures Figures
 
-label:: figures
+===
 
 Example:
 
-  ---figure
+  >>>FIGURE.fig-sample-document-pdf
   title:: PDF Rendition Of The Sample Document
-  label:: fig-sample-document-pdf
   image:: files/images/sample-document-pdf.png
   width:: 6in
-  ---figure
+  <<<FIGURE
 
 Here is a complete list of figure table elements:
 
@@ -2977,27 +3011,27 @@ which to render the PDF rendition.
 
 #---------------------------------------------------------------------
 
-*** Listings
+***.listings Listings
 
-label:: listings
+===
 
 Example:
 
-  ---listing
+  >>>LISTING.lis-computer-joke
   title::    If Computers Were Like Cars...
-  label::    lis-computer-joke
-  file::     files/text/computer-car-joke.txt
   fontsize:: footnotesize
-  ---listing
+  ===
+  file::     files/text/computer-car-joke.txt
+  <<<LISTING
 
 The result of this listing environment is:
 
----LISTING
+>>>LISTING.lis-computer-joke
 title::    If Computers Were Like Cars...
-label::    lis-computer-joke
-file::     files/text/computer-car-joke.txt
 fontsize:: footnotesize
----LISTING
+===
+file:: files/text/computer-car-joke.txt
+<<<LISTING
 
 Here is a complete list of data elements that can be used in listing
 environments:
@@ -3057,9 +3091,9 @@ which to render the PDF rendition.
 
 #---------------------------------------------------------------------
 
-*** Attachments
+***.attachments Attachments
 
-label:: attachments
+===
 
 The ~~attachment~~ environment enables you to attach any type of file
 to your document.  The attachment appears in the published document
@@ -3069,30 +3103,30 @@ renditions you click a link to download the attachment.
 
 Example:
 
-  ---attachment
+  >>>ATTACHMENT.att-sample-document
   title:: Sample Document
-  label:: att-sample-document
   file::  files/sample-document.txt
-  ---attachment
+  <<<ATTACHMENT
 
----ATTACHMENT
+>>>ATTACHMENT.att-sample-document
 title:: Sample Document
-label:: att-sample-document
 file:: files/sample-document.txt
----ATTACHMENT
+<<<ATTACHMENT
 
 #---------------------------------------------------------------------
 
-*** Preformatted Blocks
+***.preformatted-blocks Preformatted Blocks
 
-label:: preformatted-blocks
+===
 
 The ~~preformatted~~ environment is seldom used because authors
 typically indent lines they want to appear as preformatted text.
 
 Example:
 
-  ---preformatted
+  >>>PREFORMATTED
+
+  ===
 
   This
     is
@@ -3100,7 +3134,7 @@ Example:
         preformatted
           text...
 
-  ---preformatted
+  <<<PREFORMATTED
 
 Here is a complete list of data elements you can put in the preamble
 of a preformatted text block:
@@ -3113,21 +3147,22 @@ index:: preformatted!data elements
 
 #---------------------------------------------------------------------
 
-*** Sidebars
+***.sidebars Sidebars
 
-label:: sidebars
+===
 
 Example:
 
-  ---sidebar
+  >>>SIDEBAR.side-burrito-threat
   title::  Burrito Threat
-  label::  side-burrito-threat
   author:: Don Johnson
+
+  ===
 
   New Orleans is in danger of being swallowed by a giant burrito
   creature from the planet Chipotle.
 
-  ---sidebar
+  <<<SIDEBAR
 
 Here is a complete list of data elements you can put inside a sidebar:
 
@@ -3139,9 +3174,9 @@ index:: sidebar!data elements
 
 #---------------------------------------------------------------------
 
-*** Source Referencing
+***.source-referencing Source Referencing
 
-label:: source-referencing
+===
 
 I'm defining the design of the bibliography system for the ||publish||
 program.  The bibliography section will allow authors to place
@@ -3169,35 +3204,33 @@ text citations.
 
 A bibliography entry looks like this:
 
-  ---source
-  source::      book
-  label::       Goossens94
+  >>>SOURCE.Goossens94
+  source_type:: book
   title::       The LaTeX Companion
   author::      Michel Goossens
   author::      Frank Mittelbach
   author::      Alexander Samarin
   publisher::   Addison-Wesley Publishing Company
   year::        1994
-  ---source
+  <<<SOURCE
 
 If you want to keep all your bibliographic sources in one file (like
 sources.txt), you can include that file anywhere in your text like
 this:
 
-  include: sources.txt
+  include: sources
 
 The bibliographic fields are taken straight from the LaTeX book
 [cite:Lamport96, 161-164] since I figure the folks who designed that
 system have things pretty well figured out.
 
----SOURCE
-source::    book
-label::     Lamport96
-title::     LaTeX, A Document Preparation System User's Guide
-author::    Leslie Lamport
-publisher:: Addison-Wesley
-year::      1996
----SOURCE
+>>>SOURCE.Lamport96
+source_type:: book
+title::       LaTeX, A Document Preparation System User's Guide
+author::      Leslie Lamport
+publisher::   Addison-Wesley
+year::        1996
+<<<SOURCE
 
 In the case of LaTeX, the ||publish|| program builds the .bib file and
 inserts citations where they're supposed to go.  In the case of HTML,
@@ -3206,17 +3239,15 @@ page.
 
 Types of bibliography source entries include [cite:Lamport96, 161-162]:
 
----TABLE
+>>>TABLE.tab-bib-source-types
 
 title:: Types of Bibliography Source Entries
 
-label:: tab-bib-source-types
-
 column::1:width: 30
-
 column::2:width: 30
-
 column::3:width: 30
+
+===
 
 :: type - description
 
@@ -3350,7 +3381,7 @@ formally published.
 
 : ||month||, ||year||
 
----TABLE
+<<<TABLE
 
 Here is a complete list of data elements used in source environments:
 
@@ -3443,20 +3474,19 @@ it was written.  It usually consists only of numerals, such as
 
 #---------------------------------------------------------------------
 
-*** Audio Clips
+***.audio-clips Audio Clips
 
-label:: audio-clips
+===
 
 The ~~audio~~ environment enables you to embed audio clips in a
 document.
 
 Example:
 
-  ---audio
+  >>>AUDIO.audio-morning-news
   title:: Morning News
-  label:: audio-morning-news
   file::  audio/morning-news.wav
-  ---audio
+  <<<AUDIO
 
 Audio environment data elements are:
 
@@ -3472,20 +3502,19 @@ Audio environment data elements are:
 
 #---------------------------------------------------------------------
 
-*** Video Clips
+***.video-clips Video Clips
 
-label:: video-clips
+===
 
 The ~~video~~ environment enables you to embed video clips in a
 document.
 
 Example:
 
-  ---video
+  >>>VIDEO.video-morning-news
   title:: Morning News
-  label:: video-morning-news
   file::  video/morning-news.wav
-  ---video
+  <<<VIDEO
 
 Video environment data elements are:
 
@@ -3501,9 +3530,9 @@ Video environment data elements are:
 
 #---------------------------------------------------------------------
 
-** Advanced Document Structures
+**.advanced-document-structures Advanced Document Structures
 
-label:: advanced-document-structures
+===
 
 [g:sml:SML] enables you to define items with semantic significance and to
 describe relationships between those items.  You can define and
@@ -3581,21 +3610,17 @@ The ~~priority~~ of an item is a measure of the importance of that
 item relative to other items. [ref:tab-priority-values] describes the
 meaning of priorities of problems, solutions, tests, and tasks.
 
----TABLE
+>>>TABLE.tab-priority-values
 
 title:: Priority Values
 
-label:: tab-priority-values
-
 column::1:width: 10
-
 column::2:width: 18
-
 column::3:width: 18
-
 column::4:width: 18
-
 column::5:width: 18
+
+===
 
 :: priority
 
@@ -3655,27 +3680,23 @@ column::5:width: 18
 
 : ~~minimal~~ impact if not performed
 
----TABLE
+<<<TABLE
 
 The ~~status~~ of an item describes the degree to which the item is
 complete.  [ref:tab-status-values] lists the status values used to
 indicate the current status of problems, solutions, tests, and tasks.
 
----TABLE
+>>>TABLE.tab-status-values
 
 title:: Status Values
 
-label:: tab-status-values
-
 column::1:width: 10
-
 column::2:width: 18
-
 column::3:width: 18
-
 column::4:width: 18
-
 column::5:width: 18
+
+===
 
 :: status
 
@@ -3735,22 +3756,24 @@ column::5:width: 18
 
 : task status unknown
 
----TABLE
+<<<TABLE
 
 #---------------------------------------------------------------------
 
-*** Key Points
+***.keypoints Key Points
 
-label:: keypoints
+===
 
 The purpose of the ~~keypoints~~ region is to place a summary of key
 points at the beginning of major sections like chapters.
 
 Example:
 
-  >>>keypoints
+  >>>KEYPOINTS
 
   title:: Key Points Of This Course
+
+  ===
 
   - The open source software development model is rapid, relentless, and
     here to stay
@@ -3761,7 +3784,7 @@ Example:
   - Linux was originally designed to be expert friendly but is rapidly
     becoming user friendly
 
-  <<<keypoints
+  <<<KEYPOINTS
 
 Keypoints region data elements are:
 
@@ -3771,12 +3794,12 @@ Keypoints region data elements are:
 
 #---------------------------------------------------------------------
 
-*** Slides
+***.slides Slides
 
-label:: slides
+===
 
-Slides are regions.  Start a slide with `||>>>slide||' and end a slide
-with `||<<<slide||.'
+Slides are regions.  Start a slide with `||>>>SLIDE.my-slide-id||' and
+end a slide with `||<<<SLIDE||.'
 
 You can put unordered and ordered lists inside a slide (and they
 ~~can~~ be nested).
@@ -3789,11 +3812,11 @@ In the HTML rendition, clicking on a thumbnail image in a slide will
 pop up a window containing the full sized image.  Click anywhere
 outside the popup image to make it go away.  Here's an example:
 
->>>SLIDE
+>>>SLIDE.session-handshaking
 
 title:: Session Handshaking
 
-id:: session-handshaking
+===
 
 - Transmission Control Protocol (TCP) establish (3-way handshake)
     - SYN
@@ -3830,9 +3853,9 @@ Slide region data elements are:
 
 #---------------------------------------------------------------------
 
-*** Demonstrations
+***.demos Demonstrations
 
-label:: demos
+===
 
 The purpose of the ~~demo~~ region is to document short
 demonstrations.  Demonstrations are regions (like slides).  Start a
@@ -3853,9 +3876,11 @@ For example:
 
 Example:
 
-  >>>demo
+  >>>DEMO.buffer-overflow-demo
 
   title:: IIS Buffer Overflow Using jill.exe
+
+  ===
 
   Requirements for this demo:
 
@@ -3893,15 +3918,15 @@ Example:
 
   image:: files/images/buffer-overflow-demo-6.png
 
-  <<<demo
+  <<<DEMO
 
 Here's the example:
 
->>>DEMO
+>>>DEMO.buffer-overflow-demo
 
 title:: IIS Buffer Overflow using jill.exe
 
-id:: buffer-overflow-demo
+===
 
 Requirements for this demo:
 
@@ -3956,15 +3981,17 @@ Demo region data elements are:
 
 #---------------------------------------------------------------------
 
-*** Exercises
+***.exercises Exercises
 
-label:: exercises
+===
 
 The purpose of the ~~exercise~~ region is to document short exercises.
 
 Example:
 
-  >>>exercise
+  >>>EXERCISE.find-linux-kernel-version
+
+  ===
 
   The purpose of this exercise is to learn how to find the version of
   the kernel running on a Linux system (this works for all Unix
@@ -3979,7 +4006,7 @@ Example:
   about the system.  Type [cmd:uname -a] [[Enter]] to see the gory
   details.
 
-  <<<exercise
+  <<<EXERCISE
 
 Exercise region data elements are:
 
@@ -3995,13 +4022,13 @@ Exercise region data elements are:
 
 #---------------------------------------------------------------------
 
-*** Quotations
+***.quotations Quotations
 
-label:: quotations
+===
 
 Example:
 
-  >>>quotation
+  >>>QUOTATION
 
   title:: Early To Bed
 
@@ -4009,9 +4036,11 @@ Example:
 
   source:: 15th Century Nursery Rhyme
 
+  ===
+
   Early to bed, early to rise, makes a man healthy, wealthy and wise.
 
-  <<<quotation
+  <<<QUOTATION
 
 Quotation region data elements are:
 
@@ -4023,9 +4052,9 @@ Quotation region data elements are:
 
 #---------------------------------------------------------------------
 
-*** Problems
+***.problems Problems
 
-label:: problems
+===
 
 Problems are things to be solved (a.k.a. requirements).  Problems
 describe ~~what~~ must be done.  Solutions describe ~~how~~ things are
@@ -4036,11 +4065,9 @@ description of a problem.
 
 Example:
 
-  >>>problem
+  >>>problem.problem-2006-01-02-001
 
   title:: Conflict between Emacs and screen use of C-a
-
-  label:: problem-2006-01-02-001
 
   solution:: solution-2006-01-02-001
 
@@ -4061,25 +4088,21 @@ this table, identifiers like ||P||, ||S||, and ||S1|| represent
 labels.  Identifiers like <title>, <text>, and <paragraph> represent
 free text.
 
----TABLE
+>>>TABLE.tab-problem-data
 
 title:: Problem Data Elements
 
-label:: tab-problem-data
-
 column::1:width: 15
-
-column::1:head: Structured Information
-
 column::2:width: 40
-
-column::2:head: Assertion
-
 column::3:width: 7
-
 column::4:width: 35
 
+column::1:head: Structured Information
+column::2:head: Assertion
+column::3:head:
 column::4:head: Examples
+
+===
 
 : ~~Title~~
 
@@ -4503,24 +4526,22 @@ as described in <paragraph>
 
 : ||author:|| <name>
 
----TABLE
+<<<TABLE
 
 #---------------------------------------------------------------------
 
-*** Solutions
+***.solutions Solutions
 
-label:: solutions
+===
 
 The purpose of the ~~solution~~ region is to provide a simple
 traceable description of a specific solution.
 
 Example:
 
-  >>>solution
+  >>>solution.solution-2006-01-02-001
 
   title:: Use C-a a instead of C-a
-
-  label:: solution-2006-01-02-001
 
   problem:: problem-2006-01-02-001
 
@@ -4541,25 +4562,21 @@ describe solutions.  In this table, identifiers like ||P||, ||S||, and
 ||S1|| represent labels.  Identifiers like <title>, <text>, and
 <paragraph> represent free text.
 
----TABLE
+>>>TABLE.tab-solution-data
 
 title:: Solution Data Elements
 
-label:: tab-solution-data
-
 column::1:width: 15
-
-column::1:head: Structured Information
-
 column::2:width: 40
-
-column::2:head: Assertion
-
 column::3:width: 7
-
 column::4:width: 30
 
+column::1:head: Structured Information
+column::2:head: Assertion
+column::3:head:
 column::4:head: Examples
+
+===
 
 : ~~Title~~
 
@@ -5001,13 +5018,13 @@ described in <paragraph>
 
 : ||author:|| <name>
 
----TABLE
+<<<TABLE
 
 #---------------------------------------------------------------------
 
-*** Tests
+***.tests Tests
 
-label:: tests
+===
 
 The purpose of the ~~test~~ region is to document formal tests and
 make them traceable to problems, solutions and tasks.  The outcome of
@@ -5042,6 +5059,8 @@ Example:
   description:: Test to determine whether C-a moves the cursor to the
   beginning of the line.
 
+  ===
+
   step:: type C-a
 
   step:: observe cursor
@@ -5055,25 +5074,21 @@ the data elements you can use to describe tests.  In this table,
 identifiers like ||P||, ||S||, and ||S1|| represent labels.
 Identifiers like <title>, <text>, and <paragraph> represent free text.
 
----TABLE
+>>>TABLE.tab-test-data
 
 title:: Test Data Elements
 
-label:: tab-test-data
-
 column::1:width: 15
-
-column::1:head: Structured Information
-
 column::2:width: 40
-
-column::2:head: Assertion
-
 column::3:width: 7
-
 column::4:width: 30
 
+column::1:head: Structured Information
+column::2:head: Assertion
+column::3:head:
 column::4:head: Examples
+
+===
 
 : ~~Title~~
 
@@ -5103,7 +5118,7 @@ column::4:head: Examples
 
 : ||description:|| <paragraph>
 
----TABLE
+<<<TABLE
 
 = title = Short, descriptive caption
 
@@ -5154,9 +5169,9 @@ item status will ~~only~~ be established by test results (outcomes).
 
 #---------------------------------------------------------------------
 
-*** Results
+***.results Results
 
-label:: results
+===
 
 Results are produced by tests.  The same test can produce many
 results.  Each result might represent a different solution, a
@@ -5195,9 +5210,9 @@ Results region data elements are:
 
 #---------------------------------------------------------------------
 
-**** Outcomes
+****.outcomes Outcomes
 
-label:: outcomes
+===
 
 An outcome records the degree to which the outcome of a test matches
 the expected outcome.  It consists of (1) the date of the test, (2)
@@ -5211,29 +5226,27 @@ be determined based on test outcomes.
 
 #---------------------------------------------------------------------
 
-**** Reviews
+****.reviews Reviews
 
-label:: reviews
+===
 
 Reviews have the exact same syntax as outcomes but do not affect the
 status of items.
 
 #---------------------------------------------------------------------
 
-*** Tasks
+***.tasks Tasks
 
-label:: tasks
+===
 
 The purpose of the ~~task~~ region is to provide a short description
 of work to be performed.
 
 Example:
 
-  >>>task
+  >>>task.task-2006-01-03-001
 
   title:: Re-factor publish code to be object-oriented
-
-  label:: task-2006-01-03-001
 
   description:: All code that makes up the ||publish|| program is
   currently procedural code.  Several new requirements would be easier
@@ -5280,9 +5293,9 @@ Instances inherit the attributes of the classes to which they belong.
 
 #---------------------------------------------------------------------
 
-*** Roles
+***.roles Roles
 
-label:: roles
+===
 
 A ~~role~~ describes the duties of an individual.  An individual may
 have multiple roles.
@@ -5291,20 +5304,18 @@ have multiple roles.
 
 *** Region Attributes
 
+===
+
 Region preambles can contain attributes that describe the region.  For
 instance, you might create a ``solution'' region to represent a
 certain computer ([ref:lis-sample-region]) and use attributes to
 describe that computer.
 
----LISTING
-
+>>>LISTING.lis-sample-region
 title:: Sample Region With Attributes
-
-label:: lis-sample-region
-
+===
 file:: files/ci-000294.txt
-
----LISTING
+<<<LISTING
 
 An attribute is simply a name/value pair where the name and the value
 are separated by an equals sign.
@@ -5313,33 +5324,27 @@ are separated by an equals sign.
 
 *** Object Oriented Inheritance
 
+===
+
 The ||instance_of|| and ||class_of|| data elements allow you to
 establish class -> instance relationships between items described in
 regions.  For instance, you might have a region that describes the
 default configuration of a workstation computer ([ref:lis-ci-000293]).
 
----LISTING
-
+>>>LISTING.lis-ci-000293
 title:: Sample Configuration of a Workstation Computer
-
-label:: lis-ci-000293
-
+===
 file:: files/ci-000293.txt
-
----LISTING
+<<<LISTING
 
 Then you might have another region that describes a unique
 instantiation of a computer workstation ([ref:lis-ci-000295]).
 
----LISTING
-
+>>>LISTING.lis-ci-000295
 title:: Unique Instantiation of a Workstation Computer
-
-label:: lis-ci-000295
-
+===
 file:: files/ci-000295.txt
-
----LISTING
+<<<LISTING
 
 Notice the data element that says, ``||instance_of: ci-000293||.''
 This tells the publishing system that ||ci-000295|| is an ~~instance
@@ -5353,15 +5358,15 @@ Windows.''
 
 #---------------------------------------------------------------------
 
-** Special Features
+**.special-features Special Features
 
-label:: special-features
+===
 
 #---------------------------------------------------------------------
 
-*** Include
+***.include Include
 
-label:: include
+===
 
 You can reuse text from other files using the ``||include||''
 mechanism:
@@ -5406,9 +5411,9 @@ levels of included files.
 
 #---------------------------------------------------------------------
 
-*** Comment Lines
+***.comment-lines Comment Lines
 
-label:: comment-lines
+===
 
 ~~Comment lines.~~ Any line that begins with '#' is interpreted as a
 comment.  The '#' sign must appear in the first column otherwise the
@@ -5420,31 +5425,20 @@ line will be interpreted as preformatted text.
 ~~Comment blocks.~~ A whole block of text can be `commented out' like
 this:
 
-  ###comment
+  >>>COMMENT
 
   This whole block of text is a comment since it occurs between the
   comment markers.  Everything inside this comment will be ignored.
   It won't show up in the published document except as an HTML or
   LaTeX comment.
 
-  ###comment
-
-or even like this:
-
-  #############################################################comment
-
-  This whole block of text is a comment since it occurs between the
-  comment markers.  Everything inside this comment will be ignored.
-  It won't show up in the published document except as an HTML or
-  LaTeX comment.
-
-  #############################################################comment
+  <<<COMMENT
 
 #---------------------------------------------------------------------
 
-*** In-line Comments
+***.in-line-comments In-line Comments
 
-label:: in-line-comments
+===
 
 Insert in-line comments like this:
 
@@ -5452,30 +5446,28 @@ Insert in-line comments like this:
 
 #---------------------------------------------------------------------
 
-*** Hidden Text
+***.hidden-text Hidden Text
 
-label:: hidden-text
+===
 
 Hide text by enclosing it within `||###hide||' lines like this:
 
-  ###hide
+  >>>HIDE
 
   This text is hidden.
 
-  ###hide
+  <<<HIDE
 
 Why not just use a comment block?  Hidden text is slightly different
 from commented text.  Data elements inside hidden text are known to
 the ||publish|| program and can be referenced in other parts of the
 document.  So, for instance, let's say you want to hide a slide:
 
-  ###hide
+  >>>HIDE
 
-  >>>slide
+  >>>SLIDE.great-slide
 
   title:: Great Slide Title
-
-  label:: great-slide
 
   description:: This great slide describes my three main points.
 
@@ -5485,20 +5477,20 @@ document.  So, for instance, let's say you want to hide a slide:
 
   - Point 3
 
-  <<<slide
+  <<<SLIDE
 
-  ###hide
+  <<<HIDE
 
 Even though the slide will not appear in the document, you could still
 use ||{lit:[title:great-slide]}|| to recall the slide's title, and
 ||{lit:[description:great-slide]}|| to recall the slide's description.
 
-###COMMENT
+>>>COMMENT
 
 The preceding paragraph tests the publish program's ability to escape
 two literal strings in the same block of text.
 
-###COMMENT
+<<<COMMENT
 
 You can also ``||include||'' hidden text:
 
@@ -5514,9 +5506,8 @@ problems without rendering the full problems in the document:
   include::hide: problem-2.txt
   include::hide: problem-3.txt
 
-  ---table
+  >>>TABLE.problem-summary
   title:: Summary of Problems
-  label:: problem-summary
 
   : [lookup:title:problem-1]
   : [lookup:description:problem-1]
@@ -5526,28 +5517,28 @@ problems without rendering the full problems in the document:
   ---
   : [lookup:title:problem-3]
   : [lookup:description:problem-3]
-  ---table
+  <<<TABLE
 
 #---------------------------------------------------------------------
 
-*** Take Note!
+***.take-note Take Note!
 
-label:: take-note
+===
 
 If you want to call attention to certain content, insert a
 [[take_note]] indicator.
 
 #---------------------------------------------------------------------
 
-*** Cross References
+***.cross-references Cross References
 
-label:: cross-references
+===
 
 #---------------------------------------------------------------------
 
-*** Conditional Text
+***.conditional-text Conditional Text
 
-label:: conditional-text
+===
 
 Sometimes you may have a document I want to use for multiple purpose
 with slight differences for each.  The conditional text mechanism is
@@ -5565,13 +5556,13 @@ For example, in the document preamble are:
 
 mark blocks of conditional text like:
 
-  ????????????????????????????????????????????????????????????rh9
+  >>>CONDITIONAL.rh9
 
   This paragraph goes into the RedHat 9 version of the document, but
   not into other variations.  The '..define' statement above tells the
   ||publish|| program to include this text.
 
-  ????????????????????????????????????????????????????????????rh9
+  <<<CONDITIONAL
 
 Conditional names are defined using 'define: name' at the beginning of
 the line in the document preamble (but normally near the top where
@@ -5579,9 +5570,9 @@ they are easily changed).
 
 #---------------------------------------------------------------------
 
-*** Building an Index
+***.building-an-index Building an Index
 
-label:: building-an-index
+===
 
 Its easy to build an [i:index] for your
 document.[f:building-an-index:1] An index enables readers to quickly
@@ -5642,9 +5633,9 @@ implemented index publishing for the HTML rendition.
 
 #---------------------------------------------------------------------
 
-*** Building a Glossary
+***.building-a-glossary Building a Glossary
 
-label:: building-a-glossary
+===
 
 Its easy to build a [g:sml:glossary] of terms within your document. If
 you've defined glossary terms in your document, the glossary will
@@ -5679,6 +5670,8 @@ this:
 
 **** Defining Glossary Entries
 
+===
+
 [ref:building-a-glossary] described the most basic glossary features,
 how to define a simple glossary entry and how to reference that entry
 in the text of your document.
@@ -5695,14 +5688,16 @@ The following additional glossary definition features are available.
 
 **** Glossary References
 
+===
+
 [ref:building-a-glossary] described the most basic way to refer to a
 glossary term.
 
----TABLE
+>>>TABLE.tab-referencing-glossary-entries
 
 title:: Referencing Glossary Entries
 
-label:: tab-referencing-glossary-entries
+===
 
 :: Form
 
@@ -5729,13 +5724,13 @@ label:: tab-referencing-glossary-entries
 : Insert a [g:sml:glossary] term; upper-case the initial letter of each
 word.
 
----TABLE
+<<<TABLE
 
 #---------------------------------------------------------------------
 
-*** Generated Content
+***.generated-content Generated Content
 
-label:: generated-content
+===
 
 The following blocks of content can be automagically generated by the
 ||publish|| program based on the content of the document:
@@ -5772,11 +5767,11 @@ generate a prioritized listing of problems:
 Prioritization is based on priority and status using the following
 ranking system shown in [ref:tab-priority-ranking-system].
 
----TABLE
+>>>TABLE.tab-priority-ranking-system
 
 title:: Problem and Solution Prioritization Ranking System
 
-label:: tab-priority-ranking-system
+===
 
 :: rank
 
@@ -5906,15 +5901,15 @@ label:: tab-priority-ranking-system
 
 :green: green
 
----TABLE
+<<<TABLE
 
 Additional ``generate'' directives may be added in the future.
 
 #--------------------------------------------------------------------
 
-*** Inserted Content
+***.inserted-content Inserted Content
 
-label:: inserted-content
+===
 
 The following blocks of content can be automagically inserted by the
 ||publish|| program:
@@ -5930,9 +5925,9 @@ content of a region:
 
 #---------------------------------------------------------------------
 
-*** To Do Items
+***.to-do-items To Do Items
 
-label:: to-do-items
+===
 
 Lines that begin with ``[ ]'' in the first column indicate the
 beginning of a to-do item:
@@ -5948,9 +5943,9 @@ beginning of a to-do item:
 
 #---------------------------------------------------------------------
 
-*** Scripts
+***.scripts Scripts
 
-label:: scripts
+===
 
 You can have the ||publish|| program run an arbitrary script for you and
 insert the output in your document.  Imagine how useful this feature
@@ -5981,9 +5976,9 @@ future.
 
 #---------------------------------------------------------------------
 
-*** Reusable Content
+***.reusable-content Reusable Content
 
-label:: reusable-content
+===
 
 You can reuse elements of content like titles, descriptions, and
 narratives.  Here is a complete list of reusable content elements
@@ -6050,11 +6045,13 @@ For instance, you can ``lookup'' a title like this:
 
 If your item contains a user defined attribute:
 
+  >>>item.nose
+
   title:: My Nose
 
-  label:: nose
-
   attr:: color = red
+
+  <<<item
 
 you can reuse the user defined attribute using:
 
@@ -6062,9 +6059,9 @@ you can reuse the user defined attribute using:
 
 #---------------------------------------------------------------------
 
-*** Revision Summary
+***.revision-summary Revision Summary
 
-label:: revision-summary
+===
 
 You can put one or more revision summaries in your document to
 describe how the document has changed over time.  The revision summary
@@ -6073,7 +6070,7 @@ will be rendered as a table with three columns: (1) version, (2) date,
 
 Here is an example:
 
-  ---revisions
+  >>>REVISIONS
 
   rev:: 0.1 (1539) = 2010-10-19 = nitial draft.  Separated out the
   Crew Vetting business requirements into their own business
@@ -6085,21 +6082,19 @@ Here is an example:
   Role, (2) Work Products, (3) Exit Criteria, (4) Tailoring
   Information
 
-  ---revisions
+  <<<REVISIONS
 
 The publish program will render this change summary like this:
 
----TABLE
+>>>TABLE.tab-revision-summary
 
 title:: Revision Summary
 
-label:: tab-revision-summary
-
 column::1:width: 15
-
 column::2:width: 15
-
 column::3:width: 70
+
+===
 
 :: Version
 
@@ -6127,17 +6122,19 @@ Criteria, (4) Tailoring Information
 into their own business requirements document, and removed all
 references to this document being a CONOPS.
 
----TABLE
+<<<TABLE
 
 #---------------------------------------------------------------------
 
-* Required Software
+*.required-software Required Software
 
-label:: required-software
+===
 
 #---------------------------------------------------------------------
 
 ** LaTeX
+
+===
 
 If you want to render PDF output, you need a distribution of LaTeX.
 
@@ -6145,11 +6142,15 @@ If you want to render PDF output, you need a distribution of LaTeX.
 
 ** Adobe Acrobat
 
+===
+
 To view PDF output you need a PDF reader like Adobe Acrobat.
 
 #---------------------------------------------------------------------
 
 ** ImageMagick
+
+===
 
 For ||publish|| to handle images properly, ImageMagick must be installed.
 You can download Windows and Linux versions at:
@@ -6170,24 +6171,26 @@ drj826@acm.org.  THANKS!
 
 ###############################################################COMMENT
 
+#---------------------------------------------------------------------
+
 ** Web Browser
+
+===
 
 To view HTML output you need a Web browser like Mozilla Firefox.
 
 #---------------------------------------------------------------------
 
-* Systems Engineering
+*.systems-engineering Systems Engineering
 
-label:: systems-engineering
-
----EPIGRAPH
+>>>EPIGRAPH
 
 text:: There's no sense being exact about something if you don't even
 know what you're talking about.
 
 author:: John von Neumann
 
----EPIGRAPH
+<<<EPIGRAPH
 
 Systems Engineering is the interdisciplinary approach governing the
 total technical and managerial effort required to transform a set of
@@ -6319,6 +6322,8 @@ documentation and traceability of problems and solutions.
 
 ** Problems
 
+===
+
 Problems are things to be solved (a.k.a. requirements).  Problems
 describe ~~what~~ must be done.  Solutions describe ~~how~~ things are
 done.  Never confuse the ``what'' and the ``how.''
@@ -6346,9 +6351,9 @@ requirements.
 
 #---------------------------------------------------------------------
 
-*** Requirements Characteristics
+***.requirements-characteristics Requirements Characteristics
 
-label:: requirements-characteristics
+===
 
 Requirements should have the following characteristics:
 
@@ -6391,9 +6396,9 @@ to the stated problem (requirement) must be reasonable.
 
 #---------------------------------------------------------------------
 
-*** Requirements Traceability
+***.requirements-traceability Requirements Traceability
 
-label:: requirements-traceability
+==
 
 The ~~primary~~ purpose of requirements traceability is to trace
 requirements from origin to fulfillment.
@@ -6473,9 +6478,9 @@ can discover the relationship by looking at either one.  Requirement
 
 #---------------------------------------------------------------------
 
-**** Whole/Part Traceability
+****.whole-part-traceability Whole/Part Traceability
 
-label:: whole-part-traceability
+===
 
 The most basic form of requirements traceability is the ~~whole/part
 hierarchy~~.  Requirements should be carefully organized into a
@@ -6497,12 +6502,10 @@ in [ref:fig-req-traceability-matrix], and (3) within detailed
 requirements descriptions shown in [ref:fig-requirement-parts] and
 [ref:fig-requirement-parents].
 
----FIGURE
+>>>FIGURE.fig-whole-part-req-hierarchy
 
 title:: Portion Of The Whole/Part Requirements Hierarchy Captured In
 This Requirements Baseline
-
-label:: fig-whole-part-req-hierarchy
 
 image:: files/images/whole-part-req-hierarchy.png
 
@@ -6510,7 +6513,7 @@ description:: This view of the requirements baseline is available in
 the HTML rendition by clicking the ``Tree'' link under ``Problems'' in
 the left margin of the browser.
 
----FIGURE
+<<<FIGURE
 
 [ref:fig-whole-part-req-hierarchy] shows a portion of the whole/part
 hierarchy of requirements in this baseline.
@@ -6521,32 +6524,29 @@ requirements traceability matrix.  Notice the ``parts'' column in the
 middle of the matrix and the ``up'' link in the upper right corner.
 These hyperlinks enable you to navigate the whole/part hierarchy.
 
----FIGURE
+>>>FIGURE.fig-req-traceability-matrix
 title:: Segment of the Requirements Traceability Matrix
-label:: fig-req-traceability-matrix
 image:: files/images/req-traceability-matrix.png
 width:: 6in
----FIGURE
+<<<FIGURE
 
 The whole/part requirements hierarchy must be presented in a
 bi-directional way.  ``Parent'' requirements must enumerate their
 children (i.e. parts) and each ``child'' requirement must identify its
 parent.
 
----FIGURE
+>>>FIGURE.fig-requirement-parts
 title:: Requirement Parts
-label:: fig-requirement-parts
 image:: files/images/requirement-parts.png
 width:: 6in
 
 description:: When a requirement in a whole/part hierarchy has children
 (i.e. parts) the requirement lists its parts.
 
----FIGURE
+<<<FIGURE
 
----FIGURE
+>>>FIGURE.fig-requirement-parents
 title:: Requirement Parents
-label:: fig-requirement-parents
 image:: files/images/requirement-parents.png
 width::  6in
 
@@ -6554,13 +6554,13 @@ description:: All requirements except the top-level requirements in a
 whole/part hierarchy have ``parents."  Requirements list their
 heritage all the way up to their top-level requirements.
 
----FIGURE
+<<<FIGURE
 
 #---------------------------------------------------------------------
 
-**** Directives
+****.directives Directives
 
-label:: directives
+===
 
 Requirements should be traceable to authoritative directives.  When a
 requirement exists because an authority directs it, that requirement
@@ -6586,9 +6586,9 @@ The same requirement can be directed by multiple authorities.
 
 #---------------------------------------------------------------------
 
-**** Requests
+****.requests Requests
 
-label:: requests
+===
 
 Sometimes the origin of a requirement is a request (e.g. ``trouble
 ticket,'' ``problem report,'' etc.).  In this case, the requirement
@@ -6612,9 +6612,9 @@ an orderly, systematic way.
 
 #---------------------------------------------------------------------
 
-**** Derived Requirements
+****.derived-requirements Derived Requirements
 
-label:: derived-requirements
+===
 
 There must be a reason for each requirement.  If not directed by an
 authoritative source, a requirement is likely derived from another
@@ -6630,26 +6630,26 @@ satisfying them costs resources.
 
 #---------------------------------------------------------------------
 
-**** Test Cases
+****.test-cases Test Cases
 
-label:: test-cases
+===
 
 Requirements must be traceable to the verification and validation test
 cases that prove they are solved and solved in the correct way.
 
 #---------------------------------------------------------------------
 
-**** Solutions
+****.solutions-traceability Solutions
 
-label:: solutions-traceability
+===
 
 Requirements must be traceable to the solutions that solve them.
 
 #---------------------------------------------------------------------
 
-**** Requirement Owners
+****.requirement-owners Requirement Owners
 
-label:: requirement-owners
+===
 
 Business requirements define what an organization must do.  Every
 business requirement should be traceable to the organizational role
@@ -6670,9 +6670,9 @@ to which the requirement is allocated.
 
 #---------------------------------------------------------------------
 
-**** Requirement Stakeholders
+****.requirement-stakeholders Requirement Stakeholders
 
-label:: requirement-stakeholders
+===
 
 There may be people with an interest in getting a requirement met who
 are not the owner of the requirement.  These people are known as
@@ -6680,17 +6680,17 @@ stakeholders.
 
 #---------------------------------------------------------------------
 
-**** Requirements Reviews
+****.requirements-reviews Requirements Reviews
 
-label:: requirements-reviews
+===
 
 Requirements must be reviewed by requirement owners and stakeholders.
 
 #---------------------------------------------------------------------
 
-**** Requirements Verification Audits
+****.requirements-verification-audits Requirements Verification Audits
 
-label:: requirements-verification-audits
+===
 
 Requirements must be verified.  Requirements verification audits must
 be documented.  The verification documentation should be traceable to
@@ -6698,9 +6698,9 @@ the requirement.
 
 #---------------------------------------------------------------------
 
-*** Requirements Attributes
+***.requirements-attributes Requirements Attributes
 
-label:: requirements-attributes
+===
 
 We describe requirements using the following attributes:
 
@@ -6761,6 +6761,8 @@ requirement
 #---------------------------------------------------------------------
 
 *** Requirements Reviews
+
+===
 
 Requirements are periodically reviewed.  The purposes of reviewing
 requirements are:
@@ -6847,9 +6849,9 @@ this requirement identified?''
 
 #---------------------------------------------------------------------
 
-* Using Emacs to Edit SML Files
+*.using-emacs Using Emacs to Edit SML Files
 
-label:: using-emacs
+===
 
 SML is based on Emacs' outline mode.  I find that editing SML files in
 Emacs is very quick and easy.  Emacs is a free, open source editor
@@ -6867,9 +6869,9 @@ incredible speed and power.
 
 #---------------------------------------------------------------------
 
-** Adding an Emacs mode directive to an SML file
+**.emacs-variables Adding an Emacs mode directive to an SML file
 
-label:: emacs-variables
+===
 
 If you ~~do~~ choose to use Emacs, you might want to put the following
 line at the top of each SML file to force Emacs into outline mode when
@@ -6897,37 +6899,39 @@ this:
 
 ** Your .emacs file
 
+===
+
 Here are some things I put in my ||.emacs|| file that help the editing
 process:
 
----LISTING
+>>>LISTING.lis-emacs-startup
 title:: Add This To Your ||.emacs|| File
-label:: lis-emacs-startup
 language:: lisp
 fontsize:: footnotesize
 numbers:: left
+===
 file:: files/.emacs
----LISTING
+<<<LISTING
 
 ######################################################################
 # Known Bugs, Desired Improvements
 
-include:: incl/bugs.txt
+# * include:: incl/bugs.txt
 
 ######################################################################
 # Backmatter
 
-include:: incl/glossary-sml.txt
+include:: glossary-sml
 
-include:: incl/glossary-ieee.txt
+include:: glossary-ieee
 
-include:: incl/glossary-cmmi.txt
+include:: glossary-cmmi
 
-include:: incl/sources.txt
+include:: sources
 
-include:: incl/sources-ieee.txt
+include:: sources-ieee
 
-include:: incl/sources-cmmi.txt
+include:: sources-cmmi
 
 ######################################################################
 # Local Emacs Variables

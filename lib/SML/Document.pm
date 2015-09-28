@@ -8,7 +8,7 @@ use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Region';
+extends 'SML::Division';
 
 use namespace::autoclean;
 
@@ -1034,7 +1034,7 @@ C<SML::Document> - a written work about a topic
 
 =head1 SYNOPSIS
 
-  extends SML::Region
+  extends SML::Division
 
   my $document = SML::Document->new
                    (

@@ -1,20 +1,10 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000380
 
 title:: SML/Reasoner.pm Module
 
-label:: ci-000380
-
-revision:: $Revision: 10975 $
-
-date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
-
-author:: $Author: don.johnson $
-
 type:: software
 
-parent:: ci-000004
+part_of:: ci-000004
 
 description:: The Reasoner.pm module implements the SML::Reasoner
 class (a semantic reasoner).  A semantic reasoner, reasoning engine,
@@ -30,6 +20,12 @@ chaining and backward chaining [wp-semantic-reasoner] The
 semantics like business rules to which engineering documents must
 conform.
 
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
 #---------------------------------------------------------------------
 # allocations
 
@@ -43,7 +39,7 @@ allocation:: al-000270 # rq-000190 Validate Document Contains no Redundant Alloc
 
 allocation:: al-000282 # rq-000200 Validate Engineering Document Semantics
 
-######################################################################
+===
 
 index:: ci-000380; Reasoner.pm module
 

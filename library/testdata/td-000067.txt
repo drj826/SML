@@ -1,23 +1,19 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000067
 
 title:: Valid Image File Element
 
-id:: td-000067
-
-######################################################################
+===
 
 This SML document contains a valid image file element. 
 
----FIGURE
+>>>FIGURE.fig-my-test-figure
 
 title:: My Test Figure
 
-id:: lis-my-test-figure
+===
 
 image:: image.1.jpg
 
----FIGURE
+<<<FIGURE
 
 <<<DOCUMENT

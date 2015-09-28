@@ -1,8 +1,8 @@
----LISTING
+>>>LISTING.my-listing
 
 title:: Sample Listing
 
-id:: my-listing
+===
 
 LIB000, cls, LIBRARY,     exists,             SML::Library,   ,             ,       1,    0, 0,
 LIB001, prp, LIBRARY,     id,                 Str,            STRING,       ,       1,    0, 0,
@@ -36,4 +36,4 @@ LIB028, prp, LIBRARY,     entity_file,        Str,            STRING,       ,   
 LIB029, prp, LIBRARY,     reference_file,     Str,            STRING,       ,       many, 0, 0,
 LIB030, prp, LIBRARY,     script_file,        Str,            STRING,       ,       many, 0, 0,
 
----LISTING
+<<<LISTING

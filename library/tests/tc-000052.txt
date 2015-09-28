@@ -1,10 +1,15 @@
->>>test
-
-######################################################################
+>>>test.tc-000052
 
 title:: EnumeratedListItem.pm Unit Test Case
 
-label:: tc-000052
+priority:: routine
+
+type:: unit
+
+part_of:: tc-000001
+
+description:: This is the unit test case for the EnumeratedListItem.pm Perl
+module that implements the SML::EnumeratedListItem class.
 
 revision:: $Revision: 15145 $
 
@@ -12,42 +17,33 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-priority:: routine
-
-type:: unit
-
-parent:: tc-000001
-
-description:: This is the unit test case for the EnumeratedListItem.pm Perl
-module that implements the SML::EnumeratedListItem class.
-
-######################################################################
+===
 
 index:: tc-000052; unit test case!EnumeratedListItem.pm
 
 [ref:lis-enumeratedlistitem-pm-unit-test-case] shows the unit test for
 [file:EnumeratedListItem.pm].
 
----LISTING
+>>>LISTING.lis-enumeratedlistitem-pm-unit-test-case
 title::       EnumeratedListItem.t - Unit Test Case for EnumeratedListItem.pm
-label::       lis-enumeratedlistitem-pm-unit-test-case
 numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../t/EnumeratedListItem.t
----LISTING
+===
+file:: ../../t/EnumeratedListItem.t
+<<<LISTING
 
 [ref:lis-enumeratedlistitem-pm-unit-test-results] shows the results of
 executing the EnumeratedListItem.pm unit test case.
 
----LISTING
+>>>LISTING.lis-enumeratedlistitem-pm-unit-test-results
 title::     EnumeratedListItem.pm Unit Test Case Results
-label::     lis-enumeratedlistitem-pm-unit-test-results
 numbers::   left
 fontsize::  footnotesize
-script::    scripts/run-unit-test.bat EnumeratedListItem.t
----LISTING
+===
+script:: scripts/run-unit-test.bat EnumeratedListItem.t
+<<<LISTING
 
 <<<test
 

@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000036
 
 title:: Represent Tasks
-
-label:: rq-000036
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000195
+part_of:: rq-000195
 
 type:: data format
 
@@ -25,7 +21,7 @@ a task is to make that task semantically traceable to other elements
 of content (like roles and problems), to make the content re-usable,
 and to enable special listings of tasks.
 
-######################################################################
+===
 
 index:: rq-000036; tasks
 

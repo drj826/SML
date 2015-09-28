@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.frd-sml
 
 title:: Functional Requirements Document
 
 subtitle:: SML Data Format[linebreak]and[linebreak]SML Software Library
-
-id:: frd-sml
 
 author:: Don Johnson (drj826@acm.org)
 
@@ -28,9 +24,9 @@ use_formal_status:: 1
 
 # [#v:tmpl/item-summary.txt:6530]
 
-######################################################################
+===
 
----REVISIONS
+>>>REVISIONS
 
 rev:: 0.5 = 2012-03-25 = Added rq-000201 "Validate Allowed Entity
 Properties", and rq-000202 "Validate Entity Relationships"
@@ -48,13 +44,15 @@ requirements plus other constraints like the data format must use
 
 rev:: 0.1 = 2011-04-08 = Initial draft.
 
----REVISIONS
+<<<REVISIONS
 
 #---------------------------------------------------------------------
 
 * Introduction
 
 type:: chapter
+
+===
 
 This is the Functional Requirements Document (FRD) for a ~~structured
 manuscript data format~~.  The required data format will be used to
@@ -92,6 +90,8 @@ multiple different document renditions.
 #---------------------------------------------------------------------
 
 * Key Terms and Definitions
+
+===
 
 This section defines key terms used in this document.  The glossary
 contains a complete collection of terms and their definitions.
@@ -214,28 +214,22 @@ contains a complete collection of terms and their definitions.
 
 #---------------------------------------------------------------------
 
-* Requirements
-
-type:: chapter
-
-label:: requirements
-
-include::*: auto/frd-sml-problems.txt
+* include:: frd-sml-problems
 
 ######################################################################
 # Backmatter
 
-include:: incl/glossary-sml.txt
+include:: glossary-sml
 
-include:: incl/glossary-ieee.txt
+include:: glossary-ieee
 
-include:: incl/glossary-cmmi.txt
+include:: glossary-cmmi
 
-include:: incl/sources.txt
+include:: sources
 
-include:: incl/sources-ieee.txt
+include:: sources-ieee
 
-include:: incl/sources-cmmi.txt
+include:: sources-cmmi
 
 ######################################################################
 # Local Emacs Variables

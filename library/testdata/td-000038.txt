@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000038
 
 title:: Valid Bold Markup
 
-id:: td-000038
-
-######################################################################
+===
 
 This document contains several examples of valid bold markup.
 

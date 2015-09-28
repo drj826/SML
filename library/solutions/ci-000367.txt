@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000367
 
 title:: `count_markup_in_line' Subroutine
-
-label:: ci-000367
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:count_markup_in_line] subroutine 
 
-######################################################################
+===
 
 index:: ci-000367; subroutine![cmd:count_markup_in_line]
 

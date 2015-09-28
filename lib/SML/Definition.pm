@@ -129,13 +129,21 @@ triple.
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Definition"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
   extends SML::Element
 
-  my $def = SML::Definition->new();
+  my $definition = SML::Definition->new
+                     (
+                       name    => $name,
+                       library => $library,
+                     );
+
+  my $string = $definition->get_term;
+  my $string = $definition->get_alt;
+  my $string = $definition->get_value;
 
 =head1 DESCRIPTION
 

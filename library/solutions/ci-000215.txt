@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000215
 
 title:: `create_allocation_titles' Subroutine
-
-label:: ci-000215
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:create_allocation_titles] subroutine 
 
-######################################################################
+===
 
 index:: ci-000215; subroutine![cmd:create_allocation_titles]
 

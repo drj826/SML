@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000096
 
 title:: Represent a `Strict Entity Status' Option
-
-label:: rq-000096
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000035
+part_of:: rq-000035
 
 type:: data format
 
@@ -25,7 +21,7 @@ purpose of this requirement is to enable authors to declare whether
 they want entity status to come from formal test results and audits,
 ~~or~~ from the informal status attributes of each entity (default).
 
-######################################################################
+===
 
 index:: rq-000096; status; item!status
 

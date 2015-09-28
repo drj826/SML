@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000042
 
 title:: Valid Fixed-Width Markup
 
-id:: td-000042
-
-######################################################################
+===
 
 This document contains several examples of valid fixed-width markup.
 

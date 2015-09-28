@@ -1,10 +1,6 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000072
 
 title:: Block Unit Test Data
-
-id:: td-000072
 
 version:: 2.0
 
@@ -16,11 +12,11 @@ status:: yellow
 
 define:: version2
 
-######################################################################
+===
 
-* Introduction
+*.introduction Introduction
 
-id:: introduction
+===
 
 The purpose of this introduction section is to serve as a target for
 internal document cross references.
@@ -44,9 +40,9 @@ note::1: This is a footnote.
 
 #---------------------------------------------------------------------
 
-** Cross Reference 1
+**.cross_reference_1 Cross Reference 1
 
-id:: cross_reference_1
+===
 
 [ref:introduction]
 
@@ -56,9 +52,9 @@ id:: cross_reference_1
 
 #---------------------------------------------------------------------
 
-** Cross Reference 2
+**.cross_reference_2 Cross Reference 2
 
-id:: cross_reference_2
+===
 
 [r:introduction]
 
@@ -68,9 +64,9 @@ id:: cross_reference_2
 
 #---------------------------------------------------------------------
 
-** URL Reference 1
+**.url_reference_1 URL Reference 1
 
-id:: url_reference_1
+===
 
 [url:http://www.cnn.com/]
 
@@ -80,9 +76,9 @@ id:: url_reference_1
 
 #---------------------------------------------------------------------
 
-** Footnote Reference 1
+**.footnote_reference_1 Footnote Reference 1
 
-id:: footnote_reference_1
+===
 
 [f:introduction:1]
 
@@ -92,9 +88,9 @@ id:: footnote_reference_1
 
 #---------------------------------------------------------------------
 
-** Glossary Reference 1
+**.glossary_reference_1 Glossary Reference 1
 
-id:: glossary_reference_1
+===
 
 [g:sml:document]
 
@@ -104,9 +100,9 @@ id:: glossary_reference_1
 
 #---------------------------------------------------------------------
 
-** Glossary Reference 2
+**.glossary_reference_2 Glossary Reference 2
 
-id:: glossary_reference_2
+===
 
 [G:sml:document]
 
@@ -116,9 +112,9 @@ id:: glossary_reference_2
 
 #---------------------------------------------------------------------
 
-** Glossary Reference 3
+**.glossary_reference_3 Glossary Reference 3
 
-id:: glossary_reference_3
+===
 
 [gls:sml:document]
 
@@ -128,9 +124,9 @@ id:: glossary_reference_3
 
 #---------------------------------------------------------------------
 
-** Glossary Reference 4
+**.glossary_reference_4 Glossary Reference 4
 
-id:: glossary_reference_4
+===
 
 [Gls:sml:document]
 
@@ -140,9 +136,9 @@ id:: glossary_reference_4
 
 #---------------------------------------------------------------------
 
-** Acronym Reference 1
+**.acronym_reference_1 Acronym Reference 1
 
-id:: acronym_reference_1
+===
 
 [ac:sml:TLA]
 
@@ -152,9 +148,9 @@ id:: acronym_reference_1
 
 #---------------------------------------------------------------------
 
-** Acronym Reference 2
+**.acronym_reference_2 Acronym Reference 2
 
-id:: acronym_reference_2
+===
 
 [acs:sml:TLA]
 
@@ -164,9 +160,9 @@ id:: acronym_reference_2
 
 #---------------------------------------------------------------------
 
-** Acronym Reference 3
+**.acronym_reference_3 Acronym Reference 3
 
-id:: acronym_reference_3
+===
 
 [acl:sml:TLA]
 
@@ -176,9 +172,9 @@ id:: acronym_reference_3
 
 #---------------------------------------------------------------------
 
-** Index Reference 1
+**.index_reference_1 Index Reference 1
 
-id:: index_reference_1
+===
 
 [i:structured manuscript language]
 
@@ -188,9 +184,9 @@ id:: index_reference_1
 
 #---------------------------------------------------------------------
 
-** Index Reference 2
+**.index_reference_2 Index Reference 2
 
-id:: index_reference_2
+===
 
 [index:structured manuscript language]
 
@@ -200,9 +196,9 @@ id:: index_reference_2
 
 #---------------------------------------------------------------------
 
-** ID Reference 1
+**.id_reference_1 ID Reference 1
 
-id:: id_reference_1
+===
 
 [id:introduction]
 
@@ -212,9 +208,9 @@ id:: id_reference_1
 
 #---------------------------------------------------------------------
 
-** The Page Reference 1
+**.thepage_reference_1 The Page Reference 1
 
-id:: thepage_reference_1
+===
 
 [thepage]
 
@@ -224,9 +220,9 @@ id:: thepage_reference_1
 
 #---------------------------------------------------------------------
 
-** Page Reference 1
+**.page_reference_1 Page Reference 1
 
-id:: page_reference_1
+===
 
 [page:introduction]
 
@@ -236,9 +232,9 @@ id:: page_reference_1
 
 #---------------------------------------------------------------------
 
-** Page Reference 2
+**.page_reference_2 Page Reference 2
 
-id:: page_reference_2
+===
 
 [pg:introduction]
 
@@ -248,9 +244,9 @@ id:: page_reference_2
 
 #---------------------------------------------------------------------
 
-** The Version Reference 1
+**.theversion_reference_1 The Version Reference 1
 
-id:: theversion_reference_1
+===
 
 [theversion]
 
@@ -260,9 +256,9 @@ id:: theversion_reference_1
 
 #---------------------------------------------------------------------
 
-** The Revision Reference 1
+**.therevision_reference_1 The Revision Reference 1
 
-id:: therevision_reference_1
+===
 
 [therevision]
 
@@ -272,9 +268,9 @@ id:: therevision_reference_1
 
 #---------------------------------------------------------------------
 
-** Date Reference 1
+**.date_reference_1 Date Reference 1
 
-id:: date_reference_1
+===
 
 [thedate]
 
@@ -284,9 +280,9 @@ id:: date_reference_1
 
 #---------------------------------------------------------------------
 
-** Status Reference 1
+**.status_reference_1 Status Reference 1
 
-id:: status_reference_1
+===
 
 [status:td-000072]
 
@@ -296,9 +292,9 @@ id:: status_reference_1
 
 #---------------------------------------------------------------------
 
-** Status Reference 2
+**.status_reference_2 Status Reference 2
 
-id:: status_reference_2
+===
 
 [status:grey]
 
@@ -308,9 +304,9 @@ id:: status_reference_2
 
 #---------------------------------------------------------------------
 
-** Status Reference 3
+**.status_reference_3 Status Reference 3
 
-id:: status_reference_3
+===
 
 [status:green]
 
@@ -320,9 +316,9 @@ id:: status_reference_3
 
 #---------------------------------------------------------------------
 
-** Status Reference 4
+**.status_reference_4 Status Reference 4
 
-id:: status_reference_4
+===
 
 [status:yellow]
 
@@ -332,9 +328,9 @@ id:: status_reference_4
 
 #---------------------------------------------------------------------
 
-** Status Reference 5
+**.status_reference_5 Status Reference 5
 
-id:: status_reference_5
+===
 
 [status:red]
 
@@ -344,9 +340,9 @@ id:: status_reference_5
 
 #---------------------------------------------------------------------
 
-** Citation Reference 1
+**.citation_reference_1 Citation Reference 1
 
-id:: citation_reference_1
+===
 
 [cite:cms15]
 
@@ -356,9 +352,9 @@ id:: citation_reference_1
 
 #---------------------------------------------------------------------
 
-** Citation Reference 2
+**.citation_reference_2 Citation Reference 2
 
-id:: citation_reference_2
+===
 
 [cite:cms15, pg 44]
 
@@ -368,9 +364,9 @@ id:: citation_reference_2
 
 #---------------------------------------------------------------------
 
-** File Reference 1
+**.file_reference_1 File Reference 1
 
-id:: file_reference_1
+===
 
 [file:app.ini]
 
@@ -380,9 +376,9 @@ id:: file_reference_1
 
 #---------------------------------------------------------------------
 
-** File Reference 2
+**.file_reference_2 File Reference 2
 
-id:: file_reference_2
+===
 
 [file:My Document.doc]
 
@@ -392,9 +388,9 @@ id:: file_reference_2
 
 #---------------------------------------------------------------------
 
-** Path Reference 1
+**.path_reference_1 Path Reference 1
 
-id:: path_reference_1
+===
 
 [path:/path/to/folder]
 
@@ -404,9 +400,9 @@ id:: path_reference_1
 
 #---------------------------------------------------------------------
 
-** Path Reference 2
+**.path_reference_2 Path Reference 2
 
-id:: path_reference_2
+===
 
 [path:/path/to/my folder]
 
@@ -416,9 +412,9 @@ id:: path_reference_2
 
 #---------------------------------------------------------------------
 
-** Path Reference 3
+**.path_reference_3 Path Reference 3
 
-id:: path_reference_3
+===
 
 [path:C:\path\to\my folder\]
 
@@ -428,9 +424,9 @@ id:: path_reference_3
 
 #---------------------------------------------------------------------
 
-** User Entered Text 1
+**.user_entered_text_1 User Entered Text 1
 
-id:: user_entered_text_1
+===
 
 [enter:USERNAME].
 
@@ -440,9 +436,9 @@ id:: user_entered_text_1
 
 #---------------------------------------------------------------------
 
-** Command Reference 1
+**.command_reference_1 Command Reference 1
 
-id:: command_reference_1
+===
 
 [cmd:pwd]
 
@@ -452,9 +448,9 @@ id:: command_reference_1
 
 #---------------------------------------------------------------------
 
-** Command Reference 2
+**.command_reference_2 Command Reference 2
 
-id:: command_reference_2
+===
 
 [cmd:ls -al | grep -i bin | sort]
 
@@ -464,9 +460,9 @@ id:: command_reference_2
 
 #---------------------------------------------------------------------
 
-** Literal XML Tag 1
+**.literal_xml_tag_1 Literal XML Tag 1
 
-id:: literal_xml_tag_1
+===
 
 <html>
 
@@ -476,9 +472,9 @@ id:: literal_xml_tag_1
 
 #---------------------------------------------------------------------
 
-** Literal XML Tag 2
+**.literal_xml_tag_2 Literal XML Tag 2
 
-id:: literal_xml_tag_2
+===
 
 <para style="indented">
 
@@ -488,9 +484,9 @@ id:: literal_xml_tag_2
 
 #---------------------------------------------------------------------
 
-** Email Address 1
+**.email_address_1 Email Address 1
 
-id:: email_address_1
+===
 
 joe@example.com
 
@@ -500,11 +496,11 @@ joe@example.com
 
 #---------------------------------------------------------------------
 
-** Take Note Symbol
+**.take_note_symbol Take Note Symbol
 
-id:: take_note_symbol
+===
 
-[[take_note]]
+[take_note]
 
 # LaTeX: \marginpar{\Huge\Writinghand}
 # HTML:  <b>(take note!)</b>
@@ -512,9 +508,9 @@ id:: take_note_symbol
 
 #---------------------------------------------------------------------
 
-** Smiley Symbol
+**.smiley_symbol Smiley Symbol
 
-id:: smiley_symbol
+===
 
 :-)
 
@@ -524,9 +520,9 @@ id:: smiley_symbol
 
 #---------------------------------------------------------------------
 
-** Frowny Symbol
+**.frowny_symbol Frowny Symbol
 
-id:: frowny_symbol
+===
 
 :-(
 
@@ -536,9 +532,9 @@ id:: frowny_symbol
 
 #---------------------------------------------------------------------
 
-** Keystroke Symbol 1
+**.keystroke_symbol_1 Keystroke Symbol 1
 
-id:: keystroke_symbol_1
+===
 
 [[Enter]]
 
@@ -548,9 +544,9 @@ id:: keystroke_symbol_1
 
 #---------------------------------------------------------------------
 
-** Keystroke Symbol 2
+**.keystroke_symbol_2 Keystroke Symbol 2
 
-id:: keystroke_symbol_2
+===
 
 [[Ctrl]]-[[Alt]]-[[Del]].
 
@@ -560,9 +556,9 @@ id:: keystroke_symbol_2
 
 #---------------------------------------------------------------------
 
-** Left Arrow Symbol
+**.left_arrow_symbol Left Arrow Symbol
 
-id:: left_arrow_symbol
+===
 
 <-
 
@@ -572,9 +568,9 @@ id:: left_arrow_symbol
 
 #---------------------------------------------------------------------
 
-** Right Arrow Symbol
+**.right_arrow_symbol Right Arrow Symbol
 
-id:: right_arrow_symbol
+===
 
 ->
 
@@ -584,9 +580,9 @@ id:: right_arrow_symbol
 
 #---------------------------------------------------------------------
 
-** LaTeX Symbol
+**.latex_symbol LaTeX Symbol
 
-id:: latex_symbol
+===
 
 LaTeX
 
@@ -596,9 +592,9 @@ LaTeX
 
 #---------------------------------------------------------------------
 
-** TeX Symbol
+**.tex_symbol TeX Symbol
 
-id:: tex_symbol
+===
 
 Tex
 
@@ -608,9 +604,9 @@ Tex
 
 #---------------------------------------------------------------------
 
-** Copyright Symbol
+**.copyright_symbol Copyright Symbol
 
-id:: copyright_symbol
+===
 
 [c]
 
@@ -620,9 +616,9 @@ id:: copyright_symbol
 
 #---------------------------------------------------------------------
 
-** Trademark Symbol
+**.trademark_symbol Trademark Symbol
 
-id:: trademark_symbol
+===
 
 [tm]
 
@@ -632,9 +628,9 @@ id:: trademark_symbol
 
 #---------------------------------------------------------------------
 
-** Registered Trademark Symbol
+**.reg_trademark_symbol Registered Trademark Symbol
 
-id:: reg_trademark_symbol
+===
 
 [rtm]
 
@@ -644,94 +640,92 @@ id:: reg_trademark_symbol
 
 #---------------------------------------------------------------------
 
-** Double Quotes
+**.double_quotes Double Quotes
 
-id:: double_quotes
+===
 
 This is a ``double quoted phrase.''
 
 #---------------------------------------------------------------------
 
-** Single Quotes
+**.single_quotes Single Quotes
 
-id:: single_quotes
+===
 
 This is a `single quoted phrase.'
 
 #---------------------------------------------------------------------
 
-** Section Symbol
+**.section_symbol Section Symbol
 
-id:: section_symbol
+===
 
 [section]
 
 #---------------------------------------------------------------------
 
-** Emdash Symbol
+**.emdash_symbol Emdash Symbol
 
-id:: emdash_symbol
+===
 
 Use an emdash -- sparingly -- as a big comma.
 
 #---------------------------------------------------------------------
 
-** Bold
+**.bold Bold
 
-id:: bold
+===
 
 !!bold text!!
 
 #---------------------------------------------------------------------
 
-** Italic
+**.italic Italic
 
-id:: italic
+===
 
 ~~italicized text~~
 
 #---------------------------------------------------------------------
 
-** Underline
+**.underline Underline
 
-id:: underline
+===
 
 __underlined text__
 
 #---------------------------------------------------------------------
 
-** Fixed Width
+**.fixedwidth Fixed Width
 
-id:: fixedwidth
+===
 
 ||fixedwidth text||
 
 #---------------------------------------------------------------------
 
-** Superscript
+**.superscript Superscript
 
-id:: superscript
+===
 
 ^^superscript text^^
 
 #---------------------------------------------------------------------
 
-** Subscript
+**.subscript Subscript
 
-id:: subscript
+===
 
 ,,subscripted text,,
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # sources
 
----SOURCE
+>>>SOURCE.cms15
 
 source_type:: book
 
 title:: The Chicago Manual of Style
-
-label:: cms15
 
 editor:: William S. Strong
 
@@ -747,7 +741,7 @@ address:: Chicago 60637
 
 note:: [url:http://www.chicagomanualofstyle.org]
 
----SOURCE
+<<<SOURCE
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # local emacs variables

@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000089
 
 title:: Represent an Acronym Definition
-
-label:: rq-000089
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000327
+part_of:: rq-000327
 
 type:: data format
 
@@ -24,7 +20,7 @@ a formal definition of an acronyms used in a document.  The data
 format representation of an acronym definition must allow but not
 mandate newline characters within an acronym definition.
 
-######################################################################
+===
 
 index:: rq-000089; acronym!definition
 

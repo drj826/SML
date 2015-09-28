@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000086
 
 title:: Represent Specified Data Types
-
-label:: rq-000086
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000107
+part_of:: rq-000107
 
 type:: data format
 
@@ -24,7 +20,7 @@ description:: The data format must have the capability to represent
 specified data types.  The purpose of this requirement is to ensure
 the data format defines and makes consistent use of basic data types.
 
-######################################################################
+===
 
 index:: rq-000086; data types
 

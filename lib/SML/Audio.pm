@@ -8,7 +8,7 @@ use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Environment';
+extends 'SML::Division';
 
 use namespace::autoclean;
 
@@ -44,13 +44,17 @@ application to insert an audio clip into the document.
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Audio"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
-  extends SML::Environment
+  extends SML::Division
 
-  my $aud = SML::Audio->new();
+  my $audio = SML::Audio->new
+                (
+                  id      => $id,
+                  library => $library,
+                );
 
 =head1 DESCRIPTION
 

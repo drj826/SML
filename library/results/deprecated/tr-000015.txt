@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000015
 
 ######################################################################
 
 title:: Division.pm Unit Test Case Results
-
-label:: tr-000015
 
 revision:: $Revision: 15128 $
 

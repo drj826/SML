@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000054
 
 title:: INVALID ACRONYM REFERENCE SYNTAX
 
-id:: td-000054
-
-######################################################################
+===
 
 This SML document contains an invalid acronym reference. [ac:BOGUS
 

@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000312
 
 title:: Format a LaTeX Section Sign
-
-label:: rq-000312
 
 revision:: $Revision: 11687 $
 
@@ -12,13 +8,13 @@ date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000205
+part_of:: rq-000205
 
 type:: technical
 
 description:: The software shall format a LaTeX section sign.
 
-######################################################################
+===
 
 index:: rq-000312; section sign!format LaTeX
 

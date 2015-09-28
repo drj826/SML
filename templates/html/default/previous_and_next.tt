@@ -1,9 +1,5 @@
-[%#
-
-$Id: $
-
-%]
 [%- SET document = self.get_containing_document -%]
+
 <!-- previous and next sections -->
 <table width="100%">
 <tr>

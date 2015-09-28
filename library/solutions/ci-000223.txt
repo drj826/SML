@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000223
 
 title:: `render_bibliography' Subroutine
-
-label:: ci-000223
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:render_bibliography] subroutine 
 
-######################################################################
+===
 
 index:: ci-000223; subroutine![cmd:render_bibliography]
 

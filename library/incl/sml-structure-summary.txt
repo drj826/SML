@@ -1,4 +1,8 @@
-###############################################################COMMENT
+>>>RAW.sml-structure-summary
+
+===
+
+>>>COMMENT
 
 $Author: don.johnson $
 
@@ -6,7 +10,7 @@ $Revision: 15125 $
 
 $Date: 2013-07-07 09:24:43 -0600 (Sun, 07 Jul 2013) $
 
-###############################################################COMMENT
+<<<COMMENT
 
 : !!Paragraphs.!! ([ref:paragraphs]) A paragraph is simply a block of
 text, not indented, terminated with a blank line.  Paragraphs are
@@ -130,9 +134,11 @@ index:: tables
 
 :
 
-  ---table
+  >>>TABLE.tab-my-table
+  
   title:: My Table
-  label:: tab-my-table
+
+  ===
 
   :: column 1 heading
   :: column 2 heading
@@ -142,7 +148,8 @@ index:: tables
   ---
   : row 2 column 1
   : row 2 column 2
-  ---table
+
+  <<<TABLE
 
 ----------------------------------------------------------------------
 
@@ -155,11 +162,11 @@ index:: figures
 
 :
 
-  ---figure
+  >>>FIGURE.fig-my-figure
   title:: My Figure
-  label:: fig-my-figure
+  ===
   image:: images/my-figure.png
-  ---figure
+  <<<FIGURE
 
 ----------------------------------------------------------------------
 
@@ -174,11 +181,11 @@ index:: listings
 
 :
 
-  ---listing
+  >>>LISTING.lis-my-listing
   title:: My Listing
-  label:: lis-my-listing
+  ===
   file::  files/my-listing.txt
-  ---listing
+  <<<LISTING
 
 ----------------------------------------------------------------------
 
@@ -191,11 +198,11 @@ index:: attachments
 
 :
 
-  ---attachment
+  >>>ATTACHMENT.att-my-attachment
   title:: My Attachment
-  label:: att-my-attachment
+  ===
   file::  files/my-attachment.txt
-  ---attachment
+  <<<ATTACHMENT
 
 ----------------------------------------------------------------------
 
@@ -209,13 +216,15 @@ index:: preformatted text
 
 :
 
-  ---preformatted
+  >>>PREFORMATTED
+
+  ===
 
   some
     preformatted
       text...
 
-  ---preformatted
+  <<<PREFORMATTED
 
 ----------------------------------------------------------------------
 
@@ -269,16 +278,15 @@ index:: sources; citations; bibliography
 
 :
 
-  ---source
-  source::    book
-  label::     Goossens94
-  title::     The LaTeX Companion
-  author::    Michel Goossens
-  author::    Frank Mittelbach
-  author::    Alexander Samarin
-  publisher:: Addison-Wesley
-  year::      1994
-  ---source
+  >>>SOURCE.Goossens94
+  source_type:: book
+  title::       The LaTeX Companion
+  author::      Michel Goossens
+  author::      Frank Mittelbach
+  author::      Alexander Samarin
+  publisher::   Addison-Wesley
+  year::        1994
+  <<<SOURCE
 
 ----------------------------------------------------------------------
 
@@ -306,13 +314,11 @@ index:: sidebars
 
 :
 
-  ---sidebar
+  >>>SIDEBAR.sid-my-sidebar
   title:: My sidebar
-  label:: sid-my-sidebar
-
+  ===
   My sidebar content...
-
-  ---sidebar
+  <<<SIDEBAR
 
 ----------------------------------------------------------------------
 
@@ -363,3 +369,5 @@ index:: index; gophers
 # End:
 
 ######################################################################
+
+<<<RAW

@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000078
 
 title:: Represent `Insert' Statements
-
-label:: rq-000078
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000073
+part_of:: rq-000073
 
 type:: data format
 
@@ -22,7 +18,7 @@ description:: The data format shall have the capability to insert
 blocks of content defined elsewhere in the document.  A block of
 content is one or more ~~whole~~ lines of text.
 
-######################################################################
+===
 
 index:: rq-000078; inserts
 

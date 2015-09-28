@@ -1,10 +1,12 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000428
 
 title:: SML/TableCell.pm Module
 
-label:: ci-000428
+type:: software
+
+part_of:: ci-000004
+
+description:: The SML/TableCell.pm Module...
 
 revision:: $Revision: 15144 $
 
@@ -12,24 +14,18 @@ date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-type:: software
-
-parent:: ci-000004
-
-description:: The SML/TableCell.pm Module...
-
-######################################################################
+===
 
 index:: ci-000428; table cell
 
----LISTING
+>>>LISTING.lis-table-cell-pm
 title::     TableCell.pm
-label::     lis-table-cell-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../lib/SML/TableCell.pm
----LISTING
+===
+file:: ../../lib/SML/TableCell.pm
+<<<LISTING
 
 [clearpage]
 

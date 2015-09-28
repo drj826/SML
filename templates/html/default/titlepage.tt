@@ -1,15 +1,35 @@
-== title page ==
+[% WRAPPER page.tt -%]
 
-[%#
+<br/>
+<br/>
+<br/>
 
-$Id: $
+<hr align="center" noshade size="4" width="60%">
+<h1 align="center">[% document.get_property_value('title') %]</h1>
+<hr align="center" noshade size="4" width="60%">
 
-%]
-<html>
-<head>
-<title>[% document.get_property_value('title') %]</title>
-</head>
-<body>
-<h1>[% document.get_property_value('title') %]</h1>
-</body>
-</html>
+<br/>
+<br/>
+<br/>
+
+[% IF document.has_property('subtitle') %]
+<p align="center">[% document.get_property_value('subtitle') %]</p>
+[% END %]
+
+<br/>
+<br/>
+<br/>
+
+[%- IF document.has_property('version') -%]
+<p align="center">Version [% document.get_property_value('version') %]</p>
+[%- END -%]
+
+[%- IF document.has_property('date') -%]
+<p align="center">[% document.get_property_value('date') %]</p>
+[%- END -%]
+
+[%- IF document.has_property('organization') -%]
+<p align="center">[% document.get_property_value('organization') -%]</p>
+[%- END -%]
+
+[%- END -%]

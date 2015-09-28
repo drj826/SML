@@ -1,21 +1,15 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000034
 
 title:: Valid ID Reference
 
-id:: td-000034
-
-######################################################################
+===
 
 This document illustrates a valid ID reference.  A valid ID reference
 looks like [id:my-requirement].
 
->>>problem
+>>>problem.my-requirement
 
 title:: My Requirement
-
-label:: my-requirement
 
 type:: technical
 

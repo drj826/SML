@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000016
 
 ######################################################################
 
 title:: Document.pm Unit Test Case Results
-
-label:: tr-000016
 
 revision:: $Revision: 15128 $
 

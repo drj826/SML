@@ -1,16 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000003
 
 title:: SML/Parser.pm Module
-
-label:: ci-000003
-
-revision:: $Revision: 623 $
-
-date:: $Date: 2009-09-08 14:49:48 -0600 (Tue, 08 Sep 2009) $
-
-author:: $Author: don.johnson $
 
 type:: perl
 
@@ -18,9 +8,15 @@ type:: class
 
 type:: unit
 
-parent:: ci-000004
+part_of:: ci-000004
 
 description:: The Parser.pm perl module implements the Parser class.
+
+revision:: $Revision: 623 $
+
+date:: $Date: 2009-09-08 14:49:48 -0600 (Tue, 08 Sep 2009) $
+
+author:: $Author: don.johnson $
 
 #---------------------------------------------------------------------
 # Allocations
@@ -75,7 +71,7 @@ allocation:: al-000271 # rq-000190 Validate Doc Contains No Redundant Allocation
 allocation:: al-000277 # rq-000100 Parse SML Conditional Divisions
 allocation:: al-000278 # rq-000101 Parse SML Comment Divisions
 
-######################################################################
+===
 
 index:: ci-000003
 
@@ -85,24 +81,23 @@ Here is the definition of `parser' from the glossary:
 
 [ref:lis-parser-pm] shows the Parser.pm file.
 
----LISTING
+>>>LISTING.lis-parser-pm
 title::     Parser.pm
-label::     lis-parser-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../lib/SML/Parser.pm
----LISTING
+===
+file:: ../../lib/SML/Parser.pm
+<<<LISTING
 
 [ref:fig-ad-parsefile] is an activity diagram that describes how the
 parser works.
 
----FIGURE
+>>>FIGURE.fig-ad-parsefile
 title:: SML::Parser::parsefile Activity Diagram
-label:: fig-ad-parsefile
 image:: ../files/images/ad-parsefile.png
 width:: 6in
----FIGURE
+<<<FIGURE
 
 <<<solution
 

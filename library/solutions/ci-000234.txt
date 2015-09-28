@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000234
 
 title:: `list_current_contexts' Subroutine
-
-label:: ci-000234
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:list_current_contexts] subroutine 
 
-######################################################################
+===
 
 index:: ci-000234; subroutine![cmd:list_current_contexts]
 

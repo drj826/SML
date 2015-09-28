@@ -77,13 +77,16 @@ C<SML::BulletListItem> - an item in a bullet list.
 
 =head1 VERSION
 
-This documentation refers to L<"SML::BulletListItem"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
   extends SML::ListItem
 
-  my $bli = SML::BulletListItem->new();
+  my $item = SML::BulletListItem->new
+               (
+                 library => $library,
+               );
 
 =head1 DESCRIPTION
 

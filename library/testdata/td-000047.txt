@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000047
 
 title:: INVALID SUPERSCRIPT MARKUP
 
-id:: td-000047
-
-######################################################################
+===
 
 This document contains an example of INVALID superscript markup.
 

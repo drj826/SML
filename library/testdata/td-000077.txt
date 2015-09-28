@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000077
 
 title:: Glossary Term Reference Containing Newline
 
-label:: td-000077
-
-######################################################################
+===
 
 This test data file exhibits a glossary term reference that contains a
 newline.
@@ -25,15 +21,11 @@ configuration item, control changes to those characteristics, record
 and report change processing and implementation status, and verify
 compliance with specified requirements. [cite:ieee-std-610-12-1990]
 
-######################################################################
-
----SOURCE
+>>>SOURCE.ieee-std-610-12-1990
 
 source_type:: misc
 
 title:: IEEE Standard Glossary of Software Engineering Terminology
-
-label:: ieee-std-610-12-1990
 
 year:: 1990
 
@@ -47,8 +39,6 @@ documentation; software and system testing; software architecture;
 software development process; software development techniques; and
 software tools.
 
----SOURCE
-
-######################################################################
+<<<SOURCE
 
 <<<DOCUMENT

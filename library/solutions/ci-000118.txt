@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000118
 
 title:: `begin_rcsinfo' Subroutine
-
-label:: ci-000118
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:begin_rcsinfo] subroutine 
 
-######################################################################
+===
 
 index:: ci-000118; subroutine![cmd:begin_rcsinfo]
 

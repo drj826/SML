@@ -1,10 +1,15 @@
->>>test
-
-######################################################################
+>>>test.tc-000024
 
 title:: Figure.pm Unit Test Case
 
-label:: tc-000024
+priority:: routine
+
+type:: unit
+
+part_of:: tc-000001
+
+description:: This is the unit test case for the Figure.pm Perl
+module that implements the SML::Figure class.
 
 revision:: $Revision: 15145 $
 
@@ -12,42 +17,33 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-priority:: routine
-
-type:: unit
-
-parent:: tc-000001
-
-description:: This is the unit test case for the Figure.pm Perl
-module that implements the SML::Figure class.
-
-######################################################################
+===
 
 index:: tc-000024; unit test case!Figure.pm
 
 [ref:lis-figure-pm-unit-test-case] shows the unit test case for
 [file:Figure.pm].
 
----LISTING
+>>>LISTING.lis-figure-pm-unit-test-case
 title::       Figure.t - Unit Test Case for Figure.pm
-label::       lis-figure-pm-unit-test-case
 numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../t/Figure.t
----LISTING
+===
+file:: ../../t/Figure.t
+<<<LISTING
 
 [ref:lis-figure-pm-unit-test-results] shows the results of executing
 the [file:Figure.pm] unit test case.
 
----LISTING
+>>>LISTING.lis-figure-pm-unit-test-results
 title::     Figure.pm Unit Test Case Results
-label::     lis-figure-pm-unit-test-results
 numbers::   left
 fontsize::  footnotesize
-script::    scripts/run-unit-test.bat Figure.t
----LISTING
+===
+script:: scripts/run-unit-test.bat Figure.t
+<<<LISTING
 
 <<<test
 

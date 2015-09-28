@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000388
 
 title:: SML/CommentDivision.pm Module
-
-label:: ci-000388
 
 revision:: $Revision: 15144 $
 
@@ -14,22 +10,22 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000004
+part_of:: ci-000004
 
 description:: The SML/CommentDivision.pm Module...
 
-######################################################################
+===
 
 index:: ci-000388
 
----LISTING
+>>>LISTING.lis-comment-pm
 title::     CommentDivision.pm
-label::     lis-comment-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../lib/SML/CommentDivision.pm
----LISTING
+===
+file:: ../../lib/SML/CommentDivision.pm
+<<<LISTING
 
 [clearpage]
 

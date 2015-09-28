@@ -98,10 +98,14 @@ sub get_entity_allowed_property_list {
 
   my $href = $self->_get_properties_by_entity_name_hash->{$entity_name};
 
-  if ( not defined $href or not scalar keys %{ $href } )
+  if ( not defined $href )
     {
-      $logger->warn("NO PROPERTIES DEFINED for $entity_name");
-      return 0;
+      return [];
+    }
+
+  if ( not scalar keys %{ $href } )
+    {
+      return [];
     }
 
   return [ sort keys %{ $href } ];
@@ -294,31 +298,67 @@ sub allows_entity {
 
 ######################################################################
 
-sub allows_region {
+sub allows_division {
 
-  my $self        = shift;
-  my $entity_name = shift;
+  my $self = shift;
+  my $name = shift;
 
-  if ( exists $self->_get_types_by_entity_name_hash->{$entity_name}
+  if ( exists $self->_get_types_by_entity_name_hash->{$name}
        and
        (
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Region'
+	# $self->_get_types_by_entity_name_hash->{$name} eq 'SML::Region'
+	# or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Division'
 	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Demo'
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Demo'
 	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Entity'
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Entity'
 	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Exercise'
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Exercise'
 	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Quotation'
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Quotation'
 	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::RESOURCES'
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::RESOURCES'
 	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Slide'
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Slide'
 	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Library'
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Library'
 	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Document'
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Document'
+	or
+	# $self->_get_types_by_entity_name_hash->{$name} eq 'SML::Environment'
+	# or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Assertion'
+	or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Attachment'
+	or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Audio'
+	or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Baretable'
+	or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Epigraph'
+	or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Figure'
+	or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Footer'
+	or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Header'
+	or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Keypoints'
+	or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Listing'
+	or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::PreformattedDivision'
+	or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Revisions'
+	or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Sidebar'
+	or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Source'
+	or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Table'
+	or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Video'
        )
      )
 
@@ -333,58 +373,97 @@ sub allows_region {
 
 ######################################################################
 
-sub allows_environment {
+# sub allows_region {
 
-  my $self        = shift;
-  my $entity_name = shift;
+#   my $self        = shift;
+#   my $entity_name = shift;
 
-  if ( exists $self->_get_types_by_entity_name_hash->{$entity_name}
-       and
-       (
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Environment'
-	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Assertion'
-	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Attachment'
-	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Audio'
-	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Baretable'
-	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Epigraph'
-	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Figure'
-	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Footer'
-	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Header'
-	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Keypoints'
-	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Listing'
-	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::PreformattedDivision'
-	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Revisions'
-	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Sidebar'
-	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Source'
-	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Table'
-	or
-	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Video'
-       )
-     )
+#   if ( exists $self->_get_types_by_entity_name_hash->{$entity_name}
+#        and
+#        (
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Region'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Demo'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Entity'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Exercise'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Quotation'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::RESOURCES'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Slide'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Library'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Document'
+#        )
+#      )
 
-    {
-      return 1;
-    }
-  else
-    {
-      return 0;
-    }
-}
+#     {
+#       return 1;
+#     }
+#   else
+#     {
+#       return 0;
+#     }
+# }
+
+######################################################################
+
+# sub allows_environment {
+
+#   my $self        = shift;
+#   my $entity_name = shift;
+
+#   if ( exists $self->_get_types_by_entity_name_hash->{$entity_name}
+#        and
+#        (
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Environment'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Assertion'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Attachment'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Audio'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Baretable'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Epigraph'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Figure'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Footer'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Header'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Keypoints'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Listing'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::PreformattedDivision'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Revisions'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Sidebar'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Source'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Table'
+# 	or
+# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Video'
+#        )
+#      )
+
+#     {
+#       return 1;
+#     }
+#   else
+#     {
+#       return 0;
+#     }
+# }
 
 ######################################################################
 

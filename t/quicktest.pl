@@ -11,22 +11,12 @@ use lib "../lib";
 
 use SML::Library;
 
-my $filename = 'td-000001.txt';
-my $docid    = 'td-000001';
-my $library  = SML::Library->new(config_file=>'library.conf');
-my $parser   = $library->get_parser;
-my $fragment = $parser->create_fragment($filename);
-my $document = $library->get_document($docid);
+my $id        = 'sml';
+my $rendition = 'html';
+my $style     = 'default';
 
-print $document->dump_part_structure,"\n\n";
-
-my $result = $document->render('html','default'),"\n\n";
-
-print $result, "\n\n";
-
-open my $fh, '>', '../library/testdata/expected/sml/default/result.txt';
-print $fh $result;
-close $fh;
+my $library   = SML::Library->new(config_file=>'library.conf');
+my $result    = $library->publish($id,$rendition,$style);
 
 ######################################################################
 

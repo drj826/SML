@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000032
 
 ######################################################################
 
 title:: Region.pm Unit Test Case Results
-
-label:: tr-000032
 
 revision:: $Revision: 15128 $
 

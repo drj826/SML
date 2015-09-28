@@ -1,20 +1,10 @@
->>>test
-
-######################################################################
+>>>test.tc-000040
 
 title:: Analysis
 
-label:: tc-000040
-
-revision:: $Revision: 10967 $
-
-date:: $Date: 2012-10-27 14:28:23 -0600 (Sat, 27 Oct 2012) $
-
-author:: $Author: don.johnson $
-
 priority:: routine
 
-parent:: tc-000039
+part_of:: tc-000039
 
 description:: The purpose of this test case is to serve as an abstract
 method of validating software quality until a more concrete method can
@@ -22,9 +12,14 @@ be created.  Compliance with requirements is determined by models or
 by interpreting results using established principles. For example, a
 design's performance might be analyzed by running simulations.
 
-######################################################################
+revision:: $Revision: 10967 $
+
+date:: $Date: 2012-10-27 14:28:23 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+===
 
 index:: tc-000040; analysis
-
 
 <<<test

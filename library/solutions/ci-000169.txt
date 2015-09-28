@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000169
 
 title:: `end_test' Subroutine
-
-label:: ci-000169
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:end_test] subroutine 
 
-######################################################################
+===
 
 index:: ci-000169; subroutine![cmd:end_test]
 

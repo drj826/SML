@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000168
 
 title:: Represent an Option to `Include Raw'
-
-label:: rq-000168
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000065
+part_of:: rq-000065
 
 type:: data format
 
@@ -23,7 +19,7 @@ an `include' raw statement to include content from another locations
 ~~as raw text~~.  This means insert the contents of an external file
 exactly as-is line-for-line.
 
-######################################################################
+===
 
 index:: rq-000168; include!raw
 

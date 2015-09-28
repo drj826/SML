@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000269
 
 title:: Generate HTML List of Exercises
-
-label:: rq-000269
 
 revision:: $Revision: 11579 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000001
+part_of:: rq-000001
 
 priority:: routine
 
@@ -22,7 +18,7 @@ description:: The software shall generate an HTML list of
 [g:sml:exercise]s.  The purpose of this listing is to enable
 readers to quickly navigate to any exercise in the document.
 
-######################################################################
+===
 
 index:: rq-000269; list of exercises!HTML; HTML list of exercises
 

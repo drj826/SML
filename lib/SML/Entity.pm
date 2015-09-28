@@ -8,7 +8,7 @@ use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Region';
+extends 'SML::Division';
 
 use namespace::autoclean;
 
@@ -34,7 +34,8 @@ my $logger = Log::Log4perl::get_logger('sml.Entity');
 
 sub validate {
 
-  my $self  = shift;
+  my $self = shift;
+
   my $valid = 1;
 
   foreach my $block (@{ $self->get_block_list })
@@ -94,13 +95,20 @@ meaning.
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Entity"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
-  extends SML::Region
+  extends SML::Division
 
-  my $ent = SML::Entity->new();
+  my $entity = SML::Entity->new
+                 (
+                   id      => $id,
+                   name    => $name,
+                   library => $library,
+                 );
+
+  my $boolean = $entity->validate;
 
 =head1 DESCRIPTION
 
@@ -111,7 +119,7 @@ roles.
 
 =head1 METHODS
 
-=head2 get_name
+=head2 validate
 
 =head1 AUTHOR
 

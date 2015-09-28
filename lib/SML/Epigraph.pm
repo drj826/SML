@@ -8,7 +8,7 @@ use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Environment';
+extends 'SML::Division';
 
 use namespace::autoclean;
 
@@ -39,7 +39,7 @@ __END__
 
 =head1 NAME
 
-C<SML::Epigraph> - an L<"SML::Environment"> that tells the publishing
+C<SML::Epigraph> - an L<"SML::Division"> that tells the publishing
 application to render the content text as an epigraph.
 
 =head1 VERSION
@@ -48,7 +48,7 @@ This documentation refers to L<"SML::Epigraph"> version 2.0.0.
 
 =head1 SYNOPSIS
 
-  extends SML::Environment
+  extends SML::Division
 
   my $epi = SML::Epigraph->new();
 

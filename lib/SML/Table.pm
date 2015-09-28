@@ -8,7 +8,7 @@ use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Environment';
+extends 'SML::Division';
 
 use namespace::autoclean;
 
@@ -48,7 +48,7 @@ This documentation refers to L<"SML::Table"> version 2.0.0.
 
 =head1 SYNOPSIS
 
-  extends SML::Environment
+  extends SML::Division
 
   my $tbl = SML::Table->new();
 

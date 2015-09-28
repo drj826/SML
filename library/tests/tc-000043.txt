@@ -1,20 +1,10 @@
->>>test
-
-######################################################################
+>>>test.tc-000043
 
 title:: Test
 
-label:: tc-000043
-
-revision:: $Revision: 10967 $
-
-date:: $Date: 2012-10-27 14:28:23 -0600 (Sat, 27 Oct 2012) $
-
-author:: $Author: don.johnson $
-
 priority:: routine
 
-parent:: tc-000039
+part_of:: tc-000039
 
 description:: The purpose of this test case is to serve as an abstract
 method of validating software quality until a more concrete method can
@@ -23,9 +13,14 @@ or executing an item under controlled conditions, configurations, and
 inputs in order to observe the response. Results are quantified and
 analyzed.
 
-######################################################################
+revision:: $Revision: 10967 $
+
+date:: $Date: 2012-10-27 14:28:23 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+===
 
 index:: tc-000043; test
-
 
 <<<test

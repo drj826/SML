@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000066
 
 title:: Represent Comments
-
-label:: rq-000066
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000009
+part_of:: rq-000009
 
 type:: data format
 
@@ -26,7 +22,7 @@ not appear in published documents, (2) allow authors to temporarily
 ``comment out'' document content.  This requirement serves as a
 container for various data format comment representation requirements.
 
-######################################################################
+===
 
 index:: rq-000066; comments
 

@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000415
 
 title:: SML/Definition.pm Module
-
-label:: ci-000415
 
 revision:: $Revision: 10975 $
 
@@ -14,12 +10,12 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000004
+part_of:: ci-000004
 
 description:: The Definition.pm module implements the SML::Definition
 class. A definition is an element that defines an key/value pair.
 
-######################################################################
+===
 
 index:: ci-000415; Definition.pm
 

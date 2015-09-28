@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000243
 
 title:: Format HTML Italicized Text
-
-label:: rq-000243
 
 revision:: $Revision: 11687 $
 
@@ -12,13 +8,13 @@ date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000205
+part_of:: rq-000205
 
 type:: technical
 
 description:: The software shall format HTML italicized text.
 
-######################################################################
+===
 
 index:: rq-000243; italicized text!format HTML
 

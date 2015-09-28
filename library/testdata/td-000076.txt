@@ -1,3 +1,5 @@
 * Section Fragment
 
+===
+
 This test data file is a fragment that contains a section.

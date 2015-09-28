@@ -1087,6 +1087,7 @@ has 'generate_element' =>
    is      => 'ro',
    isa     => 'Str',
    default => '^generate::\s*([\w\-]+)(\([\w\-]+\))?\s*(\#(.*))?$',
+   #                         1        2                3  4
   );
 
 # $1 = generated content type
@@ -1101,17 +1102,15 @@ has 'include_element' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(\*+\s+)?include::([\w\-\*\$]+:)*\s+(.+?)(\s+FROM\s+(.+?))?\s*(\#(.*))?$',
-   #            1                 2                 3    4          5         6  7
+   default => '^(\*+\s+)?include::([\w\-\*\$]+:)*\s+(.+?)\s*(\#(.*))?$',
+   #            1                 2                 3       4  5
   );
 
 # $1 = leading asterisks
 # $2 = args
-# $3 = id or filespec
+# $3 = division ID
 # $4
-# $5 = filespec
-# $6
-# $7 = comment text
+# $5 = comment text
 
 ######################################################################
 
@@ -1309,22 +1308,31 @@ has 'start_section' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(\*+)\s+(.*?)\s*$',
+   default => '^(\*+)(\.([-\w]+))?\s+(.*?)\s*$',
   );
 
 # $1 = 1 or more '*'
-# $2 = section heading
+# $2 =
+# $3 = section ID
+# $4 = section heading
 
 ######################################################################
 
-has 'comment_marker' =>
+has 'start_comment' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(#){3,}COMMENT',
+   default => '^>{3}COMMENT',
   );
 
-# $1 = 3 or more '#'
+######################################################################
+
+has 'end_comment' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^<{3}COMMENT',
+  );
 
 ######################################################################
 
@@ -1332,11 +1340,10 @@ has 'start_conditional' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(\?){3,}([\w\-]+)',
+   default => '^>{3}CONDITIONAL.([\w\-]+)',
   );
 
-# $1 = 3 or more '?'
-# $2 = conditional tag
+# $1 = conditional tag
 
 ######################################################################
 
@@ -1344,11 +1351,8 @@ has 'end_conditional' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(\?){3,}([\w\-]+)',
+   default => '^<{3}CONDITIONAL',
   );
-
-# $1 = 3 or more '?'
-# $2 = conditional tag
 
 ######################################################################
 
@@ -1365,80 +1369,100 @@ has 'end_table_row' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(-){3,}',
+   default => '^-{3}',
   );
-
-# $1 = 3 or more '-'
 
 ######################################################################
 
-has 'start_environment' =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(-){3,}([^\-][\w\-]+)',
-  );
+# has 'start_environment' =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^(-){3,}([^\-][\w\-]+)',
+#   );
 
 # $1 = 3 or more '-'
 # $2 = environment name
 
 ######################################################################
 
-has 'end_environment' =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(-){3,}([^\-][\w\-]+)',
-  );
+# has 'end_environment' =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^(-){3,}([^\-][\w\-]+)',
+#   );
 
 # $1 = 3 or more '-'
 # $2 = environment name
 
 ######################################################################
 
-has 'start_region' =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(>){3,}([\w\-]+)',
-  );
+# has 'start_region' =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^(>){3,}([\w\-]+)',
+#   );
 
 # $1 = 3 or more '>'
 # $2 = region name
 
 ######################################################################
 
-has 'end_region' =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(<){3,}([\w\-]+)',
-  );
+# has 'end_region' =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^(<){3,}([\w\-]+)',
+#   );
 
 # $1 = 3 or more '<'
 # $2 = region name
 
 ######################################################################
 
-has 'start_document' =>
+has 'start_division' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(>){3,}DOCUMENT',
+   default => '^>{3}(\w+)(\.([\w\-]+))?',
   );
 
-# $1 = 3 or more '>'
+# $1 = division name
+# $2 =
+# $3 = division ID
 
 ######################################################################
 
-has 'end_document' =>
+has 'end_division' =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(<){3,}DOCUMENT',
+   default => '^<{3}(\w+)',
   );
 
-# $1 = 3 or more '<'
+# $1 = division name
+
+######################################################################
+
+# has 'start_document' =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^>{3}DOCUMENT\s+([\w\-]+)',
+#   );
+
+# $1 = document ID
+
+######################################################################
+
+# has 'end_document' =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^<{3}DOCUMENT',
+#   );
 
 #---------------------------------------------------------------------
 # OTHER REGEXS
@@ -1827,49 +1851,31 @@ showing associated regular expressions defined by SML::Syntax:
    |    |    |    |
    |    |    |    +-- regex: end_table_row
    |    |
-   |    #-------------------------------------------------------------
-   |    # ENVIRONMENTS
-   |    #-------------------------------------------------------------
-   |    |
-   |    +-- SML::Environment
+   |    +-- SML::Assertion
+   |    +-- SML::Attachment
+   |    +-- SML::Audio
+   |    +-- SML::Baretable
+   |    +-- SML::Epigraph
+   |    +-- SML::Figure
+   |    +-- SML::Keypoints
+   |    +-- SML::Listing
+   |    +-- SML::PreformattedDivision
+   |    +-- SML::Revisions
+   |    +-- SML::Sidebar
+   |    +-- SML::Source
+   |    +-- SML::Table
+   |    +-- SML::Video
+   |
+   |    +-- SML::Demo
+   |    +-- SML::Entity
+   |    +-- SML::Exercise
+   |    +-- SML::Quotation
+   |    +-- SML::RESOURCES
+   |    +-- SML::Slide
+   |    +-- SML::Document
    |    |    |
-   |    |    +-- regex: start_environment
-   |    |    +-- regex: end_environment
-   |    |    |
-   |    |    +-- SML::Assertion
-   |    |    +-- SML::Attachment
-   |    |    +-- SML::Audio
-   |    |    +-- SML::Baretable
-   |    |    +-- SML::Epigraph
-   |    |    +-- SML::Figure
-   |    |    +-- SML::Keypoints
-   |    |    +-- SML::Listing
-   |    |    +-- SML::PreformattedDivision
-   |    |    +-- SML::Revisions
-   |    |    +-- SML::Sidebar
-   |    |    +-- SML::Source
-   |    |    +-- SML::Table
-   |    |    +-- SML::Video
-   |    |
-   |    #-------------------------------------------------------------
-   |    # REGIONS
-   |    #-------------------------------------------------------------
-   |    |
-   |    +-- SML::Region
-   |    |    |
-   |    |    +-- regex: start_region
-   |    |    +-- regex: end_region
-   |    |    |
-   |    |    +-- SML::Demo
-   |    |    +-- SML::Entity
-   |    |    +-- SML::Exercise
-   |    |    +-- SML::Quotation
-   |    |    +-- SML::RESOURCES
-   |    |    +-- SML::Slide
-   |    |    +-- SML::Document
-   |    |    |    |
-   |    |    |    +-- regex: start_document
-   |    |    |    +-- regex: end_document
+   |    |    +-- regex: start_document
+   |    |    +-- regex: end_document
 
 =head1 METHODS
 

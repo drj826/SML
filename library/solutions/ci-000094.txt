@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000094
 
 title:: `process_comment_block_marker' Subroutine
-
-label:: ci-000094
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:process_comment_block_marker] subroutine 
 
-######################################################################
+===
 
 index:: ci-000094; subroutine![cmd:process_comment_block_marker]
 

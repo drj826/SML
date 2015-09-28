@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000117
 
 title:: `end_region_preamble' Subroutine
-
-label:: ci-000117
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:end_region_preamble] subroutine 
 
-######################################################################
+===
 
 index:: ci-000117; subroutine![cmd:end_region_preamble]
 

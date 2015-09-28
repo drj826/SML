@@ -1,25 +1,21 @@
->>>solution
+>>>solution.ci-000001
 
-######################################################################
+title:: Semantic Manuscript Language (SML)
 
-title:: Structured Manuscript Language (SML)
+type:: data format
 
-label:: ci-000001
+description:: The [g:sml:Semantic Manuscript Language] [g:sml:SML] is
+a minimalistic [g:sml:descriptive markup] language designed to be
+human readable, easy to edit, easy to automatically generate, able to
+express and validate semantic relationships, and contain all
+information necessary to publish professional documentation from plain
+text manuscripts.
 
 revision:: $Revision: 623 $
 
 date:: $Date: 2009-09-08 14:49:48 -0600 (Tue, 08 Sep 2009) $
 
 author:: $Author: don.johnson $
-
-type:: data format
-
-description:: The [g:sml:Structured Manuscript Language] [g:sml:SML]
-is a minimalistic [g:sml:descriptive markup] language designed to be
-human readable, easy to edit, easy to automatically generate, able to
-express and validate semantic relationships, and contain all
-information necessary to publish professional documentation from plain
-text manuscripts.
 
 #---------------------------------------------------------------------
 # Allocations
@@ -169,7 +165,7 @@ allocation:: al-000129 # rq-000097 Represent a Source Citation
 allocation:: al-000275 # rq-000197 Declare Entity Types
 allocation:: al-000274 # rq-000196 Identify Entities by Type
 
-######################################################################
+===
 
 index:: Publish.pm
 

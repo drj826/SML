@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000035
 
 ######################################################################
 
 title:: Demo.pm Unit Test Case Results
-
-label:: tr-000035
 
 revision:: $Revision: 15128 $
 

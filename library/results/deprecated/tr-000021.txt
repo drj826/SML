@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000021
 
 ######################################################################
 
 title:: Attachment.pm Unit Test Case Results
-
-label:: tr-000021
 
 revision:: $Revision: 15128 $
 

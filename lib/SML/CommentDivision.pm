@@ -44,13 +44,17 @@ rendered in published output.
 
 =head1 VERSION
 
-This documentation refers to L<"SML::CommentDivision"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
   extends SML::Division
 
-  my $cd = SML::CommentDivision->new();
+  my $division = SML::CommentDivision->new
+                   (
+                     id      => $id,
+                     library => $library,
+                   );
 
 =head1 DESCRIPTION
 

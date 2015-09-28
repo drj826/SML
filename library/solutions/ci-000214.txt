@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000214
 
 title:: `create_lookup_datastructure' Subroutine
-
-label:: ci-000214
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:create_lookup_datastructure] subroutine 
 
-######################################################################
+===
 
 index:: ci-000214; subroutine![cmd:create_lookup_datastructure]
 

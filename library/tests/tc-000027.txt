@@ -1,10 +1,15 @@
->>>test
-
-######################################################################
+>>>test.tc-000027
 
 title:: Sidebar.pm Unit Test Case
 
-label:: tc-000027
+priority:: routine
+
+type:: unit
+
+part_of:: tc-000001
+
+description:: This is the unit test case for the Sidebar.pm Perl
+module that implements the SML::Sidebar class.
 
 revision:: $Revision: 15145 $
 
@@ -12,42 +17,33 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-priority:: routine
-
-type:: unit
-
-parent:: tc-000001
-
-description:: This is the unit test case for the Sidebar.pm Perl
-module that implements the SML::Sidebar class.
-
-######################################################################
+===
 
 index:: tc-000027; unit test case!Sidebar.pm
 
 [ref:lis-sidebar-pm-unit-test-case] shows the unit test case for
 [file:Sidebar.pm].
 
----LISTING
+>>>LISTING.lis-sidebar-pm-unit-test-case
 title::       Sidebar.t - Unit Test Case for Sidebar.pm
-label::       lis-sidebar-pm-unit-test-case
 numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../t/Sidebar.t
----LISTING
+===
+file:: ../../t/Sidebar.t
+<<<LISTING
 
 [ref:lis-sidebar-pm-unit-test-results] shows the results of executing
 the [file:Sidebar.pm] unit test case.
 
----LISTING
+>>>LISTING.lis-sidebar-pm-unit-test-results
 title::     Sidebar.pm Unit Test Case Results
-label::     lis-sidebar-pm-unit-test-results
 numbers::   left
 fontsize::  footnotesize
-script::    scripts/run-unit-test.bat Sidebar.t
----LISTING
+===
+script:: scripts/run-unit-test.bat Sidebar.t
+<<<LISTING
 
 <<<test
 

@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000180
 
 title:: Resolve And Hide Included Text
-
-label:: rq-000180
 
 revision:: $Revision: 11687 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000108
+part_of:: rq-000108
 
 priority:: routine
 
@@ -27,7 +23,7 @@ not shown in the rendered document.  This enables authors to re-use
 properties of the hidden text without displaying the full text of the
 included file.
 
-######################################################################
+===
 
 index:: rq-000180; include
 

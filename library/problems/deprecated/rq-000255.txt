@@ -1,16 +1,8 @@
->>>problem
+>>>problem.rq-000255
 
 ######################################################################
 
 title:: Validate SML Syntax
-
-label:: rq-000255
-
-revision:: $Revision: 10973 $
-
-date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
-
-author:: $Author: don.johnson $
 
 parent:: rq-000254
 
@@ -21,6 +13,12 @@ type:: functional
 description:: The software shall validate the syntax of SML source
 files.  The purpose of this requirement is to inform the user whether
 SML source files contain syntax errors.
+
+revision:: $Revision: 10973 $
+
+date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
 
 ######################################################################
 

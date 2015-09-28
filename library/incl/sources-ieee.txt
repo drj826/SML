@@ -1,12 +1,14 @@
+>>>RAW.sources-ieee
+
+===
+
 # IEEE SOURCES
 
 ######################################################################
 
----SOURCE
+>>>SOURCE.ieee-std-1012-1986
 
-source:: misc
-
-label:: ieee-std-1012-1986
+source_type:: misc
 
 title:: IEEE Std 1012-1986 - IEEE Standard for Software Verification
 and Validation
@@ -22,15 +24,13 @@ address:: 3 Park Avenue, New York, NY 10016-5997, USA
 
 note:: This standard has been superseded by [cite:ieee-std-1012-2004]
 
----SOURCE
+<<<SOURCE
 
 ######################################################################
 
----SOURCE
+>>>SOURCE.ieee-std-1012-2004
 
-source:: misc
-
-label:: ieee-std-1012-2004
+source_type:: misc
 
 title:: IEEE Std 1012-2004 - IEEE Standard for Software Verification
 and Validation
@@ -61,18 +61,16 @@ assessment, and testing of software products.
 
 file:: ../files/ieee/ieee-std-1012-2004.pdf
 
----SOURCE
+<<<SOURCE
 
 ######################################################################
 
----SOURCE
+>>>SOURCE.ieee-std-1471-2000
 
-source:: misc
+source_type:: misc
 
 title:: IEEE Recommended Practice for Architectural Description for
 Software-Intensive Systems
-
-label:: ieee-std-1471-2000
 
 year:: 2000
 
@@ -87,17 +85,15 @@ standards, and examples of usage.
 
 file:: ../files/ieee/ieee-std-1471-2000.pdf
 
----SOURCE
+<<<SOURCE
 
 ######################################################################
 
----SOURCE
+>>>SOURCE.ieee-std-610-12-1990
 
-source:: misc
+source_type:: misc
 
 title:: IEEE Standard Glossary of Software Engineering Terminology
-
-label:: ieee-std-610-12-1990
 
 year:: 1990
 
@@ -113,17 +109,15 @@ software tools.
 
 file:: ../files/ieee/ieee-std-610-12-1990.pdf
 
----SOURCE
+<<<SOURCE
 
 ######################################################################
 
----SOURCE
+>>>SOURCE.ieee-std-1002-1987
 
-source:: misc
+source_type:: misc
 
 title:: IEEE Standard Taxonomy for Software Engineering Standards
-
-label:: ieee-std-1002-1987
 
 year:: 1987
 
@@ -137,17 +131,15 @@ which a software engineer would be reasonably acquainted.
 
 file:: ../files/ieee/ieee-std-1002-1987.pdf
 
----SOURCE
+<<<SOURCE
 
 ######################################################################
 
----SOURCE
+>>>SOURCE.ieee-std-1008-1987
 
-source:: misc
+source_type:: misc
 
 title:: IEEE Standard for Software Unit Testing
-
-label:: ieee-std-1008-1987
 
 year:: 1987
 
@@ -164,18 +156,16 @@ D. Note that these Appendixes are not a part of this standard.
 
 file:: ../files/ieee/ieee-std-1008-1987.pdf
 
----SOURCE
+<<<SOURCE
 
 ######################################################################
 
----SOURCE
+>>>SOURCE.ieee-std-12207-2008
 
-source:: misc
+source_type:: misc
 
 title:: Systems and software engineering -- Software Life cycle
 processes
-
-label:: ieee-std-12207-2008
 
 year:: 2008
 
@@ -200,17 +190,15 @@ to IEEE standards.
 
 file:: ../files/ieee/ieee-std-12207-2008.pdf
 
----SOURCE
+<<<SOURCE
 
 ######################################################################
 
----SOURCE
+>>>SOURCE.ieee-std-15288-2008
 
-source:: misc
+source_type:: misc
 
 title:: Systems and software engineering -- System life cycle processes
-
-label:: ieee-std-15288-2008
 
 year:: 2008
 
@@ -226,17 +214,15 @@ of a system.
 
 file:: ../files/ieee/ieee-std-15288-2008.pdf
 
----SOURCE
+<<<SOURCE
 
 ######################################################################
 
----SOURCE
+>>>SOURCE.ieee-std-829-2008
 
-source:: misc
+source_type:: misc
 
 title:: IEEE Standard for Software and System Test Documentation
-
-label:: ieee-std-829-2008
 
 year:: 2008
 
@@ -257,7 +243,7 @@ validation of software and software-based system products.
 
 file:: ../files/ieee/ieee-std-829-2008.pdf
 
----SOURCE
+<<<SOURCE
 
 ######################################################################
 
@@ -270,6 +256,8 @@ file:: ../files/ieee/ieee-std-829-2008.pdf
 # End:
 
 ######################################################################
+
+<<<RAW
 
 >>>RESOURCES
 3a5a1ec73a23a5f723330c1ef62e7d0699553154 files/ieee/ieee-std-1002-1987.pdf

@@ -1,10 +1,15 @@
->>>test
-
-######################################################################
+>>>test.tc-000056
 
 title:: Paragraph.pm Unit Test Case
 
-label:: tc-000056
+priority:: routine
+
+type:: unit
+
+part_of:: tc-000001
+
+description:: This is the unit test case for the Paragraph.pm Perl
+module that implements the SML::Paragraph class.
 
 revision:: $Revision: 15145 $
 
@@ -12,42 +17,33 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-priority:: routine
-
-type:: unit
-
-parent:: tc-000001
-
-description:: This is the unit test case for the Paragraph.pm Perl
-module that implements the SML::Paragraph class.
-
-######################################################################
+===
 
 index:: tc-000056; unit test case!Paragraph.pm
 
 [ref:lis-paragraph-pm-unit-test-case] shows the unit test for
 [file:Paragraph.pm].
 
----LISTING
+>>>LISTING.lis-paragraph-pm-unit-test-case
 title::       Paragraph.t - Unit Test Case for Paragraph.pm
-label::       lis-paragraph-pm-unit-test-case
 numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../t/Paragraph.t
----LISTING
+===
+file:: ../../t/Paragraph.t
+<<<LISTING
 
 [ref:lis-paragraph-pm-unit-test-results] shows the results of
 executing the Paragraph.pm unit test case.
 
----LISTING
+>>>LISTING.lis-paragraph-pm-unit-test-results
 title::     Paragraph.pm Unit Test Case Results
-label::     lis-paragraph-pm-unit-test-results
 numbers::   left
 fontsize::  footnotesize
-script::    scripts/run-unit-test.bat Paragraph.t
----LISTING
+===
+script:: scripts/run-unit-test.bat Paragraph.t
+<<<LISTING
 
 <<<test
 

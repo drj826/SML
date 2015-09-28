@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000005
 
 ######################################################################
 
 title:: Parser.pm Unit Test Case Results
-
-label:: tr-000005
 
 revision:: $Revision: 15128 $
 

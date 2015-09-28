@@ -205,11 +205,11 @@ has 'MAX_RESOLVE_CONDITIONALS' =>
 
 ######################################################################
 
-has 'MAX_GATHER_DATA' =>
+has 'MAX_PARSE_LINES' =>
   (
    isa     => 'Int',
-   reader  => 'get_MAX_GATHER_DATA',
-   writer  => 'set_MAX_GATHER_DATA',
+   reader  => 'get_MAX_PARSE_LINES',
+   writer  => 'set_MAX_PARSE_LINES',
    default => 20,
   );
 
@@ -399,8 +399,8 @@ sub BUILD {
 	$self->set_MAX_RUN_SCRIPTS($config{'MAX_RUN_SCRIPTS'});
       }
 
-      if ($config{'MAX_GATHER_DATA'}) {
-	$self->set_MAX_GATHER_DATA($config{'MAX_GATHER_DATA'});
+      if ($config{'MAX_PARSE_LINES'}) {
+	$self->set_MAX_PARSE_LINES($config{'MAX_PARSE_LINES'});
       }
 
       if ($config{'MAX_INSERT_CONTENT'}) {
@@ -513,7 +513,7 @@ A class to store options.
 
 =head2 get_MAX_RESOLVE_CONDITIONALS
 
-=head2 get_MAX_GATHER_DATA
+=head2 get_MAX_PARSE_LINES
 
 =head2 get_MAX_INSERT_CONTENT
 

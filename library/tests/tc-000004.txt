@@ -1,10 +1,15 @@
->>>test
-
-######################################################################
+>>>test.tc-000004
 
 title:: SML.pm Unit Test Case
 
-label:: tc-000004
+priority:: routine
+
+type:: unit
+
+part_of:: tc-000001
+
+description:: This is the unit test case for the SML.pm Perl module
+that implements the SML class.
 
 revision:: $Revision: 15145 $
 
@@ -12,42 +17,33 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-priority:: routine
-
-type:: unit
-
-parent:: tc-000001
-
-description:: This is the unit test case for the SML.pm Perl module
-that implements the SML class.
-
-######################################################################
+===
 
 index:: tc-000004; unit test case!SML.pm
 
 [ref:lis-sml-pm-unit-test-case] shows the unit test case for
 [file:SML.pm].
 
----LISTING
+>>>LISTING.lis-sml-pm-unit-test-case
 title::       SML.t - Unit Test Case for SML.pm
-label::       lis-sml-pm-unit-test-case
 numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../t/SML.t
----LISTING
+===
+file:: ../../t/SML.t
+<<<LISTING
 
 [ref:lis-sml-pm-unit-test-results] shows the results of executing the
 SML.pm unit test case.
 
----LISTING
+>>>LISTING.lis-sml-pm-unit-test-results
 title::     SML.pm Unit Test Case Results
-label::     lis-sml-pm-unit-test-results
 numbers::   left
 fontsize::  footnotesize
-script::    scripts/run-unit-test.bat SML.t
----LISTING
+===
+script:: scripts/run-unit-test.bat SML.t
+<<<LISTING
 
 <<<test
 

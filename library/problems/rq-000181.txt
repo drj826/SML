@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000181
 
 title:: Prevent Infinite Loops
-
-label:: rq-000181
 
 revision:: $Revision: 11579 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000105
+part_of:: rq-000105
 
 priority:: routine
 
@@ -24,7 +20,7 @@ while parsing and rendering document content.  The software must
 detect and handle these conditions to prevent the application from
 `hanging' in an infinite loop.
 
-######################################################################
+===
 
 index:: rq-000181; infinite loop!prevent
 

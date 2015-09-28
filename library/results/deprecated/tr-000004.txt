@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000004
 
 ######################################################################
 
 title:: SML.pm Unit Test Case Results
-
-label:: tr-000004
 
 revision:: $Revision: 15128 $
 

@@ -1,3 +1,7 @@
+>>>RAW.td-000074
+
+===
+
 The purpose of this test data file is to test the capability of the
 `SML::Fragment::extract_division_lines' method to extract various
 types of divisions from a fragment.  The method must have the
@@ -13,17 +17,17 @@ capability to extract:
 
 Here is a test region:
 
->>>problem
+>>>problem.my-problem
 
 title:: My Problem
-
-label:: my-problem
 
 type:: technical
 
 description:: This is a description of my problem.  This purpose of
 this problem is to serve as a test for applications designed to
 process SML problem regions.
+
+===
 
 This is some narrative text within the problem region.  You can put as
 much narrative text as you want inside regions but you may ~~not~~ use
@@ -37,11 +41,11 @@ beginning of the problem narrative.
 
 Here is a test environment:
 
----TABLE
+>>>TABLE.tab-solution-types
 
 title:: Solutions Types
 
-label:: tab-solution-types
+===
 
 :: Type
 
@@ -65,17 +69,17 @@ label:: tab-solution-types
 
 : description of implemented hardware, software, or documentation
 
----TABLE
+<<<TABLE
 
 #---------------------------------------------------------------------
 
 Here is a test section:
 
-* Introduction
-
-label:: introduction
+*.introduction Introduction
 
 type:: chapter
+
+===
 
 This section is a chapter.[f:introduction:1] This is some introductory
 text.  It really doesn't say anything interesting so let's just move
@@ -87,3 +91,5 @@ along.
 footnote::1: This is a footnote.
 
 ######################################################################
+
+<<<RAW

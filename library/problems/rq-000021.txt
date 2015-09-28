@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000021
 
 title:: Represent an Inline External Hyperlink
-
-label:: rq-000021
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000334
+part_of:: rq-000334
 
 type:: data format
 
@@ -23,7 +19,7 @@ an inline external hyperlink.  An inline external hyperlink enables
 authors to provide a link to a specified type of resource external to
 the document.
 
-######################################################################
+===
 
 index:: rq-000021; external hyperlinks; hyperlink!external
 

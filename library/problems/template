@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-00
 
 title::
-
-label:: rq-00
 
 revision:: $Revision: 10973 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-parent::
+part_of::
 
 priority::
 
@@ -20,11 +16,11 @@ type::
 
 owner::
 
-directed_by:
+directed_by::
 
 description::
 
-######################################################################
+===
 
 index:: rq-00
 

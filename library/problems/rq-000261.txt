@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000261
 
 title:: Generate HTML Title Page
-
-label:: rq-000261
 
 revision:: $Revision: 11579 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000001
+part_of:: rq-000001
 
 priority:: routine
 
@@ -23,7 +19,7 @@ page shall present the: (1) document title, (2) subtitle, (3) name of
 author(s), (4) name of editor(s), (5) name of translator(s), (6) name
 and location of the publisher, and (7) number of the edition.
 
-######################################################################
+===
 
 index:: rq-000261; title page; HTML title page
 

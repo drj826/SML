@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000003
 
 title:: Sample Problem For `Include' Tests
-
-id:: rq-000003
 
 type:: functional
 
@@ -14,7 +10,7 @@ description:: The system shall perform general message processing
 functions.  This requirement serves as a container for general message
 processing requirements.
 
-######################################################################
+===
 
 index:: rq-000003; message!processing
 

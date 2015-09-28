@@ -1,14 +1,10 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000014
 
 title:: Represent a Table
 
-label:: rq-000014
-
 priority:: routine
 
-parent:: rq-000326
+part_of:: rq-000326
 
 type:: data format
 
@@ -19,15 +15,13 @@ represent specified types of tables.  This requirement serves as a
 container for data format requirements for representing tabular
 content.
 
-#---------------------------------------------------------------------
-
 revision:: $Revision: 11687 $
 
 date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-######################################################################
+===
 
 index:: rq-000014; tables
 

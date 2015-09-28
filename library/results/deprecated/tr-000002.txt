@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000002
 
 ######################################################################
 
 title:: Component Test Results
-
-label:: tr-000002
 
 revision:: $Revision: 10974 $
 

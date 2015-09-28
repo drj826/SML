@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000062
 
 title:: `begin_glossary_entry' Subroutine
-
-label:: ci-000062
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:begin_glossary_entry] subroutine 
 
-######################################################################
+===
 
 index:: ci-000062; subroutine![cmd:begin_glossary_entry]
 

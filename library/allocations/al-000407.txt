@@ -1,8 +1,4 @@
->>>allocation
-
-#---------------------------------------------------------------------
-
-label::    al-000407
+>>>allocation.al-000407
 
 solution:: ci-000431 # SML/EnumeratedListItem.pm
 
@@ -10,13 +6,9 @@ problem::  rq-000343 # Return Value of Enumerated List Item
 
 test::     tc-000052 # EnumeratedListItem.pm Unit Test Case
 
-#---------------------------------------------------------------------
-
 release:: 2.0
 
 rel_component:: ci-000004
-
-#---------------------------------------------------------------------
 
 revision:: $Revision: 10970 $
 
@@ -24,7 +16,6 @@ date:: $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-#---------------------------------------------------------------------
-
+===
 
 <<<allocation

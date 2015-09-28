@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000033
 
 title:: Represent Solutions
-
-label:: rq-000033
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000195
+part_of:: rq-000195
 
 type:: data format
 
@@ -26,7 +22,7 @@ semantically traceable to other elements of content (like problems and
 tests), to make the content re-usable, and to enable special listings
 of solutions.
 
-######################################################################
+===
 
 index:: rq-000033; solutions
 

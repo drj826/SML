@@ -1,8 +1,4 @@
->>>allocation
-
-#---------------------------------------------------------------------
-
-label::    al-000336
+>>>allocation.al-000336
 
 solution:: ci-000387 # Block.pm
 
@@ -10,15 +6,13 @@ problem::  rq-000205 # Render a Block According to a Style
 
 test::     tc-000014 # Block.pm Unit Test Case
 
-#---------------------------------------------------------------------
-
 revision:: $Revision: 10970 $
 
 date:: $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-#---------------------------------------------------------------------
+===
 
 
 <<<allocation

@@ -37,6 +37,11 @@ has 'file' =>
    reader   => 'get_file',
   );
 
+# This is the file object from which the line came.  Not all lines
+# come from files.  Lines can come from script output or other
+# generated sources.  Therefore it's OK if this attribute is
+# undefined.
+
 ######################################################################
 
 has 'num' =>
@@ -47,11 +52,11 @@ has 'num' =>
 
 ######################################################################
 
-has 'included_from_line' =>
-  (
-   isa       => 'SML::Line',
-   reader    => 'get_included_from_line',
-  );
+# has 'included_from_line' =>
+#   (
+#    isa       => 'SML::Line',
+#    reader    => 'get_included_from_line',
+#   );
 
 ######################################################################
 ######################################################################
@@ -119,7 +124,7 @@ This documentation refers to L<"SML::Line"> version 2.0.0.
 
 =head1 SYNOPSIS
 
-  my $line = SML::Line->new();
+  my $line = SML::Line->new(content=>$content);
 
 =head1 DESCRIPTION
 

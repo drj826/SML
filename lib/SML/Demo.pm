@@ -8,7 +8,7 @@ use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Region';
+extends 'SML::Division';
 
 use namespace::autoclean;
 
@@ -44,13 +44,17 @@ instructor might give during a classroom presentation.
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Demo"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
-  extends SML::Region
+  extends SML::Division
 
-  my $demo = SML::Demo->new();
+  my $demo = SML::Demo->new
+               (
+                 id      => $id,
+                 library => $library,
+               );
 
 =head1 DESCRIPTION
 

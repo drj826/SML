@@ -1,14 +1,12 @@
-###############################################################COMMENT
+>>>COMMENT
 
 SOURCES (BIBLIOGRAPHY)
 
-###############################################################COMMENT
+<<<COMMENT
 
----SOURCE
+>>>SOURCE.cmmi
 
 source_type:: misc
-
-label:: cmmi
 
 title:: CMMI for Development, Version 1.2
 
@@ -18,15 +16,11 @@ year:: 2006
 
 note:: CMU/SEI-2006-TR-008, ESC-TR-2006-008
 
----SOURCE
+<<<SOURCE
 
-######################################################################
-
----SOURCE
+>>>SOURCE.cmmi-levels
 
 source_type:: misc
-
-label:: cmmi-levels
 
 title:: Summary of CMMI Maturity Levels
 
@@ -34,15 +28,11 @@ month:: August
 
 year:: 2006
 
----SOURCE
+<<<SOURCE
 
-######################################################################
-
----SOURCE
+>>>SOURCE.cmmi-pa
 
 source_type:: misc
-
-label:: cmmi-pa
 
 title:: Summary of CMMI Process Areas, Specific Practices,
 Subpractices, and Typical Work Products
@@ -51,6 +41,4 @@ month:: August
 
 year:: 2006
 
----SOURCE
-
-######################################################################
+<<<SOURCE

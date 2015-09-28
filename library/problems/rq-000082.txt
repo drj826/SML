@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000082
 
 title:: Be Human Readable
-
-label:: rq-000082
 
 revision:: $Revision: 11687 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000107
+part_of:: rq-000107
 
 type:: data format
 
@@ -24,7 +20,7 @@ files.  The purpose of this requirement is to keep the data format as
 readable as possible so people are comfortable reading and writing in
 the raw data format using simple text editing tools.
 
-######################################################################
+===
 
 index:: rq-000082; human readable
 

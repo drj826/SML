@@ -1,22 +1,18 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000113
 
 title:: `resolve_includes' Subroutine
 
-label:: ci-000113
+type:: software
+
+part_of:: ci-000007
+
+description:: The [cmd:resolve_includes] subroutine 
 
 revision:: $Revision: 10975 $
 
 date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
-
-type:: software
-
-parent:: ci-000007
-
-description:: The [cmd:resolve_includes] subroutine 
 
 #---------------------------------------------------------------------
 # allocations
@@ -29,7 +25,7 @@ allocation:: al-000249 # rq-000178 Resolve Included Regions
 allocation:: al-000250 # rq-000179 Resolve Included Raw Text
 allocation:: al-000251 # rq-000180 Resolve and Hide Included Text
 
-######################################################################
+===
 
 index:: ci-000113; subroutine![cmd:resolve_includes]
 

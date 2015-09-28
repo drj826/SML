@@ -1,16 +1,12 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000015
 
 title:: Acronym Element
 
-id:: td-000015
+===
 
-######################################################################
-
-This SML document contains an 'acronym' data element.  The 'acronym'
-statement tells an application that the block of text is the text of an
-acronym definition.
+This SML document contains an `acronym' data element.  The `acronym'
+statement tells an application that the block of text is the text of
+an acronym definition.
 
 [a:TLA] is one of my favorite acronyms.
 

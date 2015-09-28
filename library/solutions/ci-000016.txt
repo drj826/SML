@@ -1,10 +1,13 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000016
 
 title:: `printwarning' Subroutine
 
-label:: ci-000016
+type:: software
+
+part_of:: ci-000007
+
+description:: The [cmd:printwarning] subroutine implements a utility
+function to log a warning message and display it to the user.
 
 revision:: $Revision: 10975 $
 
@@ -12,14 +15,7 @@ date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-type:: software
-
-parent:: ci-000007
-
-description:: The [cmd:printwarning] subroutine implements a utility
-function to log a warning message and display it to the user.
-
-######################################################################
+===
 
 index:: ci-000016; subroutine![cmd:printwarning]
 

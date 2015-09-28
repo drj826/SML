@@ -1,10 +1,12 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000411
 
 title:: SML/Fragment.pm Module
 
-label:: ci-000410
+type:: software
+
+part_of:: ci-000004
+
+description:: The SML/Fragment.pm Module...
 
 revision:: $Revision: 15130 $
 
@@ -12,13 +14,7 @@ date:: $Date: 2013-07-07 09:28:51 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-type:: software
-
-parent:: ci-000004
-
-description:: The SML/Fragment.pm Module...
-
-######################################################################
+===
 
 index:: ci-000410
 
@@ -28,21 +24,20 @@ This section describes the design of the [g:sml:SML] [g:sml:fragment]
 class. [ref:fig-class-diagram-fragment] shows the composition of an
 SML [g:sml:fragment].
 
----FIGURE
+>>>FIGURE.fig-class-diagram-fragment
 title:: SML Fragment Composition
-label:: fig-class-diagram-fragment
 image:: files/images/class-diagram-fragment.png
 width:: 4in
----FIGURE
+<<<FIGURE
 
----LISTING
+>>>LISTING.lis-fragment-pm
 title::     Fragment.pm
-label::     lis-fragment-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
+===
 file::      ../../SML/Fragment.pm
----LISTING
+<<<LISTING
 
 [clearpage]
 

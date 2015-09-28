@@ -1,22 +1,16 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000080
 
 title:: INVALID PROPERTY VALUE
 
-id:: td-000080
-
-######################################################################
+===
 
 This test data file illustrates an entity with invalid property value.
 Specifically, it contains a problem with a status value of `bogus'
 which is not one of the allowed values.
 
->>>problem
+>>>problem.problem-1
 
 title:: This is problem 1
-
-label:: problem-1
 
 type:: technical
 

@@ -1,10 +1,13 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000429
 
 title:: SML/TableRow.pm Module
 
-label:: ci-000429
+type:: software
+
+part_of:: ci-000004
+
+description:: The SML/TableRow.pm Module implements the SML::TableRow
+class.
 
 revision:: $Revision: 15144 $
 
@@ -12,25 +15,18 @@ date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-type:: software
-
-parent:: ci-000004
-
-description:: The SML/TableRow.pm Module implements the SML::TableRow
-class.
-
-######################################################################
+===
 
 index:: ci-000429; table cell
 
----LISTING
+>>>LISTING.lis-table-row-pm
 title::     TableRow.pm
-label::     lis-table-row-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../lib/SML/TableRow.pm
----LISTING
+===
+file:: ../../lib/SML/TableRow.pm
+<<<LISTING
 
 [clearpage]
 

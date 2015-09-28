@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000256
 
 title:: `latex_cons_for' Subroutine
-
-label:: ci-000256
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:latex_cons_for] subroutine 
 
-######################################################################
+===
 
 index:: ci-000256; subroutine![cmd:latex_cons_for]
 

@@ -63,13 +63,18 @@ whether a flag is set.
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Conditional"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
   extends SML::Division
 
-  my $cnd = SML::Conditional->new();
+  my $conditional = SML::Conditional->new
+                      (
+                        id      => $id,
+                        token   => $token,
+                        library => $library,
+                      );
 
 =head1 DESCRIPTION
 

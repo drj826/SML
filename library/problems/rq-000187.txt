@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000187
 
 title:: Represent an Inline Internal Hyperlink
-
-label:: rq-000187
 
 revision:: $Revision: 10973 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000334
+part_of:: rq-000334
 
 priority:: routine
 
@@ -28,7 +24,7 @@ designate arbitrary ``from'' span of text as the beginning end of the
 hyperlink and to designate an arbitrary location in the document as
 the target end of the hyperlink.
 
-######################################################################
+===
 
 index:: rq-000187; internal hyperlink; hyperlink!internal
 

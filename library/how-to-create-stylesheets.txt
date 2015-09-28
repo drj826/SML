@@ -1,7 +1,10 @@
->>>DOCUMENT
+>>>DOCUMENT.creating-stylesheets
 
 title::  How To Create Stylesheets for the Publish Script
+
 author:: Don Johnson
+
+===
 
 * HTML Stylesheets
 

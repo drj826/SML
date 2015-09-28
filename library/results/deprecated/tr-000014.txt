@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000014
 
 ######################################################################
 
 title:: Block.pm Unit Test Case Results
-
-label:: tr-000014
 
 revision:: $Revision: 15128 $
 

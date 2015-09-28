@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000053
 
 title:: ACRONYM NOT IN ACRONYM LIST
 
-id:: td-000053
-
-######################################################################
+===
 
 This SML document contains a reference to an undefined
 acronym. [ac:BUGUS]

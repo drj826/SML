@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000165
 
 title:: Represent an Option to `Include As Section'
-
-label:: rq-000165
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000065
+part_of:: rq-000065
 
 type:: data format
 
@@ -25,7 +21,7 @@ file to a section heading at a specified section depth.  Make all
 sections and sub-sections from the external file relative to the
 specified section depth.
 
-######################################################################
+===
 
 index:: rq-000165; include!as section
 

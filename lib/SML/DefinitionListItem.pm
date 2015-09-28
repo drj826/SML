@@ -150,14 +150,19 @@ C<SML::DefinitionListItem> - an item in a definition list.
 
 =head1 VERSION
 
-This documentation refers to L<"SML::DefinitionListItem"> version
-2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
   extends SML::ListItem
 
-  my $dle = SML::DefinitionListItem->new();
+  my $item = SML::DefinitionListItem->new
+               (
+                 library => $library,
+               );
+
+  my $string = $item->get_term;
+  my $string = $item->get_definition;
 
 =head1 DESCRIPTION
 

@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000175
 
 title:: Process Multiple Documents Without Restarting
-
-label:: rq-000175
 
 revision:: $Revision: 11687 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000104
+part_of:: rq-000104
 
 priority:: routine
 
@@ -22,7 +18,7 @@ description:: The software shall have the capability to process
 multiple documents, or the same document multiple times, without
 re-starting the application.
 
-######################################################################
+===
 
 index:: rq-000175; process multiple documents
 

@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000053
 
 title:: Represent a `Take Note' Symbol
-
-label:: rq-000053
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000124
+part_of:: rq-000124
 
 type:: data format
 
@@ -22,7 +18,7 @@ description:: The data format shall have the capability to represent a
 take note symbol.  The purpose of a ``take note'' symbol is to draw
 the reader's attention to a particularly important point.
 
-######################################################################
+===
 
 index:: rq-000053; take note symbol; symbol!take note
 

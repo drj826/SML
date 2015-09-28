@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000031
 
 ######################################################################
 
 title:: Video.pm Unit Test Case Results
-
-label:: tr-000031
 
 revision:: $Revision: 15128 $
 

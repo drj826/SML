@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000350
 
 title:: Permit Configuration of Allowed Entity Properties
-
-label:: rq-000350
 
 revision:: $Revision: 15127 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2013-07-07 09:26:14 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000183
+part_of:: rq-000183
 
 priority:: routine
 
@@ -25,7 +21,7 @@ solution does ~~not~~ hard-code allowed entity properties into the
 software solution but instead enables users to configure custom entity
 properties in their own libraries.
 
-######################################################################
+===
 
 index:: rq-000349
 

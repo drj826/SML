@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000068
 
 title:: Represent a Comment Division
-
-label:: rq-000068
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000066
+part_of:: rq-000066
 
 type:: data format
 
@@ -25,7 +21,7 @@ renditions.  The data format must provide a way to mark the beginning
 and ending of a comment block without changing the lines within the
 block.
 
-######################################################################
+===
 
 index:: rq-000068; comment division
 

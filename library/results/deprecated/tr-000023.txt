@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000023
 
 ######################################################################
 
 title:: Epigraph.pm Unit Test Case Results
-
-label:: tr-000023
 
 revision:: $Revision: 15128 $
 

@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000065
 
 title:: `begin_acronym_definition' Subroutine
-
-label:: ci-000065
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:begin_acronym_definition] subroutine 
 
-######################################################################
+===
 
 index:: ci-000065; subroutine![cmd:begin_acronym_definition]
 

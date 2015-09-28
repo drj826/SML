@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000020
 
 title:: Represent an Inline Cross Reference
-
-label:: rq-000020
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000334
+part_of:: rq-000334
 
 type:: data format
 
@@ -28,7 +24,7 @@ to direct the reader's attention to another part of the document.  The
 cross referencing capability must enable authors to cross reference
 specified document elements.
 
-######################################################################
+===
 
 index:: rq-000020; cross references
 

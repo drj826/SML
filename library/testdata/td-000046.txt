@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000046
 
 title:: Valid Superscript Markup
 
-id:: td-000046
-
-######################################################################
+===
 
 This document contains several examples of valid superscript markup.
 

@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000022
 
 ######################################################################
 
 title:: Revisions.pm Unit Test Case Results
-
-label:: tr-000022
 
 revision:: $Revision: 15128 $
 

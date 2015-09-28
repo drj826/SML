@@ -1,22 +1,18 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000387
 
 title:: SML/Block.pm Module
 
-label:: ci-000387
+type:: software
+
+part_of:: ci-000004
+
+description:: The SML/Block.pm Module...
 
 revision:: $Revision: 15144 $
 
 date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
-
-type:: software
-
-parent:: ci-000004
-
-description:: The SML/Block.pm Module...
 
 #---------------------------------------------------------------------
 # allocations
@@ -69,18 +65,18 @@ allocation:: al-000330 # rq-000251 Render E-mail Addresses
 
 allocation:: al-000336 # rq-000205 Render a Block According to a Style
 
-######################################################################
+===
 
 index:: ci-000387
 
----LISTING
-title::     Block.pm
-label::     lis-block-pm
-numbers::   left
-language::  Perl
-fontsize::  footnotesize
-file::      ../../lib/SML/Block.pm
----LISTING
+>>>LISTING.lis-block-pm
+title::    Block.pm
+numbers::  left
+language:: Perl
+fontsize:: footnotesize
+===
+file:: ../../lib/SML/Block.pm
+<<<LISTING
 
 [clearpage]
 

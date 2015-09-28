@@ -1,10 +1,15 @@
->>>test
-
-######################################################################
+>>>test.tc-000005
 
 title:: Parser.pm Unit Test Case
 
-label:: tc-000005
+priority:: routine
+
+type:: unit
+
+part_of:: tc-000001
+
+description:: This is the unit test case for the Parser.pm Perl module
+that implements the SML::Parser class.
 
 revision:: $Revision: 15145 $
 
@@ -12,42 +17,33 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-priority:: routine
-
-type:: unit
-
-parent:: tc-000001
-
-description:: This is the unit test case for the Parser.pm Perl module
-that implements the SML::Parser class.
-
-######################################################################
+===
 
 index:: tc-000005; unit test case!Parser.pm
 
 [ref:lis-parser-pm-unit-test-case] shows the unit test case for
 [file:Parser.pm].
 
----LISTING
+>>>LISTING.lis-parser-pm-unit-test-case
 title::       Parser.t - Unit Test Case for Parser.pm
-label::       lis-parser-pm-unit-test-case
 numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../t/Parser.t
----LISTING
+===
+file:: ../../t/Parser.t
+<<<LISTING
 
 [ref:lis-parser-pm-unit-test-results] shows the results of executing
 the Parser.pm unit test case.
 
----LISTING
+>>>LISTING.lis-parser-pm-unit-test-results
 title::     Parser.pm Unit Test Case Results
-label::     lis-parser-pm-unit-test-results
 numbers::   left
 fontsize::  footnotesize
-script::    scripts/run-unit-test.bat Parser.t
----LISTING
+===
+script:: scripts/run-unit-test.bat Parser.t
+<<<LISTING
 
 <<<test
 

@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000009
 
 title:: Insert Content
 
-id:: td-000009
-
-######################################################################
+===
 
 This SML document contains an 'insert' data element.  The 'insert'
 statement tells an application to insert content collected somewhere
@@ -26,15 +22,15 @@ NARRATIVE of exercise-1:
 
 insert:: NARRATIVE(exercise-1)
 
->>>EXERCISE
+>>>EXERCISE.exercise-1
 
 title:: Test Exercise
-
-id:: exercise-1
 
 description:: This is the description of a test exercise.  The purpose
 of this exercise is to test the 'insert' feature.  So it really
 doesn't contain anything interesting.
+
+===
 
 step:: Unplug your computer.
 

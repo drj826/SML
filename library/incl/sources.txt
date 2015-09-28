@@ -1,4 +1,8 @@
-###############################################################COMMENT
+>>>RAW.sources
+
+===
+
+>>>COMMENT
 
 SOURCES (BIBLIOGRAPHY)
 
@@ -11,15 +15,13 @@ $Author: don.johnson $
 This file contains all bibliographic source entries for the Vetting
 Operations Engineering Baseline.
 
-###############################################################COMMENT
+<<<COMMENT
 
----SOURCE
+>>>SOURCE.cms15
 
-source:: book
+source_type:: book
 
 title:: The Chicago Manual of Style
-
-label:: cms15
 
 editor:: William S. Strong
 
@@ -35,45 +37,39 @@ address:: Chicago 60637
 
 note:: [url:http://www.chicagomanualofstyle.org]
 
----SOURCE
+<<<SOURCE
 
 ######################################################################
 
----SOURCE
+>>>SOURCE.tsvn-web-site
 
-source:: misc
+source_type:: misc
 
 title:: TortoiseSVN Web Site
 
-label:: tsvn-web-site
-
 note:: [url:http://tortoisesvn.tigris.org]
 
----SOURCE
+<<<SOURCE
 
 ######################################################################
 
----SOURCE
+>>>SOURCE.wp-semantic-reasoner
 
-source:: misc
+source_type:: misc
 
 title:: `Semantic Reasoner' Wikipedia Article
 
-label:: wp-semantic-reasoner
-
 note:: [url:http://en.wikipedia.org/wiki/Reasoner]
 
----SOURCE
+<<<SOURCE
 
 ######################################################################
 
----SOURCE
+>>>SOURCE.kossiakoff-and-sweet
 
-source:: book
+source_type:: book
 
 title:: Systems Engineering Principles and Practice
-
-label:: kossiakoff-and-sweet
 
 author:: Alexander Kossiakoff
 
@@ -88,7 +84,7 @@ year:: 2003
 
 note:: ISBN 0-471-23443-5
 
----SOURCE
+<<<SOURCE
 
 ######################################################################
 # Local Emacs Variables
@@ -100,3 +96,5 @@ note:: ISBN 0-471-23443-5
 # End:
 
 ######################################################################
+
+<<<RAW

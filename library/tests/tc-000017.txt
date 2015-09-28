@@ -1,10 +1,15 @@
->>>test
-
-######################################################################
+>>>test.tc-000017
 
 title:: CommentDivision.pm Unit Test Case
 
-label:: tc-000017
+priority:: routine
+
+type:: unit
+
+part_of:: tc-000001
+
+description:: This is the unit test case for the CommentDivision.pm
+Perl module that implements the SML::CommentDivision class.
 
 revision:: $Revision: 15145 $
 
@@ -12,42 +17,33 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-priority:: routine
-
-type:: unit
-
-parent:: tc-000001
-
-description:: This is the unit test case for the CommentDivision.pm
-Perl module that implements the SML::CommentDivision class.
-
-######################################################################
+===
 
 index:: tc-000017; unit test case!CommentDivision.pm
 
 [ref:lis-comment-pm-unit-test-case] shows the unit test case for
 [file:CommentDivision.pm].
 
----LISTING
+>>>LISTING.lis-comment-pm-unit-test-case
 title::       CommentDivision.t - Unit Test Case for CommentDivision.pm
-label::       lis-comment-pm-unit-test-case
 numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../t/CommentDivision.t
----LISTING
+===
+file:: ../../t/CommentDivision.t
+<<<LISTING
 
 [ref:lis-comment-pm-unit-test-results] shows the results of executing
 the CommentDivision.pm unit test case.
 
----LISTING
+>>>LISTING.lis-comment-pm-unit-test-results
 title::     CommentDivision.pm Unit Test Case Results
-label::     lis-comment-pm-unit-test-results
 numbers::   left
 fontsize::  footnotesize
-script::    scripts/run-unit-test.bat CommentDivision.t
----LISTING
+===
+script:: scripts/run-unit-test.bat CommentDivision.t
+<<<LISTING
 
 <<<test
 

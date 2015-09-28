@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000087
 
 title:: Represent Document Metadata
-
-label:: rq-000087
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000107
+part_of:: rq-000107
 
 type:: data format
 
@@ -23,7 +19,7 @@ specified document meta data.  Document meta data describes the
 document.  The purpose of this requirement is to specify all elements
 of document meta data needed to publish books, reports, and articles.
 
-######################################################################
+===
 
 index:: rq-000087
 

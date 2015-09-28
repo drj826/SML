@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000262
 
 title:: `latex_next_for' Subroutine
-
-label:: ci-000262
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:latex_next_for] subroutine 
 
-######################################################################
+===
 
 index:: ci-000262; subroutine![cmd:latex_next_for]
 

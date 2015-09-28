@@ -1,16 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000005
 
 title:: SML/Document.pm Module
-
-label:: ci-000005
-
-revision:: $Revision: 15144 $
-
-date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
-
-author:: $Author: don.johnson $
 
 type:: perl
 
@@ -18,10 +8,16 @@ type:: class
 
 type:: unit
 
-parent:: ci-000004
+part_of:: ci-000004
 
 description:: The Document.pm perl module implements the
 [g:sml:document] class.
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
 
 #---------------------------------------------------------------------
 # allocations
@@ -57,7 +53,7 @@ allocation:: al-000260 # rq-000102 Publish SML Document Structure Features
 
 allocation:: al-000338 # rq-000207 Render a Document According to a Style
 
-######################################################################
+===
 
 index:: ci-000005; Document.pm
 
@@ -66,21 +62,20 @@ index:: ci-000005; Document.pm
 [ref:fig-class-diagram-document] shows the composition of an SML
 [g:sml:document].
 
----FIGURE
+>>>FIGURE.fig-class-diagram-document
 title:: SML Document Composition
-label:: fig-class-diagram-document
 image:: ../files/images/class-diagram-document.png
 width:: 2.25in
----FIGURE
+<<<FIGURE
 
----LISTING
+>>>LISTING.lis-document-pm
 title::     Document.pm
-label::     lis-document-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../lib/SML/Document.pm
----LISTING
+===
+file:: ../../lib/SML/Document.pm
+<<<LISTING
 
 [clearpage]
 

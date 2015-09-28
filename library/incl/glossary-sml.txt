@@ -1,8 +1,16 @@
-# Structured Manuscript Language (SML) Vocabulary
+>>>RAW.glossary-sml
 
-#   Dependency: This vocabulary depends on the IEEE vocabulary.  If
-#   you include this vocabulary in your document be sure to also
-#   include 'glossary-ieee.txt'.
+===
+
+>>>COMMENT
+
+Structured Manuscript Language (SML) Vocabulary
+
+Dependency: This vocabulary depends on the IEEE vocabulary.  If you
+include this vocabulary in your document you must also include
+`glossary-ieee.txt'.
+
+<<<COMMENT
 
 #######################################################################
 # A
@@ -766,3 +774,5 @@ glossary:: XML = [g:eXtensible markup Language]
 ######################################################################
 # Z
 ######################################################################
+
+<<<RAW

@@ -1,12 +1,8 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000005
 
 title:: Minimize Presentation Markup
 
-label:: rq-000005
-
-parent:: rq-000107
+part_of:: rq-000107
 
 priority:: routine
 
@@ -19,23 +15,21 @@ renditions and to limit authors capability to adjust presentation. In
 other words, ~~deny~~ authors the ability to specify the ~~style~~ or
 ~~appearance~~ of their content.
 
-#---------------------------------------------------------------------
-
 revision:: $Revision: 11687 $
 
 date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-######################################################################
+===
 
 index:: rq-000005
 
 The reason the data format must primarily represent elements of
 content and structure but minimize representation of presentation
 elements is to help authors focus on creating content instead of
-spending valuable time adjusting document presentation.  Modern
-documents are often published to multiple formats and authors often do
-not control how their content is presented to readers.
+wasting time fiddling with document presentation.  Modern documents
+are often published to multiple formats and authors often do not
+control how their content is presented to readers.
 
 <<<problem

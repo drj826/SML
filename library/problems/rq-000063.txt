@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000063
 
 title:: Represent a Command
-
-label:: rq-000063
 
 revision:: $Revision: 10973 $
 
@@ -14,14 +10,14 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000125
+part_of:: rq-000125
 
 type:: data format
 
 description:: The data format shall have the capability to represent a
 commands (i.e. computer instructions entered at a command prompt).
 
-######################################################################
+===
 
 index:: rq-000063; commands
 

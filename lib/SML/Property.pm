@@ -46,9 +46,9 @@ has 'element_list' =>
   (
    isa       => 'ArrayRef',
    reader    => 'get_element_list',
-   writer    => '_set_element_list',
-   clearer   => '_clear_element_list',
-   predicate => '_has_element_list',
+   # writer    => '_set_element_list',
+   # clearer   => '_clear_element_list',
+   # predicate => '_has_element_list',
    default   => sub {[]},
   );
 

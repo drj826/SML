@@ -1,13 +1,9 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.all-items
 
 title:: All Items
 
 subtitle:: problems, solutions, allocations, tests, results, tasks,
 roles
-
-label:: all-items
 
 revision:: $Revision: 15138 $
 
@@ -27,7 +23,7 @@ logo_image_center:: files/images/sml_logo.png
 
 use_formal_status:: 1
 
-######################################################################
+===
 
 #---------------------------------------------------------------------
 # Problems
@@ -36,7 +32,9 @@ use_formal_status:: 1
 
 type:: chapter
 
-include:: auto/all-items-problems.txt
+===
+
+include:: all-items-problems
 
 #---------------------------------------------------------------------
 # Solutions
@@ -45,7 +43,9 @@ include:: auto/all-items-problems.txt
 
 type:: chapter
 
-include:: auto/all-items-solutions.txt
+===
+
+include:: all-items-solutions
 
 #---------------------------------------------------------------------
 # Allocations
@@ -54,7 +54,9 @@ include:: auto/all-items-solutions.txt
 
 type:: chapter
 
-include:: auto/all-items-allocations.txt
+===
+
+include:: all-items-allocations
 
 #---------------------------------------------------------------------
 # Tests
@@ -63,7 +65,9 @@ include:: auto/all-items-allocations.txt
 
 type:: chapter
 
-include:: auto/all-items-tests.txt
+===
+
+include:: all-items-tests
 
 #---------------------------------------------------------------------
 # Results
@@ -72,7 +76,9 @@ include:: auto/all-items-tests.txt
 
 type:: chapter
 
-include:: auto/all-items-results.txt
+===
+
+include:: all-items-results
 
 #---------------------------------------------------------------------
 # Tasks
@@ -81,7 +87,9 @@ include:: auto/all-items-results.txt
 
 type:: chapter
 
-include:: auto/all-items-tasks.txt
+===
+
+include:: all-items-tasks
 
 #---------------------------------------------------------------------
 # Roles
@@ -90,22 +98,24 @@ include:: auto/all-items-tasks.txt
 
 type:: chapter
 
-include:: auto/all-items-roles.txt
+===
+
+include:: all-items-roles
 
 ######################################################################
 # Backmatter
 
-include:: incl/glossary-sml.txt
+include:: glossary-sml
 
-include:: incl/glossary-ieee.txt
+include:: glossary-ieee
 
-include:: incl/glossary-cmmi.txt
+include:: glossary-cmmi
 
-include:: incl/sources.txt
+include:: sources
 
-include:: incl/sources-ieee.txt
+include:: sources-ieee
 
-include:: incl/sources-cmmi.txt
+include:: sources-cmmi
 
 ######################################################################
 # Local Emacs Variables

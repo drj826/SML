@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000200
 
 title:: Validate Engineering Document Semantics
-
-label:: rq-000200
 
 revision:: $Revision: 11579 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000254
+part_of:: rq-000254
 
 type:: functional
 
@@ -25,7 +21,7 @@ system requirement to one system configuration item, (3) each
 verification test case verifies an allocation, that is, that the
 implemented configuration item satisfies the allocated requirement(s).
 
-######################################################################
+===
 
 index:: rq-000200
 

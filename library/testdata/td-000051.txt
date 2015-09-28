@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000051
 
 title:: DEFINITION NOT IN GLOSSARY
 
-id:: td-000051
-
-######################################################################
+===
 
 This SML document contains a glossary definition reference for a term
 that's not in the glossary. [def:bogus]

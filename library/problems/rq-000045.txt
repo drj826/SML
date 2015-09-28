@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000045
 
 title:: Represent Italicized Text
-
-label:: rq-000045
 
 revision:: $Revision: 10973 $
 
@@ -14,14 +10,14 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000120
+part_of:: rq-000120
 
 type:: data format
 
 description:: The data format shall have the capability to represent
 italicized text.
 
-######################################################################
+===
 
 index:: rq-000045; italics; text!italics
 

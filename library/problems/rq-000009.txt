@@ -1,14 +1,10 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000009
 
 title:: Represent Special Features
 
-label:: rq-000009
-
 priority:: routine
 
-parent:: rq-000107
+part_of:: rq-000107
 
 type:: data format
 
@@ -19,15 +15,13 @@ updating documents and to automatically generate specified elements of
 document content.  This requirement serves as a container for all
 document document special features.
 
-#---------------------------------------------------------------------
-
 revision:: $Revision: 11687 $
 
 date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-######################################################################
+===
 
 index:: rq-000009; document special features
 

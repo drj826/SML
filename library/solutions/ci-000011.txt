@@ -1,10 +1,14 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000011
 
 title:: `menu_about' Subroutine
 
-label:: ci-000011
+type:: software
+
+part_of:: ci-000007
+
+description:: The [cmd:menu_about] subroutine displays the `about'
+message that provides information about the program including
+copyright information.
 
 revision:: $Revision: 10975 $
 
@@ -12,15 +16,7 @@ date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-type:: software
-
-parent:: ci-000007
-
-description:: The [cmd:menu_about] subroutine displays the `about'
-message that provides information about the program including
-copyright information.
-
-######################################################################
+===
 
 index:: ci-000011; subroutine![cmd:menu_about]
 

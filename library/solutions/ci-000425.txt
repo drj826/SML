@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000425
 
 title:: SML/Paragraph.pm Module
-
-label:: ci-000425
 
 revision:: $Revision: 10975 $
 
@@ -14,12 +10,12 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000004
+part_of:: ci-000004
 
 description:: The SML/Paragraph.pm module implements the Paragraph
 class.
 
-######################################################################
+===
 
 index:: ci-000425; paragraph
 

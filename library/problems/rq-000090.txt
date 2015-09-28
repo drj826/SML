@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000090
 
 title:: Represent an Inline Acronym Reference
-
-label:: rq-000090
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000334
+part_of:: rq-000334
 
 type:: data format
 
@@ -24,7 +20,7 @@ have the capability to indicate an acronym is in the official list of
 acronyms.  The data format must allow acronym references to span
 newline characters.
 
-######################################################################
+===
 
 index:: rq-000090; acronym reference
 

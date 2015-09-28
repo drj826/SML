@@ -1,8 +1,4 @@
->>>allocation
-
-#---------------------------------------------------------------------
-
-label::    al-000076
+>>>allocation.al-000076
 
 solution:: ci-000001 # Structured Manuscript Language (SML)
 
@@ -10,15 +6,13 @@ problem::  rq-000042 # Represent Table Font Size
 
 test::     tc-000041 # Demonstration
 
-#---------------------------------------------------------------------
-
 revision:: $Revision: 10970 $
 
 date:: $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-#---------------------------------------------------------------------
+===
 
 outcome::2012-04-01:al-000076:green: OK
 

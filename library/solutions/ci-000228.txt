@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000228
 
 title:: `render_priorities' Subroutine
-
-label:: ci-000228
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:render_priorities] subroutine 
 
-######################################################################
+===
 
 index:: ci-000228; subroutine![cmd:render_priorities]
 

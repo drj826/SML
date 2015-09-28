@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000138
 
 title:: Represent a `Status' Statement
-
-label:: rq-000138
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000073
+part_of:: rq-000073
 
 type:: data format
 
@@ -27,7 +23,7 @@ is to maximize document maintainability by giving authors the
 capability to reference an item's definitive status in multiple
 locations.
 
-######################################################################
+===
 
 index:: rq-000138; status
 

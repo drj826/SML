@@ -8,7 +8,7 @@ use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Environment';
+extends 'SML::Division';
 
 use namespace::autoclean;
 
@@ -77,11 +77,11 @@ C<SML::Assertion> - a logical assertion, consisting of (1) a subject,
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Assertion"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
-  extends SML::Environment
+  extends SML::Division
 
   my $assertion = SML::Assertion->new();
 
@@ -91,7 +91,7 @@ This documentation refers to L<"SML::Assertion"> version 2.0.0.
 
 =head1 DESCRIPTION
 
-A L<"SML::Assertion"> is a L<"SML::Environment"> that represents a
+A L<"SML::Assertion"> is a L<"SML::Division"> that represents a
 logical assertion (subjetc, predicate, object triple).
 
 =head1 METHODS

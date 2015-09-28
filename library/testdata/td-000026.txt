@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000026
 
 title:: Valid Glossary Term Reference
 
-id:: td-000026
-
-######################################################################
+===
 
 This SML document illustrates an example of a ~~valid~~ glossary term
 reference.

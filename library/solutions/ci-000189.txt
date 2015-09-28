@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000189
 
 title:: `end_keypoints' Subroutine
-
-label:: ci-000189
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:end_keypoints] subroutine 
 
-######################################################################
+===
 
 index:: ci-000189; subroutine![cmd:end_keypoints]
 

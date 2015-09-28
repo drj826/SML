@@ -1,16 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000381
 
 title:: SML/Division.pm Module
-
-label:: ci-000381
-
-revision:: $Revision: 15144 $
-
-date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
-
-author:: $Author: don.johnson $
 
 type:: perl
 
@@ -18,17 +8,23 @@ type:: class
 
 type:: unit
 
-parent:: ci-000004
+part_of:: ci-000004
 
 description:: The Division.pm perl module implements the
 ||SML::Division|| class.
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
 
 #---------------------------------------------------------------------
 # allocations
 
 allocation:: al-000337 # rq-000206 Render a Division According to a Style
 
-######################################################################
+===
 
 index:: ci-000381; Division.pm
 
@@ -37,21 +33,20 @@ index:: ci-000381; Division.pm
 [ref:fig-class-diagram-division] shows the composition of an SML
 [g:sml:division].
 
----FIGURE
+>>>FIGURE.fig-class-diagram-division
 title:: Division Classes
-label:: fig-class-diagram-division
 image:: ../files/images/class-diagram-division.png
 width:: 6.0in
----FIGURE
+<<<FIGURE
 
----LISTING
+>>>LISTING.lis-division-pm
 title::     Division.pm
-label::     lis-division-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../lib/SML/Division.pm
----LISTING
+===
+file:: ../../lib/SML/Division.pm
+<<<LISTING
 
 [clearpage]
 

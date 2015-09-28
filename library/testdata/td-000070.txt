@@ -1,22 +1,16 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000070
 
 title:: INVALID NON-UNIQUE ID
 
-id:: td-000070
-
-######################################################################
+===
 
 This test data file illustrates a non-unique ID problem.  An SML
 document should not contain multiple entities with the same ID.  The
 software should warn the user when it discovers a non-unique ID.
 
->>>problem
+>>>problem.problem-1
 
 title:: This is problem 1
-
-label:: problem-1
 
 type:: technical
 
@@ -24,17 +18,13 @@ description:: There is no problem with problem 1.
 
 <<<problem
 
-#---------------------------------------------------------------------
-
->>>problem
+>>>problem.problem-1
 
 title:: This is problem 2
 
-label:: problem-1
-
 type:: technical
 
-description:: The problem with problem 2 is that its label says it is
+description:: The problem with problem 2 is that it has the same ID as
 problem 1.  That's a problem!  The application should warn the user it
 found a non-unique ID in the document.
 

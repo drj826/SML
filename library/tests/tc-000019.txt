@@ -1,10 +1,15 @@
->>>test
-
-######################################################################
+>>>test.tc-000019
 
 title:: Section.pm Unit Test Case
 
-label:: tc-000019
+priority:: routine
+
+type:: unit
+
+part_of:: tc-000001
+
+description:: This is the unit test case for the Section.pm Perl
+module that implements the SML::Section class.
 
 revision:: $Revision: 15145 $
 
@@ -12,42 +17,33 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-priority:: routine
-
-type:: unit
-
-parent:: tc-000001
-
-description:: This is the unit test case for the Section.pm Perl
-module that implements the SML::Section class.
-
-######################################################################
+===
 
 index:: tc-000019; unit test case!Section.pm
 
 [ref:lis-section-pm-unit-test-case] shows the unit test case for
 [file:Section.pm].
 
----LISTING
+>>>LISTING.lis-section-pm-unit-test-case
 title::       Section.t - Unit Test Case for Section.pm
-label::       lis-section-pm-unit-test-case
 numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../t/Section.t
----LISTING
+===
+file:: ../../t/Section.t
+<<<LISTING
 
 [ref:lis-section-pm-unit-test-results] shows the results of executing
 the [file:Section.pm] unit test case.
 
----LISTING
+>>>LISTING.lis-section-pm-unit-test-results
 title::     Section.pm Unit Test Case Results
-label::     lis-section-pm-unit-test-results
 numbers::   left
 fontsize::  footnotesize
-script::    scripts/run-unit-test.bat Section.t
----LISTING
+===
+script:: scripts/run-unit-test.bat Section.t
+<<<LISTING
 
 <<<test
 

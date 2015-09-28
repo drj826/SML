@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000097
 
 title:: Represent a Source Citation
-
-label:: rq-000097
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000009
+part_of:: rq-000009
 
 type:: data format
 
@@ -24,7 +20,7 @@ capability to indicate when information originates from a
 bibliographic source.  The data format must allow source citations to
 span newline characters.
 
-######################################################################
+===
 
 index:: rq-000097; source citations
 

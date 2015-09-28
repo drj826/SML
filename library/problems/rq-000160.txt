@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000160
 
 title:: Represent an Option to Persist Script Output In Specified File
-
-label:: rq-000160
 
 revision:: $Revision: 11687 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000072
+part_of:: rq-000072
 
 type:: data format
 
@@ -26,7 +22,7 @@ specified file.  The default behavior of the script function is to run
 the script and insert the output into the generated document but
 ~~not~~ persist the output anywhere.
 
-######################################################################
+===
 
 index:: rq-000160; scripts!persistent output
 

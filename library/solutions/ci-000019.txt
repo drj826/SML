@@ -1,10 +1,13 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000019
 
 title:: `ErrorReport' Subroutine
 
-label:: ci-000019
+type:: software
+
+part_of:: ci-000007
+
+description:: The [cmd:ErrorReport] subroutine produces an MW Windows
+message box for a generic error (its the Windows Way).
 
 revision:: $Revision: 10975 $
 
@@ -12,14 +15,7 @@ date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-type:: software
-
-parent:: ci-000007
-
-description:: The [cmd:ErrorReport] subroutine produces an MW Windows
-message box for a generic error (its the Windows Way).
-
-######################################################################
+===
 
 index:: ci-000019; subroutine![cmd:ErrorReport]
 

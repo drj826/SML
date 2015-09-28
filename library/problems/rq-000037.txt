@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000037
 
 title:: Represent Roles
-
-label:: rq-000037
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000195
+part_of:: rq-000195
 
 type:: data format
 
@@ -25,7 +21,7 @@ of identifying content as a role is to make that role semantically
 traceable to other elements of content (like tasks and problems), to
 make the content re-usable, and to enable special listings of roles.
 
-######################################################################
+===
 
 index:: rq-000037; roles
 

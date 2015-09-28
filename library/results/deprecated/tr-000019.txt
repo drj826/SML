@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000019
 
 ######################################################################
 
 title:: Section.pm Unit Test Case Results
-
-label:: tr-000019
 
 revision:: $Revision: 15128 $
 

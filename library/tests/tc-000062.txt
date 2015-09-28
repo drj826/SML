@@ -1,10 +1,15 @@
->>>test
-
-######################################################################
+>>>test.tc-000062
 
 title:: Svninfo.pm Unit Test Case
 
-label:: tc-000062
+priority:: routine
+
+type:: unit
+
+part_of:: tc-000001
+
+description:: This is the unit test case for the Svninfo.pm Perl
+module that implements the SML::Svninfo class.
 
 revision:: $Revision: 15145 $
 
@@ -12,42 +17,33 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-priority:: routine
-
-type:: unit
-
-parent:: tc-000001
-
-description:: This is the unit test case for the Svninfo.pm Perl
-module that implements the SML::Svninfo class.
-
-######################################################################
+===
 
 index:: tc-000062; unit test case!Svninfo.pm
 
 [ref:lis-svninfo-pm-unit-test-case] shows the unit test for
 [file:Svninfo.pm].
 
----LISTING
+>>>LISTING.lis-svninfo-pm-unit-test-case
 title::       Svninfo.t - Unit Test Case for Svninfo.pm
-label::       lis-svninfo-pm-unit-test-case
 numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../t/Svninfo.t
----LISTING
+===
+file:: ../../t/Svninfo.t
+<<<LISTING
 
 [ref:lis-svninfo-pm-unit-test-results] shows the results of executing
 the Svninfo.pm unit test case.
 
----LISTING
+>>>LISTING.lis-svninfo-pm-unit-test-results
 title::     Svninfo.pm Unit Test Case Results
-label::     lis-svninfo-pm-unit-test-results
 numbers::   left
 fontsize::  footnotesize
-script::    scripts/run-unit-test.bat Svninfo.t
----LISTING
+===
+script:: scripts/run-unit-test.bat Svninfo.t
+<<<LISTING
 
 <<<test
 

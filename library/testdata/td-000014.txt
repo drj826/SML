@@ -1,14 +1,10 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000014
 
 title:: Var Element
 
-id:: td-000014
+===
 
-######################################################################
-
-This SML document contains a 'var' data element.  The 'var' statement
+This SML document contains a `var' data element.  The `var' statement
 tells an application that the block of text is the text of a variable
 definition.
 

@@ -1,21 +1,17 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000031
 
 title:: UNDEFINED REGION
 
-id:: td-000031
-
-######################################################################
+===
 
 This SML document illustrates an undefined region.  Parsing this file
 should trigger a FATAL ``UNDEFINED REGION'' error.
 
->>>bogus
+>>>bogus.my-bogus-region
 
 title:: My Bogus Region
 
-label:: my-bogus-region
+===
 
 This is my bogus region.
 

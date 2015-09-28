@@ -1,23 +1,17 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000063
 
 title:: INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY
 
-id:: td-000063
-
-######################################################################
+===
 
 This SML document contains an explicit declaration of an imply-only
 property.  Specifically, the below `problem' class contains a `child'
 property which should ~~only~~ be implied from an inverse `parent'
 property and not explicitly declared.
 
->>>problem
+>>>problem.parent-problem
 
 title:: My Parent Problem
-
-label:: parent-problem
 
 type:: technical
 
@@ -27,11 +21,9 @@ description:: This is the parent problem
 
 <<<problem
 
->>>problem
+>>>problem.child-problem
 
 title:: My Child Problem
-
-label:: child-problem
 
 type:: technical
 

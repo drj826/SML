@@ -1,3 +1,5 @@
+>>>DOCUMENT.simple
+
 title:: Simple SML Document
 
 author:: Mickey Mouse
@@ -5,3 +7,5 @@ author:: Mickey Mouse
 This is a very simple SML document.  The preamble consists of two data
 elements, `title' on line 1 and `author' on line 3 The narrative
 consists of this single paragraph on lines 5 through 7.
+
+<<<DOCUMENT

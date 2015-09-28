@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000010
 
 ######################################################################
 
 title:: Reasoner.pm Unit Test Case Results
-
-label:: tr-000010
 
 revision:: $Revision: 15128 $
 

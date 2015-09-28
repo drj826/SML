@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000330
 
 title:: `html_allocations_for' Subroutine
-
-label:: ci-000330
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:html_allocations_for] subroutine 
 
-######################################################################
+===
 
 index:: ci-000330; subroutine![cmd:html_allocations_for]
 

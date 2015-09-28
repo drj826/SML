@@ -1,10 +1,12 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000390
 
 title:: SML/Region.pm Module
 
-label:: ci-000390
+type:: software
+
+part_of:: ci-000004
+
+description:: The SML/Region.pm Module...
 
 revision:: $Revision: 15144 $
 
@@ -12,24 +14,18 @@ date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-type:: software
-
-parent:: ci-000004
-
-description:: The SML/Region.pm Module...
-
-######################################################################
+===
 
 index:: ci-000390
 
----LISTING
+>>>LISTING.lis-region-pm
 title::     Region.pm
-label::     lis-region-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../lib/SML/Region.pm
----LISTING
+===
+file:: ../../lib/SML/Region.pm
+<<<LISTING
 
 [clearpage]
 

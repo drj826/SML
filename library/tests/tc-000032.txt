@@ -1,10 +1,15 @@
->>>test
-
-######################################################################
+>>>test.tc-000032
 
 title:: Region.pm Unit Test Case
 
-label:: tc-000032
+priority:: routine
+
+type:: unit
+
+part_of:: tc-000001
+
+description:: This is the unit test case for the Region.pm Perl
+module that implements the SML::Region class.
 
 revision:: $Revision: 15145 $
 
@@ -12,42 +17,33 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-priority:: routine
-
-type:: unit
-
-parent:: tc-000001
-
-description:: This is the unit test case for the Region.pm Perl
-module that implements the SML::Region class.
-
-######################################################################
+===
 
 index:: tc-000032; unit test case!Region.pm
 
 [ref:lis-region-pm-unit-test-case] shows the unit test case for
 [file:Region.pm].
 
----LISTING
+>>>LISTING.lis-region-pm-unit-test-case
 title::       Region.t - Unit Test Case for Region.pm
-label::       lis-region-pm-unit-test-case
 numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../t/Region.t
----LISTING
+===
+file:: ../../t/Region.t
+<<<LISTING
 
 [ref:lis-region-pm-unit-test-results] shows the results of executing
 the [file:Region.pm] unit test case.
 
----LISTING
+>>>LISTING.lis-region-pm-unit-test-results
 title::     Region.pm Unit Test Case Results
-label::     lis-region-pm-unit-test-results
 numbers::   left
 fontsize::  footnotesize
-script::    scripts/run-unit-test.bat Region.t
----LISTING
+===
+script:: scripts/run-unit-test.bat Region.t
+<<<LISTING
 
 <<<test
 

@@ -1,24 +1,20 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000068
 
 title:: FILE NOT FOUND
 
-id:: td-000068
-
-######################################################################
+===
 
 This SML document contains an INVALID image file element (bad file
 extension).
 
----FIGURE
+>>>FIGURE.fig-my-test-figure
 
 title:: My Test Figure
 
-id:: lis-my-test-figure
+===
 
 image:: image.1.jgp
 
----FIGURE
+<<<FIGURE
 
 <<<DOCUMENT

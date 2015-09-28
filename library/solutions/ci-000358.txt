@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000358
 
 title:: `column_heads_present' Subroutine
-
-label:: ci-000358
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:column_heads_present] subroutine 
 
-######################################################################
+===
 
 index:: ci-000358; subroutine![cmd:column_heads_present]
 

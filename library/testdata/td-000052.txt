@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000052
 
 title:: INVALID GLOSSARY DEFINITION REF SYNTAX
 
-id:: td-000052
-
-######################################################################
+===
 
 This SML document contains invalid glossary definition syntax.  The
 following definition reference is missing its close markup. [def:term

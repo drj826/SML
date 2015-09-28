@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000081
 
 title:: Represent an Assertion
-
-label:: rq-000081
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000009
+part_of:: rq-000009
 
 type:: data format
 
@@ -26,7 +22,7 @@ format to capture simple assertions that can be used by a reasoning
 application to automatically look for inconsistencies via formal
 logic.
 
-######################################################################
+===
 
 index:: rq-000081; assertions
 

@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000135
 
 title:: Represent a `Lookup' Statement
-
-label:: rq-000135
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000073
+part_of:: rq-000073
 
 type:: data format
 
@@ -27,7 +23,7 @@ requirement is to maximize document maintainability by giving authors
 the capability to define content in one location and reuse it in
 multiple locations.
 
-######################################################################
+===
 
 index:: rq-000135; lookups
 

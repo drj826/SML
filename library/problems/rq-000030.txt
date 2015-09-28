@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000030
 
 title:: Represent Instructional Demonstrations
-
-label:: rq-000030
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000195
+part_of:: rq-000195
 
 type:: data format
 
@@ -25,7 +21,7 @@ that reinforce and illustrate documented concepts.  The purpose of
 identifying content as a demonstration is to make the content
 re-usable and to enable special listings of demonstrations.
 
-######################################################################
+===
 
 index:: rq-000030; demonstrations
 

@@ -1,14 +1,12 @@
->>>DOCUMENT
+>>>DOCUMENT.releasing-publish
 
-######################################################################
-
-title::     How To Release the Publish Program
+title:: How To Release the Publish Program
 
 author::    Don Johnson
 
 copyright:: 2005, Don Johnson
 
-######################################################################
+===
 
 This is a simple checklist of the steps involved in releasing an
 updated copy of the publish program.  I tend to release the program
@@ -95,4 +93,3 @@ whenever I release a new version.
 ######################################################################
 
 <<<DOCUMENT
-

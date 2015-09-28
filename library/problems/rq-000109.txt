@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000109
 
 title:: Ignore Comments
-
-label:: rq-000109
 
 revision:: $Revision: 11579 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000105
+part_of:: rq-000105
 
 priority:: routine
 
@@ -26,7 +22,7 @@ or (2) individually commented out should be ignored for the purposes
 of gathering structured data from the document and publishing document
 renditions.
 
-######################################################################
+===
 
 index:: rq-000109; comments!ignore
 

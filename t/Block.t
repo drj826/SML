@@ -106,6 +106,7 @@ foreach my $tc (@{ $tcl })
     valid_syntax_warning_ok($tc)      if defined $tc->{expected}{valid_syntax_warning};
     has_valid_semantics_ok($tc)       if defined $tc->{expected}{has_valid_semantics};
     valid_semantics_warning_ok($tc)   if defined $tc->{expected}{valid_semantics_warning};
+    has_parts_ok($tc)                 if defined $tc->{expected}{has_parts};
   }
 
 ######################################################################
@@ -292,6 +293,41 @@ sub valid_semantics_warning_ok {
 
   # assert
   Test::Log4perl->end("$tcname warns $expected");
+}
+
+######################################################################
+
+sub has_parts_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname   = $tc->{name};
+  my $content  = $tc->{content};
+  my $subclass = $tc->{subclass};
+  my $expected = $tc->{expected}{has_parts};
+  my $filename = $tc->{filename};
+  my $docid    = $tc->{docid};
+  my $library  = $tc->{library};
+  my $parser   = $library->get_parser;
+  my $fragment = $parser->create_fragment($filename);
+  my $document = $library->get_document($docid);
+  my $line     = SML::Line->new(content=>$content);
+  my $block    = $subclass->new(library=>$library);
+
+  $block->add_line($line);
+  $document->add_part($block);
+
+  foreach my $block (@{ $fragment->get_block_list })
+    {
+      $parser->_parse_block($block);
+    }
+
+  # act
+  my $result = $block->has_parts;
+
+  # assert
+  is($result,$expected,"$tcname has_parts");
 }
 
 ######################################################################

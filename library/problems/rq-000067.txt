@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000067
 
 title:: Represent a Comment Line
-
-label:: rq-000067
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000066
+part_of:: rq-000066
 
 type:: data format
 
@@ -22,7 +18,7 @@ description:: The data format shall have the capability to represent a
 comment line.  A comment line is a single line of text that appears in
 the source data format but not in published renditions.
 
-######################################################################
+===
 
 index:: rq-000067; comment line
 

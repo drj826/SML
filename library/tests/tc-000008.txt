@@ -1,10 +1,15 @@
->>>test
-
-######################################################################
+>>>test.tc-000008
 
 title:: Util.pm Unit Test Case
 
-label:: tc-000008
+priority:: routine
+
+type:: unit
+
+part_of:: tc-000001
+
+description:: This is the unit test case for the Util.pm Perl
+module that implements the SML::Util class.
 
 revision:: $Revision: 15145 $
 
@@ -12,42 +17,33 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-priority:: routine
-
-type:: unit
-
-parent:: tc-000001
-
-description:: This is the unit test case for the Util.pm Perl
-module that implements the SML::Util class.
-
-######################################################################
+===
 
 index:: tc-000008; unit test case!Util.pm
 
 [ref:lis-util-pm-unit-test-case] shows the unit test case for
 [file:Util.pm].
 
----LISTING
+>>>LISTING.lis-util-pm-unit-test-case
 title::       Util.t - Unit Test Case for Util.pm
-label::       lis-util-pm-unit-test-case
 numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../t/Util.t
----LISTING
+===
+file:: ../../t/Util.t
+<<<LISTING
 
 [ref:lis-util-pm-unit-test-results] shows the results of executing
 the Util.pm unit test case.
 
----LISTING
+>>>LISTING.lis-util-pm-unit-test-results
 title::     Util.pm Unit Test Case Results
-label::     lis-util-pm-unit-test-results
 numbers::   left
 fontsize::  footnotesize
-script::    scripts/run-unit-test.bat Util.t
----LISTING
+===
+script:: scripts/run-unit-test.bat Util.t
+<<<LISTING
 
 <<<test
 

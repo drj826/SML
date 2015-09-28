@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000043
 
 title:: INVALID FIXED-WIDTH MARKUP
 
-id:: td-000043
-
-######################################################################
+===
 
 This document contains an example of INVALID fixed-width markup.
 

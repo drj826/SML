@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000024
 
 title:: Represent a Side Bar
-
-label:: rq-000024
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000326
+part_of:: rq-000326
 
 type:: data format
 
@@ -24,7 +20,7 @@ in an emphasized way to reinforce points made in the main text.  The
 data format representation of a side bar must allow but not mandate
 newline characters within a side bar.
 
-######################################################################
+===
 
 index:: rq-000024; side bar
 

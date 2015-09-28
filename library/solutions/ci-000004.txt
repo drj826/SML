@@ -1,21 +1,17 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000004
 
 title:: SML Software Library
 
-label:: ci-000004
+attr:: language = perl
+
+description:: The SML Software Library is a library of object-oriented
+classes that provide software for processing SML documents.
 
 revision:: $Revision: 10975 $
 
 date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
-
-attr:: language = perl
-
-description:: The SML Software Library is a library of object-oriented
-classes that provide software for processing SML documents.
 
 #---------------------------------------------------------------------
 # allocations
@@ -33,7 +29,7 @@ allocation:: al-000259 # rq-000182 Be Configurable
 
 allocation:: al-000333 # rq-000254 Validate SML Source Files
 
-######################################################################
+===
 
 index:: ci-000004; SML Software Library
 

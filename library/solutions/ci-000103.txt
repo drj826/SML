@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000103
 
 title:: `process_index_entry' Subroutine
-
-label:: ci-000103
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:process_index_entry] subroutine 
 
-######################################################################
+===
 
 index:: ci-000103; subroutine![cmd:process_index_entry]
 

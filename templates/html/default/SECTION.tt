@@ -1,13 +1,9 @@
-[%#
-
-$Id: $
-
--%]
 [% WRAPPER page.tt -%]
-  [%- INCLUDE previous_and_next.tt -%]
+
+[%- INCLUDE previous_and_next.tt -%]
 
 <a name="section.[% self.get_number %]">
-<h2>[% self.get_number %] [% self.get_property_value('title') %] </h1>
+<h2>[% self.get_number %] [% self.get_property_value('title') %] </h2>
 
   [%- FOREACH self IN self.get_part_list -%]
     [%- IF    self.get_name == 'title' -%]

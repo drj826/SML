@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000027
 
 title:: INVALID Glossary Term Reference
 
-id:: td-000027
-
-######################################################################
+===
 
 This SML document illustrates an example of an ~~INVALID~~ glossary
 term reference.  The reference is invalid because the term defined in

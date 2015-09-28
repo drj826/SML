@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000170
 
 title:: `begin_task' Subroutine
-
-label:: ci-000170
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:begin_task] subroutine 
 
-######################################################################
+===
 
 index:: ci-000170; subroutine![cmd:begin_task]
 

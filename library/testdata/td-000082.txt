@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000082
 
 title:: Definition List Test
 
-id:: td-000082
-
-######################################################################
+===
 
 This document contains definition lists to test the systems capability
 to parse and render definition lists.
@@ -16,8 +12,6 @@ to parse and render definition lists.
 = [g:BRD] = [def:BRD]
 
 = [g:sml:business requirement] = [def:sml:business requirement]
-
-###
 
 glossary:: BRD = Business Requirements Document
 

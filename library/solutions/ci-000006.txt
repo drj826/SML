@@ -1,20 +1,10 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000006
 
 title:: SML Semantics
 
-label:: ci-000006
-
-revision:: $Revision: 15144 $
-
-date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
-
-author:: $Author: don.johnson $
-
 type:: configuration file
 
-parent:: ci-000001
+part_of:: ci-000001
 
 description:: [g:sml:SML] semantics specify the terms that represent the
 entities defined for an SML library, the entity properties, the
@@ -22,6 +12,12 @@ relationships that hold among entities, and the formal axioms that
 constrain the interpretation and well-formed use of these terms.  The
 semantics that hold for an SML library are expressed as an ontology in
 one or more ontology configuration files.
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
 
 #---------------------------------------------------------------------
 # allocations
@@ -33,33 +29,33 @@ allocation:: al-000283 # rq-000194 Represent Semantic Entities
 allocation:: al-000145 # rq-000125 Represent Inline Semantic Content
 allocation:: al-000284 # rq-000194 Represent Inference Rules
 
-######################################################################
+===
 
 index:: ci-000006
 
 [ref:lis-sml-ontology-config] shows the [file:ontology_rules_sml.conf]
 file.
 
----LISTING
+>>>LISTING.lis-sml-ontology-config
 title::       ontology_rules_sml.conf
-label::       lis-sml-ontology-config
 numbers::     left
 fontsize::    footnotesize
 orientation:: landscape
-file::        ../ontology_rules_sml.conf
----LISTING
+===
+file:: ../ontology_rules_sml.conf
+<<<LISTING
 
 [ref:lis-lib-ontology-config] shows the [file:ontology_rules_lib.conf]
 file.
 
----LISTING
+>>>LISTING.lis-lib-ontology-config
 title::       ontology_rules_lib.conf
-label::       lis-lib-ontology-config
 numbers::     left
 fontsize::    footnotesize
 orientation:: landscape
-file::        ../ontology_rules_lib.conf
----LISTING
+===
+file:: ../ontology_rules_lib.conf
+<<<LISTING
 
 <<<solution
 

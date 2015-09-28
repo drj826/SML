@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000003
 
 ######################################################################
 
 title:: Component Integration Test Results
-
-label:: tr-000003
 
 revision:: $Revision: 10974 $
 

@@ -1,10 +1,15 @@
->>>test
-
-######################################################################
+>>>test.tc-000014
 
 title:: Block.pm Unit Test Case
 
-label:: tc-000014
+priority:: routine
+
+type:: unit
+
+part_of:: tc-000001
+
+description:: This is the unit test case for the Block.pm Perl
+module that implements the SML::Block class.
 
 revision:: $Revision: 15145 $
 
@@ -12,42 +17,33 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-priority:: routine
-
-type:: unit
-
-parent:: tc-000001
-
-description:: This is the unit test case for the Block.pm Perl
-module that implements the SML::Block class.
-
-######################################################################
+===
 
 index:: tc-000014; unit test case!Block.pm
 
 [ref:lis-block-pm-unit-test-case] shows the unit test for
 [file:Block.pm].
 
----LISTING
+>>>LISTING.lis-block-pm-unit-test-case
 title::       Block.t - Unit Test Case for Block.pm
-label::       lis-block-pm-unit-test-case
 numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../t/Block.t
----LISTING
+===
+file:: ../../t/Block.t
+<<<LISTING
 
 [ref:lis-block-pm-unit-test-results] shows the results of executing
 the Block.pm unit test case.
 
----LISTING
+>>>LISTING.lis-block-pm-unit-test-results
 title::     Block.pm Unit Test Case Results
-label::     lis-block-pm-unit-test-results
 numbers::   left
 fontsize::  footnotesize
-script::    scripts/run-unit-test.bat Block.t
----LISTING
+===
+script:: scripts/run-unit-test.bat Block.t
+<<<LISTING
 
 <<<test
 

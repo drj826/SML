@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000366
 
 title:: `already_in_array' Subroutine
-
-label:: ci-000366
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:already_in_array] subroutine 
 
-######################################################################
+===
 
 index:: ci-000366; subroutine![cmd:already_in_array]
 

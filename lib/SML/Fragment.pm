@@ -8,8 +8,6 @@ use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Division';
-
 use namespace::autoclean;
 
 use English qw( -no_match_vars );
@@ -29,16 +27,12 @@ my $logger = Log::Log4perl::get_logger('sml.Fragment');
 ######################################################################
 ######################################################################
 
-has '+id' =>
+has 'id' =>
   (
-   required => 0,
-  );
-
-######################################################################
-
-has '+name' =>
-  (
-   default => 'FRAGMENT',
+   isa       => 'Str',
+   reader    => 'get_id',
+   writer    => 'set_id',
+   default   => '',
   );
 
 ######################################################################
@@ -379,31 +373,31 @@ sub BUILD {
 
 ######################################################################
 
-override '_validate_semantics' => sub {
+# override '_validate_semantics' => sub {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $valid    = super();
-  my $sml      = SML->instance;
-  my $util     = $sml->get_util;
-  my $library  = $self->get_library;
-  my $filespec = $self->get_file->get_filespec;
+#   my $valid    = super();
+#   my $sml      = SML->instance;
+#   my $util     = $sml->get_util;
+#   my $library  = $self->get_library;
+#   my $filespec = $self->get_file->get_filespec;
 
-  foreach my $resource (values %{ $self->_get_resource_hash })
-    {
-      if ( not $resource->is_valid ) {
-	$valid = 0;
-      }
-    }
+#   foreach my $resource (values %{ $self->_get_resource_hash })
+#     {
+#       if ( not $resource->is_valid ) {
+# 	$valid = 0;
+#       }
+#     }
 
-  return $valid;
-};
+#   return $valid;
+# };
 
 ######################################################################
 
 sub _read_file {
 
-  # Read a file, return an array of lines.
+  # Read a file, return an array of SML::Line objects.
 
   # 1. Receive a SML::File object.
   # 2. Read the file, create a SML::Line object for each line.

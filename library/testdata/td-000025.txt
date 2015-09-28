@@ -1,12 +1,8 @@
->>>DOCUMENT
+>>>DOCUMENT.td-000025
 
-######################################################################
+title:: Substitute Variables
 
-title: Substitute Variables
-
-id:: td-000025
-
-######################################################################
+===
 
 var:: name = Mickey Mouse
 

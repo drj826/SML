@@ -62,7 +62,7 @@ sub get_value {
     {
       my $util = $sml->get_util;
 
-      return $util->trim_whitespace($2);
+      return $util->trim_whitespace($4);
     }
 
   else

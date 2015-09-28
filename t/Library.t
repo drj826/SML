@@ -3,7 +3,7 @@
 # $Id: Library.t 264 2015-05-11 11:56:25Z drj826@gmail.com $
 
 use lib "../lib";
-use Test::More tests => 13;
+use Test::More tests => 12;
 
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
@@ -48,7 +48,6 @@ my @public_methods =
    'get_ontology_rule_filespec_list',
    'get_parser',
    'get_reasoner',
-   'get_formatter',
    'get_glossary',
    'get_acronym_list',
    'get_references',
@@ -57,6 +56,8 @@ my @public_methods =
    'get_division_name_list',
    'get_region_name_list',
    'get_environment_name_list',
+   'get_template_dir',
+   'get_published_dir',
 
    # SML::Library public methods
    'has_filespec',
@@ -74,7 +75,6 @@ my @public_methods =
    'add_script_file',
    'add_outcome',
    'add_review',
-
 
    'has_fragment',
    'get_fragment',
@@ -150,7 +150,7 @@ foreach my $tc (@{$tcl})
     get_sml_ok($tc);
     get_parser_ok($tc);
     get_reasoner_ok($tc);
-    get_formatter_ok($tc);
+    # get_formatter_ok($tc);
     get_glossary_ok($tc);
     get_acronym_list_ok($tc);
     get_references_ok($tc);
@@ -276,22 +276,22 @@ sub get_reasoner_ok {
 
 ######################################################################
 
-sub get_formatter_ok {
+# sub get_formatter_ok {
 
-  my $tc = shift;                       # test case
+#   my $tc = shift;                       # test case
 
-  # arrange
-  my $tc_name   = $tc->{name};
-  my $config_fn = $tc->{config_filename};
-  my $library   = SML::Library->new(config_filename=>$config_fn);
-  my $expected  = $tc->{expected}{get_formatter};
+#   # arrange
+#   my $tc_name   = $tc->{name};
+#   my $config_fn = $tc->{config_filename};
+#   my $library   = SML::Library->new(config_filename=>$config_fn);
+#   my $expected  = $tc->{expected}{get_formatter};
 
-  # act
-  my $result = $library->get_formatter;
+#   # act
+#   my $result = $library->get_formatter;
 
-  # assert
-  isa_ok($result,$expected,"$result")
-}
+#   # assert
+#   isa_ok($result,$expected,"$result")
+# }
 
 ######################################################################
 

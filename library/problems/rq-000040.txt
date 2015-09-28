@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000040
 
 title:: Represent Document Font Family
-
-label:: rq-000040
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000122
+part_of:: rq-000122
 
 type:: data format
 
@@ -23,7 +19,7 @@ the font family used for the entire document.  The font family
 represents a set of fonts used for narrative text, fixed-width text,
 bold, italics, and other font variations.
 
-######################################################################
+===
 
 index:: rq-000040; font family
 

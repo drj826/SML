@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000136
 
 title:: Represent a `Definition Reuse' Statement
-
-label:: rq-000136
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000073
+part_of:: rq-000073
 
 type:: data format
 
@@ -25,7 +21,7 @@ maximize document maintainability by giving authors the capability to
 define terms and acronyms in one location and reuse them in multiple
 locations.
 
-######################################################################
+===
 
 index:: rq-000136; definitions
 

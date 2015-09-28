@@ -1,12 +1,14 @@
+>>>RAW.sources-cmmi
+
+===
+
 # CMMI SOURCES
 
 ######################################################################
 
----SOURCE
+>>>SOURCE.cmmi
 
-source:: misc
-
-label:: cmmi
+source_type:: misc
 
 title:: CMMI for Development, Version 1.2
 
@@ -18,7 +20,7 @@ note:: CMU/SEI-2006-TR-008, ESC-TR-2006-008
 
 file:: ../files/cmmi/CMMI-DEV-v1-2.pdf
 
----SOURCE
+<<<SOURCE
 
 ######################################################################
 
@@ -31,6 +33,8 @@ file:: ../files/cmmi/CMMI-DEV-v1-2.pdf
 # End:
 
 ######################################################################
+
+<<<RAW
 
 >>>RESOURCES
 67d3df5cb776582121abf265c8b0b556665fe1ca files/cmmi/CMMI-DEV-v1-2.pdf

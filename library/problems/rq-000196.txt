@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000196
 
 title:: Identify Entities by Type
-
-label:: rq-000196
 
 revision:: $Revision: 10973 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000195
+part_of:: rq-000195
 
 priority:: routine
 
@@ -23,7 +19,7 @@ entities by type.  For instance, a systems engineering domain might
 contain entities types like: problems, solutions, allocations, tests,
 results, tasks, and roles.
 
-######################################################################
+===
 
 index:: rq-000196; entity types
 

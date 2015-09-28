@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000034
 
 title:: Represent Tests
-
-label:: rq-000034
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000195
+part_of:: rq-000195
 
 type:: data format
 
@@ -27,7 +23,7 @@ make that test semantically traceable to other elements of content
 (like problems and solutions), to make the content re-usable, and to
 enable special listings of tests.
 
-######################################################################
+===
 
 index:: rq-000034; tests
 

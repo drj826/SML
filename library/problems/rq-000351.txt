@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000351
 
 title:: Ignore Markup Inside Literal Text
-
-label:: rq-000351
 
 revision:: $Revision: 15127 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2013-07-07 09:26:14 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000105
+part_of:: rq-000105
 
 priority:: routine
 
@@ -23,7 +19,7 @@ Literal text is a span of text in which all content is interpreted
 literally.  This enables authors to add content that would otherwise
 be interpreted as markup by the software.
 
-######################################################################
+===
 
 index:: rq-000351
 

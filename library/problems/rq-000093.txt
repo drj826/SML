@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000093
 
 title:: Represent a `Generate' Statement
-
-label:: rq-000093
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000009
+part_of:: rq-000009
 
 type:: data format
 
@@ -22,7 +18,7 @@ description:: The data format shall have the capability to represent a
 `generate' statement that directs the application to generate and
 insert specified text content.
 
-######################################################################
+===
 
 index:: rq-000093; generated text
 

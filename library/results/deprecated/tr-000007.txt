@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000007
 
 ######################################################################
 
 title:: Options.pm Unit Test Case Results
-
-label:: tr-000007
 
 revision:: $Revision: 15128 $
 

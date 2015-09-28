@@ -1,10 +1,15 @@
->>>test
-
-######################################################################
+>>>test.tc-000035
 
 title:: Demo.pm Unit Test Case
 
-label:: tc-000035
+priority:: routine
+
+type:: unit
+
+part_of:: tc-000001
+
+description:: This is the unit test case for the Demo.pm Perl
+module that implements the SML::Demo class.
 
 revision:: $Revision: 15145 $
 
@@ -12,42 +17,33 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-priority:: routine
-
-type:: unit
-
-parent:: tc-000001
-
-description:: This is the unit test case for the Demo.pm Perl
-module that implements the SML::Demo class.
-
-######################################################################
+===
 
 index:: tc-000035; unit test case!Demo.pm
 
 [ref:lis-demo-pm-unit-test-case] shows the unit test case for
 [file:Demo.pm].
 
----LISTING
+>>>LISTING.lis-demo-pm-unit-test-case
 title::       Demo.t - Unit Test Case for Demo.pm
-label::       lis-demo-pm-unit-test-case
 numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../t/Demo.t
----LISTING
+===
+file:: ../../t/Demo.t
+<<<LISTING
 
 [ref:lis-demo-pm-unit-test-results] shows the results of executing the
 [file:Demo.pm] unit test case.
 
----LISTING
+>>>LISTING.lis-demo-pm-unit-test-results
 title::     Demo.pm Unit Test Case Results
-label::     lis-demo-pm-unit-test-results
 numbers::   left
 fontsize::  footnotesize
-script::    scripts/run-unit-test.bat Demo.t
----LISTING
+===
+script:: scripts/run-unit-test.bat Demo.t
+<<<LISTING
 
 <<<test
 

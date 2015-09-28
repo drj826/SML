@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000125
 
 title:: `begin_baretable' Subroutine
-
-label:: ci-000125
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:begin_baretable] subroutine 
 
-######################################################################
+===
 
 index:: ci-000125; subroutine![cmd:begin_baretable]
 

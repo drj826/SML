@@ -1,10 +1,15 @@
->>>test
-
-######################################################################
+>>>test.tc-000012
 
 title:: Line.pm Unit Test Case
 
-label:: tc-000012
+priority:: routine
+
+type:: unit
+
+part_of:: tc-000001
+
+description:: This is the unit test case for the Line.pm Perl
+module that implements the SML::Line class.
 
 revision:: $Revision: 15145 $
 
@@ -12,42 +17,33 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-priority:: routine
-
-type:: unit
-
-parent:: tc-000001
-
-description:: This is the unit test case for the Line.pm Perl
-module that implements the SML::Line class.
-
-######################################################################
+===
 
 index:: tc-000012; unit test case!Line.pm
 
 [ref:lis-line-pm-unit-test-case] shows the unit test case for
 [file:Line.pm].
 
----LISTING
+>>>LISTING.lis-line-pm-unit-test-case
 title::       Line.t - Unit Test Case for Line.pm
-label::       lis-line-pm-unit-test-case
 numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../t/Line.t
----LISTING
+===
+file:: ../../t/Line.t
+<<<LISTING
 
 [ref:lis-line-pm-unit-test-results] shows the results of executing
 the Line.pm unit test case.
 
----LISTING
+>>>LISTING.lis-line-pm-unit-test-results
 title::     Line.pm Unit Test Case Results
-label::     lis-line-pm-unit-test-results
 numbers::   left
 fontsize::  footnotesize
-script::    scripts/run-unit-test.bat Line.t
----LISTING
+===
+script:: scripts/run-unit-test.bat Line.t
+<<<LISTING
 
 <<<test
 

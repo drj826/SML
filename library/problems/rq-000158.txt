@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000158
 
 title:: Represent an Option to Run Scripts Conditionally
-
-label:: rq-000158
 
 revision:: $Revision: 11687 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000072
+part_of:: rq-000072
 
 type:: data format
 
@@ -25,7 +21,7 @@ data in a CSV file, the author may wish to only execute the script on
 the condition that the CSV file has been updated since it was last
 run.
 
-######################################################################
+===
 
 index:: rq-000158; scripts!conditional; conditional scripts
 

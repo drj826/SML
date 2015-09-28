@@ -1,10 +1,13 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000021
 
 title:: `pass_two' Subroutine
 
-label:: ci-000021
+type:: software
+
+part_of:: ci-000007
+
+description:: The [cmd:pass_two] subroutine assembles generated text
+and gathers document data.
 
 revision:: $Revision: 10975 $
 
@@ -12,20 +15,13 @@ date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-type:: software
-
-parent:: ci-000007
-
-description:: The [cmd:pass_two] subroutine assembles generated text
-and gathers document data.
-
 #---------------------------------------------------------------------
 # allocations
 
 allocation:: al-000211 # rq-000128 Gather Data
 allocation:: al-000212 # rq-000129 Insert Content
 
-######################################################################
+===
 
 index:: ci-000021; subroutine![cmd:pass_two]
 

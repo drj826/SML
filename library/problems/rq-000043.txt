@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000043
 
 title:: Represent Table Cell Font Size
-
-label:: rq-000043
 
 revision:: $Revision: 10973 $
 
@@ -14,14 +10,14 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000123
+part_of:: rq-000123
 
 type:: data format
 
 description:: The data format shall have the capability to represent
 the font size for a table cell.
 
-######################################################################
+===
 
 index:: rq-000043; table cell font size; font size!table cell
 

@@ -1,20 +1,10 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000032
 
 title:: `assemble_latex_head_array' Subroutine
 
-label:: ci-000032
-
-revision:: $Revision: 10975 $
-
-date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
-
-author:: $Author: don.johnson $
-
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:assemble_latex_head_array] subroutine assembles
 the first part of the generated LaTeX file including: beginning
@@ -23,7 +13,13 @@ region/environment definitions, default header/footer, definitions of
 custom inline LaTeX commands, glossary entries, the beginning of
 document command, and the frontmatter command.
 
-######################################################################
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+===
 
 index:: ci-000032; subroutine![cmd:assemble_latex_head_array]
 

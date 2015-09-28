@@ -31,7 +31,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = $library->get_formatter;
+my $obj = SML::Formatter->new(library=>$library);
 isa_ok( $obj, 'SML::Formatter' );
 
 #---------------------------------------------------------------------

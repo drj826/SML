@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000225
 
 title:: `render_recent_update_listing' Subroutine
-
-label:: ci-000225
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:render_recent_update_listing] subroutine 
 
-######################################################################
+===
 
 index:: ci-000225; subroutine![cmd:render_recent_update_listing]
 

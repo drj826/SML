@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000186
 
 title:: Be Easy To Debug
-
-label:: rq-000186
 
 revision:: $Revision: 11687 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000107
+part_of:: rq-000107
 
 type:: data format
 
@@ -24,7 +20,7 @@ reviewers. The purpose of this requirement is to avoid tricky or
 clever mechanisms on the data format that hinder debugging and
 correction of invalid documents.
 
-######################################################################
+===
 
 index:: rq-000186; ease of debugging
 

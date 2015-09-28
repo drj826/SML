@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000434
 
 title:: SML/Property.pm Module
-
-label:: ci-000434
 
 revision:: $Revision: 11635 $
 
@@ -14,14 +10,14 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000004
+part_of:: ci-000004
 
 description:: The SML/Property.pm module implements the SML::Property
 class which represents an entity property.  The element syntax is used
 to declare properties.  An element in not the same thing as a property
 because a multi-valued property is declared by multiple elements.
 
-######################################################################
+===
 
 index:: ci-000434; property
 

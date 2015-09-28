@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000295
 
 title:: `latex_product_of' Subroutine
-
-label:: ci-000295
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:latex_product_of] subroutine 
 
-######################################################################
+===
 
 index:: ci-000295; subroutine![cmd:latex_product_of]
 

@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000204
 
 title:: `term_in_glossary' Subroutine
-
-label:: ci-000204
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:term_in_glossary] subroutine 
 
-######################################################################
+===
 
 index:: ci-000204; subroutine![cmd:term_in_glossary]
 

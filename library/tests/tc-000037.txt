@@ -1,10 +1,15 @@
->>>test
-
-######################################################################
+>>>test.tc-000037
 
 title:: Keypoints.pm Unit Test Case
 
-label:: tc-000037
+priority:: routine
+
+type:: unit
+
+part_of:: tc-000001
+
+description:: This is the unit test case for the Keypoints.pm Perl
+module that implements the SML::Keypoints class.
 
 revision:: $Revision: 15145 $
 
@@ -12,42 +17,33 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-priority:: routine
-
-type:: unit
-
-parent:: tc-000001
-
-description:: This is the unit test case for the Keypoints.pm Perl
-module that implements the SML::Keypoints class.
-
-######################################################################
+===
 
 index:: tc-000037; unit test case!Keypoints.pm
 
 [ref:lis-keypoints-pm-unit-test-case] shows the unit test case for
 [file:Keypoints.pm].
 
----LISTING
+>>>LISTING.lis-keypoints-pm-unit-test-case
 title::       Keypoints.t - Unit Test Case for Keypoints.pm
-label::       lis-keypoints-pm-unit-test-case
 numbers::     left
 language::    Perl
 orientation:: portrait
 fontsize::    footnotesize
-file::        ../../t/Keypoints.t
----LISTING
+===
+file:: ../../t/Keypoints.t
+<<<LISTING
 
 [ref:lis-keypoints-pm-unit-test-results] shows the results of
 executing the [file:Keypoints.pm] unit test case.
 
----LISTING
+>>>LISTING.lis-keypoints-pm-unit-test-results
 title::     Keypoints.pm Unit Test Case Results
-label::     lis-keypoints-pm-unit-test-results
 numbers::   left
 fontsize::  footnotesize
-script::    scripts/run-unit-test.bat Keypoints.t
----LISTING
+===
+script:: scripts/run-unit-test.bat Keypoints.t
+<<<LISTING
 
 <<<test
 

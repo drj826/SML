@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000018
 
 ######################################################################
 
 title:: Conditional.pm Unit Test Case Results
-
-label:: tr-000018
 
 revision:: $Revision: 15128 $
 

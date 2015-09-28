@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000162
 
 title:: `begin_problem' Subroutine
-
-label:: ci-000162
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:begin_problem] subroutine 
 
-######################################################################
+===
 
 index:: ci-000162; subroutine![cmd:begin_problem]
 

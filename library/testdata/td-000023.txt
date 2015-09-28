@@ -1,16 +1,12 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000023
 
 title:: Include A Problem Region
 
-id:: td-000023
+===
 
-######################################################################
-
-This document demonstrates including a region using an include
+This document demonstrates including a division using an include
 statement.
 
-include:: td-000022.txt # <-- a problem
+include:: rq-000003 # <-- a problem
 
 <<<DOCUMENT

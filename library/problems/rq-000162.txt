@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000162
 
 title:: Represent an Option to Persist Generated Content In Document
-
-label:: rq-000162
 
 revision:: $Revision: 11687 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000093
+part_of:: rq-000093
 
 type:: data format
 
@@ -24,7 +20,7 @@ containing document.  The default behavior is to insert the generated
 content into the output document but ~~not~~ persist it in the
 original document.
 
-######################################################################
+===
 
 index:: rq-000162; generated content!persistent
 

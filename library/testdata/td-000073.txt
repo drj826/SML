@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000073
 
 title:: Include From Different Directory
 
-label:: td-000073
-
-######################################################################
+===
 
 This SML document contains a statement that includes a file from
 another directory.

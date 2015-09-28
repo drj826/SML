@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000198
 
 title:: Represent Allocations
-
-label:: rq-000198
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000195
+part_of:: rq-000195
 
 type:: data format
 
@@ -27,7 +23,7 @@ an allocation is to make the content re-usable, to enable special
 listings of allocations, and to enable automatic reasoning about
 allocations.
 
-######################################################################
+===
 
 index:: rq-000198; allocations
 

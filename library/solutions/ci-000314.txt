@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000314
 
 title:: `html_effort_for' Subroutine
-
-label:: ci-000314
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:html_effort_for] subroutine 
 
-######################################################################
+===
 
 index:: ci-000314; subroutine![cmd:html_effort_for]
 

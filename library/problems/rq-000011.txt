@@ -1,14 +1,10 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000011
 
 title:: Represent a Section
 
-label:: rq-000011
-
 priority:: routine
 
-parent:: rq-000326
+part_of:: rq-000326
 
 type:: data format
 
@@ -23,15 +19,13 @@ allow but not mandate it contain newline characters.  The data format
 must have the capability to represent the types of sections enumerated
 in the definition of the ``sectype'' data type ([id:rq-000086]).
 
-#---------------------------------------------------------------------
-
 revision:: $Revision: 11687 $
 
 date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-######################################################################
+===
 
 index:: rq-000011; sections
 

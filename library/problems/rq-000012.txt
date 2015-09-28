@@ -1,14 +1,10 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000012
 
 title:: Represent a List
 
-label:: rq-000012
-
 priority:: routine
 
-parent:: rq-000326
+part_of:: rq-000326
 
 type:: data format
 
@@ -22,15 +18,13 @@ contain multiple blocks (i.e. paragraphs). Lists have no meta data
 elements.  This requirement serves as a container for requirements for
 the data format to represent lists.
 
-#---------------------------------------------------------------------
-
 revision:: $Revision: 11687 $
 
 date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-######################################################################
+===
 
 index:: rq-000012; lists
 

@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000048
 
 title:: Valid Subscript Markup
 
-id:: td-000048
-
-######################################################################
+===
 
 This document contains several examples of valid subscript markup.
 

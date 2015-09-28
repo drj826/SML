@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000068
 
 title:: `process_pagebreak' Subroutine
-
-label:: ci-000068
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:process_pagebreak] subroutine 
 
-######################################################################
+===
 
 index:: ci-000068; subroutine![cmd:process_pagebreak]
 

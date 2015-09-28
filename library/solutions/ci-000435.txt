@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000435
 
 title:: SML/Glossary.pm Module
-
-label:: ci-000435
 
 revision:: $Revision: 11635 $
 
@@ -14,12 +10,12 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000004
+part_of:: ci-000004
 
 description:: The SML/Glossary.pm module implements the SML::Glossary
 class which represents a glossary of terms.
 
-######################################################################
+===
 
 index:: ci-000435; glossary
 

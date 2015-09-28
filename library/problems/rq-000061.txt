@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000061
 
 title:: Represent a Horizontal Rule
-
-label:: rq-000061
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000124
+part_of:: rq-000124
 
 type:: data format
 
@@ -22,7 +18,7 @@ description:: The data format shall have the capability to represent a
 horizontal rule.  Furthermore, the data format must allow authors to
 specify the width of the horizontal rule.
 
-######################################################################
+===
 
 index:: rq-000061; horizontal rule
 

@@ -1,4 +1,0 @@
-include::problem:$r3681$: Problems/rq-000001.txt
-include::problem:$r3681$: Problems/rq-000002.txt
-include::problem:$r3681$: Problems/rq-000003.txt
-include::problem:$r3681$: Problems/rq-000004.txt

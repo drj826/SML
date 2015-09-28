@@ -1,14 +1,10 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000013
 
 title:: Glossary Element
 
-id:: td-000013
+===
 
-######################################################################
-
-This SML document contains a 'glossary' data element.  The 'glossary'
+This SML document contains a `glossary' data element.  The `glossary'
 statement tells an application that the block of text is the text of a
 glossary definition.
 

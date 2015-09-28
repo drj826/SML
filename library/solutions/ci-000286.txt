@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000286
 
 title:: `latex_solutions_for' Subroutine
-
-label:: ci-000286
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:latex_solutions_for] subroutine 
 
-######################################################################
+===
 
 index:: ci-000286; subroutine![cmd:latex_solutions_for]
 

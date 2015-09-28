@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000156
 
 title:: `begin_sidebar' Subroutine
-
-label:: ci-000156
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:begin_sidebar] subroutine 
 
-######################################################################
+===
 
 index:: ci-000156; subroutine![cmd:begin_sidebar]
 

@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000018
 
 title:: Represent Pre-Formatted Text
-
-label:: rq-000018
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000326
+part_of:: rq-000326
 
 type:: data format
 
@@ -24,7 +20,7 @@ a document while preserving all white spaces and line breaks.  This
 requirement serves as a container for data format requirements related
 to representing pre-formatted text.
 
-######################################################################
+===
 
 index:: rq-000018; pre-formatted text
 

@@ -1,6 +1,12 @@
+>>>DOCUMENT.bugs
+
 title:: Known Bugs, Desired Improvements
 
+===
+
 * Known Bugs
+
+===
 
 - ``Take Note'' indicators can't go in tables.  If you put a
   `take_note' indicator inside a table cell, it doesn't get rendered
@@ -107,6 +113,8 @@ title:: Known Bugs, Desired Improvements
   warning.
 
 * Desired Improvements
+
+===
 
 - Definition Lists.  Add support for definition lists.  The beginning
   of a definition list will be indicated by the beginning of a
@@ -287,6 +295,8 @@ title:: Known Bugs, Desired Improvements
   the location of the output directory.  Currently, the output
   directory is created in the same directory containing the source
   text file.
+
+<<<DOCUMENT
 
 ######################################################################
 # Local Emacs Variables

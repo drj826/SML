@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000138
 
 title:: `end_table_cell' Subroutine
-
-label:: ci-000138
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:end_table_cell] subroutine 
 
-######################################################################
+===
 
 index:: ci-000138; subroutine![cmd:end_table_cell]
 

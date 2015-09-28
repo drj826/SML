@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000032
 
 title:: Represent Problems
-
-label:: rq-000032
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000195
+part_of:: rq-000195
 
 type:: data format
 
@@ -26,7 +22,7 @@ description is to make the problem semantically traceable to other
 elements of content (like tests and solutions), to make the content
 re-usable, and to enable special listings of problems.
 
-######################################################################
+===
 
 index:: rq-000032; problems
 

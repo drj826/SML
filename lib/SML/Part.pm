@@ -361,13 +361,13 @@ sub dump_part_structure {
   my $self   = shift;
   my $indent = shift || q{};
 
-  # use Data::Dumper;
-  # return Dumper($self);
-
   my $structure = q{};
+  my $summary   = substr($self->get_content,0,20);
 
-  $structure .= $indent . $self->get_name . " (" . $self->get_id . ")\n";
-  # $structure .= $indent . $self->get_name . "\n";;
+  $summary =~ s/[\r\n]*$//;     # chomp
+  $summary =~ s/[\r\n]+/.../;   # compress newlines
+
+  $structure .= $indent . $self->get_name . " ($summary)\n";
 
   $indent = $indent . '  ';
 
@@ -443,44 +443,30 @@ C<SML::Part> - a part of a document.
 
 =head1 SYNOPSIS
 
-  my $part    = SML::Part->new(name=>$name,library=>$library);
+  my $part = SML::Part->new
+               (
+                 name    => $name,
+                 library => $library,
+               );
 
   my $result  = $part->set_id;
-
   my $id      = $part->get_id;
-
   my $path    = $part->get_id_path;
-
   my $library = $part->get_library;
-
   my $name    = $part->get_name;
-
   my $result  = $part->set_content;
-
   my $text    = $part->get_content;
-
   my $list    = $part->get_part_list;
-
   my $result  = $part->init;
-
   my $boolean = $part->has_content;
-
   my $boolean = $part->has_parts;
-
   my $boolean = $part->has_part($id);
-
   my $subpart = $part->get_part($id);
-
   my $result  = $part->add_part($part);
-
   my $doc     = $part->get_containing_document;
-
   my $boolean = $part->is_in_section;
-
   my $section = $part->get_containing_section;
-
   my $text    = $part->render($rendition,$style);
-
   my $text    = $part->dump_part_structure($indent);
 
 =head1 DESCRIPTION

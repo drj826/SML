@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000084
 
 title:: Represent an Ordered List
-
-label:: rq-000084
 
 revision:: $Revision: 10973 $
 
@@ -14,14 +10,14 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000012
+part_of:: rq-000012
 
 type:: data format
 
 description:: The data format shall have the capability to represent
 an ordered list.  Ordered lists are often called ``numbered'' lists.
 
-######################################################################
+===
 
 index:: rq-000084; ordered lists
 

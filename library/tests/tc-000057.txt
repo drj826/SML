@@ -1,10 +1,15 @@
->>>test
-
-######################################################################
+>>>test.tc-000057
 
 title:: PreformattedBlock.pm Unit Test Case
 
-label:: tc-000057
+priority:: routine
+
+type:: unit
+
+part_of:: tc-000001
+
+description:: This is the unit test case for the PreformattedBlock.pm Perl
+module that implements the SML::PreformattedBlock class.
 
 revision:: $Revision: 15145 $
 
@@ -12,42 +17,33 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-priority:: routine
-
-type:: unit
-
-parent:: tc-000001
-
-description:: This is the unit test case for the PreformattedBlock.pm Perl
-module that implements the SML::PreformattedBlock class.
-
-######################################################################
+===
 
 index:: tc-000057; unit test case!PreformattedBlock.pm
 
 [ref:lis-preformattedblock-pm-unit-test-case] shows the unit test for
 [file:PreformattedBlock.pm].
 
----LISTING
+>>>LISTING.lis-preformattedblock-pm-unit-test-case
 title::       PreformattedBlock.t - Unit Test Case for PreformattedBlock.pm
-label::       lis-preformattedblock-pm-unit-test-case
 numbers::     left
 language::    Perl
 orientation:: landscape
 fontsize::    footnotesize
-file::        ../../t/PreformattedBlock.t
----LISTING
+===
+file:: ../../t/PreformattedBlock.t
+<<<LISTING
 
 [ref:lis-preformattedblock-pm-unit-test-results] shows the results of
 executing the PreformattedBlock.pm unit test case.
 
----LISTING
+>>>LISTING.lis-preformattedblock-pm-unit-test-results
 title::     PreformattedBlock.pm Unit Test Case Results
-label::     lis-preformattedblock-pm-unit-test-results
 numbers::   left
 fontsize::  footnotesize
-script::    scripts/run-unit-test.bat PreformattedBlock.t
----LISTING
+===
+script:: scripts/run-unit-test.bat PreformattedBlock.t
+<<<LISTING
 
 <<<test
 

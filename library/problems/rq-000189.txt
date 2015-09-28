@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000189
 
 title:: Represent a Line-Ending Comment
-
-label:: rq-000189
 
 revision:: $Revision: 5074 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000066
+part_of:: rq-000066
 
 type:: data format
 
@@ -24,7 +20,7 @@ text that appear in the source data format but not in published
 renditions.  They begin at some point on a line and continue to the
 end of the line.
 
-######################################################################
+===
 
 index:: rq-000189; line-ending comment
 

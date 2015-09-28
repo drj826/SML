@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000139
 
 title:: Generate Document Front and Back Matter
-
-label:: rq-000139
 
 revision:: $Revision: 15126 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2013-07-07 09:25:21 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000199
+part_of:: rq-000199
 
 priority:: routine
 
@@ -26,7 +22,7 @@ automatically generated.  Other parts, like the preface, are written
 manually by the author.  This requirement serves as a container for
 software requirements to publish document front and back matter.
 
-######################################################################
+===
 
 index:: rq-000139
 

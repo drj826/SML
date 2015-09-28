@@ -1,10 +1,14 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000431
 
 title:: SML/EnumeratedListItem.pm Module
 
-label:: ci-000431
+type:: software
+
+part_of:: ci-000004
+
+description:: The SML/EnumeratedListItem.pm Module implements the
+{lit:SML::EnumeratedListItem} class which represents enumerated list
+items.
 
 revision:: $Revision: 15144 $
 
@@ -12,26 +16,18 @@ date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-type:: software
-
-parent:: ci-000004
-
-description:: The SML/EnumeratedListItem.pm Module implements the
-{lit:SML::EnumeratedListItem} class which represents enumerated list
-items.
-
-######################################################################
+===
 
 index:: ci-000431; enumerated list item
 
----LISTING
+>>>LISTING.lis-enumerated-list-item-pm
 title::     EnumeratedListItem.pm
-label::     lis-enumerated-list-item-pm
 numbers::   left
 language::  Perl
 fontsize::  footnotesize
-file::      ../../lib/SML/EnumeratedListItem.pm
----LISTING
+===
+file:: ../../lib/SML/EnumeratedListItem.pm
+<<<LISTING
 
 [clearpage]
 

@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000263
 
 title:: Generate HTML List of Revisions
-
-label:: rq-000263
 
 revision:: $Revision: 11579 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2012-11-29 07:55:59 -0700 (Thu, 29 Nov 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000001
+part_of:: rq-000001
 
 priority:: routine
 
@@ -25,7 +21,7 @@ list of revisions comes from the author-maintained list of revisions
 in the document.  These are notes about each published version that
 provide readers a summary updates in each version.
 
-######################################################################
+===
 
 index:: rq-000263; list of revisions!HTML; HTML list of revisions
 

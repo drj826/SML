@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000152
 
 title:: Generate a Prioritized List of Entities
-
-label:: rq-000152
 
 revision:: $Revision: 11687 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000139
+part_of:: rq-000139
 
 priority:: routine
 
@@ -23,7 +19,7 @@ priorities by urgency rank.  Urgency rank is computed based on item
 priority and status.  The purpose of this requirement is to produce a
 listing of items that require attention in order of importance.
 
-######################################################################
+===
 
 index:: rq-000152; list of priorities
 

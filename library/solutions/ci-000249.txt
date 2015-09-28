@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000249
 
 title:: `latex_reviews_for' Subroutine
-
-label:: ci-000249
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:latex_reviews_for] subroutine 
 
-######################################################################
+===
 
 index:: ci-000249; subroutine![cmd:latex_reviews_for]
 

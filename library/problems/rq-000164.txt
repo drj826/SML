@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000164
 
 title:: Represent an Iterative Template
-
-label:: rq-000164
 
 revision:: $Revision: 10973 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000077
+part_of:: rq-000077
 
 priority:: routine
 
@@ -26,7 +22,7 @@ template statement individually.  The purpose of this requirement is
 to improve document maintainability by reducing the amount of
 repetitive text in a document.
 
-######################################################################
+===
 
 index:: rq-000164; iterative template
 

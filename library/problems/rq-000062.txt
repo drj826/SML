@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000062
 
 title:: Represent a File Path
-
-label:: rq-000062
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000125
+part_of:: rq-000125
 
 type:: data format
 
@@ -24,7 +20,7 @@ a file in a hierarchical filesystem.  The files themselves may or may
 not be part of the documentation and therefore the software does not
 validate that these inline file paths actually exist.
 
-######################################################################
+===
 
 index:: rq-000062; filesystem path
 

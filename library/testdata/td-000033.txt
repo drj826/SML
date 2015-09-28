@@ -1,21 +1,17 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000033
 
 title:: INVALID CROSS REFERENCE
 
-id:: td-000033
-
-######################################################################
+===
 
 This test file illustrates a valid cross reference.  See
 [ref:bogus] for details.
 
----LISTING
+>>>LISTING.my-listing
 
 title:: My Listing
 
-label:: my-listing
+===
 
 listing line 1
 
@@ -23,6 +19,6 @@ listing line 2
 
 listing line 3
 
----LISTING
+<<<LISTING
 
 <<<DOCUMENT

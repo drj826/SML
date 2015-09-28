@@ -1,14 +1,10 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000015
 
 title:: Represent a Figure
 
-label:: rq-000015
-
 priority:: routine
 
-parent:: rq-000326
+part_of:: rq-000326
 
 type:: data format
 
@@ -18,15 +14,13 @@ and ASCII art into a document.  Figures have titles and descriptions
 (often called captions) and unique identifiers that allow cross
 referencing within the document.
 
-#---------------------------------------------------------------------
-
 revision:: $Revision: 11687 $
 
 date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-######################################################################
+===
 
 index:: rq-000015; figures
 

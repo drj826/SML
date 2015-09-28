@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000173
 
 title:: Validate Property Cardinality
-
-label:: rq-000173
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000106
+part_of:: rq-000106
 
 type:: data format
 
@@ -23,7 +19,7 @@ properties do not violate cardinality rules.  Cardinality rules are
 declared in the ontology and specify whether a property can have one
 or many values.
 
-######################################################################
+===
 
 index:: rq-000173; property cardinality!validate; validate property
 cardinality; cardinality!property

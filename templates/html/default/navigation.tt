@@ -1,8 +1,7 @@
-[%#
+[%- UNLESS document -%]
+[%- SET document = self.get_containing_document -%]
+[%- END -%]
 
-$Id: $
-
--%]
 <!-- navigation -->
 <div id="left">
 <div class="pad4"></div>
@@ -17,14 +16,36 @@ $Id: $
 <tr>
 <td>
 <a href="[% document.get_id %].1.html"><b>Document</b></a><br/>
+- <a href="[% document.get_id %].titlepage.html">Title Page</a><br/>
+
+[%- IF document.has_sections -%]
 - <a href="[% document.get_id %].toc.html">Contents</a><br/>
+[%- END -%]
+
+[%- IF document.has_tables -%]
 - <a href="[% document.get_id %].table.html">Tables</a><br/>
+[%- END -%]
+
+[%- IF document.has_figures -%]
 - <a href="[% document.get_id %].figure.html">Figures</a><br/>
+[%- END -%]
+
+[%- IF document.has_attachments -%]
 - <a href="[% document.get_id %].attachment.html">Attachments</a><br/>
+[%- END -%]
+
+[%- IF document.has_listings -%]
 - <a href="[% document.get_id %].listing.html">Listings</a><br/>
+[%- END -%]
+
+[%- IF document.get_glossary.has_entries -%]
 - <a href="[% document.get_id %].glossary.html">Glossary</a><br/>
+[%- END -%]
+
+[%- IF document.get_references.has_sources -%]
 - <a href="[% document.get_id %].source.html">References</a><br/>
-- <a href="[% document.get_id %].pdf">PDF</a><br/>
+[%- END -%]
+
 </td>
 </tr>
 

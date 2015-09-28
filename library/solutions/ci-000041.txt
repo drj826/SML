@@ -1,10 +1,12 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000041
 
 title:: `assemble_latex_foot_array' Subroutine
 
-label:: ci-000041
+type:: software
+
+part_of:: ci-000007
+
+description:: The [cmd:assemble_latex_foot_array] subroutine 
 
 revision:: $Revision: 10975 $
 
@@ -12,13 +14,7 @@ date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-type:: software
-
-parent:: ci-000007
-
-description:: The [cmd:assemble_latex_foot_array] subroutine 
-
-######################################################################
+===
 
 index:: ci-000041; subroutine![cmd:assemble_latex_foot_array]
 

@@ -1,10 +1,8 @@
->>>result
+>>>result.tr-000038
 
 ######################################################################
 
 title:: Quotation.pm Unit Test Case Results
-
-label:: tr-000038
 
 revision:: $Revision: 15128 $
 

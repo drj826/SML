@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000171
 
 title:: `end_task' Subroutine
-
-label:: ci-000171
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:end_task] subroutine 
 
-######################################################################
+===
 
 index:: ci-000171; subroutine![cmd:end_task]
 

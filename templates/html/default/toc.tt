@@ -1,15 +1,30 @@
-== table of contents page ==
-
 [%#
 
 $Id: $
 
 %]
-<html>
-<head>
-<title>[% document.get_property_value('title') %]</title>
-</head>
-<body>
-<h1>Table of Contents</h1>
-</body>
-</html>
+[% WRAPPER page.tt -%]
+
+<div class="title">[% document.get_property_value('title') %]</div>
+
+[%- IF document.has_property('subtitle') -%]
+<div class="subtitle">[% document.get_property_value('subtitle') %]</div>
+[%- END -%]
+
+<div class="preamble">
+</div>
+
+<h3 align="center">Table of Contents</h3>
+
+[%- FOREACH section IN document.get_section_list -%]
+[%- IF section.get_depth == '1' -%]
+<h4>Chapter [% section.get_number %] &nbsp;&nbsp; <a href="[%document.get_id%].[%section.get_number%].html">[% section.get_property_value('title') %]</a></h4>
+[%- ELSIF section.get_depth == '2' -%]
+<div style="text-indent: 60pt; font-size: 8pt;">[% section.get_number %] &nbsp;&nbsp; <a href="[%document.get_id%].[%section.get_number%].html">[% section.get_property_value('title') %]</a></div>
+[%- ELSE -%]
+<div style="text-indent: 90pt; font-size: 8pt;">[% section.get_number %] &nbsp;&nbsp; <a href="[%document.get_id%].[%section.get_number%].html">[% section.get_property_value('title') %]</a></div>
+[%- END %]
+
+[%- END -%]
+
+[%- END -%]

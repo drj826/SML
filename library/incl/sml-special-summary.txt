@@ -1,4 +1,6 @@
-###COMMENT
+>>>RAW.sml-special-summary
+
+>>>COMMENT
 
 $Author: don.johnson $
 
@@ -6,7 +8,7 @@ $Revision: 15125 $
 
 $Date: 2013-07-07 09:24:43 -0600 (Sun, 07 Jul 2013) $
 
-###COMMENT
+<<<COMMENT
 
 #---------------------------------------------------------------------
 
@@ -70,12 +72,12 @@ index:: comments; comment blocks
 
   # comment line
 
-  ###comment
+  >>>COMMENT
 
   Block of
   comments
 
-  ###comment
+  <<<COMMENT
 
 ----------------------------------------------------------------------
 
@@ -106,11 +108,11 @@ index:: hidden text
 
 :
 
-  ###hide
+  >>>HIDE
 
   This text is hidden.
 
-  ###hide
+  <<<HIDE
 
 ----------------------------------------------------------------------
 
@@ -194,10 +196,10 @@ index:: conditional text
 
   define: RH9
 
-  ???RH9
+  >>>CONDITIONAL.RH9
   Content present if
   RH9 is true
-  ???
+  <<<CONDITIONAL
 
 ----------------------------------------------------------------------
 
@@ -211,9 +213,9 @@ index:: traceability
 
 :
 
-  problem: rq-000001
-  solution: ci-000002
-  test: tc-000003
+  problem:: rq-000001
+  solution:: ci-000002
+  test:: tc-000003
 
 ----------------------------------------------------------------------
 
@@ -237,7 +239,7 @@ index:: variables
 
 :
 
-  var: truth-count = 6,725
+  var:: truth-count = 6,725
 
   [var:truth-count]
 
@@ -264,13 +266,13 @@ index:: revision summary
 
 :
 
-  ---revisions
+  >>>REVISIONS
 
   rev: 0.1 = 2010-10-19 = Initial draft
 
   rev: 0.2 = 2011-02-01 = Added summary table
 
-  ---revisions
+  <<<REVISIONS
 
 ######################################################################
 # Local Emacs Variables
@@ -282,3 +284,5 @@ index:: revision summary
 # End:
 
 ######################################################################
+
+<<<RAW

@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000046
 
 title:: Represent Fixed-Width Text
-
-label:: rq-000046
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000120
+part_of:: rq-000120
 
 type:: data format
 
@@ -23,7 +19,7 @@ fixed-width text.  Fixed-width fonts feature characters that are all
 the same width, even space characters, so plain text can be arranged
 in columns.  Fixed-width is sometimes called ``typewriter text.''
 
-######################################################################
+===
 
 index:: rq-000046; fixed-width text; text!fixed-width
 

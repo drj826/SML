@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000130
 
 title:: `end_quotation_source' Subroutine
-
-label:: ci-000130
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:end_quotation_source] subroutine 
 
-######################################################################
+===
 
 index:: ci-000130; subroutine![cmd:end_quotation_source]
 

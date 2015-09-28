@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000083
 
 title:: Represent an Unordered List
-
-label:: rq-000083
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000012
+part_of:: rq-000012
 
 type:: data format
 
@@ -22,7 +18,7 @@ description:: The data format shall have the capability to represent
 an unordered list.  Unordered lists are often called ``bulletized''
 lists.
 
-######################################################################
+===
 
 index:: rq-000083; unordered lists
 

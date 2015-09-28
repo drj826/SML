@@ -1,10 +1,6 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000020
 
 title:: Section Structure With Regions
-
-id:: td-000020
 
 version:: 2.0
 
@@ -16,17 +12,15 @@ status:: yellow
 
 define:: version2
 
-######################################################################
+===
 
 This SML [g:sml:document] contains a section structure with regions.
-This opening paragraph is not in a section.  I like to insert a line
-of 70 '#' signs before each section heading to make the manuscript
-easier to browse.
+This opening paragraph is not in a section.
 
 The Chicago Manual of Style has a lot of good things to say about how
 to put together a book. [cite:cms15]
 
-SML is a [ac:sml:TLA] that stands for Structured Manuscript Language.
+SML is a [ac:sml:TLA] that stands for Semantic Manuscript Language.
 
 glossary:: document {sml} = (SML) A written work about a topic.  SML
 document types are: book, report, and article. An SML document is
@@ -36,15 +30,15 @@ acronym:: TLA {sml} = Three Letter Acronym
 
 ######################################################################
 
-* Introduction
-
-id:: introduction
+*.introduction Introduction
 
 type:: chapter
 
-This section is a chapter.[f:introduction:1] This is some introductory
-text.  It really doesn't say anything interesting so let's just move
-along.
+===
+
+This section is a chapter.[f:introduction:1] This is some
+~~introductory~~ text.  It really doesn't say anything interesting so
+let's just move along.
 
 #---------------------------------------
 # footnotes
@@ -53,29 +47,27 @@ footnote::1: This is a footnote.
 
 ######################################################################
 
-* System Model
-
-id:: system-model
+*.system-model System Model
 
 type:: chapter
+
+===
 
 This section is another chapter.  This section will be a little more
 complicated because it has sub-sections.
 
 ######################################################################
 
-** Problems
+**.problems Problems
 
-id:: problems
+===
 
 This section enumerates the problems (i.e. requirements) in the system
 model.
 
->>>problem
+>>>problem.problem-1
 
 title:: Problem One
-
-id:: problem-1
 
 type:: technical
 
@@ -85,13 +77,15 @@ description:: This is a description of my problem.  This purpose of
 this problem is to serve as a test for applications designed to
 process SML problem regions.
 
+===
+
 This paragraph begins the narrative portion of problem-1.  The
 region narratives cannot contain sections but may contain environments
 such as tables and figures.
 
 index:: narrative!region
 
-Just for kicks, here is a baretable inside this problem region.
+Just for kicks, here is a bare table inside this problem region.
 
 :: division
 
@@ -115,18 +109,18 @@ Just for kicks, here is a baretable inside this problem region.
 
 ######################################################################
 
-** Solutions
+**.solutions Solutions
 
-id:: solutions
+===
 
 This section enumerates the solutions in the system model.  Here is a
 table that defines the types of solutions:
 
----TABLE
+>>>TABLE.tab-solution-types
 
 title:: Solutions Types
 
-id:: tab-solution-types
+===
 
 :: Type
 
@@ -150,40 +144,40 @@ id:: tab-solution-types
 
 : description of implemented hardware, software, or documentation
 
----TABLE
+<<<TABLE
 
 ######################################################################
 
-** Tests
+**.tests Tests
 
-id:: tests
+===
 
 This section enumerates the tests in the system model.
 
-###COMMENT
+>>>COMMENT
 
 This is a comment division.  Everything between the begin and end tags
 is ignored by the parser.  Well, not exactly ignored, but the content
 of this comment won't appear in rendered documents.
 
-###COMMENT
+<<<COMMENT
 
-???version1
+>>>CONDITIONAL.version1
+
+===
 
 This text will only be used if 'version1' has been defined.
 
-???version1
+<<<CONDITIONAL
 
 ######################################################################
 # Sources
 
----SOURCE
+>>>SOURCE.cms15
 
 source_type:: book
 
 title:: The Chicago Manual of Style
-
-label:: cms15
 
 editor:: William S. Strong
 
@@ -199,7 +193,7 @@ address:: Chicago 60637
 
 note:: [url:http://www.chicagomanualofstyle.org]
 
----SOURCE
+<<<SOURCE
 
 ######################################################################
 # Local Emacs Variables

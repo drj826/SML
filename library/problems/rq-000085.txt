@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000085
 
 title:: Represent a Definition List
-
-label:: rq-000085
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000012
+part_of:: rq-000012
 
 type:: data format
 
@@ -22,7 +18,7 @@ description:: The data format shall have the capability to represent a
 definition list.  Each item in a definition list consists of a term
 and a definition.
 
-######################################################################
+===
 
 index:: rq-000085; definition lists
 

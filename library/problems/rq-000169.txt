@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000169
 
 title:: Represent an Option to `Include and Hide'
-
-label:: rq-000169
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000065
+part_of:: rq-000065
 
 type:: data format
 
@@ -28,7 +24,7 @@ requirements themselves.  This will enable the author to include the
 requirements as ~~hidden~~ and insert their titles using a literal
 string and the full text of the requirements will not be rendered.
 
-######################################################################
+===
 
 index:: rq-000169; include!and hide
 

@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000327
 
 title:: Represent A Document Block
-
-label:: rq-000327
 
 revision:: $Revision: 10973 $
 
@@ -12,7 +8,7 @@ date:: $Date: 2012-10-27 14:46:35 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-parent:: rq-000006
+part_of:: rq-000006
 
 priority:: routine
 
@@ -21,7 +17,7 @@ type:: data format
 description:: The data format shall have the capability to represent a
 [g:sml:document] [g:sml:block].
 
-######################################################################
+===
 
 index:: rq-000327
 

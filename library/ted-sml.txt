@@ -1,6 +1,4 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.ted-sml
 
 title:: Test and Evaluation Document
 
@@ -25,21 +23,22 @@ revision:: $Revision: 15138 $
 
 use_formal_status:: 1
 
-######################################################################
-# Revisions
+===
 
----REVISIONS
+>>>REVISIONS
 
 rev:: 0.2 = 2012-03-25 = Added a lot of new test cases and
 automatically generated unit test results.
 
 rev:: 0.1 = 2012-03-23 = Initial draft.
 
----REVISIONS
+<<<REVISIONS
 
 #---------------------------------------------------------------------
 
 * Introduction
+
+===
 
 This is the Test and Evaluation Document (TED) for the Structured
 Manuscript Language (SML) data format and SML application library.
@@ -61,6 +60,8 @@ The purpose of this document is to:
 #---------------------------------------------------------------------
 
 * Key Terms and Definitions
+
+===
 
 This section defines ~~key~~ terms used in this document.  The
 glossary contains a complete collection of terms and their
@@ -136,9 +137,9 @@ definitions.
 
 #---------------------------------------------------------------------
 
-* Test Cases
+*.ted-test-cases Test Cases
 
-label:: test-cases
+===
 
 type:: appendix
 
@@ -146,9 +147,9 @@ include:: auto/ted-sml-tests.txt
 
 #---------------------------------------------------------------------
 
-* Requirements
+*.ted-requirements Requirements
 
-label:: requirements
+===
 
 type:: appendix
 
@@ -158,9 +159,9 @@ include:: auto/ted-sml-problems.txt
 
 ######################################################################
 
-* Solutions
+*.ted-solutions Solutions
 
-label:: solutions
+===
 
 type:: appendix
 
@@ -170,9 +171,9 @@ include:: auto/ted-sml-solutions.txt
 
 ######################################################################
 
-* Allocations
+*.ted-allocations Allocations
 
-label:: allocations
+===
 
 type:: appendix
 
@@ -182,9 +183,9 @@ include:: auto/ted-sml-allocations.txt
 
 ######################################################################
 
-* Roles
+*.ted-roles Roles
 
-label:: roles
+===
 
 type:: appendix
 
@@ -196,19 +197,21 @@ include:: auto/ted-sml-roles.txt
 
 *** SML/Backmatter
 
+===
+
 # Backmatter
 
-include:: incl/glossary-sml.txt
+include:: glossary-sml
 
-include:: incl/glossary-ieee.txt
+include:: glossary-ieee
 
-include:: incl/glossary-cmmi.txt
+include:: glossary-cmmi
 
-include:: incl/sources.txt
+include:: sources
 
-include:: incl/sources-ieee.txt
+include:: sources-ieee
 
-include:: incl/sources-cmmi.txt
+include:: sources-cmmi
 
 ######################################################################
 

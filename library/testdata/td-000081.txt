@@ -1,33 +1,25 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000081
 
 title:: INVALID COMPOSITION
 
-id:: td-000081
-
-######################################################################
+===
 
 This test data file illustrates an entity with invalid composition.
 Specifically, it contains a problem which contains a solution.
 Problems are not allowed to contain problems.
 
->>>problem
+>>>problem.problem-1
 
 title:: This is problem 1
-
-label:: problem-1
 
 type:: technical
 
 description:: There problem with this problem is that it contains a
 solution and that isn't allowed.
 
->>>solution
+>>>solution.solution-1
 
 title:: OUT OF PLACE SOLUTION
-
-label:: solution-1
 
 description:: This solution can't be inside a problem.
 

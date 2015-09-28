@@ -1,4 +1,8 @@
-###COMMENT
+>>>RAW.sml-content-summary
+
+===
+
+>>>COMMENT
 
 $Author: don.johnson $
 
@@ -6,7 +10,7 @@ $Revision: 15125 $
 
 $Date: 2013-07-07 09:24:43 -0600 (Sun, 07 Jul 2013) $
 
-###COMMENT
+<<<COMMENT
 
 : !!Exercises.!! ([ref:exercises]) Specify training exercises. A
 ~~list of exercises~~ is automatically generated for the front matter
@@ -16,10 +20,10 @@ index:: exercises; list of exercises
 
 :
 
-  >>>exercise
+  >>>EXERCISE.exr-my-exercise
   title: My Exercise
-  label: exr-my-exercise
-  <<<exercise
+  ===
+  <<<EXERCISE
 
 ----------------------------------------------------------------------
 
@@ -34,10 +38,10 @@ index:: slides; presentation slides; list of slides
 
 :
 
-  >>>slide
+  >>>SLIDE.sld-my-slide
   title: My Slide
-  label: sld-my-slide
-  <<<slide
+  ===
+  <<<SLIDE
 
 ----------------------------------------------------------------------
 
@@ -48,11 +52,11 @@ index:: quotations; quote source
 
 :
 
-  >>>quotation
+  >>>QUOTATION.quo-my-quote
   title: My Quote
-  label: quo-my-quote
   quote-source: Me
-  <<<quotation
+  ===
+  <<<QUOTATION
 
 ----------------------------------------------------------------------
 
@@ -65,10 +69,10 @@ index:: demonstrations; list of demonstrations
 
 :
 
-  >>>demo
+  >>>DEMO.dem-my-demo
   title: My Demo
-  label: dem-my-demo
-  <<<demo
+  ===
+  <<<DEMO
 
 ----------------------------------------------------------------------
 
@@ -83,10 +87,10 @@ index:: keypoints
 
 :
 
-  >>>keypoints
+  >>>KEYPOINTS.key-my-keypoints
   title: My Keypoints
-  label: key-my-keypoints
-  <<<keypoints
+  ===
+  <<<KEYPOINTS
 
 ----------------------------------------------------------------------
 
@@ -98,9 +102,9 @@ index:: problems; list of problems
 
 :
 
-  >>>problem
+  >>>problem.req-my-requirement
   title: My Requirement
-  label: req-my-requirement
+  ===
   <<<problem
 
 ----------------------------------------------------------------------
@@ -114,9 +118,9 @@ index:: solutions; list of solutions
 
 :
 
-  >>>solution
+  >>>solution.sol-my-solution
   title: My Solution
-  label: sol-my-solution
+  ===
   <<<solution
 
 ----------------------------------------------------------------------
@@ -129,9 +133,9 @@ index:: tests; list of tests
 
 :
 
-  >>>test
+  >>>test.test-my-test
   title: My Test
-  label: test-my-test
+  ===
   <<<text
 
 ----------------------------------------------------------------------
@@ -144,9 +148,9 @@ index:: results; list of results
 
 :
 
-  >>>result
+  >>>result.test-my-test
   title: My Results
-  label: test-my-test
+  ===
   <<<text
 
 ----------------------------------------------------------------------
@@ -159,9 +163,9 @@ index:: tasks; list of tasks
 
 :
 
-  >>>task
+  >>>task.task-my-task
   title: My Task
-  label: task-my-task
+  ===
   <<<text
 
 ----------------------------------------------------------------------
@@ -174,9 +178,9 @@ index:: roles; list of roles
 
 :
 
-  >>>role
+  >>>role.role-my-role
   title: My Role
-  label: role-my-role
+  ===
   <<<role
 
 ######################################################################
@@ -190,3 +194,5 @@ index:: roles; list of roles
 # End:
 
 ######################################################################
+
+<<<RAW

@@ -8,7 +8,7 @@ use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Environment';
+extends 'SML::Division';
 
 use namespace::autoclean;
 
@@ -45,13 +45,17 @@ within an SML document.
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Attachment"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
-  extends SML::Environment
+  extends SML::Division
 
-  my $att = SML::Attachment->new();
+  my $attachment = SML::Attachment->new
+                     (
+                       id      => $id,
+                       library => $library,
+                     );
 
 =head1 DESCRIPTION
 

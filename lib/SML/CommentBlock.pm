@@ -44,13 +44,16 @@ rendered in published output.
 
 =head1 VERSION
 
-This documentation refers to L<"SML::CommentBlock"> version 2.0.0.
+2.0.0
 
 =head1 SYNOPSIS
 
   extends SML::PreformattedBlock
 
-  my $cb = SML::CommentBlock->new();
+  my $block = SML::CommentBlock->new
+                (
+                  library => $library,
+                );
 
 =head1 DESCRIPTION
 

@@ -1,8 +1,4 @@
->>>allocation
-
-#---------------------------------------------------------------------
-
-label::    al-000284
+>>>allocation.al-000284
 
 solution:: ci-000006 # SML Semantics
 
@@ -10,15 +6,13 @@ problem::  rq-000194 # Represent Inference Rules
 
 test::     tc-000041 # Demonstration
 
-#---------------------------------------------------------------------
-
 revision:: $Revision: 15124 $
 
 date::     $Date: 2013-07-07 09:23:01 -0600 (Sun, 07 Jul 2013) $
 
 author::   $Author: don.johnson $
 
-#---------------------------------------------------------------------
+===
 
 outcome::2012-03-25:al-000284:red: At this time SML does not represent
 inference rules.
@@ -34,7 +28,7 @@ Let's start with an easier rule.  Throw an INFO message if a
 functional requirement is directly derived from a business
 requirement.  Reserved words are in all UPPERCASE.
 
-###COMMENT
+>>>COMMENT
 
   >>>rule
 
@@ -67,7 +61,7 @@ requirement.  Reserved words are in all UPPERCASE.
 
   <<<rule
 
-###COMMENT
+<<<COMMENT
 
 This is a start.
 

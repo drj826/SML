@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000181
 
 title:: `end_demo' Subroutine
-
-label:: ci-000181
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:end_demo] subroutine 
 
-######################################################################
+===
 
 index:: ci-000181; subroutine![cmd:end_demo]
 

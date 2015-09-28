@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000035
 
 title:: Represent Results
-
-label:: rq-000035
 
 revision:: $Revision: 10973 $
 
@@ -14,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000195
+part_of:: rq-000195
 
 type:: data format
 
@@ -26,7 +22,7 @@ traceable to other elements of content (like problems, solutions, and
 tests), to make the content re-usable, and to enable special listings
 of results.
 
-######################################################################
+===
 
 index:: rq-000035; results
 

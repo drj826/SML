@@ -82,12 +82,12 @@ has 'text' =>
 
 ######################################################################
 
-has 'lines' =>
+has 'line_list' =>
   (
    isa     => 'ArrayRef',
-   reader  => 'get_lines',
+   reader  => 'get_line_list',
    lazy    => 1,
-   builder => '_build_lines',
+   builder => '_build_line_list',
   );
 
 ######################################################################
@@ -121,14 +121,14 @@ has 'svninfo' =>
 
 ######################################################################
 
-has 'fragment' =>
-  (
-   isa       => 'SML::Division',
-   reader    => 'get_fragment',
-   writer    => 'set_fragment',
-   clearer   => 'clear_fragment',
-   predicate => 'has_fragment',
-  );
+# has 'fragment' =>
+#   (
+#    isa       => 'SML::Division',
+#    reader    => 'get_fragment',
+#    writer    => 'set_fragment',
+#    clearer   => 'clear_fragment',
+#    predicate => 'has_fragment',
+#   );
 
 ######################################################################
 
@@ -160,6 +160,25 @@ has 'valid' =>
 ##
 ######################################################################
 ######################################################################
+
+######################################################################
+######################################################################
+##
+## Private Attributes
+##
+######################################################################
+######################################################################
+
+has 'from_line' =>
+  (
+   isa       => 'SML::Line',
+   reader    => '_get_from_line',
+   predicate => '_has_from_line',
+  );
+
+# SML content may be "included from" other files using a special
+# "include" mechanism.  If *this* file has been included using this
+# mechanism, this `from_line' is the line that included the file.
 
 ######################################################################
 ######################################################################
@@ -277,17 +296,32 @@ sub _build_text {
 
 ######################################################################
 
-sub _build_lines {
+sub _build_line_list {
 
-  my $self     = shift;
-  my $filespec = $self->get_filespec;
-  my $lines    = [];
+  my $self = shift;
+
+  my $filespec  = $self->get_filespec;
+  my $raw_list  = [];
+  my $line_list = [];
 
   open my $fh, "<", $filespec or die "Can't open $filespec: $!\n";
-  @{ $lines } = <$fh>;
+  @{ $raw_list } = <$fh>;
   close $fh;
 
-  return $lines;
+  my $i = 0;
+  foreach my $text (@{ $raw_list })
+    {
+      ++ $i;
+      my $line = SML::Line->new
+	(
+	 content => $text,
+	 file    => $self,
+	 num     => $i,
+	);
+      push(@{ $line_list },$line);
+    }
+
+  return $line_list;
 }
 
 ######################################################################

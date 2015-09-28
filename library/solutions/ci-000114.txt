@@ -1,10 +1,6 @@
->>>solution
-
-######################################################################
+>>>solution.ci-000114
 
 title:: `gather_svn_metadata' Subroutine
-
-label:: ci-000114
 
 revision:: $Revision: 10975 $
 
@@ -14,11 +10,11 @@ author:: $Author: don.johnson $
 
 type:: software
 
-parent:: ci-000007
+part_of:: ci-000007
 
 description:: The [cmd:gather_svn_metadata] subroutine 
 
-######################################################################
+===
 
 index:: ci-000114; subroutine![cmd:gather_svn_metadata]
 

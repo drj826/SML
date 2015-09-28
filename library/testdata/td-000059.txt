@@ -1,12 +1,8 @@
->>>DOCUMENT
-
-######################################################################
+>>>DOCUMENT.td-000059
 
 title:: INVALID PAGE REFERENCE SYNTAX
 
-id:: td-000059
-
-######################################################################
+===
 
 This SML document contains a page reference with invalid syntax. It is
 missing the close markup. [page:bogus

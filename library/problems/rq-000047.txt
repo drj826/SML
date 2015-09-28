@@ -1,10 +1,6 @@
->>>problem
-
-######################################################################
+>>>problem.rq-000047
 
 title:: Represent Underlined Text
-
-label:: rq-000047
 
 revision:: $Revision: 10973 $
 
@@ -14,14 +10,14 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-parent:: rq-000120
+part_of:: rq-000120
 
 type:: data format
 
 description:: The data format shall have the capability to represent
 underlined text.
 
-######################################################################
+===
 
 index:: rq-000047; underlined text; text!underlined
 
