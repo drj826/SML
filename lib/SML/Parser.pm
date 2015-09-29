@@ -2373,7 +2373,7 @@ sub _parse_lines {
   my $max_iterations = $options->get_MAX_PARSE_LINES;
   my $count          = ++ $count_method->{'_parse_lines'};
 
-  $logger->info("($count) gather data");
+  $logger->info("($count) parse lines");
 
   #-------------------------------------------------------------------
   # MAX interations exceeded?
@@ -2434,9 +2434,14 @@ sub _parse_lines {
 
       $logger->trace("line: $text");
 
-      if ( $text =~ /$syntax->{comment_marker}/ )
+      if ( $text =~ /$syntax->{start_comment}/ )
 	{
-	  $self->_process_comment_division_marker($line);
+	  $self->_process_start_comment_division($line);
+	}
+
+      elsif ( $text =~ /$syntax->{end_comment}/ )
+	{
+	  $self->_process_end_comment_division($line);
 	}
 
       elsif ( $self->_in_comment_division )
@@ -2456,23 +2461,42 @@ sub _parse_lines {
 
       elsif ( $text =~ /$syntax->{start_conditional}/ )
 	{
-	  $self->_process_conditional_division_marker($line,$2);
+	  # $1 = token
+	  $self->_process_start_conditional_division($line,$1);
 	}
 
-      elsif ( $text =~ /$syntax->{start_region}/ )
+      elsif ( $text =~ /$syntax->{end_conditional}/ )
 	{
-	  $self->_process_start_region_marker($line,$2);
+	  $self->_process_end_conditional_division($line);
 	}
 
-      elsif ( $text =~ /$syntax->{end_region}/ )
+      elsif ( $text =~ /$syntax->{start_division}/ )
 	{
-	  $self->_process_end_region_marker($line,$2);
+	  # $1 = division name
+	  # $3 = divisioin ID
+	  $self->_process_start_division_marker($line,$1,$3);
 	}
 
-      elsif ( $text =~ /$syntax->{start_environment}/ )
+      elsif ( $text =~ /$syntax->{end_division}/ )
 	{
-	  $self->_process_environment_marker($line,$2);
+	  # $1 = division name
+	  $self->_process_end_division_marker($line,$1);
 	}
+
+      # elsif ( $text =~ /$syntax->{start_region}/ )
+      # 	{
+      # 	  $self->_process_start_region_marker($line,$2);
+      # 	}
+
+      # elsif ( $text =~ /$syntax->{end_region}/ )
+      # 	{
+      # 	  $self->_process_end_region_marker($line,$2);
+      # 	}
+
+      # elsif ( $text =~ /$syntax->{start_environment}/ )
+      # 	{
+      # 	  $self->_process_environment_marker($line,$2);
+      # 	}
 
       elsif ( $text =~ /$syntax->{start_section}/ )
 	{
@@ -2641,12 +2665,6 @@ sub _begin_division {
       return 1;
     }
 
-  elsif ( $division->isa('SML::Fragment') )
-    {
-      $self->_set_fragment($division);
-      return 1;
-    }
-
   elsif ( $division->isa('SML::Entity') )
     {
       $library->add_entity($division);
@@ -2659,11 +2677,6 @@ sub _begin_division {
       $references->add_source($division);
       return 1;
     }
-
-  # elsif ( $division->isa('SML::Region') )
-  #   {
-  #     return 1;
-  #   }
 
   elsif ( $division->isa('SML::TableCell') )
     {
@@ -2681,10 +2694,20 @@ sub _begin_division {
       return 1;
     }
 
-  # elsif ( $division->isa('SML::Environment') )
-  #   {
-  #     return 1;
-  #   }
+  elsif ( $division->isa('SML::Baretable') )
+    {
+      return 1;
+    }
+
+  elsif ( $division->isa('SML::Listing') )
+    {
+      return 1;
+    }
+
+  elsif ( $division->isa('SML::Figure') )
+    {
+      return 1;
+    }
 
   elsif ( $division->isa('SML::Section') )
     {
@@ -2697,6 +2720,21 @@ sub _begin_division {
     }
 
   elsif ( $division->isa('SML::Conditional') )
+    {
+      return 1;
+    }
+
+  elsif ( $division->isa('SML::Revisions') )
+    {
+      return 1;
+    }
+
+  elsif ( $division->isa('SML::Epigraph') )
+    {
+      return 1;
+    }
+
+  elsif ( $division->isa('SML::Division') )
     {
       return 1;
     }
@@ -2725,39 +2763,39 @@ sub _end_division {
 
   return 0 if not $division;
 
-  if ( $division->isa('SML::Fragment') )
-    {
-      while ( $self->_in_region )
-	{
-	  $self->_end_division;
-	}
+  # if ( $division->isa('SML::Fragment') )
+  #   {
+  #     while ( $self->_in_region )
+  # 	{
+  # 	  $self->_end_division;
+  # 	}
 
-      if ( $self->_in_environment )
-	{
-	  $self->_end_division;
-	}
-    }
+  #     if ( $self->_in_environment )
+  # 	{
+  # 	  $self->_end_division;
+  # 	}
+  #   }
 
-  elsif ( $division->isa('SML::Document') )
-    {
-      while (
-	     $self->_in_region
-	     and
-	     $self->_in_document
-	     and
-	     $self->_current_region ne $self->_current_document
-	    )
-	{
-	  $self->_end_division;
-	}
+  # if ( $division->isa('SML::Document') )
+  #   {
+  #     while (
+  # 	     $self->_in_region
+  # 	     and
+  # 	     $self->_in_document
+  # 	     and
+  # 	     $self->_current_region ne $self->_current_document
+  # 	    )
+  # 	{
+  # 	  $self->_end_division;
+  # 	}
 
-      if ( $self->_in_environment )
-	{
-	  $self->_end_division;
-	}
-    }
+  #     if ( $self->_in_environment )
+  # 	{
+  # 	  $self->_end_division;
+  # 	}
+  #   }
 
-  elsif ( $division->isa('SML::TableRow') )
+  if ( $division->isa('SML::TableRow') )
     {
       $self->_set_column(0);
     }
@@ -2852,9 +2890,15 @@ sub _end_division {
       # do nothing.
     }
 
+  elsif ( $division->isa('SML::Division') )
+    {
+      # do nothing.
+    }
+
   else
     {
-      $logger->warn("WHAT JUST HAPPENED? ($type)");
+      my $name = $division->get_name;
+      $logger->warn("WHAT JUST HAPPENED? ($type $name)");
       return 0;
     }
 
@@ -3665,8 +3709,8 @@ sub _generate_section_numbers {
   my $previous_section;
   my $previous_number = q{};
   my $previous_depth  = 1;
-  my $fragment        = $self->_get_fragment;
-  my $section_list    = $fragment->get_section_list;
+  my $division        = $self->_get_division;
+  my $section_list    = $division->get_section_list;
 
   foreach my $section (@{ $section_list }) {
 
@@ -3732,8 +3776,8 @@ sub _generate_division_numbers {
   $division_counter = {};
 
   my $previous_depth = 1;
-  my $fragment       = $self->_get_fragment;
-  my $division_list  = $fragment->get_division_list;
+  my $division       = $self->_get_division;
+  my $division_list  = $division->get_division_list;
 
   foreach my $division (@{ $division_list }) {
 
@@ -4011,7 +4055,10 @@ sub _contains_insert {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  foreach my $element ( @{ $self->_get_fragment->get_element_list } )
+  my $division     = $self->_get_division;
+  my $element_list = $division->get_element_list;
+
+  foreach my $element ( @{ $element_list } )
     {
       my $text = $element->get_content;
 
@@ -4041,8 +4088,8 @@ sub _contains_variable {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  my $fragment   = $self->_get_fragment;
-  my $block_list = $fragment->get_block_list;
+  my $division   = $self->_get_division;
+  my $block_list = $division->get_block_list;
 
   foreach my $block ( @{ $block_list } )
     {
@@ -4077,8 +4124,8 @@ sub _contains_lookup {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  my $fragment   = $self->_get_fragment;
-  my $block_list = $fragment->get_block_list;
+  my $division   = $self->_get_division;
+  my $block_list = $division->get_block_list;
 
   foreach my $block ( @{ $block_list } )
     {
@@ -4113,8 +4160,8 @@ sub _contains_template {
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  my $fragment   = $self->_get_fragment;
-  my $block_list = $fragment->get_block_list;
+  my $division   = $self->_get_division;
+  my $block_list = $division->get_block_list;
 
   foreach my $block ( @{ $block_list } )
     {
@@ -4177,8 +4224,11 @@ sub _text_requires_processing {
       return 1;
     }
 
+  my $division     = $self->_get_division;
+  my $element_list = $division->get_element_list;
+
   # check for unresolved elements
-  foreach my $element ( @{ $self->_get_fragment->get_element_list } )
+  foreach my $element ( @{ $element_list } )
     {
       my $text = $element->get_content;
 
@@ -4222,8 +4272,7 @@ sub _text_requires_processing {
     }
 
   # check for unresolved inline text
-  my $fragment   = $self->_get_fragment;
-  my $block_list = $fragment->get_block_list;
+  my $block_list = $division->get_block_list;
 
   foreach my $block ( @{ $block_list } )
     {
@@ -5243,8 +5292,8 @@ sub _list_by_name {
 
   my $list = [];
 
-  my $fragment      = $self->_get_fragment;
-  my $division_list = $fragment->get_division_list;
+  my $division      = $self->_get_division;
+  my $division_list = $division->get_division_list;
 
   foreach my $division (@{ $division_list })
     {
@@ -5579,12 +5628,54 @@ sub _add_template {
 
 ######################################################################
 
-sub _process_comment_division_marker {
+# sub _process_comment_division_marker {
+
+#   my $self = shift;
+#   my $line = shift;
+
+#   $logger->trace("----- comment division marker");
+
+#   my $library = $self->get_library;
+
+#   # new preformatted block
+#   my $block = SML::PreformattedBlock->new(library=>$library);
+#   $block->add_line($line);
+#   $self->_begin_block($block);
+
+#   if ( not $self->_in_comment_division )
+#     {
+#       # new comment division
+#       my $name    = 'comment';
+#       my $num     = $self->_count_comment_divisions;
+#       my $id      = "$name-$num";
+#       my $comment = SML::CommentDivision->new(id=>$id,library=>$library);
+
+#       $comment->add_part($block);
+
+#       $self->_begin_division($comment);
+#     }
+
+#   else
+#     {
+#       # end comment division
+#       my $division = $self->_get_current_division;
+
+#       $division->add_part( $block );
+
+#       $self->_end_division;
+#     }
+
+#   return 1;
+# }
+
+######################################################################
+
+sub _process_start_comment_division {
 
   my $self = shift;
   my $line = shift;
 
-  $logger->trace("----- comment division marker");
+  $logger->trace("----- start comment division");
 
   my $library = $self->get_library;
 
@@ -5593,28 +5684,41 @@ sub _process_comment_division_marker {
   $block->add_line($line);
   $self->_begin_block($block);
 
-  if ( not $self->_in_comment_division )
-    {
-      # new comment division
-      my $name    = 'comment';
-      my $num     = $self->_count_comment_divisions;
-      my $id      = "$name-$num";
-      my $comment = SML::CommentDivision->new(id=>$id,library=>$library);
+  # new comment division
+  my $name    = 'comment';
+  my $num     = $self->_count_comment_divisions;
+  my $id      = "$name-$num";
+  my $comment = SML::CommentDivision->new(id=>$id,library=>$library);
 
-      $comment->add_part($block);
+  $comment->add_part($block);
 
-      $self->_begin_division($comment);
-    }
+  $self->_begin_division($comment);
 
-  else
-    {
-      # end comment division
-      my $division = $self->_get_current_division;
+  return 1;
+}
 
-      $division->add_part( $block );
+######################################################################
 
-      $self->_end_division;
-    }
+sub _process_end_comment_division {
+
+  my $self = shift;
+  my $line = shift;
+
+  $logger->trace("----- end comment division");
+
+  my $library = $self->get_library;
+
+  # new preformatted block
+  my $block = SML::PreformattedBlock->new(library=>$library);
+  $block->add_line($line);
+  $self->_begin_block($block);
+
+  # end comment division
+  my $division = $self->_get_current_division;
+
+  $division->add_part( $block );
+
+  $self->_end_division;
 
   return 1;
 }
@@ -5685,86 +5789,224 @@ sub _process_comment_division_line {
 
 ######################################################################
 
-sub _process_conditional_division_marker {
+# sub _process_conditional_division_marker {
+
+#   my $self  = shift;
+#   my $line  = shift;
+#   my $token = shift;
+
+#   my $library   = $self->get_library;
+#   my $blockname = '';
+
+#   $logger->trace("----- conditional marker ($token)");
+
+#   if ( $self->_in_conditional )
+#     {
+#       $blockname = 'END_CONDITIONAL';
+#     }
+
+#   else
+#     {
+#       $blockname = 'BEGIN_CONDITIONAL';
+#     }
+
+#   my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
+#   $block->add_line($line);
+#   $self->_begin_block($block);
+
+#   if ( $self->_in_conditional )
+#     {
+#       my $conditional = $self->_current_conditional;
+
+#       if ( not $conditional->get_token eq $token )
+# 	{
+# 	  my $location = $line->get_location;
+
+# 	  $logger->trace("..... ERROR: not in conditional ($token)");
+# 	  my $msg = "INVALID END OF CONDITIONAL at $location not in conditional \"$token\"";
+# 	  $logger->logcroak("$msg");
+# 	}
+
+#       $conditional->add_part($block);
+#       $self->_end_division;
+#     }
+
+#   else
+#     {
+#       my $name        = 'conditional';
+#       my $num         = $self->_count_conditionals;
+#       my $id          = "$name-$num";
+#       my $conditional = SML::Conditional->new
+# 	(
+# 	 id          => $id,
+# 	 token       => $token,
+# 	 library     => $library,
+# 	);
+
+#       $conditional->add_part($block);
+
+#       $self->_begin_division($conditional);
+#     }
+
+#   return 1;
+# }
+
+######################################################################
+
+sub _process_start_conditional_division {
 
   my $self  = shift;
   my $line  = shift;
   my $token = shift;
 
+  $logger->trace("----- start conditional division ($token)");
+
   my $library   = $self->get_library;
-  my $blockname = '';
-
-  $logger->trace("----- conditional marker ($token)");
-
-  if ( $self->_in_conditional )
-    {
-      $blockname = 'END_CONDITIONAL';
-    }
-
-  else
-    {
-      $blockname = 'BEGIN_CONDITIONAL';
-    }
+  my $blockname = 'BEGIN_CONDITIONAL';
 
   my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
   $block->add_line($line);
   $self->_begin_block($block);
 
-  if ( $self->_in_conditional )
-    {
-      my $conditional = $self->_current_conditional;
+  my $name        = 'conditional';
+  my $num         = $self->_count_conditionals;
+  my $id          = "$name-$num";
+  my $conditional = SML::Conditional->new
+    (
+     id          => $id,
+     token       => $token,
+     library     => $library,
+    );
 
-      if ( not $conditional->get_token eq $token )
-	{
-	  my $location = $line->get_location;
+  $conditional->add_part($block);
 
-	  $logger->trace("..... ERROR: not in conditional ($token)");
-	  my $msg = "INVALID END OF CONDITIONAL at $location not in conditional \"$token\"";
-	  $logger->logcroak("$msg");
-	}
-
-      $conditional->add_part($block);
-      $self->_end_division;
-    }
-
-  else
-    {
-      my $name        = 'conditional';
-      my $num         = $self->_count_conditionals;
-      my $id          = "$name-$num";
-      my $conditional = SML::Conditional->new
-	(
-	 id          => $id,
-	 token       => $token,
-	 library     => $library,
-	);
-
-      $conditional->add_part($block);
-
-      $self->_begin_division($conditional);
-    }
+  $self->_begin_division($conditional);
 
   return 1;
 }
 
 ######################################################################
 
-sub _process_start_region_marker {
+sub _process_end_conditional_division {
+
+  my $self  = shift;
+  my $line  = shift;
+
+  $logger->trace("----- end conditional");
+
+  my $library   = $self->get_library;
+  my $blockname = 'END_CONDITIONAL';
+
+  my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
+  $block->add_line($line);
+  $self->_begin_block($block);
+
+  my $conditional = $self->_current_conditional;
+
+  $conditional->add_part($block);
+  $self->_end_division;
+
+  return 1;
+}
+
+######################################################################
+
+# sub _process_start_region_marker {
+
+#   my $self = shift;
+#   my $line = shift;
+#   my $name = shift;
+
+#   my $location = $line->get_location;
+#   my $library  = $self->get_library;
+#   my $ontology = $library->get_ontology;
+
+#   $logger->trace("----- region begin marker ($name)");
+
+#   if ( not $ontology->allows_region($name) )
+#     {
+#       my $msg      = "UNDEFINED REGION at $location: \"$name\"";
+
+#       $logger->logdie("$msg");
+#     }
+
+#   if ( $self->_in_baretable )
+#     {
+#       $self->_end_baretable;
+#     }
+
+#   # can't have a region inside an environment
+#   if ( $self->_in_environment )
+#     {
+#       my $environment = $self->_current_environment;
+#       my $envname  = $environment->get_name;
+#       $logger->fatal("INVALID BEGIN REGION at $location: $name inside $envname");
+#     }
+
+#   # new preformatted BEGIN block
+#   my $block = SML::PreformattedBlock->new
+#     (
+#      name    => 'BEGIN_REGION',
+#      library => $library,
+#     );
+
+#   $block->add_line($line);
+#   $self->_begin_block($block);
+
+#   my $region = undef;
+
+#   if ( $name eq 'DOCUMENT' )
+#     {
+#       # new document region
+#       my $num   = $self->_count_regions;
+#       my $id    = "$name-$num";
+#       my $class = $ontology->get_class_for_entity_name($name);
+
+#       $region = $class->new(id=>$id,library=>$library);
+
+#       $region->add_part($block);
+#     }
+
+#   else
+#     {
+#       # new non-document region
+#       my $num   = $self->_count_regions;
+#       my $id    = "$name-$num";
+#       my $class = $ontology->get_class_for_entity_name($name);
+
+#       $region = $class->new
+# 	(
+# 	 name    => $name,
+# 	 id      => $id,
+# 	 library => $library,
+# 	);
+
+#       $region->add_part($block);
+#     }
+
+#   $self->_begin_division($region);
+
+#   return 1;
+# }
+
+######################################################################
+
+sub _process_start_division_marker {
 
   my $self = shift;
-  my $line = shift;
-  my $name = shift;
+  my $line = shift;                     # start division marker
+  my $name = shift;                     # division name
+  my $id   = shift || q{};              # division ID
 
   my $location = $line->get_location;
   my $library  = $self->get_library;
   my $ontology = $library->get_ontology;
 
-  $logger->trace("----- region begin marker ($name)");
+  $logger->trace("----- start division ($name.$id)");
 
-  if ( not $ontology->allows_region($name) )
+  if ( not $ontology->allows_division($name) )
     {
-      my $msg      = "UNDEFINED REGION at $location: \"$name\"";
-
+      my $msg = "UNDEFINED DIVISION at $location: \"$name\"";
       $logger->logdie("$msg");
     }
 
@@ -5773,63 +6015,121 @@ sub _process_start_region_marker {
       $self->_end_baretable;
     }
 
-  # can't have a region inside an environment
-  if ( $self->_in_environment )
-    {
-      my $environment = $self->_current_environment;
-      my $envname  = $environment->get_name;
-      $logger->fatal("INVALID BEGIN REGION at $location: $name inside $envname");
-    }
-
   # new preformatted BEGIN block
   my $block = SML::PreformattedBlock->new
     (
-     name    => 'BEGIN_REGION',
+     name    => 'BEGIN_DIVISION',
      library => $library,
     );
 
   $block->add_line($line);
   $self->_begin_block($block);
 
-  my $region = undef;
+  my $division = undef;
 
   if ( $name eq 'DOCUMENT' )
     {
-      # new document region
-      my $num   = $self->_count_regions;
-      my $id    = "$name-$num";
-      my $class = $ontology->get_class_for_entity_name($name);
+      # new document division
+      $division = SML::Document->new(id=>$id,library=>$library);
 
-      $region = $class->new(id=>$id,library=>$library);
-
-      $region->add_part($block);
+      $division->add_part($block);
     }
 
   else
     {
-      # new non-document region
-      my $num   = $self->_count_regions;
-      my $id    = "$name-$num";
+      if ( not $id )
+	{
+	  my $num = $self->_count_divisions;
+	  $id = "$name-$num";
+	}
+
+      # new non-document division
       my $class = $ontology->get_class_for_entity_name($name);
 
-      $region = $class->new
+      $division = $class->new
 	(
 	 name    => $name,
 	 id      => $id,
 	 library => $library,
 	);
 
-      $region->add_part($block);
+      $division->add_part($block);
     }
 
-  $self->_begin_division($region);
+  $self->_begin_division($division);
 
   return 1;
 }
 
 ######################################################################
 
-sub _process_end_region_marker {
+# sub _process_end_region_marker {
+
+#   my $self = shift;
+#   my $line = shift;
+#   my $name = shift;
+
+#   my $library  = $self->get_library;
+#   my $location = $line->get_location;
+
+#   $logger->trace("----- region end marker ($name)");
+
+#   if ( not $self->_in_region )
+#     {
+#       my $msg = "INVALID END REGION at $location: not in region";
+#       $logger->logdie("$msg");
+#     }
+
+#   if (
+#       $self->_in_region
+#       and
+#       not $self->_current_region->get_name eq $name
+#      )
+#     {
+#       my $msg = "INVALID END REGION at $location: not in $name region";
+#       $logger->logdie("$msg");
+#     }
+
+#   if ( $self->_in_baretable )
+#     {
+#       $self->_end_baretable;
+#     }
+
+#   if ( $self->_in_environment )
+#     {
+#       my $envname = $self->_current_environment->get_name;
+#       my $msg = "INVALID END REGION at $location: $name end inside $envname";
+#       $logger->logdie("$msg");
+#     }
+
+#   if ( $name eq 'DOCUMENT' )
+#     {
+#       my $division = $self->_get_current_division;
+#       while ( not $division->isa('SML::Document') )
+# 	{
+# 	  $self->_end_division;
+# 	  $division = $self->_get_current_division;
+# 	}
+#     }
+
+#   # new preformatted block
+#   my $block = SML::PreformattedBlock->new
+#     (
+#      name    => 'END_REGION',
+#      library => $library,
+#     );
+
+#   $block->add_line($line);
+#   $self->_begin_block($block);
+#   $self->_get_current_division->add_part($block);
+#   $self->_end_division;
+
+#   return 1;
+# }
+
+######################################################################
+
+sub _process_end_division_marker {
 
   my $self = shift;
   my $line = shift;
@@ -5838,50 +6138,17 @@ sub _process_end_region_marker {
   my $library  = $self->get_library;
   my $location = $line->get_location;
 
-  $logger->trace("----- region end marker ($name)");
-
-  if ( not $self->_in_region )
-    {
-      my $msg = "INVALID END REGION at $location: not in region";
-      $logger->logdie("$msg");
-    }
-
-  if (
-      $self->_in_region
-      and
-      not $self->_current_region->get_name eq $name
-     )
-    {
-      my $msg = "INVALID END REGION at $location: not in $name region";
-      $logger->logdie("$msg");
-    }
+  $logger->trace("----- end division ($name)");
 
   if ( $self->_in_baretable )
     {
       $self->_end_baretable;
     }
 
-  if ( $self->_in_environment )
-    {
-      my $envname = $self->_current_environment->get_name;
-      my $msg = "INVALID END REGION at $location: $name end inside $envname";
-      $logger->logdie("$msg");
-    }
-
-  if ( $name eq 'DOCUMENT' )
-    {
-      my $division = $self->_get_current_division;
-      while ( not $division->isa('SML::Document') )
-	{
-	  $self->_end_division;
-	  $division = $self->_get_current_division;
-	}
-    }
-
   # new preformatted block
   my $block = SML::PreformattedBlock->new
     (
-     name    => 'END_REGION',
+     name    => 'END_DIVISION',
      library => $library,
     );
 
@@ -5895,92 +6162,92 @@ sub _process_end_region_marker {
 
 ######################################################################
 
-sub _process_environment_marker {
+# sub _process_environment_marker {
 
-  my $self = shift;
-  my $line = shift;
-  my $name = shift;
+#   my $self = shift;
+#   my $line = shift;
+#   my $name = shift;
 
-  my $location  = $line->get_location;
-  my $library   = $self->get_library;
-  my $ontology  = $library->get_ontology;
-  my $blockname = '';
+#   my $location  = $line->get_location;
+#   my $library   = $self->get_library;
+#   my $ontology  = $library->get_ontology;
+#   my $blockname = '';
 
-  $logger->trace("----- environment marker ($name)");
+#   $logger->trace("----- environment marker ($name)");
 
-  if ( not $ontology->allows_environment($name) )
-    {
-      my $msg = "UNKNOWN ENVIRONMENT at $location: \"$name\"";
-      $logger->logcroak("$msg");
-    }
+#   if ( not $ontology->allows_environment($name) )
+#     {
+#       my $msg = "UNKNOWN ENVIRONMENT at $location: \"$name\"";
+#       $logger->logcroak("$msg");
+#     }
 
-  if (
-      $self->_in_environment
-      and
-      not $self->_current_environment->get_name eq $name
-     )
-    {
-      my $msg = "INVALID END ENVIRONMENT: can't end \"$name\" environment at $location";
-      $logger->logcroak("$msg");
-    }
+#   if (
+#       $self->_in_environment
+#       and
+#       not $self->_current_environment->get_name eq $name
+#      )
+#     {
+#       my $msg = "INVALID END ENVIRONMENT: can't end \"$name\" environment at $location";
+#       $logger->logcroak("$msg");
+#     }
 
-  if ( $self->_in_baretable )
-    {
-      $self->_end_baretable;
-    }
+#   if ( $self->_in_baretable )
+#     {
+#       $self->_end_baretable;
+#     }
 
 
-  if (
-      $self->_in_environment
-      and
-      $self->_current_environment->get_name eq $name
-     )
-    {
-      $blockname = 'END_ENVIRONMENT';
-    }
+#   if (
+#       $self->_in_environment
+#       and
+#       $self->_current_environment->get_name eq $name
+#      )
+#     {
+#       $blockname = 'END_ENVIRONMENT';
+#     }
 
-  else
-    {
-      $blockname = 'BEGIN_ENVIRONMENT';
-    }
+#   else
+#     {
+#       $blockname = 'BEGIN_ENVIRONMENT';
+#     }
 
-  my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
-  $block->add_line($line);
-  $self->_begin_block($block);
+#   my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
+#   $block->add_line($line);
+#   $self->_begin_block($block);
 
-  my $division = $self->_get_current_division;
+#   my $division = $self->_get_current_division;
 
-  if ( $self->_in_table )
-    {
-      $division->add_part($block);
-      $self->_end_table;
-    }
+#   if ( $self->_in_table )
+#     {
+#       $division->add_part($block);
+#       $self->_end_table;
+#     }
 
-  elsif ( not $self->_in_environment )
-    {
-      my $num         = $self->_count_environments;
-      my $id          = "$name-$num";
-      my $class       = $ontology->get_class_for_entity_name($name);
-      my $environment = $class->new
-	(
-	 name    => $name,
-	 id      => $id,
-	 library => $library,
-	);
+#   elsif ( not $self->_in_environment )
+#     {
+#       my $num         = $self->_count_environments;
+#       my $id          = "$name-$num";
+#       my $class       = $ontology->get_class_for_entity_name($name);
+#       my $environment = $class->new
+# 	(
+# 	 name    => $name,
+# 	 id      => $id,
+# 	 library => $library,
+# 	);
 
-      $environment->add_part($block);
+#       $environment->add_part($block);
 
-      $self->_begin_division($environment);
-    }
+#       $self->_begin_division($environment);
+#     }
 
-  else
-    {
-      $division->add_part($block);
-      $self->_end_division;
-    }
+#   else
+#     {
+#       $division->add_part($block);
+#       $self->_end_division;
+#     }
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
@@ -6000,23 +6267,23 @@ sub _process_section_heading {
       $self->_end_baretable;
     }
 
-  if ( $self->_in_environment )
-    {
-      my $name = $self->_current_environment->get_name;
-      my $msg = "INVALID SECTION HEADING IN ENVIRONMENT at $location: $name";
-      $logger->logdie("$msg");
-    }
+  # if ( $self->_in_environment )
+  #   {
+  #     my $name = $self->_current_environment->get_name;
+  #     my $msg = "INVALID SECTION HEADING IN ENVIRONMENT at $location: $name";
+  #     $logger->logdie("$msg");
+  #   }
 
-  if (
-      $self->_in_region
-      and
-      not $self->_current_region eq $self->_current_document
-     )
-    {
-      my $name = $self->_current_region->get_name;
-      my $msg = "INVALID SECTION HEADING IN REGION at $location: $name";
-      $logger->logdie("$msg");
-    }
+  # if (
+  #     $self->_in_region
+  #     and
+  #     not $self->_current_region eq $self->_current_document
+  #    )
+  #   {
+  #     my $name = $self->_current_region->get_name;
+  #     my $msg = "INVALID SECTION HEADING IN REGION at $location: $name";
+  #     $logger->logdie("$msg");
+  #   }
 
   # end previous section
   if ( $self->_in_section )
@@ -7204,8 +7471,8 @@ sub _count_comment_divisions {
 
   my $count = 0;
 
-  my $fragment      = $self->_get_fragment;
-  my $division_list = $fragment->get_division_list;
+  my $division      = $self->_get_division;
+  my $division_list = $division->get_division_list;
 
   foreach my $division (@{ $division_list })
     {
@@ -7348,8 +7615,8 @@ sub _count_conditionals {
 
   my $count = 0;
 
-  my $fragment      = $self->_get_fragment;
-  my $division_list = $fragment->get_division_list;
+  my $division      = $self->_get_division;
+  my $division_list = $division->get_division_list;
 
   foreach my $division (@{ $division_list })
     {
@@ -7408,14 +7675,28 @@ sub _count_conditionals {
 
 ######################################################################
 
+sub _count_divisions {
+
+  my $self = shift;
+
+  my $count = 0;
+
+  my $division      = $self->_get_division;
+  my $division_list = $division->get_division_list;
+
+  return scalar @{ $division_list };
+}
+
+######################################################################
+
 sub _count_tables {
 
   my $self = shift;
 
   my $count = 0;
 
-  my $fragment      = $self->_get_fragment;
-  my $division_list = $fragment->get_division_list;
+  my $division      = $self->_get_division;
+  my $division_list = $division->get_division_list;
 
   foreach my $division (@{ $division_list })
     {
@@ -7436,8 +7717,8 @@ sub _count_baretables {
 
   my $count = 0;
 
-  my $fragment      = $self->_get_fragment;
-  my $division_list = $fragment->get_division_list;
+  my $division      = $self->_get_division;
+  my $division_list = $division->get_division_list;
 
   foreach my $division (@{ $division_list })
     {
@@ -7458,8 +7739,8 @@ sub _count_sections {
 
   my $count = 0;
 
-  my $fragment      = $self->_get_fragment;
-  my $division_list = $fragment->get_division_list;
+  my $division      = $self->_get_division;
+  my $division_list = $division->get_division_list;
 
   foreach my $division (@{ $division_list })
     {
