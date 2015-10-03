@@ -1,0 +1,19 @@
+>>>DOCUMENT.td-000010
+
+title:: Script Content
+
+===
+
+This SML document contains a 'script' data element.  The 'script'
+statement tells an application to run a script and insert the results
+into the document.
+
+>>>PREFORMATTED
+
+===
+
+script:: dir
+
+<<<PREFORMATTED
+
+<<<DOCUMENT

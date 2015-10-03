@@ -1,0 +1,24 @@
+>>>DOCUMENT.td-000032
+
+title:: Valid Cross Reference
+
+===
+
+This test file illustrates a valid cross reference.  See
+[ref:my-listing] for details.
+
+>>>LISTING.my-listing-32
+
+title:: My Listing
+
+===
+
+listing line 1
+
+listing line 2
+
+listing line 3
+
+<<<LISTING
+
+<<<DOCUMENT

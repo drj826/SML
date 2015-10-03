@@ -1,0 +1,18 @@
+>>>DOCUMENT.td-000012
+
+title:: Footnote Element
+
+===
+
+*.footnote-element Introduction
+
+===
+
+This SML document contains a `footnote' data element.  The `footnote'
+statement tells an application that the block of text is the text of a
+footnote.[f:footnote-element:1]
+
+note::1: This is a footnote.  The text of a footnote is a single
+block of text.
+
+<<<DOCUMENT

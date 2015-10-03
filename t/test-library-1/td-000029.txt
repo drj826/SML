@@ -1,0 +1,21 @@
+>>>DOCUMENT.td-000029
+
+title:: INVALID SOURCE CITATION, NOT A SOURCE DIVISION
+
+===
+
+This paragraph is followed by an INVALID source citation to a source
+with ID `bogus'.  The ID 'bogus' refers to a listing and ~~not~~ to a
+source. [cite:bogus].
+
+>>>LISTING.bogus
+
+title:: Bogus Listing
+
+===
+
+This is a bogus listing.
+
+<<<LISTING
+
+<<<DOCUMENT

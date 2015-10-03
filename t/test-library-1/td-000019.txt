@@ -1,0 +1,11 @@
+>>>DOCUMENT.td-000019
+
+title:: Include File As A Section (Leading Asterisk Method)
+
+===
+
+This file demonstrates how to include a file as a section.
+
+* include:: td-000001
+
+<<<DOCUMENT

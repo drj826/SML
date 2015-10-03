@@ -1,0 +1,731 @@
+>>>DOCUMENT.td-000072
+
+title:: Block Unit Test Data
+
+version:: 2.0
+
+revision:: 4444
+
+date:: 2012-09-11
+
+status:: yellow
+
+define:: version2
+
+===
+
+*.introduction-72 Introduction
+
+===
+
+The purpose of this introduction section is to serve as a target for
+internal document cross references.
+
+#---------------------------------------
+# glossary entries
+
+glossary:: document {sml} = (SML) A written work about a topic.  SML
+document types are: book, report, and article. An SML document is
+composed of a document preamble followed by a document narrative
+
+#---------------------------------------
+# acronyms
+
+acronym:: TLA {sml} = Three Letter Acronym
+
+#---------------------------------------
+# notes
+
+note::1: This is a footnote.
+
+#---------------------------------------------------------------------
+
+**.cross_reference_1 Cross Reference 1
+
+===
+
+[ref:introduction]
+
+# LaTeX: Section~\vref{introduction}
+# HTML:  <a href="td-000072-1.html#section.1">section 1</a>
+# XML:   <a href="td-000072-1.html#section.1">section 1</a>
+
+#---------------------------------------------------------------------
+
+**.cross_reference_2 Cross Reference 2
+
+===
+
+[r:introduction]
+
+# LaTeX: Section~\vref{introduction}
+# HTML:  <a href="td-000072-1.html#section.1">section 1</a>
+# XML:   <a href="td-000072-1.html#section.1">section 1</a>
+
+#---------------------------------------------------------------------
+
+**.url_reference_1 URL Reference 1
+
+===
+
+[url:http://www.cnn.com/]
+
+# LaTeX: \urlstyle{sf}\url{http://www.cnn.com/}
+# HTML:  <a href="http://www.cnn.com/">http://www.cnn.com/</a>
+# XML:   <a href="http://www.cnn.com/">http://www.cnn.com/</a>
+
+#---------------------------------------------------------------------
+
+**.footnote_reference_1 Footnote Reference 1
+
+===
+
+[f:introduction:1]
+
+# LaTeX: \footnote{This is a footnote.}
+# HTML:  <span style="font-size: 8pt;"><sup><a href="#footnote.introduction.1">1</a></sup></span>
+# XML:   <span style="font-size: 8pt;"><sup><a href="#footnote.introduction.1">1</a></sup></span>
+
+#---------------------------------------------------------------------
+
+**.glossary_reference_1 Glossary Reference 1
+
+===
+
+[g:sml:document]
+
+# LaTeX: \gls{document:sml}
+# HTML:  <a href="td-000072.glossary.html#document:sml">document</a>
+# XML:   <a href="td-000072.glossary.html#document:sml">document</a>
+
+#---------------------------------------------------------------------
+
+**.glossary_reference_2 Glossary Reference 2
+
+===
+
+[G:sml:document]
+
+# LaTeX: \Gls{document:sml}
+# HTML:  <a href="td-000072.glossary.html#document:sml">Document</a>
+# XML:   <a href="td-000072.glossary.html#document:sml">Document</a>
+
+#---------------------------------------------------------------------
+
+**.glossary_reference_3 Glossary Reference 3
+
+===
+
+[gls:sml:document]
+
+# LaTeX: \gls{document:sml}
+# HTML:  <a href="td-000072.glossary.html#document:sml">document</a>
+# XML:   <a href="td-000072.glossary.html#document:sml">document</a>
+
+#---------------------------------------------------------------------
+
+**.glossary_reference_4 Glossary Reference 4
+
+===
+
+[Gls:sml:document]
+
+# LaTeX: \Gls{document:sml}
+# HTML:  <a href="td-000072.glossary.html#document:sml">Document</a>
+# XML:   <a href="td-000072.glossary.html#document:sml">Document</a>
+
+#---------------------------------------------------------------------
+
+**.acronym_reference_1 Acronym Reference 1
+
+===
+
+[ac:sml:TLA]
+
+# LaTeX: \ac{TLA:sml}
+# HTML:  <a href="td-000072.acronyms.html#tla:sml">TLA</a>
+# XML:   <a href="td-000072.acronyms.html#tla:sml">TLA</a>
+
+#---------------------------------------------------------------------
+
+**.acronym_reference_2 Acronym Reference 2
+
+===
+
+[acs:sml:TLA]
+
+# LaTeX: \ac{TLA:sml}
+# HTML:  <a href="td-000072.acronyms.html#tla:sml">TLA</a>
+# XML:   <a href="td-000072.acronyms.html#tla:sml">TLA</a>
+
+#---------------------------------------------------------------------
+
+**.acronym_reference_3 Acronym Reference 3
+
+===
+
+[acl:sml:TLA]
+
+# LaTeX: \ac{TLA:sml}
+# HTML:  <a href="td-000072.acronyms.html#tla:sml">Three Letter Acronym</a>
+# XML:   <a href="td-000072.acronyms.html#tla:sml">Three Letter Acronym</a>
+
+#---------------------------------------------------------------------
+
+**.index_reference_1 Index Reference 1
+
+===
+
+[i:structured manuscript language]
+
+# LaTeX: structured manuscript language \index{structured manuscript language}
+# HTML:  structured manuscript language
+# XML:   structured manuscript language
+
+#---------------------------------------------------------------------
+
+**.index_reference_2 Index Reference 2
+
+===
+
+[index:structured manuscript language]
+
+# LaTeX: structured manuscript language \index{structured manuscript language}
+# HTML:  structured manuscript language
+# XML:   structured manuscript language
+
+#---------------------------------------------------------------------
+
+**.id_reference_1 ID Reference 1
+
+===
+
+[id:introduction]
+
+# LaTeX: \hyperref[introduction]{introduction}
+# HTML:  <a href="td-000072-1.html#section.1">section 1</a>
+# XML:   <a href="td-000072-1.html#section.1">section 1</a>
+
+#---------------------------------------------------------------------
+
+**.thepage_reference_1 The Page Reference 1
+
+===
+
+[thepage]
+
+# LaTeX: \thepage
+# HTML:  
+# XML:   
+
+#---------------------------------------------------------------------
+
+**.page_reference_1 Page Reference 1
+
+===
+
+[page:introduction]
+
+# LaTeX: p. \pageref{introduction}
+# HTML:  <a href="td-000072-1.html#section.1">link</a>
+# XML:   <a href="td-000072-1.html#section.1">link</a>
+
+#---------------------------------------------------------------------
+
+**.page_reference_2 Page Reference 2
+
+===
+
+[pg:introduction]
+
+# LaTeX: p. \pageref{introduction}
+# HTML:  <a href="td-000072-1.html#section.1">link</a>
+# XML:   <a href="td-000072-1.html#section.1">link</a>
+
+#---------------------------------------------------------------------
+
+**.theversion_reference_1 The Version Reference 1
+
+===
+
+[theversion]
+
+# LaTeX: 2.0
+# HTML:  2.0
+# XML:   2.0
+
+#---------------------------------------------------------------------
+
+**.therevision_reference_1 The Revision Reference 1
+
+===
+
+[therevision]
+
+# LaTeX: 4444
+# HTML:  4444
+# XML:   4444
+
+#---------------------------------------------------------------------
+
+**.date_reference_1 Date Reference 1
+
+===
+
+[thedate]
+
+# LaTeX: 2012-09-11
+# HTML:  2012-09-11
+# XML:   2012-09-11
+
+#---------------------------------------------------------------------
+
+**.status_reference_1 Status Reference 1
+
+===
+
+[status:td-000072]
+
+# LaTeX: \textcolor{fg-yellow}{$\blacksquare$}
+# HTML:  <image src="status_yellow.png" border="0"/>
+# XML:   <image src="status_yellow.png" border="0"/>
+
+#---------------------------------------------------------------------
+
+**.status_reference_2 Status Reference 2
+
+===
+
+[status:grey]
+
+# LaTeX: \textcolor{fg-grey}{$\blacksquare$}
+# HTML:  <image src="status_grey.png" border="0"/>
+# XML:   <image src="status_grey.png" border="0"/>
+
+#---------------------------------------------------------------------
+
+**.status_reference_3 Status Reference 3
+
+===
+
+[status:green]
+
+# LaTeX: \textcolor{fg-green}{$\blacksquare$}
+# HTML:  <image src="status_green.png" border="0"/>
+# XML:   <image src="status_green.png" border="0"/>
+
+#---------------------------------------------------------------------
+
+**.status_reference_4 Status Reference 4
+
+===
+
+[status:yellow]
+
+# LaTeX: \textcolor{fg-yellow}{$\blacksquare$}
+# HTML:  <image src="status_yellow.png" border="0"/>
+# XML:   <image src="status_yellow.png" border="0"/>
+
+#---------------------------------------------------------------------
+
+**.status_reference_5 Status Reference 5
+
+===
+
+[status:red]
+
+# LaTeX: \textcolor{fg-red}{$\blacksquare$}
+# HTML:  <image src="status_red.png" border="0"/>
+# XML:   <image src="status_red.png" border="0"/>
+
+#---------------------------------------------------------------------
+
+**.citation_reference_1 Citation Reference 1
+
+===
+
+[cite:cms15]
+
+# LaTeX: \cite{cms15}
+# HTML:  [<a href="td-000072.source.html#cms15">cms15</a>]
+# XML:   [<a href="td-000072.source.html#cms15">cms15</a>]
+
+#---------------------------------------------------------------------
+
+**.citation_reference_2 Citation Reference 2
+
+===
+
+[cite:cms15, pg 44]
+
+# LaTeX: \cite[pg 44]{cms15}
+# HTML:  [<a href="td-000072.source.html#cms15">cms15, pg 44</a>]
+# XML:   [<a href="td-000072.source.html#cms15">cms15, pg 44</a>]
+
+#---------------------------------------------------------------------
+
+**.file_reference_1 File Reference 1
+
+===
+
+[file:app.ini]
+
+# LaTeX: \path{app.ini}
+# HTML:  <tt>app.ini</tt>
+# XML:   <tt>app.ini</tt>
+
+#---------------------------------------------------------------------
+
+**.file_reference_2 File Reference 2
+
+===
+
+[file:My Document.doc]
+
+# LaTeX: \path{My Document.doc}
+# HTML:  <tt>My Document.doc</tt>
+# XML:   <tt>My Document.doc</tt>
+
+#---------------------------------------------------------------------
+
+**.path_reference_1 Path Reference 1
+
+===
+
+[path:/path/to/folder]
+
+# LaTeX: \path{/path/to/folder}
+# HTML:  <tt>/path/to/folder</tt>
+# XML:   <tt>/path/to/folder</tt>
+
+#---------------------------------------------------------------------
+
+**.path_reference_2 Path Reference 2
+
+===
+
+[path:/path/to/my folder]
+
+# LaTeX: \path{/path/to/my folder}
+# HTML:  <tt>/path/to/my folder</tt>
+# XML:   <tt>/path/to/my folder</tt>
+
+#---------------------------------------------------------------------
+
+**.path_reference_3 Path Reference 3
+
+===
+
+[path:C:\path\to\my folder\]
+
+# LaTeX: \path{C:\path\to\my folder}$\backslash$
+# HTML:  <tt>C:\path\to\my folder\</tt>
+# XML:   <tt>C:\path\to\my folder\</tt>
+
+#---------------------------------------------------------------------
+
+**.user_entered_text_1 User Entered Text 1
+
+===
+
+[enter:USERNAME].
+
+# LaTeX: \textbf{\texttt{USERNAME}}
+# HTML:  <b><tt>USERNAME</tt></b>
+# XML:   <b><tt>USERNAME</tt></b>
+
+#---------------------------------------------------------------------
+
+**.command_reference_1 Command Reference 1
+
+===
+
+[cmd:pwd]
+
+# LaTeX: \path{pwd}
+# HTML:  <tt>pwd</tt>
+# XML:   <tt>pwd</tt>
+
+#---------------------------------------------------------------------
+
+**.command_reference_2 Command Reference 2
+
+===
+
+[cmd:ls -al | grep -i bin | sort]
+
+# LaTeX: \path{ls -al | grep -i bin | sort}
+# HTML:  <tt>ls -al | grep -i bin | sort</tt>
+# XML:   <tt>ls -al | grep -i bin | sort</tt>
+
+#---------------------------------------------------------------------
+
+**.literal_xml_tag_1 Literal XML Tag 1
+
+===
+
+<html>
+
+# LaTeX: <html>
+# HTML:  &lt;html&gt;
+# XML:   &lt;html&gt;
+
+#---------------------------------------------------------------------
+
+**.literal_xml_tag_2 Literal XML Tag 2
+
+===
+
+<para style="indented">
+
+# LaTeX: <para style="indented">
+# HTML:  &lt;para style="indented"&gt;
+# XML:   &lt;para style="indented"&gt;
+
+#---------------------------------------------------------------------
+
+**.email_address_1 Email Address 1
+
+===
+
+joe@example.com
+
+# LaTeX: joe\@example.com
+# HTML:  <a href="mailto:joe\@example.com">joe\@example.com</a>
+# XML:   <a href="mailto:joe\@example.com">joe\@example.com</a>
+
+#---------------------------------------------------------------------
+
+**.take_note_symbol Take Note Symbol
+
+===
+
+[take_note]
+
+# LaTeX: \marginpar{\Huge\Writinghand}
+# HTML:  <b>(take note!)</b>
+# XML:   <b>(take note!)</b>
+
+#---------------------------------------------------------------------
+
+**.smiley_symbol Smiley Symbol
+
+===
+
+:-)
+
+# LaTeX: \large\Smiley
+# HTML:  (smiley)
+# XML:   (smiley)
+
+#---------------------------------------------------------------------
+
+**.frowny_symbol Frowny Symbol
+
+===
+
+:-(
+
+# LaTeX: \large\Frowny
+# HTML:  (frowny)
+# XML:   (frowny)
+
+#---------------------------------------------------------------------
+
+**.keystroke_symbol_1 Keystroke Symbol 1
+
+===
+
+[[Enter]]
+
+# LaTeX: \keystroke{Enter}
+# HTML:  <span class="keystroke">Enter</span>
+# XML:   <span class="keystroke">Enter</span>
+
+#---------------------------------------------------------------------
+
+**.keystroke_symbol_2 Keystroke Symbol 2
+
+===
+
+[[Ctrl]]-[[Alt]]-[[Del]].
+
+# LaTeX: \keystroke{Ctrl}-\keystroke{Alt}-\keystroke{Del}
+# HTML:  <span class="keystroke">Ctrl</span>-<span class="keystroke">Alt</span>-<span class="keystroke">Del</span>
+# XML:   <span class="keystroke">Ctrl</span>-<span class="keystroke">Alt</span>-<span class="keystroke">Del</span>
+
+#---------------------------------------------------------------------
+
+**.left_arrow_symbol Left Arrow Symbol
+
+===
+
+<-
+
+# LaTeX: $\leftarrow$
+# HTML:  <-
+# XML:   <-
+
+#---------------------------------------------------------------------
+
+**.right_arrow_symbol Right Arrow Symbol
+
+===
+
+->
+
+# LaTeX: $\rightarrow$
+# HTML:  ->
+# XML:   ->
+
+#---------------------------------------------------------------------
+
+**.latex_symbol LaTeX Symbol
+
+===
+
+LaTeX
+
+# LaTeX: \LaTeX{}
+# HTML:  LaTeX
+# XML:   LaTeX
+
+#---------------------------------------------------------------------
+
+**.tex_symbol TeX Symbol
+
+===
+
+Tex
+
+# LaTeX: \TeX{}
+# HTML:  TeX
+# XML:   TeX
+
+#---------------------------------------------------------------------
+
+**.copyright_symbol Copyright Symbol
+
+===
+
+[c]
+
+# LaTeX: \tiny$^{\copyright}$\normalsize
+# HTML:  &copy;
+# XML:   &copy;
+
+#---------------------------------------------------------------------
+
+**.trademark_symbol Trademark Symbol
+
+===
+
+[tm]
+
+# LaTeX: \tiny$^{\texttrademark}$\normalsize
+# HTML:  <sup><span style="font-size: 8pt;">TM</span></sup>
+# XML:   <sup><span style="font-size: 8pt;">TM</span></sup>
+
+#---------------------------------------------------------------------
+
+**.reg_trademark_symbol Registered Trademark Symbol
+
+===
+
+[rtm]
+
+# LaTeX: \tiny$^{\textregistered}$\normalsize
+# HTML:  <sup><span style="font-size: 8pt;">&reg;</span></sup>
+# XML:   <sup><span style="font-size: 8pt;">&reg;</span></sup>
+
+#---------------------------------------------------------------------
+
+**.double_quotes Double Quotes
+
+===
+
+This is a ``double quoted phrase.''
+
+#---------------------------------------------------------------------
+
+**.single_quotes Single Quotes
+
+===
+
+This is a `single quoted phrase.'
+
+#---------------------------------------------------------------------
+
+**.section_symbol Section Symbol
+
+===
+
+[section]
+
+#---------------------------------------------------------------------
+
+**.emdash_symbol Emdash Symbol
+
+===
+
+Use an emdash -- sparingly -- as a big comma.
+
+#---------------------------------------------------------------------
+
+**.bold Bold
+
+===
+
+!!bold text!!
+
+#---------------------------------------------------------------------
+
+**.italic Italic
+
+===
+
+~~italicized text~~
+
+#---------------------------------------------------------------------
+
+**.underline Underline
+
+===
+
+__underlined text__
+
+#---------------------------------------------------------------------
+
+**.fixedwidth Fixed Width
+
+===
+
+||fixedwidth text||
+
+#---------------------------------------------------------------------
+
+**.superscript Superscript
+
+===
+
+^^superscript text^^
+
+#---------------------------------------------------------------------
+
+**.subscript Subscript
+
+===
+
+,,subscripted text,,
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# local emacs variables
+
+# Local Variables:
+# mode: outline
+# mode: fill
+# coding: us-ascii
+# fill-column: 70
+# End:
+
+<<<DOCUMENT

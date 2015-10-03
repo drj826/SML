@@ -1,0 +1,25 @@
+>>>DOCUMENT.td-000079
+
+title:: INVALID PROPERTY CARDINALITY
+
+===
+
+This test data file illustrates an entity with invalid property
+cardinality.  Specifically, it contains a problem entity with more
+than one title element.
+
+>>>problem.problem-79-1
+
+title:: This is problem 1
+
+title:: This is a 2nd title that shouldn't be here
+
+title:: This is a 3rd title that shouldn't be here
+
+type:: technical
+
+description:: There is a problem with problem 1.
+
+<<<problem
+
+<<<DOCUMENT

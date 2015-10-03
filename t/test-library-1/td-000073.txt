@@ -1,0 +1,12 @@
+>>>DOCUMENT.td-000073
+
+title:: Include From Different Directory
+
+===
+
+This SML document contains a statement that includes a file from
+another directory.
+
+include:: in-000001
+
+<<<DOCUMENT

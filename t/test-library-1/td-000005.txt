@@ -1,0 +1,31 @@
+>>>DOCUMENT.td-000005
+
+title:: Problem Region
+
+===
+
+This SML document contains a problem region.  A region is a division
+that describes the intended content of the text.  The following region
+describes a problem.
+
+>>>problem.my-problem
+
+title:: My Problem
+
+type:: technical
+
+description:: This is a description of my problem.  This purpose of
+this problem is to serve as a test for applications designed to
+process SML problem regions.
+
+===
+
+This is some narrative text within the problem division.  You can put
+as much narrative text as you want inside divisions but you may
+~~not~~ use sections.  The purpose of ~~this~~ paragraph is to test
+the parser to see if it recognizes the end of the problem data segment
+which is also the beginning of the problem narrative segment.
+
+<<<problem
+
+<<<DOCUMENT

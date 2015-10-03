@@ -1,0 +1,49 @@
+>>>DOCUMENT.td-000009
+
+title:: Insert Content
+
+===
+
+This SML document contains an 'insert' data element.  The 'insert'
+statement tells an application to insert content collected somewhere
+else in the document. The 'insert' statement in this test file inserts
+a problem description.
+
+SML allows you to insert definitions and narratives.  This test file
+contains an example of each. A definition is the definition of a
+glossary term.  A narrative is the narrative division of an
+environment or region.
+
+DEFINITION of ``Structured Manuscript Language:''
+
+insert:: DEFINITION(Structured Manuscript Language:sml)
+
+NARRATIVE of exercise-1:
+
+insert:: NARRATIVE(exercise-1)
+
+>>>EXERCISE.exercise-1
+
+title:: Test Exercise
+
+description:: This is the description of a test exercise.  The purpose
+of this exercise is to test the 'insert' feature.  So it really
+doesn't contain anything interesting.
+
+===
+
+step:: Unplug your computer.
+
+step:: Put it back in the box.
+
+step:: Send it back.
+
+<<<EXERCISE
+
+glossary:: Structured Manuscript Language {sml} = (SML) A minimalistic
+descriptive markup language designed to be human readable, simple to
+edit, able to express rich semantic relationships, and contain all
+information necessary to publish professional documentation from plain
+text manuscripts
+
+<<<DOCUMENT

@@ -1,0 +1,19 @@
+>>>DOCUMENT.td-000067
+
+title:: Valid Image File Element
+
+===
+
+This SML document contains a valid image file element. 
+
+>>>FIGURE.fig-my-test-figure
+
+title:: My Test Figure
+
+===
+
+image:: image.1.jpg
+
+<<<FIGURE
+
+<<<DOCUMENT

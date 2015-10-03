@@ -1,0 +1,10 @@
+>>>DOCUMENT.td-000053
+
+title:: ACRONYM NOT IN ACRONYM LIST
+
+===
+
+This SML document contains a reference to an undefined
+acronym. [ac:BUGUS]
+
+<<<DOCUMENT

@@ -1,0 +1,36 @@
+>>>DOCUMENT.td-000030
+
+title:: INVALID BEGIN REGION (DEMO inside LISTING)
+
+===
+
+This SML file illustrates SML that is not well-formed because a region
+begins inside an environment (environments may not contain regions).
+This document should cause the SML parsing application to throw an
+``INVALID BEGIN REGION'' warning.
+
+>>>LISTING.my-sample-listing
+
+title:: My Sample Listing
+
+===
+
+listing line 1
+
+listing line 2
+
+listing line 3
+
+>>>DEMO.bogus-demo
+
+title:: Bogus Demo Can't Go Here
+
+===
+
+This is my demo text...
+
+<<<DEMO
+
+<<<LISTING
+
+<<<DOCUMENT

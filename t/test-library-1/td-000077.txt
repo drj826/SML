@@ -1,0 +1,44 @@
+>>>DOCUMENT.td-000077
+
+title:: Glossary Term Reference Containing Newline
+
+===
+
+This test data file exhibits a glossary term reference that contains a
+newline.
+
+glossary:: allocated baseline {ieee} = (IEEE) In [g:ieee:configuration
+management], the initial approved specifications governing the
+development of configuration items that are part of a higher level
+configuration item. Contrast with: developmental configuration;
+functional baseline; product baseline. See also: allocated
+configuration identification. [cite:ieee-std-610-12-1990]
+
+glossary:: configuration management {ieee} = (IEEE) (CM) A discipline
+applying technical and administrative direction and surveillance to:
+identify and document the functional and physical characteristics of a
+configuration item, control changes to those characteristics, record
+and report change processing and implementation status, and verify
+compliance with specified requirements. [cite:ieee-std-610-12-1990]
+
+>>>SOURCE.ieee-std-610-12-1990
+
+source_type:: misc
+
+title:: IEEE Standard Glossary of Software Engineering Terminology
+
+year:: 1990
+
+note:: This glossary defines terms in the field of Software
+Engineering. Topics covered include addressing; assembling, compiling,
+linking, loading; computer performance evaluation; configuration
+management; data types; errors, faults, and failures; evaluation
+techniques; instruction types; language types; libraries;
+microprogramming; operating systems; quality attributes; software
+documentation; software and system testing; software architecture;
+software development process; software development techniques; and
+software tools.
+
+<<<SOURCE
+
+<<<DOCUMENT

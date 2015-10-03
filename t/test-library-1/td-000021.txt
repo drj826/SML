@@ -1,0 +1,13 @@
+>>>DOCUMENT.td-000021
+
+title:: Include Raw Content
+
+===
+
+This SML document contains a statement that includes another file as
+raw text.  In other words include the lines exactly as they appear in
+the included file.
+
+include::raw: td-000024
+
+<<<DOCUMENT

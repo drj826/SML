@@ -1,0 +1,11 @@
+>>>DOCUMENT.td-000039
+
+title:: INVALID BOLD MARKUP
+
+===
+
+This document contains an example of INVALID bold markup.
+
+This paragraph contains a !!begin bold but not an end bold.
+
+<<<DOCUMENT

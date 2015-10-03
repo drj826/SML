@@ -1,0 +1,24 @@
+>>>DOCUMENT.td-000033
+
+title:: INVALID CROSS REFERENCE
+
+===
+
+This test file illustrates a valid cross reference.  See
+[ref:bogus] for details.
+
+>>>LISTING.my-listing-33
+
+title:: My Listing
+
+===
+
+listing line 1
+
+listing line 2
+
+listing line 3
+
+<<<LISTING
+
+<<<DOCUMENT

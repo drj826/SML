@@ -1,0 +1,39 @@
+>>>LISTING.my-listing-75
+
+title:: Sample Listing
+
+===
+
+LIB000, cls, LIBRARY,     exists,             SML::Library,   ,             ,       1,    0, 0,
+LIB001, prp, LIBRARY,     id,                 Str,            STRING,       ,       1,    0, 0,
+LIB002, prp, LIBRARY,     author,             Str,            STRING,       ,       1,    0, 0,
+LIB003, prp, LIBRARY,     revision,           Str,            STRING,       ,       1,    0, 0,
+LIB004, prp, LIBRARY,     date,               Str,            STRING,       ,       1,    0, 0,
+LIB005, prp, LIBRARY,     title,              Str,            STRING,       ,       1,    0, 0,
+LIB006, prp, LIBRARY,     subtitle,           Str,            STRING,       ,       1,    0, 0,
+LIB007, prp, LIBRARY,     description,        Str,            STRING,       ,       1,    0, 0,
+LIB008, prp, LIBRARY,     type,               Str,            STRING,       ,       many, 0, 0,
+LIB009, prp, LIBRARY,     author,             Str,            STRING,       ,       many, 0, 0,
+LIB010, prp, LIBRARY,     editor,             Str,            STRING,       ,       many, 0, 0,
+LIB011, prp, LIBRARY,     translator,         Str,            STRING,       ,       many, 0, 0,
+LIB012, prp, LIBRARY,     publisher,          Str,            STRING,       ,       1,    0, 0,
+LIB013, prp, LIBRARY,     edition,            Str,            STRING,       ,       1,    0, 0,
+LIB014, prp, LIBRARY,     copyright,          Str,            STRING,       ,       many, 0, 0,
+LIB015, prp, LIBRARY,     full_copyright,     Str,            STRING,       ,       1,    0, 0,
+LIB016, prp, LIBRARY,     permissions,        Str,            STRING,       ,       1,    0, 0,
+LIB017, prp, LIBRARY,     grants,             Str,            STRING,       ,       1,    0, 0,
+LIB018, prp, LIBRARY,     dedication,         Str,            STRING,       ,       1,    0, 0,
+LIB019, prp, LIBRARY,     organization,       Str,            STRING,       ,       1,    0, 0,
+LIB020, prp, LIBRARY,     classification,     Str,            STRING,       ,       1,    0, 0,
+LIB021, prp, LIBRARY,     classified_by,      Str,            STRING,       ,       1,    0, 0,
+LIB022, prp, LIBRARY,     classif_reason,     Str,            STRING,       ,       1,    0, 0,
+LIB023, prp, LIBRARY,     declassify_on,      Str,            STRING,       ,       1,    0, 0,
+LIB024, prp, LIBRARY,     handling_caveat,    Str,            STRING,       ,       many, 0, 0,
+LIB025, prp, LIBRARY,     use_formal_status,  Bool,           BOOLEAN,      ,       1,    0, 0,
+LIB026, prp, LIBRARY,     document_file,      Str,            STRING,       ,       many, 0, 0,
+LIB027, prp, LIBRARY,     fragment_file,      Str,            STRING,       ,       many, 0, 0,
+LIB028, prp, LIBRARY,     entity_file,        Str,            STRING,       ,       many, 0, 0,
+LIB029, prp, LIBRARY,     reference_file,     Str,            STRING,       ,       many, 0, 0,
+LIB030, prp, LIBRARY,     script_file,        Str,            STRING,       ,       many, 0, 0,
+
+<<<LISTING

@@ -1,0 +1,21 @@
+>>>DOCUMENT.td-000034
+
+title:: Valid ID Reference
+
+===
+
+This document illustrates a valid ID reference.  A valid ID reference
+looks like [id:my-requirement].
+
+>>>problem.my-requirement
+
+title:: My Requirement
+
+type:: technical
+
+description:: This is an example requirement for the purpose of
+illustrating a valid ID reference.
+
+<<<problem
+
+<<<DOCUMENT

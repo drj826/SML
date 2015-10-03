@@ -1,0 +1,16 @@
+>>>DOCUMENT.td-000025
+
+title:: Substitute Variables
+
+===
+
+var:: name = Mickey Mouse
+
+var:: title = Director of Fun Operations
+
+var:: email = mickey@disney.com
+
+Welcome to Disney World!  My name is [var:name].  I am the [var:title]
+and you can contact me at [var:email].  Have a nice visit.
+
+<<<DOCUMENT

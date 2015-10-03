@@ -1,0 +1,21 @@
+>>>DOCUMENT.td-000035
+
+title:: INVALID ID REFERENCE
+
+===
+
+This document illustrates an INVALID ID reference.  The INVALID ID
+reference is [id:bogus].
+
+>>>problem.my-requirement-35
+
+title:: My Requirement
+
+type:: technical
+
+description:: This is an example requirement for the purpose of
+illustrating a valid ID reference.
+
+<<<problem
+
+<<<DOCUMENT

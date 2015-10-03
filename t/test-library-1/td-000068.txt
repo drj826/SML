@@ -1,0 +1,20 @@
+>>>DOCUMENT.td-000068
+
+title:: FILE NOT FOUND
+
+===
+
+This SML document contains an INVALID image file element (bad file
+extension).
+
+>>>FIGURE.fig-my-test-figure-68
+
+title:: My Test Figure
+
+===
+
+image:: image.1.jgp
+
+<<<FIGURE
+
+<<<DOCUMENT

@@ -1,0 +1,10 @@
+>>>DOCUMENT.td-000055
+
+title:: INVALID SOURCE CITATION
+
+===
+
+This SML document contains an invalid source citation reference
+because the source is not defined. [cite:bogus]
+
+<<<DOCUMENT

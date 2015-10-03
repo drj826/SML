@@ -1,0 +1,12 @@
+>>>DOCUMENT.td-000023
+
+title:: Include A Problem Region
+
+===
+
+This document demonstrates including a division using an include
+statement.
+
+include:: rq-000003 # <-- a problem
+
+<<<DOCUMENT
