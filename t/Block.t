@@ -11,6 +11,18 @@ use SML;
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
+# set sml.Library logger to ERROR
+my $logger_library = Log::Log4perl::get_logger('sml.Library');
+$logger_library->level('ERROR');
+
+# set sml.Parser logger to ERROR
+my $logger_parser = Log::Log4perl::get_logger('sml.Parser');
+$logger_parser->level('ERROR');
+
+# set sml.Block logger to ERROR
+my $logger_block = Log::Log4perl::get_logger('sml.Block');
+$logger_block->level('ERROR');
+
 use Test::Log4perl;
 my $t1logger = Test::Log4perl->get_logger('sml.Block');
 
@@ -122,19 +134,17 @@ sub renders_ok {
   my $content   = $tc->{content};
   my $subclass  = $tc->{subclass};
   my $expected  = $tc->{expected}{render}{$rendition}{$style};
-  my $filename  = $tc->{filename};
   my $docid     = $tc->{docid};
   my $library   = $tc->{library};
-  my $parser    = $library->get_parser;
-  my $fragment  = $parser->create_fragment($filename);
   my $document  = $library->get_document($docid);
+  my $parser    = $library->get_parser;
   my $line      = SML::Line->new(content=>$content);
   my $block     = $subclass->new(library=>$library);
 
   $block->add_line($line);
   $document->add_part($block);
 
-  foreach my $block (@{ $fragment->get_block_list })
+  foreach my $block (@{ $document->get_block_list })
     {
       $parser->_parse_block($block);
     }
@@ -164,7 +174,6 @@ sub has_valid_syntax_ok {
   my $docid     = $tc->{docid};
   my $library   = $tc->{library};
   my $parser    = $library->get_parser;
-  my $fragment  = $parser->create_fragment($filename);
   my $document  = $library->get_document($docid);
   my $line      = SML::Line->new(content=>$content);
   my $block     = $subclass->new(library=>$library);
@@ -172,7 +181,7 @@ sub has_valid_syntax_ok {
   $block->add_line($line);
   $document->add_part($block);
 
-  foreach my $block (@{ $fragment->get_block_list })
+  foreach my $block (@{ $document->get_block_list })
     {
       $parser->_parse_block($block);
     }
@@ -199,7 +208,6 @@ sub has_valid_semantics_ok {
   my $docid     = $tc->{docid};
   my $library   = $tc->{library};
   my $parser    = $library->get_parser;
-  my $fragment  = $parser->create_fragment($filename);
   my $document  = $library->get_document($docid);
   my $line      = SML::Line->new(content=>$content);
   my $block     = $subclass->new(library=>$library);
@@ -207,7 +215,7 @@ sub has_valid_semantics_ok {
   $block->add_line($line);
   $document->add_part($block);
 
-  foreach my $block (@{ $fragment->get_block_list })
+  foreach my $block (@{ $document->get_block_list })
     {
       $parser->_parse_block($block);
     }
@@ -234,7 +242,6 @@ sub valid_syntax_warning_ok {
   my $docid    = $tc->{docid};
   my $library  = $tc->{library};
   my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
   my $line     = SML::Line->new(content=>$content);
   my $block    = $subclass->new(library=>$library);
@@ -242,7 +249,7 @@ sub valid_syntax_warning_ok {
   $block->add_line($line);
   $document->add_part($block);
 
-  foreach my $block (@{ $fragment->get_block_list })
+  foreach my $block (@{ $document->get_block_list })
     {
       $parser->_parse_block($block);
     }
@@ -272,7 +279,6 @@ sub valid_semantics_warning_ok {
   my $docid    = $tc->{docid};
   my $library  = $tc->{library};
   my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
   my $line     = SML::Line->new(content=>$content);
   my $block    = $subclass->new(library=>$library);
@@ -280,7 +286,7 @@ sub valid_semantics_warning_ok {
   $block->add_line($line);
   $document->add_part($block);
 
-  foreach my $block (@{ $fragment->get_block_list })
+  foreach my $block (@{ $document->get_block_list })
     {
       $parser->_parse_block($block);
     }
@@ -310,7 +316,6 @@ sub has_parts_ok {
   my $docid    = $tc->{docid};
   my $library  = $tc->{library};
   my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
   my $line     = SML::Line->new(content=>$content);
   my $block    = $subclass->new(library=>$library);
@@ -318,7 +323,7 @@ sub has_parts_ok {
   $block->add_line($line);
   $document->add_part($block);
 
-  foreach my $block (@{ $fragment->get_block_list })
+  foreach my $block (@{ $document->get_block_list })
     {
       $parser->_parse_block($block);
     }

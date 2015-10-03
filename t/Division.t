@@ -10,6 +10,10 @@ use SML;
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
+# set sml.Library logger to WARN
+my $logger_library = Log::Log4perl::get_logger('sml.Library');
+$logger_library->level('WARN');
+
 use Test::Log4perl;
 
 #---------------------------------------------------------------------
@@ -162,7 +166,8 @@ foreach my $tc (@{ $tcl })
 
 foreach my $tc (@{ $tcl })
   {
-    warn_has_valid_semantics_ok($tc) if defined $tc->{expected}{warning}{has_valid_semantics};
+    warn_has_valid_semantics_ok($tc)
+      if defined $tc->{expected}{warning}{has_valid_semantics};
   }
 
 ######################################################################
@@ -252,12 +257,9 @@ sub get_containing_division_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $testfile = $tc->{testfile};
   my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_containing_division};
   my $library  = $tc->{args}{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
 
   # act
@@ -279,8 +281,6 @@ sub get_part_list_ok {
   my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_part_list};
   my $library  = $tc->{args}{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
 
   # act
@@ -302,8 +302,6 @@ sub get_line_list_ok {
   my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_line_list};
   my $library  = $tc->{args}{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
 
   # act
@@ -325,8 +323,6 @@ sub get_division_list_ok {
   my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_division_list};
   my $library  = $tc->{args}{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
 
   # act
@@ -348,8 +344,6 @@ sub get_section_list_ok {
   my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_section_list};
   my $library  = $tc->{args}{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
 
   # act
@@ -371,8 +365,6 @@ sub get_block_list_ok {
   my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_block_list};
   my $library  = $tc->{args}{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
 
   # act
@@ -394,8 +386,6 @@ sub get_element_list_ok {
   my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_element_list};
   my $library  = $tc->{args}{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
 
   # act
@@ -417,8 +407,6 @@ sub get_preamble_line_list_ok {
   my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_preamble_line_list};
   my $library  = $tc->{args}{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
 
   # act
@@ -440,8 +428,6 @@ sub get_narrative_line_list_ok {
   my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_narrative_line_list};
   my $library  = $tc->{args}{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
 
   # act
@@ -463,8 +449,6 @@ sub get_first_part_ok {
   my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_first_part};
   my $library  = $tc->{args}{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
 
   # act
@@ -486,8 +470,6 @@ sub get_first_line_ok {
   my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_first_line};
   my $library  = $tc->{args}{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
 
   # act
@@ -512,8 +494,6 @@ sub get_property_list_ok {
   my $id       = $tc->{args}{id};
   my $expected = $tc->{expected}{get_property_list};
   my $library  = $tc->{args}{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
 
   # act
@@ -535,8 +515,6 @@ sub get_property_ok {
   my $id            = $tc->{args}{id};
   my $property_name = $tc->{property_name};
   my $library       = $tc->{args}{library};
-  my $parser        = $library->get_parser;
-  my $fragment      = $parser->create_fragment($testfile);
   my $division      = $library->get_division($id);
   my $expected      = $tc->{expected}{get_property};
 
@@ -559,8 +537,6 @@ sub get_property_value_ok {
   my $id            = $tc->{args}{id};
   my $property_name = $tc->{property_name};
   my $library       = $tc->{args}{library};
-  my $parser        = $library->get_parser;
-  my $fragment      = $parser->create_fragment($testfile);
   my $division      = $library->get_division($id);
   my $expected      = $tc->{expected}{get_property_value};
 
@@ -582,8 +558,6 @@ sub warn_has_valid_semantics_ok {
   my $testfile = $tc->{testfile};
   my $id       = $tc->{args}{id};
   my $library  = $tc->{args}{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($testfile);
   my $division = $library->get_division($id);
   my $expected = $tc->{expected}{warning}{has_valid_semantics};
   my $t1logger = Test::Log4perl->get_logger('sml.Division');

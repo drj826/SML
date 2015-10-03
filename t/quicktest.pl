@@ -4,20 +4,14 @@
 
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
+my $logger = Log::Log4perl->get_logger("sml.application");
 
 use lib "../lib";
 
-######################################################################
-
 use SML::Library;
 
-my $id        = 'sml';
-my $rendition = 'html';
-my $style     = 'default';
+my $library = SML::Library->new(config_filename=>'library.conf');
 
-my $library   = SML::Library->new(config_file=>'library.conf');
-my $result    = $library->publish($id,$rendition,$style);
-
-######################################################################
+$library->publish('sml','html','default');
 
 1;
