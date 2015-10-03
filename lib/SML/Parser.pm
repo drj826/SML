@@ -137,8 +137,8 @@ sub parse {
 
   $self->_set_line_list( $division_line_list );
 
-  my $division = $self->_create_empty_division($division_line_list);
-  $self->_set_division( $division );
+  # my $division = $self->_create_empty_division($division_line_list);
+  # $self->_set_division( $division );
 
   do
     {
@@ -155,6 +155,8 @@ sub parse {
     }
 
       while $self->_text_requires_processing;
+
+  my $division = $self->_get_division;
 
   foreach my $block (@{ $division->get_block_list })
     {
@@ -932,7 +934,7 @@ sub extract_title_text {
       elsif (
 	     $in_title
 	     and
-	     $text =~ /$syntax->{start_element}/
+	     $text =~ /$syntax->{element}/
 	    )
 	{
 	  return $title_text;
@@ -999,7 +1001,7 @@ sub extract_preamble_lines {
       elsif (
 	     $in_preamble
 	     and
-	     $text =~ /$syntax->{start_element}/
+	     $text =~ /$syntax->{element}/
 	     and
 	     not $ontology->allows_property($divname,$1)
 	    )
@@ -1010,7 +1012,7 @@ sub extract_preamble_lines {
       elsif (
 	     $in_preamble
 	     and
-	     $text =~ /$syntax->{start_element}/
+	     $text =~ /$syntax->{element}/
 	     and
 	     $ontology->allows_property($divname,$1)
 	    )
@@ -1090,7 +1092,7 @@ sub extract_narrative_lines {
 	}
 
       elsif (
-	     $text =~ /$syntax->{start_element}/
+	     $text =~ /$syntax->{element}/
 	     and
 	     $in_preamble
 	     and
@@ -1102,7 +1104,7 @@ sub extract_narrative_lines {
 	}
 
       elsif (
-	     $text =~ /$syntax->{start_element}/
+	     $text =~ /$syntax->{element}/
 	     and
 	     $in_preamble
 	     and
@@ -1183,6 +1185,7 @@ has 'division' =>
    isa       => 'SML::Division',
    reader    => '_get_division',
    writer    => '_set_division',
+   predicate => '_has_division',
   );
 
 # This is the division object being parsed by parse method, often a
@@ -1626,7 +1629,24 @@ sub _create_empty_division {
   my $ontology = $library->get_ontology;
   my $class    = $ontology->get_class_for_entity_name($name);
 
-  return $class->new(id=>$id,library=>$library);
+  if ( $name eq 'SECTION' )
+    {
+      my $sml    = SML->instance;
+      my $syntax = $sml->get_syntax;
+      my $line   = $line_list->[0];
+      my $text   = $line->get_content;
+
+      if ( $text =~ $syntax->{start_section} )
+	{
+	  my $depth = length($1);
+	  return $class->new(id=>$id,library=>$library,depth=>$depth);
+	}
+    }
+
+  else
+    {
+      return $class->new(id=>$id,library=>$library);
+    }
 }
 
 ######################################################################
@@ -2375,9 +2395,7 @@ sub _parse_lines {
 
   $logger->info("($count) parse lines");
 
-  #-------------------------------------------------------------------
   # MAX interations exceeded?
-  #
   if ( $count > $max_iterations )
     {
       my $msg = "$count: EXCEEDED MAX ITERATIONS ($max_iterations)";
@@ -2404,26 +2422,14 @@ sub _parse_lines {
   $self->_set_column(0);
   $self->_set_requires_processing(0);
 
-  my $library     = $self->get_library;
-  my $reasoner    = $library->get_reasoner;
+  if ( $self->_has_division )
+    {
+      my $division = $self->_get_division;
+      $division->init;
+      $self->_begin_division($division);
+    }
 
-  my $division    = $self->_get_division;
-  my $acronyms    = $self->_get_acronym_hash;
-  my $sources     = $self->_get_source_hash;
-  my $index       = $self->_get_index_hash;
-  my $outcome     = $self->_get_outcome_hash;
-  my $review      = $self->_get_review_hash;
-
-  my $to_be_gen   = $self->_get_to_be_gen_hash;
-  my $count_total = $self->_get_count_total_hash;
-
-  $division->init;
-
-  $self->_begin_division($division);
-
-  #-------------------------------------------------------------------
   # parse line-by-line
-  #
  LINE:
   foreach my $line ( @{ $self->_get_line_list } )
     {
@@ -2508,10 +2514,10 @@ sub _parse_lines {
 	  $self->_process_end_table_row($line);
 	}
 
-      elsif ( $text =~ /$syntax->{id_element}/ )
-	{
-	  $self->_process_id_element($line,$2);
-	}
+      # elsif ( $text =~ /$syntax->{id_element}/ )
+      # 	{
+      # 	  $self->_process_id_element($line,$2);
+      # 	}
 
       elsif ( $text =~ /$syntax->{note_element}/ )
 	{
@@ -2533,9 +2539,9 @@ sub _parse_lines {
 	  $self->_process_start_variable_definition($line,$1,$3);
 	}
 
-      elsif ( $text =~ /$syntax->{start_element}/ )
+      elsif ( $text =~ /$syntax->{element}/ )
 	{
-	  $self->_process_start_element($line,$1);
+	  $self->_process_element($line,$1);
 	}
 
       elsif ( $text =~ /$syntax->{bull_list_item}/ )
@@ -2593,6 +2599,8 @@ sub _parse_lines {
   $self->_generate_section_numbers;
   $self->_generate_division_numbers;
 
+  my $library  = $self->get_library;
+  my $reasoner = $library->get_reasoner;
   $reasoner->infer_status_from_outcomes;
 
   return 1;
@@ -5692,6 +5700,11 @@ sub _process_start_comment_division {
 
   $comment->add_part($block);
 
+  if ( not $self->_has_division )
+    {
+      $self->_set_division($comment);
+    }
+
   $self->_begin_division($comment);
 
   return 1;
@@ -5880,6 +5893,11 @@ sub _process_start_conditional_division {
 
   $conditional->add_part($block);
 
+  if ( not $self->_has_division )
+    {
+      $self->_set_division($conditional);
+    }
+
   $self->_begin_division($conditional);
 
   return 1;
@@ -6054,6 +6072,11 @@ sub _process_start_division_marker {
 	);
 
       $division->add_part($block);
+    }
+
+  if ( not $self->_has_division )
+    {
+      $self->_set_division($division);
     }
 
   $self->_begin_division($division);
@@ -6310,6 +6333,12 @@ sub _process_section_heading {
   $section->add_part($element);
 
   $section->add_property_element($element);
+
+  if ( not $self->_has_division )
+    {
+      $self->_set_division($section);
+    }
+
   $self->_begin_division($section);
 
   return 1;
@@ -6425,7 +6454,7 @@ sub _process_id_element {
 
 ######################################################################
 
-sub _process_start_element {
+sub _process_element {
 
   my $self = shift;
   my $line = shift;
@@ -6453,7 +6482,7 @@ sub _process_start_element {
        and
        $ontology->allows_property($divname,$name) )
     {
-      $logger->trace("..... preamble element ($name)");
+      $logger->trace("..... DATA element ($name)");
 
       my $division = $self->_get_current_division;
       $division->add_part($element);
@@ -6857,6 +6886,11 @@ sub _process_start_table_cell {
       my $tid       = "BARE_TABLE-$tnum";
       my $baretable = SML::Baretable->new(id=>$tid,library=>$library);
 
+      if ( not $self->_has_division )
+	{
+	  $self->_set_division($baretable);
+	}
+
       $self->_begin_division($baretable);
 
       # new BARE_TABLE_ROW
@@ -6887,6 +6921,11 @@ sub _process_start_table_cell {
       my $rid      = "BARE_TABLE_ROW-$tnum-$rnum";
       my $tablerow = SML::TableRow->new(id=>$rid,library=>$library);
 
+      if ( not $self->_has_division )
+	{
+	  $self->_set_division($tablerow);
+	}
+
       $self->_begin_division($tablerow);
 
       # new BARE_TABLE_CELL
@@ -6909,6 +6948,11 @@ sub _process_start_table_cell {
       my $rnum     = $self->_count_table_rows + 1;
       my $rid      = "TABLE_ROW-$tnum-$rnum";
       my $tablerow = SML::TableRow->new(id=>$rid,library=>$library);
+
+      if ( not $self->_has_division )
+	{
+	  $self->_set_division($tablerow);
+	}
 
       $self->_begin_division($tablerow);
 
@@ -6934,6 +6978,12 @@ sub _process_start_table_cell {
       my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
       $tablecell->add_part($block);
+
+      if ( not $self->_has_division )
+	{
+	  $self->_set_division($tablecell);
+	}
+
       $self->_begin_division($tablecell);
     }
 
@@ -6950,6 +7000,12 @@ sub _process_start_table_cell {
       my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
       $tablecell->add_part($block);
+
+      if ( not $self->_has_division )
+	{
+	  $self->_set_division($tablecell);
+	}
+
       $self->_begin_division($tablecell);
     }
 
@@ -7363,6 +7419,11 @@ sub _in_table_row {
 sub _in_baretable {
 
   my $self = shift;
+
+  if ( not $self->_has_division )
+    {
+      return 0;
+    }
 
   my $division = $self->_get_current_division;
 

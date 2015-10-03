@@ -735,7 +735,7 @@ sub get_preamble_line_list {
       if (
 	  $in_preamble
 	  and
-	  $text =~ /$syntax->{start_element}/xms
+	  $text =~ /$syntax->{element}/xms
 	  and
 	  $ontology->allows_property($divname,$1)
 	 )
@@ -800,7 +800,7 @@ sub get_narrative_line_list {
       if (
 	  $in_preamble
 	  and
-	  $text =~ /$syntax->{start_element}/xms
+	  $text =~ /$syntax->{element}/xms
 	  and
 	  $ontology->allows_property($divname,$1)
 	 )
@@ -840,14 +840,16 @@ sub get_first_part {
 
   my $self = shift;
 
-  if ( defined $self->get_part_list->[0] )
+  my $part_list = $self->get_part_list;
+
+  if ( $self->has_parts )
     {
       return $self->get_part_list->[0];
     }
 
   else
     {
-      $logger->error("CAN'T GET FIRST PART of division");
+      $logger->error("CAN'T GET FIRST PART, DIVISION HAS NO PARTS");
       return 0;
     }
 }
@@ -858,10 +860,18 @@ sub get_first_line {
 
   my $self = shift;
 
-  my $first_part = $self->get_first_part;
-  my $first_line = $first_part->get_first_line;
+  if ( $self->has_parts )
+    {
+      my $first_part = $self->get_first_part;
 
-  return $first_line;
+      return $first_part->get_first_line;
+    }
+
+  else
+    {
+      $logger->error("CAN'T GET FISRT LINE, DIVISION HAS NO PARTS");
+      return 0;
+    }
 }
 
 ######################################################################

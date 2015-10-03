@@ -918,13 +918,17 @@ sub get_document {
   my $self = shift;
   my $id   = shift;
 
-  foreach my $document (@{ $self->get_document_list })
+  if ( $self->has_document($id) )
     {
-      return $document if $document->get_id eq $id;
+      return $self->get_document($id);
     }
 
-  $logger->error("NO DOCUMENT IN LIBRARY WITH ID \'$id\'");
-  return 0;
+  else
+    {
+      my $parser = $self->get_parser;
+
+      return $parser->parse($id);
+    }
 }
 
 ######################################################################
@@ -979,8 +983,9 @@ sub get_division {
 
   else
     {
-      $logger->warn("DIVISION DOESN'T EXIST \'$id\'");
-      return 0;
+      my $parser = $self->get_parser;
+
+      return $parser->parse($id);
     }
 }
 
@@ -1940,14 +1945,14 @@ has 'id_hash' =>
 
 ######################################################################
 
-has 'textfile_hash' =>
+has 'filespec_hash' =>
   (
    isa       => 'HashRef',
-   reader    => '_get_textfile_hash',
+   reader    => '_get_filespec_hash',
    default   => sub {{}},
   );
 
-# $textfile_hash->{$filename} = "$path/$filename";
+# $filespec_hash->{$filename} = "$path/$filename";
 #
 # This is the collection of all text files in the library.
 
@@ -2251,7 +2256,7 @@ sub BUILD {
   chdir($library_dir);
 
   my $id_hash        = $self->_get_id_hash;
-  my $textfile_hash  = $self->_get_textfile_hash;
+  my $filespec_hash  = $self->_get_filespec_hash;
   my $division_count = {};
 
   foreach my $directory (@{ $self->get_include_path })
@@ -2263,25 +2268,15 @@ sub BUILD {
 
       foreach my $textfile ( @filelist )
 	{
-	  $logger->debug("scanning $directory/$textfile...");
-
-	  # validate file name uniqueness
-	  if ( exists $textfile_hash->{$textfile} )
-	    {
-	      my $other = $textfile_hash->{$textfile};
-	      $logger->logdie("DUPLICATE TEXT FILE NAME \'$textfile\' IN \'$directory\' (already in $other)");
-	    }
-
-	  else
-	    {
-	      $textfile_hash->{$textfile} = "$directory/$textfile";
-	    }
+	  my $filespec = "$directory/$textfile";
+	  $logger->debug("scanning $filespec...");
+	  $filespec_hash->{$filespec} = "$filespec";
 
 	  my $in_comment_division = 0;
 
 	  my $lines = [];
-	  open my $fh, "<", "$directory/$textfile"
-	    or die "Can't open $textfile: $!\n";
+	  open my $fh, "<", "$filespec"
+	    or die "Can't open $filespec: $!\n";
 	  @{ $lines } = <$fh>;
 	  close $fh;
 
@@ -2313,7 +2308,7 @@ sub BUILD {
 
 		  if ( not $ontology->allows_division($name) )
 		    {
-		      $logger->logdie("UNKNOWN DIVISION \'$name\' IN \'$textfile\'");
+		      $logger->logdie("UNKNOWN DIVISION \'$name\' IN \'$filespec\'");
 		    }
 
 		  ++ $division_count->{$name};
@@ -2325,12 +2320,12 @@ sub BUILD {
 		  if ( exists $id_hash->{$id} )
 		    {
 		      my $firstfile = $id_hash->{$id}->[0];
-		      $logger->logdie("DUPLICATE ID \'$id\' IN \'$textfile\' (ALSO IN \'$firstfile\')");
+		      $logger->logdie("DUPLICATE ID \'$id\' IN \'$filespec\' (ALSO IN \'$firstfile\')");
 		    }
 
 		  else
 		    {
-		      $id_hash->{$id} = [$textfile,$name];
+		      $id_hash->{$id} = [$filespec,$name];
 		    }
 		}
 
@@ -2347,12 +2342,12 @@ sub BUILD {
 		  if ( exists $id_hash->{$id} )
 		    {
 		      my $firstfile = $id_hash->{$id}->[0];
-		      $logger->logdie("DUPLICATE ID \'$id\' IN \'$textfile\' (ALSO IN \'$firstfile\')");
+		      $logger->logdie("DUPLICATE ID \'$id\' IN \'$filespec\' (ALSO IN \'$firstfile\')");
 		    }
 
 		  else
 		    {
-		      $id_hash->{$id} = [$textfile,$name];
+		      $id_hash->{$id} = [$filespec,$name];
 		    }
 		}
 	    }
@@ -2361,6 +2356,9 @@ sub BUILD {
 
   my $total = 0;
 
+  my $libname = $self->get_name;
+  $logger->info("$libname");
+  $logger->info("-------------------- -----");
   foreach my $name ( sort keys %{ $division_count } )
     {
       my $count = $division_count->{$name};
@@ -2457,6 +2455,7 @@ sub _build_config_filespec {
 
   my $dir_list =
     [
+     "$Bin",
      "$Bin/$directory_name",
      "$Bin/../$directory_name",
      "$Bin/../../$directory_name",
@@ -2471,7 +2470,7 @@ sub _build_config_filespec {
 	}
     }
 
-  $logger->error("COULD NOT LOCATE LIBRARY CONFIG FILE");
+  $logger->logdie("COULD NOT LOCATE LIBRARY CONFIG FILE");
   return 0;
 }
 

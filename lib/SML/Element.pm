@@ -51,7 +51,7 @@ sub get_value {
 
   $text =~ s/[\r\n]*$//;                # chomp;
 
-  if ( $text =~ /$syntax->{'start_element'}/xms )
+  if ( $text =~ /$syntax->{'element'}/xms )
     {
       my $util = $sml->get_util;
 

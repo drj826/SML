@@ -397,6 +397,8 @@ has 'begin_citation_ref' =>
    default => '\[(cite|c):',
   );
 
+# $1 = tag
+
 ######################################################################
 
 has 'variable_ref' =>
@@ -869,7 +871,7 @@ has 'comment_line' =>
 # ELEMENTS
 #---------------------------------------------------------------------
 
-has 'start_element' =>
+has 'element' =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -899,12 +901,12 @@ has 'title_element' =>
 
 ######################################################################
 
-has 'id_element' =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(id|label)::\s*(.*?)\s*(\#(.*))?$',
-  );
+# has 'id_element' =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^(id|label)::\s*(.*?)\s*(\#(.*))?$',
+#   );
 
 # $1 = id or label
 # $2 = id value
@@ -1304,6 +1306,30 @@ has 'note_element' =>
 # DIVISIONS
 #---------------------------------------------------------------------
 
+has 'start_division' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^>{3}(\w+)(\.([\w\-]+))?',
+  );
+
+# $1 = division name
+# $2 =
+# $3 = division ID
+
+######################################################################
+
+has 'end_division' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^<{3}(\w+)',
+  );
+
+# $1 = division name
+
+######################################################################
+
 has 'start_section' =>
   (
    is      => 'ro',
@@ -1422,30 +1448,6 @@ has 'end_table_row' =>
 
 ######################################################################
 
-has 'start_division' =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^>{3}(\w+)(\.([\w\-]+))?',
-  );
-
-# $1 = division name
-# $2 =
-# $3 = division ID
-
-######################################################################
-
-has 'end_division' =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^<{3}(\w+)',
-  );
-
-# $1 = division name
-
-######################################################################
-
 # has 'start_document' =>
 #   (
 #    is      => 'ro',
@@ -1467,6 +1469,15 @@ has 'end_division' =>
 #---------------------------------------------------------------------
 # OTHER REGEXS
 #---------------------------------------------------------------------
+
+has 'segment_separator' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^={3}$',
+  );
+
+######################################################################
 
 has 'blank_line' =>
   (
@@ -1794,7 +1805,7 @@ showing associated regular expressions defined by SML::Syntax:
    |    |
    |    +-- SML::Element
    |    |    |
-   |    |    +-- regex: start_element
+   |    |    +-- regex: element
    |    |    +-- regex: title_element
    |    |    +-- regex: id_element
    |    |    +-- regex: insert_element

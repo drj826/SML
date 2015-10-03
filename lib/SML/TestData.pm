@@ -3286,7 +3286,6 @@ sub _build_division_test_case_list {
       },
       expected  =>
       {
-       get_containing_division => 'SML::Fragment',
        get_first_part          => 'SML::PreformattedBlock',
        get_property            => 'SML::Property',
        get_property_value      => 'Section Structure With Regions',
@@ -8069,7 +8068,10 @@ sub _build_test_object_hash {
 
 sub _build_test_library_1 {
 
-  return SML::Library->new(config_filename=>'library.conf');
+  return SML::Library->new
+    (
+     config_filename=>'test-library-1.conf',
+    );
 }
 
 ######################################################################

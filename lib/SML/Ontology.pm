@@ -113,29 +113,29 @@ sub get_entity_allowed_property_list {
 
 ######################################################################
 
-sub get_allowed_environment_list {
+# sub get_allowed_environment_list {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $list = [];                        # allowed environments list
-  my $hash = $self->_get_rule_hash;
+#   my $list = [];                        # allowed environments list
+#   my $hash = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $hash } )
-    {
-      my $entity_name = $rule->get_entity_name;
-      my $rule_type   = $rule->get_rule_type;
-      my $value_type  = $rule->get_value_type;
+#   foreach my $rule ( values %{ $hash } )
+#     {
+#       my $entity_name = $rule->get_entity_name;
+#       my $rule_type   = $rule->get_rule_type;
+#       my $value_type  = $rule->get_value_type;
 
-      if ( $rule_type eq 'cls' and $self->allows_environment($entity_name) )
-	{
-	  push @{ $list }, $entity_name;
-	}
-    }
+#       if ( $rule_type eq 'cls' and $self->allows_environment($entity_name) )
+# 	{
+# 	  push @{ $list }, $entity_name;
+# 	}
+#     }
 
-  my $ae = [ sort @{ $list } ];
+#   my $ae = [ sort @{ $list } ];
 
-  return $ae;
-}
+#   return $ae;
+# }
 
 ######################################################################
 
@@ -308,7 +308,11 @@ sub allows_division {
        (
 	# $self->_get_types_by_entity_name_hash->{$name} eq 'SML::Region'
 	# or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Document'
+	or
 	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Division'
+	or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Conditional'
 	or
 	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Demo'
 	or
@@ -323,8 +327,6 @@ sub allows_division {
 	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Slide'
 	or
 	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Library'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Document'
 	or
 	# $self->_get_types_by_entity_name_hash->{$name} eq 'SML::Environment'
 	# or
