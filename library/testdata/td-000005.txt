@@ -20,11 +20,11 @@ process SML problem regions.
 
 ===
 
-This is some narrative text within the problem region.  You can put as
-much narrative text as you want inside regions but you may ~~not~~ use
-sections.  The purpose of ~~this~~ paragraph is to test the parser to
-see if it recognizes the end of the problem preamble which is also the
-beginning of the problem narrative.
+This is some narrative text within the problem division.  You can put
+as much narrative text as you want inside divisions but you may
+~~not~~ use sections.  The purpose of ~~this~~ paragraph is to test
+the parser to see if it recognizes the end of the problem data segment
+which is also the beginning of the problem narrative segment.
 
 <<<problem
 
