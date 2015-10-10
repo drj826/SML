@@ -331,7 +331,15 @@ sub _build_sha_digest {
   my $self = shift;
   my $sha  = Digest::SHA->new;
 
-  $sha->addfile($self->get_filespec);
+  my $filespec = $self->get_filespec;
+
+  if ( not -r $filespec )
+    {
+      my $cwd = getcwd();
+      $logger->error("CAN'T BUILD SHA DIGEST, BAD FILESPEC \'$filespec\' from $cwd");
+    }
+
+  $sha->addfile($filespec);
 
   return $sha->hexdigest;
 }

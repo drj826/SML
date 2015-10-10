@@ -8,6 +8,10 @@ use Test::More tests => 12;
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
+# set sml.Library logger to WARN
+my $logger_library = Log::Log4perl::get_logger('sml.Library');
+$logger_library->level('WARN');
+
 use SML::TestData;
 
 #---------------------------------------------------------------------
@@ -63,21 +67,16 @@ my @public_methods =
    'has_filespec',
    'get_filespec',
 
-   'add_fragment',
    'add_document',
    'add_entity',
    'add_division',
    'add_variable',
    'add_resource',
    'add_index_term',
-   'add_fragment_file',
    'add_reference_file',
    'add_script_file',
    'add_outcome',
    'add_review',
-
-   'has_fragment',
-   'get_fragment',
 
    'has_document',
    'get_document',
@@ -91,7 +90,7 @@ my @public_methods =
    'get_index_term',
    'get_property_value',
    'get_variable_value',
-   'get_preamble_line_list',
+   'get_data_segment_line_list',
    'get_narrative_line_list',
    'get_type',
    'get_outcome',
@@ -105,7 +104,6 @@ my @public_methods =
    'get_outcome_description',
    'get_review_description',
 
-   'has_fragment',
    'has_document',
    'has_entity',
    'has_division',
@@ -118,7 +116,6 @@ my @public_methods =
 
    'summarize_content',
    'summarize_entities',
-   'summarize_fragments',
    'summarize_divisions',
    'summarize_glossary',
    'summarize_acronyms',

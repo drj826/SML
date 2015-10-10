@@ -72,7 +72,7 @@ has '+name' =>
 # This is a sequential array of all regions in the document.
 #
 # A region is a division that describes the intended content of the
-# text.  Regions consist of a preamble followed by an optional region
+# text.  Regions consist of a DATA SEGMENT followed by an optional region
 # narrative. Regions may contain environments. Some regions represent
 # entitys (problems, solutions, tests, results, tasks, and
 # roles). Other common regions include demo, exercise, keypoints,
@@ -95,7 +95,7 @@ has '+name' =>
 #
 # An environment is a division that describes the intended format,
 # structure, or content of the contained blocks of text.  Environments
-# are composed of a preamble followed by an optional environment
+# are composed of a DATA SEGMENT followed by an optional environment
 # narrative.  Environments may not be nested. Environments may not
 # contain regions.  Environments commonly have titles, IDs, and
 # descriptions. Common environments include tables, figures, listings,
@@ -1065,8 +1065,8 @@ C<SML::Document> - a written work about a topic
 =head1 DESCRIPTION
 
 A document is a written work about a topic.  Documents have types:
-book, report, or article. An SML document is composed of a preamble
-block followed by a narrative block.
+book, report, or article. An SML document is composed of a DATA
+SEGMENT followed by a NARRATIVE SEGMENT.
 
 =head1 METHODS
 

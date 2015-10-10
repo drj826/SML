@@ -101,7 +101,7 @@ my @public_methods =
    'get_block_list',
    'get_element_list',
    'get_line_list',
-   'get_preamble_line_list',
+   'get_data_segment_line_list',
    'get_narrative_line_list',
    'get_first_part',
    'get_first_line',

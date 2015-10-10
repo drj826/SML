@@ -14,6 +14,10 @@ Log::Log4perl->init("log.test.conf");
 my $logger_library = Log::Log4perl::get_logger('sml.Library');
 $logger_library->level('WARN');
 
+# set sml.Parser logger to WARN
+my $logger_parser = Log::Log4perl::get_logger('sml.Parser');
+$logger_parser->level('WARN');
+
 use Test::Log4perl;
 
 #---------------------------------------------------------------------
@@ -95,7 +99,7 @@ my @public_methods =
    'get_block_list',
    'get_element_list',
    'get_line_list',
-   'get_preamble_line_list',
+   'get_data_segment_line_list',
    'get_narrative_line_list',
    'get_first_part',
    'get_first_line',
@@ -151,7 +155,7 @@ foreach my $tc (@{ $tcl })
     get_section_list_ok($tc)        if defined $tc->{expected}{get_section_list};
     get_block_list_ok($tc)          if defined $tc->{expected}{get_block_list};
     get_element_list_ok($tc)        if defined $tc->{expected}{get_element_list};
-    get_preamble_line_list_ok($tc)  if defined $tc->{expected}{get_preamble_line_list};
+    get_data_segment_line_list_ok($tc)  if defined $tc->{expected}{get_data_segment_line_list};
     get_narrative_line_list_ok($tc) if defined $tc->{expected}{get_narrative_line_list};
     get_first_part_ok($tc)          if defined $tc->{expected}{get_first_part};
     get_first_line_ok($tc)          if defined $tc->{expected}{get_first_line};
@@ -397,7 +401,7 @@ sub get_element_list_ok {
 
 ######################################################################
 
-sub get_preamble_line_list_ok {
+sub get_data_segment_line_list_ok {
 
   my $tc = shift;                       # test case
 
@@ -405,15 +409,15 @@ sub get_preamble_line_list_ok {
   my $tcname   = $tc->{name};
   my $testfile = $tc->{testfile};
   my $id       = $tc->{args}{id};
-  my $expected = $tc->{expected}{get_preamble_line_list};
+  my $expected = $tc->{expected}{get_data_segment_line_list};
   my $library  = $tc->{args}{library};
   my $division = $library->get_division($id);
 
   # act
-  my $result = scalar @{ $division->get_preamble_line_list };
+  my $result = scalar @{ $division->get_data_segment_line_list };
 
   # assert
-  is($result,$expected,"$tcname get_preamble_line_list $result");
+  is($result,$expected,"$tcname get_data_segment_line_list $result");
 }
 
 ######################################################################

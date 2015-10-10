@@ -61,7 +61,7 @@ my @public_methods =
    'get_MAX_RESOLVE_INCLUDES',
    'get_MAX_RUN_SCRIPTS',
    'get_MAX_RESOLVE_CONDITIONALS',
-   'get_MAX_GATHER_DATA',
+   'get_MAX_PARSE_LINES',
    'get_MAX_INSERT_CONTENT',
    'get_MAX_SUBSTITUTE_VARIABLES',
    'get_MAX_RESOLVE_LOOKUPS',

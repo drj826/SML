@@ -40,7 +40,6 @@ my @public_methods =
    'get_content',
    'get_file',
    'get_num',
-   'get_included_from_line',
 
    # SML::Line public methods
    'get_filespec',

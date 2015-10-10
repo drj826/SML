@@ -12,6 +12,10 @@ use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 my $logger = Log::Log4perl::get_logger('sml.ontology');
 
+# set sml.Library logger to WARN
+my $logger_library = Log::Log4perl::get_logger('sml.Library');
+$logger_library->level('WARN');
+
 use Test::Log4perl;
 
 # use Cwd;
@@ -56,15 +60,12 @@ my @public_methods =
    'add_rules_from_file',
    'get_allowed_property_value_list',
    'get_entity_allowed_property_list',
-   'get_allowed_environment_list',
    'get_rule_for',
    'get_rule_with_id',
    'get_class_for_entity_name',
    'get_required_property_list',
    'has_entity_with_name',
    'allows_entity',
-   'allows_region',
-   'allows_environment',
    'allows_property',
    'allows_composition',
    'allows_property_value',
@@ -90,9 +91,6 @@ foreach my $tc (@{ $tcl })
     get_entity_allowed_property_list_ok($tc)
       if defined $tc->{expected}{get_entity_allowed_property_list};
 
-    get_allowed_environment_list_ok($tc)
-      if defined $tc->{expected}{get_allowed_environment_list};
-
     get_rule_for_ok($tc)
       if defined $tc->{expected}{get_rule_for};
 
@@ -111,12 +109,6 @@ foreach my $tc (@{ $tcl })
     allows_entity_ok($tc)
       if defined $tc->{expected}{allows_entity};
 
-    allows_region_ok($tc)
-      if defined $tc->{expected}{allows_region};
-
-    allows_environment_ok($tc)
-      if defined $tc->{expected}{allows_environment};
-
     allows_property_ok($tc)
       if defined $tc->{expected}{allows_property};
 
@@ -134,7 +126,6 @@ foreach my $tc (@{ $tcl })
 
     property_allows_cardinality_ok($tc)
       if defined $tc->{expected}{property_allows_cardinality};
-
 }
 
 #---------------------------------------------------------------------
@@ -211,47 +202,6 @@ sub get_entity_allowed_property_list_ok {
   # assert
   is_deeply($result,$expected,"$tcname get_entity_allowed_property_list");
 }
-
-######################################################################
-
-sub get_allowed_environment_list_ok {
-
-  my $tc = shift;                       # test case
-
-  # arrange
-  my $tcname    = $tc->{name};
-  my $library   = $tc->{library};
-  my $ontology  = $library->get_ontology;
-  my $expected  = $tc->{expected}{get_allowed_environment_list};
-
-  # act
-  my $result = $ontology->get_allowed_environment_list;
-
-  # assert
-  is_deeply($result,$expected,"$tcname get_allowed_environment_list");
-}
-
-######################################################################
-
-# sub get_entity_type_ok {
-
-#   my $tc = shift;                       # test case
-
-#   # arrange
-#   my $tcname    = $tc->{name};
-#   my $library   = $tc->{library};
-#   my $ontology  = $library->get_ontology;
-#   my $expected  = $tc->{expected}{get_entity_type};
-
-#   # act
-#   my $result = $ontology->get_entity_type
-#     (
-#      $tc->{entity_name},
-#     );
-
-#   # assert
-#   is($result,$expected,"$tcname get_entity_type $result");
-# }
 
 ######################################################################
 
@@ -385,50 +335,6 @@ sub allows_entity_ok {
 
   # assert
   is($result,$expected,"$tcname allows_entity $result");
-}
-
-######################################################################
-
-sub allows_region_ok {
-
-  my $tc = shift;                       # test case
-
-  # arrange
-  my $tcname    = $tc->{name};
-  my $library   = $tc->{library};
-  my $ontology  = $library->get_ontology;
-  my $expected  = $tc->{expected}{allows_region};
-
-  # act
-  my $result = $ontology->allows_region
-    (
-     $tc->{entity_name},
-    );
-
-  # assert
-  is($result,$expected,"$tcname allows_region $result");
-}
-
-######################################################################
-
-sub allows_environment_ok {
-
-  my $tc = shift;                       # test case
-
-  # arrange
-  my $tcname    = $tc->{name};
-  my $library   = $tc->{library};
-  my $ontology  = $library->get_ontology;
-  my $expected  = $tc->{expected}{allows_environment};
-
-  # act
-  my $result = $ontology->allows_environment
-    (
-     $tc->{environment_name},
-    );
-
-  # assert
-  is($result,$expected,"$tcname allows_environment $result");
 }
 
 ######################################################################

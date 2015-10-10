@@ -79,6 +79,18 @@ has 'containing_division' =>
 
 ######################################################################
 
+has 'included_from_line' =>
+  (
+   isa       => 'SML::Line',
+   reader    => 'get_included_from_line',
+   predicate => 'has_included_from_line',
+  );
+
+# If this division was included via the `include' mechanism, this is
+# the SML::Line object that included the division.
+
+######################################################################
+
 has 'valid_syntax' =>
   (
    isa       => 'Bool',
@@ -700,23 +712,23 @@ sub get_line_list {
 
 ######################################################################
 
-sub get_preamble_line_list {
+sub get_data_segment_line_list {
 
-  # Return an ArrayRef of preamble lines.
+  # Return an ArrayRef of DATA SEGMENT lines.
 
   # !!! BUG HERE !!!
   #
-  # Extracting the preamble lines should be a parser function and not
-  # a division function.
+  # Extracting the DATA SEGMENT lines should be a parser function and
+  # not a division function.
 
   my $self = shift;
 
-  my $list        = [];                 # preamble line list
+  my $list        = [];                 # DATA SEGMENT line list
   my $sml         = SML->instance;
   my $syntax      = $sml->get_syntax;
   my $library     = $self->get_library;
   my $ontology    = $library->get_ontology;
-  my $in_preamble = 1;
+  my $in_data_segment = 1;
   my $i           = 0;
   my $lastblock   = scalar @{ $self->get_block_list };
   my $divname     = $self->get_name;
@@ -733,7 +745,7 @@ sub get_preamble_line_list {
       last if $i == $lastblock;
 
       if (
-	  $in_preamble
+	  $in_data_segment
 	  and
 	  $text =~ /$syntax->{element}/xms
 	  and
@@ -746,7 +758,7 @@ sub get_preamble_line_list {
 	    }
 	}
 
-      elsif ( _line_ends_preamble($text) )
+      elsif ( _line_ends_data_segment($text) )
 	{
 	  return $list;
 	}
@@ -781,7 +793,7 @@ sub get_narrative_line_list {
   my $syntax      = $sml->get_syntax;
   my $library     = $self->get_library;
   my $ontology    = $library->get_ontology;
-  my $in_preamble = 1;
+  my $in_data_segment = 1;
   my $i           = 0;
   my $lastblock   = scalar @{ $self->get_block_list };
   my $divname     = $self->get_name;
@@ -798,7 +810,7 @@ sub get_narrative_line_list {
       last if $i == $lastblock;
 
       if (
-	  $in_preamble
+	  $in_data_segment
 	  and
 	  $text =~ /$syntax->{element}/xms
 	  and
@@ -808,16 +820,16 @@ sub get_narrative_line_list {
 	  next;
 	}
 
-      elsif ( _line_ends_preamble($text) )
+      elsif ( _line_ends_data_segment($text) )
 	{
-	  $in_preamble = 0;
+	  $in_data_segment = 0;
 	  foreach my $line (@{ $block->get_line_list })
 	    {
 	      push @{ $list }, $line
 	    }
 	}
 
-      elsif ( $in_preamble )
+      elsif ( $in_data_segment )
 	{
 	  next;
 	}
@@ -1120,31 +1132,14 @@ has 'attribute_hash' =>
 ######################################################################
 ######################################################################
 
-sub _line_ends_preamble {
+sub _line_ends_data_segment {
 
   my $text = shift;
 
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  if (
-         $text =~ /$syntax->{start_region}/xms
-      or $text =~ /$syntax->{start_environment}/xms
-      or $text =~ /$syntax->{start_section}/xms
-      or $text =~ /$syntax->{generate_element}/xms
-      or $text =~ /$syntax->{insert_element}/xms
-      or $text =~ /$syntax->{template_element}/
-      or $text =~ /$syntax->{include_element}/xms
-      or $text =~ /$syntax->{script_element}/xms
-      or $text =~ /$syntax->{outcome_element}/xms
-      or $text =~ /$syntax->{review_element}/xms
-      or $text =~ /$syntax->{index_element}/xms
-      or $text =~ /$syntax->{glossary_element}/xms
-      or $text =~ /$syntax->{list_item}/xms
-      or $text =~ /$syntax->{paragraph_text}/xms
-      or $text =~ /$syntax->{indented_text}/xms
-      or $text =~ /$syntax->{table_cell}/xms
-     )
+  if ( $text =~ /$syntax->{segment_separator}/xms )
     {
       return 1;
     }
@@ -1439,13 +1434,10 @@ sub _validate_composition {
 
 	  # $self->set_valid(0);
 
-	  if (
-	      ref $first_line
-	      and
-	      ref $first_line->get_included_from_line
-	     )
+	  if ( $self->has_included_from_line )
 	    {
-	      my $include_location = $first_line->get_included_from_line->get_location;
+	      my $included_from_line = $self->get_included_from_line;
+	      my $include_location = $included_from_line->get_location;
 	      $logger->warn("INVALID COMPOSITION at $location: $name in $container_name (included at $include_location)");
 	    }
 
@@ -1594,7 +1586,7 @@ L<"SML::Block">s.
   my $list     = $division->get_block_list;
   my $list     = $division->get_element_list;
   my $list     = $division->get_line_list;
-  my $list     = $division->get_preamble_line_list;
+  my $list     = $division->get_data_segment_line_list;
   my $list     = $division->get_narrative_line_list;
   my $part     = $division->get_first_part;
   my $line     = $division->get_first_line;
@@ -1680,7 +1672,7 @@ Divisions may contain other divisions.
 
 =head2 get_line_list
 
-=head2 get_preamble_line_list
+=head2 get_data_segment_line_list
 
 =head2 get_narrative_line_list
 

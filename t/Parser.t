@@ -5,10 +5,23 @@
 # tc-000005 -- unit test case for Parser.pm (ci-000003)
 
 use lib "../lib";
-use Test::More tests => 89;
+use Test::More;
 
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
+my $logger = Log::Log4perl->get_logger('sml.application');
+
+# set sml.Library logger to WARN
+my $logger_library = Log::Log4perl::get_logger('sml.Library');
+$logger_library->level('WARN');
+
+# set sml.Parser logger to WARN
+my $logger_parser = Log::Log4perl::get_logger('sml.Parser');
+$logger_parser->level('WARN');
+
+# set sml.Division logger to ERROR
+my $logger_division = Log::Log4perl::get_logger('sml.Division');
+$logger_division->level('ERROR');
 
 #---------------------------------------------------------------------
 # Test Data
@@ -46,12 +59,12 @@ my @public_methods =
    'get_library',
 
    # public methods
-   'create_fragment',
+   'parse',
    'create_string',
 
    'extract_division_name',
    'extract_title_text',
-   'extract_preamble_lines',
+   'extract_data_segment_lines',
    'extract_narrative_lines',
   );
 
@@ -63,10 +76,10 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{$tcl})
   {
-    create_fragment_ok($tc)         if defined $tc->{expected}{create_fragment};
+    parse_ok($tc)                   if defined $tc->{expected}{parse};
     extract_division_name_ok($tc)   if defined $tc->{expected}{extract_division_name};
     extract_title_text_ok($tc)      if defined $tc->{expected}{extract_title_text};
-    extract_preamble_lines_ok($tc)  if defined $tc->{expected}{extract_preamble_lines};
+    extract_data_segment_lines_ok($tc)  if defined $tc->{expected}{extract_data_segment_lines};
     extract_narrative_lines_ok($tc) if defined $tc->{expected}{extract_narrative_lines};
   }
 
@@ -76,25 +89,26 @@ foreach my $tc (@{$tcl})
 
 ######################################################################
 
-sub create_fragment_ok {
+sub parse_ok {
 
   my $tc = shift;
 
   # arrange
   my $tcname   = $tc->{name};
+  my $divid    = $tc->{divid};
   my $library  = $tc->{library};
-  my $filespec = $tc->{testfile};
-  my $name     = $tc->{name};
-  my $expected = $tc->{expected}{create_fragment};
-  my $library  = $tc->{library};
+  my $expected = $tc->{expected}{parse};
   my $parser   = $library->get_parser;
 
   # act
-  my $fragment = $parser->create_fragment($filespec);
-  my $result   = ref $fragment;
+  my $division = $parser->parse($divid);
+  my $result   = ref $division;
+
+  # my $structure = $division->dump_part_structure;
+  # $logger->info("STRUCTURE:\n$structure");
 
   # assert
-  is($result,$expected,"$tcname create_fragment $result");
+  is($result,$expected,"$tcname parse $result");
 }
 
 ######################################################################
@@ -106,12 +120,11 @@ sub extract_division_name_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $library  = $tc->{library};
-  my $name     = $tc->{name};
-  my $filespec = $tc->{testfile};
+  my $divid    = $tc->{divid};
   my $expected = $tc->{expected}{extract_division_name};
+  my $division = $library->get_division($divid);
+  my $lines    = $division->get_line_list;
   my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($filespec);
-  my $lines    = $fragment->get_line_list;
 
   # act
   my $result = $parser->extract_division_name($lines);
@@ -129,12 +142,11 @@ sub extract_title_text_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $library  = $tc->{library};
-  my $name     = $tc->{name};
-  my $filespec = $tc->{testfile};
+  my $divid    = $tc->{divid};
   my $expected = $tc->{expected}{extract_title_text};
+  my $division = $library->get_division($divid);
+  my $lines    = $division->get_line_list;
   my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($filespec);
-  my $lines    = $fragment->get_line_list;
 
   # act
   my $result = $parser->extract_title_text($lines);
@@ -145,26 +157,25 @@ sub extract_title_text_ok {
 
 ######################################################################
 
-sub extract_preamble_lines_ok {
+sub extract_data_segment_lines_ok {
 
   my $tc = shift;
 
   # arrange
   my $tcname   = $tc->{name};
   my $library  = $tc->{library};
-  my $name     = $tc->{name};
-  my $filespec = $tc->{testfile};
-  my $expected = $tc->{expected}{extract_preamble_lines};
+  my $divid    = $tc->{divid};
+  my $expected = $tc->{expected}{extract_data_segment_lines};
+  my $division = $library->get_division($divid);
+  my $lines    = $division->get_line_list;
   my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($filespec);
-  my $lines    = $fragment->get_line_list;
 
   # act
-  my $preamble_lines = $parser->extract_preamble_lines($lines);
-  my $result         = scalar @{ $preamble_lines };
+  my $data_segment_lines = $parser->extract_data_segment_lines($lines);
+  my $result         = scalar @{ $data_segment_lines };
 
   # assert
-  is($result,$expected,"$tcname extract_preamble_lines $result");
+  is($result,$expected,"$tcname extract_data_segment_lines $result");
 }
 
 ######################################################################
@@ -176,12 +187,11 @@ sub extract_narrative_lines_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $library  = $tc->{library};
-  my $name     = $tc->{name};
-  my $filespec = $tc->{testfile};
+  my $divid    = $tc->{divid};
   my $expected = $tc->{expected}{extract_narrative_lines};
+  my $division = $library->get_division($divid);
+  my $lines    = $division->get_line_list;
   my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($filespec);
-  my $lines    = $fragment->get_line_list;
 
   # act
   my $narrative_lines = $parser->extract_narrative_lines($lines);
@@ -193,4 +203,4 @@ sub extract_narrative_lines_ok {
 
 ######################################################################
 
-1;
+done_testing();

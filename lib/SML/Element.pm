@@ -339,8 +339,9 @@ the publishing application to take some action (procedural markup).
 An element is a block containing a name/value pair expressing a piece
 of structured information (descriptive markup) or instructing the
 publishing application to take some action (procedural markup).
-Elements are usually defined within preamble divisions but there are
-several 'universal' elements that may be used in narratives as well.
+Elements are usually defined within DATA SEGMENT divisions but there
+are several 'universal' elements that may be used in NARRATIVE
+SEGMENTS as well.
 
 =head1 METHODS
 

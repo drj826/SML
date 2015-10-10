@@ -60,7 +60,7 @@ application to insert a baretable into the document
 
 An SML baretable environment instructs the publishing application to
 insert a baretable into the document.  Baretables are special.  They
-don't have begin and end tags and they don't have a preamble.  A
+don't have begin and end tags and they don't have a data segment.  A
 baretable begins with the beginning of a table cell that isn't in a
 table and ends with the beginning of a block that (1) isn't a table
 cell, and (2) where column = 0 (i.e. immediately following the end of

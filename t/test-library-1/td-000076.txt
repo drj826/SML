@@ -1,5 +1,5 @@
-* Section Fragment
+*.td-000076 Section Division
 
 ===
 
-This test data file is a fragment that contains a section.
+This test data file contains a section.

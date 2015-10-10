@@ -121,32 +121,34 @@ has 'library' =>
 
 sub parse {
 
-  # Create a division object by parsing a sequence of lines. Add the
-  # new division to library. Return the division object.
+  # Return a division object.  Create the divsion object by parsing
+  # the divisions lines. Add the new division to the library.
 
-  my $self = shift;
-  my $id   = shift;
+  my $self = shift;                     # Parser
+  my $id   = shift;                     # ID of division to parse
+
+  if ( not $id )
+    {
+      $logger->logcluck("YOU MUST SPECIFY AN ID");
+      return 0;
+    }
 
   $self->_init;
 
-  my $library = $self->get_library;
-  my $file    = $library->get_file_containing($id);
+  my $line_list = $self->_get_line_list_for_id($id);
 
-  my $file_line_list = $file->get_line_list;
-  my $division_line_list = $self->_extract_division_lines($file_line_list,$id);
-
-  $self->_set_line_list( $division_line_list );
-
-  # my $division = $self->_create_empty_division($division_line_list);
-  # $self->_set_division( $division );
+  $self->_set_line_list( $line_list );
 
   do
     {
+      # line-oriented processing...
       $self->_resolve_includes  while $self->_contains_include;
       $self->_run_scripts       while $self->_contains_script;
 
+      # parse lines into blocks and divisions...
       $self->_parse_lines;
 
+      # block-oriented processing...
       $self->_insert_content       if $self->_contains_insert;
       $self->_resolve_templates    if $self->_contains_template;
       $self->_resolve_lookups      if $self->_contains_lookup;
@@ -156,12 +158,19 @@ sub parse {
 
       while $self->_text_requires_processing;
 
+  if ( not $self->_has_division )
+    {
+      $logger->logdie("THIS SHOULD NEVER HAPPEN");
+    }
+
   my $division = $self->_get_division;
 
   foreach my $block (@{ $division->get_block_list })
     {
       $self->_parse_block($block);
     }
+
+  my $library = $self->get_library;
 
   $library->add_division($division);
 
@@ -856,15 +865,15 @@ sub extract_division_id {
 
 sub extract_title_text {
 
-  # Extract the preamble title from an array of lines and return it as
-  # a string.
+  # Extract the data segment title from an array of lines and return
+  # it as a string.
 
   my $self  = shift;
   my $lines = shift;
 
   my $sml         = SML->instance;
   my $syntax      = $sml->get_syntax;
-  my $in_preamble = 1;
+  my $in_data_segment = 1;
   my $in_title    = 0;
   my $first_line  = 1;
   my $title_text  = '';
@@ -879,22 +888,14 @@ sub extract_title_text {
       $text =~ s/[\r\n]*$//;            # chomp;
 
       # skip first line if it starts a division
-      if (
-	  $first_line
-	  and
-	  (
-	   $text =~ /$syntax->{start_region}/
-	   or
-	   $text =~ /$syntax->{start_environment}/
-	  )
-	 )
+      if ( $first_line and $text =~ /$syntax->{start_division}/ )
 	{
 	  next;
 	}
 
       # begin title element
       elsif (
-	     $in_preamble
+	     $in_data_segment
 	     and
 	     not $in_title
 	     and
@@ -908,7 +909,7 @@ sub extract_title_text {
 
       # begin section title
       elsif (
-	     $in_preamble
+	     $in_data_segment
 	     and
 	     not $in_title
 	     and
@@ -940,8 +941,8 @@ sub extract_title_text {
 	  return $title_text;
 	}
 
-      # preamble ending text?
-      elsif ( _line_ends_preamble($text) )
+      # data segment ending text?
+      elsif ( _line_ends_data_segment($text) )
 	{
 	  return $title_text;
 	}
@@ -960,9 +961,9 @@ sub extract_title_text {
 
 ######################################################################
 
-sub extract_preamble_lines {
+sub extract_data_segment_lines {
 
-  # Extract preamble lines from a sequence of division lines.
+  # Extract data segment lines from a sequence of division lines.
 
   # !!! BUG HERE !!!
   #
@@ -975,10 +976,10 @@ sub extract_preamble_lines {
   my $syntax              = $sml->get_syntax;
   my $library             = $self->get_library;
   my $ontology            = $library->get_ontology;
-  my $preamble_lines      = [];
+  my $data_segment_lines      = [];
   my $divname             = $self->extract_division_name($lines);
-  my $in_preamble         = 1;
-  my $in_preamble_element = 0;
+  my $in_data_segment         = 1;
+  my $in_data_segment_element = 0;
   my $i                   = 0;
   my $last                = scalar @{ $lines };
 
@@ -993,52 +994,52 @@ sub extract_preamble_lines {
       next if $i == 1;                  # skip first line
       last if $i == $last;              # skip last line
 
-      if ( _line_ends_preamble($text) )
+      if ( _line_ends_data_segment($text) )
 	{
-	  return $preamble_lines;
+	  return $data_segment_lines;
 	}
 
       elsif (
-	     $in_preamble
+	     $in_data_segment
 	     and
 	     $text =~ /$syntax->{element}/
 	     and
 	     not $ontology->allows_property($divname,$1)
 	    )
 	{
-	  return $preamble_lines;
+	  return $data_segment_lines;
 	}
 
       elsif (
-	     $in_preamble
+	     $in_data_segment
 	     and
 	     $text =~ /$syntax->{element}/
 	     and
 	     $ontology->allows_property($divname,$1)
 	    )
 	{
-	  $in_preamble_element = 1;
-	  push @{ $preamble_lines }, $line;
+	  $in_data_segment_element = 1;
+	  push @{ $data_segment_lines }, $line;
 	}
 
       elsif (
 	     $text =~ /$syntax->{paragraph_text}/
 	     and
-	     not $in_preamble_element
+	     not $in_data_segment_element
 	    )
 	{
-	  return $preamble_lines;
+	  return $data_segment_lines;
 	}
 
       elsif ( $text =~ /$syntax->{blank_line}/ )
 	{
-	  $in_preamble_element = 0;
-	  push @{ $preamble_lines }, $line;
+	  $in_data_segment_element = 0;
+	  push @{ $data_segment_lines }, $line;
 	}
 
-      elsif ( $in_preamble )
+      elsif ( $in_data_segment )
 	{
-	  push @{ $preamble_lines }, $line;
+	  push @{ $data_segment_lines }, $line;
 	}
 
       else
@@ -1047,7 +1048,7 @@ sub extract_preamble_lines {
 	}
     }
 
-  return $preamble_lines;
+  return $data_segment_lines;
 }
 
 ######################################################################
@@ -1069,8 +1070,8 @@ sub extract_narrative_lines {
   my $ontology            = $library->get_ontology;
   my $narrative_lines     = [];
   my $divname             = $self->extract_division_name($lines);
-  my $in_preamble         = 1;
-  my $in_preamble_element = 0;
+  my $in_data_segment         = 1;
+  my $in_data_segment_element = 0;
   my $i                   = 0;
   my $last                = scalar @{ $lines };
 
@@ -1085,39 +1086,38 @@ sub extract_narrative_lines {
       next if $i == 1;                  # skip first line
       last if $i == $last;              # skip last line
 
-      if ( _line_ends_preamble($text) )
+      if ( _line_ends_data_segment($text) )
 	{
-	  $in_preamble = 0;
-	  push @{ $narrative_lines }, $line;
+	  $in_data_segment = 0;
 	}
 
       elsif (
 	     $text =~ /$syntax->{element}/
 	     and
-	     $in_preamble
+	     $in_data_segment
 	     and
 	     not $ontology->allows_property($divname,$1)
 	    )
 	{
-	  $in_preamble = 0;
+	  $in_data_segment = 0;
 	  push @{ $narrative_lines }, $line;
 	}
 
       elsif (
 	     $text =~ /$syntax->{element}/
 	     and
-	     $in_preamble
+	     $in_data_segment
 	     and
 	     $ontology->allows_property($divname,$1)
 	    )
 	{
-	  $in_preamble_element = 1;
+	  $in_data_segment_element = 1;
 	}
 
       elsif (
 	     $text =~ /$syntax->{paragraph_text}/
 	     and
-	     $in_preamble_element
+	     $in_data_segment_element
 	    )
 	{
 	  # do nothing
@@ -1126,27 +1126,27 @@ sub extract_narrative_lines {
       elsif (
 	     $text =~ /$syntax->{paragraph_text}/
 	     and
-	     $in_preamble
+	     $in_data_segment
 	     and
-	     not $in_preamble_element
+	     not $in_data_segment_element
 	    )
 	{
-	  $in_preamble = 0;
+	  $in_data_segment = 0;
 	  push @{ $narrative_lines }, $line;
 	}
 
       elsif (
 	     $text =~ /$syntax->{blank_line}/
 	     and
-	     $in_preamble
+	     $in_data_segment
 	     and
-	     $in_preamble_element
+	     $in_data_segment_element
 	    )
 	{
-	  $in_preamble_element = 0;
+	  $in_data_segment_element = 0;
 	}
 
-      elsif ( $in_preamble )
+      elsif ( $in_data_segment )
 	{
 	  # do nothing
 	}
@@ -1186,6 +1186,7 @@ has 'division' =>
    reader    => '_get_division',
    writer    => '_set_division',
    predicate => '_has_division',
+   clearer   => '_clear_division',
   );
 
 # This is the division object being parsed by parse method, often a
@@ -1296,17 +1297,17 @@ has 'column' =>
 
 ######################################################################
 
-has 'in_preamble' =>
+has 'in_data_segment' =>
   (
    isa       => 'Bool',
-   reader    => '_in_preamble',
-   writer    => '_set_in_preamble',
+   reader    => '_in_data_segment',
+   writer    => '_set_in_data_segment',
    default   => 0,
   );
 
 # This is a boolean flag that indicates whether the current line is in
-# a preamble.  A preamble is the opening part of a division that
-# contains (structured data) elements.
+# a data segment.  A data segment is the opening part of a division
+# that contains (structured data) elements.
 
 ######################################################################
 
@@ -1343,6 +1344,8 @@ has 'gen_content_hash' =>
   (
    isa       => 'HashRef',
    reader    => '_get_gen_content_hash',
+   writer    => '_set_gen_content_hash',
+   clearer   => '_clear_gen_content_hash',
    default   => sub {{}},
   );
 
@@ -1355,6 +1358,7 @@ has 'to_be_gen_hash' =>
    isa       => 'HashRef',
    reader    => '_get_to_be_gen_hash',
    writer    => '_set_to_be_gen_hash',
+   clearer   => '_clear_to_be_gen_hash',
    default   => sub {{}},
   );
 
@@ -1367,6 +1371,7 @@ has 'outcome_hash' =>
    isa       => 'HashRef',
    reader    => '_get_outcome_hash',
    writer    => '_set_outcome_hash',
+   clearer   => '_clear_outcome_hash',
    default   => sub {{}},
   );
 
@@ -1382,6 +1387,7 @@ has 'review_hash' =>
    isa       => 'HashRef',
    reader    => '_get_review_hash',
    writer    => '_set_review_hash',
+   clearer   => '_clear_review_hash',
    default   => sub {{}},
   );
 
@@ -1397,6 +1403,7 @@ has 'acronym_hash' =>
    isa       => 'HashRef',
    reader    => '_get_acronym_hash',
    writer    => '_set_acronym_hash',
+   clearer   => '_clear_acronym_hash',
    default   => sub {{}},
   );
 
@@ -1409,6 +1416,7 @@ has 'source_hash' =>
    isa       => 'HashRef',
    reader    => '_get_source_hash',
    writer    => '_set_source_hash',
+   clearer   => '_clear_source_hash',
    default   => sub {{}},
   );
 
@@ -1457,6 +1465,7 @@ has 'index_hash' =>
    isa       => 'HashRef',
    reader    => '_get_index_hash',
    writer    => '_set_index_hash',
+   clearer   => '_clear_index_hash',
    default   => sub {{}},
   );
 
@@ -1473,6 +1482,7 @@ has 'table_data_hash' =>
    isa       => 'HashRef',
    reader    => '_get_table_data_hash',
    writer    => '_set_table_data_hash',
+   clearer   => '_clear_table_data_hash',
    default   => sub {{}},
   );
 
@@ -1486,6 +1496,7 @@ has 'baretable_data_hash' =>
    isa       => 'HashRef',
    reader    => '_get_baretable_data_hash',
    writer    => '_set_baretable_data_hash',
+   clearer   => '_clear_baretable_data_hash',
    default   => sub {{}},
   );
 
@@ -1500,6 +1511,7 @@ has 'template_hash' =>
    isa       => 'HashRef',
    reader    => '_get_template_hash',
    writer    => '_set_template_hash',
+   clearer   => '_clear_template_hash',
    default   => sub {{}},
   );
 
@@ -1514,6 +1526,7 @@ has 'requires_processing' =>
    isa     => 'Bool',
    reader  => '_requires_processing',
    writer  => '_set_requires_processing',
+   clearer => '_clear_requires_processing',
    default => 0,
   );
 
@@ -1528,6 +1541,7 @@ has 'section_counter_hash' =>
    isa       => 'HashRef',
    reader    => '_get_section_counter_hash',
    writer    => '_set_section_counter_hash',
+   clearer   => '_clear_section_counter_hash',
    default   => sub {{}},
   );
 
@@ -1541,6 +1555,7 @@ has 'division_counter_hash' =>
    isa       => 'HashRef',
    reader    => '_get_divsion_counter_hash',
    writer    => '_set_division_counter_hash',
+   clearer   => '_clear_division_counter_hash',
    default   => sub {{}},
   );
 
@@ -1554,6 +1569,7 @@ has 'valid' =>
    isa       => 'Bool',
    reader    => '_is_valid',
    writer    => '_set_is_valid',
+   clearer   => '_clear_is_valid',
    default   => 1,
   );
 
@@ -1610,8 +1626,66 @@ sub _init {
 
   $self->_clear_count_method_hash;
   $self->_set_count_method_hash({});
+  $self->_clear_division;
+  $self->_clear_block;
+  $self->_clear_string;
+  $self->_clear_division_stack;
+  $self->_clear_part_stack;
+  $self->_set_column(0);
+  $self->_set_in_data_segment(1);
+  $self->_set_count_total_hash({});
+  $self->_clear_gen_content_hash;
+  $self->_set_gen_content_hash({});
+  $self->_clear_to_be_gen_hash;
+  $self->_set_to_be_gen_hash({});
+  $self->_clear_outcome_hash;
+  $self->_set_outcome_hash({});
+  $self->_clear_review_hash;
+  $self->_set_review_hash({});
+  $self->_clear_acronym_hash;
+  $self->_set_acronym_hash({});
+  $self->_clear_source_hash;
+  $self->_set_source_hash({});
+  $self->_clear_index_hash;
+  $self->_set_index_hash({});
+  $self->_clear_table_data_hash;
+  $self->_set_table_data_hash({});
+  $self->_clear_baretable_data_hash;
+  $self->_set_baretable_data_hash({});
+  $self->_clear_template_hash;
+  $self->_set_template_hash({});
+  $self->_clear_requires_processing;
+  $self->_set_requires_processing(1);
+  $self->_clear_section_counter_hash;
+  $self->_set_section_counter_hash({});
+  $self->_clear_division_counter_hash;
+  $self->_set_division_counter_hash({});
+  $self->_clear_is_valid;
 
   return 1;
+}
+
+######################################################################
+
+sub _get_line_list_for_id {
+
+  # Return the line list for the division with the specified ID.
+
+  my $self = shift;
+  my $id   = shift;
+
+  if ( not $id )
+    {
+      $logger->logcluck("YOU MUST SPECIFY AN ID");
+      return 0;
+    }
+
+  my $library = $self->get_library;
+  my $file    = $library->get_file_containing_id($id);
+
+  my $file_line_list = $file->get_line_list;
+
+  return $self->_extract_div_line_list($file_line_list,$id);
 }
 
 ######################################################################
@@ -1651,7 +1725,7 @@ sub _create_empty_division {
 
 ######################################################################
 
-sub _extract_division_lines {
+sub _extract_div_line_list {
 
   # Extract a sequence of lines representing a division with target_id
   # from another sequence of lines.
@@ -2455,6 +2529,11 @@ sub _parse_lines {
 	  $self->_process_comment_division_line($line);
 	}
 
+      elsif ( $text =~ /$syntax->{segment_separator}/ )
+	{
+	  $self->_process_segment_separator_line($line);
+	}
+
       elsif ( $text =~ /$syntax->{blank_line}/ )
 	{
 	  $self->_process_blank_line($line);
@@ -2608,26 +2687,41 @@ sub _parse_lines {
 
 ######################################################################
 
-sub _begin_preamble {
+sub _begin_data_segment {
 
   my $self = shift;
 
-  $logger->trace("..... begin preamble");
-  $self->_set_in_preamble(1);
+  $logger->trace("..... begin data segment");
+  $self->_set_in_data_segment(1);
 
   return 1;
 }
 
 ######################################################################
 
-sub _end_preamble {
+sub _process_segment_separator_line {
 
   my $self = shift;
+  my $line = shift;
 
-  return if not $self->_in_preamble;
+  my $name     = 'SEGMENT_SEPARATOR';
+  my $library  = $self->get_library;
+  my $location = $line->get_location;
 
-  $logger->trace("..... end preamble");
-  $self->_set_in_preamble(0);
+  $logger->trace("----- segment separator");
+
+  return if not $self->_in_data_segment;
+
+  # new preformatted block
+  my $block = SML::PreformattedBlock->new(name=>$name,library=>$library);
+  $block->add_line($line);
+  $self->_begin_block($block);
+
+  # division handling
+  $self->_get_current_division->add_part( $block );
+
+  $logger->trace("..... end data segment");
+  $self->_set_in_data_segment(0);
 
   return 1;
 }
@@ -2655,7 +2749,7 @@ sub _begin_division {
       $document->add_division($division);
     }
 
-  $self->_begin_preamble;
+  $self->_begin_data_segment;
 
   # add this division to the one it is part of
   #
@@ -3044,7 +3138,7 @@ sub _insert_content {
   my $syntax         = $sml->get_syntax;
   my $util           = $sml->get_util;
   my $newlines       = [];
-  my $fragment       = $self->_get_fragment;
+  my $division       = $self->_get_division;
   my $count_method   = $self->_get_count_method_hash;
   my $oldlines       = $self->_get_line_list;
   my $gen_content    = $self->_get_gen_content_hash;
@@ -3082,7 +3176,7 @@ sub _insert_content {
 	  if ( not $sml->allows_insert($name) )
 	    {
 	      $logger->error("UNKNOWN INSERT NAME at $location: \"$name\"");
-	      $fragment->_set_is_valid(0);
+	      $division->_set_is_valid(0);
 
 	      $text =~ s/^(.*)/# $1/;
 
@@ -3130,9 +3224,9 @@ sub _insert_content {
 	my $args              = $parts[2] || '';
 	my $replacement_lines = [];
 
-	if ($name eq 'PREAMBLE')
+	if ($name eq 'DATA_SEGMENT')
 	  {
-	    $replacement_lines = $library->get_preamble_line_list($id);
+	    $replacement_lines = $library->get_data_segment_line_list($id);
 	    foreach my $newline (@{ $replacement_lines })
 	      {
 		push @{ $newlines }, $newline;
@@ -3226,8 +3320,8 @@ sub _substitute_variables {
   my $util           = $sml->get_util;
   my $options        = $util->get_options;
   my $library        = $self->get_library;
-  my $fragment       = $self->_get_fragment;
-  my $block_list     = $fragment->get_block_list;
+  my $division       = $self->_get_division;
+  my $block_list     = $division->get_block_list;
   my $count_method   = $self->_get_count_method_hash;
   my $max_iterations = $options->get_MAX_SUBSTITUTE_VARIABLES;
   my $count          = ++ $count_method->{'_substitute_variables'};
@@ -3276,7 +3370,7 @@ sub _substitute_variables {
 	      my $location = $block->get_location;
 	      $logger->warn("UNDEFINED VARIABLE: \'$name\' at $location");
 	      $self->_set_is_valid(0);
-	      $fragment->_set_is_valid(0);
+	      $division->_set_is_valid(0);
 
 	      $text =~ s/$syntax->{variable_ref}/$name/;
 	    }
@@ -3295,8 +3389,8 @@ sub _resolve_lookups {
   my $self = shift;
 
   my $count_method   = $self->_get_count_method_hash;
-  my $fragment       = $self->_get_fragment;
-  my $block_list     = $fragment->get_block_list;
+  my $division       = $self->_get_division;
+  my $block_list     = $division->get_block_list;
   my $sml            = SML->instance;
   my $syntax         = $sml->get_syntax;
   my $util           = $sml->get_util;
@@ -3345,7 +3439,7 @@ sub _resolve_lookups {
 	      my $msg = "LOOKUP FAILED: at $location: \'$id\' \'$name\'";
 	      $logger->warn($msg);
 	      $self->_set_is_valid(0);
-	      # $fragment->_set_is_valid(0);
+	      # $division->_set_is_valid(0);
 
 	      $text =~ s/$syntax->{lookup_ref}/($msg)/;
 	    }
@@ -3366,7 +3460,7 @@ sub _resolve_templates {
   my $sml            = SML->instance;
   my $syntax         = $sml->get_syntax;
   my $util           = $sml->get_util;
-  my $fragment       = $self->_get_fragment;
+  my $division       = $self->_get_division;
   my $count_method   = $self->_get_count_method_hash;
   my $newlines       = [];
   my $oldlines       = $self->_get_line_list;
@@ -3444,7 +3538,7 @@ sub _resolve_templates {
 		{
 		  my $location = $line->get_location;
 		  $logger->error("TEMPLATE FILE NOT FOUND \'$template\' at $location");
-		  $fragment->_set_is_valid(0);
+		  $division->_set_is_valid(0);
 		}
 	      $tmpltext = $file->get_text;
 	      $self->_get_template_hash->{$template} = $tmpltext;
@@ -3545,9 +3639,9 @@ sub _generate_content {
       #
       #     <--- document
       #
-      $docid = '' if $text =~ /$syntax->{start_document}/;
-      $docid = '' if $text =~ /$syntax->{end_document}/;
-      $docid = $2 if $text =~ /$syntax->{id_element}/ and not $docid;
+      # $docid = '' if $text =~ /$syntax->{start_document}/;
+      # $docid = '' if $text =~ /$syntax->{end_document}/;
+      # $docid = $2 if $text =~ /$syntax->{id_element}/ and not $docid;
 
       #----------------------------------------------------------------
       # generate::
@@ -4356,7 +4450,7 @@ sub _traceability_matrix {
   # problem, (2) solution, (3) task, (4) test, (5) result, and (6)
   # role.
   #
-  # Items are listed in sets.  Each set consists of a "parent" item
+  # Items are listed in sets.  Each set consists of a "part_of" item
   # and its immediate children. Each set is rendered as a table.  The
   # first set consists of the top level problems, followed by the
   # immediate children of the top level problems, followed by their
@@ -4396,13 +4490,13 @@ END_OF_TEXT
   #-------------------------------------------------------------------
   # Make a queue of items to be added to the item domain listing and
   # add all of the toplevel items.  A toplevel item is simply any item
-  # that doesn't have a parent.
+  # that doesn't have a "part_of".
   #
   my @queue         = ();
   my @toplevelitems = ();
 
   foreach my $division (@{ $self->_list_by_name($name) }) {
-    if ( not $division->has_property('parent')) {
+    if ( not $division->has_property('part_of')) {
       push @toplevelitems, $division;
     }
   }
@@ -4588,10 +4682,10 @@ END_OF_TEXT
     my $id = $division->get_id;
 
     #---------------------------------------------------------------
-    # title, parent, children
+    # title, part_of, children
     #
     my $title    = q{};
-    my $parent   = q{};
+    my $part_of  = q{};
     my $children = [];
 
     if ( $division->has_property('title') )
@@ -4599,9 +4693,9 @@ END_OF_TEXT
 	$title = $division->get_property_value('title');
       }
 
-    if ( $division->has_property('parent') )
+    if ( $division->has_property('part_of') )
       {
-	$parent = $division->get_property('parent');
+	$part_of = $division->get_property('part_of');
       }
 
     if ( $division->has_property('child') )
@@ -6166,6 +6260,18 @@ sub _process_end_division_marker {
   if ( $self->_in_baretable )
     {
       $self->_end_baretable;
+      return 1;
+    }
+
+  if ( $self->_in_table )
+    {
+      $self->_end_table;
+      return 1;
+    }
+
+  if ( $name eq 'DOCUMENT' and $self->_in_section )
+    {
+      $self->_end_section;
     }
 
   # new preformatted block
@@ -6478,7 +6584,7 @@ sub _process_element {
       $self->_end_baretable;
     }
 
-  if ( $self->_in_preamble
+  if ( $self->_in_data_segment
        and
        $ontology->allows_property($divname,$name) )
     {
@@ -6489,45 +6595,45 @@ sub _process_element {
       $division->add_property_element($element);
     }
 
-  elsif ( $self->_in_preamble
+  elsif ( $self->_in_data_segment
 	  and
 	  $ontology->allows_property('UNIVERSAL',$name) )
     {
-      $logger->trace("..... UNIVERSAL element in preamble");
+      $logger->trace("..... UNIVERSAL element in DATA SEGMENT");
 
-      $self->_end_preamble;
+      # $self->_end_data_segment;
 
       my $division = $self->_get_current_division;
       $division->add_part($element);
       $division->add_property_element($element);
     }
 
-  elsif ( $self->_in_preamble )
+  elsif ( $self->_in_data_segment )
     {
       $logger->warn("UNKNOWN DIVISION ELEMENT: \'$divname\' \'$name\' at $location:");
       $self->_set_is_valid(0);
     }
 
-  elsif ( $self->_in_preamble
+  elsif ( $self->_in_data_segment
 	  and
 	  $ontology->allows_property('DOCUMENT',$name) )
     {
-      $logger->trace("..... begin document preamble element");
+      $logger->trace("..... begin document DATA SEGMENT element");
 
       my $division = $self->_get_current_division;
       $division->add_part($element);
       $division->add_property_element($element);
     }
 
-  elsif ( $self->_in_preamble
+  elsif ( $self->_in_data_segment
 	  and
 	  $ontology->allows_property('UNIVERSAL',$name) )
     {
-      $logger->trace("..... begin UNIVERSAL element while in doc preamble");
+      $logger->trace("..... begin UNIVERSAL element while in DATA SEGMENT");
 
-      $logger->trace("..... end document preamble");
+      $logger->trace("..... end document DATA SEGMENT");
 
-      $self->_end_preamble;
+      # $self->_end_data_segment;
 
       my $division = $self->_get_current_division;
       $division->add_part($element);
@@ -6576,11 +6682,11 @@ sub _process_start_note {
       $self->_end_baretable;
     }
 
-  if ( $self->_in_preamble )
+  if ( $self->_in_data_segment )
     {
-      $logger->trace("..... note element in preamble");
+      $logger->trace("..... note element in DATA SEGMENT");
 
-      $self->_end_preamble;
+      # $self->_end_data_segment;
 
       my $division = $self->_get_current_division;
       $division->add_part($element);
@@ -6626,11 +6732,11 @@ sub _process_start_glossary_entry {
 
   $self->_end_baretable if $self->_in_baretable;
 
-  if ( $self->_in_preamble )
+  if ( $self->_in_data_segment )
     {
-      $logger->trace("..... glossary definition in preamble");
+      $logger->trace("..... glossary definition in DATA SEGMENT");
 
-      $self->_end_preamble;
+      # $self->_end_data_segment;
 
       $self->_get_current_division->add_part($definition);
       $self->_get_current_division->add_property_element($definition);
@@ -6683,11 +6789,11 @@ sub _process_start_acronym_entry {
       $self->_end_baretable;
     }
 
-  if ( $self->_in_preamble )
+  if ( $self->_in_data_segment )
     {
-      $logger->trace("..... acronym definition in preamble");
+      $logger->trace("..... acronym definition in DATA SEGMENT");
 
-      $self->_end_preamble;
+      # $self->_end_data_segment;
 
       my $division = $self->_get_current_division;
       $division->add_part($definition);
@@ -6739,11 +6845,11 @@ sub _process_start_variable_definition {
       $self->_end_baretable;
     }
 
-  if ( $self->_in_preamble )
+  if ( $self->_in_data_segment )
     {
-      $logger->trace("..... glossary definition in preamble");
+      $logger->trace("..... glossary definition in DATA SEGMENT");
 
-      $self->_end_preamble;
+      # $self->_end_data_segment;
 
       my $division = $self->_get_current_division;
       $division->add_part($definition);
@@ -6772,7 +6878,10 @@ sub _process_bull_list_item {
 
   $logger->trace("----- bullet list item");
 
-  $self->_end_preamble if $self->_in_preamble;
+  if ( $self->_in_data_segment )
+    {
+      $logger->error("BULLET LIST ITEM IN DATA SEGMENT");
+    }
 
   if ( $self->_in_preformatted_division )
     {
@@ -6804,7 +6913,10 @@ sub _process_enum_list_item {
 
   $logger->trace("----- enumerated list item");
 
-  $self->_end_preamble if $self->_in_preamble;
+  if ( $self->_in_data_segment )
+    {
+      $logger->error("ENUMERATED LIST ITEM IN DATA SEGMENT");
+    }
 
   if ( $self->_in_preformatted_division )
     {
@@ -6836,7 +6948,10 @@ sub _process_def_list_item {
 
   $logger->trace("----- definition list item");
 
-  $self->_end_preamble if $self->_in_preamble;
+  if ( $self->_in_data_segment )
+    {
+      $logger->error("DEFINITION LIST ITEM IN DATA SEGMENT");
+    }
 
   if ( $self->_in_preformatted_division )
     {
@@ -6868,7 +6983,10 @@ sub _process_start_table_cell {
 
   $logger->trace("----- table cell");
 
-  $self->_end_preamble if $self->_in_preamble;
+  if ( $self->_in_data_segment )
+    {
+      $logger->error("TABLE CELL IN DATA SEGMENT");
+    }
 
   # new block
   my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
@@ -7076,7 +7194,10 @@ sub _process_paragraph_text {
     {
       $logger->trace("..... new paragraph");
 
-      $self->_end_preamble if $self->_in_preamble;
+      if ( $self->_in_data_segment )
+	{
+	  $logger->error("PARAGRAPH IN DATA SEGMENT");
+	}
 
       if ( $self->_in_baretable )
 	{
@@ -7086,7 +7207,9 @@ sub _process_paragraph_text {
       my $paragraph = SML::Paragraph->new(library=>$library);
       $paragraph->add_line($line);
       $self->_begin_block($paragraph);
-      $self->_get_current_division->add_part($paragraph);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($paragraph);
     }
 
   return 1;
@@ -7119,7 +7242,10 @@ sub _process_indented_text {
     {
       $logger->trace("..... new preformatted block");
 
-      $self->_end_preamble if $self->_in_preamble;
+      if ( $self->_in_data_segment )
+	{
+	  $logger->error("PREFORMATTED BLOCK IN DATA SEGMENT");
+	}
 
       my $block = SML::PreformattedBlock->new(library=>$library);
       $block->add_line($line);
@@ -7384,7 +7510,7 @@ sub _in_table_cell {
 
   my $division = $self->_get_current_division;
 
-  if ( $division->is_in_a('SML::TableCell') )
+  if ( $division and $division->is_in_a('SML::TableCell') )
     {
       return 1;
     }
@@ -7427,7 +7553,7 @@ sub _in_baretable {
 
   my $division = $self->_get_current_division;
 
-  if ( $division->is_in_a('SML::Baretable') )
+  if ( $division and $division->is_in_a('SML::Baretable') )
     {
       return 1;
     }
@@ -7800,14 +7926,17 @@ sub _count_sections {
 
   my $count = 0;
 
-  my $division      = $self->_get_division;
-  my $division_list = $division->get_division_list;
-
-  foreach my $division (@{ $division_list })
+  if ( $self->_has_division )
     {
-      if ( $division->isa('SML::Section') )
+      my $division      = $self->_get_division;
+      my $division_list = $division->get_division_list;
+
+      foreach my $division (@{ $division_list })
 	{
-	  ++ $count;
+	  if ( $division->isa('SML::Section') )
+	    {
+	      ++ $count;
+	    }
 	}
     }
 
@@ -7993,30 +8122,14 @@ sub _get_current_division {
 
 ######################################################################
 
-sub _line_ends_preamble {
+sub _line_ends_data_segment {
 
   my $text = shift;
 
   my $sml    = SML->instance;
   my $syntax = $sml->get_syntax;
 
-  if (
-         $text =~ /$syntax->{start_region}/
-      or $text =~ /$syntax->{start_environment}/
-      or $text =~ /$syntax->{start_section}/
-      or $text =~ /$syntax->{generate_element}/
-      or $text =~ /$syntax->{insert_element}/
-      or $text =~ /$syntax->{template_element}/
-      or $text =~ /$syntax->{include_element}/
-      or $text =~ /$syntax->{script_element}/
-      or $text =~ /$syntax->{outcome_element}/
-      or $text =~ /$syntax->{review_element}/
-      or $text =~ /$syntax->{index_element}/
-      or $text =~ /$syntax->{glossary_element}/
-      or $text =~ /$syntax->{list_item}/
-      # or $text =~ /$syntax->{paragraph_text}/
-      # or $text =~ /$syntax->{indented_text}/
-     )
+  if ( $text =~ /$syntax->{segment_separator}/xms )
     {
       return 1;
     }
@@ -8154,10 +8267,6 @@ sub _build_string_type_list {
      'copyright_symbol',
      'trademark_symbol',
      'reg_trademark_symbol',
-     # 'open_dblquote_symbol',
-     # 'close_dblquote_symbol',
-     # 'open_sglquote_symbol',
-     # 'close_sglquote_symbol',
      'section_symbol',
      'emdash_symbol',
      'thepage_ref',
@@ -8198,10 +8307,6 @@ sub _build_single_string_type_list {
      'copyright_symbol',
      'trademark_symbol',
      'reg_trademark_symbol',
-     # 'open_dblquote_symbol',
-     # 'close_dblquote_symbol',
-     # 'open_sglquote_symbol',
-     # 'close_sglquote_symbol',
      'section_symbol',
      'emdash_symbol',
      'thepage_ref',
@@ -8508,7 +8613,7 @@ sub _resolve_include_line {
 
   if ( $included_id )
     {
-      my $file = $library->get_file_containing($included_id);
+      my $file = $library->get_file_containing_id($included_id);
       $line_list = $file->get_line_list;
     }
 
@@ -8654,12 +8759,12 @@ text
 
   my $parser = SML::Parser->new(library=>$library);
 
+  my $division = $parser->parse($id);
   my $library  = $parser->get_library;
-  my $fragment = $parser->create_fragment($filename);
   my $object   = $parser->create_string($text);
   my $string   = $parser->extract_division_name($lines);
   my $string   = $parser->extract_title_text($lines);
-  my $lines    = $parser->extract_preamble_lines($lines);
+  my $lines    = $parser->extract_data_segment_lines($lines);
   my $lines    = $parser->extract_narrative_lines($lines);
 
 =head1 DESCRIPTION
@@ -8680,7 +8785,7 @@ sequences of line objects.
 
 =head2 extract_title_text($lines)
 
-=head2 extract_preamble_lines($lines)
+=head2 extract_data_segment_lines($lines)
 
 =head2 extract_narrative_lines($lines)
 

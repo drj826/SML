@@ -112,7 +112,7 @@ my @public_methods =
    'get_block_list',
    'get_element_list',
    'get_line_list',
-   'get_preamble_line_list',
+   'get_data_segment_line_list',
    'get_narrative_line_list',
    'get_first_part',
    'get_first_line',
@@ -181,12 +181,9 @@ sub get_glossary_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $filename = $tc->{testfile};
   my $docid    = $tc->{docid};
   my $library  = $tc->{library};
   my $expected = $tc->{expected}{get_glossary};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
 
   # act
@@ -223,12 +220,9 @@ sub is_valid_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $filename = $tc->{testfile};
   my $docid    = $tc->{docid};
   my $expected = $tc->{expected}{is_valid};
   my $library  = $tc->{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
 
   # act
@@ -246,12 +240,9 @@ sub dump_part_structure_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $filename = $tc->{testfile};
   my $docid    = $tc->{docid};
   my $expected = $tc->{expected}{dump_part_structure};
   my $library  = $tc->{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
 
   # act
@@ -271,12 +262,9 @@ sub render_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $filename = $tc->{testfile};
   my $docid    = $tc->{docid};
   my $library  = $tc->{library};
   my $expected = $tc->{expected}{render}{$rendition}{$style};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($filename);
   my $document = $library->get_document($docid);
 
   # act
@@ -303,13 +291,10 @@ sub warn_is_valid_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $filename = $tc->{testfile};
   my $docid    = $tc->{docid};
   my $library  = $tc->{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($filename);
-  my $document = $library->get_document($docid);
   my $expected = $tc->{expected}{warning}{is_valid};
+  my $document = $library->get_document($docid);
 
   Test::Log4perl->start( ignore_priority => "info" );
 

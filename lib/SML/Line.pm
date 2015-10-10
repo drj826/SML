@@ -33,8 +33,9 @@ has 'content' =>
 
 has 'file' =>
   (
-   isa      => 'SML::File',
-   reader   => 'get_file',
+   isa       => 'SML::File',
+   reader    => 'get_file',
+   predicate => 'has_file',
   );
 
 # This is the file object from which the line came.  Not all lines
@@ -49,6 +50,9 @@ has 'num' =>
    isa      => 'Int',
    reader   => 'get_num',
 );
+
+# This is the line number.  If the line came from a file it is the
+# line number in the file.
 
 ######################################################################
 

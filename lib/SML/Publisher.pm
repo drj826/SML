@@ -13,6 +13,8 @@ use namespace::autoclean;
 use Cwd;
 use File::Copy::Recursive qw( dircopy );
 
+use Template;
+
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Publisher');

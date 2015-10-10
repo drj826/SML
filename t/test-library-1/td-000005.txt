@@ -1,11 +1,10 @@
 >>>DOCUMENT.td-000005
 
-title:: Problem Region
+title:: Problem Division
 
 ===
 
-This SML document contains a problem region.  A region is a division
-that describes the intended content of the text.  The following region
+This SML document contains a problem division.  The following division
 describes a problem.
 
 >>>problem.my-problem
@@ -16,7 +15,7 @@ type:: technical
 
 description:: This is a description of my problem.  This purpose of
 this problem is to serve as a test for applications designed to
-process SML problem regions.
+process SML problem divisions.
 
 ===
 

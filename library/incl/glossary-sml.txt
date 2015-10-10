@@ -375,8 +375,7 @@ key points of a document section
 ######################################################################
 
 glossary:: library {sml} = (SML) A collection of related [g:sml:SML]
-[g:sml:document]s, reusable SML document [g:sml:fragment]s, SML
-[g:sml:template]s, and arbitrary non-SML [g:sml:file]s
+[g:sml:document]s
 
 glossary:: line {sml} = (SML) A single line of raw text from a
 [g:sml:SML] file.  A line begins in the first column even if the

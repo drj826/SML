@@ -10,6 +10,10 @@ use SML;
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
+# set sml.Library logger to WARN
+my $logger_library = Log::Log4perl::get_logger('sml.Library');
+$logger_library->level('WARN');
+
 # use Test::Log4perl;
 # my $t1logger = Test::Log4perl->get_logger('sml.element');
 # my $t2logger = Test::Log4perl->get_logger('sml.document');

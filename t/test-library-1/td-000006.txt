@@ -1,12 +1,11 @@
 >>>DOCUMENT.td-000006
 
-title:: Listing Environment
+title:: Listing Division
 
 ===
 
-This SML document contains a listing environment.  An environment is a
-division that describes the intended structure of the text.  The
-following environment is a table.
+This SML document contains a listing division.  The following
+division is a table.
 
 >>>LISTING.my-listing
 
@@ -14,7 +13,7 @@ title:: My Listing
 
 description:: This is a description of my listing.  The purpose of this
 listing is to serve as a test for applications designed to process SML
-listing environments.
+listing divisions.
 
 ===
 

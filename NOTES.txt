@@ -1,8 +1,12 @@
-#---------------------------------------------------------------------
+>>>DOCUMENT.notes
 
-title:: Today's Debugging
+title:: Notes about SML Development
 
-date:: 2013-01-13
+===
+
+* 2013-01-13
+
+===
 
 [ ] Problem with baretable processing.  It appears the first line of
     each baretable cell gets added twice to the parts array.
@@ -90,9 +94,11 @@ What content entities must libraries and documents remember and why?
 
 #---------------------------------------------------------------------
 
-title:: Simplify Parsing
+* Simplify Parsing
 
 date:: 2013-01-06
+
+===
 
 [.] Update SML::Parser to get rid of unnecessary attributes that do
     not get assigned to the library, the fragment, a document, or an

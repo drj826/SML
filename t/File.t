@@ -47,11 +47,10 @@ my @public_methods =
    'get_directories',
    'get_path',
    'get_text',
-   'get_lines',
+   'get_line_list',
    'get_sha_digest',
    'get_md5_digest',
    'get_svninfo',
-   'get_fragment',
    'is_valid',
 
    # SML::File public methods

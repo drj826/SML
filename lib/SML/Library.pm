@@ -10,9 +10,9 @@ use version; our $VERSION = qv('2.0.0');
 
 use namespace::autoclean;
 
-use Cwd;
-use Carp;
-use File::Basename;
+use Cwd;                                # current working directory
+use Carp;                               # error reporting
+use File::Basename;                     # determine file basename
 
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
@@ -22,7 +22,6 @@ use SML;
 use SML::Ontology;
 use SML::Parser;
 use SML::Reasoner;
-use SML::Formatter;
 use SML::Glossary;
 use SML::AcronymList;
 use SML::References;
@@ -46,7 +45,7 @@ has 'id' =>
    default   => 'lib',
   );
 
-# Specify the library ID in the configuration file.
+# Specify the ID in the library configuration file.
 
 ######################################################################
 
@@ -58,7 +57,7 @@ has 'name' =>
    default  => 'library',
   );
 
-# Specify the library name in the configuration file.
+# Specify the name in the library configuration file.
 
 ######################################################################
 
@@ -79,6 +78,8 @@ has 'sml' =>
    default  => sub { SML->instance },
   );
 
+# Semantic Manuscript Language.  A language has syntax and semantics.
+
 ######################################################################
 
 has 'ontology' =>
@@ -88,6 +89,8 @@ has 'ontology' =>
    lazy    => 1,
    builder => '_build_ontology',
   );
+
+# The ontology describes the semantics of the library.
 
 ######################################################################
 
@@ -99,6 +102,9 @@ has 'ontology_rule_filespec_list' =>
    builder   => '_build_ontology_rule_filespec_list',
   );
 
+# This is a list of filespecs containing individual ontology rules.
+# These ontology rules specify the semantics of the library.
+
 ######################################################################
 
 has 'parser' =>
@@ -109,8 +115,8 @@ has 'parser' =>
    builder  => '_build_parser',
   );
 
-# A parser object is tightly coupled to a library because it
-# implements the semantics of the library.
+# The parser is tightly coupled to a library because it implements the
+# semantics of the library.
 
 ######################################################################
 
@@ -122,6 +128,9 @@ has 'reasoner' =>
    builder  => '_build_reasoner',
   );
 
+# The reasoner performs first order inferences based on semantics
+# declared in the ontology.
+
 ######################################################################
 
 has 'publisher' =>
@@ -131,6 +140,8 @@ has 'publisher' =>
    lazy     => 1,
    builder  => '_build_publisher',
   );
+
+# The publisher renders content presentations.
 
 ######################################################################
 
@@ -142,6 +153,9 @@ has 'glossary' =>
    builder  => '_build_glossary',
   );
 
+# The glossary contains a library-wide collection of terms and their
+# definitions.
+
 ######################################################################
 
 has 'acronym_list' =>
@@ -152,6 +166,9 @@ has 'acronym_list' =>
    builder  => '_build_acronym_list',
   );
 
+# The acronym list contains a library-wide collection of acronyms and
+# their meanings.
+
 ######################################################################
 
 has 'references' =>
@@ -161,6 +178,9 @@ has 'references' =>
    lazy     => 1,
    builder  => '_build_references',
   );
+
+# The references object contains a library-wide collaction of source
+# references.
 
 ######################################################################
 
@@ -186,6 +206,8 @@ has 'include_path' =>
    default => sub {[]},
   );
 
+# This is a list of paths that contain library text files.
+
 ######################################################################
 
 has 'division_name_list' =>
@@ -198,23 +220,23 @@ has 'division_name_list' =>
 
 ######################################################################
 
-has 'region_name_list' =>
-  (
-   isa     => 'ArrayRef',
-   reader  => 'get_region_name_list',
-   lazy    => 1,
-   builder => '_build_region_names',
-  );
+# has 'region_name_list' =>
+#   (
+#    isa     => 'ArrayRef',
+#    reader  => 'get_region_name_list',
+#    lazy    => 1,
+#    builder => '_build_region_names',
+#   );
 
 ######################################################################
 
-has 'environment_name_list' =>
-  (
-   isa     => 'ArrayRef',
-   reader  => 'get_environment_name_list',
-   lazy    => 1,
-   builder => '_build_environment_names',
-  );
+# has 'environment_name_list' =>
+#   (
+#    isa     => 'ArrayRef',
+#    reader  => 'get_environment_name_list',
+#    lazy    => 1,
+#    builder => '_build_environment_names',
+#   );
 
 ######################################################################
 
@@ -227,6 +249,9 @@ has 'template_dir' =>
    default   => 'templates',
   );
 
+# This is the path to the directory containing Perl Template Toolkit
+# templates used to render content presentations.
+
 ######################################################################
 
 has 'published_dir' =>
@@ -237,6 +262,9 @@ has 'published_dir' =>
    writer    => '_set_published_dir',
    default   => 'published',
   );
+
+# This is the directory to which files containing published renditions
+# are placed.
 
 ######################################################################
 ######################################################################
@@ -264,12 +292,18 @@ sub publish {
 
 ######################################################################
 
-sub get_file_containing {
+sub get_file_containing_id {
 
   # Return the SML::File containing the specified division ID.
 
   my $self = shift;
   my $id   = shift;
+
+  if ( not $id )
+    {
+      $logger->logcluck("YOU MUST SPECIFY AN ID");
+      return 0;
+    }
 
   # validate the library has a division with this ID
   if ( not $self->has_division_id($id) )
@@ -710,6 +744,12 @@ sub has_division_id {
   my $self = shift;
   my $id   = shift;
 
+  if ( not $id )
+    {
+      $logger->error("YOU MUST SPECIFY AN ID");
+      return 0;
+    }
+
   my $id_hash = $self->_get_id_hash;
 
   if ( exists $id_hash->{$id} )
@@ -726,6 +766,12 @@ sub has_entity {
 
   my $self = shift;
   my $id   = shift;
+
+  if ( not $id )
+    {
+      $logger->error("YOU MUST SPECIFY AN ID");
+      return 0;
+    }
 
   if ( exists $self->_get_entity_hash->{$id} )
     {
@@ -744,6 +790,12 @@ sub has_division {
 
   my $self = shift;
   my $id   = shift;
+
+  if ( not $id )
+    {
+      $logger->error("YOU MUST SPECIFY AN ID");
+      return 0;
+    }
 
   if ( exists $self->_get_division_hash->{$id} )
     {
@@ -918,17 +970,7 @@ sub get_document {
   my $self = shift;
   my $id   = shift;
 
-  if ( $self->has_document($id) )
-    {
-      return $self->get_document($id);
-    }
-
-  else
-    {
-      my $parser = $self->get_parser;
-
-      return $parser->parse($id);
-    }
+  return $self->get_division($id);
 }
 
 ######################################################################
@@ -975,6 +1017,12 @@ sub get_division {
 
   my $self = shift;
   my $id   = shift;
+
+  if ( not $id )
+    {
+      $logger->logcluck("YOU MUST SPECIFY AN ID");
+      return 0;
+    }
 
   if ( exists $self->_get_division_hash->{$id} )
     {
@@ -1134,7 +1182,7 @@ sub get_variable_value {
 
 ######################################################################
 
-sub get_preamble_line_list {
+sub get_data_segment_line_list {
 
   my $self = shift;
   my $id   = shift;
@@ -1143,12 +1191,12 @@ sub get_preamble_line_list {
 
   if ( $division->isa('SML::Division') )
     {
-      return $division->get_preamble_line_list;
+      return $division->get_data_segment_line_list;
     }
 
   else
     {
-      $logger->error("CAN'T GET PREAMBLE LINES \'$id\' is not a division ID");
+      $logger->error("CAN'T GET DATA SEGMENT LINES \'$id\' is not a division ID");
       return 0;
     }
 }
@@ -2801,7 +2849,7 @@ reusable content.
   my $term         = $library->get_index_term($term);
   my $string       = $library->get_property_value($id,$name);
   my $string       = $library->get_variable_value($name,$alt);
-  my $list         = $library->get_preamble_line_list($id);
+  my $list         = $library->get_data_segment_line_list($id);
   my $list         = $library->get_narrative_line_list($id);
   my $type         = $library->get_type($value);
   my $outcome      = $library->get_outcome($entity_id,$date);
@@ -2954,7 +3002,7 @@ you went wrong.
 
 =head2 get_variable_value($name,$alt)
 
-=head2 get_preamble_line_list($id)
+=head2 get_data_segment_line_list($id)
 
 =head2 get_narrative_line_list($id)
 

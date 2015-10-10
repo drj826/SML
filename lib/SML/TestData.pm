@@ -395,6 +395,17 @@ has test_library_1 =>
 
 ######################################################################
 
+has test_library_2 =>
+  (
+   is      => 'ro',
+   isa     => 'SML::Library',
+   reader  => 'get_test_library_2',
+   lazy    => 1,
+   builder => '_build_test_library_2',
+  );
+
+######################################################################
+
 has test_document_1 =>
   (
    is      => 'ro',
@@ -3277,7 +3288,7 @@ sub _build_division_test_case_list {
 
      {
       name     => 'division_2',
-      testfile => 'td-000020.txt',
+      # testfile => 'td-000020.txt',
       property_name => 'title',
       args =>
       {
@@ -3296,7 +3307,7 @@ sub _build_division_test_case_list {
        get_section_list        => 5,
        get_block_list          => 93,
        get_element_list        => 40,
-       get_preamble_line_list  => 18,
+       get_data_segment_line_list  => 18,
        get_narrative_line_list => 195,
        get_property_list       => 9,
       },
@@ -3304,7 +3315,7 @@ sub _build_division_test_case_list {
 
      {
       name     => 'division_3',
-      testfile => 'td-000020.txt',
+      # testfile => 'td-000020.txt',
       property_name => 'type',
       args =>
       {
@@ -3323,7 +3334,7 @@ sub _build_division_test_case_list {
        get_division_list       => 0,
        get_block_list          => 7,
        get_element_list        => 4,
-       get_preamble_line_list  => 4,
+       get_data_segment_line_list  => 4,
        get_narrative_line_list => 9,
        get_property_list       => 4,
       },
@@ -3331,7 +3342,7 @@ sub _build_division_test_case_list {
 
      {
       name     => 'division_4',
-      testfile => 'td-000020.txt',
+      # testfile => 'td-000020.txt',
       property_name => 'title',
       args =>
       {
@@ -3350,7 +3361,7 @@ sub _build_division_test_case_list {
        get_division_list       => 10,
        get_block_list          => 19,
        get_element_list        => 6,
-       get_preamble_line_list  => 12,
+       get_data_segment_line_list  => 12,
        get_narrative_line_list => 26,
        get_property_list       => 6,
       },
@@ -3358,7 +3369,7 @@ sub _build_division_test_case_list {
 
      {
       name     => 'division_5',
-      testfile => 'td-000020.txt',
+      # testfile => 'td-000020.txt',
       property_name => 'id',
       args =>
       {
@@ -3377,7 +3388,7 @@ sub _build_division_test_case_list {
        get_division_list       => 12,
        get_block_list          => 15,
        get_element_list        => 2,
-       get_preamble_line_list  => 4,
+       get_data_segment_line_list  => 4,
        get_narrative_line_list => 22,
        get_property_list       => 2,
       },
@@ -3385,7 +3396,7 @@ sub _build_division_test_case_list {
 
      {
       name     => 'invalid_semantics_division_1',
-      testfile => 'td-000063.txt',
+      # testfile => 'td-000063.txt',
       args =>
       {
        id      => 'parent-problem',
@@ -3402,7 +3413,7 @@ sub _build_division_test_case_list {
 
      {
       name     => 'invalid_semantics_division_2',
-      testfile => 'td-000064.txt',
+      # testfile => 'td-000064.txt',
       args =>
       {
        id      => 'problem-1',
@@ -3417,26 +3428,26 @@ sub _build_division_test_case_list {
       },
      },
 
-     {
-      name     => 'invalid_semantics_division_3',
-      testfile => 'td-000070.txt',
-      args =>
-      {
-       id      => 'td-000070',
-       library => $self->get_test_library_1,
-      },
-      expected =>
-      {
-       warning =>
-       {
-	has_valid_semantics => 'INVALID NON-UNIQUE ID',
-       },
-      },
-     },
+     # {
+     #  name     => 'invalid_semantics_division_3',
+     #  # testfile => 'td-000070.txt',
+     #  args =>
+     #  {
+     #   id      => 'td-000070',
+     #   library => $self->get_test_library_2,
+     #  },
+     #  expected =>
+     #  {
+     #   warning =>
+     #   {
+     # 	has_valid_semantics => 'INVALID NON-UNIQUE ID',
+     #   },
+     #  },
+     # },
 
      {
       name     => 'invalid_semantics_division_4',
-      testfile => 'td-000079.txt',
+      # testfile => 'td-000079.txt',
       args =>
       {
        id      => 'problem-1',
@@ -3453,7 +3464,7 @@ sub _build_division_test_case_list {
 
      {
       name     => 'invalid_semantics_division_5',
-      testfile => 'td-000080.txt',
+      # testfile => 'td-000080.txt',
       args =>
       {
        id      => 'problem-1',
@@ -3470,7 +3481,7 @@ sub _build_division_test_case_list {
 
      {
       name     => 'invalid_semantics_division_6',
-      testfile => 'td-000081.txt',
+      # testfile => 'td-000081.txt',
       args =>
       {
        id      => 'solution-1',
@@ -3936,23 +3947,23 @@ sub _build_document_test_case_list {
       },
      },
 
-     {
-      # UNDEFINED REGION
-      name     => 'td-000031',
-      testfile => 'td-000031.txt',
-      docid    => 'td-000031',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       fatal =>
-       {
-	is_valid =>
-	[
-	 ['sml.Parser' => 'UNDEFINED REGION'],
-	],
-       }
-      },
-     },
+     # {
+     #  # UNDEFINED REGION
+     #  name     => 'td-000031',
+     #  testfile => 'td-000031.txt',
+     #  docid    => 'td-000031',
+     #  library  => $self->get_test_library_2,
+     #  expected =>
+     #  {
+     #   fatal =>
+     #   {
+     # 	is_valid =>
+     # 	[
+     # 	 ['sml.Parser' => 'UNDEFINED REGION'],
+     # 	],
+     #   }
+     #  },
+     # },
 
      {
       # Valid Cross Reference
@@ -4590,25 +4601,25 @@ sub _build_document_test_case_list {
       },
      },
 
-     {
-      # INVALID NON-UNIQUE ID
-      name     => 'td-000070',
-      testfile => 'td-000070.txt',
-      docid    => 'td-000070',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       is_valid => 0,
-       warning =>
-       {
-	is_valid =>
-	[
-	 ['sml.Division' => 'INVALID NON-UNIQUE ID'],
-	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
-	],
-       },
-      },
-     },
+     # {
+     #  # INVALID NON-UNIQUE ID
+     #  name     => 'td-000070',
+     #  testfile => 'td-000070.txt',
+     #  docid    => 'td-000070',
+     #  library  => $self->get_test_library_2,
+     #  expected =>
+     #  {
+     #   is_valid => 0,
+     #   warning =>
+     #   {
+     # 	is_valid =>
+     # 	[
+     # 	 ['sml.Division' => 'INVALID NON-UNIQUE ID'],
+     # 	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
+     # 	],
+     #   },
+     #  },
+     # },
 
      {
       # Baretable
@@ -4853,11 +4864,11 @@ sub _build_file_test_case_list {
     [
      {
       name     => 'file_1',
-      filespec => 'library/testdata/td-000001.txt',
+      filespec => 'test-library-1/td-000001.txt',
       expected =>
       {
-       get_sha_digest => '3fc9a6743c4b2eb4d0cd27fd5ad90a75e94897da',
-       get_md5_digest => '0aeb40f8e68ce0faf0d780e732213408',
+       get_sha_digest => '43244a80ba1df20d038733bd23a83b5b7b9b11e5',
+       get_md5_digest => '515ffddd5578369af2caabf2a3f35a2c',
        is_valid => 1,
       },
      },
@@ -4968,8 +4979,8 @@ sub _build_ontology_test_case_list {
       library => $self->get_test_library_1,
       file_list =>
       [
-       'library/ontology_rules_sml.conf',
-       'library/ontology_rules_lib.conf',
+       '../library/ontology_rules_sml.conf',
+       '../library/ontology_rules_lib.conf',
       ],
       entity_name => 'problem',
       environment_name => 'TABLE',
@@ -5019,7 +5030,7 @@ sub _build_ontology_test_case_list {
 	'next',
 	'order',
 	'owner',
-	'parent',
+	'part_of',
 	'previous',
 	'priority',
 	'realized_by',
@@ -5170,856 +5181,787 @@ sub _build_parser_test_case_list {
   return
     [
      {
-      name     => 'simple_fragment',
-      testfile => 'td-000001.txt',
-      docid    => 'td-000001',
+      name     => 'simple_document',
+      divid    => 'td-000001',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_comment_division',
-      testfile => 'td-000002.txt',
-      docid    => 'td-000002',
+      name     => 'document_containing_comment_division',
+      divid    => 'td-000002',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_comment_line',
-      testfile => 'td-000003.txt',
-      docid    => 'td-000003',
+      name     => 'document_containing_comment_line',
+      divid    => 'td-000003',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_conditional_division',
-      testfile => 'td-000004.txt',
-      docid    => 'td-000004',
+      name     => 'document_containing_conditional_division',
+      divid    => 'td-000004',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_region_division',
-      testfile => 'td-000005.txt',
-      docid    => 'td-000005',
+      name     => 'document_containing_problem_division',
+      divid    => 'td-000005',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_environment_division',
-      testfile => 'td-000006.txt',
-      docid    => 'td-000006',
+      name     => 'document_containing_listing_division',
+      divid    => 'td-000006',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_lists',
-      testfile => 'td-000007.txt',
-      docid    => 'td-000007',
+      name     => 'document_containing_lists',
+      divid    => 'td-000007',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_generate_element',
-      testfile => 'td-000008.txt',
-      docid    => 'td-000008',
+      name     => 'document_containing_generate_element',
+      divid    => 'td-000008',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_insert_element',
-      testfile => 'td-000009.txt',
-      docid    => 'td-000009',
+      name     => 'document_containing_insert_element',
+      divid    => 'td-000009',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_script_element',
-      testfile => 'td-000010.txt',
-      docid    => 'td-000010',
+      name     => 'document_containing_script_element',
+      divid    => 'td-000010',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_image_element',
-      testfile => 'td-000011.txt',
-      docid    => 'td-000011',
+      name     => 'document_containing_image_element',
+      divid    => 'td-000011',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_footnote_element',
-      testfile => 'td-000012.txt',
-      docid    => 'td-000012',
+      name     => 'document_containing_footnote_element',
+      divid    => 'td-000012',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_glossary_element',
-      testfile => 'td-000013.txt',
-      docid    => 'td-000013',
+      name     => 'document_containing_glossary_element',
+      divid    => 'td-000013',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_var_element',
-      testfile => 'td-000014.txt',
-      docid    => 'td-000014',
+      name     => 'document_containing_var_element',
+      divid    => 'td-000014',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_acronym_element',
-      testfile => 'td-000015.txt',
-      docid    => 'td-000015',
+      name     => 'document_containing_acronym_element',
+      divid    => 'td-000015',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_index_element',
-      testfile => 'td-000016.txt',
-      docid    => 'td-000016',
+      name     => 'document_containing_index_element',
+      divid    => 'td-000016',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_index_element',
-      testfile => 'td-000017.txt',
-      docid    => 'td-000017',
+      name     => 'document_containing_index_element',
+      divid    => 'td-000017',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_included_section_style_1',
-      testfile => 'td-000018.txt',
-      docid    => 'td-000018',
+      name     => 'document_containing_included_section_style_1',
+      divid    => 'td-000018',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_included_section_style_2',
-      testfile => 'td-000019.txt',
-      docid    => 'td-000019',
+      name     => 'document_containing_included_section_style_2',
+      divid    => 'td-000019',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_sections_and_regions',
-      testfile => 'td-000020.txt',
-      docid    => 'td-000020',
+      name     => 'document_containing_sections_and_divisions',
+      divid    => 'td-000020',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_raw_include_element',
-      testfile => 'td-000021.txt',
-      docid    => 'td-000021',
+      name     => 'document_containing_raw_include_element',
+      divid    => 'td-000021',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_problem_division',
-      testfile => 'td-000022.txt',
+      name     => 'problem_division',
+      divid    => 'rq-000003',
       library  => $self->get_test_library_1,
+      args =>
+      {
+       id => 'rq-000003',
+      },
       expected =>
       {
-       create_fragment => 'SML::Fragment',
-       extract_division_name  => 'problem',
-       extract_title_text    => 'Sample Problem For `Include\' Tests',
-       extract_preamble_lines  => 17,
-       extract_narrative_lines => 8,
+       parse => 'SML::Entity',
+       # extract_division_name => 'problem',
+       # extract_title_text => 'Sample Problem For `Include\' Tests',
+       # extract_data_segment_lines => 17,
+       # extract_narrative_lines => 8,
       }
      },
 
      {
-      name     => 'fragment_containing_included_entity',
-      testfile => 'td-000023.txt',
-      docid    => 'td-000023',
+      name     => 'document_containing_included_entity',
+      divid    => 'td-000023',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'single_paragraph',
-      testfile => 'td-000024.txt',
+      name     => 'raw_single_paragraph',
+      divid    => 'td-000024',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Division',
       },
      },
 
      {
-      name     => 'fragment_containing_variable_substitutions',
-      testfile => 'td-000025.txt',
-      docid    => 'td-000025',
+      name     => 'document_containing_variable_substitutions',
+      divid    => 'td-000025',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_glossary_term_reference_1',
-      testfile => 'td-000026.txt',
-      docid    => 'td-000026',
+      name     => 'document_containing_glossary_term_reference_1',
+      divid    => 'td-000026',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_source_citation',
-      testfile => 'td-000028.txt',
-      docid    => 'td-000028',
+      name     => 'document_containing_source_citation',
+      divid    => 'td-000028',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_source_citation',
-      testfile => 'td-000029.txt',
-      docid    => 'td-000029',
+      name     => 'document_containing_invalid_source_citation',
+      divid    => 'td-000029',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      # {
-     #  name     => 'fragment_containing_invalid_begin_region',
-     #  testfile => 'td-000030.txt',
-     #  docid    => 'td-000030',
+     #  name     => 'document_containing_invalid_begin_region',
+     #  divid    => 'td-000030',
      #  library  => $self->get_test_library_1,
      #  expected =>
      #  {
-     #   create_fragment => 'SML::Fragment',
+     #   parse => 'SML::Document',
      #  },
      # },
 
      # {
-     #  name     => 'fragment_containing_undefined_region',
-     #  testfile => 'td-000031.txt',
-     #  docid    => 'td-000031',
+     #  name     => 'document_containing_undefined_region',
+     #  divid    => 'td-000031',
      #  library  => $self->get_test_library_1,
      #  expected =>
      #  {
-     #   create_fragment => 'SML::Fragment',
+     #   parse => 'SML::Document',
      #  },
      # },
 
      {
-      name     => 'fragment_containing_cross_reference',
-      testfile => 'td-000032.txt',
-      docid    => 'td-000032',
+      name     => 'document_containing_cross_reference',
+      divid    => 'td-000032',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_cross_reference',
-      testfile => 'td-000033.txt',
-      docid    => 'td-000033',
+      name     => 'document_containing_invalid_cross_reference',
+      divid    => 'td-000033',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_id_reference',
-      testfile => 'td-000034.txt',
-      docid    => 'td-000034',
+      name     => 'document_containing_id_reference',
+      divid    => 'td-000034',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_id_reference',
-      testfile => 'td-000035.txt',
-      docid    => 'td-000035',
+      name     => 'document_containing_invalid_id_reference',
+      divid    => 'td-000035',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_page_reference',
-      testfile => 'td-000036.txt',
-      docid    => 'td-000036',
+      name     => 'document_containing_page_reference',
+      divid    => 'td-000036',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_page_reference',
-      testfile => 'td-000037.txt',
-      docid    => 'td-000037',
+      name     => 'document_containing_invalid_page_reference',
+      divid    => 'td-000037',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_bold_markup',
-      testfile => 'td-000038.txt',
-      docid    => 'td-000038',
+      name     => 'document_containing_bold_markup',
+      divid    => 'td-000038',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_bold_markup',
-      testfile => 'td-000039.txt',
-      docid    => 'td-000039',
+      name     => 'document_containing_invalid_bold_markup',
+      divid    => 'td-000039',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_italics_markup',
-      testfile => 'td-000040.txt',
-      docid    => 'td-000040',
+      name     => 'document_containing_italics_markup',
+      divid    => 'td-000040',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_italics_markup',
-      testfile => 'td-000041.txt',
-      docid    => 'td-000041',
+      name     => 'document_containing_invalid_italics_markup',
+      divid    => 'td-000041',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_fixedwidth_markup',
-      testfile => 'td-000042.txt',
-      docid    => 'td-000042',
+      name     => 'document_containing_fixedwidth_markup',
+      divid    => 'td-000042',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_fixedwidth_markup',
-      testfile => 'td-000043.txt',
-      docid    => 'td-000043',
+      name     => 'document_containing_invalid_fixedwidth_markup',
+      divid    => 'td-000043',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_underline_markup',
-      testfile => 'td-000044.txt',
-      docid    => 'td-000044',
+      name     => 'document_containing_underline_markup',
+      divid    => 'td-000044',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_underline_markup',
-      testfile => 'td-000045.txt',
-      docid    => 'td-000045',
+      name     => 'document_containing_invalid_underline_markup',
+      divid    => 'td-000045',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_superscript_markup',
-      testfile => 'td-000046.txt',
-      docid    => 'td-000046',
+      name     => 'document_containing_superscript_markup',
+      divid    => 'td-000046',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_superscript_markup',
-      testfile => 'td-000047.txt',
-      docid    => 'td-000047',
+      name     => 'document_containing_invalid_superscript_markup',
+      divid    => 'td-000047',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_subscript_markup',
-      testfile => 'td-000048.txt',
-      docid    => 'td-000048',
+      name     => 'document_containing_subscript_markup',
+      divid    => 'td-000048',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_subscript_markup',
-      testfile => 'td-000049.txt',
-      docid    => 'td-000049',
+      name     => 'document_containing_invalid_subscript_markup',
+      divid    => 'td-000049',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_glossary_term_syntax',
-      testfile => 'td-000050.txt',
-      docid    => 'td-000050',
+      name     => 'document_containing_invalid_glossary_term_syntax',
+      divid    => 'td-000050',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_glossary_definition_reference',
-      testfile => 'td-000051.txt',
-      docid    => 'td-000051',
+      name     => 'document_containing_invalid_glossary_definition_reference',
+      divid    => 'td-000051',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_glossary_definition_reference_syntax',
-      testfile => 'td-000052.txt',
-      docid    => 'td-000052',
+      name     => 'document_containing_invalid_glossary_definition_reference_syntax',
+      divid    => 'td-000052',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_acronym_reference',
-      testfile => 'td-000053.txt',
-      docid    => 'td-000053',
+      name     => 'document_containing_invalid_acronym_reference',
+      divid    => 'td-000053',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_acronym_reference_syntax',
-      testfile => 'td-000054.txt',
-      docid    => 'td-000054',
+      name     => 'document_containing_invalid_acronym_reference_syntax',
+      divid    => 'td-000054',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_source_citation',
-      testfile => 'td-000055.txt',
-      docid    => 'td-000055',
+      name     => 'document_containing_invalid_source_citation',
+      divid    => 'td-000055',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_source_citation_syntax',
-      testfile => 'td-000056.txt',
-      docid    => 'td-000056',
+      name     => 'document_containing_invalid_source_citation_syntax',
+      divid    => 'td-000056',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_cross_reference_syntax',
-      testfile => 'td-000057.txt',
-      docid    => 'td-000057',
+      name     => 'document_containing_invalid_cross_reference_syntax',
+      divid    => 'td-000057',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_id_reference_syntax',
-      testfile => 'td-000058.txt',
-      docid    => 'td-000058',
+      name     => 'document_containing_invalid_id_reference_syntax',
+      divid    => 'td-000058',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_page_reference_syntax',
-      testfile => 'td-000059.txt',
-      docid    => 'td-000059',
+      name     => 'document_containing_invalid_page_reference_syntax',
+      divid    => 'td-000059',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_template',
-      testfile => 'td-000060.txt',
-      docid    => 'td-000060',
+      name     => 'document_containing_template',
+      divid    => 'td-000060',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_default_includes',
-      testfile => 'td-000061.txt',
-      docid    => 'td-000061',
+      name     => 'document_containing_default_includes',
+      divid    => 'td-000061',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_source_references',
-      testfile => 'td-000062.txt',
-      docid    => 'td-000062',
+      name     => 'raw_division_containing_source_references',
+      divid    => 'td-000062',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Division',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_explicit_declaration_of_infer_only_property',
-      testfile => 'td-000063.txt',
-      docid    => 'td-000063',
+      name     => 'document_containing_invalid_explicit_declaration_of_infer_only_property',
+      divid    => 'td-000063',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_entity_with_missing_required_property',
-      testfile => 'td-000064.txt',
-      docid    => 'td-000064',
+      name     => 'document_containing_entity_with_missing_required_property',
+      divid    => 'td-000064',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_file_element',
-      testfile => 'td-000065.txt',
-      docid    => 'td-000065',
+      name     => 'document_containing_file_element',
+      divid    => 'td-000065',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_reference_to_missing_file',
-      testfile => 'td-000066.txt',
-      docid    => 'td-000066',
+      name     => 'document_containing_reference_to_missing_file',
+      divid    => 'td-000066',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_image_element',
-      testfile => 'td-000067.txt',
-      docid    => 'td-000067',
+      name     => 'document_containing_image_element',
+      divid    => 'td-000067',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_reference_to_missing_image_file',
-      testfile => 'td-000068.txt',
-      docid    => 'td-000068',
+      name     => 'document_containing_reference_to_missing_image_file',
+      divid    => 'td-000068',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_block_content',
-      testfile => 'td-000069.txt',
-      docid    => 'td-000069',
+      name     => 'document_containing_block_content',
+      divid    => 'td-000069',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
+      },
+     },
+
+     # {
+     #  name     => 'document_containing_invalid_non_unique_id',
+     #  divid    => 'td-000070',
+     #  library  => $self->get_test_library_2,
+     #  expected =>
+     #  {
+     #   parse => 'SML::Document',
+     #  },
+     # },
+
+     {
+      name     => 'document_containing_baretable',
+      divid    => 'td-000071',
+      library  => $self->get_test_library_1,
+      expected =>
+      {
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_invalid_non_unique_id',
-      testfile => 'td-000070.txt',
-      docid    => 'td-000070',
+      name     => 'document_containing_many_block_and_string_samples',
+      divid    => 'td-000072',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_baretable',
-      testfile => 'td-000071.txt',
-      docid    => 'td-000071',
+      name     => 'document_containing_include_from_subdir',
+      divid    => 'td-000073',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_many_block_and_string_samples',
-      testfile => 'td-000072.txt',
-      docid    => 'td-000072',
+      name     => 'raw_division_containing_divisions_for_extraction',
+      divid    => 'td-000074',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Division',
       },
      },
 
      {
-      name     => 'fragment_containing_include_from_subdir',
-      testfile => 'td-000073.txt',
-      docid    => 'td-000073',
+      name     => 'listing_division',
+      divid    => 'td-000075',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
-      },
-     },
-
-     {
-      name     => 'fragment_containing_divisions_for_extraction',
-      testfile => 'td-000074.txt',
-      docid    => 'td-000074',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       create_fragment => 'SML::Fragment',
-      },
-     },
-
-     {
-      name     => 'fragment_containing_listing_environment',
-      testfile => 'td-000075.txt',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       create_fragment => 'SML::Fragment',
-       extract_division_name  => 'LISTING',
+       parse => 'SML::Listing',
+       extract_division_name => 'LISTING',
        extract_title_text    => 'Sample Listing',
-       extract_preamble_lines  => 5,
-       extract_narrative_lines => 32,
+       extract_data_segment_lines  => 3,
+       extract_narrative_lines => 33,
       }
      },
 
      {
-      name     => 'fragment_containing_section',
-      testfile => 'td-000076.txt',
+      name     => 'section',
+      divid    => 'td-000076',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Section',
        extract_division_name  => 'SECTION',
-       extract_title_text    => 'Section Fragment',
-       extract_preamble_lines  => 1,
+       extract_title_text    => 'Section Division',
+       extract_data_segment_lines  => 1,
       }
      },
 
      {
-      name     => 'fragment_containing_glossary_term_reference_2',
-      testfile => 'td-000077.txt',
-      docid    => 'td-000077',
+      name     => 'document_containing_glossary_term_reference_2',
+      divid    => 'td-000077',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
      {
-      name     => 'fragment_containing_title_with_linebreak',
-      testfile => 'td-000078.txt',
-      docid    => 'td-000078',
+      name     => 'document_containing_title_with_linebreak',
+      divid    => 'td-000078',
       library  => $self->get_test_library_1,
       expected =>
       {
-       create_fragment => 'SML::Fragment',
+       parse => 'SML::Document',
       },
      },
 
@@ -8076,13 +8018,21 @@ sub _build_test_library_1 {
 
 ######################################################################
 
+sub _build_test_library_2 {
+
+  return SML::Library->new
+    (
+     config_filename=>'test-library-2.conf',
+    );
+}
+
+######################################################################
+
 sub _build_test_document_1 {
 
   my $self = shift;
 
-  my $library  = $self->get_test_library_1;
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment('td-000020.txt');
+  my $library = $self->get_test_library_1;
 
   return $library->get_document('td-000020');
 }
