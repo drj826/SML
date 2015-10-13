@@ -653,9 +653,7 @@ sub _build_block_test_case_list {
       name     => 'cross_reference_1',
       content  => '[ref:introduction]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_parts => 1,
@@ -685,9 +683,7 @@ sub _build_block_test_case_list {
       name     => 'cross_reference_2',
       content  => '[r:introduction]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -716,9 +712,7 @@ sub _build_block_test_case_list {
       name     => 'cross_reference_3',
       content  => '[ref:system-model]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -747,9 +741,7 @@ sub _build_block_test_case_list {
       name     => 'cross_reference_4',
       content  => '[r:system-model]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -778,9 +770,7 @@ sub _build_block_test_case_list {
       name     => 'url_reference_1',
       content  => '[url:http://www.cnn.com/]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -805,9 +795,7 @@ sub _build_block_test_case_list {
       name     => 'url_reference_2',
       content  => '[url:http://www.cnn.com/|CNN News]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -832,9 +820,7 @@ sub _build_block_test_case_list {
       name     => 'footnote_reference_1',
       content  => '[f:introduction:1]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -863,9 +849,7 @@ sub _build_block_test_case_list {
       name     => 'glossary_reference_1',
       content  => '[g:sml:document]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -894,9 +878,7 @@ sub _build_block_test_case_list {
       name     => 'glossary_reference_2',
       content  => '[G:sml:document]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -925,9 +907,7 @@ sub _build_block_test_case_list {
       name     => 'glossary_reference_3',
       content  => '[gls:sml:document]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -956,9 +936,7 @@ sub _build_block_test_case_list {
       name     => 'glossary_reference_4',
       content  => '[Gls:sml:document]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -987,9 +965,7 @@ sub _build_block_test_case_list {
       name     => 'acronym_reference_1',
       content  => '[a:sml:TLA]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1018,9 +994,7 @@ sub _build_block_test_case_list {
       name     => 'acronym_reference_2',
       content  => '[ac:sml:TLA]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1049,9 +1023,7 @@ sub _build_block_test_case_list {
       name     => 'acronym_reference_3',
       content  => '[acs:sml:TLA]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1080,9 +1052,7 @@ sub _build_block_test_case_list {
       name     => 'acronym_reference_4',
       content  => '[acl:sml:TLA]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1111,9 +1081,7 @@ sub _build_block_test_case_list {
       name     => 'index_reference_1',
       content  => '[i:structured manuscript language]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1138,9 +1106,7 @@ sub _build_block_test_case_list {
       name     => 'index_reference_2',
       content  => '[index:structured manuscript language]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1165,9 +1131,7 @@ sub _build_block_test_case_list {
       name     => 'id_reference_1',
       content  => '[id:introduction]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1196,9 +1160,7 @@ sub _build_block_test_case_list {
       name     => 'thepage_reference_1',
       content  => '[thepage]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1223,9 +1185,7 @@ sub _build_block_test_case_list {
       name     => 'page_reference_1',
       content  => '[page:introduction]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1254,9 +1214,7 @@ sub _build_block_test_case_list {
       name     => 'page_reference_2',
       content  => '[pg:introduction]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1285,9 +1243,7 @@ sub _build_block_test_case_list {
       name     => 'version_reference_1',
       content  => '[theversion]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1317,9 +1273,7 @@ sub _build_block_test_case_list {
       name     => 'revision_reference_1',
       content  => '[therevision]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1349,9 +1303,7 @@ sub _build_block_test_case_list {
       name     => 'date_reference_1',
       content  => '[thedate]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1381,9 +1333,7 @@ sub _build_block_test_case_list {
       name     => 'status_reference_1',
       content  => '[status:td-000020]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1413,9 +1363,7 @@ sub _build_block_test_case_list {
       name     => 'status_reference_2',
       content  => '[status:grey]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1445,9 +1393,7 @@ sub _build_block_test_case_list {
       name     => 'status_reference_3',
       content  => '[status:green]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1477,9 +1423,7 @@ sub _build_block_test_case_list {
       name     => 'status_reference_4',
       content  => '[status:yellow]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1509,9 +1453,7 @@ sub _build_block_test_case_list {
       name     => 'status_reference_5',
       content  => '[status:red]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1539,11 +1481,9 @@ sub _build_block_test_case_list {
 
      {
       name     => 'status_reference_6',
-      content  => '[status:problem-1]',
+      content  => '[status:problem-20-1]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1573,9 +1513,7 @@ sub _build_block_test_case_list {
       name     => 'citation_reference_1',
       content  => '[cite:cms15]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1604,9 +1542,7 @@ sub _build_block_test_case_list {
       name     => 'citation_reference_2',
       content  => '[cite:cms15, pg 44]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1635,9 +1571,7 @@ sub _build_block_test_case_list {
       name     => 'file_reference_1',
       content  => '[file:app.ini]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1662,9 +1596,7 @@ sub _build_block_test_case_list {
       name     => 'file_reference_2',
       content  => '[file:My Document.doc]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1689,9 +1621,7 @@ sub _build_block_test_case_list {
       name     => 'path_reference_1',
       content  => '[path:/path/to/folder]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1716,9 +1646,7 @@ sub _build_block_test_case_list {
       name     => 'path_reference_2',
       content  => '[path:/path/to/my folder]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1743,9 +1671,7 @@ sub _build_block_test_case_list {
       name     => 'path_reference_3',
       content  => '[path:C:\path\to\my folder\]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1770,9 +1696,7 @@ sub _build_block_test_case_list {
       name     => 'user_entered_text_1',
       content  => '[enter:USERNAME]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1797,9 +1721,7 @@ sub _build_block_test_case_list {
       name     => 'command_reference_1',
       content  => '[cmd:pwd]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1824,9 +1746,7 @@ sub _build_block_test_case_list {
       name     => 'command_reference_2',
       content  => '[cmd:ls -al | grep -i bin | sort]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1851,9 +1771,7 @@ sub _build_block_test_case_list {
       name     => 'xml_tag_1',
       content  => '<html>',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1878,9 +1796,7 @@ sub _build_block_test_case_list {
       name     => 'xml_tag_2',
       content  => '<para style="indented">',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1905,9 +1821,7 @@ sub _build_block_test_case_list {
       name     => 'literal_string_1',
       content  => '{lit:[cite:Goossens94]}',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1932,9 +1846,7 @@ sub _build_block_test_case_list {
       name     => 'email_address_1',
       content  => '[email:joe@example.com]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -1955,499 +1867,11 @@ sub _build_block_test_case_list {
       },
      },
 
-     # {
-     #  name     => 'take_note_symbol',
-     #  content  => '[take_note]',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p><b>(take note!)</b></p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "\\marginpar{\\Huge\\Writinghand}\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "<b>(take note!)</b>\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'smiley_symbol',
-     #  content  => ':-)',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p>&#9786;</p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "\\large\\Smiley\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "&#9786;\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'frowny_symbol',
-     #  content  => ':-(',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p>&#9785;</p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "\\large\\Frowny\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "&#9785;\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'keystroke_symbol_1',
-     #  content  => '[[Enter]]',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p><span class=\"keystroke\">Enter</span></p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "\\keystroke{Enter}\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "<span class=\"keystroke\">Enter</span>\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'keystroke_symbol_2',
-     #  content  => '[[Ctrl]]-[[Alt]]-[[Del]]',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p><span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span></p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "\\keystroke{Ctrl}-\\keystroke{Alt}-\\keystroke{Del}\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "<span class=\"keystroke\">Ctrl</span>-<span class=\"keystroke\">Alt</span>-<span class=\"keystroke\">Del</span></p>\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'left_arrow_symbol',
-     #  content  => '<-',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p>&#8592;</p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "\$\\leftarrow\$\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "&#8592;\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'right_arrow_symbol',
-     #  content  => '->',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p>&#8594;</p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "\$\\rightarrow\$\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "&#8594;\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'latex_symbol',
-     #  content  => 'LaTeX',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p>L<sup>a</sup>T<sub>e</sub>X</p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "\\LaTeX{}\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "LaTeX\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'tex_symbol',
-     #  content  => 'TeX',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p>T<sub>e</sub>X</p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "\\TeX{}\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "TeX\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'copyright_symbol',
-     #  content  => '[c]',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p>&copy;</p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "\\tiny\$^{\\copyright}\$\\normalsize\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "&copy;\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'trademark_symbol',
-     #  content  => '[tm]',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p>&trade;</p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "\\tiny\$^{\\texttrademark}\$\\normalsize\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "&trade;\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'reg_trademark_symbol',
-     #  content  => '[rtm]',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p>&reg;</p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "\\tiny\$^{\\textregistered}\$\\normalsize\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "&reg;\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'open_dblquote_symbol',
-     #  content  => '``',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p>&#8220;</p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "\`\`\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "&#8220;\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'close_dblquote_symbol',
-     #  content  => '\'\'',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p>&#8221;</p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "\'\'\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "&#8221;\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'open_sglquote_symbol',
-     #  content  => '`',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p>&#8216;</p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "\`\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "&#8216;\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'close_sglquote_symbol',
-     #  content  => '\'',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p>&#8217;</p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "\'\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "&#8217;\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'section_symbol',
-     #  content  => '[section]',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p>&sect;</p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "{\\S}\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "&sect;\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
-     # {
-     #  name     => 'emdash_symbol',
-     #  content  => '--',
-     #  subclass => 'SML::Paragraph',
-     #  filename => 'td-000020.txt',
-     #  docid    => 'td-000020',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   render =>
-     #   {
-     # 	html =>
-     # 	{
-     # 	 default => "<p>&mdash;</p>\n\n",
-     # 	},
-     # 	latex =>
-     # 	{
-     # 	 default => "--\n\n",
-     # 	},
-     # 	xml =>
-     # 	{
-     # 	 default => "&mdash;\n\n",
-     # 	},
-     #   },
-     #  },
-     # },
-
      {
       name     => 'bold_1',
       content  => '!!bold text!!',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -2472,9 +1896,7 @@ sub _build_block_test_case_list {
       name     => 'italics_1',
       content  => '~~italicized text~~',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -2499,9 +1921,7 @@ sub _build_block_test_case_list {
       name     => 'underline_1',
       content  => '__underlined text__',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -2526,9 +1946,7 @@ sub _build_block_test_case_list {
       name     => 'fixedwidth_1',
       content  => '||fixedwidth text||',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -2553,9 +1971,7 @@ sub _build_block_test_case_list {
       name     => 'superscript_1',
       content  => '^^superscripted text^^',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -2580,9 +1996,7 @@ sub _build_block_test_case_list {
       name     => 'subscript_1',
       content  => ',,subscripted text,,',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -2607,9 +2021,7 @@ sub _build_block_test_case_list {
       name     => 'valid_bold_block',
       content  => 'This is a valid !!bold!! block',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2620,9 +2032,7 @@ sub _build_block_test_case_list {
       name     => 'invalid_bold_block',
       content  => 'This is an INVALID !!bold block',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2634,9 +2044,7 @@ sub _build_block_test_case_list {
       name     => 'valid_italics_block',
       content  => 'This is a valid ~~italics~~ block',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2647,9 +2055,7 @@ sub _build_block_test_case_list {
       name     => 'invalid_italics_block',
       content  => 'This is an INVALID ~~italics block',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2661,9 +2067,7 @@ sub _build_block_test_case_list {
       name     => 'valid_fixedwidth_block',
       content  => 'This is a valid ||fixed-width|| block',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2674,9 +2078,7 @@ sub _build_block_test_case_list {
       name     => 'invalid_fixedwidth_block',
       content  => 'This is an INVALID ||fixed-width block',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2688,9 +2090,7 @@ sub _build_block_test_case_list {
       name     => 'valid_underline_block',
       content  => 'This is a valid __underline__ block',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2701,9 +2101,7 @@ sub _build_block_test_case_list {
       name     => 'invalid_underline_block',
       content  => 'This is an INVALID __underline block',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2715,9 +2113,7 @@ sub _build_block_test_case_list {
       name     => 'valid_superscript_block',
       content  => 'This is a valid ^^superscript^^ block',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2728,9 +2124,7 @@ sub _build_block_test_case_list {
       name     => 'invalid_superscript_block',
       content  => 'This is an INVALID ^^superscript block',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2742,9 +2136,7 @@ sub _build_block_test_case_list {
       name     => 'valid_subscript_block',
       content  => 'This is a valid ,,subscript,, block',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2755,9 +2147,7 @@ sub _build_block_test_case_list {
       name     => 'invalid_subscript_block',
       content  => 'This is an INVALID ,,subscript block',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2769,9 +2159,7 @@ sub _build_block_test_case_list {
       name     => 'valid_cross_reference_1',
       content  => 'Here is a valid cross reference: [ref:introduction].',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2783,9 +2171,7 @@ sub _build_block_test_case_list {
       name     => 'valid_cross_reference_2',
       content  => 'Here is a valid cross reference: [r:introduction].',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2797,9 +2183,7 @@ sub _build_block_test_case_list {
       name     => 'invalid_cross_reference_1',
       content  => 'Here is an INVALID cross reference: [ref:bogus].',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2812,9 +2196,7 @@ sub _build_block_test_case_list {
       name     => 'invalid_cross_reference_2',
       content  => 'Here is an INVALID cross reference: [r:bogus].',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2827,9 +2209,7 @@ sub _build_block_test_case_list {
       name     => 'incomplete_cross_reference_1',
       content  => 'Here is an incomplete cross reference: [ref:introduction.',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2842,9 +2222,7 @@ sub _build_block_test_case_list {
       name     => 'incomplete_cross_reference_2',
       content  => 'Here is an incomplete cross reference: [r:introduction.',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2857,9 +2235,7 @@ sub _build_block_test_case_list {
       name     => 'valid_id_reference',
       content  => 'Here is a valid id reference: [id:introduction].',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2872,9 +2248,7 @@ sub _build_block_test_case_list {
       name     => 'invalid_id_reference',
       content  => 'Here is an INVALID id reference: [id:bogus].',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2887,9 +2261,7 @@ sub _build_block_test_case_list {
       name     => 'incomplete_id_reference',
       content  => 'Here is an incomplete id reference: [id:introduction.',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2902,9 +2274,7 @@ sub _build_block_test_case_list {
       name     => 'valid_page_reference_1',
       content  => 'Here is a valid page reference: [page:introduction].',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2917,9 +2287,7 @@ sub _build_block_test_case_list {
       name     => 'valid_page_reference_2',
       content  => 'Here is a valid page reference: [pg:introduction].',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2932,9 +2300,7 @@ sub _build_block_test_case_list {
       name     => 'invalid_page_reference_1',
       content  => 'Here is an INVALID page reference: [page:bogus].',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2947,9 +2313,7 @@ sub _build_block_test_case_list {
       name     => 'invalid_page_reference_2',
       content  => 'Here is an INVALID page reference: [pg:bogus].',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -2962,9 +2326,7 @@ sub _build_block_test_case_list {
       name     => 'incomplete_page_reference_1',
       content  => 'Here is an incomplete page reference: [page:introduction.',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2977,9 +2339,7 @@ sub _build_block_test_case_list {
       name     => 'incomplete_page_reference_2',
       content  => 'Here is an incomplete page reference: [pg:introduction.',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -2992,9 +2352,7 @@ sub _build_block_test_case_list {
       name     => 'invalid_glossary_term_reference_1',
       content  => '[g:sml:bogus]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -3007,9 +2365,7 @@ sub _build_block_test_case_list {
       name     => 'incomplete_glossary_term_reference_1',
       content  => '[g:sml:bogus',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -3022,9 +2378,7 @@ sub _build_block_test_case_list {
       name     => 'invalid_glossary_def_reference_1',
       content  => '[def:sml:bogus]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -3037,9 +2391,7 @@ sub _build_block_test_case_list {
       name     => 'incomplete_glossary_def_reference_1',
       content  => '[def:sml:bogus',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -3052,9 +2404,7 @@ sub _build_block_test_case_list {
       name     => 'invalid_acronym_reference_1',
       content  => '[ac:sml:bogus]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -3067,9 +2417,7 @@ sub _build_block_test_case_list {
       name     => 'incomplete_acronym_reference_1',
       content  => '[ac:sml:bogus',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -3082,9 +2430,7 @@ sub _build_block_test_case_list {
       name     => 'invalid_source_citation_1',
       content  => '[cite:bogus]',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 1,
@@ -3097,9 +2443,7 @@ sub _build_block_test_case_list {
       name     => 'incomplete_source_citation_1',
       content  => '[cite:bogus',
       subclass => 'SML::Paragraph',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_valid_syntax => 0,
@@ -3107,13 +2451,6 @@ sub _build_block_test_case_list {
        valid_syntax_warning => 'INVALID SOURCE CITATION SYNTAX',
       },
      },
-
-     {
-      name     => 'get_name_path_test_1',
-      testfile => 'td-000020.txt',
-      config   => 'library.conf',
-     },
-
     ];
 }
 
@@ -3270,13 +2607,10 @@ sub _build_division_test_case_list {
     [
      {
       name => 'division_1',
+      library => $self->get_test_library_1,
+      divid => 'td',
+      division_name => 'test-division',
       division_number => '4-4-4',
-      args =>
-      {
-       id      => 'td',
-       name    => 'test-division',
-       library => $self->get_test_library_1,
-      },
       expected =>
       {
        init       => 1,
@@ -3287,14 +2621,10 @@ sub _build_division_test_case_list {
      },
 
      {
-      name     => 'division_2',
-      # testfile => 'td-000020.txt',
+      name => 'division_2',
+      library => $self->get_test_library_1,
+      divid => 'td-000020',
       property_name => 'title',
-      args =>
-      {
-       id      => 'td-000020',
-       library => $self->get_test_library_1,
-      },
       expected  =>
       {
        get_first_part          => 'SML::PreformattedBlock',
@@ -3314,14 +2644,10 @@ sub _build_division_test_case_list {
      },
 
      {
-      name     => 'division_3',
-      # testfile => 'td-000020.txt',
+      name => 'division_3',
+      library => $self->get_test_library_1,
+      divid => 'introduction',
       property_name => 'type',
-      args =>
-      {
-       id      => 'introduction',
-       library => $self->get_test_library_1,
-      },
       expected =>
       {
        get_containing_division => 'SML::Document',
@@ -3341,14 +2667,10 @@ sub _build_division_test_case_list {
      },
 
      {
-      name     => 'division_4',
-      # testfile => 'td-000020.txt',
+      name => 'division_4',
+      library => $self->get_test_library_1,
+      divid => 'problem-20-1',
       property_name => 'title',
-      args =>
-      {
-       id      => 'problem-1',
-       library => $self->get_test_library_1,
-      },
       expected =>
       {
        get_containing_division => 'SML::Section',
@@ -3368,14 +2690,10 @@ sub _build_division_test_case_list {
      },
 
      {
-      name     => 'division_5',
-      # testfile => 'td-000020.txt',
+      name => 'division_5',
+      library => $self->get_test_library_1,
+      divid => 'tab-solution-types',
       property_name => 'id',
-      args =>
-      {
-       id      => 'tab-solution-types',
-       library => $self->get_test_library_1,
-      },
       expected =>
       {
        get_containing_division => 'SML::Section',
@@ -3395,13 +2713,9 @@ sub _build_division_test_case_list {
      },
 
      {
-      name     => 'invalid_semantics_division_1',
-      # testfile => 'td-000063.txt',
-      args =>
-      {
-       id      => 'parent-problem',
-       library => $self->get_test_library_1,
-      },
+      name => 'invalid_semantics_division_1',
+      library => $self->get_test_library_1,
+      divid => 'parent-problem',
       expected =>
       {
        warning =>
@@ -3412,13 +2726,9 @@ sub _build_division_test_case_list {
      },
 
      {
-      name     => 'invalid_semantics_division_2',
-      # testfile => 'td-000064.txt',
-      args =>
-      {
-       id      => 'problem-1',
-       library => $self->get_test_library_1,
-      },
+      name => 'invalid_semantics_division_2',
+      library => $self->get_test_library_1,
+      divid => 'problem-1',
       expected =>
       {
        warning =>
@@ -3428,31 +2738,10 @@ sub _build_division_test_case_list {
       },
      },
 
-     # {
-     #  name     => 'invalid_semantics_division_3',
-     #  # testfile => 'td-000070.txt',
-     #  args =>
-     #  {
-     #   id      => 'td-000070',
-     #   library => $self->get_test_library_2,
-     #  },
-     #  expected =>
-     #  {
-     #   warning =>
-     #   {
-     # 	has_valid_semantics => 'INVALID NON-UNIQUE ID',
-     #   },
-     #  },
-     # },
-
      {
-      name     => 'invalid_semantics_division_4',
-      # testfile => 'td-000079.txt',
-      args =>
-      {
-       id      => 'problem-1',
-       library => $self->get_test_library_1,
-      },
+      name => 'invalid_semantics_division_4',
+      library => $self->get_test_library_1,
+      divid => 'problem-79-1',
       expected =>
       {
        warning =>
@@ -3463,13 +2752,9 @@ sub _build_division_test_case_list {
      },
 
      {
-      name     => 'invalid_semantics_division_5',
-      # testfile => 'td-000080.txt',
-      args =>
-      {
-       id      => 'problem-1',
-       library => $self->get_test_library_1,
-      },
+      name => 'invalid_semantics_division_5',
+      library => $self->get_test_library_1,
+      id => 'problem-80-1',
       expected =>
       {
        warning =>
@@ -3480,13 +2765,9 @@ sub _build_division_test_case_list {
      },
 
      {
-      name     => 'invalid_semantics_division_6',
-      # testfile => 'td-000081.txt',
-      args =>
-      {
-       id      => 'solution-1',
-       library => $self->get_test_library_1,
-      },
+      name => 'invalid_semantics_division_6',
+      library => $self->get_test_library_1,
+      divid => 'solution-81-1',
       expected =>
       {
        warning =>
@@ -3494,14 +2775,6 @@ sub _build_division_test_case_list {
 	has_valid_semantics => 'INVALID COMPOSITION',
        },
       },
-     },
-
-     #################################################################
-
-     {
-      name => 'get_id_path_test_1',
-      testfile  => 'td-000020.txt',
-      config    => 'library.conf',
      },
     ];
 }
@@ -4865,6 +4138,7 @@ sub _build_file_test_case_list {
      {
       name     => 'file_1',
       filespec => 'test-library-1/td-000001.txt',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_sha_digest => '43244a80ba1df20d038733bd23a83b5b7b9b11e5',
@@ -4876,6 +4150,7 @@ sub _build_file_test_case_list {
      {
       name     => 'bad_file_1',
       filespec => 'library/testdata/bogus.txt',
+      library => $self->get_test_library_1,
       expected =>
       {
        is_valid => 0,
@@ -5979,9 +5254,7 @@ sub _build_part_test_case_list {
      {
       name     => 'part_test_1',
       part_id  => 'introduction',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_part => 1,
@@ -5991,10 +5264,8 @@ sub _build_part_test_case_list {
 
      {
       name     => 'part_test_2',
-      part_id  => 'problem-1',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      part_id  => 'problem-20-1',
+      document => $self->get_test_document_1,
       expected =>
       {
        has_part => 1,
@@ -6005,9 +5276,7 @@ sub _build_part_test_case_list {
      {
       name     => 'part_test_3',
       part_id  => 'bogus_id',
-      filename => 'td-000020.txt',
-      docid    => 'td-000020',
-      library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        has_part => 0,
@@ -6089,6 +5358,7 @@ sub _build_part_test_case_list {
       filename => 'td-000020.txt',
       docid    => 'td-000020',
       library  => $self->get_test_library_1,
+      document => $self->get_test_document_1,
       expected =>
       {
        render =>
@@ -6127,10 +5397,7 @@ sub _build_publisher_test_case_list {
      {
       name => 'document_1',
       object => $self->get_test_document_1,
-      args =>
-      {
-       library => $self->get_test_library_1,
-      },
+      library => $self->get_test_library_1,
       expected =>
       {
        publish =>

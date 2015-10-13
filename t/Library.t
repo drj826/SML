@@ -3,7 +3,7 @@
 # $Id: Library.t 264 2015-05-11 11:56:25Z drj826@gmail.com $
 
 use lib "../lib";
-use Test::More tests => 12;
+use Test::More tests => 11;
 
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
@@ -47,7 +47,6 @@ my @public_methods =
    'get_id',
    'get_name',
    'get_revision',
-   'get_sml',
    'get_ontology',
    'get_ontology_rule_filespec_list',
    'get_parser',
@@ -58,8 +57,6 @@ my @public_methods =
    'get_directory_path',
    'get_include_path',
    'get_division_name_list',
-   'get_region_name_list',
-   'get_environment_name_list',
    'get_template_dir',
    'get_published_dir',
 
@@ -144,10 +141,8 @@ foreach my $tc (@{$tcl})
     get_id_ok($tc);
     get_name_ok($tc);
     get_revision_ok($tc);
-    get_sml_ok($tc);
     get_parser_ok($tc);
     get_reasoner_ok($tc);
-    # get_formatter_ok($tc);
     get_glossary_ok($tc);
     get_acronym_list_ok($tc);
     get_references_ok($tc);
@@ -212,25 +207,6 @@ sub get_revision_ok {
 
   # assert
   like($result,$expected,"$tc_name: get_revision \'$result\'")
-}
-
-######################################################################
-
-sub get_sml_ok {
-
-  my $tc = shift;                       # test case
-
-  # arrange
-  my $tc_name   = $tc->{name};
-  my $config_fn = $tc->{config_filename};
-  my $library   = SML::Library->new(config_filename=>$config_fn);
-  my $expected  = $tc->{expected}{get_sml};
-
-  # act
-  my $result = $library->get_sml;
-
-  # assert
-  isa_ok($result,$expected,"$result")
 }
 
 ######################################################################

@@ -10,9 +10,18 @@ use SML;
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
+# set sml.Library logger to WARN
+my $logger_library = Log::Log4perl::get_logger('sml.Library');
+$logger_library->level('WARN');
+
 #---------------------------------------------------------------------
 # Test Data
 #---------------------------------------------------------------------
+
+use SML::TestData;
+
+my $td      = SML::TestData->new();
+my $library = $td->get_test_library_1;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -27,7 +36,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Util->new;
+my $obj = SML::Util->new(library=>$library);
 isa_ok( $obj, 'SML::Util' );
 
 #---------------------------------------------------------------------

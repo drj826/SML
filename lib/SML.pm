@@ -189,52 +189,11 @@ sub has_library {
 }
 
 ######################################################################
-
-sub allows_insert {
-
-  my $self = shift;
-  my $name = shift;
-
-  if (
-      defined $self->_get_insert_name_hash->{$name}
-      and
-      $self->_get_insert_name_hash->{$name} == 1
-     )
-    {
-      return 1;
-    }
-  else
-    {
-      return 0;
-    }
-}
-
-######################################################################
-
-sub allows_generate {
-
-  my $self = shift;
-  my $name = shift;
-
-  if ( defined $self->_get_generated_content_type_hash->{$name} )
-    {
-      return 1;
-    }
-
-  else
-    {
-      return 0;
-    }
-}
-
-######################################################################
 ######################################################################
 ##
 ## Private Attributes
 ##
 ######################################################################
-######################################################################
-
 ######################################################################
 
 has 'library_hash' =>
@@ -322,13 +281,13 @@ sub _build_divisions {
 sub _build_insert_name_hash {
 
   my $self = shift;
-  my $hash = {};
 
-  $hash->{PREAMBLE}   = 1;
-  $hash->{NARRATIVE}  = 1;
-  $hash->{DEFINITION} = 1;
-
-  return $hash;
+  return
+    {
+     PREAMBLE   => 1,
+     NARRATIVE  => 1,
+     DEFINITION => 1,
+    };
 }
 
 ######################################################################
@@ -336,16 +295,16 @@ sub _build_insert_name_hash {
 sub _build_generated_content_type_hash {
 
   my $self = shift;
-  my $hash = {};
 
-  $hash->{'problem-domain-listing'}       = "not context sensitive";
-  $hash->{'solution-domain-listing'}      = "not context sensitive";
-  $hash->{'prioritized-problem-listing'}  = "not context sensitive";
-  $hash->{'prioritized-solution-listing'} = "not context sensitive";
-  $hash->{'associated-problem-listing'}   = "context sensitive";
-  $hash->{'associated-solution-listing'}  = "context sensitive";
-
-  return $hash;
+  return
+    {
+     'problem-domain-listing'       => "not context sensitive",
+     'solution-domain-listing'      => "not context sensitive",
+     'prioritized-problem-listing'  => "not context sensitive",
+     'prioritized-solution-listing' => "not context sensitive",
+     'associated-problem-listing'   => "context sensitive",
+     'associated-solution-listing'  => "context sensitive",
+    };
 }
 
 ######################################################################

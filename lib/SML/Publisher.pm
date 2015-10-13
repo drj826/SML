@@ -35,6 +35,56 @@ has 'library' =>
   );
 
 ######################################################################
+
+has 'font_size_list' =>
+  (
+   isa     => 'ArrayRef',
+   reader  => 'get_font_size_list',
+   lazy    => 1,
+   builder => '_build_font_size_list',
+  );
+
+######################################################################
+
+has 'font_weight_list' =>
+  (
+   isa     => 'ArrayRef',
+   reader  => 'get_font_weight_list',
+   lazy    => 1,
+   builder => '_build_font_weight_list',
+  );
+
+######################################################################
+
+has 'font_shape_list' =>
+  (
+   isa     => 'ArrayRef',
+   reader  => 'get_font_shape_list',
+   lazy    => 1,
+   builder => '_build_font_shape_list',
+  );
+
+######################################################################
+
+has 'font_family_list' =>
+  (
+   isa     => 'ArrayRef',
+   reader  => 'get_font_family_list',
+   lazy    => 1,
+   builder => '_build_font_family_list',
+  );
+
+######################################################################
+
+has 'background_color_list' =>
+  (
+   isa     => 'ArrayRef',
+   reader  => 'get_background_color_list',
+   lazy    => 1,
+   builder => '_build_background_color_list',
+  );
+
+######################################################################
 ######################################################################
 ##
 ## Public Methods
@@ -279,6 +329,77 @@ sub _publish_html_library {
   my $style   = shift;                  # default
 
   my $template_dir = $library->get_template_dir;
+}
+
+######################################################################
+
+sub _build_font_size_list {
+
+  my $self = shift;
+
+  return
+    [
+     'tiny',
+     'scriptsize',
+     'footnotesize',
+     'small',
+     'normalsize',
+     'large',
+     'Large',
+     'LARGE',
+     'huge',
+     'Huge',
+    ];
+}
+
+######################################################################
+
+sub _build_font_weight_list {
+
+  my $self = shift;
+
+  return
+     [
+      'medium', 'bold', 'bold_extended', 'semi_bold', 'condensed',
+     ];
+}
+
+######################################################################
+
+sub _build_font_shape_list {
+
+  my $self = shift;
+
+  return
+     [
+      'normal', 'italic', 'slanted', 'smallcaps',
+     ];
+}
+
+######################################################################
+
+sub _build_font_family_list {
+
+  my $self = shift;
+
+  return
+     [
+      'roman', 'serif', 'typewriter'
+     ];
+}
+
+######################################################################
+
+sub _build_background_color_list {
+
+  my $self = shift;
+
+  return
+     [
+      'red',      'yellow',     'blue',
+      'green',    'orange',     'purple',
+      'white',    'litegrey',   'grey',    'darkgrey',
+     ];
 }
 
 ######################################################################

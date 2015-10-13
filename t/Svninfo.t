@@ -5,16 +5,25 @@
 # Svninfo.pm unit tests
 
 use lib "../lib";
-use Test::More tests => 4;
+use Test::More tests => 3;
 
 use SML;
 
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
+# set sml.Library logger to WARN
+my $logger_library = Log::Log4perl::get_logger('sml.Library');
+$logger_library->level('WARN');
+
 #---------------------------------------------------------------------
 # Test Data
 #---------------------------------------------------------------------
+
+use SML::TestData;
+
+my $td      = SML::TestData->new();
+my $library = $td->get_test_library_1;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -29,8 +38,8 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $filespec = 'library/testdata/td-000001.txt';
-my $obj      = SML::Svninfo->new(filespec=>$filespec);
+my $filename = 'td-000001.txt';
+my $obj      = SML::Svninfo->new(filename=>$filename,library=>$library);
 isa_ok( $obj, 'SML::Svninfo' );
 
 #---------------------------------------------------------------------
@@ -39,7 +48,7 @@ isa_ok( $obj, 'SML::Svninfo' );
 
 my @public_methods =
   (
-   'get_filespec',
+   'get_filename',
    'get_revision',
    'get_date',
    'get_author',
@@ -50,17 +59,6 @@ my @public_methods =
   );
 
 can_ok( $obj, @public_methods );
-
-#---------------------------------------------------------------------
-# Implements designed private methods?
-#---------------------------------------------------------------------
-
-my @private_methods =
-  (
-   'BUILD',
-  );
-
-can_ok( $obj, @private_methods );
 
 #---------------------------------------------------------------------
 # Returns expected values?

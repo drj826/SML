@@ -71,10 +71,9 @@ sub _build_term {
 
   my $self = shift;
 
-  my $sml     = SML->instance;
-  my $syntax  = $sml->get_syntax;
-  my $text    = $self->get_content || q{};
   my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $self->get_content || q{};
 
   $text =~ s/[\r\n]*$//;                # chomp
 
@@ -108,10 +107,9 @@ sub _build_definition {
 
   my $self = shift;
 
-  my $sml     = SML->instance;
-  my $syntax  = $sml->get_syntax;
-  my $text    = $self->get_content || q{};
   my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $self->get_content || q{};
 
   $text =~ s/[\r\n]*$//;                # chomp
 

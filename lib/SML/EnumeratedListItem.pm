@@ -43,15 +43,15 @@ sub get_value {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $text   = $self->get_content || q{};
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $self->get_content || q{};
 
   $text =~ s/[\r\n]*$//;                # chomp;
 
   if ( $text =~ /$syntax->{'enum_list_item'}/xms )
     {
-      my $util = $sml->get_util;
+      my $util = $library->get_util;
 
       return $util->trim_whitespace($2);
     }

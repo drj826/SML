@@ -31,11 +31,11 @@ enumerate the assertions the data format must represent for each item.
 
 #---------------------------------------------------------------------
 
----TABLE
+>>>TABLE.problem-assertions
 
 title:: Required Assertions Where Subject = Problem
 
-label:: problem-assertions
+===
 
 ::
 
@@ -147,15 +147,15 @@ label:: problem-assertions
 
 :grey: Role
 
----TABLE
+<<<TABLE
 
 #---------------------------------------------------------------------
 
----TABLE
+>>>TABLE.solution-assertions
 
 title:: Required Assertions Where Subject = Solution
 
-label:: solution-assertions
+===
 
 :: Subject
 
@@ -187,6 +187,6 @@ label:: solution-assertions
 
 : Role
 
----TABLE
+<<<TABLE
 
 <<<problem

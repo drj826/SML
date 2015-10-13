@@ -10,6 +10,18 @@ use SML;
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
+# set sml.Library logger to WARN
+my $logger_library = Log::Log4perl::get_logger('sml.Library');
+$logger_library->level('WARN');
+
+# set sml.Parser logger to WARN
+my $logger_parser = Log::Log4perl::get_logger('sml.Parser');
+$logger_parser->level('WARN');
+
+# set sml.Publisher logger to WARN
+my $logger_publisher = Log::Log4perl::get_logger('sml.Publisher');
+$logger_publisher->level('WARN');
+
 #---------------------------------------------------------------------
 # Test Data
 #---------------------------------------------------------------------
@@ -75,11 +87,12 @@ sub publish_ok {
   my $tcname    = $tc->{name};
   my $object    = $tc->{object};
   my $expected  = $tc->{expected}{publish}{$rendition}{$style};
-  my $args      = $tc->{args};
-  my $publisher = SML::Publisher->new(%{$args});
+  my $library   = $tc->{library};
+  my $id        = $object->get_id;
+  my $publisher = $library->get_publisher;
 
     # act
-  my $result = $publisher->publish($object,$rendition,$style);
+  my $result = $publisher->publish($id,$rendition,$style);
 
   # assert
   is($result,$expected,"$tcname publish $rendition $style");

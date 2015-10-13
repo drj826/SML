@@ -15,6 +15,10 @@ Log::Log4perl->init("log.test.conf");
 my $logger_library = Log::Log4perl::get_logger('sml.Library');
 $logger_library->level('WARN');
 
+# set sml.AcronymList logger to ERROR
+my $logger_aclist = Log::Log4perl::get_logger('sml.AcronymList');
+$logger_aclist->level('ERROR');
+
 use Test::Log4perl;
 
 use SML::TestData;

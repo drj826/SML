@@ -118,8 +118,8 @@ sub extract_division_lines {
   my $self      = shift;
   my $target_id = shift; # ID of division to be extracted
 
-  my $sml                = SML->instance;
-  my $syntax             = $sml->get_syntax;
+  my $library            = $self->get_library;
+  my $syntax             = $library->get_syntax;
   my $lines              = [];  # Extracted lines
   my $div_stack          = [];  # stack of division names
   my $in_comment         = 0;   # in a comment division?
@@ -359,9 +359,8 @@ sub BUILD {
   my $filespec = $file->get_filespec;
   my $from     = $self->_get_included_from_line;
   my $lines    = $self->_read_file($file,$from);
-  my $sml      = SML->instance;
-  my $util     = $sml->get_util;
   my $library  = $self->get_library;
+  my $util     = $library->get_util;
 
   $self->_set_line_list($lines);
   $self->set_id($filespec);
@@ -370,28 +369,6 @@ sub BUILD {
 
   return 1;
 }
-
-######################################################################
-
-# override '_validate_semantics' => sub {
-
-#   my $self = shift;
-
-#   my $valid    = super();
-#   my $sml      = SML->instance;
-#   my $util     = $sml->get_util;
-#   my $library  = $self->get_library;
-#   my $filespec = $self->get_file->get_filespec;
-
-#   foreach my $resource (values %{ $self->_get_resource_hash })
-#     {
-#       if ( not $resource->is_valid ) {
-# 	$valid = 0;
-#       }
-#     }
-
-#   return $valid;
-# };
 
 ######################################################################
 
@@ -407,11 +384,10 @@ sub _read_file {
   my $file          = shift;
   my $included_from = shift;
 
-  my $sml           = SML->instance;
-  my $syntax        = $sml->get_syntax;
-  my $util          = $sml->get_util;
-  my $options       = $util->get_options;
   my $library       = $self->get_library;
+  my $syntax        = $library->get_syntax;
+  my $util          = $library->get_util;
+  my $options       = $util->get_options;
   my $filespec      = $file->get_filespec;
   my $filename      = $file->get_filename;
   my $directories   = $file->get_directories;

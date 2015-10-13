@@ -18,7 +18,6 @@ use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Ontology');
 
-use SML;
 use SML::OntologyRule;
 
 ######################################################################
@@ -743,8 +742,9 @@ sub _read_rule_file {
       return 0;
     }
 
-  my $sml       = SML->instance;
-  my $syntax    = $sml->get_syntax;
+  my $library   = $self->get_library;
+  my $syntax    = $library->get_syntax;
+  my $util      = $library->get_util;
   my $line_list = [];
 
   open my $fh, '<', $filespec or croak("Couldn't open $filespec");
@@ -765,8 +765,6 @@ sub _read_rule_file {
 	  next;
 	}
 
-      my $sml             = SML->instance;
-      my $util            = $sml->get_util;
       my $csv             = Text::CSV->new();
       my $status          = $csv->parse($line);
       my $field           = [ $csv->fields() ];

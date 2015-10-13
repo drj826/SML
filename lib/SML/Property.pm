@@ -42,13 +42,19 @@ has 'name' =>
 
 ######################################################################
 
+has 'library' =>
+  (
+   isa      => 'SML::Library',
+   reader   => 'get_library',
+   required => 1,
+  );
+
+######################################################################
+
 has 'element_list' =>
   (
    isa       => 'ArrayRef',
    reader    => 'get_element_list',
-   # writer    => '_set_element_list',
-   # clearer   => '_clear_element_list',
-   # predicate => '_has_element_list',
    default   => sub {[]},
   );
 
@@ -96,9 +102,9 @@ sub get_value {
 
   my $values  = [];
   my $name    = $self->get_name;
-  my $sml     = SML->instance;
-  my $syntax  = $sml->get_syntax;
-  my $util    = $sml->get_util;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
   my $options = $util->get_options;
 
   if (
@@ -188,13 +194,12 @@ sub get_elements_as_enum_list {
 
   my $self = shift;
 
-  my $sml     = SML->instance;
-  my $util    = $sml->get_util;
+  my $library = $self->get_library;
+  my $util    = $library->get_util;
 
   foreach my $element (@{ $self->get_element_list })
     {
-      my $library = $element->get_library;
-      my $value   = $element->get_value;
+      my $value = $element->get_value;
 
       # is this element value actually a division ID?
       #

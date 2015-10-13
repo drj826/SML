@@ -22,7 +22,6 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Parser');
 
 # core classes
-use SML;                        # ci-000002
 use SML::Options;               # ci-000382
 use SML::File;                  # ci-000384
 use SML::Line;                  # ci-000385
@@ -137,18 +136,24 @@ sub parse {
 
   my $line_list = $self->_get_line_list_for_id($id);
 
+  if ( not $line_list )
+    {
+      $logger->error("DIVISION HAS NO LINE LIST \'$id\'");
+      return 0;
+    }
+
   $self->_set_line_list( $line_list );
 
   do
     {
-      # line-oriented processing...
+      # line-oriented processing
       $self->_resolve_includes  while $self->_contains_include;
       $self->_run_scripts       while $self->_contains_script;
 
-      # parse lines into blocks and divisions...
+      # parse lines into blocks and divisions
       $self->_parse_lines;
 
-      # block-oriented processing...
+      # block-oriented processing
       $self->_insert_content       if $self->_contains_insert;
       $self->_resolve_templates    if $self->_contains_template;
       $self->_resolve_lookups      if $self->_contains_lookup;
@@ -197,8 +202,8 @@ sub create_string {
       $part = $self->_get_part;
     }
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
   my $string_type = $self->_get_string_type($text);
 
@@ -787,9 +792,9 @@ sub extract_division_name {
   my $self  = shift;
   my $lines = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $text   = $lines->[0]->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $lines->[0]->get_content;
 
   if ( $text =~ /$syntax->{start_division}/ )
     {
@@ -829,9 +834,9 @@ sub extract_division_id {
   my $self  = shift;
   my $lines = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $text   = $lines->[0]->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $lines->[0]->get_content;
 
   # !!! BUG HERE !!!
   #
@@ -871,8 +876,8 @@ sub extract_title_text {
   my $self  = shift;
   my $lines = shift;
 
-  my $sml         = SML->instance;
-  my $syntax      = $sml->get_syntax;
+  my $library     = $self->get_library;
+  my $syntax      = $library->get_syntax;
   my $in_data_segment = 1;
   my $in_title    = 0;
   my $first_line  = 1;
@@ -942,7 +947,7 @@ sub extract_title_text {
 	}
 
       # data segment ending text?
-      elsif ( _line_ends_data_segment($text) )
+      elsif ( $self->_line_ends_data_segment($text) )
 	{
 	  return $title_text;
 	}
@@ -972,9 +977,8 @@ sub extract_data_segment_lines {
   my $self  = shift;
   my $lines = shift;
 
-  my $sml                 = SML->instance;
-  my $syntax              = $sml->get_syntax;
   my $library             = $self->get_library;
+  my $syntax              = $library->get_syntax;
   my $ontology            = $library->get_ontology;
   my $data_segment_lines      = [];
   my $divname             = $self->extract_division_name($lines);
@@ -994,7 +998,7 @@ sub extract_data_segment_lines {
       next if $i == 1;                  # skip first line
       last if $i == $last;              # skip last line
 
-      if ( _line_ends_data_segment($text) )
+      if ( $self->_line_ends_data_segment($text) )
 	{
 	  return $data_segment_lines;
 	}
@@ -1064,9 +1068,8 @@ sub extract_narrative_lines {
   my $self  = shift;
   my $lines = shift;
 
-  my $sml                 = SML->instance;
-  my $syntax              = $sml->get_syntax;
   my $library             = $self->get_library;
+  my $syntax              = $library->get_syntax;
   my $ontology            = $library->get_ontology;
   my $narrative_lines     = [];
   my $divname             = $self->extract_division_name($lines);
@@ -1086,7 +1089,7 @@ sub extract_narrative_lines {
       next if $i == 1;                  # skip first line
       last if $i == $last;              # skip last line
 
-      if ( _line_ends_data_segment($text) )
+      if ( $self->_line_ends_data_segment($text) )
 	{
 	  $in_data_segment = 0;
 	}
@@ -1612,8 +1615,8 @@ sub _init {
 
   my $self = shift;
 
-  my $sml     = SML->instance;
-  my $util    = $sml->get_util;
+  my $library = $self->get_library;
+  my $util    = $library->get_util;
   my $options = $util->get_options;
 
   if ( not $options->use_svn )
@@ -1683,6 +1686,12 @@ sub _get_line_list_for_id {
   my $library = $self->get_library;
   my $file    = $library->get_file_containing_id($id);
 
+  if ( not $file )
+    {
+      $logger->error("NO FILE CONTAINS ID \'$id\'");
+      return 0;
+    }
+
   my $file_line_list = $file->get_line_list;
 
   return $self->_extract_div_line_list($file_line_list,$id);
@@ -1705,8 +1714,7 @@ sub _create_empty_division {
 
   if ( $name eq 'SECTION' )
     {
-      my $sml    = SML->instance;
-      my $syntax = $sml->get_syntax;
+      my $syntax = $library->get_syntax;
       my $line   = $line_list->[0];
       my $text   = $line->get_content;
 
@@ -1734,8 +1742,8 @@ sub _extract_div_line_list {
   my $line_list = shift;                # lines from which to extract division
   my $target_id = shift;                # ID of division to be extracted
 
-  my $sml                = SML->instance;
-  my $syntax             = $sml->get_syntax;
+  my $library            = $self->get_library;
+  my $syntax             = $library->get_syntax;
   my $lines              = [];  # Extracted lines
   my $div_stack          = [];  # stack of division names
   my $in_comment         = 0;   # in a comment division?
@@ -1834,409 +1842,15 @@ sub _extract_div_line_list {
 
 ######################################################################
 
-# sub _old_resolve_includes {
-
-#   # Scan lines, replace 'include' requests with 'included' lines.
-
-#   my $self = shift;
-
-#   my $sml            = SML->instance;
-#   my $syntax         = $sml->get_syntax;
-#   my $util           = $sml->get_util;
-#   my $library        = $self->get_library;
-#   my $count_method   = $self->_get_count_method_hash;
-#   my $options        = $util->get_options;
-#   my $max_iterations = $options->get_MAX_RESOLVE_INCLUDES;
-#   my $count          = ++ $count_method->{'_resolve_includes'};
-#   my $newlines       = [];
-#   my $oldlines       = $self->_get_line_list;
-#   my $in_comment     = 0;
-#   my $depth          = 1;
-
-#   $logger->info("($count) resolve includes");
-
-#   if ( $count > $max_iterations )
-#     {
-#       my $msg = "EXCEEDED MAX ITERATIONS ($max_iterations)";
-#       $logger->logcroak("$msg");
-#     }
-
-#  LINE:
-#   foreach my $oldline (@{ $oldlines })
-#     {
-#       my $text     = $oldline->get_content;
-#       my $location = $oldline->get_location;
-
-#       $text =~ s/[\r\n]*$//;            # chomp;
-
-#       #---------------------------------------------------------------
-#       # Ignore comments in containing document
-#       #
-#       if ( $text =~ /$syntax->{comment_marker}/ )
-# 	{
-# 	  if ( $in_comment )
-# 	    {
-# 	      $in_comment = 0;
-# 	    }
-
-# 	  else
-# 	    {
-# 	      $in_comment = 1;
-# 	    }
-
-# 	push @{ $newlines }, $oldline;
-# 	next LINE;
-
-#       }
-
-#       elsif ( $in_comment )
-# 	{
-# 	  push @{ $newlines }, $oldline;
-# 	  next LINE;
-# 	}
-
-#       elsif ( $text =~ /$syntax->{'comment_line'}/ )
-# 	{
-# 	  push @{ $newlines }, $oldline;
-# 	  next LINE;
-# 	}
-
-#       #---------------------------------------------------------------
-#       # ELSIF include statement
-#       #
-#       elsif ( $text =~ /$syntax->{include_element}/ )
-# 	{
-# 	  my $asterisks         = $1 || '';
-# 	  my $args              = $2 || '';
-# 	  my $incl_id           = '';
-# 	  my $included_filespec = '';
-# 	  my $included_lines    = undef;
-# 	  my $fragment          = undef;
-# 	  my $division          = undef;
-
-# 	  $logger->trace("  include element 1:$1 2:$2 3:$3 4:$4 5:$5");
-
-# 	  #-----------------------------------------------------------
-# 	  # Determine Division ID and Filespec
-# 	  #
-# 	  #   If the include statement syntax has BOTH a division ID
-# 	  #   AND a filespec the author's intent is to extract the
-# 	  #   division from the fragment.
-# 	  #
-# 	  if ( $3 and $5 )
-# 	    {
-# 	      $incl_id           = $3;
-# 	      $included_filespec = $5;
-# 	    }
-
-# 	  elsif ( $3 )
-# 	    {
-# 	      $included_filespec = $3;
-# 	    }
-
-# 	  #-----------------------------------------------------------
-# 	  # Get Fragment From Library Or Die
-# 	  #
-# 	  #   The fragment object should have been created by the
-# 	  #   SML::Fragment::_read_file method and added to the
-# 	  #   library when the fragment was created.
-# 	  #
-# 	  if ( $library->has_fragment( $included_filespec ) )
-# 	    {
-# 	      $fragment = $library->get_fragment( $included_filespec );
-# 	    }
-
-# 	  else
-# 	    {
-# 	      $logger->logcroak("RESOURCE DETECTED BY _resolve_includes: \'$included_filespec\'");
-# 	    }
-
-# 	  #-----------------------------------------------------------
-# 	  # Get Division (If Necessary)
-# 	  #
-# 	  if ( $incl_id and not $library->has_division( $incl_id ) )
-# 	    {
-# 	      $logger->trace("  library DOESN'T have division $incl_id, extracting it from fragment...");
-# 	      $included_lines = $fragment->extract_division_lines( $incl_id );
-# 	    }
-
-# 	  elsif ( $incl_id and $library->has_division( $incl_id ) )
-# 	    {
-# 	      $logger->trace("  library HAS division $incl_id");
-# 	      $division = $library->get_division($incl_id);
-# 	      $included_lines = $division->get_line_list;
-# 	    }
-
-# 	  #-----------------------------------------------------------
-# 	  # IF (1) division is in the library AND (2) one or more
-# 	  # asterisks are present in arguments, THEN include parsed
-# 	  # division as section
-# 	  #
-# 	  if (
-# 	      $division
-# 	      and
-# 	      (
-# 	       $asterisks =~ /(\*+)/
-# 	       or
-# 	       $args =~ /(\*+):/
-# 	      )
-# 	     )
-# 	    {
-# 	      my $asterisks  = $1;
-# 	      my $level      = length($asterisks);
-# 	      my $title      = $division->get_property_value('title');
-# 	      my $narrative  = $division->get_narrative_line_list;
-# 	      my $sechead    = $self->_sechead_line($asterisks,$title);
-
-# 	      push @{ $included_lines }, $sechead;
-# 	      push @{ $included_lines }, $util->get_blank_line;
-
-# 	      foreach my $line (@{ $narrative })
-# 		{
-# 		  push @{ $included_lines }, $line;
-# 		}
-# 	    }
-
-# 	  #-----------------------------------------------------------
-# 	  # IF (1) we have included lines AND (2) one or more
-# 	  # asterisks are present in arguments, THEN include narrative
-# 	  # part of extracted division lines as section
-# 	  #
-# 	  elsif (
-# 	      $included_lines
-# 	      and
-# 	      (
-# 	       $asterisks =~ /(\*+)/
-# 	       or
-# 	       $args =~ /(\*+):/
-# 	      )
-# 	     )
-# 	    {
-# 	      my $asterisks = $1;
-# 	      my $level     = length($asterisks);
-# 	      my $title     = $self->extract_title_text($included_lines);
-# 	      my $narrative = $self->extract_narrative_lines($included_lines);
-# 	      my $sechead   = $self->_sechead_line($asterisks,$title);
-# 	      my $replacement_lines = [];
-
-# 	      push @{ $replacement_lines }, $sechead;
-# 	      push @{ $replacement_lines }, $util->get_blank_line;
-
-# 	      foreach my $line (@{ $narrative })
-# 		{
-# 		  push @{ $replacement_lines }, $line;
-# 		}
-
-# 	      $included_lines = $replacement_lines;
-# 	    }
-
-# 	  #-----------------------------------------------------------
-# 	  # include flat
-# 	  #
-# 	  elsif (
-# 		 $division
-# 		 and
-# 		 $args =~ /flat:/
-# 		)
-# 	    {
-# 	      foreach my $line (@{ $division->get_line_list }) {
-# 		my $content = $line->get_content;
-# 		if ($content =~ /^(title::\s|\*+\s)/)
-# 		  {
-# 		    $line = $self->_flatten($line);
-# 		  }
-# 		push( @{ $included_lines }, $line );
-# 	      }
-# 	    }
-
-# 	  #-----------------------------------------------------------
-# 	  # include hide
-# 	  #
-# 	  elsif (
-# 		 $division
-# 		 and
-# 		 $args =~ /hide:/
-# 		)
-# 	    {
-# 	      my $begin_line = $self->_hide_tag;
-# 	      my $end_line   = $self->_hide_tag;
-
-# 	      push @{ $included_lines }, $begin_line;
-
-# 	      foreach my $line (@{ $division->get_line_list })
-# 		{
-# 		  push @{ $included_lines }, $line;
-# 		}
-
-# 	      push @{ $included_lines }, $end_line;
-# 	    }
-
-# 	  #-----------------------------------------------------------
-# 	  # include raw
-# 	  #
-# 	  elsif (
-# 		 $division
-# 		 and
-# 		 $args =~ /raw:/
-# 		)
-# 	    {
-# 	      foreach my $line (@{ $division->get_line_list })
-# 		{
-# 		  push @{ $included_lines }, $line;
-# 		}
-# 	    }
-
-# 	  #-----------------------------------------------------------
-# 	  # default
-# 	  #
-# 	  elsif ( $division )
-# 	    {
-# 	      my $asterisks  = '';
-# 	      $asterisks .= '*' until length($asterisks) == $depth;
-
-# 	      my $title      = $division->get_property_value('title');
-# 	      my $narrative  = $division->get_narrative_line_list;
-# 	      my $sechead    = $self->_sechead_line($asterisks,$title);
-
-# 	      push @{ $included_lines }, $sechead;
-# 	      push @{ $included_lines }, $util->get_blank_line;
-
-# 	      foreach my $line (@{ $narrative })
-# 		{
-# 		  push @{ $included_lines }, $line;
-# 		}
-# 	    }
-
-# 	  else # NOT $incl_id
-# 	    {
-# 	      my $fragment = undef;
-
-# 	      if ( $library->has_fragment($included_filespec) )
-# 		{
-# 		  $fragment = $library->get_fragment($included_filespec);
-
-# 		  foreach my $line (@{ $fragment->get_line_list })
-# 		    {
-# 		      push @{ $included_lines }, $line;
-# 		    }
-# 		}
-
-# 	      else
-# 		{
-# 		  $logger->warn("LIBRARY DOESN'T HAVE FRAGMENT: \'$included_filespec\' at $location");
-# 		}
-# 	    }
-
-# 	  foreach my $line (@{ $included_lines })
-# 	    {
-# 	      push @{ $newlines }, $line;
-# 	    }
-# 	}
-
-#       #---------------------------------------------------------------
-#       # Section headings (to track current depth)
-#       #
-#       elsif ( $text =~ /^(\*+)/ )
-# 	{
-# 	  $depth = length($1);
-# 	  push @{ $newlines }, $oldline;
-# 	  next LINE;
-# 	}
-
-#       # no include statement on this line
-#       else
-# 	{
-# 	  push @{ $newlines }, $oldline;
-# 	}
-#     }
-
-#   $self->_set_line_list($newlines);
-
-#   return 1;
-# }
-
-#---------------------------------------------------------------------
-#
-#   There are six variations on how a file can be included: (1)
-#   default, (2) flat, (3) section, (4) region, (5) hide, and (6) raw:
-#
-#   (1) default
-#
-#       The default behavior is to include a file ``as-is'' with the
-#       exception that the document title is converted to a section
-#       heading at the same section depth as the previous section
-#       heading.
-#
-#         include:: my-file.txt
-#
-#   (2) flat
-#
-#       On rare occasions, you may wish to convert all section
-#       headings in the included file to simple bold text to
-#       "flatten" the section structure.
-#
-#         include::flat: my-sectioned-file.txt
-#
-#   (3) section
-#
-#       Many files have titles.  Titles of included files become
-#       section headings in the containing document.  Section
-#       heading in included files become sub-section headings in the
-#       containing document.
-#
-#       In SML, section headings are indicated using one or more
-#       asterisks at the beginning of a line.  You can choose the
-#       section heading level of the included file title using the
-#       following syntax.
-#
-#         include::*: my-section.txt
-#
-#         include::**: my-subsection.txt
-#
-#         include::***: my-subsubsection.txt
-#
-#   (4) region
-#
-#       There are some special cases when you need to include a file
-#       as a document region such as an exercise, demo, problem, or
-#       solution.  For instance, if you want to include a file as an
-#       exercise, use the syntax:
-#
-#         include::exercise: my-exercise.txt
-#
-#   (5) hide
-#
-#       Occasionally you may need meta-data from included regions,
-#       (i.e. data elements such as titles and descriptions) even
-#       though you DON'T want the region to appear in the published
-#       document.  In other words, you want to include, but hide,
-#       the included file's content:
-#
-#         include::problem:hide: my-problem-for-reference.txt
-#
-#         include::hide: my-hidden-file.txt
-#
-#   (6) raw
-#
-#       If the included file contains an environment like a table or
-#       listing the author needs it included in it's 'raw' state.
-#       In other words, don't convert the title to a section, and
-#       also don't convert the title to a bold string.
-#
-#         include::raw: my-table.txt
-#
-#---------------------------------------------------------------------
-
-######################################################################
-
 sub _resolve_includes {
 
   my $self = shift;
 
   my $count_method   = $self->_get_count_method_hash;
   my $count          = ++ $count_method->{'_resolve_includes'};
-  my $sml            = SML->instance;
-  my $util           = $sml->get_util;
+  my $library        = $self->get_library;
+  my $syntax         = $library->get_syntax;
+  my $util           = $library->get_util;
   my $options        = $util->get_options;
   my $max_iterations = $options->get_MAX_RESOLVE_INCLUDES;
 
@@ -2248,7 +1862,6 @@ sub _resolve_includes {
       $logger->logcroak("$msg");
     }
 
-  my $syntax         = $sml->get_syntax;
   my $in_comment     = 0;
   my $depth          = 1;
   my $old_line_list  = $self->_get_line_list;
@@ -2291,7 +1904,7 @@ sub _resolve_includes {
       # resolve include line into replacement lines
       elsif ( $text =~ /$syntax->{include_element}/ )
 	{
-	  my $repl_line_list = $self->_resolve_include_line($depth,$1,$2,$3,$4,$5);
+	  my $repl_line_list = $self->_resolve_include_line($old_line,$depth,$1,$2,$3,$4,$5);
 	  foreach my $repl_line (@{ $repl_line_list })
 	    {
 	      push @{ $new_line_list }, $repl_line;
@@ -2337,15 +1950,14 @@ sub _run_scripts {
 
   my $self = shift;
 
-  my $sml            = SML->instance;
-  my $syntax         = $sml->get_syntax;
-  my $util           = $sml->get_util;
+  my $library        = $self->get_library;
+  my $syntax         = $library->get_syntax;
+  my $util           = $library->get_util;
   my $count_method   = $self->_get_count_method_hash;
   my $newlines       = [];
   my $oldlines       = $self->_get_line_list;
   my $gen_content    = $self->_get_gen_content_hash;
   my $options        = $util->get_options;
-  my $library        = $self->get_library;
   my $glossary       = $library->get_glossary;
   my $max_iterations = $options->get_MAX_RUN_SCRIPTS;
   my $count          = ++ $count_method->{'_run_scripts'};
@@ -2459,9 +2071,9 @@ sub _parse_lines {
 
   my $self = shift;
 
-  my $sml            = SML->instance;
-  my $syntax         = $sml->get_syntax;
-  my $util           = $sml->get_util;
+  my $library        = $self->get_library;
+  my $syntax         = $library->get_syntax;
+  my $util           = $library->get_util;
   my $options        = $util->get_options;
   my $count_method   = $self->_get_count_method_hash;
   my $max_iterations = $options->get_MAX_PARSE_LINES;
@@ -2558,6 +2170,7 @@ sub _parse_lines {
       elsif ( $text =~ /$syntax->{start_division}/ )
 	{
 	  # $1 = division name
+	  # $2
 	  # $3 = divisioin ID
 	  $self->_process_start_division_marker($line,$1,$3);
 	}
@@ -2568,24 +2181,13 @@ sub _parse_lines {
 	  $self->_process_end_division_marker($line,$1);
 	}
 
-      # elsif ( $text =~ /$syntax->{start_region}/ )
-      # 	{
-      # 	  $self->_process_start_region_marker($line,$2);
-      # 	}
-
-      # elsif ( $text =~ /$syntax->{end_region}/ )
-      # 	{
-      # 	  $self->_process_end_region_marker($line,$2);
-      # 	}
-
-      # elsif ( $text =~ /$syntax->{start_environment}/ )
-      # 	{
-      # 	  $self->_process_environment_marker($line,$2);
-      # 	}
-
       elsif ( $text =~ /$syntax->{start_section}/ )
 	{
-	  $self->_process_section_heading($line,length($1));
+	  # $1 = asterisks
+	  # $2
+	  # $3 = section ID
+	  # $4 = section heading
+	  $self->_process_section_heading($line,$1,$3,$4);
 	}
 
       elsif ( $text =~ /$syntax->{end_table_row}/ )
@@ -2593,48 +2195,82 @@ sub _parse_lines {
 	  $self->_process_end_table_row($line);
 	}
 
-      # elsif ( $text =~ /$syntax->{id_element}/ )
-      # 	{
-      # 	  $self->_process_id_element($line,$2);
-      # 	}
-
       elsif ( $text =~ /$syntax->{note_element}/ )
 	{
+	  # $1 = note type (note or footnote)
+	  # $2 = tag
+	  # $3
+	  # $4 = division ID (optional)
+	  # $5 = note text
+	  # $6
+	  # $7 = comment text
 	  $self->_process_start_note($line,$2);
 	}
 
       elsif ( $text =~ /$syntax->{glossary_element}/ )
 	{
+	  # $1 = tag name
+	  # $2 = glossary term
+	  # $3
+	  # $4 = alt namespace
+	  # $5 = definition text
+	  # $6
+	  # $7 = comment text
 	  $self->_process_start_glossary_entry($line,$1,$3);
 	}
 
       elsif ( $text =~ /$syntax->{acronym_element}/ )
 	{
+	  # $1 = tag name
+	  # $2 = acronym
+	  # $3
+	  # $4 = alt namespace
+	  # $5 = acronym definition
+	  # $6
+	  # $7 = comment text
 	  $self->_process_start_acronym_entry($line,$1,$3);
 	}
 
       elsif ( $text =~ /$syntax->{variable_element}/ )
 	{
+	  # $1 = tag name
+	  # $2 = variable name
+	  # $3
+	  # $4 = alt namespace
+	  # $5= variable value
+	  # $6
+	  # $7 = comment text
 	  $self->_process_start_variable_definition($line,$1,$3);
 	}
 
       elsif ( $text =~ /$syntax->{element}/ )
 	{
+	  # $1 = element name
+	  # $2 = args
+	  # $3 = element value
+	  # $4
+	  # $5 = comment text
 	  $self->_process_element($line,$1);
 	}
 
       elsif ( $text =~ /$syntax->{bull_list_item}/ )
 	{
+	  # $1 = whitespace
+	  # $2 = text
 	  $self->_process_bull_list_item($line);
 	}
 
       elsif ( $text =~ /$syntax->{enum_list_item}/ )
 	{
+	  # $1 = whitespace
+	  # $2 = text
 	  $self->_process_enum_list_item($line);
 	}
 
       elsif ( $text =~ /$syntax->{def_list_item}/ )
 	{
+	  # $1 = term
+	  # $2 = definition
 	  $self->_process_def_list_item($line);
 	}
 
@@ -2678,7 +2314,6 @@ sub _parse_lines {
   $self->_generate_section_numbers;
   $self->_generate_division_numbers;
 
-  my $library  = $self->get_library;
   my $reasoner = $library->get_reasoner;
   $reasoner->infer_status_from_outcomes;
 
@@ -2710,7 +2345,11 @@ sub _process_segment_separator_line {
 
   $logger->trace("----- segment separator");
 
-  return if not $self->_in_data_segment;
+  if ( not $self->_in_data_segment )
+    {
+      my $location = $line->get_location;
+      $logger->error("SEGMENT SEPARATOR FOUND WHEN NOT IN DATA SEGMENT at $location");
+    }
 
   # new preformatted block
   my $block = SML::PreformattedBlock->new(name=>$name,library=>$library);
@@ -2733,11 +2372,15 @@ sub _begin_division {
   my $self     = shift;
   my $division = shift;
 
+  if ( not $self->_has_division )
+    {
+      $self->_set_division($division);
+    }
+
   my $name    = $division->get_name;
   my $type    = ref $division;
-  my $sml     = SML->instance;
-  my $util    = $sml->get_util;
   my $library = $self->get_library;
+  my $util    = $library->get_util;
 
   $logger->trace("..... begin division $type");
 
@@ -2752,7 +2395,6 @@ sub _begin_division {
   $self->_begin_data_segment;
 
   # add this division to the one it is part of
-  #
   my $containing_division = $self->_get_current_division;
 
   if ( defined $containing_division)
@@ -2859,43 +2501,10 @@ sub _end_division {
 
   my $division = $self->_get_current_division;
   my $type     = ref $division;
-  my $sml      = SML->instance;
-  my $util     = $sml->get_util;
   my $library  = $self->get_library;
+  my $util     = $library->get_util;
 
   return 0 if not $division;
-
-  # if ( $division->isa('SML::Fragment') )
-  #   {
-  #     while ( $self->_in_region )
-  # 	{
-  # 	  $self->_end_division;
-  # 	}
-
-  #     if ( $self->_in_environment )
-  # 	{
-  # 	  $self->_end_division;
-  # 	}
-  #   }
-
-  # if ( $division->isa('SML::Document') )
-  #   {
-  #     while (
-  # 	     $self->_in_region
-  # 	     and
-  # 	     $self->_in_document
-  # 	     and
-  # 	     $self->_current_region ne $self->_current_document
-  # 	    )
-  # 	{
-  # 	  $self->_end_division;
-  # 	}
-
-  #     if ( $self->_in_environment )
-  # 	{
-  # 	  $self->_end_division;
-  # 	}
-  #   }
 
   if ( $division->isa('SML::TableRow') )
     {
@@ -3094,17 +2703,17 @@ sub _end_table {
 
 ######################################################################
 
-sub _end_section {
+# sub _end_section {
 
-  my $self = shift;
+#   my $self = shift;
 
-  return if not $self->_in_section;
+#   return if not $self->_in_section;
 
-  $self->_end_division;
+#   $self->_end_division;
 
-  return 1;
+#   return 1;
 
-}
+# }
 
 ######################################################################
 
@@ -3117,8 +2726,8 @@ sub _begin_default_section {
   $logger->trace("..... begin default section");
 
   my $division = $self->_get_current_division;
-  my $sml      = SML->instance;
-  my $util     = $sml->get_util;
+  my $library  = $self->get_library;
+  my $util     = $library->get_util;
   my $section  = $util->get_default_section;
 
   $self->_begin_division($section);
@@ -3134,16 +2743,15 @@ sub _insert_content {
 
   my $self = shift;
 
-  my $sml            = SML->instance;
-  my $syntax         = $sml->get_syntax;
-  my $util           = $sml->get_util;
+  my $library        = $self->get_library;
+  my $syntax         = $library->get_syntax;
+  my $util           = $library->get_util;
   my $newlines       = [];
   my $division       = $self->_get_division;
   my $count_method   = $self->_get_count_method_hash;
   my $oldlines       = $self->_get_line_list;
   my $gen_content    = $self->_get_gen_content_hash;
   my $options        = $util->get_options;
-  my $library        = $self->get_library;
   my $glossary       = $library->get_glossary;
   my $max_iterations = $options->get_MAX_INSERT_CONTENT;
   my $count          = ++ $count_method->{'_insert_content'};
@@ -3173,7 +2781,7 @@ sub _insert_content {
 
 	  $logger->trace("$name $args");
 
-	  if ( not $sml->allows_insert($name) )
+	  if ( not $library->allows_insert($name) )
 	    {
 	      $logger->error("UNKNOWN INSERT NAME at $location: \"$name\"");
 	      $division->_set_is_valid(0);
@@ -3315,11 +2923,10 @@ sub _substitute_variables {
 
   my $self = shift;
 
-  my $sml            = SML->instance;
-  my $syntax         = $sml->get_syntax;
-  my $util           = $sml->get_util;
-  my $options        = $util->get_options;
   my $library        = $self->get_library;
+  my $syntax         = $library->get_syntax;
+  my $util           = $library->get_util;
+  my $options        = $util->get_options;
   my $division       = $self->_get_division;
   my $block_list     = $division->get_block_list;
   my $count_method   = $self->_get_count_method_hash;
@@ -3388,16 +2995,15 @@ sub _resolve_lookups {
 
   my $self = shift;
 
+  my $library        = $self->get_library;
+  my $syntax         = $library->get_syntax;
+  my $util           = $library->get_util;
   my $count_method   = $self->_get_count_method_hash;
   my $division       = $self->_get_division;
   my $block_list     = $division->get_block_list;
-  my $sml            = SML->instance;
-  my $syntax         = $sml->get_syntax;
-  my $util           = $sml->get_util;
   my $options        = $util->get_options;
   my $max_iterations = $options->get_MAX_RESOLVE_LOOKUPS;
   my $count          = ++ $count_method->{'_resolve_lookups'};
-  my $library        = $self->get_library;
 
   $logger->info("($count) resolve lookups");
 
@@ -3457,9 +3063,9 @@ sub _resolve_templates {
 
   my $self = shift;
 
-  my $sml            = SML->instance;
-  my $syntax         = $sml->get_syntax;
-  my $util           = $sml->get_util;
+  my $library        = $self->get_library;
+  my $syntax         = $library->get_syntax;
+  my $util           = $library->get_util;
   my $division       = $self->_get_division;
   my $count_method   = $self->_get_count_method_hash;
   my $newlines       = [];
@@ -3533,7 +3139,7 @@ sub _resolve_templates {
 	  else
 	    {
 	      # read template file
-	      my $file = SML::File->new(filespec=>$template);
+	      my $file = SML::File->new(filespec=>$template,library=>$library);
 	      if ( not $file->validate )
 		{
 		  my $location = $line->get_location;
@@ -3597,9 +3203,9 @@ sub _generate_content {
 
   my $self = shift;
 
-  my $sml            = SML->instance;
-  my $syntax         = $sml->get_syntax;
-  my $util           = $sml->get_util;
+  my $library        = $self->get_library;
+  my $syntax         = $library->get_syntax;
+  my $util           = $library->get_util;
   my $count_method   = $self->_get_count_method_hash;
   my $to_be_gen      = $self->_get_to_be_gen_hash;
   my $gen_content    = $self->_get_gen_content_hash;
@@ -3944,9 +3550,8 @@ sub _end_element {
   my $self    = shift;
   my $element = shift;
 
-  my $sml      = SML->instance;
-  my $util     = $sml->get_util;
   my $library  = $self->get_library;
+  my $util     = $library->get_util;
   my $name     = $element->get_name;
   my $division = $element->get_containing_division;
   my $divname  = $division->get_name;
@@ -4043,8 +3648,8 @@ sub _contains_include {
 
   my $self = shift;
 
-  my $sml            = SML->instance;
-  my $syntax         = $sml->get_syntax;
+  my $library        = $self->get_library;
+  my $syntax         = $library->get_syntax;
   my $in_comment     = 0;
   my $in_conditional = '';
 
@@ -4098,8 +3703,8 @@ sub _contains_script {
 
   my $self = shift;
 
-  my $sml        = SML->instance;
-  my $syntax     = $sml->get_syntax;
+  my $library    = $self->get_library;
+  my $syntax     = $library->get_syntax;
   my $in_comment = 0;
 
  LINE:
@@ -4154,8 +3759,8 @@ sub _contains_insert {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
   my $division     = $self->_get_division;
   my $element_list = $division->get_element_list;
@@ -4187,8 +3792,8 @@ sub _contains_variable {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
   my $division   = $self->_get_division;
   my $block_list = $division->get_block_list;
@@ -4223,8 +3828,8 @@ sub _contains_lookup {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
   my $division   = $self->_get_division;
   my $block_list = $division->get_block_list;
@@ -4259,8 +3864,8 @@ sub _contains_template {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
   my $division   = $self->_get_division;
   my $block_list = $division->get_block_list;
@@ -4317,8 +3922,8 @@ sub _text_requires_processing {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
   if ( $self->_requires_processing )
     {
@@ -4440,9 +4045,8 @@ sub _traceability_matrix {
   my $self = shift;
   my $name = shift;                     # problem, solution, test...
 
-  my $sml     = SML->instance;
-  my $util    = $sml->get_util;
   my $library = $self->get_library;
+  my $util    = $library->get_util;
   my $text    = q{};
 
   # Generate and return the structured manuscript language (SML) text
@@ -4915,9 +4519,8 @@ sub _generate_prioritized_problem_listing {
 
   my $self = shift;
 
-  my $sml         = SML->instance;
-  my $util        = $sml->get_util;
   my $library     = $self->get_library;
+  my $util        = $library->get_util;
   my $lookup      = $library->get_lookup_hash;
   my $count_total = $self->_get_count_total_hash;
 
@@ -5046,7 +4649,7 @@ END_OF_TEXT
       $priority_color = 'grey'   if $priority eq 'low';
 
       my $title_description_info =
-	SML->instance-util->wrap("!!$title:!! $description ~~$info~~");
+	$util->wrap("!!$title:!! $description ~~$info~~");
 
       $text .= <<"END_OF_TEXT";
 : $title_description_info
@@ -5074,9 +4677,8 @@ sub _generate_prioritized_solution_listing {
 
   my $self = shift;
 
-  my $sml         = SML->instance;
-  my $util        = $sml->get_util;
   my $library     = $self->get_library;
+  my $util        = $library->get_util;
   my $lookup      = $library->get_lookup_hash;
   my $count_total = $self->_get_count_total_hash;
 
@@ -5231,10 +4833,9 @@ sub _generate_associated_problem_listing {
   my $self = shift;
   my $id   = shift;
 
-  my $sml     = SML->instance;
-  my $syntax  = $sml->get_syntax;
-  my $util    = $sml->get_util;
   my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
   my $lookup  = $library->get_lookup_hash;
 
   $logger->trace("$id");
@@ -5305,9 +4906,8 @@ sub _generate_associated_solution_listing {
   my $self = shift;
   my $id   = shift;
 
-  my $sml     = SML->instance;
-  my $util    = $sml->get_util;
   my $library = $self->get_library;
+  my $util    = $library->get_util;
   my $lookup  = $library->get_lookup_hash;
 
   $logger->trace("$id");
@@ -5418,9 +5018,8 @@ sub _divname_for {
   my $self = shift;
   my $id   = shift;
 
-  my $sml     = SML->instance;
-  my $util    = $sml->get_util;
   my $library = $self->get_library;
+  my $util    = $library->get_util;
 
   if ( $library->has_division($id) )
     {
@@ -5499,8 +5098,8 @@ sub _flatten {
   my $self = shift;                     # SML::Parser object
   my $line = shift;                     # SML::Line object
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
   my $content = $line->get_content;
 
@@ -5542,6 +5141,7 @@ sub _add_generate_request {
   my $self    = shift;
   my $element = shift;
 
+  my $library   = $self->get_library;
   my $to_be_gen = $self->_get_to_be_gen_hash;
   my $value     = $element->get_value;
   my $location  = $element->get_location;
@@ -5552,7 +5152,7 @@ sub _add_generate_request {
       my $name = $1;
       my $args = $2 || '';
 
-      if ( SML->instance->allows_generate($name) )
+      if ( $library->allows_generate($name) )
 	{
 	  # GOOD generate request name
 	  my $divid = $element->get_containing_division->get_id || '';
@@ -5587,14 +5187,13 @@ sub _add_review {
   my $self    = shift;
   my $element = shift;
 
-  my $sml      = SML->instance;
-  my $syntax   = $sml->get_syntax;
-  my $util     = $sml->get_util;
+  my $library  = $self->get_library;
+  my $syntax   = $library->get_syntax;
+  my $util     = $library->get_util;
   my $review   = $self->_get_review_hash;
   my $division = $element->get_containing_division;
   my $div_id   = $division->get_id;
   my $location = $element->get_location;
-  my $library  = $self->get_library;
   my $text     = $element->get_content;
 
   $text =~ s/[\r\n]*$//;                # chomp;
@@ -5686,12 +5285,10 @@ sub _add_source {
   my $self     = shift;
   my $division = shift;
 
-  my $id       = $division->get_id;
-  my $sml      = SML->instance;
-  my $util     = $sml->get_util;
-  my $library  = $self->get_library;
+  my $library    = $self->get_library;
+  my $references = $library->get_references;
 
-  $library->get_references->add_source($division);
+  $references->add_source($division);
 
   return 1;
 }
@@ -5710,65 +5307,6 @@ sub _add_template {
 
   return 1;
 }
-
-######################################################################
-
-# sub _add_fragment_to_library {
-
-#   my $self     = shift;
-#   my $filename = shift;
-#   my $fragment = shift;
-
-#   my $sml      = SML->instance;
-#   my $util     = $sml->get_util;
-#   my $library  = $self->get_library;
-
-#   $library->add_fragment($filename,$fragment);
-#
-#   return 1;
-# }
-
-######################################################################
-
-# sub _process_comment_division_marker {
-
-#   my $self = shift;
-#   my $line = shift;
-
-#   $logger->trace("----- comment division marker");
-
-#   my $library = $self->get_library;
-
-#   # new preformatted block
-#   my $block = SML::PreformattedBlock->new(library=>$library);
-#   $block->add_line($line);
-#   $self->_begin_block($block);
-
-#   if ( not $self->_in_comment_division )
-#     {
-#       # new comment division
-#       my $name    = 'comment';
-#       my $num     = $self->_count_comment_divisions;
-#       my $id      = "$name-$num";
-#       my $comment = SML::CommentDivision->new(id=>$id,library=>$library);
-
-#       $comment->add_part($block);
-
-#       $self->_begin_division($comment);
-#     }
-
-#   else
-#     {
-#       # end comment division
-#       my $division = $self->_get_current_division;
-
-#       $division->add_part( $block );
-
-#       $self->_end_division;
-#     }
-
-#   return 1;
-# }
 
 ######################################################################
 
@@ -6271,7 +5809,7 @@ sub _process_end_division_marker {
 
   if ( $name eq 'DOCUMENT' and $self->_in_section )
     {
-      $self->_end_section;
+      $self->_end_division;
     }
 
   # new preformatted block
@@ -6382,12 +5920,15 @@ sub _process_end_division_marker {
 
 sub _process_section_heading {
 
-  my $self  = shift;
-  my $line  = shift;
-  my $depth = shift;
+  my $self      = shift;
+  my $line      = shift;
+  my $asterisks = shift;
+  my $id        = shift;
+  my $heading   = shift;
 
   my $library  = $self->get_library;
   my $location = $line->get_location;
+  my $depth    = length($1);
 
   $logger->trace("----- section heading");
 
@@ -6396,39 +5937,31 @@ sub _process_section_heading {
       $self->_end_baretable;
     }
 
-  # if ( $self->_in_environment )
-  #   {
-  #     my $name = $self->_current_environment->get_name;
-  #     my $msg = "INVALID SECTION HEADING IN ENVIRONMENT at $location: $name";
-  #     $logger->logdie("$msg");
-  #   }
-
-  # if (
-  #     $self->_in_region
-  #     and
-  #     not $self->_current_region eq $self->_current_document
-  #    )
-  #   {
-  #     my $name = $self->_current_region->get_name;
-  #     my $msg = "INVALID SECTION HEADING IN REGION at $location: $name";
-  #     $logger->logdie("$msg");
-  #   }
-
   # end previous section
   if ( $self->_in_section )
     {
-      $self->_end_section;
+      $self->_end_division;
     }
 
   # new title element
   $logger->trace("..... new title");
-  my $element = SML::Element->new(name=>'title',library=>$library);
+
+  my $element = SML::Element->new
+    (
+     name    => 'title',
+     library => $library,
+    );
+
   $element->add_line($line);
   $self->_begin_block($element);
 
+  if ( not $id )
+    {
+      my $num = $self->_count_sections;
+      $id = "section-$num";
+    }
+
   # new section
-  my $num     = $self->_count_sections;
-  my $id      = "section-$num";
   my $section = SML::Section->new
     (
      depth    => $depth,
@@ -6439,11 +5972,6 @@ sub _process_section_heading {
   $section->add_part($element);
 
   $section->add_property_element($element);
-
-  if ( not $self->_has_division )
-    {
-      $self->_set_division($section);
-    }
 
   $self->_begin_division($section);
 
@@ -6528,9 +6056,8 @@ sub _process_id_element {
   my $line = shift;
   my $id   = shift;
 
-  my $sml     = SML->instance;
-  my $util    = $sml->get_util;
   my $library = $self->get_library;
+  my $util    = $library->get_util;
 
   $logger->trace("----- id element ($id)");
 
@@ -6713,9 +6240,8 @@ sub _process_start_glossary_entry {
   my $term = shift;
   my $alt  = shift || '';
 
-  my $sml       = SML->instance;
-  my $util      = $sml->get_util;
   my $library   = $self->get_library;
+  my $util      = $library->get_util;
   my $blockname = 'glossary';
 
   $logger->trace("----- element (glossary)");
@@ -6762,9 +6288,8 @@ sub _process_start_acronym_entry {
   my $term = shift;
   my $alt  = shift || '';
 
-  my $sml       = SML->instance;
-  my $util      = $sml->get_util;
   my $library   = $self->get_library;
+  my $util      = $library->get_util;
   my $document  = $self->_current_document || undef;
 
   my $division = $self->_get_current_division;
@@ -6820,9 +6345,8 @@ sub _process_start_variable_definition {
   my $term = shift;
   my $alt  = shift || '';
 
-  my $sml      = SML->instance;
-  my $util     = $sml->get_util;
   my $library  = $self->get_library;
+  my $util     = $library->get_util;
   my $division = $self->_get_current_division;
   my $divname  = $division->get_name;
 
@@ -6982,11 +6506,6 @@ sub _process_start_table_cell {
   my $library = $self->get_library;
 
   $logger->trace("----- table cell");
-
-  if ( $self->_in_data_segment )
-    {
-      $logger->error("TABLE CELL IN DATA SEGMENT");
-    }
 
   # new block
   my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
@@ -7196,7 +6715,8 @@ sub _process_paragraph_text {
 
       if ( $self->_in_data_segment )
 	{
-	  $logger->error("PARAGRAPH IN DATA SEGMENT");
+	  my $location = $line->get_location;
+	  $logger->error("PARAGRAPH IN DATA SEGMENT at $location");
 	}
 
       if ( $self->_in_baretable )
@@ -8124,12 +7644,27 @@ sub _get_current_division {
 
 sub _line_ends_data_segment {
 
+  my $self = shift;
   my $text = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
-  if ( $text =~ /$syntax->{segment_separator}/xms )
+  if (
+         $text =~ /$syntax->{segment_separator}/xms
+      or $text =~ /$syntax->{start_division}/xms
+      or $text =~ /$syntax->{start_section}/xms
+      or $text =~ /$syntax->{generate_element}/xms
+      or $text =~ /$syntax->{insert_element}/xms
+      or $text =~ /$syntax->{template_element}/xms
+      or $text =~ /$syntax->{include_element}/xms
+      or $text =~ /$syntax->{script_element}/xms
+      or $text =~ /$syntax->{outcome_element}/xms
+      or $text =~ /$syntax->{review_element}/xms
+      or $text =~ /$syntax->{index_element}/xms
+      or $text =~ /$syntax->{glossary_element}/xms
+      or $text =~ /$syntax->{list_item}/xms
+     )
     {
       return 1;
     }
@@ -8149,8 +7684,8 @@ sub _text_contains_substring {
   my $self = shift;
   my $text = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
   if ( $self->_is_single_string($text) )
     {
@@ -8180,17 +7715,17 @@ sub _text_contains_substring {
 sub _get_next_substring_type {
 
   # Given a string that is being gobbled up by the parser, detect the
-  # NEXT substring in the string and return the string type.  Note
-  # that the string may contain several substrings.  This method must
-  # return the string type of the FIRST (i.e. NEXT) substring in the
-  # text.
+  # NEXT substring in the string and return that substring's type.
+  # Note that the string may contain several substrings.  This method
+  # must return the string type of the FIRST (i.e. NEXT) substring in
+  # the text.
 
   my $self = shift;
   my $text = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $href   = {};                      # result hash
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $href    = {};                     # result hash
 
   foreach my $string_type (@{ $self->_get_string_type_list })
     {
@@ -8409,8 +7944,8 @@ sub _parse_next_substring {
   my $part = shift;                     # part to which this text belongs
   my $text = shift;                     # text to parse
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
   my $block;
 
   if ( ref $part and $part->isa('SML::Block') )
@@ -8477,8 +8012,8 @@ sub _get_string_type {
   my $self = shift;
   my $text = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
   foreach my $string_type (@{ $self->_get_string_type_list })
     {
@@ -8537,8 +8072,8 @@ sub _is_single_string {
   my $self = shift;
   my $text = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
   foreach my $symbol (@{ $self->_get_single_string_type_list })
     {
@@ -8594,6 +8129,7 @@ sub _toggle_boolean {
 sub _resolve_include_line {
 
   my $self  = shift;
+  my $line  = shift;                    # include line being resolved
   my $depth = shift;                    # current section depth
   my $one   = shift;                    # leading asterisks
   my $two   = shift;                    # args
@@ -8614,6 +8150,14 @@ sub _resolve_include_line {
   if ( $included_id )
     {
       my $file = $library->get_file_containing_id($included_id);
+
+      if ( not $file )
+	{
+	  my $location = $line->get_location;
+	  $logger->error("NO LIBRARY FILE CONTAINS ID \'$included_id\' at $location");
+	  return 0;
+	}
+
       $line_list = $file->get_line_list;
     }
 
@@ -8714,9 +8258,9 @@ sub _convert_to_section_line_list {
   my $oll   = shift;                    # old line list
   my $depth = shift || 1;               # section depth
 
-  my $sml  = SML->instance;
-  my $util = $sml->get_util;
-  my $nll  = [];                        # new line list
+  my $library = $self->get_library;
+  my $util    = $library->get_util;
+  my $nll     = [];                     # new line list
 
   my $title     = $self->extract_title_text($oll);
   my $narrative = $self->extract_narrative_lines($oll);

@@ -152,9 +152,9 @@ sub BUILD {
 
   my $self = shift;
 
-  my $sml         = SML->instance;
-  my $syntax      = $sml->get_syntax;
   my $ontology    = $self->get_ontology;
+  my $library     = $ontology->get_library;
+  my $syntax      = $library->get_syntax;
   my $id          = $self->get_id;
   my $rule_type   = $self->get_rule_type;
   my $entity_name = $self->get_entity_name;

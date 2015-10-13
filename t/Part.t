@@ -10,6 +10,14 @@ use SML;
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
+# set sml.Library logger to WARN
+my $logger_library = Log::Log4perl::get_logger('sml.Library');
+$logger_library->level('WARN');
+
+# set sml.Parser logger to WARN
+my $logger_parser = Log::Log4perl::get_logger('sml.Parser');
+$logger_parser->level('WARN');
+
 #---------------------------------------------------------------------
 # Test Data
 #---------------------------------------------------------------------
@@ -91,13 +99,8 @@ sub has_part_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $part_id  = $tc->{part_id};
-  my $filename = $tc->{filename};
-  my $docid    = $tc->{docid};
   my $expected = $tc->{expected}{has_part};
-  my $library  = $tc->{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($filename);
-  my $document = $library->get_document($docid);
+  my $document = $tc->{document};
 
   # act
   my $result = $document->has_part($part_id);
@@ -115,13 +118,8 @@ sub get_part_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $part_id  = $tc->{part_id};
-  my $filename = $tc->{filename};
-  my $docid    = $tc->{docid};
   my $expected = $tc->{expected}{get_part};
-  my $library  = $tc->{library};
-  my $parser   = $library->get_parser;
-  my $fragment = $parser->create_fragment($filename);
-  my $document = $library->get_document($docid);
+  my $document = $tc->{document};
 
   # act
   my $result = $document->get_part($part_id);
@@ -151,8 +149,8 @@ sub render_ok {
   my $summary = $result;
   $summary = substr($result,0,20) . '...' if length($result) > 20;
 
-  print "STRUCTURE:\n\n";
-  print $part->dump_part_structure, "\n\n";
+  # print "STRUCTURE:\n\n";
+  # print $part->dump_part_structure, "\n\n";
 
   # assert
   is($result,$expected,"$tcname render $rendition $style \'$summary\'");

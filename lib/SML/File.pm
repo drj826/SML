@@ -52,6 +52,15 @@ has 'filename' =>
 
 ######################################################################
 
+has 'library' =>
+  (
+   isa      => 'SML::Library',
+   reader   => 'get_library',
+   required => 1,
+  );
+
+######################################################################
+
 has 'directories' =>
   (
    isa     => 'Str',
@@ -190,9 +199,10 @@ has 'from_line' =>
 
 sub BUILD {
 
-  my $self     = shift;
-  my $sml      = SML->instance;
-  my $util     = $sml->get_util;
+  my $self = shift;
+
+  my $library  = $self->get_library;
+  my $util     = $library->get_util;
   my $options  = $util->get_options;
 
   if ( $options->use_svn )

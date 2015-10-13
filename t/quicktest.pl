@@ -10,8 +10,10 @@ use lib "../lib";
 
 use SML::Library;
 
-my $library = SML::Library->new(config_filename=>'library.conf');
+my $library = SML::Library->new(config_filename=>'test-library-1.conf');
 
-$library->publish('sml','html','default');
+my $division = $library->get_division('td-000020');
+
+$logger->info( $division->dump_part_structure );
 
 1;

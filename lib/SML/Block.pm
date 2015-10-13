@@ -20,8 +20,6 @@ my $logger = Log::Log4perl::get_logger('sml.Block');
 
 use Cwd;
 
-use SML;                 # ci-000002
-
 ######################################################################
 ######################################################################
 ##
@@ -549,9 +547,10 @@ sub _render_html_internal_references {
 
   my $self   = shift;
   my $html   = shift;
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
 
   return $html if not $html =~ $syntax->{cross_ref};
 
@@ -571,7 +570,6 @@ sub _render_html_internal_references {
       return $html;
     }
 
-  my $library = $self->get_library;
 
   while ( $html =~ $syntax->{cross_ref} ) {
 
@@ -613,8 +611,9 @@ sub _render_html_url_references {
 
   my $self   = shift;
   my $html   = shift;
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
   if ( not $html =~ $syntax->{url_ref} )
     {
@@ -638,8 +637,9 @@ sub _render_html_footnote_references {
 
   my $self   = shift;
   my $html   = shift;
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
   return $html if not $html =~ $syntax->{footnote_ref};
 
@@ -736,11 +736,11 @@ sub _validate_bold_markup_syntax {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $count  = 0;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $count   = 0;
+  my $text    = $self->get_content;
 
   $text = $util->remove_literals($text);
 
@@ -771,11 +771,11 @@ sub _validate_italics_markup_syntax {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $count  = 0;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $count   = 0;
+  my $text    = $self->get_content;
 
   $text = $util->remove_literals($text);
 
@@ -806,11 +806,11 @@ sub _validate_fixedwidth_markup_syntax {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $count  = 0;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $count   = 0;
+  my $text    = $self->get_content;
 
   $text = $util->remove_literals($text);
 
@@ -841,11 +841,11 @@ sub _validate_underline_markup_syntax {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $count  = 0;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $count   = 0;
+  my $text    = $self->get_content;
 
   $text = $util->remove_literals($text);
 
@@ -876,11 +876,11 @@ sub _validate_superscript_markup_syntax {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $count  = 0;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $count   = 0;
+  my $text    = $self->get_content;
 
   $text = $util->remove_literals($text);
 
@@ -911,11 +911,11 @@ sub _validate_subscript_markup_syntax {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $count  = 0;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $count   = 0;
+  my $text    = $self->get_content;
 
   $text = $util->remove_literals($text);
 
@@ -946,11 +946,11 @@ sub _validate_inline_tags {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $valid  = 1;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $valid   = 1;
+  my $text    = $self->get_content;
 
   $text = $util->remove_literals($text);
   $text = $util->remove_keystroke_symbols($text);
@@ -982,10 +982,10 @@ sub _validate_cross_ref_syntax {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if (
       not
@@ -1031,10 +1031,10 @@ sub _validate_cross_ref_semantics {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if (
       not
@@ -1094,10 +1094,10 @@ sub _validate_id_ref_syntax {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if (
       not
@@ -1136,10 +1136,10 @@ sub _validate_id_ref_semantics {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if (
       not
@@ -1192,10 +1192,10 @@ sub _validate_page_ref_syntax {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if (
       not
@@ -1234,10 +1234,10 @@ sub _validate_page_ref_semantics {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if (
       not
@@ -1290,10 +1290,10 @@ sub _validate_theversion_ref_semantics {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if ( not $text =~ /$syntax->{theversion_ref}/xms )
     {
@@ -1337,10 +1337,10 @@ sub _validate_therevision_ref_semantics {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if ( not $text =~ /$syntax->{therevision_ref}/xms )
     {
@@ -1384,10 +1384,10 @@ sub _validate_thedate_ref_semantics {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if ( not $text =~ /$syntax->{thedate_ref}/xms )
     {
@@ -1437,13 +1437,12 @@ sub _validate_status_ref_semantics {
 
   my $self = shift;
 
-  my $sml     = SML->instance;
-  my $syntax  = $sml->get_syntax;
-  my $util    = $sml->get_util;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
   my $valid   = 1;
   my $text    = $self->get_content;
-  my $library = $self->get_library;
-  
+
   if ( not $text =~ /$syntax->{status_ref}/xms )
     {
       return 1;
@@ -1506,10 +1505,10 @@ sub _validate_glossary_term_ref_syntax {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if (
       not
@@ -1552,11 +1551,10 @@ sub _validate_glossary_term_ref_semantics {
 
   my $self = shift;
 
-  my $sml     = SML->instance;
-  my $syntax  = $sml->get_syntax;
-  my $util    = $sml->get_util;
-  my $text    = $self->get_content;
   my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if (
       not
@@ -1613,9 +1611,9 @@ sub _validate_glossary_def_ref_syntax {
 
   my $self = shift;
 
-  my $sml     = SML->instance;
-  my $syntax  = $sml->get_syntax;
-  my $util    = $sml->get_util;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
   my $text    = $self->get_content;
 
   if (
@@ -1659,11 +1657,10 @@ sub _validate_glossary_def_ref_semantics {
 
   my $self = shift;
 
-  my $sml     = SML->instance;
-  my $syntax  = $sml->get_syntax;
-  my $util    = $sml->get_util;
-  my $text    = $self->get_content;
   my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if (
       not
@@ -1720,10 +1717,10 @@ sub _validate_acronym_ref_syntax {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if (
       not
@@ -1766,12 +1763,10 @@ sub _validate_acronym_ref_semantics {
 
   my $self = shift;
 
-  my $sml     = SML->instance;
-  my $syntax  = $sml->get_syntax;
-  my $util    = $sml->get_util;
-  my $text    = $self->get_content;
   my $library = $self->get_library;
-
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if (
       not
@@ -1828,10 +1823,10 @@ sub _validate_source_citation_syntax {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if (
       not
@@ -1874,10 +1869,10 @@ sub _validate_source_citation_semantics {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if (
       not
@@ -1900,8 +1895,6 @@ sub _validate_source_citation_semantics {
       $logger->error("NOT IN DOCUMENT CONTEXT can't validate source citations");
       return 0;
     }
-
-  my $library = $self->get_library;
 
   while ( $text =~ /$syntax->{citation_ref}/xms )
     {
@@ -1930,10 +1923,10 @@ sub _validate_file_ref_semantics {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $self->get_content;
 
   if (
       not
@@ -1949,7 +1942,6 @@ sub _validate_file_ref_semantics {
 
   $text = $util->remove_literals($text);
 
-  my $library        = $self->get_library;
   my $directory_path = $library->get_directory_path;
   my $valid          = 1;
   my $found_file     = 0;

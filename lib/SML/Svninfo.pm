@@ -12,6 +12,8 @@ use namespace::autoclean;
 
 use Date::Pcalc qw(:all);
 
+use Cwd;
+
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Svninfo');
@@ -26,10 +28,19 @@ use SML::Options;
 ######################################################################
 ######################################################################
 
-has 'filespec' =>
+has 'filename' =>
   (
    isa      => 'Str',
-   reader   => 'get_filespec',
+   reader   => 'get_filename',
+   required => 1,
+  );
+
+######################################################################
+
+has 'library' =>
+  (
+   isa      => 'SML::Library',
+   reader   => 'get_library',
    required => 1,
   );
 
@@ -107,17 +118,20 @@ has 'text' =>
 sub BUILD {
 
   my $self     = shift;
-  my $filespec = $self->get_filespec;
-  my $sml      = SML->instance;
-  my $util     = $sml->get_util;
+
+  my $library  = $self->get_library;
+  my $filename = $self->get_filename;
+  my $filespec = $library->get_filespec($filename);
+  my $util     = $library->get_util;
   my $options  = $util->get_options;
   my $svn      = $self->_find_svn_executable;
 
   #-------------------------------------------------------------------
   # Ensure the file exists
   #
-  if (not -f $filespec) {
-    $logger->logdie("can't gather SVN metadata on non-existent file: $filespec");
+  if (not -f "$filespec" ) {
+    my $cwd = getcwd();
+    $logger->logdie("CAN'T FIND FILE \'$filespec\' FROM $cwd");
   }
 
   #-------------------------------------------------------------------
@@ -312,10 +326,12 @@ sub BUILD {
 
 sub _find_svn_executable {
 
+  my $self = shift;
+
   if ( $^O eq 'MSWin32')
     {
-      my $sml     = SML->instance;
-      my $util    = $sml->get_util;
+      my $library = $self->get_library;
+      my $util    = $library->get_util;
       my $options = $util->get_options;
 
       return $options->get_svn_executable;

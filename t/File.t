@@ -10,14 +10,19 @@ use SML;
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
+# set sml.Library logger to WARN
+my $logger_library = Log::Log4perl::get_logger('sml.Library');
+$logger_library->level('WARN');
+
 #---------------------------------------------------------------------
 # Test Data
 #---------------------------------------------------------------------
 
 use SML::TestData;
 
-my $td  = SML::TestData->new;
-my $tcl = $td->get_file_test_case_list;
+my $td      = SML::TestData->new;
+my $tcl     = $td->get_file_test_case_list;
+my $library = $td->get_test_library_1;
 
 #---------------------------------------------------------------------
 # Can use module?
@@ -32,7 +37,7 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::File->new(filespec=>'td-000001.txt');
+my $obj = SML::File->new(filespec=>'td-000001.txt',library=>$library);
 isa_ok( $obj, 'SML::File' );
 
 #---------------------------------------------------------------------
@@ -83,8 +88,9 @@ sub get_sha_digest_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $filespec = $tc->{filespec};
-  my $file     = SML::File->new(filespec=>$filespec);
+  my $library  = $tc->{library};
   my $expected = $tc->{expected}{get_sha_digest};
+  my $file     = SML::File->new(filespec=>$filespec,library=>$library);
 
   # act
   my $result = $file->get_sha_digest;
@@ -102,8 +108,9 @@ sub get_md5_digest_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $filespec = $tc->{filespec};
-  my $file     = SML::File->new(filespec=>$filespec);
+  my $library  = $tc->{library};
   my $expected = $tc->{expected}{get_md5_digest};
+  my $file     = SML::File->new(filespec=>$filespec,library=>$library);
 
   # act
   my $result = $file->get_md5_digest;
@@ -121,8 +128,9 @@ sub is_valid_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $filespec = $tc->{filespec};
-  my $file     = SML::File->new(filespec=>$filespec);
+  my $library  = $tc->{library};
   my $expected = $tc->{expected}{is_valid};
+  my $file     = SML::File->new(filespec=>$filespec,library=>$library);
 
   # act
   my $result = $file->is_valid;

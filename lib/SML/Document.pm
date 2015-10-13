@@ -16,7 +16,6 @@ use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Document');
 
-use SML;                 # ci-000002
 use SML::Library;        # ci-000410
 use SML::Glossary;
 
@@ -693,9 +692,9 @@ has 'source_hash' =>
 sub _validate_document {
 
   my $self    = shift;
-  my $sml     = SML->instance;
-  my $util    = $sml->get_util;
+
   my $library = $self->get_library;
+  my $util    = $library->get_util;
   my $valid   = 1;
   my $id      = $self->get_id;
 

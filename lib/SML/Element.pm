@@ -44,23 +44,22 @@ sub get_value {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-
-  my $text = $self->get_content || q{};
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $self->get_content || q{};
 
   $text =~ s/[\r\n]*$//;                # chomp;
 
   if ( $text =~ /$syntax->{'element'}/xms )
     {
-      my $util = $sml->get_util;
+      my $util = $library->get_util;
 
       return $util->trim_whitespace($3);
     }
 
   elsif ( $text =~ /$syntax->{'start_section'}/xms )
     {
-      my $util = $sml->get_util;
+      my $util = $library->get_util;
 
       return $util->trim_whitespace($4);
     }
@@ -133,10 +132,9 @@ sub validate_outcome_semantics {
   my $self = shift;
 
   my $valid   = 1;
-  my $sml     = SML->instance;
-  my $syntax  = $sml->get_syntax;
-  my $util    = $sml->get_util;
   my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
   my $text    = $self->get_content;
 
   $text =~ s/[\r\n]*$//;                # chomp;
@@ -199,10 +197,10 @@ sub validate_footnote_syntax {
 
   my $self = shift;
 
-  my $valid  = 1;
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $text   = $self->get_content;
+  my $valid   = 1;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $self->get_content;
 
   if ( not $text =~ /$syntax->{footnote_element}/xms )
     {
@@ -279,9 +277,8 @@ sub _type_of {
   my $self  = shift;
   my $value = shift;
 
-  my $sml     = SML->instance;
-  my $util    = $sml->get_util;
   my $library = $self->get_library;
+  my $util    = $library->get_util;
   my $name    = q{};
 
   if ( $library->has_division($value) )

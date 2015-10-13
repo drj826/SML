@@ -47,14 +47,12 @@ has 'options' =>
 
 ######################################################################
 
-# has 'library' =>
-#   (
-#    isa       => 'SML::Library',
-#    reader    => 'get_library',
-#    writer    => 'set_library',
-#    clearer   => 'clear_library',
-#    predicate => 'has_library',
-#   );
+has 'library' =>
+  (
+   isa      => 'SML::Library',
+   reader   => 'get_library',
+   required => 1,
+  );
 
 ######################################################################
 
@@ -223,8 +221,8 @@ sub remove_keystroke_symbols {
   my $self = shift;
   my $text = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
   $text =~ s/$syntax->{keystroke_symbol}//g;
 

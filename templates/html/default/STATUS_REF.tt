@@ -16,6 +16,9 @@
   [%- ELSIF library.has_document(status_or_id) -%]
     [%- SET document = library.get_document(status_or_id) -%]
     [%- SET status = document.get_property_value('status') -%]
+  [%- ELSIF library.has_division(status_or_id) -%]
+    [%- SET division = library.get_division(status_or_id) -%]
+    [%- SET status = division.get_property_value('status') -%]
   [%- END -%]
   [%- IF status == 'green' -%]
 <image src="status_green.png" border="0"/>

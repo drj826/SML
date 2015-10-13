@@ -30,17 +30,17 @@ According to The Chicago Manual of Style the following parts
 generally, but not always, make up the front matter, text, and back
 matter: [cite:cms15, [[section]]1.4]
 
----TABLE
+>>>TABLE.tab-doc-divisions-and-parts
 
 title:: Printed Document Divisions and Parts
-
-label:: tab-doc-divisions-and-parts
 
 column::1:width: 50
 
 column::2:width: 15
 
 column::3:width: 25
+
+===
 
 :grey: ~~FRONT MATTER~~
 
@@ -320,6 +320,6 @@ column::3:width: 25
 
 : automatically generated ([id:rq-000151])
 
----TABLE
+<<<TABLE
 
 <<<problem

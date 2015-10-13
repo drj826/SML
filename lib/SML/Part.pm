@@ -321,9 +321,8 @@ sub render {
   my $rendition = shift;
   my $style     = shift;
 
-  my $sml          = SML->instance;
-  my $util         = $sml->get_util;
   my $library      = $self->get_library;
+  my $util         = $library->get_util;
   my $template_dir = $library->get_template_dir;
   my $name         = $self->get_name;
   my $input        = "$name.tt";

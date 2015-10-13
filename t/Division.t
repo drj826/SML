@@ -182,8 +182,13 @@ sub init_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $args     = $tc->{args};
   my $expected = $tc->{expected}{init};
+  my $args =
+    {
+     name    => $tc->{division_name},
+     library => $tc->{library},
+    };
+
   my $division = SML::Division->new(%{$args});
 
   # act
@@ -201,8 +206,15 @@ sub get_id_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $args     = $tc->{args};
   my $expected = $tc->{expected}{get_id};
+  my $args =
+    {
+     id      => $tc->{divid},
+     name    => $tc->{division_name},
+     number  => $tc->{division_number},
+     library => $tc->{library},
+    };
+
   my $division = SML::Division->new(%{$args});
 
   # act
@@ -220,8 +232,13 @@ sub get_name_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $args     = $tc->{args};
   my $expected = $tc->{expected}{get_name};
+  my $args =
+    {
+     name    => $tc->{division_name},
+     library => $tc->{library},
+    };
+
   my $division = SML::Division->new(%{$args});
 
   # act
@@ -239,12 +256,16 @@ sub get_number_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $args     = $tc->{args};
-  my $number   = $tc->{division_number};
   my $expected = $tc->{expected}{get_number};
-  my $division = SML::Division->new(%{$args});
+  my $args =
+    {
+     id      => $tc->{divid},
+     name    => $tc->{division_name},
+     number  => $tc->{division_number},
+     library => $tc->{library},
+    };
 
-  $division->set_number($number);
+  my $division = SML::Division->new(%{$args});
 
   # act
   my $result = $division->get_number;
@@ -281,11 +302,10 @@ sub get_part_list_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $testfile = $tc->{testfile};
-  my $id       = $tc->{args}{id};
+  my $library  = $tc->{library};
+  my $divid    = $tc->{divid};
   my $expected = $tc->{expected}{get_part_list};
-  my $library  = $tc->{args}{library};
-  my $division = $library->get_division($id);
+  my $division = $library->get_division($divid);
 
   # act
   my $result = scalar @{ $division->get_part_list };
@@ -302,11 +322,10 @@ sub get_line_list_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $testfile = $tc->{testfile};
-  my $id       = $tc->{args}{id};
+  my $library  = $tc->{library};
+  my $divid    = $tc->{divid};
   my $expected = $tc->{expected}{get_line_list};
-  my $library  = $tc->{args}{library};
-  my $division = $library->get_division($id);
+  my $division = $library->get_division($divid);
 
   # act
   my $result = scalar @{ $division->get_line_list };
@@ -323,11 +342,10 @@ sub get_division_list_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $testfile = $tc->{testfile};
-  my $id       = $tc->{args}{id};
+  my $library  = $tc->{library};
+  my $divid    = $tc->{divid};
   my $expected = $tc->{expected}{get_division_list};
-  my $library  = $tc->{args}{library};
-  my $division = $library->get_division($id);
+  my $division = $library->get_division($divid);
 
   # act
   my $result = scalar @{ $division->get_division_list };
@@ -344,11 +362,10 @@ sub get_section_list_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $testfile = $tc->{testfile};
-  my $id       = $tc->{args}{id};
+  my $library  = $tc->{library};
+  my $divid    = $tc->{divid};
   my $expected = $tc->{expected}{get_section_list};
-  my $library  = $tc->{args}{library};
-  my $division = $library->get_division($id);
+  my $division = $library->get_division($divid);
 
   # act
   my $result = scalar @{ $division->get_section_list };
@@ -365,11 +382,10 @@ sub get_block_list_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $testfile = $tc->{testfile};
-  my $id       = $tc->{args}{id};
+  my $library  = $tc->{library};
+  my $divid    = $tc->{divid};
   my $expected = $tc->{expected}{get_block_list};
-  my $library  = $tc->{args}{library};
-  my $division = $library->get_division($id);
+  my $division = $library->get_division($divid);
 
   # act
   my $result = scalar @{ $division->get_block_list };
@@ -386,11 +402,10 @@ sub get_element_list_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $testfile = $tc->{testfile};
-  my $id       = $tc->{args}{id};
+  my $library  = $tc->{library};
+  my $divid    = $tc->{divid};
   my $expected = $tc->{expected}{get_element_list};
-  my $library  = $tc->{args}{library};
-  my $division = $library->get_division($id);
+  my $division = $library->get_division($divid);
 
   # act
   my $result = scalar @{ $division->get_element_list };
@@ -407,11 +422,10 @@ sub get_data_segment_line_list_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $testfile = $tc->{testfile};
-  my $id       = $tc->{args}{id};
+  my $library  = $tc->{library};
+  my $divid    = $tc->{divid};
   my $expected = $tc->{expected}{get_data_segment_line_list};
-  my $library  = $tc->{args}{library};
-  my $division = $library->get_division($id);
+  my $division = $library->get_division($divid);
 
   # act
   my $result = scalar @{ $division->get_data_segment_line_list };
@@ -428,11 +442,10 @@ sub get_narrative_line_list_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $testfile = $tc->{testfile};
-  my $id       = $tc->{args}{id};
+  my $library  = $tc->{library};
+  my $divid    = $tc->{divid};
   my $expected = $tc->{expected}{get_narrative_line_list};
-  my $library  = $tc->{args}{library};
-  my $division = $library->get_division($id);
+  my $division = $library->get_division($divid);
 
   # act
   my $result = scalar @{ $division->get_narrative_line_list };
@@ -449,11 +462,10 @@ sub get_first_part_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $testfile = $tc->{testfile};
-  my $id       = $tc->{args}{id};
+  my $library  = $tc->{library};
+  my $divid    = $tc->{divid};
   my $expected = $tc->{expected}{get_first_part};
-  my $library  = $tc->{args}{library};
-  my $division = $library->get_division($id);
+  my $division = $library->get_division($divid);
 
   # act
   my $result = ref $division->get_first_part;
@@ -470,11 +482,10 @@ sub get_first_line_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $testfile = $tc->{testfile};
-  my $id       = $tc->{args}{id};
+  my $library  = $tc->{library};
+  my $divid    = $tc->{divid};
   my $expected = $tc->{expected}{get_first_line};
-  my $library  = $tc->{args}{library};
-  my $division = $library->get_division($id);
+  my $division = $library->get_division($divid);
 
   # act
   my $line   = $division->get_first_line;
@@ -494,11 +505,10 @@ sub get_property_list_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $testfile = $tc->{testfile};
-  my $id       = $tc->{args}{id};
+  my $library  = $tc->{library};
+  my $divid    = $tc->{divid};
   my $expected = $tc->{expected}{get_property_list};
-  my $library  = $tc->{args}{library};
-  my $division = $library->get_division($id);
+  my $division = $library->get_division($divid);
 
   # act
   my $result = scalar @{ $division->get_property_list };
@@ -515,12 +525,11 @@ sub get_property_ok {
 
   # arrange
   my $tcname        = $tc->{name};
-  my $testfile      = $tc->{testfile};
-  my $id            = $tc->{args}{id};
+  my $library       = $tc->{library};
+  my $divid         = $tc->{divid};
   my $property_name = $tc->{property_name};
-  my $library       = $tc->{args}{library};
-  my $division      = $library->get_division($id);
   my $expected      = $tc->{expected}{get_property};
+  my $division      = $library->get_division($divid);
 
   # act
   my $result = ref $division->get_property($property_name);
@@ -537,12 +546,11 @@ sub get_property_value_ok {
 
   # arrange
   my $tcname        = $tc->{name};
-  my $testfile      = $tc->{testfile};
-  my $id            = $tc->{args}{id};
+  my $library       = $tc->{library};
+  my $divid         = $tc->{divid};
   my $property_name = $tc->{property_name};
-  my $library       = $tc->{args}{library};
-  my $division      = $library->get_division($id);
   my $expected      = $tc->{expected}{get_property_value};
+  my $division      = $library->get_division($divid);
 
   # act
   my $result = $division->get_property_value($property_name);
@@ -559,11 +567,10 @@ sub warn_has_valid_semantics_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $testfile = $tc->{testfile};
-  my $id       = $tc->{args}{id};
-  my $library  = $tc->{args}{library};
-  my $division = $library->get_division($id);
+  my $library  = $tc->{library};
+  my $divid    = $tc->{divid};
   my $expected = $tc->{expected}{warning}{has_valid_semantics};
+  my $division = $library->get_division($divid);
   my $t1logger = Test::Log4perl->get_logger('sml.Division');
 
   Test::Log4perl->start( ignore_priority => "info" );

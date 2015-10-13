@@ -18,7 +18,6 @@ my $logger = Log::Log4perl::get_logger('sml.Division');
 
 use lib "..";
 
-use SML;
 use SML::Property;
 
 ######################################################################
@@ -325,7 +324,15 @@ sub add_property_element {
 
   else
     {
-      my $property = SML::Property->new(id=>$divid,name=>$name);
+      my $library = $self->get_library;
+
+      my $property = SML::Property->new
+	(
+	 id      => $divid,
+	 name    => $name,
+	 library => $library,
+	);
+
       $property->add_element($element);
       $self->add_property($property);
     }
@@ -356,8 +363,8 @@ sub add_attribute {
       return 0;
     }
 
-  my $sml        = SML->instance;
-  my $syntax     = $sml->get_syntax;
+  my $library    = $self->get_library;
+  my $syntax     = $library->get_syntax;
   my $attributes = $self->_get_attribute_hash;
   my $value      = $element->get_value;
 
@@ -724,9 +731,8 @@ sub get_data_segment_line_list {
   my $self = shift;
 
   my $list        = [];                 # DATA SEGMENT line list
-  my $sml         = SML->instance;
-  my $syntax      = $sml->get_syntax;
   my $library     = $self->get_library;
+  my $syntax      = $library->get_syntax;
   my $ontology    = $library->get_ontology;
   my $in_data_segment = 1;
   my $i           = 0;
@@ -758,7 +764,7 @@ sub get_data_segment_line_list {
 	    }
 	}
 
-      elsif ( _line_ends_data_segment($text) )
+      elsif ( $self->_line_ends_data_segment($text) )
 	{
 	  return $list;
 	}
@@ -789,9 +795,8 @@ sub get_narrative_line_list {
   my $self = shift;
 
   my $list        = [];                 # narrative line list
-  my $sml         = SML->instance;
-  my $syntax      = $sml->get_syntax;
   my $library     = $self->get_library;
+  my $syntax      = $library->get_syntax;
   my $ontology    = $library->get_ontology;
   my $in_data_segment = 1;
   my $i           = 0;
@@ -820,7 +825,7 @@ sub get_narrative_line_list {
 	  next;
 	}
 
-      elsif ( _line_ends_data_segment($text) )
+      elsif ( $self->_line_ends_data_segment($text) )
 	{
 	  $in_data_segment = 0;
 	  foreach my $line (@{ $block->get_line_list })
@@ -1134,10 +1139,11 @@ has 'attribute_hash' =>
 
 sub _line_ends_data_segment {
 
+  my $self = shift;
   my $text = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
   if ( $text =~ /$syntax->{segment_separator}/xms )
     {
@@ -1214,7 +1220,6 @@ sub _validate_property_cardinality {
   # my $divtype  = $self->get_type;
   my $divname  = $self->get_name;
   my $divid    = $self->get_id;
-  my $sml      = SML->instance;
   my $library  = $self->get_library;
   my $ontology = $library->get_ontology;
 
@@ -1264,7 +1269,6 @@ sub _validate_property_values {
   # my $divtype  = $self->get_type;
   my $divname  = $self->get_name;
   my $divid    = $self->get_id;
-  my $sml      = SML->instance;
   my $library  = $self->get_library;
   my $ontology = $library->get_ontology;
 
@@ -1319,7 +1323,6 @@ sub _validate_infer_only_conformance {
   # my $divtype  = $self->get_type;
   my $divname  = $self->get_name;
   my $divid    = $self->get_id;
-  my $sml      = SML->instance;
   my $library  = $self->get_library;
   my $ontology = $library->get_ontology;
 
@@ -1371,7 +1374,6 @@ sub _validate_required_properties {
   my $seen     = {};
   my $divname  = $self->get_name;
   my $divid    = $self->get_id;
-  my $sml      = SML->instance;
   my $library  = $self->get_library;
   my $ontology = $library->get_ontology;
 
@@ -1412,7 +1414,6 @@ sub _validate_composition {
 
   my $valid     = 1;
   my $container = $self->get_containing_division;
-  my $sml       = SML->instance;
   my $library   = $self->get_library;
   my $libname   = $library->get_name;
   my $ontology  = $library->get_ontology;
@@ -1459,10 +1460,10 @@ sub _validate_id_uniqueness {
 
   my $self = shift;
 
-  my $valid  = 1;
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $seen   = {};
+  my $valid   = 1;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $seen    = {};
 
   foreach my $element (@{ $self->get_element_list })
     {

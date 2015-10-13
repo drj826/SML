@@ -48,9 +48,9 @@ sub get_term {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $self->get_content;
 
   $text =~ s/[\r\n]*$//;                # chomp;
 
@@ -72,9 +72,9 @@ sub get_alt {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $self->get_content;
 
   $text =~ s/[\r\n]*$//;                # chomp;
 
@@ -96,9 +96,9 @@ sub get_value {
 
   my $self = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $text   = $self->get_content;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $self->get_content;
 
   $text =~ s/[\r\n]*$//;                # chomp;
 

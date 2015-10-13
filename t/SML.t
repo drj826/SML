@@ -37,8 +37,6 @@ isa_ok($obj,'SML');
 
 my @public_methods =
   (
-   'allows_insert',
-   'allows_generate',
    'get_syntax',
    'get_util',
    'get_font_size_list',

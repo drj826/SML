@@ -56,10 +56,9 @@ sub infer_inverse_property {
   my $self    = shift;
   my $element = shift;
 
-  my $sml                   = SML->instance;
   my $library               = $self->get_library;
   my $ontology              = $library->get_ontology;
-  my $util                  = $sml->get_util;
+  my $util                  = $library->get_util;
   my $division              = $element->get_containing_division;
   my $division_id           = $division->get_id;
   my $division_name         = $division->get_name;
@@ -137,9 +136,8 @@ sub infer_inverse_property {
 sub infer_status_from_outcomes {
 
   my $self    = shift;
-  my $sml     = SML->instance;
-  my $util    = $sml->get_util;
   my $library = $self->get_library;
+  my $util    = $library->get_util;
 
   foreach my $entity_id (@{ $library->get_outcome_entity_id_list })
     {
@@ -158,7 +156,13 @@ sub infer_status_from_outcomes {
 
 	      else
 		{
-		  my $property = SML::Property->new(id=>$entity_id,name=>'status');
+		  my $property = SML::Property->new
+		    (
+		     id      => $entity_id,
+		     name    => 'status',
+		     library => $library,
+		    );
+
 		  $division->add_property($property);
 		  $division->add_property_element($outcome);
 		}

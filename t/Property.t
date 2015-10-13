@@ -10,6 +10,10 @@ use SML;
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
+# set sml.Library logger to WARN
+my $logger_library = Log::Log4perl::get_logger('sml.Library');
+$logger_library->level('WARN');
+
 #---------------------------------------------------------------------
 # Test Data
 #---------------------------------------------------------------------
@@ -32,7 +36,13 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::Property->new(id=>'prop1',name=>'size');
+my $obj = SML::Property->new
+  (
+   id      => 'prop1',
+   name    => 'size',
+   library => $library,
+  );
+
 isa_ok( $obj, 'SML::Property' );
 
 #---------------------------------------------------------------------
@@ -64,7 +74,7 @@ can_ok( $obj, @public_methods );
 
 # arrange
 my $element_0 = SML::Element->new(name=>'el0',library=>$library);
-my $property  = SML::Property->new(id=>'diameter',name=>'pr1');
+my $property  = SML::Property->new(id=>'diameter',name=>'pr1',library=>$library);
 my $expected  = 0;
 
 $property->add_element($element_0);

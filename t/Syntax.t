@@ -36,25 +36,12 @@ isa_ok( $obj, 'SML::Syntax' );
 
 my @public_methods =
   (
-   # document markup
-   'start_document',
-   'end_document',
-
-   # region markup
-   'start_region',
-   'end_region',
-
-   # environment markup
-   'start_environment',
-   'end_environment',
-
    # conditional markup
    'start_conditional',
    'end_conditional',
 
    # comment markup
    'comment_line',
-   'comment_marker',
 
    # table markup
    'end_table_row',
@@ -88,9 +75,7 @@ my @public_methods =
    'dblquote_string',
 
    # element markup
-   'start_element',
    'title_element',
-   'id_element',
    'insert_element',
    'insert_ins_element',
    'insert_gen_element',

@@ -18,7 +18,7 @@ use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Library');
 
-use SML;
+use SML::Syntax;
 use SML::Ontology;
 use SML::Parser;
 use SML::Reasoner;
@@ -26,6 +26,7 @@ use SML::Glossary;
 use SML::AcronymList;
 use SML::References;
 use SML::Publisher;
+use SML::Util;
 
 ######################################################################
 ######################################################################
@@ -71,14 +72,23 @@ has 'revision' =>
 
 ######################################################################
 
-has 'sml' =>
+has 'util' =>
   (
-   isa      => 'SML',
-   reader   => 'get_sml',
-   default  => sub { SML->instance },
+   isa     => 'SML::Util',
+   reader  => 'get_util',
+   lazy    => 1,
+   builder => '_build_util',
   );
 
-# Semantic Manuscript Language.  A language has syntax and semantics.
+######################################################################
+
+has 'syntax' =>
+  (
+   isa     => 'HashRef',
+   reader  => 'get_syntax',
+   lazy    => 1,
+   builder => '_build_syntax',
+  );
 
 ######################################################################
 
@@ -220,26 +230,6 @@ has 'division_name_list' =>
 
 ######################################################################
 
-# has 'region_name_list' =>
-#   (
-#    isa     => 'ArrayRef',
-#    reader  => 'get_region_name_list',
-#    lazy    => 1,
-#    builder => '_build_region_names',
-#   );
-
-######################################################################
-
-# has 'environment_name_list' =>
-#   (
-#    isa     => 'ArrayRef',
-#    reader  => 'get_environment_name_list',
-#    lazy    => 1,
-#    builder => '_build_environment_names',
-#   );
-
-######################################################################
-
 has 'template_dir' =>
   (
    is        => 'ro',
@@ -318,7 +308,7 @@ sub get_file_containing_id {
   if ( not $self->has_file($filename) )
     {
       my $filespec = $self->get_filespec($filename);
-      my $file = SML::File->new(filespec=>$filespec);
+      my $file = SML::File->new(filespec=>$filespec,library=>$self);
 
       return $file;
     }
@@ -592,9 +582,8 @@ sub add_outcome {
   my $outcome = shift;
 
   my $outcome_ds = $self->_get_outcome_hash;
-  my $sml        = SML->instance;
-  my $syntax     = $sml->get_syntax;
-  my $util       = $sml->get_util;
+  my $syntax     = $self->get_syntax;
+  my $util       = $self->get_util;
   my $options    = $util->get_options;
   my $text       = $outcome->get_content;
 
@@ -638,9 +627,8 @@ sub add_review {
   my $review = shift;
 
   my $review_ds = $self->_get_review_hash;
-  my $sml       = SML->instance;
-  my $syntax    = $sml->get_syntax;
-  my $util      = $sml->get_util;
+  my $syntax    = $self->get_syntax;
+  my $util      = $self->get_util;
   my $options   = $util->get_options;
   my $text      = $review->get_content;
 
@@ -1880,9 +1868,8 @@ sub update_status_from_outcome {
   my $self    = shift;
   my $outcome = shift;
 
-  my $sml    = SML->instance;
-  my $syntax = $sml->get_syntax;
-  my $util   = $sml->get_util;
+  my $syntax = $self->get_syntax;
+  my $util   = $self->get_util;
 
   my $text = $outcome->get_content;
 
@@ -1907,7 +1894,12 @@ sub update_status_from_outcome {
 
 	  else
 	    {
-	      $status_property = SML::Property->new(id=>$entity_id,name=>'status');
+	      $status_property = SML::Property->new
+		(
+		 id      => $entity_id,
+		 name    => 'status',
+		 library => $self,
+		);
 	    }
 
 	  $status_property->add_element($outcome);
@@ -1930,6 +1922,45 @@ sub update_status_from_outcome {
       return 0;
     }
 
+}
+
+######################################################################
+
+sub allows_insert {
+
+  my $self = shift;
+  my $name = shift;
+
+  if (
+      defined $self->_get_insert_name_hash->{$name}
+      and
+      $self->_get_insert_name_hash->{$name} == 1
+     )
+    {
+      return 1;
+    }
+  else
+    {
+      return 0;
+    }
+}
+
+######################################################################
+
+sub allows_generate {
+
+  my $self = shift;
+  my $name = shift;
+
+  if ( defined $self->_get_generated_content_type_hash->{$name} )
+    {
+      return 1;
+    }
+
+  else
+    {
+      return 0;
+    }
 }
 
 ######################################################################
@@ -2168,6 +2199,26 @@ has 'review_hash' =>
 #   $review_ds->{$entity}{$date}{'description'} = $description;
 
 ######################################################################
+
+has 'insert_name_hash' =>
+  (
+   isa     => 'HashRef',
+   reader  => '_get_insert_name_hash',
+   lazy    => 1,
+   builder => '_build_insert_name_hash',
+  );
+
+######################################################################
+
+has 'generated_content_type_hash' =>
+  (
+   isa     => 'HashRef',
+   reader  => '_get_generated_content_type_hash',
+   lazy    => 1,
+   builder => '_build_generated_content_type_hash',
+  );
+
+######################################################################
 ######################################################################
 ##
 ## Private Methods
@@ -2180,8 +2231,7 @@ sub BUILD {
   my $self = shift;
 
   my $config_filespec = $self->_get_config_filespec;
-  my $sml             = SML->instance;
-  my $syntax          = $sml->get_syntax;
+  my $syntax          = $self->get_syntax;
   my $ontology        = $self->get_ontology;
   my %config          = ();
   my $directory_path  = q{};
@@ -2383,7 +2433,7 @@ sub BUILD {
 
 		  ++ $division_count->{$name};
 
-		  my $id   = $3 || $name . "-" . $division_count->{$name};
+		  my $id = $3 || $name . "-" . $division_count->{$name};
 
 		  $logger->debug("division: $name $id");
 
@@ -2457,6 +2507,31 @@ sub _add_include_path {
   push(@{$include_path},$path);
 
   return 1;
+}
+
+######################################################################
+
+sub _build_util {
+  my $self = shift;
+  return SML::Util->new(library=>$self);
+}
+
+######################################################################
+
+sub _build_syntax {
+
+  my $self = shift;
+
+  my $syn       = {};
+  my $syntax    = SML::Syntax->new;
+  my $metaclass = $syntax->meta;
+
+  foreach my $attribute ( $metaclass->get_attribute_list )
+    {
+      $syn->{$attribute} = $syntax->$attribute;
+    }
+
+  return $syn;
 }
 
 ######################################################################
@@ -2738,10 +2813,11 @@ sub by_date {
 
 sub _find_svn_executable {
 
+  my $self = shift;
+
   if ( $^O eq 'MSWin32')
     {
-      my $sml     = SML->instance;
-      my $util    = $sml->get_util;
+      my $util    = $self->get_util;
       my $options = $util->get_options;
 
       return $options->get_svn_executable;
@@ -2772,6 +2848,37 @@ sub _find_svn_executable {
 
 ######################################################################
 
+sub _build_insert_name_hash {
+
+  my $self = shift;
+
+  return
+    {
+     PREAMBLE   => 1,
+     NARRATIVE  => 1,
+     DEFINITION => 1,
+    };
+}
+
+######################################################################
+
+sub _build_generated_content_type_hash {
+
+  my $self = shift;
+
+  return
+    {
+     'problem-domain-listing'       => "not context sensitive",
+     'solution-domain-listing'      => "not context sensitive",
+     'prioritized-problem-listing'  => "not context sensitive",
+     'prioritized-solution-listing' => "not context sensitive",
+     'associated-problem-listing'   => "context sensitive",
+     'associated-solution-listing'  => "context sensitive",
+    };
+}
+
+######################################################################
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
@@ -2797,7 +2904,6 @@ reusable content.
   my $id           = $library->get_id;
   my $name         = $library->get_name;
   my $revision     = $library->get_revision;
-  my $sml          = $library->get_sml;
   my $ontology     = $library->get_ontology;
   my $list         = $library->get_ontology_rule_filespec_list;
   my $parser       = $library->get_parser;

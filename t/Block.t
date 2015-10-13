@@ -3,7 +3,7 @@
 # $Id: Block.t 259 2015-04-02 20:27:00Z drj826@gmail.com $
 
 use lib "../lib";
-use Test::More;
+use Test::More tests => 185;
 use Test::Exception;
 
 use SML;
@@ -133,10 +133,9 @@ sub renders_ok {
   my $tcname    = $tc->{name};
   my $content   = $tc->{content};
   my $subclass  = $tc->{subclass};
+  my $document  = $tc->{document};
   my $expected  = $tc->{expected}{render}{$rendition}{$style};
-  my $docid     = $tc->{docid};
-  my $library   = $tc->{library};
-  my $document  = $library->get_document($docid);
+  my $library   = $document->get_library;
   my $parser    = $library->get_parser;
   my $line      = SML::Line->new(content=>$content);
   my $block     = $subclass->new(library=>$library);
@@ -170,11 +169,9 @@ sub has_valid_syntax_ok {
   my $content   = $tc->{content};
   my $subclass  = $tc->{subclass};
   my $expected  = $tc->{expected}{has_valid_syntax};
-  my $filename  = $tc->{filename};
-  my $docid     = $tc->{docid};
-  my $library   = $tc->{library};
   my $parser    = $library->get_parser;
-  my $document  = $library->get_document($docid);
+  my $document  = $tc->{document};
+  my $library   = $document->get_library;
   my $line      = SML::Line->new(content=>$content);
   my $block     = $subclass->new(library=>$library);
 
@@ -204,11 +201,9 @@ sub has_valid_semantics_ok {
   my $content   = $tc->{content};
   my $subclass  = $tc->{subclass};
   my $expected  = $tc->{expected}{has_valid_semantics};
-  my $filename  = $tc->{filename};
-  my $docid     = $tc->{docid};
-  my $library   = $tc->{library};
+  my $document  = $tc->{document};
+  my $library   = $document->get_library;
   my $parser    = $library->get_parser;
-  my $document  = $library->get_document($docid);
   my $line      = SML::Line->new(content=>$content);
   my $block     = $subclass->new(library=>$library);
 
@@ -238,11 +233,9 @@ sub valid_syntax_warning_ok {
   my $content  = $tc->{content};
   my $subclass = $tc->{subclass};
   my $expected = $tc->{expected}{valid_syntax_warning};
-  my $filename = $tc->{filename};
-  my $docid    = $tc->{docid};
-  my $library  = $tc->{library};
+  my $document = $tc->{document};
+  my $library  = $document->get_library;
   my $parser   = $library->get_parser;
-  my $document = $library->get_document($docid);
   my $line     = SML::Line->new(content=>$content);
   my $block    = $subclass->new(library=>$library);
 
@@ -275,11 +268,9 @@ sub valid_semantics_warning_ok {
   my $content  = $tc->{content};
   my $subclass = $tc->{subclass};
   my $expected = $tc->{expected}{valid_semantics_warning};
-  my $filename = $tc->{filename};
-  my $docid    = $tc->{docid};
-  my $library  = $tc->{library};
+  my $document = $tc->{document};
+  my $library  = $document->get_library;
   my $parser   = $library->get_parser;
-  my $document = $library->get_document($docid);
   my $line     = SML::Line->new(content=>$content);
   my $block    = $subclass->new(library=>$library);
 
@@ -312,11 +303,9 @@ sub has_parts_ok {
   my $content  = $tc->{content};
   my $subclass = $tc->{subclass};
   my $expected = $tc->{expected}{has_parts};
-  my $filename = $tc->{filename};
-  my $docid    = $tc->{docid};
-  my $library  = $tc->{library};
+  my $document = $tc->{document};
+  my $library  = $document->get_library;
   my $parser   = $library->get_parser;
-  my $document = $library->get_document($docid);
   my $line     = SML::Line->new(content=>$content);
   my $block    = $subclass->new(library=>$library);
 
@@ -337,4 +326,4 @@ sub has_parts_ok {
 
 ######################################################################
 
-done_testing()
+1;
