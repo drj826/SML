@@ -257,6 +257,21 @@ has 'published_dir' =>
 # are placed.
 
 ######################################################################
+
+has 'plugins_dir' =>
+  (
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_plugins_dir',
+   writer    => '_set_plugins_dir',
+   default   => 'plugins',
+  );
+
+# This is the directory containing plugins.  Plugins are
+# library-specific perl modules that perform special rendering
+# functions.
+
+######################################################################
 ######################################################################
 ##
 ## Public Methods
@@ -2242,37 +2257,32 @@ sub BUILD {
   use Config::General;
   use SML::Parser;
 
-  #-------------------------------------------------------------------
-  # read the config file
-  #
+  # validate existence of config file
   if ( not -f $config_filespec )
     {
       die "Couldn't read $config_filespec\n";
     }
 
+  # read the config file
   else
     {
       my $config = Config::General->new($config_filespec);
       %config = $config->getall;
     }
 
-  # library ID
+  # set library ID
   if ( $config{'id'} )
     {
       $self->_set_id($config{'id'});
     }
 
-  # library name
+  # set library name
   if ( $config{'name'} )
     {
       $self->_set_name($config{'name'});
     }
 
-  #-------------------------------------------------------------------
-  # determine the library directory path
-  #
-  #     Assume the config file is in the library directory.
-  #
+  # set library directory path
   if ( $library_dir )
     {
       $self->_set_directory_path( $library_dir );
@@ -2280,12 +2290,10 @@ sub BUILD {
 
   else
     {
-      $logger->error("no such library directory: $library_dir");
+      $logger->logdie("no such library directory: $library_dir");
     }
 
-  #-------------------------------------------------------------------
-  # template_dir
-  #
+  # set template_dir
   if ( $config{'template_dir'} )
     {
       my $directory_path = $self->get_directory_path;
@@ -2294,9 +2302,7 @@ sub BUILD {
       $self->_set_template_dir($template_dir);
     }
 
-  #-------------------------------------------------------------------
-  # published_dir
-  #
+  # set published_dir
   if ( $config{'published_dir'} )
     {
       my $directory_path = $self->get_directory_path;
@@ -2305,9 +2311,16 @@ sub BUILD {
       $self->_set_published_dir($published_dir);
     }
 
-  #-------------------------------------------------------------------
-  # include_path
-  #
+  # set plugins_dir
+  if ( $config{'plugins_dir'} )
+    {
+      my $directory_path = $self->get_directory_path;
+      my $plugins_dir  = "$directory_path/$config{plugins_dir}";
+
+      $self->_set_plugins_dir($plugins_dir);
+    }
+
+  # set include_path
   if ( $config{'include_path'} )
     {
       if ( ref $config{'include_path'} eq 'ARRAY' )
@@ -2324,9 +2337,7 @@ sub BUILD {
 	}
     }
 
-  #-------------------------------------------------------------------
-  # add SML ontology rules
-  #
+  # set ontology rule file list
   my $rule_file_list = [];
 
   if ( $config{'ontology_rule_file'} )
@@ -2370,13 +2381,13 @@ sub BUILD {
 	  $logger->debug("scanning $filespec...");
 	  $filespec_hash->{$filespec} = "$filespec";
 
-	  my $in_comment_division = 0;
-
 	  my $lines = [];
 	  open my $fh, "<", "$filespec"
 	    or die "Can't open $filespec: $!\n";
 	  @{ $lines } = <$fh>;
 	  close $fh;
+
+	  my $in_comment_division = 0;
 
 	  foreach (@{ $lines })
 	    {
@@ -2404,6 +2415,7 @@ sub BUILD {
 		{
 		  my $name = $1;
 
+		  # validate the ontology allows this division name
 		  if ( not $ontology->allows_division($name) )
 		    {
 		      $logger->logdie("UNKNOWN DIVISION \'$name\' IN \'$filespec\'");
@@ -2411,19 +2423,21 @@ sub BUILD {
 
 		  ++ $division_count->{$name};
 
-		  my $id   = $3 || $name . "-" . $division_count->{$name};
+		  my $id = $3 || $name . "-" . $division_count->{$name};
 
-		  $logger->debug("division: $name $id");
-
-		  if ( exists $id_hash->{$id} )
+		  # validate ID uniqueness (unless this is a CONDITIONAL division)
+		  unless ( $name eq 'CONDITIONAL' )
 		    {
-		      my $firstfile = $id_hash->{$id}->[0];
-		      $logger->logdie("DUPLICATE ID \'$id\' IN \'$filespec\' (ALSO IN \'$firstfile\')");
-		    }
+		      if ( exists $id_hash->{$id} )
+			{
+			  my $firstfile = $id_hash->{$id}->[0];
+			  $logger->logdie("DUPLICATE ID \'$id\' IN \'$filespec\' (ALSO IN \'$firstfile\')");
+			}
 
-		  else
-		    {
-		      $id_hash->{$id} = [$filespec,$name];
+		      else
+			{
+			  $id_hash->{$id} = [$filespec,$name];
+			}
 		    }
 		}
 

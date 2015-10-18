@@ -166,7 +166,8 @@ sub parse {
 
   if ( not $self->_has_division )
     {
-      $logger->logdie("THIS SHOULD NEVER HAPPEN");
+      # this should never happen
+      $logger->logdie("PARSER FOUND NO DIVISION \'$id\'");
     }
 
   my $division = $self->_get_division;
@@ -2434,6 +2435,9 @@ sub _begin_division {
 
   elsif ( $division->isa('SML::Conditional') )
     {
+      # CONDITIONAL divisions don't have data segments
+      $self->_set_in_data_segment(0);
+
       return 1;
     }
 
@@ -2449,6 +2453,9 @@ sub _begin_division {
 
   elsif ( $division->isa('SML::Division') )
     {
+      # raw divisions don't have data segments
+      $self->_set_in_data_segment(0);
+
       return 1;
     }
 
@@ -2684,6 +2691,8 @@ sub _end_section {
 
 ######################################################################
 
+# not used?
+
 sub _begin_default_section {
 
   my $self = shift;
@@ -2698,6 +2707,9 @@ sub _begin_default_section {
   my $section  = $util->get_default_section;
 
   $self->_begin_division($section);
+
+  # the default section does not have a data segment
+  # $self->_set_in_data_segment(0);
 
   return 1;
 }
@@ -6084,16 +6096,18 @@ sub _process_start_glossary_entry {
 
       # $self->_end_data_segment;
 
-      $self->_get_current_division->add_part($definition);
-      $self->_get_current_division->add_property_element($definition);
+      my $division = $self->_get_current_division;
+      $division->add_part($definition);
+      $division->add_property_element($definition);
     }
 
   else
     {
       $logger->trace("..... begin UNIVERSAL element");
 
-      $self->_get_current_division->add_part($definition);
-      $self->_get_current_division->add_property_element($definition);
+      my $division = $self->_get_current_division;
+      $division->add_part($definition);
+      $division->add_property_element($definition);
     }
 
   return 1;
@@ -6327,16 +6341,7 @@ sub _process_start_table_cell {
 
   $logger->trace("----- table cell");
 
-  # new block
-  my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
-  $block->add_line($line);
-  $self->_begin_block($block);
-
-  if (
-      not $self->_in_table
-      and
-      not $self->_in_baretable
-     )
+  if ( not $self->_in_table and not $self->_in_baretable )
     {
       # new BARE_TABLE
       my $tnum      = $self->_count_baretables + 1;
@@ -6362,15 +6367,17 @@ sub _process_start_table_cell {
       my $cid       = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
       my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
-      $tablecell->add_part($block);
       $self->_begin_division($tablecell);
+
+      # new block
+      my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
+      $block->add_line($line);
+      $self->_begin_block($block);
+
+      $tablecell->add_part($block);
     }
 
-  elsif (
-	 $self->_in_baretable
-	 and
-	 not $self->_in_table_row
-	)
+  elsif ( $self->_in_baretable and not $self->_in_table_row )
     {
       # new BARE_TABLE_ROW
       my $tnum     = $self->_count_baretables;
@@ -6390,15 +6397,17 @@ sub _process_start_table_cell {
       my $cid       = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
       my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
-      $tablecell->add_part($block);
       $self->_begin_division($tablecell);
+
+      # new block
+      my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
+      $block->add_line($line);
+      $self->_begin_block($block);
+
+      $tablecell->add_part($block);
     }
 
-  elsif (
-	 $self->_in_table
-	 and
-	 not $self->_in_table_row
-	)
+  elsif ( $self->_in_table and not $self->_in_table_row	)
     {
       # new TABLE_ROW
       my $tnum     = $self->_count_tables;
@@ -6418,8 +6427,14 @@ sub _process_start_table_cell {
       my $cid       = "TABLE_CELL-$tnum-$rnum-$cnum";
       my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
-      $tablecell->add_part($block);
       $self->_begin_division($tablecell);
+
+      # new block
+      my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
+      $block->add_line($line);
+      $self->_begin_block($block);
+
+      $tablecell->add_part($block);
     }
 
   elsif ( $self->_in_baretable )
@@ -6434,14 +6449,19 @@ sub _process_start_table_cell {
       my $cid       = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
       my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
-      $tablecell->add_part($block);
-
       if ( not $self->_has_division )
 	{
 	  $self->_set_division($tablecell);
 	}
 
       $self->_begin_division($tablecell);
+
+      # new block
+      my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
+      $block->add_line($line);
+      $self->_begin_block($block);
+
+      $tablecell->add_part($block);
     }
 
   elsif ( $self->_in_table )
@@ -6456,14 +6476,19 @@ sub _process_start_table_cell {
       my $cid       = "TABLE_CELL-$tnum-$rnum-$cnum";
       my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
 
-      $tablecell->add_part($block);
-
       if ( not $self->_has_division )
 	{
 	  $self->_set_division($tablecell);
 	}
 
       $self->_begin_division($tablecell);
+
+      # new block
+      my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
+      $block->add_line($line);
+      $self->_begin_block($block);
+
+      $tablecell->add_part($block);
     }
 
   else
@@ -6520,7 +6545,18 @@ sub _process_paragraph_text {
   elsif ( $self->_in_table_cell )
     {
       $logger->trace("..... adding to block in table cell");
-      $self->_get_block->add_line( $line );
+      my $block = $self->_get_block;
+
+      if ($block)
+	{
+	  $block->add_line( $line );
+	}
+
+      else
+	{
+	  my $location = $line->get_location;
+	  $logger->warn("CAN'T ADD LINE TO BLOCK AT $location");
+	}
     }
 
   elsif ( $self->_in_listitem )
@@ -7750,7 +7786,23 @@ sub _parse_block {
       return 1;
     }
 
-  my $text = $block->get_content;
+  my $text = q{};
+
+  if (
+      $block->isa('SML::Element')
+      or
+      $block->isa('SML::ListItem')
+      or
+      $block->isa('SML::Paragraph')
+     )
+    {
+      $text = $block->get_value;
+    }
+
+  else
+    {
+      $text = $block->get_content;
+    }
 
   while ( $text )
     {

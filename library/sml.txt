@@ -61,10 +61,10 @@ author:: Donald C. Gause & Gerald M. Weinberg
 <<<EPIGRAPH
 
 This book describes how to construct documents using the
-[g:sml:Structured Manuscript Language] ([g:sml:SML]) and how to
+[g:sml:Semantic Manuscript Language] ([g:sml:SML]) and how to
 publish them using the [g:sml:publish] program.
 
-index:: Structured Manuscript Language; SML; structured text; ||publish||
+index:: Semantic Manuscript Language; SML; structured text; ||publish||
 program
 
 SML enables you to represent full-length, full-featured, high-quality
@@ -680,8 +680,8 @@ programmers are comfortable using a plain text editor.
 the appearance of your documents are eliminated since the ||publish||
 program renders the presentation of the document for you.
 
-- !!CON:!! ~~Learning the Structured Manuscript Language~~ - You must
-learn the Structured Manuscript Language.  Even though it is designed
+- !!CON:!! ~~Learning the Semantic Manuscript Language~~ - You must
+learn the Semantic Manuscript Language.  Even though it is designed
 to be as simple as possible, you still have to learn the SML rules.
 
 - !!PRO:!! ~~Easier to Learn Than LaTeX.~~ - If you want to get
@@ -1792,7 +1792,7 @@ step:: Install Perl Modules:
 
 #---------------------------------------------------------------------
 
-*.structuring-text The Structured Manuscript Language
+*.structuring-text The Semantic Manuscript Language
 
 ===
 
@@ -2067,7 +2067,7 @@ first occurrence of one of these:
 Here's an example of a typical preamble, in fact it's the preamble of
 ~~this~~ document:
 
-  title:: Structured Manuscript Language (SML)
+  title:: Semantic Manuscript Language (SML)
 
   subtitle:: Professional Documents Using SML [linebreak] and the
   [cmd:publish] Program

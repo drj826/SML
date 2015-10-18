@@ -37,38 +37,19 @@ has '+name' =>
 ######################################################################
 ######################################################################
 
-sub as_text {
+sub get_value {
+
+  # strip the table cell markup off the beginning of the content.
 
   my $self = shift;
 
-  return 1;
-}
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
-######################################################################
+  # Figure out what to do here.  A table cell is a division and not a
+  # block so I can't treat this like an element.
 
-sub as_latex {
-
-  my $self = shift;
-
-  return 1;
-}
-
-######################################################################
-
-sub as_csv {
-
-  my $self = shift;
-
-  return 1;
-}
-
-######################################################################
-
-sub as_xml {
-
-  my $self = shift;
-
-  return 1;
+  return 0;
 }
 
 ######################################################################

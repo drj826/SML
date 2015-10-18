@@ -37,6 +37,30 @@ has '+name' =>
 ######################################################################
 ######################################################################
 
+sub get_value {
+
+  # The first block of a table cell is captured as a paragraph with
+  # the table cell markup syntax prepending the paragraph content.
+  # This method strips the table cell syntax off the beginning of the
+  # paragraph.
+
+  my $self = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $self->get_content;
+
+  if ( $text =~ /$syntax->{table_cell}/ )
+    {
+      return $3 || q{};
+    }
+
+  else
+    {
+      return $text;
+    }
+}
+
 ######################################################################
 
 no Moose;

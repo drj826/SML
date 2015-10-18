@@ -5,7 +5,14 @@
 <title>[% document.get_property_value('title') %]</title>
 </head>
 <body>
-<h1>[% self.get_number %] [% self.get_property_value('title') %] </h1>
+
+<h1>
+[% self.get_number %]
+[% SET title = self.get_property('title') %]
+[% FOREACH self IN title.get_element_list %]
+[%- INCLUDE part_list.tt -%]
+[% END %]
+</h1>
 
 [%- FOREACH part IN self.get_part_list -%]
 [% part.get_id %] [% part.get_name %] [% part.get_content %]

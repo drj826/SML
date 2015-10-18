@@ -1,0 +1,38 @@
+[% WRAPPER page.tt -%]
+
+<div class="title">
+[% IF document.has_property('title') %]
+[% SET property = document.get_property('title') %]
+[% FOREACH self IN property.get_element_list %]
+[%- INCLUDE part_list.tt -%]
+[% END %]
+[% END %]
+</div>
+
+[% IF document.has_property('subtitle') %]
+[% SET property = document.get_property('subtitle') %]
+[% FOREACH self IN property.get_element_list %]
+<p align="center">[%- INCLUDE part_list.tt -%]</p>
+[% END %]
+[% END %]
+
+<div class="preamble">
+</div>
+
+<h3 align="center">Glossary</h3>
+<table>
+
+[% SET glossary = document.get_glossary %]
+[% FOREACH entry IN glossary.get_entry_list %]
+  [% SET term = entry.get_term %]
+  [% SET alt = entry.get_alt %]
+  [% SET value = entry.get_value %]
+<tr>
+<td>[%term%]</td>
+<td>[%value%]</td>
+</tr>
+[% END %]
+
+</table>
+
+[%- END -%]

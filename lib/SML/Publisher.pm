@@ -280,7 +280,7 @@ sub _publish_html_document {
       if ( $document->get_glossary->has_entries )
 	{
 	  $logger->info("publishing $id.glossary.html");
-	  $tt->process("glossary.tt",$vars,"$id.glossary.html")
+	  $tt->process("glossary_page.tt",$vars,"$id.glossary.html")
 	    || die $tt->error(), "\n";
 	}
 
@@ -288,7 +288,7 @@ sub _publish_html_document {
       if ( $document->get_references->has_sources )
 	{
 	  $logger->info("publishing $id.references.html");
-	  $tt->process("references.tt",$vars,"$id.references.html")
+	  $tt->process("references_page.tt",$vars,"$id.references.html")
 	    || die $tt->error(), "\n";
 	}
 

@@ -1,15 +1,20 @@
-[%#
-
-$Id: $
-
-%]
 [% WRAPPER page.tt -%]
 
-<div class="title">[% document.get_property_value('title') %]</div>
+<div class="title">
+[% IF document.has_property('title') %]
+[% SET property = document.get_property('title') %]
+[% FOREACH self IN property.get_element_list %]
+[%- INCLUDE part_list.tt -%]
+[% END %]
+[% END %]
+</div>
 
-[%- IF document.has_property('subtitle') -%]
-<div class="subtitle">[% document.get_property_value('subtitle') %]</div>
-[%- END -%]
+[% IF document.has_property('subtitle') %]
+  [% SET property = document.get_property('subtitle') %]
+  [% FOREACH self IN property.get_element_list %]
+<p align="center">[%- INCLUDE part_list.tt -%]</p>
+  [% END %]
+[% END %]
 
 <div class="preamble">
 </div>
@@ -18,11 +23,38 @@ $Id: $
 
 [%- FOREACH section IN document.get_section_list -%]
 [%- IF section.get_depth == '1' -%]
-<h4>Chapter [% section.get_number %] &nbsp;&nbsp; <a href="[%document.get_id%].[%section.get_number%].html">[% section.get_property_value('title') %]</a></h4>
+
+[% SET title = section.get_property('title') %]
+<h4>Chapter [% section.get_number %] &nbsp;&nbsp;
+<a href="[%document.get_id%].[%section.get_number%].html">
+[% FOREACH self IN title.get_element_list %]
+[%- INCLUDE part_list.tt -%]
+[% END %]
+</a>
+</h4>
+
 [%- ELSIF section.get_depth == '2' -%]
-<div style="text-indent: 60pt; font-size: 8pt;">[% section.get_number %] &nbsp;&nbsp; <a href="[%document.get_id%].[%section.get_number%].html">[% section.get_property_value('title') %]</a></div>
+[% SET title = section.get_property('title') %]
+<div style="text-indent: 60pt; font-size: 8pt;">
+[% section.get_number %] &nbsp;&nbsp;
+<a href="[%document.get_id%].[%section.get_number%].html">
+[% FOREACH self IN title.get_element_list %]
+[%- INCLUDE part_list.tt -%]
+[% END %]
+</a>
+</div>
+
 [%- ELSE -%]
-<div style="text-indent: 90pt; font-size: 8pt;">[% section.get_number %] &nbsp;&nbsp; <a href="[%document.get_id%].[%section.get_number%].html">[% section.get_property_value('title') %]</a></div>
+[% SET title = section.get_property('title') %]
+<div style="text-indent: 90pt; font-size: 8pt;">
+[% section.get_number %] &nbsp;&nbsp;
+<a href="[%document.get_id%].[%section.get_number%].html">
+[% FOREACH self IN title.get_element_list %]
+[%- INCLUDE part_list.tt -%]
+[% END %]
+</a>
+</div>
+
 [%- END %]
 
 [%- END -%]

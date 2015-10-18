@@ -8,6 +8,6 @@ use SML::Library;
 
 my $library = SML::Library->new(config_filename=>'library.conf');
 
-$library->publish('frd-sml','html','default');
+$library->publish('sml','html','default');
 
 1;

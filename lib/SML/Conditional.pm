@@ -31,13 +31,15 @@ has '+name' =>
 
 ######################################################################
 
-has 'token' =>
-  (
-   is       => 'ro',
-   isa      => 'Str',
-   reader   => 'get_token',
-   required => 1,
-  );
+# use ID instead
+
+# has 'token' =>
+#   (
+#    is       => 'ro',
+#    isa      => 'Str',
+#    reader   => 'get_token',
+#    required => 1,
+#   );
 
 ######################################################################
 ######################################################################
@@ -72,7 +74,6 @@ whether a flag is set.
   my $conditional = SML::Conditional->new
                       (
                         id      => $id,
-                        token   => $token,
                         library => $library,
                       );
 

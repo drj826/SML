@@ -5,7 +5,14 @@
 <br/>
 
 <hr align="center" noshade size="4" width="60%">
-<h1 align="center">[% document.get_property_value('title') %]</h1>
+<h1 align="center">
+[% IF document.has_property('title') %]
+[% SET property = document.get_property('title') %]
+[% FOREACH self IN property.get_element_list %]
+[%- INCLUDE part_list.tt -%]
+[% END %]
+[% END %]
+</h1>
 <hr align="center" noshade size="4" width="60%">
 
 <br/>
@@ -13,7 +20,10 @@
 <br/>
 
 [% IF document.has_property('subtitle') %]
-<p align="center">[% document.get_property_value('subtitle') %]</p>
+  [% SET property = document.get_property('subtitle') %]
+  [% FOREACH self IN property.get_element_list %]
+<p align="center">[%- INCLUDE part_list.tt -%]</p>
+  [% END %]
 [% END %]
 
 <br/>
@@ -21,7 +31,10 @@
 <br/>
 
 [%- IF document.has_property('version') -%]
-<p align="center">Version [% document.get_property_value('version') %]</p>
+  [% SET property = document.get_property('version') %]
+  [% FOREACH self IN property.get_element_list %]
+<p align="center">Version [% INCLUDE part_list.tt %]</p>
+  [% END %]
 [%- END -%]
 
 [%- IF document.has_property('date') -%]
