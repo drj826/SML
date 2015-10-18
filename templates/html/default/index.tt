@@ -1,13 +1,1 @@
-== index page ==
-
-[%#
-
-$Id: $
-
-%]
-<html>
-<head>
-</head>
-<body>
-</body>
-</html>
+[%# index element %]

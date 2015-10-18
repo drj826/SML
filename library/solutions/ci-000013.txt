@@ -4,7 +4,7 @@ title:: `printmessage' Subroutine
 
 type:: software
 
-part_of:: ci-000007
+is_part_of:: ci-000007
 
 description:: The [cmd:printmessage] subroutine implements a utility
 function to log a message and display it to the user.

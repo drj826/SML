@@ -1,0 +1,7 @@
+[% SET division = self.get_division %]
+[% SET label = division.get_id %]
+[% SET tag = self.get_tag %]
+[% SET anchor = 'footnote' _ '.' _ label _ '.' _ tag %]
+
+<a name="[%anchor%]"/>
+<p class="footnote"><tt>[[%tag%]]</tt> [%- INCLUDE part_list.tt -%] </p>

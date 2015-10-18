@@ -1,0 +1,13 @@
+<a name="epigraph.[% self.get_number %]">
+<div class="epigraph">
+[%- IF self.has_property('text')  -%]
+<p align="right"><i>[%- self.get_property_value('text') -%]</i></p>
+[%- END -%]
+[%- IF self.has_property('author') and self.has_property('source') -%]
+<p align="right"><small>&mdash; [%- self.get_property_value('author') -%], [%- self.get_property_value('source') -%]</small></p>
+[%- ELSIF self.has_property('source') -%]
+<p align="right"><small>&mdash; [%- self.get_property_value('source') -%]</small></p>
+[%- ELSIF self.has_property('author')  -%]
+<p align="right"><small>&mdash; [%- self.get_property_value('author') -%]</small></p>
+[%- END -%]
+</div>

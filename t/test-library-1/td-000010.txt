@@ -10,8 +10,6 @@ into the document.
 
 >>>PREFORMATTED
 
-===
-
 script:: dir
 
 <<<PREFORMATTED

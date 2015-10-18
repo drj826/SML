@@ -4,7 +4,7 @@ title:: `menu_about' Subroutine
 
 type:: software
 
-part_of:: ci-000007
+is_part_of:: ci-000007
 
 description:: The [cmd:menu_about] subroutine displays the `about'
 message that provides information about the program including

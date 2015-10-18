@@ -4,7 +4,7 @@ title:: `generate_item_summary' Subroutine
 
 type:: software
 
-part_of:: ci-000007
+is_part_of:: ci-000007
 
 description:: The [cmd:generate_item_summary] subroutine generates and
 returns a semantic manuscript language summary of a specified item.

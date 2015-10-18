@@ -42,9 +42,6 @@ has 'line_list' =>
   (
    isa       => 'ArrayRef',
    reader    => 'get_line_list',
-   # writer    => 'set_line_list',
-   # clearer   => 'clear_line_list',
-   # predicate => 'has_line_list',
    default   => sub {[]},
   );
 
@@ -55,7 +52,6 @@ has 'containing_division' =>
    isa       => 'SML::Division',
    reader    => 'get_containing_division',
    writer    => 'set_containing_division',
-   # clearer   => 'clear_containing_division',
    predicate => 'has_containing_division',
   );
 
@@ -74,7 +70,7 @@ has 'valid_syntax' =>
    isa       => 'Bool',
    reader    => 'has_valid_syntax',
    lazy      => 1,
-   builder   => '_validate_syntax',
+   builder   => 'validate_syntax',
   );
 
 ######################################################################
@@ -84,7 +80,7 @@ has 'valid_semantics' =>
    isa       => 'Bool',
    reader    => 'has_valid_semantics',
    lazy      => 1,
-   builder   => '_validate_semantics',
+   builder   => 'validate_semantics',
   );
 
 ######################################################################
@@ -221,6 +217,58 @@ sub is_in_a {
     }
 
   return 0;
+}
+
+######################################################################
+
+sub validate_syntax {
+
+  # Validate the syntax of this block.  Syntax validation is possible
+  # even if the block is not in a document or library context.
+
+  my $self  = shift;
+  my $valid = 1;
+
+  $valid = 0 if not $self->has_valid_bold_markup_syntax;
+  $valid = 0 if not $self->has_valid_italics_markup_syntax;
+  $valid = 0 if not $self->has_valid_fixedwidth_markup_syntax;
+  $valid = 0 if not $self->has_valid_underline_markup_syntax;
+  $valid = 0 if not $self->has_valid_superscript_markup_syntax;
+  $valid = 0 if not $self->has_valid_subscript_markup_syntax;
+  $valid = 0 if not $self->has_valid_cross_ref_syntax;
+  $valid = 0 if not $self->has_valid_id_ref_syntax;
+  $valid = 0 if not $self->has_valid_page_ref_syntax;
+  $valid = 0 if not $self->has_valid_glossary_term_ref_syntax;
+  $valid = 0 if not $self->has_valid_glossary_def_ref_syntax;
+  $valid = 0 if not $self->has_valid_acronym_ref_syntax;
+  $valid = 0 if not $self->has_valid_source_citation_syntax;
+
+  return $valid;
+}
+
+######################################################################
+
+sub validate_semantics {
+
+  # Validate the semantics of this block.
+
+  my $self  = shift;
+  my $valid = 1;
+
+  $valid = 0 if not $self->has_valid_cross_ref_semantics;
+  $valid = 0 if not $self->has_valid_id_ref_semantics;
+  $valid = 0 if not $self->has_valid_page_ref_semantics;
+  $valid = 0 if not $self->has_valid_theversion_ref_semantics;
+  $valid = 0 if not $self->has_valid_therevision_ref_semantics;
+  $valid = 0 if not $self->has_valid_thedate_ref_semantics;
+  $valid = 0 if not $self->has_valid_status_ref_semantics;
+  $valid = 0 if not $self->has_valid_glossary_term_ref_semantics;
+  $valid = 0 if not $self->has_valid_glossary_def_ref_semantics;
+  $valid = 0 if not $self->has_valid_acronym_ref_semantics;
+  $valid = 0 if not $self->has_valid_source_citation_semantics;
+  $valid = 0 if not $self->has_valid_file_ref_semantics;
+
+  return $valid;
 }
 
 ######################################################################
@@ -673,58 +721,6 @@ sub _render_html_footnote_references {
   }
 
   return $html;
-}
-
-######################################################################
-
-sub _validate_syntax {
-
-  # Validate the syntax of this block.  Syntax validation is possible
-  # even if the block is not in a document or library context.
-
-  my $self  = shift;
-  my $valid = 1;
-
-  $valid = 0 if not $self->has_valid_bold_markup_syntax;
-  $valid = 0 if not $self->has_valid_italics_markup_syntax;
-  $valid = 0 if not $self->has_valid_fixedwidth_markup_syntax;
-  $valid = 0 if not $self->has_valid_underline_markup_syntax;
-  $valid = 0 if not $self->has_valid_superscript_markup_syntax;
-  $valid = 0 if not $self->has_valid_subscript_markup_syntax;
-  $valid = 0 if not $self->has_valid_cross_ref_syntax;
-  $valid = 0 if not $self->has_valid_id_ref_syntax;
-  $valid = 0 if not $self->has_valid_page_ref_syntax;
-  $valid = 0 if not $self->has_valid_glossary_term_ref_syntax;
-  $valid = 0 if not $self->has_valid_glossary_def_ref_syntax;
-  $valid = 0 if not $self->has_valid_acronym_ref_syntax;
-  $valid = 0 if not $self->has_valid_source_citation_syntax;
-
-  return $valid;
-}
-
-######################################################################
-
-sub _validate_semantics {
-
-  # Validate the semantics of this block.
-
-  my $self  = shift;
-  my $valid = 1;
-
-  $valid = 0 if not $self->has_valid_cross_ref_semantics;
-  $valid = 0 if not $self->has_valid_id_ref_semantics;
-  $valid = 0 if not $self->has_valid_page_ref_semantics;
-  $valid = 0 if not $self->has_valid_theversion_ref_semantics;
-  $valid = 0 if not $self->has_valid_therevision_ref_semantics;
-  $valid = 0 if not $self->has_valid_thedate_ref_semantics;
-  $valid = 0 if not $self->has_valid_status_ref_semantics;
-  $valid = 0 if not $self->has_valid_glossary_term_ref_semantics;
-  $valid = 0 if not $self->has_valid_glossary_def_ref_semantics;
-  $valid = 0 if not $self->has_valid_acronym_ref_semantics;
-  $valid = 0 if not $self->has_valid_source_citation_semantics;
-  $valid = 0 if not $self->has_valid_file_ref_semantics;
-
-  return $valid;
 }
 
 ######################################################################

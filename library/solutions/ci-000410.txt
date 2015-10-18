@@ -4,7 +4,7 @@ title:: SML/Library.pm Module
 
 type:: software
 
-part_of:: ci-000004
+is_part_of:: ci-000004
 
 description:: The SML/Library.pm Module...
 

@@ -8,7 +8,7 @@ type:: class
 
 type:: unit
 
-part_of:: ci-000004
+is_part_of:: ci-000004
 
 description:: The Publish.pm perl module implements the [g:sml:SML]
 class.  [g:sml:Semantic Manuscript Language] ([g:sml:SML]) is a

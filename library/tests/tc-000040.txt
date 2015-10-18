@@ -4,7 +4,7 @@ title:: Analysis
 
 priority:: routine
 
-part_of:: tc-000039
+is_part_of:: tc-000039
 
 description:: The purpose of this test case is to serve as an abstract
 method of validating software quality until a more concrete method can

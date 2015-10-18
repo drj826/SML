@@ -1,0 +1,2 @@
+<pre>[% self.get_content %]</pre>
+

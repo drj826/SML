@@ -4,7 +4,7 @@ title:: `generate_prioritized_problem_listing' Subroutine
 
 type:: software
 
-part_of:: ci-000007
+is_part_of:: ci-000007
 
 description:: The [cmd:generate_prioritized_problem_listing]
 subroutine generates and return the structured text for a prioritized

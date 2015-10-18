@@ -118,7 +118,7 @@ sub validate_element_allowed {
   else
     {
       my $location = $self->get_location;
-      $logger->warn("INVALID PROPERTY at $location: \"$divname\" \"$name\"");
+      $logger->warn("ELEMENT NOT ALLOWED \'$divname\' \'$name\' \'$object_type\' at $location");
       $valid = 0;
     }
 
@@ -214,14 +214,8 @@ sub validate_footnote_syntax {
 }
 
 ######################################################################
-######################################################################
-##
-## Private Methods
-##
-######################################################################
-######################################################################
 
-override '_validate_syntax' => sub {
+override 'validate_syntax' => sub {
 
   my $self = shift;
 
@@ -241,7 +235,7 @@ override '_validate_syntax' => sub {
 
 ######################################################################
 
-override '_validate_semantics' => sub {
+override 'validate_semantics' => sub {
 
   # Validate there is an ontology rule for this element. In other
   # words, validate the ontology allows this element.
@@ -268,6 +262,12 @@ override '_validate_semantics' => sub {
 };
 
 ######################################################################
+######################################################################
+##
+## Private Methods
+##
+######################################################################
+######################################################################
 
 sub _type_of {
 
@@ -281,7 +281,7 @@ sub _type_of {
   my $util    = $library->get_util;
   my $name    = q{};
 
-  if ( $library->has_division($value) )
+  if ( $library->has_division_id($value) )
     {
       my $object = $library->get_division($value);
       return $object->get_name;

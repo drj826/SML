@@ -4,7 +4,7 @@ title:: `pass_three' Subroutine
 
 type:: software
 
-part_of:: ci-000007
+is_part_of:: ci-000007
 
 description:: The [cmd:pass_three] subroutine renders SML documents
 into other formats (LaTeX, HTML, CSV, XML, and RTF).

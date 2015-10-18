@@ -2630,14 +2630,14 @@ sub _build_division_test_case_list {
        get_first_part          => 'SML::PreformattedBlock',
        get_property            => 'SML::Property',
        get_property_value      => 'Section Structure With Regions',
-       get_first_line          => '>>>DOCUMENT',
-       get_part_list           => 22,
-       get_line_list           => 216,
+       get_first_line          => '>>>DOCUMENT.td-000020',
+       get_part_list           => 21,
+       get_line_list           => 210,
        get_division_list       => 32,
        get_section_list        => 5,
-       get_block_list          => 93,
-       get_element_list        => 40,
-       get_data_segment_line_list  => 18,
+       get_block_list          => 91,
+       get_element_list        => 31,
+       get_data_segment_line_list  => 12,
        get_narrative_line_list => 195,
        get_property_list       => 9,
       },
@@ -2654,15 +2654,15 @@ sub _build_division_test_case_list {
        get_first_part          => 'SML::Element',
        get_property            => 'SML::Property',
        get_property_value      => 'chapter',
-       get_first_line          => '* Introduction',
+       get_first_line          => '*.introduction Introduction',
        get_part_list           => 7,
        get_line_list           => 17,
        get_division_list       => 0,
        get_block_list          => 7,
-       get_element_list        => 4,
-       get_data_segment_line_list  => 4,
-       get_narrative_line_list => 9,
-       get_property_list       => 4,
+       get_element_list        => 3,
+       get_data_segment_line_list  => 2,
+       get_narrative_line_list => 11,
+       get_property_list       => 3,
       },
      },
 
@@ -2677,14 +2677,14 @@ sub _build_division_test_case_list {
        get_first_part          => 'SML::PreformattedBlock',
        get_property            => 'SML::Property',
        get_property_value      => 'Problem One',
-       get_first_line          => '>>>problem',
+       get_first_line          => '>>>problem.problem-20-1',
        get_part_list           => 11,
        get_line_list           => 42,
        get_division_list       => 10,
        get_block_list          => 19,
-       get_element_list        => 6,
-       get_data_segment_line_list  => 12,
-       get_narrative_line_list => 26,
+       get_element_list        => 5,
+       get_data_segment_line_list  => 10,
+       get_narrative_line_list => 28,
        get_property_list       => 6,
       },
      },
@@ -2700,13 +2700,13 @@ sub _build_division_test_case_list {
        get_first_part          => 'SML::PreformattedBlock',
        get_property            => 'SML::Property',
        get_property_value      => 'tab-solution-types',
-       get_first_line          => '---TABLE',
+       get_first_line          => '>>>TABLE.tab-solution-types',
        get_part_list           => 10,
-       get_line_list           => 30,
+       get_line_list           => 28,
        get_division_list       => 12,
-       get_block_list          => 15,
-       get_element_list        => 2,
-       get_data_segment_line_list  => 4,
+       get_block_list          => 14,
+       get_element_list        => 1,
+       get_data_segment_line_list  => 2,
        get_narrative_line_list => 22,
        get_property_list       => 2,
       },
@@ -2715,12 +2715,12 @@ sub _build_division_test_case_list {
      {
       name => 'invalid_semantics_division_1',
       library => $self->get_test_library_1,
-      divid => 'parent-problem',
+      divid => 'td-000063',
       expected =>
       {
        warning =>
        {
-	has_valid_semantics => 'INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY',
+	is_valid => 'INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY',
        },
       },
      },
@@ -2733,7 +2733,7 @@ sub _build_division_test_case_list {
       {
        warning =>
        {
-	has_valid_semantics => 'MISSING REQUIRED PROPERTY',
+	is_valid => 'MISSING REQUIRED PROPERTY',
        },
       },
      },
@@ -2746,7 +2746,7 @@ sub _build_division_test_case_list {
       {
        warning =>
        {
-	has_valid_semantics => 'INVALID PROPERTY CARDINALITY',
+	is_valid => 'INVALID PROPERTY CARDINALITY',
        },
       },
      },
@@ -2754,12 +2754,12 @@ sub _build_division_test_case_list {
      {
       name => 'invalid_semantics_division_5',
       library => $self->get_test_library_1,
-      id => 'problem-80-1',
+      divid => 'problem-80-1',
       expected =>
       {
        warning =>
        {
-	has_valid_semantics => 'INVALID PROPERTY VALUE',
+	is_valid => 'INVALID PROPERTY VALUE',
        },
       },
      },
@@ -2772,7 +2772,7 @@ sub _build_division_test_case_list {
       {
        warning =>
        {
-	has_valid_semantics => 'INVALID COMPOSITION',
+	is_valid => 'INVALID COMPOSITION',
        },
       },
      },
@@ -4284,7 +4284,7 @@ sub _build_ontology_test_case_list {
 	'attr',
 	'author',
 	'changed_by',
-	'child',
+	'has_part',
 	'class_of',
 	'copyright',
 	'created_by',
@@ -4305,7 +4305,7 @@ sub _build_ontology_test_case_list {
 	'next',
 	'order',
 	'owner',
-	'part_of',
+	'is_part_of',
 	'previous',
 	'priority',
 	'realized_by',
@@ -4436,7 +4436,7 @@ sub _build_ontology_test_case_list {
        'library/ontology_rules_lib.conf',
       ],
       entity_name => 'problem',
-      property_name => 'child',
+      property_name => 'has_part',
       expected =>
       {
        property_is_imply_only => 1,
@@ -4676,10 +4676,6 @@ sub _build_parser_test_case_list {
       expected =>
       {
        parse => 'SML::Entity',
-       # extract_division_name => 'problem',
-       # extract_title_text => 'Sample Problem For `Include\' Tests',
-       # extract_data_segment_lines => 17,
-       # extract_narrative_lines => 8,
       }
      },
 
@@ -4742,26 +4738,6 @@ sub _build_parser_test_case_list {
        parse => 'SML::Document',
       },
      },
-
-     # {
-     #  name     => 'document_containing_invalid_begin_region',
-     #  divid    => 'td-000030',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   parse => 'SML::Document',
-     #  },
-     # },
-
-     # {
-     #  name     => 'document_containing_undefined_region',
-     #  divid    => 'td-000031',
-     #  library  => $self->get_test_library_1,
-     #  expected =>
-     #  {
-     #   parse => 'SML::Document',
-     #  },
-     # },
 
      {
       name     => 'document_containing_cross_reference',
@@ -5143,16 +5119,6 @@ sub _build_parser_test_case_list {
       },
      },
 
-     # {
-     #  name     => 'document_containing_invalid_non_unique_id',
-     #  divid    => 'td-000070',
-     #  library  => $self->get_test_library_2,
-     #  expected =>
-     #  {
-     #   parse => 'SML::Document',
-     #  },
-     # },
-
      {
       name     => 'document_containing_baretable',
       divid    => 'td-000071',
@@ -5200,10 +5166,6 @@ sub _build_parser_test_case_list {
       expected =>
       {
        parse => 'SML::Listing',
-       extract_division_name => 'LISTING',
-       extract_title_text    => 'Sample Listing',
-       extract_data_segment_lines  => 3,
-       extract_narrative_lines => 33,
       }
      },
 
@@ -5214,9 +5176,6 @@ sub _build_parser_test_case_list {
       expected =>
       {
        parse => 'SML::Section',
-       extract_division_name  => 'SECTION',
-       extract_title_text    => 'Section Division',
-       extract_data_segment_lines  => 1,
       }
      },
 

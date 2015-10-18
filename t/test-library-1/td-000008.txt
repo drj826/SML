@@ -8,7 +8,7 @@ This SML document contains a generate block.  The 'generate' statement
 tells an application to generate content based on the parsed data
 elements.
 
-The 'generate' statement in this test file generates a problem
+The `generate' statement in this test file generates a problem
 listing.  That is, a listing of all the problems in the document.
 
 generate:: problem-domain-listing
@@ -29,7 +29,7 @@ title:: First Child Problem
 
 type:: technical
 
-part_of:: problem-1
+is_part_of:: problem-1
 
 description:: This is the first child problem.
 
@@ -41,12 +41,10 @@ title:: Second Child Problem
 
 type:: technical
 
-part_of:: problem-1
+is_part_of:: problem-1
 
 description:: This is the second child problem.
 
 <<<problem
-
-#---------------------------------------------------------------------
 
 <<<DOCUMENT

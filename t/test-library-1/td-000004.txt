@@ -12,16 +12,12 @@ will appear if `version_2' is defined.
 
 >>>CONDITIONAL.version_1
 
-===
-
 VERSION 1 -- This is a conditional paragraph that should only be
 included if `version_1' is ``defined.''
 
 <<<CONDITIONAL
 
 >>>CONDITIONAL.version_2
-
-===
 
 VERSION 2 -- This is a conditional paragraph that should only be
 included if `version_2' is ``defined.''

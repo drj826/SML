@@ -4,7 +4,7 @@ title:: SML Semantics
 
 type:: configuration file
 
-part_of:: ci-000001
+is_part_of:: ci-000001
 
 description:: [g:sml:SML] semantics specify the terms that represent the
 entities defined for an SML library, the entity properties, the

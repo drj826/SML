@@ -3,7 +3,7 @@
 # $Id: Division.t 259 2015-04-02 20:27:00Z drj826@gmail.com $
 
 use lib "../lib";
-use Test::More;
+use Test::More tests => 59;
 
 use SML;
 
@@ -93,8 +93,6 @@ my @public_methods =
    'has_figures',
    'has_attachments',
    'has_listings',
-   # 'has_glossary',
-   # 'has_references',
    'get_section_list',
    'get_block_list',
    'get_element_list',
@@ -168,11 +166,10 @@ foreach my $tc (@{ $tcl })
 # Throws expected exceptions?
 #---------------------------------------------------------------------
 
-foreach my $tc (@{ $tcl })
-  {
-    warn_has_valid_semantics_ok($tc)
-      if defined $tc->{expected}{warning}{has_valid_semantics};
-  }
+# foreach my $tc (@{ $tcl })
+#   {
+#     warn_is_valid_ok($tc) if defined $tc->{expected}{warning}{is_valid};
+#   }
 
 ######################################################################
 
@@ -282,10 +279,10 @@ sub get_containing_division_ok {
 
   # arrange
   my $tcname   = $tc->{name};
-  my $id       = $tc->{args}{id};
+  my $library  = $tc->{library};
+  my $divid    = $tc->{divid};
   my $expected = $tc->{expected}{get_containing_division};
-  my $library  = $tc->{args}{library};
-  my $division = $library->get_division($id);
+  my $division = $library->get_division($divid);
 
   # act
   my $result = ref $division->get_containing_division;
@@ -561,7 +558,7 @@ sub get_property_value_ok {
 
 ######################################################################
 
-sub warn_has_valid_semantics_ok {
+sub warn_is_valid_ok {
 
   my $tc = shift;                       # test case
 
@@ -569,7 +566,7 @@ sub warn_has_valid_semantics_ok {
   my $tcname   = $tc->{name};
   my $library  = $tc->{library};
   my $divid    = $tc->{divid};
-  my $expected = $tc->{expected}{warning}{has_valid_semantics};
+  my $expected = $tc->{expected}{warning}{is_valid};
   my $division = $library->get_division($divid);
   my $t1logger = Test::Log4perl->get_logger('sml.Division');
 
@@ -577,7 +574,7 @@ sub warn_has_valid_semantics_ok {
   $t1logger->warn(qr/$expected/);
 
   # act
-  $division->has_valid_semantics;
+  $division->is_valid;
 
   # assert
   Test::Log4perl->end("$tcname $expected");
@@ -585,4 +582,4 @@ sub warn_has_valid_semantics_ok {
 
 ######################################################################
 
-done_testing();
+1;

@@ -4,7 +4,7 @@ title:: `choose_text_file' Subroutine
 
 type:: software
 
-part_of:: ci-000007
+is_part_of:: ci-000007
 
 description:: The [cmd:choose_text_file] subroutine implements the GUI
 function to choose a text file to publish.

@@ -5,20 +5,13 @@
 <a name="section.[% self.get_number %]">
 <h2>[% self.get_number %] [% self.get_property_value('title') %] </h2>
 
-  [%- FOREACH self IN self.get_part_list -%]
-    [%- IF    self.get_name == 'title' -%]
-    [%- ELSIF self.get_name == 'type' -%]
-    [%- ELSIF self.get_name == 'id' -%]
-    [%- ELSIF self.get_name == 'PARAGRAPH' -%]
-      [%- INCLUDE PARAGRAPH.tt -%]
-    [%- ELSIF self.get_name == 'COMMENT' -%]
-      [%- INCLUDE COMMENT.tt -%]
-    [%- ELSIF self.get_name == 'DEFINITION_LIST_ITEM' -%]
-      [%- INCLUDE DEFINITION_LIST_ITEM.tt -%]
-    [%- ELSIF self.get_name == 'problem' -%]
-      [%- INCLUDE problem.tt -%]
+  [%- FOREACH part IN self.get_part_list -%]
+    [%- IF    part.get_name == 'title' -%]
+    [%- ELSIF part.get_name == 'type' -%]
+    [%- ELSIF part.get_name == 'id' -%]
     [%- ELSE -%]
-<p style="color: red;">do something with this [% self.get_name %]!</p>
+      [%- template = part.get_name _ '.tt' -%]
+      [%- INCLUDE $template self = part -%]
 
     [%- END -%]
   [%- END -%]

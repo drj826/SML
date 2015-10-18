@@ -305,8 +305,8 @@ sub allows_division {
   if ( exists $self->_get_types_by_entity_name_hash->{$name}
        and
        (
-	# $self->_get_types_by_entity_name_hash->{$name} eq 'SML::Region'
-	# or
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::CommentDivision'
+	or
 	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Document'
 	or
 	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Division'
@@ -327,8 +327,6 @@ sub allows_division {
 	or
 	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Library'
 	or
-	# $self->_get_types_by_entity_name_hash->{$name} eq 'SML::Environment'
-	# or
 	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Assertion'
 	or
 	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Attachment'

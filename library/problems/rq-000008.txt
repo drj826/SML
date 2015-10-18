@@ -4,7 +4,7 @@ title:: Represent Document Presentation
 
 priority:: routine
 
-part_of:: rq-000107
+is_part_of:: rq-000107
 
 type:: data format
 

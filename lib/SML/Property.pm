@@ -51,6 +51,19 @@ has 'library' =>
 
 ######################################################################
 
+has 'value_list' =>
+  (
+   isa       => 'ArrayRef',
+   reader    => 'get_value_list',
+   default   => sub {[]},
+  );
+
+# A property may have multiple values.  Values may be added directly
+# to the property's value list, or may be added as elements (which are
+# parts of a division).
+
+######################################################################
+
 has 'element_list' =>
   (
    isa       => 'ArrayRef',
@@ -58,12 +71,26 @@ has 'element_list' =>
    default   => sub {[]},
   );
 
+# A property may have multiple values.
+
 ######################################################################
 ######################################################################
 ##
 ## Public Methods
 ##
 ######################################################################
+######################################################################
+
+sub add_value {
+
+  my $self   = shift;
+  my $value  = shift;
+
+  push @{ $self->get_value_list }, $value;
+
+  return 1;
+}
+
 ######################################################################
 
 sub add_element {
@@ -86,6 +113,14 @@ sub has_value {
   foreach my $element (@{ $self->get_element_list })
     {
       if ( $element->get_value eq $value )
+	{
+	  return 1;
+	}
+    }
+
+  foreach my $property_value (@{ $self->get_value_list })
+    {
+      if ( $property_value eq $value )
 	{
 	  return 1;
 	}
@@ -154,6 +189,11 @@ sub get_value {
 	{
 	  push @{ $values }, $element->get_value;
 	}
+
+      foreach my $property_value (@{ $self->get_value_list })
+	{
+	  push @{ $values }, $property_value;
+	}
     }
 
   return join(', ', @{ $values });
@@ -167,8 +207,9 @@ sub is_multi_valued {
   my $self = shift;
 
   my $element_count = scalar @{ $self->get_element_list };
+  my $value_count   = scalar @{ $self->get_value_list };
 
-  if ( $element_count > 1 )
+  if ( $element_count + $value_count > 1 )
     {
       return 1;
     }

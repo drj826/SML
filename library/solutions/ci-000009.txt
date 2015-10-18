@@ -4,7 +4,7 @@ title:: `display_gui' Subroutine
 
 type:: software
 
-part_of:: ci-000007
+is_part_of:: ci-000007
 
 description:: The [cmd:display_gui] subroutine displays the graphical
 user interface.

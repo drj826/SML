@@ -2,7 +2,7 @@
 
 title:: Minimize Presentation Markup
 
-part_of:: rq-000107
+is_part_of:: rq-000107
 
 priority:: routine
 

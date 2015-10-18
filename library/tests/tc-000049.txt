@@ -6,7 +6,7 @@ priority:: routine
 
 type:: unit
 
-part_of:: tc-000001
+is_part_of:: tc-000001
 
 description:: This is the unit test case for the BulletListItem.pm Perl
 module that implements the SML::BulletListItem class.

@@ -15,7 +15,7 @@ title:: My Parent Problem
 
 type:: technical
 
-child:: child-problem
+has_part:: child-problem
 
 description:: This is the parent problem
 

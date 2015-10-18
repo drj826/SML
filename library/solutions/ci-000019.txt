@@ -4,7 +4,7 @@ title:: `ErrorReport' Subroutine
 
 type:: software
 
-part_of:: ci-000007
+is_part_of:: ci-000007
 
 description:: The [cmd:ErrorReport] subroutine produces an MW Windows
 message box for a generic error (its the Windows Way).

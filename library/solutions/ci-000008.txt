@@ -4,7 +4,7 @@ title:: `publish' Subroutine
 
 type:: software
 
-part_of:: ci-000007
+is_part_of:: ci-000007
 
 description:: The [cmd:publish] subroutine is the main subroutine of
 the [cmd:publish.pl] script. 

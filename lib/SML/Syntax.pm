@@ -1344,41 +1344,41 @@ has 'start_section' =>
 
 ######################################################################
 
-has 'start_comment' =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^>{3}COMMENT',
-  );
+# has 'start_comment' =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^>{3}COMMENT',
+#   );
 
 ######################################################################
 
-has 'end_comment' =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^<{3}COMMENT',
-  );
+# has 'end_comment' =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^<{3}COMMENT',
+#   );
 
 ######################################################################
 
-has 'start_conditional' =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^>{3}CONDITIONAL.([\w\-]+)',
-  );
+# has 'start_conditional' =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^>{3}CONDITIONAL.([\w\-]+)',
+#   );
 
 # $1 = conditional token
 
 ######################################################################
 
-has 'end_conditional' =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^<{3}CONDITIONAL',
-  );
+# has 'end_conditional' =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^<{3}CONDITIONAL',
+#   );
 
 ######################################################################
 

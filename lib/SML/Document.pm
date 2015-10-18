@@ -380,13 +380,13 @@ has 'using_supertabular',      is => 'ro', isa => 'Boolean';
 
 ######################################################################
 
-has 'valid' =>
-  (
-   isa       => 'Bool',
-   reader    => 'is_valid',
-   lazy      => 1,
-   builder   => '_validate_document',
-  );
+# has 'valid' =>
+#   (
+#    isa       => 'Bool',
+#    reader    => 'is_valid',
+#    lazy      => 1,
+#    builder   => '_validate_document',
+#   );
 
 ######################################################################
 ######################################################################
@@ -689,50 +689,48 @@ has 'source_hash' =>
 ######################################################################
 ######################################################################
 
-sub _validate_document {
+# sub _validate_document {
 
-  my $self    = shift;
+#   my $self = shift;
 
-  my $library = $self->get_library;
-  my $util    = $library->get_util;
-  my $valid   = 1;
-  my $id      = $self->get_id;
+#   my $valid = 1;
+#   my $id    = $self->get_id;
 
-  $logger->debug("validate document $id in library $library");
+#   $logger->debug("validate document $id");
 
-  $valid = 0 if not $self->has_valid_id_uniqueness;
+#   $valid = 0 if not $self->has_valid_id_uniqueness;
 
-  foreach my $block (@{ $self->get_block_list })
-    {
-      $valid = 0 if not $block->has_valid_syntax;
-      $valid = 0 if not $block->has_valid_semantics;
-    }
+#   foreach my $block (@{ $self->get_block_list })
+#     {
+#       $valid = 0 if not $block->has_valid_syntax;
+#       $valid = 0 if not $block->has_valid_semantics;
+#     }
 
-  foreach my $element (@{ $self->get_element_list })
-    {
-      $valid = 0 if not $element->has_valid_syntax;
-      $valid = 0 if not $element->has_valid_semantics;
-    }
+#   foreach my $element (@{ $self->get_element_list })
+#     {
+#       $valid = 0 if not $element->has_valid_syntax;
+#       $valid = 0 if not $element->has_valid_semantics;
+#     }
 
-  foreach my $division (@{ $self->get_division_list })
-    {
-      next if $division->get_name eq 'document';
+#   foreach my $division (@{ $self->get_division_list })
+#     {
+#       next if $division->get_name eq 'document';
 
-      $valid = 0 if not $division->has_valid_semantics;
-    }
+#       $valid = 0 if not $division->has_valid_semantics;
+#     }
 
-  if ( $valid )
-    {
-      $logger->info("the document is valid \'$id\'");
-    }
+#   if ( $valid )
+#     {
+#       $logger->info("the document is valid \'$id\'");
+#     }
 
-  else
-    {
-      $logger->warn("THE DOCUMENT IS NOT VALID \'$id\'");
-    }
+#   else
+#     {
+#       $logger->warn("THE DOCUMENT IS NOT VALID \'$id\'");
+#     }
 
-  return $valid;
-}
+#   return $valid;
+# }
 
 ######################################################################
 

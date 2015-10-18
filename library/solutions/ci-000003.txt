@@ -8,7 +8,7 @@ type:: class
 
 type:: unit
 
-part_of:: ci-000004
+is_part_of:: ci-000004
 
 description:: The Parser.pm perl module implements the Parser class.
 

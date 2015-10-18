@@ -4,7 +4,7 @@ title:: `end_row_context' Subroutine
 
 type:: software
 
-part_of:: ci-000007
+is_part_of:: ci-000007
 
 description:: The [cmd:end_row_context] subroutine 
 

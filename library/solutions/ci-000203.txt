@@ -10,7 +10,7 @@ author:: $Author: don.johnson $
 
 type:: software
 
-part_of:: ci-000007
+is_part_of:: ci-000007
 
 description:: The [cmd:escape_regexp] subroutine 
 

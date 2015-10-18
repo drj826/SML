@@ -2385,12 +2385,12 @@ sub BUILD {
 		  next;
 		}
 
-	      elsif (/$syntax->{start_comment}/)
+	      elsif (/$syntax->{start_division}/ and $1 eq 'COMMENT')
 		{
 		  $in_comment_division = 1;
 		}
 
-	      elsif (/$syntax->{end_comment}/)
+	      elsif (/$syntax->{end_division}/ and $1 eq 'COMMENT')
 		{
 		  $in_comment_division = 0;
 		}

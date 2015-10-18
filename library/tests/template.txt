@@ -4,7 +4,7 @@ title::
 
 priority:: routine
 
-part_of::
+is_part_of::
 
 description:: The purpose of this test case is
 

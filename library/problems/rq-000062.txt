@@ -10,7 +10,7 @@ author:: $Author: don.johnson $
 
 priority:: routine
 
-part_of:: rq-000125
+is_part_of:: rq-000125
 
 type:: data format
 

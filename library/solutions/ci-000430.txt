@@ -4,7 +4,7 @@ title:: SML/BulletListItem.pm Module
 
 type:: software
 
-part_of:: ci-000004
+is_part_of:: ci-000004
 
 description:: The SML/BulletListItem.pm Module implements the
 {lit:SML::BulletListItem} class which represents bullet list items.

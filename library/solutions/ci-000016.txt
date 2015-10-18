@@ -4,7 +4,7 @@ title:: `printwarning' Subroutine
 
 type:: software
 
-part_of:: ci-000007
+is_part_of:: ci-000007
 
 description:: The [cmd:printwarning] subroutine implements a utility
 function to log a warning message and display it to the user.

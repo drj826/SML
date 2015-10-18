@@ -4,7 +4,7 @@ title:: `begin_ulist_item' Subroutine
 
 type:: software
 
-part_of:: ci-000007
+is_part_of:: ci-000007
 
 description:: The [cmd:begin_ulist_item] subroutine 
 

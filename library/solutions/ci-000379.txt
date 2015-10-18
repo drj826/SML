@@ -4,7 +4,7 @@ title:: SML Syntax (sml.ebnf)
 
 type:: specification
 
-part_of:: ci-000001
+is_part_of:: ci-000001
 
 description:: The [g:sml:SML] syntax defines the rules governing the
 expression of statements and combinations of statements used to

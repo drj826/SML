@@ -4,7 +4,7 @@ title:: Represent a Figure
 
 priority:: routine
 
-part_of:: rq-000326
+is_part_of:: rq-000326
 
 type:: data format
 

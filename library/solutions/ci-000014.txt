@@ -4,7 +4,7 @@ title:: `printstatus' Subroutine
 
 type:: software
 
-part_of:: ci-000007
+is_part_of:: ci-000007
 
 description:: The [cmd:printstatus] subroutine implements a utility
 function to log a status message and display it to the user.

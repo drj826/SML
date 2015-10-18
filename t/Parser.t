@@ -60,12 +60,6 @@ my @public_methods =
 
    # public methods
    'parse',
-   'create_string',
-
-   'extract_division_name',
-   'extract_title_text',
-   'extract_data_segment_lines',
-   'extract_narrative_lines',
   );
 
 can_ok( $obj, @public_methods );
@@ -76,11 +70,7 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{$tcl})
   {
-    parse_ok($tc)                   if defined $tc->{expected}{parse};
-    extract_division_name_ok($tc)   if defined $tc->{expected}{extract_division_name};
-    extract_title_text_ok($tc)      if defined $tc->{expected}{extract_title_text};
-    extract_data_segment_lines_ok($tc)  if defined $tc->{expected}{extract_data_segment_lines};
-    extract_narrative_lines_ok($tc) if defined $tc->{expected}{extract_narrative_lines};
+    parse_ok($tc) if defined $tc->{expected}{parse};
   }
 
 #---------------------------------------------------------------------
@@ -109,96 +99,6 @@ sub parse_ok {
 
   # assert
   is($result,$expected,"$tcname parse $result");
-}
-
-######################################################################
-
-sub extract_division_name_ok {
-
-  my $tc = shift;
-
-  # arrange
-  my $tcname   = $tc->{name};
-  my $library  = $tc->{library};
-  my $divid    = $tc->{divid};
-  my $expected = $tc->{expected}{extract_division_name};
-  my $division = $library->get_division($divid);
-  my $lines    = $division->get_line_list;
-  my $parser   = $library->get_parser;
-
-  # act
-  my $result = $parser->extract_division_name($lines);
-
-  # assert
-  is($result,$expected,"$tcname extract_division_name $result");
-}
-
-######################################################################
-
-sub extract_title_text_ok {
-
-  my $tc = shift;
-
-  # arrange
-  my $tcname   = $tc->{name};
-  my $library  = $tc->{library};
-  my $divid    = $tc->{divid};
-  my $expected = $tc->{expected}{extract_title_text};
-  my $division = $library->get_division($divid);
-  my $lines    = $division->get_line_list;
-  my $parser   = $library->get_parser;
-
-  # act
-  my $result = $parser->extract_title_text($lines);
-
-  # assert
-  is($result,$expected,"$tcname extract_title_text $result");
-}
-
-######################################################################
-
-sub extract_data_segment_lines_ok {
-
-  my $tc = shift;
-
-  # arrange
-  my $tcname   = $tc->{name};
-  my $library  = $tc->{library};
-  my $divid    = $tc->{divid};
-  my $expected = $tc->{expected}{extract_data_segment_lines};
-  my $division = $library->get_division($divid);
-  my $lines    = $division->get_line_list;
-  my $parser   = $library->get_parser;
-
-  # act
-  my $data_segment_lines = $parser->extract_data_segment_lines($lines);
-  my $result         = scalar @{ $data_segment_lines };
-
-  # assert
-  is($result,$expected,"$tcname extract_data_segment_lines $result");
-}
-
-######################################################################
-
-sub extract_narrative_lines_ok {
-
-  my $tc = shift;
-
-  # arrange
-  my $tcname   = $tc->{name};
-  my $library  = $tc->{library};
-  my $divid    = $tc->{divid};
-  my $expected = $tc->{expected}{extract_narrative_lines};
-  my $division = $library->get_division($divid);
-  my $lines    = $division->get_line_list;
-  my $parser   = $library->get_parser;
-
-  # act
-  my $narrative_lines = $parser->extract_narrative_lines($lines);
-  my $result          = scalar @{ $narrative_lines };
-
-  # assert
-  is($result,$expected,"$tcname extract_narrative_lines $result");
 }
 
 ######################################################################

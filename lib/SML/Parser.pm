@@ -22,76 +22,75 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Parser');
 
 # core classes
-use SML::Options;               # ci-000382
-use SML::File;                  # ci-000384
-use SML::Line;                  # ci-000385
-use SML::Fragment;              # ci-000nnn
+use SML::Options;                     # ci-000382
+use SML::File;                        # ci-000384
+use SML::Line;                        # ci-000385
 
 # string classes
-use SML::String;                # ci-000???
-use SML::AcronymTermReference;  # ci-000???
-use SML::CitationReference;     # ci-000???
-use SML::CommandReference;      # ci-000???
-use SML::XMLTag;                # ci-000???
-use SML::LiteralString;         # ci-000???
-use SML::CrossReference;        # ci-000???
-use SML::FileReference;         # ci-000???
-use SML::FootnoteReference;     # ci-000???
+use SML::String;                      # ci-000???
+use SML::AcronymTermReference;        # ci-000???
+use SML::CitationReference;           # ci-000???
+use SML::CommandReference;            # ci-000???
+use SML::XMLTag;                      # ci-000???
+use SML::LiteralString;               # ci-000???
+use SML::CrossReference;              # ci-000???
+use SML::FileReference;               # ci-000???
+use SML::FootnoteReference;           # ci-000???
 use SML::GlossaryDefinitionReference; # ci-000???
-use SML::GlossaryTermReference; # ci-000???
-use SML::IDReference;           # ci-000???
-use SML::IndexReference;        # ci-000???
-use SML::PageReference;         # ci-000???
-use SML::PathReference;         # ci-000???
-use SML::StatusReference;       # ci-000???
-use SML::Symbol;                # ci-000???
-use SML::SyntaxErrorString;     # ci-000???
-use SML::URLReference;          # ci-000???
-use SML::UserEnteredText;       # ci-000???
-use SML::VariableReference;     # ci-000???
-use SML::EmailAddress;          # ci-000???
+use SML::GlossaryTermReference;       # ci-000???
+use SML::IDReference;                 # ci-000???
+use SML::IndexReference;              # ci-000???
+use SML::PageReference;               # ci-000???
+use SML::PathReference;               # ci-000???
+use SML::StatusReference;             # ci-000???
+use SML::Symbol;                      # ci-000???
+use SML::SyntaxErrorString;           # ci-000???
+use SML::URLReference;                # ci-000???
+use SML::UserEnteredText;             # ci-000???
+use SML::VariableReference;           # ci-000???
+use SML::EmailAddress;                # ci-000???
 
 # block classes
-use SML::Block;                 # ci-000387
-use SML::PreformattedBlock;     # ci-000427
-use SML::CommentBlock;          # ci-000426
-use SML::Paragraph;             # ci-000425
-use SML::ListItem;              # ci-000424
-use SML::BulletListItem;        # ci-000430
-use SML::EnumeratedListItem;    # ci-000431
-use SML::DefinitionListItem;    # ci-000432
-use SML::Element;               # ci-000386
-use SML::Definition;            # ci-000415
-use SML::Note;                  # ci-000???
+use SML::Block;                       # ci-000387
+use SML::PreformattedBlock;           # ci-000427
+use SML::CommentBlock;                # ci-000426
+use SML::Paragraph;                   # ci-000425
+use SML::ListItem;                    # ci-000424
+use SML::BulletListItem;              # ci-000430
+use SML::EnumeratedListItem;          # ci-000431
+use SML::DefinitionListItem;          # ci-000432
+use SML::Element;                     # ci-000386
+use SML::Definition;                  # ci-000415
+use SML::Note;                        # ci-000???
 
 # division classes
-use SML::Division;              # ci-000381
-use SML::Document;              # ci-000005
-use SML::CommentDivision;       # ci-000388
-use SML::Conditional;           # ci-000389
-use SML::Section;               # ci-000392
-use SML::TableRow;              # ci-000429
-use SML::TableCell;             # ci-000428
-use SML::Attachment;            # ci-000393
-use SML::Revisions;             # ci-000394
-use SML::Epigraph;              # ci-000395
-use SML::Figure;                # ci-000396
-use SML::Listing;               # ci-000397
-use SML::PreformattedDivision;  # ci-000398
-use SML::Sidebar;               # ci-000399
-use SML::Source;                # ci-000400
-use SML::Table;                 # ci-000401
-use SML::Baretable;             # ci-000414
-use SML::Audio;                 # ci-000402
-use SML::Video;                 # ci-000403
-use SML::Entity;                # ci-000416
-use SML::Assertion;             # ci-000404
-use SML::Slide;                 # ci-000405
-use SML::Demo;                  # ci-000406
-use SML::Exercise;              # ci-000407
-use SML::Keypoints;             # ci-000408
-use SML::Quotation;             # ci-000409
-use SML::RESOURCES;             # ci-000xxx
+use SML::Division;                    # ci-000381
+use SML::Document;                    # ci-000005
+use SML::CommentDivision;             # ci-000388
+use SML::Conditional;                 # ci-000389
+use SML::Section;                     # ci-000392
+use SML::TableRow;                    # ci-000429
+use SML::TableCell;                   # ci-000428
+use SML::Attachment;                  # ci-000393
+use SML::Revisions;                   # ci-000394
+use SML::Epigraph;                    # ci-000395
+use SML::Figure;                      # ci-000396
+use SML::Listing;                     # ci-000397
+use SML::PreformattedDivision;        # ci-000398
+use SML::Sidebar;                     # ci-000399
+use SML::Source;                      # ci-000400
+use SML::Table;                       # ci-000401
+use SML::Baretable;                   # ci-000414
+use SML::Audio;                       # ci-000402
+use SML::Video;                       # ci-000403
+use SML::Entity;                      # ci-000416
+use SML::Assertion;                   # ci-000404
+use SML::Slide;                       # ci-000405
+use SML::Demo;                        # ci-000406
+use SML::Exercise;                    # ci-000407
+use SML::Keypoints;                   # ci-000408
+use SML::Quotation;                   # ci-000409
+use SML::RESOURCES;                   # ci-000xxx
 
 $OUTPUT_AUTOFLUSH = 1;
 
@@ -131,6 +130,8 @@ sub parse {
       $logger->logcluck("YOU MUST SPECIFY AN ID");
       return 0;
     }
+
+  $logger->info("parse \'$id\'");
 
   $self->_init;
 
@@ -183,8 +184,504 @@ sub parse {
 }
 
 ######################################################################
+######################################################################
+##
+## Private Attributes
+##
+######################################################################
+######################################################################
 
-sub create_string {
+has 'division' =>
+  (
+   isa       => 'SML::Division',
+   reader    => '_get_division',
+   writer    => '_set_division',
+   predicate => '_has_division',
+   clearer   => '_clear_division',
+  );
+
+# This is the division object being parsed by parse method, often a
+# document.
+
+######################################################################
+
+has 'line_list' =>
+  (
+   isa       => 'ArrayRef',
+   reader    => '_get_line_list',
+   writer    => '_set_line_list',
+   clearer   => '_clear_line_list',
+   default   => sub {[]},
+  );
+
+# This is the sequential array of lines that make up the file being
+# parsed.
+
+######################################################################
+
+has 'block' =>
+  (
+   isa       => 'SML::Block',
+   reader    => '_get_block',
+   writer    => '_set_block',
+   predicate => '_has_block',
+   clearer   => '_clear_block',
+  );
+
+# This is the current block at any given time during parsing. A block
+# is a contiguous sequence of one or more whole lines of text.  Blocks
+# end with either a blank line or the beginning of another
+# block. Blocks cannot contain blank lines. Blocks may contain inline
+# elements which span lines.
+
+######################################################################
+
+has 'string' =>
+  (
+   isa       => 'SML::String',
+   reader    => '_get_string',
+   writer    => '_set_string',
+   clearer   => '_clear_string',
+  );
+
+# This is the current string at any given time during parsing. A
+# string is a sequence of one or more characters.  Strings can be
+# nested.  This means a string can have a list of parts which
+# themselves are strings.  A string must be contained withing a single
+# block.  Strings cannot span blocks.
+
+######################################################################
+
+has 'division_stack' =>
+  (
+   isa       => 'ArrayRef',
+   reader    => '_get_division_stack',
+   writer    => '_set_division_stack',
+   clearer   => '_clear_division_stack',
+   predicate => '_has_division_stack',
+   default   => sub {[]},
+  );
+
+# This is a stack of nested divisions at any point during document
+# parsing.  A division is a contiguous sequence of blocks.  Divisions
+# may be nested within one another. A division has an unambiguous
+# beginning and end. Sometimes the beginning and end are explicit and
+# other times they are implicit.
+#
+#   $current_division = $division_stack->[-1];
+#   $self->_push_division_stack($division);
+#   my $division = $self->_pop_division_stack;
+
+######################################################################
+
+has 'part_stack' =>
+  (
+   isa       => 'ArrayRef',
+   reader    => '_get_part_stack',
+   writer    => '_set_part_stack',
+   clearer   => '_clear_part_stack',
+   predicate => '_has_part_stack',
+   default   => sub {[]},
+  );
+
+# This is a stack of nested parts at any point during document
+# parsing.  A part is a contiguous sequence of blocks.  Parts may be
+# nested within one another. A part has an unambiguous beginning and
+# end. Sometimes the beginning and end are explicit and other times
+# they are implicit.
+#
+#   $current_part = $part_stack->[-1];
+#   $self->_push_part_stack($part);
+#   my $part = $self->_pop_part_stack;
+
+######################################################################
+
+has 'column' =>
+  (
+   isa       => 'Int',
+   reader    => '_get_column',
+   writer    => '_set_column',
+   default   => 0,
+  );
+
+# This is the current table column.
+
+######################################################################
+
+has 'in_data_segment' =>
+  (
+   isa       => 'Bool',
+   reader    => '_in_data_segment',
+   writer    => '_set_in_data_segment',
+   default   => 0,
+  );
+
+# This is a boolean flag that indicates whether the current line is in
+# a data segment.  A data segment is the opening part of a division
+# that contains (structured data) elements.
+
+######################################################################
+
+has 'count_total_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_count_total_hash',
+   writer    => '_set_count_total_hash',
+   default   => sub {{}},
+  );
+
+# This is a count of the total number of "things" in document.
+
+#   $count = $count_total->{$name};
+
+######################################################################
+
+has 'count_method_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_count_method_hash',
+   writer    => '_set_count_method_hash',
+   clearer   => '_clear_count_method_hash',
+   default   => sub {{}},
+  );
+
+# This is a count of the number of times a method has been invoked.
+
+#   $count = $count_method->{$name};
+
+######################################################################
+
+has 'gen_content_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_gen_content_hash',
+   writer    => '_set_gen_content_hash',
+   clearer   => '_clear_gen_content_hash',
+   default   => sub {{}},
+  );
+
+# This is a hash of generated content.
+
+######################################################################
+
+has 'to_be_gen_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_to_be_gen_hash',
+   writer    => '_set_to_be_gen_hash',
+   clearer   => '_clear_to_be_gen_hash',
+   default   => sub {{}},
+  );
+
+# This is a hash of 'to be generated' content items.
+
+######################################################################
+
+has 'outcome_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_outcome_hash',
+   writer    => '_set_outcome_hash',
+   clearer   => '_clear_outcome_hash',
+   default   => sub {{}},
+  );
+
+# This is the outcome data structure containing test outcomes indexed
+# by test case ID.
+#
+#   $outcome_description = $outcome->{$test} ?????
+
+######################################################################
+
+has 'review_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_review_hash',
+   writer    => '_set_review_hash',
+   clearer   => '_clear_review_hash',
+   default   => sub {{}},
+  );
+
+# This is the review data structure containing test reviews indexed
+# by test case ID.
+#
+#   $review_description = $review->{$test} ?????
+
+######################################################################
+
+has 'acronym_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_acronym_hash',
+   writer    => '_set_acronym_hash',
+   clearer   => '_clear_acronym_hash',
+   default   => sub {{}},
+  );
+
+#   $definition = $acronyms->{$term}{$alt};
+
+######################################################################
+
+has 'source_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_source_hash',
+   writer    => '_set_source_hash',
+   clearer   => '_clear_source_hash',
+   default   => sub {{}},
+  );
+
+# $sources->{$sourceid} =
+#   {
+#    title        => 'CMMI for Development, Version 1.2',
+#    label        => 'cmmi',
+#    description  => '',
+#    address      => '',
+#    annote       => '',
+#    author       => '',
+#    booktitle    => '',
+#    chapter      => '',
+#    crossref     => '',
+#    edition      => '',
+#    editor       => '',
+#    howpublished => '',
+#    institution  => '',
+#    journal      => '',
+#    key          => '',
+#    month        => 'August',
+#    note         => 'CMU/SEI-2006-TR-008, ESC-TR-2006-008',
+#    number       => '',
+#    organization => '',
+#    pages        => '',
+#    publisher    => '',
+#    school       => '',
+#    series       => '',
+#    source       => 'misc',
+#    subtitle     => '',
+#    type         => '',
+#    volume       => '',
+#    year         => '2006',
+#    appearance   => '',
+#    color        => '',
+#    date         => '',
+#    icon         => '',
+#    mimetype     => '',
+#    file         => 'files/cmmi/CMMI-DEV-v1-2.pdf',
+#   };
+
+######################################################################
+
+has 'index_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_index_hash',
+   writer    => '_set_index_hash',
+   clearer   => '_clear_index_hash',
+   default   => sub {{}},
+  );
+
+# This is a hash of indexed terms where the key is the term and the
+# value is an anonymous array of IDs of the divisions in which the
+# terms appear.
+#
+#   $index->{$term} = [$id1, $id2, $id3...]
+
+######################################################################
+
+has 'table_data_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_table_data_hash',
+   writer    => '_set_table_data_hash',
+   clearer   => '_clear_table_data_hash',
+   default   => sub {{}},
+  );
+
+# This is a data structure containing information about the tables in
+# the document.
+
+######################################################################
+
+has 'baretable_data_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_baretable_data_hash',
+   writer    => '_set_baretable_data_hash',
+   clearer   => '_clear_baretable_data_hash',
+   default   => sub {{}},
+  );
+
+# This is a data structure containing information about the baretables
+# in the document.  A baretable is a table without a title, ID, or
+# description used only to present content in a tabular layout.
+
+######################################################################
+
+has 'template_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_template_hash',
+   writer    => '_set_template_hash',
+   clearer   => '_clear_template_hash',
+   default   => sub {{}},
+  );
+
+# This is a data structure for memoizing templates.  Memoizing
+# templates improves performance by avoiding reading oft used
+# templates from the file over-and-over again.
+
+######################################################################
+
+has 'requires_processing' =>
+  (
+   isa     => 'Bool',
+   reader  => '_requires_processing',
+   writer  => '_set_requires_processing',
+   clearer => '_clear_requires_processing',
+   default => 0,
+  );
+
+# Don't confuse this boolean value with the private method
+# '_text_requires_processing' that determines whether or not the text
+# requires further processing.
+
+######################################################################
+
+has 'section_counter_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_section_counter_hash',
+   writer    => '_set_section_counter_hash',
+   clearer   => '_clear_section_counter_hash',
+   default   => sub {{}},
+  );
+
+# $section_counter->{$depth} = $count;
+# $section_counter->{1}      = 3;         # third top-level section
+
+######################################################################
+
+has 'division_counter_hash' =>
+  (
+   isa       => 'HashRef',
+   reader    => '_get_division_counter_hash',
+   writer    => '_set_division_counter_hash',
+   clearer   => '_clear_division_counter_hash',
+   default   => sub {{}},
+  );
+
+# $division_counter->{$name}   = $count;
+# $division_counter->{'table'} = 4;      # forth table in this top-level
+
+######################################################################
+
+has 'valid' =>
+  (
+   isa       => 'Bool',
+   reader    => '_is_valid',
+   writer    => '_set_is_valid',
+   clearer   => '_clear_is_valid',
+   default   => 1,
+  );
+
+######################################################################
+
+has string_type_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => '_get_string_type_list',
+   lazy    => 1,
+   builder => '_build_string_type_list',
+  );
+
+######################################################################
+
+has single_string_type_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => '_get_single_string_type_list',
+   lazy    => 1,
+   builder => '_build_single_string_type_list',
+  );
+
+######################################################################
+######################################################################
+##
+## Private Methods
+##
+######################################################################
+######################################################################
+
+sub _init {
+
+  # Initialize parser.
+
+  # 1. Initialize 'lines' array
+  # 2. Initialize method invocation counter
+
+  my $self = shift;
+
+  my $library = $self->get_library;
+  my $util    = $library->get_util;
+  my $options = $util->get_options;
+
+  if ( not $options->use_svn )
+    {
+      $logger->debug("not using SVN, won't warn about uncommitted changes");
+    }
+
+  $self->_clear_line_list;
+  $self->_set_line_list([]);
+
+  $self->_clear_count_method_hash;
+  $self->_set_count_method_hash({});
+  $self->_clear_division;
+  $self->_clear_block;
+  $self->_clear_string;
+  $self->_clear_division_stack;
+  $self->_clear_part_stack;
+  $self->_set_column(0);
+  $self->_set_in_data_segment(1);
+  $self->_set_count_total_hash({});
+  $self->_clear_gen_content_hash;
+  $self->_set_gen_content_hash({});
+  $self->_clear_to_be_gen_hash;
+  $self->_set_to_be_gen_hash({});
+  $self->_clear_outcome_hash;
+  $self->_set_outcome_hash({});
+  $self->_clear_review_hash;
+  $self->_set_review_hash({});
+  $self->_clear_acronym_hash;
+  $self->_set_acronym_hash({});
+  $self->_clear_source_hash;
+  $self->_set_source_hash({});
+  $self->_clear_index_hash;
+  $self->_set_index_hash({});
+  $self->_clear_table_data_hash;
+  $self->_set_table_data_hash({});
+  $self->_clear_baretable_data_hash;
+  $self->_set_baretable_data_hash({});
+  $self->_clear_template_hash;
+  $self->_set_template_hash({});
+  $self->_clear_requires_processing;
+  $self->_set_requires_processing(1);
+  $self->_clear_section_counter_hash;
+  $self->_set_section_counter_hash({});
+  $self->_clear_division_counter_hash;
+  $self->_set_division_counter_hash({});
+  $self->_clear_is_valid;
+
+  return 1;
+}
+
+######################################################################
+
+sub _create_string {
+
+  # Return a string object. Create the string object by parsing text
+  # into a whole/part hierarchy of strings.
 
   my $self = shift;
   my $text = shift;                     # i.e. !!my bold text!!
@@ -283,13 +780,7 @@ sub create_string {
 	  }
       }
 
-  elsif (
-	 $string_type eq 'emdash_symbol'
-	 # or
-	 # $string_type eq 'open_sglquote_symbol'
-	 # or
-	 # $string_type eq 'close_sglquote_symbol'
-	)
+  elsif ( $string_type eq 'emdash_symbol' )
     {
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
@@ -332,10 +823,6 @@ sub create_string {
      $string_type eq 'trademark_symbol'
      or
      $string_type eq 'reg_trademark_symbol'
-     # or
-     # $string_type eq 'open_dblquote_symbol'
-     # or
-     # $string_type eq 'close_dblquote_symbol'
      or
      $string_type eq 'section_symbol'
      or
@@ -781,7 +1268,7 @@ sub create_string {
 
 ######################################################################
 
-sub extract_division_name {
+sub _extract_division_name {
 
   # Extract a division name string from a sequence of lines.
 
@@ -816,14 +1303,13 @@ sub extract_division_name {
       # 	  $logger->warn($text);
       # 	}
       # return '';
-
     }
 
 }
 
 ######################################################################
 
-sub extract_division_id {
+sub _extract_division_id {
 
   # Extract a division ID string from a sequence of lines.
 
@@ -854,7 +1340,7 @@ sub extract_division_id {
 
   else
     {
-      # $logger->warn("DIVISION NAME NOT FOUND IN...");
+      # $logger->warn("DIVISION ID NOT FOUND IN...");
 
       # foreach my $line (@{$lines})
       # 	{
@@ -868,7 +1354,7 @@ sub extract_division_id {
 
 ######################################################################
 
-sub extract_title_text {
+sub _extract_title_text {
 
   # Extract the data segment title from an array of lines and return
   # it as a string.
@@ -966,7 +1452,7 @@ sub extract_title_text {
 
 ######################################################################
 
-sub extract_data_segment_lines {
+sub _extract_data_segment_lines {
 
   # Extract data segment lines from a sequence of division lines.
 
@@ -981,7 +1467,7 @@ sub extract_data_segment_lines {
   my $syntax              = $library->get_syntax;
   my $ontology            = $library->get_ontology;
   my $data_segment_lines      = [];
-  my $divname             = $self->extract_division_name($lines);
+  my $divname             = $self->_extract_division_name($lines);
   my $in_data_segment         = 1;
   my $in_data_segment_element = 0;
   my $i                   = 0;
@@ -1057,7 +1543,7 @@ sub extract_data_segment_lines {
 
 ######################################################################
 
-sub extract_narrative_lines {
+sub _extract_narrative_lines {
 
   # Extract narrative lines from a sequence of division lines.
 
@@ -1072,7 +1558,7 @@ sub extract_narrative_lines {
   my $syntax              = $library->get_syntax;
   my $ontology            = $library->get_ontology;
   my $narrative_lines     = [];
-  my $divname             = $self->extract_division_name($lines);
+  my $divname             = $self->_extract_division_name($lines);
   my $in_data_segment         = 1;
   my $in_data_segment_element = 0;
   my $i                   = 0;
@@ -1164,511 +1650,6 @@ sub extract_narrative_lines {
 }
 
 ######################################################################
-######################################################################
-##
-## Private Attributes
-##
-######################################################################
-######################################################################
-
-# has 'fragment' =>
-#   (
-#    isa       => 'SML::Fragment',
-#    reader    => '_get_fragment',
-#    writer    => '_set_fragment',
-#   );
-
-# This is the object returned by parse method, usually a document or
-# an entity.
-
-######################################################################
-
-has 'division' =>
-  (
-   isa       => 'SML::Division',
-   reader    => '_get_division',
-   writer    => '_set_division',
-   predicate => '_has_division',
-   clearer   => '_clear_division',
-  );
-
-# This is the division object being parsed by parse method, often a
-# document.
-
-######################################################################
-
-has 'line_list' =>
-  (
-   isa       => 'ArrayRef',
-   reader    => '_get_line_list',
-   writer    => '_set_line_list',
-   clearer   => '_clear_line_list',
-   default   => sub {[]},
-  );
-
-# This is the sequential array of lines that make up the file being
-# parsed.
-
-######################################################################
-
-has 'block' =>
-  (
-   isa       => 'SML::Block',
-   reader    => '_get_block',
-   writer    => '_set_block',
-   predicate => '_has_block',
-   clearer   => '_clear_block',
-  );
-
-# This is the current block at any given time during parsing. A block
-# is a contiguous sequence of one or more whole lines of text.  Blocks
-# end with either a blank line or the beginning of another
-# block. Blocks cannot contain blank lines. Blocks may contain inline
-# elements which span lines.
-
-######################################################################
-
-has 'string' =>
-  (
-   isa       => 'SML::String',
-   reader    => '_get_string',
-   writer    => '_set_string',
-   clearer   => '_clear_string',
-  );
-
-# This is the current string at any given time during parsing. A
-# string is a sequence of one or more characters.  Strings can be
-# nested.  This means a string can have a list of parts which
-# themselves are strings.  A string must be contained withing a single
-# block.  Strings cannot span blocks.
-
-######################################################################
-
-has 'division_stack' =>
-  (
-   isa       => 'ArrayRef',
-   reader    => '_get_division_stack',
-   writer    => '_set_division_stack',
-   clearer   => '_clear_division_stack',
-   predicate => '_has_division_stack',
-   default   => sub {[]},
-  );
-
-# This is a stack of nested divisions at any point during document
-# parsing.  A division is a contiguous sequence of blocks.  Divisions
-# may be nested within one another. A division has an unambiguous
-# beginning and end. Sometimes the beginning and end are explicit and
-# other times they are implicit.
-#
-#   $current_division = $division_stack->[-1];
-#   $self->_push_division_stack($division);
-#   my $division = $self->_pop_division_stack;
-
-######################################################################
-
-has 'part_stack' =>
-  (
-   isa       => 'ArrayRef',
-   reader    => '_get_part_stack',
-   writer    => '_set_part_stack',
-   clearer   => '_clear_part_stack',
-   predicate => '_has_part_stack',
-   default   => sub {[]},
-  );
-
-# This is a stack of nested parts at any point during document
-# parsing.  A part is a contiguous sequence of blocks.  Parts may be
-# nested within one another. A part has an unambiguous beginning and
-# end. Sometimes the beginning and end are explicit and other times
-# they are implicit.
-#
-#   $current_part = $part_stack->[-1];
-#   $self->_push_part_stack($part);
-#   my $part = $self->_pop_part_stack;
-
-######################################################################
-
-has 'column' =>
-  (
-   isa       => 'Int',
-   reader    => '_get_column',
-   writer    => '_set_column',
-   default   => 0,
-  );
-
-# This is the current table column.
-
-######################################################################
-
-has 'in_data_segment' =>
-  (
-   isa       => 'Bool',
-   reader    => '_in_data_segment',
-   writer    => '_set_in_data_segment',
-   default   => 0,
-  );
-
-# This is a boolean flag that indicates whether the current line is in
-# a data segment.  A data segment is the opening part of a division
-# that contains (structured data) elements.
-
-######################################################################
-
-has 'count_total_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_count_total_hash',
-   writer    => '_set_count_total_hash',
-   default   => sub {{}},
-  );
-
-# This is a count of the total number of "things" in document.
-
-#   $count = $count_total->{$name};
-
-######################################################################
-
-has 'count_method_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_count_method_hash',
-   writer    => '_set_count_method_hash',
-   clearer   => '_clear_count_method_hash',
-   default   => sub {{}},
-  );
-
-# This is a count of the number of times a method has been invoked.
-
-#   $count = $count_method->{$name};
-
-######################################################################
-
-has 'gen_content_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_gen_content_hash',
-   writer    => '_set_gen_content_hash',
-   clearer   => '_clear_gen_content_hash',
-   default   => sub {{}},
-  );
-
-# This is a hash of generated content.
-
-######################################################################
-
-has 'to_be_gen_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_to_be_gen_hash',
-   writer    => '_set_to_be_gen_hash',
-   clearer   => '_clear_to_be_gen_hash',
-   default   => sub {{}},
-  );
-
-# This is a hash of 'to be generated' content items.
-
-######################################################################
-
-has 'outcome_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_outcome_hash',
-   writer    => '_set_outcome_hash',
-   clearer   => '_clear_outcome_hash',
-   default   => sub {{}},
-  );
-
-# This is the outcome data structure containing test outcomes indexed
-# by test case ID.
-#
-#   $outcome_description = $outcome->{$test} ?????
-
-######################################################################
-
-has 'review_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_review_hash',
-   writer    => '_set_review_hash',
-   clearer   => '_clear_review_hash',
-   default   => sub {{}},
-  );
-
-# This is the review data structure containing test reviews indexed
-# by test case ID.
-#
-#   $review_description = $review->{$test} ?????
-
-######################################################################
-
-has 'acronym_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_acronym_hash',
-   writer    => '_set_acronym_hash',
-   clearer   => '_clear_acronym_hash',
-   default   => sub {{}},
-  );
-
-#   $definition = $acronyms->{$term}{$alt};
-
-######################################################################
-
-has 'source_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_source_hash',
-   writer    => '_set_source_hash',
-   clearer   => '_clear_source_hash',
-   default   => sub {{}},
-  );
-
-# $sources->{$sourceid} =
-#   {
-#    title        => 'CMMI for Development, Version 1.2',
-#    label        => 'cmmi',
-#    description  => '',
-#    address      => '',
-#    annote       => '',
-#    author       => '',
-#    booktitle    => '',
-#    chapter      => '',
-#    crossref     => '',
-#    edition      => '',
-#    editor       => '',
-#    howpublished => '',
-#    institution  => '',
-#    journal      => '',
-#    key          => '',
-#    month        => 'August',
-#    note         => 'CMU/SEI-2006-TR-008, ESC-TR-2006-008',
-#    number       => '',
-#    organization => '',
-#    pages        => '',
-#    publisher    => '',
-#    school       => '',
-#    series       => '',
-#    source       => 'misc',
-#    subtitle     => '',
-#    type         => '',
-#    volume       => '',
-#    year         => '2006',
-#    appearance   => '',
-#    color        => '',
-#    date         => '',
-#    icon         => '',
-#    mimetype     => '',
-#    file         => 'files/cmmi/CMMI-DEV-v1-2.pdf',
-#   };
-
-######################################################################
-
-has 'index_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_index_hash',
-   writer    => '_set_index_hash',
-   clearer   => '_clear_index_hash',
-   default   => sub {{}},
-  );
-
-# This is a hash of indexed terms where the key is the term and the
-# value is an anonymous array of IDs of the divisions in which the
-# terms appear.
-#
-#   $index->{$term} = [$id1, $id2, $id3...]
-
-######################################################################
-
-has 'table_data_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_table_data_hash',
-   writer    => '_set_table_data_hash',
-   clearer   => '_clear_table_data_hash',
-   default   => sub {{}},
-  );
-
-# This is a data structure containing information about the tables in
-# the document.
-
-######################################################################
-
-has 'baretable_data_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_baretable_data_hash',
-   writer    => '_set_baretable_data_hash',
-   clearer   => '_clear_baretable_data_hash',
-   default   => sub {{}},
-  );
-
-# This is a data structure containing information about the baretables
-# in the document.  A baretable is a table without a title, ID, or
-# description used only to present content in a tabular layout.
-
-######################################################################
-
-has 'template_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_template_hash',
-   writer    => '_set_template_hash',
-   clearer   => '_clear_template_hash',
-   default   => sub {{}},
-  );
-
-# This is a data structure for memoizing templates.  Memoizing
-# templates improves performance by avoiding reading oft used
-# templates from the file over-and-over again.
-
-######################################################################
-
-has 'requires_processing' =>
-  (
-   isa     => 'Bool',
-   reader  => '_requires_processing',
-   writer  => '_set_requires_processing',
-   clearer => '_clear_requires_processing',
-   default => 0,
-  );
-
-# Don't confuse this boolean value with the private method
-# '_text_requires_processing' that determines whether or not the text
-# requires further processing.
-
-######################################################################
-
-has 'section_counter_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_section_counter_hash',
-   writer    => '_set_section_counter_hash',
-   clearer   => '_clear_section_counter_hash',
-   default   => sub {{}},
-  );
-
-# $section_counter->{$depth} = $count;
-# $section_counter->{1}      = 3;         # third top-level section
-
-######################################################################
-
-has 'division_counter_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_divsion_counter_hash',
-   writer    => '_set_division_counter_hash',
-   clearer   => '_clear_division_counter_hash',
-   default   => sub {{}},
-  );
-
-# $division_counter->{$name}   = $count;
-# $division_counter->{'table'} = 4;      # forth table in this top-level
-
-######################################################################
-
-has 'valid' =>
-  (
-   isa       => 'Bool',
-   reader    => '_is_valid',
-   writer    => '_set_is_valid',
-   clearer   => '_clear_is_valid',
-   default   => 1,
-  );
-
-######################################################################
-
-has string_type_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => '_get_string_type_list',
-   lazy    => 1,
-   builder => '_build_string_type_list',
-  );
-
-######################################################################
-
-has single_string_type_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => '_get_single_string_type_list',
-   lazy    => 1,
-   builder => '_build_single_string_type_list',
-  );
-
-######################################################################
-######################################################################
-##
-## Private Methods
-##
-######################################################################
-######################################################################
-
-sub _init {
-
-  # Initialize parser.
-
-  # 1. Initialize 'lines' array
-  # 2. Initialize method invocation counter
-
-  my $self = shift;
-
-  my $library = $self->get_library;
-  my $util    = $library->get_util;
-  my $options = $util->get_options;
-
-  if ( not $options->use_svn )
-    {
-      $logger->debug("not using SVN, won't warn about uncommitted changes");
-    }
-
-  $self->_clear_line_list;
-  $self->_set_line_list([]);
-
-  $self->_clear_count_method_hash;
-  $self->_set_count_method_hash({});
-  $self->_clear_division;
-  $self->_clear_block;
-  $self->_clear_string;
-  $self->_clear_division_stack;
-  $self->_clear_part_stack;
-  $self->_set_column(0);
-  $self->_set_in_data_segment(1);
-  $self->_set_count_total_hash({});
-  $self->_clear_gen_content_hash;
-  $self->_set_gen_content_hash({});
-  $self->_clear_to_be_gen_hash;
-  $self->_set_to_be_gen_hash({});
-  $self->_clear_outcome_hash;
-  $self->_set_outcome_hash({});
-  $self->_clear_review_hash;
-  $self->_set_review_hash({});
-  $self->_clear_acronym_hash;
-  $self->_set_acronym_hash({});
-  $self->_clear_source_hash;
-  $self->_set_source_hash({});
-  $self->_clear_index_hash;
-  $self->_set_index_hash({});
-  $self->_clear_table_data_hash;
-  $self->_set_table_data_hash({});
-  $self->_clear_baretable_data_hash;
-  $self->_set_baretable_data_hash({});
-  $self->_clear_template_hash;
-  $self->_set_template_hash({});
-  $self->_clear_requires_processing;
-  $self->_set_requires_processing(1);
-  $self->_clear_section_counter_hash;
-  $self->_set_section_counter_hash({});
-  $self->_clear_division_counter_hash;
-  $self->_set_division_counter_hash({});
-  $self->_clear_is_valid;
-
-  return 1;
-}
-
-######################################################################
 
 sub _get_line_list_for_id {
 
@@ -1707,8 +1688,8 @@ sub _create_empty_division {
   my $line_list = shift;
 
   my $library  = $self->get_library;
-  my $name     = $self->extract_division_name($line_list);
-  my $id       = $self->extract_division_id($line_list);
+  my $name     = $self->_extract_division_name($line_list);
+  my $id       = $self->_extract_division_id($line_list);
   my $ontology = $library->get_ontology;
   my $class    = $ontology->get_class_for_entity_name($name);
 
@@ -1873,14 +1854,14 @@ sub _resolve_includes {
       my $text = $old_line->get_content;
 
       # process comment markers
-      if ( $text =~ /$syntax->{start_comment}/ )
+      if ( $text =~ /$syntax->{start_division}/ and $1 eq 'COMMENT' )
 	{
 	  $in_comment = 1;
 	  push @{ $new_line_list }, $old_line;
 	  next LINE;
 	}
 
-      elsif ( $text =~ /$syntax->{end_comment}/ )
+      elsif ( $text =~ /$syntax->{end_division}/ and $1 eq 'COMMENT' )
 	{
 	  $in_comment = 0;
 	  push @{ $new_line_list }, $old_line;
@@ -1983,13 +1964,13 @@ sub _run_scripts {
       #---------------------------------------------------------------
       # Ignore comments
       #
-      if ( $text =~ /$syntax->{start_comment}/ )
+      if ( $text =~ /$syntax->{start_division}/ and $1 eq 'COMMENT' )
 	{
 	  $in_comment = 1;
 	  next LINE;
 	}
 
-      elsif ( $text =~ /$syntax->{end_comment}/ )
+      elsif ( $text =~ /$syntax->{end_division}/ and $1 eq 'COMMENT' )
 	{
 	  $in_comment = 0;
 	  next LINE;
@@ -2126,19 +2107,46 @@ sub _parse_lines {
 
       $logger->trace("line: $text");
 
-      if ( $text =~ /$syntax->{start_comment}/ )
+      if (
+	  $self->_in_data_segment
+	  and
+	  $self->_line_ends_data_segment($text)
+	 )
 	{
-	  $self->_process_start_comment_division($line);
+	  $self->_set_in_data_segment(0);
 	}
 
-      elsif ( $text =~ /$syntax->{end_comment}/ )
+      if ( $text =~ /$syntax->{start_division}/ )
 	{
-	  $self->_process_end_comment_division($line);
+	  # $1 = division name
+	  # $2
+	  # $3 = divisioin ID
+	  $self->_process_start_division_marker($line,$1,$3);
+	}
+
+      elsif ( $text =~ /$syntax->{start_section}/ )
+	{
+	  # $1 = asterisks
+	  # $2
+	  # $3 = section ID
+	  # $4 = section heading
+	  $self->_process_section_heading($line,$1,$3,$4);
+	}
+
+      elsif ( $text =~ /$syntax->{end_division}/ )
+	{
+	  # $1 = division name
+	  $self->_process_end_division_marker($line,$1);
 	}
 
       elsif ( $self->_in_comment_division )
 	{
 	  $self->_process_comment_division_line($line);
+	}
+
+      elsif ( $text =~ /$syntax->{comment_line}/ )
+	{
+	  $self->_process_comment_line($line);
 	}
 
       elsif ( $text =~ /$syntax->{segment_separator}/ )
@@ -2149,45 +2157,6 @@ sub _parse_lines {
       elsif ( $text =~ /$syntax->{blank_line}/ )
 	{
 	  $self->_process_blank_line($line);
-	}
-
-      elsif ( $text =~ /$syntax->{comment_line}/ )
-	{
-	  $self->_process_comment_line($line);
-	}
-
-      elsif ( $text =~ /$syntax->{start_conditional}/ )
-	{
-	  # $1 = token
-	  $self->_process_start_conditional_division($line,$1);
-	}
-
-      elsif ( $text =~ /$syntax->{end_conditional}/ )
-	{
-	  $self->_process_end_conditional_division($line);
-	}
-
-      elsif ( $text =~ /$syntax->{start_division}/ )
-	{
-	  # $1 = division name
-	  # $2
-	  # $3 = divisioin ID
-	  $self->_process_start_division_marker($line,$1,$3);
-	}
-
-      elsif ( $text =~ /$syntax->{end_division}/ )
-	{
-	  # $1 = division name
-	  $self->_process_end_division_marker($line,$1);
-	}
-
-      elsif ( $text =~ /$syntax->{start_section}/ )
-	{
-	  # $1 = asterisks
-	  # $2
-	  # $3 = section ID
-	  # $4 = section heading
-	  $self->_process_section_heading($line,$1,$3,$4);
 	}
 
       elsif ( $text =~ /$syntax->{end_table_row}/ )
@@ -2345,21 +2314,18 @@ sub _process_segment_separator_line {
 
   $logger->trace("----- segment separator");
 
-  if ( not $self->_in_data_segment )
-    {
-      my $location = $line->get_location;
-      $logger->error("SEGMENT SEPARATOR FOUND WHEN NOT IN DATA SEGMENT at $location");
-    }
-
   # new preformatted block
   my $block = SML::PreformattedBlock->new(name=>$name,library=>$library);
   $block->add_line($line);
   $self->_begin_block($block);
 
   # division handling
-  $self->_get_current_division->add_part( $block );
+  my $division = $self->_get_current_division;
+  $division->add_part( $block );
 
-  $logger->trace("..... end data segment");
+  my $divname = $division->get_name;
+  my $id   = $division->get_id;
+  $logger->trace("..... end $divname.$id data segment");
   $self->_set_in_data_segment(0);
 
   return 1;
@@ -2377,20 +2343,20 @@ sub _begin_division {
       $self->_set_division($division);
     }
 
-  my $name    = $division->get_name;
-  my $type    = ref $division;
-  my $library = $self->get_library;
-  my $util    = $library->get_util;
+  my $name = $division->get_name;
 
-  $logger->trace("..... begin division $type");
+  $logger->trace("..... begin division $name");
+
+  my $library = $self->get_library;
 
   $library->add_division($division);
 
-  if ( $self->_in_document )
-    {
-      my $document = $self->_current_document;
-      $document->add_division($division);
-    }
+  # # why?
+  # if ( $self->_in_document )
+  #   {
+  #     my $document = $self->_current_document;
+  #     $document->add_division($division);
+  #   }
 
   $self->_begin_data_segment;
 
@@ -2424,6 +2390,9 @@ sub _begin_division {
 
   elsif ( $division->isa('SML::TableCell') )
     {
+      # table cells don't have data segments
+      $self->_set_in_data_segment(0);
+
       return 1;
     }
 
@@ -2500,9 +2469,6 @@ sub _end_division {
   my $self = shift;
 
   my $division = $self->_get_current_division;
-  my $type     = ref $division;
-  my $library  = $self->get_library;
-  my $util     = $library->get_util;
 
   return 0 if not $division;
 
@@ -2608,6 +2574,7 @@ sub _end_division {
 
   else
     {
+      my $type = ref $division;
       my $name = $division->get_name;
       $logger->warn("WHAT JUST HAPPENED? ($type $name)");
       return 0;
@@ -2703,17 +2670,17 @@ sub _end_table {
 
 ######################################################################
 
-# sub _end_section {
+sub _end_section {
 
-#   my $self = shift;
+  my $self = shift;
 
-#   return if not $self->_in_section;
+  return if not $self->_in_section;
 
-#   $self->_end_division;
+  $self->_end_division;
 
-#   return 1;
+  return 1;
 
-# }
+}
 
 ######################################################################
 
@@ -3092,13 +3059,13 @@ sub _resolve_templates {
       #---------------------------------------------------------------
       # Ignore comments
       #
-      if ( $text =~ /$syntax->{start_comment}/ )
+      if ( $text =~ /$syntax->{start_division}/ and $1 eq 'COMMENT' )
 	{
 	  $in_comment = 1;
 	  next LINE;
 	}
 
-      elsif ( $text =~ /$syntax->{end_comment}/ )
+      elsif ( $text =~ /$syntax->{end_division}/ and $1 eq 'COMMENT' )
 	{
 	  $in_comment = 0;
 	  next LINE;
@@ -3479,7 +3446,7 @@ sub _generate_division_numbers {
   $logger->trace("generate division numbers");
 
   # initialize division counter
-  my $division_counter = $self->_get_divsion_counter_hash;
+  my $division_counter = $self->_get_division_counter_hash;
 
   $division_counter = {};
 
@@ -3660,13 +3627,13 @@ sub _contains_include {
 
       $text =~ s/[\r\n]*$//;            # chomp;
 
-      if ( $text =~ /$syntax->{start_comment}/ )
+      if ( $text =~ /$syntax->{start_division}/ and $1 eq 'COMMENT' )
 	{
 	  $in_comment = 1;
 	  next LINE;                    # ignore start of comment
 	}
 
-      elsif ( $text =~ /$syntax->{end_comment}/ )
+      elsif ( $text =~ /$syntax->{end_division}/ and $1 eq 'COMMENT' )
 	{
 	  $in_comment = 0;
 	  next LINE;                    # ignore end of comment
@@ -3717,13 +3684,13 @@ sub _contains_script {
       #---------------------------------------------------------------
       # Ignore comments
       #
-      if ( $text =~ /$syntax->{start_comment}/ )
+      if ( $text =~ /$syntax->{start_division}/ and $1 eq 'COMMENT' )
 	{
 	  $in_comment = 1;
 	  next LINE;
 	}
 
-      elsif ( $text =~ /$syntax->{end_comment}/ )
+      elsif ( $text =~ /$syntax->{end_division}/ and $1 eq 'COMMENT' )
 	{
 	  $in_comment = 0;
 	  next LINE;
@@ -4054,7 +4021,7 @@ sub _traceability_matrix {
   # problem, (2) solution, (3) task, (4) test, (5) result, and (6)
   # role.
   #
-  # Items are listed in sets.  Each set consists of a "part_of" item
+  # Items are listed in sets.  Each set consists of a "is_part_of" item
   # and its immediate children. Each set is rendered as a table.  The
   # first set consists of the top level problems, followed by the
   # immediate children of the top level problems, followed by their
@@ -4094,13 +4061,13 @@ END_OF_TEXT
   #-------------------------------------------------------------------
   # Make a queue of items to be added to the item domain listing and
   # add all of the toplevel items.  A toplevel item is simply any item
-  # that doesn't have a "part_of".
+  # that doesn't have a "is_part_of".
   #
   my @queue         = ();
   my @toplevelitems = ();
 
   foreach my $division (@{ $self->_list_by_name($name) }) {
-    if ( not $division->has_property('part_of')) {
+    if ( not $division->has_property('is_part_of')) {
       push @toplevelitems, $division;
     }
   }
@@ -4116,7 +4083,7 @@ END_OF_TEXT
     # If this division has children, add it to the list of divisions
     # in the queue
     #
-    if ( $division->has_property('child') )
+    if ( $division->has_property('has_part') )
       {
 	push @queue, $division;
       }
@@ -4125,7 +4092,7 @@ END_OF_TEXT
       {
 	my $name = $division->get_name;
 	my $id   = $division->get_id;
-	$logger->warn("NO CHILD PROPERTY ($name $id)");
+	$logger->warn("NO \'has_part\' PROPERTY ($name $id)");
       }
 
     #---------------------------------------------------------------
@@ -4171,9 +4138,9 @@ END_OF_TEXT
 	$requests = $division->get_property_value('request');
       }
 
-    if ( $division->has_property('child') )
+    if ( $division->has_property('has_part') )
       {
-	my $property = $division->get_property('child');
+	my $property = $division->get_property('has_part');
 	$childcount = $property->get_element_count;
       }
 
@@ -4286,10 +4253,10 @@ END_OF_TEXT
     my $id = $division->get_id;
 
     #---------------------------------------------------------------
-    # title, part_of, children
+    # title, is_part_of, children
     #
     my $title    = q{};
-    my $part_of  = q{};
+    my $is_part_of  = q{};
     my $children = [];
 
     if ( $division->has_property('title') )
@@ -4297,14 +4264,14 @@ END_OF_TEXT
 	$title = $division->get_property_value('title');
       }
 
-    if ( $division->has_property('part_of') )
+    if ( $division->has_property('is_part_of') )
       {
-	$part_of = $division->get_property('part_of');
+	$is_part_of = $division->get_property('is_part_of');
       }
 
-    if ( $division->has_property('child') )
+    if ( $division->has_property('has_part') )
       {
-	$children = $division->get_property('child');
+	$children = $division->get_property('has_part');
       }
 
     $title = $util->wrap("$title");
@@ -4357,7 +4324,7 @@ END_OF_TEXT
       #-------------------------------------------------------------
       # If this child has children, add them to the queue.
       #
-      if ( $child->has_property('child') )
+      if ( $child->has_property('has_part') )
 	{
 	  push @queue, $child;
 	}
@@ -4405,9 +4372,9 @@ END_OF_TEXT
 	  $requests = $library->get_property_value($child_id,'request');
 	}
 
-      if ( $child->has_property('child') )
+      if ( $child->has_property('has_part') )
 	{
-	  my $child_child = $child->get_property('child');
+	  my $child_child = $child->get_property('has_part');
 	  $childcount = $child_child->get_element_count;
 	}
 
@@ -5310,63 +5277,63 @@ sub _add_template {
 
 ######################################################################
 
-sub _process_start_comment_division {
+# sub _process_start_comment_division {
 
-  my $self = shift;
-  my $line = shift;
+#   my $self = shift;
+#   my $line = shift;
 
-  $logger->trace("----- start comment division");
+#   $logger->trace("----- start comment division");
 
-  my $library = $self->get_library;
+#   my $library = $self->get_library;
 
-  # new preformatted block
-  my $block = SML::PreformattedBlock->new(library=>$library);
-  $block->add_line($line);
-  $self->_begin_block($block);
+#   # new preformatted block
+#   my $block = SML::PreformattedBlock->new(library=>$library);
+#   $block->add_line($line);
+#   $self->_begin_block($block);
 
-  # new comment division
-  my $name    = 'comment';
-  my $num     = $self->_count_comment_divisions;
-  my $id      = "$name-$num";
-  my $comment = SML::CommentDivision->new(id=>$id,library=>$library);
+#   # new comment division
+#   my $name    = 'comment';
+#   my $num     = $self->_count_comment_divisions;
+#   my $id      = "$name-$num";
+#   my $comment = SML::CommentDivision->new(id=>$id,library=>$library);
 
-  $comment->add_part($block);
+#   $comment->add_part($block);
 
-  if ( not $self->_has_division )
-    {
-      $self->_set_division($comment);
-    }
+#   if ( not $self->_has_division )
+#     {
+#       $self->_set_division($comment);
+#     }
 
-  $self->_begin_division($comment);
+#   $self->_begin_division($comment);
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
-sub _process_end_comment_division {
+# sub _process_end_comment_division {
 
-  my $self = shift;
-  my $line = shift;
+#   my $self = shift;
+#   my $line = shift;
 
-  $logger->trace("----- end comment division");
+#   $logger->trace("----- end comment division");
 
-  my $library = $self->get_library;
+#   my $library = $self->get_library;
 
-  # new preformatted block
-  my $block = SML::PreformattedBlock->new(library=>$library);
-  $block->add_line($line);
-  $self->_begin_block($block);
+#   # new preformatted block
+#   my $block = SML::PreformattedBlock->new(library=>$library);
+#   $block->add_line($line);
+#   $self->_begin_block($block);
 
-  # end comment division
-  my $division = $self->_get_current_division;
+#   # end comment division
+#   my $division = $self->_get_current_division;
 
-  $division->add_part( $block );
+#   $division->add_part( $block );
 
-  $self->_end_division;
+#   $self->_end_division;
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
@@ -5498,66 +5465,66 @@ sub _process_comment_division_line {
 
 ######################################################################
 
-sub _process_start_conditional_division {
+# sub _process_start_conditional_division {
 
-  my $self  = shift;
-  my $line  = shift;
-  my $token = shift;
+#   my $self  = shift;
+#   my $line  = shift;
+#   my $token = shift;
 
-  $logger->trace("----- start conditional division ($token)");
+#   $logger->trace("----- start conditional division ($token)");
 
-  my $library   = $self->get_library;
-  my $blockname = 'BEGIN_CONDITIONAL';
+#   my $library   = $self->get_library;
+#   my $blockname = 'BEGIN_CONDITIONAL';
 
-  my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
-  $block->add_line($line);
-  $self->_begin_block($block);
+#   my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
+#   $block->add_line($line);
+#   $self->_begin_block($block);
 
-  my $name        = 'conditional';
-  my $num         = $self->_count_conditionals;
-  my $id          = "$name-$num";
-  my $conditional = SML::Conditional->new
-    (
-     id          => $id,
-     token       => $token,
-     library     => $library,
-    );
+#   my $name        = 'conditional';
+#   my $num         = $self->_count_conditionals;
+#   my $id          = "$name-$num";
+#   my $conditional = SML::Conditional->new
+#     (
+#      id          => $id,
+#      token       => $token,
+#      library     => $library,
+#     );
 
-  $conditional->add_part($block);
+#   $conditional->add_part($block);
 
-  if ( not $self->_has_division )
-    {
-      $self->_set_division($conditional);
-    }
+#   if ( not $self->_has_division )
+#     {
+#       $self->_set_division($conditional);
+#     }
 
-  $self->_begin_division($conditional);
+#   $self->_begin_division($conditional);
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
-sub _process_end_conditional_division {
+# sub _process_end_conditional_division {
 
-  my $self  = shift;
-  my $line  = shift;
+#   my $self  = shift;
+#   my $line  = shift;
 
-  $logger->trace("----- end conditional");
+#   $logger->trace("----- end conditional");
 
-  my $library   = $self->get_library;
-  my $blockname = 'END_CONDITIONAL';
+#   my $library   = $self->get_library;
+#   my $blockname = 'END_CONDITIONAL';
 
-  my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
-  $block->add_line($line);
-  $self->_begin_block($block);
+#   my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
+#   $block->add_line($line);
+#   $self->_begin_block($block);
 
-  my $conditional = $self->_current_conditional;
+#   my $conditional = $self->_current_conditional;
 
-  $conditional->add_part($block);
-  $self->_end_division;
+#   $conditional->add_part($block);
+#   $self->_end_division;
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
@@ -5648,11 +5615,12 @@ sub _process_start_division_marker {
   my $name = shift;                     # division name
   my $id   = shift || q{};              # division ID
 
-  my $location = $line->get_location;
-  my $library  = $self->get_library;
-  my $ontology = $library->get_ontology;
-
   $logger->trace("----- start division ($name.$id)");
+
+  my $library  = $self->get_library;
+  my $location = $line->get_location;
+  my $ontology = $library->get_ontology;
+  my $num      = $self->_increment_division_count($name);
 
   if ( not $ontology->allows_division($name) )
     {
@@ -5665,7 +5633,11 @@ sub _process_start_division_marker {
       $self->_end_baretable;
     }
 
-  # new preformatted BEGIN block
+  if ( $name eq 'SECTION' and $self->_in_section )
+    {
+      $self->_end_section;
+    }
+
   my $block = SML::PreformattedBlock->new
     (
      name    => 'BEGIN_DIVISION',
@@ -5677,34 +5649,21 @@ sub _process_start_division_marker {
 
   my $division = undef;
 
-  if ( $name eq 'DOCUMENT' )
+  if ( not $id )
     {
-      # new document division
-      $division = SML::Document->new(id=>$id,library=>$library);
-
-      $division->add_part($block);
+      $id = "$name-$num";
     }
 
-  else
-    {
-      if ( not $id )
-	{
-	  my $num = $self->_count_divisions;
-	  $id = "$name-$num";
-	}
+  my $class = $ontology->get_class_for_entity_name($name);
 
-      # new non-document division
-      my $class = $ontology->get_class_for_entity_name($name);
+  $division = $class->new
+    (
+     name    => $name,
+     id      => $id,
+     library => $library,
+    );
 
-      $division = $class->new
-	(
-	 name    => $name,
-	 id      => $id,
-	 library => $library,
-	);
-
-      $division->add_part($block);
-    }
+  $division->add_part($block);
 
   if ( not $self->_has_division )
     {
@@ -5718,101 +5677,43 @@ sub _process_start_division_marker {
 
 ######################################################################
 
-# sub _process_end_region_marker {
-
-#   my $self = shift;
-#   my $line = shift;
-#   my $name = shift;
-
-#   my $library  = $self->get_library;
-#   my $location = $line->get_location;
-
-#   $logger->trace("----- region end marker ($name)");
-
-#   if ( not $self->_in_region )
-#     {
-#       my $msg = "INVALID END REGION at $location: not in region";
-#       $logger->logdie("$msg");
-#     }
-
-#   if (
-#       $self->_in_region
-#       and
-#       not $self->_current_region->get_name eq $name
-#      )
-#     {
-#       my $msg = "INVALID END REGION at $location: not in $name region";
-#       $logger->logdie("$msg");
-#     }
-
-#   if ( $self->_in_baretable )
-#     {
-#       $self->_end_baretable;
-#     }
-
-#   if ( $self->_in_environment )
-#     {
-#       my $envname = $self->_current_environment->get_name;
-#       my $msg = "INVALID END REGION at $location: $name end inside $envname";
-#       $logger->logdie("$msg");
-#     }
-
-#   if ( $name eq 'DOCUMENT' )
-#     {
-#       my $division = $self->_get_current_division;
-#       while ( not $division->isa('SML::Document') )
-# 	{
-# 	  $self->_end_division;
-# 	  $division = $self->_get_current_division;
-# 	}
-#     }
-
-#   # new preformatted block
-#   my $block = SML::PreformattedBlock->new
-#     (
-#      name    => 'END_REGION',
-#      library => $library,
-#     );
-
-#   $block->add_line($line);
-#   $self->_begin_block($block);
-#   $self->_get_current_division->add_part($block);
-#   $self->_end_division;
-
-#   return 1;
-# }
-
-######################################################################
-
 sub _process_end_division_marker {
 
   my $self = shift;
   my $line = shift;
   my $name = shift;
 
-  my $library  = $self->get_library;
-  my $location = $line->get_location;
+  my $library = $self->get_library;
 
   $logger->trace("----- end division ($name)");
+
+  $self->_set_in_data_segment(0);
 
   if ( $self->_in_baretable )
     {
       $self->_end_baretable;
-      return 1;
-    }
-
-  if ( $self->_in_table )
-    {
-      $self->_end_table;
-      return 1;
     }
 
   if ( $name eq 'DOCUMENT' and $self->_in_section )
     {
+      $self->_end_section;
+    }
+
+  if ( $name eq 'RAW' and $self->_in_section )
+    {
+      $self->_end_section;
+    }
+
+  if ( $name eq 'RAW' and $self->_in_table_cell )
+    {
       $self->_end_division;
     }
 
-  # new preformatted block
+  if ( $name eq 'TABLE' and $self->_in_table_row )
+    {
+      $self->_end_table_row;
+    }
+
   my $block = SML::PreformattedBlock->new
     (
      name    => 'END_DIVISION',
@@ -5821,100 +5722,15 @@ sub _process_end_division_marker {
 
   $block->add_line($line);
   $self->_begin_block($block);
-  $self->_get_current_division->add_part($block);
+
+  my $division = $self->_get_current_division;
+
+  $division->add_part($block);
+
   $self->_end_division;
 
   return 1;
 }
-
-######################################################################
-
-# sub _process_environment_marker {
-
-#   my $self = shift;
-#   my $line = shift;
-#   my $name = shift;
-
-#   my $location  = $line->get_location;
-#   my $library   = $self->get_library;
-#   my $ontology  = $library->get_ontology;
-#   my $blockname = '';
-
-#   $logger->trace("----- environment marker ($name)");
-
-#   if ( not $ontology->allows_environment($name) )
-#     {
-#       my $msg = "UNKNOWN ENVIRONMENT at $location: \"$name\"";
-#       $logger->logcroak("$msg");
-#     }
-
-#   if (
-#       $self->_in_environment
-#       and
-#       not $self->_current_environment->get_name eq $name
-#      )
-#     {
-#       my $msg = "INVALID END ENVIRONMENT: can't end \"$name\" environment at $location";
-#       $logger->logcroak("$msg");
-#     }
-
-#   if ( $self->_in_baretable )
-#     {
-#       $self->_end_baretable;
-#     }
-
-
-#   if (
-#       $self->_in_environment
-#       and
-#       $self->_current_environment->get_name eq $name
-#      )
-#     {
-#       $blockname = 'END_ENVIRONMENT';
-#     }
-
-#   else
-#     {
-#       $blockname = 'BEGIN_ENVIRONMENT';
-#     }
-
-#   my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
-#   $block->add_line($line);
-#   $self->_begin_block($block);
-
-#   my $division = $self->_get_current_division;
-
-#   if ( $self->_in_table )
-#     {
-#       $division->add_part($block);
-#       $self->_end_table;
-#     }
-
-#   elsif ( not $self->_in_environment )
-#     {
-#       my $num         = $self->_count_environments;
-#       my $id          = "$name-$num";
-#       my $class       = $ontology->get_class_for_entity_name($name);
-#       my $environment = $class->new
-# 	(
-# 	 name    => $name,
-# 	 id      => $id,
-# 	 library => $library,
-# 	);
-
-#       $environment->add_part($block);
-
-#       $self->_begin_division($environment);
-#     }
-
-#   else
-#     {
-#       $division->add_part($block);
-#       $self->_end_division;
-#     }
-
-#   return 1;
-# }
 
 ######################################################################
 
@@ -5923,24 +5739,28 @@ sub _process_section_heading {
   my $self      = shift;
   my $line      = shift;
   my $asterisks = shift;
-  my $id        = shift;
+  my $id        = shift || q{};
   my $heading   = shift;
 
   my $library  = $self->get_library;
   my $location = $line->get_location;
   my $depth    = length($1);
 
-  $logger->trace("----- section heading");
+  $logger->trace("----- start division (SECTION.$id)");
 
   if ( $self->_in_baretable )
     {
       $self->_end_baretable;
     }
 
-  # end previous section
+  if ( $self->_in_table )
+    {
+      $self->_end_table;
+    }
+
   if ( $self->_in_section )
     {
-      $self->_end_division;
+      $self->_end_section;
     }
 
   # new title element
@@ -6050,40 +5870,40 @@ sub _process_blank_line {
 
 ######################################################################
 
-sub _process_id_element {
+# sub _process_id_element {
 
-  my $self = shift;
-  my $line = shift;
-  my $id   = shift;
+#   my $self = shift;
+#   my $line = shift;
+#   my $id   = shift;
 
-  my $library = $self->get_library;
-  my $util    = $library->get_util;
+#   my $library = $self->get_library;
+#   my $util    = $library->get_util;
 
-  $logger->trace("----- id element ($id)");
+#   $logger->trace("----- id element ($id)");
 
-  # block/element handling
-  my $element = SML::Element->new(name=>'id',library=>$library);
-  $element->add_line($line);
-  $self->_begin_block($element);
+#   # block/element handling
+#   my $element = SML::Element->new(name=>'id',library=>$library);
+#   $element->add_line($line);
+#   $self->_begin_block($element);
 
-  # division handling
-  my $division = $self->_get_current_division;
-  $division->set_id($id);
-  $division->add_part($element);
-  $division->add_property_element($element);
+#   # division handling
+#   my $division = $self->_get_current_division;
+#   $division->set_id($id);
+#   $division->add_part($element);
+#   $division->add_property_element($element);
 
-  # remember this ID
-  $logger->trace("..... new id");
-  $library->replace_division_id($division,$id);
+#   # remember this ID
+#   $logger->trace("..... new id");
+#   $library->replace_division_id($division,$id);
 
-  if ( $self->_in_document )
-    {
-      my $document = $self->_current_document;
-      $document->replace_division_id($division,$id);
-    }
+#   if ( $self->_in_document )
+#     {
+#       my $document = $self->_current_document;
+#       $document->replace_division_id($division,$id);
+#     }
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
@@ -6715,8 +6535,11 @@ sub _process_paragraph_text {
 
       if ( $self->_in_data_segment )
 	{
+	  my $division = $self->_get_current_division;
+	  my $name     = $division->get_name;
+	  my $id       = $division->get_id;
 	  my $location = $line->get_location;
-	  $logger->error("PARAGRAPH IN DATA SEGMENT at $location");
+	  $logger->error("PARAGRAPH IN $name.$id DATA SEGMENT at $location");
 	}
 
       if ( $self->_in_baretable )
@@ -6764,7 +6587,11 @@ sub _process_indented_text {
 
       if ( $self->_in_data_segment )
 	{
-	  $logger->error("PREFORMATTED BLOCK IN DATA SEGMENT");
+	  my $division = $self->_get_current_division;
+	  my $name     = $division->get_name;
+	  my $id       = $division->get_id;
+	  my $location = $line->get_location;
+	  $logger->error("PREFORMATTED BLOCK IN $name.$id DATA SEGMENT at $location");
 	}
 
       my $block = SML::PreformattedBlock->new(library=>$library);
@@ -7092,7 +6919,11 @@ sub _in_table {
 
   my $division = $self->_get_current_division;
 
-  if ( $division->is_in_a('SML::Table') )
+  if (
+      defined $division
+      and
+      $division->is_in_a('SML::Table')
+     )
     {
       return 1;
     }
@@ -7385,13 +7216,38 @@ sub _count_conditionals {
 sub _count_divisions {
 
   my $self = shift;
+  my $name = shift;                     # division name (i.e. COMMENT)
 
-  my $count = 0;
+  my $division_counter = $self->_get_division_counter;
 
   my $division      = $self->_get_division;
   my $division_list = $division->get_division_list;
 
   return scalar @{ $division_list };
+}
+
+######################################################################
+
+sub _increment_division_count {
+
+  my $self = shift;
+  my $name = shift;                     # division name (i.e. COMMENT)
+
+  my $counter = $self->_get_division_counter_hash;
+
+  return ++ $counter->{$name};
+}
+
+######################################################################
+
+sub _get_division_count {
+
+  my $self = shift;
+  my $name = shift;                     # division name (i.d. COMMENT)
+
+  my $counter = $self->_get_division_counter_hash;
+
+  return $counter->{$name};
 }
 
 ######################################################################
@@ -7537,27 +7393,27 @@ sub _in_section {
 
 ######################################################################
 
-sub _in_document {
+# sub _in_document {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $division = $self->_get_current_division;
+#   my $division = $self->_get_current_division;
 
-  while ( $division and not $division->isa('SML::Fragment') )
-    {
-      if ( $division->isa('SML::Document') )
-	{
-	  return 1;
-	}
+#   while ( $division and not $division->isa('SML::Fragment') )
+#     {
+#       if ( $division->isa('SML::Document') )
+# 	{
+# 	  return 1;
+# 	}
 
-      else
-	{
-	  $division = $division->get_containing_division;
-	}
-    }
+#       else
+# 	{
+# 	  $division = $division->get_containing_division;
+# 	}
+#     }
 
-  return 0;
-}
+#   return 0;
+# }
 
 ######################################################################
 
@@ -7972,11 +7828,11 @@ sub _parse_next_substring {
 
 	  if ( $preceding_text )
 	    {
-	      my $newstring1 = $self->create_string($preceding_text);
+	      my $newstring1 = $self->_create_string($preceding_text);
 	      $part->add_part($newstring1);
 	    }
 
-	  my $newstring2 = $self->create_string($substring);
+	  my $newstring2 = $self->_create_string($substring);
 	  $part->add_part($newstring2);
 
 	  $text = ${^POSTMATCH};
@@ -7992,7 +7848,7 @@ sub _parse_next_substring {
 
   else
     {
-      my $newstring = $self->create_string($text);
+      my $newstring = $self->_create_string($text);
       $part->add_part($newstring);
 
       $text = q{};
@@ -8262,8 +8118,8 @@ sub _convert_to_section_line_list {
   my $util    = $library->get_util;
   my $nll     = [];                     # new line list
 
-  my $title     = $self->extract_title_text($oll);
-  my $narrative = $self->extract_narrative_lines($oll);
+  my $title     = $self->_extract_title_text($oll);
+  my $narrative = $self->_extract_narrative_lines($oll);
   my $asterisks = q{};
 
   $asterisks .= '*' until length($asterisks) == $depth;
@@ -8303,13 +8159,8 @@ text
 
   my $parser = SML::Parser->new(library=>$library);
 
-  my $division = $parser->parse($id);
   my $library  = $parser->get_library;
-  my $object   = $parser->create_string($text);
-  my $string   = $parser->extract_division_name($lines);
-  my $string   = $parser->extract_title_text($lines);
-  my $lines    = $parser->extract_data_segment_lines($lines);
-  my $lines    = $parser->extract_narrative_lines($lines);
+  my $division = $parser->parse($id);
 
 =head1 DESCRIPTION
 
@@ -8322,16 +8173,6 @@ sequences of line objects.
 =head2 get_library
 
 =head2 create_fragment($filename)
-
-=head2 create_string($text)
-
-=head2 extract_division_name($lines)
-
-=head2 extract_title_text($lines)
-
-=head2 extract_data_segment_lines($lines)
-
-=head2 extract_narrative_lines($lines)
 
 =head1 AUTHOR
 

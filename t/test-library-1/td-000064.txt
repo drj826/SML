@@ -5,16 +5,14 @@ title:: MISSING REQUIRED PROPERTY
 ===
 
 This SML document contains a class (problem) missing a required
-property (ID).
+property (title).
 
->>>problem
-
-title:: My Problem Without an ID
+>>>problem.problem-64-1
 
 type:: technical
 
 description:: This is a problem that is missing a required property
-(ID).
+(title).
 
 <<<problem
 

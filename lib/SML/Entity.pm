@@ -51,9 +51,9 @@ sub validate {
 	$valid = 0;
       }
 
-      if ( not $element->validate_resource_availability ) {
-	$valid = 0;
-      }
+      # if ( not $element->validate_resource_availability ) {
+      # 	$valid = 0;
+      # }
     }
 
   foreach my $division (@{ $self->get_division_list })

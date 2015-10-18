@@ -90,6 +90,16 @@ has 'included_from_line' =>
 
 ######################################################################
 
+has 'valid' =>
+  (
+   isa       => 'Bool',
+   reader    => 'is_valid',
+   lazy      => 1,
+   builder   => '_validate_division',
+  );
+
+######################################################################
+
 has 'valid_syntax' =>
   (
    isa       => 'Bool',
@@ -1137,6 +1147,29 @@ has 'attribute_hash' =>
 ######################################################################
 ######################################################################
 
+sub BUILD {
+
+  my $self = shift;
+
+  my $id      = $self->get_id;
+  my $library = $self->get_library;
+
+  my $id_property = SML::Property->new
+    (
+     id      => $id,
+     name    => 'id',
+     library => $library,
+    );
+
+  $id_property->add_value($id);
+
+  $self->add_property($id_property);
+
+  return 1;
+}
+
+######################################################################
+
 sub _line_ends_data_segment {
 
   my $self = shift;
@@ -1155,6 +1188,50 @@ sub _line_ends_data_segment {
       return 0;
     }
 
+}
+
+######################################################################
+
+sub _validate_division {
+
+  my $self = shift;
+
+  my $valid = 1;
+  my $id    = $self->get_id;
+
+  $logger->debug("validate division $id");
+
+  $valid = 0 if not $self->has_valid_id_uniqueness;
+
+  foreach my $block (@{ $self->get_block_list })
+    {
+      $valid = 0 if not $block->has_valid_syntax;
+      $valid = 0 if not $block->has_valid_semantics;
+    }
+
+  foreach my $element (@{ $self->get_element_list })
+    {
+      $valid = 0 if not $element->has_valid_syntax;
+      $valid = 0 if not $element->has_valid_semantics;
+    }
+
+  foreach my $division (@{ $self->get_division_list })
+    {
+      $valid = 0 if not $division->has_valid_syntax;
+      $valid = 0 if not $division->has_valid_semantics;
+    }
+
+  if ( $valid )
+    {
+      $logger->info("the division is valid \'$id\'");
+    }
+
+  else
+    {
+      $logger->warn("THE DIVISION IS NOT VALID \'$id\'");
+    }
+
+  return $valid;
 }
 
 ######################################################################

@@ -2303,17 +2303,6 @@ this:
 
   <<<COMMENT
 
-Some people find it more visually appealing to represent comment
-blocks like this:
-
-  #############################################################comment
-
-  This paragraph has been `commented out' because it is enclosed
-  within a comment block.  Enclosing any section of text within a
-  comment block will cause the publisher to ignore it.
-
-  #############################################################comment
-
 ~~Conditional Paragraphs.~~ You can make paragraphs conditional so
 they appear in one version of the document but not in others.  For
 instance, let's say you are writing a training document about the
@@ -6398,7 +6387,7 @@ to the stated problem (requirement) must be reasonable.
 
 ***.requirements-traceability Requirements Traceability
 
-==
+===
 
 The ~~primary~~ purpose of requirements traceability is to trace
 requirements from origin to fulfillment.

@@ -2,7 +2,7 @@
 
 title:: Render Document Data from SML to CSV
 
-part_of:: rq-000098
+is_part_of:: rq-000098
 
 priority:: routine
 
