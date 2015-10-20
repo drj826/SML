@@ -104,6 +104,8 @@ sub get_value {
 
   if ( $text =~ /$syntax->{definition_element}/xms )
     {
+      $logger->debug("Definition value: $5");
+
       return $5;
     }
 
@@ -112,6 +114,26 @@ sub get_value {
       $logger->error("DEFINITION SYNTAX ERROR value not found");
       return q{};
     }
+}
+
+######################################################################
+
+sub get_bookmark {
+
+  # Return a string suitable for use as an HTML hyperlink bookmark.
+
+  my $self = shift;
+
+  my $term = $self->get_term;
+  my $alt  = $self->get_alt;
+
+  $term = lc($term);
+  $alt  = lc($alt);
+
+  $term =~ s/\s+/_/g;
+  $alt  =~ s/\s+/_/g;
+
+  return "$term:$alt";
 }
 
 ######################################################################

@@ -54,7 +54,20 @@ sub get_value {
     {
       my $util = $library->get_util;
 
-      return $util->trim_whitespace($3);
+      if ( $1 eq 'date' and $3 =~ /^\$Date:\s*(.*)\s*\$$/ )
+	{
+	  return $1;
+	}
+
+      elsif ( $1 eq 'revision' and $3 =~ /^\$Revision:\s*(.*)\s*\$$/ )
+	{
+	  return $1;
+	}
+
+      else
+	{
+	  return $util->trim_whitespace($3);
+	}
     }
 
   elsif ( $text =~ /$syntax->{'start_section'}/xms )

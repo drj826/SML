@@ -1,7 +1,5 @@
 >>>RAW.sml-structure-summary
 
-===
-
 >>>COMMENT
 
 $Author: don.johnson $
@@ -25,7 +23,7 @@ index:: paragraphs
   Paragraphs are separated by
   blank lines.
 
-----------------------------------------------------------------------
+---
 
 : !!Sections.!! ([ref:sections]) Sections start with a section heading
 indicated by a line that begins with one or more asterisks (`*' - the
@@ -45,7 +43,7 @@ index:: section headings
 
   *** My Sub-Sub-Section
 
-----------------------------------------------------------------------
+---
 
 : !!Unordered Lists.!! ([ref:lists]) An unordered list item starts
 with a dash (`-') in the first column. Unordered lists can be nested
@@ -59,7 +57,7 @@ index:: unordered lists; lists!unordered
   - item 2
   - item 3
 
-----------------------------------------------------------------------
+---
 
 : !!Ordered Lists.!! ([ref:lists]) An ordered list item starts with a
 plus sign (`+') in the first column. Ordered lists can be nested by
@@ -73,7 +71,7 @@ index:: ordered lists; lists!ordered
   + item 2
   + item 3
 
-----------------------------------------------------------------------
+---
 
 : !!Definition Lists.!! ([ref:lists]) A definition list item starts
 with an equal sign (`=') followed by the term being defined, then
@@ -87,7 +85,7 @@ index:: definition lists; lists!definition
   = term 2 = term 2 means...
   = term 3 = term 3 means...
 
-----------------------------------------------------------------------
+---
 
 : !!Images.!! ([ref:images]) Insert an image (JPEG, GIF, or PNG) into
 a figure or anywhere in the text by pointing to the file containing
@@ -101,7 +99,7 @@ index:: images
 
   image:: images/my-other-image.gif
 
-----------------------------------------------------------------------
+---
 
 : !!Baretables.!! ([ref:tables]) A ~~baretable~~ (one without a
 caption or label) starts with a line that begins with a single or
@@ -121,7 +119,7 @@ index:: baretables
   : row 2 column 1
   : row 2 column 2
 
-----------------------------------------------------------------------
+---
 
 : !!Tables.!! ([ref:tables]) A normal ~~table~~ (i.e. not a
 ~~baretable~~) starts with a line that begins with three or more
@@ -151,7 +149,7 @@ index:: tables
 
   <<<TABLE
 
-----------------------------------------------------------------------
+---
 
 : !!Figures.!! ([ref:figures]) A figure is a picture, diagram, or
 ascii art. Figures can have titles (captions). You can specify a
@@ -168,7 +166,7 @@ index:: figures
   image:: images/my-figure.png
   <<<FIGURE
 
-----------------------------------------------------------------------
+---
 
 : !!Listings.!! ([ref:listings]) Listings are used for verbatim
 listings of text like source code. Optional features are: ~~listing
@@ -187,7 +185,7 @@ index:: listings
   file::  files/my-listing.txt
   <<<LISTING
 
-----------------------------------------------------------------------
+---
 
 : !!Attachments.!! ([ref:attachments]) You can attach files to a
 document just as you would an E-mail.  Attachments appear in your
@@ -204,7 +202,7 @@ index:: attachments
   file::  files/my-attachment.txt
   <<<ATTACHMENT
 
-----------------------------------------------------------------------
+---
 
 : !!Pre-formatted.!! ([ref:preformatted-text]) ~~Simple~~ preformatted
 text is ~~indented text~~ which is rendered as verbatim
@@ -226,7 +224,7 @@ index:: preformatted text
 
   <<<PREFORMATTED
 
-----------------------------------------------------------------------
+---
 
 : !!Footnotes.!! ([ref:footnotes]) Footnote ~~markers~~
 (i.e. `||{lit:[f]}||') get converted to footnote ~~numbers~~ which
@@ -238,7 +236,7 @@ index:: footnotes
 
   footnote:: My footnote text...
 
-----------------------------------------------------------------------
+---
 
 : !!Labels and References.!! ([ref:labels-and-references]) Labels
 uniquely identify document components for referral in other parts of
@@ -252,7 +250,7 @@ index:: labels; references
 
   [ref:tab-sample-table]
 
-----------------------------------------------------------------------
+---
 
 : !!Hyper-links.!! ([ref:hyperlinks-commands-paths]) Anything that
 looks like a URL or email address will be turned into a hyper-link
@@ -266,7 +264,7 @@ index:: hyperlinks
 
   http://www.cnn.com/
 
-----------------------------------------------------------------------
+---
 
 : !!Sources and Citations.!! ([ref:source-referencing]) The
 ||publish|| program generates BibTeX style bibliographic citations
@@ -288,7 +286,7 @@ index:: sources; citations; bibliography
   year::        1994
   <<<SOURCE
 
-----------------------------------------------------------------------
+---
 
 : !!Steps.!! ([ref:steps]) Sequences of procedural steps (i.e. lines
 that begin with `||step::||') will be automatically numbered and
@@ -305,7 +303,7 @@ index:: steps; procedures
 
   step:: Send it back
 
-----------------------------------------------------------------------
+---
 
 : !!Side-bars.!! ([ref:sidebars]) Sidebar text is rendered as a box
 against the outer margin. Main text flows around sidebar boxes.
@@ -320,7 +318,7 @@ index:: sidebars
   My sidebar content...
   <<<SIDEBAR
 
-----------------------------------------------------------------------
+---
 
 : !!Glossary.!! ([ref:building-a-glossary]) The presence of glossary
 entries result in the generation of an alphabetical glossary inserted
@@ -334,7 +332,7 @@ index:: glossary
 
   glossary:: ants = small bugs
 
-----------------------------------------------------------------------
+---
 
 : !!Index.!! ([ref:building-an-index]) The presence of index entries
 result in the generation of an alphabetical index inserted at the end

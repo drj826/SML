@@ -29,7 +29,7 @@ title:: First Child Problem
 
 type:: technical
 
-part_of:: problem-1
+is_part_of:: problem-1
 
 description:: This is the first child problem.
 
@@ -41,7 +41,7 @@ title:: Second Child Problem
 
 type:: technical
 
-part_of:: problem-1
+is_part_of:: problem-1
 
 description:: This is the second child problem.
 

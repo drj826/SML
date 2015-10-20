@@ -3,7 +3,7 @@
 # $Id: Definition.t 259 2015-04-02 20:27:00Z drj826@gmail.com $
 
 use lib "../lib";
-use Test::More tests => 10;
+use Test::More tests => 12;
 use Test::Exception;
 
 use SML;
@@ -61,6 +61,7 @@ my @public_methods =
    'get_term',
    'get_alt',
    'get_value',
+   'get_bookmark',
   );
 
 can_ok( $obj, @public_methods );
@@ -71,9 +72,10 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{ $tcl })
   {
-    get_term_ok($tc)  if defined $tc->{expected}{get_term};
-    get_alt_ok($tc)   if defined $tc->{expected}{get_alt};
-    get_value_ok($tc) if defined $tc->{expected}{get_value};
+    get_term_ok($tc)     if defined $tc->{expected}{get_term};
+    get_alt_ok($tc)      if defined $tc->{expected}{get_alt};
+    get_value_ok($tc)    if defined $tc->{expected}{get_value};
+    get_bookmark_ok($tc) if defined $tc->{expected}{get_bookmark};
   }
 
 #---------------------------------------------------------------------
@@ -149,6 +151,28 @@ sub get_value_ok {
 
   # assert
   is($result,$expected,"$tcname get_value $result");
+}
+
+######################################################################
+
+sub get_bookmark_ok {
+
+  my $tc = shift;                       # test case
+
+  # arrange
+  my $tcname     = $tc->{name};
+  my $line       = $tc->{line};
+  my $args       = $tc->{args};
+  my $expected   = $tc->{expected}{get_bookmark};
+  my $definition = SML::Definition->new(%{$args});
+
+  $definition->add_line($line);
+
+  # act
+  my $result = $definition->get_bookmark;
+
+  # assert
+  is($result,$expected,"$tcname get_bookmark $result");
 }
 
 ######################################################################

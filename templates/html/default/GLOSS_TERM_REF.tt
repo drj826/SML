@@ -3,8 +3,11 @@
 [%- SET tag = self.get_tag -%]
 [%- SET term = self.get_term -%]
 [%- SET namespace = self.get_namespace -%]
+[%- SET glossary = document.get_glossary -%]
+[%- SET entry = glossary.get_entry(term,namespace) -%]
+[%- SET bookmark = entry.get_bookmark -%]
 [%- IF (tag == 'g') || (tag == 'gls') -%]
-<a href="[% docid %].glossary.html#[% term %]:[% namespace %]">[% term %]</a>
+<a href="[% docid %].glossary.html#[%bookmark%]">[% term %]</a>
 [%- ELSIF (tag == 'G') || (tag == 'Gls') -%]
-<a href="[% docid %].glossary.html#[% term %]:[% namespace %]">[% term.ucfirst %]</a>
+<a href="[% docid %].glossary.html#[%bookmark%]">[% term.ucfirst %]</a>
 [%- END -%]

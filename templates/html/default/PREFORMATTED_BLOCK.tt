@@ -1,2 +1,6 @@
-<pre>[% self.get_content %]</pre>
+<pre>
+[%- FILTER html -%]
+[%- self.get_content -%]
+[%- END -%]
+</pre>
 

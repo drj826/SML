@@ -1,7 +1,5 @@
 >>>RAW.sml-presentation-summary
 
-===
-
 >>>COMMENT
 
 $Author: don.johnson $
@@ -17,18 +15,22 @@ used sparingly and only to make final adjustments before printing.
 
 index:: page break
 
-: ||{lit:[pagebreak]}||
+:
 
-----------------------------------------------------------------------
+  [pagebreak]
+
+---
 
 : !!Line Break.!!  Insert a forced line break.  These can go in the
 title, subtitle, paragraphs, table cells, or any other text.
 
 index:: line break
 
-: ||{lit:[linebreak]}||
+:
 
-----------------------------------------------------------------------
+  [linebreak]
+
+---
 
 : !!Font Family.!! (runtime option) For the PDF rendition choose from
 ||computer_modern||, ||times||, ||bookman||, ||chancery||,
@@ -41,7 +43,7 @@ Charter; New Century; Palatino
 
   publish --pdf_fontfam=times doc.txt
 
-----------------------------------------------------------------------
+---
 
 : !!Font Size.!! (runtime option) Choose base font size for PDF
 rendition of the entire document from 10, 11 or 12 point font (default
@@ -53,7 +55,7 @@ index:: font size
 
   publish --pdf_fontsize=11 doc.txt
 
-----------------------------------------------------------------------
+---
 
 : !!Table Font Size.!! Choose the base font size for PDF rendition of
 a table from: ~~tiny~~, ~~scriptsize~~, ~~footnotesize~~, ~~small~~
@@ -65,7 +67,7 @@ index:: table font size
 
   table:fontsize: -1
 
-----------------------------------------------------------------------
+---
 
 : !!Table Column Width.!! The ||publish|| program does a reasonable job of
 calculating the proper column width based on the content of the
@@ -78,7 +80,7 @@ of percentages (omit the percentage sign though).
 
   column:2:width: 50
 
-----------------------------------------------------------------------
+---
 
 : !!Cell Font Size.!! Choose from ~~tiny~~, ~~scriptsize~~,
 ~~footnotesize~~, ~~small~~ (default), ~~normalsize~~ or ~~large~~.
@@ -91,7 +93,7 @@ size!large
 
   :footnotesize: table cell text
 
-----------------------------------------------------------------------
+---
 
 : !!Cell Color.!! Set the background color of a table cell.
 
@@ -101,7 +103,7 @@ index:: cell color; table cell!color
 
   :yellow: yellow
 
-----------------------------------------------------------------------
+---
 
 : !!Cell Justification.!! Justify the text within a table cell: left,
 right or center.
@@ -112,135 +114,167 @@ index:: cell justification; table cell!justification
 
   :l: left
 
-----------------------------------------------------------------------
+---
 
 : !!Bold.!! Make text !!bold!!.
 
 index:: bold
 
-: ||{lit:!!bold!!}||
+:
 
-----------------------------------------------------------------------
+  !!bold!!
+
+---
 
 : !!Italics.!! Make text ~~italicized~~.
 
 index:: italics; italicized
 
-: ||{lit:~~italics~~}||
+:
 
-----------------------------------------------------------------------
+  ~~italics~~
+
+---
 
 : !!Typewriter-Type.!! Make text ||typewriter-type text||.
 
 index:: typewriter-type
 
-: ||{lit:||typewriter-type||}||
+:
 
-----------------------------------------------------------------------
+  ||typewriter-type||
+
+---
 
 : !!Underline.!! - __Underline__ text.
 
 index:: underline
 
-: ||{lit:__underlined__}||
+:
 
-----------------------------------------------------------------------
+  __underlined__
+
+---
 
 : !!Copyright.!! Make a copyright symbol: [c].
 
 index:: copyright symbol
 
-: ||{lit:[c]}||
+:
 
-----------------------------------------------------------------------
+  [c]
+
+---
 
 : !!Trademark.!! Make a trademark symbol: [tm].
 
 index:: trademark symbol
 
-: ||{lit:[tm]}||
+:
 
-----------------------------------------------------------------------
+  [tm]
+
+---
 
 : !!Registered Trademark.!! Make a registered trademark symbol: [r].
 
 index:: registered trademark symbol
 
-: ||{lit:[r]}||
+:
 
-----------------------------------------------------------------------
+  [r]
+
+---
 
 : !!Keystroke.!! Make a keystroke symbol: [[Enter]].
 
 index:: keystroke symbols
 
-: ||{lit:[[Enter]]}||
+:
 
-----------------------------------------------------------------------
+  [[Enter]]
+
+---
 
 : !!Take Note.!! Make a pointing hand symbol in the margin.
 
 index:: take note indicator
 
-: ||{lit:[[take_note]]}||
+:
 
-----------------------------------------------------------------------
+  [take_note]
+
+---
 
 : !!Section Sign.!! Make a section sign like ``[[section]]''.
 
 index:: section sign
 
-: ||{lit:[[section]]}||
+:
 
-----------------------------------------------------------------------
+  [section]
+
+---
 
 : !!Smiley.!! Make a smiley: :-).
 
 index:: smiley
 
-: ||{lit::-)}||
+:
 
-----------------------------------------------------------------------
+  :-)
+
+---
 
 : !!Frowny.!! Make a frowny: :-(.
 
 index:: frowny
 
-: ||{lit::-(}||
+:
 
-----------------------------------------------------------------------
+  :-(
+
+---
 
 : !!Left Arrow.!! Make a left pointing arrow: <-.
 
 index:: left arrow
 
-: ||{lit:<-}||
+:
 
-----------------------------------------------------------------------
+  <-
+
+---
 
 : !!Right Arrow.!! Make a right pointing arrow: ->.
 
 index:: right arrow
 
-: ||{lit:->}||
+:
 
-----------------------------------------------------------------------
+  ->
+
+---
 
 : !!TeX Logo.!! Make a TeX logo.
 
 index:: TeX logo
 
-: ||{lit:TeX}||
+:
 
-----------------------------------------------------------------------
+  TeX
+
+---
 
 : !!LaTeX Logo.!! Make a LaTeX logo.
 
 index:: LaTeX logo
 
-: ||{lit:LaTeX}||
+:
 
-----------------------------------------------------------------------
+  LaTeX
+
+---
 
 : !!Horizontal Rules.!! Make a ``fill-in-the-blank'' style horizontal
 rule with three or more underscores.  The number of underscores
@@ -249,34 +283,42 @@ determines the width of the rule (each underscore is one
 
 index:: horizontal rules
 
-: ||Example:{lit:________}||
+:
 
-----------------------------------------------------------------------
+  Example:________
+
+---
 
 : !!URLs.!! Make a hyper-link to a URL: [url:http://www.cnn.com/].
 
 index:: URLs
 
-: ||{lit:[url:http://www.cnn.com/]}||
+:
 
-----------------------------------------------------------------------
+  [url:http://www.cnn.com/]
+
+---
 
 : !!Paths.!! Make a file system path: [path:C:\Perl]. Never use a
 trailing backslash as the last character of a path.
 
 index:: paths
 
-: ||{lit:[path:C:\Perl]}||
+:
 
-----------------------------------------------------------------------
+  [path:C:\Perl]
+
+---
 
 : !!Commands.!! Make a command: [cmd:ls -al *.txt | grep -i chap].
 
 index:: commands
 
-: ||{lit:[cmd:ls -al *.txt | grep -i chap]}||
+:
 
-----------------------------------------------------------------------
+  [cmd:ls -al *.txt | grep -i chap]
+
+---
 
 : !!Literal Text.!! Make literal text to escape characters that would
 otherwise have special meaning (like the double underscores in this
@@ -284,7 +326,9 @@ example): {lit:__init__.py}
 
 index:: literal text
 
-: ||{lit:{lit:__init__.py}}||
+:
+
+  {lit:__init__.py}
 
 ######################################################################
 # Local Emacs Variables

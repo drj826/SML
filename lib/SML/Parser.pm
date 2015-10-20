@@ -80,6 +80,10 @@ use SML::PreformattedDivision;        # ci-000398
 use SML::Sidebar;                     # ci-000399
 use SML::Source;                      # ci-000400
 use SML::Table;                       # ci-000401
+use SML::StepList;                    # ci-000???
+use SML::BulletList;                  # ci-000???
+use SML::EnumeratedList;              # ci-000???
+use SML::DefinitionList;              # ci-000???
 use SML::Baretable;                   # ci-000414
 use SML::Audio;                       # ci-000402
 use SML::Video;                       # ci-000403
@@ -489,28 +493,28 @@ has 'index_hash' =>
 
 ######################################################################
 
-has 'table_data_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_table_data_hash',
-   writer    => '_set_table_data_hash',
-   clearer   => '_clear_table_data_hash',
-   default   => sub {{}},
-  );
+# has 'table_data_hash' =>
+#   (
+#    isa       => 'HashRef',
+#    reader    => '_get_table_data_hash',
+#    writer    => '_set_table_data_hash',
+#    clearer   => '_clear_table_data_hash',
+#    default   => sub {{}},
+#   );
 
 # This is a data structure containing information about the tables in
 # the document.
 
 ######################################################################
 
-has 'baretable_data_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_baretable_data_hash',
-   writer    => '_set_baretable_data_hash',
-   clearer   => '_clear_baretable_data_hash',
-   default   => sub {{}},
-  );
+# has 'baretable_data_hash' =>
+#   (
+#    isa       => 'HashRef',
+#    reader    => '_get_baretable_data_hash',
+#    writer    => '_set_baretable_data_hash',
+#    clearer   => '_clear_baretable_data_hash',
+#    default   => sub {{}},
+#   );
 
 # This is a data structure containing information about the baretables
 # in the document.  A baretable is a table without a title, ID, or
@@ -617,11 +621,6 @@ has single_string_type_list =>
 
 sub _init {
 
-  # Initialize parser.
-
-  # 1. Initialize 'lines' array
-  # 2. Initialize method invocation counter
-
   my $self = shift;
 
   my $library = $self->get_library;
@@ -660,10 +659,6 @@ sub _init {
   $self->_set_source_hash({});
   $self->_clear_index_hash;
   $self->_set_index_hash({});
-  $self->_clear_table_data_hash;
-  $self->_set_table_data_hash({});
-  $self->_clear_baretable_data_hash;
-  $self->_set_baretable_data_hash({});
   $self->_clear_template_hash;
   $self->_set_template_hash({});
   $self->_clear_requires_processing;
@@ -2078,11 +2073,9 @@ sub _parse_lines {
   $self->_set_acronym_hash({});
   $self->_set_source_hash({});
   $self->_set_index_hash({});
-  # $self->_set_table_data_hash({});
-  # $self->_set_baretable_data_hash({});
   $self->_set_template_hash({});
   $self->_set_section_counter_hash({});
-  # $self->_set_division_counter_hash({});
+  $self->_set_division_counter_hash({});
   $self->_set_count_total_hash({});
 
   $self->_clear_block;
@@ -2207,10 +2200,18 @@ sub _parse_lines {
 	  # $2 = variable name
 	  # $3
 	  # $4 = alt namespace
-	  # $5= variable value
+	  # $5 = variable value
 	  # $6
 	  # $7 = comment text
 	  $self->_process_start_variable_definition($line,$1,$3);
+	}
+
+      elsif ( $text =~ /$syntax->{step_element}/ )
+	{
+	  # $1 = text
+	  # $2
+	  # $3 = comment text
+	  $self->_process_start_step_element($line,$1,$3);
 	}
 
       elsif ( $text =~ /$syntax->{element}/ )
@@ -2359,7 +2360,17 @@ sub _begin_division {
   #     $document->add_division($division);
   #   }
 
-  $self->_begin_data_segment;
+  unless
+    (
+     $name eq 'BULLET_LIST',
+     or
+     $name eq 'ENUMERATED_LIST',
+     or
+     $name eq 'DEFINITION_LIST',
+    )
+    {
+      $self->_begin_data_segment;
+    }
 
   # add this division to the one it is part of
   my $containing_division = $self->_get_current_division;
@@ -2682,6 +2693,62 @@ sub _end_section {
   my $self = shift;
 
   return if not $self->_in_section;
+
+  $self->_end_division;
+
+  return 1;
+
+}
+
+######################################################################
+
+sub _end_step_list {
+
+  my $self = shift;
+
+  return if not $self->_in_step_list;
+
+  $self->_end_division;
+
+  return 1;
+
+}
+
+######################################################################
+
+sub _end_bullet_list {
+
+  my $self = shift;
+
+  return if not $self->_in_bullet_list;
+
+  $self->_end_division;
+
+  return 1;
+
+}
+
+######################################################################
+
+sub _end_enumerated_list {
+
+  my $self = shift;
+
+  return if not $self->_in_enumerated_list;
+
+  $self->_end_division;
+
+  return 1;
+
+}
+
+######################################################################
+
+sub _end_definition_list {
+
+  my $self = shift;
+
+  return if not $self->_in_definition_list;
 
   $self->_end_division;
 
@@ -5640,10 +5707,11 @@ sub _process_start_division_marker {
       $logger->logdie("$msg");
     }
 
-  if ( $self->_in_baretable )
-    {
-      $self->_end_baretable;
-    }
+  $self->_end_step_list       if $self->_in_step_list;
+  $self->_end_bullet_list     if $self->_in_bullet_list;
+  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_definition_list if $self->_in_definition_list;
+  $self->_end_baretable       if $self->_in_baretable;
 
   if ( $name eq 'SECTION' and $self->_in_section )
     {
@@ -5701,10 +5769,11 @@ sub _process_end_division_marker {
 
   $self->_set_in_data_segment(0);
 
-  if ( $self->_in_baretable )
-    {
-      $self->_end_baretable;
-    }
+  $self->_end_step_list       if $self->_in_step_list;
+  $self->_end_bullet_list     if $self->_in_bullet_list;
+  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_definition_list if $self->_in_definition_list;
+  $self->_end_baretable       if $self->_in_baretable;
 
   if ( $name eq 'DOCUMENT' and $self->_in_section )
     {
@@ -5760,20 +5829,13 @@ sub _process_section_heading {
 
   $logger->trace("----- start division (SECTION.$id)");
 
-  if ( $self->_in_baretable )
-    {
-      $self->_end_baretable;
-    }
-
-  if ( $self->_in_table )
-    {
-      $self->_end_table;
-    }
-
-  if ( $self->_in_section )
-    {
-      $self->_end_section;
-    }
+  $self->_end_step_list       if $self->_in_step_list;
+  $self->_end_bullet_list     if $self->_in_bullet_list;
+  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_definition_list if $self->_in_definition_list;
+  $self->_end_baretable       if $self->_in_baretable;
+  $self->_end_table           if $self->_in_table;
+  $self->_end_section         if $self->_in_section;
 
   # new title element
   $logger->trace("..... new title");
@@ -5836,6 +5898,11 @@ sub _process_end_table_row {
 
   else
     {
+      $self->_end_step_list       if $self->_in_step_list;
+      $self->_end_bullet_list     if $self->_in_bullet_list;
+      $self->_end_enumerated_list if $self->_in_enumerated_list;
+      $self->_end_definition_list if $self->_in_definition_list;
+
       $self->_end_table_row;
     }
 
@@ -5938,10 +6005,11 @@ sub _process_element {
   $element->add_line($line);
   $self->_begin_block($element);
 
-  if ( $self->_in_baretable )
-    {
-      $self->_end_baretable;
-    }
+  $self->_end_step_list       if $self->_in_step_list;
+  $self->_end_bullet_list     if $self->_in_bullet_list;
+  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_definition_list if $self->_in_definition_list;
+  $self->_end_baretable       if $self->_in_baretable;
 
   if ( $self->_in_data_segment
        and
@@ -6036,10 +6104,11 @@ sub _process_start_note {
 
   $self->_begin_block($element);
 
-  if ( $self->_in_baretable )
-    {
-      $self->_end_baretable;
-    }
+  $self->_end_step_list       if $self->_in_step_list;
+  $self->_end_bullet_list     if $self->_in_bullet_list;
+  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_definition_list if $self->_in_definition_list;
+  $self->_end_baretable       if $self->_in_baretable;
 
   if ( $self->_in_data_segment )
     {
@@ -6088,7 +6157,11 @@ sub _process_start_glossary_entry {
 
   $self->_begin_block($definition);
 
-  $self->_end_baretable if $self->_in_baretable;
+  $self->_end_step_list       if $self->_in_step_list;
+  $self->_end_bullet_list     if $self->_in_bullet_list;
+  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_definition_list if $self->_in_definition_list;
+  $self->_end_baretable       if $self->_in_baretable;
 
   if ( $self->_in_data_segment )
     {
@@ -6143,10 +6216,11 @@ sub _process_start_acronym_entry {
 
   $self->_begin_block($definition);
 
-  if ( $self->_in_baretable )
-    {
-      $self->_end_baretable;
-    }
+  $self->_end_step_list       if $self->_in_step_list;
+  $self->_end_bullet_list     if $self->_in_bullet_list;
+  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_definition_list if $self->_in_definition_list;
+  $self->_end_baretable       if $self->_in_baretable;
 
   if ( $self->_in_data_segment )
     {
@@ -6198,10 +6272,11 @@ sub _process_start_variable_definition {
 
   $self->_begin_block($definition);
 
-  if ( $self->_in_baretable )
-    {
-      $self->_end_baretable;
-    }
+  $self->_end_step_list       if $self->_in_step_list;
+  $self->_end_bullet_list     if $self->_in_bullet_list;
+  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_definition_list if $self->_in_definition_list;
+  $self->_end_baretable       if $self->_in_baretable;
 
   if ( $self->_in_data_segment )
     {
@@ -6251,10 +6326,70 @@ sub _process_bull_list_item {
 
   else
     {
+      $self->_end_enumerated_list if $self->_in_enumerated_list;
+      $self->_end_definition_list if $self->_in_definition_list;
+
+      if ( not $self->_in_bullet_list )
+	{
+	  my $list = SML::BulletList->new(id=>'bl',library=>$library);
+	  $self->_begin_division($list);
+	}
+
       my $block = SML::BulletListItem->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
       $self->_get_current_division->add_part($block);
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _process_start_step_element {
+
+  my $self    = shift;
+  my $line    = shift;
+  my $text    = shift;
+  my $comment = shift;
+
+  my $library = $self->get_library;
+
+  $logger->trace("----- step");
+
+  # if ( $self->_in_data_segment )
+  #   {
+  #     $logger->error("STEP ELEMENT IN DATA SEGMENT");
+  #   }
+
+  if ( $self->_in_preformatted_division )
+    {
+      my $block = SML::PreformattedBlock->new(library=>$library);
+      $block->add_line($line);
+      $self->_begin_block($block);
+      $self->_get_current_division->add_part($block);
+    }
+
+  else
+    {
+      $self->_end_bullet_list     if $self->_in_bullet_list;
+      $self->_end_enumerated_list if $self->_in_enumerated_list;
+      $self->_end_definition_list if $self->_in_definition_list;
+
+      if ( not $self->_in_step_list )
+	{
+	  my $list = SML::StepList->new(id=>'sl',library=>$library);
+	  $self->_begin_division($list);
+	}
+
+      $logger->trace("..... begin step element");
+
+      my $element = SML::Element->new(name=>'step',library=>$library);
+      $element->add_line($line);
+      $self->_begin_block($element);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($element);
     }
 
   return 1;
@@ -6286,6 +6421,16 @@ sub _process_enum_list_item {
 
   else
     {
+      $self->_end_step_list       if $self->_in_step_list;
+      $self->_end_bullet_list     if $self->_in_bullet_list;
+      $self->_end_definition_list if $self->_in_definition_list;
+
+      if ( not $self->_in_enumerated_list )
+	{
+	  my $list = SML::EnumeratedList->new(id=>'el',library=>$library);
+	  $self->_begin_division($list);
+	}
+
       my $block = SML::EnumeratedListItem->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
@@ -6321,6 +6466,16 @@ sub _process_def_list_item {
 
   else
     {
+      $self->_end_step_list       if $self->_in_step_list;
+      $self->_end_bullet_list     if $self->_in_bullet_list;
+      $self->_end_enumerated_list if $self->_in_enumerated_list;
+
+      if ( not $self->_in_definition_list )
+	{
+	  my $list = SML::DefinitionList->new(id=>'dl',library=>$library);
+	  $self->_begin_division($list);
+	}
+
       my $block = SML::DefinitionListItem->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
@@ -6338,8 +6493,15 @@ sub _process_start_table_cell {
   my $line = shift;
 
   my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $line->get_content;
 
   $logger->trace("----- table cell");
+
+  $self->_end_step_list       if $self->_in_step_list;
+  $self->_end_bullet_list     if $self->_in_bullet_list;
+  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_definition_list if $self->_in_definition_list;
 
   if ( not $self->_in_table and not $self->_in_baretable )
     {
@@ -6369,12 +6531,15 @@ sub _process_start_table_cell {
 
       $self->_begin_division($tablecell);
 
-      # new block
-      my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
-      $block->add_line($line);
-      $self->_begin_block($block);
+      if ( $text =~ /$syntax->{table_cell}/ and $3 )
+	{
+	  # new block
+	  my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
+	  $block->add_line($line);
+	  $self->_begin_block($block);
 
-      $tablecell->add_part($block);
+	  $tablecell->add_part($block);
+	}
     }
 
   elsif ( $self->_in_baretable and not $self->_in_table_row )
@@ -6399,12 +6564,15 @@ sub _process_start_table_cell {
 
       $self->_begin_division($tablecell);
 
-      # new block
-      my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
-      $block->add_line($line);
-      $self->_begin_block($block);
+      if ( $text =~ /$syntax->{table_cell}/ and $3 )
+	{
+	  # new block
+	  my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
+	  $block->add_line($line);
+	  $self->_begin_block($block);
 
-      $tablecell->add_part($block);
+	  $tablecell->add_part($block);
+	}
     }
 
   elsif ( $self->_in_table and not $self->_in_table_row	)
@@ -6429,12 +6597,15 @@ sub _process_start_table_cell {
 
       $self->_begin_division($tablecell);
 
-      # new block
-      my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
-      $block->add_line($line);
-      $self->_begin_block($block);
+      if ( $text =~ /$syntax->{table_cell}/ and $3 )
+	{
+	  # new block
+	  my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
+	  $block->add_line($line);
+	  $self->_begin_block($block);
 
-      $tablecell->add_part($block);
+	  $tablecell->add_part($block);
+	}
     }
 
   elsif ( $self->_in_baretable )
@@ -6456,12 +6627,15 @@ sub _process_start_table_cell {
 
       $self->_begin_division($tablecell);
 
-      # new block
-      my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
-      $block->add_line($line);
-      $self->_begin_block($block);
+      if ( $text =~ /$syntax->{table_cell}/ and $3 )
+	{
+	  # new block
+	  my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
+	  $block->add_line($line);
+	  $self->_begin_block($block);
 
-      $tablecell->add_part($block);
+	  $tablecell->add_part($block);
+	}
     }
 
   elsif ( $self->_in_table )
@@ -6483,12 +6657,15 @@ sub _process_start_table_cell {
 
       $self->_begin_division($tablecell);
 
-      # new block
-      my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
-      $block->add_line($line);
-      $self->_begin_block($block);
+      if ( $text =~ /$syntax->{table_cell}/ and $3 )
+	{
+	  # new block
+	  my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
+	  $block->add_line($line);
+	  $self->_begin_block($block);
 
-      $tablecell->add_part($block);
+	  $tablecell->add_part($block);
+	}
     }
 
   else
@@ -6510,6 +6687,11 @@ sub _process_paragraph_text {
   my $library = $self->get_library;
 
   $logger->trace("----- paragraph text");
+
+  $self->_end_step_list       if $self->_in_step_list;
+  $self->_end_bullet_list     if $self->_in_bullet_list;
+  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_definition_list if $self->_in_definition_list;
 
   if ( $self->_in_paragraph )
     {
@@ -6569,14 +6751,14 @@ sub _process_paragraph_text {
     {
       $logger->trace("..... new paragraph");
 
-      if ( $self->_in_data_segment )
-	{
-	  my $division = $self->_get_current_division;
-	  my $name     = $division->get_name;
-	  my $id       = $division->get_id;
-	  my $location = $line->get_location;
-	  $logger->error("PARAGRAPH IN $name.$id DATA SEGMENT at $location");
-	}
+      # if ( $self->_in_data_segment )
+      # 	{
+      # 	  my $division = $self->_get_current_division;
+      # 	  my $name     = $division->get_name;
+      # 	  my $id       = $division->get_id;
+      # 	  my $location = $line->get_location;
+      # 	  $logger->error("PARAGRAPH IN $name.$id DATA SEGMENT at $location");
+      # 	}
 
       if ( $self->_in_baretable )
 	{
@@ -6608,27 +6790,33 @@ sub _process_indented_text {
   if ( $self->_in_preformatted_block )
     {
       $logger->trace("..... continue preformatted block");
-      $self->_get_block->add_line($line);
+
+      my $block = $self->_get_block;
+
+      $block->add_line($line);
     }
 
   elsif ( $self->_in_listitem )
     {
       $logger->trace("..... continue list item");
-      $self->_get_block->add_line($line);
+
+      my $block = $self->_get_block;
+
+      $block->add_line($line);
     }
 
   else
     {
       $logger->trace("..... new preformatted block");
 
-      if ( $self->_in_data_segment )
-	{
-	  my $division = $self->_get_current_division;
-	  my $name     = $division->get_name;
-	  my $id       = $division->get_id;
-	  my $location = $line->get_location;
-	  $logger->error("PREFORMATTED BLOCK IN $name.$id DATA SEGMENT at $location");
-	}
+      # if ( $self->_in_data_segment )
+      # 	{
+      # 	  my $division = $self->_get_current_division;
+      # 	  my $name     = $division->get_name;
+      # 	  my $id       = $division->get_id;
+      # 	  my $location = $line->get_location;
+      # 	  $logger->error("PREFORMATTED BLOCK IN $name.$id DATA SEGMENT at $location");
+      # 	}
 
       my $block = SML::PreformattedBlock->new(library=>$library);
       $block->add_line($line);
@@ -6852,7 +7040,7 @@ sub _in_listitem {
   if (
       $self->_get_block
       and
-      $self->_get_block->isa('SML::Listitem')
+      $self->_get_block->isa('SML::ListItem')
      )
     {
       return 1;
@@ -6959,6 +7147,98 @@ sub _in_table {
       defined $division
       and
       $division->is_in_a('SML::Table')
+     )
+    {
+      return 1;
+    }
+
+  else
+    {
+      return 0;
+    }
+}
+
+######################################################################
+
+sub _in_step_list {
+
+  my $self = shift;
+
+  my $division = $self->_get_current_division;
+
+  if (
+      defined $division
+      and
+      $division->is_in_a('SML::StepList')
+     )
+    {
+      return 1;
+    }
+
+  else
+    {
+      return 0;
+    }
+}
+
+######################################################################
+
+sub _in_bullet_list {
+
+  my $self = shift;
+
+  my $division = $self->_get_current_division;
+
+  if (
+      defined $division
+      and
+      $division->is_in_a('SML::BulletList')
+     )
+    {
+      return 1;
+    }
+
+  else
+    {
+      return 0;
+    }
+}
+
+######################################################################
+
+sub _in_enumerated_list {
+
+  my $self = shift;
+
+  my $division = $self->_get_current_division;
+
+  if (
+      defined $division
+      and
+      $division->is_in_a('SML::EnumeratedList')
+     )
+    {
+      return 1;
+    }
+
+  else
+    {
+      return 0;
+    }
+}
+
+######################################################################
+
+sub _in_definition_list {
+
+  my $self = shift;
+
+  my $division = $self->_get_current_division;
+
+  if (
+      defined $division
+      and
+      $division->is_in_a('SML::DefinitionList')
      )
     {
       return 1;
@@ -7794,6 +8074,8 @@ sub _parse_block {
       $block->isa('SML::ListItem')
       or
       $block->isa('SML::Paragraph')
+      or
+      $block->isa('SML::Definition')
      )
     {
       $text = $block->get_value;

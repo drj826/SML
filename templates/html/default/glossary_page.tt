@@ -16,8 +16,7 @@
 [% END %]
 [% END %]
 
-<div class="preamble">
-</div>
+[% INCLUDE preamble.tt %]
 
 <h3 align="center">Glossary</h3>
 <table>
@@ -27,8 +26,9 @@
   [% SET term = entry.get_term %]
   [% SET alt = entry.get_alt %]
   [% SET value = entry.get_value %]
+  [% SET bookmark = entry.get_bookmark %]
 <tr>
-<td>[%term%]</td>
+<td id="[%bookmark%]">[%term%]</td>
 <td>[%value%]</td>
 </tr>
 [% END %]

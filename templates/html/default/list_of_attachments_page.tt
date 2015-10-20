@@ -1,0 +1,25 @@
+[% WRAPPER page.tt -%]
+
+[% IF document.has_property('title') %]
+[% SET property = document.get_property('title') %]
+<div class="title">
+[% FOREACH self IN property.get_element_list %]
+[%- INCLUDE part_list.tt -%]
+[% END %]
+</div>
+[% END %]
+
+[% IF document.has_property('subtitle') %]
+[% SET property = document.get_property('subtitle') %]
+<div class="subtitle">
+[% FOREACH self IN property.get_element_list %]
+[%- INCLUDE part_list.tt -%]
+[% END %]
+</div>
+[% END %]
+
+[%- INCLUDE preamble.tt -%]
+
+<h3 align="center">List of Attachments</h3>
+
+[%- END -%]

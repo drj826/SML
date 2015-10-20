@@ -2559,6 +2559,7 @@ sub _build_definition_test_case_list {
        get_term => 'BPEL',
        get_alt => '',
        get_value => 'Business Process Execution Language',
+       get_bookmark => 'bpel:',
       },
      },
 
@@ -2575,6 +2576,7 @@ sub _build_definition_test_case_list {
        get_term => 'FRD',
        get_alt => 'ieee',
        get_value => '(IEEE) Functional Requirements Document',
+       get_bookmark => 'frd:ieee',
       },
      },
 

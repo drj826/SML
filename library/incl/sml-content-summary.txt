@@ -1,7 +1,5 @@
 >>>RAW.sml-content-summary
 
-===
-
 >>>COMMENT
 
 $Author: don.johnson $
@@ -25,7 +23,7 @@ index:: exercises; list of exercises
   ===
   <<<EXERCISE
 
-----------------------------------------------------------------------
+---
 
 : !!Slides.!! ([ref:slides]) Slides (often containing bulletized lists
 and/or images) designed for training or other presentations can be
@@ -43,7 +41,7 @@ index:: slides; presentation slides; list of slides
   ===
   <<<SLIDE
 
-----------------------------------------------------------------------
+---
 
 : !!Quotations.!! ([ref:quotations]) Long quotations can be included,
 and the source cited, using the ``quotation'' region.
@@ -58,7 +56,7 @@ index:: quotations; quote source
   ===
   <<<QUOTATION
 
-----------------------------------------------------------------------
+---
 
 : !!Demonstrations.!! ([ref:demos]) Demonstrations are step-by-step
 procedures designed to show students how something is done. A ~~list
@@ -74,7 +72,7 @@ index:: demonstrations; list of demonstrations
   ===
   <<<DEMO
 
-----------------------------------------------------------------------
+---
 
 : !!Key-points.!! ([ref:keypoints]) Often included at the beginning of
 a chapter, a `keypoints' block is a boxed region that identifies the
@@ -92,7 +90,7 @@ index:: keypoints
   ===
   <<<KEYPOINTS
 
-----------------------------------------------------------------------
+---
 
 : !!Problems.!! ([ref:problems]) Structured problems (often called
 `requirements') can be identified and strict requirements traceability
@@ -107,7 +105,7 @@ index:: problems; list of problems
   ===
   <<<problem
 
-----------------------------------------------------------------------
+---
 
 : !!Solutions.!! ([ref:solutions]) Structured solutions (often system
 components or design artifacts) can be identified and strict
@@ -123,7 +121,7 @@ index:: solutions; list of solutions
   ===
   <<<solution
 
-----------------------------------------------------------------------
+---
 
 : !!Tests.!! ([ref:tests]) Structured tests can be identified and
 strict requirements traceability can be established within systems
@@ -138,7 +136,7 @@ index:: tests; list of tests
   ===
   <<<text
 
-----------------------------------------------------------------------
+---
 
 : !!Results.!! ([ref:results]) Test and audit results can be
 identified and strict traceability to problems, solutions, and tests
@@ -153,7 +151,7 @@ index:: results; list of results
   ===
   <<<text
 
-----------------------------------------------------------------------
+---
 
 : !!Tasks.!! ([ref:tasks]) Structured tasks can describe work to be
 performed.  You can create systems engineering documents that
@@ -168,7 +166,7 @@ index:: tasks; list of tasks
   ===
   <<<text
 
-----------------------------------------------------------------------
+---
 
 : !!Roles.!! ([ref:roles]) A roles describes the position a person
 holds in an organization.  You can create systems engineering documents that

@@ -276,16 +276,50 @@ sub _publish_html_document {
       $tt->process("toc.tt",$vars,"$id.toc.html")
 	|| die $tt->error(), "\n";
 
-      # glossary
-      if ( $document->get_glossary->has_entries )
+      # list of tables
+      if ( $document->has_tables )
+	{
+	  $logger->info("publishing $id.tables.html");
+	  $tt->process("list_of_tables_page.tt",$vars,"$id.tables.html")
+	    || die $tt->error(), "\n";
+	}
+
+      # list of figures
+      if ( $document->has_figures )
+	{
+	  $logger->info("publishing $id.figures.html");
+	  $tt->process("list_of_figures_page.tt",$vars,"$id.figures.html")
+	    || die $tt->error(), "\n";
+	}
+
+      # list of attachments
+      if ( $document->has_attachments )
+	{
+	  $logger->info("publishing $id.attachments.html");
+	  $tt->process("list_of_attachments_page.tt",$vars,"$id.attachments.html")
+	    || die $tt->error(), "\n";
+	}
+
+      # list of listings
+      if ( $document->has_listings )
+	{
+	  $logger->info("publishing $id.listings.html");
+	  $tt->process("list_of_listings_page.tt",$vars,"$id.listings.html")
+	    || die $tt->error(), "\n";
+	}
+
+      my $glossary = $document->get_glossary;
+
+      if ( $glossary->has_entries )
 	{
 	  $logger->info("publishing $id.glossary.html");
 	  $tt->process("glossary_page.tt",$vars,"$id.glossary.html")
 	    || die $tt->error(), "\n";
 	}
 
-      # references
-      if ( $document->get_references->has_sources )
+      my $references = $document->get_references;
+
+      if ( $references->has_sources )
 	{
 	  $logger->info("publishing $id.references.html");
 	  $tt->process("references_page.tt",$vars,"$id.references.html")

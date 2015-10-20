@@ -56,7 +56,7 @@ index:: includes; include
   values:item: [find:solution:type=unit]
   ...include
 
-----------------------------------------------------------------------
+---
 
 : !!Comment Lines and Blocks.!! ([ref:comment-lines]) SML gives you
 two ways to insert comment lines.  First, any line beginning with
@@ -79,7 +79,7 @@ index:: comments; comment blocks
 
   <<<COMMENT
 
-----------------------------------------------------------------------
+---
 
 : !!In-Line Comments.!! ([ref:in-line-comments]) SML gives you a way
 to make in-line comments; that is, short comments embedded in a line
@@ -97,7 +97,7 @@ index:: in-line comments
   [#a:incl/glossary-sml.txt:]
   [#d:incl/glossary-sml.txt:]
 
-----------------------------------------------------------------------
+---
 
 : !!Hidden Text.!! ([ref:hidden-text]) SML allows you to hide text.
 Hidden text is like commented text, except that data elements within
@@ -114,7 +114,7 @@ index:: hidden text
 
   <<<HIDE
 
-----------------------------------------------------------------------
+---
 
 : !!To Do List.!! ([ref:to-do-items]) During the development and
 review of a document you might want to leave notes to yourself or
@@ -133,7 +133,7 @@ index:: to-do list
   [-] Item canceled
   [X] Item completed
 
-----------------------------------------------------------------------
+---
 
 : !!Generated Content.!! ([ref:generated-content]) Using the
 `||generate:||' directive, the ||publish|| program can automatically
@@ -152,7 +152,7 @@ index:: generated content
   generate: associated-problem-listing
   generate: associated-solution-listing
 
-----------------------------------------------------------------------
+---
 
 : !!Inserted Content.!! ([ref:inserted-content]) Using the
 `||insert:||' directive, the ||publish|| program can automatically
@@ -165,7 +165,7 @@ index:: inserted content
 
   insert: narrative(ci-000123)
 
-----------------------------------------------------------------------
+---
 
 : !!Scripts.!! ([ref:scripts]) Using the `||script:||' directive, the
 ||publish|| program will run an external script or program and insert the
@@ -180,7 +180,7 @@ index:: scripts
 
   script: portscan.pl
 
-----------------------------------------------------------------------
+---
 
 : !!Conditional Text.!! ([ref:conditional-text]) Sometimes two
 documents are essentially the same with small differences attributable
@@ -201,7 +201,7 @@ index:: conditional text
   RH9 is true
   <<<CONDITIONAL
 
-----------------------------------------------------------------------
+---
 
 : !!Traceability.!! ([ref:systems-engineering]) SML gives you a
 structure method to define ~~problems~~, ~~solutions~~ and ~~tests~~.
@@ -217,7 +217,7 @@ index:: traceability
   solution:: ci-000002
   test:: tc-000003
 
-----------------------------------------------------------------------
+---
 
 : !!Ignorable Content.!! You can choose to ignore the following blocks
 of content at publishing time: attachments, epigraphs, audio, video,
@@ -230,7 +230,7 @@ index:: ignorable content
 
   publish.pl --noattachments
 
-----------------------------------------------------------------------
+---
 
 : !!Variables.!! You can assign values to variables in your document
 to insert the same text over and over and only have to define it once.
@@ -243,7 +243,7 @@ index:: variables
 
   [var:truth-count]
 
-----------------------------------------------------------------------
+---
 
 : !!Reusable Content.!! ([ref:reusable-content]) You can reuse
 elements of content; they are identified by their associated labels.
@@ -256,7 +256,7 @@ index:: reusable content
   [description:tc-000002]
   [narrative:ci-000003]
 
-----------------------------------------------------------------------
+---
 
 : !!Revision Summary!! ([ref:revision-summary]) You can insert a
 revision summary of your document that will list (1) version, (2)

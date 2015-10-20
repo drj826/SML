@@ -10,7 +10,9 @@
 <b>Listing [%number%] - [%title%]</b>
 <br>
 <pre>
+[%- FILTER html -%]
 [%- INCLUDE part_list.tt -%]
+[%- END -%]
 </pre>
 </div>
 

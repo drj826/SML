@@ -614,7 +614,7 @@ glossary:: SRD {sml} = (SML) System Requirements Document
 glossary:: SML file {sml} = (SML) A [g:sml:file] containing
 [g:sml:SML] formatted [g:sml:text]
 
-glossary:: Structured Manuscript Language {sml} = (SML) A minimalistic
+glossary:: Semantic Manuscript Language {sml} = (SML) A minimalistic
 [g:sml:descriptive markup] language designed to be human readable,
 easy to edit, easy to automatically generate, able to express and
 validate semantic relationships, and contain all information necessary

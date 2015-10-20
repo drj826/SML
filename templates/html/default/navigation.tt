@@ -23,19 +23,19 @@
 [%- END -%]
 
 [%- IF document.has_tables -%]
-- <a href="[% document.get_id %].table.html">Tables</a><br/>
+- <a href="[% document.get_id %].tables.html">Tables</a><br/>
 [%- END -%]
 
 [%- IF document.has_figures -%]
-- <a href="[% document.get_id %].figure.html">Figures</a><br/>
+- <a href="[% document.get_id %].figures.html">Figures</a><br/>
 [%- END -%]
 
 [%- IF document.has_attachments -%]
-- <a href="[% document.get_id %].attachment.html">Attachments</a><br/>
+- <a href="[% document.get_id %].attachments.html">Attachments</a><br/>
 [%- END -%]
 
 [%- IF document.has_listings -%]
-- <a href="[% document.get_id %].listing.html">Listings</a><br/>
+- <a href="[% document.get_id %].listings.html">Listings</a><br/>
 [%- END -%]
 
 [%- IF document.get_glossary.has_entries -%]
@@ -44,6 +44,10 @@
 
 [%- IF document.get_references.has_sources -%]
 - <a href="[% document.get_id %].source.html">References</a><br/>
+[%- END -%]
+
+[%- IF document.get_index.has_entries -%]
+- <a href="[% document.get_id %].index.html">Index</a><br/>
 [%- END -%]
 
 </td>

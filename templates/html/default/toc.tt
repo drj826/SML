@@ -1,27 +1,29 @@
 [% WRAPPER page.tt -%]
 
-<div class="title">
 [% IF document.has_property('title') %]
 [% SET property = document.get_property('title') %]
+<div class="title">
 [% FOREACH self IN property.get_element_list %]
 [%- INCLUDE part_list.tt -%]
 [% END %]
-[% END %]
 </div>
+[% END %]
 
 [% IF document.has_property('subtitle') %]
-  [% SET property = document.get_property('subtitle') %]
-  [% FOREACH self IN property.get_element_list %]
-<p align="center">[%- INCLUDE part_list.tt -%]</p>
-  [% END %]
+[% SET property = document.get_property('subtitle') %]
+<div class="subtitle">
+[% FOREACH self IN property.get_element_list %]
+[%- INCLUDE part_list.tt -%]
+[% END %]
+</div>
 [% END %]
 
-<div class="preamble">
-</div>
+[%- INCLUDE preamble.tt -%]
 
 <h3 align="center">Table of Contents</h3>
 
 [%- FOREACH section IN document.get_section_list -%]
+
 [%- IF section.get_depth == '1' -%]
 
 [% SET title = section.get_property('title') %]
@@ -34,6 +36,7 @@
 </h4>
 
 [%- ELSIF section.get_depth == '2' -%]
+
 [% SET title = section.get_property('title') %]
 <div style="text-indent: 60pt; font-size: 8pt;">
 [% section.get_number %] &nbsp;&nbsp;
@@ -45,6 +48,7 @@
 </div>
 
 [%- ELSE -%]
+
 [% SET title = section.get_property('title') %]
 <div style="text-indent: 90pt; font-size: 8pt;">
 [% section.get_number %] &nbsp;&nbsp;
@@ -55,8 +59,6 @@
 </a>
 </div>
 
-[%- END %]
-
 [%- END -%]
-
+[%- END -%]
 [%- END -%]

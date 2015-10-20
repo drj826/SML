@@ -48,8 +48,6 @@ descriptions of ``items'' ([ref:advanced-document-structures]),
 
 *.getting-started Getting Started
 
-===
-
 >>>EPIGRAPH
 
 text:: The document is nothing; the documenting is everything.
@@ -102,8 +100,6 @@ elements of the document to a spreadsheet or database.
 
 ** Documentation Is Like Software
 
-===
-
 ~~Why don't we write software the way we write documentation?~~
 Because that would be ~~terribly~~ inefficient.
 
@@ -118,7 +114,7 @@ exact steps they wanted the computer to perform.  This was tedious.
 <<<COMMENT
 
 Most people write documentation using a word processor like Microsoft
-Word[tm].  They use practices long ago discarded as barbaric
+Word[tm].  They use practices long ago discarded as
 [g:sml:anti-pattern]s by programmers. Ask yourself if ~~you~~ use any
 of these common ``documentation anti-patterns'' when ~~you~~ write
 documents.
@@ -160,8 +156,6 @@ compliance mindset of `churning out' required documentation.  Such
 #---------------------------------------------------------------------
 
 **.why-use-sml Why Use SML/||publish||?
-
-===
 
 Why Use SML/||publish||? Productivity.  Most people use a `modern'
 word processor, like Microsoft Word or OpenOffice.org Writer, to write
@@ -359,8 +353,6 @@ of problems.
 
 **.example A Step-By-Step Example
 
-===
-
 index::begin: sample document
 
 Here is a step-by-step example of creating and publishing an SML
@@ -462,8 +454,6 @@ document with the command `||publish -r pdf sample-document.txt||
 
 **.summary-of-structure-features Summary of Structure Features
 
-===
-
 index::begin: structure features
 
 Elements of ~~structure~~ are the building blocks of a document like:
@@ -504,8 +494,6 @@ being labeled: ||tab-|| for table labels, ||fig-|| for figure labels,
 #---------------------------------------------------------------------
 
 ** Summary of Content Features
-
-===
 
 index::begin: content features
 
@@ -571,8 +559,6 @@ index::end: content features
 
 **.summary-of-presentation-features Summary of Presentation Features
 
-===
-
 index::begin: presentation features
 
 index:: style
@@ -603,8 +589,6 @@ index::end: presentation features
 #---------------------------------------------------------------------
 
 ** Summary of Special Features
-
-===
 
 index::begin: special features
 
@@ -647,8 +631,6 @@ index::end: special features
 
 ** Alternatives
 
-===
-
 There are alternative programs with features similar to the ||publish||
 program:
 
@@ -659,8 +641,6 @@ program:
 #---------------------------------------------------------------------
 
 **.pros-and-cons Pros and Cons
-
-===
 
 index::begin: pros and cons
 
@@ -748,8 +728,6 @@ implemented but is planned for the future.
 
 ** What Makes A Document Easy To Read?
 
-===
-
 Despite my best efforts to make the ||publish|| program a tool that
 produces professional looking, easy-to-read documents, it still gives
 you the flexibility to produce hard-to-read documents.  What makes a
@@ -767,8 +745,6 @@ professional looking, readable documents:
 
 ** Characteristics of Poor Technical Documentation
 
-===
-
 Technical documentation is any documentation in which the meaning of
 terms must be used with precision.  Characteristics of poor technical
 documentation include:
@@ -785,13 +761,9 @@ documentation include:
 
 *.running-publish Running The Publish Program
 
-===
-
 #---------------------------------------------------------------------
 
 **.using-the-gui Using the Graphical User Interface
-
-===
 
 Publishing is easy: start it up, choose a file, choose one or more
 renditions (i.e. HTML, PDF, RTF, XML and/or CSV), then push the
@@ -882,8 +854,6 @@ document you're reading.
 #---------------------------------------------------------------------
 
 ** Running ||publish|| From the Command Line
-
-===
 
 You can run ||publish|| like this:
 
@@ -1594,8 +1564,6 @@ column::2:head: description
 
 ** Output Goes To The Output Directory
 
-===
-
 The ||publish|| program creates a directory containing all of its
 output.  For example, if you publish an SML file called
 ``my-notes.txt'' it will create the directory structure shown in
@@ -1659,8 +1627,6 @@ title:: Directory Structure Created To Hold Published Output
 #---------------------------------------------------------------------
 
 **.how-it-works How It Works
-
-===
 
 We kind of jumped right into how to run the program and publish a
 document.  Let's take a moment to step back and look at the big
@@ -1736,8 +1702,6 @@ The rest of this document teaches you the rules of SML.
 
 ** Organizing the Input Files
 
-===
-
 Simple documents can be fully contained in a single file.  In more
 complicated situations, however, you might have additional files that
 get combined to create your document:
@@ -1767,8 +1731,6 @@ file as in these examples:
 
 **.dependencies Dependencies
 
-===
-
 The ||publish|| program depends on some other software.  You may need
 to install some additional software if the program doesn't work.
 
@@ -1793,8 +1755,6 @@ step:: Install Perl Modules:
 #---------------------------------------------------------------------
 
 *.structuring-text The Semantic Manuscript Language
-
-===
 
 >>>EPIGRAPH
 
@@ -1823,8 +1783,6 @@ the document?  These are simple ``data elements.''
 #---------------------------------------------------------------------
 
 **.data-elements Data Elements
-
-===
 
 index:: Data Elements
 
@@ -1882,8 +1840,6 @@ problem solved).
 #---------------------------------------------------------------------
 
 **.environments-and-regions Environments and Regions
-
-===
 
 index:: Environments and Regions
 
@@ -2024,8 +1980,6 @@ itself.
 #---------------------------------------------------------------------
 
 **.preamble Document Preamble
-
-===
 
 Let's start at the beginning. Every document automatically begins with
 a portion of text called the preamble.  The preamble contains metadata
@@ -2243,8 +2197,6 @@ edition:: 15th Edition
 
 **.ordinary-structures Simple Document Structures
 
-===
-
 This section introduces the simple document structures you might use
 in any document: titles, paragraphs, sections, bold, italics, lists,
 footnotes, images, pre-formatted text, and so on.
@@ -2252,8 +2204,6 @@ footnotes, images, pre-formatted text, and so on.
 #---------------------------------------------------------------------
 
 ***.document-title Document Title
-
-===
 
 The document title is simply the first title element encountered in
 the document:[f:document-title:1]
@@ -2273,8 +2223,6 @@ than a document title because it is indented.
 #---------------------------------------------------------------------
 
 ***.paragraphs Paragraphs
-
-===
 
 A paragraph is simply a non-indented block of text that ends with a
 blank line.
@@ -2357,8 +2305,6 @@ paragraphs in a list item.
 
 ***.sec-inline-markup Inline Text Elements
 
-===
-
 You can make words !!bold!! by bracketing them in double exclamation
 marks !!like this!!.
 
@@ -2374,8 +2320,6 @@ double tildes ~~like this~~.
 #---------------------------------------------------------------------
 
 ***.sections Sections
-
-===
 
 ~~Section Headings.~~ You can organize your document into sections by
 inserting section headings in the text.  A section heading is a line
@@ -2414,8 +2358,6 @@ maximum section depth on the command line:
 #---------------------------------------------------------------------
 
 ***.lists Lists
-
-===
 
 SML supports unordered (bulletized), ordered (numbered), and
 definition lists.
@@ -2476,8 +2418,6 @@ another equal sign and the definition of the term.  For example:
 
 ***.footnotes Footnotes
 
-===
-
 Indicate that a footnote[f:footnotes:1] applies to your text by
 inserting ||{lit:[f:<label>:<tag>]}|| where you want the footnote
 indicator to appear.  The ||<label>|| is the label for the division
@@ -2498,8 +2438,6 @@ footnote::1: This is a footnote
 #---------------------------------------------------------------------
 
 ***.images Images
-
-===
 
 Insert an image by putting ``image: <image-file>'' starting in column 5.
 
@@ -2532,8 +2470,6 @@ width:: 6in
 
 ***.preformatted-text Preformatted Text
 
-===
-
 Insert pre-formatted text by indenting each line in the preformatted
 block.  Here's an example:
 
@@ -2553,8 +2489,6 @@ block.  Here's an example:
 #---------------------------------------------------------------------
 
 ***.labels-and-references Labels and References
-
-===
 
 ~~Labels~~ mark specific locations within a document. ~~References~~
 point to the locations marked by labels.  For example, here's a
@@ -2603,19 +2537,13 @@ have any trouble:
 
 ***.hyperlinks-commands-paths Hyperlinks, Commands and Paths
 
-===
-
 #---------------------------------------------------------------------
 
 ***.steps Procedural Steps
 
-===
-
 #---------------------------------------------------------------------
 
 **.environments Intermediate Document Structures
-
-===
 
 Environments are blocks of text representing elements of !!structure!!
 like tables, figures, listings, sidebars, bibliographic sources, and
@@ -2643,8 +2571,6 @@ Environments !!cannot!! contain other environments.
 #---------------------------------------------------------------------
 
 ***.tables Tables
-
-===
 
 The ability to create both simple and complicated tables is one of the
 features that sets the ||publish|| program apart from alternatives.
@@ -2972,8 +2898,6 @@ which to render the PDF rendition
 
 ***.figures Figures
 
-===
-
 Example:
 
   >>>FIGURE.fig-sample-document-pdf
@@ -3001,8 +2925,6 @@ which to render the PDF rendition.
 #---------------------------------------------------------------------
 
 ***.listings Listings
-
-===
 
 Example:
 
@@ -3082,8 +3004,6 @@ which to render the PDF rendition.
 
 ***.attachments Attachments
 
-===
-
 The ~~attachment~~ environment enables you to attach any type of file
 to your document.  The attachment appears in the published document
 right where you put in in the text.  PDF documents enable you to
@@ -3105,8 +3025,6 @@ file:: files/sample-document.txt
 #---------------------------------------------------------------------
 
 ***.preformatted-blocks Preformatted Blocks
-
-===
 
 The ~~preformatted~~ environment is seldom used because authors
 typically indent lines they want to appear as preformatted text.
@@ -3138,8 +3056,6 @@ index:: preformatted!data elements
 
 ***.sidebars Sidebars
 
-===
-
 Example:
 
   >>>SIDEBAR.side-burrito-threat
@@ -3164,8 +3080,6 @@ index:: sidebar!data elements
 #---------------------------------------------------------------------
 
 ***.source-referencing Source Referencing
-
-===
 
 I'm defining the design of the bibliography system for the ||publish||
 program.  The bibliography section will allow authors to place
@@ -3465,8 +3379,6 @@ it was written.  It usually consists only of numerals, such as
 
 ***.audio-clips Audio Clips
 
-===
-
 The ~~audio~~ environment enables you to embed audio clips in a
 document.
 
@@ -3493,8 +3405,6 @@ Audio environment data elements are:
 
 ***.video-clips Video Clips
 
-===
-
 The ~~video~~ environment enables you to embed video clips in a
 document.
 
@@ -3520,8 +3430,6 @@ Video environment data elements are:
 #---------------------------------------------------------------------
 
 **.advanced-document-structures Advanced Document Structures
-
-===
 
 [g:sml:SML] enables you to define items with semantic significance and to
 describe relationships between those items.  You can define and
@@ -3751,8 +3659,6 @@ column::5:width: 18
 
 ***.keypoints Key Points
 
-===
-
 The purpose of the ~~keypoints~~ region is to place a summary of key
 points at the beginning of major sections like chapters.
 
@@ -3784,8 +3690,6 @@ Keypoints region data elements are:
 #---------------------------------------------------------------------
 
 ***.slides Slides
-
-===
 
 Slides are regions.  Start a slide with `||>>>SLIDE.my-slide-id||' and
 end a slide with `||<<<SLIDE||.'
@@ -3843,8 +3747,6 @@ Slide region data elements are:
 #---------------------------------------------------------------------
 
 ***.demos Demonstrations
-
-===
 
 The purpose of the ~~demo~~ region is to document short
 demonstrations.  Demonstrations are regions (like slides).  Start a
@@ -3972,8 +3874,6 @@ Demo region data elements are:
 
 ***.exercises Exercises
 
-===
-
 The purpose of the ~~exercise~~ region is to document short exercises.
 
 Example:
@@ -4013,8 +3913,6 @@ Exercise region data elements are:
 
 ***.quotations Quotations
 
-===
-
 Example:
 
   >>>QUOTATION
@@ -4042,8 +3940,6 @@ Quotation region data elements are:
 #---------------------------------------------------------------------
 
 ***.problems Problems
-
-===
 
 Problems are things to be solved (a.k.a. requirements).  Problems
 describe ~~what~~ must be done.  Solutions describe ~~how~~ things are
@@ -4520,8 +4416,6 @@ as described in <paragraph>
 #---------------------------------------------------------------------
 
 ***.solutions Solutions
-
-===
 
 The purpose of the ~~solution~~ region is to provide a simple
 traceable description of a specific solution.
@@ -5013,8 +4907,6 @@ described in <paragraph>
 
 ***.tests Tests
 
-===
-
 The purpose of the ~~test~~ region is to document formal tests and
 make them traceable to problems, solutions and tasks.  The outcome of
 tests establish formal ~~status~~ of problems and solutions.
@@ -5160,8 +5052,6 @@ item status will ~~only~~ be established by test results (outcomes).
 
 ***.results Results
 
-===
-
 Results are produced by tests.  The same test can produce many
 results.  Each result might represent a different solution, a
 different version of the same solution, or the same solution
@@ -5201,8 +5091,6 @@ Results region data elements are:
 
 ****.outcomes Outcomes
 
-===
-
 An outcome records the degree to which the outcome of a test matches
 the expected outcome.  It consists of (1) the date of the test, (2)
 the label of the item tested, (3) a status (red, yellow, green, or
@@ -5217,16 +5105,12 @@ be determined based on test outcomes.
 
 ****.reviews Reviews
 
-===
-
 Reviews have the exact same syntax as outcomes but do not affect the
 status of items.
 
 #---------------------------------------------------------------------
 
 ***.tasks Tasks
-
-===
 
 The purpose of the ~~task~~ region is to provide a short description
 of work to be performed.
@@ -5284,16 +5168,12 @@ Instances inherit the attributes of the classes to which they belong.
 
 ***.roles Roles
 
-===
-
 A ~~role~~ describes the duties of an individual.  An individual may
 have multiple roles.
 
 #---------------------------------------------------------------------
 
 *** Region Attributes
-
-===
 
 Region preambles can contain attributes that describe the region.  For
 instance, you might create a ``solution'' region to represent a
@@ -5312,8 +5192,6 @@ are separated by an equals sign.
 #---------------------------------------------------------------------
 
 *** Object Oriented Inheritance
-
-===
 
 The ||instance_of|| and ||class_of|| data elements allow you to
 establish class -> instance relationships between items described in
@@ -5349,13 +5227,9 @@ Windows.''
 
 **.special-features Special Features
 
-===
-
 #---------------------------------------------------------------------
 
 ***.include Include
-
-===
 
 You can reuse text from other files using the ``||include||''
 mechanism:
@@ -5402,8 +5276,6 @@ levels of included files.
 
 ***.comment-lines Comment Lines
 
-===
-
 ~~Comment lines.~~ Any line that begins with '#' is interpreted as a
 comment.  The '#' sign must appear in the first column otherwise the
 line will be interpreted as preformatted text.
@@ -5427,8 +5299,6 @@ this:
 
 ***.in-line-comments In-line Comments
 
-===
-
 Insert in-line comments like this:
 
   Line of text {lit:[# my in-line comment]} containing an in-line comment.
@@ -5436,8 +5306,6 @@ Insert in-line comments like this:
 #---------------------------------------------------------------------
 
 ***.hidden-text Hidden Text
-
-===
 
 Hide text by enclosing it within `||###hide||' lines like this:
 
@@ -5512,8 +5380,6 @@ problems without rendering the full problems in the document:
 
 ***.take-note Take Note!
 
-===
-
 If you want to call attention to certain content, insert a
 [[take_note]] indicator.
 
@@ -5521,13 +5387,9 @@ If you want to call attention to certain content, insert a
 
 ***.cross-references Cross References
 
-===
-
 #---------------------------------------------------------------------
 
 ***.conditional-text Conditional Text
-
-===
 
 Sometimes you may have a document I want to use for multiple purpose
 with slight differences for each.  The conditional text mechanism is
@@ -5560,8 +5422,6 @@ they are easily changed).
 #---------------------------------------------------------------------
 
 ***.building-an-index Building an Index
-
-===
 
 Its easy to build an [i:index] for your
 document.[f:building-an-index:1] An index enables readers to quickly
@@ -5624,8 +5484,6 @@ implemented index publishing for the HTML rendition.
 
 ***.building-a-glossary Building a Glossary
 
-===
-
 Its easy to build a [g:sml:glossary] of terms within your document. If
 you've defined glossary terms in your document, the glossary will
 automatically be inserted at the end of the document between the
@@ -5659,8 +5517,6 @@ this:
 
 **** Defining Glossary Entries
 
-===
-
 [ref:building-a-glossary] described the most basic glossary features,
 how to define a simple glossary entry and how to reference that entry
 in the text of your document.
@@ -5676,8 +5532,6 @@ The following additional glossary definition features are available.
 #---------------------------------------------------------------------
 
 **** Glossary References
-
-===
 
 [ref:building-a-glossary] described the most basic way to refer to a
 glossary term.
@@ -5718,8 +5572,6 @@ word.
 #---------------------------------------------------------------------
 
 ***.generated-content Generated Content
-
-===
 
 The following blocks of content can be automagically generated by the
 ||publish|| program based on the content of the document:
@@ -5898,8 +5750,6 @@ Additional ``generate'' directives may be added in the future.
 
 ***.inserted-content Inserted Content
 
-===
-
 The following blocks of content can be automagically inserted by the
 ||publish|| program:
 
@@ -5916,8 +5766,6 @@ content of a region:
 
 ***.to-do-items To Do Items
 
-===
-
 Lines that begin with ``[ ]'' in the first column indicate the
 beginning of a to-do item:
 
@@ -5933,8 +5781,6 @@ beginning of a to-do item:
 #---------------------------------------------------------------------
 
 ***.scripts Scripts
-
-===
 
 You can have the ||publish|| program run an arbitrary script for you and
 insert the output in your document.  Imagine how useful this feature
@@ -5966,8 +5812,6 @@ future.
 #---------------------------------------------------------------------
 
 ***.reusable-content Reusable Content
-
-===
 
 You can reuse elements of content like titles, descriptions, and
 narratives.  Here is a complete list of reusable content elements
@@ -6050,8 +5894,6 @@ you can reuse the user defined attribute using:
 
 ***.revision-summary Revision Summary
 
-===
-
 You can put one or more revision summaries in your document to
 describe how the document has changed over time.  The revision summary
 will be rendered as a table with three columns: (1) version, (2) date,
@@ -6117,13 +5959,9 @@ references to this document being a CONOPS.
 
 *.required-software Required Software
 
-===
-
 #---------------------------------------------------------------------
 
 ** LaTeX
-
-===
 
 If you want to render PDF output, you need a distribution of LaTeX.
 
@@ -6131,15 +5969,11 @@ If you want to render PDF output, you need a distribution of LaTeX.
 
 ** Adobe Acrobat
 
-===
-
 To view PDF output you need a PDF reader like Adobe Acrobat.
 
 #---------------------------------------------------------------------
 
 ** ImageMagick
-
-===
 
 For ||publish|| to handle images properly, ImageMagick must be installed.
 You can download Windows and Linux versions at:
@@ -6163,8 +5997,6 @@ drj826@acm.org.  THANKS!
 #---------------------------------------------------------------------
 
 ** Web Browser
-
-===
 
 To view HTML output you need a Web browser like Mozilla Firefox.
 
@@ -6311,8 +6143,6 @@ documentation and traceability of problems and solutions.
 
 ** Problems
 
-===
-
 Problems are things to be solved (a.k.a. requirements).  Problems
 describe ~~what~~ must be done.  Solutions describe ~~how~~ things are
 done.  Never confuse the ``what'' and the ``how.''
@@ -6341,8 +6171,6 @@ requirements.
 #---------------------------------------------------------------------
 
 ***.requirements-characteristics Requirements Characteristics
-
-===
 
 Requirements should have the following characteristics:
 
@@ -6386,8 +6214,6 @@ to the stated problem (requirement) must be reasonable.
 #---------------------------------------------------------------------
 
 ***.requirements-traceability Requirements Traceability
-
-===
 
 The ~~primary~~ purpose of requirements traceability is to trace
 requirements from origin to fulfillment.
@@ -6469,8 +6295,6 @@ can discover the relationship by looking at either one.  Requirement
 
 ****.whole-part-traceability Whole/Part Traceability
 
-===
-
 The most basic form of requirements traceability is the ~~whole/part
 hierarchy~~.  Requirements should be carefully organized into a
 whole/part hierarchy to make the requirements easy to explain.
@@ -6549,8 +6373,6 @@ heritage all the way up to their top-level requirements.
 
 ****.directives Directives
 
-===
-
 Requirements should be traceable to authoritative directives.  When a
 requirement exists because an authority directs it, that requirement
 should be formally traceable to that authoritative directive.
@@ -6577,8 +6399,6 @@ The same requirement can be directed by multiple authorities.
 
 ****.requests Requests
 
-===
-
 Sometimes the origin of a requirement is a request (e.g. ``trouble
 ticket,'' ``problem report,'' etc.).  In this case, the requirement
 should be made traceable to the request.  The benefit of tracing the
@@ -6603,8 +6423,6 @@ an orderly, systematic way.
 
 ****.derived-requirements Derived Requirements
 
-===
-
 There must be a reason for each requirement.  If not directed by an
 authoritative source, a requirement is likely derived from another
 that is.
@@ -6621,8 +6439,6 @@ satisfying them costs resources.
 
 ****.test-cases Test Cases
 
-===
-
 Requirements must be traceable to the verification and validation test
 cases that prove they are solved and solved in the correct way.
 
@@ -6630,15 +6446,11 @@ cases that prove they are solved and solved in the correct way.
 
 ****.solutions-traceability Solutions
 
-===
-
 Requirements must be traceable to the solutions that solve them.
 
 #---------------------------------------------------------------------
 
 ****.requirement-owners Requirement Owners
-
-===
 
 Business requirements define what an organization must do.  Every
 business requirement should be traceable to the organizational role
@@ -6661,8 +6473,6 @@ to which the requirement is allocated.
 
 ****.requirement-stakeholders Requirement Stakeholders
 
-===
-
 There may be people with an interest in getting a requirement met who
 are not the owner of the requirement.  These people are known as
 stakeholders.
@@ -6671,15 +6481,11 @@ stakeholders.
 
 ****.requirements-reviews Requirements Reviews
 
-===
-
 Requirements must be reviewed by requirement owners and stakeholders.
 
 #---------------------------------------------------------------------
 
 ****.requirements-verification-audits Requirements Verification Audits
-
-===
 
 Requirements must be verified.  Requirements verification audits must
 be documented.  The verification documentation should be traceable to
@@ -6688,8 +6494,6 @@ the requirement.
 #---------------------------------------------------------------------
 
 ***.requirements-attributes Requirements Attributes
-
-===
 
 We describe requirements using the following attributes:
 
@@ -6750,8 +6554,6 @@ requirement
 #---------------------------------------------------------------------
 
 *** Requirements Reviews
-
-===
 
 Requirements are periodically reviewed.  The purposes of reviewing
 requirements are:
@@ -6840,8 +6642,6 @@ this requirement identified?''
 
 *.using-emacs Using Emacs to Edit SML Files
 
-===
-
 SML is based on Emacs' outline mode.  I find that editing SML files in
 Emacs is very quick and easy.  Emacs is a free, open source editor
 available for windows from:
@@ -6859,8 +6659,6 @@ incredible speed and power.
 #---------------------------------------------------------------------
 
 **.emacs-variables Adding an Emacs mode directive to an SML file
-
-===
 
 If you ~~do~~ choose to use Emacs, you might want to put the following
 line at the top of each SML file to force Emacs into outline mode when
@@ -6887,8 +6685,6 @@ this:
 #---------------------------------------------------------------------
 
 ** Your .emacs file
-
-===
 
 Here are some things I put in my ||.emacs|| file that help the editing
 process:
