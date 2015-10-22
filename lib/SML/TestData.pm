@@ -661,7 +661,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><a href=\"td-000020-1.html#SECTION.1\">Section 1</a></p>\n\n",
+	 default => "<p><a href=\"td-000020.1.html#SECTION.1\">Section 1</a></p>\n\n",
 	},
 	latex =>
 	{
@@ -669,7 +669,7 @@ sub _build_block_test_case_list {
 	},
 	xml =>
 	{
-	 default => "<a href=\"td-000020-1.xml#SECTION.1\">Section 1</a>\n\n",
+	 default => "<a href=\"td-000020.1.xml#SECTION.1\">Section 1</a>\n\n",
 	},
        },
        error =>
@@ -690,7 +690,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><a href=\"td-000020-1.html#SECTION.1\">Section 1</a></p>\n\n",
+	 default => "<p><a href=\"td-000020.1.html#SECTION.1\">Section 1</a></p>\n\n",
 	},
 	latex =>
 	{
@@ -698,7 +698,7 @@ sub _build_block_test_case_list {
 	},
 	xml =>
 	{
-	 default => "<a href=\"td-000020-1.xml#SECTION.1\">Section 1</a>\n\n",
+	 default => "<a href=\"td-000020.1.xml#SECTION.1\">Section 1</a>\n\n",
 	},
        },
        error =>
@@ -719,7 +719,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><a href=\"td-000020-2.html#SECTION.2\">Section 2</a></p>\n\n",
+	 default => "<p><a href=\"td-000020.2.html#SECTION.2\">Section 2</a></p>\n\n",
 	},
 	latex =>
 	{
@@ -727,7 +727,7 @@ sub _build_block_test_case_list {
 	},
 	xml =>
 	{
-	 default => "<a href=\"td-000020-2.html#Section.2\">Section 2</a>\n\n",
+	 default => "<a href=\"td-000020.2.html#Section.2\">Section 2</a>\n\n",
 	},
        },
        error =>
@@ -748,7 +748,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><a href=\"td-000020-2.html#SECTION.2\">Section 2</a></p>\n\n",
+	 default => "<p><a href=\"td-000020.2.html#SECTION.2\">Section 2</a></p>\n\n",
 	},
 	latex =>
 	{
@@ -756,7 +756,7 @@ sub _build_block_test_case_list {
 	},
 	xml =>
 	{
-	 default => "<a href=\"td-000020-2.html#Section.2\">Section 2</a>\n\n",
+	 default => "<a href=\"td-000020.2.html#Section.2\">Section 2</a>\n\n",
 	},
        },
        error =>
@@ -1138,7 +1138,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><a href=\"td-000020-1.html#SECTION.1\">Section 1</a></p>\n\n",
+	 default => "<p><a href=\"td-000020.1.html#SECTION.1\">Section 1</a></p>\n\n",
 	},
 	latex =>
 	{
@@ -1146,7 +1146,7 @@ sub _build_block_test_case_list {
 	},
 	xml =>
 	{
-	 default => "<a href=\"td-000020-1.html#SECTION.1\">Section 1</a>\n\n",
+	 default => "<a href=\"td-000020.1.html#SECTION.1\">Section 1</a>\n\n",
 	},
        },
        error =>
@@ -1192,7 +1192,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><a href=\"td-000020-1.html#SECTION.1\">link</a></p>\n\n",
+	 default => "<p><a href=\"td-000020.1.html#SECTION.1\">link</a></p>\n\n",
 	},
 	latex =>
 	{
@@ -1200,7 +1200,7 @@ sub _build_block_test_case_list {
 	},
 	xml =>
 	{
-	 default => "<a href=\"td-000020-1.html#SECTION.1\">link</a>\n\n",
+	 default => "<a href=\"td-000020.1.html#SECTION.1\">link</a>\n\n",
 	},
        },
        error =>
@@ -1221,7 +1221,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><a href=\"td-000020-1.html#SECTION.1\">link</a></p>\n\n",
+	 default => "<p><a href=\"td-000020.1.html#SECTION.1\">link</a></p>\n\n",
 	},
 	latex =>
 	{
@@ -1229,7 +1229,7 @@ sub _build_block_test_case_list {
 	},
 	xml =>
 	{
-	 default => "<a href=\"td-000020-1.html#SECTION.1\">link</a>\n\n",
+	 default => "<a href=\"td-000020.1.html#SECTION.1\">link</a>\n\n",
 	},
        },
        error =>
@@ -2633,14 +2633,14 @@ sub _build_division_test_case_list {
        get_property            => 'SML::Property',
        get_property_value      => 'Section Structure With Regions',
        get_first_line          => '>>>DOCUMENT.td-000020',
-       get_part_list           => 21,
-       get_line_list           => 210,
+       get_part_list           => 20,
+       get_line_list           => 198,
        get_division_list       => 32,
        get_section_list        => 5,
-       get_block_list          => 91,
+       get_block_list          => 85,
        get_element_list        => 31,
        get_data_segment_line_list  => 12,
-       get_narrative_line_list => 195,
+       get_narrative_line_list => 183,
        get_property_list       => 9,
       },
      },
@@ -2657,14 +2657,14 @@ sub _build_division_test_case_list {
        get_property            => 'SML::Property',
        get_property_value      => 'chapter',
        get_first_line          => '*.introduction Introduction',
-       get_part_list           => 7,
-       get_line_list           => 17,
+       get_part_list           => 6,
+       get_line_list           => 15,
        get_division_list       => 0,
-       get_block_list          => 7,
+       get_block_list          => 6,
        get_element_list        => 3,
        get_data_segment_line_list  => 2,
-       get_narrative_line_list => 11,
-       get_property_list       => 3,
+       get_narrative_line_list => 9,
+       get_property_list       => 4,
       },
      },
 
@@ -2703,13 +2703,13 @@ sub _build_division_test_case_list {
        get_property            => 'SML::Property',
        get_property_value      => 'tab-solution-types',
        get_first_line          => '>>>TABLE.tab-solution-types',
-       get_part_list           => 10,
-       get_line_list           => 28,
+       get_part_list           => 11,
+       get_line_list           => 30,
        get_division_list       => 12,
-       get_block_list          => 14,
+       get_block_list          => 15,
        get_element_list        => 1,
        get_data_segment_line_list  => 2,
-       get_narrative_line_list => 22,
+       get_narrative_line_list => 24,
        get_property_list       => 2,
       },
      },
@@ -5326,7 +5326,7 @@ sub _build_part_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><a href=\"td-000020-1.html#SECTION.1\">Section 1</a></p>\n\n",
+	 default => "<p><a href=\"td-000020.1.html#SECTION.1\">Section 1</a></p>\n\n",
 	},
 	latex =>
 	{
@@ -5334,7 +5334,7 @@ sub _build_part_test_case_list {
 	},
 	xml =>
 	{
-	 default => "<a href=\"td-000020-1.xml#SECTION.1\">Section 1</a>\n\n",
+	 default => "<a href=\"td-000020.1.xml#SECTION.1\">Section 1</a>\n\n",
 	},
        },
        error =>
@@ -6034,7 +6034,7 @@ sub _build_string_test_case_list {
      },
 
      {
-      name => 'id_reference_1',
+      name => 'id_reference_2',
       text => q{[id:bogus]},
       library => $self->get_test_library_1,
       expected =>

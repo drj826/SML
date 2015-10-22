@@ -34,8 +34,6 @@ acronym:: TLA {sml} = Three Letter Acronym
 
 type:: chapter
 
-===
-
 This section is a chapter.[f:introduction:1] This is some
 ~~introductory~~ text.  It really doesn't say anything interesting so
 let's just move along.
@@ -51,16 +49,12 @@ footnote::1: This is a footnote.
 
 type:: chapter
 
-===
-
 This section is another chapter.  This section will be a little more
 complicated because it has sub-sections.
 
 ######################################################################
 
 **.problems Problems
-
-===
 
 This section enumerates the problems (i.e. requirements) in the system
 model.
@@ -111,8 +105,6 @@ Just for kicks, here is a bare table inside this problem region.
 
 **.solutions Solutions
 
-===
-
 This section enumerates the solutions in the system model.  Here is a
 table that defines the types of solutions:
 
@@ -150,8 +142,6 @@ title:: Solutions Types
 
 **.tests Tests
 
-===
-
 This section enumerates the tests in the system model.
 
 >>>COMMENT
@@ -163,8 +153,6 @@ of this comment won't appear in rendered documents.
 <<<COMMENT
 
 >>>CONDITIONAL.version1
-
-===
 
 This text will only be used if 'version1' has been defined.
 

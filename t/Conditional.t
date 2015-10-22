@@ -52,7 +52,6 @@ isa_ok( $obj, 'SML::Conditional' );
 my @public_methods =
   (
    'get_name',
-   'get_token',
   );
 
 can_ok( $obj, @public_methods );

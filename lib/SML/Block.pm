@@ -1067,7 +1067,7 @@ sub _validate_cross_ref_semantics {
       else
 	{
 	  my $location = $self->get_location;
-	  $logger->warn("INVALID CROSS REFERENCE \'$id\' not defined at $location");
+	  $logger->warn("INVALID CROSS REFERENCE \'$id\' not defined at $location ($doc)");
 	  $valid = 0;
 	}
 

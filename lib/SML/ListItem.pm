@@ -54,7 +54,10 @@ sub get_value {
     {
       my $util = $library->get_util;
 
-      return $util->trim_whitespace($2);
+      # $1 = indent
+      # $2 = bullet character
+      # $3 = item text
+      return $util->trim_whitespace($3);
     }
 
   else

@@ -2226,14 +2226,14 @@ sub _parse_lines {
 
       elsif ( $text =~ /$syntax->{bull_list_item}/ )
 	{
-	  # $1 = whitespace
+	  # $1 = indent
 	  # $2 = text
 	  $self->_process_bull_list_item($line);
 	}
 
       elsif ( $text =~ /$syntax->{enum_list_item}/ )
 	{
-	  # $1 = whitespace
+	  # $1 = indent
 	  # $2 = text
 	  $self->_process_enum_list_item($line);
 	}
@@ -5837,6 +5837,8 @@ sub _process_section_heading {
   $self->_end_table           if $self->_in_table;
   $self->_end_section         if $self->_in_section;
 
+  $self->_set_in_data_segment(1);
+
   # new title element
   $logger->trace("..... new title");
 
@@ -7836,6 +7838,7 @@ sub _line_ends_data_segment {
       or $text =~ /$syntax->{index_element}/xms
       or $text =~ /$syntax->{glossary_element}/xms
       or $text =~ /$syntax->{list_item}/xms
+      or $text =~ /$syntax->{paragraph_text}/xms
      )
     {
       return 1;

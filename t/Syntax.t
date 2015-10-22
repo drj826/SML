@@ -36,10 +36,6 @@ isa_ok( $obj, 'SML::Syntax' );
 
 my @public_methods =
   (
-   # conditional markup
-   'start_conditional',
-   'end_conditional',
-
    # comment markup
    'comment_line',
 

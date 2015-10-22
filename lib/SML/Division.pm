@@ -402,7 +402,7 @@ sub add_attribute {
 
 sub contains_division {
 
-  # Return 1 if the document contains a division with the specified ID.
+  # Return 1 if the division contains a division with the specified ID.
 
   my $self = shift;
   my $id   = shift;
@@ -414,15 +414,20 @@ sub contains_division {
       return 0;
     }
 
-  if ( defined $self->_get_division_hash->{$id} )
+  foreach my $division (@{ $self->get_division_list })
     {
-      return 1;
+      if ( $division->get_id eq $id )
+	{
+	  return 1;
+	}
+
+      elsif ( $division->contains_division($id) )
+	{
+	  return 1;
+	}
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
@@ -1178,7 +1183,22 @@ sub _line_ends_data_segment {
   my $library = $self->get_library;
   my $syntax  = $library->get_syntax;
 
-  if ( $text =~ /$syntax->{segment_separator}/xms )
+  if (
+         $text =~ /$syntax->{segment_separator}/xms
+      or $text =~ /$syntax->{start_division}/xms
+      or $text =~ /$syntax->{start_section}/xms
+      or $text =~ /$syntax->{generate_element}/xms
+      or $text =~ /$syntax->{insert_element}/xms
+      or $text =~ /$syntax->{template_element}/xms
+      or $text =~ /$syntax->{include_element}/xms
+      or $text =~ /$syntax->{script_element}/xms
+      or $text =~ /$syntax->{outcome_element}/xms
+      or $text =~ /$syntax->{review_element}/xms
+      or $text =~ /$syntax->{index_element}/xms
+      or $text =~ /$syntax->{glossary_element}/xms
+      or $text =~ /$syntax->{list_item}/xms
+      or $text =~ /$syntax->{paragraph_text}/xms
+     )
     {
       return 1;
     }

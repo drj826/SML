@@ -47,10 +47,6 @@ isa_ok( $obj, 'SML::TableCell' );
 my @public_methods =
   (
    'get_name',
-   'as_text',
-   'as_latex',
-   'as_csv',
-   'as_xml',
   );
 
 can_ok( $obj, @public_methods );

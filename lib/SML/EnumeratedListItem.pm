@@ -53,6 +53,8 @@ sub get_value {
     {
       my $util = $library->get_util;
 
+      # $1 = indent
+      # $2 = text
       return $util->trim_whitespace($2);
     }
 

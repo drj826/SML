@@ -7,7 +7,7 @@
 [%- IF document.has_sections -%]
   [%- SET section = target_part.get_containing_section -%]
   [%- SET section_num = section.get_number -%]
-<a href="[%docid%]-[%section_num%].html#[%target_name%].[%target_num%]">link</a>
+<a href="[%docid%].[%section_num%].html#[%target_name%].[%target_num%]">link</a>
 [%- ELSE -%]
-<a href="[%docid%]-0.html#[%target_name%].[%target_num%]">link</a>
+<a href="[%docid%].0.html#[%target_name%].[%target_num%]">link</a>
 [%- END -%]
