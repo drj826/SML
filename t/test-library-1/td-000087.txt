@@ -1,0 +1,27 @@
+>>>DOCUMENT.td-000087
+
+title:: Start Enumerated List After Bullet Sublist
+
+This document tests the capability of the parser to start an
+enumerated list immediately following the end of an indented bullet
+list.
+
+- bullet list item 1
+
+- bullet list item 2
+
+- bullet list item 3
+
+  - bullet sub list item 1
+
+  - bullet sub list item 2
+
+  - bullet sub list item 3
+
++ enumerated list item 1
+
++ enumerated list item 2
+
++ enumerated list item 3
+
+<<<DOCUMENT

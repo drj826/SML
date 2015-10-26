@@ -1,0 +1,22 @@
+>>>DOCUMENT.td-000088
+
+title:: MALFORMED LIST
+
+This document tests the capability of the parser to handle a malformed
+list.
+
+- bullet list item 1
+
+- bullet list item 2
+
+- bullet list item 3
+
+    - bullet sub list item 1
+
+    - bullet sub list item 2
+
+    - bullet sub list item 3
+
+  - improperly indented bullet
+
+<<<DOCUMENT

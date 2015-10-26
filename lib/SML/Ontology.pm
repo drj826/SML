@@ -230,7 +230,18 @@ sub get_class_for_entity_name {
   my $self        = shift;
   my $entity_name = shift;
 
-  return $self->_get_types_by_entity_name_hash->{$entity_name};
+  my $tbenh = $self->_get_types_by_entity_name_hash;
+
+  if ( exists $tbenh->{$entity_name} )
+    {
+      return $tbenh->{$entity_name};
+    }
+
+  else
+    {
+      $logger->error("THERE IS NO CLASS FOR ENTITY NAME \'$entity_name\'");
+      return 0;
+    }
 }
 
 ######################################################################
@@ -240,7 +251,18 @@ sub get_required_property_list {
   my $self    = shift;
   my $divname = shift;
 
-  return [ sort keys %{ $self->_get_required_properties_hash->{$divname} } ];
+  my $rph = $self->_get_required_properties_hash;
+
+  if ( exists $rph->{$divname} )
+    {
+      return [ sort keys %{ $rph->{$divname} } ]
+    }
+
+  else
+    {
+      $logger->error("THERE IS NO REQUIRED PROPERTY LIST FOR \'$divname\'");
+      return [];
+    }
 }
 
 ######################################################################
@@ -372,107 +394,13 @@ sub allows_division {
 
 ######################################################################
 
-# sub allows_region {
-
-#   my $self        = shift;
-#   my $entity_name = shift;
-
-#   if ( exists $self->_get_types_by_entity_name_hash->{$entity_name}
-#        and
-#        (
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Region'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Demo'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Entity'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Exercise'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Quotation'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::RESOURCES'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Slide'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Library'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Document'
-#        )
-#      )
-
-#     {
-#       return 1;
-#     }
-#   else
-#     {
-#       return 0;
-#     }
-# }
-
-######################################################################
-
-# sub allows_environment {
-
-#   my $self        = shift;
-#   my $entity_name = shift;
-
-#   if ( exists $self->_get_types_by_entity_name_hash->{$entity_name}
-#        and
-#        (
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Environment'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Assertion'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Attachment'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Audio'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Baretable'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Epigraph'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Figure'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Footer'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Header'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Keypoints'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Listing'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::PreformattedDivision'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Revisions'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Sidebar'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Source'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Table'
-# 	or
-# 	$self->_get_types_by_entity_name_hash->{$entity_name} eq 'SML::Video'
-#        )
-#      )
-
-#     {
-#       return 1;
-#     }
-#   else
-#     {
-#       return 0;
-#     }
-# }
-
-######################################################################
-
 sub allows_property {
 
   my $self          = shift;
-  my $entity_name   = shift;
+  my $division_name = shift;
   my $property_name = shift;
 
-  if ( not $entity_name )
+  if ( not $division_name )
     {
       $logger->logcluck("YOU MUST PROVIDE AN ENTITY NAME");
     }
@@ -482,7 +410,7 @@ sub allows_property {
       $logger->logcluck("YOU MUST PROVIDE A PROPERTY NAME");
     }
 
-  my $list = $self->get_entity_allowed_property_list($entity_name);
+  my $list = $self->get_entity_allowed_property_list($division_name);
 
   if ( not $list )
     {

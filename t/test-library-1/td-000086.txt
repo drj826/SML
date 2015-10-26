@@ -1,0 +1,31 @@
+>>>DOCUMENT.td-000086
+
+title:: Mixed Indented List
+
+This document contains a mixed indented list.
+
+- 1 bull item
+
+- 2 bull item
+
+  + 2.1 enum item
+
+  + 2.2 enum item
+
+  + 2.3 enum item
+
+    - 2.3.1 bull item
+
+    - 2.3.2 bull item
+
+    - 2.3.3 bull item
+
+      - 2.3.3.1 bull item
+
+      - 2.3.3.2 bull item
+
+  + 2.4 enum item
+
+  + 2.5 enum item
+
+<<<DOCUMENT

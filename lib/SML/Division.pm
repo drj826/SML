@@ -1197,7 +1197,12 @@ sub _line_ends_data_segment {
       or $text =~ /$syntax->{index_element}/xms
       or $text =~ /$syntax->{glossary_element}/xms
       or $text =~ /$syntax->{list_item}/xms
-      or $text =~ /$syntax->{paragraph_text}/xms
+      or
+      (
+       $text =~ /$syntax->{paragraph_text}/xms
+       and
+       not $text =~ /$syntax->{element}/xms
+      )
      )
     {
       return 1;

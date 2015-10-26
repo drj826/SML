@@ -461,6 +461,15 @@ titles, paragraphs, sections, lists, list items, tables, and
 figures. The elements of structure supported by SML are summarized in
 [ref:tab-structure-features].
 
+Footnote markers can go in tables but footnote text should come after
+the table; likewise, footnote markers can go in list items, but the
+footnote text should be placed after the end of the list.
+
+As a matter of style, I've gotten into the habit of prefixing all
+labels with three letters to indicate the type of document component
+being labeled: ||tab-|| for table labels, ||fig-|| for figure labels,
+||lis-|| for listing labels, ||sec-|| for section labels, etc.
+
 >>>TABLE.tab-structure-features
 
 title:: Summary of Structure Features
@@ -478,18 +487,6 @@ include:: sml-structure-summary
 <<<TABLE
 
 index::end: structure features
-
-Any block of text that begins with three or more dashes is called an
-~~environment~~.
-
-Footnote markers can go in tables but footnote text should come after
-the table; likewise, footnote markers can go in list items, but the
-footnote text should be placed after the end of the list.
-
-As a matter of style, I've gotten into the habit of prefixing all
-labels with three letters to indicate the type of document component
-being labeled: ||tab-|| for table labels, ||fig-|| for figure labels,
-||lis-|| for listing labels, ||sec-|| for section labels, etc.
 
 #---------------------------------------------------------------------
 

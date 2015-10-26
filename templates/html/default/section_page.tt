@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>[% document.get_property_value('title') %]</title>
+<title>[%- INCLUDE self.get_property_value('title') -%]</title>
 </head>
 <body>
 

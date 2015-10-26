@@ -18,7 +18,7 @@
 <html>
 <head>
 
-<title>[% document.get_property_value('title') %]</title>
+<title>[%- self.get_property_value('title') -%]</title>
 
 [% INCLUDE js_popimage.tt -%]
 [% INCLUDE js_treetable.tt -%]

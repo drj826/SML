@@ -1,0 +1,14 @@
+>>>DOCUMENT.td-000085
+
+title:: Preformatted Bullet List Items
+
+This document contains bullet list items that should be interpretted
+by the parser as preformatted text.
+
+  - bullet list item 1
+
+  - bullet list item 2
+
+  - bullet list item 3
+
+<<<DOCUMENT

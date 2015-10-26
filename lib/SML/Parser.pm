@@ -106,7 +106,7 @@ $OUTPUT_AUTOFLUSH = 1;
 ######################################################################
 ######################################################################
 
-has 'library' =>
+has library =>
   (
    isa       => 'SML::Library',
    reader    => 'get_library',
@@ -196,7 +196,7 @@ sub parse {
 ######################################################################
 ######################################################################
 
-has 'division' =>
+has division =>
   (
    isa       => 'SML::Division',
    reader    => '_get_division',
@@ -210,7 +210,7 @@ has 'division' =>
 
 ######################################################################
 
-has 'line_list' =>
+has line_list =>
   (
    isa       => 'ArrayRef',
    reader    => '_get_line_list',
@@ -224,7 +224,7 @@ has 'line_list' =>
 
 ######################################################################
 
-has 'block' =>
+has block =>
   (
    isa       => 'SML::Block',
    reader    => '_get_block',
@@ -241,7 +241,7 @@ has 'block' =>
 
 ######################################################################
 
-has 'string' =>
+has string =>
   (
    isa       => 'SML::String',
    reader    => '_get_string',
@@ -257,7 +257,7 @@ has 'string' =>
 
 ######################################################################
 
-has 'division_stack' =>
+has division_stack =>
   (
    isa       => 'ArrayRef',
    reader    => '_get_division_stack',
@@ -279,7 +279,7 @@ has 'division_stack' =>
 
 ######################################################################
 
-has 'part_stack' =>
+has part_stack =>
   (
    isa       => 'ArrayRef',
    reader    => '_get_part_stack',
@@ -290,10 +290,11 @@ has 'part_stack' =>
   );
 
 # This is a stack of nested parts at any point during document
-# parsing.  A part is a contiguous sequence of blocks.  Parts may be
-# nested within one another. A part has an unambiguous beginning and
-# end. Sometimes the beginning and end are explicit and other times
-# they are implicit.
+# parsing.  Divisions, blocks, and strings are parts. Divisions may
+# contain other divisions and blocks.  Blocks may contain strings.
+# Strings may contain other strings. A part has an unambiguous
+# beginning and end. Sometimes the beginning and end are explicit and
+# other times they are implicit.
 #
 #   $current_part = $part_stack->[-1];
 #   $self->_push_part_stack($part);
@@ -301,7 +302,21 @@ has 'part_stack' =>
 
 ######################################################################
 
-has 'column' =>
+has list_stack =>
+  (
+   isa       => 'ArrayRef',
+   reader    => '_get_list_stack',
+   writer    => '_set_list_stack',
+   clearer   => '_clear_list_stack',
+   predicate => '_has_list_stack',
+   default   => sub {[]},
+  );
+
+# This is a stack of bullet and enumerated lists.
+
+######################################################################
+
+has column =>
   (
    isa       => 'Int',
    reader    => '_get_column',
@@ -313,7 +328,7 @@ has 'column' =>
 
 ######################################################################
 
-has 'in_data_segment' =>
+has in_data_segment =>
   (
    isa       => 'Bool',
    reader    => '_in_data_segment',
@@ -327,7 +342,7 @@ has 'in_data_segment' =>
 
 ######################################################################
 
-has 'count_total_hash' =>
+has count_total_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_count_total_hash',
@@ -341,7 +356,7 @@ has 'count_total_hash' =>
 
 ######################################################################
 
-has 'count_method_hash' =>
+has count_method_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_count_method_hash',
@@ -356,7 +371,7 @@ has 'count_method_hash' =>
 
 ######################################################################
 
-has 'gen_content_hash' =>
+has gen_content_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_gen_content_hash',
@@ -369,7 +384,7 @@ has 'gen_content_hash' =>
 
 ######################################################################
 
-has 'to_be_gen_hash' =>
+has to_be_gen_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_to_be_gen_hash',
@@ -382,7 +397,7 @@ has 'to_be_gen_hash' =>
 
 ######################################################################
 
-has 'outcome_hash' =>
+has outcome_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_outcome_hash',
@@ -398,7 +413,7 @@ has 'outcome_hash' =>
 
 ######################################################################
 
-has 'review_hash' =>
+has review_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_review_hash',
@@ -414,7 +429,7 @@ has 'review_hash' =>
 
 ######################################################################
 
-has 'acronym_hash' =>
+has acronym_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_acronym_hash',
@@ -427,7 +442,7 @@ has 'acronym_hash' =>
 
 ######################################################################
 
-has 'source_hash' =>
+has source_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_source_hash',
@@ -476,7 +491,7 @@ has 'source_hash' =>
 
 ######################################################################
 
-has 'index_hash' =>
+has index_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_index_hash',
@@ -493,36 +508,7 @@ has 'index_hash' =>
 
 ######################################################################
 
-# has 'table_data_hash' =>
-#   (
-#    isa       => 'HashRef',
-#    reader    => '_get_table_data_hash',
-#    writer    => '_set_table_data_hash',
-#    clearer   => '_clear_table_data_hash',
-#    default   => sub {{}},
-#   );
-
-# This is a data structure containing information about the tables in
-# the document.
-
-######################################################################
-
-# has 'baretable_data_hash' =>
-#   (
-#    isa       => 'HashRef',
-#    reader    => '_get_baretable_data_hash',
-#    writer    => '_set_baretable_data_hash',
-#    clearer   => '_clear_baretable_data_hash',
-#    default   => sub {{}},
-#   );
-
-# This is a data structure containing information about the baretables
-# in the document.  A baretable is a table without a title, ID, or
-# description used only to present content in a tabular layout.
-
-######################################################################
-
-has 'template_hash' =>
+has template_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_template_hash',
@@ -537,7 +523,7 @@ has 'template_hash' =>
 
 ######################################################################
 
-has 'requires_processing' =>
+has requires_processing =>
   (
    isa     => 'Bool',
    reader  => '_requires_processing',
@@ -552,7 +538,7 @@ has 'requires_processing' =>
 
 ######################################################################
 
-has 'section_counter_hash' =>
+has section_counter_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_section_counter_hash',
@@ -566,7 +552,7 @@ has 'section_counter_hash' =>
 
 ######################################################################
 
-has 'division_counter_hash' =>
+has division_counter_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_division_counter_hash',
@@ -580,7 +566,7 @@ has 'division_counter_hash' =>
 
 ######################################################################
 
-has 'valid' =>
+has valid =>
   (
    isa       => 'Bool',
    reader    => '_is_valid',
@@ -609,6 +595,30 @@ has single_string_type_list =>
    reader  => '_get_single_string_type_list',
    lazy    => 1,
    builder => '_build_single_string_type_list',
+  );
+
+######################################################################
+
+has current_bullet_list_item =>
+  (
+   is        => 'ro',
+   isa       => 'SML::BulletListItem',
+   reader    => '_get_current_bullet_list_item',
+   writer    => '_set_current_bullet_list_item',
+   predicate => '_has_current_bullet_list_item',
+   clearer   => '_clear_current_bullet_list_item',
+  );
+
+######################################################################
+
+has current_enumerated_list_item =>
+  (
+   is        => 'ro',
+   isa       => 'SML::EnumeratedListItem',
+   reader    => '_get_current_enumerated_list_item',
+   writer    => '_set_current_enumerated_list_item',
+   predicate => '_has_current_enumerated_list_item',
+   clearer   => '_clear_current_enumerated_list_item',
   );
 
 ######################################################################
@@ -1907,15 +1917,6 @@ sub _resolve_includes {
 
   $self->_set_line_list($new_line_list);
 
-  # TRACE
-  $logger->trace("NEW LINE LIST after resolving includes...");
-  foreach my $line (@{ $new_line_list })
-    {
-      my $text = $line->get_content;
-      chomp $text;
-      $logger->trace("-> $text");
-    }
-
   return 1;
 }
 
@@ -2079,6 +2080,8 @@ sub _parse_lines {
   $self->_set_count_total_hash({});
 
   $self->_clear_block;
+  $self->_clear_current_bullet_list_item;
+  $self->_clear_current_enumerated_list_item;
 
   $self->_set_column(0);
   $self->_set_requires_processing(0);
@@ -2228,14 +2231,14 @@ sub _parse_lines {
 	{
 	  # $1 = indent
 	  # $2 = text
-	  $self->_process_bull_list_item($line);
+	  $self->_process_bull_list_item($line,$1,$2);
 	}
 
       elsif ( $text =~ /$syntax->{enum_list_item}/ )
 	{
 	  # $1 = indent
 	  # $2 = text
-	  $self->_process_enum_list_item($line);
+	  $self->_process_enum_list_item($line,$1,$2);
 	}
 
       elsif ( $text =~ /$syntax->{def_list_item}/ )
@@ -2720,8 +2723,13 @@ sub _end_bullet_list {
 
   my $self = shift;
 
-  return if not $self->_in_bullet_list;
+  if ( not $self->_in_bullet_list )
+    {
+      $logger->error("CAN'T END BULLET LIST, NOT IN BULLET LIST");
+      return 0;
+    }
 
+  $self->_pop_list_stack;
   $self->_end_division;
 
   return 1;
@@ -2734,8 +2742,13 @@ sub _end_enumerated_list {
 
   my $self = shift;
 
-  return if not $self->_in_enumerated_list;
+  if ( not $self->_in_enumerated_list )
+    {
+      $logger->error("CAN'T END ENUMERATED LIST, NOT IN ENUMERATED LIST");
+      return 0;
+    }
 
+  $self->_pop_list_stack;
   $self->_end_division;
 
   return 1;
@@ -5356,66 +5369,6 @@ sub _add_template {
 
 ######################################################################
 
-# sub _process_start_comment_division {
-
-#   my $self = shift;
-#   my $line = shift;
-
-#   $logger->trace("----- start comment division");
-
-#   my $library = $self->get_library;
-
-#   # new preformatted block
-#   my $block = SML::PreformattedBlock->new(library=>$library);
-#   $block->add_line($line);
-#   $self->_begin_block($block);
-
-#   # new comment division
-#   my $name    = 'comment';
-#   my $num     = $self->_count_comment_divisions;
-#   my $id      = "$name-$num";
-#   my $comment = SML::CommentDivision->new(id=>$id,library=>$library);
-
-#   $comment->add_part($block);
-
-#   if ( not $self->_has_division )
-#     {
-#       $self->_set_division($comment);
-#     }
-
-#   $self->_begin_division($comment);
-
-#   return 1;
-# }
-
-######################################################################
-
-# sub _process_end_comment_division {
-
-#   my $self = shift;
-#   my $line = shift;
-
-#   $logger->trace("----- end comment division");
-
-#   my $library = $self->get_library;
-
-#   # new preformatted block
-#   my $block = SML::PreformattedBlock->new(library=>$library);
-#   $block->add_line($line);
-#   $self->_begin_block($block);
-
-#   # end comment division
-#   my $division = $self->_get_current_division;
-
-#   $division->add_part( $block );
-
-#   $self->_end_division;
-
-#   return 1;
-# }
-
-######################################################################
-
 sub _process_comment_line {
 
   my $self = shift;
@@ -5480,213 +5433,6 @@ sub _process_comment_division_line {
 
 ######################################################################
 
-# sub _process_conditional_division_marker {
-
-#   my $self  = shift;
-#   my $line  = shift;
-#   my $token = shift;
-
-#   my $library   = $self->get_library;
-#   my $blockname = '';
-
-#   $logger->trace("----- conditional marker ($token)");
-
-#   if ( $self->_in_conditional )
-#     {
-#       $blockname = 'END_CONDITIONAL';
-#     }
-
-#   else
-#     {
-#       $blockname = 'BEGIN_CONDITIONAL';
-#     }
-
-#   my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
-#   $block->add_line($line);
-#   $self->_begin_block($block);
-
-#   if ( $self->_in_conditional )
-#     {
-#       my $conditional = $self->_current_conditional;
-
-#       if ( not $conditional->get_token eq $token )
-# 	{
-# 	  my $location = $line->get_location;
-
-# 	  $logger->trace("..... ERROR: not in conditional ($token)");
-# 	  my $msg = "INVALID END OF CONDITIONAL at $location not in conditional \"$token\"";
-# 	  $logger->logcroak("$msg");
-# 	}
-
-#       $conditional->add_part($block);
-#       $self->_end_division;
-#     }
-
-#   else
-#     {
-#       my $name        = 'conditional';
-#       my $num         = $self->_count_conditionals;
-#       my $id          = "$name-$num";
-#       my $conditional = SML::Conditional->new
-# 	(
-# 	 id          => $id,
-# 	 token       => $token,
-# 	 library     => $library,
-# 	);
-
-#       $conditional->add_part($block);
-
-#       $self->_begin_division($conditional);
-#     }
-
-#   return 1;
-# }
-
-######################################################################
-
-# sub _process_start_conditional_division {
-
-#   my $self  = shift;
-#   my $line  = shift;
-#   my $token = shift;
-
-#   $logger->trace("----- start conditional division ($token)");
-
-#   my $library   = $self->get_library;
-#   my $blockname = 'BEGIN_CONDITIONAL';
-
-#   my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
-#   $block->add_line($line);
-#   $self->_begin_block($block);
-
-#   my $name        = 'conditional';
-#   my $num         = $self->_count_conditionals;
-#   my $id          = "$name-$num";
-#   my $conditional = SML::Conditional->new
-#     (
-#      id          => $id,
-#      token       => $token,
-#      library     => $library,
-#     );
-
-#   $conditional->add_part($block);
-
-#   if ( not $self->_has_division )
-#     {
-#       $self->_set_division($conditional);
-#     }
-
-#   $self->_begin_division($conditional);
-
-#   return 1;
-# }
-
-######################################################################
-
-# sub _process_end_conditional_division {
-
-#   my $self  = shift;
-#   my $line  = shift;
-
-#   $logger->trace("----- end conditional");
-
-#   my $library   = $self->get_library;
-#   my $blockname = 'END_CONDITIONAL';
-
-#   my $block = SML::PreformattedBlock->new(name=>$blockname,library=>$library);
-#   $block->add_line($line);
-#   $self->_begin_block($block);
-
-#   my $conditional = $self->_current_conditional;
-
-#   $conditional->add_part($block);
-#   $self->_end_division;
-
-#   return 1;
-# }
-
-######################################################################
-
-# sub _process_start_region_marker {
-
-#   my $self = shift;
-#   my $line = shift;
-#   my $name = shift;
-
-#   my $location = $line->get_location;
-#   my $library  = $self->get_library;
-#   my $ontology = $library->get_ontology;
-
-#   $logger->trace("----- region begin marker ($name)");
-
-#   if ( not $ontology->allows_region($name) )
-#     {
-#       my $msg      = "UNDEFINED REGION at $location: \"$name\"";
-
-#       $logger->logdie("$msg");
-#     }
-
-#   if ( $self->_in_baretable )
-#     {
-#       $self->_end_baretable;
-#     }
-
-#   # can't have a region inside an environment
-#   if ( $self->_in_environment )
-#     {
-#       my $environment = $self->_current_environment;
-#       my $envname  = $environment->get_name;
-#       $logger->fatal("INVALID BEGIN REGION at $location: $name inside $envname");
-#     }
-
-#   # new preformatted BEGIN block
-#   my $block = SML::PreformattedBlock->new
-#     (
-#      name    => 'BEGIN_REGION',
-#      library => $library,
-#     );
-
-#   $block->add_line($line);
-#   $self->_begin_block($block);
-
-#   my $region = undef;
-
-#   if ( $name eq 'DOCUMENT' )
-#     {
-#       # new document region
-#       my $num   = $self->_count_regions;
-#       my $id    = "$name-$num";
-#       my $class = $ontology->get_class_for_entity_name($name);
-
-#       $region = $class->new(id=>$id,library=>$library);
-
-#       $region->add_part($block);
-#     }
-
-#   else
-#     {
-#       # new non-document region
-#       my $num   = $self->_count_regions;
-#       my $id    = "$name-$num";
-#       my $class = $ontology->get_class_for_entity_name($name);
-
-#       $region = $class->new
-# 	(
-# 	 name    => $name,
-# 	 id      => $id,
-# 	 library => $library,
-# 	);
-
-#       $region->add_part($block);
-#     }
-
-#   $self->_begin_division($region);
-
-#   return 1;
-# }
-
-######################################################################
-
 sub _process_start_division_marker {
 
   my $self = shift;
@@ -5708,10 +5454,13 @@ sub _process_start_division_marker {
     }
 
   $self->_end_step_list       if $self->_in_step_list;
-  $self->_end_bullet_list     if $self->_in_bullet_list;
-  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_all_lists       if $self->_in_bullet_list;
+  $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
   $self->_end_baretable       if $self->_in_baretable;
+
+  $self->_clear_current_bullet_list_item;
+  $self->_clear_current_enumerated_list_item;
 
   if ( $name eq 'SECTION' and $self->_in_section )
     {
@@ -5770,10 +5519,15 @@ sub _process_end_division_marker {
   $self->_set_in_data_segment(0);
 
   $self->_end_step_list       if $self->_in_step_list;
-  $self->_end_bullet_list     if $self->_in_bullet_list;
-  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_all_lists       if $self->_in_bullet_list;
+  $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
   $self->_end_baretable       if $self->_in_baretable;
+
+  if ( $self->_in_bullet_list or $self->_in_enumerated_list )
+    {
+      $self->_end_all_lists;
+    }
 
   if ( $name eq 'DOCUMENT' and $self->_in_section )
     {
@@ -5794,6 +5548,9 @@ sub _process_end_division_marker {
     {
       $self->_end_table_row;
     }
+
+  $self->_clear_current_bullet_list_item;
+  $self->_clear_current_enumerated_list_item;
 
   my $block = SML::PreformattedBlock->new
     (
@@ -5830,12 +5587,15 @@ sub _process_section_heading {
   $logger->trace("----- start division (SECTION.$id)");
 
   $self->_end_step_list       if $self->_in_step_list;
-  $self->_end_bullet_list     if $self->_in_bullet_list;
-  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_all_lists       if $self->_in_bullet_list;
+  $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
   $self->_end_baretable       if $self->_in_baretable;
   $self->_end_table           if $self->_in_table;
   $self->_end_section         if $self->_in_section;
+
+  $self->_clear_current_bullet_list_item;
+  $self->_clear_current_enumerated_list_item;
 
   $self->_set_in_data_segment(1);
 
@@ -5901,9 +5661,12 @@ sub _process_end_table_row {
   else
     {
       $self->_end_step_list       if $self->_in_step_list;
-      $self->_end_bullet_list     if $self->_in_bullet_list;
-      $self->_end_enumerated_list if $self->_in_enumerated_list;
+      $self->_end_all_lists       if $self->_in_bullet_list;
+      $self->_end_all_lists       if $self->_in_enumerated_list;
       $self->_end_definition_list if $self->_in_definition_list;
+
+      $self->_clear_current_bullet_list_item;
+      $self->_clear_current_enumerated_list_item;
 
       $self->_end_table_row;
     }
@@ -5951,43 +5714,6 @@ sub _process_blank_line {
 
 ######################################################################
 
-# sub _process_id_element {
-
-#   my $self = shift;
-#   my $line = shift;
-#   my $id   = shift;
-
-#   my $library = $self->get_library;
-#   my $util    = $library->get_util;
-
-#   $logger->trace("----- id element ($id)");
-
-#   # block/element handling
-#   my $element = SML::Element->new(name=>'id',library=>$library);
-#   $element->add_line($line);
-#   $self->_begin_block($element);
-
-#   # division handling
-#   my $division = $self->_get_current_division;
-#   $division->set_id($id);
-#   $division->add_part($element);
-#   $division->add_property_element($element);
-
-#   # remember this ID
-#   $logger->trace("..... new id");
-#   $library->replace_division_id($division,$id);
-
-#   if ( $self->_in_document )
-#     {
-#       my $document = $self->_current_document;
-#       $document->replace_division_id($division,$id);
-#     }
-
-#   return 1;
-# }
-
-######################################################################
-
 sub _process_element {
 
   my $self = shift;
@@ -6000,7 +5726,11 @@ sub _process_element {
   my $division = $self->_get_current_division;
   my $divname  = $division->get_name;
 
-  my $element = SML::Element->new(name=>$name,library=>$library);
+  my $element = SML::Element->new
+    (
+     name    => $name,
+     library => $library,
+    );
 
   $logger->trace("----- element ($name) \'$element\'");
 
@@ -6008,8 +5738,8 @@ sub _process_element {
   $self->_begin_block($element);
 
   $self->_end_step_list       if $self->_in_step_list;
-  $self->_end_bullet_list     if $self->_in_bullet_list;
-  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_all_lists       if $self->_in_bullet_list;
+  $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
   $self->_end_baretable       if $self->_in_baretable;
 
@@ -6107,8 +5837,8 @@ sub _process_start_note {
   $self->_begin_block($element);
 
   $self->_end_step_list       if $self->_in_step_list;
-  $self->_end_bullet_list     if $self->_in_bullet_list;
-  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_all_lists       if $self->_in_bullet_list;
+  $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
   $self->_end_baretable       if $self->_in_baretable;
 
@@ -6160,8 +5890,8 @@ sub _process_start_glossary_entry {
   $self->_begin_block($definition);
 
   $self->_end_step_list       if $self->_in_step_list;
-  $self->_end_bullet_list     if $self->_in_bullet_list;
-  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_all_lists       if $self->_in_bullet_list;
+  $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
   $self->_end_baretable       if $self->_in_baretable;
 
@@ -6219,8 +5949,8 @@ sub _process_start_acronym_entry {
   $self->_begin_block($definition);
 
   $self->_end_step_list       if $self->_in_step_list;
-  $self->_end_bullet_list     if $self->_in_bullet_list;
-  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_all_lists       if $self->_in_bullet_list;
+  $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
   $self->_end_baretable       if $self->_in_baretable;
 
@@ -6275,8 +6005,8 @@ sub _process_start_variable_definition {
   $self->_begin_block($definition);
 
   $self->_end_step_list       if $self->_in_step_list;
-  $self->_end_bullet_list     if $self->_in_bullet_list;
-  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_all_lists       if $self->_in_bullet_list;
+  $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
   $self->_end_baretable       if $self->_in_baretable;
 
@@ -6306,41 +6036,458 @@ sub _process_start_variable_definition {
 
 sub _process_bull_list_item {
 
-  my $self = shift;
-  my $line = shift;
+  my $self       = shift;
+  my $line       = shift;
+  my $whitespace = shift;
+  my $text       = shift;
 
+  my $indent  = length($whitespace);
   my $library = $self->get_library;
 
-  $logger->trace("----- bullet list item");
+  $logger->trace("----- bullet list item (indent=$indent)");
 
   if ( $self->_in_data_segment )
     {
       $logger->error("BULLET LIST ITEM IN DATA SEGMENT");
     }
 
-  if ( $self->_in_preformatted_division )
+  # What are all the possible actions the parser may need to take upon
+  # encountering a bullet list item line?
+
+  # CASE 1: preformatted bullet item
+  #
+  # if
+  # (
+  #   in pre-formatted division
+  #   or
+  #   (
+  #     line is indented
+  #     and
+  #     (
+  #       NOT currently in bullet list
+  #       and
+  #       NOT currently in enumerated list
+  #     )
+  #   )
+  # )
+  # {
+  #   Create new preformatted block
+  #   Add new preformatted block to current division
+  # }
+
+  if
+    (
+     $self->_in_preformatted_division
+     or
+     (
+      $indent > 0
+      and
+      (
+       not $self->_in_bullet_list
+       and
+       not $self->_in_enumerated_list
+      )
+     )
+    )
     {
       my $block = SML::PreformattedBlock->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
-      $self->_get_current_division->add_part($block);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($block);
     }
+
+  # CASE 2: fatal improper bullet item indent
+  #
+  # elsif
+  # (
+  #   (
+  #     currently in bullet list
+  #     or
+  #     currently in enumerated list
+  #   )
+  #   and
+  #   (
+  #     indent is less than current list level indent
+  #     and
+  #     no list exists at indent level
+  #   )
+  # )
+  # {
+  #   FATAL: improper indent at location
+  # }
+
+  elsif
+    (
+     (
+      $self->_in_bullet_list
+      or
+      $self->_in_enumerated_list
+     )
+     and
+     (
+      $indent < $self->_get_current_list_indent
+      and
+      not $self->_has_list_at_indent($indent)
+     )
+    )
+    {
+      my $location = $line->get_location;
+      $logger->logdie("IMPROPER BULLET ITEM INDENT ($indent) AT $location");
+    }
+
+  # CASE 3: new toplevel bullet item
+  #
+  # elsif
+  # (
+  #   line is not indented
+  #   and
+  #   NOT currently in bullet list
+  # )
+  # {
+  #   End enumerated list if in enumerated list
+  #   End step list if in step list
+  #   End definition list if in definition list
+  #   Create new bullet list
+  #   Push new bullet list on list stack
+  #   Create new bullet item
+  #   Add new bullet item to new bullet list
+  # }
+
+  elsif
+    (
+     $indent == 0
+     and
+     not $self->_in_bullet_list
+    )
+    {
+      $self->_end_all_lists       if $self->_in_enumerated_list;
+      $self->_end_step_list       if $self->_in_step_list;
+      $self->_end_definition_list if $self->_in_definition_list;
+
+      my $list = SML::BulletList->new
+	(
+	 id                 => 'bl',
+	 leading_whitespace => $whitespace,
+	 library            => $library,
+	);
+
+      $self->_begin_division($list);
+      $self->_push_list_stack($list);
+
+      my $item = SML::BulletListItem->new
+	(
+	 library => $library,
+	 indent  => $indent,
+	);
+
+      $item->add_line($line);
+      $self->_begin_block($item);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($item);
+    }
+
+  # CASE 4: new bullet item at same indent as previous
+  #
+  # elsif
+  # (
+  #   currently in a bullet list
+  #   and
+  #   indent is equal to current list level indent
+  # )
+  # {
+  #   Create new bullet
+  #   Add new bullet to current bullet list
+  # }
+  #
+
+  elsif
+    (
+     $self->_in_bullet_list
+     and
+     $indent == $self->_get_current_list_indent
+    )
+    {
+      my $item = SML::BulletListItem->new
+	(
+	 library => $library,
+	 indent  => $indent,
+	);
+
+      $item->add_line($line);
+      $self->_begin_block($item);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($item);
+    }
+
+  # CASE 5: new bullet sub list
+  #
+  # elsif
+  # (
+  #   currently in a enumerated list
+  #   and
+  #   indent is equal to current list level indent
+  # )
+  # {
+  #   End enumerated list
+  #   Start a new bullet list
+  #   Push new bullet list on list stack
+  #   Create new bullet
+  #   Add new bullet to current bullet list
+  # }
+  #
+
+  elsif
+    (
+     $self->_in_enumerated_list
+     and
+     $indent == $self->_get_current_list_indent
+    )
+    {
+      $self->_end_enumerated_list;
+
+      my $list = SML::BulletList->new
+	(
+	 id                 => 'bl',
+	 leading_whitespace => $whitespace,
+	 library            => $library,
+	);
+
+      $self->_begin_division($list);
+      $self->_push_list_stack($list);
+
+      my $item = SML::BulletListItem->new
+	(
+	 library => $library,
+	 indent  => $indent,
+	);
+
+      $item->add_line($line);
+      $self->_begin_block($item);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($item);
+    }
+
+  # CASE 6: resume previous higher level bullet list
+  #
+  # elsif
+  # (
+  #   (
+  #     currently in bullet list
+  #     or
+  #     currently in enumerated list
+  #   )
+  #   and
+  #   (
+  #     indent is less than current list level indent
+  #     and
+  #     previous list at indent level is bullet list
+  #   )
+  # )
+  # {
+  #   End one or more sub-lists (and pop off list stack)
+  #   Create new bullet
+  #   Add new bullet to (now) current bullet list
+  # }
+
+  elsif
+    (
+     (
+      $self->_in_bullet_list
+      or
+      $self->_in_enumerated_list
+     )
+     and
+     (
+      $indent < $self->_get_current_list_indent
+      and
+      $self->_has_bullet_list_at_indent($indent)
+     )
+    )
+    {
+      until
+	(
+	 $indent == $self->_get_current_list_indent
+	)
+	{
+	  if ( $self->_in_bullet_list )
+	    {
+	      $self->_end_bullet_list;
+	    }
+
+	  elsif ( $self->_in_enumerated_list )
+	    {
+	      $self->_end_enumerated_list;
+	    }
+
+	  else
+	    {
+	      $logger->logdie("THIS SHOULD NEVER HAPPEN");
+	    }
+	}
+
+      my $item = SML::BulletListItem->new
+	(
+	 library => $library,
+	 indent  => $indent,
+	);
+
+      $item->add_line($line);
+      $self->_begin_block($item);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($item);
+    }
+
+  # CASE 7: new bull list at same level as a previous enum list
+  #
+  # elsif
+  # (
+  #   (
+  #     currently in bullet list
+  #     or
+  #     currently in enumerated list
+  #   )
+  #   and
+  #   (
+  #     indent is less than current list level indent
+  #     and
+  #     list at indent level is enumerated list
+  #   )
+  # )
+  # {
+  #   End one or more sub-lists (and pop off list stack)
+  #   Start a new bullet list
+  #   Push new bullet list on list stack
+  #   Create new bullet
+  #   Add new bullet to current bullet list
+  # }
+
+  elsif
+    (
+     (
+      $self->_in_bullet_list
+      or
+      $self->_in_enumerated_list
+     )
+     and
+     (
+      $indent < $self->_get_current_list_indent
+      and
+      $self->_get_current_list->isa('SML::EnumeratedList')
+     )
+    )
+    {
+      until
+	(
+	 $indent == $self->_get_current_list_indent
+	)
+	{
+	  if ( $self->_in_bullet_list )
+	    {
+	      $self->_end_bullet_list;
+	    }
+
+	  elsif ( $self->_in_enumerated_list )
+	    {
+	      $self->_end_enumerated_list;
+	    }
+
+	  else
+	    {
+	      $logger->logdie("THIS SHOULD NEVER HAPPEN");
+	    }
+	}
+
+      my $list = SML::BulletList->new
+	(
+	 id                 => 'bl',
+	 leading_whitespace => $whitespace,
+	 library            => $library,
+	);
+
+      $self->_begin_division($list);
+      $self->_push_list_stack($list);
+
+      my $item = SML::BulletListItem->new
+	(
+	 library => $library,
+	 indent  => $indent,
+	);
+
+      $item->add_line($line);
+      $self->_begin_block($item);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($item);
+    }
+
+  # CASE 8: new bullet sub list
+  #
+  # elsif
+  # (
+  #   (
+  #     currently in bullet list
+  #     or
+  #     currently in enumerated list
+  #   )
+  #   and
+  #   indent is greater than current list level indent
+  # )
+  # {
+  #   Start a new bullet list
+  #   Push new bullet list on list stack
+  #   Create new bullet
+  #   Add new bullet to new bullet list
+  # }
+
+  elsif
+    (
+     (
+      $self->_in_bullet_list
+      or
+      $self->_in_enumerated_list
+     )
+     and
+     $indent > $self->_get_current_list_indent
+    )
+    {
+      my $list = SML::BulletList->new
+	(
+	 id                 => 'bl',
+	 leading_whitespace => $whitespace,
+	 library            => $library,
+	);
+
+      $self->_begin_division($list);
+      $self->_push_list_stack($list);
+
+      my $item = SML::BulletListItem->new
+	(
+	 library => $library,
+	 indent  => $indent,
+	);
+
+      $item->add_line($line);
+      $self->_begin_block($item);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($item);
+    }
+
+  # else
+  # {
+  #   This should never happen.
+  # }
 
   else
     {
-      $self->_end_enumerated_list if $self->_in_enumerated_list;
-      $self->_end_definition_list if $self->_in_definition_list;
-
-      if ( not $self->_in_bullet_list )
-	{
-	  my $list = SML::BulletList->new(id=>'bl',library=>$library);
-	  $self->_begin_division($list);
-	}
-
-      my $block = SML::BulletListItem->new(library=>$library);
-      $block->add_line($line);
-      $self->_begin_block($block);
-      $self->_get_current_division->add_part($block);
+      my $location = $line->get_location;
+      $logger->logdie("THIS SHOULD NEVER HAPPEN at \'$location\'");
     }
 
   return 1;
@@ -6374,8 +6521,8 @@ sub _process_start_step_element {
 
   else
     {
-      $self->_end_bullet_list     if $self->_in_bullet_list;
-      $self->_end_enumerated_list if $self->_in_enumerated_list;
+      $self->_end_all_lists       if $self->_in_bullet_list;
+      $self->_end_all_lists       if $self->_in_enumerated_list;
       $self->_end_definition_list if $self->_in_definition_list;
 
       if ( not $self->_in_step_list )
@@ -6401,42 +6548,458 @@ sub _process_start_step_element {
 
 sub _process_enum_list_item {
 
-  my $self = shift;
-  my $line = shift;
+  my $self       = shift;
+  my $line       = shift;
+  my $whitespace = shift;
+  my $text       = shift;
 
+  my $indent  = length($whitespace);
   my $library = $self->get_library;
 
-  $logger->trace("----- enumerated list item");
+  $logger->trace("----- enumerated list item (indent=$indent)");
 
   if ( $self->_in_data_segment )
     {
       $logger->error("ENUMERATED LIST ITEM IN DATA SEGMENT");
     }
 
-  if ( $self->_in_preformatted_division )
+  # What are all the possible actions the parser may need to take upon
+  # encountering an enumerated list item line?
+
+  # CASE 1: preformatted enumerated item
+  #
+  # if
+  # (
+  #   in pre-formatted division
+  #   or
+  #   (
+  #     line is indented
+  #     and
+  #     (
+  #       NOT currently in bullet list
+  #       and
+  #       NOT currently in enumerated list
+  #     )
+  #   )
+  # )
+  # {
+  #   Create new preformatted block
+  #   Add new preformatted block to current division
+  # }
+
+  if
+    (
+     $self->_in_preformatted_division
+     or
+     (
+      $indent > 0
+      and
+      (
+       not $self->_in_bullet_list
+       and
+       not $self->_in_enumerated_list
+      )
+     )
+    )
     {
       my $block = SML::PreformattedBlock->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
-      $self->_get_current_division->add_part($block);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($block);
     }
+
+  # CASE 2: fatal improper enumerated item indent
+  #
+  # elsif
+  # (
+  #   (
+  #     currently in bullet list
+  #     or
+  #     currently in enumerated list
+  #   )
+  #   and
+  #   (
+  #     indent is less than current list level indent
+  #     and
+  #     no list exists at indent level
+  #   )
+  # )
+  # {
+  #   FATAL: improper indent at location
+  # }
+
+  elsif
+    (
+     (
+      $self->_in_bullet_list
+      or
+      $self->_in_enumerated_list
+     )
+     and
+     (
+      $indent < $self->_get_current_list_indent
+      and
+      not $self->_has_list_at_indent($indent)
+     )
+    )
+    {
+      my $location = $line->get_location;
+      $logger->logdie("IMPROPER ENUMERATED ITEM INDENT ($indent) AT $location");
+    }
+
+  # CASE 3: new toplevel enumerated item
+  #
+  # elsif
+  # (
+  #   line is not indented
+  #   and
+  #   NOT currently in enumerated list
+  # )
+  # {
+  #   End bullet list if in bullet list
+  #   End step list if in step list
+  #   End definition list if in definition list
+  #   Create new enumerated list
+  #   Push new enumerated list on list stack
+  #   Create new enumerated item
+  #   Add new enumerated item to new enumerated list
+  # }
+
+  elsif
+    (
+     $indent == 0
+     and
+     not $self->_in_enumerated_list
+    )
+    {
+      $self->_end_all_lists       if $self->_in_bullet_list;
+      $self->_end_step_list       if $self->_in_step_list;
+      $self->_end_definition_list if $self->_in_definition_list;
+
+      my $list = SML::EnumeratedList->new
+	(
+	 id                 => 'el',
+	 leading_whitespace => $whitespace,
+	 library            => $library,
+	);
+
+      $self->_begin_division($list);
+      $self->_push_list_stack($list);
+
+      my $item = SML::EnumeratedListItem->new
+	(
+	 library => $library,
+	 indent  => $indent,
+	);
+
+      $item->add_line($line);
+      $self->_begin_block($item);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($item);
+    }
+
+  # CASE 4: new enumerated item at same indent as previous
+  #
+  # elsif
+  # (
+  #   currently in an enumerated list
+  #   and
+  #   indent is equal to current list level indent
+  # )
+  # {
+  #   Create new enumerated item
+  #   Add new enumerated item to current enumerated list
+  # }
+  #
+
+  elsif
+    (
+     $self->_in_enumerated_list
+     and
+     $indent == $self->_get_current_list_indent
+    )
+    {
+      my $item = SML::EnumeratedListItem->new
+	(
+	 library => $library,
+	 indent  => $indent,
+	);
+
+      $item->add_line($line);
+      $self->_begin_block($item);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($item);
+    }
+
+  # CASE 5: new enumerated sub list
+  #
+  # elsif
+  # (
+  #   currently in a bullet list
+  #   and
+  #   indent is equal to current list level indent
+  # )
+  # {
+  #   End bullet list
+  #   Start a new enumerated list
+  #   Push new enumerated list on list stack
+  #   Create new enumerated item
+  #   Add new enumerated item to current enumerated list
+  # }
+  #
+
+  elsif
+    (
+     $self->_in_bullet_list
+     and
+     $indent == $self->_get_current_list_indent
+    )
+    {
+      $self->_end_bullet_list;
+
+      my $list = SML::EnumeratedList->new
+	(
+	 id                 => 'el',
+	 leading_whitespace => $whitespace,
+	 library            => $library,
+	);
+
+      $self->_begin_division($list);
+      $self->_push_list_stack($list);
+
+      my $item = SML::EnumeratedListItem->new
+	(
+	 library => $library,
+	 indent  => $indent,
+	);
+
+      $item->add_line($line);
+      $self->_begin_block($item);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($item);
+    }
+
+  # CASE 6: resume previous higher level enumerated list
+  #
+  # elsif
+  # (
+  #   (
+  #     currently in bullet list
+  #     or
+  #     currently in enumerated list
+  #   )
+  #   and
+  #   (
+  #     indent is less than current list level indent
+  #     and
+  #     previous list at indent level is enumerated list
+  #   )
+  # )
+  # {
+  #   End one or more sub-lists (and pop off list stack)
+  #   Create new enumerated item
+  #   Add new enumerated item to (now) current enumerated list
+  # }
+
+  elsif
+    (
+     (
+      $self->_in_bullet_list
+      or
+      $self->_in_enumerated_list
+     )
+     and
+     (
+      $indent < $self->_get_current_list_indent
+      and
+      $self->_has_enumerated_list_at_indent($indent)
+     )
+    )
+    {
+      until
+	(
+	 $indent == $self->_get_current_list_indent
+	)
+	{
+	  if ( $self->_in_bullet_list )
+	    {
+	      $self->_end_bullet_list;
+	    }
+
+	  elsif ( $self->_in_enumerated_list )
+	    {
+	      $self->_end_enumerated_list;
+	    }
+
+	  else
+	    {
+	      $logger->logdie("THIS SHOULD NEVER HAPPEN");
+	    }
+	}
+
+      my $item = SML::EnumeratedListItem->new
+	(
+	 library => $library,
+	 indent  => $indent,
+	);
+
+      $item->add_line($line);
+      $self->_begin_block($item);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($item);
+    }
+
+  # CASE 7: new enum list at same level as a previous bull list
+  #
+  # elsif
+  # (
+  #   (
+  #     currently in bullet list
+  #     or
+  #     currently in enumerated list
+  #   )
+  #   and
+  #   (
+  #     indent is less than current list level indent
+  #     and
+  #     list at indent level is bullet list
+  #   )
+  # )
+  # {
+  #   End one or more sub-lists (and pop off list stack)
+  #   Start a new enumerated list
+  #   Push new enumerated list on list stack
+  #   Create new enumerated item
+  #   Add new enumerated item to current enumerated list
+  # }
+
+  elsif
+    (
+     (
+      $self->_in_bullet_list
+      or
+      $self->_in_enumerated_list
+     )
+     and
+     (
+      $indent < $self->_get_current_list_indent
+      and
+      $self->_get_current_list->isa('SML::BulletList')
+     )
+    )
+    {
+      until
+	(
+	 $indent == $self->_get_current_list_indent
+	)
+	{
+	  if ( $self->_in_bullet_list )
+	    {
+	      $self->_end_bullet_list;
+	    }
+
+	  elsif ( $self->_in_enumerated_list )
+	    {
+	      $self->_end_enumerated_list;
+	    }
+
+	  else
+	    {
+	      $logger->logdie("THIS SHOULD NEVER HAPPEN");
+	    }
+	}
+
+      my $list = SML::EnumeratedList->new
+	(
+	 id                 => 'el',
+	 leading_whitespace => $whitespace,
+	 library            => $library,
+	);
+
+      $self->_begin_division($list);
+      $self->_push_list_stack($list);
+
+      my $item = SML::EnumeratedListItem->new
+	(
+	 library => $library,
+	 indent  => $indent,
+	);
+
+      $item->add_line($line);
+      $self->_begin_block($item);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($item);
+    }
+
+  # CASE 8: new enumerated sub list
+  #
+  # elsif
+  # (
+  #   (
+  #     currently in bullet list
+  #     or
+  #     currently in enumerated list
+  #   )
+  #   and
+  #   indent is greater than current list level indent
+  # )
+  # {
+  #   Start a new enumerated list
+  #   Push new enumerated list on list stack
+  #   Create new enumerated item
+  #   Add new enumerated item to new enumerated list
+  # }
+
+  elsif
+    (
+     (
+      $self->_in_bullet_list
+      or
+      $self->_in_enumerated_list
+     )
+     and
+     $indent > $self->_get_current_list_indent
+    )
+    {
+      my $list = SML::EnumeratedList->new
+	(
+	 id                 => 'el',
+	 leading_whitespace => $whitespace,
+	 library            => $library,
+	);
+
+      $self->_begin_division($list);
+      $self->_push_list_stack($list);
+
+      my $item = SML::EnumeratedListItem->new
+	(
+	 library => $library,
+	 indent  => $indent,
+	);
+
+      $item->add_line($line);
+      $self->_begin_block($item);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($item);
+    }
+
+  # else
+  # {
+  #   This should never happen.
+  # }
 
   else
     {
-      $self->_end_step_list       if $self->_in_step_list;
-      $self->_end_bullet_list     if $self->_in_bullet_list;
-      $self->_end_definition_list if $self->_in_definition_list;
-
-      if ( not $self->_in_enumerated_list )
-	{
-	  my $list = SML::EnumeratedList->new(id=>'el',library=>$library);
-	  $self->_begin_division($list);
-	}
-
-      my $block = SML::EnumeratedListItem->new(library=>$library);
-      $block->add_line($line);
-      $self->_begin_block($block);
-      $self->_get_current_division->add_part($block);
+      my $location = $line->get_location;
+      $logger->logdie("THIS SHOULD NEVER HAPPEN at \'$location\'");
     }
 
   return 1;
@@ -6468,9 +7031,9 @@ sub _process_def_list_item {
 
   else
     {
-      $self->_end_step_list       if $self->_in_step_list;
-      $self->_end_bullet_list     if $self->_in_bullet_list;
-      $self->_end_enumerated_list if $self->_in_enumerated_list;
+      $self->_end_step_list if $self->_in_step_list;
+      $self->_end_all_lists if $self->_in_bullet_list;
+      $self->_end_all_lists if $self->_in_enumerated_list;
 
       if ( not $self->_in_definition_list )
 	{
@@ -6501,9 +7064,12 @@ sub _process_start_table_cell {
   $logger->trace("----- table cell");
 
   $self->_end_step_list       if $self->_in_step_list;
-  $self->_end_bullet_list     if $self->_in_bullet_list;
-  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_all_lists       if $self->_in_bullet_list;
+  $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
+
+  $self->_clear_current_bullet_list_item;
+  $self->_clear_current_enumerated_list_item;
 
   if ( not $self->_in_table and not $self->_in_baretable )
     {
@@ -6691,9 +7257,12 @@ sub _process_paragraph_text {
   $logger->trace("----- paragraph text");
 
   $self->_end_step_list       if $self->_in_step_list;
-  $self->_end_bullet_list     if $self->_in_bullet_list;
-  $self->_end_enumerated_list if $self->_in_enumerated_list;
+  $self->_end_all_lists       if $self->_in_bullet_list;
+  $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
+
+  $self->_clear_current_bullet_list_item;
+  $self->_clear_current_enumerated_list_item;
 
   if ( $self->_in_paragraph )
     {
@@ -7194,7 +7763,7 @@ sub _in_bullet_list {
   if (
       defined $division
       and
-      $division->is_in_a('SML::BulletList')
+      $division->isa('SML::BulletList')
      )
     {
       return 1;
@@ -7217,7 +7786,7 @@ sub _in_enumerated_list {
   if (
       defined $division
       and
-      $division->is_in_a('SML::EnumeratedList')
+      $division->isa('SML::EnumeratedList')
      )
     {
       return 1;
@@ -7838,7 +8407,12 @@ sub _line_ends_data_segment {
       or $text =~ /$syntax->{index_element}/xms
       or $text =~ /$syntax->{glossary_element}/xms
       or $text =~ /$syntax->{list_item}/xms
-      or $text =~ /$syntax->{paragraph_text}/xms
+      or
+      (
+       $text =~ /$syntax->{paragraph_text}/xms
+       and
+       not $text =~ /$syntax->{element}/xms
+      )
      )
     {
       return 1;
@@ -8472,6 +9046,219 @@ sub _convert_to_section_line_list {
     }
 
   return $nll;
+}
+
+######################################################################
+
+sub _push_list_stack {
+
+  my $self = shift;
+  my $list = shift;
+
+  push @{ $self->_get_list_stack }, $list;
+
+  return 1;
+}
+
+######################################################################
+
+sub _pop_list_stack {
+
+  my $self = shift;
+
+  return pop @{ $self->_get_list_stack };
+}
+
+######################################################################
+
+sub _has_current_list {
+
+  # Return 1 if there is a current bullet or enumerated list.
+
+  my $self = shift;
+
+  if (
+      $self->_has_list_stack
+      and
+      exists $self->_get_list_stack->[-1]
+     )
+    {
+      my $list = $self->_get_list_stack->[-1];
+
+      if (
+	  $list->isa('SML::BulletList')
+	  or
+	  $list->isa('SML::EnumeratedList')
+	 )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub _get_current_list {
+
+  # Return the current bullet or enumerated list.
+
+  my $self = shift;
+
+  if (
+      $self->_has_list_stack
+      and
+      exists $self->_get_list_stack->[-1]
+     )
+    {
+      return $self->_get_list_stack->[-1];
+    }
+
+  else
+    {
+      $logger->error("THERE IS NO CURRENT LIST");
+      return 0;
+    }
+}
+
+######################################################################
+
+sub _get_current_list_indent {
+
+  # Return an integer, the number of white spaces the current list is
+  # indented.  Return 0 if there is no current list.
+
+  my $self = shift;
+
+  if (
+      $self->_has_list_stack
+      and
+      exists $self->_get_list_stack->[-1]
+     )
+    {
+      my $current_list = $self->_get_list_stack->[-1];
+
+      return $current_list->get_indent;
+    }
+
+  else
+    {
+      $logger->error("CAN'T GET INDENT, THERE IS NO CURRENT LIST");
+    }
+}
+
+######################################################################
+
+sub _has_list_at_indent {
+
+  # Return 1 of list stack contains a list at the specified indent.
+
+  my $self   = shift;
+  my $indent = shift;
+
+  if ( $self->_has_list_stack )
+    {
+      foreach my $list (@{ $self->_get_list_stack })
+	{
+	  if ( $list->get_indent == $indent )
+	    {
+	      return 1;
+	    }
+	}
+
+      return 0;
+    }
+
+  else
+    {
+      $logger->error("NO LIST STACK DEFINED");
+      return 0;
+    }
+}
+
+######################################################################
+
+sub _end_all_lists {
+
+  my $self = shift;
+
+  until
+    (
+     not $self->_has_current_list
+    )
+    {
+      if ( $self->_in_bullet_list )
+	{
+	  $self->_end_bullet_list;
+	}
+
+      elsif ( $self->_in_enumerated_list )
+	{
+	  $self->_end_enumerated_list;
+	}
+
+      else
+	{
+	  $self->logdie("THIS SHOULD NEVER HAPPEN");
+	}
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _has_bullet_list_at_indent {
+
+  # Return 1 if list stack has a bullet list at the specified indent.
+
+  my $self   = shift;
+  my $indent = shift;
+
+  if ( $self->_has_list_stack )
+    {
+      foreach my $list (@{ $self->_get_list_stack })
+	{
+	  if (
+	      $list->isa('SML::BulletList')
+	      and
+	      $list->get_indent == $indent
+	     )
+	    {
+	      return 1;
+	    }
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub _has_enumerated_list_at_indent {
+
+  # Return 1 if list stack has a enumerated list at the specified indent.
+
+  my $self   = shift;
+  my $indent = shift;
+
+  if ( $self->_has_list_stack )
+    {
+      foreach my $list (@{ $self->_get_list_stack })
+	{
+	  if (
+	      $list->isa('SML::EnumeratedList')
+	      and
+	      $list->get_indent == $indent
+	     )
+	    {
+	      return 1;
+	    }
+	}
+    }
+
+  return 0;
 }
 
 ######################################################################

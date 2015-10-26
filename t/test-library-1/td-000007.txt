@@ -1,6 +1,6 @@
 >>>DOCUMENT.td-000007
 
-title:: Lists
+title:: Simple Lists
 
 ===
 

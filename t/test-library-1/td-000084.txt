@@ -1,0 +1,18 @@
+>>>DOCUMENT.td-000084
+
+title:: Bullet List Items in Preformatted Division
+
+This test document contains bullet list items inside a preformatted
+division.
+
+>>>PREFORMATTED
+
+- bullet list item 1
+
+- bullet list item 2
+
+- bullet list item 3
+
+<<<PREFORMATTED
+
+<<<DOCUMENT
