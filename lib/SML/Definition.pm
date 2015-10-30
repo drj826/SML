@@ -24,17 +24,58 @@ my $logger = Log::Log4perl::get_logger('sml.Definition');
 ######################################################################
 ######################################################################
 
-has '+name' =>
+has term =>
   (
-   required => 1,
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_term',
+   writer    => 'set_term',
+   predicate => 'has_term',
   );
 
-# You must supply a name when instantiating a new SML::Definition.
-# Common definitions include:
-#
-# - acronym
-# - var
-# - glossary
+######################################################################
+
+has namespace =>
+  (
+   is        => 'ro',
+   isa       => 'Maybe[Str]',
+   reader    => 'get_namespace',
+   writer    => 'set_namespace',
+   predicate => 'has_namespace',
+  );
+
+######################################################################
+
+has definition =>
+  (
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_definition',
+   writer    => 'set_definition',
+   predicate => 'has_definition',
+  );
+
+######################################################################
+
+has term_string =>
+  (
+   is        => 'ro',
+   isa       => 'SML::String',
+   reader    => 'get_term_string',
+   writer    => 'set_term_string',
+   predicate => 'has_term_string',
+  );
+
+######################################################################
+
+has definition_string =>
+  (
+   is        => 'ro',
+   isa       => 'SML::String',
+   reader    => 'get_definition_string',
+   writer    => 'set_definition_string',
+   predicate => 'has_definition_string',
+  );
 
 ######################################################################
 ######################################################################
@@ -44,97 +85,109 @@ has '+name' =>
 ######################################################################
 ######################################################################
 
-sub get_term {
-
-  my $self = shift;
-
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $text    = $self->get_content;
-
-  $text =~ s/[\r\n]*$//;                # chomp;
-
-  if ( $text =~ /$syntax->{definition_element}/xms )
-    {
-      return $2;
-    }
-
-  else
-    {
-      $logger->error("DEFINITION SYNTAX ERROR term not found");
-      return q{};
-    }
-}
-
-######################################################################
-
-sub get_alt {
-
-  my $self = shift;
-
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $text    = $self->get_content;
-
-  $text =~ s/[\r\n]*$//;                # chomp;
-
-  if ( $text =~ /$syntax->{definition_element}/xms )
-    {
-      return $4 || q{};
-    }
-
-  else
-    {
-      $logger->error("DEFINITION SYNTAX ERROR");
-      return q{};
-    }
-}
-
-######################################################################
-
-sub get_value {
-
-  my $self = shift;
-
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $text    = $self->get_content;
-
-  $text =~ s/[\r\n]*$//;                # chomp;
-
-  if ( $text =~ /$syntax->{definition_element}/xms )
-    {
-      $logger->debug("Definition value: $5");
-
-      return $5;
-    }
-
-  else
-    {
-      $logger->error("DEFINITION SYNTAX ERROR value not found");
-      return q{};
-    }
-}
-
-######################################################################
-
 sub get_bookmark {
 
   # Return a string suitable for use as an HTML hyperlink bookmark.
 
   my $self = shift;
 
-  my $term = $self->get_term;
-  my $alt  = $self->get_alt;
+  my $term      = $self->get_term;
+  my $namespace = $self->get_namespace || q{};
 
-  $term = lc($term);
-  $alt  = lc($alt);
+  $term      = lc($term);               # lowercase
+  $namespace = lc($namespace);          # lowercase
 
-  $term =~ s/\s+/_/g;
-  $alt  =~ s/\s+/_/g;
+  $term      =~ s/\s+/_/g;              # spaces to underscores
+  $namespace =~ s/\s+/_/g;              # spaces to underscores
 
-  return "$term:$alt";
+  if ( $namespace )
+    {
+      return "$term:$namespace";
+    }
+
+  else
+    {
+      return "$term";
+    }
 }
+
+######################################################################
+######################################################################
+##
+## Private Methods
+##
+######################################################################
+######################################################################
+
+# sub _build_term {
+
+#   my $self = shift;
+
+#   my $library = $self->get_library;
+#   my $syntax  = $library->get_syntax;
+#   my $text    = $self->get_content;
+
+#   $text =~ s/[\r\n]*$//;                # chomp;
+
+#   if ( $text =~ /$syntax->{definition_element}/xms )
+#     {
+#       return $2;
+#     }
+
+#   else
+#     {
+#       $logger->error("DEFINITION SYNTAX ERROR term not found");
+#       return q{};
+#     }
+# }
+
+######################################################################
+
+# sub _build_namespace {
+
+#   my $self = shift;
+
+#   my $library = $self->get_library;
+#   my $syntax  = $library->get_syntax;
+#   my $text    = $self->get_content;
+
+#   $text =~ s/[\r\n]*$//;                # chomp;
+
+#   if ( $text =~ /$syntax->{definition_element}/xms )
+#     {
+#       return $4 || q{};
+#     }
+
+#   else
+#     {
+#       $logger->error("DEFINITION SYNTAX ERROR");
+#       return q{};
+#     }
+# }
+
+######################################################################
+
+# sub _build_definition {
+
+#   my $self = shift;
+
+#   my $library = $self->get_library;
+#   my $syntax  = $library->get_syntax;
+#   my $text    = $self->get_content;
+
+#   $text =~ s/[\r\n]*$//;                # chomp;
+
+#   if ( $text =~ /$syntax->{definition_element}/xms )
+#     {
+#       return $5;
+#     }
+
+#   else
+#     {
+#       $logger->error("DEFINITION SYNTAX ERROR value not found");
+#       return q{};
+#     }
+# }
 
 ######################################################################
 
@@ -146,8 +199,8 @@ __END__
 
 =head1 NAME
 
-C<SML::Definition> - an element that defines an term/alt/definition
-triple.
+C<SML::Definition> - an element that defines an
+term/namespace/definition triple.
 
 =head1 VERSION
 
@@ -164,18 +217,19 @@ triple.
                      );
 
   my $string = $definition->get_term;
-  my $string = $definition->get_alt;
-  my $string = $definition->get_value;
+  my $string = $definition->get_namespace;
+  my $string = $definition->get_definition;
 
 =head1 DESCRIPTION
 
-A definition is an element that defines an term/alt/definition triple.
+A definition is an element that defines an term/namespace/definition
+triple.
 
 =head1 METHODS
 
 =head2 get_term
 
-=head2 get_alt
+=head2 get_namespace
 
 =head2 get_value
 

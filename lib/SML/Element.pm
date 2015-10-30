@@ -30,61 +30,37 @@ has '+name' =>
   );
 
 ######################################################################
+
+has value =>
+  (
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_value',
+   writer    => 'set_value',
+   predicate => 'has_value',
+  );
+
+# This is the value of the element.  The value may contain SML markup.
+
+######################################################################
+
+# has value_string =>
+#   (
+#    is        => 'ro',
+#    isa       => 'SML::String',
+#    reader    => 'get_value_string',
+#    writer    => 'set_value_string',
+#    predicate => 'has_value_string',
+#   );
+
+# This is the value of the element parsed into an SML::String object.
+
+######################################################################
 ######################################################################
 ##
 ## Public Methods
 ##
 ######################################################################
-######################################################################
-
-sub get_value {
-
-  # Strip the element name off the beginning of the element content.
-  # Strip any comment text off the end of the element content.
-
-  my $self = shift;
-
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $text    = $self->get_content || q{};
-
-  $text =~ s/[\r\n]*$//;                # chomp;
-
-  if ( $text =~ /$syntax->{'element'}/xms )
-    {
-      my $util = $library->get_util;
-
-      if ( $1 eq 'date' and $3 =~ /^\$Date:\s*(.*)\s*\$$/ )
-	{
-	  return $1;
-	}
-
-      elsif ( $1 eq 'revision' and $3 =~ /^\$Revision:\s*(.*)\s*\$$/ )
-	{
-	  return $1;
-	}
-
-      else
-	{
-	  return $util->trim_whitespace($3);
-	}
-    }
-
-  elsif ( $text =~ /$syntax->{'start_section'}/xms )
-    {
-      my $util = $library->get_util;
-
-      return $util->trim_whitespace($4);
-    }
-
-  else
-    {
-      my $name = $self->get_name;
-      $logger->error("This should never happen $name $self (\'$text\')");
-      return q{};
-    }
-}
-
 ######################################################################
 
 sub validate_element_allowed {
@@ -154,10 +130,10 @@ sub validate_outcome_semantics {
 
   if ( $text =~ /$syntax->{outcome_element}/xms )
     {
-      my $date        = $1;
-      my $entity_id   = $2;
-      my $status      = $3;
-      my $description = $4;
+      my $date        = $2;
+      my $entity_id   = $3;
+      my $status      = $4;
+      my $description = $5;
 
       # date valid?
       if ( not $date =~ /$syntax->{valid_date}/xms )
@@ -206,25 +182,25 @@ sub validate_outcome_semantics {
 
 ######################################################################
 
-sub validate_footnote_syntax {
+# sub validate_footnote_syntax {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $valid   = 1;
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $text    = $self->get_content;
+#   my $valid   = 1;
+#   my $library = $self->get_library;
+#   my $syntax  = $library->get_syntax;
+#   my $text    = $self->get_content;
 
-  if ( not $text =~ /$syntax->{footnote_element}/xms )
-    {
-      my $location = $self->get_location;
-      $logger->warn("INVALID FOOTNOTE SYNTAX: at $location");
-      $self->set_valid(0);
-      $valid = 0;
-    }
+#   if ( not $text =~ /$syntax->{footnote_element}/xms )
+#     {
+#       my $location = $self->get_location;
+#       $logger->warn("INVALID FOOTNOTE SYNTAX: at $location");
+#       $self->set_valid(0);
+#       $valid = 0;
+#     }
 
-  return $valid;
-}
+#   return $valid;
+# }
 
 ######################################################################
 
@@ -280,6 +256,56 @@ override 'validate_semantics' => sub {
 ## Private Methods
 ##
 ######################################################################
+######################################################################
+
+sub _build_value {
+
+  # Strip the element name off the beginning of the element content.
+  # Strip any comment text off the end of the element content.
+
+  my $self = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $self->get_content || q{};
+
+  $text =~ s/[\r\n]*$//;                # chomp;
+
+  if ( $text =~ /$syntax->{'element'}/xms )
+    {
+      my $util = $library->get_util;
+
+      if ( $1 eq 'date' and $3 =~ /^\$Date:\s*(.*)\s*\$$/ )
+	{
+	  return $1;
+	}
+
+      elsif ( $1 eq 'revision' and $3 =~ /^\$Revision:\s*(.*)\s*\$$/ )
+	{
+	  return $1;
+	}
+
+      else
+	{
+	  return $util->trim_whitespace($3);
+	}
+    }
+
+  elsif ( $text =~ /$syntax->{'start_section'}/xms )
+    {
+      my $util = $library->get_util;
+
+      return $util->trim_whitespace($4);
+    }
+
+  else
+    {
+      my $name = $self->get_name;
+      $logger->error("This should never happen $name $self (\'$text\')");
+      return q{};
+    }
+}
+
 ######################################################################
 
 sub _type_of {

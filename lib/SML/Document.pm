@@ -227,14 +227,14 @@ sub add_note {
       $divid = $division->get_id;
     }
 
-  my $tag = $note->get_tag;
+  my $number = $note->get_number;
 
-  if ( exists $self->_get_note_hash->{$divid}{$tag} )
+  if ( exists $self->_get_note_hash->{$divid}{$number} )
     {
-      $logger->warn("NOTE ALREADY EXISTS: \'$divid\' \'$tag\'");
+      $logger->warn("NOTE ALREADY EXISTS: \'$divid\' \'$number\'");
     }
 
-  $self->_get_note_hash->{$divid}{$tag} = $note;
+  $self->_get_note_hash->{$divid}{$number} = $note;
 
   return 1;
 }
@@ -267,11 +267,11 @@ sub has_note {
 
   my $self  = shift;
   my $divid = shift;
-  my $tag   = shift;
+  my $number   = shift;
 
   my $nh = $self->_get_note_hash;
 
-  if ( exists $nh->{$divid}{$tag} )
+  if ( exists $nh->{$divid}{$number} )
     {
       return 1;
     }
@@ -304,11 +304,11 @@ sub has_index_term {
 
 sub has_glossary_term {
 
-  my $self = shift;
-  my $term = shift;
-  my $alt  = shift || q{};
+  my $self      = shift;
+  my $term      = shift;
+  my $namespace = shift || q{};
 
-  if ( defined $self->get_glossary->{$term}{$alt} )
+  if ( defined $self->get_glossary->{$term}{$namespace} )
     {
       return 1;
     }
@@ -322,11 +322,11 @@ sub has_glossary_term {
 
 sub has_acronym {
 
-  my $self = shift;
-  my $term = shift;
-  my $alt  = shift || q{};
+  my $self      = shift;
+  my $term      = shift;
+  my $namespace = shift || q{};
 
-  if ( defined $self->acronyms->{$term}{$alt} )
+  if ( defined $self->acronyms->{$term}{$namespace} )
     {
       return 1;
     }
@@ -357,13 +357,13 @@ sub has_source {
 
 sub get_acronym_definition {
 
-  my $self    = shift;
-  my $acronym = shift;
-  my $alt     = shift || q{};
+  my $self      = shift;
+  my $acronym   = shift;
+  my $namespace = shift || q{};
 
   my $acronyms = $self->acronyms;
 
-  return $acronyms->{$acronym}{$alt};
+  return $acronyms->{$acronym}{$namespace};
 }
 
 ######################################################################
@@ -372,11 +372,11 @@ sub get_note {
 
   my $self  = shift;
   my $divid = shift;
-  my $tag   = shift;
+  my $number   = shift;
 
   my $nh = $self->_get_note_hash;
 
-  return $nh->{$divid}{$tag};
+  return $nh->{$divid}{$number};
 }
 
 ######################################################################
@@ -440,7 +440,7 @@ has 'note_hash' =>
   );
 
 # This data structure contains note text indexed by division ID and
-# note tag.
+# note number.
 
 #   my $note = $nh->{section-2}{a};
 
@@ -857,13 +857,13 @@ C<SML::Document> - a written work about a topic
 
   my $boolean      = $document->add_note($note);
   my $boolean      = $document->add_index_term($term,$division_id);
-  my $boolean      = $document->has_note($division_id,$tag);
+  my $boolean      = $document->has_note($division_id,$number);
   my $boolean      = $document->has_index_term($term);
-  my $boolean      = $document->has_glossary_term($term,$alt);
-  my $boolean      = $document->has_acronym($term,$alt);
+  my $boolean      = $document->has_glossary_term($term,$namespace);
+  my $boolean      = $document->has_acronym($term,$namespace);
   my $boolean      = $document->has_source($id);
-  my $definition   = $document->get_acronym_definition($acronym,$alt);
-  my $note         = $document->get_note($division_id,$tag);
+  my $definition   = $document->get_acronym_definition($acronym,$namespace);
+  my $note         = $document->get_note($division_id,$number);
   my $term         = $document->get_index_term($term);
   my $boolean      = $document->replace_division_id($division,$id);
 
@@ -893,19 +893,19 @@ SEGMENT followed by a NARRATIVE SEGMENT.
 
 =head2 add_index_term($term,$division_id)
 
-=head2 has_note($division_id,$tag)
+=head2 has_note($division_id,$number)
 
 =head2 has_index_term($term)
 
-=head2 has_glossary_term($term,$alt)
+=head2 has_glossary_term($term,$namespace)
 
-=head2 has_acronym($term,$alt)
+=head2 has_acronym($term,$namespace)
 
 =head2 has_source($id)
 
-=head2 get_acronym_definition($acronym,$alt)
+=head2 get_acronym_definition($acronym,$namespace)
 
-=head2 get_note($division_id,$tag)
+=head2 get_note($division_id,$number)
 
 =head2 get_index_term($term)
 

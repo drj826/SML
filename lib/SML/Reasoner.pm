@@ -64,6 +64,15 @@ sub infer_inverse_property {
   my $division_name         = $division->get_name;
   my $element_name          = $element->get_name;
   my $element_value         = $element->get_value;
+
+  if ( not $element_value )
+    {
+      my $location = $element->get_location;
+      $logger->warn("NO ELEMENT VALUE FOR $element_name at $location");
+
+      return 0;
+    }
+
   my $inverse_division_id   = $element_value;
   my $inverse_division_name = $library->get_type($inverse_division_id);
   my $rule                  = $ontology->get_rule_for($division_name,$element_name,$inverse_division_name);

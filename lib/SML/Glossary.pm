@@ -37,13 +37,13 @@ sub add_entry {
 
   if ( $definition->isa('SML::Definition') )
     {
-      my $eh   = $self->_get_entry_hash;
-      my $term = $definition->get_term;
-      my $alt  = $definition->get_alt;
+      my $eh        = $self->_get_entry_hash;
+      my $term      = $definition->get_term;
+      my $namespace = $definition->get_namespace || q{};
 
-      $logger->debug("add glossary entry: \'$term\' ($alt)");
+      $logger->debug("add glossary entry: \'$term\' ($namespace)");
 
-      $eh->{$term}{$alt} = $definition;
+      $eh->{$term}{$namespace} = $definition;
 
       return 1;
     }
@@ -60,12 +60,13 @@ sub add_entry {
 
 sub has_entry {
 
-  my $self = shift;
-  my $term = shift;
-  my $alt  = shift || q{};
-  my $eh   = $self->_get_entry_hash;
+  my $self      = shift;
+  my $term      = shift;
+  my $namespace = shift || q{};
 
-  if ( exists $eh->{$term}{$alt} )
+  my $eh = $self->_get_entry_hash;
+
+  if ( exists $eh->{$term}{$namespace} )
     {
       return 1;
     }
@@ -80,20 +81,20 @@ sub has_entry {
 
 sub get_entry {
 
-  my $self = shift;
-  my $term = shift;
-  my $alt  = shift || q{};
+  my $self      = shift;
+  my $term      = shift;
+  my $namespace = shift || q{};
 
-  if ( $self->has_entry($term,$alt) )
+  if ( $self->has_entry($term,$namespace) )
     {
       my $eh = $self->_get_entry_hash;
 
-      return $eh->{$term}{$alt};
+      return $eh->{$term}{$namespace};
     }
 
   else
     {
-      $logger->error("CAN'T GET GLOSSARY ENTRY: \'$term\' \'$alt\'");
+      $logger->error("CAN'T GET GLOSSARY ENTRY: \'$term\' \'$namespace\'");
       return 0;
     }
 }
@@ -108,9 +109,9 @@ sub get_entry_list {
 
   foreach my $term ( sort keys %{ $eh } )
     {
-      foreach my $alt ( sort keys %{ $eh->{$term} } )
+      foreach my $namespace ( sort keys %{ $eh->{$term} } )
 	{
-	  push @{ $list }, $eh->{$term}{$alt};
+	  push @{ $list }, $eh->{$term}{$namespace};
 	}
     }
 
@@ -149,7 +150,7 @@ has 'entry_hash' =>
    default => sub {{}},
   );
 
-#   $eh->{$term}{$alt} = $definition;
+#   $eh->{$term}{$namespace} = $definition;
 
 ######################################################################
 ######################################################################

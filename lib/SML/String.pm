@@ -52,19 +52,29 @@ has 'containing_block' =>
   (
    isa       => 'SML::Block',
    reader    => 'get_containing_block',
-   writer    => 'set_containing_block',
-   clearer   => 'clear_containing_block',
-   predicate => '_has_containing_block',
-   required  => 0,
+   builder   => '_build_containing_block',
+   lazy      => 1,
   );
 
-# The block that contains this string.
+######################################################################
 
-after 'set_containing_block' => sub {
-  my $self = shift;
-  my $cd = $self->get_containing_block;
-  $logger->trace("..... containing block for \'$self\' now: \'$cd\'");
-};
+# has 'containing_block' =>
+#   (
+#    isa       => 'SML::Block',
+#    reader    => 'get_containing_block',
+#    writer    => 'set_containing_block',
+#    clearer   => 'clear_containing_block',
+#    predicate => '_has_containing_block',
+#    required  => 0,
+#   );
+
+# # The block that contains this string.
+
+# after 'set_containing_block' => sub {
+#   my $self = shift;
+#   my $cd = $self->get_containing_block;
+#   $logger->trace("..... containing block for \'$self\' now: \'$cd\'");
+# };
 
 ######################################################################
 ######################################################################
@@ -98,6 +108,13 @@ sub get_containing_document {
 
   my $self     = shift;
   my $block    = $self->get_containing_block;
+
+  if ( not $block )
+    {
+      my $content = $self->get_content;
+      $logger->error("can't get containing block for $content ($self)");
+    }
+
   my $division = $block->get_containing_division;
 
   if ( not defined $division )
@@ -140,6 +157,42 @@ sub _build_containing_division {
   my $block = $self->get_containing_block;
 
   return $block->get_containing_division;
+}
+
+######################################################################
+
+sub _build_containing_block {
+
+  my $self = shift;
+
+  $logger->debug("build containing block");
+
+  if ( not $self->has_container )
+    {
+      $logger->error("STRING HAS NO CONTAINER \'$self\'");
+      return 0;
+    }
+
+  my $container = $self->get_container;
+
+  # DEBUG
+  my $name = $container->get_name;
+  $logger->debug("  container: $name");
+
+  if ( $container->isa('SML::Block') )
+    {
+      return $container;
+    }
+
+  while ( $container->has_container )
+    {
+      $container = $container->get_container;
+
+      if ( $container->isa('SML::Block') )
+	{
+	  return $container;
+	}
+    }
 }
 
 ######################################################################

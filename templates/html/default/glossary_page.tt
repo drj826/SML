@@ -24,12 +24,20 @@
 [% SET glossary = document.get_glossary %]
 [% FOREACH entry IN glossary.get_entry_list %]
   [% SET term = entry.get_term %]
+  [% SET definition = entry.get_definition %]
   [% SET alt = entry.get_alt %]
   [% SET value = entry.get_value %]
   [% SET bookmark = entry.get_bookmark %]
 <tr>
-<td id="[%bookmark%]">[%term%]</td>
-<td>[%value%]</td>
+
+<td id="[%bookmark%]">
+[%- INCLUDE STRING.tt self = entry.get_term_string -%]
+</td>
+
+<td>
+[%- INCLUDE STRING.tt self = entry.get_definition_string -%]
+</td>
+
 </tr>
 [% END %]
 

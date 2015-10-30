@@ -33,11 +33,12 @@ has '+name' =>
 
 ######################################################################
 
-has 'tag' =>
+has 'number' =>
   (
-   isa      => 'Str',
-   reader   => 'get_tag',
-   required => 1,
+   isa       => 'Str',
+   reader    => 'get_number',
+   writer    => 'set_number',
+   predicate => 'has_number',
   );
 
 ######################################################################

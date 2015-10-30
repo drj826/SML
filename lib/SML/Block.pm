@@ -28,13 +28,13 @@ use Cwd;
 ######################################################################
 ######################################################################
 
-has 'name_path' =>
-  (
-   isa       => 'Str',
-   reader    => 'get_name_path',
-   lazy      => 1,
-   builder   => '_build_name_path',
-  );
+# has 'name_path' =>
+#   (
+#    isa       => 'Str',
+#    reader    => 'get_name_path',
+#    lazy      => 1,
+#    builder   => '_build_name_path',
+#   );
 
 ######################################################################
 
@@ -134,7 +134,7 @@ sub add_part {
       return 0;
     }
 
-  $part->set_containing_block( $self );
+  # $part->set_containing_block( $self );
 
   push @{ $self->get_part_list }, $part;
 
@@ -1497,7 +1497,7 @@ sub _validate_glossary_term_ref_syntax {
 
   # Validate that each glossary term reference has a valid glossary
   # entry.  Glossary term references are inline tags like '[g:term]'
-  # or '[g:alt:term]'.
+  # or '[g:namespace:term]'.
 
   my $self = shift;
 
@@ -1543,7 +1543,7 @@ sub _validate_glossary_term_ref_semantics {
 
   # Validate that each glossary term reference has a valid glossary
   # entry.  Glossary term references are inline tags like '[g:term]'
-  # or '[g:alt:term]'.
+  # or '[g:namespace:term]'.
 
   my $self = shift;
 
@@ -1576,18 +1576,18 @@ sub _validate_glossary_term_ref_semantics {
 
   while ( $text =~ /$syntax->{gloss_term_ref}/xms )
     {
-      my $alt  = $3 || q{};
-      my $term = $4;
+      my $namespace = $3 || q{};
+      my $term      = $4;
 
-      if ( $library->get_glossary->has_entry($term,$alt) )
+      if ( $library->get_glossary->has_entry($term,$namespace) )
 	{
-	  $logger->trace("term \'$term\' alt \'$alt\' is in glossary");
+	  $logger->trace("term \'$term\' namespace \'$namespace\' is in glossary");
 	}
 
       else
 	{
 	  my $location = $self->get_location;
-	  $logger->warn("TERM NOT IN GLOSSARY \'$alt\' \'$term\' at $location");
+	  $logger->warn("TERM NOT IN GLOSSARY \'$namespace\' \'$term\' at $location");
 	  $valid = 0;
 	}
 
@@ -1682,18 +1682,18 @@ sub _validate_glossary_def_ref_semantics {
 
   while ( $text =~ /$syntax->{gloss_def_ref}/xms )
     {
-      my $alt  = $2 || q{};
-      my $term = $3;
+      my $namespace = $2 || q{};
+      my $term      = $3;
 
-      if ( $library->get_glossary->has_entry($term,$alt) )
+      if ( $library->get_glossary->has_entry($term,$namespace) )
 	{
-	  $logger->trace("definition \'$term\' alt \'$alt\' is in glossary");
+	  $logger->trace("definition \'$term\' namespace \'$namespace\' is in glossary");
 	}
 
       else
 	{
 	  my $location = $self->get_location;
-	  $logger->warn("DEFINITION NOT IN GLOSSARY \'$alt\' \'$term\' at $location");
+	  $logger->warn("DEFINITION NOT IN GLOSSARY \'$namespace\' \'$term\' at $location");
 	  $valid = 0;
 	}
 
@@ -1709,7 +1709,7 @@ sub _validate_acronym_ref_syntax {
 
   # Validate that each acronym reference has a valid acronym list
   # entry.  Acronym references are inline tags like '[ac:term]'
-  # or '[ac:alt:term]'.
+  # or '[ac:namespace:term]'.
 
   my $self = shift;
 
@@ -1755,7 +1755,7 @@ sub _validate_acronym_ref_semantics {
 
   # Validate that each acronym reference has a valid acronym list
   # entry.  Acronym references are inline tags like '[ac:term]'
-  # or '[ac:alt:term]'.
+  # or '[ac:namespace:term]'.
 
   my $self = shift;
 
@@ -1788,18 +1788,18 @@ sub _validate_acronym_ref_semantics {
 
   while ( $text =~ /$syntax->{acronym_term_ref}/xms )
     {
-      my $alt     = $3 || q{};
-      my $acronym = $4;
+      my $namespace = $3 || q{};
+      my $acronym   = $4;
 
-      if ( $library->get_acronym_list->has_acronym($acronym,$alt) )
+      if ( $library->get_acronym_list->has_acronym($acronym,$namespace) )
 	{
-	  $logger->trace("acronym \'$acronym\' alt \'$alt\' is in acronym list");
+	  $logger->trace("acronym \'$acronym\' namespace \'$namespace\' is in acronym list");
 	}
 
       else
 	{
 	  my $location = $self->get_location;
-	  $logger->warn("ACRONYM NOT IN ACRONYM LIST: \'$acronym\' \'$alt\' at $location");
+	  $logger->warn("ACRONYM NOT IN ACRONYM LIST: \'$acronym\' \'$namespace\' at $location");
 	  $valid = 0;
 	}
 
@@ -2002,7 +2002,6 @@ C<SML::Block> - one or more contiguous L<"SML::Line">s.
                   library => $library,
                 );
 
-  my $string   = $block->get_name_path;
   my $list     = $block->get_line_list;
   my $division = $block->get_containing_division;
   my $boolean  = $block->set_containing_division($division);

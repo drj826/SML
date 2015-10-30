@@ -13,14 +13,14 @@
 <br/>
 
 <hr align="center" noshade size="4" width="60%">
-<h1 align="center">
+<div class="title">
 [% IF document.has_property('title') %]
 [% SET property = document.get_property('title') %]
 [% FOREACH self IN property.get_element_list %]
 [%- INCLUDE part_list.tt -%]
 [% END %]
 [% END %]
-</h1>
+</div>
 <hr align="center" noshade size="4" width="60%">
 
 <br/>
@@ -28,10 +28,12 @@
 <br/>
 
 [% IF document.has_property('subtitle') %]
+<div class="subtitle">
   [% SET property = document.get_property('subtitle') %]
   [% FOREACH self IN property.get_element_list %]
-<p align="center">[%- INCLUDE part_list.tt -%]</p>
+  [%- INCLUDE part_list.tt -%]
   [% END %]
+</div>
 [% END %]
 
 <br/>

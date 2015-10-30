@@ -59,8 +59,8 @@ my @public_methods =
 
    # SML::Definition public methods
    'get_term',
-   'get_alt',
-   'get_value',
+   'get_namespace',
+   'get_definition',
    'get_bookmark',
   );
 
@@ -72,10 +72,10 @@ can_ok( $obj, @public_methods );
 
 foreach my $tc (@{ $tcl })
   {
-    get_term_ok($tc)     if defined $tc->{expected}{get_term};
-    get_alt_ok($tc)      if defined $tc->{expected}{get_alt};
-    get_value_ok($tc)    if defined $tc->{expected}{get_value};
-    get_bookmark_ok($tc) if defined $tc->{expected}{get_bookmark};
+    get_term_ok($tc)      if defined $tc->{expected}{get_term};
+    get_namespace_ok($tc) if defined $tc->{expected}{get_namespace};
+    get_value_ok($tc)     if defined $tc->{expected}{get_value};
+    get_bookmark_ok($tc)  if defined $tc->{expected}{get_bookmark};
   }
 
 #---------------------------------------------------------------------
@@ -111,7 +111,7 @@ sub get_term_ok {
 
 ######################################################################
 
-sub get_alt_ok {
+sub get_namespace_ok {
 
   my $tc = shift;                       # test case
 
@@ -119,16 +119,16 @@ sub get_alt_ok {
   my $tcname     = $tc->{name};
   my $line       = $tc->{line};
   my $args       = $tc->{args};
-  my $expected   = $tc->{expected}{get_alt};
+  my $expected   = $tc->{expected}{get_namespace};
   my $definition = SML::Definition->new(%{$args});
 
   $definition->add_line($line);
 
   # act
-  my $result = $definition->get_alt;
+  my $result = $definition->get_namespace;
 
   # assert
-  is($result,$expected,"$tcname get_alt $result");
+  is($result,$expected,"$tcname get_namespace $result");
 }
 
 ######################################################################

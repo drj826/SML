@@ -39,7 +39,8 @@ BEGIN {
 
 my $args = {};
 
-$args->{library} = $library;
+$args->{library}            = $library;
+$args->{leading_whitespace} = '';
 
 my $obj = SML::BulletListItem->new(%{$args});
 isa_ok( $obj, 'SML::BulletListItem' );

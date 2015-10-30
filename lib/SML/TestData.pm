@@ -504,7 +504,7 @@ sub _build_acronym_list_test_case_list {
       name => 'acronym_1',
       definition => $self->get_test_definition_1,
       acronym => 'TLA',
-      alt => '',
+      namespace => '',
       expected =>
       {
        add_acronym => 1,
@@ -517,7 +517,7 @@ sub _build_acronym_list_test_case_list {
       name => 'acronym_2',
       definition => $self->get_test_definition_4,
       acronym => 'FRD',
-      alt => 'ieee',
+      namespace => 'ieee',
       expected =>
       {
        add_acronym => 1,
@@ -530,7 +530,7 @@ sub _build_acronym_list_test_case_list {
       name => 'acronym_3',
       definition => $self->get_test_definition_3,
       acronym => 'bogus',
-      alt => '',
+      namespace => '',
       expected =>
       {
        add_acronym => 1,
@@ -543,7 +543,7 @@ sub _build_acronym_list_test_case_list {
       name => 'bad_acronym_1',
       definition => 'bogus definition',
       acronym => 'bogus',
-      alt => '',
+      namespace => '',
       expected =>
       {
        error =>
@@ -556,7 +556,7 @@ sub _build_acronym_list_test_case_list {
      {
       name => 'bad_acronym_2',
       acronym => 'bogus',
-      alt => '',
+      namespace => '',
       expected =>
       {
        warning =>
@@ -2468,6 +2468,7 @@ sub _build_bullet_list_item_test_case_list {
       args =>
       {
        library => $self->get_test_library_1,
+       leading_whitespace => '',
       },
       expected =>
       {
@@ -2481,6 +2482,7 @@ sub _build_bullet_list_item_test_case_list {
       args =>
       {
        library => $self->get_test_library_1,
+       leading_whitespace => '  ',
       },
       expected =>
       {
@@ -2557,7 +2559,7 @@ sub _build_definition_test_case_list {
       expected =>
       {
        get_term => 'BPEL',
-       get_alt => '',
+       get_namespace => '',
        get_value => 'Business Process Execution Language',
        get_bookmark => 'bpel:',
       },
@@ -2574,7 +2576,7 @@ sub _build_definition_test_case_list {
       expected =>
       {
        get_term => 'FRD',
-       get_alt => 'ieee',
+       get_namespace => 'ieee',
        get_value => '(IEEE) Functional Requirements Document',
        get_bookmark => 'frd:ieee',
       },
@@ -2930,18 +2932,18 @@ sub _build_document_test_case_list {
       },
      },
 
-     {
-      # Generate Content
-      name     => 'td-000008',
-      testfile => 'td-000008.txt',
-      docid    => 'td-000008',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       is_valid => 1,
-       dump_part_structure => slurp('expected/part-structure/td-000008.txt'),
-      },
-     },
+     # {
+     #  # Generate Content
+     #  name     => 'td-000008',
+     #  testfile => 'td-000008.txt',
+     #  docid    => 'td-000008',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   is_valid => 1,
+     #   dump_part_structure => slurp('expected/part-structure/td-000008.txt'),
+     #  },
+     # },
 
      {
       # Insert Content
@@ -4110,6 +4112,7 @@ sub _build_enumerated_list_item_test_case_list {
       name => 'top_level_item',
       text => '+ top level item',
       library => $self->get_test_library_1,
+      leading_whitespace => '',
       expected =>
       {
        get_value => 'top level item',
@@ -4120,6 +4123,7 @@ sub _build_enumerated_list_item_test_case_list {
       name => 'indented_item',
       text => '  + indented item',
       library => $self->get_test_library_1,
+      leading_whitespace => '  ',
       expected =>
       {
        get_value => 'indented item',
@@ -4527,15 +4531,15 @@ sub _build_parser_test_case_list {
       },
      },
 
-     {
-      name     => 'document_containing_generate_element',
-      divid    => 'td-000008',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       parse => 'SML::Document',
-      },
-     },
+     # {
+     #  name     => 'document_containing_generate_element',
+     #  divid    => 'td-000008',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   parse => 'SML::Document',
+     #  },
+     # },
 
      {
       name     => 'document_containing_insert_element',

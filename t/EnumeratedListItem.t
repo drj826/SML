@@ -37,7 +37,12 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::EnumeratedListItem->new(library=>$library);
+my $args = {};
+
+$args->{library}            = $library;
+$args->{leading_whitespace} = '';
+
+my $obj = SML::EnumeratedListItem->new(%{$args});
 isa_ok( $obj, 'SML::EnumeratedListItem' );
 
 #---------------------------------------------------------------------
@@ -77,10 +82,14 @@ sub get_value_ok {
   # arrange
   my $tcname   = $tc->{name};
   my $text     = $tc->{text};
-  my $library  = $tc->{library};
   my $line     = SML::Line->new(content=>$text);
   my $expected = $tc->{expected}{get_value};
-  my $item     = SML::EnumeratedListItem->new(library=>$library);
+  my $args     = {};
+
+  $args->{library}            = $tc->{library};
+  $args->{leading_whitespace} = $tc->{leading_whitespace};
+
+  my $item = SML::EnumeratedListItem->new(%{$args});
 
   $item->add_line($line);
 

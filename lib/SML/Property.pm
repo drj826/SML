@@ -158,23 +158,10 @@ sub get_value {
 	{
 	  next if not $element->get_name eq 'outcome';
 
-	  my $text = $element->get_content;
+	  my $date   = $element->get_date;
+	  my $status = $element->get_status;
 
-	  $text =~ s/[\r\n]*$//;	# chomp;
-
-	  if ( $text =~ /$syntax->{outcome_element}/ )
-	    {
-	      my $date   = $1;
-	      my $status = $3;
-
-	      $outcomes->{$date} = $status;
-	    }
-
-	  else
-	    {
-	      my $location = $element->location;
-	      $logger->error("OUTCOME SYNTAX ERROR at $location ($text)");
-	    }
+	  $outcomes->{$date} = $status;
 	}
 
       my $dates       = [ sort by_date keys %{ $outcomes } ];

@@ -62,6 +62,7 @@ use SML::DefinitionListItem;          # ci-000432
 use SML::Element;                     # ci-000386
 use SML::Definition;                  # ci-000415
 use SML::Note;                        # ci-000???
+use SML::Outcome;                     # ci-000???
 
 # division classes
 use SML::Division;                    # ci-000381
@@ -137,7 +138,7 @@ sub parse {
 
   $logger->info("parse \'$id\'");
 
-  $self->_init;
+  $self->_init;                         # initialize parser
 
   my $line_list = $self->_get_line_list_for_id($id);
 
@@ -279,13 +280,13 @@ has division_stack =>
 
 ######################################################################
 
-has part_stack =>
+has container_stack =>
   (
    isa       => 'ArrayRef',
-   reader    => '_get_part_stack',
-   writer    => '_set_part_stack',
-   clearer   => '_clear_part_stack',
-   predicate => '_has_part_stack',
+   reader    => '_get_container_stack',
+   writer    => '_set_container_stack',
+   clearer   => '_clear_container_stack',
+   predicate => '_has_container_stack',
    default   => sub {[]},
   );
 
@@ -296,9 +297,9 @@ has part_stack =>
 # beginning and end. Sometimes the beginning and end are explicit and
 # other times they are implicit.
 #
-#   $current_part = $part_stack->[-1];
-#   $self->_push_part_stack($part);
-#   my $part = $self->_pop_part_stack;
+#   $current_container = $container_stack->[-1];
+#   $self->_push_container_stack($part);
+#   my $part = $self->_pop_container_stack;
 
 ######################################################################
 
@@ -438,7 +439,7 @@ has acronym_hash =>
    default   => sub {{}},
   );
 
-#   $definition = $acronyms->{$term}{$alt};
+#   $definition = $acronyms->{$term}{$namespace};
 
 ######################################################################
 
@@ -599,27 +600,27 @@ has single_string_type_list =>
 
 ######################################################################
 
-has current_bullet_list_item =>
-  (
-   is        => 'ro',
-   isa       => 'SML::BulletListItem',
-   reader    => '_get_current_bullet_list_item',
-   writer    => '_set_current_bullet_list_item',
-   predicate => '_has_current_bullet_list_item',
-   clearer   => '_clear_current_bullet_list_item',
-  );
+# has current_bullet_list_item =>
+#   (
+#    is        => 'ro',
+#    isa       => 'SML::BulletListItem',
+#    reader    => '_get_current_bullet_list_item',
+#    writer    => '_set_current_bullet_list_item',
+#    predicate => '_has_current_bullet_list_item',
+#    clearer   => '_clear_current_bullet_list_item',
+#   );
 
 ######################################################################
 
-has current_enumerated_list_item =>
-  (
-   is        => 'ro',
-   isa       => 'SML::EnumeratedListItem',
-   reader    => '_get_current_enumerated_list_item',
-   writer    => '_set_current_enumerated_list_item',
-   predicate => '_has_current_enumerated_list_item',
-   clearer   => '_clear_current_enumerated_list_item',
-  );
+# has current_enumerated_list_item =>
+#   (
+#    is        => 'ro',
+#    isa       => 'SML::EnumeratedListItem',
+#    reader    => '_get_current_enumerated_list_item',
+#    writer    => '_set_current_enumerated_list_item',
+#    predicate => '_has_current_enumerated_list_item',
+#    clearer   => '_clear_current_enumerated_list_item',
+#   );
 
 ######################################################################
 ######################################################################
@@ -642,16 +643,17 @@ sub _init {
       $logger->debug("not using SVN, won't warn about uncommitted changes");
     }
 
-  $self->_clear_line_list;
-  $self->_set_line_list([]);
-
   $self->_clear_count_method_hash;
   $self->_set_count_method_hash({});
+  $self->_clear_line_list;
+  $self->_set_line_list([]);
   $self->_clear_division;
   $self->_clear_block;
   $self->_clear_string;
   $self->_clear_division_stack;
-  $self->_clear_part_stack;
+  $self->_set_division_stack([]);
+  $self->_clear_container_stack;
+  $self->_set_container_stack([]);
   $self->_set_column(0);
   $self->_set_in_data_segment(1);
   $self->_set_count_total_hash({});
@@ -672,7 +674,7 @@ sub _init {
   $self->_clear_template_hash;
   $self->_set_template_hash({});
   $self->_clear_requires_processing;
-  $self->_set_requires_processing(1);
+  $self->_set_requires_processing(0);
   $self->_clear_section_counter_hash;
   $self->_set_section_counter_hash({});
   $self->_clear_division_counter_hash;
@@ -698,11 +700,11 @@ sub _create_string {
   # reference.  Is this a problem?  Perhaps lookups are all 'resolved'
   # before this code is invoked?
 
-  my $part;                             # containing part
+  my $container;                        # containing part
 
-  if ( $self->_has_part )
+  if ( $self->_has_current_container )
     {
-      $part = $self->_get_part;
+      $container = $self->_get_current_container;
     }
 
   my $library = $self->get_library;
@@ -714,16 +716,18 @@ sub _create_string {
     {
       my $args = {};
 
-      $args->{name}            = 'string';
-      $args->{content}         = $text;
-      $args->{library}         = $self->get_library;
-      $args->{containing_part} = $part if $part;
+      $args->{name}      = 'string';
+      $args->{content}   = $text;
+      $args->{library}   = $self->get_library;
+      $args->{container} = $container if $container;
 
       my $newstring = SML::String->new(%{$args});
 
       if ( $self->_text_contains_substring($text) )
 	{
+	  $self->_push_container_stack($newstring);
 	  $self->_parse_text($newstring); # recurse
+	  $self->_pop_container_stack;
 	}
 
       return $newstring;
@@ -733,9 +737,9 @@ sub _create_string {
     {
       my $args = {};
 
-      $args->{content}         = $text;
-      $args->{library}         = $self->get_library;
-      $args->{containing_part} = $part if $part;
+      $args->{content}   = $text;
+      $args->{library}   = $self->get_library;
+      $args->{container} = $container if $container;
 
       my $newstring = SML::SyntaxErrorString->new(%{$args});
 
@@ -767,14 +771,19 @@ sub _create_string {
 	  {
 	    my $args = {};
 
-	    $args->{name}            = $string_type;
-	    $args->{content}         = $1;
-	    $args->{library}         = $self->get_library;
-	    $args->{containing_part} = $part if $part;
+	    $args->{name}      = $string_type;
+	    $args->{content}   = $1;
+	    $args->{library}   = $self->get_library;
+	    $args->{container} = $container if $container;
 
 	    my $newstring = SML::String->new(%{$args});
 
-	    $self->_parse_text($newstring); # recurse
+	    if ( $self->_text_contains_substring($text) )
+	      {
+		$self->_push_container_stack($newstring);
+		$self->_parse_text($newstring); # recurse
+		$self->_pop_container_stack;
+	      }
 
 	    return $newstring;
 	  }
@@ -792,9 +801,10 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{name}                = $string_type;
-	  $args->{library}             = $self->get_library;
-	  $args->{containing_part}     = $part if $part;
+	  $args->{name}      = $string_type;
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
+
 	  $args->{preceding_character} = $1 || q{};
 	  $args->{following_character} = $2 || q{};
 
@@ -855,9 +865,9 @@ sub _create_string {
 	  {
 	    my $args = {};
 
-	    $args->{name}            = $string_type;
-	    $args->{library}         = $self->get_library;
-	    $args->{containing_part} = $part if $part;
+	    $args->{name}      = $string_type;
+	    $args->{library}   = $self->get_library;
+	    $args->{container} = $container if $container;
 
 	    return SML::Symbol->new(%{$args});
 	  }
@@ -875,10 +885,10 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{tag}             = $1;
-	  $args->{target_id}       = $2;
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{tag}       = $1;
+	  $args->{target_id} = $2;
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
 	  return SML::CrossReference->new(%{$args});
 	}
@@ -896,10 +906,10 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{url}             = $1;
-	  $args->{content}         = $3    if $3;
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{url}       = $1;
+	  $args->{content}   = $3    if $3;
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
 	  return SML::URLReference->new(%{$args});
 	}
@@ -917,10 +927,10 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{section_id}      = $1;
-	  $args->{number}          = $2;
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{section_id} = $1;
+	  $args->{number}     = $2;
+	  $args->{library}    = $self->get_library;
+	  $args->{container}  = $container if $container;
 
 	  return SML::FootnoteReference->new(%{$args});
 	}
@@ -938,11 +948,11 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{tag}             = $1;
-	  $args->{term}            = $4;
-	  $args->{namespace}       = $3 || '';
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{tag}       = $1;
+	  $args->{term}      = $4;
+	  $args->{namespace} = $3 || '';
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
 	  return SML::GlossaryTermReference->new(%{$args});
 	}
@@ -960,10 +970,10 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{term}            = $3;
-	  $args->{namespace}       = $2 || '';
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{term}      = $3;
+	  $args->{namespace} = $2 || '';
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
 	  return SML::GlossaryDefinitionReference->new(%{$args});
 	}
@@ -981,11 +991,11 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{tag}             = $1;
-	  $args->{acronym}         = $4;
-	  $args->{namespace}       = $3 || '';
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{tag}       = $1;
+	  $args->{acronym}   = $4;
+	  $args->{namespace} = $3 || '';
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
 	  return SML::AcronymTermReference->new(%{$args});
 	}
@@ -1003,10 +1013,10 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{tag}             = $1;
-	  $args->{entry}           = $2;
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{tag}       = $1;
+	  $args->{entry}     = $2;
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
 	  return SML::IndexReference->new(%{$args});
 	}
@@ -1024,9 +1034,9 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{target_id}       = $1;
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{target_id} = $1;
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
 	  return SML::IDReference->new(%{$args});
 	}
@@ -1044,10 +1054,10 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{tag}             = $1;
-	  $args->{target_id}       = $2;
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{tag}       = $1;
+	  $args->{target_id} = $2;
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
 	  return SML::PageReference->new(%{$args});
 	}
@@ -1065,9 +1075,9 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{entity_id}       = $1;
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{entity_id} = $1;
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
 	  return SML::StatusReference->new(%{$args});
 	}
@@ -1085,11 +1095,11 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{tag}             = $1;
-	  $args->{source_id}       = $2;
-	  $args->{details}         = $4 || '';
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{tag}       = $1;
+	  $args->{source_id} = $2;
+	  $args->{details}   = $4 || '';
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
 	  return SML::CitationReference->new(%{$args});
 	}
@@ -1107,9 +1117,9 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{filespec}        = $1;
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{filespec}  = $1;
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
 	  return SML::FileReference->new(%{$args});
 	}
@@ -1127,9 +1137,9 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{pathspec}        = $1;
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{pathspec}  = $1;
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
 	  return SML::PathReference->new(%{$args});
 	}
@@ -1147,10 +1157,10 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{variable_name}   = $1;
-	  $args->{namespace}       = $3 || '';
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{variable_name} = $1;
+	  $args->{namespace}     = $3 || '';
+	  $args->{library}       = $self->get_library;
+	  $args->{container}     = $container if $container;
 
 	  return SML::VariableReference->new(%{$args});
 	}
@@ -1168,10 +1178,10 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{tag}             = $1;
-	  $args->{content}         = $2;
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{tag}       = $1;
+	  $args->{content}   = $2;
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
 	  return SML::UserEnteredText->new(%{$args});
 	}
@@ -1189,9 +1199,9 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{content}         = $1;
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{content}   = $1;
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
 	  return SML::CommandReference->new(%{$args});
 	}
@@ -1209,9 +1219,9 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{content}         = $1;
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{content}   = $1;
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
 	  return SML::XMLTag->new(%{$args});
 	}
@@ -1229,9 +1239,9 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{content}         = $1;
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{content}   = $1;
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
 	  return SML::LiteralString->new(%{$args});
 	}
@@ -1249,10 +1259,10 @@ sub _create_string {
 	{
 	  my $args = {};
 
-	  $args->{email_addr}      = $1;
-	  $args->{content}         = $3 || '';
-	  $args->{library}         = $self->get_library;
-	  $args->{containing_part} = $part if $part;
+	  $args->{email_addr} = $1;
+	  $args->{content}    = $3 || '';
+	  $args->{library}    = $self->get_library;
+	  $args->{container}  = $container if $container;
 
 	  return SML::EmailAddress->new(%{$args});
 	}
@@ -1401,7 +1411,7 @@ sub _extract_title_text {
 	{
 	  $first_line = 0;
 	  $in_title   = 1;
-	  $title_text = $1;
+	  $title_text = $3;
 	}
 
       # begin section title
@@ -2067,6 +2077,7 @@ sub _parse_lines {
     }
 
   $self->_set_division_stack([]);
+  $self->_set_container_stack([]);
 
   $self->_set_to_be_gen_hash({});
   $self->_set_outcome_hash({});
@@ -2080,8 +2091,6 @@ sub _parse_lines {
   $self->_set_count_total_hash({});
 
   $self->_clear_block;
-  $self->_clear_current_bullet_list_item;
-  $self->_clear_current_enumerated_list_item;
 
   $self->_set_column(0);
   $self->_set_requires_processing(0);
@@ -2127,7 +2136,7 @@ sub _parse_lines {
 	  # $2
 	  # $3 = section ID
 	  # $4 = section heading
-	  $self->_process_section_heading($line,$1,$3,$4);
+	  $self->_process_start_section_heading($line,$1,$3);
 	}
 
       elsif ( $text =~ /$syntax->{end_division}/ )
@@ -2161,84 +2170,62 @@ sub _parse_lines {
 	  $self->_process_end_table_row($line);
 	}
 
-      elsif ( $text =~ /$syntax->{note_element}/ )
+      elsif ( $text =~ /$syntax->{attr_element}/ )
 	{
-	  # $1 = note type (note or footnote)
-	  # $2 = tag
-	  # $3
-	  # $4 = division ID (optional)
-	  # $5 = note text
-	  # $6
-	  # $7 = comment text
-	  $self->_process_start_note($line,$2);
+	  $self->_process_start_attr_definition($line);
+	}
+
+      elsif ( $text =~ /$syntax->{outcome_element}/ )
+	{
+	  $self->_process_start_outcome($line);
+	}
+
+      elsif ( $text =~ /$syntax->{review_element}/ )
+	{
+	  $self->_process_start_review($line);
+	}
+
+      elsif ( $text =~ /$syntax->{footnote_element}/ )
+	{
+	  $self->_process_start_footnote_element($line);
 	}
 
       elsif ( $text =~ /$syntax->{glossary_element}/ )
 	{
-	  # $1 = tag name
-	  # $2 = glossary term
-	  # $3
-	  # $4 = alt namespace
-	  # $5 = definition text
-	  # $6
-	  # $7 = comment text
-	  $self->_process_start_glossary_entry($line,$1,$3);
+	  $self->_process_start_glossary_entry($line);
 	}
 
       elsif ( $text =~ /$syntax->{acronym_element}/ )
 	{
-	  # $1 = tag name
-	  # $2 = acronym
-	  # $3
-	  # $4 = alt namespace
-	  # $5 = acronym definition
-	  # $6
-	  # $7 = comment text
-	  $self->_process_start_acronym_entry($line,$1,$3);
+	  $self->_process_start_acronym_entry($line);
 	}
 
       elsif ( $text =~ /$syntax->{variable_element}/ )
 	{
-	  # $1 = tag name
-	  # $2 = variable name
-	  # $3
-	  # $4 = alt namespace
-	  # $5 = variable value
-	  # $6
-	  # $7 = comment text
-	  $self->_process_start_variable_definition($line,$1,$3);
+	  $self->_process_start_variable_definition($line);
 	}
 
       elsif ( $text =~ /$syntax->{step_element}/ )
 	{
-	  # $1 = text
-	  # $2
-	  # $3 = comment text
-	  $self->_process_start_step_element($line,$1,$3);
+	  $self->_process_start_step_element($line);
 	}
 
       elsif ( $text =~ /$syntax->{element}/ )
 	{
 	  # $1 = element name
-	  # $2 = args
-	  # $3 = element value
-	  # $4
-	  # $5 = comment text
-	  $self->_process_element($line,$1);
+	  $self->_process_start_element($line,$1);
 	}
 
       elsif ( $text =~ /$syntax->{bull_list_item}/ )
 	{
-	  # $1 = indent
-	  # $2 = text
-	  $self->_process_bull_list_item($line,$1,$2);
+	  # $1 = leading whitespace
+	  $self->_process_bull_list_item($line,$1);
 	}
 
       elsif ( $text =~ /$syntax->{enum_list_item}/ )
 	{
-	  # $1 = indent
-	  # $2 = text
-	  $self->_process_enum_list_item($line,$1,$2);
+	  # $1 = leading whitespace
+	  $self->_process_enum_list_item($line,$1);
 	}
 
       elsif ( $text =~ /$syntax->{def_list_item}/ )
@@ -2359,17 +2346,18 @@ sub _begin_division {
   # # why?
   # if ( $self->_in_document )
   #   {
-  #     my $document = $self->_current_document;
+  #     my $document = $self->_get_current_document;
   #     $document->add_division($division);
   #   }
 
   unless
     (
-     $name eq 'BULLET_LIST',
-     or
-     $name eq 'ENUMERATED_LIST',
-     or
-     $name eq 'DEFINITION_LIST',
+        $name eq 'BULLET_LIST',
+     or $name eq 'ENUMERATED_LIST',
+     or $name eq 'DEFINITION_LIST',
+     or $name eq 'RAW',
+     or $name eq 'CONDITIONAL',
+     or $name eq 'TABLE_CELL',
     )
     {
       $self->_begin_data_segment;
@@ -2384,6 +2372,15 @@ sub _begin_division {
     }
 
   $self->_push_division_stack($division);
+
+  # manage container stack
+  if ( $self->_has_current_container )
+    {
+      my $container = $self->_get_current_container;
+      $division->set_container($container);
+    }
+
+  $self->_push_container_stack($division);
 
   if ( $division->isa('SML::Document') )
     {
@@ -2492,6 +2489,9 @@ sub _end_division {
   my $division = $self->_get_current_division;
 
   return 0 if not $division;
+
+  # manage container stack
+  $self->_pop_container_stack;
 
   if ( $division->isa('SML::TableRow') )
     {
@@ -2911,10 +2911,11 @@ sub _insert_content {
 
 	elsif ($name eq 'DEFINITION')
 	  {
-	    my @parts = split(':',$id);
-	    my $term  = $parts[0];
-	    my $alt   = $parts[1] || '';
-	    my $entry = $library->get_glossary->get_entry($term,$alt);
+	    my @parts     = split(':',$id);
+	    my $term      = $parts[0];
+	    my $namespace = $parts[1] || '';
+	    my $glossary  = $library->get_glossary;
+	    my $entry     = $glossary->get_entry($term,$namespace);
 	    my $replacement_text = $entry->get_value;
 	    my $newline = SML::Line->new
 	      (
@@ -3017,17 +3018,17 @@ sub _substitute_variables {
 
       while ( $text =~ /$syntax->{variable_ref}/ )
 	{
-	  my $name = $1;
-	  my $alt  = $3 || '';
+	  my $name      = $1;
+	  my $namespace = $3 || q{};
 
-	  if ( $library->has_variable($name,$alt) )
+	  if ( $library->has_variable($name,$namespace) )
 	    {
 	      # substitute variable value
-	      my $value = $library->get_variable_value($name,$alt);
+	      my $value = $library->get_variable_value($name,$namespace);
 
 	      $text =~ s/$syntax->{variable_ref}/$value/;
 
-	      $logger->trace("substituted $name $alt variable with $value");
+	      $logger->trace("substituted $name $namespace variable with $value");
 	    }
 
 	  else
@@ -3575,9 +3576,21 @@ sub _begin_block {
   my $self  = shift;
   my $block = shift;
 
-  $self->_end_block if $self->_get_block;
+  if ( $self->_has_block )
+    {
+      $self->_end_block;
+    }
 
   $self->_set_block($block);
+
+  # manage container stack
+  if ( $self->_has_current_container )
+    {
+      my $container = $self->_get_current_container;
+      $block->set_container($container);
+    }
+
+  $self->_push_container_stack($block);
 
   return 1;
 }
@@ -3599,6 +3612,9 @@ sub _end_block {
 
   $self->_clear_block;
 
+  # manage container stack
+  $self->_pop_container_stack;
+
   return 1;
 }
 
@@ -3609,88 +3625,72 @@ sub _end_element {
   my $self    = shift;
   my $element = shift;
 
-  my $library  = $self->get_library;
-  my $util     = $library->get_util;
-  my $name     = $element->get_name;
-  my $division = $element->get_containing_division;
-  my $divname  = $division->get_name;
-  my $divid    = $division->get_id;
-  my $document = $self->_current_document;
-  my $reasoner = $library->get_reasoner;
-
-  $reasoner->infer_inverse_property($element);
+  my $name = $element->get_name;
 
   if ( $name eq 'var' )
     {
-      $library->add_variable($element);
+      $self->_process_end_variable_definition($element);
     }
 
-  elsif ( $name eq 'generate' )
-    {
-      $self->_add_generate_request($element);
-    }
+  # elsif ( $name eq 'generate' )
+  #   {
+  #     $self->_add_generate_request($element);
+  #   }
 
   elsif ( $name eq 'attr' )
     {
-      $division->add_attribute($element);
+      $self->_process_end_attr_definition($element);
+    }
+
+  elsif ( $name eq 'footnote' )
+    {
+      $self->_process_end_footnote_element($element);
     }
 
   elsif ( $name eq 'glossary' )
     {
-      $library->get_glossary->add_entry($element);
-      $document->get_glossary->add_entry($element) if $document;
+      $self->_process_end_glossary_entry($element);
     }
 
   elsif ( $name eq 'acronym' )
     {
-      $library->get_acronym_list->add_acronym($element);
-      $document->get_acronym_list->add_acronym($element) if $document;
+      $self->_process_end_acronym_entry($element);
     }
 
   elsif ( $name eq 'outcome' )
     {
-      $library->add_outcome($element);
+      $self->_process_end_outcome($element);
     }
 
   elsif ( $name eq 'review' )
     {
-      $library->add_review($element);
-    }
-
-  elsif ( $element->isa('SML::Note') )
-    {
-      $document->add_note($element) if $document;
+      $self->_process_end_review($element);
     }
 
   elsif ( $name eq 'image' )
     {
-      # do nothing.
+      $self->_process_end_element($element);
     }
 
   elsif ( $name eq 'index' )
     {
-      my $value = $element->get_value;
-      my $terms = [ split(/\s*;\s*/,$value) ];
-
-      foreach my $term (@{ $terms })
-	{
-	  $library->add_index_term($term,$divid);
-	  $document->add_index_term($term,$divid) if $document;
-	}
+      $self->_process_end_index_element($element);
     }
 
   elsif ( $name eq 'use_formal_status' )
     {
-      my $options = $util->get_options;
-      my $value   = $element->get_value;
-
-      $options->set_use_formal_status($value);
+      $self->_end_use_formal_status_element($element);
     }
 
   else
     {
-      # do nothing
+      $self->_process_end_element($element);
     }
+
+  my $library  = $self->get_library;
+  my $reasoner = $library->get_reasoner;
+
+  $reasoner->infer_inverse_property($element);
 
   return 1;
 }
@@ -5162,7 +5162,7 @@ sub _flatten {
 
   my $content = $line->get_content;
 
-  $content =~ s/$syntax->{'title_element'}/!!$1!!/;
+  $content =~ s/$syntax->{title_element}/!!$3!!/;
   $content =~ s/$syntax->{'start_section'}/!!$4!!/;
 
   my $newline = SML::Line->new
@@ -5241,71 +5241,71 @@ sub _add_generate_request {
 
 ######################################################################
 
-sub _add_review {
+# sub _add_review {
 
-  my $self    = shift;
-  my $element = shift;
+#   my $self    = shift;
+#   my $element = shift;
 
-  my $library  = $self->get_library;
-  my $syntax   = $library->get_syntax;
-  my $util     = $library->get_util;
-  my $review   = $self->_get_review_hash;
-  my $division = $element->get_containing_division;
-  my $div_id   = $division->get_id;
-  my $location = $element->get_location;
-  my $text     = $element->get_content;
+#   my $library  = $self->get_library;
+#   my $syntax   = $library->get_syntax;
+#   my $util     = $library->get_util;
+#   my $review   = $self->_get_review_hash;
+#   my $division = $element->get_containing_division;
+#   my $div_id   = $division->get_id;
+#   my $location = $element->get_location;
+#   my $text     = $element->get_content;
 
-  $text =~ s/[\r\n]*$//;                # chomp;
+#   $text =~ s/[\r\n]*$//;                # chomp;
 
-  if ( $text =~ /$syntax->{review_element}/ )
-    {
-      my $date        = $1;
-      my $item        = $2;
-      my $status      = $3;
-      my $description = $4;
+#   if ( $text =~ /$syntax->{review_element}/ )
+#     {
+#       my $date        = $1;
+#       my $item        = $2;
+#       my $status      = $3;
+#       my $description = $4;
 
-      # date valid?
-      unless ( $date =~ /$syntax->{valid_date}/ )
-	{
-	  $logger->error("INVALID REVIEW DATE at $location");
-	  return 0;
-	}
+#       # date valid?
+#       unless ( $date =~ /$syntax->{valid_date}/ )
+# 	{
+# 	  $logger->error("INVALID REVIEW DATE at $location");
+# 	  return 0;
+# 	}
 
-      # item under test valid?
-      unless ( $library->has_division($item) )
-	{
-	  $logger->error("INVALID REVIEW ITEM at $location");
-	  return 0;
-	}
+#       # item under test valid?
+#       unless ( $library->has_division($item) )
+# 	{
+# 	  $logger->error("INVALID REVIEW ITEM at $location");
+# 	  return 0;
+# 	}
 
-      # status valid?
-      unless ( $status =~ /$syntax->{valid_status}/ )
-	{
-	  $logger->error("INVALID REVIEW STATUS at $location: must be green, yellow, red, or grey");
-	  return 0;
-	}
+#       # status valid?
+#       unless ( $status =~ /$syntax->{valid_status}/ )
+# 	{
+# 	  $logger->error("INVALID REVIEW STATUS at $location: must be green, yellow, red, or grey");
+# 	  return 0;
+# 	}
 
-      # description valid?
-      unless ( $description =~ /$syntax->{valid_description}/ )
-	{
-	  $logger->error("INVALID REVIEW DESCRIPTION at $location: description not provided");
-	  return 0;
-	}
+#       # description valid?
+#       unless ( $description =~ /$syntax->{valid_description}/ )
+# 	{
+# 	  $logger->error("INVALID REVIEW DESCRIPTION at $location: description not provided");
+# 	  return 0;
+# 	}
 
-      # review is valid
-      $review->{$item}{$date}{'status'}      = $status;
-      $review->{$item}{$date}{'description'} = $description;
-      $review->{$item}{$date}{'source'}      = $div_id;
+#       # review is valid
+#       $review->{$item}{$date}{'status'}      = $status;
+#       $review->{$item}{$date}{'description'} = $description;
+#       $review->{$item}{$date}{'source'}      = $div_id;
 
-    }
+#     }
 
-  else
-    {
-      $logger->error("INVALID REVIEW SYNTAX at $location ($text)");
-    }
+#   else
+#     {
+#       $logger->error("INVALID REVIEW SYNTAX at $location ($text)");
+#     }
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
@@ -5459,9 +5459,6 @@ sub _process_start_division_marker {
   $self->_end_definition_list if $self->_in_definition_list;
   $self->_end_baretable       if $self->_in_baretable;
 
-  $self->_clear_current_bullet_list_item;
-  $self->_clear_current_enumerated_list_item;
-
   if ( $name eq 'SECTION' and $self->_in_section )
     {
       $self->_end_section;
@@ -5493,12 +5490,6 @@ sub _process_start_division_marker {
     );
 
   $division->add_part($block);
-
-  if ( not $self->_has_division )
-    {
-      $self->_set_division($division);
-    }
-
   $self->_begin_division($division);
 
   return 1;
@@ -5549,8 +5540,8 @@ sub _process_end_division_marker {
       $self->_end_table_row;
     }
 
-  $self->_clear_current_bullet_list_item;
-  $self->_clear_current_enumerated_list_item;
+  # $self->_clear_current_bullet_list_item;
+  # $self->_clear_current_enumerated_list_item;
 
   my $block = SML::PreformattedBlock->new
     (
@@ -5572,13 +5563,12 @@ sub _process_end_division_marker {
 
 ######################################################################
 
-sub _process_section_heading {
+sub _process_start_section_heading {
 
   my $self      = shift;
   my $line      = shift;
   my $asterisks = shift;
   my $id        = shift || q{};
-  my $heading   = shift;
 
   my $library  = $self->get_library;
   my $location = $line->get_location;
@@ -5594,8 +5584,8 @@ sub _process_section_heading {
   $self->_end_table           if $self->_in_table;
   $self->_end_section         if $self->_in_section;
 
-  $self->_clear_current_bullet_list_item;
-  $self->_clear_current_enumerated_list_item;
+  # $self->_clear_current_bullet_list_item;
+  # $self->_clear_current_enumerated_list_item;
 
   $self->_set_in_data_segment(1);
 
@@ -5665,8 +5655,8 @@ sub _process_end_table_row {
       $self->_end_all_lists       if $self->_in_enumerated_list;
       $self->_end_definition_list if $self->_in_definition_list;
 
-      $self->_clear_current_bullet_list_item;
-      $self->_clear_current_enumerated_list_item;
+      # $self->_clear_current_bullet_list_item;
+      # $self->_clear_current_enumerated_list_item;
 
       $self->_end_table_row;
     }
@@ -5714,7 +5704,7 @@ sub _process_blank_line {
 
 ######################################################################
 
-sub _process_element {
+sub _process_start_element {
 
   my $self = shift;
   my $line = shift;
@@ -5743,9 +5733,12 @@ sub _process_element {
   $self->_end_definition_list if $self->_in_definition_list;
   $self->_end_baretable       if $self->_in_baretable;
 
-  if ( $self->_in_data_segment
-       and
-       $ontology->allows_property($divname,$name) )
+  if
+    (
+     $self->_in_data_segment
+     and
+     $ontology->allows_property($divname,$name)
+    )
     {
       $logger->trace("..... DATA element ($name)");
 
@@ -5754,9 +5747,12 @@ sub _process_element {
       $division->add_property_element($element);
     }
 
-  elsif ( $self->_in_data_segment
-	  and
-	  $ontology->allows_property('UNIVERSAL',$name) )
+  elsif
+    (
+     $self->_in_data_segment
+     and
+     $ontology->allows_property('UNIVERSAL',$name)
+    )
     {
       $logger->trace("..... UNIVERSAL element in DATA SEGMENT");
 
@@ -5773,9 +5769,12 @@ sub _process_element {
       $self->_set_is_valid(0);
     }
 
-  elsif ( $self->_in_data_segment
-	  and
-	  $ontology->allows_property('DOCUMENT',$name) )
+  elsif
+    (
+     $self->_in_data_segment
+     and
+     $ontology->allows_property('DOCUMENT',$name)
+    )
     {
       $logger->trace("..... begin document DATA SEGMENT element");
 
@@ -5784,9 +5783,12 @@ sub _process_element {
       $division->add_property_element($element);
     }
 
-  elsif ( $self->_in_data_segment
-	  and
-	  $ontology->allows_property('UNIVERSAL',$name) )
+  elsif
+    (
+     $self->_in_data_segment
+     and
+     $ontology->allows_property('UNIVERSAL',$name)
+    )
     {
       $logger->trace("..... begin UNIVERSAL element while in DATA SEGMENT");
 
@@ -5812,25 +5814,56 @@ sub _process_element {
 
 ######################################################################
 
-sub _process_start_note {
+sub _process_end_element {
+
+  my $self    = shift;
+  my $element = shift;
+
+  my $library  = $self->get_library;
+  my $syntax   = $library->get_syntax;
+  my $text     = $element->get_content;
+
+
+  if ( $text =~ /$syntax->{element}/ )
+    {
+      # $1 = element name
+      # $2 = element args
+      # $3 = element value
+      # $4
+      # $5 = comment text
+      $element->set_value($3);
+    }
+
+  elsif ( $text =~ /$syntax->{start_section}/ )
+    {
+      # $1 = 1 or more '*'
+      # $2 =
+      # $3 = section ID
+      # $4 = section heading
+      $element->set_value($4);
+    }
+
+  else
+    {
+      my $location = $element->get_location;
+      $logger->error("SYNTAX ERROR IN ELEMENT AT $location");
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _process_start_footnote_element {
 
   my $self  = shift;
   my $line  = shift;
-  my $tag   = shift;
-  my $divid = shift;
 
   my $library  = $self->get_library;
-  my $division = $self->_get_current_division;
-  my $divname  = $division->get_name;
 
-  $logger->trace("----- element (NOTE)");
+  $logger->trace("----- element (note)");
 
-  my $element = SML::Note->new
-    (
-     tag      => $tag,
-     division => $division,
-     library  => $library,
-    );
+  my $element = SML::Note->new(library=>$library);
 
   $element->add_line($line);
 
@@ -5842,13 +5875,14 @@ sub _process_start_note {
   $self->_end_definition_list if $self->_in_definition_list;
   $self->_end_baretable       if $self->_in_baretable;
 
+  my $division = $self->_get_current_division;
+
   if ( $self->_in_data_segment )
     {
       $logger->trace("..... note element in DATA SEGMENT");
 
       # $self->_end_data_segment;
 
-      my $division = $self->_get_current_division;
       $division->add_part($element);
       $division->add_property_element($element);
     }
@@ -5866,12 +5900,46 @@ sub _process_start_note {
 
 ######################################################################
 
+sub _process_end_footnote_element {
+
+  my $self     = shift;
+  my $footnote = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $footnote->get_content;
+
+  if ( $text =~ /$syntax->{footnote_element}/ )
+    {
+      # $1 = element name  (always 'footnote')
+      # $2 = element args  (note number)
+      # $3 = element value (note text)
+      $footnote->set_number($2);
+      $footnote->set_value($3);
+    }
+
+  else
+    {
+      my $location = $footnote->get_location;
+      $logger->error("SYNTAX ERROR IN FOOTNOTE AT $location");
+    }
+
+  if ( $self->_has_current_document )
+    {
+      my $document = $self->_get_current_document;
+
+      $document->add_note($footnote);
+    }
+
+  return 1;
+}
+
+######################################################################
+
 sub _process_start_glossary_entry {
 
-  my $self = shift;
-  my $line = shift;
-  my $term = shift;
-  my $alt  = shift || '';
+  my $self      = shift;
+  my $line      = shift;
 
   my $library   = $self->get_library;
   my $util      = $library->get_util;
@@ -5920,16 +5988,63 @@ sub _process_start_glossary_entry {
 
 ######################################################################
 
+sub _process_end_glossary_entry {
+
+  my $self       = shift;
+  my $definition = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $definition->get_content;
+
+  if ( $text =~ /$syntax->{glossary_element}/ )
+    {
+      # $1 = element name  (always 'glossary')
+      # $2 = element args
+      # $3 = element value (term {namespace} = definition)
+      # $4 = glossary term
+      # $5
+      # $6 = namespace
+      # $7 = definition text
+      $definition->set_value($3);
+      $definition->set_term($4);
+      $definition->set_namespace($6);
+      $definition->set_definition($7);
+    }
+
+  else
+    {
+      my $location = $definition->get_location;
+      $logger->error("SYNTAX ERROR IN GLOSSARY DEFINITION AT $location");
+    }
+
+
+  my $library_glossary = $library->get_glossary;
+  $library_glossary->add_entry($definition);
+
+  if ( $self->_has_current_document )
+    {
+      my $document          = $self->_get_current_document;
+      my $document_glossary = $document->get_glossary;
+
+      $document_glossary->add_entry($definition);
+    }
+
+  return 1;
+}
+
+######################################################################
+
 sub _process_start_acronym_entry {
 
-  my $self = shift;
-  my $line = shift;
-  my $term = shift;
-  my $alt  = shift || '';
+  my $self      = shift;
+  my $line      = shift;
+  my $term      = shift;
+  my $namespace = shift || '';
 
   my $library   = $self->get_library;
   my $util      = $library->get_util;
-  my $document  = $self->_current_document || undef;
+  my $document  = $self->_get_current_document || undef;
 
   my $division = $self->_get_current_division;
   my $divname  = $division->get_name;
@@ -5938,10 +6053,9 @@ sub _process_start_acronym_entry {
 
   my $definition = SML::Definition->new
     (
-     name    => 'acronym',
-     term    => $term,
-     alt     => $alt,
-     library => $library,
+     name      => 'acronym',
+     namespace => $namespace,
+     library   => $library,
     );
 
   $definition->add_line($line);
@@ -5978,12 +6092,56 @@ sub _process_start_acronym_entry {
 
 ######################################################################
 
+sub _process_end_acronym_entry {
+
+  my $self       = shift;
+  my $definition = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $definition->get_content;
+
+  if ( $text =~ /$syntax->{acronym_element}/ )
+    {
+      # $1 = element name (always 'acronym')
+      # $2 = element args
+      # $3 = element value (acronym {namespace} = definition)
+      # $4 = acronym term
+      # $5
+      # $6 = namespace
+      # $7 = acronym definition
+      $definition->set_value($3);
+      $definition->set_term($4);
+      $definition->set_namespace($6);
+      $definition->set_definition($7);
+    }
+
+  else
+    {
+      my $location = $definition->get_location;
+      $logger->error("SYNTAX ERROR IN ACRONYM DEFINITION AT $location");
+    }
+
+  my $library_acronym_list = $library->get_acronym_list;
+  $library_acronym_list->add_acronym($definition);
+
+  if ( $self->_has_current_document )
+    {
+      my $document              = $self->_get_current_document;
+      my $document_acronym_list = $document->get_acronym_list;
+
+      $document_acronym_list->add_acronym($definition);
+    }
+
+  return 1;
+}
+
+######################################################################
+
 sub _process_start_variable_definition {
 
-  my $self = shift;
-  my $line = shift;
-  my $term = shift;
-  my $alt  = shift || '';
+  my $self      = shift;
+  my $line      = shift;
 
   my $library  = $self->get_library;
   my $util     = $library->get_util;
@@ -5994,10 +6152,8 @@ sub _process_start_variable_definition {
 
   my $definition = SML::Definition->new
     (
-     name    => 'var',
-     term    => $term,
-     alt     => $alt,
-     library => $library,
+     name      => 'var',
+     library   => $library,
     );
 
   $definition->add_line($line);
@@ -6012,7 +6168,7 @@ sub _process_start_variable_definition {
 
   if ( $self->_in_data_segment )
     {
-      $logger->trace("..... glossary definition in DATA SEGMENT");
+      $logger->trace("..... variable definition in DATA SEGMENT");
 
       # $self->_end_data_segment;
 
@@ -6034,12 +6190,49 @@ sub _process_start_variable_definition {
 
 ######################################################################
 
+sub _process_end_variable_definition {
+
+  my $self       = shift;
+  my $definition = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $definition->get_content;
+
+  if ( $text =~ /$syntax->{variable_element}/ )
+    {
+      # $1 = element name   (always 'var')
+      # $2 = element args
+      # $3 = element value  (term {namespace} = definition)
+      # $4 = variable name  (term)
+      # $5
+      # $6 = namespace      (OPTIONAL)
+      # $7 = variable value (definition)
+      $definition->set_value($3);
+      $definition->set_term($4);
+      $definition->set_namespace($6);
+      $definition->set_definition($7);
+    }
+
+  else
+    {
+      my $location = $definition->get_location;
+      $logger->logdie("SYNTAX ERROR IN VARIABLE DEFINITION AT $location");
+    }
+
+
+  $library->add_variable($definition);
+
+  return 1;
+}
+
+######################################################################
+
 sub _process_bull_list_item {
 
   my $self       = shift;
   my $line       = shift;
   my $whitespace = shift;
-  my $text       = shift;
 
   my $indent  = length($whitespace);
   my $library = $self->get_library;
@@ -6178,8 +6371,8 @@ sub _process_bull_list_item {
 
       my $item = SML::BulletListItem->new
 	(
-	 library => $library,
-	 indent  => $indent,
+	 library            => $library,
+	 leading_whitespace => $whitespace,
 	);
 
       $item->add_line($line);
@@ -6212,8 +6405,8 @@ sub _process_bull_list_item {
     {
       my $item = SML::BulletListItem->new
 	(
-	 library => $library,
-	 indent  => $indent,
+	 library            => $library,
+	 leading_whitespace => $whitespace,
 	);
 
       $item->add_line($line);
@@ -6261,8 +6454,8 @@ sub _process_bull_list_item {
 
       my $item = SML::BulletListItem->new
 	(
-	 library => $library,
-	 indent  => $indent,
+	 library            => $library,
+	 leading_whitespace => $whitespace,
 	);
 
       $item->add_line($line);
@@ -6332,8 +6525,8 @@ sub _process_bull_list_item {
 
       my $item = SML::BulletListItem->new
 	(
-	 library => $library,
-	 indent  => $indent,
+	 library            => $library,
+	 leading_whitespace => $whitespace,
 	);
 
       $item->add_line($line);
@@ -6415,8 +6608,8 @@ sub _process_bull_list_item {
 
       my $item = SML::BulletListItem->new
 	(
-	 library => $library,
-	 indent  => $indent,
+	 library            => $library,
+	 leading_whitespace => $whitespace,
 	);
 
       $item->add_line($line);
@@ -6468,8 +6661,8 @@ sub _process_bull_list_item {
 
       my $item = SML::BulletListItem->new
 	(
-	 library => $library,
-	 indent  => $indent,
+	 library            => $library,
+	 leading_whitespace => $whitespace,
 	);
 
       $item->add_line($line);
@@ -6497,10 +6690,8 @@ sub _process_bull_list_item {
 
 sub _process_start_step_element {
 
-  my $self    = shift;
-  my $line    = shift;
-  my $text    = shift;
-  my $comment = shift;
+  my $self = shift;
+  my $line = shift;
 
   my $library = $self->get_library;
 
@@ -6546,12 +6737,330 @@ sub _process_start_step_element {
 
 ######################################################################
 
+sub _process_end_step_element {
+
+  my $self    = shift;
+  my $element = shift;                  # step element
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $element->get_content;
+
+  if ( $text =~ /$syntax->{step_element}/ )
+    {
+      # $1 = element name (always 'step')
+      # $2 = element args
+      # $3 = element value (step description)
+      $element->set_value($3);
+    }
+
+  else
+    {
+      my $location = $element->get_location;
+      $logger->error("SYNTAX ERROR IN STEP AT $location");
+    }
+}
+
+######################################################################
+
+sub _process_start_attr_definition {
+
+  my $self = shift;
+  my $line = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+
+  $logger->trace("----- element (ATTR DEFINITION)");
+
+  my $definition = SML::Definition->new
+    (
+     name      => 'attr',
+     library   => $library,
+    );
+
+  $definition->add_line($line);
+
+  $self->_begin_block($definition);
+
+  $self->_end_step_list       if $self->_in_step_list;
+  $self->_end_all_lists       if $self->_in_bullet_list;
+  $self->_end_all_lists       if $self->_in_enumerated_list;
+  $self->_end_definition_list if $self->_in_definition_list;
+  $self->_end_baretable       if $self->_in_baretable;
+
+  my $division = $self->_get_current_division;
+
+  if ( $self->_in_data_segment )
+    {
+      $logger->trace("..... attr definition in DATA SEGMENT");
+
+      # $self->_end_data_segment;
+
+      $division->add_part($definition);
+      $division->add_property_element($definition);
+    }
+
+  else
+    {
+      $logger->trace("..... begin UNIVERSAL element");
+
+      $division->add_part($definition);
+      $division->add_property_element($definition);
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _process_end_attr_definition {
+
+  my $self       = shift;
+  my $definition = shift;               # attr definition
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $definition->get_content;
+
+  if ( $text =~ /$syntax->{attr_element}/ )
+    {
+      # $1 = element name   (always 'attr')
+      # $2 = element args
+      # $3 = element value  (term {namespace} = definition)
+      # $4 = variable name  (term)
+      # $5
+      # $6 = namespace      (OPTIONAL)
+      # $7 = variable value (definition)
+      $definition->set_value($3);
+      $definition->set_term($4);
+      $definition->set_namespace($6);
+      $definition->set_definition($7);
+    }
+
+  else
+    {
+      my $location = $definition->get_location;
+      $logger->error("SYNTAX ERROR IN ATTR AT $location");
+    }
+
+  # add attr to library?
+
+  my $division = $self->_get_current_division;
+  $division->add_attribute($definition);
+
+  return 1;
+}
+
+######################################################################
+
+sub _process_start_outcome {
+
+  my $self = shift;
+  my $line = shift;
+
+  my $library = $self->get_library;
+
+  my $outcome = SML::Outcome->new
+    (
+     name    => 'outcome',
+     library => $library,
+    );
+
+  $logger->trace("----- element (outcome)");
+
+  $outcome->add_line($line);
+  $self->_begin_block($outcome);
+
+  $self->_end_step_list       if $self->_in_step_list;
+  $self->_end_all_lists       if $self->_in_bullet_list;
+  $self->_end_all_lists       if $self->_in_enumerated_list;
+  $self->_end_definition_list if $self->_in_definition_list;
+  $self->_end_baretable       if $self->_in_baretable;
+  $self->_end_table           if $self->_in_table;
+
+  my $division = $self->_get_current_division;
+
+  $division->add_part($outcome);
+
+  return 1;
+}
+
+######################################################################
+
+sub _process_end_outcome {
+
+  my $self    = shift;
+  my $outcome = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $outcome->get_content;
+
+  if ( $text =~ /$syntax->{outcome_element}/ )
+    {
+      # $1 = element name (always 'outcome')
+      # $2 = date         (yyyy-mm-dd)
+      # $3 = entity ID
+      # $4 = status color (green, yellow, red, grey)
+      # $5 = outcome description
+      $outcome->set_date($2);
+      $outcome->set_entity_id($3);
+      $outcome->set_status($4);
+      $outcome->set_description($5);
+    }
+
+  else
+    {
+      my $location = $outcome->get_location;
+      $logger->error("SYNTAX ERROR IN OUTCOME AT $location");
+    }
+
+  $library->add_outcome($outcome);
+
+  return 1;
+}
+
+######################################################################
+
+sub _process_start_review {
+
+  my $self = shift;
+  my $line = shift;
+
+  my $library = $self->get_library;
+
+  my $review = SML::Outcome->new
+    (
+     name    => 'review',
+     library => $library,
+    );
+
+  $logger->trace("----- element (review)");
+
+  $review->add_line($line);
+  $self->_begin_block($review);
+
+  $self->_end_step_list       if $self->_in_step_list;
+  $self->_end_all_lists       if $self->_in_bullet_list;
+  $self->_end_all_lists       if $self->_in_enumerated_list;
+  $self->_end_definition_list if $self->_in_definition_list;
+  $self->_end_baretable       if $self->_in_baretable;
+  $self->_end_table           if $self->_in_table;
+
+  my $division = $self->_get_current_division;
+
+  $division->add_part($review);
+
+  return 1;
+}
+
+######################################################################
+
+sub _process_end_review {
+
+  my $self    = shift;
+  my $review = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $review->get_content;
+
+  if ( $text =~ /$syntax->{review_element}/ )
+    {
+      # $1 = element name (always 'review')
+      # $2 = date         (yyyy-mm-dd)
+      # $3 = entity ID
+      # $4 = status color (green, yellow, red, grey)
+      # $5 = review description
+      $review->set_date($2);
+      $review->set_entity_id($3);
+      $review->set_status($4);
+      $review->set_description($5);
+    }
+
+  else
+    {
+      my $location = $review->get_location;
+      $logger->error("SYNTAX ERROR IN REVIEW AT $location");
+    }
+
+  $library->add_review($review);
+
+  return 1;
+}
+
+######################################################################
+
+sub _process_end_index_element {
+
+  my $self    = shift;
+  my $element = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $element->get_content;
+
+  if ( $text =~ /$syntax->{index_element}/ )
+    {
+      # $1 = element name  (always 'index')
+      # $2
+      # $3 = element arg   ('begin' or 'end')
+      # $4 = element value (index term)
+      $element->set_value($4);
+    }
+
+  else
+    {
+      my $location = $element->get_location;
+      $logger->error("SYNTAX ERROR IN INDEX ELEMENT AT $location");
+    }
+
+
+  my $division  = $self->_get_current_division;
+  my $divid     = $division->get_id;
+  my $value     = $element->get_value;
+  my $term_list = [ split(/\s*;\s*/,$value) ];
+
+  foreach my $term (@{ $term_list })
+    {
+      $library->add_index_term($term,$divid);
+
+      if ( $self->_has_current_document )
+	{
+	  my $document = $self->_get_current_document;
+
+	  $document->add_index_term($term,$divid);
+	}
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _process_end_use_formal_status_element {
+
+  my $self    = shift;
+  my $element = shift;
+
+  my $value   = $element->get_value;
+  my $library = $self->get_library;
+  my $util    = $library->get_util;
+  my $options = $util->get_options;
+
+  $options->set_use_formal_status($value);
+
+  return 1;
+}
+
+######################################################################
+
 sub _process_enum_list_item {
 
   my $self       = shift;
   my $line       = shift;
   my $whitespace = shift;
-  my $text       = shift;
 
   my $indent  = length($whitespace);
   my $library = $self->get_library;
@@ -6690,8 +7199,8 @@ sub _process_enum_list_item {
 
       my $item = SML::EnumeratedListItem->new
 	(
-	 library => $library,
-	 indent  => $indent,
+	 library            => $library,
+	 leading_whitespace => $whitespace,
 	);
 
       $item->add_line($line);
@@ -6724,8 +7233,8 @@ sub _process_enum_list_item {
     {
       my $item = SML::EnumeratedListItem->new
 	(
-	 library => $library,
-	 indent  => $indent,
+	 library            => $library,
+	 leading_whitespace => $whitespace,
 	);
 
       $item->add_line($line);
@@ -6773,8 +7282,8 @@ sub _process_enum_list_item {
 
       my $item = SML::EnumeratedListItem->new
 	(
-	 library => $library,
-	 indent  => $indent,
+	 library            => $library,
+	 leading_whitespace => $whitespace,
 	);
 
       $item->add_line($line);
@@ -6844,8 +7353,8 @@ sub _process_enum_list_item {
 
       my $item = SML::EnumeratedListItem->new
 	(
-	 library => $library,
-	 indent  => $indent,
+	 library            => $library,
+	 leading_whitespace => $whitespace,
 	);
 
       $item->add_line($line);
@@ -6927,8 +7436,8 @@ sub _process_enum_list_item {
 
       my $item = SML::EnumeratedListItem->new
 	(
-	 library => $library,
-	 indent  => $indent,
+	 library            => $library,
+	 leading_whitespace => $whitespace,
 	);
 
       $item->add_line($line);
@@ -6980,8 +7489,8 @@ sub _process_enum_list_item {
 
       my $item = SML::EnumeratedListItem->new
 	(
-	 library => $library,
-	 indent  => $indent,
+	 library            => $library,
+	 leading_whitespace => $whitespace,
 	);
 
       $item->add_line($line);
@@ -7068,8 +7577,8 @@ sub _process_start_table_cell {
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
 
-  $self->_clear_current_bullet_list_item;
-  $self->_clear_current_enumerated_list_item;
+  # $self->_clear_current_bullet_list_item;
+  # $self->_clear_current_enumerated_list_item;
 
   if ( not $self->_in_table and not $self->_in_baretable )
     {
@@ -7261,8 +7770,8 @@ sub _process_paragraph_text {
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
 
-  $self->_clear_current_bullet_list_item;
-  $self->_clear_current_enumerated_list_item;
+  # $self->_clear_current_bullet_list_item;
+  # $self->_clear_current_enumerated_list_item;
 
   if ( $self->_in_paragraph )
     {
@@ -7455,23 +7964,23 @@ sub _process_non_blank_line {
 
 ######################################################################
 
-sub _push_part_stack {
+sub _push_container_stack {
 
   my $self = shift;
   my $part = shift;
 
-  push @{ $self->_get_part_stack }, $part;
+  push @{ $self->_get_container_stack }, $part;
 
   return 1;
 }
 
 ######################################################################
 
-sub _pop_part_stack {
+sub _pop_container_stack {
 
   my $self = shift;
 
-  return pop @{ $self->_get_part_stack };
+  return pop @{ $self->_get_container_stack };
 }
 
 ######################################################################
@@ -8280,85 +8789,37 @@ sub _in_section {
 
 ######################################################################
 
-# sub _in_document {
-
-#   my $self = shift;
-
-#   my $division = $self->_get_current_division;
-
-#   while ( $division and not $division->isa('SML::Fragment') )
-#     {
-#       if ( $division->isa('SML::Document') )
-# 	{
-# 	  return 1;
-# 	}
-
-#       else
-# 	{
-# 	  $division = $division->get_containing_division;
-# 	}
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
-# sub _current_environment {
-
-#   my $self = shift;
-
-#   my $division = $self->_get_current_division;
-
-#   while ( $division and not $division->isa('SML::Fragment') )
-#     {
-#       if ( $division->isa('SML::Environment') )
-# 	{
-# 	  return $division;
-# 	}
-
-#       else
-# 	{
-# 	  $division = $division->get_containing_division;
-# 	}
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
-# sub _current_region {
-
-#   my $self = shift;
-
-#   my $division = $self->_get_current_division;
-
-#   while ( $division and not $division->isa('SML::Fragment') )
-#     {
-#       if ( $division->isa('SML::Region') )
-# 	{
-# 	  return $division;
-# 	}
-
-#       else
-# 	{
-# 	  $division = $division->get_containing_division;
-# 	}
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
-sub _current_document {
+sub _has_current_document {
 
   my $self = shift;
 
   my $division = $self->_get_current_division;
 
-  while ( $division and not $division->isa('SML::Fragment') )
+  while ( $division )
+    {
+      if ( $division->isa('SML::Document') )
+	{
+	  return 1;
+	}
+
+      else
+	{
+	  $division = $division->get_containing_division;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub _get_current_document {
+
+  my $self = shift;
+
+  my $division = $self->_get_current_division;
+
+  while ( $division )
     {
       if ( $division->isa('SML::Document') )
 	{
@@ -8438,7 +8899,6 @@ sub _text_contains_substring {
 
   if ( $self->_is_single_string($text) )
     {
-      $logger->warn("text DOES NOT contain substring: $text");
       return 0;
     }
 
@@ -8452,7 +8912,7 @@ sub _text_contains_substring {
 
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
-	  return $string_type;
+	  return 1;
 	}
     }
 
@@ -8627,33 +9087,48 @@ sub _parse_block {
       return 0;
     }
 
+  my $name = $block->get_name;
+  $logger->trace("parse block $name");
+
   $self->_set_block($block);
 
-  # If this is a comment block, don't parse it into parts.
-  if ( $block->isa('SML::CommentBlock') )
-    {
-      $self->_clear_block;
-      return 1;
-    }
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = q{};
 
-  # If this is a pre-formatted block, don't parse it into parts.
-  if ( $block->isa('SML::PreformattedBlock') )
-    {
-      $self->_clear_block;
-      return 1;
-    }
-
-  my $text = q{};
-
+  # If this is a comment block or a preformatted block, don't parse it into parts.
   if (
-      $block->isa('SML::Element')
+      $block->isa('SML::CommentBlock')
       or
-      $block->isa('SML::ListItem')
-      or
-      $block->isa('SML::Paragraph')
-      or
-      $block->isa('SML::Definition')
+      $block->isa('SML::PreformattedBlock')
      )
+    {
+      $self->_clear_block;
+      return 1;
+    }
+
+  elsif ( $block->isa('SML::Definition') )
+    {
+      my $term       = $block->get_term;
+      my $term_string = $self->_create_string($term);
+      $block->set_term_string($term_string);
+
+      my $definition = $block->get_definition;
+      my $definition_string = $self->_create_string($definition);
+      $block->set_definition_string($definition_string);
+
+      return 1;
+    }
+
+  elsif ( $block->isa('SML::Element') )
+    {
+      $text = $block->get_value;
+    }
+
+  elsif ( $block->isa('SML::ListItem')
+	  or
+	  $block->isa('SML::Paragraph')
+	)
     {
       $text = $block->get_value;
     }
@@ -8801,14 +9276,13 @@ sub _get_string_type {
 
 ######################################################################
 
-sub _has_part {
+sub _has_current_container {
 
   my $self = shift;
 
-  my $part_stack   = $self->_get_part_stack;
-  my $current_part = $part_stack->[-1];
+  my $container_stack = $self->_get_container_stack;
 
-  if ( defined $current_part )
+  if ( defined $container_stack->[-1] )
     {
       return 1;
     }
@@ -8821,13 +9295,13 @@ sub _has_part {
 
 ######################################################################
 
-sub _get_part {
+sub _get_current_container {
 
   my $self = shift;
 
-  my $part_stack = $self->_get_part_stack;
+  my $container_stack = $self->_get_container_stack;
 
-  return $part_stack->[-1];
+  return $container_stack->[-1];
 }
 
 ######################################################################

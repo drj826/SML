@@ -36,7 +36,13 @@ BEGIN {
 # Can instantiate object?
 #---------------------------------------------------------------------
 
-my $obj = SML::ListItem->new(library=>$library);
+my $args = {};
+
+$args->{library}            = $library;
+$args->{leading_whitespace} = '';
+
+my $obj = SML::ListItem->new(%{$args});
+
 isa_ok($obj,'SML::ListItem');
 
 #---------------------------------------------------------------------

@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.Syntax');
 # NON-REFERENCE STRINGS
 #---------------------------------------------------------------------
 
-has 'bold' =>
+has bold =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -38,7 +38,7 @@ has 'bold' =>
 
 ######################################################################
 
-has 'bold_string' =>
+has bold_string =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -49,7 +49,7 @@ has 'bold_string' =>
 
 ######################################################################
 
-has 'italics' =>
+has italics =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -61,7 +61,7 @@ has 'italics' =>
 
 ######################################################################
 
-has 'italics_string' =>
+has italics_string =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -72,7 +72,7 @@ has 'italics_string' =>
 
 ######################################################################
 
-has 'fixedwidth' =>
+has fixedwidth =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -84,7 +84,7 @@ has 'fixedwidth' =>
 
 ######################################################################
 
-has 'fixedwidth_string' =>
+has fixedwidth_string =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -95,7 +95,7 @@ has 'fixedwidth_string' =>
 
 ######################################################################
 
-has 'underline' =>
+has underline =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -107,7 +107,7 @@ has 'underline' =>
 
 ######################################################################
 
-has 'underline_string' =>
+has underline_string =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -118,7 +118,7 @@ has 'underline_string' =>
 
 ######################################################################
 
-has 'superscript' =>
+has superscript =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -130,7 +130,7 @@ has 'superscript' =>
 
 ######################################################################
 
-has 'superscript_string' =>
+has superscript_string =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -141,7 +141,7 @@ has 'superscript_string' =>
 
 ######################################################################
 
-has 'subscript' =>
+has subscript =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -153,7 +153,7 @@ has 'subscript' =>
 
 ######################################################################
 
-has 'subscript_string' =>
+has subscript_string =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -164,7 +164,7 @@ has 'subscript_string' =>
 
 ######################################################################
 
-has 'keystroke_symbol' =>
+has keystroke_symbol =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -175,7 +175,7 @@ has 'keystroke_symbol' =>
 
 ######################################################################
 
-has 'user_entered_text' =>
+has user_entered_text =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -187,7 +187,7 @@ has 'user_entered_text' =>
 
 ######################################################################
 
-has 'xml_tag' =>
+has xml_tag =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -196,7 +196,7 @@ has 'xml_tag' =>
 
 ######################################################################
 
-has 'sglquote_string' =>
+has sglquote_string =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -207,7 +207,7 @@ has 'sglquote_string' =>
 
 ######################################################################
 
-has 'dblquote_string' =>
+has dblquote_string =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -220,7 +220,7 @@ has 'dblquote_string' =>
 # EXTERNAL REFERENCE STRINGS
 #---------------------------------------------------------------------
 
-has 'file_ref' =>
+has file_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -231,7 +231,7 @@ has 'file_ref' =>
 
 ######################################################################
 
-has 'path_ref' =>
+has path_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -240,7 +240,7 @@ has 'path_ref' =>
 
 ######################################################################
 
-has 'url_ref' =>
+has url_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -252,7 +252,7 @@ has 'url_ref' =>
 
 ######################################################################
 
-has 'command_ref' =>
+has command_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -261,7 +261,7 @@ has 'command_ref' =>
 
 ######################################################################
 
-has 'email_addr' =>
+has email_addr =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -277,7 +277,7 @@ has 'email_addr' =>
 # INTERNAL REFERENCE STRINGS
 #---------------------------------------------------------------------
 
-has 'lookup_ref' =>
+has lookup_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -290,7 +290,7 @@ has 'lookup_ref' =>
 
 ######################################################################
 
-has 'cross_ref' =>
+has cross_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -302,7 +302,7 @@ has 'cross_ref' =>
 
 ######################################################################
 
-has 'begin_cross_ref' =>
+has begin_cross_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -311,7 +311,7 @@ has 'begin_cross_ref' =>
 
 ######################################################################
 
-has 'id_ref' =>
+has id_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -322,7 +322,7 @@ has 'id_ref' =>
 
 ######################################################################
 
-has 'begin_id_ref' =>
+has begin_id_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -331,7 +331,7 @@ has 'begin_id_ref' =>
 
 ######################################################################
 
-has 'page_ref' =>
+has page_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -343,7 +343,7 @@ has 'page_ref' =>
 
 ######################################################################
 
-has 'begin_page_ref' =>
+has begin_page_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -352,7 +352,7 @@ has 'begin_page_ref' =>
 
 ######################################################################
 
-has 'footnote_ref' =>
+has footnote_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -364,7 +364,7 @@ has 'footnote_ref' =>
 
 ######################################################################
 
-has 'index_ref' =>
+has index_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -376,7 +376,7 @@ has 'index_ref' =>
 
 ######################################################################
 
-has 'citation_ref' =>
+has citation_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -390,7 +390,7 @@ has 'citation_ref' =>
 
 ######################################################################
 
-has 'begin_citation_ref' =>
+has begin_citation_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -401,7 +401,7 @@ has 'begin_citation_ref' =>
 
 ######################################################################
 
-has 'variable_ref' =>
+has variable_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -410,11 +410,11 @@ has 'variable_ref' =>
 
 # $1 = variable name
 # $2
-# $3 = alt namespace
+# $3 = namespace
 
 ######################################################################
 
-has 'gloss_term_ref' =>
+has gloss_term_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -428,7 +428,7 @@ has 'gloss_term_ref' =>
 
 ######################################################################
 
-has 'begin_gloss_term_ref' =>
+has begin_gloss_term_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -439,7 +439,7 @@ has 'begin_gloss_term_ref' =>
 
 ######################################################################
 
-has 'gloss_def_ref' =>
+has gloss_def_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -452,7 +452,7 @@ has 'gloss_def_ref' =>
 
 ######################################################################
 
-has 'begin_gloss_def_ref' =>
+has begin_gloss_def_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -461,7 +461,7 @@ has 'begin_gloss_def_ref' =>
 
 ######################################################################
 
-has 'acronym_term_ref' =>
+has acronym_term_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -475,7 +475,7 @@ has 'acronym_term_ref' =>
 
 ######################################################################
 
-has 'begin_acronym_term_ref' =>
+has begin_acronym_term_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -484,7 +484,7 @@ has 'begin_acronym_term_ref' =>
 
 ######################################################################
 
-has 'status_ref' =>
+has status_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -498,7 +498,7 @@ has 'status_ref' =>
 # OTHER STRINGS
 #---------------------------------------------------------------------
 
-has 'literal' =>
+has literal =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -509,7 +509,7 @@ has 'literal' =>
 # REPLACEMENT SYMBOLS
 #---------------------------------------------------------------------
 
-has 'thepage_ref' =>
+has thepage_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -518,7 +518,7 @@ has 'thepage_ref' =>
 
 ######################################################################
 
-has 'thedate_ref' =>
+has thedate_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -530,7 +530,7 @@ has 'thedate_ref' =>
 
 ######################################################################
 
-has 'pagecount_ref' =>
+has pagecount_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -539,7 +539,7 @@ has 'pagecount_ref' =>
 
 ######################################################################
 
-has 'thesection_ref' =>
+has thesection_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -548,7 +548,7 @@ has 'thesection_ref' =>
 
 ######################################################################
 
-has 'theversion_ref' =>
+has theversion_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -557,7 +557,7 @@ has 'theversion_ref' =>
 
 ######################################################################
 
-has 'therevision_ref' =>
+has therevision_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -568,7 +568,7 @@ has 'therevision_ref' =>
 # OTHER SYMBOLS
 #---------------------------------------------------------------------
 
-has 'linebreak_symbol' =>
+has linebreak_symbol =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -577,7 +577,7 @@ has 'linebreak_symbol' =>
 
 ######################################################################
 
-has 'pagebreak_symbol' =>
+has pagebreak_symbol =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -586,7 +586,7 @@ has 'pagebreak_symbol' =>
 
 ######################################################################
 
-has 'clearpage_symbol' =>
+has clearpage_symbol =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -595,7 +595,7 @@ has 'clearpage_symbol' =>
 
 ######################################################################
 
-has 'take_note_symbol' =>
+has take_note_symbol =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -604,7 +604,7 @@ has 'take_note_symbol' =>
 
 ######################################################################
 
-has 'smiley_symbol' =>
+has smiley_symbol =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -613,7 +613,7 @@ has 'smiley_symbol' =>
 
 ######################################################################
 
-has 'frowny_symbol' =>
+has frowny_symbol =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -622,7 +622,7 @@ has 'frowny_symbol' =>
 
 ######################################################################
 
-has 'left_arrow_symbol' =>
+has left_arrow_symbol =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -640,7 +640,7 @@ has 'left_arrow_symbol' =>
 
 ######################################################################
 
-has 'right_arrow_symbol' =>
+has right_arrow_symbol =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -658,7 +658,7 @@ has 'right_arrow_symbol' =>
 
 ######################################################################
 
-has 'latex_symbol' =>
+has latex_symbol =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -667,7 +667,7 @@ has 'latex_symbol' =>
 
 ######################################################################
 
-has 'tex_symbol' =>
+has tex_symbol =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -676,7 +676,7 @@ has 'tex_symbol' =>
 
 ######################################################################
 
-has 'copyright_symbol' =>
+has copyright_symbol =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -685,7 +685,7 @@ has 'copyright_symbol' =>
 
 ######################################################################
 
-has 'trademark_symbol' =>
+has trademark_symbol =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -694,7 +694,7 @@ has 'trademark_symbol' =>
 
 ######################################################################
 
-has 'reg_trademark_symbol' =>
+has reg_trademark_symbol =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -703,49 +703,7 @@ has 'reg_trademark_symbol' =>
 
 ######################################################################
 
-# has 'open_dblquote_symbol' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => q{``},
-#   );
-
-######################################################################
-
-# has 'close_dblquote_symbol' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => q{''},
-#   );
-
-######################################################################
-
-# has 'open_sglquote_symbol' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => q{([^`])`([^`])},
-#   );
-
-# $1 = preceding character
-# $2 = following character
-
-######################################################################
-
-# has 'close_sglquote_symbol' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => q{([^'])'([^'])},
-#   );
-
-# $1 = preceding character
-# $2 = following character
-
-######################################################################
-
-has 'section_symbol' =>
+has section_symbol =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -754,7 +712,7 @@ has 'section_symbol' =>
 
 ######################################################################
 
-has 'emdash_symbol' =>
+has emdash_symbol =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -775,7 +733,7 @@ has 'emdash_symbol' =>
 # BLOCKS
 #---------------------------------------------------------------------
 
-has 'paragraph_text' =>
+has paragraph_text =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -799,7 +757,7 @@ has 'paragraph_text' =>
 
 ######################################################################
 
-has 'list_item' =>
+has list_item =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -812,7 +770,7 @@ has 'list_item' =>
 
 ######################################################################
 
-has 'bull_list_item' =>
+has bull_list_item =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -824,7 +782,7 @@ has 'bull_list_item' =>
 
 ######################################################################
 
-has 'enum_list_item' =>
+has enum_list_item =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -836,7 +794,7 @@ has 'enum_list_item' =>
 
 ######################################################################
 
-has 'def_list_item' =>
+has def_list_item =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -848,7 +806,7 @@ has 'def_list_item' =>
 
 ######################################################################
 
-has 'indented_text' =>
+has indented_text =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -857,7 +815,7 @@ has 'indented_text' =>
 
 ######################################################################
 
-has 'comment_line' =>
+has comment_line =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -872,7 +830,7 @@ has 'comment_line' =>
 # ELEMENTS
 #---------------------------------------------------------------------
 
-has 'element' =>
+has element =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -880,147 +838,29 @@ has 'element' =>
   );
 
 # $1 = element name
-# $2 = args
+# $2 = element args
 # $3 = element value
 # $4
 # $5 = comment text
 
 ######################################################################
 
-has 'title_element' =>
+has title_element =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^title::\s*(.*?)\s*(\#(.*))?$',
+   default => '^(title)::([^\s\:]+:)?\s*(.*?)$',
   );
 
-# $1 = title text
-# $2
-# $3 = comment text
+# $1 = element name  (always 'title')
+# $2 = element args
+# $3 = element value (title text)
 
 # NOTE: This syntax means you can't put a '#' in title text.
 
 ######################################################################
 
-# has 'id_element' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => '^(id|label)::\s*(.*?)\s*(\#(.*))?$',
-#   );
-
-# $1 = id or label
-# $2 = id value
-# $3 = comment
-# $4 = comment content
-
-######################################################################
-
-# has 'author_element' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => '^author::\s*(.*?)\s*(\#(.*))?$',
-#   );
-
-# # $1 = author value
-# # $2
-# # $3 = comment text
-
-######################################################################
-
-# has 'date_element' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => '^date::\s*(.*?)\s*(\#(.*))?$',
-#   );
-
-# # $1 = date value
-# # $2
-# # $3 = comment text
-
-######################################################################
-
-# has 'revision_element' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => '^revision::\s*(.*?)\s*(\#(.*))?$',
-#   );
-
-# # $1 = revision value
-# # $2
-# # $3 = comment text
-
-######################################################################
-
-# has 'document_file_element' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => '^document_file::\s*(.*?)\s*(\#(.*))?$',
-#   );
-
-# # $1 = filespec
-# # $2
-# # $3 = comment text
-
-######################################################################
-
-# has 'fragment_file_element' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => '^fragment_file::\s*(.*?)\s*(\#(.*))?$',
-#   );
-
-# # $1 = filespec
-# # $2
-# # $3 = comment text
-
-######################################################################
-
-# has 'entity_file_element' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => '^entity_file::\s*(.*?)\s*(\#(.*))?$',
-#   );
-
-# # $1 = filespec
-# # $2
-# # $3 = comment text
-
-######################################################################
-
-# has 'reference_file_element' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => '^reference_file::\s*(.*?)\s*(\#(.*))?$',
-#   );
-
-# # $1 = filespec
-# # $2
-# # $3 = comment text
-
-######################################################################
-
-# has 'script_file_element' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => '^script_file::\s*(.*?)\s*(\#(.*))?$',
-#   );
-
-# # $1 = filespec
-# # $2
-# # $3 = comment text
-
-######################################################################
-
-has 'insert_element' =>
+has insert_element =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1035,7 +875,7 @@ has 'insert_element' =>
 
 ######################################################################
 
-has 'insert_ins_element' =>
+has insert_ins_element =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1046,7 +886,7 @@ has 'insert_ins_element' =>
 
 ######################################################################
 
-has 'insert_gen_element' =>
+has insert_gen_element =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1057,19 +897,7 @@ has 'insert_gen_element' =>
 
 ######################################################################
 
-# has 'insert_string' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => '(.*?)\((.*)\)',
-#   );
-
-# # $1 = value
-# # $2 = division ID
-
-######################################################################
-
-has 'template_element' =>
+has template_element =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1085,7 +913,7 @@ has 'template_element' =>
 
 ######################################################################
 
-has 'generate_element' =>
+has generate_element =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1101,7 +929,7 @@ has 'generate_element' =>
 
 ######################################################################
 
-has 'include_element' =>
+has include_element =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1117,7 +945,7 @@ has 'include_element' =>
 
 ######################################################################
 
-has 'csvfile_element' =>
+has csvfile_element =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1132,7 +960,7 @@ has 'csvfile_element' =>
 
 ######################################################################
 
-has 'script_element' =>
+has script_element =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1146,53 +974,51 @@ has 'script_element' =>
 
 ######################################################################
 
-has 'outcome_element' =>
+has outcome_element =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^outcome::(.*?):(.*?):(.*?):\s*(.+)\s*(\#(.*))?$',
+   default => '^(outcome)::(.*?):(.*?):(.*?):\s*(.*)$',
   );
 
-# $1 = date (yyyy-mm-dd)
-# $2 = entity ID
-# $3 = status color (green, yellow, red, grey)
-# $4 = outcome description
-# $5
-# $6 = comment text
+# $1 = element name (always 'outcome')
+# $2 = date         (yyyy-mm-dd)
+# $3 = entity ID
+# $4 = status color (green, yellow, red, grey)
+# $5 = outcome description
 
 ######################################################################
 
-has 'review_element' =>
+has review_element =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^review::(.*?):(.*?):(.*?):\s*(.+)\s*(\#(.*))?$',
+   default => '^(review)::(.*?):(.*?):(.*?):\s*(.*)$',
   );
 
-# $1 = date (yyyy-mm-dd)
-# $2 = entity ID
-# $3 = status color (green, yellow, red, grey)
-# $4 = review description
-# $5
-# $6 = comment text
+# $1 = element name (always 'review')
+# $2 = date         (yyyy-mm-dd)
+# $3 = entity ID
+# $4 = status color (green, yellow, red, grey)
+# $5 = review description
 
 ######################################################################
 
-has 'index_element' =>
+has index_element =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^index::(\S+:)?\s*(.*?)\s*(\#(.*))?$',
+   default => '^(index)::((\S+):)?\s*(.*)$',
   );
 
-# $1 = begin or end
-# $2 = index term
-# $3
-# $4 = comment text
+# $1 = element name  (always 'index')
+# $2
+# $3 = element arg   ('begin' or 'end')
+# $4 = element value (index term)
 
 ######################################################################
 
-has 'file_element' =>
+has file_element =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1205,7 +1031,7 @@ has 'file_element' =>
 
 ######################################################################
 
-has 'image_element' =>
+has image_element =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1220,7 +1046,7 @@ has 'image_element' =>
 
 ######################################################################
 
-has 'definition_element' =>
+has definition_element =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1230,97 +1056,110 @@ has 'definition_element' =>
 # $1 = element name
 # $2 = defined term
 # $3
-# $4 = alt namespace
+# $4 = namespace
 # $5 = definition text
 # $6
 # $7 = comment text
 
 ######################################################################
 
-has 'glossary_element' =>
+has glossary_element =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(glossary)::\s*(.*?)\s*(\{(.*?)\})?\s*=\s*(.*?)\s*(\#(.*))?$',
+   default => '^(glossary)::([^\s\:]+:)?\s*((.*?)\s*(\{(.*?)\})?\s*=\s*(.*))$',
   );
 
-# $1 = tag name
-# $2 = glossary term
-# $3
-# $4 = alt namespace
-# $5 = definition text
-# $6
-# $7 = comment text
+# $1 = element name  (always 'glossary')
+# $2 = element args
+# $3 = element value (term {namespace} = definition)
+# $4 = glossary term
+# $5
+# $6 = namespace
+# $7 = definition text
 
 ######################################################################
 
-has 'variable_element' =>
+has variable_element =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(var)::\s*(.*?)\s*(\{(.*?)\})?\s*=\s*(.*?)\s*(\#(.*))?$',
+   default => '^(var)::([^\s\:]+:)?\s*((.*?)\s*(\{(.*?)\})?\s*=\s*(.*))$',
   );
 
-# $1 = tag name
-# $2 = variable name
-# $3
-# $4 = alt namespace
-# $5= variable value
-# $6
-# $7 = comment text
+# $1 = element name   (always 'var')
+# $2 = element args
+# $3 = element value  (term {namespace} = definition)
+# $4 = variable name  (term)
+# $5
+# $6 = namespace      (OPTIONAL)
+# $7 = variable value (definition)
 
 ######################################################################
 
-has 'acronym_element' =>
+has attr_element =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(acronym)::\s*(.*?)\s*(\{(.*?)\})?\s*=\s*(.*?)\s*(\#(.*))?$',
+   default => '^(attr)::([^\s\:]+:)?\s*((.*?)\s*(\{(.*?)\})?\s*=\s*(.*))$',
   );
 
-# $1 = tag name
-# $2 = acronym
-# $3
-# $4 = alt namespace
-# $5 = acronym definition
-# $6
-# $7 = comment text
+# $1 = element name   (always 'attr')
+# $2 = element args
+# $3 = element value  (term {namespace} = definition)
+# $4 = variable name  (term)
+# $5
+# $6 = namespace      (OPTIONAL)
+# $7 = variable value (definition)
 
 ######################################################################
 
-has 'note_element' =>
+has acronym_element =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(note|footnote)::([^\s\:]+):(([^\s\:]+):)?\s*(.*?)\s*(\#(.*))?$',
+   default => '^(acronym)::([^\s\:]+:)?\s*((.*?)\s*(\{(.*?)\})?\s*=\s*(.*))$',
   );
 
-# $1 = note type (note or footnote)
-# $2 = tag
-# $3
-# $4 = division ID (optional)
-# $5 = note text
-# $6
-# $7 = comment text
+# $1 = element name (always 'acronym')
+# $2 = element args
+# $3 = element value (acronym {namespace} = definition)
+# $4 = acronym term
+# $5
+# $6 = namespace
+# $7 = acronym definition
 
 ######################################################################
 
-has 'step_element' =>
+has footnote_element =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^step::\s*(.+?)\s*(\#(.*))?\s*$',
+   default => '^(footnote)::([^\s\:]+):\s*(.*)?$',
   );
 
-# $1 = text
-# $2
-# $3 = comment text
+# $1 = element name  (always 'footnote')
+# $2 = element args  (note number)
+# $3 = element value (note text)
+
+######################################################################
+
+has step_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(step)::([^\s\:]+:)?\s*(.*)$',
+  );
+
+# $1 = element name (always 'step')
+# $2 = element args
+# $3 = element value (step description)
 
 #---------------------------------------------------------------------
 # DIVISIONS
 #---------------------------------------------------------------------
 
-has 'start_division' =>
+has start_division =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1333,7 +1172,7 @@ has 'start_division' =>
 
 ######################################################################
 
-has 'end_division' =>
+has end_division =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1344,7 +1183,7 @@ has 'end_division' =>
 
 ######################################################################
 
-has 'start_section' =>
+has start_section =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1358,45 +1197,7 @@ has 'start_section' =>
 
 ######################################################################
 
-# has 'start_comment' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => '^>{3}COMMENT',
-#   );
-
-######################################################################
-
-# has 'end_comment' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => '^<{3}COMMENT',
-#   );
-
-######################################################################
-
-# has 'start_conditional' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => '^>{3}CONDITIONAL.([\w\-]+)',
-#   );
-
-# $1 = conditional token
-
-######################################################################
-
-# has 'end_conditional' =>
-#   (
-#    is      => 'ro',
-#    isa     => 'Str',
-#    default => '^<{3}CONDITIONAL',
-#   );
-
-######################################################################
-
-has 'table_cell' =>
+has table_cell =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1409,7 +1210,7 @@ has 'table_cell' =>
 
 ######################################################################
 
-has 'end_table_row' =>
+has end_table_row =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1420,7 +1221,7 @@ has 'end_table_row' =>
 # OTHER REGEXS
 #---------------------------------------------------------------------
 
-has 'segment_separator' =>
+has segment_separator =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1429,7 +1230,7 @@ has 'segment_separator' =>
 
 ######################################################################
 
-has 'blank_line' =>
+has blank_line =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1438,7 +1239,7 @@ has 'blank_line' =>
 
 ######################################################################
 
-has 'non_blank_line' =>
+has non_blank_line =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1447,7 +1248,7 @@ has 'non_blank_line' =>
 
 ######################################################################
 
-has 'inline_tag' =>
+has inline_tag =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1458,7 +1259,7 @@ has 'inline_tag' =>
 # VALIDATION REGULAR EXPRESSIONS
 #---------------------------------------------------------------------
 
-has 'valid_inline_tags' =>
+has valid_inline_tags =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1467,7 +1268,7 @@ has 'valid_inline_tags' =>
 
 ######################################################################
 
-has 'valid_date' =>
+has valid_date =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1476,7 +1277,7 @@ has 'valid_date' =>
 
 ######################################################################
 
-has 'valid_status' =>
+has valid_status =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1485,7 +1286,7 @@ has 'valid_status' =>
 
 ######################################################################
 
-has 'valid_description' =>
+has valid_description =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1494,7 +1295,7 @@ has 'valid_description' =>
 
 ######################################################################
 
-has 'valid_ontology_rule_type' =>
+has valid_ontology_rule_type =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1503,7 +1304,7 @@ has 'valid_ontology_rule_type' =>
 
 ######################################################################
 
-has 'valid_cardinality_value' =>
+has valid_cardinality_value =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1512,7 +1313,7 @@ has 'valid_cardinality_value' =>
 
 ######################################################################
 
-has 'key_value_pair' =>
+has key_value_pair =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1781,7 +1582,7 @@ showing associated regular expressions defined by SML::Syntax:
    |    |    |
    |    |    +-- SML::Note
    |    |    |    |
-   |    |    |    +-- regex: note_element
+   |    |    |    +-- regex: footnote_element
    |
    #------------------------------------------------------------------
    # DIVISIONS

@@ -374,28 +374,18 @@ sub add_attribute {
     }
 
   my $library    = $self->get_library;
-  my $syntax     = $library->get_syntax;
-  my $attributes = $self->_get_attribute_hash;
-  my $value      = $element->get_value;
+  my $ah         = $self->_get_attribute_hash;
+  my $term       = $element->get_term;
+  my $definition = $element->get_definition;
 
-  if ( $value =~ /$syntax->{key_value_pair}/xms )
+  if ( not exists $ah->{$term} )
     {
-      my $key = $1;
-      my $val = $2;
-
-      if ( not exists $attributes->{$key} )
-	{
-	  $attributes->{$key} = [];
-	}
-
-      push @{ $attributes->{$key} }, $val;
-
-      return 1;
+      $ah->{$term} = [];
     }
-  else
-    {
-      return 0;
-    }
+
+  push @{ $ah->{$term} }, $definition;
+
+  return 1;
 }
 
 ######################################################################

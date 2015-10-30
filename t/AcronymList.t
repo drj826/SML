@@ -113,14 +113,14 @@ sub has_acronym_ok {
   my $tcname       = $tc->{name};
   my $definition   = $tc->{definition};
   my $acronym      = $tc->{acronym};
-  my $alt          = $tc->{alt};
+  my $namespace    = $tc->{namespace};
   my $acronym_list = SML::AcronymList->new;
   my $expected     = $tc->{expected}{has_acronym};
 
   $acronym_list->add_acronym($definition);
 
   # act
-  my $result = $acronym_list->has_acronym($acronym,$alt);
+  my $result = $acronym_list->has_acronym($acronym,$namespace);
 
   # assert
   is($result,$expected,"$tcname has_acronym $result");
@@ -136,14 +136,14 @@ sub get_acronym_ok {
   my $tcname       = $tc->{name};
   my $definition   = $tc->{definition};
   my $acronym      = $tc->{acronym};
-  my $alt          = $tc->{alt};
+  my $namespace    = $tc->{namespace};
   my $acronym_list = SML::AcronymList->new;
   my $expected     = $tc->{expected}{get_acronym};
 
   $acronym_list->add_acronym($definition);
 
   # act
-  my $result = ref $acronym_list->get_acronym($acronym,$alt);
+  my $result = ref $acronym_list->get_acronym($acronym,$namespace);
 
   # assert
   is($result,$expected,"$tcname get_acronym $result");
@@ -181,7 +181,7 @@ sub warn_get_acronym_ok {
   # arrange
   my $tcname       = $tc->{name};
   my $acronym      = $tc->{acronym};
-  my $alt          = $tc->{alt};
+  my $namespace    = $tc->{namespace};
   my $acronym_list = SML::AcronymList->new;
   my $expected     = $tc->{expected}{warning}{get_acronym};
   my $t1logger     = Test::Log4perl->get_logger('sml.AcronymList');
@@ -190,7 +190,7 @@ sub warn_get_acronym_ok {
   $t1logger->warn(qr/$expected/);
 
   # act
-  my $result = $acronym_list->get_acronym($acronym,$alt);
+  my $result = $acronym_list->get_acronym($acronym,$namespace);
 
   # assert
   Test::Log4perl->end("$tcname $expected");

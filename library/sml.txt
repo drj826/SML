@@ -3981,7 +3981,6 @@ column::4:width: 35
 
 column::1:head: Structured Information
 column::2:head: Assertion
-column::3:head:
 column::4:head: Examples
 
 ===
@@ -4453,7 +4452,6 @@ column::4:width: 30
 
 column::1:head: Structured Information
 column::2:head: Assertion
-column::3:head:
 column::4:head: Examples
 
 ===
@@ -4963,7 +4961,6 @@ column::4:width: 30
 
 column::1:head: Structured Information
 column::2:head: Assertion
-column::3:head:
 column::4:head: Examples
 
 ===

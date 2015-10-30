@@ -12,9 +12,6 @@ $Date: 2011-04-07 16:47:26 -0600 (Thu, 07 Apr 2011) $
 
 $Author: don.johnson $
 
-This file contains all bibliographic source entries for the Vetting
-Operations Engineering Baseline.
-
 <<<COMMENT
 
 >>>SOURCE.cms15

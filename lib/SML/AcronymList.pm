@@ -50,11 +50,11 @@ sub add_acronym {
       return 0;
     }
 
-  my $term = $definition->get_term;
-  my $alt  = $definition->get_alt;
-  my $ah   = $self->_get_acronym_hash;
+  my $term      = $definition->get_term;
+  my $namespace = $definition->get_namespace || q{};
+  my $ah        = $self->_get_acronym_hash;
 
-  $ah->{$term}{$alt} = $definition;
+  $ah->{$term}{$namespace} = $definition;
 
   return 1;
 }
@@ -63,13 +63,13 @@ sub add_acronym {
 
 sub has_acronym {
 
-  my $self    = shift;
-  my $acronym = shift;
-  my $alt     = shift || q{};
+  my $self      = shift;
+  my $acronym   = shift;
+  my $namespace = shift || q{};
 
   my $ah = $self->_get_acronym_hash;
 
-  if ( defined $ah->{$acronym}{$alt} )
+  if ( defined $ah->{$acronym}{$namespace} )
     {
       return 1;
     }
@@ -84,20 +84,20 @@ sub has_acronym {
 
 sub get_acronym {
 
-  my $self    = shift;
-  my $acronym = shift;
-  my $alt     = shift || q{};
+  my $self      = shift;
+  my $acronym   = shift;
+  my $namespace = shift || q{};
 
   my $ah = $self->_get_acronym_hash;
 
-  if ( defined $ah->{$acronym}{$alt} )
+  if ( defined $ah->{$acronym}{$namespace} )
     {
-      return $ah->{$acronym}{$alt};
+      return $ah->{$acronym}{$namespace};
     }
 
   else
     {
-      $logger->warn("FAILED ACRONYM LOOKUP: \'$acronym\' \'$alt\'");
+      $logger->warn("FAILED ACRONYM LOOKUP: \'$acronym\' \'$namespace\'");
       return 0;
     }
 }
@@ -115,9 +115,9 @@ sub get_acronym_list {
 
   foreach my $acronym ( sort keys %{ $ah } )
     {
-      foreach my $alt ( sort keys %{ $ah->{$acronym} } )
+      foreach my $namespace ( sort keys %{ $ah->{$acronym} } )
 	{
-	  push @{ $al }, $ah->{$acronym}{$alt};
+	  push @{ $al }, $ah->{$acronym}{$namespace};
 	}
     }
 
@@ -161,15 +161,16 @@ field, or area of usage, with accompanying definitions.
   my $acronym_list = SML::AcronymList->new();
 
   my $boolean = $acronym_list->add_acronym($definition);
-  my $boolean = $acronym_list->has_acronym($acronym,$alt);
-  my $acronym = $acronym_list->get_acronym($acronym,$alt);
+  my $boolean = $acronym_list->has_acronym($acronym,$namespace);
+  my $acronym = $acronym_list->get_acronym($acronym,$namespace);
   my $list    = $acronym_list->get_acronym_list;  # alphabetized
 
 =head1 DESCRIPTION
 
 An acronym list is a list of acronyms used in a special subject,
 field, or area of usage, with accompanying definitions.  The acronym
-list may contain multiple alternative definitions of the same acronym.
+list may contain multiple alternative definitions of the same acronym
+in different namespaces.
 
 =head1 METHODS
 

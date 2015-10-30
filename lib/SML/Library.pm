@@ -494,9 +494,11 @@ sub add_variable {
 
   if ( $definition->isa('SML::Definition') )
     {
-      my $name = $definition->get_term;
-      my $alt  = $definition->get_alt;
-      $self->_get_variable_hash->{$name}{$alt} = $definition;
+      my $name      = $definition->get_term;
+      my $namespace = $definition->get_namespace || q{};
+
+      $self->_get_variable_hash->{$name}{$namespace} = $definition;
+
       return 1;
     }
 
@@ -596,39 +598,24 @@ sub add_outcome {
   my $self    = shift;
   my $outcome = shift;
 
-  my $outcome_ds = $self->_get_outcome_hash;
-  my $syntax     = $self->get_syntax;
-  my $util       = $self->get_util;
-  my $options    = $util->get_options;
-  my $text       = $outcome->get_content;
+  my $oh = $self->_get_outcome_hash;
 
-  $text =~ s/[\r\n]*$//;                # chomp;
+  my $date      = $outcome->get_date;
+  my $entity_id = $outcome->get_entity_id;
 
-  if ( $text =~ /$syntax->{outcome_element}/xms )
+  $oh->{$entity_id}{$date}{status}      = $outcome->get_status;
+  $oh->{$entity_id}{$date}{description} = $outcome->get_description;
+  $oh->{$entity_id}{$date}{outcome}     = $outcome;
+
+  my $util    = $self->get_util;
+  my $options = $util->get_options;
+
+  if ( $options->use_formal_status )
     {
-      my $date        = $1;
-      my $entity_id   = $2;
-      my $status      = $3;
-      my $description = $4;
-
-      $outcome_ds->{$entity_id}{$date}{status}      = $status;
-      $outcome_ds->{$entity_id}{$date}{description} = $description;
-      $outcome_ds->{$entity_id}{$date}{outcome}     = $outcome;
-
-      if ( $options->use_formal_status )
-	{
-	  $self->update_status_from_outcome($outcome);
-	}
-
-      return 1;
+      $self->update_status_from_outcome($outcome);
     }
 
-  else
-    {
-      my $location = $outcome->location;
-      $logger->error("CAN'T ADD OUTCOME at $location (outcome syntax error)");
-      return 0;
-    }
+  return 1;
 }
 
 ######################################################################
@@ -641,34 +628,16 @@ sub add_review {
   my $self   = shift;
   my $review = shift;
 
-  my $review_ds = $self->_get_review_hash;
-  my $syntax    = $self->get_syntax;
-  my $util      = $self->get_util;
-  my $options   = $util->get_options;
-  my $text      = $review->get_content;
+  my $entity_id = $review->get_entity_id;
+  my $date      = $review->get_date;
 
-  $text =~ s/[\r\n]*$//;                # chomp;
+  my $rh = $self->_get_review_hash;
 
-  if ( $text =~ /$syntax->{review_element}/xms )
-    {
-      my $date        = $1;
-      my $entity_id   = $2;
-      my $status      = $3;
-      my $description = $4;
+  $rh->{$entity_id}{$date}{status}      = $review->get_status;
+  $rh->{$entity_id}{$date}{description} = $review->get_description;
+  $rh->{$entity_id}{$date}{review}      = $review;
 
-      $review_ds->{$entity_id}{$date}{status}      = $status;
-      $review_ds->{$entity_id}{$date}{description} = $description;
-      $review_ds->{$entity_id}{$date}{review}      = $review;
-
-      return 1;
-    }
-
-  else
-    {
-      my $location = $review->location;
-      $logger->error("CAN'T ADD REVIEW at $location (review syntax error)");
-      return 0;
-    }
+  return 1;
 }
 
 ######################################################################
@@ -839,11 +808,11 @@ sub has_property {
 
 sub has_variable {
 
-  my $self = shift;
-  my $name = shift;
-  my $alt  = shift || q{};
+  my $self      = shift;
+  my $name      = shift;
+  my $namespace = shift || q{};
 
-  if ( exists $self->_get_variable_hash->{$name}{$alt} )
+  if ( exists $self->_get_variable_hash->{$name}{$namespace} )
     {
       return 1;
     }
@@ -1075,18 +1044,18 @@ sub get_property {
 
 sub get_variable {
 
-  my $self = shift;
-  my $name = shift;
-  my $alt  = shift || q{};
+  my $self      = shift;
+  my $name      = shift;
+  my $namespace = shift || q{};
 
-  if ( exists $self->_get_variable_hash->{$name}{$alt} )
+  if ( exists $self->_get_variable_hash->{$name}{$namespace} )
     {
-      return $self->_get_variable_hash->{$name}{$alt};
+      return $self->_get_variable_hash->{$name}{$namespace};
     }
 
   else
     {
-      $logger->error("CAN'T GET VARIABLE \'$name\' \'$alt\'");
+      $logger->error("CAN'T GET VARIABLE \'$name\' \'$namespace\'");
       return 0;
     }
 }
@@ -1166,19 +1135,20 @@ sub get_property_value {
 
 sub get_variable_value {
 
-  my $self = shift;
-  my $name = shift;
-  my $alt  = shift || q{};
+  my $self      = shift;
+  my $name      = shift;
+  my $namespace = shift || q{};
 
-  if ( exists $self->_get_variable_hash->{$name}{$alt} )
+  if ( exists $self->_get_variable_hash->{$name}{$namespace} )
     {
-      my $definition = $self->_get_variable_hash->{$name}{$alt};
+      my $definition = $self->_get_variable_hash->{$name}{$namespace};
+
       return $definition->get_value;
     }
 
   else
     {
-      $logger->error("CAN'T GET VARIABLE VALUE \'$name\' \'$alt\' not defined");
+      $logger->error("CAN'T GET VARIABLE VALUE \'$name\' \'$namespace\' not defined");
       return 0;
     }
 }
@@ -1234,6 +1204,12 @@ sub get_type {
 
   my $self  = shift;
   my $value = shift;
+
+  if ( not $value )
+    {
+      $logger->logcluck("YOU MUST PROVIDE A VALUE");
+      return 0;
+    }
 
   my $name = q{};
 
@@ -1642,11 +1618,12 @@ sub summarize_glossary {
 
       foreach my $definition (@{ $self->get_glossary->get_entry_list })
 	{
-	  my $term = $definition->get_term;
-	  my $alt  = $definition->get_alt;
+	  my $term      = $definition->get_term;
+	  my $namespace = $definition->get_namespace;
+
 	  $summary .= "  $term";
-	  if ($alt) {
-	    $summary .= " [$alt]";
+	  if ($namespace) {
+	    $summary .= " [$namespace]";
 	  }
 	  $summary .= "\n";
 	}
@@ -1671,11 +1648,12 @@ sub summarize_acronyms {
 
       foreach my $definition (@{ $self->get_acronym_list->get_acronym_list })
 	{
-	  my $acronym = $definition->get_term;
-	  my $alt     = $definition->get_alt;
+	  my $acronym   = $definition->get_term;
+	  my $namespace = $definition->get_namespace;
+
 	  $summary .= "  $acronym";
-	  if ($alt) {
-	    $summary .= " [$alt]";
+	  if ($namespace) {
+	    $summary .= " [$namespace]";
 	  }
 	  $summary .= "\n";
 	}
@@ -1700,9 +1678,9 @@ sub summarize_variables {
 
       foreach my $name (sort keys %{ $self->_get_variable_hash })
 	{
-	  foreach my $alt ( sort keys %{ $self->_get_variable_hash->{$name} } )
+	  foreach my $namespace ( sort keys %{ $self->_get_variable_hash->{$name} } )
 	    {
-	      $summary .= "  $name \[$alt\]\n";
+	      $summary .= "  $name \[$namespace\]\n";
 	    }
 	}
 
@@ -1886,57 +1864,42 @@ sub update_status_from_outcome {
   my $syntax = $self->get_syntax;
   my $util   = $self->get_util;
 
-  my $text = $outcome->get_content;
+  my $date        = $outcome->get_date;
+  my $entity_id   = $outcome->get_entity_id;
+  my $status      = $outcome->get_status;
+  my $description = $outcome->get_description;
 
-  $text =~ s/[\r\n]*$//;                # chomp;
-
-  if ( $text =~ /$syntax->{outcome_element}/xms )
+  if ( $self->has_division($entity_id) )
     {
-      my $date        = $1;
-      my $entity_id   = $2;
-      my $status      = $3;
-      my $description = $4;
+      my $entity = $self->get_division($entity_id);
+      my $status_property = undef;
 
-      if ( $self->has_division($entity_id) )
+      if ( $entity->has_property('status') )
 	{
-	  my $entity = $self->get_division($entity_id);
-	  my $status_property = undef;
-
-	  if ( $entity->has_property('status') )
-	    {
-	      $status_property = $entity->get_property('status');
-	    }
-
-	  else
-	    {
-	      $status_property = SML::Property->new
-		(
-		 id      => $entity_id,
-		 name    => 'status',
-		 library => $self,
-		);
-	    }
-
-	  $status_property->add_element($outcome);
-
-	  return 1;
+	  $status_property = $entity->get_property('status');
 	}
 
       else
 	{
-	  my $location = $outcome->location;
-	  $logger->error("CAN'T UPDATE STATUS FROM OUTCOME ON NON-EXISTENT ENTITY at $location ($entity_id)");
-	  return 0;
+	  $status_property = SML::Property->new
+	    (
+	     id      => $entity_id,
+	     name    => 'status',
+	     library => $self,
+	    );
 	}
+
+      $status_property->add_element($outcome);
+
+      return 1;
     }
 
   else
     {
       my $location = $outcome->location;
-      $logger->error("OUTCOME SYNTAX ERROR at $location ($text)");
+      $logger->error("CAN'T UPDATE STATUS FROM OUTCOME ON NON-EXISTENT ENTITY at $location ($entity_id)");
       return 0;
     }
-
 }
 
 ######################################################################
@@ -2135,7 +2098,7 @@ has 'variable_hash' =>
    default   => sub {{}},
   );
 
-#   $variable_ds->{$name}{$alt} = $definition;
+#   $variable_ds->{$name}{$namespace} = $definition;
 
 ######################################################################
 
@@ -2192,8 +2155,8 @@ has 'outcome_hash' =>
 # specific to the engineering domain.  Perhaps this functionality
 # should be in a PLUG-IN rather than in the core code.
 
-#   $outcome_ds->{$entity}{$date}{'status'}      = $status;
-#   $outcome_ds->{$entity}{$date}{'description'} = $description;
+#   $oh->{$entity}{$date}{'status'}      = $status;
+#   $oh->{$entity}{$date}{'description'} = $description;
 
 ######################################################################
 
@@ -2210,8 +2173,8 @@ has 'review_hash' =>
 # Review Data structure.  A review describes the result of an informal
 # test or informal audit of an entity.
 
-#   $review_ds->{$entity}{$date}{'status'}      = $status;
-#   $review_ds->{$entity}{$date}{'description'} = $description;
+#   $rh->{$entity}{$date}{'status'}      = $status;
+#   $rh->{$entity}{$date}{'description'} = $description;
 
 ######################################################################
 
@@ -2953,7 +2916,7 @@ reusable content.
   my $boolean      = $library->has_entity($id);
   my $boolean      = $library->has_division($id);
   my $boolean      = $library->has_property($id,$name);
-  my $boolean      = $library->has_variable($name,$alt);
+  my $boolean      = $library->has_variable($name,$namespace);
   my $boolean      = $library->has_resource($filespec);
   my $boolean      = $library->has_index_term($term);
   my $boolean      = $library->has_outcome($entity_id,$date);
@@ -2964,11 +2927,11 @@ reusable content.
   my $entity       = $library->get_entity($id);
   my $division     = $library->get_division($id);
   my $property     = $library->get_property($id,$name);
-  my $variable     = $library->get_variable($name,$alt);
+  my $variable     = $library->get_variable($name,$namespace);
   my $resource     = $library->get_resource($filespec);
   my $term         = $library->get_index_term($term);
   my $string       = $library->get_property_value($id,$name);
-  my $string       = $library->get_variable_value($name,$alt);
+  my $string       = $library->get_variable_value($name,$namespace);
   my $list         = $library->get_data_segment_line_list($id);
   my $list         = $library->get_narrative_line_list($id);
   my $type         = $library->get_type($value);
@@ -3090,7 +3053,7 @@ you went wrong.
 
 =head2 has_property($id,$name)
 
-=head2 has_variable($name,$alt)
+=head2 has_variable($name,$namespace)
 
 =head2 has_resource($filespec)
 
@@ -3112,7 +3075,7 @@ you went wrong.
 
 =head2 get_property($id,$name)
 
-=head2 get_variable($name,$alt)
+=head2 get_variable($name,$namespace)
 
 =head2 get_resource($filespec)
 
@@ -3120,7 +3083,7 @@ you went wrong.
 
 =head2 get_property_value($id,$name)
 
-=head2 get_variable_value($name,$alt)
+=head2 get_variable_value($name,$namespace)
 
 =head2 get_data_segment_line_list($id)
 

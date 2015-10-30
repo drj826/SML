@@ -31,42 +31,18 @@ has '+name' =>
 
 ######################################################################
 
-has 'indent' =>
+has 'leading_whitespace' =>
   (
    is        => 'ro',
    isa       => 'Str',
-   reader    => 'get_indent',
+   reader    => 'get_leading_whitespace',
    required  => 1,
   );
 
-# The indent is the whitespace at the beginning of the list item.  The
-# indent is significant because if the indent of one list item is
-# greater than the indent of the previous list item it indicates the
-# start of a sub-list.
-
-######################################################################
-
-has 'previous' =>
-  (
-   is        => 'ro',
-   isa       => 'SML::ListItem',
-   reader    => 'get_previous',
-   writer    => 'set_previous',
-   predicate => 'has_previous',
-  );
-
-# This is the previous item in the list.
-
-######################################################################
-
-has 'next' =>
-  (
-   is        => 'ro',
-   isa       => 'SML::ListItem',
-   reader    => 'get_next',
-   writer    => 'set_next',
-   predicate => 'has_next',
-  );
+# The leading_whitespace is the whitespace at the beginning of the
+# list item.  It is significant because if the indent of one list item
+# is greater than the indent of the previous list item it indicates
+# the start of a sub-list.
 
 ######################################################################
 ######################################################################

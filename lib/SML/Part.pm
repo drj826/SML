@@ -22,7 +22,25 @@ my $logger = Log::Log4perl::get_logger('sml.Part');
 ######################################################################
 ######################################################################
 
-has 'id' =>
+has name =>
+  (
+   isa      => 'Str',
+   reader   => 'get_name',
+   required => 1,
+  );
+
+######################################################################
+
+has library =>
+  (
+   isa      => 'SML::Library',
+   reader   => 'get_library',
+   required => 1,
+  );
+
+######################################################################
+
+has id =>
   (
    isa       => 'Str',
    reader    => 'get_id',
@@ -32,35 +50,7 @@ has 'id' =>
 
 ######################################################################
 
-has 'id_path' =>
-  (
-   isa      => 'Str',
-   reader   => 'get_id_path',
-   lazy     => 1,
-   builder  => '_build_id_path',
-  );
-
-######################################################################
-
-has 'library' =>
-  (
-   isa      => 'SML::Library',
-   reader   => 'get_library',
-   required => 1,
-  );
-
-######################################################################
-
-has 'name' =>
-  (
-   isa      => 'Str',
-   reader   => 'get_name',
-   required => 1,
-  );
-
-######################################################################
-
-has 'content' =>
+has content =>
   (
    isa       => 'Str',
    reader    => 'get_content',
@@ -70,9 +60,23 @@ has 'content' =>
    builder   => '_build_content',
   );
 
+# This is the raw SML text content of the part.
+
 ######################################################################
 
-has 'part_list' =>
+has container =>
+  (
+   isa       => 'SML::Part',
+   reader    => 'get_container',
+   writer    => 'set_container',
+   predicate => 'has_container',
+  );
+
+# This is the part that contains this one.
+
+######################################################################
+
+has part_list =>
   (
    isa       => 'ArrayRef',
    reader    => 'get_part_list',
@@ -82,9 +86,7 @@ has 'part_list' =>
    default   => sub {[]},
   );
 
-# The 'part_list' is the array of strings within this block.  All of
-# the content of a block can be represented by an array of strings.
-# Strings can contain substrings (a string within a string).
+# The 'part_list' is the array of parts within this part.
 
 ######################################################################
 ######################################################################
@@ -450,7 +452,6 @@ C<SML::Part> - a part of a document.
 
   my $result  = $part->set_id;
   my $id      = $part->get_id;
-  my $path    = $part->get_id_path;
   my $library = $part->get_library;
   my $name    = $part->get_name;
   my $result  = $part->set_content;

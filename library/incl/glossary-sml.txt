@@ -661,10 +661,10 @@ glossary:: system component {sml} = (SML) Any discrete item that is
 part of a system or subsystem
 
 glossary:: system requirement {sml} = (SML) A requirement that
-describes what a system must ~~do~~ or ~~be~~.  Vetting Operations
-engineering uses three types of system requirements: [g:sml:functional
-requirement]s, [g:sml:non-functional requirement]s, and
-[g:sml:technical requirement]s
+describes what a system must ~~do~~ or ~~be~~.  There are three types
+of system requirements: [g:sml:functional requirement]s,
+[g:sml:non-functional requirement]s, and [g:sml:technical
+requirement]s
 
 glossary:: systems engineering {sml} = (SML) The interdisciplinary
 approach governing the total technical and managerial effort required
