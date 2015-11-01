@@ -200,7 +200,7 @@ has sglquote_string =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => q{`([^'`]*?)'},
+   default => q{`([^`']*?)'},
   );
 
 # $1 = quoted string
@@ -211,7 +211,7 @@ has dblquote_string =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => q{``([^']*)''},
+   default => q{``([^`']*?)''},
   );
 
 # $1 = quoted string
@@ -434,8 +434,8 @@ has gloss_term_ref =>
   );
 
 # $1 = tag (used as capitalization indicator)
-# $2 = namespace
-# $3 =
+# $2
+# $3 = namespace
 # $4 = glossary term
 
 ######################################################################
@@ -1272,6 +1272,32 @@ has inline_tag =>
    isa     => 'Str',
    default => '(\[(\w+)\])',
   );
+
+######################################################################
+
+has svn_date_field =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '\$Date:\s+((\d+-\d+-\d+)\s(\d+:\d+:\d+)\s(.+?)\s\((.+?)\))\s+\$',
+  );
+
+# $1 = value           (2013-07-07 11:42:01 -0600 (Sun, 07 Jul 2013))
+# $2 = date            (2013-07-07)
+# $3 = time            (11:42:01)
+# $4 = timezone offset (-0600)
+# $5 = daydate         (Sun, 07 Jul 2013)
+
+######################################################################
+
+has svn_revision_field =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '\$Revision:\s+(\d+)\s+\$',
+  );
+
+# $1 = value (15146)
 
 #---------------------------------------------------------------------
 # VALIDATION REGULAR EXPRESSIONS

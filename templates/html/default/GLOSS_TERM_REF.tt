@@ -7,7 +7,9 @@
 [%- SET entry = glossary.get_entry(term,namespace) -%]
 [%- SET bookmark = entry.get_bookmark -%]
 [%- IF (tag == 'g') || (tag == 'gls') -%]
-<a href="[% docid %].glossary.html#[%bookmark%]">[% term %]</a>
+<a href="[%docid%].glossary.html#[%bookmark%]">[%term%]</a>
 [%- ELSIF (tag == 'G') || (tag == 'Gls') -%]
-<a href="[% docid %].glossary.html#[%bookmark%]">[% term.ucfirst %]</a>
+<a href="[%docid%].glossary.html#[%bookmark%]">[%term.ucfirst%]</a>
+[%- ELSE -%]
+<span style="color: red;">This should never happen</span>
 [%- END -%]

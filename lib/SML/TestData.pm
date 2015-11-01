@@ -656,7 +656,7 @@ sub _build_block_test_case_list {
       document => $self->get_test_document_1,
       expected =>
       {
-       has_parts => 1,
+       contains_parts => 1,
        render =>
        {
 	html =>
@@ -5397,7 +5397,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'string',
        get_content => 'This is a plain string.',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -5424,7 +5424,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'bold_string',
        get_content => 'this is bold',
-       has_parts => 1,
+       contains_parts => 1,
        render =>
        {
 	sml =>
@@ -5451,7 +5451,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'italics_string',
        get_content => 'this is italics',
-       has_parts => 1,
+       contains_parts => 1,
        render =>
        {
 	sml =>
@@ -5478,7 +5478,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'fixedwidth_string',
        get_content => 'this is fixed width',
-       has_parts => 1,
+       contains_parts => 1,
        render =>
        {
 	sml =>
@@ -5505,7 +5505,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'underline_string',
        get_content => 'this is underlined',
-       has_parts => 1,
+       contains_parts => 1,
        render =>
        {
 	sml =>
@@ -5532,7 +5532,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'superscript_string',
        get_content => 'this is superscripted',
-       has_parts => 1,
+       contains_parts => 1,
        render =>
        {
 	sml =>
@@ -5559,7 +5559,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'subscript_string',
        get_content => 'this is subscripted',
-       has_parts => 1,
+       contains_parts => 1,
        render =>
        {
 	sml =>
@@ -5586,7 +5586,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'keystroke_symbol',
        get_content => 'Enter',
-       has_parts => 1,
+       contains_parts => 1,
        render =>
        {
 	sml =>
@@ -5617,7 +5617,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'string',
        get_content => '[[Ctrl]]-[[Alt]]-[[Del]]',
-       has_parts => 5,
+       contains_parts => 5,
        render =>
        {
 	sml =>
@@ -5648,7 +5648,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'USER_ENTERED_TEXT',
        get_content => 'bogus',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -5675,7 +5675,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'USER_ENTERED_TEXT',
        get_content => 'bogus',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -5702,7 +5702,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'italics_string',
        get_content => 'this is !!bold!! inside italics',
-       has_parts => 3,
+       contains_parts => 3,
        render =>
        {
 	sml =>
@@ -5729,7 +5729,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'bold_string',
        get_content => 'this is ~~italics~~ inside bold',
-       has_parts => 3,
+       contains_parts => 3,
        render =>
        {
 	sml =>
@@ -5756,7 +5756,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'string',
        get_content => 'this string has ~~italics~~ and !!bold!!',
-       has_parts => 4,
+       contains_parts => 4,
        render =>
        {
 	sml =>
@@ -5783,7 +5783,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'sglquote_string',
        get_content => q{this is a single quoted string},
-       has_parts => 1,
+       contains_parts => 1,
        render =>
        {
 	sml =>
@@ -5814,7 +5814,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'FILE_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -5841,7 +5841,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'PATH_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -5868,7 +5868,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'URL_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -5895,7 +5895,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'URL_REF',
        get_content => 'google',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -5922,7 +5922,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'COMMAND_REF',
        get_content => 'ls -al | grep bogus',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -5949,7 +5949,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'EMAIL_ADDR',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -5976,7 +5976,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'EMAIL_ADDR',
        get_content => 'John Smith',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6007,7 +6007,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'CROSS_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6026,7 +6026,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'CROSS_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6045,7 +6045,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'ID_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6064,7 +6064,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'PAGE_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6083,7 +6083,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'PAGE_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6102,7 +6102,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'FOOTNOTE_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6121,7 +6121,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'INDEX_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6140,7 +6140,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'INDEX_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6159,7 +6159,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'VARIABLE_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6178,7 +6178,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'GLOSS_TERM_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6197,7 +6197,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'GLOSS_TERM_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6216,7 +6216,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'GLOSS_TERM_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6235,7 +6235,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'GLOSS_TERM_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6254,7 +6254,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'GLOSS_DEF_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6273,7 +6273,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'ACRONYM_TERM_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6292,7 +6292,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'ACRONYM_TERM_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6311,7 +6311,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'ACRONYM_TERM_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6330,7 +6330,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'ACRONYM_TERM_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6349,7 +6349,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'theversion_ref',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6368,7 +6368,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'therevision_ref',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6387,7 +6387,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'STATUS_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6406,7 +6406,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'CITATION_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6425,7 +6425,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'CITATION_REF',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6448,7 +6448,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'thepage_ref',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6475,7 +6475,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'thedate_ref',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6502,7 +6502,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'pagecount_ref',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6529,7 +6529,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'thesection_ref',
        get_content => '',
-       has_parts => 0,
+       contains_parts => 0,
        render =>
        {
 	sml =>
@@ -6560,7 +6560,7 @@ sub _build_string_test_case_list {
       {
        get_name => 'string',
        get_content => q{Prefix `single' and ``double.''},
-       has_parts => 4,
+       contains_parts => 4,
        render =>
        {
 	sml =>

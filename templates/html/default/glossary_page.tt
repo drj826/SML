@@ -1,46 +1,43 @@
-[% WRAPPER page.tt -%]
+[%- WRAPPER page.tt -%]
 
 <div class="title">
-[% IF document.has_property('title') %]
-[% SET property = document.get_property('title') %]
-[% FOREACH self IN property.get_element_list %]
+[%- IF document.has_property('title') -%]
+[%- SET property = document.get_property('title') -%]
+[%- FOREACH self IN property.get_element_list -%]
 [%- INCLUDE part_list.tt -%]
-[% END %]
-[% END %]
+[%- END -%]
+[%- END -%]
 </div>
 
-[% IF document.has_property('subtitle') %]
-[% SET property = document.get_property('subtitle') %]
-[% FOREACH self IN property.get_element_list %]
+[%- IF document.has_property('subtitle') -%]
+[%- SET property = document.get_property('subtitle') -%]
+[%- FOREACH self IN property.get_element_list -%]
 <p align="center">[%- INCLUDE part_list.tt -%]</p>
-[% END %]
-[% END %]
+[%- END -%]
+[%- END -%]
 
-[% INCLUDE preamble.tt %]
+[%- INCLUDE preamble.tt -%]
 
 <h3 align="center">Glossary</h3>
 <table>
+[%- SET glossary = document.get_glossary -%]
+[%- FOREACH entry IN glossary.get_entry_list -%]
+  [%- SET term = entry.get_term -%]
+  [%- SET definition = entry.get_definition -%]
+  [%- SET alt = entry.get_alt -%]
+  [%- SET value = entry.get_value -%]
+  [%- SET bookmark = entry.get_bookmark -%]
 
-[% SET glossary = document.get_glossary %]
-[% FOREACH entry IN glossary.get_entry_list %]
-  [% SET term = entry.get_term %]
-  [% SET definition = entry.get_definition %]
-  [% SET alt = entry.get_alt %]
-  [% SET value = entry.get_value %]
-  [% SET bookmark = entry.get_bookmark %]
 <tr>
-
 <td id="[%bookmark%]">
 [%- INCLUDE STRING.tt self = entry.get_term_string -%]
 </td>
-
 <td>
 [%- INCLUDE STRING.tt self = entry.get_definition_string -%]
 </td>
-
 </tr>
-[% END %]
 
+[%- END -%]
 </table>
 
 [%- END -%]

@@ -175,7 +175,7 @@ comprised of the following test levels: (1) [g:sml:unit test], (2)
 [g:sml:component test], and (3) [g:sml:component integration test]
 
 glossary:: division {sml} = (SML) A contiguous sequence of whole
-[g:sml:line]s.  A division has an unambiguous beginning and end.
+[g:sml:line]s.  A division has an ~~unambiguous~~ beginning and end.
 Sometimes the beginning and end are explicit and other times they are
 implicit.  A division may be uniquely identified using an [g:sml:ID].
 The [g:sml:ID] may be used to refer to the division
@@ -588,8 +588,8 @@ glossary:: requirements traceability matrix {sml} = (SML)
 tracing requirements and their implementation through the development
 process
 
-glossary:: result {sml} = (SML) A [g:sml:region] that represents the
-result of a test.  A result is an [g:sml:entity]
+glossary:: result {sml} = (SML) An [g:sml:entity] that represents the
+result of a test.  A result is expressed as a [g:sml:division]
 
 glossary:: revisions environment {sml} = (SML) An
 [g:sml:environment] that describes the revision history of a

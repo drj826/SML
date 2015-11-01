@@ -864,7 +864,7 @@ sub get_first_part {
 
   my $part_list = $self->get_part_list;
 
-  if ( $self->has_parts )
+  if ( $self->contains_parts )
     {
       return $self->get_part_list->[0];
     }
@@ -882,7 +882,7 @@ sub get_first_line {
 
   my $self = shift;
 
-  if ( $self->has_parts )
+  if ( $self->contains_parts )
     {
       my $first_part = $self->get_first_part;
 

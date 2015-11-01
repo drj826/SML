@@ -4,4 +4,4 @@
 [% SET anchor = 'footnote' _ '.' _ label _ '.' _ tag %]
 
 <a name="[%anchor%]"/>
-<p class="footnote"><tt>[[%num%]]</tt> [%- INCLUDE part_list.tt -%] </p>
+<p class="footnote">[[%num%]] [%- INCLUDE part_list.tt -%] </p>

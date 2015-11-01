@@ -128,7 +128,7 @@ sub has_content {
 
 ######################################################################
 
-sub has_parts {
+sub contains_parts {
 
   # Return the number of parts in the part list.  This is typically
   # used within a conditional to determine whether or not this part
@@ -136,7 +136,15 @@ sub has_parts {
 
   my $self = shift;
 
-  return scalar @{ $self->get_part_list };
+  if ( scalar @{ $self->get_part_list } )
+    {
+      return 1;
+    }
+
+  else
+    {
+      return 0;
+    }
 }
 
 ######################################################################
@@ -153,7 +161,7 @@ sub has_part {
       $logger->logdie("YOU MUST PROVIDE AN ID");
     }
 
-  if ( $self->has_parts )
+  if ( $self->contains_parts )
     {
       foreach my $part (@{ $self->get_part_list })
 	{
@@ -162,7 +170,7 @@ sub has_part {
 	      return 1;
 	    }
 
-	  elsif ( $part->has_parts )
+	  elsif ( $part->contains_parts )
 	    {
 	      if ( $part->has_part($id) )
 		{
@@ -190,7 +198,7 @@ sub get_part {
       $logger->logdie("YOU MUST PROVIDE AN ID");
     }
 
-  if ( $self->has_parts )
+  if ( $self->contains_parts )
     {
       foreach my $part (@{ $self->get_part_list })
 	{
@@ -199,7 +207,7 @@ sub get_part {
 	      return $part;
 	    }
 
-	  elsif ( $part->has_parts )
+	  elsif ( $part->contains_parts )
 	    {
 	      if ( my $subpart = $part->get_part($id) )
 		{
@@ -459,7 +467,7 @@ C<SML::Part> - a part of a document.
   my $list    = $part->get_part_list;
   my $result  = $part->init;
   my $boolean = $part->has_content;
-  my $boolean = $part->has_parts;
+  my $boolean = $part->contains_parts;
   my $boolean = $part->has_part($id);
   my $subpart = $part->get_part($id);
   my $result  = $part->add_part($part);
@@ -497,7 +505,7 @@ L<"SML::String">
 
 =head2 has_content
 
-=head2 has_parts
+=head2 contains_parts
 
 =head2 has_part($id)
 

@@ -1,7 +1,5 @@
 >>>RAW.glossary-ieee
 
-===
-
 # IEEE Vocabulary
 
 #######################################################################
@@ -41,8 +39,8 @@ recorded during the test execution, recorded post-test execution, not
 recorded (addressed by the process), or
 excluded. [cite:ieee-std-829-2008]
 
-glossary:: agreement {ieee} = (IEEE) mutual acknowledgment of terms and
-conditions under which a working relationship is
+glossary:: agreement {ieee} = (IEEE) mutual acknowledgment of terms
+and conditions under which a working relationship is
 conducted. [cite:ieee-std-12207-2008] [cite:ieee-std-15288-2008]
 
 glossary:: allocated baseline {ieee} = (IEEE) In [g:ieee:configuration
@@ -92,9 +90,9 @@ glossary:: audit {ieee} = (IEEE) (1) An independent examination of a
 work product or set of work products to assess compliance with
 specifications, standards, contractual agreements, or other
 criteria. See also [g:ieee:functional configuration audit];
-[g:ieee:physical configuration audit]. [cite:ieee-std-610-12-1990], (2)
-Independent assessment of software products and processes conducted by
-an authorized person in order to assess compliance with
+[g:ieee:physical configuration audit]. [cite:ieee-std-610-12-1990],
+(2) Independent assessment of software products and processes
+conducted by an authorized person in order to assess compliance with
 requirements. [cite:ieee-std-12207-2008], (3) systematic, independent
 and documented process for obtaining audit evidence and evaluating it
 objectively to determine the extent to which audit criteria are
@@ -136,8 +134,8 @@ if-then-else conditions, repetition, and case conditions. Syn:
 [g:ieee:input-process-output chart]; [g:ieee:program structure
 diagram]; [g:ieee:structure chart].  [cite:ieee-std-610-12-1990]
 
-glossary:: bubble chart {ieee} = (IEEE) A data flow, data structure, or
-other diagram in which entities are depicted with circles (bubbles)
+glossary:: bubble chart {ieee} = (IEEE) A data flow, data structure,
+or other diagram in which entities are depicted with circles (bubbles)
 and relationships are represented by links drawn between the
 circles. See also: [g:ieee:block diagram]; [g:ieee:box diagram];
 [g:ieee:flowchart]; [g:ieee:graph]; [g:ieee:input-process-output
@@ -176,8 +174,8 @@ review conducted to verify that the detailed design of one or more
 [g:ieee:configuration item]s satisfy specified requirements; to
 establish the compatibility among the configuration items and other
 items of equipment, facilities, software, and personnel; to assess
-risk areas for each [g:ieee:configuration item]; and, as applicable, to
-assess the results of producibility analysis, review preliminary
+risk areas for each [g:ieee:configuration item]; and, as applicable,
+to assess the results of producibility analysis, review preliminary
 hardware product specifications, evaluate preliminary test planning,
 and evaluate the adequacy of preliminary operation and support
 documents. See also [g:ieee:Preliminary Design Review]; [g:ieee:system
@@ -203,8 +201,8 @@ operational or support environment to ensure that a software product
 performs as required after installation. (adopted from IEEE Std
 610.12-1990 (B3)) [cite:ieee-std-829-2008]
 
-glossary:: closed subroutine {ieee} = (IEEE) A [g:ieee:subroutine] that
-is stored at one given location rather than being copied into a
+glossary:: closed subroutine {ieee} = (IEEE) A [g:ieee:subroutine]
+that is stored at one given location rather than being copied into a
 computer program at each place that it is called. Contrast with:
 [g:ieee:open subroutine]. [cite:ieee-std-610-12-1990]
 
@@ -247,7 +245,7 @@ data. Contrast with: [g:ieee:coincidental cohesion];
 glossary:: component {ieee} = (IEEE) One of the parts that make up a
 system. A component may be hardware or software and may be subdivided
 into other components. NOTE: The terms ``module,'' ``component,'' and
-``[g:ieee:unit]'' are often used interchangeably or defined to be
+[g:ieee:unit] are often used interchangeably or defined to be
 sub-elements of one another in different ways depending upon the
 context. The relationship of these terms is not yet
 standardized. [cite:ieee-std-610-12-1990]
@@ -310,9 +308,9 @@ standardization, and freedom from contradiction among the documents or
 parts of a system or component. See also
 [g:ieee:traceability]. [cite:ieee-std-610-12-1990]
 
-glossary:: content coupling {ieee} = (IEEE) A type of [g:ieee:coupling]
-in which some or all of the contents of one software module are
-included in the contents of another module. Contrast with:
+glossary:: content coupling {ieee} = (IEEE) A type of
+[g:ieee:coupling] in which some or all of the contents of one software
+module are included in the contents of another module. Contrast with:
 [g:ieee:common-environment coupling]; [g:ieee:control coupling];
 [g:ieee:data coupling]; [g:ieee:hybrid coupling]; [g:ieee:pathological
 coupling]. [cite:ieee-std-610-12-1990]
@@ -321,12 +319,13 @@ glossary:: contract {ieee} = (IEEE) Binding agreement between two
 parties, especially enforceable by law, or a similar internal
 agreement wholly within an organization. [cite:ieee-std-12207-2008]
 
-glossary:: control coupling {ieee} = (IEEE) A type of [g:ieee:coupling]
-in which one software module communicates information to another
-module for the explicit purpose of influencing the latter module's
-execution. Contrast with: [g:ieee:common-environment coupling];
-[g:ieee:content coupling]; [g:ieee:data coupling]; [g:ieee:hybrid
-coupling]; [g:ieee:pathological coupling]. [cite:ieee-std-610-12-1990]
+glossary:: control coupling {ieee} = (IEEE) A type of
+[g:ieee:coupling] in which one software module communicates
+information to another module for the explicit purpose of influencing
+the latter module's execution. Contrast with:
+[g:ieee:common-environment coupling]; [g:ieee:content coupling];
+[g:ieee:data coupling]; [g:ieee:hybrid coupling]; [g:ieee:pathological
+coupling]. [cite:ieee-std-610-12-1990]
 
 glossary:: control flow diagram {ieee} = (IEEE) A diagram that depicts
 the set of all possible sequences in which operations may be performed
@@ -336,8 +335,8 @@ diagram], [g:ieee:flowchart], [g:ieee:input-process-output chart],
 diagram]. See also [g:ieee:call graph]; [g:ieee:structure
 chart]. [cite:ieee-std-610-12-1990]
 
-glossary:: coroutine {ieee} = (IEEE) A routine that begins execution at
-the point at which operation was last suspended, and that is not
+glossary:: coroutine {ieee} = (IEEE) A routine that begins execution
+at the point at which operation was last suspended, and that is not
 required to return control to the program or subprogram that called
 it. Contrast with: [g:ieee:subroutine]. [cite:ieee-std-610-12-1990]
 
@@ -403,8 +402,8 @@ glossary:: DFD {ieee} = (IEEE) [g:ieee:data flow diagram]
 
 ###
 
-glossary:: data coupling {ieee} = (IEEE) A type of [g:ieee:coupling] in
-which output from one software module serves as input to another
+glossary:: data coupling {ieee} = (IEEE) A type of [g:ieee:coupling]
+in which output from one software module serves as input to another
 module. Syn: [g:ieee:input-output coupling]. Contrast with:
 [g:ieee:common-environment coupling], [g:ieee:content coupling];
 [g:ieee:control coupling]; [g:ieee:hybrid coupling];
@@ -445,14 +444,14 @@ system performance.  See also [g:ieee:downward compression];
 [g:ieee:lateral compression]; [g:ieee:upward
 compression]. [cite:ieee-std-610-12-1990]
 
-glossary:: design description {ieee} = (IEEE) A document that describes
-the design of a [g:ieee:system] or [g:ieee:component]. Typical contents
-include [g:ieee:system] or [g:ieee:component] [g:ieee:architecture],
-control logic, data structures, input/ output formats, interface
-descriptions, and algorithms. Syn: [g:ieee:design document];
-[g:ieee:design specification]. See also: [g:ieee:product
-specification]. Contrast with: [g:ieee:requirements
-specification]. [cite:ieee-std-610-12-1990]
+glossary:: design description {ieee} = (IEEE) A document that
+describes the design of a [g:ieee:system] or
+[g:ieee:component]. Typical contents include [g:ieee:system] or
+[g:ieee:component] [g:ieee:architecture], control logic, data
+structures, input/ output formats, interface descriptions, and
+algorithms. Syn: [g:ieee:design document]; [g:ieee:design
+specification]. See also: [g:ieee:product specification]. Contrast
+with: [g:ieee:requirements specification]. [cite:ieee-std-610-12-1990]
 
 glossary:: design document {ieee} = (IEEE) See: [g:ieee:design
 description]. [cite:ieee-std-610-12-1990]
@@ -503,8 +502,8 @@ graph]. [cite:ieee-std-610-12-1990]
 glossary:: direct insert subroutine {ieee} = (IEEE) See: [g:ieee:open
 subroutine]. [cite:ieee-std-610-12-1990]
 
-glossary:: directed graph {ieee} = (IEEE) A [g:ieee:graph] (sense 2) in
-which direction is implied in the internode connections. Syn:
+glossary:: directed graph {ieee} = (IEEE) A [g:ieee:graph] (sense 2)
+in which direction is implied in the internode connections. Syn:
 [g:ieee:digraph]. Contrast with: [g:ieee:undirected
 graph]. [cite:ieee-std-610-12-1990]
 
@@ -586,8 +585,8 @@ system into a hierarchy of modules. See also [g:ieee:modular
 decomposition].  (2) The process of removing a function from a module
 and placing it into a module of its own. [cite:ieee-std-610-12-1990]
 
-glossary:: feature {ieee} = (IEEE) A distinguishing characteristic of a
-system item (includes both functional and nonfunctional attributes
+glossary:: feature {ieee} = (IEEE) A distinguishing characteristic of
+a system item (includes both functional and nonfunctional attributes
 such as performance and reusability). [cite:ieee-std-829-2008]
 
 glossary:: firmware {ieee} = (IEEE) Combination of a hardware device
@@ -598,8 +597,8 @@ modified under program control. [cite:ieee-std-12207-2008]
 glossary:: flow diagram {ieee} = (IEEE) See:
 [g:ieee:flowchart]. [cite:ieee-std-610-12-1990]
 
-glossary:: flowchart {ieee} = (IEEE) A [g:ieee:control flow diagram] in
-which suitably annotated geometrical figures are used to represent
+glossary:: flowchart {ieee} = (IEEE) A [g:ieee:control flow diagram]
+in which suitably annotated geometrical figures are used to represent
 operations, data, or equipment, and arrows are used to indicate the
 sequential flow from one to another. Syn: [g:ieee:flow diagram]. See
 also [g:ieee:block diagram]; [g:ieee:box diagram]; [g:ieee:bubble
@@ -798,8 +797,8 @@ software. [cite:ieee-std-829-2008]
 glossary:: interface control {ieee} = (IEEE) In [g:ieee:configuration
 management], the process of: (a) identifying all functional and
 physical characteristics relevant to the interfacing of two or more
-[g:ieee:configuration item]s provided by one or more organizations, and
-(b) ensuring that proposed changes to these characteristics are
+[g:ieee:configuration item]s provided by one or more organizations,
+and (b) ensuring that proposed changes to these characteristics are
 evaluated and approved prior to implementation.  (2) (DOD usage) In
 [g:ieee:configuration management], the administrative and technical
 procedures and documentation necessary to identify functional and
@@ -842,10 +841,10 @@ of time in the [g:ieee:software life cycle] during which a
 environment and tested in this environment to ensure that it performs
 as required. [cite:ieee-std-610-12-1990]
 
-glossary:: item {ieee} = (IEEE) Source code, object code, control code,
-control data, or a collection of these items. NOTE A: software item
-can be viewed as a system element of ISO/IEC 15288:2008.  Same as:
-[g:ieee:software item] [cite:ieee-std-12207-2008]
+glossary:: item {ieee} = (IEEE) Source code, object code, control
+code, control data, or a collection of these items. NOTE A: software
+item can be viewed as a system element of ISO/IEC 15288:2008.  Same
+as: [g:ieee:software item] [cite:ieee-std-12207-2008]
 
 ######################################################################
 # J
@@ -881,9 +880,9 @@ activities that result in the development or assessment of software
 products. Each activity consists of tasks. The life cycle processes
 may overlap one another. [cite:ieee-std-829-2008]
 
-glossary:: logical cohesion {ieee} = (IEEE) A type of cohesion in which
-the tasks performed by a software module perform logically similar
-functions; for example, processing of different types of input
+glossary:: logical cohesion {ieee} = (IEEE) A type of cohesion in
+which the tasks performed by a software module perform logically
+similar functions; for example, processing of different types of input
 data. Contrast with: [g:ieee:coincidental cohesion];
 [g:ieee:communicational cohesion]; [g:ieee:functional cohesion];
 [g:ieee:procedural cohesion]; [g:ieee:sequential cohesion];
@@ -945,13 +944,13 @@ decomposition]. [cite:ieee-std-610-12-1990]
 
 glossary:: module {ieee} = (IEEE) (1) A program [g:ieee:unit] that is
 discrete and identifiable with respect to compiling, combining with
-other [g:ieee:unit]s, and loading; for example, the input to, or output
-from, an assembler, compiler, linkage editor, or executive routine.
-(2) A logically separable part of a program.  Note: The terms
-``[g:ieee:module],'' ``[g:ieee:component],'' and ``[g:ieee:unit]'' are
-often used interchangeably or defined to be sub-elements of one
-another in different ways depending upon the context. The relationship
-of these terms is not yet standardized. [cite:ieee-std-610-12-1990]
+other [g:ieee:unit]s, and loading; for example, the input to, or
+output from, an assembler, compiler, linkage editor, or executive
+routine.  (2) A logically separable part of a program.  Note: The
+terms [g:ieee:module], [g:ieee:component], and [g:ieee:unit] are often
+used interchangeably or defined to be sub-elements of one another in
+different ways depending upon the context. The relationship of these
+terms is not yet standardized. [cite:ieee-std-610-12-1990]
 
 glossary:: module strength {ieee} = (IEEE) See:
 [g:ieee:cohesion]. [cite:ieee-std-610-12-1990]
@@ -1016,27 +1015,27 @@ organization.  NOTE 2: In the context of this specific definition, the
 term entity means an individual or an
 organization. [cite:ieee-std-12207-2008] [cite:ieee-std-15288-2008]
 
-glossary:: optional tasks {ieee} = (IEEE) Those tasks that may be added
-to the minimum testing tasks to address specific
-requirements. [cite:ieee-std-829-2008] See also [g:ieee:minimum tasks] 
+glossary:: optional tasks {ieee} = (IEEE) Those tasks that may be
+added to the minimum testing tasks to address specific
+requirements. [cite:ieee-std-829-2008] See also [g:ieee:minimum tasks]
 
 glossary:: order clash {ieee} = (IEEE) In software design, a type of
 [g:ieee:structure clash] in which a program must deal with two or more
 data sets that have been sorted in different orders. See also
 [g:ieee:data structure-centered design]. [cite:ieee-std-610-12-1990]
 
-glossary:: organization {ieee} = (IEEE) Person or a group of people and
-facilities with an arrangement of responsibilities, authorities and
-relationships.  NOTE 1: Adapted from ISO 9000:2005.  NOTE 2: A body of
-persons organized for some specific purpose, such as a club, union,
-corporation, or society is an organization.  NOTE 3: An identified
-part of an organization (even as small as a single individual) or an
-identified group of organizations can be regarded as an organization
-if it has responsibilities, authorities and relationships.  NOTE 4: A
-form of an organizational entity is often called an enterprise, so the
-organizational aspects of this International Standard would apply to
-an enterprise as well. [cite:ieee-std-12207-2008]
-[cite:ieee-std-15288-2008]
+glossary:: organization {ieee} = (IEEE) Person or a group of people
+and facilities with an arrangement of responsibilities, authorities
+and relationships.  NOTE 1: Adapted from ISO 9000:2005.  NOTE 2: A
+body of persons organized for some specific purpose, such as a club,
+union, corporation, or society is an organization.  NOTE 3: An
+identified part of an organization (even as small as a single
+individual) or an identified group of organizations can be regarded as
+an organization if it has responsibilities, authorities and
+relationships.  NOTE 4: A form of an organizational entity is often
+called an enterprise, so the organizational aspects of this
+International Standard would apply to an enterprise as
+well. [cite:ieee-std-12207-2008] [cite:ieee-std-15288-2008]
 
 ######################################################################
 # P
@@ -1081,8 +1080,8 @@ are called the [g:ieee:acquirer] and the
 [g:ieee:supplier]. [cite:ieee-std-12207-2008]
 [cite:ieee-std-15288-2008]
 
-glossary:: patch {ieee} = (IEEE) (1) A modification made directly to an
-object program without reassembling or recompiling from the source
+glossary:: patch {ieee} = (IEEE) (1) A modification made directly to
+an object program without reassembling or recompiling from the source
 program.  (2) A modification made to a source program as a last-minute
 fix or afterthought.  (3) Any modification to a source or object
 program.  (4) To perform a modification as in (1), (2), or
@@ -1170,14 +1169,14 @@ identification]. [cite:ieee-std-610-12-1990]
 glossary:: product configuration identification {ieee} = (IEEE) The
 current approved or conditionally approved technical documentation
 defining a [g:ieee:configuration item] during the production,
-operation, maintenance, and logistic support phases of its [g:ieee:life
-cycle]. It prescribes all necessary physical or form, fit and function
-characteristics of a [g:ieee:configuration item], the selected
-functional characteristics designated for production acceptance
-testing, and the production acceptance tests. Contrast with:
-[g:ieee:allocated configuration identification]; [g:ieee:functional
-configuration identification].  See also: [g:ieee:product
-baseline]. [cite:ieee-std-610-12-1990]
+operation, maintenance, and logistic support phases of its
+[g:ieee:life cycle]. It prescribes all necessary physical or form, fit
+and function characteristics of a [g:ieee:configuration item], the
+selected functional characteristics designated for production
+acceptance testing, and the production acceptance tests. Contrast
+with: [g:ieee:allocated configuration identification];
+[g:ieee:functional configuration identification].  See also:
+[g:ieee:product baseline]. [cite:ieee-std-610-12-1990]
 
 glossary:: product specification {ieee} = (IEEE) (1) A document that
 specifies the design that production copies of a system or component
@@ -1187,8 +1186,8 @@ description].  (2) A document that describes the characteristics of a
 planned or existing product for consideration by potential customers
 or users. [cite:ieee-std-610-12-1990]
 
-glossary:: program structure chart {ieee} = (IEEE) See: [g:ieee:program
-structure diagram]
+glossary:: program structure chart {ieee} = (IEEE) See:
+[g:ieee:program structure diagram]
 
 glossary:: program structure diagram {ieee} = (IEEE) See:
 [g:ieee:structure chart]. [cite:ieee-std-610-12-1990]
@@ -1224,10 +1223,10 @@ prototyping]. [cite:ieee-std-610-12-1990]
 # Q
 ######################################################################
 
-glossary:: qualification requirement {ieee} = (IEEE) Set of criteria or
-conditions that have to be met in order to qualify a software product
-as complying with its specifications and being ready for use in its
-target environment or integration with its containing
+glossary:: qualification requirement {ieee} = (IEEE) Set of criteria
+or conditions that have to be met in order to qualify a software
+product as complying with its specifications and being ready for use
+in its target environment or integration with its containing
 system. [cite:ieee-std-12207-2008]
 
 glossary:: qualification testing {ieee} = (IEEE) (1) Testing,
@@ -1244,9 +1243,9 @@ component, or process meets specified requirements. (B) The degree to
 which a system, component, or process meets customer or user needs or
 expectations. [cite:ieee-std-829-2008]
 
-glossary:: quality assurance {ieee} = (IEEE) Part of quality management
-focused on providing confidence that quality requirements will be
-fulfilled. [cite:ieee-std-15288-2008]
+glossary:: quality assurance {ieee} = (IEEE) Part of quality
+management focused on providing confidence that quality requirements
+will be fulfilled. [cite:ieee-std-15288-2008]
 
 ######################################################################
 # R
@@ -1295,9 +1294,9 @@ requirement]; [g:ieee:implementation requirement]; [g:ieee:interface
 requirement]; [g:ieee:performance requirement]; [g:ieee:physical
 requirement]. [cite:ieee-std-610-12-1990]
 
-glossary:: requirements phase {ieee} = (IEEE) The period of time in the
-[g:ieee:software life cycle] during which the [g:ieee:requirement]s for
-a [g:ieee:software product] are defined and
+glossary:: requirements phase {ieee} = (IEEE) The period of time in
+the [g:ieee:software life cycle] during which the
+[g:ieee:requirement]s for a [g:ieee:software product] are defined and
 documented. [cite:ieee-std-610-12-1990]
 
 glossary:: requirements specification {ieee} = (IEEE) A document that
@@ -1322,16 +1321,16 @@ the operation and maintenance organization, partial or total
 replacement by a new system, or installation of an upgraded
 system. [cite:ieee-std-12207-2008] [cite:ieee-std-15288-2008]
 
-glossary:: reusable product {ieee} = (IEEE) A product developed for one
-use but having other uses, or one developed specifically to be usable
-on multiple projects or in multiple roles on one project. Examples
-include, but are not limited to, commercial off-the-shelf (COTS)
-products, acquirer-furnished products, products in reuse libraries,
-and preexisting developer products. Each use may include all or part
-of the product and may involve its modification. This term can be
-applied to any software or system product (for example, requirements
-or architectures), not just to software or system
-itself. [cite:ieee-std-829-2008]
+glossary:: reusable product {ieee} = (IEEE) A product developed for
+one use but having other uses, or one developed specifically to be
+usable on multiple projects or in multiple roles on one
+project. Examples include, but are not limited to, commercial
+off-the-shelf (COTS) products, acquirer-furnished products, products
+in reuse libraries, and preexisting developer products. Each use may
+include all or part of the product and may involve its
+modification. This term can be applied to any software or system
+product (for example, requirements or architectures), not just to
+software or system itself. [cite:ieee-std-829-2008]
 
 glossary:: risk {ieee} = (IEEE) (A) The combination of the probability
 of occurrence and the consequences of a given future undesirable
@@ -1340,11 +1339,11 @@ combination of the probability of an abnormal event or failure and the
 consequence(s) of that event or failure to a system's components,
 operators, users, or environment. [cite:ieee-std-829-2008]
 
-glossary:: routine {ieee} = (IEEE) A subprogram that is called by other
-programs and subprograms. Note: The terms ``routine,'' ``subprogram,''
-and ``subroutine'' are defined and used differently in different
-programming languages; the preceding definition is advanced as a
-proposed standard. See also [g:ieee:coroutine];
+glossary:: routine {ieee} = (IEEE) A subprogram that is called by
+other programs and subprograms. Note: The terms ``routine,''
+``subprogram,'' and ``subroutine'' are defined and used differently in
+different programming languages; the preceding definition is advanced
+as a proposed standard. See also [g:ieee:coroutine];
 [g:ieee:subroutine]. [cite:ieee-std-610-12-1990]
 
 ######################################################################
@@ -1488,11 +1487,11 @@ review is called software specification review by the US. Department
 of Defense.  (2) A review as in (1) for any software
 [g:ieee:component]. [cite:ieee-std-610-12-1990]
 
-glossary:: software unit {ieee} = (IEEE) Separately compilable piece of
-code. [cite:ieee-std-12207-2008]
+glossary:: software unit {ieee} = (IEEE) Separately compilable piece
+of code. [cite:ieee-std-12207-2008]
 
-glossary:: software-based systems {ieee} = (IEEE) Computer systems that
-are controlled by software. [cite:ieee-std-829-2008]
+glossary:: software-based systems {ieee} = (IEEE) Computer systems
+that are controlled by software. [cite:ieee-std-829-2008]
 
 glossary:: specification change notice {ieee} = (IEEE) ([g:ieee:SCN])
 A document used in [g:ieee:configuration management] to propose,
@@ -1500,12 +1499,12 @@ transmit, and record changes to a specification. See also
 [g:ieee:configuration control]; [g:ieee:engineering change];
 [g:ieee:notice of revision]. [cite:ieee-std-610-12-1990]
 
-glossary:: spiral model {ieee} = (IEEE) A model of the [g:ieee:software
-development process] in which the constituent activities, typically
-requirements analysis, preliminary and detailed design, coding,
-integration, and testing, are performed iteratively until the software
-is complete.  Contrast with: [g:ieee:waterfall model]. See also
-[g:ieee:incremental development]; [g:ieee:rapid
+glossary:: spiral model {ieee} = (IEEE) A model of the
+[g:ieee:software development process] in which the constituent
+activities, typically requirements analysis, preliminary and detailed
+design, coding, integration, and testing, are performed iteratively
+until the software is complete.  Contrast with: [g:ieee:waterfall
+model]. See also [g:ieee:incremental development]; [g:ieee:rapid
 prototyping]. [cite:ieee-std-610-12-1990]
 
 glossary:: stage {ieee} = (IEEE) Period within the life cycle of an
@@ -1566,8 +1565,8 @@ definition is advanced as a proposed standard. See also
 [g:ieee:coroutine]; [g:ieee:main program]; [g:ieee:routine];
 [g:ieee:subroutine]. [cite:ieee-std-610-12-1990]
 
-glossary:: subroutine {ieee} = (IEEE) A routine that returns control to
-the program or subprogram that called it.  Note: The terms
+glossary:: subroutine {ieee} = (IEEE) A routine that returns control
+to the program or subprogram that called it.  Note: The terms
 ``routine,'' ``subprogram,'' and ``subroutine'' are defined and used
 differently in different programming languages; the preceding
 definition is advanced as a proposed standard. Contrast with:
@@ -1593,14 +1592,14 @@ substituted simply by a context-dependent synonym, e.g., aircraft,
 though this may then obscure a system principles
 perspective. [cite:ieee-std-12207-2008] [cite:ieee-std-15288-2008]
 
-glossary:: system design review {ieee} = (IEEE) ([g:ieee:SDR]) A review
-conducted to evaluate the manner in which the requirements for a
-[g:ieee:system] have been allocated to [g:ieee:configuration item]s, the
-system engineering process that produced the allocation, the
+glossary:: system design review {ieee} = (IEEE) ([g:ieee:SDR]) A
+review conducted to evaluate the manner in which the requirements for
+a [g:ieee:system] have been allocated to [g:ieee:configuration item]s,
+the system engineering process that produced the allocation, the
 engineering planning for the next phase of the effort, manufacturing
 considerations, and the planning for production engineering. See also
-critical design review; preliminary design
-review. [cite:ieee-std-610-12-1990]
+[g:ieee:Critical Design Review]; [g:ieee:Preliminary Design
+Review]. [cite:ieee-std-610-12-1990]
 
 glossary:: system development cycle {ieee} = (IEEE) The period of time
 that begins with the decision to develop a [g:ieee:system] and ends
@@ -1626,8 +1625,8 @@ glossary:: system integration test {ieee} = (IEEE) Same as
 
 glossary:: system life cycle {ieee} = (IEEE) The period of time that
 begins when a [g:ieee:system] is conceived and ends when the
-[g:ieee:system] is no longer available for use. See also [g:ieee:system
-development cycle]; [g:ieee:software life
+[g:ieee:system] is no longer available for use. See also
+[g:ieee:system development cycle]; [g:ieee:software life
 cycle]. [cite:ieee-std-610-12-1990]
 
 glossary:: system resources chart {ieee} = (IEEE) See: [g:ieee:block
@@ -1692,8 +1691,8 @@ test item. [cite:ieee-std-829-2008]
 glossary:: test class {ieee} = (IEEE) A designated grouping of test
 cases. [cite:ieee-std-829-2008]
 
-glossary:: test coverage {ieee} = (IEEE) Extent to which the test cases
-test the requirements for the system or software
+glossary:: test coverage {ieee} = (IEEE) Extent to which the test
+cases test the requirements for the system or software
 product. [cite:ieee-std-12207-2008]
 
 glossary:: test design {ieee} = (IEEE) Documentation specifying the
@@ -1729,8 +1728,8 @@ to be performed, responsibilities, schedules, and required resources
 for the testing activity.  The document may be a Master Test Plan or a
 Level Test Plan. [cite:ieee-std-829-2008]
 
-glossary:: test procedure {ieee} = (IEEE) (A) Detailed instructions for
-the setup, execution, and evaluation of results for a given test
+glossary:: test procedure {ieee} = (IEEE) (A) Detailed instructions
+for the setup, execution, and evaluation of results for a given test
 case. (B) A document containing a set of associated instructions as in
 (A). (C) Documentation that specifies a sequence of actions for the
 execution of a test. [cite:ieee-std-829-2008] See also the CMMI
@@ -1745,9 +1744,9 @@ not completed the unit test; (c) The set of modules together with its
 associated data and procedures are the sole object of a testing
 process. [cite:ieee-std-1008-1987] [cite:ieee-std-610-12-1990]
 
-glossary:: testability {ieee} = (IEEE) Extent to which an objective and
-feasible test can be designed to determine whether a requirement is
-met. [cite:ieee-std-12207-2008]
+glossary:: testability {ieee} = (IEEE) Extent to which an objective
+and feasible test can be designed to determine whether a requirement
+is met. [cite:ieee-std-12207-2008]
 
 glossary:: testing {ieee} = (IEEE) (A) An activity in which a
 [g:ieee:system] or [g:ieee:component] is executed under specified
@@ -1767,10 +1766,10 @@ graph]. [cite:ieee-std-610-12-1990]
 
 glossary:: total correctness {ieee} = (IEEE) In [g:ieee:proof of
 correctness], a designation indicating that a program's output
-[g:ieee:assertion]s follow logically from its input [g:ieee:assertion]s
-and processing steps, and that, in addition, the program terminates
-under all specified input conditions. Contrast with: [g:ieee:partial
-correctness]. [cite:ieee-std-610-12-1990]
+[g:ieee:assertion]s follow logically from its input
+[g:ieee:assertion]s and processing steps, and that, in addition, the
+program terminates under all specified input conditions. Contrast
+with: [g:ieee:partial correctness]. [cite:ieee-std-610-12-1990]
 
 glossary:: traceability {ieee} = (IEEE) (1) The degree to which a
 relationship can be established between two or more products of the
@@ -1832,19 +1831,19 @@ glossary:: unit {ieee} = (IEEE) (1) A separately testable element
 specified in the design of a computer software component.  (2) A
 logically separable part of a computer program.  (3) A software
 component that is not subdivided into other components.  (4) See:
-[g:ieee:test unit].  Note: The terms ``[g:ieee:module],''
-``[g:ieee:component],'' and ``[g:ieee:unit]'' are often used
-interchangeably or defined to be sub-elements of one another in
-different ways depending upon the context. The relationship of these
-terms is not yet standardized. [cite:ieee-std-610-12-1990]
+[g:ieee:test unit].  Note: The terms [g:ieee:module],
+[g:ieee:component], and [g:ieee:unit] are often used interchangeably
+or defined to be sub-elements of one another in different ways
+depending upon the context. The relationship of these terms is not yet
+standardized. [cite:ieee-std-610-12-1990]
 
 glossary:: unit testing {ieee} = (IEEE) A process that includes the
 performance of test planning, the acquisition of a test set, and the
-measurement of a test [g:ieee:unit] against its requirements. Measuring
-entails the use of sample data to exercise the [g:ieee:unit] and the
-comparison of the [g:ieee:unit]'s actual behavior with its required
-behavior as specified in the [g:ieee:unit]'s requirements
-documentation. [cite:ieee-std-1008-1987]
+measurement of a test [g:ieee:unit] against its
+requirements. Measuring entails the use of sample data to exercise the
+[g:ieee:unit] and the comparison of the [g:ieee:unit]'s actual
+behavior with its required behavior as specified in the
+[g:ieee:unit]'s requirements documentation. [cite:ieee-std-1008-1987]
 
 glossary:: upward compression {ieee} = (IEEE) In software design, a
 form of [g:ieee:demodularization] in which a subordinate module is
@@ -1878,8 +1877,8 @@ glossary:: Version Description Document {ieee} = (IEEE) ([g:ieee:VDD])
 A document that accompanies and identifies a given [g:ieee:version] of
 a [g:ieee:system] or [g:ieee:component].  Typical contents include an
 inventory of system or component parts, identification of changes
-incorporated into this [g:ieee:version], and installation and operating
-information unique to the [g:ieee:version]
+incorporated into this [g:ieee:version], and installation and
+operating information unique to the [g:ieee:version]
 described. [cite:ieee-std-610-12-1990]
 
 ###
@@ -1896,11 +1895,11 @@ and gaining confidence that a system is able to accomplish its
 intended use, goals and objectives. [cite:ieee-std-12207-2008]
 [cite:ieee-std-15288-2008]
 
-glossary:: verification {ieee} = (IEEE) (1) The process of evaluating a
-[g:ieee:system] or [g:ieee:component] to determine whether the products
-of a given development phase satisfy the conditions imposed at the
-start of that phase. Contrast with: [g:ieee:validation].  (2) Formal
-proof of program correctness.  See: [g:ieee:proof of
+glossary:: verification {ieee} = (IEEE) (1) The process of evaluating
+a [g:ieee:system] or [g:ieee:component] to determine whether the
+products of a given development phase satisfy the conditions imposed
+at the start of that phase. Contrast with: [g:ieee:validation].  (2)
+Formal proof of program correctness.  See: [g:ieee:proof of
 correctness]. [cite:ieee-std-610-12-1990], (3) Confirmation, through
 the provision of objective evidence, that specified requirements have
 been fulfilled. NOTE: Verification in a life cycle context is a set of
@@ -1918,12 +1917,12 @@ conditions imposed by the previous phase, and the final
 [g:ieee:requirement]s. See also [g:ieee:Independent Verification and
 Validation]. [cite:ieee-std-610-12-1990]
 
-glossary:: version {ieee} = (IEEE) (1) An initial release or re-release
-of a computer software Configuration item, associated with a complete
-compilation or recompilation of the computer software configuration
-item.  (2) An initial release or complete re-release of a document, as
-opposed to a revision resulting from issuing change pages to a
-previous release.  See also [g:ieee:configuration control];
+glossary:: version {ieee} = (IEEE) (1) An initial release or
+re-release of a computer software Configuration item, associated with
+a complete compilation or recompilation of the computer software
+configuration item.  (2) An initial release or complete re-release of
+a document, as opposed to a revision resulting from issuing change
+pages to a previous release.  See also [g:ieee:configuration control];
 [g:ieee:Version Description Document]. [cite:ieee-std-610-12-1990],
 (3) Identified instance of an [g:ieee:item]. NOTE: Modification to a
 version of a software product, resulting in a new version, requires

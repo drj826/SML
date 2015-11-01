@@ -2,8 +2,7 @@
 
 title:: Semantic Manuscript Language (SML)
 
-subtitle:: User Guide [linebreak] Professional Documents Using SML
-[linebreak] and the [cmd:publish] Program
+subtitle:: User Guide
 
 author:: Don Johnson (drj826@acm.org)
 
@@ -871,589 +870,464 @@ column::2:head: description
 
 ===
 
-: ||-h, --help||
+: {lit:-h, --help}
 
 : display help information
 
 ---
 
-: ||-g, --gui||
+: {lit:-g, --gui}
 
 : display the GUI
 
 ---
 
-: ||-r, --render=pdf||
+: {lit:-r, --render=pdf}
 
 : output renditions (pdf,html,xml,rtf,csv)
 
 ---
 
-: ||-d, --directory=dir||
+: {lit:-d, --directory=dir}
 
 : output directory
 
 ---
 
-: ||-o, --output=file||
+: {lit:-o, --output=file}
 
 : output filename
 
 ---
 
-: ||-v, --verbose||
+: {lit:-v, --verbose}
 
 : print messages
 
 ---
 
-: ||-V, --version||
+: {lit:-V, --version}
 
 : print program version and exit
 
 ---
 
-:
-
-:
-
----
-
-: ||--pdf_style=default||
+: {lit:--pdf_style=default}
 
 : PDF style to use
 
 ---
 
-: ||--rtf_style=default||
+: {lit:--rtf_style=default}
 
 : RTF style to use
 
 ---
 
-: ||--html_style=default||
+: {lit:--html_style=default}
 
 : HTML style to use
 
 ---
 
-: ||--xml_style=default||
+: {lit:--xml_style=default}
 
 : XML style to use
 
 ---
 
-:
-
-:
-
----
-
-: ||--titlepage||
+: {lit:--titlepage}
 
 : render title page
 
 ---
 
-: ||--notitlepage||
+: {lit:--notitlepage}
 
 : don't render title page
 
 ---
 
-:
-
-:
-
----
-
-: ||--toc||
+: {lit:--toc}
 
 : render a table of contents
 
 ---
 
-: ||--notoc||
+: {lit:--notoc}
 
 : don't render a table of contents
 
 ---
 
-: ||--toc_level=N||
+: {lit:--toc_level=N}
 
 : maximum TOC level (deepness)
 
 ---
 
-:
-
-:
-
----
-
-: ||--secnums||
+: {lit:--secnums}
 
 : include section numbers
 
 ---
 
-: ||--nosecnums||
+: {lit:--nosecnums}
 
 : don't include section numbers
 
 ---
 
-: ||--secnum_level=N||
+: {lit:--secnum_level=N}
 
 : maximum section number level (depth)
 
 ---
 
-:
-
-:
-
----
-
-: ||--figures||
+: {lit:--figures}
 
 : render figures
 
 ---
 
-: ||--nofigures||
+: {lit:--nofigures}
 
 : don't render figures
 
 ---
 
-: ||--lof||
+: {lit:--lof}
 
 : render a list of figures
 
 ---
 
-: ||--nolof||
+: {lit:--nolof}
 
 : don't render a list of figures
 
 ---
 
-:
-
-:
-
----
-
-: ||--tables||
+: {lit:--tables}
 
 : render tables
 
 ---
 
-: ||--notables||
+: {lit:--notables}
 
 : don't render tables
 
 ---
 
-: ||--lot||
+: {lit:--lot}
 
 : render a list of tables
 
 ---
 
-: ||--nolot||
+: {lit:--nolot}
 
 : don't render a list of tables
 
 ---
 
-:
-
-:
-
----
-
-: ||--listings||
+: {lit:--listings}
 
 : render listings
 
 ---
 
-: ||--nolistings||
+: {lit:--nolistings}
 
 : don't render listings
 
 ---
 
-: ||--lolists||
+: {lit:--lolists}
 
 : render a list of listings
 
 ---
 
-: ||--nololists||
+: {lit:--nololists}
 
 : don't render a list of listings
 
 ---
 
-:
-
-:
-
----
-
-: ||--slides||
+: {lit:--slides}
 
 : render slides
 
 ---
 
-: ||--noslides||
+: {lit:--noslides}
 
 : don't render slides
 
 ---
 
-: ||--loslides||
+: {lit:--loslides}
 
 : render a list of slides
 
 ---
 
-: ||--noloslides||
+: {lit:--noloslides}
 
 : don't render a list of slides
 
 ---
 
-:
-
-:
-
----
-
-: ||--exercises||
+: {lit:--exercises}
 
 : render exercises
 
 ---
 
-: ||--noexercises||
+: {lit:--noexercises}
 
 : don't render exercises
 
 ---
 
-: ||--loexercises||
+: {lit:--loexercises}
 
 : render list of exercises
 
 ---
 
-: ||--noloexercises||
+: {lit:--noloexercises}
 
 : don't render list of exercises
 
 ---
 
-:
-
-:
-
----
-
-: ||--demos||
+: {lit:--demos}
 
 : render demos
 
 ---
 
-: ||--nodemos||
+: {lit:--nodemos}
 
 : don't render demos
 
 ---
 
-: ||--lodemos||
+: {lit:--lodemos}
 
 : render a list of demos
 
 ---
 
-: ||--nolodemos||
+: {lit:--nolodemos}
 
 : don't render a list of demos
 
 ---
 
-:
-
-:
-
----
-
-: ||--footnotes||
+: {lit:--footnotes}
 
 : render footnotes
 
 ---
 
-: ||--nofootnotes||
+: {lit:--nofootnotes}
 
 : don't render footnotes
 
 ---
 
-: ||--lofootnotes||
+: {lit:--lofootnotes}
 
 : render a list of footnotes
 
 ---
 
-: ||--nolofootnotes||
+: {lit:--nolofootnotes}
 
 : don't render a list of footnotes
 
 ---
 
-:
-
-:
-
----
-
-: ||--todo||
+: {lit:--todo}
 
 : render todo items
 
 ---
 
-: ||--notodo||
+: {lit:--notodo}
 
 : don't render todo items
 
 ---
 
-: ||--lotodo||
+: {lit:--lotodo}
 
 : render a list of todo items
 
 ---
 
-: ||--nolotodo||
+: {lit:--nolotodo}
 
 : don't render a list of todo items
 
 ---
 
-:
-
-:
-
----
-
-: ||--problems||
+: {lit:--problems}
 
 : render problems
 
 ---
 
-: ||--noproblems||
+: {lit:--noproblems}
 
 : don't render problems
 
 ---
 
-: ||--loproblems||
+: {lit:--loproblems}
 
 : render list of problems
 
 ---
 
-: ||--noloproblems||
+: {lit:--noloproblems}
 
 : don't render a list of problems
 
 ---
 
-:
-
-:
-
----
-
-: ||--solutions||
+: {lit:--solutions}
 
 : render solutions
 
 ---
 
-: ||--nosolutions||
+: {lit:--nosolutions}
 
 : don't render solutions
 
 ---
 
-: ||--losolutions||
+: {lit:--losolutions}
 
 : render list of solutions
 
 ---
 
-: ||--nolosolutions||
+: {lit:--nolosolutions}
 
 : don't render a list of solutions
 
 ---
 
-:
-
-:
-
----
-
-: ||--tests||
+: {lit:--tests}
 
 : render tests
 
 ---
 
-: ||--notests||
+: {lit:--notests}
 
 : don't render tests
 
 ---
 
-: ||--lotests||
+: {lit:--lotests}
 
 : render list of tests
 
 ---
 
-: ||--notests||
+: {lit:--notests}
 
 : don't render a list of tests
 
 ---
 
-:
-
-:
-
----
-
-: ||--sources||
+: {lit:--sources}
 
 : render bibliographic sources
 
 ---
 
-: ||--nosource||
+: {lit:--nosource}
 
 : don't render bibliographic sources
 
 ---
 
-: ||--losources||
+: {lit:--losources}
 
 : render a list of sources
 
 ---
 
-: ||--nolosources||
+: {lit:--nolosources}
 
 : don't render a list of sources
 
 ---
 
-:
-
-:
-
----
-
-: ||--generate||
+: {lit:--generate}
 
 : render requested generated content
 
 ---
 
-: ||--nogenerate||
+: {lit:--nogenerate}
 
 : don't render requested generated content
 
 ---
 
-:
+: {lit:--scripts}
 
-:
-
----
-
-: ||--scripts||
 
 : run scripts, insert output
 
 ---
 
-: ||--noscripts||
+: {lit:--noscripts}
 
 : don't run scripts
 
 ---
 
-:
-
-:
-
----
-
-: ||--glossary||
+: {lit:--glossary}
 
 : render glossary
 
 ---
 
-: ||--noglossary||
+: {lit:--noglossary}
 
 : don't render glossary
 
 ---
 
-:
-
-:
-
----
-
-: ||--index||
+: {lit:--index}
 
 : render index
 
 ---
 
-: ||--noindex||
+: {lit:--noindex}
 
 : don't render index
 
 ---
 
-:
-
-:
-
----
-
-: ||--pdf_fontsize=11||
+: {lit:--pdf_fontsize=11}
 
 : font size for PDF rendition (10,11,12)
 
 ---
 
-: ||--pdf_fontfam=times||
+: {lit:--pdf_fontfam=times}
 
 : font family for PDF rendition: ||computer_modern||, ||times||,
 ||bookman||, ||chancery||, ||charter||, ||new_century|| or
@@ -1461,97 +1335,67 @@ column::2:head: description
 
 ---
 
-: ||--rtf_fontsize=11||
+: {lit:--rtf_fontsize=11}
 
 : font size for RTF rendition
 
 ---
 
-: ||--rtf_fontfam=times||
+: {lit:--rtf_fontfam=times}
 
 : font family for RTF rendition
 
 ---
 
-:
-
-:
-
----
-
-: ||--run_pdflatex||
+: {lit:--run_pdflatex}
 
 : run pdflatex to generate PDF file
 
 ---
 
-:
-
-:
-
----
-
-: ||--cleanup||
+: {lit:--cleanup}
 
 : remove temporary files
 
 ---
 
-: ||--nocleanup||
+: {lit:--nocleanup}
 
 : don't remove temporary files
 
 ---
 
-:
-
-:
-
----
-
-: ||--launch_browser||
+: {lit:--launch_browser}
 
 : launch browser after publishing
 
 ---
 
-: ||--nolaunch_browser||
+: {lit:--nolaunch_browser}
 
 : don't launch browser arfter publishing
 
 ---
 
-:
-
-:
-
----
-
-: ||--launch_pdfview||
+: {lit:--launch_pdfview}
 
 : launch a PDF viewer after publishing
 
 ---
 
-: ||--nolaunch_pdfview||
+: {lit:--nolaunch_pdfview}
 
 : don't launch a PDF viewer after publishing
 
 ---
 
-:
-
-:
-
----
-
-: ||--launch_rtfview||
+: {lit:--launch_rtfview}
 
 : launch RTF viewer after publishing
 
 ---
 
-: ||--nolaunch_rtfview||
+: {lit:--nolaunch_rtfview}
 
 : don't lanuch RTF viewer after publishing
 

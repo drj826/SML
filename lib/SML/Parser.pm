@@ -641,7 +641,7 @@ sub _init {
 
   if ( not $options->use_svn )
     {
-      $logger->debug("not using SVN, won't warn about uncommitted changes");
+      $logger->trace("not using SVN, won't warn about uncommitted changes");
     }
 
   $self->_clear_count_method_hash;
@@ -695,6 +695,8 @@ sub _create_string {
   my $self = shift;
   my $text = shift;                     # i.e. !!my bold text!!
 
+  $logger->debug("_create_string \'$text\'");
+
   # !!! BUG HERE !!!
   #
   # lookup_ref -> This method doesn't know what to do with a lookup
@@ -721,6 +723,8 @@ sub _create_string {
 
   if ( $string_type eq 'string' )
     {
+      $logger->debug("  string type: $string_type");
+
       my $args = {};
 
       $args->{name}      = 'string';
@@ -742,6 +746,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'syntax_error' )
     {
+      $logger->debug("  string type: $string_type");
+
       my $args = {};
 
       $args->{content}   = $text;
@@ -773,37 +779,41 @@ sub _create_string {
      or
      $string_type eq 'dblquote_string'
     )
-      {
-	if ( $text =~ /$syntax->{$string_type}/ )
-	  {
-	    my $args = {};
+    {
+      $logger->debug("  string type: $string_type");
 
-	    $args->{name}      = $string_type;
-	    $args->{content}   = $1;
-	    $args->{library}   = $self->get_library;
-	    $args->{container} = $container if $container;
+      if ( $text =~ /$syntax->{$string_type}/ )
+	{
+	  my $args = {};
 
-	    my $newstring = SML::String->new(%{$args});
+	  $args->{name}      = $string_type;
+	  $args->{content}   = $1;
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
-	    if ( $self->_text_contains_substring($text) )
-	      {
-		$self->_push_container_stack($newstring);
-		$self->_parse_text($newstring); # recurse
-		$self->_pop_container_stack;
-	      }
+	  my $newstring = SML::String->new(%{$args});
 
-	    return $newstring;
-	  }
+	  if ( $self->_text_contains_substring($text) )
+	    {
+	      $self->_push_container_stack($newstring);
+	      $self->_parse_text($newstring); # recurse
+	      $self->_pop_container_stack;
+	    }
 
-	else
-	  {
-	    $logger->error("DOESN'T LOOK LIKE A $string_type: $text");
-	    return 0;
-	  }
-      }
+	  return $newstring;
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $string_type: $text");
+	  return 0;
+	}
+    }
 
   elsif ( $string_type eq 'emdash_symbol' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -867,27 +877,31 @@ sub _create_string {
      or
      $string_type eq 'clearpage_symbol'
     )
-      {
-	if ( $text =~ /$syntax->{$string_type}/ )
-	  {
-	    my $args = {};
+    {
+      $logger->debug("  string type: $string_type");
 
-	    $args->{name}      = $string_type;
-	    $args->{library}   = $self->get_library;
-	    $args->{container} = $container if $container;
+      if ( $text =~ /$syntax->{$string_type}/ )
+	{
+	  my $args = {};
 
-	    return SML::Symbol->new(%{$args});
-	  }
+	  $args->{name}      = $string_type;
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
 
-	else
-	  {
-	    $logger->error("DOESN'T LOOK LIKE A $string_type: $text");
-	    return 0;
-	  }
-      }
+	  return SML::Symbol->new(%{$args});
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $string_type: $text");
+	  return 0;
+	}
+    }
 
   elsif ( $string_type eq 'cross_ref' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -909,6 +923,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'title_ref' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -930,6 +946,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'url_ref' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -951,6 +969,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'footnote_ref' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -972,13 +992,16 @@ sub _create_string {
 
   elsif ( $string_type eq 'gloss_term_ref' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
 
 	  $args->{tag}       = $1;
+	  $args->{namespace} = $3 || q{};
 	  $args->{term}      = $4;
-	  $args->{namespace} = $3 || '';
+	  $args->{content}   = $4;
 	  $args->{library}   = $self->get_library;
 	  $args->{container} = $container if $container;
 
@@ -994,6 +1017,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'gloss_def_ref' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1015,6 +1040,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'acronym_term_ref' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1037,6 +1064,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'index_ref' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1058,6 +1087,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'id_ref' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1078,6 +1109,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'page_ref' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1099,6 +1132,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'status_ref' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1119,6 +1154,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'citation_ref' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1141,6 +1178,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'file_ref' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1161,6 +1200,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'path_ref' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1181,6 +1222,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'variable_ref' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1202,6 +1245,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'user_entered_text' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1223,6 +1268,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'command_ref' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1243,6 +1290,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'xml_tag' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1263,6 +1312,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'literal' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1283,6 +1334,8 @@ sub _create_string {
 
   elsif ( $string_type eq 'email_addr' )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -3723,6 +3776,16 @@ sub _end_element {
       $self->_process_end_index_element($element);
     }
 
+  elsif ( $name eq 'date' )
+    {
+      $self->_process_end_date_element($element);
+    }
+
+  elsif ( $name eq 'revision' )
+    {
+      $self->_process_end_revision_element($element);
+    }
+
   elsif ( $name eq 'use_formal_status' )
     {
       $self->_end_use_formal_status_element($element);
@@ -3789,8 +3852,6 @@ sub _contains_include {
 
       elsif ( $text =~ /$syntax->{include_element}/ )
 	{
-	  $logger->debug("$text");
-	  $logger->debug("unresolved include: $&");
 	  return 1;
 	}
     }
@@ -3849,8 +3910,6 @@ sub _contains_script {
       #
       elsif ( $text =~ /$syntax->{script_element}/ )
 	{
-	  $logger->debug("$text");
-	  $logger->debug("unresolved script: $&");
 	  return 1;
 	}
     }
@@ -3882,8 +3941,6 @@ sub _contains_insert {
 	  or $text =~ /$syntax->{'insert_gen_element'}/
 	 )
 	{
-	  $logger->debug("$text");
-	  $logger->debug("unresolved insert: $&");
 	  return 1;
 	}
     }
@@ -3918,8 +3975,6 @@ sub _contains_variable {
 
       if ( $text =~ /$syntax->{variable_ref}/ )
 	{
-	  $logger->debug("$text");
-	  $logger->debug("unresolved variable: $&");
 	  return 1;
 	}
     }
@@ -3954,8 +4009,6 @@ sub _contains_lookup {
 
       if ( $text =~ /$syntax->{lookup_ref}/ )
 	{
-	  $logger->debug("$text");
-	  $logger->debug("unresolved lookup: $&");
 	  return 1;
 	}
     }
@@ -3990,8 +4043,6 @@ sub _contains_template {
 	   or $text =~ /$syntax->{template_element}/
 	 )
 	{
-	  $logger->debug("$text");
-	  $logger->debug("unresolved template: $&");
 	  return 1;
 	}
     }
@@ -4010,7 +4061,6 @@ sub _contains_generate {
 
   if ( $count > 0 )
     {
-      $logger->debug("unresolved generate");
       return 1;
     }
   else
@@ -4046,15 +4096,11 @@ sub _text_requires_processing {
 
       if ( $text =~ /$syntax->{include_element}/ )
 	{
-	  $logger->debug("$text");
-	  $logger->debug("unresolved include: $&");
 	  return 1;
 	}
 
       elsif ( $text =~ /$syntax->{script_element}/ )
 	{
-	  $logger->debug("$text");
-	  $logger->debug("unresolved script: $&");
 	  return 1;
 	}
 
@@ -4063,22 +4109,16 @@ sub _text_requires_processing {
 	     or $text =~ /$syntax->{'insert_gen_element'}/
 	    )
 	{
-	  $logger->debug("$text");
-	  $logger->debug("unresolved insert: $&");
 	  return 1;
 	}
 
       elsif ( $text =~ /^template::/ )
 	{
-	  $logger->debug("$text");
-	  $logger->debug("unresolved template: $&");
 	  return 1;
 	}
 
       elsif ( $text =~ /$syntax->{generate_element}/ )
 	{
-	  $logger->debug("$text");
-	  $logger->debug("unresolved generate: $&");
 	  return 1;
 	}
     }
@@ -4099,15 +4139,11 @@ sub _text_requires_processing {
 
       if ( $text =~ /$syntax->{variable_ref}/ )
 	{
-	  $logger->debug("$text");
-	  $logger->debug("unresolved variable: $&");
 	  return 1;
 	}
 
       elsif ( $text =~ /$syntax->{lookup_ref}/ )
 	{
-	  $logger->debug("$text");
-	  $logger->debug("unresolved lookup: $&");
 	  return 1;
 	}
 
@@ -4115,8 +4151,6 @@ sub _text_requires_processing {
 	     or $text =~ /^(\.){3,}template/
 	 )
 	{
-	  $logger->debug("$text");
-	  $logger->debug("unresolved template: $&");
 	  return 1;
 	}
     }
@@ -7983,6 +8017,60 @@ sub _process_paragraph_text {
 
 ######################################################################
 
+sub _process_end_date_element {
+
+  my $self    = shift;
+  my $element = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $element->get_content;
+
+  if ( $text =~ /$syntax->{svn_date_field}/ )
+    {
+      # $1 = value           (2013-07-07 11:42:01 -0600 (Sun, 07 Jul 2013))
+      # $2 = date            (2013-07-07)
+      # $3 = time            (11:42:01)
+      # $4 = timezone offset (-0600)
+      # $5 = daydate         (Sun, 07 Jul 2013)
+      $element->set_value($5);
+    }
+
+  else
+    {
+      $element->set_value($text);
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _process_end_revision_element {
+
+  my $self    = shift;
+  my $element = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $element->get_content;
+
+  if ( $text =~ /$syntax->{svn_revision_field}/ )
+    {
+      # $1 = value
+      $element->set_value($1);
+    }
+
+  else
+    {
+      $element->set_value($text);
+    }
+
+  return 1;
+}
+
+######################################################################
+
 sub _process_end_paragraph {
 
   my $self = shift;
@@ -9133,8 +9221,8 @@ sub _build_string_type_list {
      'bold_string',
      'fixedwidth_string',
      'keystroke_symbol',
-     'dblquote_string',
      'sglquote_string',
+     'dblquote_string',
 
      # substrings that form references
      'cross_ref',
@@ -9337,6 +9425,8 @@ sub _parse_text {
   my $self   = shift;
   my $string = shift;
 
+  $logger->debug("_parse_text $string");
+
   if (
       not ref $string
       or
@@ -9365,6 +9455,8 @@ sub _parse_next_substring {
   my $part = shift;                     # part to which this text belongs
   my $text = shift;                     # text to parse
 
+  $logger->debug("_parse_next_substring $part \'$text\'");
+
   my $library = $self->get_library;
   my $syntax  = $library->get_syntax;
   my $block;
@@ -9384,8 +9476,12 @@ sub _parse_next_substring {
       $logger->error("THIS SHOULD NEVER HAPPEN (3) \'$part\'");
     }
 
-  if ( my $string_type = $self->_get_next_substring_type($text) )
+  my $string_type = $self->_get_next_substring_type($text);
+
+  if ( $string_type )
     {
+      $logger->debug("  string type: $string_type");
+
       if ( $text =~ /$syntax->{$string_type}/p )
 	{
 	  my $preceding_text = ${^PREMATCH};
@@ -9401,6 +9497,8 @@ sub _parse_next_substring {
 	  $part->add_part($newstring2);
 
 	  $text = ${^POSTMATCH};
+
+	  $logger->debug("  string remaining: \'$text\'");
 
 	  return $text;
 	}
@@ -9433,23 +9531,27 @@ sub _get_string_type {
   my $self = shift;
   my $text = shift;
 
+  $logger->debug("_get_string_type \'$text\'");
+
   my $library = $self->get_library;
   my $syntax  = $library->get_syntax;
 
   foreach my $string_type (@{ $self->_get_string_type_list })
     {
-      if ( not exists $syntax->{$string_type} )
+      if ( $text =~ /^$syntax->{$string_type}$/ )
+	{
+	  $logger->debug("  string type: $string_type");
+	  return $string_type;
+	}
+
+      elsif ( not exists $syntax->{$string_type} )
 	{
 	  $logger->error("THIS SHOULD NEVER HAPPEN \'$string_type\'");
 	  return 0;
 	}
-
-      if ( $text =~ /^$syntax->{$string_type}$/ )
-	{
-	  return $string_type;
-	}
     }
 
+  $logger->debug("  string type: string");
   return 'string';
 }
 

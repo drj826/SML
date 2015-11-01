@@ -49,7 +49,7 @@ has 'namespace' =>
    is       => 'ro',
    isa      => 'Str',
    reader   => 'get_namespace',
-   default  => '',
+   default  => q{},
   );
 
 ######################################################################
