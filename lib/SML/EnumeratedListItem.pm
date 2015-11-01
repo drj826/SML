@@ -37,36 +37,6 @@ has '+name' =>
 ######################################################################
 ######################################################################
 
-sub get_value {
-
-  # Strip the plus sign off the beginning of the list item.
-
-  my $self = shift;
-
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $text    = $self->get_content || q{};
-
-  $text =~ s/[\r\n]*$//;                # chomp;
-
-  if ( $text =~ /$syntax->{'enum_list_item'}/xms )
-    {
-      my $util = $library->get_util;
-
-      # $1 = indent
-      # $2 = text
-      return $util->trim_whitespace($2);
-    }
-
-  else
-    {
-      $logger->error("This should never happen");
-      return q{};
-    }
-};
-
-######################################################################
-
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

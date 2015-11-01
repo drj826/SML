@@ -31,7 +31,7 @@ has '+name' =>
 
 ######################################################################
 
-has 'leading_whitespace' =>
+has leading_whitespace =>
   (
    is        => 'ro',
    isa       => 'Str',
@@ -45,43 +45,33 @@ has 'leading_whitespace' =>
 # the start of a sub-list.
 
 ######################################################################
+
+has value =>
+  (
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_value',
+   writer    => 'set_value',
+   predicate => 'has_value',
+  );
+
+######################################################################
+
+has value_string =>
+  (
+   is        => 'ro',
+   isa       => 'SML::String',
+   reader    => 'get_value_string',
+   writer    => 'set_value_string',
+   predicate => 'has_value_string',
+  );
+
+######################################################################
 ######################################################################
 ##
 ## Public Methods
 ##
 ######################################################################
-######################################################################
-
-sub get_value {
-
-  # Strip the item indicator from the beginning of the listitem
-  # content.
-
-  my $self = shift;
-
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $text    = $self->get_content || q{};
-
-  $text =~ s/[\r\n]*$//;                # chomp;
-
-  if ( $text =~ /$syntax->{'list_item'}/xms )
-    {
-      my $util = $library->get_util;
-
-      # $1 = indent
-      # $2 = bullet character
-      # $3 = item text
-      return $util->trim_whitespace($3);
-    }
-
-  else
-    {
-      $logger->error("CAN'T GET LISTITEM VALUE");
-      return 0;
-    }
-};
-
 ######################################################################
 
 no Moose;

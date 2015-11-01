@@ -1,2 +1,2 @@
-<dt>[%- self.get_term.get_content -%]</dt>
-<dd>[%- INCLUDE part_list.tt -%]</dd>
+<dt>[%- INCLUDE STRING.tt self = self.get_term_string -%]</dt>
+<dd>[%- INCLUDE STRING.tt self = self.get_definition_string -%]</dd>

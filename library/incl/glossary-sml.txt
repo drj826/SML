@@ -1,10 +1,8 @@
 >>>RAW.glossary-sml
 
-===
-
 >>>COMMENT
 
-Structured Manuscript Language (SML) Vocabulary
+Semantic Manuscript Language (SML) Vocabulary
 
 Dependency: This vocabulary depends on the IEEE vocabulary.  If you
 include this vocabulary in your document you must also include
@@ -12,7 +10,7 @@ include this vocabulary in your document you must also include
 
 <<<COMMENT
 
-#######################################################################
+######################################################################
 # A
 ######################################################################
 
@@ -605,7 +603,7 @@ responsibilities
 # S
 ######################################################################
 
-glossary:: SML {sml} = (SML) [g:sml:Structured Manuscript Language]
+glossary:: SML {sml} = (SML) [g:sml:Semantic Manuscript Language]
 
 glossary:: SRD {sml} = (SML) System Requirements Document
 

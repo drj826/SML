@@ -302,6 +302,18 @@ has cross_ref =>
 
 ######################################################################
 
+has title_ref =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '\[(title|t):\s*([^\s\]]+?)\s*\]',
+  );
+
+# $1 = tag
+# $2 = target_id
+
+######################################################################
+
 has begin_cross_ref =>
   (
    is      => 'ro',
@@ -737,14 +749,20 @@ has paragraph_text =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^[^\s#]',
+   default => '^(:+\s*)?([^\s#].*)',
   );
+
+# $1 = leading colon(s) (begin table cell)
+# $2 = paragraph text
 
 # A paragraph can be just about any block of text.  The two main
 # exceptions are (1) a block of text that begins with one or more
 # white spaces is pre-formatted text, and (2) a block of text that
 # begins with a '#' is a comment.  The default regular expression
 # above represents these two exceptions.
+
+# The first block of a table cell may be a paragraph.  In this case
+# the paragraph text will be preceded by the table cell syntax.
 
 # There are other exceptions not represented by the default regular
 # expression above.  For instance a block of text that begins with a
@@ -777,8 +795,8 @@ has bull_list_item =>
    default => '^(\s*)\-\s+(.*)',
   );
 
-# $1 = indent
-# $2 = text
+# $1 = leading whitespace
+# $2 = value
 
 ######################################################################
 
@@ -789,8 +807,8 @@ has enum_list_item =>
    default => '^(\s*)\+\s+(.*)',
   );
 
-# $1 = indent
-# $2 = text
+# $1 = leading whitespace
+# $2 = value
 
 ######################################################################
 

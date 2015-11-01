@@ -1,3 +1,3 @@
-[%- SET section_id = self.get_section_id -%]
-[%- SET footnote_num = self.get_number -%]
-<span style="font-size: 8pt;"><sup><a href="#footnote.[% section_id %].[% footnote_num %]">[% footnote_num %]</a></sup></span>
+[%- SET id = self.get_section_id -%]
+[%- SET num = self.get_number -%]
+<span style="font-size: 8pt;"><sup><a href="#footnote.[%id%].[%num%]">[% num %]</a></sup></span>

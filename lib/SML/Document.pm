@@ -227,6 +227,12 @@ sub add_note {
       $divid = $division->get_id;
     }
 
+  else
+    {
+      my $location = $note->get_location;
+      $logger->error("FOOTNOTE HAS NO CONTAINING DIVISION at $location");
+    }
+
   my $number = $note->get_number;
 
   if ( exists $self->_get_note_hash->{$divid}{$number} )
@@ -370,9 +376,9 @@ sub get_acronym_definition {
 
 sub get_note {
 
-  my $self  = shift;
-  my $divid = shift;
-  my $number   = shift;
+  my $self   = shift;
+  my $divid  = shift;
+  my $number = shift;
 
   my $nh = $self->_get_note_hash;
 

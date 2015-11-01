@@ -1,0 +1,541 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%            THIS FILE WAS GENERATED AUTOMATICALLY
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%    This LaTeX document was published using the Semantic Manuscript
+%%    Language (SML). For more information write to me:
+%%
+%%         Don Johnson
+%%         drj826@acm.org
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+[%- SET doctype = document.get_doctype -%]
+[%- SET fontsize = document.get_fontsize -%]
+%% this is a [%doctype%]
+\\documentclass[twoside,letterpaper,[%fontsize%]]{[%doctype%]}
+
+%% listings package
+\\usepackage{listings}
+\\lstset{numberstyle=\\tiny,xleftmargin=16pt}
+
+[%- SET fontfam = document.get_fontfam -%]
+[%- IF fontfam == 'times' -%]
+%% times font
+\\usepackage{times}
+
+[%- ELSIF fontfam == 'bookman' -%]
+%% bookman font
+\\usepackage{bookman}
+
+[%- ELSIF fontfam == 'chancery' -%]
+%% chancery font
+\\usepackage{chancery}
+
+[%- ELSIF fontfam == 'charter' -%]
+%% charter font
+\\usepackage{charter}
+
+[%- ELSIF fontfam == 'new_century' -%]
+%% charter font
+\\usepackage{newcent}
+
+[%- ELSIF fontfam == 'palatino' -%]
+%% palatino font
+\\usepackage{palatino}
+
+[%- END -%]
+
+[%- IF document.contains_index_entry -%]
+%% make an index
+\\usepackage{makeidx}
+\\makeindex
+
+[%- END -%]
+
+[%- IF document.contains_exercise or document.contains_demo or document.contains_listing -%]
+%% framed package to create boxes
+\\usepackage{framed}
+
+[%- END -%]
+
+%% fancyhdr package for headers and footers
+\\usepackage{fancyhdr}
+
+[%- SET left_margin = document.get_left_margin -%]
+[%- SET right_margin = document.get_right_margin -%]
+[%- SET top_margin = document.get_top_margin -%]
+[%- SET bottom_margin = document.get_bottom_margin -%]
+%% anysize package for setting margin sizes
+\\usepackage{anysize}
+\\marginsize{[%left_margin%]}{[%right_margin%]}{[%top_margin%]}{[%bottom_margin%]}
+
+%% subscript
+\\newcommand{\\subscript}[1]{\\ensuremath{_{\\scriptsize{\\textrm{#1}}}}}
+
+%% table rendering environments
+\\usepackage{tabularx}
+\\usepackage{longtable}
+\\usepackage{array,supertabular}
+\\usepackage{colortbl}
+\\newlength{\\tablewidth}
+\\setlength\\arrayrulewidth{0.5pt}
+\\newcolumntype{G}{!{\\color{shadecolor}\\vline}}
+\\newcommand\\ghline{\\arrayrulecolor{shadecolor}\\hline\\arrayrulecolor{black}}
+
+[%- IF document.contains_keystroke or document.contains_keypoints or document.contains_slide -%]
+%% fancybox environment for keystrokes and slides
+\\usepackage{fancybox}
+
+[%- END -%]
+
+[%- IF document.contains_reference -%]
+%% varioref package for flexible cross referencing
+\\usepackage{varioref}
+
+[%- END -%]
+
+[%- IF document.contains_symbol -%]
+%% amssymb and wasysym packages for special symbols
+\\usepackage{amssymb}
+\\usepackage{wasysym}
+\\usepackage{marvosym}
+
+[%- END -%]
+
+[%- IF document.contains_sidebar -%]
+%% boxedminipage and wrapfig packages to display sidebars
+\\usepackage{boxedminipage}
+\\usepackage{wrapfig}
+
+[%- END -%]
+
+[%- IF document.contains_image -%]
+%% graphicx package (PDF version) to display images
+\\usepackage[pdftex]{graphicx}
+
+[%- END -%]
+
+[%- IF document.contains_acronym -%]
+%% acronym package
+\\usepackage[printonlyused,withpage]{acronym}
+
+[%- END -%]
+
+[%- IF document.contains_epigraph -%]
+%% epigraph package
+\\usepackage{epigraph}
+\\setlength{\\epigraphwidth}{0.6\\textwidth}
+\\setlength{\\epigraphrule}{0pt}
+
+[%- END -%]
+
+%% lscape package
+\\usepackage{lscape}
+
+%% xcolor package for shaded backgrounds
+\\usepackage[table,override,pdftex]{xcolor}
+\\definecolor{shadecolor}{rgb}{0.9,0.9,0.9}
+\\definecolor{bg-red}{rgb}{1.0,0.4,0.4}
+\\definecolor{bg-green}{rgb}{0.4,1.0,0.4}
+\\definecolor{bg-blue}{rgb}{0.4,0.4,1.0}
+\\definecolor{bg-yellow}{rgb}{1.0,1.0,0.4}
+\\definecolor{bg-orange}{rgb}{1.0,0.8,0.4}
+\\definecolor{bg-purple}{rgb}{1.0,0.4,1.0}
+\\definecolor{bg-litegrey}{rgb}{0.95,0.95,0.95}
+\\definecolor{bg-grey}{rgb}{0.85,0.85,0.85}
+\\definecolor{bg-darkgrey}{rgb}{0.75,0.75,0.75}
+\\definecolor{bg-white}{rgb}{1.0,1.0,1.0}
+\\definecolor{fg-grey}{rgb}{0.70,0.70,0.70}
+\\definecolor{fg-green}{rgb}{0.3,0.9,0.3}
+\\definecolor{fg-darkgreen}{rgb}{0.0,0.5,0.0}
+\\definecolor{fg-darkred}{rgb}{0.5,0.0,0.0}
+\\definecolor{fg-yellow}{rgb}{1.0,0.9,0.3}
+\\definecolor{fg-blue}{rgb}{0.0,0.0,0.8}
+\\definecolor{fg-orange}{rgb}{1.0,0.6,0.0}
+\\definecolor{fg-red}{rgb}{0.9,0.3,0.3}
+
+[%- SET linkcolor = document.get_link_color -%]
+%% url and hyperref packages for hyperlinks
+\\usepackage[obeyspaces]{url}
+\\usepackage[
+  colorlinks=true,
+  linkcolor=[%linkcolor%],
+  urlcolor=[%linkcolor%],
+  bookmarksopen=true,
+  bookmarksnumbered=true,
+  backref=section
+]{hyperref}
+
+[%- IF document.contains_glossary -%]
+%% glossaries package
+\\usepackage{glossaries}
+\\glstoctrue
+\\makeglossaries
+
+[%- END -%]
+
+[%- IF document.contains_attachment -%]
+%% attachfile package for PDF file attachments
+\\usepackage{attachfile}
+
+[%- END -%]
+
+%% changebar package to show what changed since the previous version
+%% \\usepackage[leftbars]{changebar}
+%% \\setlength\\changebarsep{6pt}
+ 
+%% no paragraph indent, use block paragraphs
+\\setlength{\\parindent}{0pt}
+
+[%- IF document.contains_exercise -%]
+%%--------------------------------------------------------------------
+%% exercise region
+%%
+\\makeatletter
+\\newcounter{exercise}[$sectype]
+\\newcommand{\\listofexercises}{
+\\${sectype}*{List of Exercises
+\\\@mkboth{\\MakeUppercase{List of Exercises}}{\\MakeUppercase{List of Exercises}}}%
+\\\@starttoc{exr}}
+\\newenvironment{exercise}[1]{%
+  \\begin{shaded}
+  \\refstepcounter{exercise}
+  \\addcontentsline{exr}{section}{\\protect\\numberline{\\theexercise} \\hspace{0.1in} #1}
+  \\par\\noindent\\textbf{Exercise \\theexercise -- #1}\\par
+}{%
+  \\end{shaded}
+}
+\\renewcommand{\\theexercise}{\\the${sectype}.\\arabic{exercise}}
+\\makeatother
+
+[%- END -%]
+
+[%- IF document.contains_demo -%]
+%%--------------------------------------------------------------------
+%% demonstration region
+%%
+\\makeatletter
+\\newcounter{demonstration}[$sectype]
+\\newcommand{\\listofdemos}{
+\\${sectype}*{List of Demonstrations
+\\\@mkboth{\\MakeUppercase{List of Demonstrations}}{\\MakeUppercase{List of Demonstrations}}}%
+\\\@starttoc{dem}}
+\\newenvironment{demonstration}[1]{%
+  \\begin{shaded}
+  \\refstepcounter{demonstration}
+  \\addcontentsline{dem}{section}{\\protect\\numberline{\\thedemonstration} \\hspace{0.1in} #1}
+  \\par\\noindent\\textbf{Demonstration \\thedemonstration -- #1}\\par
+}{%
+  \\end{shaded}
+}
+\\renewcommand{\\thedemonstration}{\\the${sectype}.\\arabic{demonstration}}
+\\makeatother
+
+[%- END -%]
+
+[%- IF document.contains_listing -%]
+%%--------------------------------------------------------------------
+%% listing region
+%%
+\\makeatletter
+\\newcounter{listing}[$sectype]
+\\newcommand{\\listoflistings}{
+\\${sectype}*{List of Listings
+\\\@mkboth{\\MakeUppercase{List of Listings}}{\\MakeUppercase{List of Listings}}}%
+\\\@starttoc{lis}}
+\\newenvironment{listing}[1]{%
+  \\begin{shaded}
+  \\refstepcounter{listing}
+  \\addcontentsline{lis}{table}{\\protect\\numberline{\\thelisting} \\hspace{0.1in} #1}
+  \\par\\noindent\\textbf{Listing \\thelisting -- #1}\\par
+}{%
+  \\end{shaded}
+}
+\\renewcommand{\\thelisting}{\\the${sectype}.\\arabic{listing}}
+\\makeatother
+
+[%- END -%]
+
+[%- IF document.contains_entity -%]
+%%--------------------------------------------------------------------
+%% problem region
+%%
+\\makeatletter
+\\newcounter{problem}[$sectype]
+\\newcommand{\\listofproblems}{
+\\${sectype}*{List of Problems
+\\\@mkboth{\\MakeUppercase{List of Problems}}{\\MakeUppercase{List of Problems}}}%
+\\\@starttoc{req}}
+\\newenvironment{problem}[1]{%
+  \\refstepcounter{problem}
+  \\addcontentsline{req}{figure}{\\protect\\numberline{\\theproblem} \\hspace{0.1in} #1}
+}{%
+}
+\\renewcommand{\\theproblem}{\\the${sectype}.\\arabic{problem}}
+\\makeatother
+
+%%--------------------------------------------------------------------
+%% solution region
+%%
+\\makeatletter
+\\newcounter{solution}[$sectype]
+\\newcommand{\\listofsolutions}{
+\\${sectype}*{List of Solutions
+\\\@mkboth{\\MakeUppercase{List of Solutions}}{\\MakeUppercase{List of Solutions}}}%
+\\\@starttoc{sol}}
+\\newenvironment{solution}[1]{%
+  \\refstepcounter{solution}
+  \\addcontentsline{sol}{figure}{\\protect\\numberline{\\thesolution} \\hspace{0.1in} #1}
+}{%
+}
+\\renewcommand{\\thesolution}{\\the${sectype}.\\arabic{solution}}
+\\makeatother
+
+%%--------------------------------------------------------------------
+%% allocation region
+%%
+\\makeatletter
+\\newcounter{allocation}[$sectype]
+\\newcommand{\\listofallocations}{
+\\${sectype}*{List of Allocations
+\\\@mkboth{\\MakeUppercase{List of Allocations}}{\\MakeUppercase{List of Allocations}}}%
+\\\@starttoc{alo}}
+\\newenvironment{allocation}[1]{%
+  \\refstepcounter{allocation}
+  \\addcontentsline{alo}{figure}{\\protect\\numberline{\\theallocation} \\hspace{0.1in} #1}
+}{%
+}
+\\renewcommand{\\theallocation}{\\the${sectype}.\\arabic{allocation}}
+\\makeatother
+
+%%--------------------------------------------------------------------
+%% assignment region
+%%
+\\makeatletter
+\\newcounter{assignment}[$sectype]
+\\newcommand{\\listofassignments}{
+\\${sectype}*{List of Assignments
+\\\@mkboth{\\MakeUppercase{List of Assignments}}{\\MakeUppercase{List of Assignments}}}%
+\\\@starttoc{asn}}
+\\newenvironment{assignment}[1]{%
+  \\refstepcounter{assignment}
+  \\addcontentsline{asn}{figure}{\\protect\\numberline{\\theassignment} \\hspace{0.1in} #1}
+}{%
+}
+\\renewcommand{\\theassignment}{\\the${sectype}.\\arabic{assignment}}
+\\makeatother
+
+%%--------------------------------------------------------------------
+%% test region
+%%
+\\makeatletter
+\\newcounter{test}[$sectype]
+\\newcommand{\\listoftests}{
+\\${sectype}*{List of Tests
+\\\@mkboth{\\MakeUppercase{List of Tests}}{\\MakeUppercase{List of Tests}}}%
+\\\@starttoc{tst}}
+\\newenvironment{test}[1]{%
+  \\refstepcounter{test}
+  \\addcontentsline{tst}{figure}{\\protect\\numberline{\\thetest} \\hspace{0.1in} #1}
+}{%
+}
+\\renewcommand{\\thetest}{\\the${sectype}.\\arabic{test}}
+\\makeatother
+
+%%--------------------------------------------------------------------
+%% task region
+%%
+\\makeatletter
+\\newcounter{task}[$sectype]
+\\newcommand{\\listoftasks}{
+\\${sectype}*{List of Tasks
+\\\@mkboth{\\MakeUppercase{List of Tasks}}{\\MakeUppercase{List of Tasks}}}%
+\\\@starttoc{tsk}}
+\\newenvironment{task}[1]{%
+  \\refstepcounter{task}
+  \\addcontentsline{tsk}{figure}{\\protect\\numberline{\\thetask} \\hspace{0.1in} #1}
+}{%
+}
+\\renewcommand{\\thetask}{\\the${sectype}.\\arabic{task}}
+\\makeatother
+
+%%--------------------------------------------------------------------
+%% result region
+%%
+\\makeatletter
+\\newcounter{result}[$sectype]
+\\newcommand{\\listofresults}{
+\\${sectype}*{List of Results
+\\\@mkboth{\\MakeUppercase{List of Results}}{\\MakeUppercase{List of Results}}}%
+\\\@starttoc{res}}
+\\newenvironment{result}[1]{%
+  \\refstepcounter{result}
+  \\addcontentsline{res}{figure}{\\protect\\numberline{\\theresult} \\hspace{0.1in} #1}
+}{%
+}
+\\renewcommand{\\theresult}{\\the${sectype}.\\arabic{result}}
+\\makeatother
+
+%%--------------------------------------------------------------------
+%% role region
+%%
+\\makeatletter
+\\newcounter{role}[$sectype]
+\\newcommand{\\listofroles}{
+\\${sectype}*{List of Roles
+\\\@mkboth{\\MakeUppercase{List of Roles}}{\\MakeUppercase{List of Roles}}}%
+\\\@starttoc{rol}}
+\\newenvironment{role}[1]{%
+  \\refstepcounter{role}
+  \\addcontentsline{rol}{figure}{\\protect\\numberline{\\therole} \\hspace{0.1in} #1}
+}{%
+}
+\\renewcommand{\\therole}{\\the${sectype}.\\arabic{role}}
+\\makeatother
+
+[%- END -%]
+
+[%- IF document.contains_attachment -%]
+%%--------------------------------------------------------------------
+%% attachment region
+%%
+\\makeatletter
+\\newcounter{attachment}[$sectype]
+\\newcommand{\\listofattachments}{
+\\${sectype}*{List of Attachments
+\\\@mkboth{\\MakeUppercase{List of Attachments}}{\\MakeUppercase{List of Attachments}}}%
+\\\@starttoc{att}}
+\\newenvironment{attachment}[1]{%
+  \\refstepcounter{attachment}
+  \\addcontentsline{att}{figure}{\\protect\\numberline{\\theattachment} \\hspace{0.1in} #1}
+}{%
+}
+\\renewcommand{\\theattachment}{\\the${sectype}.\\arabic{attachment}}
+\\makeatother
+
+[%- END -%]
+
+[%- IF document.contains_table -%]
+%%--------------------------------------------------------------------
+%% define an itemize region for use in table cells
+%%
+\\newenvironment{tablecellitemize}{%
+  \\begin{list}{\$\\bullet\$}{%
+      \\setlength{\\topsep}{0pt}
+      \\setlength{\\parskip}{0pt}
+      \\setlength{\\leftmargin}{10pt}
+      \\setlength{\\rightmargin}{10pt}
+      \\setlength{\\parsep}{4pt}
+      \\setlength{\\itemsep}{0pt}
+    }}
+    {\\end{list}}%
+
+[%- END -%]
+
+%%--------------------------------------------------------------------
+%% fancy header and footer
+%%
+\\pagestyle{fancy}
+\\addtolength{\\headheight}{\\baselineskip}
+\\addtolength{\\footskip}{\\baselineskip}
+
+[%- IF doctype == 'book' -%]
+%% this document is a book, use chapters
+\\renewcommand{\\chaptermark}[1]{\\markboth{#1}{}}
+
+[%- END -%]
+
+%%--------------------------------------------------------------------
+%% default headers and footers
+%%
+\\renewcommand{\\sectionmark}[1]{\\markright{\\thesection\\ #1}}
+\\lhead[\\fancyplain{}{\\bfseries\\thepage}]{\\fancyplain{}{\\bfseries\\rightmark}}
+\\rhead[\\fancyplain{}{\\bfseries\\leftmark}]{\\fancyplain{}{\\bfseries\\thepage}}
+%% \\fancyhead[CE,CO]{\\sf\\bfseries{}}
+\\fancyfoot[CE,CO]{\\sf\\bfseries{}}
+%% \\fancyhead[LE,RO]{}
+%% \\fancyhead[RE,LO]{}
+
+[%- SET copyright = document.get_copyright -%]
+[%- SET revision = document.get_revision -%]
+
+\\fancyfoot[LE]{[%copyright%]}
+\\fancyfoot[RO]{[%revision%]}
+\\fancyfoot[LO]{[%copyright%]}
+\\fancyfoot[RE]{[%revision%]}
+
+\\renewcommand{\\headrulewidth}{0.4pt}
+\\renewcommand{\\footrulewidth}{0pt}
+\\raggedbottom
+\\setlength{\\voffset}{-0.25in}
+\\setlength{\\fboxsep}{10pt}
+
+[%- IF document.contains_keystroke -%]
+%%--------------------------------------------------------------------
+%% "keystroke" command
+%%
+\\newcommand{\\keystroke}[1]{\\setlength{\\fboxsep}{2pt}\\Ovalbox{\\scriptsize{#1}}\\setlength{\\fboxsep}{10pt}}
+
+[%- END -%]
+
+[%- IF document.contains_step -%]
+%%--------------------------------------------------------------------
+%% "step" command
+%%
+\\newcommand{\\step}[1]{\\Large\\Square\\normalsize \\hspace{4pt} {\\sc \\textbf{Step #1}} -- }
+
+[%- END -%]
+
+[%- IF document.contains_todo -%]
+%%--------------------------------------------------------------------
+%% "todo" and "done" commands
+%%
+%% \\newcommand{\\todo}{\\Large\$\\Box\$\\normalsize \\hspace{0.1in}}
+\\newcommand{\\todo}{\\Large\\Square\\normalsize \\hspace{4pt}}
+\\newcommand{\\done}{\\Large\\XBox\\normalsize \\hspace{4pt}}
+
+[%- END -%]
+
+[%- IF doctype == 'book' -%]
+%%--------------------------------------------------------------------
+%% chapter header and footer
+%%
+\\makeatletter
+\\renewcommand\\chapter{\\if\@openright\\cleardoublepage\\else\\clearpage\\fi
+                    \\thispagestyle{fancy}\%
+                    \\global\\\@topnum\\z\@
+                    \\\@afterindentfalse
+                    \\secdef\\\@chapter\\\@schapter}
+\\makeatother
+
+[%- END -%]
+
+[%- INCLUDE glossary_entries.tt -%]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                  %%
+%%                      BEGINNING OF DOCUMENT                       %%
+%%                                                                  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\\begin{document}
+
+[%- IF document.contains_image -%]
+\\DeclareGraphicsExtensions{.jpg,.pdf,.mps,.png,.gif}
+
+[%- END -%]
+
+[%- IF doctype == 'book' -%]
+%%--------------------------------------------------------------------
+%% frontmatter
+%%
+\\frontmatter
+
+[%- END -%]
+
+[%# STOPPED HERE %]

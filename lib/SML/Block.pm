@@ -564,164 +564,164 @@ sub _build_content {
 
 ######################################################################
 
-sub _build_name_path {
+# sub _build_name_path {
 
-  my $self       = shift;
-  my $containers = [];
-  my $name       = $self->get_name;
-  my $container  = $self->get_containing_division;
+#   my $self       = shift;
+#   my $containers = [];
+#   my $name       = $self->get_name;
+#   my $container  = $self->get_containing_division;
 
-  push @{ $containers }, $name;
+#   push @{ $containers }, $name;
 
-  while ( ref $container )
-    {
-      my $container_name = $container->get_name;
-      push @{ $containers }, $container_name;
+#   while ( ref $container )
+#     {
+#       my $container_name = $container->get_name;
+#       push @{ $containers }, $container_name;
 
-      $container = $container->get_containing_division;
-    }
+#       $container = $container->get_containing_division;
+#     }
 
-  my $name_path = join('.', reverse @{ $containers });
+#   my $name_path = join('.', reverse @{ $containers });
 
-  return $name_path;
-}
-
-######################################################################
-
-sub _render_html_internal_references {
-
-  # [ref:fig-drawing] ==> <a href="figure-1-2">Figure 1.2</a>
-  #   [r:fig-drawing] ==> <a href="figure-1-2">Figure 1.2</a>
-
-  my $self   = shift;
-  my $html   = shift;
-
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $util    = $library->get_util;
-
-  return $html if not $html =~ $syntax->{cross_ref};
-
-  my $doc = $self->get_containing_document;
-
-  if ( not $doc )
-    {
-      $logger->error("NOT IN DOCUMENT CONTEXT can't resolve internal cross references");
-
-      while ( $html =~ $syntax->{cross_ref} )
-	{
-	  my $id     = $2;
-	  my $string = "(broken ref to \'$id\')";
-	  $html =~ s/$syntax->{cross_ref}/$string/xms;
-	}
-
-      return $html;
-    }
-
-
-  while ( $html =~ $syntax->{cross_ref} ) {
-
-    my $id     = $2;
-    my $string = q{};
-
-    if ( $library->has_division($id) )
-      {
-	my $division = $library->get_division($id);
-	my $name     = $division->get_name;   # i.e. SECTION
-
-	$name = lc( $name );
-	$name = ucfirst ( $name );
-
-	my $number   = $division->get_number; # i.e. 1-2
-	my $outfile  = $doc->get_html_outfile_for($id);
-	my $target   = "$outfile#$name.$number";
-
-	$string = "<a href=\"$target\">$name $number<\/a>";
-      }
-
-    else
-      {
-	my $location = $self->get_location;
-	$logger->warn("REFERENCED ID DOESN'T EXIST \'$id\' at $location");
-
-	$string = "<font color=\"red\">(broken cross ref to $id)<\/font>";
-      }
-
-    $html =~ s/$syntax->{cross_ref}/$string/xms;
-  }
-
-  return $html;
-}
+#   return $name_path;
+# }
 
 ######################################################################
 
-sub _render_html_url_references {
+# sub _render_html_internal_references {
 
-  my $self   = shift;
-  my $html   = shift;
+#   # [ref:fig-drawing] ==> <a href="figure-1-2">Figure 1.2</a>
+#   #   [r:fig-drawing] ==> <a href="figure-1-2">Figure 1.2</a>
 
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
+#   my $self   = shift;
+#   my $html   = shift;
 
-  if ( not $html =~ $syntax->{url_ref} )
-    {
-      return $html;
-    }
+#   my $library = $self->get_library;
+#   my $syntax  = $library->get_syntax;
+#   my $util    = $library->get_util;
 
-  while ( $html =~ $syntax->{url_ref} )
-    {
-      my $url    = $1;
-      my $string = "<a href=\"$url\">$url<\/a>";
+#   return $html if not $html =~ $syntax->{cross_ref};
 
-      $html =~ s/$syntax->{url_ref}/$string/xms;
-    }
+#   my $doc = $self->get_containing_document;
 
-  return $html;
-}
+#   if ( not $doc )
+#     {
+#       $logger->error("NOT IN DOCUMENT CONTEXT can't resolve internal cross references");
+
+#       while ( $html =~ $syntax->{cross_ref} )
+# 	{
+# 	  my $id     = $2;
+# 	  my $string = "(broken ref to \'$id\')";
+# 	  $html =~ s/$syntax->{cross_ref}/$string/xms;
+# 	}
+
+#       return $html;
+#     }
+
+
+#   while ( $html =~ $syntax->{cross_ref} ) {
+
+#     my $id     = $2;
+#     my $string = q{};
+
+#     if ( $library->has_division($id) )
+#       {
+# 	my $division = $library->get_division($id);
+# 	my $name     = $division->get_name;   # i.e. SECTION
+
+# 	$name = lc( $name );
+# 	$name = ucfirst ( $name );
+
+# 	my $number   = $division->get_number; # i.e. 1-2
+# 	my $outfile  = $doc->get_html_outfile_for($id);
+# 	my $target   = "$outfile#$name.$number";
+
+# 	$string = "<a href=\"$target\">$name $number<\/a>";
+#       }
+
+#     else
+#       {
+# 	my $location = $self->get_location;
+# 	$logger->warn("REFERENCED ID DOESN'T EXIST \'$id\' at $location");
+
+# 	$string = "<font color=\"red\">(broken cross ref to $id)<\/font>";
+#       }
+
+#     $html =~ s/$syntax->{cross_ref}/$string/xms;
+#   }
+
+#   return $html;
+# }
 
 ######################################################################
 
-sub _render_html_footnote_references {
+# sub _render_html_url_references {
 
-  my $self   = shift;
-  my $html   = shift;
+#   my $self   = shift;
+#   my $html   = shift;
 
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
+#   my $library = $self->get_library;
+#   my $syntax  = $library->get_syntax;
 
-  return $html if not $html =~ $syntax->{footnote_ref};
+#   if ( not $html =~ $syntax->{url_ref} )
+#     {
+#       return $html;
+#     }
 
-  my $doc = $self->get_containing_document;
+#   while ( $html =~ $syntax->{url_ref} )
+#     {
+#       my $url    = $1;
+#       my $string = "<a href=\"$url\">$url<\/a>";
 
-  if ( not $doc )
-    {
-      $logger->error("NOT IN DOCUMENT CONTEXT can't resolve footnote references");
-      return $html;
-    }
+#       $html =~ s/$syntax->{url_ref}/$string/xms;
+#     }
 
-  while ( $html =~ $syntax->{footnote_ref} )
-    {
-      my $id     = $1;
-      my $tag    = $2;
-      my $string = q{};
+#   return $html;
+# }
 
-      if ( $doc->has_note($id,$tag) )
-	{
-	  $string = "<span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.$id.$tag\">$tag<\/a><\/sup><\/span>";
-	}
+######################################################################
 
-      else
-	{
-	  my $location = $self->get_location;
-	  $logger->warn("NOTE NOT FOUND: \'$id\' \'$tag\'");
-	  $string = "(note not found \'$id\' \'$tag\')";
-	}
+# sub _render_html_footnote_references {
 
-      $html =~ s/$syntax->{footnote_ref}/$string/xms;
-  }
+#   my $self   = shift;
+#   my $html   = shift;
 
-  return $html;
-}
+#   my $library = $self->get_library;
+#   my $syntax  = $library->get_syntax;
+
+#   return $html if not $html =~ $syntax->{footnote_ref};
+
+#   my $doc = $self->get_containing_document;
+
+#   if ( not $doc )
+#     {
+#       $logger->error("NOT IN DOCUMENT CONTEXT can't resolve footnote references");
+#       return $html;
+#     }
+
+#   while ( $html =~ $syntax->{footnote_ref} )
+#     {
+#       my $id     = $1;
+#       my $tag    = $2;
+#       my $string = q{};
+
+#       if ( $doc->has_note($id,$tag) )
+# 	{
+# 	  $string = "<span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.$id.$tag\">$tag<\/a><\/sup><\/span>";
+# 	}
+
+#       else
+# 	{
+# 	  my $location = $self->get_location;
+# 	  $logger->warn("NOTE NOT FOUND: \'$id\' \'$tag\'");
+# 	  $string = "(note not found \'$id\' \'$tag\')";
+# 	}
+
+#       $html =~ s/$syntax->{footnote_ref}/$string/xms;
+#   }
+
+#   return $html;
+# }
 
 ######################################################################
 

@@ -37,23 +37,6 @@ has '+name' =>
 ######################################################################
 ######################################################################
 
-sub get_value {
-
-  # strip the table cell markup off the beginning of the content.
-
-  my $self = shift;
-
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-
-  # Figure out what to do here.  A table cell is a division and not a
-  # block so I can't treat this like an element.
-
-  return 0;
-}
-
-######################################################################
-
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

@@ -34,6 +34,7 @@ use SML::CommandReference;            # ci-000???
 use SML::XMLTag;                      # ci-000???
 use SML::LiteralString;               # ci-000???
 use SML::CrossReference;              # ci-000???
+use SML::TitleReference;              # ci-000???
 use SML::FileReference;               # ci-000???
 use SML::FootnoteReference;           # ci-000???
 use SML::GlossaryDefinitionReference; # ci-000???
@@ -700,6 +701,12 @@ sub _create_string {
   # reference.  Is this a problem?  Perhaps lookups are all 'resolved'
   # before this code is invoked?
 
+  if ( not $text )
+    {
+      $logger->logcluck("YOU MUST PROVIDE TEXT");
+      return 0;
+    }
+
   my $container;                        # containing part
 
   if ( $self->_has_current_container )
@@ -891,6 +898,27 @@ sub _create_string {
 	  $args->{container} = $container if $container;
 
 	  return SML::CrossReference->new(%{$args});
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $string_type: $text");
+	  return 0;
+	}
+    }
+
+  elsif ( $string_type eq 'title_ref' )
+    {
+      if ( $text =~ /$syntax->{$string_type}/ )
+	{
+	  my $args = {};
+
+	  $args->{tag}       = $1;
+	  $args->{target_id} = $2;
+	  $args->{library}   = $self->get_library;
+	  $args->{container} = $container if $container;
+
+	  return SML::TitleReference->new(%{$args});
 	}
 
       else
@@ -2230,9 +2258,7 @@ sub _parse_lines {
 
       elsif ( $text =~ /$syntax->{def_list_item}/ )
 	{
-	  # $1 = term
-	  # $2 = definition
-	  $self->_process_def_list_item($line);
+	  $self->_process_start_def_list_item($line);
 	}
 
       elsif ( $text =~ /$syntax->{table_cell}/ )
@@ -3608,6 +3634,26 @@ sub _end_block {
   if ( $block->isa('SML::Element') )
     {
       $self->_end_element($block);
+    }
+
+  elsif ( $block->isa('SML::BulletListItem') )
+    {
+      $self->_process_end_bullet_list_item($block);
+    }
+
+  elsif ( $block->isa('SML::EnumeratedListItem') )
+    {
+      $self->_process_end_enum_list_item($block);
+    }
+
+  elsif ( $block->isa('SML::DefinitionListItem') )
+    {
+      $self->_process_end_def_list_item($block);
+    }
+
+  elsif ( $block->isa('SML::Paragraph') )
+    {
+      $self->_process_end_paragraph($block);
     }
 
   $self->_clear_block;
@@ -7516,7 +7562,7 @@ sub _process_enum_list_item {
 
 ######################################################################
 
-sub _process_def_list_item {
+sub _process_start_def_list_item {
 
   my $self = shift;
   my $line = shift;
@@ -7554,6 +7600,88 @@ sub _process_def_list_item {
       $block->add_line($line);
       $self->_begin_block($block);
       $self->_get_current_division->add_part($block);
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _process_end_bullet_list_item {
+
+  my $self = shift;
+  my $item = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $item->get_content;
+
+  if ( $text =~ /$syntax->{bull_list_item}/ )
+    {
+      # $1 = leading whitespace
+      # $2 = value
+      $item->set_value($2);
+    }
+
+  else
+    {
+      my $location = $item->get_location;
+      $logger->error("SYNTAX ERROR IN BULLET LIST ITEM AT $location");
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _process_end_enum_list_item {
+
+  my $self = shift;
+  my $item = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $item->get_content;
+
+  if ( $text =~ /$syntax->{enum_list_item}/ )
+    {
+      # $1 = leading whitespace
+      # $2 = value
+      $item->set_value($2);
+    }
+
+  else
+    {
+      my $location = $item->get_location;
+      $logger->error("SYNTAX ERROR IN ENUMERATED LIST ITEM AT $location");
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _process_end_def_list_item {
+
+  my $self = shift;
+  my $item = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $item->get_content;
+
+  if ( $text =~ /$syntax->{def_list_item}/ )
+    {
+      # $1 = term
+      # $2 = definition
+      $item->set_term($1);
+      $item->set_definition($2);
+    }
+
+  else
+    {
+      my $location = $item->get_location;
+      $logger->error("SYNTAX ERROR IN DEFINITION LIST ITEM AT $location");
     }
 
   return 1;
@@ -7770,9 +7898,6 @@ sub _process_paragraph_text {
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
 
-  # $self->_clear_current_bullet_list_item;
-  # $self->_clear_current_enumerated_list_item;
-
   if ( $self->_in_paragraph )
     {
       $logger->trace("..... continue paragraph");
@@ -7851,6 +7976,33 @@ sub _process_paragraph_text {
 
       my $division = $self->_get_current_division;
       $division->add_part($paragraph);
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _process_end_paragraph {
+
+  my $self = shift;
+  my $item = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $item->get_content;
+
+  if ( $text =~ /$syntax->{paragraph_text}/ )
+    {
+      # $1 = leading colon(s) (begin table cell)
+      # $2 = paragraph text
+      $item->set_value($2);
+    }
+
+  else
+    {
+      my $location = $item->get_location;
+      $logger->error("SYNTAX ERROR IN PARAGRAPH AT $location");
     }
 
   return 1;
@@ -8986,6 +9138,7 @@ sub _build_string_type_list {
 
      # substrings that form references
      'cross_ref',
+     'title_ref',
      'url_ref',
      'footnote_ref',
      'gloss_def_ref',
@@ -9096,12 +9249,12 @@ sub _parse_block {
   my $syntax  = $library->get_syntax;
   my $text    = q{};
 
-  # If this is a comment block or a preformatted block, don't parse it into parts.
-  if (
-      $block->isa('SML::CommentBlock')
-      or
-      $block->isa('SML::PreformattedBlock')
-     )
+  if
+    (
+     $block->isa('SML::CommentBlock')
+     or
+     $block->isa('SML::PreformattedBlock')
+    )
     {
       $self->_clear_block;
       return 1;
@@ -9110,11 +9263,40 @@ sub _parse_block {
   elsif ( $block->isa('SML::Definition') )
     {
       my $term       = $block->get_term;
-      my $term_string = $self->_create_string($term);
-      $block->set_term_string($term_string);
-
       my $definition = $block->get_definition;
+
+      my $term_string       = $self->_create_string($term);
       my $definition_string = $self->_create_string($definition);
+
+      $block->set_term_string($term_string);
+      $block->set_definition_string($definition_string);
+
+      return 1;
+    }
+
+  elsif
+    (
+     $block->isa('SML::BulletListItem')
+     or
+     $block->isa('SML::EnumeratedListItem')
+    )
+    {
+      my $value = $block->get_value;
+
+      my $value_string = $self->_create_string($value);
+
+      $block->set_value_string($value_string);
+    }
+
+  elsif ( $block->isa('SML::DefinitionListItem') )
+    {
+      my $term       = $block->get_term;
+      my $definition = $block->get_definition;
+
+      my $term_string       = $self->_create_string($term);
+      my $definition_string = $self->_create_string($definition);
+
+      $block->set_term_string($term_string);
       $block->set_definition_string($definition_string);
 
       return 1;
@@ -9125,10 +9307,7 @@ sub _parse_block {
       $text = $block->get_value;
     }
 
-  elsif ( $block->isa('SML::ListItem')
-	  or
-	  $block->isa('SML::Paragraph')
-	)
+  elsif ( $block->isa('SML::Paragraph')	)
     {
       $text = $block->get_value;
     }

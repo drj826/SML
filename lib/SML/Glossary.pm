@@ -94,7 +94,7 @@ sub get_entry {
 
   else
     {
-      $logger->error("CAN'T GET GLOSSARY ENTRY: \'$term\' \'$namespace\'");
+      $logger->error("CAN'T FIND GLOSSARY ENTRY: \'$term\' \'$namespace\'");
       return 0;
     }
 }

@@ -42,20 +42,40 @@ has '+leading_whitespace' =>
 
 has 'term' =>
   (
-   isa      => 'SML::String',
-   reader   => 'get_term',
-   lazy     => 1,
-   builder  => '_build_term',
+   isa       => 'Str',
+   reader    => 'get_term',
+   writer    => 'set_term',
+   predicate => 'has_term',
   );
 
 ######################################################################
 
 has 'definition' =>
   (
-   isa      => 'SML::String',
-   reader   => 'get_definition',
-   lazy     => 1,
-   builder  => '_build_definition',
+   isa       => 'Str',
+   reader    => 'get_definition',
+   writer    => 'set_definition',
+   predicate => 'has_definition',
+  );
+
+######################################################################
+
+has 'term_string' =>
+  (
+   isa       => 'SML::String',
+   reader    => 'get_term_string',
+   writer    => 'set_term_string',
+   predicate => 'has_term_string',
+  );
+
+######################################################################
+
+has 'definition_string' =>
+  (
+   isa       => 'SML::String',
+   reader    => 'get_definition_string',
+   writer    => 'set_definition_string',
+   predicate => 'has_definition_string',
   );
 
 ######################################################################
@@ -72,77 +92,6 @@ has 'definition' =>
 ## Private Methods
 ##
 ######################################################################
-######################################################################
-
-sub _build_term {
-
-  # Return the term being defined by the definition list item.
-
-  my $self = shift;
-
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $text    = $self->get_content || q{};
-
-  $text =~ s/[\r\n]*$//;                # chomp
-
-  if ( $text =~ /$syntax->{'def_list_item'}/xms )
-    {
-      my $term   = $1;                  # see SML::Syntax
-      my $string = SML::String->new
-	(
-	 content => $term,
-	 library => $library,
-	);
-
-      $self->add_part($string);
-
-      return $string;
-    }
-
-  else
-    {
-      $logger->error("DEFINITION LIST ITEM SYNTAX ERROR no term found");
-      return q{};
-    }
-};
-
-######################################################################
-
-sub _build_definition {
-
-  # Return the definition of the term being defined by the definition
-  # list item.
-
-  my $self = shift;
-
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $text    = $self->get_content || q{};
-
-  $text =~ s/[\r\n]*$//;                # chomp
-
-  if ( $text =~ /$syntax->{'def_list_item'}/xms )
-    {
-      my $definition = $2;              # see SML::Syntax
-      my $string     = SML::String->new
-	(
-	 content => $definition,
-	 library => $library,
-	);
-
-      $self->add_part($string);
-
-      return $string;
-    }
-
-  else
-    {
-      $logger->error("DEFINITION LIST ITEM SYNTAX ERROR no definition found");
-      return q{};
-    }
-};
-
 ######################################################################
 
 no Moose;

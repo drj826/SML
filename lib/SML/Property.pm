@@ -138,7 +138,6 @@ sub get_value {
   my $values  = [];
   my $name    = $self->get_name;
   my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
   my $util    = $library->get_util;
   my $options = $util->get_options;
 

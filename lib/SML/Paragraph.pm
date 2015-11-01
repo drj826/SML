@@ -30,37 +30,37 @@ has '+name' =>
   );
 
 ######################################################################
+
+has value =>
+  (
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_value',
+   writer    => 'set_value',
+   predicate => 'has_value',
+  );
+
+# This is the raw text of the paragraph.  This can be different than
+# 'content' because when the paragraph is the first block of a table
+# cell the leading markup must be stripped.
+
+######################################################################
+
+has value_string =>
+  (
+   is        => 'ro',
+   isa       => 'SML::String',
+   reader    => 'get_value_string',
+   writer    => 'set_value_string',
+   predicate => 'has_value_string',
+  );
+
+######################################################################
 ######################################################################
 ##
 ## Public Methods
 ##
 ######################################################################
-######################################################################
-
-sub get_value {
-
-  # The first block of a table cell is captured as a paragraph with
-  # the table cell markup syntax prepending the paragraph content.
-  # This method strips the table cell syntax off the beginning of the
-  # paragraph.
-
-  my $self = shift;
-
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $text    = $self->get_content;
-
-  if ( $text =~ /$syntax->{table_cell}/ )
-    {
-      return $3 || q{};
-    }
-
-  else
-    {
-      return $text;
-    }
-}
-
 ######################################################################
 
 no Moose;

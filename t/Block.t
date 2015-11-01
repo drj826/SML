@@ -65,7 +65,6 @@ isa_ok( $obj, 'SML::Block' );
 my @public_methods =
   (
    # SML::Block public attribute accessors
-   'get_name_path',
    'get_line_list',
    'get_containing_division',
    'set_containing_division',
@@ -82,7 +81,6 @@ my @public_methods =
 
    # SML::Part public attribute accessors (inherited)
    'get_id',
-   'get_id_path',
    'get_name',
    'get_content',
    'set_content',
