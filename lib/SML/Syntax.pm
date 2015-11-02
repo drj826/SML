@@ -1219,10 +1219,10 @@ has table_cell =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(:{1,2})(\w+:)?\s*(.*)?',
+   default => '^:(:)?(\w+:)?\s*(.*)?',
   );
 
-# $1 = one or two colons (1 = table cell, 2 = table header cell)
+# $1 = emphasis indicator
 # $2 = arguments
 # $3 = paragraph content
 

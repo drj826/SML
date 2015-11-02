@@ -5112,14 +5112,14 @@ levels of included files.
 
 #---------------------------------------------------------------------
 
-***.comment-lines Comment Lines
+***.comments Comment Lines and Blocks
 
 ~~Comment lines.~~ Any line that begins with '#' is interpreted as a
 comment.  The '#' sign must appear in the first column otherwise the
 line will be interpreted as preformatted text.
 
   # This is a comment.  It won't show up in the published document
-  # except as an HTML or LaTeX comment.
+  # except perhaps as an invisible HTML or LaTeX comment.
 
 ~~Comment blocks.~~ A whole block of text can be `commented out' like
 this:
@@ -5128,8 +5128,8 @@ this:
 
   This whole block of text is a comment since it occurs between the
   comment markers.  Everything inside this comment will be ignored.
-  It won't show up in the published document except as an HTML or
-  LaTeX comment.
+  It won't show up in the published document except perhaps as an
+  invisible HTML or LaTeX comment.
 
   <<<COMMENT
 
@@ -5139,13 +5139,14 @@ this:
 
 Insert in-line comments like this:
 
-  Line of text {lit:[# my in-line comment]} containing an in-line comment.
+  Line of text [# my in-line comment] containing an in-line comment.
 
 #---------------------------------------------------------------------
 
 ***.hidden-text Hidden Text
 
-Hide text by enclosing it within `||###hide||' lines like this:
+Hide text by enclosing it within `||>>>HIDE||' and `||<<<HIDE||' lines
+like this:
 
   >>>HIDE
 

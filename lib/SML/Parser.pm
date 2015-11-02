@@ -2316,7 +2316,9 @@ sub _parse_lines {
 
       elsif ( $text =~ /$syntax->{table_cell}/ )
 	{
-	  $self->_process_start_table_cell($line);
+	  # $1 = emphasis indicator
+	  # $2 = arguments
+	  $self->_process_start_table_cell($line,$1,$2);
 	}
 
       elsif ( $text =~ /$syntax->{paragraph_text}/ )
@@ -7727,6 +7729,8 @@ sub _process_start_table_cell {
 
   my $self = shift;
   my $line = shift;
+  my $emph = shift || q{};              # emphasis indicator
+  my $args = shift;                     # arguments
 
   my $library = $self->get_library;
   my $syntax  = $library->get_syntax;
@@ -7739,111 +7743,140 @@ sub _process_start_table_cell {
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
 
-  # $self->_clear_current_bullet_list_item;
-  # $self->_clear_current_enumerated_list_item;
-
   if ( not $self->_in_table and not $self->_in_baretable )
     {
       # new BARE_TABLE
-      my $tnum      = $self->_count_baretables + 1;
-      my $tid       = "BARE_TABLE-$tnum";
-      my $baretable = SML::Baretable->new(id=>$tid,library=>$library);
+      my $tnum = $self->_count_baretables + 1;
+      my $tid  = "BARE_TABLE-$tnum";
 
-      if ( not $self->_has_division )
-	{
-	  $self->_set_division($baretable);
-	}
+      my $baretable = SML::Baretable->new
+	(
+	 id      => $tid,
+	 library => $library,
+	);
 
       $self->_begin_division($baretable);
 
       # new BARE_TABLE_ROW
-      my $rnum     = $self->_count_table_rows + 1;
-      my $rid      = "BARE_TABLE_ROW-$tnum-$rnum";
-      my $tablerow = SML::TableRow->new(id=>$rid,library=>$library);
+      my $rnum = $self->_count_table_rows + 1;
+      my $rid  = "BARE_TABLE_ROW-$tnum-$rnum";
+
+      my $tablerow = SML::TableRow->new
+	(
+	 id      => $rid,
+	 library => $library,
+	);
 
       $self->_begin_division($tablerow);
 
       # new BARE_TABLE_CELL
-      my $cnum      = $self->_count_table_cells + 1;
-      my $cid       = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
-      my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
+      my $cnum = $self->_count_table_cells + 1;
+      my $cid  = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
+
+      my $tablecell = SML::TableCell->new
+	(
+	 id       => $cid,
+	 emphasis => $emph,
+	 library  => $library,
+	);
 
       $self->_begin_division($tablecell);
 
       if ( $text =~ /$syntax->{table_cell}/ and $3 )
 	{
-	  # new block
-	  my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
-	  $block->add_line($line);
-	  $self->_begin_block($block);
+	  my $paragraph = SML::Paragraph->new
+	    (
+	     name    => 'paragraph',
+	     library => $library,
+	    );
 
-	  $tablecell->add_part($block);
+	  $paragraph->add_line($line);
+	  $self->_begin_block($paragraph);
+	  $tablecell->add_part($paragraph);
 	}
     }
 
   elsif ( $self->_in_baretable and not $self->_in_table_row )
     {
       # new BARE_TABLE_ROW
-      my $tnum     = $self->_count_baretables;
-      my $rnum     = $self->_count_table_rows + 1;
-      my $rid      = "BARE_TABLE_ROW-$tnum-$rnum";
-      my $tablerow = SML::TableRow->new(id=>$rid,library=>$library);
+      my $tnum = $self->_count_baretables;
+      my $rnum = $self->_count_table_rows + 1;
+      my $rid  = "BARE_TABLE_ROW-$tnum-$rnum";
 
-      if ( not $self->_has_division )
-	{
-	  $self->_set_division($tablerow);
-	}
+      my $tablerow = SML::TableRow->new
+	(
+	 id      => $rid,
+	 library => $library,
+	);
 
       $self->_begin_division($tablerow);
 
       # new BARE_TABLE_CELL
-      my $cnum      = $self->_count_table_cells + 1;
-      my $cid       = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
-      my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
+      my $cnum = $self->_count_table_cells + 1;
+      my $cid  = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
+
+      my $tablecell = SML::TableCell->new
+	(
+	 id       => $cid,
+	 emphasis => $emph,
+	 library  => $library,
+	);
 
       $self->_begin_division($tablecell);
 
       if ( $text =~ /$syntax->{table_cell}/ and $3 )
 	{
-	  # new block
-	  my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
-	  $block->add_line($line);
-	  $self->_begin_block($block);
+	  my $paragraph = SML::Paragraph->new
+	    (
+	     name    => 'paragraph',
+	     library => $library,
+	    );
 
-	  $tablecell->add_part($block);
+	  $paragraph->add_line($line);
+	  $self->_begin_block($paragraph);
+	  $tablecell->add_part($paragraph);
 	}
     }
 
   elsif ( $self->_in_table and not $self->_in_table_row	)
     {
       # new TABLE_ROW
-      my $tnum     = $self->_count_tables;
-      my $rnum     = $self->_count_table_rows + 1;
-      my $rid      = "TABLE_ROW-$tnum-$rnum";
-      my $tablerow = SML::TableRow->new(id=>$rid,library=>$library);
+      my $tnum = $self->_count_tables;
+      my $rnum = $self->_count_table_rows + 1;
+      my $rid  = "TABLE_ROW-$tnum-$rnum";
 
-      if ( not $self->_has_division )
-	{
-	  $self->_set_division($tablerow);
-	}
+      my $tablerow = SML::TableRow->new
+	(
+	 id      => $rid,
+	 library => $library,
+	);
 
       $self->_begin_division($tablerow);
 
       # new TABLE_CELL
-      my $cnum      = $self->_count_table_cells + 1;
-      my $cid       = "TABLE_CELL-$tnum-$rnum-$cnum";
-      my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
+      my $cnum = $self->_count_table_cells + 1;
+      my $cid  = "TABLE_CELL-$tnum-$rnum-$cnum";
+
+      my $tablecell = SML::TableCell->new
+	(
+	 id       => $cid,
+	 emphasis => $emph,
+	 library  => $library,
+	);
 
       $self->_begin_division($tablecell);
 
       if ( $text =~ /$syntax->{table_cell}/ and $3 )
 	{
-	  # new block
-	  my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
-	  $block->add_line($line);
-	  $self->_begin_block($block);
+	  my $paragraph = SML::Paragraph->new
+	    (
+	     name    => 'paragraph',
+	     library => $library,
+	    );
 
-	  $tablecell->add_part($block);
+	  $paragraph->add_line($line);
+	  $self->_begin_block($paragraph);
+	  $tablecell->add_part($paragraph);
 	}
     }
 
@@ -7853,27 +7886,31 @@ sub _process_start_table_cell {
       $self->_end_division;
 
       # new TABLE_CELL
-      my $tnum      = $self->_count_baretables;
-      my $rnum      = $self->_count_table_rows;
-      my $cnum      = $self->_count_table_cells + 1;
-      my $cid       = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
-      my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
+      my $tnum = $self->_count_baretables;
+      my $rnum = $self->_count_table_rows;
+      my $cnum = $self->_count_table_cells + 1;
+      my $cid  = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
 
-      if ( not $self->_has_division )
-	{
-	  $self->_set_division($tablecell);
-	}
+      my $tablecell = SML::TableCell->new
+	(
+	 id       => $cid,
+	 emphasis => $emph,
+	 library  => $library,
+	);
 
       $self->_begin_division($tablecell);
 
       if ( $text =~ /$syntax->{table_cell}/ and $3 )
 	{
-	  # new block
-	  my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
-	  $block->add_line($line);
-	  $self->_begin_block($block);
+	  my $paragraph = SML::Paragraph->new
+	    (
+	     name    => 'paragraph',
+	     library => $library,
+	    );
 
-	  $tablecell->add_part($block);
+	  $paragraph->add_line($line);
+	  $self->_begin_block($paragraph);
+	  $tablecell->add_part($paragraph);
 	}
     }
 
@@ -7883,27 +7920,31 @@ sub _process_start_table_cell {
       $self->_end_division;
 
       # new TABLE_CELL
-      my $tnum      = $self->_count_tables;
-      my $rnum      = $self->_count_table_rows;
-      my $cnum      = $self->_count_table_cells + 1;
-      my $cid       = "TABLE_CELL-$tnum-$rnum-$cnum";
-      my $tablecell = SML::TableCell->new(id=>$cid,library=>$library);
+      my $tnum = $self->_count_tables;
+      my $rnum = $self->_count_table_rows;
+      my $cnum = $self->_count_table_cells + 1;
+      my $cid  = "TABLE_CELL-$tnum-$rnum-$cnum";
 
-      if ( not $self->_has_division )
-	{
-	  $self->_set_division($tablecell);
-	}
+      my $tablecell = SML::TableCell->new
+	(
+	 id       => $cid,
+	 emphasis => $emph,
+	 library  => $library,
+	);
 
       $self->_begin_division($tablecell);
 
       if ( $text =~ /$syntax->{table_cell}/ and $3 )
 	{
-	  # new block
-	  my $block = SML::Paragraph->new(name=>'paragraph',library=>$library);
-	  $block->add_line($line);
-	  $self->_begin_block($block);
+	  my $paragraph = SML::Paragraph->new
+	    (
+	     name    => 'paragraph',
+	     library => $library,
+	    );
 
-	  $tablecell->add_part($block);
+	  $paragraph->add_line($line);
+	  $self->_begin_block($paragraph);
+	  $tablecell->add_part($paragraph);
 	}
     }
 

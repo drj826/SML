@@ -30,6 +30,19 @@ has '+name' =>
   );
 
 ######################################################################
+
+has emphasis =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   reader  => 'get_emphasis',
+   default => q{},
+  );
+
+# If present, this 'emphasis' indicator means the author wants to
+# emphasize the content of this table cell.
+
+######################################################################
 ######################################################################
 ##
 ## Public Methods
