@@ -1,7 +1,7 @@
 [%- IF self.get_emphasis -%]
-<th>
-[%- INCLUDE part_list.tt -%]
-</th>
+<td>
+<b>[%- INCLUDE part_list.tt -%]</b>
+</td>
 [%- ELSE -%]
 <td>
 [%- INCLUDE part_list.tt -%]

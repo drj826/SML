@@ -89,7 +89,7 @@ my @public_methods =
    # SML::Part public methods (inherited)
    'init',
    'has_content',
-   'has_parts',
+   'contains_parts',
    'has_part',
    'get_part',
    'add_part',

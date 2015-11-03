@@ -56,7 +56,6 @@ my @public_methods =
    # SML::Part public accessors (inherited)
    'get_id',
    'set_id',
-   'get_id_path',
    'get_name',
    'get_content',
    'set_content',
@@ -65,7 +64,7 @@ my @public_methods =
    # SML::Part public methods (inherited)
    'init',
    'has_content',
-   'has_parts',
+   'contains_parts',
    'has_part',
    'get_part',
    'add_part',
@@ -79,8 +78,6 @@ my @public_methods =
    # SML::String public accessors (inherited)
    'get_containing_division',
    'get_containing_block',
-   'set_containing_block',
-   'clear_containing_block',
 
    # SML::String public methods (inherited)
    'get_location',

@@ -12,6 +12,8 @@ extends 'SML::Division';
 
 use namespace::autoclean;
 
+use File::Basename;
+
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Figure');
@@ -28,6 +30,28 @@ has '+name' =>
   (
    default => 'FIGURE',
   );
+
+######################################################################
+######################################################################
+##
+## Public Methods
+##
+######################################################################
+######################################################################
+
+sub get_image_file_basename {
+
+  my $self = shift;
+
+  if ( $self->has_property('image') )
+    {
+      my $image_filespec = $self->get_property_value('image');
+
+      return basename($image_filespec);
+    }
+
+  return 0;
+}
 
 ######################################################################
 

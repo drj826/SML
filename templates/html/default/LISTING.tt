@@ -11,7 +11,7 @@
 <br>
 <pre>
 [%- FILTER html -%]
-[%- INCLUDE part_list.tt -%]
+[%- self.get_content -%]
 [%- END -%]
 </pre>
 </div>

@@ -20,8 +20,6 @@ revision:: $Revision: 15146 $
 
 date:: $Date: 2013-07-07 11:42:01 -0600 (Sun, 07 Jul 2013) $
 
-===
-
 >>>REVISIONS
 
 rev:: 1.6 = 2012-09-18 = Updated description of footnote syntax.
@@ -373,8 +371,6 @@ Type this (or cut and paste it) into the text editor.
 
 title:: A Sample Document
 
-===
-
 file:: files/sample-document.txt
 
 <<<LISTING
@@ -383,17 +379,18 @@ step:: ~~Save.~~ Save the text in a file named ||sample-document.txt||.
 
 index:: GUI
 
-step:: ~~Start Publish.~~ Start the ||publish|| program.  If you've got the
-Windows executable version simply double-click on the ||publish.exe||
-file.  If you've got the Perl script version, run `||perl publish.pl||
-[[Enter]]'.  You'll see the graphical user interface appear
-([ref:fig-publish-window]).[f:example:1]
+step:: ~~Start Publish.~~ Start the ||publish|| program.  If you've
+got the Windows executable version simply double-click on the
+||publish.exe|| file.  If you've got the Perl script version, run
+`||perl publish.pl|| [[Enter]]'.  You'll see the graphical user
+interface appear ([ref:fig-publish-window]).[f:example:1]
 
-step:: ~~Select File to Publish.~~ Click ~~browse...~~ and use the file
-chooser to select the ||sample-document.txt|| file you just created.
+step:: ~~Select File to Publish.~~ Click ~~browse...~~ and use the
+file chooser to select the ||sample-document.txt|| file you just
+created.
 
-step:: ~~Select PDF.~~ Check the ~~PDF~~ box to publish a PDF rendition
-of the document (it's checked by default).
+step:: ~~Select PDF.~~ Check the ~~PDF~~ box to publish a PDF
+rendition of the document (it's checked by default).
 
 step:: ~~Publish.~~ Press the green ~~Publish Document~~ button.  The
 button will turn red and say `Publishing...'  while the program is
@@ -479,8 +476,6 @@ column::2:width: 50
 column::1:head: Feature
 column::2:head: Example
 
-===
-
 include:: sml-structure-summary
 
 <<<TABLE
@@ -543,8 +538,6 @@ column::2:width: 50
 column::1:head: Feature
 column::2:head: Example
 
-===
-
 include:: sml-content-summary
 
 <<<TABLE
@@ -574,8 +567,6 @@ column::2:width: 50
 column::1:head: Feature
 column::2:head: Example
 
-===
-
 include:: sml-presentation-summary
 
 <<<TABLE
@@ -602,8 +593,6 @@ column::2:width: 50
 
 column::1:head: Feature
 column::2:head: Example
-
-===
 
 include:: sml-special-summary
 
@@ -867,8 +856,6 @@ title:: ||publish|| Program Command Line Options
 
 column::1:head: option
 column::2:head: description
-
-===
 
 : {lit:-h, --help}
 
@@ -1413,8 +1400,6 @@ output.  For example, if you publish an SML file called
 >>>FIGURE.fig-dir-output
 
 title:: Directory Structure Created To Hold Published Output
-
-===
 
         my-notes
           |
@@ -2422,8 +2407,6 @@ Example:
 
   title:: A Sample Table
 
-  ===
-
   :: heading of column 1
   :: heading of column 2
   ---
@@ -2440,8 +2423,6 @@ Here's a simple example:
 >>>TABLE.tab-osi-model
 
 title:: OSI 7-layer Reference Model
-
-===
 
 :: Layer
 
@@ -2525,8 +2506,6 @@ options of tables:
 
 title:: Meta-data elements that effect the formatting of tables
 
-===
-
 :: option
 
 :: values
@@ -2576,8 +2555,6 @@ won't be pink:
 >>>TABLE.tab-security-problems
 
 title:: The Most Common Security Problems
-
-===
 
 ::grey: Type
 
@@ -2742,9 +2719,13 @@ which to render the PDF rendition
 Example:
 
   >>>FIGURE.fig-sample-document-pdf
+
   title:: PDF Rendition Of The Sample Document
+
   image:: files/images/sample-document-pdf.png
+
   width:: 6in
+
   <<<FIGURE
 
 Here is a complete list of figure table elements:
@@ -2770,19 +2751,25 @@ which to render the PDF rendition.
 Example:
 
   >>>LISTING.lis-computer-joke
-  title::    If Computers Were Like Cars...
+
+  title:: If Computers Were Like Cars...
+
   fontsize:: footnotesize
-  ===
-  file::     files/text/computer-car-joke.txt
+
+  file:: files/text/computer-car-joke.txt
+
   <<<LISTING
 
 The result of this listing environment is:
 
 >>>LISTING.lis-computer-joke
-title::    If Computers Were Like Cars...
+
+title:: If Computers Were Like Cars...
+
 fontsize:: footnotesize
-===
+
 file:: files/text/computer-car-joke.txt
+
 <<<LISTING
 
 Here is a complete list of data elements that can be used in listing
@@ -2854,8 +2841,11 @@ renditions you click a link to download the attachment.
 Example:
 
   >>>ATTACHMENT.att-sample-document
+
   title:: Sample Document
-  file::  files/sample-document.txt
+
+  file:: files/sample-document.txt
+
   <<<ATTACHMENT
 
 >>>ATTACHMENT.att-sample-document
@@ -2873,8 +2863,6 @@ typically indent lines they want to appear as preformatted text.
 Example:
 
   >>>PREFORMATTED
-
-  ===
 
   This
     is
@@ -2900,10 +2888,10 @@ index:: preformatted!data elements
 Example:
 
   >>>SIDEBAR.side-burrito-threat
-  title::  Burrito Threat
-  author:: Don Johnson
 
-  ===
+  title:: Burrito Threat
+
+  author:: Don Johnson
 
   New Orleans is in danger of being swallowed by a giant burrito
   creature from the planet Chipotle.
@@ -2949,13 +2937,21 @@ text citations.
 A bibliography entry looks like this:
 
   >>>SOURCE.Goossens94
+
   source_type:: book
-  title::       The LaTeX Companion
-  author::      Michel Goossens
-  author::      Frank Mittelbach
-  author::      Alexander Samarin
-  publisher::   Addison-Wesley Publishing Company
-  year::        1994
+
+  title:: The LaTeX Companion
+
+  author:: Michel Goossens
+
+  author:: Frank Mittelbach
+
+  author:: Alexander Samarin
+
+  publisher:: Addison-Wesley Publishing Company
+
+  year:: 1994
+
   <<<SOURCE
 
 If you want to keep all your bibliographic sources in one file (like
@@ -2969,11 +2965,17 @@ The bibliographic fields are taken straight from the LaTeX book
 system have things pretty well figured out.
 
 >>>SOURCE.Lamport96
+
 source_type:: book
-title::       LaTeX, A Document Preparation System User's Guide
-author::      Leslie Lamport
-publisher::   Addison-Wesley
-year::        1996
+
+title:: LaTeX, A Document Preparation System User's Guide
+
+author:: Leslie Lamport
+
+publisher:: Addison-Wesley
+
+year:: 1996
+
 <<<SOURCE
 
 In the case of LaTeX, the ||publish|| program builds the .bib file and
@@ -2988,10 +2990,10 @@ Types of bibliography source entries include [cite:Lamport96, 161-162]:
 title:: Types of Bibliography Source Entries
 
 column::1:width: 30
-column::2:width: 30
-column::3:width: 30
 
-===
+column::2:width: 30
+
+column::3:width: 30
 
 :: type - description
 
@@ -3226,8 +3228,11 @@ document.
 Example:
 
   >>>AUDIO.audio-morning-news
+
   title:: Morning News
-  file::  audio/morning-news.wav
+
+  file:: audio/morning-news.wav
+
   <<<AUDIO
 
 Audio environment data elements are:
@@ -3252,8 +3257,11 @@ document.
 Example:
 
   >>>VIDEO.video-morning-news
+
   title:: Morning News
-  file::  video/morning-news.wav
+
+  file:: video/morning-news.wav
+
   <<<VIDEO
 
 Video environment data elements are:
@@ -3353,12 +3361,14 @@ meaning of priorities of problems, solutions, tests, and tasks.
 title:: Priority Values
 
 column::1:width: 10
-column::2:width: 18
-column::3:width: 18
-column::4:width: 18
-column::5:width: 18
 
-===
+column::2:width: 18
+
+column::3:width: 18
+
+column::4:width: 18
+
+column::5:width: 18
 
 :: priority
 
@@ -3429,12 +3439,14 @@ indicate the current status of problems, solutions, tests, and tasks.
 title:: Status Values
 
 column::1:width: 10
-column::2:width: 18
-column::3:width: 18
-column::4:width: 18
-column::5:width: 18
 
-===
+column::2:width: 18
+
+column::3:width: 18
+
+column::4:width: 18
+
+column::5:width: 18
 
 :: status
 
@@ -3509,8 +3521,6 @@ Example:
 
   title:: Key Points Of This Course
 
-  ===
-
   - The open source software development model is rapid, relentless, and
     here to stay
 
@@ -3549,8 +3559,6 @@ outside the popup image to make it go away.  Here's an example:
 >>>SLIDE.session-handshaking
 
 title:: Session Handshaking
-
-===
 
 - Transmission Control Protocol (TCP) establish (3-way handshake)
     - SYN
@@ -3612,17 +3620,18 @@ Example:
 
   title:: IIS Buffer Overflow Using jill.exe
 
-  ===
-
   Requirements for this demo:
 
   - target Windows server running vulnerable IIS server
+
   - jill.exe exploit program
+
   - netcat (nc.exe) program
 
   step:: Take a Windows machine running a vulnerable IIS web server:
 
   image:: files/images/buffer-overflow-demo-1.png
+
   image:: files/images/buffer-overflow-demo-2.png
 
   step:: Open a command shell on the attack computer and start a netcat
@@ -3657,8 +3666,6 @@ Here's the example:
 >>>DEMO.buffer-overflow-demo
 
 title:: IIS Buffer Overflow using jill.exe
-
-===
 
 Requirements for this demo:
 
@@ -3721,8 +3728,6 @@ Example:
 
   >>>EXERCISE.find-linux-kernel-version
 
-  ===
-
   The purpose of this exercise is to learn how to find the version of
   the kernel running on a Linux system (this works for all Unix
   systems).
@@ -3763,8 +3768,6 @@ Example:
   label:: quote-early-to-bed
 
   source:: 15th Century Nursery Rhyme
-
-  ===
 
   Early to bed, early to rise, makes a man healthy, wealthy and wise.
 
@@ -3819,15 +3822,18 @@ free text.
 title:: Problem Data Elements
 
 column::1:width: 15
+
 column::2:width: 40
+
 column::3:width: 7
+
 column::4:width: 35
 
 column::1:head: Structured Information
-column::2:head: Assertion
-column::4:head: Examples
 
-===
+column::2:head: Assertion
+
+column::4:head: Examples
 
 : ~~Title~~
 
@@ -4290,15 +4296,18 @@ describe solutions.  In this table, identifiers like ||P||, ||S||, and
 title:: Solution Data Elements
 
 column::1:width: 15
+
 column::2:width: 40
+
 column::3:width: 7
+
 column::4:width: 30
 
 column::1:head: Structured Information
-column::2:head: Assertion
-column::4:head: Examples
 
-===
+column::2:head: Assertion
+
+column::4:head: Examples
 
 : ~~Title~~
 
@@ -4779,8 +4788,6 @@ Example:
   description:: Test to determine whether C-a moves the cursor to the
   beginning of the line.
 
-  ===
-
   step:: type C-a
 
   step:: observe cursor
@@ -4799,15 +4806,18 @@ Identifiers like <title>, <text>, and <paragraph> represent free text.
 title:: Test Data Elements
 
 column::1:width: 15
+
 column::2:width: 40
+
 column::3:width: 7
+
 column::4:width: 30
 
 column::1:head: Structured Information
-column::2:head: Assertion
-column::4:head: Examples
 
-===
+column::2:head: Assertion
+
+column::4:head: Examples
 
 : ~~Title~~
 
@@ -5019,9 +5029,11 @@ certain computer ([ref:lis-sample-region]) and use attributes to
 describe that computer.
 
 >>>LISTING.lis-sample-region
+
 title:: Sample Region With Attributes
-===
-file:: files/ci-000294.txt
+
+file:: solutions/ci-000294.txt
+
 <<<LISTING
 
 An attribute is simply a name/value pair where the name and the value
@@ -5037,18 +5049,22 @@ regions.  For instance, you might have a region that describes the
 default configuration of a workstation computer ([ref:lis-ci-000293]).
 
 >>>LISTING.lis-ci-000293
+
 title:: Sample Configuration of a Workstation Computer
-===
-file:: files/ci-000293.txt
+
+file:: solutions/ci-000293.txt
+
 <<<LISTING
 
 Then you might have another region that describes a unique
 instantiation of a computer workstation ([ref:lis-ci-000295]).
 
 >>>LISTING.lis-ci-000295
+
 title:: Unique Instantiation of a Workstation Computer
-===
-file:: files/ci-000295.txt
+
+file:: solutions/ci-000295.txt
+
 <<<LISTING
 
 Notice the data element that says, ``||instance_of: ci-000293||.''
@@ -5203,6 +5219,7 @@ problems without rendering the full problems in the document:
   include::hide: problem-3.txt
 
   >>>TABLE.problem-summary
+
   title:: Summary of Problems
 
   : [lookup:title:problem-1]
@@ -5213,6 +5230,7 @@ problems without rendering the full problems in the document:
   ---
   : [lookup:title:problem-3]
   : [lookup:description:problem-3]
+
   <<<TABLE
 
 #---------------------------------------------------------------------
@@ -5379,8 +5397,6 @@ glossary term.
 
 title:: Referencing Glossary Entries
 
-===
-
 :: Form
 
 :: Example
@@ -5450,8 +5466,6 @@ ranking system shown in [ref:tab-priority-ranking-system].
 >>>TABLE.tab-priority-ranking-system
 
 title:: Problem and Solution Prioritization Ranking System
-
-===
 
 :: rank
 
@@ -5761,10 +5775,10 @@ The publish program will render this change summary like this:
 title:: Revision Summary
 
 column::1:width: 15
-column::2:width: 15
-column::3:width: 70
 
-===
+column::2:width: 15
+
+column::3:width: 70
 
 :: Version
 
@@ -5823,7 +5837,7 @@ Specifically, the ||convert|| program from the ImageMagick suite is
 used to resize images.  ImageMagick is open source software and can be
 used and modified at no cost.
 
-###############################################################COMMENT
+>>>COMMENT
 
 footnote::18: In the current version of ||publish||, you must place a
 copy of ImageMagick's ``convert.exe'' program file in the same
@@ -5831,7 +5845,7 @@ directory containing [cmd:publish.exe].  I'm looking for a simpler way
 to resize images.  If you've got any ideas, please send me email at
 drj826@acm.org.  THANKS!
 
-###############################################################COMMENT
+<<<COMMENT
 
 #---------------------------------------------------------------------
 
@@ -6533,7 +6547,6 @@ title:: Add This To Your ||.emacs|| File
 language:: lisp
 fontsize:: footnotesize
 numbers:: left
-===
 file:: files/.emacs
 <<<LISTING
 

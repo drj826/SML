@@ -291,17 +291,19 @@ sub _build_text {
   use File::Slurp;
 
   my $self     = shift;
-  my $filespec = $self->get_filespec;
 
-  if ( not -f $filespec )
+  my $filespec = $self->get_filespec;
+  my $library  = $self->get_library;
+  my $path     = $library->get_directory_path;
+
+  if ( not -f "$path/$filespec" )
     {
-      my $msg = "no such file $filespec";
-      ERROR "$msg";
-      carp $msg;
+      my $cwd = getcwd();
+      $logger->error("NO SUCH FILE \'$filespec\' from $cwd");
       return 0;
     }
 
-  return read_file("$filespec");
+  return read_file("$path/$filespec");
 }
 
 ######################################################################

@@ -7275,18 +7275,18 @@ sub _build_test_definition_1 {
 
   my $self = shift;
 
-  my $text    = 'acronym:: TLA = Three Letter Acronym';
   my $library = $self->get_test_library_1;
 
   my $definition = SML::Definition->new
     (
-     name    => 'acronym',
-     library => $library
+     name       => 'acronym',
+     library    => $library,
+     term       => 'TLA',
+     definition => 'Three Letter Acronym',
     );
 
-  my $line = SML::Line->new(content=>$text);
-
-  $definition->add_line($line);
+  my $parser = $library->get_parser;
+  $parser->_parse_block($definition);
 
   return $definition;
 }
@@ -7297,18 +7297,18 @@ sub _build_test_definition_2 {
 
   my $self = shift;
 
-  my $text    = 'acronym:: FLA = Four Letter Acronym';
   my $library = $self->get_test_library_1;
 
   my $definition = SML::Definition->new
     (
-     name    => 'acronym',
-     library => $library
+     name       => 'acronym',
+     library    => $library,
+     term       => 'FLA',
+     definition => 'Four Letter Acronym',
     );
 
-  my $line = SML::Line->new(content=>$text);
-
-  $definition->add_line($line);
+  my $parser = $library->get_parser;
+  $parser->_parse_block($definition);
 
   return $definition;
 }
@@ -7319,18 +7319,18 @@ sub _build_test_definition_3 {
 
   my $self = shift;
 
-  my $text    = 'acronym:: SLA = Six Letter Acronym';
   my $library = $self->get_test_library_1;
 
   my $definition = SML::Definition->new
     (
-     name    => 'acronym',
-     library => $library
+     name       => 'acronym',
+     library    => $library,
+     term       => 'SLA',
+     definition => 'Six Letter Acronym',
     );
 
-  my $line = SML::Line->new(content=>$text);
-
-  $definition->add_line($line);
+  my $parser = $library->get_parser;
+  $parser->_parse_block($definition);
 
   return $definition;
 }
@@ -7341,18 +7341,19 @@ sub _build_test_definition_4 {
 
   my $self = shift;
 
-  my $text    = 'acronym:: FRD {ieee} = (IEEE) Functional Requirements Document';
   my $library = $self->get_test_library_1;
 
   my $definition = SML::Definition->new
     (
-     name    => 'acronym',
-     library => $library
+     name       => 'acronym',
+     library    => $library,
+     term       => 'FRD',
+     namespace  => 'ieee',
+     definition => '(IEEE) Functional Requirements Document',
     );
 
-  my $line = SML::Line->new(content=>$text);
-
-  $definition->add_line($line);
+  my $parser = $library->get_parser;
+  $parser->_parse_block($definition);
 
   return $definition;
 }
