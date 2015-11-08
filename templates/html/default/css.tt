@@ -99,7 +99,7 @@ DIV.preamble { font-size: 8pt; background-color: #ffffff; margin: 10pt 20pt 10pt
 DIV.copyright { font-size: 10pt; text-align: center; margin-bottom: 10px; }
 DIV.slide { background-color: #fdfdaa; margin: 10pt 20pt 10pt 20pt; padding: 10pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
 DIV.sidebar { float: right; width: 40%; font-size: 8pt; background-color: #eeeeee; margin: 10pt 20pt 10pt 20pt; padding: 5pt; border-style: solid; border-width: 1px; border-color: #cccccc; margin-left: 0pt; margin-right: 0pt; }
-DIV.quotation { background-color: #eeeeee; margin: 10pt 20pt 10pt 20pt; padding: 10pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
+DIV.quotation { background-color: #ffffff; margin: 10pt 20pt 10pt 20pt; padding: 10pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
 DIV.problem { background-color: #ffffff; }
 DIV.solution { background-color: #ffffff; }
 DIV.allocation { background-color: #ffffff; }

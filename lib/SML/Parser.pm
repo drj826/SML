@@ -683,8 +683,6 @@ sub _create_string {
   my $self = shift;
   my $text = shift;                     # i.e. !!my bold text!!
 
-  $logger->trace("create string \'$text\'");
-
   # !!! BUG HERE !!!
   #
   # lookup_ref -> This method doesn't know what to do with a lookup
@@ -2281,15 +2279,10 @@ sub _parse_lines {
 	}
     }
 
-  #-------------------------------------------------------------------
-  # end fragment
-  #
   if ( $self->_in_baretable )
     {
       $self->_end_baretable;
     }
-
-  # $self->_end_division;
 
   $self->_generate_section_numbers;
   $self->_generate_division_numbers;
@@ -2637,15 +2630,17 @@ sub _end_table_row {
 
   return if not $self->_in_table_row;
 
-  $logger->trace("..... end table row");
-
   if ( $self->_in_table_cell )
     {
+      $logger->trace("..... end table cell");
+
       $self->_end_division;
     }
 
   if ( $self->_in_table_row )
     {
+      $logger->trace("..... end table row");
+
       $self->_end_division;
     }
 
@@ -2660,20 +2655,17 @@ sub _end_baretable {
 
   return if not $self->_in_baretable;
 
-  $logger->trace("..... end baretable");
-
-  if ( $self->_in_table_cell )
-    {
-      $self->_end_division;
-    }
-
   if ( $self->_in_table_row )
     {
+      $logger->trace("..... end table row");
+
       $self->_end_table_row;
     }
 
   if ( $self->_in_baretable )
     {
+      $logger->trace("..... end baretable");
+
       $self->_end_division;
     }
 
@@ -2688,20 +2680,17 @@ sub _end_table {
 
   return if not $self->_in_table;
 
-  $logger->trace("..... end table");
-
-  if ( $self->_in_table_cell )
-    {
-      $self->_end_division;
-    }
-
   if ( $self->_in_table_row )
     {
+      $logger->trace("..... end table row");
+
       $self->_end_table_row;
     }
 
   if ( $self->_in_table )
     {
+      $logger->trace("..... end table");
+
       $self->_end_division;
     }
 
@@ -2748,9 +2737,10 @@ sub _end_bullet_list {
 
   return if not $self->_in_bullet_list;
 
+  $self->_pop_list_stack;
+
   $logger->trace("..... end bullet list");
 
-  $self->_pop_list_stack;
   $self->_end_division;
 
   return 1;
@@ -2765,9 +2755,10 @@ sub _end_enumerated_list {
 
   return if not $self->_in_enumerated_list;
 
+  $self->_pop_list_stack;
+
   $logger->trace("..... end enumerated list");
 
-  $self->_pop_list_stack;
   $self->_end_division;
 
   return 1;
@@ -5467,6 +5458,8 @@ sub _process_start_division_marker {
   my $name = shift;                     # division name
   my $id   = shift || q{};              # division ID
 
+  return if $name eq 'RAW';
+
   $logger->trace("----- start division ($name.$id)");
 
   my $library  = $self->get_library;
@@ -5490,6 +5483,20 @@ sub _process_start_division_marker {
       $self->_end_section;
     }
 
+  if ( not $id )
+    {
+      $id = "$name-$num";
+    }
+
+  my $class = $ontology->get_class_for_entity_name($name);
+
+  my $division = $class->new
+    (
+     name    => $name,
+     id      => $id,
+     library => $library,
+    );
+
   my $block = SML::PreformattedBlock->new
     (
      name    => 'BEGIN_DIVISION',
@@ -5498,23 +5505,6 @@ sub _process_start_division_marker {
 
   $block->add_line($line);
   $self->_begin_block($block);
-
-  my $division = undef;
-
-  if ( not $id )
-    {
-      $id = "$name-$num";
-    }
-
-  my $class = $ontology->get_class_for_entity_name($name);
-
-  $division = $class->new
-    (
-     name    => $name,
-     id      => $id,
-     library => $library,
-    );
-
   $division->add_part($block);
   $self->_begin_division($division);
 
@@ -5528,6 +5518,8 @@ sub _process_end_division_marker {
   my $self = shift;
   my $line = shift;
   my $name = shift;
+
+  return if $name eq 'RAW';
 
   my $library = $self->get_library;
 
@@ -5550,15 +5542,15 @@ sub _process_end_division_marker {
       $self->_end_section;
     }
 
-  if ( $name eq 'RAW' and $self->_in_section )
-    {
-      $self->_end_section;
-    }
+  # if ( $name eq 'RAW' and $self->_in_section )
+  #   {
+  #     $self->_end_section;
+  #   }
 
-  if ( $name eq 'RAW' and $self->_in_table_cell )
-    {
-      $self->_end_division;
-    }
+  # if ( $name eq 'RAW' and $self->_in_table_cell )
+  #   {
+  #     $self->_end_division;
+  #   }
 
   if ( $name eq 'TABLE' and $self->_in_table_row )
     {
@@ -5575,6 +5567,8 @@ sub _process_end_division_marker {
       $self->_end_step_list;
     }
 
+  my $division = $self->_get_current_division;
+
   my $block = SML::PreformattedBlock->new
     (
      name    => 'END_DIVISION',
@@ -5583,11 +5577,7 @@ sub _process_end_division_marker {
 
   $block->add_line($line);
   $self->_begin_block($block);
-
-  my $division = $self->_get_current_division;
-
   $division->add_part($block);
-
   $self->_end_division;
 
   return 1;
