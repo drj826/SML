@@ -38,6 +38,19 @@ has '+content' =>
 
 ######################################################################
 
+has remaining =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   reader  => 'get_remaining',
+   writer  => 'set_remaining',
+   default => q{},
+  );
+
+# This is text remaining to be parsed into string objects.
+
+######################################################################
+
 has 'containing_division' =>
   (
    isa       => 'SML::Division',
@@ -55,26 +68,6 @@ has 'containing_block' =>
    builder   => '_build_containing_block',
    lazy      => 1,
   );
-
-######################################################################
-
-# has 'containing_block' =>
-#   (
-#    isa       => 'SML::Block',
-#    reader    => 'get_containing_block',
-#    writer    => 'set_containing_block',
-#    clearer   => 'clear_containing_block',
-#    predicate => '_has_containing_block',
-#    required  => 0,
-#   );
-
-# # The block that contains this string.
-
-# after 'set_containing_block' => sub {
-#   my $self = shift;
-#   my $cd = $self->get_containing_block;
-#   $logger->trace("..... containing block for \'$self\' now: \'$cd\'");
-# };
 
 ######################################################################
 ######################################################################
@@ -106,8 +99,8 @@ sub get_containing_document {
 
   # Return the document to which this string belongs.
 
-  my $self     = shift;
-  my $block    = $self->get_containing_block;
+  my $self  = shift;
+  my $block = $self->get_containing_block;
 
   if ( not $block )
     {
@@ -148,6 +141,20 @@ sub get_containing_document {
 ## Private Methods
 ##
 ######################################################################
+######################################################################
+
+sub BUILD {
+
+  my $self = shift;
+
+  if ( $self->has_content )
+    {
+      $self->set_remaining( $self->get_content );
+    }
+
+  return 1;
+}
+
 ######################################################################
 
 sub _build_containing_division {

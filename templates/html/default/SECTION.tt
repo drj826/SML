@@ -5,11 +5,7 @@
 <a name="section.[% self.get_number %]">
 
 <h2>
-[% self.get_number %]
-[% SET title = self.get_property('title') %]
-[% FOREACH element IN title.get_element_list %]
-[%- INCLUDE part_list.tt self = element-%]
-[% END %]
+[%- self.get_number -%] [% INCLUDE title.tt title = self.get_property('title') -%]
 </h2>
 
   [%- FOREACH part IN self.get_part_list -%]
@@ -22,5 +18,9 @@
 
     [%- END -%]
   [%- END -%]
+
+<br/>
+
+[%- INCLUDE previous_and_next.tt -%]
 
 [%- END -%]

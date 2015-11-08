@@ -1,12 +1,6 @@
 [% WRAPPER page.tt -%]
 
-<table width="100%">
-<tr>
-<td align="right">
-<a href="[%-document.get_id-%].toc.html">Table of Contents &gt;</a>
-</td>
-</tr>
-</table>
+<div align="right"><a href="[%-document.get_id-%].toc.html">Table of Contents &gt;</a></div>
 
 <br/>
 <br/>

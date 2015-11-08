@@ -1,1 +1,1 @@
-resources: [%- self.get_content -%]
+resources: [%-FILTER html-%][%-self.get_content-%][%-END-%]

@@ -206,7 +206,7 @@ index:: take note indicator
 
 ---
 
-: !!Section Sign.!! Make a section sign like ``[[section]]''.
+: !!Section Sign.!! Make a section sign like ``[section]''.
 
 index:: section sign
 

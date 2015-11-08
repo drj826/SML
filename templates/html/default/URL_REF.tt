@@ -1,5 +1,5 @@
 [%- IF self.has_content -%]
-<a href="[% self.get_url %]">[% self.get_content %]</a>
+<a href="[% self.get_url %]">[%-FILTER html-%][%-self.get_content-%][%-END-%]</a>
 [%- ELSE -%]
 <a href="[% self.get_url %]">[% self.get_url %]</a>
 [%- END -%]

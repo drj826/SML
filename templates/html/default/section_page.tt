@@ -15,8 +15,11 @@
 </h1>
 
 [%- FOREACH part IN self.get_part_list -%]
-[% part.get_id %] [% part.get_name %] [% part.get_content %]
+[% part.get_id %] [% part.get_name %] [%-FILTER html-%][%-self.get_content-%][%-END-%]
 [%- END %]
+
+<div class="pad2"></div>
+<div class="pad2"></div>
 
 </body>
 </html>

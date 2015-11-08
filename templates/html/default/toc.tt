@@ -1,5 +1,7 @@
 [% WRAPPER page.tt -%]
 
+<div align="right"><a href="[%-document.get_id-%].1.html">Next &gt;</a></div>
+
 [% IF document.has_property('title') %]
 [% SET property = document.get_property('title') %]
 <div class="title">

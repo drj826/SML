@@ -1,1 +1,1 @@
-<li>[%- INCLUDE STRING.tt self = self.get_value_string -%]</li>
+<li>[%- INCLUDE part_list.tt -%]</li>

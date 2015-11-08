@@ -20,6 +20,7 @@
 
 <h3 align="center">Glossary</h3>
 <table>
+
 [%- SET glossary = document.get_glossary -%]
 [%- FOREACH entry IN glossary.get_entry_list -%]
   [%- SET term = entry.get_term -%]
@@ -38,6 +39,7 @@
 </tr>
 
 [%- END -%]
+
 </table>
 
 [%- END -%]

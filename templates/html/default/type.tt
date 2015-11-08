@@ -1,1 +1,1 @@
-type: [%- self.get_content -%]
+type: [%-FILTER html-%][%-self.get_content-%][%-END-%]

@@ -1,0 +1,7 @@
+[%- SET id = 'quotation' _ '.' _ self.get_number -%]
+
+<div class="quotation" id="[%id%]">
+[% INCLUDE part_list.tt %]
+<span style="font-size: 8pt;"><i>Source: [%- self.get_property_value('source') -%]</i></span>
+</div>
+

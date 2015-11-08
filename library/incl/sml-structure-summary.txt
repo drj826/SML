@@ -101,32 +101,34 @@ index:: images
 
 ---
 
-: !!Baretables.!! ([ref:tables]) A ~~baretable~~ (one without a
-caption or label) starts with a line that begins with a single or
-double colon (`:' or `::'). Rows are separated by three or more dashes
-(`||---||').
+: !!Baretables.!! ([ref:tables]) Any line that begins with a colon (:)
+is a table cell and any line that begins with a double colon (::) is
+an emphasized table cell.  A ~~baretable~~ (one without a caption or
+label) starts with table cell that is ~~not~~ inside a TABLE
+division. Rows are separated by three or more dashes (`||---||').
 
 index:: baretables
 
 :
 
-  :: column 1 heading
-  :: column 2 heading
-  ---
-  : row 1 column 1
-  : row 1 column 2
+  :: row 1 column 1 (emphasized)
+  :: row 1 column 2 (emphasized)
   ---
   : row 2 column 1
   : row 2 column 2
+  ---
+  : row 3 column 1
+  : row 3 column 2
+  ---
 
 ---
 
 : !!Tables.!! ([ref:tables]) A normal ~~table~~ (i.e. not a
 ~~baretable~~) starts with a line that begins with three or more
-dashes and the word `table' (`||---table||'). Tables can have titles
-(captions). Tables ~~cannot~~ be nested. A list of tables is
-automatically generated for the front matter of the document. Rows are
-separated by three or more dashes (`||---||').
+greater than signs and the word `TABLE' (`||>>>TABLE||'). Tables can
+have titles (captions). Tables ~~cannot~~ be nested. A list of tables
+is automatically generated for the front matter of the document. Rows
+are separated by three or more dashes (`||---||').
 
 index:: tables
 
@@ -136,16 +138,14 @@ index:: tables
   
   title:: My Table
 
-  ===
-
-  :: column 1 heading
-  :: column 2 heading
-  ---
-  : row 1 column 1
-  : row 1 column 2
+  :: row 1 column 1 (emphasized)
+  :: row 1 column 2 (emphasized)
   ---
   : row 2 column 1
   : row 2 column 2
+  ---
+  : row 3 column 1
+  : row 3 column 2
 
   <<<TABLE
 
@@ -161,9 +161,11 @@ index:: figures
 :
 
   >>>FIGURE.fig-my-figure
+
   title:: My Figure
-  ===
+
   image:: images/my-figure.png
+
   <<<FIGURE
 
 ---
@@ -180,9 +182,11 @@ index:: listings
 :
 
   >>>LISTING.lis-my-listing
+
   title:: My Listing
-  ===
+
   file::  files/my-listing.txt
+
   <<<LISTING
 
 ---
@@ -197,9 +201,11 @@ index:: attachments
 :
 
   >>>ATTACHMENT.att-my-attachment
+
   title:: My Attachment
-  ===
+
   file::  files/my-attachment.txt
+
   <<<ATTACHMENT
 
 ---
@@ -215,8 +221,6 @@ index:: preformatted text
 :
 
   >>>PREFORMATTED
-
-  ===
 
   some
     preformatted
@@ -234,7 +238,7 @@ index:: footnotes
 
 :
 
-  footnote:: My footnote text...
+  footnote::1: My footnote text...
 
 ---
 
@@ -277,13 +281,21 @@ index:: sources; citations; bibliography
 :
 
   >>>SOURCE.Goossens94
+
   source_type:: book
-  title::       The LaTeX Companion
-  author::      Michel Goossens
-  author::      Frank Mittelbach
-  author::      Alexander Samarin
-  publisher::   Addison-Wesley
-  year::        1994
+
+  title:: The LaTeX Companion
+
+  author:: Michel Goossens
+
+  author:: Frank Mittelbach
+
+  author:: Alexander Samarin
+
+  publisher:: Addison-Wesley
+
+  year:: 1994
+
   <<<SOURCE
 
 ---
@@ -313,9 +325,11 @@ index:: sidebars
 :
 
   >>>SIDEBAR.sid-my-sidebar
+
   title:: My sidebar
-  ===
+
   My sidebar content...
+
   <<<SIDEBAR
 
 ---

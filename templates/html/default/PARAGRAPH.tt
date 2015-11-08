@@ -2,7 +2,7 @@
 [%- IF self.contains_parts -%]
   [%- INCLUDE part_list.tt -%]
 [%- ELSE -%]
-  [%- self.get_content -%]
+  [%-FILTER html-%][%-self.get_content-%][%-END-%]
 [%- END -%]
 </p>
 

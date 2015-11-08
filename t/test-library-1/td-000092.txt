@@ -1,0 +1,71 @@
+>>>RAW.td-000092
+
+# Baretable containing bullet lists
+
+: !!PROS!!
+
+- ~~Concentrate on writing content.~~ - SML/||publish|| removes the
+distractions and time-consuming struggles of choosing the appearance
+of your content.
+
+- ~~No Presentation Inconsistencies.~~ - Inconsistencies in the
+appearance of your documents are eliminated since the ||publish||
+program renders the presentation of the document for you.
+
+- ~~Easier to Learn Than LaTeX.~~ - If you want to get started
+producing beautiful documents with LaTeX, using the ||publish||
+program is a great way to start.  Learning the SML rules is easier
+than learning LaTeX.
+
+- ~~Your content is future proof.~~ - Plain text is going to be around
+for a long long time.
+
+- ~~Modularize your content.~~ - The `include' feature enables you to
+modularize your content and make components reusable.
+
+- ~~Nothing is hidden.~~ - Since all the content is plain text,
+nothing is hidden.  There are no mysterious problems due to the
+tangled mess you get with some word processor formats.
+
+- ~~Publish to many renditions.~~ - Use the same source document to
+produce HTML, PDF, CSV, RTF, XML, and even publish the structured data
+to CSV.[f:pros-and-cons:1]
+
+- ~~Separate style from content.~~ - Want to change the style across
+the board?  Change the style sheet without touching the
+content.[f:pros-and-cons:2]
+
+- ~~Automatically produce documents.~~ - It's easy to write programs
+that output data in SML.  Furthermore, you can run the ||publish||
+program from the command line or call it from other programs.
+
+- ~~Documents that write themselves!~~ - Using the `script' feature,
+you can produce documents that write themselves (even recursively).
+Imagine writing a computer security vulnerability assessment report
+that automatically performs the vulnerability assessment while
+publishing the report!
+
+- ~~High Quality Typeset Output~~ - The program uses LaTeX to produce
+extremely high quality typeset output.  This level of typesetting
+quality is hard to achieve even with the best word processors.
+
+: !!CONS!!
+
+- ~~Using a Text Editor.~~ - You must edit plain text rather than
+using a WYSIWYG word processor.  Few individuals apart from
+programmers are comfortable using a plain text editor.
+
+- ~~Learning the Semantic Manuscript Language~~ - You must learn the
+Semantic Manuscript Language.  Even though it is designed to be as
+simple as possible, you still have to learn the SML rules.
+
+- ~~Poor for layout intensive work.~~ - The ||publish|| program is not
+good for layout intensive documents like pamphlets or newsletters.
+
+- ~~Limitations of SML~~ - You may need some feature not supported by
+SML.  If you find this to be the case, let me know (drj826@acm.org)
+and I might implement that feature.
+
+---
+
+<<<RAW

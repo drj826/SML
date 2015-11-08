@@ -1,1 +1,1 @@
-<tt>[%self.get_content%]</tt>
+<tt>[%-FILTER html-%][%-self.get_content-%][%-END-%]</tt>

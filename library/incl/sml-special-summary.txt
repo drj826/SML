@@ -13,7 +13,7 @@ $Date: 2013-07-07 09:24:43 -0600 (Sun, 07 Jul 2013) $
 #---------------------------------------------------------------------
 
 : !!Includes.!! ([ref:include]) Content from other files can be
-included (reused) in the document using the `||include:||' statement.
+included (reused) in the document using the ||include::|| statement.
 This feature enables you to modularize your document content.  Files
 can be ``included'' 6 ways: as-is, flat, as a section, as a region,
 hidden, or raw.  You may also pass named values to be substituted in
@@ -27,44 +27,22 @@ index:: includes; include
 
 :
 
-  include: my-other.txt
+  include:: my-other-division
 
-  include:problem: my-problem.txt
+  include::*: my-section
 
-  include:*: my-section.txt
+  * include:: my-section
 
-  include:hide: problems/rq-123.txt
-
-  include:item=rq-291: incl/summary.txt
-
-  ---include
-  file: incl/connection-summary.txt
-  var: host = mickey
-  var: ip = 192.168.0.1
-  var: netmask = 255.255.255.0
-  ---include
-
-  ...include
-  file: incl/item-summary.txt
-  1:var: item = item-1
-  2:var: item = item-2
-  3:var: item = item-3
-  ...include
-
-  ...include
-  file: incl/item-row.txt
-  values:item: [find:solution:type=unit]
-  ...include
+  include::item=rq-291: incl/summary.txt
 
 ---
 
-: !!Comment Lines and Blocks.!! ([ref:comment-lines]) SML gives you
-two ways to insert comment lines.  First, any line beginning with
-`||#||' in the first column is considered a comment, making it easy to
-`comment out' individual lines of text. Second, any block of text that
-begins and ends with `||###comment||' (three or more `||#||'s and the
-word `||comment||') is considered a comment, making it easy to
-`comment out' whole regions of text.
+: !!Comment Lines and Blocks.!! ([ref:comments]) SML gives you two
+ways to insert comment lines.  First, any line beginning with ||#|| in
+the first column is considered a comment, making it easy to `comment
+out' individual lines of text. Second, any division of text that
+begins with ||>>>COMMENT|| and ends with ||<<<COMMENT|| is considered
+a comment, making it easy to `comment out' whole regions of text.
 
 index:: comments; comment blocks
 
@@ -93,8 +71,11 @@ index:: in-line comments
 :
 
   [# my in-line comment]
+
   [#v:incl/glossary-sml.txt:]
+
   [#a:incl/glossary-sml.txt:]
+
   [#d:incl/glossary-sml.txt:]
 
 ---
@@ -128,9 +109,13 @@ index:: to-do list
 :
 
   [ ] To do item
+
   [!] Urgent item
+
   [.] Work started
+
   [-] Item canceled
+
   [X] Item completed
 
 ---
@@ -146,10 +131,15 @@ index:: generated content
 :
 
   generate: problem-domain-listing
+
   generate: solution-domain-listing
+
   generate: prioritized-problem-listing
+
   generate: prioritized-solution-listing
+
   generate: associated-problem-listing
+
   generate: associated-solution-listing
 
 ---
@@ -197,8 +187,10 @@ index:: conditional text
   define: RH9
 
   >>>CONDITIONAL.RH9
+
   Content present if
   RH9 is true
+
   <<<CONDITIONAL
 
 ---
@@ -214,7 +206,9 @@ index:: traceability
 :
 
   problem:: rq-000001
+
   solution:: ci-000002
+
   test:: tc-000003
 
 ---
@@ -253,8 +247,10 @@ index:: reusable content
 :
 
   [title:rq-000001]
+
   [description:tc-000002]
-  [narrative:ci-000003]
+
+  [lookup:author:doc-001]
 
 ---
 

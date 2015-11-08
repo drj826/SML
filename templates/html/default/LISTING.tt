@@ -10,9 +10,7 @@
 <b>Listing [%number%] - [%title%]</b>
 <br>
 <pre>
-[%- FILTER html -%]
-[%- self.get_content -%]
-[%- END -%]
+[%-FILTER html-%][%-self.get_content-%][%-END-%]
 </pre>
 </div>
 

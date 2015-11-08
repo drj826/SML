@@ -284,7 +284,7 @@ has lookup_ref =>
    default => '\[(lookup|l):([^\]]+?):([\w\-\.]+)\]',
   );
 
-# $1
+# $1 = element name
 # $2 = property_name
 # $3 = division_id
 
@@ -724,12 +724,12 @@ has section_symbol =>
 
 ######################################################################
 
-has emdash_symbol =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '([^\-])?--([^\-])?',
-  );
+# has emdash_symbol =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '([^\-])?--([^\-])?',
+#   );
 
 # $1 = preceding character
 # $2 = following character

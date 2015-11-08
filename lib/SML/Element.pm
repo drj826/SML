@@ -43,19 +43,6 @@ has value =>
 # This is the value of the element.  The value may contain SML markup.
 
 ######################################################################
-
-# has value_string =>
-#   (
-#    is        => 'ro',
-#    isa       => 'SML::String',
-#    reader    => 'get_value_string',
-#    writer    => 'set_value_string',
-#    predicate => 'has_value_string',
-#   );
-
-# This is the value of the element parsed into an SML::String object.
-
-######################################################################
 ######################################################################
 ##
 ## Public Methods

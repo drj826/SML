@@ -60,6 +60,7 @@ use SML::ListItem;                    # ci-000424
 use SML::BulletListItem;              # ci-000430
 use SML::EnumeratedListItem;          # ci-000431
 use SML::DefinitionListItem;          # ci-000432
+use SML::Step;                        # ci-000???
 use SML::Element;                     # ci-000386
 use SML::Definition;                  # ci-000415
 use SML::Note;                        # ci-000???
@@ -601,27 +602,14 @@ has single_string_type_list =>
 
 ######################################################################
 
-# has current_bullet_list_item =>
-#   (
-#    is        => 'ro',
-#    isa       => 'SML::BulletListItem',
-#    reader    => '_get_current_bullet_list_item',
-#    writer    => '_set_current_bullet_list_item',
-#    predicate => '_has_current_bullet_list_item',
-#    clearer   => '_clear_current_bullet_list_item',
-#   );
-
-######################################################################
-
-# has current_enumerated_list_item =>
-#   (
-#    is        => 'ro',
-#    isa       => 'SML::EnumeratedListItem',
-#    reader    => '_get_current_enumerated_list_item',
-#    writer    => '_set_current_enumerated_list_item',
-#    predicate => '_has_current_enumerated_list_item',
-#    clearer   => '_clear_current_enumerated_list_item',
-#   );
+has step_count =>
+  (
+   is      => 'ro',
+   isa     => 'Int',
+   reader  => '_get_step_count',
+   writer  => '_set_step_count',
+   default => 1,
+  );
 
 ######################################################################
 ######################################################################
@@ -695,7 +683,7 @@ sub _create_string {
   my $self = shift;
   my $text = shift;                     # i.e. !!my bold text!!
 
-  $logger->debug("_create_string \'$text\'");
+  $logger->trace("create string \'$text\'");
 
   # !!! BUG HERE !!!
   #
@@ -723,8 +711,6 @@ sub _create_string {
 
   if ( $string_type eq 'string' )
     {
-      $logger->debug("  string type: $string_type");
-
       my $args = {};
 
       $args->{name}      = 'string';
@@ -737,7 +723,7 @@ sub _create_string {
       if ( $self->_text_contains_substring($text) )
 	{
 	  $self->_push_container_stack($newstring);
-	  $self->_parse_text($newstring); # recurse
+	  $self->_parse_string_text($newstring); # recurse
 	  $self->_pop_container_stack;
 	}
 
@@ -746,8 +732,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'syntax_error' )
     {
-      $logger->debug("  string type: $string_type");
-
       my $args = {};
 
       $args->{content}   = $text;
@@ -780,8 +764,6 @@ sub _create_string {
      $string_type eq 'dblquote_string'
     )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -796,7 +778,7 @@ sub _create_string {
 	  if ( $self->_text_contains_substring($text) )
 	    {
 	      $self->_push_container_stack($newstring);
-	      $self->_parse_text($newstring); # recurse
+	      $self->_parse_string_text($newstring); # recurse
 	      $self->_pop_container_stack;
 	    }
 
@@ -810,30 +792,28 @@ sub _create_string {
 	}
     }
 
-  elsif ( $string_type eq 'emdash_symbol' )
-    {
-      $logger->debug("  string type: $string_type");
+  # elsif ( $string_type eq 'emdash_symbol' )
+  #   {
+  #     if ( $text =~ /$syntax->{$string_type}/ )
+  # 	{
+  # 	  my $args = {};
 
-      if ( $text =~ /$syntax->{$string_type}/ )
-	{
-	  my $args = {};
+  # 	  $args->{name}      = $string_type;
+  # 	  $args->{library}   = $self->get_library;
+  # 	  $args->{container} = $container if $container;
 
-	  $args->{name}      = $string_type;
-	  $args->{library}   = $self->get_library;
-	  $args->{container} = $container if $container;
+  # 	  $args->{preceding_character} = $1 || q{};
+  # 	  $args->{following_character} = $2 || q{};
 
-	  $args->{preceding_character} = $1 || q{};
-	  $args->{following_character} = $2 || q{};
+  # 	  return SML::Symbol->new(%{$args});
+  # 	}
 
-	  return SML::Symbol->new(%{$args});
-	}
-
-      else
-	{
-	  $logger->error("DOESN'T LOOK LIKE A $string_type: $text");
-	  return 0;
-	}
-    }
+  #     else
+  # 	{
+  # 	  $logger->error("DOESN'T LOOK LIKE A $string_type: $text");
+  # 	  return 0;
+  # 	}
+  #   }
 
   elsif
     (
@@ -878,8 +858,6 @@ sub _create_string {
      $string_type eq 'clearpage_symbol'
     )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -900,8 +878,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'cross_ref' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -923,8 +899,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'title_ref' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -946,8 +920,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'url_ref' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -969,8 +941,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'footnote_ref' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -992,8 +962,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'gloss_term_ref' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1017,8 +985,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'gloss_def_ref' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1040,8 +1006,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'acronym_term_ref' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1064,8 +1028,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'index_ref' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1087,8 +1049,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'id_ref' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1109,8 +1069,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'page_ref' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1132,8 +1090,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'status_ref' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1154,8 +1110,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'citation_ref' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1178,8 +1132,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'file_ref' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1200,8 +1152,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'path_ref' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1222,8 +1172,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'variable_ref' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1245,8 +1193,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'user_entered_text' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1268,8 +1214,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'command_ref' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1290,8 +1234,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'xml_tag' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1312,8 +1254,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'literal' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -1334,8 +1274,6 @@ sub _create_string {
 
   elsif ( $string_type eq 'email_addr' )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
@@ -2321,14 +2259,14 @@ sub _parse_lines {
 	  $self->_process_start_table_cell($line,$1,$2);
 	}
 
-      elsif ( $text =~ /$syntax->{paragraph_text}/ )
-	{
-	  $self->_process_paragraph_text($line);
-	}
-
       elsif ( $text =~ /$syntax->{indented_text}/ )
 	{
 	  $self->_process_indented_text($line);
+	}
+
+      elsif ( $text =~ /$syntax->{paragraph_text}/ )
+	{
+	  $self->_process_paragraph_text($line);
 	}
 
       elsif ( $text =~ /$syntax->{non_blank_line}/ )
@@ -2778,6 +2716,8 @@ sub _end_section {
 
   return if not $self->_in_section;
 
+  $logger->trace("..... end section");
+
   $self->_end_division;
 
   return 1;
@@ -2792,6 +2732,8 @@ sub _end_step_list {
 
   return if not $self->_in_step_list;
 
+  $logger->trace("..... end step list");
+
   $self->_end_division;
 
   return 1;
@@ -2804,11 +2746,9 @@ sub _end_bullet_list {
 
   my $self = shift;
 
-  if ( not $self->_in_bullet_list )
-    {
-      $logger->error("CAN'T END BULLET LIST, NOT IN BULLET LIST");
-      return 0;
-    }
+  return if not $self->_in_bullet_list;
+
+  $logger->trace("..... end bullet list");
 
   $self->_pop_list_stack;
   $self->_end_division;
@@ -2823,11 +2763,9 @@ sub _end_enumerated_list {
 
   my $self = shift;
 
-  if ( not $self->_in_enumerated_list )
-    {
-      $logger->error("CAN'T END ENUMERATED LIST, NOT IN ENUMERATED LIST");
-      return 0;
-    }
+  return if not $self->_in_enumerated_list;
+
+  $logger->trace("..... end enumerated list");
 
   $self->_pop_list_stack;
   $self->_end_division;
@@ -2843,6 +2781,8 @@ sub _end_definition_list {
   my $self = shift;
 
   return if not $self->_in_definition_list;
+
+  $logger->trace("..... end definition list");
 
   $self->_end_division;
 
@@ -3746,6 +3686,11 @@ sub _end_element {
   elsif ( $name eq 'footnote' )
     {
       $self->_process_end_footnote_element($element);
+    }
+
+  elsif ( $name eq 'step' )
+    {
+      $self->_process_end_step_element($element);
     }
 
   elsif ( $name eq 'glossary' )
@@ -5535,7 +5480,6 @@ sub _process_start_division_marker {
       $logger->logdie("$msg");
     }
 
-  $self->_end_step_list       if $self->_in_step_list;
   $self->_end_all_lists       if $self->_in_bullet_list;
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
@@ -5591,7 +5535,6 @@ sub _process_end_division_marker {
 
   $self->_set_in_data_segment(0);
 
-  $self->_end_step_list       if $self->_in_step_list;
   $self->_end_all_lists       if $self->_in_bullet_list;
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
@@ -5622,8 +5565,15 @@ sub _process_end_division_marker {
       $self->_end_table_row;
     }
 
-  # $self->_clear_current_bullet_list_item;
-  # $self->_clear_current_enumerated_list_item;
+  if ( $name eq 'DEMO' and $self->_in_step_list )
+    {
+      $self->_end_step_list;
+    }
+
+  if ( $name eq 'EXERCISE' and $self->_in_step_list )
+    {
+      $self->_end_step_list;
+    }
 
   my $block = SML::PreformattedBlock->new
     (
@@ -5665,9 +5615,6 @@ sub _process_start_section_heading {
   $self->_end_baretable       if $self->_in_baretable;
   $self->_end_table           if $self->_in_table;
   $self->_end_section         if $self->_in_section;
-
-  # $self->_clear_current_bullet_list_item;
-  # $self->_clear_current_enumerated_list_item;
 
   $self->_set_in_data_segment(1);
 
@@ -5732,7 +5679,6 @@ sub _process_end_table_row {
 
   else
     {
-      $self->_end_step_list       if $self->_in_step_list;
       $self->_end_all_lists       if $self->_in_bullet_list;
       $self->_end_all_lists       if $self->_in_enumerated_list;
       $self->_end_definition_list if $self->_in_definition_list;
@@ -5809,7 +5755,6 @@ sub _process_start_element {
   $element->add_line($line);
   $self->_begin_block($element);
 
-  $self->_end_step_list       if $self->_in_step_list;
   $self->_end_all_lists       if $self->_in_bullet_list;
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
@@ -5951,7 +5896,6 @@ sub _process_start_footnote_element {
 
   $self->_begin_block($element);
 
-  $self->_end_step_list       if $self->_in_step_list;
   $self->_end_all_lists       if $self->_in_bullet_list;
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
@@ -6039,7 +5983,6 @@ sub _process_start_glossary_entry {
 
   $self->_begin_block($definition);
 
-  $self->_end_step_list       if $self->_in_step_list;
   $self->_end_all_lists       if $self->_in_bullet_list;
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
@@ -6144,7 +6087,6 @@ sub _process_start_acronym_entry {
 
   $self->_begin_block($definition);
 
-  $self->_end_step_list       if $self->_in_step_list;
   $self->_end_all_lists       if $self->_in_bullet_list;
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
@@ -6242,7 +6184,6 @@ sub _process_start_variable_definition {
 
   $self->_begin_block($definition);
 
-  $self->_end_step_list       if $self->_in_step_list;
   $self->_end_all_lists       if $self->_in_bullet_list;
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
@@ -6365,12 +6306,25 @@ sub _process_bull_list_item {
      )
     )
     {
-      my $block = SML::PreformattedBlock->new(library=>$library);
-      $block->add_line($line);
-      $self->_begin_block($block);
+      if ( $self->_in_preformatted_block )
+	{
+	  $logger->trace("..... continue preformatted block");
 
-      my $division = $self->_get_current_division;
-      $division->add_part($block);
+	  my $block = $self->_get_block;
+	  $block->add_line($line);
+	}
+
+      else
+	{
+	  $logger->trace("..... new preformatted block");
+
+	  my $block = SML::PreformattedBlock->new(library=>$library);
+	  $block->add_line($line);
+	  $self->_begin_block($block);
+
+	  my $division = $self->_get_current_division;
+	  $division->add_part($block);
+	}
     }
 
   # CASE 2: fatal improper bullet item indent
@@ -6412,7 +6366,7 @@ sub _process_bull_list_item {
       $logger->logdie("IMPROPER BULLET ITEM INDENT ($indent) AT $location");
     }
 
-  # CASE 3: new toplevel bullet item
+  # CASE 3: new top level bullet item
   #
   # elsif
   # (
@@ -6438,8 +6392,9 @@ sub _process_bull_list_item {
     )
     {
       $self->_end_all_lists       if $self->_in_enumerated_list;
-      $self->_end_step_list       if $self->_in_step_list;
       $self->_end_definition_list if $self->_in_definition_list;
+
+      $logger->trace("..... new top level bullet list");
 
       my $list = SML::BulletList->new
 	(
@@ -6450,6 +6405,8 @@ sub _process_bull_list_item {
 
       $self->_begin_division($list);
       $self->_push_list_stack($list);
+
+      $logger->trace("..... new top level bullet item");
 
       my $item = SML::BulletListItem->new
 	(
@@ -6485,6 +6442,8 @@ sub _process_bull_list_item {
      $indent == $self->_get_current_list_indent
     )
     {
+      $logger->trace("..... new bullet item");
+
       my $item = SML::BulletListItem->new
 	(
 	 library            => $library,
@@ -6524,6 +6483,8 @@ sub _process_bull_list_item {
     {
       $self->_end_enumerated_list;
 
+      $logger->trace("..... new sub bullet list");
+
       my $list = SML::BulletList->new
 	(
 	 id                 => 'bl',
@@ -6533,6 +6494,8 @@ sub _process_bull_list_item {
 
       $self->_begin_division($list);
       $self->_push_list_stack($list);
+
+      $logger->trace("..... new sub bullet item");
 
       my $item = SML::BulletListItem->new
 	(
@@ -6591,11 +6554,15 @@ sub _process_bull_list_item {
 	{
 	  if ( $self->_in_bullet_list )
 	    {
+	      $logger->trace("..... end bullet list");
+
 	      $self->_end_bullet_list;
 	    }
 
 	  elsif ( $self->_in_enumerated_list )
 	    {
+	      $logger->trace("..... end enumerated list");
+
 	      $self->_end_enumerated_list;
 	    }
 
@@ -6604,6 +6571,8 @@ sub _process_bull_list_item {
 	      $logger->logdie("THIS SHOULD NEVER HAPPEN");
 	    }
 	}
+
+      $logger->trace("..... new bullet item");
 
       my $item = SML::BulletListItem->new
 	(
@@ -6662,13 +6631,19 @@ sub _process_bull_list_item {
 	 $indent == $self->_get_current_list_indent
 	)
 	{
+	  $logger->trace("..... end previous list");
+
 	  if ( $self->_in_bullet_list )
 	    {
+	      $logger->trace("..... end bullet list");
+
 	      $self->_end_bullet_list;
 	    }
 
 	  elsif ( $self->_in_enumerated_list )
 	    {
+	      $logger->trace("..... end enumerated list");
+
 	      $self->_end_enumerated_list;
 	    }
 
@@ -6677,6 +6652,8 @@ sub _process_bull_list_item {
 	      $logger->logdie("THIS SHOULD NEVER HAPPEN");
 	    }
 	}
+
+      $logger->trace("..... new bullet list");
 
       my $list = SML::BulletList->new
 	(
@@ -6687,6 +6664,8 @@ sub _process_bull_list_item {
 
       $self->_begin_division($list);
       $self->_push_list_stack($list);
+
+      $logger->trace("..... new bullet item");
 
       my $item = SML::BulletListItem->new
 	(
@@ -6731,6 +6710,8 @@ sub _process_bull_list_item {
      $indent > $self->_get_current_list_indent
     )
     {
+      $logger->trace("..... new bullet list");
+
       my $list = SML::BulletList->new
 	(
 	 id                 => 'bl',
@@ -6740,6 +6721,8 @@ sub _process_bull_list_item {
 
       $self->_begin_division($list);
       $self->_push_list_stack($list);
+
+      $logger->trace("..... new bullet item");
 
       my $item = SML::BulletListItem->new
 	(
@@ -6800,18 +6783,30 @@ sub _process_start_step_element {
 
       if ( not $self->_in_step_list )
 	{
-	  my $list = SML::StepList->new(id=>'sl',library=>$library);
+	  my $list = SML::StepList->new
+	    (
+	     id      => 'sl',
+	     library => $library,
+	    );
+
+	  $self->_set_step_count(1);
 	  $self->_begin_division($list);
 	}
 
       $logger->trace("..... begin step element");
 
-      my $element = SML::Element->new(name=>'step',library=>$library);
-      $element->add_line($line);
-      $self->_begin_block($element);
+      my $step = SML::Step->new
+	(
+	 number  => $self->_get_step_count,
+	 library => $library,
+	);
+
+      $self->_set_step_count( $self->_get_step_count + 1 );
+      $step->add_line($line);
+      $self->_begin_block($step);
 
       my $division = $self->_get_current_division;
-      $division->add_part($element);
+      $division->add_part($step);
     }
 
   return 1;
@@ -6827,6 +6822,8 @@ sub _process_end_step_element {
   my $library = $self->get_library;
   my $syntax  = $library->get_syntax;
   my $text    = $element->get_content;
+
+  $logger->trace("..... end step element");
 
   if ( $text =~ /$syntax->{step_element}/ )
     {
@@ -6865,7 +6862,6 @@ sub _process_start_attr_definition {
 
   $self->_begin_block($definition);
 
-  $self->_end_step_list       if $self->_in_step_list;
   $self->_end_all_lists       if $self->_in_bullet_list;
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
@@ -6954,7 +6950,6 @@ sub _process_start_outcome {
   $outcome->add_line($line);
   $self->_begin_block($outcome);
 
-  $self->_end_step_list       if $self->_in_step_list;
   $self->_end_all_lists       if $self->_in_bullet_list;
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
@@ -7023,7 +7018,6 @@ sub _process_start_review {
   $review->add_line($line);
   $self->_begin_block($review);
 
-  $self->_end_step_list       if $self->_in_step_list;
   $self->_end_all_lists       if $self->_in_bullet_list;
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
@@ -7193,12 +7187,23 @@ sub _process_enum_list_item {
      )
     )
     {
-      my $block = SML::PreformattedBlock->new(library=>$library);
-      $block->add_line($line);
-      $self->_begin_block($block);
+      if ( $self->_in_preformatted_block )
+	{
+	  $logger->trace("..... continue preformatted block");
 
-      my $division = $self->_get_current_division;
-      $division->add_part($block);
+	  my $block = $self->_get_block;
+	  $block->add_line($line);
+	}
+
+      else
+	{
+	  my $block = SML::PreformattedBlock->new(library=>$library);
+	  $block->add_line($line);
+	  $self->_begin_block($block);
+
+	  my $division = $self->_get_current_division;
+	  $division->add_part($block);
+	}
     }
 
   # CASE 2: fatal improper enumerated item indent
@@ -7266,7 +7271,6 @@ sub _process_enum_list_item {
     )
     {
       $self->_end_all_lists       if $self->_in_bullet_list;
-      $self->_end_step_list       if $self->_in_step_list;
       $self->_end_definition_list if $self->_in_definition_list;
 
       my $list = SML::EnumeratedList->new
@@ -7622,7 +7626,6 @@ sub _process_start_def_list_item {
 
   else
     {
-      $self->_end_step_list if $self->_in_step_list;
       $self->_end_all_lists if $self->_in_bullet_list;
       $self->_end_all_lists if $self->_in_enumerated_list;
 
@@ -7738,7 +7741,6 @@ sub _process_start_table_cell {
 
   $logger->trace("----- table cell");
 
-  $self->_end_step_list       if $self->_in_step_list;
   $self->_end_all_lists       if $self->_in_bullet_list;
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
@@ -7968,10 +7970,9 @@ sub _process_paragraph_text {
 
   $logger->trace("----- paragraph text");
 
-  $self->_end_step_list       if $self->_in_step_list;
-  $self->_end_all_lists       if $self->_in_bullet_list;
-  $self->_end_all_lists       if $self->_in_enumerated_list;
-  $self->_end_definition_list if $self->_in_definition_list;
+  # $self->_end_all_lists       if $self->_in_bullet_list;
+  # $self->_end_all_lists       if $self->_in_enumerated_list;
+  # $self->_end_definition_list if $self->_in_definition_list;
 
   if ( $self->_in_paragraph )
     {
@@ -7982,7 +7983,9 @@ sub _process_paragraph_text {
   elsif ( $self->_in_element )
     {
       $logger->trace("..... continue element");
-      $self->_get_block->add_line($line);
+
+      my $block = $self->_get_block;
+      $block->add_line($line);
     }
 
   elsif ( $self->_in_preformatted_division )
@@ -8024,26 +8027,19 @@ sub _process_paragraph_text {
   elsif ( $self->_in_listitem )
     {
       $logger->trace("..... adding to block in list item");
-      $self->_get_block->add_line( $line );
+
+      my $block = $self->_get_block;
+      $block->add_line( $line );
     }
 
   else
     {
       $logger->trace("..... new paragraph");
 
-      # if ( $self->_in_data_segment )
-      # 	{
-      # 	  my $division = $self->_get_current_division;
-      # 	  my $name     = $division->get_name;
-      # 	  my $id       = $division->get_id;
-      # 	  my $location = $line->get_location;
-      # 	  $logger->error("PARAGRAPH IN $name.$id DATA SEGMENT at $location");
-      # 	}
-
-      if ( $self->_in_baretable )
-	{
-	  $self->_end_baretable;
-	}
+      $self->_end_all_lists       if $self->_in_bullet_list;
+      $self->_end_all_lists       if $self->_in_enumerated_list;
+      $self->_end_definition_list if $self->_in_definition_list;
+      $self->_end_baretable       if $self->_in_baretable;
 
       my $paragraph = SML::Paragraph->new(library=>$library);
       $paragraph->add_line($line);
@@ -9213,6 +9209,12 @@ sub _get_next_substring_type {
   my $self = shift;
   my $text = shift;
 
+  if ( not $text )
+    {
+      $logger->error("YOU MUST PROVIDE A TEXT STRING");
+      return 0;
+    }
+
   my $library = $self->get_library;
   my $syntax  = $library->get_syntax;
   my $href    = {};                     # result hash
@@ -9294,7 +9296,7 @@ sub _build_string_type_list {
      'trademark_symbol',
      'reg_trademark_symbol',
      'section_symbol',
-     'emdash_symbol',
+     # 'emdash_symbol',
      'thepage_ref',
      'theversion_ref',
      'therevision_ref',
@@ -9334,7 +9336,7 @@ sub _build_single_string_type_list {
      'trademark_symbol',
      'reg_trademark_symbol',
      'section_symbol',
-     'emdash_symbol',
+     # 'emdash_symbol',
      'thepage_ref',
      'theversion_ref',
      'therevision_ref',
@@ -9403,20 +9405,6 @@ sub _parse_block {
       return 1;
     }
 
-  elsif
-    (
-     $block->isa('SML::BulletListItem')
-     or
-     $block->isa('SML::EnumeratedListItem')
-    )
-    {
-      my $value = $block->get_value;
-
-      my $value_string = $self->_create_string($value);
-
-      $block->set_value_string($value_string);
-    }
-
   elsif ( $block->isa('SML::DefinitionListItem') )
     {
       my $term       = $block->get_term;
@@ -9431,12 +9419,18 @@ sub _parse_block {
       return 1;
     }
 
-  elsif ( $block->isa('SML::Element') )
-    {
-      $text = $block->get_value;
-    }
-
-  elsif ( $block->isa('SML::Paragraph')	)
+  elsif
+    (
+     $block->isa('SML::BulletListItem')
+     or
+     $block->isa('SML::EnumeratedListItem')
+     or
+     $block->isa('SML::Step')
+     or
+     $block->isa('SML::Element')
+     or
+     $block->isa('SML::Paragraph')
+    )
     {
       $text = $block->get_value;
     }
@@ -9446,10 +9440,8 @@ sub _parse_block {
       $text = $block->get_content;
     }
 
-  while ( $text )
-    {
-      $text = $self->_parse_next_substring($block,$text);
-    }
+  my $string = $self->_create_string($text);
+  $block->add_part($string);
 
   $self->_clear_block;
 
@@ -9458,15 +9450,13 @@ sub _parse_block {
 
 ######################################################################
 
-sub _parse_text {
+sub _parse_string_text {
 
   # Parse a string into a list of strings.  This list of strings is
   # the string's 'part_list'.
 
   my $self   = shift;
   my $string = shift;
-
-  $logger->debug("_parse_text $string");
 
   if (
       not ref $string
@@ -9478,11 +9468,9 @@ sub _parse_text {
       return 0;
     }
 
-  my $text = $string->get_content;
-
-  while ( $text )
+  while ( $string->get_remaining )
     {
-      $text = $self->_parse_next_substring($string,$text);
+      $self->_parse_next_substring($string);
     }
 
   return 1;
@@ -9492,56 +9480,41 @@ sub _parse_text {
 
 sub _parse_next_substring {
 
-  my $self = shift;
-  my $part = shift;                     # part to which this text belongs
-  my $text = shift;                     # text to parse
+  my $self   = shift;
+  my $string = shift;                   # string to which this text belongs
 
-  $logger->debug("_parse_next_substring $part \'$text\'");
+  my $text = $string->get_remaining;    # text to parse
 
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $block;
-
-  if ( ref $part and $part->isa('SML::Block') )
+  if ( not $text )
     {
-      $block = $part;
+      $logger->error("THERE IS NO TEXT LEFT TO PARSE IN $string");
+      return 0;
     }
 
-  elsif ( ref $part and $part->isa('SML::String') )
-    {
-      $block = $part->get_containing_block;
-    }
-
-  else
-    {
-      $logger->error("THIS SHOULD NEVER HAPPEN (3) \'$part\'");
-    }
-
+  my $library     = $self->get_library;
+  my $syntax      = $library->get_syntax;
   my $string_type = $self->_get_next_substring_type($text);
 
   if ( $string_type )
     {
-      $logger->debug("  string type: $string_type");
-
       if ( $text =~ /$syntax->{$string_type}/p )
 	{
 	  my $preceding_text = ${^PREMATCH};
 	  my $substring      = ${^MATCH};
+	  my $remaining_text = ${^POSTMATCH};
 
 	  if ( $preceding_text )
 	    {
 	      my $newstring1 = $self->_create_string($preceding_text);
-	      $part->add_part($newstring1);
+	      $string->add_part($newstring1);
 	    }
 
 	  my $newstring2 = $self->_create_string($substring);
-	  $part->add_part($newstring2);
+	  $string->add_part($newstring2);
 
-	  $text = ${^POSTMATCH};
+	  $string->set_remaining($remaining_text);
 
-	  $logger->debug("  string remaining: \'$text\'");
-
-	  return $text;
+	  return $remaining_text;
 	}
 
       else
@@ -9553,9 +9526,10 @@ sub _parse_next_substring {
   else
     {
       my $newstring = $self->_create_string($text);
-      $part->add_part($newstring);
+      $string->add_part($newstring);
 
       $text = q{};
+      $string->set_remaining($text);
 
       return $text;
     }
@@ -9572,8 +9546,6 @@ sub _get_string_type {
   my $self = shift;
   my $text = shift;
 
-  $logger->debug("_get_string_type \'$text\'");
-
   my $library = $self->get_library;
   my $syntax  = $library->get_syntax;
 
@@ -9581,7 +9553,6 @@ sub _get_string_type {
     {
       if ( $text =~ /^$syntax->{$string_type}$/ )
 	{
-	  $logger->debug("  string type: $string_type");
 	  return $string_type;
 	}
 
@@ -9592,7 +9563,6 @@ sub _get_string_type {
 	}
     }
 
-  $logger->debug("  string type: string");
   return 'string';
 }
 

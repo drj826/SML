@@ -1043,7 +1043,7 @@ sub is_in_a {
 
   my $division = $self;
 
-  while ( ref $division and not $division->isa('SML::Fragment') )
+  while ( ref $division )
     {
       if ( $division->isa($type) )
 	{

@@ -1,0 +1,8 @@
+>>>DOCUMENT.td-000090
+
+title:: Nested Strings
+
+This ~~paragraph~~ exhibits !!nested __strings__!!.  How do you like
+it?
+
+<<<DOCUMENT

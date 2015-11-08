@@ -633,68 +633,71 @@ Why use the ||publish|| program instead of a word processor like
 MSWord or OpenOffice.org?  Here are some pros and cons of using
 SML/||publish|| instead of a word processor to produce documents.
 
-- !!PRO:!! ~~Concentrate on writing content.~~ - SML/||publish||
-removes the distractions and time-consuming struggles of choosing
-the appearance of your content.
+: !!PROS!!
 
-- !!CON:!! ~~Using a Text Editor.~~ - You must edit plain text rather
-than using a WYSIWYG word processor.  Few individuals apart from
-programmers are comfortable using a plain text editor.
+- ~~Concentrate on writing content.~~ - SML/||publish|| removes the
+distractions and time-consuming struggles of choosing the appearance
+of your content.
 
-- !!PRO:!! ~~No Presentation Inconsistencies.~~ - Inconsistencies in
-the appearance of your documents are eliminated since the ||publish||
+- ~~No Presentation Inconsistencies.~~ - Inconsistencies in the
+appearance of your documents are eliminated since the ||publish||
 program renders the presentation of the document for you.
 
-- !!CON:!! ~~Learning the Semantic Manuscript Language~~ - You must
-learn the Semantic Manuscript Language.  Even though it is designed
-to be as simple as possible, you still have to learn the SML rules.
+- ~~Easier to Learn Than LaTeX.~~ - If you want to get started
+producing beautiful documents with LaTeX, using the ||publish||
+program is a great way to start.  Learning the SML rules is easier
+than learning LaTeX.
 
-- !!PRO:!! ~~Easier to Learn Than LaTeX.~~ - If you want to get
-started producing beautiful documents with LaTeX, using the
-||publish|| program is a great way to start.  Learning the SML rules
-is easier than learning LaTeX.
+- ~~Your content is future proof.~~ - Plain text is going to be around
+for a long long time.
 
-- !!PRO:!! ~~Your content is future proof.~~ - Plain text is going to
-be around for a long long time.
+- ~~Modularize your content.~~ - The `include' feature enables you to
+modularize your content and make components reusable.
 
-- !!PRO:!! ~~Modularize your content.~~ - The `include' feature
-enables you to modularize your content and make components reusable.
-
-- !!CON:!! ~~Poor for layout intensive work.~~ - The ||publish||
-program is not good for layout intensive documents like pamphlets or
-newsletters.
-
-- !!PRO:!! ~~Nothing is hidden.~~ - Since all the content is plain
-text, nothing is hidden.  There are no mysterious problems due to the
+- ~~Nothing is hidden.~~ - Since all the content is plain text,
+nothing is hidden.  There are no mysterious problems due to the
 tangled mess you get with some word processor formats.
 
-- !!CON:!! ~~Limitations of SML~~ - You may need some feature not
-supported by SML.  If you find this to be the case, let me know
-(drj826@acm.org) and I might implement that feature.
+- ~~Publish to many renditions.~~ - Use the same source document to
+produce HTML, PDF, CSV, RTF, XML, and even publish the structured data
+to CSV.[f:pros-and-cons:1]
 
-- !!PRO:!! ~~Publish to many renditions.~~ - Use the same source
-document to produce HTML, PDF, CSV, RTF, XML, and even publish the
-structured data to CSV.[f:pros-and-cons:1]
-
-- !!PRO:!! ~~Separate style from content.~~ - Want to change the style
-across the board?  Change the style sheet without touching the
+- ~~Separate style from content.~~ - Want to change the style across
+the board?  Change the style sheet without touching the
 content.[f:pros-and-cons:2]
 
-- !!PRO:!! ~~Automatically produce documents.~~ - It's easy to write
-programs that output data in SML.  Furthermore, you can run the
-||publish|| program from the command line or call it from other
-programs.
+- ~~Automatically produce documents.~~ - It's easy to write programs
+that output data in SML.  Furthermore, you can run the ||publish||
+program from the command line or call it from other programs.
 
-- !!PRO:!! ~~Documents that write themselves!~~ - Using the `script'
-feature, you can produce documents that write themselves (even
-recursively).  Imagine writing a computer security vulnerability
-assessment report that automatically performs the vulnerability
-assessment while publishing the report!
+- ~~Documents that write themselves!~~ - Using the `script' feature,
+you can produce documents that write themselves (even recursively).
+Imagine writing a computer security vulnerability assessment report
+that automatically performs the vulnerability assessment while
+publishing the report!
 
-- !!PRO:!! ~~High Quality Typeset Output~~ - The program uses LaTeX to
-produce extremely high quality typeset output.  This level of
-typesetting quality is hard to achieve even with the best word
-processors.
+- ~~High Quality Typeset Output~~ - The program uses LaTeX to produce
+extremely high quality typeset output.  This level of typesetting
+quality is hard to achieve even with the best word processors.
+
+: !!CONS!!
+
+- ~~Using a Text Editor.~~ - You must edit plain text rather than
+using a WYSIWYG word processor.  Few individuals apart from
+programmers are comfortable using a plain text editor.
+
+- ~~Learning the Semantic Manuscript Language~~ - You must learn the
+Semantic Manuscript Language.  Even though it is designed to be as
+simple as possible, you still have to learn the SML rules.
+
+- ~~Poor for layout intensive work.~~ - The ||publish|| program is not
+good for layout intensive documents like pamphlets or newsletters.
+
+- ~~Limitations of SML~~ - You may need some feature not supported by
+SML.  If you find this to be the case, let me know (drj826@acm.org)
+and I might implement that feature.
+
+---
 
 index::end: pros and cons
 
@@ -2010,13 +2013,21 @@ published work.
 outcomes to set the status of items in the document
 
 >>>SOURCE.chicago
+
 source_type:: book
+
 title:: The Chicago Manual of Style
+
 subtitle:: The Essential Guide for Writers, Editors, and Publishers
+
 editor:: Margaret D.F. Mahan
+
 publisher:: The University of Chicago Press
+
 year:: 2003
+
 edition:: 15th Edition
+
 <<<SOURCE
 
 #---------------------------------------------------------------------
@@ -2042,9 +2053,8 @@ Normally you place the title on the first line of the text document.
 # footnotes
 
 footnote::1: ~~QUESTION:~~ Why isn't __this__ example interpreted as a
-title?  ~~ANSWER:~~ In the document you're reading, this example is
-interpreted as __preformatted text__ ([ref:preformatted-text]) rather
-than a document title because it is indented.
+title?  ~~ANSWER:~~ Because it is indented.  Indented text is
+interpretted as __preformatted text__ ([ref:preformatted-text]).
 
 #---------------------------------------------------------------------
 
@@ -2239,6 +2249,35 @@ another equal sign and the definition of the term.  For example:
 = two = item two
 
 = three = item three
+
+~~Mixed Lists.~~ You can intermingle bullet lists and enumerated
+lists.
+
+- bullet 1
+
+- bullet 2
+
+- bullet 3
+
+  + number 3.1
+
+  + number 3.2
+
+  + number 3.3
+
+    - bullet 3.3.1
+
+    - bullet 3.3.2
+
+    - bullet 3.3.3
+
+  + number 3.4
+
+  + number 3.5
+
+- bullet 4
+
+- bullet 5
 
 #---------------------------------------------------------------------
 
@@ -3599,7 +3638,7 @@ Slide region data elements are:
 
 The purpose of the ~~demo~~ region is to document short
 demonstrations.  Demonstrations are regions (like slides).  Start a
-demo with `||>>>demo||' and end a demo with `||<<<demo||.'  See the
+demo with `||>>>DEMO||' and end a demo with `||<<<DEMO||.'  See the
 example below.
 
 You can put unordered and ordered lists inside a demo (and they
@@ -3607,14 +3646,14 @@ You can put unordered and ordered lists inside a demo (and they
 
 You can put tables in demos.
 
+You can put step lists in demos.
+
 Images put inside a demo will be turned into clickable thumbnails.
 Clicking on a thumbnail image in a demo will pop up a window
 containing the full sized image.  Click anywhere outside the popup
 image to make it go away.
 
 For example:
-
-Example:
 
   >>>DEMO.buffer-overflow-demo
 
@@ -3761,11 +3800,7 @@ Exercise region data elements are:
 
 Example:
 
-  >>>QUOTATION
-
-  title:: Early To Bed
-
-  label:: quote-early-to-bed
+  >>>QUOTATION.quote-early-to-bed
 
   source:: 15th Century Nursery Rhyme
 
@@ -3773,11 +3808,15 @@ Example:
 
   <<<QUOTATION
 
-Quotation region data elements are:
+>>>QUOTATION.quote-early-to-bed
 
-= title = Short, descriptive caption
+source:: 15th Century Nursery Rhyme
 
-= label = Unique identifier
+Early to bed, early to rise, makes a man healthy, wealthy and wise.
+
+<<<QUOTATION
+
+Quotation elements are:
 
 = source = Source of quotation
 
@@ -5128,7 +5167,7 @@ levels of included files.
 
 #---------------------------------------------------------------------
 
-***.comments Comment Lines and Blocks
+***.comments Comment Lines and Divisions
 
 ~~Comment lines.~~ Any line that begins with '#' is interpreted as a
 comment.  The '#' sign must appear in the first column otherwise the
@@ -5137,8 +5176,8 @@ line will be interpreted as preformatted text.
   # This is a comment.  It won't show up in the published document
   # except perhaps as an invisible HTML or LaTeX comment.
 
-~~Comment blocks.~~ A whole block of text can be `commented out' like
-this:
+~~Comment division.~~ A whole division of text can be `commented out'
+like this:
 
   >>>COMMENT
 

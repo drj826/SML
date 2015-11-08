@@ -1,0 +1,10 @@
+>>>RAW.td-000091
+
+!!Comment Lines and Blocks.!! ([ref:comments]) SML gives you two
+ways to insert comment lines.  First, any line beginning with ||#|| in
+the first column is considered a comment, making it easy to `comment
+out' individual lines of text. Second, any division of text that
+begins with >>>COMMENT and ends with <<<COMMENT is considered a
+comment, making it easy to `comment out' whole regions of text.
+
+<<<RAW

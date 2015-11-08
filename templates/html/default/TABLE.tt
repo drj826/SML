@@ -10,6 +10,6 @@
 <b>Table [%number%] - [%title%]</b>
 <br>
 <table>
-[%- INCLUDE part_list.tt -%]
+[% INCLUDE part_list.tt %]
 </table>
 </div>

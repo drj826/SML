@@ -1,5 +1,1 @@
-<!--
-
-[%- self.get_content %]
-
--->
+[%# Don't do anything with comments %]

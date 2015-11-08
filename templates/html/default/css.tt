@@ -1,7 +1,7 @@
 <style type="text/css">
-html { height: 100%; max-height: 100%; padding: 0; margin: 0; border: 0; /* hide overflow: hidden from IE5/Mac */ /* */ overflow: hidden; /* */ }
-body { height: 100%; max-height: 100%; overflow: hidden; margin: 0; border: 0; padding: 0; font-size: 10pt; font-family: verdana, sans-serif; }
-#content { display: block; top: 0px; bottom: 0px; max-height: 100%; overflow: auto; margin-top: 20px; margin-bottom: 20px; padding-left: 100px; margin-left: 20px; padding-right: 20px; position: relative; z-index: 3; }
+html { height: 100%; max-height: 100%; padding: 0; margin: 0; border: 0; }
+body { height: 100%; max-height: 100%; margin: 0; border: 0; padding: 0; font-size: 10pt; font-family: verdana, sans-serif; }
+#content { display: block; top: 0px; bottom: 0px; max-height: 100%; overflow: visible; margin-top: 20px; margin-bottom: 20px; padding-left: 100px; margin-left: 20px; padding-right: 20px; position: relative; z-index: 3; }
 #head { position: fixed; top: 0; right: 18px; display: block; width: 100%; height: 0px; background-color: #DDDDDD; color: #888888; z-index: 4; }
 #foot { position: fixed; bottom: 0px; right: 18px; display: block; width: 100%; height: 0; background-color: #DDDDDD; color: #888888; z-index: 4; }
 #left { position: fixed; left: 0; top: 0; height: 100%; width: 110px; background-color: #DDDDDD; z-index: 5; }
@@ -28,6 +28,8 @@ UL UL UL { margin-left: 10pt; }
 OL { margin-left: 20pt; }
 OL OL { margin-left: 10pt; }
 OL OL OL { margin-left: 10pt; }
+TD UL { padding-left:0pt; }
+TD OL { padding-left:0pt; }
 LI { padding: 3px; }
 DIV.trace { font-size: 8pt; padding-bottom: 4pt;}
 .even { background-color: #ffffff; color: #000000; font-size: 8pt;}
@@ -97,7 +99,7 @@ DIV.preamble { font-size: 8pt; background-color: #ffffff; margin: 10pt 20pt 10pt
 DIV.copyright { font-size: 10pt; text-align: center; margin-bottom: 10px; }
 DIV.slide { background-color: #fdfdaa; margin: 10pt 20pt 10pt 20pt; padding: 10pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
 DIV.sidebar { float: right; width: 40%; font-size: 8pt; background-color: #eeeeee; margin: 10pt 20pt 10pt 20pt; padding: 5pt; border-style: solid; border-width: 1px; border-color: #cccccc; margin-left: 0pt; margin-right: 0pt; }
-DIV.quotation { margin-left: 20pt; margin-right: 20pt; }
+DIV.quotation { background-color: #eeeeee; margin: 10pt 20pt 10pt 20pt; padding: 10pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
 DIV.problem { background-color: #ffffff; }
 DIV.solution { background-color: #ffffff; }
 DIV.allocation { background-color: #ffffff; }

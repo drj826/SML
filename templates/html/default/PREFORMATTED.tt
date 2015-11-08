@@ -1,5 +1,3 @@
 <pre>
-[%- FILTER html -%]
-[%- self.get_content -%]
-[%- END -%]
+[%FILTER html-%][%-self.get_content-%][%-END%]
 </pre>

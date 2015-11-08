@@ -7082,33 +7082,33 @@ sub _build_symbol_test_case_list {
       },
      },
 
-     {
-      name     => 'emdash_symbol_1',
-      text     => '--',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       render =>
-       {
-	sml =>
-	{
-	 default => '--',
-	},
-	html =>
-	{
-	 default => "&mdash;",
-	},
-	latex =>
-	{
-	 default => "--",
-	},
-	xml =>
-	{
-	 default => "&mdash;",
-	},
-       },
-      },
-     },
+     # {
+     #  name     => 'emdash_symbol_1',
+     #  text     => '--',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   render =>
+     #   {
+     # 	sml =>
+     # 	{
+     # 	 default => '--',
+     # 	},
+     # 	html =>
+     # 	{
+     # 	 default => "&mdash;",
+     # 	},
+     # 	latex =>
+     # 	{
+     # 	 default => "--",
+     # 	},
+     # 	xml =>
+     # 	{
+     # 	 default => "&mdash;",
+     # 	},
+     #   },
+     #  },
+     # },
 
     ];
 }

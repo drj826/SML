@@ -19,8 +19,9 @@ index:: exercises; list of exercises
 :
 
   >>>EXERCISE.exr-my-exercise
+
   title: My Exercise
-  ===
+
   <<<EXERCISE
 
 ---
@@ -37,8 +38,9 @@ index:: slides; presentation slides; list of slides
 :
 
   >>>SLIDE.sld-my-slide
+
   title: My Slide
-  ===
+
   <<<SLIDE
 
 ---
@@ -51,9 +53,11 @@ index:: quotations; quote source
 :
 
   >>>QUOTATION.quo-my-quote
+
   title: My Quote
+
   quote-source: Me
-  ===
+
   <<<QUOTATION
 
 ---
@@ -68,8 +72,9 @@ index:: demonstrations; list of demonstrations
 :
 
   >>>DEMO.dem-my-demo
+
   title: My Demo
-  ===
+
   <<<DEMO
 
 ---
@@ -86,8 +91,9 @@ index:: keypoints
 :
 
   >>>KEYPOINTS.key-my-keypoints
+
   title: My Keypoints
-  ===
+
   <<<KEYPOINTS
 
 ---
@@ -101,8 +107,9 @@ index:: problems; list of problems
 :
 
   >>>problem.req-my-requirement
+
   title: My Requirement
-  ===
+
   <<<problem
 
 ---
@@ -117,8 +124,9 @@ index:: solutions; list of solutions
 :
 
   >>>solution.sol-my-solution
+
   title: My Solution
-  ===
+
   <<<solution
 
 ---
@@ -132,8 +140,9 @@ index:: tests; list of tests
 :
 
   >>>test.test-my-test
+
   title: My Test
-  ===
+
   <<<text
 
 ---
@@ -147,8 +156,9 @@ index:: results; list of results
 :
 
   >>>result.test-my-test
+
   title: My Results
-  ===
+
   <<<text
 
 ---
@@ -162,8 +172,9 @@ index:: tasks; list of tasks
 :
 
   >>>task.task-my-task
+
   title: My Task
-  ===
+
   <<<text
 
 ---
@@ -177,8 +188,9 @@ index:: roles; list of roles
 :
 
   >>>role.role-my-role
+
   title: My Role
-  ===
+
   <<<role
 
 ######################################################################

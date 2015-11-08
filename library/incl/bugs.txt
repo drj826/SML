@@ -2,11 +2,7 @@
 
 title:: Known Bugs, Desired Improvements
 
-===
-
 * Known Bugs
-
-===
 
 - ``Take Note'' indicators can't go in tables.  If you put a
   `take_note' indicator inside a table cell, it doesn't get rendered
@@ -113,8 +109,6 @@ title:: Known Bugs, Desired Improvements
   warning.
 
 * Desired Improvements
-
-===
 
 - Definition Lists.  Add support for definition lists.  The beginning
   of a definition list will be indicated by the beginning of a
