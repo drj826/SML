@@ -706,6 +706,27 @@ sub get_section_list {
 
 ######################################################################
 
+sub get_figure_list {
+
+  # Return an ordered list of figures within this division.
+
+  my $self = shift;
+
+  my $list = [];                        # figure list
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      if ( $part->isa('SML::Figure') )
+	{
+	  push @{ $list }, $part;
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
+
 sub get_block_list {
 
   # Return an ordered list of blocks within this division.

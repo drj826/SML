@@ -1,5 +1,5 @@
 [% SET number = self.get_number %]
-[% SET anchor = 'figure' _ '.' _ number %]
+[% SET anchor = 'figure.' _ number %]
 <div class="figure" id="[%anchor%]">
 
 <!-- put figure navigation link table here -->
