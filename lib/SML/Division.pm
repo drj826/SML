@@ -636,9 +636,7 @@ sub get_image_list {
 
   foreach my $element (@{ $self->get_element_list })
     {
-      my $name = $element->get_name;
-
-      if ( $name eq 'image' )
+      if ( $element->isa('SML::Image') )
 	{
 	  push(@{$list},$element);
 	}

@@ -61,6 +61,7 @@ use SML::BulletListItem;              # ci-000430
 use SML::EnumeratedListItem;          # ci-000431
 use SML::DefinitionListItem;          # ci-000432
 use SML::Step;                        # ci-000???
+use SML::Image;                       # ci-000???
 use SML::Element;                     # ci-000386
 use SML::Definition;                  # ci-000415
 use SML::Note;                        # ci-000???
@@ -2225,6 +2226,11 @@ sub _parse_lines {
       elsif ( $text =~ /$syntax->{step_element}/ )
 	{
 	  $self->_process_start_step_element($line);
+	}
+
+      elsif ( $text =~ /$syntax->{image_element}/ )
+	{
+	  $self->_process_start_image_element($line);
 	}
 
       elsif ( $text =~ /$syntax->{element}/ )
@@ -6797,6 +6803,46 @@ sub _process_start_step_element {
 
       my $division = $self->_get_current_division;
       $division->add_part($step);
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _process_start_image_element {
+
+  my $self = shift;
+  my $line = shift;
+
+  my $library = $self->get_library;
+
+  $logger->trace("----- image");
+
+  if ( $self->_in_preformatted_division )
+    {
+      my $block = SML::PreformattedBlock->new(library=>$library);
+      $block->add_line($line);
+      $self->_begin_block($block);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($block);
+    }
+
+  else
+    {
+      $logger->trace("..... begin image element");
+
+      my $image = SML::Image->new
+	(
+	 library => $library,
+	);
+
+      $image->add_line($line);
+      $self->_begin_block($image);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($image);
     }
 
   return 1;

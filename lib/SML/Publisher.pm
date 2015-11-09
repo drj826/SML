@@ -14,7 +14,6 @@ use Cwd;
 use File::Basename;
 use File::Copy;
 use File::Copy::Recursive qw( dircopy );
-use Image::Size;
 
 use Template;
 
@@ -484,8 +483,8 @@ sub _publish_html_image {
       utime undef, undef, "$copy";
     }
 
-  my ($width,$height) = split(/x/, $self->_get_image_size($orig) );
-  my $scaled_width    = $self->_get_scaled_image_width;
+  my $width        = $image->get_width;
+  my $scaled_width = $self->_get_scaled_image_width;
 
   if ( $width > $scaled_width )
     {
@@ -509,23 +508,6 @@ sub _publish_html_image {
     }
 
   return 1;
-}
-
-######################################################################
-
-sub _get_image_size {
-
-  my $self     = shift;
-  my $filespec = shift;
-
-  my $size   = "600x450";              # default size
-  my ($x,$y) = imgsize($filespec);
-
-  if ($x and $y) {
-    $size = $x . "x" . $y;
-  }
-
-  return $size;
 }
 
 ######################################################################

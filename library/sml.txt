@@ -406,6 +406,9 @@ image:: files/images/sample-document-pdf.png
 
 width:: 6in
 
+description:: SML uses LaTeX to perform high quality typesetting of
+the PDF rendition.
+
 <<<FIGURE
 
 You can also publish an HTML rendition.
@@ -2304,7 +2307,8 @@ footnote::1: This is a footnote
 
 ***.images Images
 
-Insert an image by putting ``image: <image-file>'' starting in column 5.
+Insert an image by putting ``image:: <image-file>'' starting in column
+0.
 
 Insert a figure caption by putting ``title: <caption>''. Text after
 ``title:'' will be taken as the figure caption.  All caption text
@@ -2312,11 +2316,7 @@ must fit on one line.  Figure captions are used to build a list of
 figures.  If you insert an image in your document but leave out the
 figure caption, that image won't be listed in the list of figures.
 
->>>FIGURE.fig-apache-stats
-title:: Apache Runs More Active Web Sites Than All Others Combined
 image:: files/images/netcraft-activesite-usage.png
-width:: 6in
-<<<FIGURE
 
 Large images will automatically scaled to about 600 pixels wide and
 made clickable to bring up the full sized original image in it's own
@@ -2324,9 +2324,13 @@ window.  [ref:fig-knoppix-screenshot] shows an example of an image
 that gets scaled because it is bigger than 600 pixels wide:
 
 >>>FIGURE.fig-knoppix-screenshot
+
 title:: Knoppix Linux Packs a Lot of Software Onto One CDROM
+
 image:: files/images/knoppix-4.png
+
 width:: 6in
+
 <<<FIGURE
 
 [clearpage]
@@ -3600,21 +3604,21 @@ outside the popup image to make it go away.  Here's an example:
 title:: Session Handshaking
 
 - Transmission Control Protocol (TCP) establish (3-way handshake)
-    - SYN
-    - SYN/ACK
-    - ACK
+  - SYN
+  - SYN/ACK
+  - ACK
 
 image:: files/images/mod01_tcp_three_way_handshake.png
 
-  - Session tear-down File Transfer Protocol (FTP)
-    - FIN/ACK
-    - ACK
+- Session tear-down File Transfer Protocol (FTP)
+  - FIN/ACK
+  - ACK
 
 image:: files/images/mod01_ftp_session_tear_down.png
 
-  - No listening port
-    - SYN
-    - RST/ACK
+- No listening port
+  - SYN
+  - RST/ACK
 
 image:: files/images/mod01_no_listening_port.png
 

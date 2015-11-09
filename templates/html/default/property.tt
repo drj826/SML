@@ -1,0 +1,3 @@
+[%- FOREACH element IN property.get_element_list -%]
+[%- INCLUDE part_list.tt self = element -%]
+[%- END -%]

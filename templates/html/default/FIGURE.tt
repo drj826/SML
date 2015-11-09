@@ -1,15 +1,24 @@
 [% SET number = self.get_number %]
-[% SET title = self.get_property_value('title') %]
 [% SET anchor = 'figure' _ '.' _ number %]
 <div class="figure" id="[%anchor%]">
 
 <!-- put figure navigation link table here -->
 
-<b>Figure [%number%] - [%title%]</b>
-<br>
-[%- IF self.has_property('image') -%]
-[%- SET image = self.get_image_file_basename -%]
-<img src="images/[%image%]" style="border:0px"/>
+<p align="center"><b>Figure [%number%]
+[%- IF self.has_property('title') -%]
+  [%- SET property = self.get_property('title') -%]
+  - 
+  [%- INCLUDE property.tt -%]
 [%- END -%]
+</b>
+[%- IF self.has_property('description') -%]
+  [%- SET property = self.get_property('description') -%]
+  - 
+  [%- INCLUDE property.tt -%]
+[%- END -%]
+</p>
+
+[%- INCLUDE part_list.tt -%]
+
 </div>
 
