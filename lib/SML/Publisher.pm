@@ -11,7 +11,10 @@ use version; our $VERSION = qv('2.0.0');
 use namespace::autoclean;
 
 use Cwd;
+use File::Basename;
+use File::Copy;
 use File::Copy::Recursive qw( dircopy );
+use Image::Size;
 
 use Template;
 
@@ -199,6 +202,14 @@ sub can_publish {
 ######################################################################
 ######################################################################
 
+has scaled_image_width =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   reader  => '_get_scaled_image_width',
+   default => '605',
+  );
+
 ######################################################################
 ######################################################################
 ##
@@ -343,6 +354,14 @@ sub _publish_html_document {
       $logger->error("document has no sections!");
     }
 
+  if ( $document->has_images )
+    {
+      foreach my $image (@{ $document->get_image_list })
+	{
+	  $self->_publish_html_image($document,$image);
+	}
+    }
+
   if ( -d "$template_dir/images" )
     {
       dircopy("$template_dir/images","$output_dir/images")
@@ -413,6 +432,130 @@ sub _publish_latex_document {
   $logger->info("publishing $id.latex");
 
   $tt->process("document.tt",$vars,"$id.latex");
+
+  return 1;
+}
+
+######################################################################
+
+sub _publish_html_image {
+
+  # Copy an image to the <published>/images directory.  If necessary,
+  # put a resized copy of the image in <published>/images-scaled.
+
+  my $self     = shift;
+  my $document = shift;                 # document being published
+  my $image    = shift;                 # image to resize and/or copy
+
+  my $id             = $document->get_id;
+  my $library        = $self->get_library;
+  my $published_dir  = $library->get_published_dir;
+  my $filespec       = $image->get_value;
+  my $library_dir    = $library->get_directory_path;
+  my $output_dir     = "$published_dir/$id";
+  my $images_dir     = "$output_dir/images";
+  my $scaled_dir     = "$output_dir/images-scaled";
+  my $thumbnails_dir = "$output_dir/images-thumbnails";
+
+  my $basename = basename($filespec);
+  my $orig     = "$library_dir/$filespec";
+  my $copy     = "$images_dir/$basename";
+  my $scaled   = "$scaled_dir/$basename";
+
+  if ( not -f $orig )
+    {
+      $logger->error("IMAGE FILE NOT FOUND \'$orig\'");
+      return 0;
+    }
+
+  foreach my $dir ($images_dir,$scaled_dir,$thumbnails_dir)
+    {
+      if ( not -d $dir )
+	{
+	  mkdir "$dir", 0755;
+	  $logger->info("made directory $dir");
+	}
+    }
+
+  if ( (not -f $copy) or ( _file_is_stale($orig,$copy) ) )
+    {
+      $logger->info("copying image $basename");
+      File::Copy::copy($orig,$copy);
+      utime undef, undef, "$copy";
+    }
+
+  my ($width,$height) = split(/x/, $self->_get_image_size($orig) );
+  my $scaled_width    = $self->_get_scaled_image_width;
+
+  if ( $width > $scaled_width )
+    {
+      if ( (not -f $scaled) or ( $self->_file_is_stale($orig,$scaled) ) )
+	{
+	  my $util    = $library->get_util;
+	  my $options = $util->get_options;
+	  my $convert = $options->get_convert_executable;
+
+	  if ( not -e $convert )
+	    {
+	      my $cwd = getcwd();
+	      $logger->error("NOT EXECUTABLE \'$convert\' from \'$cwd\'");
+	      return 0;
+	    }
+
+	  my $command = "$convert -size ${scaled_width}x${scaled_width} $orig -resize ${scaled_width}x${scaled_width} +profile \"*\" $scaled";
+
+	  $self->_system_nw($command);
+	}
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _get_image_size {
+
+  my $self     = shift;
+  my $filespec = shift;
+
+  my $size   = "600x450";              # default size
+  my ($x,$y) = imgsize($filespec);
+
+  if ($x and $y) {
+    $size = $x . "x" . $y;
+  }
+
+  return $size;
+}
+
+######################################################################
+
+sub _system_nw {
+
+  my $self    = shift;
+  my $command = shift;
+
+  if ($^O eq 'MWWin32')
+    {
+      my @cmd = split (" ", $command);
+      my $ProcessObj;
+      Win32::Process::Create
+	  (
+	   $ProcessObj,
+	   $cmd[0],
+	   $command,
+	   0,
+	   'NORMAL_PRIORITY_CLASS' | 'CREATE_NO_WINDOW',
+	   ".",
+	  ) || die ErrorReport();
+
+      $ProcessObj->Wait('INFINITE');
+    }
+
+  else
+    {
+      system($command);
+    }
 
   return 1;
 }
@@ -498,6 +641,27 @@ sub _build_background_color_list {
       'green',    'orange',     'purple',
       'white',    'litegrey',   'grey',    'darkgrey',
      ];
+}
+
+######################################################################
+
+sub _file_is_stale {
+
+  my $orig = shift;
+  my $copy = shift;
+
+  return 1 if not -f $copy;
+
+  my $time_orig = (stat $orig)[9] || 0;
+  my $time_copy = (stat $copy)[9] || 0;
+
+  if ($time_orig > $time_copy) {
+    return 1;
+  }
+
+  else {
+    return 0;
+  }
 }
 
 ######################################################################

@@ -390,6 +390,20 @@ sub add_attribute {
 
 ######################################################################
 
+sub add_image {
+
+  my $self  = shift;
+  my $image = shift;
+
+  my $image_list = $self->get_image_list;
+
+  push(@{ $image_list },$image);
+
+  return 1;
+}
+
+######################################################################
+
 sub contains_division {
 
   # Return 1 if the division contains a division with the specified ID.
@@ -588,6 +602,49 @@ sub has_figures {
     }
 
   return 0;
+}
+
+######################################################################
+
+sub has_images {
+
+  # Return 1 if this division (or any the divisions it contains) has
+  # an image element.
+
+  my $self = shift;
+
+  foreach my $element (@{ $self->get_element_list })
+    {
+      my $name = $element->get_name;
+
+      if ( $name eq 'image' )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub get_image_list {
+
+  my $self = shift;
+
+  my $list = [];
+
+  foreach my $element (@{ $self->get_element_list })
+    {
+      my $name = $element->get_name;
+
+      if ( $name eq 'image' )
+	{
+	  push(@{$list},$element);
+	}
+    }
+
+  return $list;
 }
 
 ######################################################################
