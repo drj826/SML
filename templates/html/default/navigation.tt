@@ -42,7 +42,7 @@
 [%- END -%]
 
 [%- IF document.get_references.has_sources -%]
-<a href="[% document.get_id %].source.html">References</a><br/>
+<a href="[% document.get_id %].references.html">References</a><br/>
 [%- END -%]
 
 [%- IF document.get_index.has_entries -%]

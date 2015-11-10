@@ -12,6 +12,8 @@ extends 'SML::Division';
 
 use namespace::autoclean;
 
+use File::Basename;
+
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Source');
@@ -33,24 +35,33 @@ has '+name' =>
 
 has 'author' =>
   (
-   isa    => 'Str',
-   reader => 'get_author',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_author',
+   writer    => 'set_author',
+   predicate => 'has_author',
   );
 
 ######################################################################
 
 has 'date' =>
   (
-   isa    => 'Str',
-   reader => 'get_date',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_date',
+   writer    => 'set_date',
+   predicate => 'has_date',
   );
 
 ######################################################################
 
 has 'address' =>
   (
-   isa    => 'Str',
-   reader => 'get_address',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_address',
+   writer    => 'set_address',
+   predicate => 'has_address',
   );
 
 ######################################################################
@@ -58,54 +69,73 @@ has 'address' =>
 has 'annote' =>
 
   (
-   isa    => 'Str',
-   reader => 'get_annote',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_annote',
+   writer    => 'set_annote',
+   predicate => 'has_annote',
   );
 
 ######################################################################
 
 has 'booktitle' =>
   (
-   isa    => 'Str',
-   reader => 'get_booktitle',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_booktitle',
+   writer    => 'set_booktitle',
+   predicate => 'has_booktitle',
   );
 
 ######################################################################
 
 has 'chapter' =>
   (
-   isa    => 'Str',
-   reader => 'get_chapter',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_chapter',
+   writer    => 'set_chapter',
+   predicate => 'has_chapter',
   );
 
 ######################################################################
 
 has 'crossref' =>
   (
-   isa    => 'Str',
-   reader => 'get_crossref',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_crossref',
+   writer    => 'set_crossref',
+   predicate => 'has_crossref',
   );
 
 ######################################################################
 
 has 'edition' =>
   (
-   isa    => 'Str',
-   reader => 'get_edition',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_edition',
+   writer    => 'set_edition',
+   predicate => 'has_edition',
   );
 
 ######################################################################
 
 has 'editor' =>
   (
-   isa    => 'Str',
-   reader => 'get_editor',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_editor',
+   writer    => 'set_editor',
+   predicate => 'has_editor',
   );
 
 ######################################################################
 
 has 'howpublished' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_howpublished',
   );
@@ -114,6 +144,7 @@ has 'howpublished' =>
 
 has 'institution' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_institution',
   );
@@ -122,6 +153,7 @@ has 'institution' =>
 
 has 'journal' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_journal',
   );
@@ -130,6 +162,7 @@ has 'journal' =>
 
 has 'key' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_key',
   );
@@ -138,6 +171,7 @@ has 'key' =>
 
 has 'month' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_month',
   );
@@ -146,6 +180,7 @@ has 'month' =>
 
 has 'note' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_note',
   );
@@ -154,6 +189,7 @@ has 'note' =>
 
 has 'organization' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_organization',
   );
@@ -162,6 +198,7 @@ has 'organization' =>
 
 has 'pages' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_pages',
   );
@@ -170,6 +207,7 @@ has 'pages' =>
 
 has 'publisher' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_publisher',
   );
@@ -178,6 +216,7 @@ has 'publisher' =>
 
 has 'school' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_school',
   );
@@ -186,6 +225,7 @@ has 'school' =>
 
 has 'series' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_series',
   );
@@ -194,6 +234,7 @@ has 'series' =>
 
 has 'source' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_source',
   );
@@ -202,6 +243,7 @@ has 'source' =>
 
 has 'subtitle' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_subtitle',
   );
@@ -210,6 +252,7 @@ has 'subtitle' =>
 
 has 'source_type' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_source_type',
   );
@@ -218,6 +261,7 @@ has 'source_type' =>
 
 has 'volume' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_volume',
   );
@@ -226,6 +270,7 @@ has 'volume' =>
 
 has 'year' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_year',
   );
@@ -234,6 +279,7 @@ has 'year' =>
 
 has 'appearance' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_appearance',
   );
@@ -242,6 +288,7 @@ has 'appearance' =>
 
 has 'color' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_color',
   );
@@ -250,6 +297,7 @@ has 'color' =>
 
 has 'icon' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_icon',
   );
@@ -258,6 +306,7 @@ has 'icon' =>
 
 has 'mimetype' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_mimetype',
   );
@@ -266,6 +315,7 @@ has 'mimetype' =>
 
 has 'file' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_file',
   );
@@ -274,9 +324,61 @@ has 'file' =>
 
 has 'number' =>
   (
+   is     => 'ro',
    isa    => 'Str',
    reader => 'get_number',
   );
+
+######################################################################
+
+has 'basename' =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   reader  => 'get_basename',
+   builder => '_build_basename',
+   lazy    => 1,
+  );
+
+######################################################################
+######################################################################
+##
+## Public Methods
+##
+######################################################################
+######################################################################
+
+######################################################################
+######################################################################
+##
+## Private Attributes
+##
+######################################################################
+######################################################################
+
+######################################################################
+######################################################################
+##
+## Private Methods
+##
+######################################################################
+######################################################################
+
+sub _build_basename {
+
+  my $self = shift;
+
+  if ( $self->has_property('file') )
+    {
+      my $filespec = $self->get_property_value('file');
+      return basename($filespec);
+    }
+
+  else
+    {
+      return 0;
+    }
+}
 
 ######################################################################
 
@@ -369,6 +471,8 @@ bibliographic source.
 =head2 get_mimetype
 
 =head2 get_file
+
+=head2 get_basename
 
 =head2 get_number
 

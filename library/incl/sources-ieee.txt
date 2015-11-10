@@ -57,8 +57,6 @@ also includes firmware, microcode, and documentation.  Software V&V
 processes include analysis, evaluation, review, inspection,
 assessment, and testing of software products.
 
-file:: ../files/ieee/ieee-std-1012-2004.pdf
-
 <<<SOURCE
 
 ######################################################################
@@ -80,8 +78,6 @@ architectural description is established.  The content of an
 architectural description is defined.  Annexes provide the rationale
 for key concepts and terminology, the relationships to other
 standards, and examples of usage.
-
-file:: ../files/ieee/ieee-std-1471-2000.pdf
 
 <<<SOURCE
 
@@ -105,8 +101,6 @@ documentation; software and system testing; software architecture;
 software development process; software development techniques; and
 software tools.
 
-file:: ../files/ieee/ieee-std-610-12-1990.pdf
-
 <<<SOURCE
 
 ######################################################################
@@ -126,8 +120,6 @@ environment. This taxonomy applies to standards (from the related
 disciplines of engineering management, systems engineering, computer
 hardware engineering, computer science, and information science) with
 which a software engineer would be reasonably acquainted.
-
-file:: ../files/ieee/ieee-std-1002-1987.pdf
 
 <<<SOURCE
 
@@ -151,8 +143,6 @@ third objective is to provide guidance and resource information to
 assist with the implementation and usage of the standard unit testing
 approach. This information is contained in Appendixes A, C, and
 D. Note that these Appendixes are not a part of this standard.
-
-file:: ../files/ieee/ieee-std-1008-1987.pdf
 
 <<<SOURCE
 
@@ -186,8 +176,6 @@ ISO/IEC 15504-2 (Process assessment). An annex provides support for
 IEEE users and describes relationships of this International Standard
 to IEEE standards.
 
-file:: ../files/ieee/ieee-std-12207-2008.pdf
-
 <<<SOURCE
 
 ######################################################################
@@ -209,8 +197,6 @@ definition, control, assessment, and improvement of these
 processes. These processes can be applied concurrently, iteratively,
 and recursively to a system and its elements throughout the life cycle
 of a system.
-
-file:: ../files/ieee/ieee-std-15288-2008.pdf
 
 <<<SOURCE
 
@@ -238,8 +224,6 @@ off-the-shelf, Non-Developmental Items). The term ``software'' also
 includes firmware, microcode, and documentation. Test processes can
 include inspection, analysis, demonstration, verification, and
 validation of software and software-based system products.
-
-file:: ../files/ieee/ieee-std-829-2008.pdf
 
 <<<SOURCE
 

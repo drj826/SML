@@ -1,0 +1,23 @@
+[%- WRAPPER page.tt -%]
+
+[%- IF document.has_property('title') -%]
+<div class="title">
+[%- INCLUDE property.tt property = document.get_property('title') -%]
+</div>
+[% END %]
+
+[%- IF document.has_property('subtitle') -%]
+<div class="subtitle">
+[%- INCLUDE property.tt property = document.get_property('subtitle') -%]
+</div>
+[% END %]
+
+[%- INCLUDE preamble.tt -%]
+
+<h3 align="center">List of References</h3>
+
+[%- FOREACH source IN document.get_source_list -%]
+  [%- INCLUDE SOURCE.tt -%]
+[%- END -%]
+
+[%- END -%]

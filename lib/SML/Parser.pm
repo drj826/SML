@@ -2568,7 +2568,7 @@ sub _end_division {
 
   elsif ( $division->isa('SML::Source') )
     {
-      # do nothing.
+      $self->_process_end_source_division($division);
     }
 
   elsif ( $division->isa('SML::PreformattedDivision') )
@@ -3669,11 +3669,6 @@ sub _end_element {
     {
       $self->_process_end_variable_definition($element);
     }
-
-  # elsif ( $name eq 'generate' )
-  #   {
-  #     $self->_add_generate_request($element);
-  #   }
 
   elsif ( $name eq 'attr' )
     {
@@ -5548,16 +5543,6 @@ sub _process_end_division_marker {
       $self->_end_section;
     }
 
-  # if ( $name eq 'RAW' and $self->_in_section )
-  #   {
-  #     $self->_end_section;
-  #   }
-
-  # if ( $name eq 'RAW' and $self->_in_table_cell )
-  #   {
-  #     $self->_end_division;
-  #   }
-
   if ( $name eq 'TABLE' and $self->_in_table_row )
     {
       $self->_end_table_row;
@@ -6049,6 +6034,35 @@ sub _process_end_glossary_entry {
       my $document_glossary = $document->get_glossary;
 
       $document_glossary->add_entry($definition);
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _process_end_source_division {
+
+  my $self   = shift;
+  my $source = shift;
+
+  if
+    (
+     not $source
+     or
+     not $source->isa('SML::Source')
+    )
+    {
+      $logger->errror("NOT A SOURCE DIVISION \'$source\'");
+      return 0;
+    }
+
+  if ( $self->_has_current_document )
+    {
+      my $document            = $self->_get_current_document;
+      my $document_references = $document->get_references;
+
+      $document_references->add_source($source);
     }
 
   return 1;

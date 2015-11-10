@@ -647,6 +647,49 @@ sub get_image_list {
 
 ######################################################################
 
+sub has_files {
+
+  # Return 1 if this division (or any the divisions it contains) has
+  # an file element.
+
+  my $self = shift;
+
+  foreach my $element (@{ $self->get_element_list })
+    {
+      my $name = $element->get_name;
+
+      if ( $name eq 'file' )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub get_file_list {
+
+  my $self = shift;
+
+  my $list = [];
+
+  foreach my $element (@{ $self->get_element_list })
+    {
+      my $name = $element->get_name;
+
+      if ( $name eq 'file' )
+	{
+	  push(@{$list},$element);
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
+
 sub has_attachments {
 
   # Return 1 if this division contains one or more attachments.
@@ -780,6 +823,27 @@ sub get_attachment_list {
   foreach my $part (@{ $self->get_division_list })
     {
       if ( $part->isa('SML::Attachment') )
+	{
+	  push @{ $list }, $part;
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
+
+sub get_source_list {
+
+  # Return an ordered list of sources within this division.
+
+  my $self = shift;
+
+  my $list = [];                        # source list
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      if ( $part->isa('SML::Source') )
 	{
 	  push @{ $list }, $part;
 	}

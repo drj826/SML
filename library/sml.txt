@@ -100,9 +100,6 @@ elements of the document to a spreadsheet or database.
 ~~Why don't we write software the way we write documentation?~~
 Because that would be ~~terribly~~ inefficient.
 
-Documents are like programs that are processed by the human brain
-rather than a computer.
-
 >>>COMMENT
 
 When people first began writing computer programs, they wrote the

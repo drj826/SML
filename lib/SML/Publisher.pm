@@ -331,7 +331,7 @@ sub _publish_html_document {
       if ( $references->has_sources )
 	{
 	  $logger->info("publishing $id.references.html");
-	  $tt->process("references_page.tt",$vars,"$id.references.html")
+	  $tt->process("list_of_references_page.tt",$vars,"$id.references.html")
 	    || die $tt->error(), "\n";
 	}
 
@@ -358,6 +358,14 @@ sub _publish_html_document {
       foreach my $image (@{ $document->get_image_list })
 	{
 	  $self->_publish_html_image($document,$image);
+	}
+    }
+
+  if ( $document->has_files )
+    {
+      foreach my $file (@{ $document->get_file_list })
+	{
+	  $self->_publish_html_file($document,$file);
 	}
     }
 
@@ -505,6 +513,50 @@ sub _publish_html_image {
 
 	  $self->_system_nw($command);
 	}
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _publish_html_file {
+
+  # Copy a file to the <published>/files directory.
+
+  my $self     = shift;
+  my $document = shift;                 # document being published
+  my $file     = shift;                 # file to copy
+
+  my $id             = $document->get_id;
+  my $library        = $self->get_library;
+  my $published_dir  = $library->get_published_dir;
+  my $filespec       = $file->get_value;
+  my $library_dir    = $library->get_directory_path;
+  my $output_dir     = "$published_dir/$id";
+  my $files_dir      = "$output_dir/files";
+
+  my $basename = basename($filespec);
+  my $orig     = "$library_dir/$filespec";
+  my $copy     = "$files_dir/$basename";
+
+  if ( not -f $orig )
+    {
+      $logger->error("FILE NOT FOUND \'$orig\'");
+      return 0;
+    }
+
+  if ( not -d $files_dir )
+    {
+      mkdir "$files_dir", 0755;
+      $logger->info("made directory $files_dir");
+    }
+
+  if ( (not -f $copy) or ( _file_is_stale($orig,$copy) ) )
+    {
+      $logger->info("copying file $basename");
+      File::Copy::copy($orig,$copy);
+      utime undef, undef, "$copy";
     }
 
   return 1;
