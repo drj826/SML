@@ -1,9 +1,8 @@
 [% SET number = self.get_number %]
 [% SET title = self.get_property_value('title') %]
-[% SET anchor = 'listing' _ '.' _ number %]
+[% SET anchor = 'LISTING.' _ number %]
 
-<a name="[%anchor%]">
-<div class="listing">
+<div class="listing" id="[%anchor%]">
 
 <!-- put listing navigation link table here -->
 

@@ -2441,29 +2441,30 @@ Environments !!cannot!! contain other environments.
 
 ***.tables Tables
 
-The ability to create both simple and complicated tables is one of the
-features that sets the ||publish|| program apart from alternatives.
+The ability to represent both simple and complicated tables is one of
+the features that sets SML apart from alternative plain text markup
+languages.
 
 Example:
 
-  >>>TABLE.tab-sample
+  >>>TABLE.sample-table
 
   title:: A Sample Table
 
-  :: heading of column 1
-  :: heading of column 2
-  ---
-  : row 1 column 1
-  : row 1 column 2
+  :: row 1 column 1 (emphasized)
+  :: row 1 column 2 (emphasized)
   ---
   : row 2 column 1
   : row 2 column 2
+  ---
+  : row 3 column 1
+  : row 3 column 2
 
   <<<TABLE
 
 Here's a simple example:
 
->>>TABLE.tab-osi-model
+>>>TABLE.osi-model-table
 
 title:: OSI 7-layer Reference Model
 

@@ -14,8 +14,8 @@ H1 { font-size: 16pt; }
 H2 { font-size: 14pt; }
 H3 { font-size: 12pt; }
 H4 { font-size: 12pt; }
-H5 { font-size: 12pt; }
-H6 { font-size: 12pt; }
+H5 { font-size: 10pt; }
+H6 { font-size: 10pt; }
 TD { font-size: 8pt; font-family: verdana, sans-serif; vertical-align: top; }
 P.title { font-weight: bold; text-align: center; }
 P.source { font-style: italic; margin-left: 30pt; }

@@ -727,6 +727,69 @@ sub get_figure_list {
 
 ######################################################################
 
+sub get_table_list {
+
+  # Return an ordered list of tables within this division.
+
+  my $self = shift;
+
+  my $list = [];                        # table list
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      if ( $part->isa('SML::Table') )
+	{
+	  push @{ $list }, $part;
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
+
+sub get_listing_list {
+
+  # Return an ordered list of listings within this division.
+
+  my $self = shift;
+
+  my $list = [];                        # listing list
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      if ( $part->isa('SML::Listing') )
+	{
+	  push @{ $list }, $part;
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
+
+sub get_attachment_list {
+
+  # Return an ordered list of attachments within this division.
+
+  my $self = shift;
+
+  my $list = [];                        # attachment list
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      if ( $part->isa('SML::Attachment') )
+	{
+	  push @{ $list }, $part;
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
+
 sub get_block_list {
 
   # Return an ordered list of blocks within this division.

@@ -1,9 +1,8 @@
 [% SET number = self.get_number %]
 [% SET title = self.get_property_value('title') %]
-[% SET anchor = 'attachment' _ '.' _ number %]
+[% SET anchor = 'ATTACHMENT.' _ number %]
 
-<a name="[%anchor%]">
-<div class="attachment">
+<div class="attachment" id="[%anchor%]">
 
 <!-- put attachment navigation link table here -->
 
