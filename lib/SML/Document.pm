@@ -18,6 +18,9 @@ my $logger = Log::Log4perl::get_logger('sml.Document');
 
 use SML::Library;        # ci-000410
 use SML::Glossary;
+use SML::AcronymList;
+use SML::References;
+use SML::Index;
 
 ######################################################################
 ######################################################################
@@ -60,6 +63,16 @@ has 'references' =>
    reader   => 'get_references',
    lazy     => 1,
    builder  => '_build_references',
+  );
+
+######################################################################
+
+has 'index' =>
+  (
+   isa      => 'SML::Index',
+   reader   => 'get_index',
+   lazy     => 1,
+   builder  => '_build_index',
   );
 
 ######################################################################
@@ -247,28 +260,6 @@ sub add_note {
 
 ######################################################################
 
-sub add_index_term {
-
-  my $self  = shift;
-  my $term  = shift;
-  my $divid = shift;
-
-  if ( exists $self->_get_index_hash->{$term} )
-    {
-      my $index = $self->_get_index_hash->{$term};
-      $index->{ $divid } = 1;
-    }
-
-  else
-    {
-      $self->_get_index_hash->{$term} = { $divid => 1 };
-    }
-
-  return 1;
-}
-
-######################################################################
-
 sub has_note {
 
   my $self  = shift;
@@ -290,21 +281,84 @@ sub has_note {
 
 ######################################################################
 
-sub has_index_term {
+# sub has_index {
 
-  my $self  = shift;
-  my $term  = shift;
+#   # Return 1 if document has any index terms.
 
-  if ( exists $self->_get_index_hash->{$term} )
-    {
-      return 1;
-    }
+#   my $self = shift;
 
-  else
-    {
-      return 0;
-    }
-}
+#   if ( scalar keys %{ $self->_get_index_hash } )
+#     {
+#       return 1;
+#     }
+
+#   else
+#     {
+#       return 0;
+#     }
+# }
+
+######################################################################
+
+# sub get_index_term_list {
+
+#   # Return a sorted list of index terms.
+
+#   my $self = shift;
+
+#   return sort keys %{ $self->_get_index_hash };
+# }
+
+######################################################################
+
+# sub add_index_entry {
+
+#   my $self  = shift;
+#   my $entry = shift;
+
+#   my $index = $self->get_index;
+
+#   $index->add_entry($entry);
+
+#   return 1;
+# }
+
+######################################################################
+
+# sub has_index_term {
+
+#   my $self  = shift;
+#   my $term  = shift;
+
+#   if ( exists $self->_get_index_hash->{$term} )
+#     {
+#       return 1;
+#     }
+
+#   else
+#     {
+#       return 0;
+#     }
+# }
+
+######################################################################
+
+# sub get_index_term {
+
+#   my $self  = shift;
+#   my $term  = shift;
+
+#   if ( exists $self->_get_index_hash->{$term} )
+#     {
+#       return $self->_get_index_hash->{$term};
+#     }
+
+#   else
+#     {
+#       # $logger->error("CAN'T GET INDEX TERM");
+#       return 0;
+#     }
+# }
 
 ######################################################################
 
@@ -387,25 +441,6 @@ sub get_note {
 
 ######################################################################
 
-sub get_index_term {
-
-  my $self  = shift;
-  my $term  = shift;
-
-  if ( exists $self->_get_index_hash->{$term} )
-    {
-      return $self->_get_index_hash->{$term};
-    }
-
-  else
-    {
-      # $logger->error("CAN'T GET INDEX TERM");
-      return 0;
-    }
-}
-
-######################################################################
-
 sub replace_division_id {
 
   # THIS IS A HACK.  I should change the syntax of the division start
@@ -452,12 +487,12 @@ has 'note_hash' =>
 
 ######################################################################
 
-has 'index_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_index_hash',
-   default   => sub {{}},
-  );
+# has 'index_hash' =>
+#   (
+#    isa       => 'HashRef',
+#    reader    => '_get_index_hash',
+#    default   => sub {{}},
+#   );
 
 # Index term data structure.  This is a hash of all index terms.  The
 # hash keys are the indexed terms.  The hash values are anonymous
@@ -569,6 +604,13 @@ sub _build_references {
 
 ######################################################################
 
+sub _build_index {
+  my $self = shift;
+  return SML::Index->new;
+}
+
+######################################################################
+
 sub _build_html_glossary_filename {
 
   my $self  = shift;
@@ -599,233 +641,233 @@ sub _build_html_sources_filename {
 
 ######################################################################
 
-sub _render_html_navigation_pane {
+# sub _render_html_navigation_pane {
 
-  my $self = shift;
-  my $html = q{};
+#   my $self = shift;
+#   my $html = q{};
 
-  return $html;
-}
-
-######################################################################
-
-sub _render_html_title_page {
-
-  my $self = shift;
-  my $html = q{};
-
-  return $html;
-}
+#   return $html;
+# }
 
 ######################################################################
 
-sub _render_html_table_of_contents {
+# sub _render_html_title_page {
 
-  my $self = shift;
-  my $html = q{};
+#   my $self = shift;
+#   my $html = q{};
 
-  return $html;
-}
-
-######################################################################
-
-sub _render_html_list_of_revisions {
-
-  my $self = shift;
-  my $html = q{};
-
-  return $html;
-}
+#   return $html;
+# }
 
 ######################################################################
 
-sub _render_html_list_of_recent_updates {
+# sub _render_html_table_of_contents {
 
-  my $self = shift;
-  my $html = q{};
+#   my $self = shift;
+#   my $html = q{};
 
-  return $html;
-}
-
-######################################################################
-
-sub _render_html_list_of_slides {
-
-  my $self = shift;
-  my $html = q{};
-
-  return $html;
-}
+#   return $html;
+# }
 
 ######################################################################
 
-sub _render_html_list_of_sidebars {
+# sub _render_html_list_of_revisions {
 
-  my $self = shift;
-  my $html = q{};
+#   my $self = shift;
+#   my $html = q{};
 
-  return $html;
-}
-
-######################################################################
-
-sub _render_html_list_of_quotations {
-
-  my $self = shift;
-  my $html = q{};
-
-  return $html;
-}
+#   return $html;
+# }
 
 ######################################################################
 
-sub _render_html_list_of_demonstrations {
+# sub _render_html_list_of_recent_updates {
 
-  my $self = shift;
-  my $html = q{};
+#   my $self = shift;
+#   my $html = q{};
 
-  return $html;
-}
-
-######################################################################
-
-sub _render_html_list_of_exercises {
-
-  my $self = shift;
-  my $html = q{};
-
-  return $html;
-}
+#   return $html;
+# }
 
 ######################################################################
 
-sub _render_html_list_of_listings {
+# sub _render_html_list_of_slides {
 
-  my $self = shift;
-  my $html = q{};
+#   my $self = shift;
+#   my $html = q{};
 
-  return $html;
-}
-
-######################################################################
-
-sub _render_html_list_of_to_do_items {
-
-  my $self = shift;
-  my $html = q{};
-
-  return $html;
-}
+#   return $html;
+# }
 
 ######################################################################
 
-sub _render_html_list_of_tables {
+# sub _render_html_list_of_sidebars {
 
-  my $self = shift;
-  my $html = q{};
+#   my $self = shift;
+#   my $html = q{};
 
-  return $html;
-}
-
-######################################################################
-
-sub _render_html_list_of_figures {
-
-  my $self = shift;
-  my $html = q{};
-
-  return $html;
-}
+#   return $html;
+# }
 
 ######################################################################
 
-sub _render_html_list_of_attachments {
+# sub _render_html_list_of_quotations {
 
-  my $self = shift;
-  my $html = q{};
+#   my $self = shift;
+#   my $html = q{};
 
-  return $html;
-}
-
-######################################################################
-
-sub _render_html_list_of_footnotes {
-
-  my $self = shift;
-  my $html = q{};
-
-  return $html;
-}
+#   return $html;
+# }
 
 ######################################################################
 
-sub _render_html_glossary {
+# sub _render_html_list_of_demonstrations {
 
-  my $self = shift;
-  my $html = q{};
+#   my $self = shift;
+#   my $html = q{};
 
-  return $html;
-}
-
-######################################################################
-
-sub _render_html_list_of_acronyms {
-
-  my $self = shift;
-  my $html = q{};
-
-  return $html;
-}
+#   return $html;
+# }
 
 ######################################################################
 
-sub _render_html_changelog {
+# sub _render_html_list_of_exercises {
 
-  my $self = shift;
-  my $html = q{};
+#   my $self = shift;
+#   my $html = q{};
 
-  return $html;
-}
-
-######################################################################
-
-sub _render_html_list_of_references {
-
-  my $self = shift;
-  my $html = q{};
-
-  return $html;
-}
+#   return $html;
+# }
 
 ######################################################################
 
-sub _render_html_index {
+# sub _render_html_list_of_listings {
 
-  my $self = shift;
-  my $html = q{};
+#   my $self = shift;
+#   my $html = q{};
 
-  return $html;
-}
-
-######################################################################
-
-sub _render_html_document_section {
-
-  my $self = shift;
-  my $html = q{};
-
-  return $html;
-}
+#   return $html;
+# }
 
 ######################################################################
 
-sub _render_html_copyright_page {
+# sub _render_html_list_of_to_do_items {
 
-  my $self = shift;
-  my $html = q{};
+#   my $self = shift;
+#   my $html = q{};
 
-  return $html;
-}
+#   return $html;
+# }
+
+######################################################################
+
+# sub _render_html_list_of_tables {
+
+#   my $self = shift;
+#   my $html = q{};
+
+#   return $html;
+# }
+
+######################################################################
+
+# sub _render_html_list_of_figures {
+
+#   my $self = shift;
+#   my $html = q{};
+
+#   return $html;
+# }
+
+######################################################################
+
+# sub _render_html_list_of_attachments {
+
+#   my $self = shift;
+#   my $html = q{};
+
+#   return $html;
+# }
+
+######################################################################
+
+# sub _render_html_list_of_footnotes {
+
+#   my $self = shift;
+#   my $html = q{};
+
+#   return $html;
+# }
+
+######################################################################
+
+# sub _render_html_glossary {
+
+#   my $self = shift;
+#   my $html = q{};
+
+#   return $html;
+# }
+
+######################################################################
+
+# sub _render_html_list_of_acronyms {
+
+#   my $self = shift;
+#   my $html = q{};
+
+#   return $html;
+# }
+
+######################################################################
+
+# sub _render_html_changelog {
+
+#   my $self = shift;
+#   my $html = q{};
+
+#   return $html;
+# }
+
+######################################################################
+
+# sub _render_html_list_of_references {
+
+#   my $self = shift;
+#   my $html = q{};
+
+#   return $html;
+# }
+
+######################################################################
+
+# sub _render_html_index {
+
+#   my $self = shift;
+#   my $html = q{};
+
+#   return $html;
+# }
+
+######################################################################
+
+# sub _render_html_document_section {
+
+#   my $self = shift;
+#   my $html = q{};
+
+#   return $html;
+# }
+
+######################################################################
+
+# sub _render_html_copyright_page {
+
+#   my $self = shift;
+#   my $html = q{};
+
+#   return $html;
+# }
 
 ######################################################################
 

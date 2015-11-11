@@ -6536,6 +6536,8 @@ this requirement identified?''
 
 *.using-emacs Using Emacs to Edit SML Files
 
+index:: Emacs
+
 SML is based on Emacs' outline mode.  I find that editing SML files in
 Emacs is very quick and easy.  Emacs is a free, open source editor
 available for windows from:

@@ -1,6 +1,6 @@
 <table border="0" width="100%" id="[%-source.get_id-%]">
 <tr>
-<td colspan="2" bgcolor="#eeeeee id="[%- source.get_id -%]"">[[%- source.get_id -%]]</td>
+<td colspan="2" bgcolor="#eeeeee" id="[%- source.get_id -%]"">[[%- source.get_id -%]]</td>
 </tr>
 
 [%- IF source.has_property('author') -%]

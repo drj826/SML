@@ -66,6 +66,7 @@ use SML::Element;                     # ci-000386
 use SML::Definition;                  # ci-000415
 use SML::Note;                        # ci-000???
 use SML::Outcome;                     # ci-000???
+use SML::IndexEntry;                  # ci-000???
 
 # division classes
 use SML::Division;                    # ci-000381
@@ -7142,21 +7143,92 @@ sub _process_end_index_element {
       $logger->error("SYNTAX ERROR IN INDEX ELEMENT AT $location");
     }
 
-
   my $division  = $self->_get_current_division;
   my $divid     = $division->get_id;
   my $value     = $element->get_value;
   my $term_list = [ split(/\s*;\s*/,$value) ];
 
-  foreach my $term (@{ $term_list })
+  foreach my $value (@{ $term_list })
     {
-      $library->add_index_term($term,$divid);
-
-      if ( $self->_has_current_document )
+      if ( $value =~ /$syntax->{index_entry}/ )
 	{
-	  my $document = $self->_get_current_document;
+	  my $term       = $1;
+	  my $subterm    = $3 || q{};
+	  my $subsubterm = $5 || q{};
 
-	  $document->add_index_term($term,$divid);
+	  if ( $self->_has_current_document )
+	    {
+	      my $document = $self->_get_current_document;
+	      my $index    = $document->get_index;
+
+	      if ( $index->has_entry($term) )
+		{
+		  my $entry = $index->get_entry($term);
+		  $entry->add_locator($divid);
+
+		  if ( $subterm )
+		    {
+		      my $subentry;
+
+		      if ( $entry->has_subentry($subterm) )
+			{
+			  $subentry = $entry->get_subentry($subterm);
+			  $subentry->add_locator($divid);
+			}
+
+		      else
+			{
+			  $subentry = SML::IndexEntry->new
+			    (
+			     term     => $subterm,
+			     document => $document,
+			    );
+			  $subentry->add_locator($divid);
+			  $entry->add_subentry($subentry);
+			}
+
+		      if ( $subsubterm )
+			{
+			  my $subsubentry;
+
+			  if ( $subentry->has_subentry($subterm) )
+			    {
+			      $subsubentry = $subentry->get_subentry($subsubterm);
+			      $subsubentry->add_locator($divid);
+			    }
+
+			  else
+			    {
+			      $subsubentry = SML::IndexEntry->new
+				(
+				 term     => $subsubterm,
+				 document => $document,
+				);
+			      $subsubentry->add_locator($divid);
+			      $subentry->add_subentry($subsubentry);
+			    }
+			}
+		    }
+		}
+
+	      else
+		{
+		  my $entry = SML::IndexEntry->new
+		    (
+		     term     => $term,
+		     document => $document,
+		    );
+		  $entry->add_locator($divid);
+		  $index->add_entry($entry);
+		}
+	    }
+	}
+
+      else
+	{
+	  my $location = $element->get_location;
+	  $logger->error("SYNTAX ERROR IN INDEX ELEMENT AT $location");
+	  next;
 	}
     }
 

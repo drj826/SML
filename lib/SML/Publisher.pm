@@ -317,6 +317,14 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
+      # index
+      if ( $document->get_index->has_entries )
+	{
+	  $logger->info("publishing $id.index.html");
+	  $tt->process("index_page.tt",$vars,"$id.index.html")
+	    || die $tt->error(), "\n";
+	}
+
       my $glossary = $document->get_glossary;
 
       if ( $glossary->has_entries )

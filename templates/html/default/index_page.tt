@@ -1,0 +1,72 @@
+[%- WRAPPER page.tt -%]
+
+[%- IF document.has_property('title') -%]
+<div class="title">
+[%- INCLUDE property.tt property = document.get_property('title') -%]
+</div>
+[% END %]
+
+[%- IF document.has_property('subtitle') -%]
+<div class="subtitle">
+[%- INCLUDE property.tt property = document.get_property('subtitle') -%]
+</div>
+[% END %]
+
+[%- INCLUDE preamble.tt -%]
+
+<h3 align="center">Index</h3>
+
+<table>
+
+[%- SET index = document.get_index -%]
+
+[%- FOREACH entry IN index.get_entry_list -%]
+<tr>
+<td>
+<div style="text-indent:0pt;">[%- entry.get_term -%]</div>
+</td>
+<td>
+<div style="text-indent:0pt;">
+  [%- FOREACH locator IN entry.get_locator_list -%]
+    [%- SET division = entry.get_location(locator) -%]
+    [%- SET id = division.get_id -%]
+    [%- SET name = division.get_name -%]
+    [%- SET ucfname = name.lower.ucfirst -%]
+    [%- SET number = division.get_number -%]
+    [%- SET docid = document.get_id -%]
+    [%- SET section = division.get_containing_section -%]
+    [%- SET secnum = section.get_number -%]
+    <a href="[%docid%].[%secnum%].html#[%name%].[%number%]">[%ucfname%]&nbsp;[%number%]</a>&nbsp;&nbsp;[%- INCLUDE property.tt property = division.get_property('title') -%]&nbsp;&nbsp;
+  [%- END -%]
+</div>
+</td>
+</tr>
+  [%- IF entry.has_subentries -%]
+    [%- FOREACH subentry IN entry.get_subentry_list -%]
+<tr>
+<td>
+<div style="text-indent:10pt;">[%- subentry.get_term -%]</div>
+</td>
+<td>
+<div style="text-indent:10pt;">
+  [%- FOREACH locator IN subentry.get_locator_list -%]
+    [%- SET division = subentry.get_location(locator) -%]
+    [%- SET id = division.get_id -%]
+    [%- SET name = division.get_name -%]
+    [%- SET ucfname = name.lower.ucfirst -%]
+    [%- SET number = division.get_number -%]
+    [%- SET docid = document.get_id -%]
+    [%- SET section = division.get_containing_section -%]
+    [%- SET secnum = section.get_number -%]
+    <a href="[%docid%].[%secnum%].html#[%name%].[%number%]">[%ucfname%]&nbsp;[%number%]</a>&nbsp;&nbsp;[%- INCLUDE property.tt property = division.get_property('title') -%]&nbsp;&nbsp;
+  [%- END -%]
+</div>
+</td>
+</tr>
+    [%- END -%]
+  [%- END -%]
+[%- END -%]
+
+</table>
+
+[%- END -%]

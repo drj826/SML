@@ -1032,7 +1032,7 @@ has index_element =>
 # $1 = element name  (always 'index')
 # $2
 # $3 = element arg   ('begin' or 'end')
-# $4 = element value (index term)
+# $4 = element value (index entry)
 
 ######################################################################
 
@@ -1174,7 +1174,7 @@ has step_element =>
 # $3 = element value (step description)
 
 #---------------------------------------------------------------------
-# DIVISIONS
+# DIVISION SYNTAX
 #---------------------------------------------------------------------
 
 has start_division =>
@@ -1298,6 +1298,21 @@ has svn_revision_field =>
   );
 
 # $1 = value (15146)
+
+######################################################################
+
+has index_entry =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(.*?)(!(.*))?(!(.*))?$',
+  );
+
+# $1 = entry
+# $2
+# $3 = sub entry
+# $4
+# $5 = sub sub entry
 
 #---------------------------------------------------------------------
 # VALIDATION REGULAR EXPRESSIONS
