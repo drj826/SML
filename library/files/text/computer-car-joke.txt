@@ -29,7 +29,7 @@ characteristics:
    on five per cent of the roads.
 
 7. The oil, water temperature and alternator warning lights would be
-   replaced by a single "general car default" warning light.
+   replaced by a single "general car fault" warning light.
 
 8. New seats would force everyone to have the same size butt.
 

@@ -2,13 +2,13 @@
 
 [%- IF document.has_property('title') -%]
 <div class="title">
-[%- INCLUDE property.tt property = document.get_property('title') -%]
+  [%- INCLUDE property.tt property = document.get_property('title') -%]
 </div>
 [% END %]
 
 [%- IF document.has_property('subtitle') -%]
 <div class="subtitle">
-[%- INCLUDE property.tt property = document.get_property('subtitle') -%]
+  [%- INCLUDE property.tt property = document.get_property('subtitle') -%]
 </div>
 [% END %]
 
@@ -36,7 +36,7 @@
     [%- SET docid = document.get_id -%]
     [%- SET section = division.get_containing_section -%]
     [%- SET secnum = section.get_number -%]
-    <a href="[%docid%].[%secnum%].html#[%name%].[%number%]">[%ucfname%]&nbsp;[%number%]</a>&nbsp;&nbsp;[%- INCLUDE property.tt property = division.get_property('title') -%]&nbsp;&nbsp;
+<a href="[%docid%].[%secnum%].html#[%name%].[%number%]">[%ucfname%]&nbsp;[%number%]</a>&nbsp;&nbsp;[%- INCLUDE property.tt property = division.get_property('title') -%]&nbsp;&nbsp;
   [%- END -%]
 </div>
 </td>
@@ -49,20 +49,44 @@
 </td>
 <td>
 <div style="text-indent:10pt;">
-  [%- FOREACH locator IN subentry.get_locator_list -%]
-    [%- SET division = subentry.get_location(locator) -%]
-    [%- SET id = division.get_id -%]
-    [%- SET name = division.get_name -%]
-    [%- SET ucfname = name.lower.ucfirst -%]
-    [%- SET number = division.get_number -%]
-    [%- SET docid = document.get_id -%]
-    [%- SET section = division.get_containing_section -%]
-    [%- SET secnum = section.get_number -%]
-    <a href="[%docid%].[%secnum%].html#[%name%].[%number%]">[%ucfname%]&nbsp;[%number%]</a>&nbsp;&nbsp;[%- INCLUDE property.tt property = division.get_property('title') -%]&nbsp;&nbsp;
-  [%- END -%]
+      [%- FOREACH locator IN subentry.get_locator_list -%]
+        [%- SET division = subentry.get_location(locator) -%]
+        [%- SET id = division.get_id -%]
+        [%- SET name = division.get_name -%]
+        [%- SET ucfname = name.lower.ucfirst -%]
+        [%- SET number = division.get_number -%]
+        [%- SET docid = document.get_id -%]
+        [%- SET section = division.get_containing_section -%]
+        [%- SET secnum = section.get_number -%]
+<a href="[%docid%].[%secnum%].html#[%name%].[%number%]">[%ucfname%]&nbsp;[%number%]</a>&nbsp;&nbsp;[%- INCLUDE property.tt property = division.get_property('title') -%]&nbsp;&nbsp;
+      [%- END -%]
 </div>
 </td>
 </tr>
+      [%- IF subentry.has_subentries -%]
+        [%- FOREACH subsubentry IN subentry.get_subentry_list -%]
+<tr>
+<td>
+<div style="text-indent:20pt;">[%- subsubentry.get_term -%]</div>
+</td>
+<td>
+<div style="text-indent:20pt;">
+          [%- FOREACH locator IN subsubentry.get_locator_list -%]
+            [%- SET division = subsubentry.get_location(locator) -%]
+            [%- SET id = division.get_id -%]
+            [%- SET name = division.get_name -%]
+            [%- SET ucfname = name.lower.ucfirst -%]
+            [%- SET number = division.get_number -%]
+            [%- SET docid = document.get_id -%]
+            [%- SET section = division.get_containing_section -%]
+            [%- SET secnum = section.get_number -%]
+<a href="[%docid%].[%secnum%].html#[%name%].[%number%]">[%ucfname%]&nbsp;[%number%]</a>&nbsp;&nbsp;[%- INCLUDE property.tt property = division.get_property('title') -%]&nbsp;&nbsp;
+          [%- END -%]
+</div>
+</td>
+</tr>
+        [%- END -%]
+      [%- END -%]
     [%- END -%]
   [%- END -%]
 [%- END -%]

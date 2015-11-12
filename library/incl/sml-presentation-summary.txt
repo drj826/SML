@@ -36,8 +36,9 @@ index:: line break
 ||computer_modern||, ||times||, ||bookman||, ||chancery||,
 ||charter||, ||new_century|| or ||palatino|| (default is ||charter||).
 
-index:: font family; Computer Modern; Times; Bookman; Chancery;
-Charter; New Century; Palatino
+index:: font family!Computer Modern; font family!Times; font
+family!Bookman; font family!Chancery; font family!Charter; font
+family!New Century; font family!Palatino
 
 : 
 
@@ -97,7 +98,7 @@ size!large
 
 : !!Cell Color.!! Set the background color of a table cell.
 
-index:: cell color; table cell!color
+index:: table!cell!color
 
 : 
 
@@ -108,7 +109,7 @@ index:: cell color; table cell!color
 : !!Cell Justification.!! Justify the text within a table cell: left,
 right or center.
 
-index:: cell justification; table cell!justification
+index:: table!cell!justification
 
 : 
 

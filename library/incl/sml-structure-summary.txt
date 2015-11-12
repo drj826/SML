@@ -101,34 +101,12 @@ index:: images
 
 ---
 
-: !!Baretables.!! ([ref:tables]) Any line that begins with a colon (:)
-is a table cell and any line that begins with a double colon (::) is
-an emphasized table cell.  A ~~baretable~~ (one without a caption or
-label) starts with table cell that is ~~not~~ inside a TABLE
-division. Rows are separated by three or more dashes (`||---||').
-
-index:: baretables
-
-:
-
-  :: row 1 column 1 (emphasized)
-  :: row 1 column 2 (emphasized)
-  ---
-  : row 2 column 1
-  : row 2 column 2
-  ---
-  : row 3 column 1
-  : row 3 column 2
-  ---
-
----
-
 : !!Tables.!! ([ref:tables]) A normal ~~table~~ (i.e. not a
-~~baretable~~) starts with a line that begins with three or more
-greater than signs and the word `TABLE' (`||>>>TABLE||'). Tables can
-have titles (captions). Tables ~~cannot~~ be nested. A list of tables
-is automatically generated for the front matter of the document. Rows
-are separated by three or more dashes (`||---||').
+~~baretable~~) Begins with `||>>>TABLE||' and ends with
+`||<<<TABLE||'. Tables ~~cannot~~ be nested. Tables can have titles
+(captions). A list of tables is automatically generated for the front
+matter of the document. Rows are separated by three or more dashes
+(`||---||').
 
 index:: tables
 
@@ -148,6 +126,29 @@ index:: tables
   : row 3 column 2
 
   <<<TABLE
+
+---
+
+: !!Baretables.!! ([ref:tables]) Any line that begins with a colon (:)
+is a table cell and any line that begins with a double colon (::) is
+an emphasized table cell.  A ~~baretable~~ is a table without a
+caption or label.  It starts with table cell that is ~~not~~ inside a
+TABLE division. Rows are separated by three or more dashes
+(`||---||').
+
+index:: baretables
+
+:
+
+  :: row 1 column 1 (emphasized)
+  :: row 1 column 2 (emphasized)
+  ---
+  : row 2 column 1
+  : row 2 column 2
+  ---
+  : row 3 column 1
+  : row 3 column 2
+  ---
 
 ---
 
