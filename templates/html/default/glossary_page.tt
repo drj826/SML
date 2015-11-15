@@ -18,25 +18,39 @@
 
 [%- INCLUDE preamble.tt -%]
 
-<h3 align="center">Glossary</h3>
-<table>
-
 [%- SET glossary = document.get_glossary -%]
-[%- FOREACH entry IN glossary.get_entry_list -%]
+
+<h3 align="center">Glossary</h3>
+
+<table width="100%">
+
+[%- FOREACH group IN glossary.get_group_list -%]
+
+<tr><td colspan="2"><h1>[%group%]</h1></td></tr>
+
+[%- SET bgcolor = '#eeeeee' -%]
+[%- FOREACH entry IN glossary.get_group_entry_list(group) -%]
   [%- SET term = entry.get_term -%]
   [%- SET definition = entry.get_definition -%]
   [%- SET alt = entry.get_alt -%]
   [%- SET value = entry.get_value -%]
   [%- SET bookmark = entry.get_bookmark -%]
+  [%- IF bgcolor == '#eeeeee' -%]
+    [%- SET bgcolor = '#ffffff' -%]
+  [%- ELSE -%]
+    [%- SET bgcolor = '#eeeeee' -%]
+  [%- END -%]
 
 <tr>
-<td id="[%bookmark%]">
+<td id="[%bookmark%]" bgcolor="[%bgcolor%]" width="20%">
 [%- INCLUDE STRING.tt self = entry.get_term_string -%]
 </td>
-<td>
+<td bgcolor="[%bgcolor%]">
 [%- INCLUDE STRING.tt self = entry.get_definition_string -%]
 </td>
 </tr>
+
+[%- END -%]
 
 [%- END -%]
 

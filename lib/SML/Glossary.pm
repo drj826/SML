@@ -35,25 +35,37 @@ sub add_entry {
   my $self       = shift;
   my $definition = shift;
 
-  if ( $definition->isa('SML::Definition') )
-    {
-      my $eh        = $self->_get_entry_hash;
-      my $term      = $definition->get_term;
-      my $namespace = $definition->get_namespace || q{};
-
-      $logger->debug("add glossary entry: \'$term\' ($namespace)");
-
-      $eh->{$term}{$namespace} = $definition;
-
-      return 1;
-    }
-
-  else
+  unless
+    (
+     ref $definition
+     and
+     $definition->isa('SML::Definition')
+    )
     {
       $logger->error("CAN'T ADD GLOSSARY ENTRY: \'$definition\' is not a definition");
 
       return 0;
     }
+
+  my $hash      = $self->_get_entry_hash;
+  my $term      = $definition->get_term;
+  my $namespace = $definition->get_namespace || q{};
+
+  $hash->{$term}{$namespace} = $definition;
+
+  # Add this entry to the entry group hash.
+  my $group      = lc(substr($term,0,1));
+  my $group_hash = $self->_get_entry_group_hash;
+
+  if ( not exists $group_hash->{$group} )
+    {
+      $group_hash->{$group} = [];
+    }
+
+  push(@{$group_hash->{$group}},$term);
+
+  return 1;
+
 }
 
 ######################################################################
@@ -104,6 +116,7 @@ sub get_entry {
 sub get_entry_list {
 
   my $self = shift;
+
   my $list = [];
   my $eh   = $self->_get_entry_hash;
 
@@ -136,6 +149,49 @@ sub has_entries {
 }
 
 ######################################################################
+
+sub get_group_list {
+
+  my $self = shift;
+
+  return [ sort keys %{ $self->_get_entry_group_hash } ];
+}
+
+######################################################################
+
+sub get_group_entry_list {
+
+  # Return a list of entries belonging to a specified group.
+
+  my $self  = shift;
+  my $group = shift;
+
+  my $group_hash = $self->_get_entry_group_hash;
+
+  if ( not exists $group_hash->{$group} )
+    {
+      $logger->error("NO GLOSSARY GROUP \'$group\'");
+      return 0;
+    }
+
+  my $entry_hash = $self->_get_entry_hash;
+
+  my $list = [];
+
+  foreach my $term (sort @{ $group_hash->{$group} })
+    {
+      foreach my $namespace ( sort keys %{ $entry_hash->{$term} } )
+	{
+	  my $entry = $self->get_entry($term,$namespace);
+
+	  push(@{$list},$entry);
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes
@@ -151,6 +207,16 @@ has 'entry_hash' =>
   );
 
 #   $eh->{$term}{$namespace} = $definition;
+
+######################################################################
+
+has entry_group_hash =>
+  (
+   is      => 'ro',
+   isa     => 'HashRef',
+   reader  => '_get_entry_group_hash',
+   default => sub {{}},
+  );
 
 ######################################################################
 ######################################################################

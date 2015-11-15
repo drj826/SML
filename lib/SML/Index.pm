@@ -56,6 +56,17 @@ sub add_entry {
 
   $hash->{$term} = $entry;
 
+  # Add this entry to the entry group hash.
+  my $group      = lc(substr($term,0,1));
+  my $group_hash = $self->_get_entry_group_hash;
+
+  if ( not exists $group_hash->{$group} )
+    {
+      $group_hash->{$group} = [];
+    }
+
+  push(@{$group_hash->{$group}},$term);
+
   return 1;
 }
 
@@ -139,6 +150,44 @@ sub has_entries {
 }
 
 ######################################################################
+
+sub get_group_list {
+
+  my $self = shift;
+
+  return [ sort keys %{ $self->_get_entry_group_hash } ];
+}
+
+######################################################################
+
+sub get_group_entry_list {
+
+  # Return a list of entries belonging to a specified group.
+
+  my $self  = shift;
+  my $group = shift;
+
+  my $hash = $self->_get_entry_group_hash;
+
+  if ( not exists $hash->{$group} )
+    {
+      $logger->error("NO INDEX GROUP \'$group\'");
+      return 0;
+    }
+
+  my $list = [];
+
+  foreach my $term (sort @{ $hash->{$group} })
+    {
+      my $entry = $self->get_entry($term);
+
+      push(@{$list},$entry);
+    }
+
+  return $list;
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes
@@ -146,14 +195,25 @@ sub has_entries {
 ######################################################################
 ######################################################################
 
-has 'entry_hash' =>
+has entry_hash =>
   (
+   is      => 'ro',
    isa     => 'HashRef',
    reader  => '_get_entry_hash',
    default => sub {{}},
   );
 
 #   $hash->{$term} = $entry;
+
+######################################################################
+
+has entry_group_hash =>
+  (
+   is      => 'ro',
+   isa     => 'HashRef',
+   reader  => '_get_entry_group_hash',
+   default => sub {{}},
+  );
 
 ######################################################################
 ######################################################################

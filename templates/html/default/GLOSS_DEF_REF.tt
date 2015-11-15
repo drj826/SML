@@ -1,0 +1,7 @@
+[%- SET document = self.get_containing_document -%]
+[%- SET glossary = document.get_glossary -%]
+[%- SET term = self.get_term -%]
+[%- SET namespace = self.get_namespace -%]
+[%- SET entry = glossary.get_entry(term,namespace) -%]
+[%- SET definition = entry.get_definition -%]
+[%- INCLUDE part_list.tt self = definition -%]

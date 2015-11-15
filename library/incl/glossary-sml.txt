@@ -212,12 +212,12 @@ used to define markup languages
 
 ###
 
-glossary:: element {sml} = (SML) A special type of [g:sml:block]
-containing a name/value pair expressing a piece of structured
-information or instructing the publishing application to take some
-action.  Elements are usually defined within [g:sml:preamble]
-[g:sml:division]s although [g:sml:narrative element]s are only allowed
-in [g:sml:narrative] content.  See also [g:sml:property]
+glossary:: element {sml} = (SML) A [g:sml:block] containing a
+name/value pair expressing a piece of structured information or
+instructing the publishing application to take some action.  Elements
+are usually defined within [g:sml:preamble] [g:sml:division]s although
+[g:sml:narrative element]s are only allowed in [g:sml:narrative]
+content.  See also [g:sml:property]
 
 glossary:: entity {sml} = (SML) A [g:sml:region] that represents
 content with semantic meaning.  Entities are often related to other
@@ -654,6 +654,10 @@ glossary:: structure {sml} = (SML) The way content is organized.  A
 type of markup feature used to ~~organize~~ [g:sml:document]
 content. For example: sentences, paragraphs, [g:sml:section]
 hierarchies, [g:sml:table]s, [g:sml:figure]s, [g:sml:listing]s
+
+glossary:: syntax {sml} = (SML) The set of rules that defines the
+combinations of symbols that are considered to be a correctly
+structured document or fragment of a formal language
 
 glossary:: system component {sml} = (SML) Any discrete item that is
 part of a system or subsystem

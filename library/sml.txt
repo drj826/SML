@@ -70,7 +70,8 @@ professionally typeset hardcopy.  In addition to hardcopy (via
 [g:PDF]), SML files can also be rendered as [g:HTML], [g:XML],
 [g:RTF], and [g:CSV].[f:getting-started:1]
 
-index:: PDF; HTML; XML; RTF; CSV
+index:: published rendition!PDF; published rendition!HTML; published
+rendition!XML; published rendition!RTF; published rendition!CSV
 
 The ||publish|| program renders SML text files into published
 documents.  I used it to publish ~~this~~ document.  This book's SML
@@ -1607,25 +1608,52 @@ simple text.  Paragraphs are separated by blank lines.  That is all
 you really need to know to get started.
 
 Want to add a title to your document?  Want to identify the author of
-the document?  These are simple ``data elements.''
+the document?  These are simple ``elements.''
+
+SML is a formal descriptive markup language.  That means it has
+[g:sml:syntax] and semantics.  The syntax is fixed.
+
+SML semantics are ~~extensible~~.  This means you can customize the
+language to describe the things you care about.  More importantly, you
+can describe how the things you care about are allowed to interrelate.
+You customize SML semantics by writing [g:sml:ontology] rules
+([ref:ontology-rules]).
+
+A [g:sml:library] of documents share common semantics.  That means all
+documentation in a library shares a common [g:sml:ontology].
 
 #---------------------------------------------------------------------
 
-**.data-elements Data Elements
+**.data-models Physical and Logical Data Models
 
-index:: Data Elements
+A physical data model describes the syntactic parts of a document.
+The syntactic parts of an SML document are:
 
-Data elements enable you to insert easy-to-read data fields into your
-narrative text.  For example, here are two data elements:
+= [g:sml:division] = [def:sml:division]
+
+= [g:sml:block] = [def:sml:block]
+
+= [g:sml:string] = [def:sml:string]
+
+= [g:sml:line] = [def:sml:line]
+
+#---------------------------------------------------------------------
+
+**.data-elements Elements
+
+index:: Elements
+
+An [g:sml:element] is a block of text that enables you to insert data
+fields into your narrative text.  For example:
 
   title:: A Sample Document
 
   author:: Bilbo Baggins
 
-A data element starts with the element's name ending with a colon
-(i.e. `title:', or `author:').  The value of the data element is
-everything that follows, up to the next data element or a blank line.
-Since a blank line ends a data element, they can't be any more
+An element starts with the element's name and double colon and the
+beginning of a line (i.e. `title::', or `author::').  The value of the
+element is everything that follows, up to the next element or a blank
+line.  Since a blank line ends an element, elements can't be any more
 complicated than a paragraph.
 
 Data elements are used to:
