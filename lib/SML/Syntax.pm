@@ -749,10 +749,10 @@ has paragraph_text =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(:+\s*)?([^\s#].*)',
+   default => '^(:{1,2}\S*:?\s*)?([^\s#].*)',
   );
 
-# $1 = leading colon(s) (begin table cell)
+# $1 = table cell markup (begin table cell)
 # $2 = paragraph text
 
 # A paragraph can be just about any block of text.  The two main
@@ -1219,7 +1219,7 @@ has table_cell =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^:(:)?(\w+:)?\s*(.*)?',
+   default => '^:(:)?(\S+:)?\s*(.*)?$',
   );
 
 # $1 = emphasis indicator
@@ -1341,6 +1341,33 @@ has valid_status =>
    is      => 'ro',
    isa     => 'Str',
    default => '^(green|yellow|red|grey)$',
+  );
+
+######################################################################
+
+has valid_background_color =>
+  (
+   is => 'ro',
+   isa => 'Str',
+   default => '(litegrey|grey|darkgrey|blue|green|yellow|red|orange)',
+  );
+
+######################################################################
+
+has valid_horizontal_justification =>
+  (
+   is => 'ro',
+   isa => 'Str',
+   default => '(left|center|right)',
+  );
+
+######################################################################
+
+has valid_fontsize =>
+  (
+   is => 'ro',
+   isa => 'Str',
+   default => '(tiny|scriptsize|footnotesize|small|normalsize|large|Large|LARGE|huge|Huge)',
   );
 
 ######################################################################

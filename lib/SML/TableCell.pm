@@ -33,14 +33,44 @@ has '+name' =>
 
 has emphasis =>
   (
-   is      => 'ro',
-   isa     => 'Str',
-   reader  => 'get_emphasis',
-   default => q{},
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_emphasis',
+   predicate => 'has_emphasis',
   );
 
 # If present, this 'emphasis' indicator means the author wants to
 # emphasize the content of this table cell.
+
+######################################################################
+
+has justification =>
+  (
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_justification',
+   predicate => 'has_justification',
+  );
+
+######################################################################
+
+has background_color =>
+  (
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_background_color',
+   predicate => 'has_background_color',
+  );
+
+######################################################################
+
+has fontsize =>
+  (
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_fontsize',
+   predicate => 'has_fontsize',
+  );
 
 ######################################################################
 ######################################################################

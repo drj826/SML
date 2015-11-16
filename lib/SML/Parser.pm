@@ -7852,10 +7852,10 @@ sub _process_end_def_list_item {
 
 sub _process_start_table_cell {
 
-  my $self = shift;
-  my $line = shift;
-  my $emph = shift || q{};              # emphasis indicator
-  my $args = shift;                     # arguments
+  my $self       = shift;
+  my $line       = shift;
+  my $emphasis   = shift;
+  my $attributes = shift || q{};
 
   my $library = $self->get_library;
   my $syntax  = $library->get_syntax;
@@ -7866,6 +7866,25 @@ sub _process_start_table_cell {
   $self->_end_all_lists       if $self->_in_bullet_list;
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
+
+  my $color;
+  my $justification;
+  my $fontsize;
+
+  if ( $attributes =~ /$syntax->{valid_background_color}/ )
+    {
+      $color = $1;
+    }
+
+  if ( $attributes =~ /$syntax->{valid_horizontal_justification} / )
+    {
+      $justification = $1;
+    }
+
+  if ( $attributes =~ /$syntax->{valid_fontsize}/ )
+    {
+      $fontsize = $1;
+    }
 
   if ( not $self->_in_table and not $self->_in_baretable )
     {
@@ -7896,13 +7915,16 @@ sub _process_start_table_cell {
       # new BARE_TABLE_CELL
       my $cnum = $self->_count_table_cells + 1;
       my $cid  = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
+      my $args = {};
 
-      my $tablecell = SML::TableCell->new
-	(
-	 id       => $cid,
-	 emphasis => $emph,
-	 library  => $library,
-	);
+      $args->{id}       = $cid;
+      $args->{library}  = $library;
+      $args->{emphasis} = $emphasis              if $emphasis;
+      $args->{background_color} = $color         if $color;
+      $args->{justification}    = $justification if $justification;
+      $args->{fontsize}         = $fontsize      if $fontsize;
+
+      my $tablecell = SML::TableCell->new(%{$args});
 
       $self->_begin_division($tablecell);
 
@@ -7938,13 +7960,16 @@ sub _process_start_table_cell {
       # new BARE_TABLE_CELL
       my $cnum = $self->_count_table_cells + 1;
       my $cid  = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
+      my $args = {};
 
-      my $tablecell = SML::TableCell->new
-	(
-	 id       => $cid,
-	 emphasis => $emph,
-	 library  => $library,
-	);
+      $args->{id}       = $cid;
+      $args->{library}  = $library;
+      $args->{emphasis} = $emphasis if $emphasis;
+      $args->{background_color} = $color         if $color;
+      $args->{justification}    = $justification if $justification;
+      $args->{fontsize}         = $fontsize      if $fontsize;
+
+      my $tablecell = SML::TableCell->new(%{$args});
 
       $self->_begin_division($tablecell);
 
@@ -7980,13 +8005,16 @@ sub _process_start_table_cell {
       # new TABLE_CELL
       my $cnum = $self->_count_table_cells + 1;
       my $cid  = "TABLE_CELL-$tnum-$rnum-$cnum";
+      my $args = {};
 
-      my $tablecell = SML::TableCell->new
-	(
-	 id       => $cid,
-	 emphasis => $emph,
-	 library  => $library,
-	);
+      $args->{id}       = $cid;
+      $args->{library}  = $library;
+      $args->{emphasis} = $emphasis if $emphasis;
+      $args->{background_color} = $color         if $color;
+      $args->{justification}    = $justification if $justification;
+      $args->{fontsize}         = $fontsize      if $fontsize;
+
+      my $tablecell = SML::TableCell->new(%{$args});
 
       $self->_begin_division($tablecell);
 
@@ -8014,13 +8042,16 @@ sub _process_start_table_cell {
       my $rnum = $self->_count_table_rows;
       my $cnum = $self->_count_table_cells + 1;
       my $cid  = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
+      my $args = {};
 
-      my $tablecell = SML::TableCell->new
-	(
-	 id       => $cid,
-	 emphasis => $emph,
-	 library  => $library,
-	);
+      $args->{id}       = $cid;
+      $args->{library}  = $library;
+      $args->{emphasis} = $emphasis if $emphasis;
+      $args->{background_color} = $color         if $color;
+      $args->{justification}    = $justification if $justification;
+      $args->{fontsize}         = $fontsize      if $fontsize;
+
+      my $tablecell = SML::TableCell->new(%{$args});
 
       $self->_begin_division($tablecell);
 
@@ -8048,13 +8079,16 @@ sub _process_start_table_cell {
       my $rnum = $self->_count_table_rows;
       my $cnum = $self->_count_table_cells + 1;
       my $cid  = "TABLE_CELL-$tnum-$rnum-$cnum";
+      my $args = {};
 
-      my $tablecell = SML::TableCell->new
-	(
-	 id       => $cid,
-	 emphasis => $emph,
-	 library  => $library,
-	);
+      $args->{id}       = $cid;
+      $args->{library}  = $library;
+      $args->{emphasis} = $emphasis if $emphasis;
+      $args->{background_color} = $color         if $color;
+      $args->{justification}    = $justification if $justification;
+      $args->{fontsize}         = $fontsize      if $fontsize;
+
+      my $tablecell = SML::TableCell->new(%{$args});
 
       $self->_begin_division($tablecell);
 

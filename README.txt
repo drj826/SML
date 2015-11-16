@@ -4,6 +4,8 @@ Semantic Manuscript Language (SML) is a plain text language that:
 
 - minimizes markup
 
+- enables you to build a library of related documents
+
 - enables you to automatically publish documentation using a
   `continuous integration' approach to documentation
 
@@ -24,8 +26,6 @@ Semantic Manuscript Language (SML) is a plain text language that:
 - enables you to capture and validate the meaning (i.e. the semantics)
   of document content pre-defined by you in an ontology
 
-- represents related documents in libraries
-
 The Perl code here enables you to:
 
 - parse SML text into an object model (Parser.pm)
@@ -38,12 +38,13 @@ The Perl code here enables you to:
   (Publisher.pm)
 
 I created SML because I wanted to create and maintain documentation
-the same way I create and maintain code.  Furthermore, I wanted the
-ability to pre-define and validate the semantics of my documents.
+the same way I create and maintain code.  I wanted a `compiler' to
+mercilessly throw syntax errors found in my documents or when my
+document says something that doesn't make any sense.
 
-For instance, I wanted the publisher to warn me that a `test' is
-invalid if it is associated with a valid `requirement' and a valid
-`solution.'
+For instance, I wanted the document `compiler' to throw an error if a
+`test' is not associated with a `requirement' and a `solution.'  Or,
+throw an error when I try to make a `bicycle' part of a `person.'
 
 I've been using early prototypes for years to manage thousands of
 pages of documentation.  But I've never gotten around to sharing the

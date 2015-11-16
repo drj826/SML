@@ -22,7 +22,7 @@
 
 <h3 align="center">Glossary</h3>
 
-<table width="100%">
+<table style="width:100%">
 
 [%- FOREACH group IN glossary.get_group_list -%]
 
@@ -42,10 +42,10 @@
   [%- END -%]
 
 <tr>
-<td id="[%bookmark%]" bgcolor="[%bgcolor%]" width="20%">
+<td style="width:20%;background-color:[%bgcolor%];" id="[%bookmark%]">
 [%- INCLUDE STRING.tt self = entry.get_term_string -%]
 </td>
-<td bgcolor="[%bgcolor%]">
+<td style="background-color:[%bgcolor%]">
 [%- INCLUDE STRING.tt self = entry.get_definition_string -%]
 </td>
 </tr>
