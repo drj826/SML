@@ -17,24 +17,23 @@
 <h3 align="center">List of Tables</h3>
 
 [%- FOREACH section IN document.get_section_list -%]
-  [%- IF section.has_tables -%]
-    [%- SET page = document.get_id _ '.' _ section.get_number _ '.html' -%]
+
+  [%- IF section.get_depth == 1 -%]
 <h5>
-[%section.get_number%] &nbsp;&nbsp;
-<a href="[%page%]">
-[%- INCLUDE property.tt property = section.get_property('title') -%]
-</a>
+Chapter [%section.get_number%] &nbsp;&nbsp;
+<a href="[%page%]">[%- INCLUDE property.tt property = section.get_property('title') -%]</a>
 </h5>
 
+  [%- END -%]
+
+  [%- IF section.has_tables -%]
+    [%- SET page = document.get_id _ '.' _ section.get_number _ '.html' -%]
     [%- FOREACH table IN section.get_table_list -%]
       [%- SET bookmark = 'TABLE.' _ table.get_number -%]
-<div style="text-indent: 60pt; font-size: 8pt;">
-<a href="[%page%]#[%bookmark%]">
-[%table.get_number%] - [%- INCLUDE property.tt property = table.get_property('title') -%]
-</a>
+<div style="text-indent:60pt;font-size:8pt;">
+Table [%table.get_number%] - <a href="[%page%]#[%bookmark%]">[%- INCLUDE property.tt property = table.get_property('title') -%]</a>
 </div>
     [%- END -%]
-
   [%- END -%]
 [%- END -%]
 

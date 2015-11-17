@@ -1,24 +1,20 @@
 [%- WRAPPER page.tt -%]
 
-<div class="title">
+[%- SET glossary = document.get_glossary -%]
+
 [%- IF document.has_property('title') -%]
-[%- SET property = document.get_property('title') -%]
-[%- FOREACH self IN property.get_element_list -%]
-[%- INCLUDE part_list.tt -%]
-[%- END -%]
-[%- END -%]
+<div class="title">
+[%- INCLUDE property.tt property = document.get_property('title') -%]
 </div>
+[% END %]
 
 [%- IF document.has_property('subtitle') -%]
-[%- SET property = document.get_property('subtitle') -%]
-[%- FOREACH self IN property.get_element_list -%]
-<p align="center">[%- INCLUDE part_list.tt -%]</p>
-[%- END -%]
-[%- END -%]
+<div class="subtitle">
+[%- INCLUDE property.tt property = document.get_property('subtitle') -%]
+</div>
+[% END %]
 
 [%- INCLUDE preamble.tt -%]
-
-[%- SET glossary = document.get_glossary -%]
 
 <h3 align="center">Glossary</h3>
 

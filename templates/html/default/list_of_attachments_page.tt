@@ -17,21 +17,23 @@
 <h3 align="center">List of Attachments</h3>
 
 [%- FOREACH section IN document.get_section_list -%]
-  [%- IF section.has_attachments -%]
-    [%- SET page = document.get_id _ '.' _ section.get_number _ '.html' -%]
+
+  [%- IF section.get_depth == 1 -%]
 <h5>
-[%section.get_number%] &nbsp;&nbsp;
+Chapter [%section.get_number%] &nbsp;&nbsp;
 <a href="[%page%]">
 [%- INCLUDE property.tt property = section.get_property('title') -%]
 </a>
 </h5>
+  [%- END -%]
+
+  [%- IF section.has_attachments -%]
+    [%- SET page = document.get_id _ '.' _ section.get_number _ '.html' -%]
 
     [%- FOREACH attachment IN section.get_attachment_list -%]
       [%- SET bookmark = 'ATTACHMENT.' _ attachment.get_number -%]
 <div style="text-indent: 60pt; font-size: 8pt;">
-<a href="[%page%]#[%bookmark%]">
-[%attachment.get_number%] - [%- INCLUDE property.tt property = attachment.get_property('title') -%]
-</a>
+Attachment [%attachment.get_number%] - <a href="[%page%]#[%bookmark%]">[%- INCLUDE property.tt property = attachment.get_property('title') -%]</a>
 </div>
     [%- END -%]
 

@@ -7873,7 +7873,18 @@ sub _process_start_table_cell {
 
   if ( $attributes =~ /$syntax->{valid_background_color}/ )
     {
-      $color = $1;
+      $color = '#ff6666' if $1 eq 'red';
+      $color = '#ffff66' if $1 eq 'yellow';
+      $color = '#4488ff' if $1 eq 'blue';
+      $color = '#66ff66' if $1 eq 'green';
+      $color = '#ffaa66' if $1 eq 'orange';
+      $color = '#ff66ff' if $1 eq 'purple';
+      $color = '#ffffff' if $1 eq 'white';
+      $color = '#eeeeee' if $1 eq 'litegrey';
+      $color = '#dddddd' if $1 eq 'grey';
+      $color = '#cccccc' if $1 eq 'darkgrey';
+
+      $color = $1 if not $color;
     }
 
   if ( $attributes =~ /$syntax->{valid_horizontal_justification} / )

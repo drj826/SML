@@ -527,20 +527,10 @@ sub get_division_list {
 
   foreach my $part (@{ $self->get_part_list })
     {
-      if ( $part->isa('SML::Block') )
-	{
-	  next;
-	}
-
-      elsif ( $part->isa('SML::Division') )
+      if ( $part->isa('SML::Division') )
 	{
 	  push @{ $list }, $part;
 	  push @{ $list }, @{ $part->get_division_list };
-	}
-
-      else
-	{
-	  $logger->error("THIS SHOULD NEVER HAPPEN");
 	}
     }
 
@@ -574,9 +564,9 @@ sub has_tables {
 
   my $self = shift;
 
-  foreach my $part (@{ $self->get_division_list })
+  foreach my $division (@{ $self->get_division_list })
     {
-      if ( $part->isa('SML::Table') )
+      if ( $division->isa('SML::Table') )
 	{
 	  return 1;
 	}

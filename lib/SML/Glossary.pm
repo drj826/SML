@@ -176,7 +176,7 @@ sub get_group_entry_list {
 
   my $entry_hash = $self->_get_entry_hash;
 
-  my $list = [];
+  my $hash = {};
 
   foreach my $term (sort @{ $group_hash->{$group} })
     {
@@ -184,8 +184,17 @@ sub get_group_entry_list {
 	{
 	  my $entry = $self->get_entry($term,$namespace);
 
-	  push(@{$list},$entry);
+	  $hash->{"$term.$namespace"} = $entry;
 	}
+    }
+
+  my $list = [];
+
+  foreach my $term_namespace ( sort keys %{$hash} )
+    {
+      my $entry = $hash->{$term_namespace};
+
+      push(@{$list},$entry);
     }
 
   return $list;
