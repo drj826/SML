@@ -9560,13 +9560,12 @@ sub _parse_block {
 
   elsif ( $block->isa('SML::Definition') )
     {
-      my $term       = $block->get_term;
-      my $definition = $block->get_definition;
-
-      my $term_string       = $self->_create_string($term);
-      my $definition_string = $self->_create_string($definition);
-
+      my $term = $block->get_term;
+      my $term_string = $self->_create_string($term);
       $block->set_term_string($term_string);
+
+      my $definition = $block->get_definition;
+      my $definition_string = $self->_create_string($definition);
       $block->set_definition_string($definition_string);
 
       return 1;
@@ -9574,13 +9573,12 @@ sub _parse_block {
 
   elsif ( $block->isa('SML::DefinitionListItem') )
     {
-      my $term       = $block->get_term;
-      my $definition = $block->get_definition;
-
-      my $term_string       = $self->_create_string($term);
-      my $definition_string = $self->_create_string($definition);
-
+      my $term = $block->get_term;
+      my $term_string = $self->_create_string($term);
       $block->set_term_string($term_string);
+
+      my $definition = $block->get_definition;
+      my $definition_string = $self->_create_string($definition);
       $block->set_definition_string($definition_string);
 
       return 1;
@@ -9605,6 +9603,12 @@ sub _parse_block {
   else
     {
       $text = $block->get_content;
+    }
+
+  if ( not $text )
+    {
+      $logger->error("BLOCK HAS NO TEXT \'$block\'");
+      return 0;
     }
 
   my $string = $self->_create_string($text);

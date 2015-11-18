@@ -2,5 +2,5 @@
 [%- SET id = self.get_section_id -%]
 [%- SET num = self.get_number -%]
 [%- SET note = document.get_note(id,num) -%]
-[%- SET text = not.get_value -%]
+[%- SET text = note.get_value -%]
 \footnote{[%text%]}

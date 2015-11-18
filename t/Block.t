@@ -135,10 +135,15 @@ sub renders_ok {
   my $expected  = $tc->{expected}{render}{$rendition}{$style};
   my $library   = $document->get_library;
   my $parser    = $library->get_parser;
-  my $line      = SML::Line->new(content=>$content);
-  my $block     = $subclass->new(library=>$library);
+  my $block     = $subclass->new
+    (
+     content => $content,
+     library => $library,
+    );
 
-  $block->add_line($line);
+  $parser->_begin_block($block);
+  $parser->_end_block;
+
   $document->add_part($block);
 
   foreach my $block (@{ $document->get_block_list })

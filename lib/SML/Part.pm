@@ -55,6 +55,7 @@ has content =>
    isa       => 'Str',
    reader    => 'get_content',
    writer    => 'set_content',
+   predicate => 'has_content',
    clearer   => '_clear_content',
    lazy      => 1,
    builder   => '_build_content',
@@ -111,20 +112,20 @@ sub init {
 
 ######################################################################
 
-sub has_content {
+# sub has_content {
 
-  my $self = shift;
+#   my $self = shift;
 
-  if ( $self->get_content )
-    {
-      return 1;
-    }
+#   if ( $self->get_content )
+#     {
+#       return 1;
+#     }
 
-  else
-    {
-      return 0;
-    }
-}
+#   else
+#     {
+#       return 0;
+#     }
+# }
 
 ######################################################################
 

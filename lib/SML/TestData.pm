@@ -827,7 +827,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><span style=\"font-size: 8pt;\"><sup><a href=\"#footnote.introduction.1\">1<\/a><\/sup><\/span></p>\n\n",
+	 default => "<p><span style=\"font-size: 8pt;\"><a href=\"#footnote.introduction.1\"><sup>[1]<\/sup><\/a><\/span></p>\n\n",
 	},
 	latex =>
 	{

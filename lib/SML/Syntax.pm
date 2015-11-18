@@ -749,7 +749,7 @@ has paragraph_text =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(:{1,2}\S*:?\s*)?([^\s#].*)',
+   default => '^(:{1,2}\S*:?\s*)?([^\s#].*)$',
   );
 
 # $1 = table cell markup (begin table cell)
