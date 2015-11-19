@@ -36,7 +36,7 @@ use SML::Util;
 ######################################################################
 ######################################################################
 
-has 'id' =>
+has id =>
   (
    isa       => 'Str',
    reader    => 'get_id',
@@ -50,7 +50,7 @@ has 'id' =>
 
 ######################################################################
 
-has 'name' =>
+has name =>
   (
    isa      => 'Str',
    reader   => 'get_name',
@@ -62,7 +62,7 @@ has 'name' =>
 
 ######################################################################
 
-has 'revision' =>
+has revision =>
   (
    isa       => 'Str',
    reader    => 'get_revision',
@@ -72,7 +72,7 @@ has 'revision' =>
 
 ######################################################################
 
-has 'util' =>
+has util =>
   (
    isa     => 'SML::Util',
    reader  => 'get_util',
@@ -82,7 +82,7 @@ has 'util' =>
 
 ######################################################################
 
-has 'syntax' =>
+has syntax =>
   (
    isa     => 'HashRef',
    reader  => 'get_syntax',
@@ -92,7 +92,7 @@ has 'syntax' =>
 
 ######################################################################
 
-has 'ontology' =>
+has ontology =>
   (
    isa     => 'SML::Ontology',
    reader  => 'get_ontology',
@@ -104,7 +104,7 @@ has 'ontology' =>
 
 ######################################################################
 
-has 'ontology_rule_filespec_list' =>
+has ontology_rule_filespec_list =>
   (
    isa       => 'ArrayRef',
    reader    => 'get_ontology_rule_filespec_list',
@@ -117,7 +117,7 @@ has 'ontology_rule_filespec_list' =>
 
 ######################################################################
 
-has 'parser' =>
+has parser =>
   (
    isa      => 'SML::Parser',
    reader   => 'get_parser',
@@ -130,7 +130,7 @@ has 'parser' =>
 
 ######################################################################
 
-has 'reasoner' =>
+has reasoner =>
   (
    isa      => 'SML::Reasoner',
    reader   => 'get_reasoner',
@@ -143,7 +143,7 @@ has 'reasoner' =>
 
 ######################################################################
 
-has 'publisher' =>
+has publisher =>
   (
    isa      => 'SML::Publisher',
    reader   => 'get_publisher',
@@ -155,7 +155,7 @@ has 'publisher' =>
 
 ######################################################################
 
-has 'glossary' =>
+has glossary =>
   (
    isa      => 'SML::Glossary',
    reader   => 'get_glossary',
@@ -168,7 +168,7 @@ has 'glossary' =>
 
 ######################################################################
 
-has 'acronym_list' =>
+has acronym_list =>
   (
    isa      => 'SML::AcronymList',
    reader   => 'get_acronym_list',
@@ -181,7 +181,7 @@ has 'acronym_list' =>
 
 ######################################################################
 
-has 'references' =>
+has references =>
   (
    isa      => 'SML::References',
    reader   => 'get_references',
@@ -194,7 +194,7 @@ has 'references' =>
 
 ######################################################################
 
-has 'directory_path' =>
+has directory_path =>
   (
    isa       => 'Str',
    reader    => 'get_directory_path',
@@ -208,7 +208,7 @@ has 'directory_path' =>
 
 ######################################################################
 
-has 'include_path' =>
+has include_path =>
   (
    is      => 'ro',
    isa     => 'ArrayRef',
@@ -220,7 +220,7 @@ has 'include_path' =>
 
 ######################################################################
 
-has 'division_name_list' =>
+has division_name_list =>
   (
    isa     => 'ArrayRef',
    reader  => 'get_division_name_list',
@@ -230,7 +230,7 @@ has 'division_name_list' =>
 
 ######################################################################
 
-has 'template_dir' =>
+has template_dir =>
   (
    is        => 'ro',
    isa       => 'Str',
@@ -244,7 +244,7 @@ has 'template_dir' =>
 
 ######################################################################
 
-has 'published_dir' =>
+has published_dir =>
   (
    is        => 'ro',
    isa       => 'Str',
@@ -258,7 +258,7 @@ has 'published_dir' =>
 
 ######################################################################
 
-has 'plugins_dir' =>
+has plugins_dir =>
   (
    is        => 'ro',
    isa       => 'Str',
@@ -270,6 +270,32 @@ has 'plugins_dir' =>
 # This is the directory containing plugins.  Plugins are
 # library-specific perl modules that perform special rendering
 # functions.
+
+######################################################################
+
+has images_dir =>
+  (
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_images_dir',
+   writer    => '_set_images_dir',
+   default   => 'images',
+  );
+
+# This is the directory containing images.  These are standard images
+# used in documents.  For instance, they include a paperclip image
+# that indicates attachements, and other icons used to represent
+# status, priority, etc.
+
+######################################################################
+
+has image_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_image_list',
+   default => sub {[]},
+  );
 
 ######################################################################
 ######################################################################
@@ -887,6 +913,25 @@ sub has_review {
   my $date      = shift;
 
   if ( defined $self->_get_review_hash->{$entity_id}{$date} )
+    {
+      return 1;
+    }
+
+  else
+    {
+      return 0;
+    }
+}
+
+######################################################################
+
+sub has_images {
+
+  my $self = shift;
+
+  my $list = $self->get_image_list;
+
+  if ( scalar @{$list} )
     {
       return 1;
     }
@@ -1949,7 +1994,7 @@ sub allows_generate {
 ######################################################################
 ######################################################################
 
-has 'config_filespec' =>
+has config_filespec =>
   (
    isa      => 'Str',
    reader   => '_get_config_filespec',
@@ -1959,7 +2004,7 @@ has 'config_filespec' =>
 
 ######################################################################
 
-has 'config_filename' =>
+has config_filename =>
   (
    isa      => 'Str',
    reader   => '_get_config_filename',
@@ -1968,7 +2013,7 @@ has 'config_filename' =>
 
 ######################################################################
 
-has 'ontology_rule_filename_list' =>
+has ontology_rule_filename_list =>
   (
    isa       => 'ArrayRef',
    reader    => '_get_ontology_rule_filename_list',
@@ -1978,7 +2023,7 @@ has 'ontology_rule_filename_list' =>
 
 ######################################################################
 
-has 'directory_name' =>
+has directory_name =>
   (
    isa       => 'Str',
    reader    => '_get_directory_name',
@@ -1989,7 +2034,7 @@ has 'directory_name' =>
 
 ######################################################################
 
-has 'id_hash' =>
+has id_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_id_hash',
@@ -2002,7 +2047,7 @@ has 'id_hash' =>
 
 ######################################################################
 
-has 'filespec_hash' =>
+has filespec_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_filespec_hash',
@@ -2015,7 +2060,7 @@ has 'filespec_hash' =>
 
 ######################################################################
 
-has 'file_hash' =>
+has file_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_file_hash',
@@ -2027,7 +2072,7 @@ has 'file_hash' =>
 
 ######################################################################
 
-has 'document_hash' =>
+has document_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_document_hash',
@@ -2040,7 +2085,7 @@ has 'document_hash' =>
 
 ######################################################################
 
-has 'division_hash' =>
+has division_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_division_hash',
@@ -2056,7 +2101,7 @@ has 'division_hash' =>
 
 ######################################################################
 
-has 'entity_hash' =>
+has entity_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_entity_hash',
@@ -2071,7 +2116,7 @@ has 'entity_hash' =>
 
 ######################################################################
 
-has 'property_hash' =>
+has property_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_property_hash',
@@ -2088,7 +2133,7 @@ has 'property_hash' =>
 
 ######################################################################
 
-has 'variable_hash' =>
+has variable_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_variable_hash',
@@ -2102,7 +2147,7 @@ has 'variable_hash' =>
 
 ######################################################################
 
-has 'resource_hash' =>
+has resource_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_resource_hash',
@@ -2116,7 +2161,7 @@ has 'resource_hash' =>
 
 ######################################################################
 
-has 'index_hash' =>
+has index_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_index_hash',
@@ -2135,7 +2180,7 @@ has 'index_hash' =>
 
 ######################################################################
 
-has 'outcome_hash' =>
+has outcome_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_outcome_hash',
@@ -2160,7 +2205,7 @@ has 'outcome_hash' =>
 
 ######################################################################
 
-has 'review_hash' =>
+has review_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_review_hash',
@@ -2178,7 +2223,7 @@ has 'review_hash' =>
 
 ######################################################################
 
-has 'insert_name_hash' =>
+has insert_name_hash =>
   (
    isa     => 'HashRef',
    reader  => '_get_insert_name_hash',
@@ -2188,7 +2233,7 @@ has 'insert_name_hash' =>
 
 ######################################################################
 
-has 'generated_content_type_hash' =>
+has generated_content_type_hash =>
   (
    isa     => 'HashRef',
    reader  => '_get_generated_content_type_hash',
@@ -2281,6 +2326,29 @@ sub BUILD {
       my $plugins_dir  = "$directory_path/$config{plugins_dir}";
 
       $self->_set_plugins_dir($plugins_dir);
+    }
+
+  # set images_dir
+  if ( $config{'images_dir'} )
+    {
+      my $directory_path = $self->get_directory_path;
+      my $images_dir  = "$directory_path/$config{images_dir}";
+
+      $self->_set_images_dir($images_dir);
+    }
+
+  # populate images list
+  if ( -d $self->get_images_dir )
+    {
+      my $images_dir = $self->get_images_dir;
+      my $list       = $self->get_image_list;
+
+      opendir(DIR,"$images_dir") or die "Couldn't open dir: $images_dir";
+      foreach my $image ( grep {/\.png$/} readdir(DIR) )
+	{
+	  push(@{$list},$image);
+	}
+      closedir(DIR);
     }
 
   # set include_path

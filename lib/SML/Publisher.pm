@@ -361,6 +361,39 @@ sub _publish_html_document {
       $logger->error("document has no sections!");
     }
 
+  if ( $library->has_images )
+    {
+      my $id            = $document->get_id;
+      my $published_dir = $library->get_published_dir;
+      my $library_dir   = $library->get_directory_path;
+      my $images_dir    = $library->get_images_dir;
+      my $output_dir    = "$published_dir/$id";
+
+      if ( not -d "$published_dir/images" )
+	{
+	  mkdir "$published_dir/images", 0755;
+	  $logger->info("made directory $published_dir/images");
+	}
+
+      foreach my $image (@{ $library->get_image_list })
+	{
+	  my $orig = "$images_dir/$image";
+	  my $copy = "$published_dir/images/$image";
+
+	  if ( not -f $orig )
+	    {
+	      $logger->error("IMAGE FILE NOT FOUND \'$orig\'");
+	    }
+
+	  elsif ( not -f $copy )
+	    {
+	      $logger->info("copying image $image");
+	      File::Copy::copy($orig,$copy);
+	      utime undef, undef, "$copy";
+	    }
+	}
+    }
+
   if ( $document->has_images )
     {
       foreach my $image (@{ $document->get_image_list })

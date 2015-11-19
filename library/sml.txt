@@ -2917,9 +2917,17 @@ Example:
 
   <<<ATTACHMENT
 
+Here is what the attachment looks like in the rendered output:
+
 >>>ATTACHMENT.att-sample-document
+
 title:: Sample Document
+
 file:: files/sample-document.txt
+
+description:: Here is a sample SML file for the purpose of
+illustrating how attachments work.
+
 <<<ATTACHMENT
 
 #---------------------------------------------------------------------

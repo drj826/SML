@@ -4,10 +4,10 @@ title:: A Sample Document
 
 author:: Bilbo Baggins
 
-This is an example of a text document designed to be published by the
-publish program.  This is the first paragraph of the document.
-Paragraphs are simply blocks of text that are ~~not indented~~
-(indented text is treated as pre-formatted text).
+This is an example of a Semantic Manuscript Language (SML) document.
+This is the first paragraph of the document.  Paragraphs are simply
+blocks of text that are ~~not indented~~ (indented text is treated as
+pre-formatted text).
 
 In the preceding paragraph, the words ``not indented'' are surrounded
 by double tildes.  This tells the publish program you wish to
@@ -17,15 +17,15 @@ the publish program already changed them into actual italicized text.
 
 Sometimes you need to make a list of items:
 
-- Unordered Item 1
+- Item 1
 
-- Unordered Item 2
+- Item 2
 
-- Unordered Item 3
+- Item 3
 
-This ``structured'' text format has many other features like tables,
-sections, figures, footnotes, bibliographies, indexes, etc.  We won't
-include them in this simple example document because we want to keep
-it, well, simple.
+This SML text format has many other features like tables, sections,
+figures, footnotes, bibliographies, indexes, etc.  We won't include
+them in this simple example document because we want to keep it
+simple.
 
 <<<DOCUMENT

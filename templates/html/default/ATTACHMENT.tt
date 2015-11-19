@@ -1,13 +1,19 @@
-[% SET number = self.get_number %]
-[% SET title = self.get_property_value('title') %]
-[% SET anchor = 'ATTACHMENT.' _ number %]
+[%- SET number = self.get_number -%]
+[%- SET title = self.get_property_value('title') -%]
+[%- SET file = self.get_property_value('file') -%]
+[%- SET anchor = 'ATTACHMENT.' _ number -%]
 
 <div class="attachment" id="[%anchor%]">
-
-<!-- put attachment navigation link table here -->
-
-<b>Attachment [%number%] - [%title%]</b>
-<br>
-[%- INCLUDE part_list.tt -%]
+<table>
+<tr>
+<td><a href="[%file%]"><img src="images/paperclip.png"></a></td>
+<td>
+<p><b><a href="[%file%]">Attachment [%number%] - [%title%]</a></b></p>
+[%- IF self.has_property('description') -%]
+<p>[%- INCLUDE property.tt property = self.get_property('description') -%]</p>
+[%- END -%]
+</td>
+</tr>
+</table>
 </div>
 
