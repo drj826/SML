@@ -3,5 +3,5 @@
 [%- SET term = self.get_term -%]
 [%- SET namespace = self.get_namespace -%]
 [%- SET entry = glossary.get_entry(term,namespace) -%]
-[%- SET definition = entry.get_definition -%]
+[%- SET definition = entry.get_definition_string -%]
 [%- INCLUDE part_list.tt self = definition -%]

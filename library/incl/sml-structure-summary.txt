@@ -243,11 +243,11 @@ index:: footnotes
 
 ---
 
-: !!Labels and References.!! ([ref:labels-and-references]) Labels
-uniquely identify document components for referral in other parts of
-the document.
+: !!IDs and References.!! ([ref:ids-and-references]) IDs uniquely
+identify divisions for referral in other parts of the document or
+library.
 
-index:: labels; references
+index:: IDs; references
 
 :
 

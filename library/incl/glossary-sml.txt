@@ -650,6 +650,14 @@ glossary:: special feature {sml} = (SML) A feature that enables
 document authors to minimize the maintenance burden of updating
 documents and to automate certain document content generation
 
+glossary:: string {sml} = (SML) A sequence of characters. Some strings
+have special meaning like bold, italics, underlined, fixed width,
+superscript, and subscript strings.  Strings are also used to
+represent cross references and other content with special meaning.
+Strings may be nested inside other strings. String content may span
+newline boundaries. The content of a [g:sml:block] is a string. See
+also [g:sml:line], [g:sml:block], and [g:sml:division]
+
 glossary:: structure {sml} = (SML) The way content is organized.  A
 type of markup feature used to ~~organize~~ [g:sml:document]
 content. For example: sentences, paragraphs, [g:sml:section]

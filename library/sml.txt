@@ -20,6 +20,8 @@ revision:: $Revision: 15146 $
 
 date:: $Date: 2013-07-07 11:42:01 -0600 (Sun, 07 Jul 2013) $
 
+status:: yellow
+
 >>>REVISIONS
 
 rev:: 1.6 = 2012-09-18 = Updated description of footnote syntax.
@@ -1628,13 +1630,29 @@ documentation in a library shares a common [g:sml:ontology].
 A physical data model describes the syntactic parts of a document.
 The syntactic parts of an SML document are:
 
-= [g:sml:division] = [def:sml:division]
+: [g:sml:division]
 
-= [g:sml:block] = [def:sml:block]
+: [def:sml:division]
 
-= [g:sml:string] = [def:sml:string]
+---
 
-= [g:sml:line] = [def:sml:line]
+: [g:sml:block]
+
+: [def:sml:block]
+
+---
+
+: [g:sml:string]
+
+: [def:sml:string]
+
+---
+
+: [g:sml:line]
+
+: [def:sml:line]
+
+---
 
 #---------------------------------------------------------------------
 
@@ -2429,44 +2447,36 @@ block.  Here's an example:
 
 #---------------------------------------------------------------------
 
-***.labels-and-references Labels and References
+***.ids-and-references IDs and References
 
-~~Labels~~ mark specific locations within a document. ~~References~~
-point to the locations marked by labels.  For example, here's a
-reference to a figure: [ref:fig-publish-window].  A label marks a spot
-in the text.  A reference refers to a spot in the text.  You can
-insert a label anywhere you like, but the meaning of the label will
-depend on the location.  You place a label in any environment or
-region to refer to that environment or region.  If the label occurs
-~~outside~~ of an environment or region the label refers to the
-current section.
+~~IDs~~ mark specific divisions within a document. ~~References~~
+point to the divisions marked by IDs.  For example, here's a reference
+to a figure: [ref:fig-publish-window].  You specify a division's ID so
+you can refer to that division.
 
-Here's an example showing how to assign a label to a figure then refer
-to that figure from anywhere else in the text.  You might insert a
-figure into your document that looks like this
+Here's an example showing how to assign an ID to a figure then refer
+to it from anywhere else in the text.  You might insert a figure into
+your document that looks like this
 
   >>>FIGURE.fig-example-figure
+
   title:: My Example Figure
+
   image:: files/images/my-figure.png
+
   <<<FIGURE
 
-Notice the line, ||label: fig-example-figure||.  This assigns the
-label ``fig-example-figure'' to this table.  You can now refer to this
-table from anywhere in the text by inserting a reference:
+Notice the ID text, ``||.fig-example-figure||.''  This assigns the ID
+``fig-example-figure'' to this figure.  You can now refer to this
+figure from anywhere in the text by inserting a reference:
 
   See [ref:fig-example-figure] for an example figure.
 
-You only need to supply labels for things you want to refer to.  The
-label text can be anything you want.  Follow these rules and you won't
-have any trouble:
+Follow these rules and you won't have any trouble:
 
-- You can only (currently) have one reference on a line.  If you have
-  more than one reference on the same line only the first one will get
-  resolved.
+- Each ID must be unique in the library.
 
-- Don't put any spaces in your labels.  If you do, there's a chance
-  that references using that label will get split across a line
-  boundary and won't be recognized.
+- Don't put spaces in your IDs.
 
 - It's a good idea (but not required) to use a three letter prefix to
   identify the type of label.  Start all section labels with ||sec-||,
@@ -2480,7 +2490,31 @@ have any trouble:
 
 #---------------------------------------------------------------------
 
-***.steps Procedural Steps
+***.steps Steps
+
+You can specify a sequence of steps like this:
+
+  step:: Unplug your computer.
+
+  step:: Put it in the box.
+
+  step:: Take it back to the store.
+
+This will be rendered like:
+
+step:: Unplug your computer.
+
+step:: Put it in the box.
+
+step:: Take it back to the store.
+
+The sequence of steps will continue until the end of the current
+section, DEMO, or EXERCISE.  In other words, if you put a sequence of
+steps inside a section, DEMO, or EXERCISE, step numbering will reset
+to zero at the end of the section, DEMO, or EXERCISE.
+
+There are no sub-steps.  The way to describe a nested procedure is to
+use a section structure.
 
 #---------------------------------------------------------------------
 
@@ -5553,36 +5587,39 @@ The following additional glossary definition features are available.
 [ref:building-a-glossary] described the most basic way to refer to a
 glossary term.
 
->>>TABLE.tab-referencing-glossary-entries
-
-title:: Referencing Glossary Entries
-
-:: Form
-
-:: Example
-
----
+: lower case glossary term reference
 
 :
 
- [g:<term>]
-
- [gls:<term>]
+  [g:<term>]
+  [gls:<term>]
 
 : Insert a [g:sml:glossary] term.
 
 ---
 
+: upper case glossary term reference
+
 :
 
- [G:<term>]
+  [G:<term>]
+  [Gls:<term>]
 
- [Gls:<term>]
+: Insert a [G:sml:glossary] term; upper-case the initial letter of
+each word.
 
-: Insert a [g:sml:glossary] term; upper-case the initial letter of each
-word.
+---
 
-<<<TABLE
+: glossary definition reference
+
+:
+
+  [def:<term>]
+  [def:<namespace>:<term>]
+
+: A string is: [def:sml:string]
+
+---
 
 #---------------------------------------------------------------------
 
@@ -5845,39 +5882,32 @@ along with alternative syntaxes for reusing them
 
 : title
 
-: ||{lit:[title:item-label]}||
-
 :
 
-: ||{lit:[t:item-label]}||
+  [title:getting-started]
+  [t:getting-started]
+
+: [title:getting-started]
 
 ---
 
 : description
 
-: ||{lit:[description:item-label]}||
+:
 
-: ||{lit:[desc:item-label] }||
+  [description:fig-sample-document-pdf]
+  [desc:fig-sample-document-pdf]
+  [d:fig-sample-document-pdf]
 
-: ||{lit:[d:item-label]}||
+: [description:fig-sample-document-pdf]
 
 ---
 
 : type
 
-: ||{lit:[type:item-label]}||
-
 :
 
-:
-
----
-
-: owner
-
-: ||{lit:[owner:item-label]}||
-
-:
+  [type:item-label]
 
 :
 
@@ -5885,11 +5915,51 @@ along with alternative syntaxes for reusing them
 
 : status
 
-: ||{lit:[status:item-label]}||
+:
+
+  [status:sml]
+
+: [status:sml]
+
+---
+
+: priority
 
 :
 
+  [priority:item-label]
+
 :
+
+---
+
+: the document version
+
+:
+
+  [theversion]
+
+: [theversion]
+
+---
+
+: the document revision
+
+:
+
+  [therevision]
+
+: [therevision]
+
+---
+
+: the document date
+
+:
+
+  [thedate]
+
+: [thedate]
 
 ---
   

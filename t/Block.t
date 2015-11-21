@@ -3,7 +3,7 @@
 # $Id: Block.t 259 2015-04-02 20:27:00Z drj826@gmail.com $
 
 use lib "../lib";
-use Test::More tests => 184;
+use Test::More tests => 103;
 use Test::Exception;
 
 use SML;
@@ -69,8 +69,6 @@ my @public_methods =
    'get_containing_division',
    'set_containing_division',
    'has_containing_division',
-   'has_valid_syntax',
-   'has_valid_semantics',
 
    # SML::Block public methods
    'add_line',
@@ -112,11 +110,11 @@ foreach my $tc (@{ $tcl })
     renders_ok($tc,'sml','default')   if defined $tc->{expected}{render}{sml}{default};
     renders_ok($tc,'html','default')  if defined $tc->{expected}{render}{html}{default};
     renders_ok($tc,'latex','default') if defined $tc->{expected}{render}{latex}{default};
-    has_valid_syntax_ok($tc)          if defined $tc->{expected}{has_valid_syntax};
-    valid_syntax_warning_ok($tc)      if defined $tc->{expected}{valid_syntax_warning};
-    has_valid_semantics_ok($tc)       if defined $tc->{expected}{has_valid_semantics};
-    valid_semantics_warning_ok($tc)   if defined $tc->{expected}{valid_semantics_warning};
     has_parts_ok($tc)                 if defined $tc->{expected}{has_parts};
+    # has_valid_syntax_ok($tc)          if defined $tc->{expected}{has_valid_syntax};
+    # valid_syntax_warning_ok($tc)      if defined $tc->{expected}{valid_syntax_warning};
+    # has_valid_semantics_ok($tc)       if defined $tc->{expected}{has_valid_semantics};
+    # valid_semantics_warning_ok($tc)   if defined $tc->{expected}{valid_semantics_warning};
   }
 
 ######################################################################
@@ -163,137 +161,137 @@ sub renders_ok {
 
 ######################################################################
 
-sub has_valid_syntax_ok {
+# sub has_valid_syntax_ok {
 
-  my $tc        = shift;                # test case
+#   my $tc        = shift;                # test case
 
-  # Arrange
-  my $tcname    = $tc->{name};
-  my $content   = $tc->{content};
-  my $subclass  = $tc->{subclass};
-  my $expected  = $tc->{expected}{has_valid_syntax};
-  my $parser    = $library->get_parser;
-  my $document  = $tc->{document};
-  my $library   = $document->get_library;
-  my $line      = SML::Line->new(content=>$content);
-  my $block     = $subclass->new(library=>$library);
+#   # Arrange
+#   my $tcname    = $tc->{name};
+#   my $content   = $tc->{content};
+#   my $subclass  = $tc->{subclass};
+#   my $expected  = $tc->{expected}{has_valid_syntax};
+#   my $parser    = $library->get_parser;
+#   my $document  = $tc->{document};
+#   my $library   = $document->get_library;
+#   my $line      = SML::Line->new(content=>$content);
+#   my $block     = $subclass->new(library=>$library);
 
-  $block->add_line($line);
-  $document->add_part($block);
+#   $block->add_line($line);
+#   $document->add_part($block);
 
-  foreach my $block (@{ $document->get_block_list })
-    {
-      $parser->_parse_block($block);
-    }
+#   foreach my $block (@{ $document->get_block_list })
+#     {
+#       $parser->_parse_block($block);
+#     }
 
-  # Act
-  my $result = $block->has_valid_syntax;
+#   # Act
+#   my $result = $block->has_valid_syntax;
 
-  # Assert
-  is($result, $expected, "$tcname has_valid_syntax $result");
-}
-
-######################################################################
-
-sub has_valid_semantics_ok {
-
-  my $tc = shift;                       # test case
-
-  # Arrange
-  my $tcname    = $tc->{name};
-  my $content   = $tc->{content};
-  my $subclass  = $tc->{subclass};
-  my $expected  = $tc->{expected}{has_valid_semantics};
-  my $document  = $tc->{document};
-  my $library   = $document->get_library;
-  my $parser    = $library->get_parser;
-  my $line      = SML::Line->new(content=>$content);
-  my $block     = $subclass->new(library=>$library);
-
-  $block->add_line($line);
-  $document->add_part($block);
-
-  foreach my $block (@{ $document->get_block_list })
-    {
-      $parser->_parse_block($block);
-    }
-
-  # Act
-  my $result = $block->has_valid_semantics;
-
-  # Assert
-  is($result, $expected, "$tcname has_valid_semantics $result");
-}
+#   # Assert
+#   is($result, $expected, "$tcname has_valid_syntax $result");
+# }
 
 ######################################################################
 
-sub valid_syntax_warning_ok {
+# sub has_valid_semantics_ok {
 
-  my $tc = shift;                       # test case
+#   my $tc = shift;                       # test case
 
-  # arrange
-  my $tcname   = $tc->{name};
-  my $content  = $tc->{content};
-  my $subclass = $tc->{subclass};
-  my $expected = $tc->{expected}{valid_syntax_warning};
-  my $document = $tc->{document};
-  my $library  = $document->get_library;
-  my $parser   = $library->get_parser;
-  my $line     = SML::Line->new(content=>$content);
-  my $block    = $subclass->new(library=>$library);
+#   # Arrange
+#   my $tcname    = $tc->{name};
+#   my $content   = $tc->{content};
+#   my $subclass  = $tc->{subclass};
+#   my $expected  = $tc->{expected}{has_valid_semantics};
+#   my $document  = $tc->{document};
+#   my $library   = $document->get_library;
+#   my $parser    = $library->get_parser;
+#   my $line      = SML::Line->new(content=>$content);
+#   my $block     = $subclass->new(library=>$library);
 
-  $block->add_line($line);
-  $document->add_part($block);
+#   $block->add_line($line);
+#   $document->add_part($block);
 
-  foreach my $block (@{ $document->get_block_list })
-    {
-      $parser->_parse_block($block);
-    }
+#   foreach my $block (@{ $document->get_block_list })
+#     {
+#       $parser->_parse_block($block);
+#     }
 
-  Test::Log4perl->start( ignore_priority => "info" );
-  $t1logger->warn(qr/$expected/);
+#   # Act
+#   my $result = $block->has_valid_semantics;
 
-  # act
-  my $result = $block->has_valid_syntax;
-
-  # assert
-  Test::Log4perl->end("$tcname warns $expected");
-}
+#   # Assert
+#   is($result, $expected, "$tcname has_valid_semantics $result");
+# }
 
 ######################################################################
 
-sub valid_semantics_warning_ok {
+# sub valid_syntax_warning_ok {
 
-  my $tc = shift;                       # test case
+#   my $tc = shift;                       # test case
 
-  # arrange
-  my $tcname   = $tc->{name};
-  my $content  = $tc->{content};
-  my $subclass = $tc->{subclass};
-  my $expected = $tc->{expected}{valid_semantics_warning};
-  my $document = $tc->{document};
-  my $library  = $document->get_library;
-  my $parser   = $library->get_parser;
-  my $line     = SML::Line->new(content=>$content);
-  my $block    = $subclass->new(library=>$library);
+#   # arrange
+#   my $tcname   = $tc->{name};
+#   my $content  = $tc->{content};
+#   my $subclass = $tc->{subclass};
+#   my $expected = $tc->{expected}{valid_syntax_warning};
+#   my $document = $tc->{document};
+#   my $library  = $document->get_library;
+#   my $parser   = $library->get_parser;
+#   my $line     = SML::Line->new(content=>$content);
+#   my $block    = $subclass->new(library=>$library);
 
-  $block->add_line($line);
-  $document->add_part($block);
+#   $block->add_line($line);
+#   $document->add_part($block);
 
-  foreach my $block (@{ $document->get_block_list })
-    {
-      $parser->_parse_block($block);
-    }
+#   foreach my $block (@{ $document->get_block_list })
+#     {
+#       $parser->_parse_block($block);
+#     }
 
-  Test::Log4perl->start( ignore_priority => "info" );
-  $t1logger->warn(qr/$expected/);
+#   Test::Log4perl->start( ignore_priority => "info" );
+#   $t1logger->warn(qr/$expected/);
 
-  # act
-  my $result = $block->has_valid_semantics;
+#   # act
+#   my $result = $block->has_valid_syntax;
 
-  # assert
-  Test::Log4perl->end("$tcname warns $expected");
-}
+#   # assert
+#   Test::Log4perl->end("$tcname warns $expected");
+# }
+
+######################################################################
+
+# sub valid_semantics_warning_ok {
+
+#   my $tc = shift;                       # test case
+
+#   # arrange
+#   my $tcname   = $tc->{name};
+#   my $content  = $tc->{content};
+#   my $subclass = $tc->{subclass};
+#   my $expected = $tc->{expected}{valid_semantics_warning};
+#   my $document = $tc->{document};
+#   my $library  = $document->get_library;
+#   my $parser   = $library->get_parser;
+#   my $line     = SML::Line->new(content=>$content);
+#   my $block    = $subclass->new(library=>$library);
+
+#   $block->add_line($line);
+#   $document->add_part($block);
+
+#   foreach my $block (@{ $document->get_block_list })
+#     {
+#       $parser->_parse_block($block);
+#     }
+
+#   Test::Log4perl->start( ignore_priority => "info" );
+#   $t1logger->warn(qr/$expected/);
+
+#   # act
+#   my $result = $block->has_valid_semantics;
+
+#   # assert
+#   Test::Log4perl->end("$tcname warns $expected");
+# }
 
 ######################################################################
 

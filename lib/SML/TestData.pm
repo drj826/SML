@@ -1138,7 +1138,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><a href=\"td-000020.1.html#SECTION.1\">Section 1</a></p>\n\n",
+	 default => "<p><a href=\"td-000020.1.html#SECTION.1\">introduction</a></p>\n\n",
 	},
 	latex =>
 	{
@@ -1340,7 +1340,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><image src=\"status_yellow.png\" border=\"0\"/></p>\n\n",
+	 default => "<p><image src=\"images/status_yellow.png\" border=\"0\"/></p>\n\n",
 	},
 	latex =>
 	{
@@ -1370,7 +1370,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><image src=\"status_grey.png\" border=\"0\"/></p>\n\n",
+	 default => "<p><image src=\"images/status_grey.png\" border=\"0\"/></p>\n\n",
 	},
 	latex =>
 	{
@@ -1400,7 +1400,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><image src=\"status_green.png\" border=\"0\"/></p>\n\n",
+	 default => "<p><image src=\"images/status_green.png\" border=\"0\"/></p>\n\n",
 	},
 	latex =>
 	{
@@ -1430,7 +1430,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><image src=\"status_yellow.png\" border=\"0\"/></p>\n\n",
+	 default => "<p><image src=\"images/status_yellow.png\" border=\"0\"/></p>\n\n",
 	},
 	latex =>
 	{
@@ -1460,7 +1460,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><image src=\"status_red.png\" border=\"0\"/></p>\n\n",
+	 default => "<p><image src=\"images/status_red.png\" border=\"0\"/></p>\n\n",
 	},
 	latex =>
 	{
@@ -1490,7 +1490,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><image src=\"status_green.png\" border=\"0\"/></p>\n\n",
+	 default => "<p><image src=\"images/status_green.png\" border=\"0\"/></p>\n\n",
 	},
 	latex =>
 	{

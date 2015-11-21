@@ -191,51 +191,51 @@ sub validate_outcome_semantics {
 
 ######################################################################
 
-override 'validate_syntax' => sub {
+# override 'validate_syntax' => sub {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $name  = $self->get_name;
-  my $valid = super();
+#   my $name  = $self->get_name;
+#   my $valid = super();
 
-  if ( $name eq 'footnote' )
-    {
-      if ( not $self->validate_footnote_syntax )
-	{
-	  $valid = 0;
-	}
-    }
+#   if ( $name eq 'footnote' )
+#     {
+#       if ( not $self->validate_footnote_syntax )
+# 	{
+# 	  $valid = 0;
+# 	}
+#     }
 
-  return $valid;
-};
+#   return $valid;
+# };
 
 ######################################################################
 
-override 'validate_semantics' => sub {
+# override 'validate_semantics' => sub {
 
-  # Validate there is an ontology rule for this element. In other
-  # words, validate the ontology allows this element.
+#   # Validate there is an ontology rule for this element. In other
+#   # words, validate the ontology allows this element.
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $valid = super();
-  my $name  = $self->get_name;
+#   my $valid = super();
+#   my $name  = $self->get_name;
 
-  if ( not $self->validate_element_allowed )
-    {
-      $valid = 0;
-    }
+#   if ( not $self->validate_element_allowed )
+#     {
+#       $valid = 0;
+#     }
 
-  if ( $name eq 'outcome' )
-    {
-      if ( not $self->validate_outcome_semantics )
-	{
-	  $valid = 0;
-	}
-    }
+#   if ( $name eq 'outcome' )
+#     {
+#       if ( not $self->validate_outcome_semantics )
+# 	{
+# 	  $valid = 0;
+# 	}
+#     }
 
-  return $valid;
-};
+#   return $valid;
+# };
 
 ######################################################################
 ######################################################################
