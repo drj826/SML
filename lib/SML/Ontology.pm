@@ -260,7 +260,6 @@ sub get_required_property_list {
 
   else
     {
-      $logger->error("THERE IS NO REQUIRED PROPERTY LIST FOR \'$divname\'");
       return [];
     }
 }

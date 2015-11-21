@@ -2530,6 +2530,12 @@ sub _end_division {
 
   return 0 if not $division;
 
+  $self->_validate_property_cardinality($division);
+  $self->_validate_property_values($division);
+  $self->_validate_infer_only_conformance($division);
+  $self->_validate_required_properties($division);
+  $self->_validate_composition($division);
+
   # manage container stack
   $self->_pop_container_stack;
 
@@ -11666,6 +11672,326 @@ sub _validate_file_ref_semantics {
 
   return $valid;
 }
+
+######################################################################
+
+sub _validate_property_cardinality {
+
+  my $self     = shift;
+  my $division = shift;
+
+  my $valid    = 1;
+  my $library  = $self->get_library;
+  my $divname  = $division->get_name;
+  my $divid    = $division->get_id;
+  my $ontology = $library->get_ontology;
+
+  foreach my $property (@{ $division->get_property_list })
+    {
+      my $property_name = $property->get_name;
+      my $cardinality;
+
+      if ( $property_name eq 'id' )
+	{
+	  $cardinality = 1;
+	}
+
+      else
+	{
+	  $cardinality = $ontology->property_allows_cardinality($divname,$property_name);
+	}
+
+      # Validate property cardinality
+      if ( $ontology->property_is_universal($property_name) )
+	{
+	  # OK, all universal properties have cardinality = many
+	}
+
+      elsif ( not defined $cardinality )
+	{
+	  my $location = $division->get_location;
+	  $logger->error("NO CARDINALITY for $divname $property_name at $location");
+	  $valid = 0;
+	}
+
+      else
+	{
+	  my $list = $property->get_element_list;
+	  my $count = scalar(@{ $list });
+	  if ( $cardinality eq '1' and $count > 1 )
+	    {
+	      my $location = $division->get_location;
+	      $logger->warn("INVALID PROPERTY CARDINALITY $divname allows only 1 $property_name at $location");
+	      $valid = 0;
+	    }
+	}
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_property_values {
+
+  my $self     = shift;
+  my $division = shift;
+
+  my $valid    = 1;
+  my $seen     = {};
+  my $library  = $self->get_library;
+  my $ontology = $library->get_ontology;
+  my $divname  = $division->get_name;
+  my $divid    = $division->get_id;
+
+  foreach my $property (@{ $division->get_property_list })
+    {
+      my $property_name = $property->get_name;
+
+      $seen->{$property_name} = 1;
+
+      my $imply_only  = $ontology->property_is_imply_only($divname,$property_name);
+      my $list        = $property->get_element_list;
+      my $cardinality = $ontology->property_allows_cardinality($divname,$property_name);
+
+      foreach my $element (@{ $list })
+	{
+	  my $value      = $element->get_value;
+	  my $first_line = $element->get_first_line;
+
+	  next if not defined $first_line;
+
+	  my $file = $first_line->get_file;
+
+	  next if not defined $file;
+
+	  next if $file->get_filespec eq 'empty_file';
+
+	  # validate property value is allowed
+	  if ( not $ontology->allows_property_value($divname,$property_name,$value) )
+	    {
+	      my $location = $element->get_location;
+	      my $list = $ontology->get_allowed_property_value_list($divname,$property_name);
+	      my $valid_property_values = join(', ', @{ $list });
+	      $logger->warn("INVALID PROPERTY VALUE \'$value\' $divname $property_name must be one of: $valid_property_values at $location");
+	      $valid = 0;
+	    }
+	}
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_infer_only_conformance {
+
+  my $self     = shift;
+  my $division = shift;
+
+  my $valid    = 1;
+  my $seen     = {};
+  my $library  = $self->get_library;
+  my $ontology = $library->get_ontology;
+  my $divname  = $division->get_name;
+  my $divid    = $division->get_id;
+
+  foreach my $property (@{ $division->get_property_list })
+    {
+      my $property_name = $property->get_name;
+
+      $seen->{$property_name} = 1;
+
+      my $imply_only  = $ontology->property_is_imply_only($divname,$property_name);
+      my $list        = $property->get_element_list;
+      my $cardinality = $ontology->property_allows_cardinality($divname,$property_name);
+
+      foreach my $element (@{ $list })
+	{
+	  my $value      = $element->get_value;
+	  my $first_line = $element->get_first_line;
+
+	  next if not defined $first_line;
+
+	  my $file = $first_line->get_file;
+
+	  next if not defined $file;
+
+	  next if $file->get_filespec eq 'empty_file';
+
+	  # Validate infer-only conformance
+	  if ( $imply_only )
+	    {
+	      my $location   = $element->get_location;
+	      $logger->warn("INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY \'$property_name\' at $location: $divname $divid");
+	      $valid = 0;
+	    }
+
+	}
+
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_required_properties {
+
+  my $self     = shift;
+  my $division = shift;
+
+  my $valid    = 1;
+  my $seen     = {};
+  my $library  = $self->get_library;
+  my $ontology = $library->get_ontology;
+  my $divname  = $division->get_name;
+  my $divid    = $division->get_id;
+
+  foreach my $property (@{ $division->get_property_list })
+    {
+      my $property_name = $property->get_name;
+
+      $seen->{$property_name} = 1;
+    }
+
+  # Validate that all required properties are declared
+  # foreach my $required ( keys %{ $ontology->get_required_properties_hash->{$divname} } )
+  foreach my $required (@{ $ontology->get_required_property_list($divname) })
+    {
+      if ( not $seen->{$required} )
+	{
+	  my $location = $division->get_location;
+	  $logger->warn("MISSING REQUIRED PROPERTY $divname $divid requires \'$required\' at $location");
+	  $valid = 0;
+	}
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_composition {
+
+  # Validate conformance with division composition rules. If this
+  # division is contained by another division, validate that a
+  # composition rule allows this relationship.
+  #
+  # This means check wether THIS division is allowed to be inside the
+  # one that contains it.
+
+  my $self     = shift;
+  my $division = shift;
+
+  my $valid     = 1;
+  my $library   = $self->get_library;
+  my $libname   = $library->get_name;
+  my $ontology  = $library->get_ontology;
+  my $container = $division->get_containing_division;
+
+  if ( $container )
+    {
+      my $name           = $division->get_name;
+      my $container_name = $container->get_name;
+
+      if ( $ontology->allows_composition($name,$container_name) )
+	{
+	  return 1;
+	}
+
+      else
+	{
+	  my $location   = $division->get_location;
+	  my $first_line = $division->get_first_line;
+
+	  if ( $division->has_included_from_line )
+	    {
+	      my $included_from_line = $division->get_included_from_line;
+	      my $include_location = $included_from_line->get_location;
+	      $logger->warn("INVALID COMPOSITION $name in $container_name (included at $include_location) at $location");
+	    }
+
+	  else
+	    {
+	      $logger->warn("INVALID COMPOSITION $name in $container_name at $location");
+	    }
+
+	  return 0;
+	}
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+# sub _validate_id_uniqueness {
+
+#   my $self     = shift;
+#   my $division = shift;
+
+#   my $valid   = 1;
+#   my $library = $self->get_library;
+#   my $syntax  = $library->get_syntax;
+#   my $seen    = {};
+
+#   foreach my $element (@{ $division->get_element_list })
+#     {
+#       if ($element->get_name ne 'id')
+# 	{
+# 	  next;
+# 	}
+
+#       my $id       = $element->get_value;
+#       my $location = $element->get_location;
+
+#       if ( not exists $seen->{$id} )
+# 	{
+# 	  $seen->{$id} = $element;
+# 	}
+
+#       else
+# 	{
+# 	  my $current_line  = $element->get_first_line;
+# 	  my $previous      = $seen->{$id};
+# 	  my $previous_line = $previous->get_first_line;
+
+# 	  if (
+# 	      defined $current_line->get_included_from_line
+# 	      and
+# 	      defined $previous_line->get_included_from_line
+# 	     )
+# 	    {
+# 	      my $current_location  = $current_line->get_location;
+# 	      my $previous_location = $previous_line->get_location;
+# 	      my $included_location = $previous_line->get_included_from_line->get_location;
+
+# 	      $logger->warn("INVALID NON-UNIQUE ID at $location: \"$id\" (included at $current_location) previously defined at $previous_location (included at $included_location)");
+# 	      $valid = 0;
+# 	    }
+
+# 	  elsif ( defined $previous_line->get_included_from_line )
+# 	    {
+# 	      my $previous_location = $previous_line->get_location;
+# 	      my $included_location = $previous_line->get_included_from_line->get_location;
+
+# 	      $logger->warn("INVALID NON-UNIQUE ID at $location: \"$id\" previously defined at $previous_location (included at $included_location)");
+# 	      $valid = 0;
+# 	    }
+
+# 	  else
+# 	    {
+# 	      my $previous_location = $previous_line->get_location;
+
+# 	      $logger->warn("INVALID NON-UNIQUE ID at $location: \"$id\" previously defined at $previous_location");
+# 	      $valid = 0;
+# 	    }
+# 	}
+#     }
+
+#   return $valid;
+# }
 
 ######################################################################
 

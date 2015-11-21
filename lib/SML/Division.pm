@@ -90,33 +90,33 @@ has 'included_from_line' =>
 
 ######################################################################
 
-has 'valid' =>
-  (
-   isa       => 'Bool',
-   reader    => 'is_valid',
-   lazy      => 1,
-   builder   => '_validate_division',
-  );
+# has 'valid' =>
+#   (
+#    isa       => 'Bool',
+#    reader    => 'is_valid',
+#    lazy      => 1,
+#    builder   => '_validate_division',
+#   );
 
 ######################################################################
 
-has 'valid_syntax' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_syntax',
-   lazy      => 1,
-   builder   => '_validate_syntax',
-  );
+# has 'valid_syntax' =>
+#   (
+#    isa       => 'Bool',
+#    reader    => 'has_valid_syntax',
+#    lazy      => 1,
+#    builder   => '_validate_syntax',
+#   );
 
 ######################################################################
 
-has 'valid_semantics' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_semantics',
-   lazy      => 1,
-   builder   => '_validate_semantics',
-  );
+# has 'valid_semantics' =>
+#   (
+#    isa       => 'Bool',
+#    reader    => 'has_valid_semantics',
+#    lazy      => 1,
+#    builder   => '_validate_semantics',
+#   );
 
 # division conforms with property cardinality rules
 # division elements conform with infer-only rules
@@ -127,63 +127,63 @@ has 'valid_semantics' =>
 
 ######################################################################
 
-has 'valid_property_cardinality' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_property_cardinality',
-   lazy      => 1,
-   builder   => '_validate_property_cardinality',
-  );
+# has 'valid_property_cardinality' =>
+#   (
+#    isa       => 'Bool',
+#    reader    => 'has_valid_property_cardinality',
+#    lazy      => 1,
+#    builder   => '_validate_property_cardinality',
+#   );
 
 ######################################################################
 
-has 'valid_property_values' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_property_values',
-   lazy      => 1,
-   builder   => '_validate_property_values',
-  );
+# has 'valid_property_values' =>
+#   (
+#    isa       => 'Bool',
+#    reader    => 'has_valid_property_values',
+#    lazy      => 1,
+#    builder   => '_validate_property_values',
+#   );
 
 ######################################################################
 
-has 'valid_infer_only_conformance' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_infer_only_conformance',
-   lazy      => 1,
-   builder   => '_validate_infer_only_conformance',
-  );
+# has 'valid_infer_only_conformance' =>
+#   (
+#    isa       => 'Bool',
+#    reader    => 'has_valid_infer_only_conformance',
+#    lazy      => 1,
+#    builder   => '_validate_infer_only_conformance',
+#   );
 
 ######################################################################
 
-has 'valid_required_properties' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_required_properties',
-   lazy      => 1,
-   builder   => '_validate_required_properties',
-  );
+# has 'valid_required_properties' =>
+#   (
+#    isa       => 'Bool',
+#    reader    => 'has_valid_required_properties',
+#    lazy      => 1,
+#    builder   => '_validate_required_properties',
+#   );
 
 ######################################################################
 
-has 'valid_composition' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_composition',
-   lazy      => 1,
-   builder   => '_validate_composition',
-  );
+# has 'valid_composition' =>
+#   (
+#    isa       => 'Bool',
+#    reader    => 'has_valid_composition',
+#    lazy      => 1,
+#    builder   => '_validate_composition',
+#   );
 
 ######################################################################
 
-has 'valid_id_uniqueness' =>
-  (
-   isa       => 'Bool',
-   reader    => 'has_valid_id_uniqueness',
-   lazy      => 1,
-   builder   => '_validate_id_uniqueness',
-  );
+# has 'valid_id_uniqueness' =>
+#   (
+#    isa       => 'Bool',
+#    reader    => 'has_valid_id_uniqueness',
+#    lazy      => 1,
+#    builder   => '_validate_id_uniqueness',
+#   );
 
 ######################################################################
 ######################################################################
@@ -1400,412 +1400,100 @@ sub _line_ends_data_segment {
 
 ######################################################################
 
-sub _validate_division {
+# sub _validate_division {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $valid = 1;
-  my $id    = $self->get_id;
+#   my $valid = 1;
+#   my $id    = $self->get_id;
 
-  $logger->debug("validate division $id");
+#   $logger->debug("validate division $id");
 
-  $valid = 0 if not $self->has_valid_id_uniqueness;
+#   $valid = 0 if not $self->has_valid_id_uniqueness;
 
-  foreach my $block (@{ $self->get_block_list })
-    {
-      $valid = 0 if not $block->has_valid_syntax;
-      $valid = 0 if not $block->has_valid_semantics;
-    }
+#   foreach my $block (@{ $self->get_block_list })
+#     {
+#       $valid = 0 if not $block->has_valid_syntax;
+#       $valid = 0 if not $block->has_valid_semantics;
+#     }
 
-  foreach my $element (@{ $self->get_element_list })
-    {
-      $valid = 0 if not $element->has_valid_syntax;
-      $valid = 0 if not $element->has_valid_semantics;
-    }
+#   foreach my $element (@{ $self->get_element_list })
+#     {
+#       $valid = 0 if not $element->has_valid_syntax;
+#       $valid = 0 if not $element->has_valid_semantics;
+#     }
 
-  foreach my $division (@{ $self->get_division_list })
-    {
-      $valid = 0 if not $division->has_valid_syntax;
-      $valid = 0 if not $division->has_valid_semantics;
-    }
+#   foreach my $division (@{ $self->get_division_list })
+#     {
+#       $valid = 0 if not $division->has_valid_syntax;
+#       $valid = 0 if not $division->has_valid_semantics;
+#     }
 
-  if ( $valid )
-    {
-      $logger->info("the division is valid \'$id\'");
-    }
+#   if ( $valid )
+#     {
+#       $logger->info("the division is valid \'$id\'");
+#     }
 
-  else
-    {
-      $logger->warn("THE DIVISION IS NOT VALID \'$id\'");
-    }
+#   else
+#     {
+#       $logger->warn("THE DIVISION IS NOT VALID \'$id\'");
+#     }
 
-  return $valid;
-}
-
-######################################################################
-
-sub _validate_syntax {
-
-  my $self = shift;
-
-  my $valid    = 1;
-  my $blocks   = $self->get_block_list;
-  my $elements = $self->get_element_list;
-
-  foreach my $block (@{ $blocks })
-    {
-      $valid = 0 if not $block->has_valid_syntax;
-    }
-
-  foreach my $element (@{ $elements })
-    {
-      $valid = 0 if not $element->has_valid_syntax;
-    }
-
-  return $valid;
-}
+#   return $valid;
+# }
 
 ######################################################################
 
-sub _validate_semantics {
+# sub _validate_syntax {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $valid    = 1;
-  my $blocks   = $self->get_block_list;
-  my $elements = $self->get_element_list;
+#   my $valid    = 1;
+#   my $blocks   = $self->get_block_list;
+#   my $elements = $self->get_element_list;
 
-  foreach my $block (@{ $blocks })
-    {
-      $valid = 0 if not $block->has_valid_semantics;
-    }
+#   foreach my $block (@{ $blocks })
+#     {
+#       $valid = 0 if not $block->has_valid_syntax;
+#     }
 
-  foreach my $element (@{ $elements })
-    {
-      $valid = 0 if not $element->has_valid_semantics;
-    }
+#   foreach my $element (@{ $elements })
+#     {
+#       $valid = 0 if not $element->has_valid_syntax;
+#     }
 
-  $valid = 0 if not $self->has_valid_property_cardinality;
-  $valid = 0 if not $self->has_valid_property_values;
-  $valid = 0 if not $self->has_valid_infer_only_conformance;
-  $valid = 0 if not $self->has_valid_required_properties;
-  $valid = 0 if not $self->has_valid_composition;
-  $valid = 0 if not $self->has_valid_id_uniqueness;
-
-  return $valid;
-}
+#   return $valid;
+# }
 
 ######################################################################
 
-sub _validate_property_cardinality {
-
-  my $self = shift;
-
-  my $valid    = 1;
-  # my $divtype  = $self->get_type;
-  my $divname  = $self->get_name;
-  my $divid    = $self->get_id;
-  my $library  = $self->get_library;
-  my $ontology = $library->get_ontology;
-
-  foreach my $property (@{ $self->get_property_list })
-    {
-      my $property_name = $property->get_name;
-      my $cardinality   = $ontology->property_allows_cardinality($divname,$property_name);
-
-      # Validate property cardinality
-      if ( $ontology->property_is_universal($property_name) )
-	{
-	  # OK, all universal properties have cardinality = many
-	}
-
-      elsif ( not defined $cardinality )
-	{
-	  my $location = $self->get_location;
-	  $logger->error("This should never happen");
-	  $logger->error("NO CARDINALITY at $location: for $divname $property_name");
-	  $valid = 0;
-	}
-
-      else
-	{
-	  my $list = $property->get_element_list;
-	  my $count = scalar(@{ $list });
-	  if ( $cardinality eq '1' and $count > 1 )
-	    {
-	      my $location = $self->get_location;
-	      $logger->warn("INVALID PROPERTY CARDINALITY at $location: $divname allows only 1 $property_name");
-	      $valid = 0;
-	    }
-	}
-    }
-
-  return $valid;
-}
-
-######################################################################
-
-sub _validate_property_values {
-
-  my $self = shift;
-
-  my $valid    = 1;
-  my $seen     = {};
-  # my $divtype  = $self->get_type;
-  my $divname  = $self->get_name;
-  my $divid    = $self->get_id;
-  my $library  = $self->get_library;
-  my $ontology = $library->get_ontology;
-
-  foreach my $property (@{ $self->get_property_list })
-    {
-      my $property_name = $property->get_name;
-
-      $seen->{$property_name} = 1;
-
-      my $imply_only  = $ontology->property_is_imply_only($divname,$property_name);
-      my $list        = $property->get_element_list;
-      my $cardinality = $ontology->property_allows_cardinality($divname,$property_name);
-
-      foreach my $element (@{ $list })
-	{
-	  my $value      = $element->get_value;
-	  my $first_line = $element->get_first_line;
-
-	  next if not defined $first_line;
-
-	  my $file = $first_line->get_file;
-
-	  next if not defined $file;
-
-	  next if $file->get_filespec eq 'empty_file';
-
-	  # validate property value is allowed
-	  if ( not $ontology->allows_property_value($divname,$property_name,$value) )
-	    {
-	      my $location = $element->get_location;
-	      my $list = $ontology->get_allowed_property_value_list($divname,$property_name);
-	      my $valid_property_values = join(', ', @{ $list });
-	      $logger->warn("INVALID PROPERTY VALUE \'$value\' at $location: $divname $property_name must be one of: $valid_property_values");
-	      $valid = 0;
-	    }
-
-	}
-
-    }
-
-  return $valid;
-}
-
-######################################################################
-
-sub _validate_infer_only_conformance {
-
-  my $self = shift;
-
-  my $valid    = 1;
-  my $seen     = {};
-  # my $divtype  = $self->get_type;
-  my $divname  = $self->get_name;
-  my $divid    = $self->get_id;
-  my $library  = $self->get_library;
-  my $ontology = $library->get_ontology;
-
-  foreach my $property (@{ $self->get_property_list })
-    {
-      my $property_name = $property->get_name;
-
-      $seen->{$property_name} = 1;
-
-      my $imply_only  = $ontology->property_is_imply_only($divname,$property_name);
-      my $list        = $property->get_element_list;
-      my $cardinality = $ontology->property_allows_cardinality($divname,$property_name);
-
-      foreach my $element (@{ $list })
-	{
-	  my $value      = $element->get_value;
-	  my $first_line = $element->get_first_line;
-
-	  next if not defined $first_line;
-
-	  my $file = $first_line->get_file;
-
-	  next if not defined $file;
-
-	  next if $file->get_filespec eq 'empty_file';
-
-	  # Validate infer-only conformance
-	  if ( $imply_only )
-	    {
-	      my $location   = $element->get_location;
-	      $logger->warn("INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY \'$property_name\' at $location: $divname $divid");
-	      $valid = 0;
-	    }
-
-	}
-
-    }
-
-  return $valid;
-}
-
-######################################################################
-
-sub _validate_required_properties {
-
-  my $self = shift;
-
-  my $valid    = 1;
-  my $seen     = {};
-  my $divname  = $self->get_name;
-  my $divid    = $self->get_id;
-  my $library  = $self->get_library;
-  my $ontology = $library->get_ontology;
-
-  foreach my $property (@{ $self->get_property_list })
-    {
-      my $property_name = $property->get_name;
-
-      $seen->{$property_name} = 1;
-    }
-
-  # Validate that all required properties are declared
-  # foreach my $required ( keys %{ $ontology->get_required_properties_hash->{$divname} } )
-  foreach my $required (@{ $ontology->get_required_property_list($divname) })
-    {
-      if ( not $seen->{$required} )
-	{
-	  my $location = $self->get_location;
-	  $logger->warn("MISSING REQUIRED PROPERTY at $location: $divname $divid requires \'$required\' ");
-	  $valid = 0;
-	}
-    }
-
-  return $valid;
-}
-
-######################################################################
-
-sub _validate_composition {
-
-  # Validate conformance with division composition rules. If this
-  # division is contained by another division, validate that a
-  # composition rule allows this relationship.
-  #
-  # This means check wether THIS division is allowed to be inside the
-  # one that contains it.
-
-  my $self = shift;
-
-  my $valid     = 1;
-  my $container = $self->get_containing_division;
-  my $library   = $self->get_library;
-  my $libname   = $library->get_name;
-  my $ontology  = $library->get_ontology;
-
-  if ( $container )
-    {
-      my $name           = $self->get_name;
-      my $container_name = $container->get_name;
-
-      if ( $ontology->allows_composition($name,$container_name) )
-	{
-	  return 1;
-	}
-
-      else
-	{
-	  my $location   = $self->get_location;
-	  my $first_line = $self->get_first_line;
-
-	  # $self->set_valid(0);
-
-	  if ( $self->has_included_from_line )
-	    {
-	      my $included_from_line = $self->get_included_from_line;
-	      my $include_location = $included_from_line->get_location;
-	      $logger->warn("INVALID COMPOSITION at $location: $name in $container_name (included at $include_location)");
-	    }
-
-	  else
-	    {
-	      $logger->warn("INVALID COMPOSITION at $location: $name in $container_name library \'$libname\'");
-	    }
-
-	  return 0;
-	}
-    }
-
-  return $valid;
-}
-
-######################################################################
-
-sub _validate_id_uniqueness {
-
-  my $self = shift;
-
-  my $valid   = 1;
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $seen    = {};
-
-  foreach my $element (@{ $self->get_element_list })
-    {
-      if ($element->get_name ne 'id')
-	{
-	  next;
-	}
-
-      my $id       = $element->get_value;
-      my $location = $element->get_location;
-
-      if ( not exists $seen->{$id} )
-	{
-	  $seen->{$id} = $element;
-	}
-
-      else
-	{
-	  my $current_line  = $element->get_first_line;
-	  my $previous      = $seen->{$id};
-	  my $previous_line = $previous->get_first_line;
-
-	  if (
-	      defined $current_line->get_included_from_line
-	      and
-	      defined $previous_line->get_included_from_line
-	     )
-	    {
-	      my $current_location  = $current_line->get_location;
-	      my $previous_location = $previous_line->get_location;
-	      my $included_location = $previous_line->get_included_from_line->get_location;
-
-	      $logger->warn("INVALID NON-UNIQUE ID at $location: \"$id\" (included at $current_location) previously defined at $previous_location (included at $included_location)");
-	      $valid = 0;
-	    }
-
-	  elsif ( defined $previous_line->get_included_from_line )
-	    {
-	      my $previous_location = $previous_line->get_location;
-	      my $included_location = $previous_line->get_included_from_line->get_location;
-
-	      $logger->warn("INVALID NON-UNIQUE ID at $location: \"$id\" previously defined at $previous_location (included at $included_location)");
-	      $valid = 0;
-	    }
-
-	  else
-	    {
-	      my $previous_location = $previous_line->get_location;
-
-	      $logger->warn("INVALID NON-UNIQUE ID at $location: \"$id\" previously defined at $previous_location");
-	      $valid = 0;
-	    }
-	}
-    }
-
-  return $valid;
-}
+# sub _validate_semantics {
+
+#   my $self = shift;
+
+#   my $valid    = 1;
+#   my $blocks   = $self->get_block_list;
+#   my $elements = $self->get_element_list;
+
+#   foreach my $block (@{ $blocks })
+#     {
+#       $valid = 0 if not $block->has_valid_semantics;
+#     }
+
+#   foreach my $element (@{ $elements })
+#     {
+#       $valid = 0 if not $element->has_valid_semantics;
+#     }
+
+#   $valid = 0 if not $self->has_valid_property_cardinality;
+#   $valid = 0 if not $self->has_valid_property_values;
+#   $valid = 0 if not $self->has_valid_infer_only_conformance;
+#   $valid = 0 if not $self->has_valid_required_properties;
+#   $valid = 0 if not $self->has_valid_composition;
+#   $valid = 0 if not $self->has_valid_id_uniqueness;
+
+#   return $valid;
+# }
 
 ######################################################################
 
