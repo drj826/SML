@@ -32,53 +32,53 @@ my $logger = Log::Log4perl::get_logger('sml.Entity');
 ######################################################################
 ######################################################################
 
-sub validate {
+# sub validate {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $valid = 1;
+#   my $valid = 1;
 
-  foreach my $block (@{ $self->get_block_list })
-    {
-      if ( not $block->validate_syntax ) {
-	$valid = 0;
-      }
-    }
+#   foreach my $block (@{ $self->get_block_list })
+#     {
+#       if ( not $block->validate_syntax ) {
+# 	$valid = 0;
+#       }
+#     }
 
-  foreach my $element (@{ $self->get_element_list })
-    {
-      if ( not $element->validate_syntax ) {
-	$valid = 0;
-      }
+#   foreach my $element (@{ $self->get_element_list })
+#     {
+#       if ( not $element->validate_syntax ) {
+# 	$valid = 0;
+#       }
 
-      # if ( not $element->validate_resource_availability ) {
-      # 	$valid = 0;
-      # }
-    }
+#       # if ( not $element->validate_resource_availability ) {
+#       # 	$valid = 0;
+#       # }
+#     }
 
-  foreach my $division (@{ $self->get_division_list })
-    {
-      if ( not $division->validate_semantics ) {
-	$valid = 0;
-      }
+#   foreach my $division (@{ $self->get_division_list })
+#     {
+#       if ( not $division->validate_semantics ) {
+# 	$valid = 0;
+#       }
 
-      if ( not $division->validate_composition ) {
-	$valid = 0;
-      }
-    }
+#       if ( not $division->validate_composition ) {
+# 	$valid = 0;
+#       }
+#     }
 
-  if ( $self->is_valid )
-    {
-      $logger->info('the entity is valid');
-    }
+#   if ( $self->is_valid )
+#     {
+#       $logger->info('the entity is valid');
+#     }
 
-  else
-    {
-      $logger->warn('THE ENTITY IS NOT VALID');
-    }
+#   else
+#     {
+#       $logger->warn('THE ENTITY IS NOT VALID');
+#     }
 
-  return $valid;
-}
+#   return $valid;
+# }
 
 ######################################################################
 
@@ -107,8 +107,6 @@ meaning.
                    name    => $name,
                    library => $library,
                  );
-
-  my $boolean = $entity->validate;
 
 =head1 DESCRIPTION
 

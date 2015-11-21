@@ -50,122 +50,122 @@ has value =>
 ######################################################################
 ######################################################################
 
-sub validate_element_allowed {
+# sub validate_element_allowed {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $library  = $self->get_library;
-  my $ontology = $library->get_ontology;
-  my $name     = $self->get_name;
-  my $division = $self->get_containing_division;
-  my $valid    = 1;
+#   my $library  = $self->get_library;
+#   my $ontology = $library->get_ontology;
+#   my $name     = $self->get_name;
+#   my $division = $self->get_containing_division;
+#   my $valid    = 1;
 
-  return 0 if not defined $division;
+#   return 0 if not defined $division;
 
-  my $divname      = $division->get_name;
-  my $value        = $self->get_value;
-  my $object_type  = $self->_type_of($value);
+#   my $divname      = $division->get_name;
+#   my $value        = $self->get_value;
+#   my $object_type  = $self->_type_of($value);
 
-  if
-    (
-     $ontology->get_rule_for($divname,$name,$object_type)
-     or
-     $ontology->get_rule_for($divname,$name,'STRING')
-    )
-      {
-	# valid
-      }
+#   if
+#     (
+#      $ontology->get_rule_for($divname,$name,$object_type)
+#      or
+#      $ontology->get_rule_for($divname,$name,'STRING')
+#     )
+#       {
+# 	# valid
+#       }
 
-  elsif
-    (
-     $ontology->get_rule_for('UNIVERSAL',$name,$object_type)
-     or
-     $ontology->get_rule_for('UNIVERSAL',$name,'STRING')
-    )
-      {
-	# valid
-      }
+#   elsif
+#     (
+#      $ontology->get_rule_for('UNIVERSAL',$name,$object_type)
+#      or
+#      $ontology->get_rule_for('UNIVERSAL',$name,'STRING')
+#     )
+#       {
+# 	# valid
+#       }
 
-  elsif ( $name eq 'id' and $divname eq $object_type )
-      {
-	# valid
-      }
+#   elsif ( $name eq 'id' and $divname eq $object_type )
+#       {
+# 	# valid
+#       }
 
-  else
-    {
-      my $location = $self->get_location;
-      $logger->warn("ELEMENT NOT ALLOWED \'$divname\' \'$name\' \'$object_type\' at $location");
-      $valid = 0;
-    }
+#   else
+#     {
+#       my $location = $self->get_location;
+#       $logger->warn("ELEMENT NOT ALLOWED \'$divname\' \'$name\' \'$object_type\' at $location");
+#       $valid = 0;
+#     }
 
-  return $valid;
-}
+#   return $valid;
+# }
 
 ######################################################################
 
-sub validate_outcome_semantics {
+# sub validate_outcome_semantics {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $valid   = 1;
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $util    = $library->get_util;
-  my $text    = $self->get_content;
+#   my $valid   = 1;
+#   my $library = $self->get_library;
+#   my $syntax  = $library->get_syntax;
+#   my $util    = $library->get_util;
+#   my $text    = $self->get_content;
 
-  $text =~ s/[\r\n]*$//;                # chomp;
+#   $text =~ s/[\r\n]*$//;                # chomp;
 
-  if ( $text =~ /$syntax->{outcome_element}/xms )
-    {
-      my $date        = $2;
-      my $entity_id   = $3;
-      my $status      = $4;
-      my $description = $5;
+#   if ( $text =~ /$syntax->{outcome_element}/xms )
+#     {
+#       my $date        = $2;
+#       my $entity_id   = $3;
+#       my $status      = $4;
+#       my $description = $5;
 
-      # date valid?
-      if ( not $date =~ /$syntax->{valid_date}/xms )
-	{
-	  my $location = $self->get_location;
-	  $logger->error("INVALID OUTCOME DATE at $location: \'$date\'");
-	  $valid = 0;
-	}
+#       # date valid?
+#       if ( not $date =~ /$syntax->{valid_date}/xms )
+# 	{
+# 	  my $location = $self->get_location;
+# 	  $logger->error("INVALID OUTCOME DATE at $location: \'$date\'");
+# 	  $valid = 0;
+# 	}
 
-      # item under test valid?
-      if ( not $library->has_division($entity_id) )
-	{
-	  my $location = $self->get_location;
-	  $logger->error("INVALID OUTCOME ITEM at $location: \'$entity_id\'");
-	  $valid = 0;
-	}
+#       # item under test valid?
+#       if ( not $library->has_division($entity_id) )
+# 	{
+# 	  my $location = $self->get_location;
+# 	  $logger->error("INVALID OUTCOME ITEM at $location: \'$entity_id\'");
+# 	  $valid = 0;
+# 	}
 
-      # status valid?
-      if ( not $status =~ /$syntax->{valid_status}/xms )
-	{
-	  my $location = $self->get_location;
-	  $logger->error("INVALID OUTCOME STATUS at $location: must be green, yellow, red, or grey");
-	  $valid = 0;
-	}
+#       # status valid?
+#       if ( not $status =~ /$syntax->{valid_status}/xms )
+# 	{
+# 	  my $location = $self->get_location;
+# 	  $logger->error("INVALID OUTCOME STATUS at $location: must be green, yellow, red, or grey");
+# 	  $valid = 0;
+# 	}
 
-      # description valid?
-      if ( not $description =~ /$syntax->{valid_description}/xms )
-	{
-	  my $location = $self->get_location;
-	  $logger->error("INVALID OUTCOME DESCRIPTION at $location: description not provided");
-	  $valid = 0;
-	}
+#       # description valid?
+#       if ( not $description =~ /$syntax->{valid_description}/xms )
+# 	{
+# 	  my $location = $self->get_location;
+# 	  $logger->error("INVALID OUTCOME DESCRIPTION at $location: description not provided");
+# 	  $valid = 0;
+# 	}
 
-      return $valid;
-    }
+#       return $valid;
+#     }
 
-  else
-    {
-      my $location = $self->get_location;
-      $logger->error("This should never happen (at $location)");
-      $valid = 0;
-    }
+#   else
+#     {
+#       my $location = $self->get_location;
+#       $logger->error("This should never happen (at $location)");
+#       $valid = 0;
+#     }
 
-  return $valid;
-}
+#   return $valid;
+# }
 
 ######################################################################
 

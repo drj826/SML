@@ -1254,34 +1254,34 @@ sub is_in_a {
 
 ######################################################################
 
-sub validate {
+# sub validate {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $valid = 1;
+#   my $valid = 1;
 
-  if ( not $self->has_valid_syntax )
-    {
-      $valid = 0;
-    }
+#   if ( not $self->has_valid_syntax )
+#     {
+#       $valid = 0;
+#     }
 
-  if ( not $self->has_valid_semantics )
-    {
-      $valid = 0;
-    }
+#   if ( not $self->has_valid_semantics )
+#     {
+#       $valid = 0;
+#     }
 
-  if ($valid)
-    {
-      $logger->info("valid");
-    }
+#   if ($valid)
+#     {
+#       $logger->info("valid");
+#     }
 
-  else
-    {
-      $logger->warn("NOT VALID");
-    }
+#   else
+#     {
+#       $logger->warn("NOT VALID");
+#     }
 
-  return $valid;
-}
+#   return $valid;
+# }
 
 ######################################################################
 ######################################################################
