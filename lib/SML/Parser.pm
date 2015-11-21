@@ -2332,14 +2332,25 @@ sub _process_segment_separator_line {
 
   # division handling
   my $division = $self->_get_current_division;
-  $division->add_part( $block );
 
-  my $divname = $division->get_name;
-  my $id   = $division->get_id;
-  $logger->trace("..... end $divname.$id data segment");
-  $self->_set_in_data_segment(0);
+  if ( $division )
+    {
+      $division->add_part( $block );
 
-  return 1;
+      my $divname = $division->get_name;
+      my $id   = $division->get_id;
+      $logger->trace("..... end $divname.$id data segment");
+      $self->_set_in_data_segment(0);
+
+      return 1;
+    }
+
+  else
+    {
+      my $location = $line->get_location;
+      $logger->error("NO CURRENT DIVISION. CAN'T PROCESS SEGMENT SEPARATOR LINE\n  at $location");
+      return 0;
+    }
 }
 
 ######################################################################
@@ -3497,6 +3508,13 @@ sub _generate_section_numbers {
   my $previous_number = q{};
   my $previous_depth  = 1;
   my $division        = $self->_get_division;
+
+  if ( not $division )
+    {
+      $logger->error("NO DIVISION. CAN'T GENERATE SECTION NUMBERS.");
+      return 0;
+    }
+
   my $section_list    = $division->get_section_list;
 
   foreach my $section (@{ $section_list }) {
@@ -3564,7 +3582,14 @@ sub _generate_division_numbers {
 
   my $previous_depth = 1;
   my $division       = $self->_get_division;
-  my $division_list  = $division->get_division_list;
+
+  if ( not $division )
+    {
+      $logger->error("NO DIVISION. CAN'T GENERATE DIVISION NUMBERS.");
+      return 0;
+    }
+
+  my $division_list = $division->get_division_list;
 
   foreach my $division (@{ $division_list }) {
 
@@ -3623,6 +3648,27 @@ sub _end_block {
   my $self = shift;
 
   my $block = $self->_get_block;
+
+  # validate block syntax
+  $self->_validate_bold_markup_syntax($block);
+  $self->_validate_italics_markup_syntax($block);
+  $self->_validate_fixedwidth_markup_syntax($block);
+  $self->_validate_underline_markup_syntax($block);
+  $self->_validate_superscript_markup_syntax($block);
+  $self->_validate_subscript_markup_syntax($block);
+  $self->_validate_inline_tags($block);
+  $self->_validate_cross_ref_syntax($block);
+  $self->_validate_id_ref_syntax($block);
+  $self->_validate_page_ref_syntax($block);
+  $self->_validate_glossary_term_ref_syntax($block);
+  $self->_validate_glossary_def_ref_syntax($block);
+  $self->_validate_acronym_ref_syntax($block);
+  $self->_validate_source_citation_syntax($block);
+
+  # validate certain block semantics
+  $self->_validate_cross_ref_semantics($block);
+  $self->_validate_id_ref_semantics($block);
+  $self->_validate_page_ref_semantics($block);
 
   if ( $block->isa('SML::Element') )
     {
@@ -8213,7 +8259,18 @@ sub _process_paragraph_text {
       $self->_begin_block($paragraph);
 
       my $division = $self->_get_current_division;
-      $division->add_part($paragraph);
+
+      if ( $division )
+	{
+	  $division->add_part($paragraph);
+	}
+
+      else
+	{
+	  my $location = $line->get_location;
+	  $logger->error("NO CURRENT DIVISION. CAN'T ADD NEW PARAGRAPH\n  at $location");
+	  return 0;
+	}
     }
 
   return 1;
@@ -8240,6 +8297,12 @@ sub _process_end_date_element {
       $element->set_value($5);
     }
 
+  elsif ( $text =~ /$syntax->{element}/ )
+    {
+      # $3 = element value
+      $element->set_value($3);
+    }
+
   else
     {
       $element->set_value($text);
@@ -8263,6 +8326,12 @@ sub _process_end_revision_element {
     {
       # $1 = value
       $element->set_value($1);
+    }
+
+  elsif ( $text =~ /$syntax->{element}/ )
+    {
+      # $3 = element value
+      $element->set_value($3);
     }
 
   else
@@ -9607,7 +9676,7 @@ sub _parse_block {
 
   if ( not $text )
     {
-      $logger->error("BLOCK HAS NO TEXT \'$block\'");
+      # $logger->error("BLOCK HAS NO TEXT \'$block\'");
       return 0;
     }
 
@@ -10196,6 +10265,828 @@ sub _has_enumerated_list_at_indent {
     }
 
   return 0;
+}
+
+######################################################################
+
+sub _validate_bold_markup_syntax {
+
+  # Return 1 if valid, 0 if not. Validate this block contains no
+  # unbalanced bold markup.
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $count   = 0;
+  my $text    = $block->get_content;
+
+  $text = $util->remove_literals($text);
+
+  while ( $text =~ /$syntax->{bold}/gxms )
+    {
+      ++ $count;
+    }
+
+  if ( $count % 2 == 1 )
+    {
+      my $location = $block->get_location;
+      $logger->warn("INVALID BOLD MARKUP at $location");
+      return 0;
+    }
+
+  else
+    {
+      return 1;
+    }
+}
+
+######################################################################
+
+sub _validate_italics_markup_syntax {
+
+  # Return 1 if valid, 0 if not. Validate this block contains no
+  # unbalanced italics markup.
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $count   = 0;
+  my $text    = $block->get_content;
+
+  $text = $util->remove_literals($text);
+
+  while ( $text =~ /$syntax->{italics}/gxms )
+    {
+      ++ $count;
+    }
+
+  if ( $count % 2 == 1 )
+    {
+      my $location = $block->get_location;
+      $logger->warn("INVALID ITALICS MARKUP at $location");
+      return 0;
+    }
+
+  else
+    {
+      return 1;
+    }
+}
+
+######################################################################
+
+sub _validate_fixedwidth_markup_syntax {
+
+  # Return 1 if valid, 0 if not. Validate this block contains no
+  # unbalanced fixed-width markup.
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $count   = 0;
+  my $text    = $block->get_content;
+
+  $text = $util->remove_literals($text);
+
+  while ( $text =~ /$syntax->{fixedwidth}/gxms )
+    {
+      ++ $count;
+    }
+
+  if ( $count % 2 == 1 )
+    {
+      my $location = $block->get_location;
+      $logger->warn("INVALID FIXED-WIDTH MARKUP at $location");
+      return 0;
+    }
+
+  else
+    {
+      return 1;
+    }
+}
+
+######################################################################
+
+sub _validate_underline_markup_syntax {
+
+  # Return 1 if valid, 0 if not. Validate this block contains no
+  # unbalanced underline markup.
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $count   = 0;
+  my $text    = $block->get_content;
+
+  $text = $util->remove_literals($text);
+
+  while ( $text =~ /$syntax->{underline}/gxms )
+    {
+      ++ $count;
+    }
+
+  if ( $count % 2 == 1 )
+    {
+      my $location = $block->get_location;
+      $logger->warn("INVALID UNDERLINE MARKUP at $location");
+      return 0;
+    }
+
+  else
+    {
+      return 1;
+    }
+}
+
+######################################################################
+
+sub _validate_superscript_markup_syntax {
+
+  # Return 1 if valid, 0 if not. Validate this block contains no
+  # unbalanced superscript markup.
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $count   = 0;
+  my $text    = $block->get_content;
+
+  $text = $util->remove_literals($text);
+
+  while ( $text =~ /$syntax->{superscript}/gxms )
+    {
+      ++ $count;
+    }
+
+  if ( $count % 2 == 1 )
+    {
+      my $location = $block->get_location;
+      $logger->warn("INVALID SUPERSCRIPT MARKUP at $location");
+      return 0;
+    }
+
+  else
+    {
+      return 1;
+    }
+}
+
+######################################################################
+
+sub _validate_subscript_markup_syntax {
+
+  # Return 1 if valid, 0 if not. Validate this block contains no
+  # unbalanced subscript markup.
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $count   = 0;
+  my $text    = $block->get_content;
+
+  $text = $util->remove_literals($text);
+
+  while ( $text =~ /$syntax->{subscript}/gxms )
+    {
+      ++ $count;
+    }
+
+  if ( $count % 2 == 1 )
+    {
+      my $location = $block->get_location;
+      $logger->warn("INVALID SUBSCRIPT MARKUP at $location");
+      return 0;
+    }
+
+  else
+    {
+      return 1;
+    }
+}
+
+######################################################################
+
+sub _validate_inline_tags {
+
+  # Return 1 if valid, 0 if not.  Validate this block contains only
+  # valid inline tags.
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $valid   = 1;
+  my $text    = $block->get_content;
+
+  $text = $util->remove_literals($text);
+  $text = $util->remove_keystroke_symbols($text);
+
+  while ( $text =~ /$syntax->{inline_tag}/xms )
+    {
+      my $tag  = $1;
+      my $name = $2;
+
+      if ( $name !~ /$syntax->{valid_inline_tags}/xms )
+	{
+	  my $location = $block->get_location;
+	  $logger->warn("INVALID INLINE TAG \'$tag\' at $location");
+	  $valid = 0;
+	}
+
+      $text =~ s/$syntax->{inline_tag}//xms;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_cross_ref_syntax {
+
+  # Validate this block's cross reference syntax.  Return 1 if valid,
+  # 0 if not.
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $block->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{cross_ref}/xms
+       or
+       $text =~ /$syntax->{begin_cross_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{cross_ref}/xms )
+    {
+      $text =~ s/$syntax->{cross_ref}//xms;
+    }
+
+  # After gobbling through all the valid cross references in the while
+  # loop, check for any remaining 'begin cross reference' instances in
+  # which the author forgot to complete the cross reference.
+
+  if ( $text =~ /$syntax->{begin_cross_ref}/xms )
+    {
+      my $location = $block->get_location;
+      $logger->warn("INVALID CROSS REFERENCE SYNTAX at $location");
+      $valid = 0;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_cross_ref_semantics {
+
+  # Validate this block's cross references.  Return 1 if valid, 0 if
+  # not.
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $block->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{cross_ref}/xms
+       or
+       $text =~ /$syntax->{begin_cross_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{cross_ref}/xms )
+    {
+      my $id = $2;
+
+      if ( $library->has_division_id($id) )
+	{
+	  $logger->trace("cross reference to \'$id\' is valid");
+	}
+
+      else
+	{
+	  my $location = $block->get_location;
+	  $logger->warn("INVALID CROSS REFERENCE \'$id\' not defined at $location");
+	  $valid = 0;
+	}
+
+      # IMPORTANT: remove THIS cross reference from the matching space
+      # to prevent an infinite while loop.
+
+      $text =~ s/$syntax->{cross_ref}//xms;
+    }
+
+  # After gobbling through all the valid cross references in the while
+  # loop, check for any remaining 'begin cross reference' instances in
+  # which the author forgot to complete the cross reference.
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_id_ref_syntax {
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $block->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{id_ref}/xms
+       or
+       $text =~ /$syntax->{begin_id_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{id_ref}/xms )
+    {
+      $text =~ s/$syntax->{id_ref}//xms;
+    }
+
+  if ( $text =~ /$syntax->{begin_id_ref}/xms )
+    {
+      my $location = $block->get_location;
+      $logger->warn("INVALID ID REFERENCE SYNTAX at $location");
+      $valid = 0;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_id_ref_semantics {
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $block->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{id_ref}/xms
+       or
+       $text =~ /$syntax->{begin_id_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{id_ref}/xms )
+    {
+      my $id = $1;
+
+      if ( $library->has_division_id($id) )
+	{
+	  $logger->trace("id reference to \'$id\' is valid");
+	}
+
+      else
+	{
+	  my $location = $block->get_location;
+	  $logger->warn("INVALID ID REFERENCE \'$id\' not defined at $location");
+	  $valid = 0;
+	}
+
+      $text =~ s/$syntax->{id_ref}//xms;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_page_ref_syntax {
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $block->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{page_ref}/xms
+       or
+       $text =~ /$syntax->{begin_page_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{page_ref}/xms )
+    {
+      $text =~ s/$syntax->{page_ref}//xms;
+    }
+
+  if ( $text =~ /$syntax->{begin_page_ref}/xms )
+    {
+      my $location = $block->get_location;
+      $logger->warn("INVALID PAGE REFERENCE SYNTAX at $location");
+      $valid = 0;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_page_ref_semantics {
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $block->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{page_ref}/xms
+       or
+       $text =~ /$syntax->{begin_page_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{page_ref}/xms )
+    {
+      my $id = $2;
+
+      if ( $library->has_division_id($id) )
+	{
+	  $logger->trace("page reference to \'$id\' is valid");
+	}
+
+      else
+	{
+	  my $location = $block->get_location;
+	  $logger->warn("INVALID PAGE REFERENCE \'$id\' not defined at $location");
+	  $valid = 0;
+	}
+
+      $text =~ s/$syntax->{page_ref}//xms;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_glossary_term_ref_syntax {
+
+  # Validate that each glossary term reference has a valid glossary
+  # entry.  Glossary term references are inline tags like '[g:term]'
+  # or '[g:namespace:term]'.
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $block->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{gloss_term_ref}/xms
+       or
+       $text =~ /$syntax->{begin_gloss_term_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{gloss_term_ref}/xms )
+    {
+      $text =~ s/$syntax->{gloss_term_ref}//xms;
+    }
+
+  if ( $text =~ /$syntax->{begin_gloss_term_ref}/xms )
+    {
+      my $location = $block->get_location;
+      $logger->warn("INVALID GLOSSARY TERM REFERENCE SYNTAX at $location");
+      $valid = 0;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_glossary_def_ref_syntax {
+
+  # Validate that each glossary definition reference has a valid
+  # glossary entry.  Glossary definition references are inline tags
+  # like '[def:term]'.
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $block->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{gloss_def_ref}/xms
+       or
+       $text =~ /$syntax->{begin_gloss_def_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{gloss_def_ref}/xms )
+    {
+      $text =~ s/$syntax->{gloss_def_ref}//xms;
+    }
+
+  if ( $text =~ /$syntax->{begin_gloss_def_ref}/xms )
+    {
+      my $location = $block->get_location;
+      $logger->warn("INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at $location");
+      $valid = 0;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_acronym_ref_syntax {
+
+  # Validate that each acronym reference has a valid acronym list
+  # entry.  Acronym references are inline tags like '[ac:term]'
+  # or '[ac:namespace:term]'.
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $block->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{acronym_term_ref}/xms
+       or
+       $text =~ /$syntax->{begin_acronym_term_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{acronym_term_ref}/xms )
+    {
+      $text =~ s/$syntax->{acronym_term_ref}//xms;
+    }
+
+  if ( $text =~ /$syntax->{begin_acronym_term_ref}/xms )
+    {
+      my $location = $block->get_location;
+      $logger->warn("INVALID ACRONYM REFERENCE SYNTAX: at $location");
+      $valid = 0;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_source_citation_syntax {
+
+  # Validate that each source citation has a valid source in the
+  # library's list of references.  Source citations are inline tags
+  # like '[cite:cms15]'
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $block->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{citation_ref}/xms
+       or
+       $text =~ /$syntax->{begin_citation_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{citation_ref}/xms )
+    {
+      $text =~ s/$syntax->{citation_ref}//xms;
+    }
+
+  if ( $text =~ /$syntax->{begin_citation_ref}/xms )
+    {
+      my $location = $block->get_location;
+      $logger->warn("INVALID SOURCE CITATION SYNTAX at $location");
+      $valid = 0;
+    }
+
+  return $valid;
 }
 
 ######################################################################

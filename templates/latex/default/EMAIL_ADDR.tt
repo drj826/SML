@@ -1,4 +1,4 @@
-[%- IF self.has_content -%]
+[%- IF self.contains_content -%]
 \href{mailto:[% self.get_email_addr %]}{[% self.get_content %]}
 [%- ELSE -%]
 \href{mailto:[% self.get_email_addr %]}{[% self.get_email_addr %]}

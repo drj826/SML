@@ -18,17 +18,17 @@
 </tr>
 </table>
 
-<h3 align="center">List of Listings</h3>
+<h2 align="center">List of Listings</h2>
 
 [%- FOREACH section IN document.get_section_list -%]
 
   [%- IF section.get_depth == 1 -%]
-<h5>
+<h4>
 Listing [%section.get_number%] &nbsp;&nbsp;
 <a href="[%page%]">
 [%- INCLUDE property.tt property = section.get_property('title') -%]
 </a>
-</h5>
+</h4>
   [%- END -%]
 
   [%- IF section.has_listings -%]

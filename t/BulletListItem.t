@@ -64,7 +64,6 @@ my @public_methods =
    # get_value (overridden by SML::BulletListItem)
 
    # SML::Block public attribute accessors (inherited)
-   'get_name_path',
    'get_line_list',
    'get_containing_division',
    'set_containing_division',
@@ -81,7 +80,6 @@ my @public_methods =
 
    # SML::Part public attribute accessors (inherited)
    'get_id',
-   'get_id_path',
    'get_name',
    'get_content',
    'set_content',
@@ -90,7 +88,7 @@ my @public_methods =
    # SML::Part public methods (inherited)
    'init',
    'has_content',
-   'has_parts',
+   'contains_parts',
    'has_part',
    'get_part',
    'add_part',
@@ -124,13 +122,23 @@ sub get_value_ok {
   my $tc = shift;                       # test case
 
   # arrange
-  my $tcname   = $tc->{name};
-  my $expected = $tc->{expected}{get_value};
-  my $line     = $tc->{line};
-  my $args     = $tc->{args};
-  my $item     = SML::BulletListItem->new(%{$args});
+  my $tcname     = $tc->{name};
+  my $expected   = $tc->{expected}{get_value};
+  my $line       = $tc->{line};
+  my $library    = $tc->{library};
+  my $whitespace = $tc->{leading_whitespace};
+  my $parser     = $library->get_parser;
+
+  my $item = SML::BulletListItem->new
+    (
+     library            => $library,
+     leading_whitespace => $whitespace,
+    );
 
   $item->add_line($line);
+
+  $parser->_begin_block($item);
+  $parser->_end_block($item);
 
   # act
   my $result = $item->get_value;

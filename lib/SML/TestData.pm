@@ -827,7 +827,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p><span style=\"font-size: 8pt;\"><a href=\"#footnote.introduction.1\"><sup>[1]<\/sup><\/a><\/span></p>\n\n",
+	 default => "<p><span style=\"font-size:8pt;\"><a href=\"#footnote.introduction.1\"><sup>[1]<\/sup><\/a><\/span></p>\n\n",
 	},
 	latex =>
 	{
@@ -1520,7 +1520,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p>[<a href=\"td-000020.source.html#cms15\">cms15</a>]</p>\n\n",
+	 default => "<p>[<a href=\"td-000020.references.html#cms15\">cms15</a>]</p>\n\n",
 	},
 	latex =>
 	{
@@ -1528,7 +1528,7 @@ sub _build_block_test_case_list {
 	},
 	xml =>
 	{
-	 default => "[<a href=\"td-000020.source.html#cms15\">cms15</a>]\n\n",
+	 default => "[<a href=\"td-000020.references.html#cms15\">cms15</a>]\n\n",
 	},
        },
        error =>
@@ -1549,7 +1549,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p>[<a href=\"td-000020.source.html#cms15\">cms15, pg 44</a>]</p>\n\n",
+	 default => "<p>[<a href=\"td-000020.references.html#cms15\">cms15, pg 44</a>]</p>\n\n",
 	},
 	latex =>
 	{
@@ -1557,7 +1557,7 @@ sub _build_block_test_case_list {
 	},
 	xml =>
 	{
-	 default => "[<a href=\"td-000020.source.html#cms15\">cms15, pg 44</a>]\n\n",
+	 default => "[<a href=\"td-000020.references.html#cms15\">cms15, pg 44</a>]\n\n",
 	},
        },
        error =>
@@ -1803,7 +1803,7 @@ sub _build_block_test_case_list {
        {
 	html =>
 	{
-	 default => "<p>&lt;para style=\"indented\"&gt;</p>\n\n",
+	 default => "<p>&lt;para style=&quot;indented&quot;&gt;</p>\n\n",
 	},
 	latex =>
 	{
@@ -2465,11 +2465,8 @@ sub _build_bullet_list_item_test_case_list {
      {
       name => 'top_level_item',
       line => SML::Line->new(content=>'- top level item'),
-      args =>
-      {
-       library => $self->get_test_library_1,
-       leading_whitespace => '',
-      },
+      library => $self->get_test_library_1,
+      leading_whitespace => '',
       expected =>
       {
        get_value => 'top level item',
@@ -2479,11 +2476,8 @@ sub _build_bullet_list_item_test_case_list {
      {
       name => 'indented_item',
       line => SML::Line->new(content=>'  - indented item'),
-      args =>
-      {
-       library => $self->get_test_library_1,
-       leading_whitespace => '  ',
-      },
+      library => $self->get_test_library_1,
+      leading_whitespace => '  ',
       expected =>
       {
        get_value => 'indented item',
@@ -4695,15 +4689,15 @@ sub _build_parser_test_case_list {
       },
      },
 
-     {
-      name     => 'raw_single_paragraph',
-      divid    => 'td-000024',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       parse => 'SML::Division',
-      },
-     },
+     # {
+     #  name     => 'raw_single_paragraph',
+     #  divid    => 'td-000024',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   parse => 'SML::Division',
+     #  },
+     # },
 
      {
       name     => 'document_containing_variable_substitutions',
@@ -5045,15 +5039,15 @@ sub _build_parser_test_case_list {
       },
      },
 
-     {
-      name     => 'raw_division_containing_source_references',
-      divid    => 'td-000062',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       parse => 'SML::Division',
-      },
-     },
+     # {
+     #  name     => 'raw_division_containing_source_references',
+     #  divid    => 'td-000062',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   parse => 'SML::Division',
+     #  },
+     # },
 
      {
       name     => 'document_containing_invalid_explicit_declaration_of_infer_only_property',
@@ -5155,15 +5149,15 @@ sub _build_parser_test_case_list {
       },
      },
 
-     {
-      name     => 'raw_division_containing_divisions_for_extraction',
-      divid    => 'td-000074',
-      library  => $self->get_test_library_1,
-      expected =>
-      {
-       parse => 'SML::Division',
-      },
-     },
+     # {
+     #  name     => 'raw_division_containing_divisions_for_extraction',
+     #  divid    => 'td-000074',
+     #  library  => $self->get_test_library_1,
+     #  expected =>
+     #  {
+     #   parse => 'SML::Division',
+     #  },
+     # },
 
      {
       name     => 'listing_division',

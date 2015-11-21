@@ -8,6 +8,5 @@
 [%- ELSIF (tag == 'acl') -%]
   [%- SET list = document.get_acronym_list -%]
   [%- SET definition = list.get_acronym(acronym,namespace) -%]
-  [%- SET text = definition.get_value -%]
-<a href="[%docid%].acronyms.html#[%acronym%]:[%namespace%]">[%text%]</a>
+<a href="[%docid%].acronyms.html#[%acronym%]:[%namespace%]">[%- INCLUDE STRING.tt self = definition.get_definition_string -%]</a>
 [%- END -%]

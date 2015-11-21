@@ -177,13 +177,13 @@ index:: trademark symbol
 
 ---
 
-: !!Registered Trademark.!! Make a registered trademark symbol: [r].
+: !!Registered Trademark.!! Make a registered trademark symbol: [rtm].
 
 index:: registered trademark symbol
 
 :
 
-  [r]
+  [rtm]
 
 ---
 

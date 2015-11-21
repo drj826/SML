@@ -86,7 +86,7 @@ drj826@acm.org.
 
 index:: LaTeX; PDFLaTeX
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#------------------------------
 # footnotes
 
 footnote::1: The CSV rendition only captures the structured data
@@ -324,7 +324,7 @@ features of SML in terms of format, structure, and content.  But
 before we get into lists of these features, let's take a look at a
 simple example.
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#------------------------------
 # footnotes
 
 footnote::1: You can read a great rant on this issue by Allin Cottrell
@@ -439,7 +439,7 @@ The following sections summarize the features supported by SML,
 divided into format, structure, content, and special feature
 categories.  For the gory details see [title:structuring-text].
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#------------------------------
 # footnotes
 
 footnote::1: If you're one of those crazy computer types who knows how
@@ -702,7 +702,7 @@ and I might implement that feature.
 
 index::end: pros and cons
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#------------------------------
 # footnotes
 
 footnote::1: HTML and PDF renditions are mature, as of this writing
@@ -830,7 +830,7 @@ steps it doesn't need to re-accomplish like creating thumbnail images,
 scaling images, and copying images to appropriate output directories.
 This makes publishing go a lot faster.
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#------------------------------
 # footnotes
 
 footnote::1: If you get an error when you run the ||publish|| program,
@@ -1616,8 +1616,7 @@ SML is a formal descriptive markup language.  That means it has
 SML semantics are ~~extensible~~.  This means you can customize the
 language to describe the things you care about.  More importantly, you
 can describe how the things you care about are allowed to interrelate.
-You customize SML semantics by writing [g:sml:ontology] rules
-([ref:ontology-rules]).
+You customize SML semantics by writing [g:sml:ontology] rules.
 
 A [g:sml:library] of documents share common semantics.  That means all
 documentation in a library shares a common [g:sml:ontology].
@@ -1827,7 +1826,7 @@ environment or region.
 The following sections summarize the data elements for each
 environment and region.[f:environments-and-regions:1]
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#------------------------------
 # footnotes
 
 footnote::1: The absolute definitive source for data elements is the
@@ -2077,7 +2076,7 @@ the document:[f:document-title:1]
 
 Normally you place the title on the first line of the text document.
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#------------------------------
 # footnotes
 
 footnote::1: ~~QUESTION:~~ Why isn't __this__ example interpreted as a
@@ -2167,19 +2166,67 @@ paragraphs in a list item.
 
 #---------------------------------------------------------------------
 
-***.sec-inline-markup Inline Text Elements
+***.sec-inline-markup Inline Text Markup
 
-You can make words !!bold!! by bracketing them in double exclamation
-marks !!like this!!.
+: bold
 
-You can __underline__ words by bracketing them in double underscores
-__like this__.
+:
 
-You can render words in ||typewriter type|| by bracketing them in
-double pipes ||like this||.
+  !!example!!
 
-You can render words in ~~italicized type~~ by bracketing them in
-double tildes ~~like this~~.
+: !!example!!
+
+---
+
+: underline
+
+:
+
+  __example__
+
+: __example__
+
+---
+
+: fixed width
+
+:
+
+  ||example||
+
+: ||example||
+
+---
+
+: italics
+
+:
+
+  ~~example~~
+
+: ~~example~~
+
+---
+
+: superscript
+
+:
+
+  An ^^example^^
+
+: An ^^example^^
+
+---
+
+: subscript
+
+:
+
+  An ,,example,,
+
+: An ,,example,,
+
+---
 
 #---------------------------------------------------------------------
 
@@ -2323,7 +2370,7 @@ separate paragraph like this:
 You can put multiple footnotes in the same paragraph.  They will be
 numbered in sequential order.
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#------------------------------
 # footnotes
 
 footnote::1: This is a footnote
@@ -4965,7 +5012,7 @@ of writing tests).
 Each question has a yes or no answer plus an optional comment.  The
 question can include impact statements for yes and no answers.
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#------------------------------
 # footnotes
 
 footnote::1: The ~~informal~~ status of an item can be declared using
@@ -5321,6 +5368,42 @@ If you want to call attention to certain content, insert a
 
 ***.cross-references Cross References
 
+You can create cross references within a document and within your
+library.
+
+: cross reference
+
+:
+  [ref:getting-started]
+  [r:getting-started]
+
+: [ref:getting-started]
+
+---
+
+: ID reference
+
+:
+
+  [id:getting-started]
+
+: [id:getting-started]
+
+---
+
+: page reference
+
+:
+  [page:getting-started]
+  [pg:getting-started]
+
+: [page:getting-started]
+
+---
+
+For instance, here is a cross reference to the ``Getting Started''
+section of this document: [ref:getting-started].
+
 #---------------------------------------------------------------------
 
 ***.conditional-text Conditional Text
@@ -5408,7 +5491,7 @@ deals with an indexed subject:
 
   index::end: term
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#------------------------------
 # footnotes
 
 footnote::1: At the time of this writing, 2009-01-22, I haven't yet
@@ -5500,6 +5583,19 @@ title:: Referencing Glossary Entries
 word.
 
 <<<TABLE
+
+#---------------------------------------------------------------------
+
+***.acronyms Building a List of Acronyms
+
+You can build a list of acronyms by defining and using acronyms in
+your document.
+
+  acronym:: TLA = Three Letter Acronym
+
+acronym:: TLA = Three Letter Acronym
+
+Here's a sentence where I use the acronym [ac:TLA].
 
 #---------------------------------------------------------------------
 
@@ -5729,7 +5825,7 @@ script requests in your document and wish to have the ||publish|| program
 run them, check the ~~run scripts~~ option in the GUI or specify
 ||--scripts|| from the command line.
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#------------------------------
 # footnotes
 
 footnote::1: Since the script mechanism could easily set up an

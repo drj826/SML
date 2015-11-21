@@ -1,4 +1,4 @@
-[%- IF self.has_content -%]
+[%- IF self.contains_content -%]
 <a href="mailto:[% self.get_email_addr %]">[%-FILTER html-%][%-self.get_content-%][%-END-%]</a>
 [%- ELSE -%]
 <a href="mailto:[% self.get_email_addr %]">[% self.get_email_addr %]</a>
