@@ -76,14 +76,6 @@ my @public_methods =
    'get_containing_division',
    'set_containing_division',
    'has_containing_division',
-   'has_valid_syntax',
-   'has_valid_semantics',
-   'has_valid_property_cardinality',
-   'has_valid_property_values',
-   'has_valid_infer_only_conformance',
-   'has_valid_required_properties',
-   'has_valid_composition',
-   'has_valid_id_uniqueness',
 
    # SML::Division public methods (inherited)
    'add_division',
@@ -112,7 +104,6 @@ my @public_methods =
    'get_location',
    'get_section',
    'is_in_a',
-   'validate',
   );
 
 can_ok( $obj, @public_methods );

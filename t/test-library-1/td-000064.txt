@@ -2,8 +2,6 @@
 
 title:: MISSING REQUIRED PROPERTY
 
-===
-
 This SML document contains a class (problem) missing a required
 property (title).
 

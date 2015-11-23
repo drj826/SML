@@ -2,8 +2,6 @@
 
 title:: Block Content
 
-===
-
 This document contains various blocks to test block rendering methods.
 
 This paragraph contains an internal cross reference to a problem.
@@ -18,8 +16,6 @@ type:: functional
 description:: This is a description of my problem.  This purpose of
 this problem is to serve as a test for applications designed to
 process SML problem regions.
-
-===
 
 This is some narrative text within the problem division.  You can put
 as much narrative text as you want inside divisions but you may

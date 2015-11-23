@@ -2,8 +2,6 @@
 
 title:: Insert Content
 
-===
-
 This SML document contains an 'insert' data element.  The 'insert'
 statement tells an application to insert content collected somewhere
 else in the document. The 'insert' statement in this test file inserts
@@ -29,8 +27,6 @@ title:: Test Exercise
 description:: This is the description of a test exercise.  The purpose
 of this exercise is to test the 'insert' feature.  So it really
 doesn't contain anything interesting.
-
-===
 
 step:: Unplug your computer.
 

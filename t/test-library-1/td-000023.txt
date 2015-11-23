@@ -2,8 +2,6 @@
 
 title:: Include A Problem Region
 
-===
-
 This document demonstrates including a division using an include
 statement.
 

@@ -2,8 +2,6 @@
 
 title:: Baretable
 
-===
-
 This is a test document containing a baretable.
 
 :: header column 1

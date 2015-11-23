@@ -2,8 +2,6 @@
 
 title:: Valid Source Citation
 
-===
-
 This paragraph is followed by a valid citation to a source with ID
 `dp95'. The citation does not refer to any spcific location in the
 cited work. Design patterns are nifty. [cite:dp95].

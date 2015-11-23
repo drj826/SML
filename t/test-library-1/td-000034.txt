@@ -2,8 +2,6 @@
 
 title:: Valid ID Reference
 
-===
-
 This document illustrates a valid ID reference.  A valid ID reference
 looks like [id:my-requirement].
 

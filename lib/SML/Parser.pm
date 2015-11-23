@@ -6075,9 +6075,11 @@ sub _process_end_glossary_entry {
       # $5
       # $6 = namespace
       # $7 = definition text
+      my $namespace = $6 || q{};
+
       $definition->set_value($3);
       $definition->set_term($4);
-      $definition->set_namespace($6);
+      $definition->set_namespace($namespace);
       $definition->set_definition($7);
     }
 
@@ -7822,7 +7824,9 @@ sub _process_start_def_list_item {
       my $block = SML::DefinitionListItem->new(library=>$library);
       $block->add_line($line);
       $self->_begin_block($block);
-      $self->_get_current_division->add_part($block);
+
+      my $division = $self->_get_current_division;
+      $division->add_part($block);
     }
 
   return 1;
@@ -9643,20 +9647,12 @@ sub _parse_block {
       return 1;
     }
 
-  elsif ( $block->isa('SML::Definition') )
-    {
-      my $term = $block->get_term;
-      my $term_string = $self->_create_string($term);
-      $block->set_term_string($term_string);
-
-      my $definition = $block->get_definition;
-      my $definition_string = $self->_create_string($definition);
-      $block->set_definition_string($definition_string);
-
-      return 1;
-    }
-
-  elsif ( $block->isa('SML::DefinitionListItem') )
+  elsif
+    (
+     $block->isa('SML::Definition')
+     or
+     $block->isa('SML::DefinitionListItem')
+    )
     {
       my $term = $block->get_term;
       my $term_string = $self->_create_string($term);

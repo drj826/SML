@@ -2,8 +2,6 @@
 
 title:: INVALID GLOSSARY TERM SYNTAX
 
-===
-
 This SML document contains invalid glossary term syntax.  The
 following glossary term reference is missing its close
 markup. [g:term.

@@ -2,8 +2,6 @@
 
 title:: Listing Division
 
-===
-
 This SML document contains a listing division.  The following
 division is a table.
 
@@ -14,8 +12,6 @@ title:: My Listing
 description:: This is a description of my listing.  The purpose of this
 listing is to serve as a test for applications designed to process SML
 listing divisions.
-
-===
 
 listing line 1
 listing line 2

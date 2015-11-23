@@ -2,8 +2,6 @@
 
 title:: Var Element
 
-===
-
 This SML document contains a `var' data element.  The `var' statement
 tells an application that the block of text is the text of a variable
 definition.

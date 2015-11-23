@@ -2,8 +2,6 @@
 
 title:: Generate Content
 
-===
-
 This SML document contains a generate block.  The 'generate' statement
 tells an application to generate content based on the parsed data
 elements.

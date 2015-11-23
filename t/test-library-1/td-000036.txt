@@ -2,16 +2,12 @@
 
 title:: Valid Page Reference
 
-===
-
 This SML file illustrates a valid page reference.  For more
 information see the listing at [page:my-listing].
 
 >>>LISTING.my-listing-36
 
 title:: My Listing
-
-===
 
 listing line 1
 

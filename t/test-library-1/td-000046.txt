@@ -2,8 +2,6 @@
 
 title:: Valid Superscript Markup
 
-===
-
 This document contains several examples of valid superscript markup.
 
 One ^^word^^ is superscript in this sentence.

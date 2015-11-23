@@ -2,8 +2,6 @@
 
 title:: INVALID ACRONYM REFERENCE SYNTAX
 
-===
-
 This SML document contains an invalid acronym reference. [ac:BOGUS
 
 <<<DOCUMENT

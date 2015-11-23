@@ -67,7 +67,7 @@ program
 SML enables you to represent full-length, full-featured, high-quality
 books, reports, and articles in minimally formatted text files.  Its
 simple mark-up rules ensure the plain text manuscript is easy to read,
-but still contains all information necessary to turn the text into a
+but still contains everything necessary to turn the text into a
 professionally typeset hardcopy.  In addition to hardcopy (via
 [g:PDF]), SML files can also be rendered as [g:HTML], [g:XML],
 [g:RTF], and [g:CSV].[f:getting-started:1]
@@ -101,7 +101,9 @@ elements of the document to a spreadsheet or database.
 ** Documentation Is Like Software
 
 ~~Why don't we write software the way we write documentation?~~
-Because that would be ~~terribly~~ inefficient.
+
+Because it would be ~~terribly~~ inefficient and result in
+unmaintainable software.
 
 >>>COMMENT
 
@@ -111,7 +113,11 @@ exact steps they wanted the computer to perform.  This was tedious.
 <<<COMMENT
 
 Most people write documentation using a word processor like Microsoft
-Word[tm].  They use practices long ago discarded as
+Word^^[rtm]^^. With a word processor you construct the content,
+structure, and format of a document simultaneously all in a single
+file.  What you see is what you get.
+
+Word processor users use practices long ago discarded as
 [g:sml:anti-pattern]s by programmers. Ask yourself if ~~you~~ use any
 of these common ``documentation anti-patterns'' when ~~you~~ write
 documents.
@@ -149,6 +155,14 @@ compliance mindset of `churning out' required documentation.  Such
 `one-time' documentation rarely serves its intended purpose.
 
 ---
+
+Advantages of ``compiling'' documentation:
+
+- modularization
+
+- validation
+
+- multiple output formats
 
 #---------------------------------------------------------------------
 
@@ -1630,29 +1644,13 @@ documentation in a library shares a common [g:sml:ontology].
 A physical data model describes the syntactic parts of a document.
 The syntactic parts of an SML document are:
 
-: [g:sml:division]
+= [g:sml:division] = [def:sml:division]
 
-: [def:sml:division]
+= [g:sml:block] = [def:sml:block]
 
----
+= [g:sml:string] = [def:sml:string]
 
-: [g:sml:block]
-
-: [def:sml:block]
-
----
-
-: [g:sml:string]
-
-: [def:sml:string]
-
----
-
-: [g:sml:line]
-
-: [def:sml:line]
-
----
+= [g:sml:line] = [def:sml:line]
 
 #---------------------------------------------------------------------
 

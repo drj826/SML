@@ -1,0 +1,81 @@
+>>>DOCUMENT.td-000094
+
+title:: Definition List Test
+
+subtitle:: Glossary Term and Definition References
+
+* Introduction
+
+This is an introduction to a test document.  The purpose of this test
+document is to render a definition list in which the terms are
+glossary term references and the definitions are glossary definition
+references.
+
+= [g:sml:division] = [def:sml:division]
+
+= [g:sml:block] = [def:sml:block]
+
+= [g:sml:string] = [def:sml:string]
+
+= [g:sml:line] = [def:sml:line]
+
+glossary:: block {sml} = (SML) A contiguous sequence of one or more
+~~whole~~ [g:sml:line]s of text.  Blocks end with either a blank line
+or the beginning of another block. Blocks cannot contain blank lines.
+Blocks may contain [g:sml:inline] elements
+
+glossary:: division {sml} = (SML) A contiguous sequence of whole
+[g:sml:line]s.  A division has an ~~unambiguous~~ beginning and end.
+Sometimes the beginning and end are explicit and other times they are
+implicit.  A division may be uniquely identified using an [g:sml:ID].
+The [g:sml:ID] may be used to refer to the division
+
+glossary:: ID {sml} = (SML) A string of characters that
+uniquely identifies a referenceable element of document content
+
+glossary:: inline {sml} = (SML) A contiguous string of [g:sml:text]
+that may be a ~~partial~~ line of text or may span one or more ~~whole
+or partial~~ lines. Inline elements may be used within [g:sml:block]s
+but not vice-versa.  An inline text element may span multiple
+[g:sml:line]s but may ~~not~~ span multiple [g:sml:block]s
+
+glossary:: line {sml} = (SML) A single line of raw text from a
+[g:sml:SML] file.  A line begins in the first column even if the
+leading characters are whitespace characters.  A line ends with a
+[g:sml:newline] character.  Authors often wrap lines after
+approximately 70 characters to improve readability
+
+glossary:: newline {sml} = (SML) The character that ends a line of
+text.  Newline is also known as ``line break,'' ``end-of-line,'' or
+``EOL.''  Software and operating systems typically represent newline
+characters with one or two control characters. Systems based on ASCII
+or a compatible character set use either ||LF|| (Line feed, `||\n||',
+||0x0A||, 10 in decimal) or ||CR|| (Carriage return, `||\r||',
+||0x0D||, 13 in decimal) individually, or ||CR|| followed by ||LF||
+(||CR+LF||, `||\r\n||', ||0x0D0A||). These characters are based on
+printer commands: The line feed indicated that one line of paper
+should feed out of the printer, and a carriage return indicated that
+the printer carriage should return to the beginning of the current
+line
+
+glossary:: Semantic Manuscript Language {sml} = (SML) A minimalistic
+descriptive markup language designed to be human readable, easy to
+edit, easy to automatically generate, able to express and validate
+semantic relationships, and contain all information necessary to
+publish professional documentation from plain text manuscripts
+
+glossary:: SML {sml} = (SML) [g:sml:Semantic Manuscript Language]
+
+glossary:: string {sml} = (SML) A sequence of characters. Some strings
+have special meaning like bold, italics, underlined, fixed width,
+superscript, and subscript strings.  Strings are also used to
+represent cross references and other content with special meaning.
+Strings may be nested inside other strings. String content may span
+newline boundaries. The content of a [g:sml:block] is a string. See
+also [g:sml:line], [g:sml:block], and [g:sml:division]
+
+glossary:: text {sml} = (SML) A string of 7-bit ASCII encoded
+characters, any length, may contain white space characters (space,
+tab, newline).  See also [g:sml:inline], markup and content
+
+<<<DOCUMENT

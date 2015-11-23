@@ -2,8 +2,6 @@
 
 title:: INVALID ID REFERENCE
 
-===
-
 This document illustrates an INVALID ID reference.  The INVALID ID
 reference is [id:bogus].
 

@@ -10,8 +10,6 @@ description:: The system shall perform general message processing
 functions.  This requirement serves as a container for general message
 processing requirements.
 
-===
-
 index:: rq-000003; message!processing
 
 This is the narrative part of the problem.  SML divisions are composed

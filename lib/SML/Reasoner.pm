@@ -60,6 +60,13 @@ sub infer_inverse_property {
   my $ontology              = $library->get_ontology;
   my $util                  = $library->get_util;
   my $division              = $element->get_containing_division;
+
+  if ( not $division )
+    {
+      $logger->warn("ELEMENT NOT IN DIVISION CONTEXT.  CAN'T INFER INVERSE PROPERTY");
+      return 0;
+    }
+
   my $division_id           = $division->get_id;
   my $division_name         = $division->get_name;
   my $element_name          = $element->get_name;

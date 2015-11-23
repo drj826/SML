@@ -2,8 +2,6 @@
 
 title:: Problem Division
 
-===
-
 This SML document contains a problem division.  The following division
 describes a problem.
 
@@ -16,8 +14,6 @@ type:: technical
 description:: This is a description of my problem.  This purpose of
 this problem is to serve as a test for applications designed to
 process SML problem divisions.
-
-===
 
 This is some narrative text within the problem division.  You can put
 as much narrative text as you want inside divisions but you may

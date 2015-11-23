@@ -2,8 +2,6 @@
 
 title:: Acronym Element
 
-===
-
 This SML document contains an `acronym' data element.  The `acronym'
 statement tells an application that the block of text is the text of
 an acronym definition.

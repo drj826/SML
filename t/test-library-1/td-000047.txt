@@ -2,8 +2,6 @@
 
 title:: INVALID SUPERSCRIPT MARKUP
 
-===
-
 This document contains an example of INVALID superscript markup.
 
 This paragraph contains a ^^begin superscript but not an end

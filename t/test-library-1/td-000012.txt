@@ -2,11 +2,7 @@
 
 title:: Footnote Element
 
-===
-
 *.footnote-element Introduction
-
-===
 
 This SML document contains a `footnote' data element.  The `footnote'
 statement tells an application that the block of text is the text of a

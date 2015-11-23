@@ -4,8 +4,6 @@ title:: Conditional Divisions
 
 define:: version_1
 
-===
-
 This SML document contains two conditional divisions.  The first will
 appear in the rendered document if `version_1' is defined.  The second
 will appear if `version_2' is defined.

@@ -2,8 +2,6 @@
 
 title:: Definition List Test
 
-===
-
 This document contains definition lists to test the systems capability
 to parse and render definition lists.
 

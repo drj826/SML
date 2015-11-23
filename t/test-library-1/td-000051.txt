@@ -2,8 +2,6 @@
 
 title:: DEFINITION NOT IN GLOSSARY
 
-===
-
 This SML document contains a glossary definition reference for a term
 that's not in the glossary. [def:bogus]
 

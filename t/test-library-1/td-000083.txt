@@ -15,11 +15,9 @@ description:: The purpose of this document is to serve as a test for
 title page rendering.  It has every conceivable element that might go
 on a title page.
 
-===
+#---------------------------------------------------------------------
 
 * Introduction
-
-===
 
 This is an introduction to the test document.  It doesn't contain any
 meaningful information -- just a bunch of fluff about nothing.

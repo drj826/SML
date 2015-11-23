@@ -2,16 +2,12 @@
 
 title:: INVALID CROSS REFERENCE
 
-===
-
 This test file illustrates a valid cross reference.  See
 [ref:bogus] for details.
 
 >>>LISTING.my-listing-33
 
 title:: My Listing
-
-===
 
 listing line 1
 

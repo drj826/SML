@@ -12,8 +12,6 @@ status:: yellow
 
 define:: version2
 
-===
-
 This SML [g:sml:document] contains a section structure with regions.
 This opening paragraph is not in a section.
 
@@ -71,8 +69,6 @@ description:: This is a description of my problem.  This purpose of
 this problem is to serve as a test for applications designed to
 process SML problem regions.
 
-===
-
 This paragraph begins the narrative portion of problem-20-1.  The
 region narratives cannot contain sections but may contain environments
 such as tables and figures.
@@ -111,8 +107,6 @@ table that defines the types of solutions:
 >>>TABLE.tab-solution-types
 
 title:: Solutions Types
-
-===
 
 :: Type
 

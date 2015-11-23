@@ -2,16 +2,12 @@
 
 title:: INVALID PAGE REFERENCE
 
-===
-
 This SML file illustrates an INVALID page reference.  For more
 information see the listing at [page:bogus].
 
 >>>LISTING.my-listing-37
 
 title:: My Listing
-
-===
 
 listing line 1
 

@@ -2,8 +2,6 @@
 
 title:: Simple Lists
 
-===
-
 Here is an unordered list:
 
 - item 1

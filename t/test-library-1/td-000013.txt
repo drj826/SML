@@ -2,8 +2,6 @@
 
 title:: Glossary Element
 
-===
-
 This SML document contains a `glossary' data element.  The `glossary'
 statement tells an application that the block of text is the text of a
 glossary definition.

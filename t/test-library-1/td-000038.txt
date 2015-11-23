@@ -2,8 +2,6 @@
 
 title:: Valid Bold Markup
 
-===
-
 This document contains several examples of valid bold markup.
 
 One !!word!! is bold in this sentence.

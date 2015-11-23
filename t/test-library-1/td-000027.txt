@@ -2,8 +2,6 @@
 
 title:: INVALID Glossary Term Reference
 
-===
-
 This SML document illustrates an example of an ~~INVALID~~ glossary
 term reference.  The reference is invalid because the term defined in
 the glossary is lower case but the reference is looking for a

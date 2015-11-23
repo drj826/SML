@@ -2,8 +2,6 @@
 
 title:: Valid Fixed-Width Markup
 
-===
-
 This document contains several examples of valid fixed-width markup.
 
 One ||word|| is fixed-width in this sentence.

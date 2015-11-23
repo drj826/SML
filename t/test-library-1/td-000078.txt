@@ -2,8 +2,6 @@
 
 title:: Title Containing[linebreak]A Line Break
 
-===
-
 This test data file exhibits a title that contains a line break.
 
 <<<DOCUMENT

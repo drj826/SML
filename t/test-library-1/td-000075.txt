@@ -2,8 +2,6 @@
 
 title:: Sample Listing
 
-===
-
 LIB000, cls, LIBRARY,     exists,             SML::Library,   ,             ,       1,    0, 0,
 LIB001, prp, LIBRARY,     id,                 Str,            STRING,       ,       1,    0, 0,
 LIB002, prp, LIBRARY,     author,             Str,            STRING,       ,       1,    0, 0,

@@ -42,6 +42,7 @@ has namespace =>
    reader    => 'get_namespace',
    writer    => 'set_namespace',
    predicate => 'has_namespace',
+   default   => q{},
   );
 
 ######################################################################

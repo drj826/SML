@@ -2,16 +2,12 @@
 
 title:: FILE NOT FOUND
 
-===
-
 This SML document contains an INVALID file element (bad file
 extension).
 
 >>>LISTING.lis-my-file-listing-66
 
 title:: My File Listing
-
-===
 
 file:: td-000001.xtx
 

@@ -13,6 +13,14 @@ use SML;
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
 
+# set sml.Library logger to WARN
+my $logger_library = Log::Log4perl::get_logger('sml.Library');
+$logger_library->level('WARN');
+
+# set sml.Parser logger to WARN
+my $logger_parser = Log::Log4perl::get_logger('sml.Parser');
+$logger_parser->level('WARN');
+
 use Test::Log4perl;
 
 #---------------------------------------------------------------------
@@ -54,19 +62,15 @@ my @public_methods =
    'get_author',
    'get_date',
    'get_revision',
-   'is_valid',
 
    # SML::Document public methods
    'add_note',
-   'add_index_term',
    'has_note',
-   'has_index_term',
    'has_glossary_term',
    'has_acronym',
    'has_source',
    'get_acronym_definition',
    'get_note',
-   'get_index_term',
    'replace_division_id',
 
    # SML::Region public attribute accessors
@@ -83,14 +87,6 @@ my @public_methods =
    'get_containing_division',
    'set_containing_division',
    'has_containing_division',
-   'has_valid_syntax',
-   'has_valid_semantics',
-   'has_valid_property_cardinality',
-   'has_valid_property_values',
-   'has_valid_infer_only_conformance',
-   'has_valid_required_properties',
-   'has_valid_composition',
-   'has_valid_id_uniqueness',
 
    # SML::Division public methods
    'add_division',
@@ -123,12 +119,10 @@ my @public_methods =
    'get_location',
    'get_section',
    'is_in_a',
-   'validate',
 
    # SML::Part public attribute accessors
    'get_id',
    'set_id',
-   'get_id_path',
    'get_library',
    'get_name',
    'get_content',
@@ -138,7 +132,7 @@ my @public_methods =
    # SML::Part public methods
    'init',
    'has_content',
-   'has_parts',
+   'contains_parts',
    'has_part',
    'get_part',
    'add_part',
@@ -159,7 +153,7 @@ foreach my $tc (@{ $tcl })
   {
     get_glossary_ok($tc)           if defined $tc->{expected}{get_glossary};
     add_note_ok($tc)               if defined $tc->{expected}{add_note};
-    is_valid_ok($tc)               if defined $tc->{expected}{is_valid};
+    # is_valid_ok($tc)               if defined $tc->{expected}{is_valid};
     render_ok($tc,'sml','default') if defined $tc->{expected}{render}{sml}{default};
     dump_part_structure_ok($tc)    if defined $tc->{expected}{dump_part_structure};
   }
@@ -214,23 +208,23 @@ sub add_note_ok {
 
 ######################################################################
 
-sub is_valid_ok {
+# sub is_valid_ok {
 
-  my $tc = shift;                       # test case
+#   my $tc = shift;                       # test case
 
-  # arrange
-  my $tcname   = $tc->{name};
-  my $docid    = $tc->{docid};
-  my $expected = $tc->{expected}{is_valid};
-  my $library  = $tc->{library};
-  my $document = $library->get_document($docid);
+#   # arrange
+#   my $tcname   = $tc->{name};
+#   my $docid    = $tc->{docid};
+#   my $expected = $tc->{expected}{is_valid};
+#   my $library  = $tc->{library};
+#   my $document = $library->get_document($docid);
 
-  # act
-  my $result = $document->is_valid;
+#   # act
+#   my $result = $document->is_valid;
 
-  # assert
-  is($result,$expected,"$tcname is_valid $result");
-}
+#   # assert
+#   is($result,$expected,"$tcname is_valid $result");
+# }
 
 ######################################################################
 

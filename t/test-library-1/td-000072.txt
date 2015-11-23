@@ -12,11 +12,7 @@ status:: yellow
 
 define:: version2
 
-===
-
 *.introduction-72 Introduction
-
-===
 
 The purpose of this introduction section is to serve as a target for
 internal document cross references.
@@ -42,8 +38,6 @@ note::1: This is a footnote.
 
 **.cross_reference_1 Cross Reference 1
 
-===
-
 [ref:introduction]
 
 # LaTeX: Section~\vref{introduction}
@@ -53,8 +47,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.cross_reference_2 Cross Reference 2
-
-===
 
 [r:introduction]
 
@@ -66,8 +58,6 @@ note::1: This is a footnote.
 
 **.url_reference_1 URL Reference 1
 
-===
-
 [url:http://www.cnn.com/]
 
 # LaTeX: \urlstyle{sf}\url{http://www.cnn.com/}
@@ -77,8 +67,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.footnote_reference_1 Footnote Reference 1
-
-===
 
 [f:introduction:1]
 
@@ -90,8 +78,6 @@ note::1: This is a footnote.
 
 **.glossary_reference_1 Glossary Reference 1
 
-===
-
 [g:sml:document]
 
 # LaTeX: \gls{document:sml}
@@ -101,8 +87,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.glossary_reference_2 Glossary Reference 2
-
-===
 
 [G:sml:document]
 
@@ -114,8 +98,6 @@ note::1: This is a footnote.
 
 **.glossary_reference_3 Glossary Reference 3
 
-===
-
 [gls:sml:document]
 
 # LaTeX: \gls{document:sml}
@@ -125,8 +107,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.glossary_reference_4 Glossary Reference 4
-
-===
 
 [Gls:sml:document]
 
@@ -138,8 +118,6 @@ note::1: This is a footnote.
 
 **.acronym_reference_1 Acronym Reference 1
 
-===
-
 [ac:sml:TLA]
 
 # LaTeX: \ac{TLA:sml}
@@ -149,8 +127,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.acronym_reference_2 Acronym Reference 2
-
-===
 
 [acs:sml:TLA]
 
@@ -162,8 +138,6 @@ note::1: This is a footnote.
 
 **.acronym_reference_3 Acronym Reference 3
 
-===
-
 [acl:sml:TLA]
 
 # LaTeX: \ac{TLA:sml}
@@ -173,8 +147,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.index_reference_1 Index Reference 1
-
-===
 
 [i:structured manuscript language]
 
@@ -186,8 +158,6 @@ note::1: This is a footnote.
 
 **.index_reference_2 Index Reference 2
 
-===
-
 [index:structured manuscript language]
 
 # LaTeX: structured manuscript language \index{structured manuscript language}
@@ -197,8 +167,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.id_reference_1 ID Reference 1
-
-===
 
 [id:introduction]
 
@@ -210,8 +178,6 @@ note::1: This is a footnote.
 
 **.thepage_reference_1 The Page Reference 1
 
-===
-
 [thepage]
 
 # LaTeX: \thepage
@@ -221,8 +187,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.page_reference_1 Page Reference 1
-
-===
 
 [page:introduction]
 
@@ -234,8 +198,6 @@ note::1: This is a footnote.
 
 **.page_reference_2 Page Reference 2
 
-===
-
 [pg:introduction]
 
 # LaTeX: p. \pageref{introduction}
@@ -245,8 +207,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.theversion_reference_1 The Version Reference 1
-
-===
 
 [theversion]
 
@@ -258,8 +218,6 @@ note::1: This is a footnote.
 
 **.therevision_reference_1 The Revision Reference 1
 
-===
-
 [therevision]
 
 # LaTeX: 4444
@@ -269,8 +227,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.date_reference_1 Date Reference 1
-
-===
 
 [thedate]
 
@@ -282,8 +238,6 @@ note::1: This is a footnote.
 
 **.status_reference_1 Status Reference 1
 
-===
-
 [status:td-000072]
 
 # LaTeX: \textcolor{fg-yellow}{$\blacksquare$}
@@ -293,8 +247,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.status_reference_2 Status Reference 2
-
-===
 
 [status:grey]
 
@@ -306,8 +258,6 @@ note::1: This is a footnote.
 
 **.status_reference_3 Status Reference 3
 
-===
-
 [status:green]
 
 # LaTeX: \textcolor{fg-green}{$\blacksquare$}
@@ -317,8 +267,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.status_reference_4 Status Reference 4
-
-===
 
 [status:yellow]
 
@@ -330,8 +278,6 @@ note::1: This is a footnote.
 
 **.status_reference_5 Status Reference 5
 
-===
-
 [status:red]
 
 # LaTeX: \textcolor{fg-red}{$\blacksquare$}
@@ -341,8 +287,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.citation_reference_1 Citation Reference 1
-
-===
 
 [cite:cms15]
 
@@ -354,8 +298,6 @@ note::1: This is a footnote.
 
 **.citation_reference_2 Citation Reference 2
 
-===
-
 [cite:cms15, pg 44]
 
 # LaTeX: \cite[pg 44]{cms15}
@@ -365,8 +307,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.file_reference_1 File Reference 1
-
-===
 
 [file:app.ini]
 
@@ -378,8 +318,6 @@ note::1: This is a footnote.
 
 **.file_reference_2 File Reference 2
 
-===
-
 [file:My Document.doc]
 
 # LaTeX: \path{My Document.doc}
@@ -389,8 +327,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.path_reference_1 Path Reference 1
-
-===
 
 [path:/path/to/folder]
 
@@ -402,8 +338,6 @@ note::1: This is a footnote.
 
 **.path_reference_2 Path Reference 2
 
-===
-
 [path:/path/to/my folder]
 
 # LaTeX: \path{/path/to/my folder}
@@ -413,8 +347,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.path_reference_3 Path Reference 3
-
-===
 
 [path:C:\path\to\my folder\]
 
@@ -426,8 +358,6 @@ note::1: This is a footnote.
 
 **.user_entered_text_1 User Entered Text 1
 
-===
-
 [enter:USERNAME].
 
 # LaTeX: \textbf{\texttt{USERNAME}}
@@ -437,8 +367,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.command_reference_1 Command Reference 1
-
-===
 
 [cmd:pwd]
 
@@ -450,8 +378,6 @@ note::1: This is a footnote.
 
 **.command_reference_2 Command Reference 2
 
-===
-
 [cmd:ls -al | grep -i bin | sort]
 
 # LaTeX: \path{ls -al | grep -i bin | sort}
@@ -461,8 +387,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.literal_xml_tag_1 Literal XML Tag 1
-
-===
 
 <html>
 
@@ -474,8 +398,6 @@ note::1: This is a footnote.
 
 **.literal_xml_tag_2 Literal XML Tag 2
 
-===
-
 <para style="indented">
 
 # LaTeX: <para style="indented">
@@ -485,8 +407,6 @@ note::1: This is a footnote.
 #---------------------------------------------------------------------
 
 **.email_address_1 Email Address 1
-
-===
 
 joe@example.com
 
@@ -498,8 +418,6 @@ joe@example.com
 
 **.take_note_symbol Take Note Symbol
 
-===
-
 [take_note]
 
 # LaTeX: \marginpar{\Huge\Writinghand}
@@ -509,8 +427,6 @@ joe@example.com
 #---------------------------------------------------------------------
 
 **.smiley_symbol Smiley Symbol
-
-===
 
 :-)
 
@@ -522,8 +438,6 @@ joe@example.com
 
 **.frowny_symbol Frowny Symbol
 
-===
-
 :-(
 
 # LaTeX: \large\Frowny
@@ -533,8 +447,6 @@ joe@example.com
 #---------------------------------------------------------------------
 
 **.keystroke_symbol_1 Keystroke Symbol 1
-
-===
 
 [[Enter]]
 
@@ -546,8 +458,6 @@ joe@example.com
 
 **.keystroke_symbol_2 Keystroke Symbol 2
 
-===
-
 [[Ctrl]]-[[Alt]]-[[Del]].
 
 # LaTeX: \keystroke{Ctrl}-\keystroke{Alt}-\keystroke{Del}
@@ -557,8 +467,6 @@ joe@example.com
 #---------------------------------------------------------------------
 
 **.left_arrow_symbol Left Arrow Symbol
-
-===
 
 <-
 
@@ -570,8 +478,6 @@ joe@example.com
 
 **.right_arrow_symbol Right Arrow Symbol
 
-===
-
 ->
 
 # LaTeX: $\rightarrow$
@@ -581,8 +487,6 @@ joe@example.com
 #---------------------------------------------------------------------
 
 **.latex_symbol LaTeX Symbol
-
-===
 
 LaTeX
 
@@ -594,8 +498,6 @@ LaTeX
 
 **.tex_symbol TeX Symbol
 
-===
-
 Tex
 
 # LaTeX: \TeX{}
@@ -605,8 +507,6 @@ Tex
 #---------------------------------------------------------------------
 
 **.copyright_symbol Copyright Symbol
-
-===
 
 [c]
 
@@ -618,8 +518,6 @@ Tex
 
 **.trademark_symbol Trademark Symbol
 
-===
-
 [tm]
 
 # LaTeX: \tiny$^{\texttrademark}$\normalsize
@@ -629,8 +527,6 @@ Tex
 #---------------------------------------------------------------------
 
 **.reg_trademark_symbol Registered Trademark Symbol
-
-===
 
 [rtm]
 
@@ -642,15 +538,11 @@ Tex
 
 **.double_quotes Double Quotes
 
-===
-
 This is a ``double quoted phrase.''
 
 #---------------------------------------------------------------------
 
 **.single_quotes Single Quotes
-
-===
 
 This is a `single quoted phrase.'
 
@@ -658,15 +550,11 @@ This is a `single quoted phrase.'
 
 **.section_symbol Section Symbol
 
-===
-
 [section]
 
 #---------------------------------------------------------------------
 
 **.emdash_symbol Emdash Symbol
-
-===
 
 Use an emdash -- sparingly -- as a big comma.
 
@@ -674,15 +562,11 @@ Use an emdash -- sparingly -- as a big comma.
 
 **.bold Bold
 
-===
-
 !!bold text!!
 
 #---------------------------------------------------------------------
 
 **.italic Italic
-
-===
 
 ~~italicized text~~
 
@@ -690,15 +574,11 @@ Use an emdash -- sparingly -- as a big comma.
 
 **.underline Underline
 
-===
-
 __underlined text__
 
 #---------------------------------------------------------------------
 
 **.fixedwidth Fixed Width
-
-===
 
 ||fixedwidth text||
 
@@ -706,15 +586,11 @@ __underlined text__
 
 **.superscript Superscript
 
-===
-
 ^^superscript text^^
 
 #---------------------------------------------------------------------
 
 **.subscript Subscript
-
-===
 
 ,,subscripted text,,
 

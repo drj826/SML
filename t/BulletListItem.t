@@ -68,8 +68,6 @@ my @public_methods =
    'get_containing_division',
    'set_containing_division',
    'has_containing_division',
-   'has_valid_syntax',
-   'has_valid_semantics',
 
    # SML::Block public methods (inherited)
    'add_line',

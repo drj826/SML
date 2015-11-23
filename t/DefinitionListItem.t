@@ -80,15 +80,22 @@ sub get_term_ok {
   # Arrange
   my $tcname   = $tc->{name};
   my $line     = $tc->{line};
-  my $args     = $tc->{args};
+  my $library  = $tc->{library};
+  my $parser   = $library->get_parser;
   my $expected = $tc->{expected}{get_term};
-  my $item     = SML::DefinitionListItem->new(%{$args});
+
+  my $item = SML::DefinitionListItem->new
+    (
+     library => $library,
+    );
 
   $item->add_line($line);
 
+  $parser->_begin_block($item);
+  $parser->_end_block($item);
+
   # Act
-  my $term   = $item->get_term;
-  my $result = $term->get_content;
+  my $result = $item->get_term;
 
   # Assert
   is($result,$expected,"$tcname get_term $result");
@@ -103,15 +110,22 @@ sub get_definition_ok {
   # Arrange
   my $tcname   = $tc->{name};
   my $line     = $tc->{line};
-  my $args     = $tc->{args};
+  my $library  = $tc->{library};
+  my $parser   = $library->get_parser;
   my $expected = $tc->{expected}{get_definition};
-  my $item     = SML::DefinitionListItem->new(%{$args});
+
+  my $item = SML::DefinitionListItem->new
+    (
+     library => $library,
+    );
 
   $item->add_line($line);
 
+  $parser->_begin_block($item);
+  $parser->_end_block($item);
+
   # Act
-  my $definition = $item->get_definition;
-  my $result     = $definition->get_content;
+  my $result = $item->get_definition;
 
   # Assert
   is($result,$expected,"$tcname get_term $result");

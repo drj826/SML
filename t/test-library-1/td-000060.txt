@@ -2,8 +2,6 @@
 
 title:: Resolve Template
 
-===
-
 This document contains a template to be resolved by the parser.
 
 include::text=my text: tmpl/test_template.txt

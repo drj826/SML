@@ -2,8 +2,6 @@
 
 title:: Valid Subscript Markup
 
-===
-
 This document contains several examples of valid subscript markup.
 
 One ,,word,, is subscript in this sentence.

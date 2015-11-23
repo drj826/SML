@@ -2,8 +2,6 @@
 
 title:: INVALID UNDERLINE MARKUP
 
-===
-
 This document contains an example of INVALID underline markup.
 
 This paragraph contains a __begin underline but not an end underline.

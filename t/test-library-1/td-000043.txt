@@ -2,8 +2,6 @@
 
 title:: INVALID FIXED-WIDTH MARKUP
 
-===
-
 This document contains an example of INVALID fixed-width markup.
 
 This paragraph contains a ||begin fixed-width but not an end

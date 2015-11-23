@@ -2508,10 +2508,7 @@ sub _build_definition_list_item_test_case_list {
      {
       name => 'definition_list_item_1',
       line => SML::Line->new(content=>'= term 1 = definition of term 1'),
-      args =>
-      {
-       library => $self->get_test_library_1,
-      },
+      library => $self->get_test_library_1,
       expected =>
       {
        get_term => 'term 1',
@@ -2522,10 +2519,7 @@ sub _build_definition_list_item_test_case_list {
      {
       name => 'bad_definition_list_item_1',
       line => SML::Line->new(content=>'This is not a definition list item'),
-      args =>
-      {
-       library => $self->get_test_library_1,
-      },
+      library => $self->get_test_library_1,
       expected =>
       {
        error => 'DEFINITION LIST ITEM SYNTAX ERROR',
@@ -2545,33 +2539,27 @@ sub _build_definition_test_case_list {
      {
       name => 'definition_1',
       line => SML::Line->new(content=>'glossary:: BPEL = Business Process Execution Language'),
-      args =>
-      {
-       name => 'glossary',
-       library => $self->get_test_library_1,
-      },
+      name => 'glossary',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_term => 'BPEL',
        get_namespace => '',
-       get_value => 'Business Process Execution Language',
-       get_bookmark => 'bpel:',
+       get_definition => 'Business Process Execution Language',
+       get_bookmark => 'bpel',
       },
      },
 
      {
       name => 'definition_2',
       line => SML::Line->new(content=>'glossary:: FRD {ieee} = (IEEE) Functional Requirements Document'),
-      args =>
-      {
-       name => 'glossary',
-       library => $self->get_test_library_1,
-      },
+      name => 'glossary',
+      library => $self->get_test_library_1,
       expected =>
       {
        get_term => 'FRD',
        get_namespace => 'ieee',
-       get_value => '(IEEE) Functional Requirements Document',
+       get_definition => '(IEEE) Functional Requirements Document',
        get_bookmark => 'frd:ieee',
       },
      },
@@ -2579,11 +2567,8 @@ sub _build_definition_test_case_list {
      {
       name => 'bad_definition_1',
       line => SML::Line->new(content=>'This is not a definition'),
-      args =>
-      {
-       name => 'glossary',
-       library => $self->get_test_library_1,
-      },
+      name => 'glossary',
+      library => $self->get_test_library_1,
       expected =>
       {
        error =>

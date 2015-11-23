@@ -1,7 +1,5 @@
 >>>RAW.td-000024
 
-===
-
 This file serves to test the capability to include a file `raw.'  To
 prevent the software from throwing an error, this file does ~~not~~
 contain any non-universal elements.

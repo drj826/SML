@@ -2,15 +2,11 @@
 
 title:: Valid File Element
 
-===
-
 This SML document contains a valid file element. 
 
 >>>LISTING.lis-my-file-listing
 
 title:: My File Listing
-
-===
 
 file:: td-000001.txt
 

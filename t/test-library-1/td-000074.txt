@@ -1,7 +1,5 @@
 >>>RAW.td-000074
 
-===
-
 The purpose of this test data file is to test the capability of the
 `SML::Fragment::extract_division_lines' method to extract various
 types of divisions from a fragment.  The method must have the
@@ -27,8 +25,6 @@ description:: This is a description of my problem.  This purpose of
 this problem is to serve as a test for applications designed to
 process SML problem regions.
 
-===
-
 This is some narrative text within the problem region.  You can put as
 much narrative text as you want inside regions but you may ~~not~~ use
 sections.  The purpose of ~~this~~ paragraph is to test the parser to
@@ -44,8 +40,6 @@ Here is a test environment:
 >>>TABLE.tab-solution-types-74
 
 title:: Solutions Types
-
-===
 
 :: Type
 
@@ -78,8 +72,6 @@ Here is a test section:
 *.introduction-74 Introduction
 
 type:: chapter
-
-===
 
 This section is a chapter.[f:introduction:1] This is some introductory
 text.  It really doesn't say anything interesting so let's just move

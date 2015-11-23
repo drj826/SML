@@ -2,8 +2,6 @@
 
 title:: Substitute Variables
 
-===
-
 var:: name = Mickey Mouse
 
 var:: title = Director of Fun Operations

@@ -2,8 +2,6 @@
 
 title:: Valid Italics Markup
 
-===
-
 This document contains several examples of valid italics markup.
 
 One ~~word~~ is italics in this sentence.

@@ -136,6 +136,11 @@ sub publish {
       $self->_publish_pdf_document($document,$style);
     }
 
+  elsif ( $rendition eq 'sml' )
+    {
+      $self->_publish_sml_document($document,$style);
+    }
+
   else
     {
       $logger->error("THIS SHOULD NEVER HAPPEN");
@@ -191,6 +196,19 @@ sub can_publish {
 	  return 0;
 	}
     }
+
+  elsif ( $rendition eq 'sml' )
+    {
+      if ( $style eq 'default' )
+	{
+	  return 1;
+	}
+
+      else
+	{
+	  return 0;
+	}
+    }
 }
 
 ######################################################################
@@ -223,10 +241,6 @@ sub _publish_html_document {
   my $document = shift;                 # document to publish
   my $style    = shift;                 # default
 
-  my $library       = $self->get_library;
-  my $published_dir = $library->get_published_dir;
-  my $template_dir  = $library->get_template_dir . "/html/$style";
-
   if (
       not ref $document
       or
@@ -237,9 +251,8 @@ sub _publish_html_document {
       return 0;
     }
 
-  my $id = $document->get_id;
-
-  my $output_dir = "$published_dir/$id";
+  my $library      = $self->get_library;
+  my $template_dir = $library->get_template_dir . "/html/$style";
 
   if ( not -d $template_dir )
     {
@@ -247,11 +260,16 @@ sub _publish_html_document {
       return 0;
     }
 
+  my $published_dir = $library->get_published_dir;
+
   if ( not -d $published_dir )
     {
       mkdir "$published_dir", 0755;
       $logger->info("made directory $published_dir");
     }
+
+  my $id         = $document->get_id;
+  my $output_dir = "$published_dir/$id";
 
   if ( not -d $output_dir )
     {
@@ -415,6 +433,71 @@ sub _publish_html_document {
       dircopy("$template_dir/images","$output_dir/images")
 	|| die "Couldn't copy images directory";
     }
+
+  return 1;
+}
+
+######################################################################
+
+sub _publish_sml_document {
+
+  my $self     = shift;
+  my $document = shift;                 # document to publish
+  my $style    = shift;                 # default
+
+  if (
+      not ref $document
+      or
+      not $document->isa('SML::Document')
+     )
+    {
+      $logger->error("NOT A DOCUMENT $document");
+      return 0;
+    }
+
+  my $library      = $self->get_library;
+  my $template_dir = $library->get_template_dir . "/sml/$style";
+
+  if ( not -d $template_dir )
+    {
+      $logger->error("NOT A DIRECTORY $template_dir");
+      return 0;
+    }
+
+  my $published_dir = $library->get_published_dir;
+
+  if ( not -d $published_dir )
+    {
+      mkdir "$published_dir", 0755;
+      $logger->info("made directory $published_dir");
+    }
+
+  my $id         = $document->get_id;
+  my $output_dir = "$published_dir/$id";
+
+  if ( not -d $output_dir )
+    {
+      mkdir "$output_dir", 0755;
+      $logger->info("made directory $output_dir");
+    }
+
+  my $tt_config =
+    {
+     INCLUDE_PATH => $template_dir,
+     OUTPUT_PATH  => $output_dir,
+     RECURSION    => 1,
+    };
+
+  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+
+  my $vars =
+    {
+     document => $document,
+    };
+
+  $logger->info("publishing $id.txt");
+  $tt->process("DOCUMENT.tt",$vars,"$id.txt")
+    || die $tt->error(), "\n";
 
   return 1;
 }

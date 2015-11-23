@@ -1,5 +1,3 @@
 *.td-000076 Section Division
 
-===
-
 This test data file contains a section.
