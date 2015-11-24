@@ -57,7 +57,7 @@ complicated because it has sub-sections.
 This section enumerates the problems (i.e. requirements) in the system
 model.
 
->>>problem.problem-20-1
+>>>requirement.problem-20-1
 
 title:: Problem One
 
@@ -95,7 +95,7 @@ Just for kicks, here is a bare table inside this problem region.
 
 ---
 
-<<<problem
+<<<requirement
 
 ######################################################################
 

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:source_exists] subroutine 
 
-===
-
 index:: ci-000206; subroutine![cmd:source_exists]
 
 <<<solution

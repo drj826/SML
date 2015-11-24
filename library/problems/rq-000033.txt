@@ -1,4 +1,4 @@
->>>problem.rq-000033
+>>>requirement.rq-000033
 
 title:: Represent Solutions
 
@@ -21,8 +21,6 @@ identifying content as a solution description is to make the solution
 semantically traceable to other elements of content (like problems and
 tests), to make the content re-usable, and to enable special listings
 of solutions.
-
-===
 
 index:: rq-000033; solutions
 
@@ -499,4 +497,4 @@ this solution, or a need to improve this solution
 
 ---
 
-<<<problem
+<<<requirement

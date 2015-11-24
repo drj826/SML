@@ -1,4 +1,4 @@
->>>problem.rq-000218
+>>>requirement.rq-000218
 
 title:: Format an HTML Version Reference
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML version reference.
 
-===
-
 index:: rq-000218; version reference!format HTML
 
-<<<problem
+<<<requirement

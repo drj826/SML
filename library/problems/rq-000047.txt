@@ -1,4 +1,4 @@
->>>problem.rq-000047
+>>>requirement.rq-000047
 
 title:: Represent Underlined Text
 
@@ -17,8 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 underlined text.
 
-===
-
 index:: rq-000047; underlined text; text!underlined
 
-<<<problem
+<<<requirement

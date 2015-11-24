@@ -1,4 +1,4 @@
->>>problem.rq-000139
+>>>requirement.rq-000139
 
 title:: Generate Document Front and Back Matter
 
@@ -22,8 +22,6 @@ automatically generated.  Other parts, like the preface, are written
 manually by the author.  This requirement serves as a container for
 software requirements to publish document front and back matter.
 
-===
-
 index:: rq-000139
 
 According to The Chicago Manual of Style the following parts
@@ -39,8 +37,6 @@ column::1:width: 50
 column::2:width: 15
 
 column::3:width: 25
-
-===
 
 :grey: ~~FRONT MATTER~~
 
@@ -322,4 +318,4 @@ column::3:width: 25
 
 <<<TABLE
 
-<<<problem
+<<<requirement

@@ -1,4 +1,4 @@
->>>problem.rq-000132
+>>>requirement.rq-000132
 
 title:: Resolve Templates
 
@@ -21,8 +21,6 @@ must replace the variable tags with the values and replace the
 template statement with the template containing the replaced
 variables.
 
-===
-
 index:: rq-000132; resolve templates
 
-<<<problem
+<<<requirement

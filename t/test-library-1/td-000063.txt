@@ -7,7 +7,7 @@ property.  Specifically, the below `problem' class contains a `child'
 property which should ~~only~~ be implied from an inverse `parent'
 property and not explicitly declared.
 
->>>problem.parent-problem
+>>>requirement.parent-problem
 
 title:: My Parent Problem
 
@@ -19,7 +19,7 @@ description:: This is the parent problem
 
 <<<problem
 
->>>problem.child-problem
+>>>requirement.child-problem
 
 title:: My Child Problem
 
@@ -27,6 +27,6 @@ type:: technical
 
 description:: This is the child problem
 
-<<<problem
+<<<requirement
 
 <<<DOCUMENT

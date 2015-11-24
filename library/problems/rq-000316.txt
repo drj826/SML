@@ -1,4 +1,4 @@
->>>problem.rq-000316
+>>>requirement.rq-000316
 
 title:: Format LaTeX Subscripted Text
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format LaTeX subscripted text.
 
-===
-
 index:: rq-000316; subscripted text!format LaTeX
 
-<<<problem
+<<<requirement

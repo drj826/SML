@@ -1,4 +1,4 @@
->>>problem.rq-000107
+>>>requirement.rq-000107
 
 title:: Represent Document Content
 
@@ -16,8 +16,6 @@ conforming to specified design constraints.  This requirement is the
 top-level requirement for a descriptive markup language.  It serves as
 a container for all descriptive markup representation requirements.
 
-===
-
 index:: rq-000107; data representation
 
-<<<problem
+<<<requirement

@@ -1,4 +1,4 @@
->>>problem.rq-000104
+>>>requirement.rq-000104
 
 title:: Perform Functions For Users
 
@@ -18,8 +18,6 @@ requirements begin with the phrase, `The system shall enable the user
 to...' Functional requirements are independent of system
 implementation.
 
-===
-
 index:: rq-000104; software functions
 
-<<<problem
+<<<requirement

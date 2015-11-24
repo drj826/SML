@@ -6,7 +6,7 @@ This SML document contains a comment division.
 
 >>>COMMENT
 
->>>problem.commented-problem-1
+>>>requirement.commented-problem-1
 
 title:: Commented-Out Problem
 
@@ -14,7 +14,7 @@ description:: This is a problem region inside a comment division.  The
 purpose of putting this `problem' inside a comment is to test that the
 parser handles this scenario properly.
 
-<<<problem
+<<<requirement
 
 This is the first line of content of a comment division.
 

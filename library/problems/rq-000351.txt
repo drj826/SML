@@ -1,4 +1,4 @@
->>>problem.rq-000351
+>>>requirement.rq-000351
 
 title:: Ignore Markup Inside Literal Text
 
@@ -19,8 +19,6 @@ Literal text is a span of text in which all content is interpreted
 literally.  This enables authors to add content that would otherwise
 be interpreted as markup by the software.
 
-===
-
 index:: rq-000351
 
-<<<problem
+<<<requirement

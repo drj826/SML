@@ -1,4 +1,4 @@
->>>problem.rq-000035
+>>>requirement.rq-000035
 
 title:: Represent Results
 
@@ -22,8 +22,6 @@ traceable to other elements of content (like problems, solutions, and
 tests), to make the content re-usable, and to enable special listings
 of results.
 
-===
-
 index:: rq-000035; results
 
-<<<problem
+<<<requirement

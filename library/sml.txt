@@ -57,12 +57,17 @@ author:: Donald C. Gause & Gerald M. Weinberg
 
 <<<EPIGRAPH
 
-This book describes how to construct documents using the
-[g:sml:Semantic Manuscript Language] ([g:sml:SML]) and how to
-publish them using the [g:sml:publish] program.
+[g:sml:Semantic Manuscript Language] ([g:sml:SML]) is A minimalistic
+[g:sml:descriptive markup] language designed to be human readable,
+easy to edit, easy to automatically generate, able to express and
+validate semantic relationships, and contain all information necessary
+to publish professional documentation from plain text manuscripts.
 
-index:: Semantic Manuscript Language; SML; structured text; ||publish||
-program
+This book describes how to construct documents using [g:sml:SML] and
+how to publish them using the [g:sml:publish] program.
+
+index:: Semantic Manuscript Language; SML; structured text;
+||publish|| program
 
 SML enables you to represent full-length, full-featured, high-quality
 books, reports, and articles in minimally formatted text files.  Its
@@ -296,7 +301,7 @@ index:: presentation; structure; content
 SML is a ~~structured text~~ language designed to describe document
 content and structure ~~but not the presentation~~. With the exception
 of the limited presentation features listed in
-[ref:tab-presentation-features], it intentionally takes away the
+[ref:tab-presentation-syntax], it intentionally takes away the
 ability to specify document presentation.
 
 SML is a carefully designed, extremely minimal, descriptive markup
@@ -335,7 +340,7 @@ content:
 - Elements of ~~presentation~~ (or style) describe how text is to be
   presented like bold, italics, font-family, and font-size.
 
-Beginning in [ref:summary-of-structure-features] I'll enumerate the
+Beginning in [ref:structure-syntax-summary] I'll enumerate the
 features of SML in terms of format, structure, and content.  But
 before we get into lists of these features, let's take a look at a
 simple example.
@@ -465,27 +470,27 @@ document with the command `||publish -r pdf sample-document.txt||
 
 #---------------------------------------------------------------------
 
-**.summary-of-structure-features Summary of Structure Features
+**.structure-syntax-summary Summary of Structure Syntax
 
-index::begin: structure features
+index::begin: structure syntax
 
 Elements of ~~structure~~ are the building blocks of a document like:
 titles, paragraphs, sections, lists, list items, tables, and
 figures. The elements of structure supported by SML are summarized in
-[ref:tab-structure-features].
+[ref:tab-structure-syntax].
 
-Footnote markers can go in tables but footnote text should come after
-the table; likewise, footnote markers can go in list items, but the
-footnote text should be placed after the end of the list.
+Footnote markers can go inside tables but footnote text should come
+after the table; likewise, footnote markers can go in list items, but
+the footnote text should be placed after the end of the list.
 
 As a matter of style, I've gotten into the habit of prefixing all
 labels with three letters to indicate the type of document component
 being labeled: ||tab-|| for table labels, ||fig-|| for figure labels,
 ||lis-|| for listing labels, ||sec-|| for section labels, etc.
 
->>>TABLE.tab-structure-features
+>>>TABLE.tab-structure-syntax
 
-title:: Summary of Structure Features
+title:: Summary of Structure Syntax
 
 column::1:width: 50
 column::2:width: 50
@@ -497,86 +502,24 @@ include:: sml-structure-summary
 
 <<<TABLE
 
-index::end: structure features
+index::end: structure syntax
 
 #---------------------------------------------------------------------
 
-** Summary of Content Features
+**.presentation-syntax-summary Summary of Presentation Syntax
 
-index::begin: content features
-
-Content features enable you to insert blocks of content with semantic
-significance like: 
-
-:
-
-- exercises
-
-- demonstrations
-
-- presentation slides
-
-:
-
-- keypoints
-
-- quotations
-
-:
-
-- problems
-
-- solutions
-
-:
-
-- tests
-
-- results
-
-:
-
-- tasks
-
-- roles
-
----
-
-The content features supported by SML are summarized in
-[ref:tab-content-features].
-
->>>TABLE.tab-content-features
-
-title:: Summary of Content Features
-
-column::1:width: 50
-column::2:width: 50
-
-column::1:head: Feature
-column::2:head: Example
-
-include:: sml-content-summary
-
-<<<TABLE
-
-index::end: content features
-
-#---------------------------------------------------------------------
-
-**.summary-of-presentation-features Summary of Presentation Features
-
-index::begin: presentation features
+index::begin: presentation syntax
 
 index:: style
 
 Elements of ~~presentation~~ (or style) describe how text is to be
 presented.  These include features like: bold, italics, font-family,
-and font-size.  [ref:tab-presentation-features] lists supported presentation
-features.
+and font-size.  [ref:tab-presentation-syntax] lists supported
+presentation syntax.
 
->>>TABLE.tab-presentation-features
+>>>TABLE.tab-presentation-syntax
 
-title:: Summary of Presentation Features
+title:: Summary of Presentation Syntax
 
 column::1:width: 50
 column::2:width: 50
@@ -588,7 +531,7 @@ include:: sml-presentation-summary
 
 <<<TABLE
 
-index::end: presentation features
+index::end: presentation syntax
 
 #---------------------------------------------------------------------
 
@@ -1639,18 +1582,36 @@ documentation in a library shares a common [g:sml:ontology].
 
 #---------------------------------------------------------------------
 
-**.data-models Physical and Logical Data Models
+**.syntax_semantics Syntax and Semantics
 
-A physical data model describes the syntactic parts of a document.
-The syntactic parts of an SML document are:
+The [g:sml:Semantic Manuscript Language] has a pre-defined
+[g:sml:syntax].  It has [g:sml:semantics] rules defined in a core
+[g:sml:ontology].  These semantics can be extended by defining
+additional ontology rules for any given library.
 
-= [g:sml:division] = [def:sml:division]
+The syntactic components of [g:sml:SML] are:
 
-= [g:sml:block] = [def:sml:block]
+= [g:sml:line] = [def:sml:line]
+
+= [g:sml:part] = [def:sml:part]
 
 = [g:sml:string] = [def:sml:string]
 
-= [g:sml:line] = [def:sml:line]
+= [g:sml:block] = [def:sml:block]
+
+= [g:sml:element] = [def:sml:element]
+
+= [g:sml:division] = [def:sml:division]
+
+The syntactic components are used to express semantic components of
+SML:
+
+= [g:sml:entity] = [def:sml:entity]
+
+= [g:sml:property] = [def:sml:property]
+
+index:: line; part; string; block; element; division; entity;
+property; syntax; semantics
 
 #---------------------------------------------------------------------
 
@@ -2085,6 +2046,8 @@ footnotes, images, pre-formatted text, and so on.
 
 ***.document-title Document Title
 
+index:: title!document; document title
+
 The document title is simply the first title element encountered in
 the document:[f:document-title:1]
 
@@ -2103,12 +2066,16 @@ interpretted as __preformatted text__ ([ref:preformatted-text]).
 
 ***.paragraphs Paragraphs
 
+index:: paragraphs
+
 A paragraph is simply a non-indented block of text that ends with a
 blank line.
 
   This is a paragraph. Insert a paragraph simply by adding blocks of
   text.  A blank line between two blocks of text signifies a break
   between paragraphs.
+
+index:: paragraphs!commenting out
 
 ~~Commenting Out Paragraphs.~~ What if you to temporarily leave a
 paragraph out of the published document, but you wish to keep the text
@@ -2129,6 +2096,8 @@ this:
   comment block will cause the publisher to ignore it.
 
   <<<COMMENT
+
+index:: paragraphs!conditional
 
 ~~Conditional Paragraphs.~~ You can make paragraphs conditional so
 they appear in one version of the document but not in others.  For
@@ -2157,6 +2126,8 @@ To specify which version of the document you wish to publish, add a
 
   define:: RedHat10
 
+index:: paragraphs!in table cells
+
 ~~Paragraphs In Table Cells.~~ You can put paragraphs inside of table
 cells.  A table cell containing a single paragraph looks like this:
 
@@ -2177,12 +2148,26 @@ like this:
   tells the publisher the contents of the cell should be formatted as
   separate paragraphs.
 
+index:: paragraphs!in list items
+
 ~~Multiple Paragraphs In List Items.~~ You ~~can not~~ have multiple
 paragraphs in a list item.
 
 #---------------------------------------------------------------------
 
 ***.sec-inline-markup Inline Text Markup
+
+index:: bold; text!bold
+
+index:: underline; text!underlined
+
+index:: fixed width; text!fixed width
+
+index:: italics; text!italicized
+
+index:: superscript; text!superscript
+
+index:: subscript; text!subscript
 
 : bold
 
@@ -2248,6 +2233,8 @@ paragraphs in a list item.
 
 ***.sections Sections
 
+index:: sections; sections!headings
+
 ~~Section Headings.~~ You can organize your document into sections by
 inserting section headings in the text.  A section heading is a line
 that begins with one or more asterisks.  The number of asterisks
@@ -2258,6 +2245,8 @@ indicates the depth of the section level:
   ** Sub-section
 
   *** Sub-sub-section
+
+index:: sections!numbering
 
 ~~Section Numbering.~~ By default, the ||publish|| program will
 automatically number the sections in the published output:
@@ -2516,12 +2505,15 @@ use a section structure.
 
 #---------------------------------------------------------------------
 
-**.environments Intermediate Document Structures
+**.intermediate-structures Intermediate Document Structures
 
-Environments are blocks of text representing elements of !!structure!!
-like tables, figures, listings, sidebars, bibliographic sources, and
-preformatted environments.  Environemnts begin and end like
-`||>>>TABLE.my-table-id||' and ||<<<TABLE||  Environments are:
+index:: divisions; document structures
+
+Divisions can represent components of document ~~structure~~ like
+tables, figures, listings, sidebars, bibliographic sources, and
+preformatted text.  Divisions begin and end like
+`||>>>TABLE.my-table-id||' and ||<<<TABLE|| Divisions that represent
+document structures are:
 
 - FIGURE
 
@@ -2539,11 +2531,11 @@ preformatted environments.  Environemnts begin and end like
 
 - VIDEO
 
-Environments !!cannot!! contain other environments.
-
 #---------------------------------------------------------------------
 
 ***.tables Tables
+
+index:: tables
 
 The ability to represent both simple and complicated tables is one of
 the features that sets SML apart from alternative plain text markup
@@ -3009,6 +3001,8 @@ illustrating how attachments work.
 
 <<<ATTACHMENT
 
+index:: attachments
+
 #---------------------------------------------------------------------
 
 ***.preformatted-blocks Preformatted Blocks
@@ -3028,14 +3022,7 @@ Example:
 
   <<<PREFORMATTED
 
-Here is a complete list of data elements you can put in the preamble
-of a preformatted text block:
-
-index:: preformatted!data elements
-
-= title = A descriptive caption for the preformatted content
-
-= label = Unique identifier
+index:: preformatted; blocks!preformatted
 
 #---------------------------------------------------------------------
 
@@ -3884,20 +3871,43 @@ Example:
 
   >>>EXERCISE.find-linux-kernel-version
 
+  title:: Find the Linux Kernel Version
+
   The purpose of this exercise is to learn how to find the version of
   the kernel running on a Linux system (this works for all Unix
   systems).
 
-  step:: !!Run the ||uname|| command.!! - Open a terminal and run the
+  step:: !!Run the [cmd:uname] command.!! - Open a terminal and run the
   [cmd:uname] [[Enter]] command from the command line to find the name
   of the system.
 
-  step:: !!Use the ||-a|| option of ||uname||.!! - The ||-a|| option
-  to the ||uname|| command causes the command to find all information
-  about the system.  Type [cmd:uname -a] [[Enter]] to see the gory
-  details.
+  step:: !!Use the ||-a|| option of [cmd:uname].!! - The ||-a|| option
+  to the [cmd:uname] command causes the command to find all
+  information about the system.  Type [en:uname -a] [[Enter]] to see
+  the gory details.
 
   <<<EXERCISE
+
+When rendered this exercise looks like this:
+
+>>>EXERCISE.find-linux-kernel-version
+
+title:: Find the Linux Kernel Version
+
+The purpose of this exercise is to learn how to find the version of
+the kernel running on a Linux system (this works for all Unix
+systems).
+
+step:: !!Run the [cmd:uname] command.!! - Open a terminal and run the
+[cmd:uname] [[Enter]] command from the command line to find the name
+of the system.
+
+step:: !!Use the ||-a|| option of [cmd:uname].!! - The ||-a|| option
+to the [cmd:uname] command causes the command to find all information
+about the system.  Type [en:uname -a] [[Enter]] to see the gory
+details.
+
+<<<EXERCISE
 
 Exercise region data elements are:
 
@@ -5433,9 +5443,6 @@ library.
 
 ---
 
-For instance, here is a cross reference to the ``Getting Started''
-section of this document: [ref:getting-started].
-
 #---------------------------------------------------------------------
 
 ***.conditional-text Conditional Text
@@ -5677,7 +5684,7 @@ title:: Problem and Solution Prioritization Ranking System
 
 :: rank
 
-:: importance
+:: urgency
 
 :: priority
 

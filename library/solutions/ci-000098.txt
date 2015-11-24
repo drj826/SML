@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:process_hide_line] subroutine 
 
-===
-
 index:: ci-000098; subroutine![cmd:process_hide_line]
 
 <<<solution

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:html_types_for] subroutine 
 
-===
-
 index:: ci-000302; subroutine![cmd:html_types_for]
 
 <<<solution

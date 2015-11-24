@@ -1,4 +1,4 @@
->>>problem.rq-000069
+>>>requirement.rq-000069
 
 title:: Represent an Inline Comment
 
@@ -19,8 +19,6 @@ an inline comment.  An inline comment is a ~~partial~~ line of text
 that appears in the source data format but not in published
 renditions.
 
-===
-
 index:: rq-000069; inline comment
 
-<<<problem
+<<<requirement

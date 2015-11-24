@@ -1,4 +1,4 @@
->>>problem.rq-000076
+>>>requirement.rq-000076
 
 title:: Represent Traceability Relationships
 
@@ -19,8 +19,6 @@ traceability relationships between specified elements of content.
 ``Traces'' between content elements are simple
 subject-predicate-object assertions that declare something to be true.
 
-===
-
 index:: rq-000076; traceability
 
 The data format must have the capability to represent specific
@@ -34,8 +32,6 @@ enumerate the assertions the data format must represent for each item.
 >>>TABLE.problem-assertions
 
 title:: Required Assertions Where Subject = Problem
-
-===
 
 ::
 
@@ -155,8 +151,6 @@ title:: Required Assertions Where Subject = Problem
 
 title:: Required Assertions Where Subject = Solution
 
-===
-
 :: Subject
 
 :: Predicate
@@ -189,4 +183,4 @@ title:: Required Assertions Where Subject = Solution
 
 <<<TABLE
 
-<<<problem
+<<<requirement

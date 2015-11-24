@@ -1,4 +1,4 @@
->>>problem.rq-000122
+>>>requirement.rq-000122
 
 title:: Represent Document-Wide Presentation Options
 
@@ -18,8 +18,6 @@ description:: The data format shall represent document-wide
 presentation options.  This requirement serves as a container for
 those options.
 
-===
-
 index:: rq-000122; document-wide presentation options
 
-<<<problem
+<<<requirement

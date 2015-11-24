@@ -1,4 +1,4 @@
->>>problem.rq-000142
+>>>requirement.rq-000142
 
 title:: Generate a Table of Contents
 
@@ -23,8 +23,6 @@ including the index.  If the book is divided into parts as well as
 chapters, the part titles appear in the contents, but their page
 numbers are omitted.[cite:cms15, [[section]]1.41]
 
-===
-
 index:: rq-000142; table of contents
 
-<<<problem
+<<<requirement

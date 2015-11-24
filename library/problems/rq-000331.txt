@@ -1,4 +1,4 @@
->>>problem.rq-000331
+>>>requirement.rq-000331
 
 title:: Represent An Unordered List Item
 
@@ -17,8 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 an unordered list item.
 
-===
-
 index:: rq-000331; list item!unordered
 
-<<<problem
+<<<requirement

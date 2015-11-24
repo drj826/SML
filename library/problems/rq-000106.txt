@@ -1,4 +1,4 @@
->>>problem.rq-000106
+>>>requirement.rq-000106
 
 title:: Validate First-Order Document Semantics
 
@@ -25,8 +25,6 @@ properties stated explicitly. Warn the user of invalid semantics with
 a notification that includes an error description, file, and line
 number.
 
-===
-
 index:: rq-000106; validation!semantics
 
 The adjective ``first-order'' distinguishes first-order logic from
@@ -37,4 +35,4 @@ quantifiers or function quantifiers are permitted.[f:rq-000106:1]
 footnote::1: Mendelson, Elliott (1964). Introduction to Mathematical
 Logic. Van Nostrand Reinhold. pp. 56.
 
-<<<problem
+<<<requirement

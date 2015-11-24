@@ -1,4 +1,4 @@
->>>problem.rq-000271
+>>>requirement.rq-000271
 
 title:: Generate HTML List of To Do Items
 
@@ -18,8 +18,6 @@ description:: The software shall generate an HTML list of ``to do''
 items.  The purpose of this listing is to enable readers to quickly
 navigate to any ``to do'' item in the document.
 
-===
-
 index:: rq-000271; list of to do items!HTML; HTML list of to do items
 
-<<<problem
+<<<requirement

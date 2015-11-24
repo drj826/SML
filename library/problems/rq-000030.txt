@@ -1,4 +1,4 @@
->>>problem.rq-000030
+>>>requirement.rq-000030
 
 title:: Represent Instructional Demonstrations
 
@@ -20,8 +20,6 @@ Instructional demonstrations are descriptions of a series of tasks
 that reinforce and illustrate documented concepts.  The purpose of
 identifying content as a demonstration is to make the content
 re-usable and to enable special listings of demonstrations.
-
-===
 
 index:: rq-000030; demonstrations
 
@@ -184,4 +182,4 @@ demonstration
 
 ---
 
-<<<problem
+<<<requirement

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:begin_exercise] subroutine 
 
-===
-
 index:: ci-000186; subroutine![cmd:begin_exercise]
 
 <<<solution

@@ -1,4 +1,4 @@
->>>problem.rq-000020
+>>>requirement.rq-000020
 
 title:: Represent an Inline Cross Reference
 
@@ -23,8 +23,6 @@ an inline cross reference.  An inline cross reference enables authors
 to direct the reader's attention to another part of the document.  The
 cross referencing capability must enable authors to cross reference
 specified document elements.
-
-===
 
 index:: rq-000020; cross references
 
@@ -64,4 +62,4 @@ elements of document content:
 + roles
 
 
-<<<problem
+<<<requirement

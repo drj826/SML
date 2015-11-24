@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:list_of_environment_names] subroutine 
 
-===
-
 index:: ci-000370; subroutine![cmd:list_of_environment_names]
 
 <<<solution

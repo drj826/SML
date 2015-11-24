@@ -23,27 +23,21 @@
 <h2 align="center">List of Figures</h2>
 
 [%- FOREACH section IN document.get_section_list -%]
+[%- SET number = section.get_number -%]
+[%- SET page = document.get_id _ '.' _ number _ '.html' -%]
 
-  [%- IF section.get_depth == 1 -%]
-<h4>
-Chapter [%section.get_number%] &nbsp;&nbsp;
-<a href="[%page%]">
-[%- INCLUDE property.tt property = section.get_property('title') -%]
-</a>
-</h4>
+[%- IF section.get_depth == 1 -%]
+<h4>Chapter [%number%] &nbsp;&nbsp;<a href="[%page%]">[%- INCLUDE property.tt property = section.get_property('title') -%]</a></h4>
 
-  [%- END -%]
-
-  [%- IF section.has_figures -%]
-    [%- SET page = document.get_id _ '.' _ section.get_number _ '.html' -%]
-    [%- FOREACH figure IN section.get_figure_list -%]
-      [%- SET bookmark = 'FIGURE.' _ figure.get_number -%]
-<div style="text-indent: 60pt; font-size: 8pt;">
-Figure [%figure.get_number%] - <a href="[%page%]#[%bookmark%]">[%- INCLUDE property.tt property = figure.get_property('title') -%]</a>
-</div>
-    [%- END -%]
-
-  [%- END -%]
 [%- END -%]
 
+[%- IF section.has_figures -%]
+[%- FOREACH figure IN section.get_figure_list -%]
+[%- SET number = figure.get_number -%]
+[%- SET bookmark = 'FIGURE.' _ number -%]
+<div style="text-indent: 60pt; font-size: 8pt;">Figure [%number%] - <a href="[%page%]#[%bookmark%]">[%- INCLUDE property.tt property = figure.get_property('title') -%]</a></div>
+
+[%- END -%]
+[%- END -%]
+[%- END -%]
 [%- END -%]

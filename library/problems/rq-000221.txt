@@ -1,4 +1,4 @@
->>>problem.rq-000221
+>>>requirement.rq-000221
 
 title:: Format an HTML Status Reference
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML status reference.
 
-===
-
 index:: rq-000221; status reference!format HTML
 
-<<<problem
+<<<requirement

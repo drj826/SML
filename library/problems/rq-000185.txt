@@ -1,4 +1,4 @@
->>>problem.rq-000185
+>>>requirement.rq-000185
 
 title:: Perform Specified Utility Functions
 
@@ -18,8 +18,6 @@ description:: The software shall perform specified utility functions.
 This requirement serves as a container for utility function
 requirements.
 
-===
-
 index:: rq-000185; utility functions; functions!utility
 
-<<<problem
+<<<requirement

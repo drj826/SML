@@ -1,4 +1,4 @@
->>>problem.rq-000297
+>>>requirement.rq-000297
 
 title:: Format a LaTeX `Take Note' Indicator
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX `take note' indicator.
 
-===
-
 index:: rq-000297; `take note' indicator!format LaTeX
 
-<<<problem
+<<<requirement

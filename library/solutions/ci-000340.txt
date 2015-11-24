@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:html_license_for] subroutine 
 
-===
-
 index:: ci-000340; subroutine![cmd:html_license_for]
 
 <<<solution

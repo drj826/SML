@@ -1,4 +1,4 @@
->>>problem.rq-000276
+>>>requirement.rq-000276
 
 title:: Generate HTML Glossary
 
@@ -18,10 +18,8 @@ description:: The software shall generate an HTML [g:sml:glossary].  The
 purpose of the glossary is to enable readers to quickly navigate to
 definitions of key terms used in the document.
 
-===
-
 index:: rq-000276; glossary!HTML; HTML glossary
 
 = [g:sml:glossary] = [def:sml:glossary]
 
-<<<problem
+<<<requirement

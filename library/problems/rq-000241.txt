@@ -1,4 +1,4 @@
->>>problem.rq-000241
+>>>requirement.rq-000241
 
 title:: Format HTML Superscripted Text
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format HTML superscripted text.
 
-===
-
 index:: rq-000241; superscripted text!format HTML
 
-<<<problem
+<<<requirement

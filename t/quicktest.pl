@@ -6,8 +6,8 @@ use lib "../lib";
 
 use SML::Library;
 
-my $library = SML::Library->new(config_filename=>'test-library-1.conf');
+my $library = SML::Library->new(config_filename=>'library.conf');
 
-$library->publish('td-000094','html','default');
+$library->publish('sml','html','default');
 
 1;

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:strip_revision_control_keyword_chars] subroutine 
 
-===
-
 index:: ci-000235; subroutine![cmd:strip_revision_control_keyword_chars]
 
 <<<solution

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:begin_sidebar] subroutine 
 
-===
-
 index:: ci-000156; subroutine![cmd:begin_sidebar]
 
 <<<solution

@@ -1,4 +1,4 @@
->>>problem.rq-000332
+>>>requirement.rq-000332
 
 title:: Represent An Ordered List Item
 
@@ -17,8 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 an ordered list item.
 
-===
-
 index:: rq-000332; list item!ordered
 
-<<<problem
+<<<requirement

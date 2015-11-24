@@ -1,4 +1,4 @@
->>>problem.rq-000238
+>>>requirement.rq-000238
 
 title:: Format an HTML Section Sign
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML section sign.
 
-===
-
 index:: rq-000238; section sign!format HTML
 
-<<<problem
+<<<requirement

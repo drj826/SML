@@ -17,7 +17,7 @@
 <h3 align="center">List of References</h3>
 
 [%- FOREACH source IN document.get_source_list -%]
-  [%- INCLUDE SOURCE.tt -%]
+  [%- INCLUDE source_entry.tt -%]
 [%- END -%]
 
 [%- END -%]

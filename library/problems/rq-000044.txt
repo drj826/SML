@@ -1,4 +1,4 @@
->>>problem.rq-000044
+>>>requirement.rq-000044
 
 title:: Represent Bold Text
 
@@ -17,8 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 bold text.
 
-===
-
 index:: rq-000044; bold; text!bold
 
-<<<problem
+<<<requirement

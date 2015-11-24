@@ -1,4 +1,4 @@
->>>problem.rq-000201
+>>>requirement.rq-000201
 
 title:: Validate Allowed Entity Properties
 
@@ -17,8 +17,6 @@ description:: The software shall enable a user to validate that an
 properties for each entity type are specified in the [g:sml:library]
 [g:sml:ontology].
 
-===
-
 index:: rq-000201; entity!allowed properties
 
-<<<problem
+<<<requirement

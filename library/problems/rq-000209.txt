@@ -1,4 +1,4 @@
->>>problem.rq-000209
+>>>requirement.rq-000209
 
 title:: Format an HTML Cross Reference
 
@@ -17,8 +17,6 @@ associated:: rq-000020
 description:: The software shall format an HTML cross reference.
 Cross references link two locations in the same document.
 
-===
-
 index:: rq-000209; cross reference!format HTML
 
-<<<problem
+<<<requirement

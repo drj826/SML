@@ -15,8 +15,6 @@ is_part_of:: ci-000004
 description:: The Formatter.pm perl module implements the Formatter
 class.
 
-===
-
 index:: ci-000423; Formatter.pm
 
 <<<solution

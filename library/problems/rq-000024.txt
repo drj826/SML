@@ -1,4 +1,4 @@
->>>problem.rq-000024
+>>>requirement.rq-000024
 
 title:: Represent a Side Bar
 
@@ -20,8 +20,6 @@ in an emphasized way to reinforce points made in the main text.  The
 data format representation of a side bar must allow but not mandate
 newline characters within a side bar.
 
-===
-
 index:: rq-000024; side bar
 
-<<<problem
+<<<requirement

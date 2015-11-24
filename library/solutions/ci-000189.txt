@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:end_keypoints] subroutine 
 
-===
-
 index:: ci-000189; subroutine![cmd:end_keypoints]
 
 <<<solution

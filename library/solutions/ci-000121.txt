@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:begin_celltext] subroutine 
 
-===
-
 index:: ci-000121; subroutine![cmd:begin_celltext]
 
 <<<solution

@@ -1,4 +1,4 @@
->>>problem.rq-000158
+>>>requirement.rq-000158
 
 title:: Represent an Option to Run Scripts Conditionally
 
@@ -21,8 +21,6 @@ data in a CSV file, the author may wish to only execute the script on
 the condition that the CSV file has been updated since it was last
 run.
 
-===
-
 index:: rq-000158; scripts!conditional; conditional scripts
 
-<<<problem
+<<<requirement

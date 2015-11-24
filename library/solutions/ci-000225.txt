@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:render_recent_update_listing] subroutine 
 
-===
-
 index:: ci-000225; subroutine![cmd:render_recent_update_listing]
 
 <<<solution

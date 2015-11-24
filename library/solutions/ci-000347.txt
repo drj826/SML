@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:has_children] subroutine 
 
-===
-
 index:: ci-000347; subroutine![cmd:has_children]
 
 <<<solution

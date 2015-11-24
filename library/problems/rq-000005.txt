@@ -1,4 +1,4 @@
->>>problem.rq-000005
+>>>requirement.rq-000005
 
 title:: Minimize Presentation Markup
 
@@ -21,8 +21,6 @@ date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-===
-
 index:: rq-000005
 
 The reason the data format must primarily represent elements of
@@ -32,4 +30,4 @@ wasting time fiddling with document presentation.  Modern documents
 are often published to multiple formats and authors often do not
 control how their content is presented to readers.
 
-<<<problem
+<<<requirement

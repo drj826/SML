@@ -1,4 +1,4 @@
->>>problem.rq-000109
+>>>requirement.rq-000109
 
 title:: Ignore Comments
 
@@ -22,8 +22,6 @@ or (2) individually commented out should be ignored for the purposes
 of gathering structured data from the document and publishing document
 renditions.
 
-===
-
 index:: rq-000109; comments!ignore
 
-<<<problem
+<<<requirement

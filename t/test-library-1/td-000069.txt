@@ -7,7 +7,7 @@ This document contains various blocks to test block rendering methods.
 This paragraph contains an internal cross reference to a problem.
 [ref:my-problem] describes my problem.
 
->>>problem.my-problem-69
+>>>requirement.my-problem-69
 
 title:: My Problem
 
@@ -23,6 +23,6 @@ as much narrative text as you want inside divisions but you may
 the parser to see if it recognizes the end of the problem preamble
 which is also the beginning of the problem narrative.
 
-<<<problem
+<<<requirement
 
 <<<DOCUMENT

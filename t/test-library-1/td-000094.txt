@@ -19,6 +19,10 @@ references.
 
 = [g:sml:line] = [def:sml:line]
 
+[g:sml:division]
+
+[def:sml:division]
+
 glossary:: block {sml} = (SML) A contiguous sequence of one or more
 ~~whole~~ [g:sml:line]s of text.  Blocks end with either a blank line
 or the beginning of another block. Blocks cannot contain blank lines.

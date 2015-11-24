@@ -1,4 +1,4 @@
->>>problem.rq-000156
+>>>requirement.rq-000156
 
 title:: Read Files
 
@@ -21,8 +21,6 @@ data, transform the data, and generate related data.  The software
 must store the data in memory in a way that enables other software
 functions to report the file and line number of detected problems.
 
-===
-
 index:: rq-000156; read files
 
-<<<problem
+<<<requirement

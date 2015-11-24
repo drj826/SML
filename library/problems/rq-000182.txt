@@ -1,4 +1,4 @@
->>>problem.rq-000182
+>>>requirement.rq-000182
 
 title:: Be Configurable
 
@@ -18,8 +18,6 @@ description:: The software shall be configurable.  The purpose of this
 requirement is to give individual users the flexibility to configure
 the software to their specific needs.
 
-===
-
 index:: rq-000182; configurability
 
-<<<problem
+<<<requirement

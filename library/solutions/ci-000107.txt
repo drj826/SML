@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:process_outcome_entry] subroutine 
 
-===
-
 index:: ci-000107; subroutine![cmd:process_outcome_entry]
 
 <<<solution

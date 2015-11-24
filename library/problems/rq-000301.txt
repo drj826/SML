@@ -1,4 +1,4 @@
->>>problem.rq-000301
+>>>requirement.rq-000301
 
 title:: Format a LaTeX Left Arrow Symbol
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX left arrow symbol.
 
-===
-
 index:: rq-000301; left arrow symbol!format LaTeX
 
-<<<problem
+<<<requirement

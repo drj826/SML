@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:process_file] subroutine 
 
-===
-
 index:: ci-000145; subroutine![cmd:process_file]
 
 <<<solution

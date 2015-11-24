@@ -1,4 +1,4 @@
->>>problem.rq-000278
+>>>requirement.rq-000278
 
 title:: Generate HTML Changelog
 
@@ -21,12 +21,10 @@ listing of recent changelog entries in chronological order. The
 definition of ``recent'' should be configurable by the user as some
 number of days.
 
-===
-
 index:: rq-000278; changelog!HTML; HTML changelog
 
 This requirement is similar to but different from [id:rq-000264],
 ``[lookup:title:rq-000264]''  which groups recent changes by entity
 type rather than listing them in chronological order.
 
-<<<problem
+<<<requirement

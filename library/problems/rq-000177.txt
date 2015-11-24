@@ -1,4 +1,4 @@
->>>problem.rq-000177
+>>>requirement.rq-000177
 
 title:: Resolve Included Flat Text
 
@@ -21,8 +21,6 @@ description:: The software shall resolve included flat text.  The
 external file as `flat' text, that is, the software must `flatten' any
 section hierarchy within the included file.
 
-===
-
 index:: rq-000177; include
 
-<<<problem
+<<<requirement

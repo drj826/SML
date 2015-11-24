@@ -21,8 +21,6 @@ author:: $Author: don.johnson $
 
 allocation:: al-000218 # rq-000133 Generate Content
 
-===
-
 index:: ci-000023; subroutine![cmd:generate_content]
 
 <<<solution

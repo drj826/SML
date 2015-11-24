@@ -1,4 +1,4 @@
->>>problem.rq-000124
+>>>requirement.rq-000124
 
 title:: Represent Special Symbols
 
@@ -22,8 +22,6 @@ symbols are not directly encoded in 7-bit ASCII.  Since [id:rq-000048]
 constrains the data format's encoding to 7-bit ASCII the data format
 must define alternate representations for these symbols.
 
-===
-
 index:: rq-000124; special symbols
 
-<<<problem
+<<<requirement

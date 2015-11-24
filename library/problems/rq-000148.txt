@@ -1,4 +1,4 @@
->>>problem.rq-000148
+>>>requirement.rq-000148
 
 title:: Generate a Glossary
 
@@ -19,8 +19,6 @@ glossary. Terms should be arranged in alphabetical order, each on a
 separate line and followed by its definition. [cite:cms15,
 [[section]]1.87]
 
-===
-
 index:: rq-000148; glossary
 
-<<<problem
+<<<requirement

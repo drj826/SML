@@ -1,4 +1,4 @@
->>>problem.rq-000135
+>>>requirement.rq-000135
 
 title:: Represent a `Lookup' Statement
 
@@ -23,8 +23,6 @@ requirement is to maximize document maintainability by giving authors
 the capability to define content in one location and reuse it in
 multiple locations.
 
-===
-
 index:: rq-000135; lookups
 
-<<<problem
+<<<requirement

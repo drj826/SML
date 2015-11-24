@@ -1,4 +1,4 @@
->>>problem.rq-000183
+>>>requirement.rq-000183
 
 title:: Permit Library Ontology Configuration
 
@@ -17,8 +17,6 @@ type:: non-functional
 description:: The [g:sml:library] [g:sml:ontology] shall be
 configurable in specified ways.  The [g:sml:ontology] applies to all
 [g:sml:document]s in a [g:sml:library].
-
-===
 
 index:: rq-000183; ontology!configurability
 
@@ -42,4 +40,4 @@ ways:
 + Declare the order in which the property should appear in
   traceability matrices
 
-<<<problem
+<<<requirement

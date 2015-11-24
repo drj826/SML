@@ -1,4 +1,4 @@
->>>problem.rq-000074
+>>>requirement.rq-000074
 
 title:: Represent a Variable Declaration
 
@@ -22,8 +22,6 @@ purpose of this requirement is to maximize document maintainability by
 enabling authors to define a variable in a single location and use the
 value of that variable in multiple locations.
 
-===
-
 index:: rq-000074; variables
 
 Variables are meant to represent ~~inline~~ elements of content; that
@@ -32,4 +30,4 @@ Inserts, on the other hand, are meant to represent ~~blocks~~ of
 content; that is, content that consists of one or more ~~whole~~ lines
 of text.
 
-<<<problem
+<<<requirement

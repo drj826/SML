@@ -1,4 +1,4 @@
->>>problem.rq-000304
+>>>requirement.rq-000304
 
 title:: Format a LaTeX `TeX' Symbol
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX `Tex' symbol.
 
-===
-
 index:: rq-000304; `TeX' symbol!format LaTeX
 
-<<<problem
+<<<requirement

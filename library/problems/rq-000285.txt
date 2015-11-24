@@ -1,4 +1,4 @@
->>>problem.rq-000285
+>>>requirement.rq-000285
 
 title:: Format a LaTeX Footnote Reference
 
@@ -16,8 +16,6 @@ associated:: rq-000019
 
 description:: The software shall format a LaTeX footnote reference.
 
-===
-
 index:: rq-000285; footnote reference!format LaTeX
 
-<<<problem
+<<<requirement

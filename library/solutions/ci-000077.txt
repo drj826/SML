@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:end_preformatted] subroutine 
 
-===
-
 index:: ci-000077; subroutine![cmd:end_preformatted]
 
 <<<solution

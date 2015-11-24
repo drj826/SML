@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:tree_outfile_aref_for] subroutine 
 
-===
-
 index:: ci-000354; subroutine![cmd:tree_outfile_aref_for]
 
 <<<solution

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:compress_whitespace] subroutine 
 
-===
-
 index:: ci-000212; subroutine![cmd:compress_whitespace]
 
 <<<solution

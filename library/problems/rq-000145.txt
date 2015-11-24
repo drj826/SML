@@ -1,4 +1,4 @@
->>>problem.rq-000145
+>>>requirement.rq-000145
 
 title:: Generate Specified `Special Content' Lists
 
@@ -20,8 +20,6 @@ content like requirements, configuration items, test cases, etc. Each
 list should match the table of contents in type size and general
 style. Titles given in each list may be shortened.
 
-===
-
 index:: rq-000145; special content lists
 
-<<<problem
+<<<requirement

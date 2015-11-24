@@ -1,4 +1,4 @@
->>>problem.rq-000018
+>>>requirement.rq-000018
 
 title:: Represent Pre-Formatted Text
 
@@ -19,8 +19,6 @@ pre-formatted text.  Pre-formatted text is verbatim text inserted into
 a document while preserving all white spaces and line breaks.  This
 requirement serves as a container for data format requirements related
 to representing pre-formatted text.
-
-===
 
 index:: rq-000018; pre-formatted text
 
@@ -86,4 +84,4 @@ Elements of pre-formatted text meta data include:
 
 ---
 
-<<<problem
+<<<requirement

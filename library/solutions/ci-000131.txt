@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:begin_table_list] subroutine 
 
-===
-
 index:: ci-000131; subroutine![cmd:begin_table_list]
 
 <<<solution

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:latex_derived_from] subroutine 
 
-===
-
 index:: ci-000281; subroutine![cmd:latex_derived_from]
 
 <<<solution

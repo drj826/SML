@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:render_spreadsheet] subroutine 
 
-===
-
 index:: ci-000222; subroutine![cmd:render_spreadsheet]
 
 <<<solution

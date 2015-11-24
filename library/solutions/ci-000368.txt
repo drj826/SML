@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:no_longer_in_any_environment] subroutine 
 
-===
-
 index:: ci-000368; subroutine![cmd:no_longer_in_any_environment]
 
 <<<solution

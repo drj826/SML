@@ -1,4 +1,4 @@
->>>problem.rq-000340
+>>>requirement.rq-000340
 
 title:: Remove Markup From Content Blocks
 
@@ -22,8 +22,6 @@ Some software functions like formatter functions require the value of
 these blocks ~~without~~ the markup.  The software must have the
 capability to return the value of the content without the markup.
 
-===
-
 index:: rq-000340
 
-<<<problem
+<<<requirement

@@ -1,4 +1,4 @@
->>>problem.rq-000143
+>>>requirement.rq-000143
 
 title:: Generate a List of Figures (Illustrations)
 
@@ -19,8 +19,6 @@ figures (illustrations). The list of figures should match the table of
 contents in type size and general style. Titles given in the list of
 figures may be shortened. [cite:cms15, [[section]]1.45]
 
-===
-
 index:: rq-000143; list of figures
 
-<<<problem
+<<<requirement

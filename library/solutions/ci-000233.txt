@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:cleanup_tempfiles] subroutine 
 
-===
-
 index:: ci-000233; subroutine![cmd:cleanup_tempfiles]
 
 <<<solution

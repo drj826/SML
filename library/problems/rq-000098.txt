@@ -1,4 +1,4 @@
->>>problem.rq-000098
+>>>requirement.rq-000098
 
 title:: Render Documents From SML Source Files
 
@@ -18,8 +18,6 @@ description:: The software shall enable a user to render documents
 from SML source files to specified renditions. This requirement serves
 as a container for rendition-specific requirements.
 
-===
-
 index:: rq-000098; document renditions
 
-<<<problem
+<<<requirement

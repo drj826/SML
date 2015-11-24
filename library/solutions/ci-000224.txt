@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:render_glossary] subroutine 
 
-===
-
 index:: ci-000224; subroutine![cmd:render_glossary]
 
 <<<solution

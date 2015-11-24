@@ -1,4 +1,4 @@
->>>problem.rq-000056
+>>>requirement.rq-000056
 
 title:: Represent a Frowny Face
 
@@ -17,8 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent a
 frowny face.
 
-===
-
 index:: rq-000056; frowny face
 
-<<<problem
+<<<requirement

@@ -1,4 +1,4 @@
->>>problem.rq-000188
+>>>requirement.rq-000188
 
 title:: Remember Document Division Order
 
@@ -23,8 +23,6 @@ software should not remember order of entities independently by type
 (i.e. problem, solution, etc.).  This will enable the software to list
 divisions in document order both independent of type and by type.
 
-===
-
 index:: rq-000188; entity document order
 
-<<<problem
+<<<requirement

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:html_priority_icon_for] subroutine 
 
-===
-
 index:: ci-000363; subroutine![cmd:html_priority_icon_for]
 
 <<<solution

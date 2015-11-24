@@ -1,4 +1,4 @@
->>>problem.rq-000329
+>>>requirement.rq-000329
 
 title:: Format A Document Block According to a Template
 
@@ -40,8 +40,6 @@ template should be a function of:
 
 ###comment
 
-===
-
 index:: rq-000329; block
 
-<<<problem
+<<<requirement

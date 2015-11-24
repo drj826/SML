@@ -1,4 +1,4 @@
->>>problem.rq-000019
+>>>requirement.rq-000019
 
 title:: Represent a Footnote
 
@@ -21,8 +21,6 @@ content not sufficiently important to add to the main text. The data
 format representation of a footnote must allow but not mandate newline
 characters within a footnote.
 
-===
-
 index:: rq-000019; footnote
 
-<<<problem
+<<<requirement

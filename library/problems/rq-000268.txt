@@ -1,4 +1,4 @@
->>>problem.rq-000268
+>>>requirement.rq-000268
 
 title:: Generate HTML List of Demonstrations
 
@@ -18,11 +18,9 @@ description:: The software shall generate an HTML list of
 [g:sml:demonstration]s.  The purpose of this listing is to enable
 readers to quickly navigate to any demonstration in the document.
 
-===
-
 index:: rq-000268; list of demonstrations!HTML; HTML list of
 demonstrations
 
 = [g:sml:demonstration] = [def:sml:demonstration]
 
-<<<problem
+<<<requirement

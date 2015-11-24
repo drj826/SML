@@ -1,4 +1,4 @@
->>>problem.rq-000163
+>>>requirement.rq-000163
 
 title:: Represent an Option to Persist Generated Content In A File
 
@@ -19,8 +19,6 @@ the author's choice that generated content should persist in a
 specified file. The default behavior is to insert the generated
 content into the output document but ~~not~~ persist it anywhere.
 
-===
-
 index:: rq-000163; generated content!persistent
 
-<<<problem
+<<<requirement

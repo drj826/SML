@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:create_specials_datastructure] subroutine 
 
-===
-
 index:: ci-000217; subroutine![cmd:create_specials_datastructure]
 
 <<<solution

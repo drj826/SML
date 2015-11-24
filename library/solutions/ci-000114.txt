@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:gather_svn_metadata] subroutine 
 
-===
-
 index:: ci-000114; subroutine![cmd:gather_svn_metadata]
 
 <<<solution

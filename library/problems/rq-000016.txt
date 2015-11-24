@@ -1,4 +1,4 @@
->>>problem.rq-000016
+>>>requirement.rq-000016
 
 title:: Represent a Listing
 
@@ -20,8 +20,6 @@ into a document for explanation and reference.  Note that ~~listings~~
 are not the same as ~~lists~~.  Listings have titles and descriptions
 (often called captions) and unique identifiers that allow cross
 referencing within the document.
-
-===
 
 index:: rq-000016; listings
 
@@ -249,4 +247,4 @@ from a file)
 
 ---
 
-<<<problem
+<<<requirement

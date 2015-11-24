@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:process_footnote_text] subroutine 
 
-===
-
 index:: ci-000141; subroutine![cmd:process_footnote_text]
 
 <<<solution

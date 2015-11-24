@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:escape_xml_pre] subroutine 
 
-===
-
 index:: ci-000200; subroutine![cmd:escape_xml_pre]
 
 <<<solution

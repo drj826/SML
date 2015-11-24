@@ -1,4 +1,4 @@
->>>problem.rq-000130
+>>>requirement.rq-000130
 
 title:: Substitute Variables
 
@@ -17,8 +17,6 @@ type:: technical
 description:: The software shall substitute inline variable tags with
 the values of those variables.
 
-===
-
 index:: rq-000130; substitute variables
 
-<<<problem
+<<<requirement

@@ -29,8 +29,6 @@ allocation:: al-000283 # rq-000194 Represent Semantic Entities
 allocation:: al-000145 # rq-000125 Represent Inline Semantic Content
 allocation:: al-000284 # rq-000194 Represent Inference Rules
 
-===
-
 index:: ci-000006
 
 [ref:lis-sml-ontology-config] shows the [file:ontology_rules_sml.conf]

@@ -1,4 +1,4 @@
->>>problem.rq-000212
+>>>requirement.rq-000212
 
 title:: Format an HTML Glossary Reference
 
@@ -16,8 +16,6 @@ associated:: rq-000025
 
 description:: The software shall format an HTML glossary reference.
 
-===
-
 index:: rq-000212; glossary reference!format HTML
 
-<<<problem
+<<<requirement

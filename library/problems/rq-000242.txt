@@ -1,4 +1,4 @@
->>>problem.rq-000242
+>>>requirement.rq-000242
 
 title:: Format HTML Subscripted Text
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format HTML subscripted text.
 
-===
-
 index:: rq-000242; subscripted text!format HTML
 
-<<<problem
+<<<requirement

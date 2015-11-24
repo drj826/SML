@@ -1,4 +1,4 @@
->>>problem.rq-000120
+>>>requirement.rq-000120
 
 title:: Represent Spanned Content
 
@@ -18,8 +18,6 @@ description:: The data format shall represent spanned content
 presentation formats.  This requirement serves as a container for
 those formats.
 
-===
-
 index:: rq-000120; spanned content presentation formats
 
-<<<problem
+<<<requirement

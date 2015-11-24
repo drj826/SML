@@ -1,4 +1,4 @@
->>>problem.rq-000173
+>>>requirement.rq-000173
 
 title:: Validate Property Cardinality
 
@@ -19,9 +19,7 @@ properties do not violate cardinality rules.  Cardinality rules are
 declared in the ontology and specify whether a property can have one
 or many values.
 
-===
-
 index:: rq-000173; property cardinality!validate; validate property
 cardinality; cardinality!property
 
-<<<problem
+<<<requirement

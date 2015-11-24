@@ -1,4 +1,4 @@
->>>problem.rq-000196
+>>>requirement.rq-000196
 
 title:: Identify Entities by Type
 
@@ -19,8 +19,6 @@ entities by type.  For instance, a systems engineering domain might
 contain entities types like: problems, solutions, allocations, tests,
 results, tasks, and roles.
 
-===
-
 index:: rq-000196; entity types
 
-<<<problem
+<<<requirement

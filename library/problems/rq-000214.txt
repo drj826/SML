@@ -1,4 +1,4 @@
->>>problem.rq-000214
+>>>requirement.rq-000214
 
 title:: Format an HTML Index Reference
 
@@ -16,8 +16,6 @@ associated:: rq-000252
 
 description:: The software shall format an HTML index reference.
 
-===
-
 index:: rq-000214; index reference!format HTML
 
-<<<problem
+<<<requirement

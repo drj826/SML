@@ -1,4 +1,4 @@
->>>problem.rq-000026
+>>>requirement.rq-000026
 
 title:: Represent an Index Entry
 
@@ -22,8 +22,6 @@ must be capable of representing index entries that span large (even
 multi-page) regions of text.  The data format must allow index entries
 to span newline characters.
 
-===
-
 index:: rq-000026; index entry
 
-<<<problem
+<<<requirement

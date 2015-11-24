@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:escape_regexp] subroutine 
 
-===
-
 index:: ci-000203; subroutine![cmd:escape_regexp]
 
 <<<solution

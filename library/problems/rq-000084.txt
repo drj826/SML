@@ -1,4 +1,4 @@
->>>problem.rq-000084
+>>>requirement.rq-000084
 
 title:: Represent an Ordered List
 
@@ -17,8 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 an ordered list.  Ordered lists are often called ``numbered'' lists.
 
-===
-
 index:: rq-000084; ordered lists
 
-<<<problem
+<<<requirement

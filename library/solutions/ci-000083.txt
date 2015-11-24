@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:publish_thumbnail] subroutine 
 
-===
-
 index:: ci-000083; subroutine![cmd:publish_thumbnail]
 
 <<<solution

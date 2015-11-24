@@ -1,4 +1,4 @@
->>>problem.rq-000071
+>>>requirement.rq-000071
 
 title:: Represent Conditional Text
 
@@ -19,8 +19,6 @@ conditional text.  Conditional text is document content that is
 included in the published document only if a conditional clause is
 true.
 
-===
-
 index:: rq-000071; conditional text
 
-<<<problem
+<<<requirement

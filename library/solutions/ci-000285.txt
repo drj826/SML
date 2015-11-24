@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:latex_problems_for] subroutine 
 
-===
-
 index:: ci-000285; subroutine![cmd:latex_problems_for]
 
 <<<solution

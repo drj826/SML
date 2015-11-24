@@ -1,4 +1,4 @@
->>>problem.rq-000118
+>>>requirement.rq-000118
 
 title:: Implement SML Semantics
 
@@ -18,8 +18,6 @@ description:: The software shall implement data structures that define
 SML semantics. The purpose of this requirement is to enable automatic
 validation of document semantics.
 
-===
-
 index:: rq-000118; semantics!SML
 
-<<<problem
+<<<requirement

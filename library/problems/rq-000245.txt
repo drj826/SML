@@ -1,4 +1,4 @@
->>>problem.rq-000245
+>>>requirement.rq-000245
 
 title:: Format HTML Fixed-Width Text
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format HTML fixed-width text.
 
-===
-
 index:: rq-000245; fixed-width text!format HTML
 
-<<<problem
+<<<requirement

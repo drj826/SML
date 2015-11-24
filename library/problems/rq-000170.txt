@@ -1,4 +1,4 @@
->>>problem.rq-000170
+>>>requirement.rq-000170
 
 title:: Implement SML Data Format
 
@@ -18,8 +18,6 @@ description:: The software shall implement the SML data format.  This
 means the software shall implement the syntax and semantics of the
 semantic manuscript language.
 
-===
-
 index:: rq-000170; data format!implement
 
-<<<problem
+<<<requirement

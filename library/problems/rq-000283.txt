@@ -1,4 +1,4 @@
->>>problem.rq-000283
+>>>requirement.rq-000283
 
 title:: Format a LaTeX Cross Reference
 
@@ -17,8 +17,6 @@ associated:: rq-000020
 description:: The software shall format a LaTeX cross reference.
 Cross references link two locations in the same document.
 
-===
-
 index:: rq-000283; cross reference!format LaTeX
 
-<<<problem
+<<<requirement

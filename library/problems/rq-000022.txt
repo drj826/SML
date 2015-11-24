@@ -1,4 +1,4 @@
->>>problem.rq-000022
+>>>requirement.rq-000022
 
 title:: Represent a Bibliography Entry
 
@@ -17,8 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent a
 bibliography entry.  This capability enables authors to document
 sources from which they draw information.
-
-===
 
 index:: rq-000022; bibliography entries
 
@@ -610,4 +608,4 @@ it could also be something like ||circa 1066||.
 
 ---
 
-<<<problem
+<<<requirement

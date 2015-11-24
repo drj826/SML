@@ -1,4 +1,4 @@
->>>problem.rq-000068
+>>>requirement.rq-000068
 
 title:: Represent a Comment Division
 
@@ -21,8 +21,6 @@ renditions.  The data format must provide a way to mark the beginning
 and ending of a comment block without changing the lines within the
 block.
 
-===
-
 index:: rq-000068; comment division
 
-<<<problem
+<<<requirement

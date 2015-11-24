@@ -1,4 +1,4 @@
->>>problem.rq-000337
+>>>requirement.rq-000337
 
 title:: Gather Every Block of Every Parsed File to a Division
 
@@ -21,8 +21,6 @@ file to a division.  The purpose of this requirement is to ensure the
 data gathered into memory from parsed files can be used to re-write
 those files back out to permanent storage.
 
-===
-
 index:: rq-000337
 
-<<<problem
+<<<requirement

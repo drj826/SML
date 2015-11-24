@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:insert_frontmatter_list_headings] subroutine 
 
-===
-
 index:: ci-000240; subroutine![cmd:insert_frontmatter_list_headings]
 
 <<<solution

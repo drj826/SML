@@ -1,4 +1,4 @@
->>>problem.rq-000211
+>>>requirement.rq-000211
 
 title:: Format an HTML Footnote Reference
 
@@ -16,8 +16,6 @@ associated:: rq-000019
 
 description:: The software shall format an HTML footnote reference.
 
-===
-
 index:: rq-000211; footnote reference!format HTML
 
-<<<problem
+<<<requirement

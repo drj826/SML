@@ -1,4 +1,4 @@
->>>problem.rq-000240
+>>>requirement.rq-000240
 
 title:: Format HTML Underlined Text
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format HTML underlined text.
 
-===
-
 index:: rq-000240; underlined text!format HTML
 
-<<<problem
+<<<requirement

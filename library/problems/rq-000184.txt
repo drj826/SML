@@ -1,4 +1,4 @@
->>>problem.rq-000184
+>>>requirement.rq-000184
 
 title:: List Allowed Entity Properties
 
@@ -17,8 +17,6 @@ type:: technical
 description:: The software shall produce a list of properties allowed
 for a specified entity.
 
-===
-
 index:: rq-000184
 
-<<<problem
+<<<requirement

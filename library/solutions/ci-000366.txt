@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:already_in_array] subroutine 
 
-===
-
 index:: ci-000366; subroutine![cmd:already_in_array]
 
 <<<solution

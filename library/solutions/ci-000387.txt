@@ -65,8 +65,6 @@ allocation:: al-000330 # rq-000251 Render E-mail Addresses
 
 allocation:: al-000336 # rq-000205 Render a Block According to a Style
 
-===
-
 index:: ci-000387
 
 >>>LISTING.lis-block-pm

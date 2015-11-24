@@ -496,19 +496,27 @@ sub add_division {
   my $self     = shift;
   my $division = shift;
 
-  if ( $division->isa('SML::Division') )
-    {
-      my $id = $division->get_id;
-      $self->_get_division_hash->{$id} = $division;
-      return 1;
-    }
-
-  else
+  if ( not $division->isa('SML::Division') )
     {
       $logger->error("CAN'T ADD DIVISION \'$division\' is not a SML::Division");
       return 0;
     }
 
+  my $id   = $division->get_id;
+  my $hash = $self->_get_division_hash;
+
+  if ( exists $hash->{$id} )
+    {
+      $logger->warn("LIBRARY ALREADY HAS DIVISION $id");
+      return 0;
+    }
+
+  else
+    {
+      $hash->{$id} = $division;
+
+      return 1;
+    }
 }
 
 ######################################################################
@@ -960,25 +968,6 @@ sub get_file {
       return 0;
     }
 }
-
-######################################################################
-
-# sub get_fragment_list {
-
-#   my $self = shift;
-
-#   my $list = [];
-
-#   foreach my $division ( values %{ $self->_get_division_hash })
-#     {
-#       if ( $division->isa('SML::Fragment') )
-# 	{
-# 	  push @{ $list }, $division;
-# 	}
-#     }
-
-#   return $list;
-# }
 
 ######################################################################
 
@@ -1502,7 +1491,6 @@ sub summarize_content {
   my $summary = q{};
 
   $summary .= $self->summarize_entities;
-  # $summary .= $self->summarize_fragments;
   $summary .= $self->summarize_divisions;
   $summary .= $self->summarize_glossary;
   $summary .= $self->summarize_acronyms;
@@ -1557,31 +1545,6 @@ sub summarize_entities {
 
   return $summary;
 }
-
-######################################################################
-
-# sub summarize_fragments {
-
-#   # Return a summary of the library's fragments.
-
-#   my $self = shift;
-
-#   my $summary = q{};
-
-#   if ( keys %{ $self->_get_fragment_hash } )
-#     {
-#       $summary .= "Fragments:\n\n";
-
-#       foreach my $fragment_id (sort keys %{ $self->_get_fragment_hash })
-# 	{
-# 	  $summary .= "  $fragment_id\n";
-# 	}
-
-#       $summary .= "\n";
-#     }
-
-#   return $summary;
-# }
 
 ######################################################################
 
@@ -1987,6 +1950,86 @@ sub allows_generate {
 }
 
 ######################################################################
+
+sub get_bullet_list_count {
+
+  my $self = shift;
+
+  my $hash  = $self->_get_division_hash;
+  my $count = 0;
+
+  foreach my $division ( values %{ $hash } )
+    {
+      if ( $division->isa("SML::BulletList") )
+	{
+	  ++ $count;
+	}
+    }
+
+  return $count;
+}
+
+######################################################################
+
+sub get_enumerated_list_count {
+
+  my $self = shift;
+
+  my $hash  = $self->_get_division_hash;
+  my $count = 0;
+
+  foreach my $division ( values %{ $hash } )
+    {
+      if ( $division->isa("SML::EnumeratedList") )
+	{
+	  ++ $count;
+	}
+    }
+
+  return $count;
+}
+
+######################################################################
+
+sub get_step_list_count {
+
+  my $self = shift;
+
+  my $hash  = $self->_get_division_hash;
+  my $count = 0;
+
+  foreach my $division ( values %{ $hash } )
+    {
+      if ( $division->isa("SML::StepList") )
+	{
+	  ++ $count;
+	}
+    }
+
+  return $count;
+}
+
+######################################################################
+
+sub get_definition_list_count {
+
+  my $self = shift;
+
+  my $hash  = $self->_get_division_hash;
+  my $count = 0;
+
+  foreach my $division ( values %{ $hash } )
+    {
+      if ( $division->isa("SML::DefinitionList") )
+	{
+	  ++ $count;
+	}
+    }
+
+  return $count;
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes
@@ -2105,8 +2148,6 @@ has entity_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_entity_hash',
-   # writer    => '_set_entity_hash',
-   # clearer   => '_clear_entity_hash',
    predicate => 'has_entity_hash',
    default   => sub {{}},
   );
@@ -2449,7 +2490,7 @@ sub BUILD {
 		  # validate the ontology allows this division name
 		  if ( not $ontology->allows_division($name) )
 		    {
-		      $logger->logdie("UNKNOWN DIVISION \'$name\' IN \'$filespec\'");
+	      $logger->logdie("UNKNOWN DIVISION \'$name\' IN \'$filespec\'");
 		    }
 
 		  ++ $division_count->{$name};

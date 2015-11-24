@@ -1,4 +1,4 @@
->>>problem.rq-000309
+>>>requirement.rq-000309
 
 title:: Format a LaTeX Close Double Quote
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX close double quote.
 
-===
-
 index:: rq-000309; double quote!format LaTeX
 
-<<<problem
+<<<requirement

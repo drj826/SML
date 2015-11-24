@@ -1,4 +1,4 @@
->>>problem.rq-000159
+>>>requirement.rq-000159
 
 title:: Represent an Option to Persist Script Output In Document
 
@@ -22,8 +22,6 @@ containing document.  The default behavior of the script function is
 to run the script and insert the output into the generated document
 but ~~not~~ persist the output in the original document.
 
-===
-
 index:: rq-000159; scripts!persistent output
 
 This requirement is ~~different~~ than [id:rq-000160] because it
@@ -31,4 +29,4 @@ requires the data format to represent an option to persist script
 output in the file that represents the document and not just to any
 file specified by the author.
 
-<<<problem
+<<<requirement

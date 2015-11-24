@@ -1,4 +1,4 @@
->>>problem.rq-000244
+>>>requirement.rq-000244
 
 title:: Format HTML Bold Text
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format HTML bold text.
 
-===
-
 index:: rq-000244; bold text!format HTML
 
-<<<problem
+<<<requirement

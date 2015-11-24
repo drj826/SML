@@ -1,4 +1,4 @@
->>>problem.rq-000092
+>>>requirement.rq-000092
 
 title:: Represent a Video Clip
 
@@ -21,8 +21,6 @@ Readers of soft-copy document renditions should have the capability to
 detach and play video clips.  Video clips have titles and descriptions
 (often called captions) and unique identifiers that allow cross
 referencing within the document.
-
-===
 
 index:: rq-000092; video clips
 
@@ -112,4 +110,4 @@ Elements of video clip meta data include:
 
 ---
 
-<<<problem
+<<<requirement

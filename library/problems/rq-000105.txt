@@ -1,4 +1,4 @@
->>>problem.rq-000105
+>>>requirement.rq-000105
 
 title:: Parse SML Files
 
@@ -22,8 +22,6 @@ that implement special features defined by the SML data format. The
 result of parsing is a collection of memory resident objects that
 represent the parsed document.
 
-===
-
 index:: rq-000105; parse
 
-<<<problem
+<<<requirement

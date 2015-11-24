@@ -24,8 +24,6 @@ author:: $Author: don.johnson $
 
 allocation:: al-000337 # rq-000206 Render a Division According to a Style
 
-===
-
 index:: ci-000381; Division.pm
 
 = [g:sml:division] = [def:sml:division].

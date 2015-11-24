@@ -1,4 +1,4 @@
->>>problem.rq-000052
+>>>requirement.rq-000052
 
 title:: Represent a Keystroke Symbol
 
@@ -18,8 +18,6 @@ description:: The data format shall have the capability to represent
 a keystroke symbol.  A keystroke symbol represents pressing a single
 key on a keyboard or keypad.
 
-===
-
 index:: rq-000052; keystroke symbol; symbol!keystroke
 
-<<<problem
+<<<requirement

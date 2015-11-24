@@ -1,4 +1,4 @@
->>>problem.rq-000066
+>>>requirement.rq-000066
 
 title:: Represent Comments
 
@@ -22,8 +22,6 @@ not appear in published documents, (2) allow authors to temporarily
 ``comment out'' document content.  This requirement serves as a
 container for various data format comment representation requirements.
 
-===
-
 index:: rq-000066; comments
 
-<<<problem
+<<<requirement

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:find_size] subroutine 
 
-===
-
 index:: ci-000081; subroutine![cmd:find_size]
 
 <<<solution

@@ -1,4 +1,4 @@
->>>problem.rq-000341
+>>>requirement.rq-000341
 
 title:: Provide Runtime Configuration Options
 
@@ -20,8 +20,6 @@ configuration option requirements.  A runtime configuration option
 provides the user a choice at runtime to modify the behavior of the
 software.
 
-===
-
 index:: rq-000341; runtime configuration options
 
-<<<problem
+<<<requirement

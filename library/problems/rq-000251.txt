@@ -1,4 +1,4 @@
->>>problem.rq-000251
+>>>requirement.rq-000251
 
 title:: Format an HTML E-mail Address
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML e-mail address.
 
-===
-
 index:: rq-000251; e-mail address!format HTML
 
-<<<problem
+<<<requirement

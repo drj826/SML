@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:begin_region] subroutine 
 
-===
-
 index:: ci-000176; subroutine![cmd:begin_region]
 
 <<<solution

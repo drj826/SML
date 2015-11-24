@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:list_of_region_names] subroutine 
 
-===
-
 index:: ci-000369; subroutine![cmd:list_of_region_names]
 
 <<<solution

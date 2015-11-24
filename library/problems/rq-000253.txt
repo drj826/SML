@@ -1,4 +1,4 @@
->>>problem.rq-000253
+>>>requirement.rq-000253
 
 title:: Represent a Unique Division Identifier
 
@@ -16,8 +16,6 @@ description:: The data format shall have the capability to represent
 a unique division identifier.  The identifier must be unique within
 the library.
 
-===
-
 index:: rq-000253; unique division identifier
 
-<<<problem
+<<<requirement

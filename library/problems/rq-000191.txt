@@ -1,4 +1,4 @@
->>>problem.rq-000191
+>>>requirement.rq-000191
 
 title:: Emit ~~Error~~ Message On Finding ~~Major~~ Invalid
 First-Order Document Semantics
@@ -19,8 +19,6 @@ invalid semantics problem is one that prevents the production of
 meaningful document output. First-order document semantics are
 expressed as rules (axioms) in a [g:sml:library]'s [g:sml:ontology].
 
-===
-
 index:: rq-000191; error!emit; first-order semantics
 
-<<<problem
+<<<requirement

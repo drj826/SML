@@ -14,8 +14,6 @@ date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-===
-
 index:: ci-000428; table cell
 
 >>>LISTING.lis-table-cell-pm

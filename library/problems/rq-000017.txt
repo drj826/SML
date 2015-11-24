@@ -1,4 +1,4 @@
->>>problem.rq-000017
+>>>requirement.rq-000017
 
 title:: Represent an Attachment
 
@@ -21,8 +21,6 @@ reference.  Readers of soft-copy document renditions should have the
 capability to detach and open attachments.  Attachments have titles
 and descriptions (often called captions) and unique identifiers that
 allow cross referencing within the document.
-
-===
 
 index:: rq-000017; attachments
 
@@ -149,4 +147,4 @@ being specified explicitly in the output rendition
 
 ---
 
-<<<problem
+<<<requirement

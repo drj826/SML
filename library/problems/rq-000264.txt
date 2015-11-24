@@ -1,4 +1,4 @@
->>>problem.rq-000264
+>>>requirement.rq-000264
 
 title:: Generate HTML List of Recent Updates
 
@@ -22,8 +22,6 @@ listing of changelog entries by entity type of entities that have been
 recently updated.  The definition of ``recent'' should be configurable
 by the user as some number of days.
 
-===
-
 index:: rq-000264; list of recent updates!HTML; HTML list of recent
 updates
 
@@ -40,4 +38,4 @@ This requirement is similar to but different from [id:rq-000278],
 chronological order rather than grouping recent changes by entity
 type.
 
-<<<problem
+<<<requirement

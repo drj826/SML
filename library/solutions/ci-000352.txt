@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:html_outfile_for_label] subroutine 
 
-===
-
 index:: ci-000352; subroutine![cmd:html_outfile_for_label]
 
 <<<solution

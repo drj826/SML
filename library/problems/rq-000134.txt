@@ -1,4 +1,4 @@
->>>problem.rq-000134
+>>>requirement.rq-000134
 
 title:: Represent a Fill in the Blank
 
@@ -18,8 +18,6 @@ description:: The data format shall have the capability to represent a
 fill-in-the-blank symbol.  Furthermore, data format shall allow
 authors to specify the width of the symbol.
 
-===
-
 index:: rq-000134; fill-in-the-blank
 
-<<<problem
+<<<requirement

@@ -5,7 +5,7 @@ title:: Problem Division
 This SML document contains a problem division.  The following division
 describes a problem.
 
->>>problem.my-problem
+>>>requirement.my-problem
 
 title:: My Problem
 
@@ -21,6 +21,6 @@ as much narrative text as you want inside divisions but you may
 the parser to see if it recognizes the end of the problem data segment
 which is also the beginning of the problem.
 
-<<<problem
+<<<requirement
 
 <<<DOCUMENT

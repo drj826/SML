@@ -1,4 +1,4 @@
->>>problem.rq-000330
+>>>requirement.rq-000330
 
 title:: Represent a List Item
 
@@ -17,8 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent a
 list item.
 
-===
-
 index:: rq-000330; list item
 
-<<<problem
+<<<requirement

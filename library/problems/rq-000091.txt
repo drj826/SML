@@ -1,4 +1,4 @@
->>>problem.rq-000091
+>>>requirement.rq-000091
 
 title:: Represent an Audio Clip
 
@@ -21,8 +21,6 @@ Readers of soft-copy document renditions should have the capability to
 detach and play audio clips.  Audio clips have titles and descriptions
 (often called captions) and unique identifiers that allow cross
 referencing within the document.
-
-===
 
 index:: rq-000091; audio clips
 
@@ -112,4 +110,4 @@ Elements of audio clip meta data include:
 
 ---
 
-<<<problem
+<<<requirement

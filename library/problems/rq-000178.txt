@@ -1,4 +1,4 @@
->>>problem.rq-000178
+>>>requirement.rq-000178
 
 title:: Resolve Included Regions
 
@@ -20,8 +20,6 @@ description:: The software shall resolve included regions.  The
 [g:sml:SML] data format enables authors to include the content of an
 external file as a [g:sml:region].
 
-===
-
 index:: rq-000178; include
 
-<<<problem
+<<<requirement

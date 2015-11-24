@@ -1,4 +1,4 @@
->>>problem.rq-000287
+>>>requirement.rq-000287
 
 title:: Format a LaTeX Acronym Reference
 
@@ -16,8 +16,6 @@ associated:: rq-000090
 
 description:: The software shall format a LaTeX acronym reference.
 
-===
-
 index:: rq-000287; acronym reference!format LaTeX
 
-<<<problem
+<<<requirement

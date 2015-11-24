@@ -1,4 +1,4 @@
->>>problem.rq-000199
+>>>requirement.rq-000199
 
 title:: Satisfy Technical Requirements
 
@@ -18,8 +18,6 @@ user).  Technical requirements begin with the phrase, ``The system
 shall...'' Technical requirements may be implementation
 specific/dependent.
 
-===
-
 index:: rq-000199; technical requirements
 
-<<<problem
+<<<requirement

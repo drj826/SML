@@ -71,8 +71,6 @@ allocation:: al-000271 # rq-000190 Validate Doc Contains No Redundant Allocation
 allocation:: al-000277 # rq-000100 Parse SML Conditional Divisions
 allocation:: al-000278 # rq-000101 Parse SML Comment Divisions
 
-===
-
 index:: ci-000003
 
 Here is the definition of `parser' from the glossary:

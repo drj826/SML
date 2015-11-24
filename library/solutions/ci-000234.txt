@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:list_current_contexts] subroutine 
 
-===
-
 index:: ci-000234; subroutine![cmd:list_current_contexts]
 
 <<<solution

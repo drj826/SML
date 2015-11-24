@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:extract_label] subroutine 
 
-===
-
 index:: ci-000360; subroutine![cmd:extract_label]
 
 <<<solution

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:remove_newlines] subroutine 
 
-===
-
 index:: ci-000355; subroutine![cmd:remove_newlines]
 
 <<<solution

@@ -165,8 +165,6 @@ allocation:: al-000129 # rq-000097 Represent a Source Citation
 allocation:: al-000275 # rq-000197 Declare Entity Types
 allocation:: al-000274 # rq-000196 Identify Entities by Type
 
-===
-
 index:: Publish.pm
 
 <<<solution

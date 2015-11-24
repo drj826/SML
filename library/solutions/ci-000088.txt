@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:begin_todo_item] subroutine 
 
-===
-
 index:: ci-000088; subroutine![cmd:begin_todo_item]
 
 <<<solution

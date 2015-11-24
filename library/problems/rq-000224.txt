@@ -1,4 +1,4 @@
->>>problem.rq-000224
+>>>requirement.rq-000224
 
 title:: Format an HTML Smiley Symbol
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML smiley symbol. :-)
 
-===
-
 index:: rq-000224; smiley symbol!format HTML
 
-<<<problem
+<<<requirement

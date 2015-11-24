@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:latex_allocations_for] subroutine 
 
-===
-
 index:: ci-000287; subroutine![cmd:latex_allocations_for]
 
 <<<solution

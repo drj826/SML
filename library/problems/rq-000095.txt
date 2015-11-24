@@ -1,4 +1,4 @@
->>>problem.rq-000095
+>>>requirement.rq-000095
 
 title:: Represent a Formal Outcome
 
@@ -22,8 +22,6 @@ demonstration, etc.).  The data format must have the capability to
 represent the date of review, label of item tested/audited, item
 status determined by the test/audit, and a one-paragraph explanation
 of how the status was determined.
-
-===
 
 index:: rq-000094
 
@@ -98,4 +96,4 @@ documenting the ~~informally~~ determined status of an item (See
 ~~Outcomes~~ and ~~reviews~~ should have a similar data format to make
 it easy to promote a review to an outcome.
 
-<<<problem
+<<<requirement

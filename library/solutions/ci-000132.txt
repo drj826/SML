@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:end_table_list] subroutine 
 
-===
-
 index:: ci-000132; subroutine![cmd:end_table_list]
 
 <<<solution

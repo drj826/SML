@@ -1,4 +1,4 @@
->>>problem.rq-000117
+>>>requirement.rq-000117
 
 title:: Validate Test Documents
 
@@ -20,8 +20,6 @@ conforms to a specified set of rules.  Test validation rules may
 specify that every test case is traceable to requirements or
 configuration items, or has specified required attributes.
 
-===
-
 index:: rq-000117; validation!test
 
-<<<problem
+<<<requirement

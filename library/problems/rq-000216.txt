@@ -1,4 +1,4 @@
->>>problem.rq-000216
+>>>requirement.rq-000216
 
 title:: Format an HTML `thepage' Reference
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML `thepage' reference.
 
-===
-
 index:: rq-000216; `thepage' reference!format HTML
 
-<<<problem
+<<<requirement

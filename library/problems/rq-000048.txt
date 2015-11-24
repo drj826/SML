@@ -1,4 +1,4 @@
->>>problem.rq-000048
+>>>requirement.rq-000048
 
 title:: Be Encodable Using 7-Bit ASCII
 
@@ -21,8 +21,6 @@ representable using 7-bit ASCII encoding.  The purpose of this
 requirement is to keep the data format simple to maximize the number
 of tools capable of processing documents written in the format.
 
-===
-
 index:: rq-000048; 7-bit ASCII; ISO/IEC 646:1991
 
-<<<problem
+<<<requirement

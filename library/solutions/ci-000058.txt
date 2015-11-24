@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:begin_olist_item] subroutine 
 
-===
-
 index:: ci-000058; subroutine![cmd:begin_olist_item]
 
 <<<solution

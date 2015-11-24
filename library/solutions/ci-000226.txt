@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:render_changelog] subroutine 
 
-===
-
 index:: ci-000226; subroutine![cmd:render_changelog]
 
 <<<solution

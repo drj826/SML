@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:by_doc_order] subroutine 
 
-===
-
 index:: ci-000238; subroutine![cmd:by_doc_order]
 
 <<<solution

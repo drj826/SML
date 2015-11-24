@@ -14,8 +14,6 @@ date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-===
-
 index:: ci-000049; subroutine![cmd:end_baretable_context]
 
 <<<solution

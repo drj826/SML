@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:count_children] subroutine 
 
-===
-
 index:: ci-000357; subroutine![cmd:count_children]
 
 <<<solution

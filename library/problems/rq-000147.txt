@@ -1,4 +1,4 @@
->>>problem.rq-000147
+>>>requirement.rq-000147
 
 title:: Generate a List of Notes (Footnotes/End Notes)
 
@@ -20,8 +20,6 @@ appendices and precede the bibliography or reference list.  Endnotes
 are normally set smaller than the text but larger than
 footnotes. [cite:cms15, [[section]]1.86]
 
-===
-
 index:: rq-000147; list of notes
 
-<<<problem
+<<<requirement

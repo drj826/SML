@@ -1,4 +1,4 @@
->>>problem.rq-000295
+>>>requirement.rq-000295
 
 title:: Format a LaTeX Status Reference
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX status reference.
 
-===
-
 index:: rq-000295; status reference!format LaTeX
 
-<<<problem
+<<<requirement

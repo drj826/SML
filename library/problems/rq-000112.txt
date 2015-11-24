@@ -1,4 +1,4 @@
->>>problem.rq-000112
+>>>requirement.rq-000112
 
 title:: Implement SML Syntax
 
@@ -18,8 +18,6 @@ description:: The software shall implement data structures that define
 SML syntax.  The purpose of this requirement is to enable automatic
 validation of document syntax.
 
-===
-
 index:: rq-000112; syntax!SML
 
-<<<problem
+<<<requirement

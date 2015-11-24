@@ -1,4 +1,4 @@
->>>problem.rq-000225
+>>>requirement.rq-000225
 
 title:: Format an HTML Frowny Symbol
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML frowny symbol. :-(
 
-===
-
 index:: rq-000225; frowny symbol!format HTML
 
-<<<problem
+<<<requirement

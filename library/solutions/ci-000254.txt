@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:latex_types_for] subroutine 
 
-===
-
 index:: ci-000254; subroutine![cmd:latex_types_for]
 
 <<<solution

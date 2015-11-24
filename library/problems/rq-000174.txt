@@ -1,4 +1,4 @@
->>>problem.rq-000174
+>>>requirement.rq-000174
 
 title:: Validate External File References
 
@@ -37,8 +37,6 @@ associated:: rq-000072 # Represent Script Statements
 associated:: rq-000013 # Represent Images
 associated:: rq-000077 # Represent Templates
 
-===
-
 index:: rq-000174; external file reference validation
 
 The following [g:sml:SML] features involve the use of external file
@@ -76,4 +74,4 @@ NOTE: This requirement does ~~not~~ apply to inline file path
 references ([id:rq-000062]) because those files are not required to
 exist; they may be files unrelated to the document.
 
-<<<problem
+<<<requirement

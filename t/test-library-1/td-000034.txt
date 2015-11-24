@@ -5,7 +5,7 @@ title:: Valid ID Reference
 This document illustrates a valid ID reference.  A valid ID reference
 looks like [id:my-requirement].
 
->>>problem.my-requirement
+>>>requirement.my-requirement
 
 title:: My Requirement
 
@@ -14,6 +14,6 @@ type:: technical
 description:: This is an example requirement for the purpose of
 illustrating a valid ID reference.
 
-<<<problem
+<<<requirement
 
 <<<DOCUMENT

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:html_uses] subroutine 
 
-===
-
 index:: ci-000317; subroutine![cmd:html_uses]
 
 <<<solution

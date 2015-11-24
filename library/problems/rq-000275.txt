@@ -1,4 +1,4 @@
->>>problem.rq-000275
+>>>requirement.rq-000275
 
 title:: Generate HTML List of Footnotes
 
@@ -18,10 +18,8 @@ description:: The software shall generate an HTML list of
 [g:sml:footnote]s.  The purpose of this footnote is to enable readers
 to quickly navigate to any footnote in the document.
 
-===
-
 index:: rq-000275; list of footnotes!HTML; HTML list of footnotes
 
 = [g:sml:footnote] = [def:sml:footnote]
 
-<<<problem
+<<<requirement

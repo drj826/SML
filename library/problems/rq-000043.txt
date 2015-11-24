@@ -1,4 +1,4 @@
->>>problem.rq-000043
+>>>requirement.rq-000043
 
 title:: Represent Table Cell Font Size
 
@@ -17,8 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 the font size for a table cell.
 
-===
-
 index:: rq-000043; table cell font size; font size!table cell
 
-<<<problem
+<<<requirement

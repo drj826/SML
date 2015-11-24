@@ -1,4 +1,4 @@
->>>problem.rq-000312
+>>>requirement.rq-000312
 
 title:: Format a LaTeX Section Sign
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX section sign.
 
-===
-
 index:: rq-000312; section sign!format LaTeX
 
-<<<problem
+<<<requirement

@@ -1,4 +1,4 @@
->>>problem.rq-000089
+>>>requirement.rq-000089
 
 title:: Represent an Acronym Definition
 
@@ -20,8 +20,6 @@ a formal definition of an acronyms used in a document.  The data
 format representation of an acronym definition must allow but not
 mandate newline characters within an acronym definition.
 
-===
-
 index:: rq-000089; acronym!definition
 
-<<<problem
+<<<requirement

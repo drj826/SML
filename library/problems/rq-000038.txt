@@ -1,4 +1,4 @@
->>>problem.rq-000038
+>>>requirement.rq-000038
 
 title:: Represent a Page Break
 
@@ -17,8 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 page breaks.
 
-===
-
 index:: rq-000038; page break
 
-<<<problem
+<<<requirement

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:escape_html_pre] subroutine 
 
-===
-
 index:: ci-000198; subroutine![cmd:escape_html_pre]
 
 <<<solution

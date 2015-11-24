@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:render_tree_row] subroutine 
 
-===
-
 index:: ci-000221; subroutine![cmd:render_tree_row]
 
 <<<solution

@@ -11,7 +11,7 @@ listing.  That is, a listing of all the problems in the document.
 
 generate:: problem-domain-listing
 
->>>problem.problem-1
+>>>requirement.problem-1
 
 title:: Parent Problem
 
@@ -21,7 +21,7 @@ description:: This is the parent problem.
 
 <<<problem
 
->>>problem.problem-2
+>>>requirement.problem-2
 
 title:: First Child Problem
 
@@ -33,7 +33,7 @@ description:: This is the first child problem.
 
 <<<problem
 
->>>problem.problem-3
+>>>requirement.problem-3
 
 title:: Second Child Problem
 
@@ -43,6 +43,6 @@ is_part_of:: problem-1
 
 description:: This is the second child problem.
 
-<<<problem
+<<<requirement
 
 <<<DOCUMENT

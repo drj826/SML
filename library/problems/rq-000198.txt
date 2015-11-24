@@ -1,4 +1,4 @@
->>>problem.rq-000198
+>>>requirement.rq-000198
 
 title:: Represent Allocations
 
@@ -23,8 +23,6 @@ an allocation is to make the content re-usable, to enable special
 listings of allocations, and to enable automatic reasoning about
 allocations.
 
-===
-
 index:: rq-000198; allocations
 
-<<<problem
+<<<requirement

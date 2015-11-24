@@ -20,8 +20,6 @@ author:: $Author: don.johnson $
 allocation:: al-000214 # rq-000130 Substitute Variables
 allocation:: al-000216 # rq-000131 Resolve Lookups
 
-===
-
 index:: ci-000197; subroutine![cmd:escape_latex]
 
 <<<solution

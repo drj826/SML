@@ -1,4 +1,4 @@
->>>problem.rq-000313
+>>>requirement.rq-000313
 
 title:: Format a LaTeX Emdash
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX emdash.
 
-===
-
 index:: rq-000313; emdash!format LaTeX
 
-<<<problem
+<<<requirement

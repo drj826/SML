@@ -1,4 +1,4 @@
->>>problem.rq-000058
+>>>requirement.rq-000058
 
 title:: Represent a Right Arrow
 
@@ -17,8 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent a
 right arrow.
 
-===
-
 index:: rq-000058; right arrow
 
-<<<problem
+<<<requirement

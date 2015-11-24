@@ -1,4 +1,4 @@
->>>problem.rq-000119
+>>>requirement.rq-000119
 
 title:: Validate SML Document Syntax
 
@@ -22,8 +22,6 @@ meaningful output.  The software shall emit a ~~warning~~ upon
 encountering a document syntax error that ~~may~~ indicate that
 document output will not be what the document author intended.
 
-===
-
 index:: rq-000119; syntax!validate
 
 The software should emit an ~~error~~ upon encountering a syntax
@@ -40,4 +38,4 @@ output.
 + Start of new section while in region or environment
 
 
-<<<problem
+<<<requirement

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:process_para_text] subroutine 
 
-===
-
 index:: ci-000143; subroutine![cmd:process_para_text]
 
 <<<solution

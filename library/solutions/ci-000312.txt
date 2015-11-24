@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:html_next_for] subroutine 
 
-===
-
 index:: ci-000312; subroutine![cmd:html_next_for]
 
 <<<solution

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:wrap] subroutine 
 
-===
-
 index:: ci-000356; subroutine![cmd:wrap]
 
 <<<solution

@@ -15,7 +15,7 @@ capability to extract:
 
 Here is a test region:
 
->>>problem.my-problem-74
+>>>requirement.my-problem-74
 
 title:: My Problem
 
@@ -31,7 +31,7 @@ sections.  The purpose of ~~this~~ paragraph is to test the parser to
 see if it recognizes the end of the problem preamble which is also the
 beginning of the problem narrative.
 
-<<<problem
+<<<requirement
 
 #---------------------------------------------------------------------
 

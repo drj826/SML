@@ -1,4 +1,4 @@
->>>problem.rq-000231
+>>>requirement.rq-000231
 
 title:: Format an HTML Copyright Symbol
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML copyright symbol.
 
-===
-
 index:: rq-000231; copyright symbol!format HTML
 
-<<<problem
+<<<requirement

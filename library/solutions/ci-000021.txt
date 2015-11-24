@@ -21,8 +21,6 @@ author:: $Author: don.johnson $
 allocation:: al-000211 # rq-000128 Gather Data
 allocation:: al-000212 # rq-000129 Insert Content
 
-===
-
 index:: ci-000021; subroutine![cmd:pass_two]
 
 <<<solution

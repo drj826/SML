@@ -1,4 +1,4 @@
->>>problem.rq-000294
+>>>requirement.rq-000294
 
 title:: Format a LaTeX Date Reference
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX date reference.
 
-===
-
 index:: rq-000294; date reference!format LaTeX
 
-<<<problem
+<<<requirement

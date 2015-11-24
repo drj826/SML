@@ -1,4 +1,4 @@
->>>problem.rq-000027
+>>>requirement.rq-000027
 
 title:: Represent Exercises
 
@@ -20,8 +20,6 @@ to students to perform a series of tasks or solve one or problems to
 reinforce learned concepts.  The purpose of identifying content as an
 exercise is to make the content re-usable and to enable special
 listings of exercises.
-
-===
 
 index:: rq-000027; exercises
 
@@ -184,4 +182,4 @@ exercise
 
 ---
 
-<<<problem
+<<<requirement

@@ -1,4 +1,4 @@
->>>problem.rq-000063
+>>>requirement.rq-000063
 
 title:: Represent a Command
 
@@ -17,8 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent a
 commands (i.e. computer instructions entered at a command prompt).
 
-===
-
 index:: rq-000063; commands
 
-<<<problem
+<<<requirement

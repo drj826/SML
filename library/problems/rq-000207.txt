@@ -1,4 +1,4 @@
->>>problem.rq-000207
+>>>requirement.rq-000207
 
 title:: Format a Document According to a Style Template
 
@@ -15,8 +15,6 @@ type:: technical
 description:: The software shall format an SML [g:sml:document] into a
 target rendition according to a specified style template.
 
-===
-
 index:: rq-000207; render document
 
-<<<problem
+<<<requirement

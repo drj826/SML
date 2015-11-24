@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:end_any_data_element] subroutine 
 
-===
-
 index:: ci-000230; subroutine![cmd:end_any_data_element]
 
 <<<solution

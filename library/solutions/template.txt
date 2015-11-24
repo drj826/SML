@@ -14,8 +14,6 @@ is_part_of:: ci-000004
 
 description:: 
 
-===
-
 index:: ci-000
 
 <<<solution

@@ -16,8 +16,6 @@ date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-===
-
 index:: ci-000026; subroutine![cmd:generate_prioritized_solution_listing]
 
 <<<solution

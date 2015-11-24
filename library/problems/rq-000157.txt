@@ -1,4 +1,4 @@
->>>problem.rq-000157
+>>>requirement.rq-000157
 
 title:: Represent Update Triggers
 
@@ -26,8 +26,6 @@ containing document when the included document is updated.  The data
 format must implement three types of update triggers: (1) revision,
 (2) author, and (3) date.
 
-===
-
 index:: rq-000157; update triggers
 
-<<<problem
+<<<requirement

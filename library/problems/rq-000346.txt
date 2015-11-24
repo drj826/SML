@@ -1,4 +1,4 @@
->>>problem.rq-000346
+>>>requirement.rq-000346
 
 title:: Trigger Update When Included File Changes
 
@@ -19,8 +19,6 @@ document when it detects that an ~~included~~ file has been changed.
 The purpose of this requirement is to ensure document changes are
 detected and tracked even when those changes occur in included files.
 
-===
-
 index:: rq-000346; update trigger
 
-<<<problem
+<<<requirement

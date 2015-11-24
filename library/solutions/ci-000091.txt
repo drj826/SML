@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:process_end_region_marker] subroutine 
 
-===
-
 index:: ci-000091; subroutine![cmd:process_end_region_marker]
 
 <<<solution

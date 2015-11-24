@@ -1,4 +1,4 @@
->>>problem.rq-000082
+>>>requirement.rq-000082
 
 title:: Be Human Readable
 
@@ -20,8 +20,6 @@ files.  The purpose of this requirement is to keep the data format as
 readable as possible so people are comfortable reading and writing in
 the raw data format using simple text editing tools.
 
-===
-
 index:: rq-000082; human readable
 
 Markup languages like XML and HTML also have a goal of being human
@@ -30,4 +28,4 @@ difficult to read.  To maximize human readability, the data format
 should make it easy for people to distinguish markup from content and
 should keep the ratio of markup to content to an absolute minimum.
 
-<<<problem
+<<<requirement

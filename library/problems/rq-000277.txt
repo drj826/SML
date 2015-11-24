@@ -1,4 +1,4 @@
->>>problem.rq-000277
+>>>requirement.rq-000277
 
 title:: Generate HTML List of Acronyms
 
@@ -18,10 +18,8 @@ description:: The software shall generate an HTML list of
 [g:sml:acronym]s.  The purpose of this acronym is to enable readers to
 quickly navigate to any acronym in the document.
 
-===
-
 index:: rq-000277; list of acronyms!HTML; HTML list of acronyms
 
 = [g:sml:acronym] = [def:sml:acronym]
 
-<<<problem
+<<<requirement

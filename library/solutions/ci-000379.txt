@@ -26,8 +26,6 @@ allocation:: al-000287 # rq-000208 Distinguish Reserved Words
 allocation:: al-000003 # rq-000048 Be Encodable Using 7-Bit ASCII
 allocation:: al-000004 # rq-000086 Represent Specified Data Types
 
-===
-
 index:: ci-000379; SML syntax; EBNF
 
 There is an online EBNF validator here:

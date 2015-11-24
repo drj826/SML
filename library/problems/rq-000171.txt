@@ -1,4 +1,4 @@
->>>problem.rq-000171
+>>>requirement.rq-000171
 
 title:: Validate Infer-Only Properties
 
@@ -22,8 +22,6 @@ explicitly declared in a document.  The purpose of disallowing
 explicit declaration of certain properties is to prevent conflicting
 property declarations.
 
-===
-
 index:: rq-000171; validation!infer-only properties
 
-<<<problem
+<<<requirement

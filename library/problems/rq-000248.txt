@@ -1,4 +1,4 @@
->>>problem.rq-000248
+>>>requirement.rq-000248
 
 title:: Format an HTML User-Entered Text String
 
@@ -15,8 +15,6 @@ type:: technical
 description:: The software shall format an HTML user-entered text
 string.
 
-===
-
 index:: rq-000248; user-entered text string!format HTML
 
-<<<problem
+<<<requirement

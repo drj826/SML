@@ -1,4 +1,4 @@
->>>problem.rq-000314
+>>>requirement.rq-000314
 
 title:: Format LaTeX Underlined Text
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format LaTeX underlined text.
 
-===
-
 index:: rq-000314; underlined text!format LaTeX
 
-<<<problem
+<<<requirement

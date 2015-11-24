@@ -1,4 +1,4 @@
->>>problem.rq-000226
+>>>requirement.rq-000226
 
 title:: Format an HTML Keystroke Symbol
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML keystroke symbol.
 
-===
-
 index:: rq-000226; keystroke symbol!format HTML
 
-<<<problem
+<<<requirement

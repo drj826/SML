@@ -1,4 +1,4 @@
->>>problem.rq-000165
+>>>requirement.rq-000165
 
 title:: Represent an Option to `Include As Section'
 
@@ -21,8 +21,6 @@ file to a section heading at a specified section depth.  Make all
 sections and sub-sections from the external file relative to the
 specified section depth.
 
-===
-
 index:: rq-000165; include!as section
 
-<<<problem
+<<<requirement

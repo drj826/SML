@@ -975,6 +975,21 @@ has include_element =>
 
 ######################################################################
 
+has plugin_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(\*+\s+)?plugin::([\w\-\*\$]+:)*\s+(\S+?)\s+(.*)?$',
+   #            1                2                 3        4
+  );
+
+# $1 = leading asterisks
+# $2 = args
+# $3 = plugin name
+# $4 = plugin arguments
+
+######################################################################
+
 has csvfile_element =>
   (
    is      => 'ro',

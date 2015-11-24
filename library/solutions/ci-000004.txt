@@ -29,8 +29,6 @@ allocation:: al-000259 # rq-000182 Be Configurable
 
 allocation:: al-000333 # rq-000254 Validate SML Source Files
 
-===
-
 index:: ci-000004; SML Software Library
 
 <<<solution

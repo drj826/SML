@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:render_html_trace] subroutine 
 
-===
-
 index:: ci-000244; subroutine![cmd:render_html_trace]
 
 <<<solution

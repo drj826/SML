@@ -1,4 +1,4 @@
->>>problem.rq-000102
+>>>requirement.rq-000102
 
 title:: Format Output Text From Document Structure Objects
 
@@ -21,8 +21,6 @@ structures like paragraphs, lists, sections, tables, figures, and
 listings.  This requirement serves as a container for requirements
 calling for formatting specific SML document structure features.
 
-===
-
 index:: rq-000102; document structures!format
 
-<<<problem
+<<<requirement

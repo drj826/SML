@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:begin_rcsinfo] subroutine 
 
-===
-
 index:: ci-000118; subroutine![cmd:begin_rcsinfo]
 
 <<<solution

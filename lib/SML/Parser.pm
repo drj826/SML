@@ -173,13 +173,13 @@ sub parse {
 
       while $self->_text_requires_processing;
 
-  if ( not $self->_has_division )
+  my $division = $self->_get_division;
+
+  if ( not $division )
     {
       # this should never happen
       $logger->logdie("PARSER FOUND NO DIVISION \'$id\'");
     }
-
-  my $division = $self->_get_division;
 
   foreach my $block (@{ $division->get_block_list })
     {
@@ -195,10 +195,6 @@ sub parse {
       $self->_validate_source_citation_semantics($block);
       $self->_validate_file_ref_semantics($block);
     }
-
-  my $library = $self->get_library;
-
-  $library->add_division($division);
 
   return $division;
 }
@@ -2382,13 +2378,6 @@ sub _begin_division {
   my $library = $self->get_library;
 
   $library->add_division($division);
-
-  # # why?
-  # if ( $self->_in_document )
-  #   {
-  #     my $document = $self->_get_current_document;
-  #     $document->add_division($division);
-  #   }
 
   unless
     (
@@ -6471,9 +6460,11 @@ sub _process_bull_list_item {
 
       $logger->trace("..... new top level bullet list");
 
+      my $count = $library->get_bullet_list_count;
+
       my $list = SML::BulletList->new
 	(
-	 id                 => 'bl',
+	 id                 => "BULLET_LIST-$count",
 	 leading_whitespace => $whitespace,
 	 library            => $library,
 	);
@@ -6560,9 +6551,11 @@ sub _process_bull_list_item {
 
       $logger->trace("..... new sub bullet list");
 
+      my $count = $library->get_bullet_list_count;
+
       my $list = SML::BulletList->new
 	(
-	 id                 => 'bl',
+	 id                 => "BULLET_LIST-$count",
 	 leading_whitespace => $whitespace,
 	 library            => $library,
 	);
@@ -6730,9 +6723,11 @@ sub _process_bull_list_item {
 
       $logger->trace("..... new bullet list");
 
+      my $count = $library->get_bullet_list_count;
+
       my $list = SML::BulletList->new
 	(
-	 id                 => 'bl',
+	 id                 => "BULLET_LIST-$count",
 	 leading_whitespace => $whitespace,
 	 library            => $library,
 	);
@@ -6787,9 +6782,11 @@ sub _process_bull_list_item {
     {
       $logger->trace("..... new bullet list");
 
+      my $count = $library->get_bullet_list_count;
+
       my $list = SML::BulletList->new
 	(
-	 id                 => 'bl',
+	 id                 => "BULLET_LIST-$count",
 	 leading_whitespace => $whitespace,
 	 library            => $library,
 	);
@@ -6858,9 +6855,11 @@ sub _process_start_step_element {
 
       if ( not $self->_in_step_list )
 	{
+	  my $count = $library->get_step_list_count;
+
 	  my $list = SML::StepList->new
 	    (
-	     id      => 'sl',
+	     id      => "STEP_LIST-$count",
 	     library => $library,
 	    );
 
@@ -7459,9 +7458,11 @@ sub _process_enum_list_item {
       $self->_end_all_lists       if $self->_in_bullet_list;
       $self->_end_definition_list if $self->_in_definition_list;
 
+      my $count = $library->get_enumerated_list_count;
+
       my $list = SML::EnumeratedList->new
 	(
-	 id                 => 'el',
+	 id                 => "ENUMERATED_LIST-$count",
 	 leading_whitespace => $whitespace,
 	 library            => $library,
 	);
@@ -7542,9 +7543,11 @@ sub _process_enum_list_item {
     {
       $self->_end_bullet_list;
 
+      my $count = $library->get_enumerated_list_count;
+
       my $list = SML::EnumeratedList->new
 	(
-	 id                 => 'el',
+	 id                 => "ENUMERATED_LIST-$count",
 	 leading_whitespace => $whitespace,
 	 library            => $library,
 	);
@@ -7696,9 +7699,11 @@ sub _process_enum_list_item {
 	    }
 	}
 
+      my $count = $library->get_enumerated_list_count;
+
       my $list = SML::EnumeratedList->new
 	(
-	 id                 => 'el',
+	 id                 => "ENUMERATED_LIST-$count",
 	 leading_whitespace => $whitespace,
 	 library            => $library,
 	);
@@ -7749,9 +7754,11 @@ sub _process_enum_list_item {
      $indent > $self->_get_current_list_indent
     )
     {
+      my $count = $library->get_enumerated_list_count;
+
       my $list = SML::EnumeratedList->new
 	(
-	 id                 => 'el',
+	 id                 => "ENUMERATED_LIST-$count",
 	 leading_whitespace => $whitespace,
 	 library            => $library,
 	);
@@ -7817,7 +7824,14 @@ sub _process_start_def_list_item {
 
       if ( not $self->_in_definition_list )
 	{
-	  my $list = SML::DefinitionList->new(id=>'dl',library=>$library);
+	  my $count = $library->get_definition_list_count;
+
+	  my $list = SML::DefinitionList->new
+	    (
+	     id      => "DEFINITION_LIST-$count",
+	     library => $library,
+	    );
+
 	  $self->_begin_division($list);
 	}
 
@@ -9627,9 +9641,6 @@ sub _parse_block {
       return 0;
     }
 
-  my $name = $block->get_name;
-  $logger->trace("parse block $name");
-
   $self->_set_block($block);
 
   my $library = $self->get_library;
@@ -9656,10 +9667,14 @@ sub _parse_block {
     {
       my $term = $block->get_term;
       my $term_string = $self->_create_string($term);
+
+      $block->add_part($term_string);
       $block->set_term_string($term_string);
 
       my $definition = $block->get_definition;
       my $definition_string = $self->_create_string($definition);
+
+      $block->add_part($definition_string);
       $block->set_definition_string($definition_string);
 
       return 1;
@@ -10223,6 +10238,32 @@ sub _end_all_lists {
     }
 
   return 1;
+}
+
+######################################################################
+
+sub _end_use_formal_status_element {
+
+  my $self    = shift;
+  my $element = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $element->get_content;
+
+  if ( $text =~ /$syntax->{element}/ )
+    {
+      $element->set_value($3);
+
+      return 1;
+    }
+
+  else
+    {
+      my $location = $element->get_location;
+      $logger->error("SYNTAX ERROR IN use_formal_status ELEMENT at $location");
+      return 0;
+    }
 }
 
 ######################################################################
@@ -11386,12 +11427,7 @@ sub _validate_glossary_term_ref_semantics {
       my $namespace = $3 || q{};
       my $term      = $4;
 
-      if ( $library->get_glossary->has_entry($term,$namespace) )
-	{
-	  $logger->trace("term \'$term\' namespace \'$namespace\' is in glossary");
-	}
-
-      else
+      unless ( $library->get_glossary->has_entry($term,$namespace) )
 	{
 	  my $location = $block->get_location;
 	  $logger->warn("TERM NOT IN GLOSSARY \'$namespace\' \'$term\' at $location");
@@ -11452,12 +11488,7 @@ sub _validate_glossary_def_ref_semantics {
       my $namespace = $2 || q{};
       my $term      = $3;
 
-      if ( $library->get_glossary->has_entry($term,$namespace) )
-	{
-	  $logger->trace("definition \'$term\' namespace \'$namespace\' is in glossary");
-	}
-
-      else
+      unless ( $library->get_glossary->has_entry($term,$namespace) )
 	{
 	  my $location = $block->get_location;
 	  $logger->warn("DEFINITION NOT IN GLOSSARY \'$namespace\' \'$term\' at $location");

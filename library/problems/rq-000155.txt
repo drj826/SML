@@ -1,4 +1,4 @@
->>>problem.rq-000155
+>>>requirement.rq-000155
 
 title:: Generate a List of Attachments
 
@@ -19,8 +19,6 @@ file attachments.  The listing should display the location of the
 attachment in the document and allow downloading the attachment
 directly from the listing.
 
-===
-
 index:: rq-000155; list of attachments
 
-<<<problem
+<<<requirement

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:latex_requests_for] subroutine 
 
-===
-
 index:: ci-000292; subroutine![cmd:latex_requests_for]
 
 <<<solution

@@ -1,4 +1,4 @@
->>>problem.rq-000227
+>>>requirement.rq-000227
 
 title:: Format an HTML Left Arrow Symbol
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML left arrow symbol.
 
-===
-
 index:: rq-000227; left arrow symbol!format HTML
 
-<<<problem
+<<<requirement

@@ -39,8 +39,6 @@ allocation:: al-000270 # rq-000190 Validate Document Contains no Redundant Alloc
 
 allocation:: al-000282 # rq-000200 Validate Engineering Document Semantics
 
-===
-
 index:: ci-000380; Reasoner.pm module
 
 = [g:sml:reasoner] = [def:sml:reasoner]

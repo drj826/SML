@@ -15,8 +15,6 @@ is_part_of:: ci-000004
 description:: The SML/Paragraph.pm module implements the Paragraph
 class.
 
-===
-
 index:: ci-000425; paragraph
 
 <<<solution

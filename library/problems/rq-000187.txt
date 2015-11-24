@@ -1,4 +1,4 @@
->>>problem.rq-000187
+>>>requirement.rq-000187
 
 title:: Represent an Inline Internal Hyperlink
 
@@ -24,8 +24,6 @@ designate arbitrary ``from'' span of text as the beginning end of the
 hyperlink and to designate an arbitrary location in the document as
 the target end of the hyperlink.
 
-===
-
 index:: rq-000187; internal hyperlink; hyperlink!internal
 
-<<<problem
+<<<requirement

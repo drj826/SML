@@ -1,4 +1,4 @@
->>>problem.rq-000290
+>>>requirement.rq-000290
 
 title:: Format a LaTeX `thepage' Reference
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX `thepage' reference.
 
-===
-
 index:: rq-000290; `thepage' reference!format LaTeX
 
-<<<problem
+<<<requirement

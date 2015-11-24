@@ -1,4 +1,4 @@
->>>problem.rq-000161
+>>>requirement.rq-000161
 
 title:: Represent an Option to Generate Content Conditionally
 
@@ -18,9 +18,7 @@ description:: The data format shall have the capability to represent
 that the author wants generated content to be generated only when a
 specified condition is true.
 
-===
-
 index:: rq-000161; generated content!conditional; conditional
 generated content
 
-<<<problem
+<<<requirement

@@ -1,4 +1,4 @@
->>>problem.rq-000077
+>>>requirement.rq-000077
 
 title:: Represent Templates
 
@@ -19,12 +19,10 @@ templates.  Templates enable an author to create reusable blocks of
 document structure and format that get filled in with reusable block
 or inline elements of content.
 
-===
-
 index:: rq-000077; templates
 
 For instance, an author might want to create a template for a
 requirement (aka problem) that summarizes selected requirement
 meta-data.
 
-<<<problem
+<<<requirement

@@ -1,4 +1,4 @@
->>>problem.rq-000097
+>>>requirement.rq-000097
 
 title:: Represent a Source Citation
 
@@ -20,8 +20,6 @@ capability to indicate when information originates from a
 bibliographic source.  The data format must allow source citations to
 span newline characters.
 
-===
-
 index:: rq-000097; source citations
 
-<<<problem
+<<<requirement

@@ -18,8 +18,6 @@ meaning.  Entities are often related to other entitys. Common entities
 include problems, solutions, tests, results, tasks, roles,
 allocations, and assignments.
 
-===
-
 index:: ci-000416; Entity.pm
 
 <<<solution

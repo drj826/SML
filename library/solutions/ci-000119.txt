@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:begin_revisions] subroutine 
 
-===
-
 index:: ci-000119; subroutine![cmd:begin_revisions]
 
 <<<solution

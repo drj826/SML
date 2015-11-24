@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:html_tests_for] subroutine 
 
-===
-
 index:: ci-000331; subroutine![cmd:html_tests_for]
 
 <<<solution

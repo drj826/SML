@@ -1,4 +1,4 @@
->>>problem.rq-000087
+>>>requirement.rq-000087
 
 title:: Represent Document Metadata
 
@@ -18,8 +18,6 @@ description:: The data format shall have the capability to represent
 specified document meta data.  Document meta data describes the
 document.  The purpose of this requirement is to specify all elements
 of document meta data needed to publish books, reports, and articles.
-
-===
 
 index:: rq-000087
 
@@ -794,4 +792,4 @@ finalized and released)
 ---
 
 
-<<<problem
+<<<requirement

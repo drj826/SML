@@ -1,4 +1,4 @@
->>>problem.rq-000256
+>>>requirement.rq-000256
 
 title:: Track Changes
 
@@ -19,8 +19,6 @@ date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-===
-
 index:: rq-000256; change control facility
 
 Users often use a change control application to collaborate on
@@ -32,4 +30,4 @@ applications because I don't want the software to be tightly coupled
 to any specific change control application. As a practical matter,
 however, I primarily use Subversion for change control.
 
-<<<problem
+<<<requirement

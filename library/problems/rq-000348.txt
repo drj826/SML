@@ -1,4 +1,4 @@
->>>problem.rq-000348
+>>>requirement.rq-000348
 
 title:: Represent a `csvfile' Statement
 
@@ -23,8 +23,6 @@ combination.  The CSV file is structured with key values in the first
 column and name values as column headers so that the lookup becomes
 simply a row/column lookup.
 
-===
-
 index:: rq-000348
 
 Here, for instance, is an example CSV file named `net-config.csv' from
@@ -46,4 +44,4 @@ such as:
 
   [lookup:ci-000001:IP]
 
-<<<problem
+<<<requirement

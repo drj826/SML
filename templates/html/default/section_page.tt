@@ -18,8 +18,5 @@
 [% part.get_id %] [% part.get_name %] [%-FILTER html-%][%-self.get_content-%][%-END-%]
 [%- END %]
 
-<div class="pad2"></div>
-<div class="pad2"></div>
-
 </body>
 </html>

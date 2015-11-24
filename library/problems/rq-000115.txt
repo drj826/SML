@@ -1,4 +1,4 @@
->>>problem.rq-000115
+>>>requirement.rq-000115
 
 title:: Validate Requirements Documents
 
@@ -21,8 +21,6 @@ validation rules may specify that every requirement has specified
 required attributes, is traceable to other requirements depending on
 its type, etc.
 
-===
-
 index:: rq-000115; validation!requirements
 
-<<<problem
+<<<requirement

@@ -1,4 +1,4 @@
->>>problem.rq-000126
+>>>requirement.rq-000126
 
 title:: Render Documents from SML to SML
 
@@ -23,8 +23,6 @@ completed: (1) resolve `includes', (2) run scripts, (3) resolve
 requests, (6) fill in templates, and (7) resolve requests to generate
 content.
 
-===
-
 index:: rq-000126; SML!render
 
-<<<problem
+<<<requirement

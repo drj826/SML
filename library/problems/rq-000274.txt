@@ -1,4 +1,4 @@
->>>problem.rq-000274
+>>>requirement.rq-000274
 
 title:: Generate HTML List of Attachments
 
@@ -18,10 +18,8 @@ description:: The software shall generate an HTML list of
 [g:sml:attachment]s.  The purpose of this attachment is to enable
 readers to quickly navigate to any attachment in the document.
 
-===
-
 index:: rq-000274; list of attachments!HTML; HTML list of attachments
 
 = [g:sml:attachment] = [def:sml:attachment]
 
-<<<problem
+<<<requirement

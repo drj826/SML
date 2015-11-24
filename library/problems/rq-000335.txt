@@ -1,4 +1,4 @@
->>>problem.rq-000335
+>>>requirement.rq-000335
 
 title:: Represent a Section Heading
 
@@ -17,8 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent a
 section heading.
 
-===
-
 index:: rq-000335; section heading
 
-<<<problem
+<<<requirement

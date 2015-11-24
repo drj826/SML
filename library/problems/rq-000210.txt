@@ -1,4 +1,4 @@
->>>problem.rq-000210
+>>>requirement.rq-000210
 
 title:: Format an HTML URL Reference
 
@@ -17,8 +17,6 @@ associated:: rq-000021
 description:: The software shall format an HTML url reference.  URL
 references link to locations outside the current document.
 
-===
-
 index:: rq-000210; URL reference!format HTML
 
-<<<problem
+<<<requirement

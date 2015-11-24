@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:process_todo_text] subroutine 
 
-===
-
 index:: ci-000142; subroutine![cmd:process_todo_text]
 
 <<<solution

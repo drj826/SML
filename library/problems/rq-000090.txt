@@ -1,4 +1,4 @@
->>>problem.rq-000090
+>>>requirement.rq-000090
 
 title:: Represent an Inline Acronym Reference
 
@@ -20,8 +20,6 @@ have the capability to indicate an acronym is in the official list of
 acronyms.  The data format must allow acronym references to span
 newline characters.
 
-===
-
 index:: rq-000090; acronym reference
 
-<<<problem
+<<<requirement

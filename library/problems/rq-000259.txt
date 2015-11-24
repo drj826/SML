@@ -1,4 +1,4 @@
->>>problem.rq-000259
+>>>requirement.rq-000259
 
 title:: Notify Users of First Order Semantics Errors
 
@@ -20,8 +20,6 @@ of the error so the user knows exactly where to look for the problem.
 Error notifications should also provide an informative message that
 describes the error.
 
-===
-
 index:: rq-000259; notification!semantics error
 
 Examples of possible first order semantics errors include:
@@ -36,4 +34,4 @@ Examples of possible first order semantics errors include:
 
 + Invalid entity relationship
 
-<<<problem
+<<<requirement

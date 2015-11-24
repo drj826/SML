@@ -1,4 +1,4 @@
->>>problem.rq-000239
+>>>requirement.rq-000239
 
 title:: Format an HTML Emdash
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML emdash.
 
-===
-
 index:: rq-000239; emdash!format HTML
 
-<<<problem
+<<<requirement

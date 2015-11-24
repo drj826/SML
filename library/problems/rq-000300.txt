@@ -1,4 +1,4 @@
->>>problem.rq-000300
+>>>requirement.rq-000300
 
 title:: Format a LaTeX Keystroke Symbol
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX keystroke symbol.
 
-===
-
 index:: rq-000300; keystroke symbol!format LaTeX
 
-<<<problem
+<<<requirement

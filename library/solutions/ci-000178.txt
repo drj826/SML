@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:begin_environment] subroutine 
 
-===
-
 index:: ci-000178; subroutine![cmd:begin_environment]
 
 <<<solution

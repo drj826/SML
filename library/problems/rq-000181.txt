@@ -1,4 +1,4 @@
->>>problem.rq-000181
+>>>requirement.rq-000181
 
 title:: Prevent Infinite Loops
 
@@ -20,8 +20,6 @@ while parsing and rendering document content.  The software must
 detect and handle these conditions to prevent the application from
 `hanging' in an infinite loop.
 
-===
-
 index:: rq-000181; infinite loop!prevent
 
 [g:sml:SML] features that could cause an infinite loop:
@@ -32,4 +30,4 @@ index:: rq-000181; infinite loop!prevent
 
 - A script that produces output that calls itself again
 
-<<<problem
+<<<requirement

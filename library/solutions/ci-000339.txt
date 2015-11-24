@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:html_version_of] subroutine 
 
-===
-
 index:: ci-000339; subroutine![cmd:html_version_of]
 
 <<<solution

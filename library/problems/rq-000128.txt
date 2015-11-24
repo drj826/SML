@@ -1,4 +1,4 @@
->>>problem.rq-000128
+>>>requirement.rq-000128
 
 title:: Gather Data
 
@@ -17,8 +17,6 @@ type:: technical
 description:: The software shall gather the structured data contained
 in a document into data structures for further processing by other
 software functions.
-
-===
 
 index:: rq-000128; gather data
 
@@ -113,4 +111,4 @@ repeated many times.
   environment.
 
 
-<<<problem
+<<<requirement

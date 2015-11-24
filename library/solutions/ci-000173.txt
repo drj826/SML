@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:end_result] subroutine 
 
-===
-
 index:: ci-000173; subroutine![cmd:end_result]
 
 <<<solution

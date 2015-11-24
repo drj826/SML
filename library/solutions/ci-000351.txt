@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:hyphenate] subroutine 
 
-===
-
 index:: ci-000351; subroutine![cmd:hyphenate]
 
 <<<solution

@@ -1,4 +1,4 @@
->>>problem.rq-000031
+>>>requirement.rq-000031
 
 title:: Represent Key Points
 
@@ -20,8 +20,6 @@ are summarizations of a series of key concepts within a document
 section.  The purpose of identifying content as a list of key points
 is to enable a concise summary of concepts, make the list of key
 points re-usable, and to enable special listings of key points lists.
-
-===
 
 index:: rq-000031; key points; list of key points
 
@@ -161,4 +159,4 @@ unordered list
 
 ---
 
-<<<problem
+<<<requirement

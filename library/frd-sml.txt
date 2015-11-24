@@ -24,8 +24,6 @@ use_formal_status:: 1
 
 # [#v:tmpl/item-summary.txt:6530]
 
-===
-
 >>>REVISIONS
 
 rev:: 0.5 = 2012-03-25 = Added rq-000201 "Validate Allowed Entity
@@ -51,8 +49,6 @@ rev:: 0.1 = 2011-04-08 = Initial draft.
 * Introduction
 
 type:: chapter
-
-===
 
 This is the Functional Requirements Document (FRD) for a ~~structured
 manuscript data format~~.  The required data format will be used to
@@ -90,8 +86,6 @@ multiple different document renditions.
 #---------------------------------------------------------------------
 
 * Key Terms and Definitions
-
-===
 
 This section defines key terms used in this document.  The glossary
 contains a complete collection of terms and their definitions.
@@ -214,7 +208,7 @@ contains a complete collection of terms and their definitions.
 
 #---------------------------------------------------------------------
 
-* include:: frd-sml-problems
+* plugin:: parts2sections rq-000104
 
 ######################################################################
 # Backmatter

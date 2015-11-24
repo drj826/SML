@@ -1,4 +1,4 @@
->>>problem.rq-000281
+>>>requirement.rq-000281
 
 title:: Generate An HTML Page For Each Document Section
 
@@ -20,10 +20,8 @@ document readability by keeping the size of each page small and to
 keep the size of each HTML file small to speed browser page generateing.
 Chapters and appendices are considered types of sections.
 
-===
-
 index:: rq-000281
 
 = [g:sml:section] = [def:sml:section]
 
-<<<problem
+<<<requirement

@@ -1,4 +1,4 @@
->>>problem.rq-000075
+>>>requirement.rq-000075
 
 title:: Represent Revision History
 
@@ -19,8 +19,6 @@ document revision history.  Each revision must be described by a date,
 a version number, and a paragraph describing what changed since the
 previous version.
 
-===
-
 index:: rq-000075; revision history
 
-<<<problem
+<<<requirement

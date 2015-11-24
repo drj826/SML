@@ -1,4 +1,4 @@
->>>problem.rq-000325
+>>>requirement.rq-000325
 
 title:: Format a LaTeX E-mail Address
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX e-mail address.
 
-===
-
 index:: rq-000325; e-mail address!format LaTeX
 
-<<<problem
+<<<requirement

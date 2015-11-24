@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:organize_document_metadata] subroutine 
 
-===
-
 index:: ci-000213; subroutine![cmd:organize_document_metadata]
 
 <<<solution

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:process_variable_entry_text] subroutine 
 
-===
-
 index:: ci-000060; subroutine![cmd:process_variable_entry_text]
 
 <<<solution

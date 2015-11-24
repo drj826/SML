@@ -6,7 +6,7 @@ This test data file illustrates an entity with invalid property value.
 Specifically, it contains a problem with a status value of `bogus'
 which is not one of the allowed values.
 
->>>problem.problem-80-1
+>>>requirement.problem-80-1
 
 title:: This is problem 1
 
@@ -16,6 +16,6 @@ status:: bogus
 
 description:: There is no problem with problem 1.
 
-<<<problem
+<<<requirement
 
 <<<DOCUMENT

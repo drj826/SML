@@ -1,4 +1,4 @@
->>>problem.rq-000137
+>>>requirement.rq-000137
 
 title:: Be Maintainable
 
@@ -20,8 +20,6 @@ defects or their cause, correct defects or their cause, satisfy new
 requirements, make future maintenance easier, or, cope with a changed
 environment.
 
-===
-
 index:: rq-000137; maintainability
 
-<<<problem
+<<<requirement

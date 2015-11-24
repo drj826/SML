@@ -1,4 +1,4 @@
->>>problem.rq-000232
+>>>requirement.rq-000232
 
 title:: Format an HTML Trademark Symbol
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML trademark symbol.
 
-===
-
 index:: rq-000232; trademark symbol!format HTML
 
-<<<problem
+<<<requirement

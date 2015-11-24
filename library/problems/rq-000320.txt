@@ -1,4 +1,4 @@
->>>problem.rq-000320
+>>>requirement.rq-000320
 
 title:: Format a LaTeX File Name
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX file name.
 
-===
-
 index:: rq-000320; file name!format LaTeX
 
-<<<problem
+<<<requirement

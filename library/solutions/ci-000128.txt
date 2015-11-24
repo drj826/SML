@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:end_baretable] subroutine 
 
-===
-
 index:: ci-000128; subroutine![cmd:end_baretable]
 
 <<<solution

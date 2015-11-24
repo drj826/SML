@@ -1,4 +1,4 @@
->>>problem.rq-000220
+>>>requirement.rq-000220
 
 title:: Format an HTML Date Reference
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML date reference.
 
-===
-
 index:: rq-000220; date reference!format HTML
 
-<<<problem
+<<<requirement

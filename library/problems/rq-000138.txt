@@ -1,4 +1,4 @@
->>>problem.rq-000138
+>>>requirement.rq-000138
 
 title:: Represent a `Status' Statement
 
@@ -23,8 +23,6 @@ is to maximize document maintainability by giving authors the
 capability to reference an item's definitive status in multiple
 locations.
 
-===
-
 index:: rq-000138; status
 
-<<<problem
+<<<requirement

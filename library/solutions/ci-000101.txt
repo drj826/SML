@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:process_index_text] subroutine 
 
-===
-
 index:: ci-000101; subroutine![cmd:process_index_text]
 
 <<<solution

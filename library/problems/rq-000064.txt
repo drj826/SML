@@ -1,4 +1,4 @@
->>>problem.rq-000064
+>>>requirement.rq-000064
 
 title:: Represent Literal Text
 
@@ -18,8 +18,6 @@ description:: The data format shall have the capability to represent a
 literal text.  This capability is required to escape the special
 meaning of other markup.
 
-===
-
 index:: rq-000064; literal text
 
-<<<problem
+<<<requirement

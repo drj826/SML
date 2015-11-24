@@ -1,4 +1,4 @@
->>>problem.rq-000243
+>>>requirement.rq-000243
 
 title:: Format HTML Italicized Text
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format HTML italicized text.
 
-===
-
 index:: rq-000243; italicized text!format HTML
 
-<<<problem
+<<<requirement

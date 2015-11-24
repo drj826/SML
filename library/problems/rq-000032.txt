@@ -1,4 +1,4 @@
->>>problem.rq-000032
+>>>requirement.rq-000032
 
 title:: Represent Problems
 
@@ -21,8 +21,6 @@ requirements.  The purpose of identifying content as a problem
 description is to make the problem semantically traceable to other
 elements of content (like tests and solutions), to make the content
 re-usable, and to enable special listings of problems.
-
-===
 
 index:: rq-000032; problems
 
@@ -428,4 +426,4 @@ problem
 
 ---
 
-<<<problem
+<<<requirement

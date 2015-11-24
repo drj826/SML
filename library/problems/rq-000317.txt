@@ -1,4 +1,4 @@
->>>problem.rq-000317
+>>>requirement.rq-000317
 
 title:: Format LaTeX Italicized Text
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format LaTeX italicized text.
 
-===
-
 index:: rq-000317; italicized text!format LaTeX
 
-<<<problem
+<<<requirement

@@ -1,4 +1,4 @@
->>>problem.rq-000034
+>>>requirement.rq-000034
 
 title:: Represent Tests
 
@@ -23,8 +23,6 @@ make that test semantically traceable to other elements of content
 (like problems and solutions), to make the content re-usable, and to
 enable special listings of tests.
 
-===
-
 index:: rq-000034; tests
 
-<<<problem
+<<<requirement

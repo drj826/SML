@@ -1,4 +1,4 @@
->>>problem.rq-000093
+>>>requirement.rq-000093
 
 title:: Represent a `Generate' Statement
 
@@ -18,8 +18,6 @@ description:: The data format shall have the capability to represent a
 `generate' statement that directs the application to generate and
 insert specified text content.
 
-===
-
 index:: rq-000093; generated text
 
 Specified generated text content include:
@@ -36,4 +34,4 @@ Specified generated text content include:
 
 + associated solution listing
 
-<<<problem
+<<<requirement

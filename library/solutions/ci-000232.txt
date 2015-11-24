@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:write_treetable_js] subroutine 
 
-===
-
 index:: ci-000232; subroutine![cmd:write_treetable_js]
 
 <<<solution

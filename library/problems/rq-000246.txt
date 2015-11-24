@@ -1,4 +1,4 @@
->>>problem.rq-000246
+>>>requirement.rq-000246
 
 title:: Format an HTML File Name
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML file name.
 
-===
-
 index:: rq-000246; file name!format HTML
 
-<<<problem
+<<<requirement

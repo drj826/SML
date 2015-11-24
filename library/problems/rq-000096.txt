@@ -1,4 +1,4 @@
->>>problem.rq-000096
+>>>requirement.rq-000096
 
 title:: Represent a `Strict Entity Status' Option
 
@@ -21,8 +21,6 @@ purpose of this requirement is to enable authors to declare whether
 they want entity status to come from formal test results and audits,
 ~~or~~ from the informal status attributes of each entity (default).
 
-===
-
 index:: rq-000096; status; item!status
 
-<<<problem
+<<<requirement

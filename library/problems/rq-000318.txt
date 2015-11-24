@@ -1,4 +1,4 @@
->>>problem.rq-000318
+>>>requirement.rq-000318
 
 title:: Format LaTeX Bold Text
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format LaTeX bold text.
 
-===
-
 index:: rq-000318; bold text!format LaTeX
 
-<<<problem
+<<<requirement

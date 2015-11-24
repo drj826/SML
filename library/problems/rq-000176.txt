@@ -1,4 +1,4 @@
->>>problem.rq-000176
+>>>requirement.rq-000176
 
 title:: Resolve Included Sections
 
@@ -20,8 +20,6 @@ description:: The software shall resolve included sections.  The
 [g:sml:SML] data format enables authors to include the content of an
 external file as a section.
 
-===
-
 index:: rq-000176; include
 
-<<<problem
+<<<requirement

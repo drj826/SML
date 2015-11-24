@@ -1,4 +1,4 @@
->>>problem.rq-000070
+>>>requirement.rq-000070
 
 title:: Represent Hidden Text
 
@@ -21,8 +21,6 @@ between hidden text and commented text is that the meta-data portions
 of hidden text must be available for use in the document using a
 variety of reusable content mechanisms.
 
-===
-
 index:: rq-000070; hidden text
 
-<<<problem
+<<<requirement

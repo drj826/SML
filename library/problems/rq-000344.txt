@@ -1,4 +1,4 @@
->>>problem.rq-000344
+>>>requirement.rq-000344
 
 title:: Return Term of Definition List Item
 
@@ -21,8 +21,6 @@ item.  The purpose of this function is to strip the markup and other
 content to return just the term being defined by the definition list
 item.
 
-===
-
 index:: rq-000344
 
-<<<problem
+<<<requirement

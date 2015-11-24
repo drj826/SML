@@ -1,4 +1,4 @@
->>>problem.rq-000222
+>>>requirement.rq-000222
 
 title:: Format an HTML Citation
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML citation.
 
-===
-
 index:: rq-000222; citation!format HTML
 
-<<<problem
+<<<requirement

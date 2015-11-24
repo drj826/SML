@@ -1,4 +1,4 @@
->>>problem.rq-000229
+>>>requirement.rq-000229
 
 title:: Format an HTML `LaTeX' Symbol
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML `LateX' symbol.
 
-===
-
 index:: rq-000229; `LateX' symbol!format HTML
 
-<<<problem
+<<<requirement

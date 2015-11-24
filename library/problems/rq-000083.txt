@@ -1,4 +1,4 @@
->>>problem.rq-000083
+>>>requirement.rq-000083
 
 title:: Represent an Unordered List
 
@@ -18,8 +18,6 @@ description:: The data format shall have the capability to represent
 an unordered list.  Unordered lists are often called ``bulletized''
 lists.
 
-===
-
 index:: rq-000083; unordered lists
 
-<<<problem
+<<<requirement

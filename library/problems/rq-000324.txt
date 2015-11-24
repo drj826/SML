@@ -1,4 +1,4 @@
->>>problem.rq-000324
+>>>requirement.rq-000324
 
 title:: Format a LaTeX Literal XML Tag
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX literal XML tag.
 
-===
-
 index:: rq-000324; XML tag!format LaTeX
 
-<<<problem
+<<<requirement

@@ -1,4 +1,4 @@
->>>problem.rq-000223
+>>>requirement.rq-000223
 
 title:: Format an HTML `Take Note' Indicator
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML `take note' indicator.
 
-===
-
 index:: rq-000223; `take note' indicator!format HTML
 
-<<<problem
+<<<requirement

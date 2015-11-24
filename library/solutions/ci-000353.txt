@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:html_outfile_for_secnum] subroutine 
 
-===
-
 index:: ci-000353; subroutine![cmd:html_outfile_for_secnum]
 
 <<<solution

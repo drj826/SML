@@ -1,4 +1,4 @@
->>>problem.rq-000123
+>>>requirement.rq-000123
 
 title:: Represent Division-Specific Presentation Options
 
@@ -18,8 +18,6 @@ description:: The data format shall represent division-specific
 presentation options.  This requirement serves as a container for
 those options.
 
-===
-
 index:: rq-000123; division-specific presentation options
 
-<<<problem
+<<<requirement

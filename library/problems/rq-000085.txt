@@ -1,4 +1,4 @@
->>>problem.rq-000085
+>>>requirement.rq-000085
 
 title:: Represent a Definition List
 
@@ -18,8 +18,6 @@ description:: The data format shall have the capability to represent a
 definition list.  Each item in a definition list consists of a term
 and a definition.
 
-===
-
 index:: rq-000085; definition lists
 
-<<<problem
+<<<requirement

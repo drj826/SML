@@ -1,4 +1,4 @@
->>>problem.rq-000059
+>>>requirement.rq-000059
 
 title:: Represent Superscripted Text
 
@@ -17,8 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 superscripted text.
 
-===
-
 index:: rq-000059; superscripted text
 
-<<<problem
+<<<requirement

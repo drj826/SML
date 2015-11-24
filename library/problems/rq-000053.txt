@@ -1,4 +1,4 @@
->>>problem.rq-000053
+>>>requirement.rq-000053
 
 title:: Represent a `Take Note' Symbol
 
@@ -18,8 +18,6 @@ description:: The data format shall have the capability to represent a
 take note symbol.  The purpose of a ``take note'' symbol is to draw
 the reader's attention to a particularly important point.
 
-===
-
 index:: rq-000053; take note symbol; symbol!take note
 
-<<<problem
+<<<requirement

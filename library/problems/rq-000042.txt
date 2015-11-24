@@ -1,4 +1,4 @@
->>>problem.rq-000042
+>>>requirement.rq-000042
 
 title:: Represent Table Font Size
 
@@ -17,8 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 the font size for a table.
 
-===
-
 index:: rq-000042; table font size; font size!table
 
-<<<problem
+<<<requirement

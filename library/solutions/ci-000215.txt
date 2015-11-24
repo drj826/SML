@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:create_allocation_titles] subroutine 
 
-===
-
 index:: ci-000215; subroutine![cmd:create_allocation_titles]
 
 <<<solution

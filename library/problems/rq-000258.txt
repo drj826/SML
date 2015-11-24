@@ -1,4 +1,4 @@
->>>problem.rq-000258
+>>>requirement.rq-000258
 
 title:: Notify Users of Syntax Errors
 
@@ -20,8 +20,6 @@ user knows exactly where to look for the problem.  Syntax error
 notifications should also provide an informative message that
 describes the syntax error.
 
-===
-
 index:: rq-000258; notification!syntax error
 
 Examples of possible syntax errors include:
@@ -36,4 +34,4 @@ Examples of possible syntax errors include:
 
 + invalid attribute syntax
 
-<<<problem
+<<<requirement

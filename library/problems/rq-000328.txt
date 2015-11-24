@@ -1,4 +1,4 @@
->>>problem.rq-000328
+>>>requirement.rq-000328
 
 title:: Format A Document Division According to a Template
 
@@ -19,8 +19,6 @@ associated:: rq-000326
 description:: The software shall have the capability to [g:sml:format]
 a document division according to a template.
 
-===
-
 index:: rq-000328; division
 
-<<<problem
+<<<requirement

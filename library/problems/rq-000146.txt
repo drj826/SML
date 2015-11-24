@@ -1,4 +1,4 @@
->>>problem.rq-000146
+>>>requirement.rq-000146
 
 title:: Generate a List of Abbreviations
 
@@ -22,8 +22,6 @@ back matter, the list should appear before the first part in which
 abbreviations are used, whether the appendixes, the end-notes, or the
 bibliography.
 
-===
-
 index:: rq-000146; list of abbreviations
 
-<<<problem
+<<<requirement

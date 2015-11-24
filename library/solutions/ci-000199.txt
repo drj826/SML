@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:escape_latex_pre] subroutine 
 
-===
-
 index:: ci-000199; subroutine![cmd:escape_latex_pre]
 
 <<<solution

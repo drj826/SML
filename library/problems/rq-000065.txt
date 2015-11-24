@@ -1,4 +1,4 @@
->>>problem.rq-000065
+>>>requirement.rq-000065
 
 title:: Represent an `Include' Statement
 
@@ -26,8 +26,6 @@ this ``include'' mechanism should be ignored if it occurs within a
 comment or within a conditional text block that is conditionally
 ~~not~~ part of the current document.
 
-===
-
 index:: rq-000065; include
 
-<<<problem
+<<<requirement

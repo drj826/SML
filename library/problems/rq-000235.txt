@@ -1,4 +1,4 @@
->>>problem.rq-000235
+>>>requirement.rq-000235
 
 title:: Format an HTML Close Double Quote
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML close double quote.
 
-===
-
 index:: rq-000235; double quote!format HTML
 
-<<<problem
+<<<requirement

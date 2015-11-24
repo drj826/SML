@@ -14,8 +14,6 @@ is_part_of:: ci-000004
 
 description:: The SML/CommentDivision.pm Module...
 
-===
-
 index:: ci-000388
 
 >>>LISTING.lis-comment-pm

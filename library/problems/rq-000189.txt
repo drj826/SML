@@ -1,4 +1,4 @@
->>>problem.rq-000189
+>>>requirement.rq-000189
 
 title:: Represent a Line-Ending Comment
 
@@ -20,8 +20,6 @@ text that appear in the source data format but not in published
 renditions.  They begin at some point on a line and continue to the
 end of the line.
 
-===
-
 index:: rq-000189; line-ending comment
 
-<<<problem
+<<<requirement

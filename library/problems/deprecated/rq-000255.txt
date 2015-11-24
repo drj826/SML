@@ -1,4 +1,4 @@
->>>problem.rq-000255
+>>>requirement.rq-000255
 
 ######################################################################
 
@@ -24,4 +24,4 @@ author:: $Author: don.johnson $
 
 index:: rq-000255; validate!syntax
 
-<<<problem
+<<<requirement

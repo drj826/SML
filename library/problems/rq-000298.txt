@@ -1,4 +1,4 @@
->>>problem.rq-000298
+>>>requirement.rq-000298
 
 title:: Format a LaTeX Smiley Symbol
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX smiley symbol. :-)
 
-===
-
 index:: rq-000298; smiley symbol!format LaTeX
 
-<<<problem
+<<<requirement

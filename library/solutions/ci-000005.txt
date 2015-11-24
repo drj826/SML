@@ -53,8 +53,6 @@ allocation:: al-000260 # rq-000102 Publish SML Document Structure Features
 
 allocation:: al-000338 # rq-000207 Render a Document According to a Style
 
-===
-
 index:: ci-000005; Document.pm
 
 = [g:sml:document] = [def:sml:document]

@@ -1,4 +1,4 @@
->>>problem.rq-000266
+>>>requirement.rq-000266
 
 title:: Generate HTML List of Sidebars
 
@@ -18,10 +18,8 @@ description:: The software shall generate an HTML list of
 [g:sml:sidebar]s.  The purpose of this listing is to enable readers to
 quickly navigate to any sidebar in the document.
 
-===
-
 index:: rq-000266; list of sidebars!HTML; HTML list of sidebars
 
 = [g:sml:sidebar] = [def:sml:sidebar]
 
-<<<problem
+<<<requirement

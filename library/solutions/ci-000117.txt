@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:end_region_preamble] subroutine 
 
-===
-
 index:: ci-000117; subroutine![cmd:end_region_preamble]
 
 <<<solution

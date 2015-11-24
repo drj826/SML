@@ -1,4 +1,4 @@
->>>problem.rq-000153
+>>>requirement.rq-000153
 
 title:: Generate a List of Recent Changes
 
@@ -17,8 +17,6 @@ type:: functional
 description:: The software shall enable a user to generate a list of
 recent changes based on the revision control change log.
 
-===
-
 index:: rq-000153; list of recent changes
 
-<<<problem
+<<<requirement

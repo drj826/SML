@@ -1,4 +1,4 @@
->>>problem.rq-000234
+>>>requirement.rq-000234
 
 title:: Format an HTML Open Double Quote
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML open double quote.
 
-===
-
 index:: rq-000234; double quote!format HTML
 
-<<<problem
+<<<requirement

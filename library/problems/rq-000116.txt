@@ -1,4 +1,4 @@
->>>problem.rq-000116
+>>>requirement.rq-000116
 
 title:: Validate Design Documents
 
@@ -20,8 +20,6 @@ conforms to a specified set of rules.  Design validation rules may
 specify that every configuration item is traceable to allocated
 requirements, or has specified required attributes.
 
-===
-
 index:: rq-000116; validation!design
 
-<<<problem
+<<<requirement

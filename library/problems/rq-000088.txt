@@ -1,4 +1,4 @@
->>>problem.rq-000088
+>>>requirement.rq-000088
 
 title:: Represent a Section Epigraph
 
@@ -21,8 +21,6 @@ section epigraph.  An epigraph is a phrase, quotation, or poem at the
 beginning of a section. The data format representation of a section
 epigraph must allow but not mandate newline characters within the
 section epigraph.
-
-===
 
 index:: rq-000088; epigraph
 
@@ -116,4 +114,4 @@ Section epigraphs may have the following meta data elements:
 
 ---
 
-<<<problem
+<<<requirement

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:end_attachment] subroutine 
 
-===
-
 index:: ci-000153; subroutine![cmd:end_attachment]
 
 <<<solution

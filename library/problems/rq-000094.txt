@@ -1,4 +1,4 @@
->>>problem.rq-000094
+>>>requirement.rq-000094
 
 title:: Represent the Result of a Review
 
@@ -24,8 +24,6 @@ etc.).  The data format must have the capability to represent the date
 of review, label of item reviewed, item status determined by the
 review, and a one-paragraph explanation of how the status was
 determined.
-
-===
 
 index:: rq-000094
 
@@ -100,4 +98,4 @@ for documenting the ~~formally~~ determined status of an item (See
 ~~Reviews~~ and ~~outcomes~~ should have a similar data format to make
 it easy to promote a review to an outcome.
 
-<<<problem
+<<<requirement

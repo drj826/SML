@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:end_allocation] subroutine 
 
-===
-
 index:: ci-000167; subroutine![cmd:end_allocation]
 
 <<<solution

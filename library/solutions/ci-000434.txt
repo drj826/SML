@@ -17,8 +17,6 @@ class which represents an entity property.  The element syntax is used
 to declare properties.  An element in not the same thing as a property
 because a multi-valued property is declared by multiple elements.
 
-===
-
 index:: ci-000434; property
 
 <<<solution

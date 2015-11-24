@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:is_context_sensitive] subroutine 
 
-===
-
 index:: ci-000209; subroutine![cmd:is_context_sensitive]
 
 <<<solution

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:html_reviews_for] subroutine 
 
-===
-
 index:: ci-000307; subroutine![cmd:html_reviews_for]
 
 <<<solution

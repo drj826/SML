@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:process_clearpage] subroutine 
 
-===
-
 index:: ci-000069; subroutine![cmd:process_clearpage]
 
 <<<solution

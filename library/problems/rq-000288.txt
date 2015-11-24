@@ -1,4 +1,4 @@
->>>problem.rq-000288
+>>>requirement.rq-000288
 
 title:: Format a LaTeX Index Reference
 
@@ -16,8 +16,6 @@ associated:: rq-000252
 
 description:: The software shall format a LaTeX index reference.
 
-===
-
 index:: rq-000288; index reference!format LaTeX
 
-<<<problem
+<<<requirement

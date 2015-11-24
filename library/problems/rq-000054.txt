@@ -1,4 +1,4 @@
->>>problem.rq-000054
+>>>requirement.rq-000054
 
 title:: Represent a Section Sign
 
@@ -17,8 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent a
 section sign (also called a ``double S'').
 
-===
-
 index:: rq-000054; section sign; sign!section
 
-<<<problem
+<<<requirement

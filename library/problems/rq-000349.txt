@@ -1,4 +1,4 @@
->>>problem.rq-000349
+>>>requirement.rq-000349
 
 title:: Permit Configuration of Allowed Entity Types
 
@@ -21,8 +21,6 @@ ensure the solution does ~~not~~ hard-code entity types into the
 software solution but instead enables users to configure custom entity
 types in their own libraries.
 
-===
-
 index:: rq-000349
 
 For instance, in a library intended to hold systems engineering
@@ -42,4 +40,4 @@ The definitions of these and other entities should ~~not~~ be ``baked
 in'' to the software but instead the software should permit the user
 to configure the entity types allowed in a library.
 
-<<<problem
+<<<requirement

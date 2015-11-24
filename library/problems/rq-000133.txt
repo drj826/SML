@@ -1,4 +1,4 @@
->>>problem.rq-000133
+>>>requirement.rq-000133
 
 title:: Generate Content
 
@@ -19,8 +19,6 @@ description:: The software shall generate requested content.  The SML
 the ``generate:'' statement with the generated content.  Common types
 of generated content include item listings and traceability matrices.
 
-===
-
 index:: rq-000133; generate content
 
-<<<problem
+<<<requirement

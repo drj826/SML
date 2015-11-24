@@ -1,4 +1,4 @@
->>>problem.rq-000167
+>>>requirement.rq-000167
 
 title:: Represent an Option to `Include as Region'
 
@@ -20,8 +20,6 @@ locations ~~as a named region with semantic meaning.~~ For instance,
 include content from another location as an exercise, demo, slide,
 problem, solution, etc.
 
-===
-
 index:: rq-000167; include!as region
 
-<<<problem
+<<<requirement

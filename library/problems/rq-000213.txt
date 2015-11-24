@@ -1,4 +1,4 @@
->>>problem.rq-000213
+>>>requirement.rq-000213
 
 title:: Format an HTML Acronym Reference
 
@@ -16,8 +16,6 @@ associated:: rq-000090
 
 description:: The software shall format an HTML acronym reference.
 
-===
-
 index:: rq-000213; acronym reference!format HTML
 
-<<<problem
+<<<requirement

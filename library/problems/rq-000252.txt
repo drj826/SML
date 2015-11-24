@@ -1,4 +1,4 @@
->>>problem.rq-000252
+>>>requirement.rq-000252
 
 title:: Represent an Inline Index Reference
 
@@ -17,8 +17,6 @@ an inline index reference.  In other words, give authors the inline
 capability to represent that a word or phrase should be included in
 the document index.
 
-===
-
 index:: rq-000252; index reference
 
-<<<problem
+<<<requirement

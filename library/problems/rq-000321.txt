@@ -1,4 +1,4 @@
->>>problem.rq-000321
+>>>requirement.rq-000321
 
 title:: Format a LaTeX Path Name
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX path name.
 
-===
-
 index:: rq-000321; path name!format LaTeX
 
-<<<problem
+<<<requirement

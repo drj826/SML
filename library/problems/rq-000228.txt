@@ -1,4 +1,4 @@
->>>problem.rq-000228
+>>>requirement.rq-000228
 
 title:: Format an HTML Right Arrow Symbol
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML right arrow symbol.
 
-===
-
 index:: rq-000228; right arrow symbol!format HTML
 
-<<<problem
+<<<requirement

@@ -1,4 +1,4 @@
->>>problem.rq-000293
+>>>requirement.rq-000293
 
 title:: Format a LaTeX Revision Reference
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX revision reference.
 
-===
-
 index:: rq-000293; revision reference!format LaTeX
 
-<<<problem
+<<<requirement

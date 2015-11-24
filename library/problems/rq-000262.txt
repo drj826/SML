@@ -1,4 +1,4 @@
->>>problem.rq-000262
+>>>requirement.rq-000262
 
 title:: Generate HTML Table of Contents
 
@@ -20,10 +20,8 @@ any section in the document. The table of contents shall present the
 document section structure as a table of linked section titles
 indented to represent section levels.
 
-===
-
 index:: rq-000262; table of contents!HTML; HTML table of contents
 
 = [g:sml:section] = [def:sml:section]
 
-<<<problem
+<<<requirement

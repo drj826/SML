@@ -1,4 +1,4 @@
->>>problem.rq-000080
+>>>requirement.rq-000080
 
 title:: Represent an `Em Dash'
 
@@ -19,8 +19,6 @@ an `em dash' symbol. The em dash (--), m dash, m-rule, or ``mutton,''
 often demarcates a break of thought or some similar interpolation
 stronger than the interpolation demarcated by parentheses.
 
-===
-
 index:: rq-000080; em dash
 
-<<<problem
+<<<requirement

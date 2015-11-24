@@ -1,4 +1,4 @@
->>>problem.rq-000203
+>>>requirement.rq-000203
 
 title:: Log Parsing Events
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The system shall log specified parsing events.
 
-===
-
 index:: rq-000203; log events
 
-<<<problem
+<<<requirement

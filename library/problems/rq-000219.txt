@@ -1,4 +1,4 @@
->>>problem.rq-000219
+>>>requirement.rq-000219
 
 title:: Format an HTML Revision Reference
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML revision reference.
 
-===
-
 index:: rq-000219; revision reference!format HTML
 
-<<<problem
+<<<requirement

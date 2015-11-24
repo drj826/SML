@@ -1,4 +1,4 @@
->>>problem.rq-000108
+>>>requirement.rq-000108
 
 title:: Resolve `Include' Statements
 
@@ -22,8 +22,6 @@ This enables authors to modularize document content.  The software
 must resolve these `include' statements as part of the parsing
 function.
 
-===
-
 index:: rq-000108; includes!resolve
 
-<<<problem
+<<<requirement

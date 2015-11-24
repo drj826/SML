@@ -1,4 +1,4 @@
->>>problem.rq-000114
+>>>requirement.rq-000114
 
 title:: Render Documents from SML to Plain Text
 
@@ -18,8 +18,6 @@ description:: The system shall enable a user to render
 [g:sml:document]s from [g:sml:Semantic Manuscript Language]
 ([g:sml:SML]) to plain text.
 
-===
-
 index:: rq-000114; plain text!render
 
-<<<problem
+<<<requirement

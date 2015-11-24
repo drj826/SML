@@ -1,4 +1,4 @@
->>>problem.rq-000101
+>>>requirement.rq-000101
 
 title:: Parse SML Comment Divisions
 
@@ -22,8 +22,6 @@ lines so they are ignored by processing applications.  A comment
 division directs the processing application to unconditionally ignore
 that division's text.
 
-===
-
 index:: rq-000101; comment division
 
-<<<problem
+<<<requirement

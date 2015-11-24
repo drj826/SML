@@ -1,4 +1,4 @@
->>>problem.rq-000292
+>>>requirement.rq-000292
 
 title:: Format a LaTeX Version Reference
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX version reference.
 
-===
-
 index:: rq-000292; version reference!format LaTeX
 
-<<<problem
+<<<requirement

@@ -14,8 +14,6 @@ is_part_of:: ci-000007
 
 description:: The [cmd:html_outcomes_for] subroutine 
 
-===
-
 index:: ci-000337; subroutine![cmd:html_outcomes_for]
 
 <<<solution

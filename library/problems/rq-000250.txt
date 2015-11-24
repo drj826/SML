@@ -1,4 +1,4 @@
->>>problem.rq-000250
+>>>requirement.rq-000250
 
 title:: Format an HTML Literal XML Tag
 
@@ -14,8 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML literal XML tag.
 
-===
-
 index:: rq-000250; XML tag!format HTML
 
-<<<problem
+<<<requirement
