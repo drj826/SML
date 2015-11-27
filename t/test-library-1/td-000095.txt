@@ -1,0 +1,24 @@
+>>>DOCUMENT.td-000095
+
+title:: Acronym Test
+
+subtitle:: Acronym References
+
+* Introduction
+
+This is a test document.  the purpose of this test document is to
+validate that acronyms are handled correctly.
+
+acronym:: TLA = Three Letter Acronym
+
+acronym:: FLA = Four Letter Acronym
+
+acronym:: SLA {sml} = Six Letter Acronym
+
+= [a:TLA] = [acl:TLA]
+
+= [a:FLA] = [acl:FLA]
+
+= [a:sml:SLA] = [acl:sml:SLA]
+
+<<<DOCUMENT

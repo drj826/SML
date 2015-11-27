@@ -293,6 +293,18 @@ sub _publish_html_document {
 
   if ( $document->has_sections )
     {
+      foreach my $section (@{ $document->get_section_list })
+	{
+	  my $num     = $section->get_number;
+	  my $outfile = "$id.$num.html";
+	  my $vars    = { self => $section };
+
+	  $logger->info("publishing $outfile");
+
+	  $tt->process('section.tt',$vars,$outfile)
+	    || die $tt->error(), "\n";
+	}
+
       # title page
       $logger->info("publishing $id.titlepage.html");
       $tt->process("titlepage.tt",$vars,"$id.titlepage.html")
@@ -352,24 +364,21 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
+      my $acronym_list = $document->get_acronym_list;
+
+      if ( $acronym_list->has_entries )
+	{
+	  $logger->info("publishing $id.acronyms.html");
+	  $tt->process("acronyms_page.tt",$vars,"$id.acronyms.html")
+	    || die $tt->error(), "\n";
+	}
+
       my $references = $document->get_references;
 
       if ( $references->has_sources )
 	{
 	  $logger->info("publishing $id.references.html");
 	  $tt->process("list_of_references_page.tt",$vars,"$id.references.html")
-	    || die $tt->error(), "\n";
-	}
-
-      foreach my $section (@{ $document->get_section_list })
-	{
-	  my $num     = $section->get_number;
-	  my $outfile = "$id.$num.html";
-	  my $vars    = { self => $section };
-
-	  $logger->info("publishing $outfile");
-
-	  $tt->process('section.tt',$vars,$outfile)
 	    || die $tt->error(), "\n";
 	}
     }

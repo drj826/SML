@@ -79,6 +79,24 @@ has definition_string =>
   );
 
 ######################################################################
+
+has already_used =>
+  (
+   is      => 'ro',
+   isa     => 'Bool',
+   reader  => 'already_used',
+   writer  => 'set_already_used',
+   default => '0',
+  );
+
+# This boolean value is used for acronym definitions.  Often a
+# document designer wants the first use of an acronym in a document to
+# be fully spelled out but subsequent uses to be displayed in short
+# form.  The presentation logic (like a templating system) can use
+# read and set this boolean value to track whether the definition
+# (i.e. an acronym definition) has already been used in the document.
+
+######################################################################
 ######################################################################
 ##
 ## Public Methods
@@ -101,15 +119,19 @@ sub get_bookmark {
   $term      =~ s/\s+/_/g;              # spaces to underscores
   $namespace =~ s/\s+/_/g;              # spaces to underscores
 
+  my $bookmark;
+
   if ( $namespace )
     {
-      return "$term:$namespace";
+      $bookmark = "$term:$namespace";
     }
 
   else
     {
-      return "$term";
+      $bookmark = "$term";
     }
+
+  return $bookmark;
 }
 
 ######################################################################

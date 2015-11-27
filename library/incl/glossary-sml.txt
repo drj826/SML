@@ -36,7 +36,7 @@ results, tasks, and roles).
 
 glossary:: attachment {sml} = (SML) An [g:sml:environment] that
 represents a document structure that attaches an external file at a
-specific place within an [g:sml:SML] document
+specific place within an [a:SML] document
 
 glossary:: attribute definition {sml} = (SML) A [g:sml:definition] that
 defines a key/value pair where the key is the attribute name and the
@@ -50,13 +50,7 @@ the publishing application to insert an audio clip into the document
 # B
 ######################################################################
 
-glossary:: BNF = [g:Backus-Naur Form]
-
-glossary:: BRD = Business Requirements Document
-
-###
-
-glossary:: Backus-Naur Form = ([g:BNF]) a notation technique for
+glossary:: Backus-Naur Form = ([ac:BNF]) a notation technique for
 context-free grammars, often used to describe the syntax of languages
 used in computing, such as computer programming languages, document
 formats, instruction sets and communication protocols. It is applied
@@ -91,11 +85,7 @@ requirement]s, [g:sml:non-functional requirement]s, and
 # C
 ######################################################################
 
-glossary:: CSV = [g:Comma Separated Value]
-
-###
-
-glossary:: Comma Separated Value = ([g:CSV]) a file format in which
+glossary:: Comma Separated Value = ([ac:CSV]) a file format in which
 each line contains one ``record'' of data fields separated by commas
 
 ###
@@ -135,11 +125,7 @@ allows authors to establish relationships between [g:sml:entity]s in a
 # D
 ######################################################################
 
-glossary:: DVI = [g:Device Independent]
-
-###
-
-glossary:: Device Independent = ([g:DVI]) The native output format of
+glossary:: Device Independent = ([ac:DVI]) The native output format of
 LaTeX
 
 ###
@@ -180,16 +166,16 @@ comprised of the following test levels: (1) [g:sml:unit test], (2)
 glossary:: division {sml} = (SML) A contiguous sequence of whole
 [g:sml:line]s.  A division has an ~~unambiguous~~ beginning and end.
 Sometimes the beginning and end are explicit and other times they are
-implicit.  A division may be uniquely identified using an [g:sml:ID].
-The [g:sml:ID] may be used to refer to the division
+implicit.  A division may be uniquely identified using an [ac:sml:ID].
+The [ac:sml:ID] may be used to refer to the division
 
 glossary:: document {sml} = (SML) A written work about a topic.
-[g:sml:SML] document types are: book, report, and article. An
-[g:sml:SML] document is composed of a [g:sml:document preamble]
-followed by a [g:sml:document narrative]
+[a:SML] document types are: book, report, and article. An [a:SML]
+document is composed of a [g:sml:document preamble] followed by a
+[g:sml:document narrative]
 
 glossary:: document narrative {sml} = (SML) The [g:sml:division] of a
-[g:sml:SML] [g:sml:document] that immediately follows the [g:sml:document
+[a:SML] [g:sml:document] that immediately follows the [g:sml:document
 preamble] and goes to the end of the [g:sml:document].  Document
 narratives may contain [g:sml:block]s, [g:sml:section]s,
 [g:sml:environment]s, [g:sml:region]s, and [g:sml:element]s.  The
@@ -198,7 +184,7 @@ document narrative begins with the first [g:sml:block],
 [g:sml:element]
 
 glossary:: document preamble {sml} = (SML) The [g:sml:division] of a
-[g:sml:SML] [g:sml:document] that starts at the beginning of the document
+[a:SML] [g:sml:document] that starts at the beginning of the document
 and goes to the beginning of the [g:sml:document narrative]. Document
 preambles contain [g:sml:element]s that describe the document.
 
@@ -206,11 +192,7 @@ preambles contain [g:sml:element]s that describe the document.
 # E
 ######################################################################
 
-glossary:: EBNF = Extended [g:BNF]
-
-###
-
-glossary:: eXtensible markup Language = ([g:XML]) a ``meta-language''
+glossary:: eXtensible markup Language = ([ac:XML]) a ``meta-language''
 used to define markup languages
 
 ###
@@ -237,7 +219,7 @@ IDs, and descriptions. Common environments include [g:sml:table]s,
 with [g:sml:region]
 
 glossary:: environment narrative {sml} = (SML) The [g:sml:division] of
-a [g:sml:SML] [g:sml:environment] that immediately follows the
+a [a:SML] [g:sml:environment] that immediately follows the
 [g:sml:preamble] and goes to the end of the [g:sml:environment].
 Environment narratives may contain [g:sml:block]s and
 [g:sml:element]s.  Environment narratives ~~may not~~ contain
@@ -258,12 +240,8 @@ described in the text
 # F
 ######################################################################
 
-glossary:: FRD {sml} = (SML) [g:sml:Functional Requirements Document]
-
-###
-
 glossary:: Functional Requirements Document {sml} = (SML)
-([g:sml:FRD]) Serves as the foundation for system design and
+([ac:sml:FRD]) Serves as the foundation for system design and
 development; captures functional/user requirements to be implemented
 in a new or enhanced system; the systems subject matter experts
 document these requirements into the requirements traceability matrix,
@@ -309,11 +287,7 @@ requirements are independent of system implementation. See also
 # G
 ######################################################################
 
-glossary:: GPL = General Public License
-
-###
-
-glossary:: General Public License = ([g:GPL]) A software license
+glossary:: General Public License = ([ac:GPL]) A software license
 designed to ensure software is freely usable by anyone for any
 purpose.  The GPL takes away your right to put restrictions on
 software use
@@ -331,16 +305,9 @@ a single block of text
 # H
 ######################################################################
 
-glossary:: HTML = Hypertext markup Language
-
 ######################################################################
 # I
 ######################################################################
-
-glossary:: ID {sml} = (SML) A string of characters that
-uniquely identifies a referenceable element of document content
-
-###
 
 glossary:: include environment {sml} = (SML) An [g:sml:environment]
 that tells the publishing application to include the [g:sml:text] from
@@ -374,7 +341,7 @@ key points of a document section
 # L
 ######################################################################
 
-glossary:: library {sml} = (SML) A collection of related [g:sml:SML]
+glossary:: library {sml} = (SML) A collection of related [a:SML]
 [g:sml:document]s which describe entities, [g:sml:entity] properties,
 and entity relationships conforming to a pre-defined [g:sml:ontology]
 
@@ -382,9 +349,9 @@ glossary:: library object model {sml} = (SML) A model of related
 object classes, and the public interfaces of those classes, that
 describes the content of an SML [g:sml:library].
 
-glossary:: line {sml} = (SML) A single line of raw text from a
-[g:sml:SML] file or generated by a [g:sml:script] or [g:sml:plugin].
-A line begins in the first column even if the leading characters are
+glossary:: line {sml} = (SML) A single line of raw text from a [a:SML]
+file or generated by a [g:sml:script] or [g:sml:plugin].  A line
+begins in the first column even if the leading characters are
 whitespace characters.  A line ends with a [g:sml:newline] character.
 Authors often wrap lines after approximately 70 characters to improve
 readability
@@ -396,8 +363,8 @@ the publishing application to insert a listing into the document
 # M
 ######################################################################
 
-glossary:: markup {sml} = (SML) In an [g:sml:SML] file, text strings
-that describe the intended meaning, [g:sml:structure],
+glossary:: markup {sml} = (SML) In an [a:SML] file, text strings that
+describe the intended meaning, [g:sml:structure],
 [g:sml:presentation], or processing of content, sometimes called
 ``tags.''  Contrast with [g:sml:content].  See [g:sml:descriptive
 markup] and [g:sml:procedural markup]
@@ -418,10 +385,10 @@ mission directives.  See also [g:sml:compliance directive]
 # N
 ######################################################################
 
-glossary:: narrative {sml} = (SML) The [g:sml:division] of an
-[g:sml:SML] [g:sml:document], [g:sml:region], or [g:sml:environment]
-that immediately follows the [g:sml:preamble] and continues to the end
-of the [g:sml:document], [g:sml:region], or [g:sml:environment].  See
+glossary:: narrative {sml} = (SML) The [g:sml:division] of an [a:SML]
+[g:sml:document], [g:sml:region], or [g:sml:environment] that
+immediately follows the [g:sml:preamble] and continues to the end of
+the [g:sml:document], [g:sml:region], or [g:sml:environment].  See
 also [g:sml:document narrative], [g:sml:region narrative], and
 [g:sml:environment narrative]
 
@@ -472,12 +439,8 @@ data
 # P
 ######################################################################
 
-glossary:: PDF = Portable Document Format
-
-###
-
 glossary:: PDFLaTeX = A variation of the LaTeX system that produces PDF
-output instead of [g:DVI] output
+output instead of [ac:DVI] output
 
 glossary:: Perl = Practical Extraction and Reporting Language.  The
 Swiss Army chain-saw of scripting languages.
@@ -504,8 +467,8 @@ Plugins have access to the [g:sml:library object model].  See also
 [g:sml:script]
 
 glossary:: preamble {sml} = (SML) The opening [g:sml:division] of an
-[g:sml:SML] [g:sml:document], [g:sml:region] or [g:sml:environment]
-that contains data [g:sml:element]s
+[a:SML] [g:sml:document], [g:sml:region] or [g:sml:environment] that
+contains data [g:sml:element]s
 
 glossary:: preamble element {sml} = (SML) An [g:sml:element] that may
 be used in [g:sml:preamble] content but not [g:sml:narrative] content.
@@ -552,13 +515,7 @@ quotation
 # R
 ######################################################################
 
-glossary:: RTF = [g:Rich Text Format]
-
-glossary:: RTM {sml} = (SML) [g:sml:requirements traceability matrix]
-
-###
-
-glossary:: Rich Text Format = ([g:RTF]) the document interchange format
+glossary:: Rich Text Format = ([ac:RTF]) the document interchange format
 used by Microsoft Word.
 
 ###
@@ -587,11 +544,10 @@ represent [g:sml:entity]s ([g:sml:problem]s, [g:sml:solution]s,
 [g:sml:slide]. Contrast with [g:sml:environment]
 
 glossary:: region narrative {sml} = (SML) The [g:sml:division] of a
-[g:sml:SML] [g:sml:region] that immediately follows the
-[g:sml:preamble] and goes to the end of the [g:sml:region].  Region
-narratives may contain [g:sml:block]s, [g:sml:element]s, and
-[g:sml:environment]s.  Region narratives ~~may not~~ contain
-[g:sml:region]s
+[a:SML] [g:sml:region] that immediately follows the [g:sml:preamble]
+and goes to the end of the [g:sml:region].  Region narratives may
+contain [g:sml:block]s, [g:sml:element]s, and [g:sml:environment]s.
+Region narratives ~~may not~~ contain [g:sml:region]s
 
 glossary:: regression test {sml} = (SML) In software maintenance, the
 rerunning of test cases that previously executed correctly in order to
@@ -607,7 +563,7 @@ capability are called [g:sml:business requirement]s.  Requirements for
 system capability are called [g:sml:system requirement]s
 
 glossary:: requirements traceability matrix {sml} = (SML)
-([g:sml:RTM]) A document or document part that provides a method for
+([ac:sml:RTM]) A document or document part that provides a method for
 tracing requirements and their implementation through the development
 process
 
@@ -626,14 +582,8 @@ responsibilities
 # S
 ######################################################################
 
-glossary:: SML {sml} = (SML) [g:sml:Semantic Manuscript Language]
-
-glossary:: SRD {sml} = (SML) System Requirements Document
-
-###
-
-glossary:: SML file {sml} = (SML) A [g:sml:file] containing
-[g:sml:SML] formatted [g:sml:text]
+glossary:: SML file {sml} = (SML) A [g:sml:file] containing [a:SML]
+formatted [g:sml:text]
 
 glossary:: Semantic Manuscript Language {sml} = (SML) A minimalistic
 [g:sml:descriptive markup] language designed to be human readable,
@@ -655,8 +605,8 @@ different levels to create a hierarchy of sections to organize
 document content
 
 glossary:: semantics {sml} = (SML) The set of rules that governs the
-meaning of document content. For [g:sml:SML] these rules are defined
-in an [g:sml:ontology]
+meaning of document content. For [a:SML] these rules are defined in an
+[g:sml:ontology]
 
 glossary:: sidebar {sml} = (SML) An [g:sml:environment] that instructs
 the publishing application to insert its [g:sml:content] as a side bar
@@ -808,8 +758,6 @@ the publishing application to insert a video clip into the document
 ######################################################################
 # X
 ######################################################################
-
-glossary:: XML = [g:eXtensible markup Language]
 
 ######################################################################
 # Y

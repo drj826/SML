@@ -4,6 +4,8 @@
   [%- INCLUDE GLOSS_TERM_REF.tt -%]
 [%- ELSIF self.isa('SML::GlossaryDefinitionReference') -%]
   [%- INCLUDE GLOSS_DEF_REF.tt -%]
+[%- ELSIF self.isa('SML::AcronymTermReference') -%]
+  [%- INCLUDE ACRONYM_TERM_REF.tt -%]
 [%- ELSE -%]
   [%-FILTER html-%][%-self.get_content-%][%-END-%]
 [%- END -%]

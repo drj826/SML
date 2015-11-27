@@ -41,6 +41,10 @@
 <a href="[% document.get_id %].glossary.html">Glossary</a><br/>
 [%- END -%]
 
+[%- IF document.get_acronym_list.has_entries -%]
+<a href="[% document.get_id %].acronyms.html">Acronyms</a><br/>
+[%- END -%]
+
 [%- IF document.get_references.has_sources -%]
 <a href="[% document.get_id %].references.html">References</a><br/>
 [%- END -%]

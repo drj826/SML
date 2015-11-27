@@ -32,44 +32,56 @@ my $logger = Log::Log4perl::get_logger('sml.AcronymList');
 ######################################################################
 ######################################################################
 
-sub add_acronym {
+sub add_entry {
 
-  # Add a new acronym.
+  # Add a new entry to the acronym list.
 
   my $self       = shift;
   my $definition = shift;
 
   # validate input
-  if (
-      not ref $definition
-      or
-      not $definition->isa('SML::Definition')
-     )
+  unless
+    (
+     ref $definition
+     and
+     $definition->isa('SML::Definition')
+    )
     {
       $logger->error("NOT A DEFINITION \'$definition\'");
       return 0;
     }
 
+  my $hash      = $self->_get_entry_hash;
   my $term      = $definition->get_term;
   my $namespace = $definition->get_namespace || q{};
-  my $ah        = $self->_get_acronym_hash;
 
-  $ah->{$term}{$namespace} = $definition;
+  $hash->{$term}{$namespace} = $definition;
+
+  # Add this entry to the entry group hash.
+  my $group      = lc(substr($term,0,1));
+  my $group_hash = $self->_get_entry_group_hash;
+
+  if ( not exists $group_hash->{$group} )
+    {
+      $group_hash->{$group} = [];
+    }
+
+  push(@{$group_hash->{$group}},$term);
 
   return 1;
 }
 
 ######################################################################
 
-sub has_acronym {
+sub has_entry {
 
   my $self      = shift;
   my $acronym   = shift;
   my $namespace = shift || q{};
 
-  my $ah = $self->_get_acronym_hash;
+  my $hash = $self->_get_entry_hash;
 
-  if ( defined $ah->{$acronym}{$namespace} )
+  if ( defined $hash->{$acronym}{$namespace} )
     {
       return 1;
     }
@@ -82,17 +94,17 @@ sub has_acronym {
 
 ######################################################################
 
-sub get_acronym {
+sub get_entry {
 
   my $self      = shift;
   my $acronym   = shift;
   my $namespace = shift || q{};
 
-  my $ah = $self->_get_acronym_hash;
+  my $hash = $self->_get_entry_hash;
 
-  if ( defined $ah->{$acronym}{$namespace} )
+  if ( defined $hash->{$acronym}{$namespace} )
     {
-      return $ah->{$acronym}{$namespace};
+      return $hash->{$acronym}{$namespace};
     }
 
   else
@@ -104,24 +116,93 @@ sub get_acronym {
 
 ######################################################################
 
-sub get_acronym_list {
+sub get_entry_list {
 
   # Return an alphabetically sorted list of all acronyms.
 
   my $self = shift;
 
-  my $ah = $self->_get_acronym_hash;
-  my $al = [];                          # acronym list
+  my $hash = $self->_get_entry_hash;
+  my $list = [];                        # acronym list
 
-  foreach my $acronym ( sort keys %{ $ah } )
+  foreach my $acronym ( sort keys %{ $hash } )
     {
-      foreach my $namespace ( sort keys %{ $ah->{$acronym} } )
+      foreach my $namespace ( sort keys %{ $hash->{$acronym} } )
 	{
-	  push @{ $al }, $ah->{$acronym}{$namespace};
+	  push @{ $list }, $hash->{$acronym}{$namespace};
 	}
     }
 
-  return $al;
+  return $list;
+}
+
+######################################################################
+
+sub has_entries {
+
+  my $self = shift;
+
+  if ( scalar keys %{ $self->_get_entry_hash } > 0 )
+    {
+      return 1;
+    }
+
+  else
+    {
+      return 0;
+    }
+}
+
+######################################################################
+
+sub get_group_list {
+
+  my $self = shift;
+
+  return [ sort keys %{ $self->_get_entry_group_hash } ];
+}
+
+######################################################################
+
+sub get_group_entry_list {
+
+  # Return a list of entries belonging to a specified group.
+
+  my $self  = shift;
+  my $group = shift;
+
+  my $group_hash = $self->_get_entry_group_hash;
+
+  if ( not exists $group_hash->{$group} )
+    {
+      $logger->error("NO ACRONYM LIST GROUP \'$group\'");
+      return 0;
+    }
+
+  my $entry_hash = $self->_get_entry_hash;
+
+  my $hash = {};
+
+  foreach my $term (sort @{ $group_hash->{$group} })
+    {
+      foreach my $namespace ( sort keys %{ $entry_hash->{$term} } )
+	{
+	  my $entry = $self->get_entry($term,$namespace);
+
+	  $hash->{"$term.$namespace"} = $entry;
+	}
+    }
+
+  my $list = [];
+
+  foreach my $term_namespace ( sort keys %{$hash} )
+    {
+      my $entry = $hash->{$term_namespace};
+
+      push(@{$list},$entry);
+    }
+
+  return $list;
 }
 
 ######################################################################
@@ -132,10 +213,20 @@ sub get_acronym_list {
 ######################################################################
 ######################################################################
 
-has 'acronym_hash' =>
+has 'entry_hash' =>
   (
    isa     => 'HashRef',
-   reader  => '_get_acronym_hash',
+   reader  => '_get_entry_hash',
+   default => sub {{}},
+  );
+
+######################################################################
+
+has entry_group_hash =>
+  (
+   is      => 'ro',
+   isa     => 'HashRef',
+   reader  => '_get_entry_group_hash',
    default => sub {{}},
   );
 
@@ -160,10 +251,10 @@ field, or area of usage, with accompanying definitions.
 
   my $acronym_list = SML::AcronymList->new();
 
-  my $boolean = $acronym_list->add_acronym($definition);
-  my $boolean = $acronym_list->has_acronym($acronym,$namespace);
-  my $acronym = $acronym_list->get_acronym($acronym,$namespace);
-  my $list    = $acronym_list->get_acronym_list;  # alphabetized
+  my $boolean = $acronym_list->add_entry($definition);
+  my $boolean = $acronym_list->has_entry($acronym,$namespace);
+  my $acronym = $acronym_list->get_entry($acronym,$namespace);
+  my $list    = $acronym_list->get_entry_list;  # alphabetized
 
 =head1 DESCRIPTION
 
@@ -174,22 +265,22 @@ in different namespaces.
 
 =head1 METHODS
 
-=head2 add_acronym($definition)
+=head2 add_entry($definition)
 
 Add an acronym definition (must be an object of type
 L<"SML::Definition">).
 
-=head2 has_acronym
+=head2 has_entry
 
 Returns 1 if acronym list contains a definition for the specified
 acronym/alternative pair.
 
-=head2 get_acronym
+=head2 get_entry
 
 Returns the L<"SML::Definition"> for the specified acronym/alternative
 pair.
 
-=head2 get_acronym_list
+=head2 get_entry_list
 
 Returns an C<ArrayRef> to an alphabatized list of L<"SML::Definition">
 objects in the acronym list.

@@ -57,36 +57,36 @@ author:: Donald C. Gause & Gerald M. Weinberg
 
 <<<EPIGRAPH
 
-[g:sml:Semantic Manuscript Language] ([g:sml:SML]) is A minimalistic
-[g:sml:descriptive markup] language designed to be human readable,
-easy to edit, easy to automatically generate, able to express and
-validate semantic relationships, and contain all information necessary
-to publish professional documentation from plain text manuscripts.
+[a:SML] is a minimalistic [g:sml:descriptive markup] language designed
+to be human readable, easy to edit, easy to automatically generate,
+able to express and validate semantic relationships, and contain all
+information necessary to publish professional documentation from plain
+text manuscripts.
 
-This book describes how to construct documents using [g:sml:SML] and
+This book describes how to construct documents using [a:SML] and
 how to publish them using the [g:sml:publish] program.
 
-index:: Semantic Manuscript Language; SML; structured text;
+index:: Semantic Manuscript Language; [a:SML]; structured text;
 ||publish|| program
 
-SML enables you to represent full-length, full-featured, high-quality
+[a:SML] enables you to represent full-length, full-featured, high-quality
 books, reports, and articles in minimally formatted text files.  Its
 simple mark-up rules ensure the plain text manuscript is easy to read,
 but still contains everything necessary to turn the text into a
 professionally typeset hardcopy.  In addition to hardcopy (via
-[g:PDF]), SML files can also be rendered as [g:HTML], [g:XML],
-[g:RTF], and [g:CSV].[f:getting-started:1]
+[a:PDF]), [a:SML] files can also be rendered as [a:HTML], [a:XML],
+[a:RTF], and [a:CSV].[f:getting-started:1]
 
 index:: published rendition!PDF; published rendition!HTML; published
 rendition!XML; published rendition!RTF; published rendition!CSV
 
-The ||publish|| program renders SML text files into published
-documents.  I used it to publish ~~this~~ document.  This book's SML
+The ||publish|| program renders [a:SML] text files into published
+documents.  I used it to publish ~~this~~ document.  This book's [a:SML]
 text file is included with the [cmd:publish] distribution at
 [path:docs/sml.txt].  You can publish this book yourself to test
 things out.
 
-The program is free (licensed under the [g:GPL]). Binaries are
+The program is free (licensed under the [a:GPL]). Binaries are
 available for Windows and Linux, and the source code is available for
 any platform that runs [g:Perl].  For more information contact me at
 drj826@acm.org.
@@ -106,7 +106,6 @@ elements of the document to a spreadsheet or database.
 ** Documentation Is Like Software
 
 ~~Why don't we write software the way we write documentation?~~
-
 Because it would be ~~terribly~~ inefficient and result in
 unmaintainable software.
 
@@ -118,9 +117,9 @@ exact steps they wanted the computer to perform.  This was tedious.
 <<<COMMENT
 
 Most people write documentation using a word processor like Microsoft
-Word^^[rtm]^^. With a word processor you construct the content,
+Word^^[rtm]^^. Word processors have you construct the content,
 structure, and format of a document simultaneously all in a single
-file.  What you see is what you get.
+file.  What you see is what you get.  It's simple.
 
 Word processor users use practices long ago discarded as
 [g:sml:anti-pattern]s by programmers. Ask yourself if ~~you~~ use any
@@ -173,7 +172,7 @@ Advantages of ``compiling'' documentation:
 
 **.why-use-sml Why Use SML/||publish||?
 
-Why Use SML/||publish||? Productivity.  Most people use a `modern'
+Why Use [a:SML]/||publish||? Productivity.  Most people use a `modern'
 word processor, like Microsoft Word or OpenOffice.org Writer, to write
 documents. An unfortunate side effect of `modern' word processors is
 that authors spend time fiddling with styles and alternative
@@ -183,9 +182,9 @@ who waste their time playing with formatting options rather than doing
 the hard work of producing quality content.
 
 Here is a short list of reasons you might consider using
-SML/[cmd:publish] rather than a traditional word processor:
+[a:SML]/[cmd:publish] rather than a traditional word processor:
 
-- !!Productivity.!!  SML eliminates most presentation options, forcing
+- !!Productivity.!!  [a:SML] eliminates most presentation options, forcing
   authors to focus on structure and content, making them more
   productive. The absence of presentation information also enables you
   to more easily re-use the content.
@@ -194,7 +193,7 @@ SML/[cmd:publish] rather than a traditional word processor:
   re-use document content.  If you want to use the same content in
   multiple documents, you cut-and-paste from one document to the
   other. Now you must maintain the content in two places.
-  SML/[cmd:publish] enables you to modularize your content to re-use
+  [a:SML]/[cmd:publish] enables you to modularize your content to re-use
   chunks wherever you would like.
 
 - !!Modularity.!! You should modularize the content of most major
@@ -203,12 +202,12 @@ SML/[cmd:publish] rather than a traditional word processor:
   time.  If you store your 600+ page reference document in Microsoft
   Word, only one person at a time can make changes.  With the help of
   CVS[f:why-use-sml:2] or Subversion[f:why-use-sml:3],
-  SML/[cmd:publish] enables multiple people to work on the ~~same~~
+  [a:SML]/[cmd:publish] enables multiple people to work on the ~~same~~
   part of the document at the ~~same~~ time and automatically merge
   the changes.
 
 - !!Revision Control.!! You can benefit from a disciplined approach to
-  document creation and management by keeping your SML files under
+  document creation and management by keeping your [a:SML] files under
   revision control.  You'll gain these benefits:
 
   - Know who made each change, when and why.
@@ -222,7 +221,7 @@ SML/[cmd:publish] rather than a traditional word processor:
 
   - Keep automatic backups.
 
-- !!Plain Text.!! The content of an SML document is plain text rather
+- !!Plain Text.!! The content of an [a:SML] document is plain text rather
   than a proprietary format like Microsoft Word.
 
   - Plain text is easier to manipulate using simple programs and
@@ -234,18 +233,18 @@ SML/[cmd:publish] rather than a traditional word processor:
   - Nothing is hidden.  Unlike binary file formats, nothing is hidden
     in a plain text document.
 
-- !!Automation.!! Since SML is plain text, it is easy to automate the
+- !!Automation.!! Since [a:SML] is plain text, it is easy to automate the
   construction and publication of documents.  This is the key to
   quickly producing high-quality documents with few people.
 
-- !!High Quality Hardcopy.!!  SML/[cmd:publish] uses the
+- !!High Quality Hardcopy.!!  [a:SML]/[cmd:publish] uses the
   [cmd:pdflatex] program, part of the TeX/LaTeX family of typesetting
   applications to create high-quality hardcopy (via PDF).  This is the
   same software used to typeset many text books.  It produces higher
   quality typeset documentation than a word-processing program like
   Microsoft Word.
 
-- !!Traceability.!! SML features rich traceability features for
+- !!Traceability.!! [a:SML] features rich traceability features for
   systems engineering documentation.
 
 When you pick up a good looking document, you know something is
@@ -261,7 +260,7 @@ design or online presentation.  Good content gets presented badly; and
 authors, who should be writing, waste their time with styles and
 presentation options trying to make their documents look ``good.''
 
-SML eliminates most presentation options.  This forces you to
+[a:SML] eliminates most presentation options.  This forces you to
 concentrate on the structure and content rather than the
 presentation. Sorry, it's for your own good :-).  Within the
 ||publish|| program, I've codified rules for typesetting easy-to-read,
@@ -298,30 +297,30 @@ documents~~, ~~project documentation~~, ~~test results~~, and
 
 index:: presentation; structure; content
 
-SML is a ~~structured text~~ language designed to describe document
+[a:SML] is a ~~structured text~~ language designed to describe document
 content and structure ~~but not the presentation~~. With the exception
 of the limited presentation features listed in
 [ref:tab-presentation-syntax], it intentionally takes away the
 ability to specify document presentation.
 
-SML is a carefully designed, extremely minimal, descriptive markup
+[a:SML] is a carefully designed, extremely minimal, descriptive markup
 language.  It was designed for simplicity of editing with a plain text
-editor.  SML text files are like the source code for documents
+editor.  [a:SML] text files are like the source code for documents
 (i.e. the ``manuscript''), and the ||publish|| program is like a
 compiler that `builds' (renders) the documents in a variety of
 renditions.
 
-Although SML is a markup language (like SGML, XML, or HTML), the
+Although [a:SML] is a markup language (like SGML, XML, or HTML), the
 actual markup has been reduced to a bare minimum to improve the
 readability of the text and simplicity of editing.  For this reason,
 the language is not as flexible as XML.  In return for this loss of
 flexibility, however, you gain ease of use.  Normal people don't like
 to edit raw XML in a text editor because it's too complicated, and
 it's too easy to introduce errors.[f:why-use-sml:5] My hope is that
-``normal'' people (well, programmers anyway) are willing to edit SML
+``normal'' people (well, programmers anyway) are willing to edit [a:SML]
 documents using a simple text editor.
 
-One benefit is reuseability.  Not only can you publish SML documents
+One benefit is reuseability.  Not only can you publish [a:SML] documents
 in a variety of forms, but you can also modularize the content and
 reuse bits and pieces in different documents.  Using the
 ``||include::||'' [g:sml:element], the actual text can be stored in
@@ -341,7 +340,7 @@ content:
   presented like bold, italics, font-family, and font-size.
 
 Beginning in [ref:structure-syntax-summary] I'll enumerate the
-features of SML in terms of format, structure, and content.  But
+features of [a:SML] in terms of format, structure, and content.  But
 before we get into lists of these features, let's take a look at a
 simple example.
 
@@ -371,7 +370,7 @@ of problems.
 
 index::begin: sample document
 
-Here is a step-by-step example of creating and publishing an SML
+Here is a step-by-step example of creating and publishing an [a:SML]
 document using the ||publish|| program.
 
 index:: example; Emacs; text editor
@@ -380,7 +379,7 @@ step:: ~~Start Your Favorite Text Editor.~~ You can use notepad or
 wordpad on Windows, or any of the gazillion text editors that come
 with most Linux distributions.  My favorite text editor is Emacs.
 You'll discover there are some built-in advantages to using Emacs to
-edit SML documents.
+edit [a:SML] documents.
 
 step:: ~~Type The Following.~~ [ref:lis-sample-document] shows a simple
 document with a title, author, a handful of paragraphs and a list.
@@ -425,7 +424,7 @@ image:: files/images/sample-document-pdf.png
 
 width:: 6in
 
-description:: SML uses LaTeX to perform high quality typesetting of
+description:: [a:SML] uses LaTeX to perform high quality typesetting of
 the PDF rendition.
 
 <<<FIGURE
@@ -452,11 +451,11 @@ width:: 4in
 
 index::end: sample document
 
-Now you know the mechanics of how to publish an SML document.  All
-that's left is to learn the rules of SML, which are really not very
+Now you know the mechanics of how to publish an [a:SML] document.  All
+that's left is to learn the rules of [a:SML], which are really not very
 complicated.
 
-The following sections summarize the features supported by SML,
+The following sections summarize the features supported by [a:SML],
 divided into format, structure, content, and special feature
 categories.  For the gory details see [title:structuring-text].
 
@@ -476,7 +475,7 @@ index::begin: structure syntax
 
 Elements of ~~structure~~ are the building blocks of a document like:
 titles, paragraphs, sections, lists, list items, tables, and
-figures. The elements of structure supported by SML are summarized in
+figures. The elements of structure supported by [a:SML] are summarized in
 [ref:tab-structure-syntax].
 
 Footnote markers can go inside tables but footnote text should come
@@ -539,7 +538,7 @@ index::end: presentation syntax
 
 index::begin: special features
 
-SML has special features designed to support tasks like: development
+[a:SML] has special features designed to support tasks like: development
 of instructor notes for training courses, system requirements and
 design documentation, and publishing of full length books.
 [ref:tab-special-features] summarizes these special features.
@@ -558,11 +557,11 @@ include:: sml-special-summary
 
 <<<TABLE
 
-You'll see features in SML specifically designed to help you produce
+You'll see features in [a:SML] specifically designed to help you produce
 course materials such as presentation slides, demonstrations, and
 exercises.  I've found the ||publish|| program useful for a lot of
 other jobs as well, and so I've added more and more features over
-time.  My goal is to keep SML very simple while providing a rich set
+time.  My goal is to keep [a:SML] very simple while providing a rich set
 of features useful to people creating formal documentation of all
 kinds.
 
@@ -591,11 +590,11 @@ index::begin: pros and cons
 
 Why use the ||publish|| program instead of a word processor like
 MSWord or OpenOffice.org?  Here are some pros and cons of using
-SML/||publish|| instead of a word processor to produce documents.
+[a:SML]/||publish|| instead of a word processor to produce documents.
 
 : !!PROS!!
 
-- ~~Concentrate on writing content.~~ - SML/||publish|| removes the
+- ~~Concentrate on writing content.~~ - [a:SML]/||publish|| removes the
 distractions and time-consuming struggles of choosing the appearance
 of your content.
 
@@ -605,7 +604,7 @@ program renders the presentation of the document for you.
 
 - ~~Easier to Learn Than LaTeX.~~ - If you want to get started
 producing beautiful documents with LaTeX, using the ||publish||
-program is a great way to start.  Learning the SML rules is easier
+program is a great way to start.  Learning the [a:SML] rules is easier
 than learning LaTeX.
 
 - ~~Your content is future proof.~~ - Plain text is going to be around
@@ -627,7 +626,7 @@ the board?  Change the style sheet without touching the
 content.[f:pros-and-cons:2]
 
 - ~~Automatically produce documents.~~ - It's easy to write programs
-that output data in SML.  Furthermore, you can run the ||publish||
+that output data in [a:SML].  Furthermore, you can run the ||publish||
 program from the command line or call it from other programs.
 
 - ~~Documents that write themselves!~~ - Using the `script' feature,
@@ -648,13 +647,13 @@ programmers are comfortable using a plain text editor.
 
 - ~~Learning the Semantic Manuscript Language~~ - You must learn the
 Semantic Manuscript Language.  Even though it is designed to be as
-simple as possible, you still have to learn the SML rules.
+simple as possible, you still have to learn the [a:SML] rules.
 
 - ~~Poor for layout intensive work.~~ - The ||publish|| program is not
 good for layout intensive documents like pamphlets or newsletters.
 
 - ~~Limitations of SML~~ - You may need some feature not supported by
-SML.  If you find this to be the case, let me know (drj826@acm.org)
+[a:SML].  If you find this to be the case, let me know (drj826@acm.org)
 and I might implement that feature.
 
 ---
@@ -1356,7 +1355,7 @@ column::2:head: description
 ** Output Goes To The Output Directory
 
 The ||publish|| program creates a directory containing all of its
-output.  For example, if you publish an SML file called
+output.  For example, if you publish an [a:SML] file called
 ``my-notes.txt'' it will create the directory structure shown in
 [ref:fig-dir-output] as output.
 
@@ -1457,7 +1456,7 @@ There are four steps if you want to create a PDF file:
 The first step is to create the files that make up your document.
 These source files might be:
 
-- SML files
+- [a:SML] files
 
 - image files
 
@@ -1485,7 +1484,7 @@ content:
                            +-----------+
                         repeat as necessary
 
-The rest of this document teaches you the rules of SML.
+The rest of this document teaches you the rules of [a:SML].
 
 #---------------------------------------------------------------------
 
@@ -1554,28 +1553,28 @@ author:: Albert Einstein
 
 <<<EPIGRAPH
 
-SML is simple, but not too simple. It is designed with the philosophy
+[a:SML] is simple, but not too simple. It is designed with the philosophy
 that simple things should be simple and hard things should be
-possible.  SML ~~enables~~ you to describe document structures but
+possible.  [a:SML] ~~enables~~ you to describe document structures but
 ~~disables~~ you from prescribing most document presentation options.
 This chapter shows you the gory details of the rules summarized in
 [r:getting-started], ``[t:getting-started].''
 
 Ready to write?  Just start writing!  There are no special text
-incantations required to start a document.  SML documents are very
+incantations required to start a document.  [a:SML] documents are very
 simple text.  Paragraphs are separated by blank lines.  That is all
 you really need to know to get started.
 
 Want to add a title to your document?  Want to identify the author of
 the document?  These are simple ``elements.''
 
-SML is a formal descriptive markup language.  That means it has
+[a:SML] is a formal descriptive markup language.  That means it has
 [g:sml:syntax] and semantics.  The syntax is fixed.
 
-SML semantics are ~~extensible~~.  This means you can customize the
+[a:SML] semantics are ~~extensible~~.  This means you can customize the
 language to describe the things you care about.  More importantly, you
 can describe how the things you care about are allowed to interrelate.
-You customize SML semantics by writing [g:sml:ontology] rules.
+You customize [a:SML] semantics by writing [g:sml:ontology] rules.
 
 A [g:sml:library] of documents share common semantics.  That means all
 documentation in a library shares a common [g:sml:ontology].
@@ -1589,7 +1588,7 @@ The [g:sml:Semantic Manuscript Language] has a pre-defined
 [g:sml:ontology].  These semantics can be extended by defining
 additional ontology rules for any given library.
 
-The syntactic components of [g:sml:SML] are:
+The syntactic components of [a:SML] are:
 
 = [g:sml:line] = [def:sml:line]
 
@@ -1604,7 +1603,7 @@ The syntactic components of [g:sml:SML] are:
 = [g:sml:division] = [def:sml:division]
 
 The syntactic components are used to express semantic components of
-SML:
+[a:SML]:
 
 = [g:sml:entity] = [def:sml:entity]
 
@@ -1676,7 +1675,7 @@ problem solved).
 
 index:: Environments and Regions
 
-SML defines special blocks of text called ~~environments~~ and
+[a:SML] defines special blocks of text called ~~environments~~ and
 ~~regions~~ to assign meaning to raw text.  Environments have
 ~~structural~~ meaning (like figure, listing, and table) and regions
 have ~~semantic~~ meaning (like demo, exercise, and
@@ -1854,9 +1853,9 @@ first occurrence of one of these:
 Here's an example of a typical preamble, in fact it's the preamble of
 ~~this~~ document:
 
-  title:: Semantic Manuscript Language (SML)
+  title:: Semantic Manuscript Language ([a:SML])
 
-  subtitle:: Professional Documents Using SML [linebreak] and the
+  subtitle:: Professional Documents Using [a:SML] [linebreak] and the
   [cmd:publish] Program
 
   author:: Don Johnson (drj826@acm.org)
@@ -2275,7 +2274,7 @@ maximum section depth on the command line:
 
 ***.lists Lists
 
-SML supports unordered (bulletized), ordered (numbered), and
+[a:SML] supports unordered (bulletized), ordered (numbered), and
 definition lists.
 
 ~~Unordered lists.~~ An unordered (bulletized) list is a series of
@@ -2538,7 +2537,7 @@ document structures are:
 index:: tables
 
 The ability to represent both simple and complicated tables is one of
-the features that sets SML apart from alternative plain text markup
+the features that sets [a:SML] apart from alternative plain text markup
 languages.
 
 Example:
@@ -2996,7 +2995,7 @@ title:: Sample Document
 
 file:: files/sample-document.txt
 
-description:: Here is a sample SML file for the purpose of
+description:: Here is a sample [a:SML] file for the purpose of
 illustrating how attachments work.
 
 <<<ATTACHMENT
@@ -3423,7 +3422,7 @@ Video environment data elements are:
 
 **.advanced-document-structures Advanced Document Structures
 
-[g:sml:SML] enables you to define items with semantic significance and to
+[a:SML] enables you to define items with semantic significance and to
 describe relationships between those items.  You can define and
 describe items using special text ~~regions~~.
 
@@ -3976,7 +3975,7 @@ Example:
   <<<problem
 
 This example problem contains 4 data elements, ~~title~~, ~~label~~,
-~~solution~~, and ~~description~~. [g:sml:SML] enables you to capture a
+~~solution~~, and ~~description~~. [a:SML] enables you to capture a
 lot of structured information about problems.  [ref:tab-problem-data]
 enumerates the data elements you can use to describe problems.  In
 this table, identifiers like ||P||, ||S||, and ||S1|| represent
@@ -4450,7 +4449,7 @@ Example:
   <<<solution
 
 This example solution contains 5 data elements, ~~title~~, ~~label~~,
-~~problem~~, ~~description~~, and ~~con~~. [g:sml:SML] enables you to
+~~problem~~, ~~description~~, and ~~con~~. [a:SML] enables you to
 capture a lot of structured information about solutions.
 [ref:tab-solution-data] enumerates the data elements you can use to
 describe solutions.  In this table, identifiers like ||P||, ||S||, and
@@ -4961,7 +4960,7 @@ Example:
   <<<test
 
 This example test contains 3 data elements, ~~title~~, ~~problem~~,
-and ~~description~~.  [g:sml:SML] enables you to capture a lot of
+and ~~description~~.  [a:SML] enables you to capture a lot of
 structured information about tests.  [ref:tab-test-data] enumerates
 the data elements you can use to describe tests.  In this table,
 identifiers like ||P||, ||S||, and ||S1|| represent labels.
@@ -5637,7 +5636,7 @@ your document.
 
 acronym:: TLA = Three Letter Acronym
 
-Here's a sentence where I use the acronym [ac:TLA].
+Here's a sentence where I use the acronym [a:TLA].
 
 #---------------------------------------------------------------------
 
@@ -5968,7 +5967,7 @@ along with alternative syntaxes for reusing them
 
 ---
   
-[g:sml:SML] also has a generic ``lookup'' feature that enables you to
+[a:SML] also has a generic ``lookup'' feature that enables you to
 reuse any element of structured data, even user defined attributes:
 
   [lookup:<label>:<element>]
@@ -6745,7 +6744,7 @@ this requirement identified?''
 
 index:: Emacs
 
-SML is based on Emacs' outline mode.  I find that editing SML files in
+[a:SML] is based on Emacs' outline mode.  I find that editing [a:SML] files in
 Emacs is very quick and easy.  Emacs is a free, open source editor
 available for windows from:
 
@@ -6764,8 +6763,8 @@ incredible speed and power.
 **.emacs-variables Adding an Emacs mode directive to an SML file
 
 If you ~~do~~ choose to use Emacs, you might want to put the following
-line at the top of each SML file to force Emacs into outline mode when
-it opens the file:
+line at the top of each [a:SML] file to force Emacs into outline mode
+when it opens the file:
 
   -*- mode: outline -*-        
 
@@ -6807,6 +6806,8 @@ file:: files/.emacs
 
 ######################################################################
 # Backmatter
+
+include:: acronyms-sml
 
 include:: glossary-sml
 

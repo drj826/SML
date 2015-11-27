@@ -507,9 +507,9 @@ sub _build_acronym_list_test_case_list {
       namespace => '',
       expected =>
       {
-       add_acronym => 1,
-       has_acronym => 1,
-       get_acronym => 'SML::Definition',
+       add_entry => 1,
+       has_entry => 1,
+       get_entry => 'SML::Definition',
       },
      },
 
@@ -520,9 +520,9 @@ sub _build_acronym_list_test_case_list {
       namespace => 'ieee',
       expected =>
       {
-       add_acronym => 1,
-       has_acronym => 1,
-       get_acronym => 'SML::Definition',
+       add_entry => 1,
+       has_entry => 1,
+       get_entry => 'SML::Definition',
       }
      },
 
@@ -533,9 +533,9 @@ sub _build_acronym_list_test_case_list {
       namespace => '',
       expected =>
       {
-       add_acronym => 1,
-       has_acronym => 0,
-       get_acronym => '',
+       add_entry => 1,
+       has_entry => 0,
+       get_entry => '',
       }
      },
 
@@ -548,7 +548,7 @@ sub _build_acronym_list_test_case_list {
       {
        error =>
        {
-	add_acronym => 'NOT A DEFINITION',
+	add_entry => 'NOT A DEFINITION',
        },
       }
      },
@@ -561,7 +561,7 @@ sub _build_acronym_list_test_case_list {
       {
        warning =>
        {
-	get_acronym => 'FAILED ACRONYM LOOKUP',
+	get_entry => 'FAILED ACRONYM LOOKUP',
        },
       }
      },
@@ -588,7 +588,7 @@ sub _build_acronym_term_reference_test_case_list {
       expected =>
       {
        get_tag => 'ac',
-       get_acronym => 'TLA',
+       get_entry => 'TLA',
        get_namespace => '',
       },
      },

@@ -1,0 +1,55 @@
+[%- WRAPPER page.tt -%]
+
+[%- SET acronym_list = document.get_acronym_list -%]
+
+[%- IF document.has_property('title') -%]
+<div class="title">
+[%- INCLUDE property.tt property = document.get_property('title') -%]
+</div>
+[% END %]
+
+[%- IF document.has_property('subtitle') -%]
+<div class="subtitle">
+[%- INCLUDE property.tt property = document.get_property('subtitle') -%]
+</div>
+[% END %]
+
+[%- INCLUDE preamble.tt -%]
+
+<h3 align="center">Acronyms</h3>
+
+<table style="width:100%">
+
+[%- FOREACH group IN acronym_list.get_group_list -%]
+
+<tr><td colspan="2"><h1>[%group%]</h1></td></tr>
+
+[%- SET bgcolor = '#eeeeee' -%]
+[%- FOREACH entry IN acronym_list.get_group_entry_list(group) -%]
+  [%- SET term = entry.get_term -%]
+  [%- SET definition = entry.get_definition -%]
+  [%- SET alt = entry.get_alt -%]
+  [%- SET value = entry.get_value -%]
+  [%- SET bookmark = entry.get_bookmark -%]
+  [%- IF bgcolor == '#eeeeee' -%]
+    [%- SET bgcolor = '#ffffff' -%]
+  [%- ELSE -%]
+    [%- SET bgcolor = '#eeeeee' -%]
+  [%- END -%]
+
+<tr>
+<td style="width:6%;background-color:[%bgcolor%];" id="[%bookmark%]">
+[%- INCLUDE STRING.tt self = entry.get_term_string -%]
+</td>
+<td style="background-color:[%bgcolor%]">
+[%- INCLUDE STRING.tt self = entry.get_definition_string -%]
+</td>
+</tr>
+
+[%- END -%]
+
+[%- END -%]
+
+</table>
+
+[%- END -%]

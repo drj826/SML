@@ -703,6 +703,8 @@ sub _create_string {
       return 0;
     }
 
+  $logger->trace("_create_string $text");
+
   my $container;                        # containing part
 
   if ( $self->_has_current_container )
@@ -1017,8 +1019,8 @@ sub _create_string {
 	  my $args = {};
 
 	  $args->{tag}       = $1;
-	  $args->{acronym}   = $4;
 	  $args->{namespace} = $3 || '';
+	  $args->{acronym}   = $4;
 	  $args->{library}   = $self->get_library;
 	  $args->{container} = $container if $container;
 
@@ -2655,15 +2657,11 @@ sub _end_table_row {
 
   if ( $self->_in_table_cell )
     {
-      $logger->trace("..... end table cell");
-
       $self->_end_division;
     }
 
   if ( $self->_in_table_row )
     {
-      $logger->trace("..... end table row");
-
       $self->_end_division;
     }
 
@@ -2680,15 +2678,11 @@ sub _end_baretable {
 
   if ( $self->_in_table_row )
     {
-      $logger->trace("..... end table row");
-
       $self->_end_table_row;
     }
 
   if ( $self->_in_baretable )
     {
-      $logger->trace("..... end baretable");
-
       $self->_end_division;
     }
 
@@ -2705,15 +2699,11 @@ sub _end_table {
 
   if ( $self->_in_table_row )
     {
-      $logger->trace("..... end table row");
-
       $self->_end_table_row;
     }
 
   if ( $self->_in_table )
     {
-      $logger->trace("..... end table");
-
       $self->_end_division;
     }
 
@@ -2728,8 +2718,6 @@ sub _end_section {
 
   return if not $self->_in_section;
 
-  $logger->trace("..... end section");
-
   $self->_end_division;
 
   return 1;
@@ -2743,8 +2731,6 @@ sub _end_step_list {
   my $self = shift;
 
   return if not $self->_in_step_list;
-
-  $logger->trace("..... end step list");
 
   $self->_end_division;
 
@@ -2762,8 +2748,6 @@ sub _end_bullet_list {
 
   $self->_pop_list_stack;
 
-  $logger->trace("..... end bullet list");
-
   $self->_end_division;
 
   return 1;
@@ -2780,8 +2764,6 @@ sub _end_enumerated_list {
 
   $self->_pop_list_stack;
 
-  $logger->trace("..... end enumerated list");
-
   $self->_end_division;
 
   return 1;
@@ -2795,8 +2777,6 @@ sub _end_definition_list {
   my $self = shift;
 
   return if not $self->_in_definition_list;
-
-  $logger->trace("..... end definition list");
 
   $self->_end_division;
 
@@ -6002,7 +5982,6 @@ sub _process_start_glossary_entry {
 
   my $library   = $self->get_library;
   my $util      = $library->get_util;
-  my $blockname = 'glossary';
 
   $logger->trace("----- element (glossary)");
 
@@ -6128,22 +6107,15 @@ sub _process_start_acronym_entry {
 
   my $self      = shift;
   my $line      = shift;
-  my $term      = shift;
-  my $namespace = shift || '';
 
   my $library   = $self->get_library;
   my $util      = $library->get_util;
-  my $document  = $self->_get_current_document || undef;
 
-  my $division = $self->_get_current_division;
-  my $divname  = $division->get_name;
-
-  $logger->trace("----- element (ACRONYM DEFINITION)");
+  $logger->trace("----- element (acronym)");
 
   my $definition = SML::Definition->new
     (
      name      => 'acronym',
-     namespace => $namespace,
      library   => $library,
     );
 
@@ -6171,6 +6143,7 @@ sub _process_start_acronym_entry {
     {
       $logger->trace("..... begin UNIVERSAL element");
 
+      my $division = $self->_get_current_division;
       $division->add_part($definition);
       $division->add_property_element($definition);
     }
@@ -6198,9 +6171,11 @@ sub _process_end_acronym_entry {
       # $5
       # $6 = namespace
       # $7 = acronym definition
+      my $namespace = $6 || q{};
+
       $definition->set_value($3);
       $definition->set_term($4);
-      $definition->set_namespace($6);
+      $definition->set_namespace($namespace);
       $definition->set_definition($7);
     }
 
@@ -6211,14 +6186,14 @@ sub _process_end_acronym_entry {
     }
 
   my $library_acronym_list = $library->get_acronym_list;
-  $library_acronym_list->add_acronym($definition);
+  $library_acronym_list->add_entry($definition);
 
   if ( $self->_has_current_document )
     {
       my $document              = $self->_get_current_document;
       my $document_acronym_list = $document->get_acronym_list;
 
-      $document_acronym_list->add_acronym($definition);
+      $document_acronym_list->add_entry($definition);
     }
 
   return 1;
@@ -9641,6 +9616,8 @@ sub _parse_block {
       return 0;
     }
 
+  $logger->trace("_parse_block $block");
+
   $self->_set_block($block);
 
   my $library = $self->get_library;
@@ -11549,15 +11526,12 @@ sub _validate_acronym_ref_semantics {
       my $namespace = $3 || q{};
       my $acronym   = $4;
 
-      if ( $library->get_acronym_list->has_acronym($acronym,$namespace) )
-	{
-	  $logger->trace("acronym \'$acronym\' namespace \'$namespace\' is in acronym list");
-	}
+      my $acronym_list = $library->get_acronym_list;
 
-      else
+      unless ( $acronym_list->has_entry($acronym,$namespace) )
 	{
 	  my $location = $block->get_location;
-	  $logger->warn("ACRONYM NOT IN ACRONYM LIST: \'$acronym\' \'$namespace\' at $location");
+	  $logger->warn("ACRONYM NOT IN LIBRARY ACRONYM LIST: \'$acronym\' \'$namespace\' at $location");
 	  $valid = 0;
 	}
 
