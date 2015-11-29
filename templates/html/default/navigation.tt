@@ -11,7 +11,7 @@
 </a>
 </div>
 
-<table border="0" cellpadding="4" cellspacing="4">
+<table style="width:100%">
 
 <tr>
 <td>
@@ -36,6 +36,8 @@
 [%- IF document.has_listings -%]
 <a href="[% document.get_id %].listings.html">Listings</a><br/>
 [%- END -%]
+
+<br/>
 
 [%- IF document.get_glossary.has_entries -%]
 <a href="[% document.get_id %].glossary.html">Glossary</a><br/>

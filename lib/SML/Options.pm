@@ -24,7 +24,7 @@ my $logger = Log::Log4perl::get_logger('sml.Options');
 ######################################################################
 ######################################################################
 
-has 'config_filespec' =>
+has config_filespec =>
   (
    isa     => 'Str',
    reader  => 'get_config_filespec',
@@ -33,7 +33,7 @@ has 'config_filespec' =>
 
 ######################################################################
 
-has 'gui' =>
+has gui =>
   (
    isa     => 'Bool',
    reader  => 'using_gui',
@@ -43,7 +43,7 @@ has 'gui' =>
 
 ######################################################################
 
-has 'verbose' =>
+has verbose =>
   (
    isa     => 'Bool',
    reader  => 'be_verbose',
@@ -53,17 +53,27 @@ has 'verbose' =>
 
 ######################################################################
 
-has 'scripts' =>
+has scripts =>
   (
    isa     => 'Bool',
-   reader  => 'run_scripts',
+   reader  => 'resolve_scripts',
    default => 1,
-   writer  => 'set_run_scripts',
+   writer  => 'set_resolve_scripts',
   );
 
 ######################################################################
 
-has 'use_svn' =>
+has plugins =>
+  (
+   isa     => 'Bool',
+   reader  => 'resolve_plugins',
+   default => 1,
+   writer  => 'set_resolve_plugins',
+  );
+
+######################################################################
+
+has use_svn =>
   (
    isa     => 'Bool',
    reader  => 'use_svn',
@@ -73,7 +83,7 @@ has 'use_svn' =>
 
 ######################################################################
 
-has 'svn' =>
+has svn =>
   (
    isa     => 'Str',
    reader  => 'get_svn_executable',
@@ -83,7 +93,7 @@ has 'svn' =>
 
 ######################################################################
 
-has 'pdflatex' =>
+has pdflatex =>
   (
    isa     => 'Str',
    reader  => 'get_pdflatex_executable',
@@ -93,7 +103,7 @@ has 'pdflatex' =>
 
 ######################################################################
 
-has 'pdflatex_args' =>
+has pdflatex_args =>
   (
    isa     => 'Str',
    reader  => 'get_pdflatex_args',
@@ -103,7 +113,7 @@ has 'pdflatex_args' =>
 
 ######################################################################
 
-has 'bibtex' =>
+has bibtex =>
   (
    isa     => 'Str',
    reader  => 'get_bibtex_executable',
@@ -113,7 +123,7 @@ has 'bibtex' =>
 
 ######################################################################
 
-has 'makeindex' =>
+has makeindex =>
   (
    isa     => 'Str',
    reader  => 'get_makeindex_executable',
@@ -123,7 +133,7 @@ has 'makeindex' =>
 
 ######################################################################
 
-has 'convert' =>
+has convert =>
   (
    isa     => 'Str',
    reader  => 'get_convert_executable',
@@ -133,7 +143,7 @@ has 'convert' =>
 
 ######################################################################
 
-has 'trigger_resource_updates' =>
+has trigger_resource_updates =>
   (
    isa       => 'Bool',
    reader    => 'trigger_resource_updates',
@@ -150,7 +160,7 @@ has 'trigger_resource_updates' =>
 
 ######################################################################
 
-has 'use_formal_status' =>
+has use_formal_status =>
   (
    isa       => 'Bool',
    reader    => 'use_formal_status',
@@ -165,7 +175,7 @@ has 'use_formal_status' =>
 
 ######################################################################
 
-has 'MAX_SEC_DEPTH' =>
+has MAX_SEC_DEPTH =>
   (
    isa     => 'Int',
    reader  => 'get_MAX_SEC_DEPTH',
@@ -175,7 +185,7 @@ has 'MAX_SEC_DEPTH' =>
 
 ######################################################################
 
-has 'MAX_RESOLVE_INCLUDES' =>
+has MAX_RESOLVE_INCLUDES =>
   (
    isa     => 'Int',
    reader  => 'get_MAX_RESOLVE_INCLUDES',
@@ -185,17 +195,27 @@ has 'MAX_RESOLVE_INCLUDES' =>
 
 ######################################################################
 
-has 'MAX_RUN_SCRIPTS' =>
+has MAX_RESOLVE_SCRIPTS =>
   (
    isa     => 'Int',
-   reader  => 'get_MAX_RUN_SCRIPTS',
-   writer  => 'set_MAX_RUN_SCRIPTS',
+   reader  => 'get_MAX_RESOLVE_SCRIPTS',
+   writer  => 'set_MAX_RESOLVE_SCRIPTS',
    default => 20,
   );
 
 ######################################################################
 
-has 'MAX_RESOLVE_CONDITIONALS' =>
+has MAX_RESOLVE_PLUGINS =>
+  (
+   isa     => 'Int',
+   reader  => 'get_MAX_RESOLVE_PLUGINS',
+   writer  => 'set_MAX_RESOLVE_PLUGINS',
+   default => 20,
+  );
+
+######################################################################
+
+has MAX_RESOLVE_CONDITIONALS =>
   (
    isa     => 'Int',
    reader  => 'get_MAX_RESOLVE_CONDITIONALS',
@@ -205,7 +225,7 @@ has 'MAX_RESOLVE_CONDITIONALS' =>
 
 ######################################################################
 
-has 'MAX_PARSE_LINES' =>
+has MAX_PARSE_LINES =>
   (
    isa     => 'Int',
    reader  => 'get_MAX_PARSE_LINES',
@@ -215,7 +235,7 @@ has 'MAX_PARSE_LINES' =>
 
 ######################################################################
 
-has 'MAX_INSERT_CONTENT' =>
+has MAX_INSERT_CONTENT =>
   (
    isa     => 'Int',
    reader  => 'get_MAX_INSERT_CONTENT',
@@ -225,7 +245,7 @@ has 'MAX_INSERT_CONTENT' =>
 
 ######################################################################
 
-has 'MAX_SUBSTITUTE_VARIABLES' =>
+has MAX_SUBSTITUTE_VARIABLES =>
   (
    isa     => 'Int',
    reader  => 'get_MAX_SUBSTITUTE_VARIABLES',
@@ -235,7 +255,7 @@ has 'MAX_SUBSTITUTE_VARIABLES' =>
 
 ######################################################################
 
-has 'MAX_RESOLVE_LOOKUPS' =>
+has MAX_RESOLVE_LOOKUPS =>
   (
    isa     => 'Int',
    reader  => 'get_MAX_RESOLVE_LOOKUPS',
@@ -245,7 +265,7 @@ has 'MAX_RESOLVE_LOOKUPS' =>
 
 ######################################################################
 
-has 'MAX_RESOLVE_TEMPLATES' =>
+has MAX_RESOLVE_TEMPLATES =>
   (
    isa     => 'Int',
    reader  => 'get_MAX_RESOLVE_TEMPLATES',
@@ -255,7 +275,7 @@ has 'MAX_RESOLVE_TEMPLATES' =>
 
 ######################################################################
 
-has 'MAX_GENERATE_CONTENT' =>
+has MAX_GENERATE_CONTENT =>
   (
    isa     => 'Int',
    reader  => 'get_MAX_GENERATE_CONTENT',
@@ -265,7 +285,7 @@ has 'MAX_GENERATE_CONTENT' =>
 
 ######################################################################
 
-has 'MAX_ID_HIERARCHY_DEPTH' =>
+has MAX_ID_HIERARCHY_DEPTH =>
   (
    isa     => 'Int',
    reader  => 'get_MAX_ID_HIERARCHY_DEPTH',
@@ -275,7 +295,7 @@ has 'MAX_ID_HIERARCHY_DEPTH' =>
 
 ######################################################################
 
-has 'status_icon_grey_filespec' =>
+has status_icon_grey_filespec =>
   (
    isa     => 'Str',
    reader  => 'get_status_icon_grey_filespec',
@@ -285,7 +305,7 @@ has 'status_icon_grey_filespec' =>
 
 ######################################################################
 
-has 'status_icon_green_filespec' =>
+has status_icon_green_filespec =>
   (
    isa     => 'Str',
    reader  => 'get_status_icon_green_filespec',
@@ -295,7 +315,7 @@ has 'status_icon_green_filespec' =>
 
 ######################################################################
 
-has 'status_icon_yellow_filespec' =>
+has status_icon_yellow_filespec =>
   (
    isa     => 'Str',
    reader  => 'get_status_icon_yellow_filespec',
@@ -305,7 +325,7 @@ has 'status_icon_yellow_filespec' =>
 
 ######################################################################
 
-has 'status_icon_red_filespec' =>
+has status_icon_red_filespec =>
   (
    isa     => 'Str',
    reader  => 'get_status_icon_red_filespec',
@@ -395,8 +415,12 @@ sub BUILD {
 	$self->set_MAX_RESOLVE_INCLUDES($config{'MAX_RESOLVE_INCLUDES'});
       }
 
-      if ($config{'MAX_RUN_SCRIPTS'}) {
-	$self->set_MAX_RUN_SCRIPTS($config{'MAX_RUN_SCRIPTS'});
+      if ($config{'MAX_RESOLVE_SCRIPTS'}) {
+	$self->set_MAX_RESOLVE_SCRIPTS($config{'MAX_RESOLVE_SCRIPTS'});
+      }
+
+      if ($config{'MAX_RESOLVE_PLUGINS'}) {
+	$self->set_MAX_RESOLVE_PLUGINS($config{'MAX_RESOLVE_PLUGINS'});
       }
 
       if ($config{'MAX_PARSE_LINES'}) {
@@ -485,7 +509,7 @@ A class to store options.
 
 =head2 be_verbose
 
-=head2 run_scripts
+=head2 resolve_scripts
 
 =head2 use_svn
 
@@ -509,7 +533,9 @@ A class to store options.
 
 =head2 get_MAX_RESOLVE_INCLUDES
 
-=head2 get_MAX_RUN_SCRIPTS
+=head2 get_MAX_RESOLVE_SCRIPTS
+
+=head2 get_MAX_RESOLVE_PLUGINS
 
 =head2 get_MAX_RESOLVE_CONDITIONALS
 

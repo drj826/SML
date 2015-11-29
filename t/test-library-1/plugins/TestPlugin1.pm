@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package parts2sections;
+package TestPlugin1;
 
 use Moose;
 
@@ -32,31 +32,16 @@ sub render {
 
   my $self = shift;
 
-  my $library = $self->_get_library;
+  my $library      = $self->_get_library;
+  my $library_id   = $library->get_id;
+  my $library_name = $library->get_name;
 
-  unless ( $self->_has_args )
-    {
-      print "FATAL parts2sections.pm NO DIVISION ID PROVIDED\n";
-      return [];
-    }
+  my $output = << "END_OF_TEXT";
+  library ID:   $library_id
+  library name: $library_name
+END_OF_TEXT
 
-  my $arg_list = [ split(/\s+/,$self->_get_args) ];
-
-  my $division_id = $arg_list->[0];
-
-  unless ( $library->has_division_id($division_id) )
-    {
-      print "FATAL parts2sections.pm LIBRARY HAS NO DIVISION ID $division_id\n";
-      return [];
-    }
-
-  my $output = [];
-
-  my $text = "* include:: $division_id\n\n";
-
-  push(@{$output},$text);
-
-  return $output;
+  return [ split(/^/m,$output) ];
 }
 
 ######################################################################

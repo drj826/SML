@@ -14,43 +14,42 @@ include this vocabulary in your document you must also include
 # A
 ######################################################################
 
-glossary:: acceptance test {sml} = (SML) Formal testing conducted to
+glossary:: acceptance test {SML} = Formal testing conducted to
 determine whether or not a system, subsystem, or configuration item
 satisfies its acceptance criteria and to enable the customer to
 determine whether or not to accept
 
-glossary:: acronym {sml} = (SML) A type of abbreviation in which a
-term is based on the initial letters of the various elements of a
-full word phrase
+glossary:: acronym {SML} = A type of abbreviation in which a term is
+based on the initial letters of the various elements of a full word
+phrase
 
-glossary:: anti-pattern {sml} = (SML) (1) a [g:sml:pattern] that may
-be commonly used but is ineffective and/or counterproductive in
-practice; (2) obvious, but wrong, solutions to recurring problems; (3)
-common approaches to solving recurring problems that prove to be
-ineffective
+glossary:: anti-pattern {SML} = (1) a [g:SML:pattern] that may be
+commonly used but is ineffective and/or counterproductive in practice;
+(2) obvious, but wrong, solutions to recurring problems; (3) common
+approaches to solving recurring problems that prove to be ineffective
 
-glossary:: assertion {sml} = (SML) An [g:sml:environment] that defines
-a logical assertion, that is, a subject - predicate - object triple.
-Assertions are commonly made about entities (problems, solutions, tests,
-results, tasks, and roles).
+glossary:: assertion {SML} = An [g:SML:environment] that defines a
+logical assertion, that is, a subject - predicate - object triple.
+Assertions are commonly made about entities (problems, solutions,
+tests, results, tasks, and roles).
 
-glossary:: attachment {sml} = (SML) An [g:sml:environment] that
-represents a document structure that attaches an external file at a
-specific place within an [a:SML] document
+glossary:: attachment {SML} = An [g:SML:environment] that represents a
+document structure that attaches an external file at a specific place
+within an [a:SML] document
 
-glossary:: attribute definition {sml} = (SML) A [g:sml:definition] that
+glossary:: attribute definition {SML} = A [g:SML:definition] that
 defines a key/value pair where the key is the attribute name and the
 value is the definition.  Attribute definitions are limited to a
 single block of text
 
-glossary:: audio {sml} = (SML) An [g:sml:environment] that instructs
-the publishing application to insert an audio clip into the document
+glossary:: audio {SML} = An [g:SML:environment] that instructs the
+publishing application to insert an audio clip into the document
 
 ######################################################################
 # B
 ######################################################################
 
-glossary:: Backus-Naur Form = ([ac:BNF]) a notation technique for
+glossary:: Backus-Naur Form = ([a:BNF]) a notation technique for
 context-free grammars, often used to describe the syntax of languages
 used in computing, such as computer programming languages, document
 formats, instruction sets and communication protocols. It is applied
@@ -60,179 +59,177 @@ programming language theory
 
 ###
 
-glossary:: block {sml} = (SML) A contiguous sequence of one or more
-~~whole~~ [g:sml:line]s of text.  Blocks end with either a blank line
+glossary:: block {SML} = A contiguous sequence of one or more
+~~whole~~ [g:SML:line]s of text.  Blocks end with either a blank line
 or the beginning of another block. Blocks cannot contain blank lines.
-Blocks may contain [g:sml:inline] elements
+Blocks may contain [g:SML:inline] elements
 
-glossary:: break-fix {sml} = (SML) To replace/fix a broken part or
-to revert the system back to its approved baseline configuration.
-Examples include replace a hard drive, clean a corrupted work file,
-and restore a corrupted definition file.  Performing a break-fix
-action may or may not be an emergency.  Any change to a baseline CI
-that does ~~not~~ reset the CI to its approved baseline configuration
-constitutes a change and is ~~not~~ a break-fix
+glossary:: break-fix {SML} = To replace/fix a broken part or to revert
+the system back to its approved baseline configuration.  Examples
+include replace a hard drive, clean a corrupted work file, and restore
+a corrupted definition file.  Performing a break-fix action may or may
+not be an emergency.  Any change to a baseline CI that does ~~not~~
+reset the CI to its approved baseline configuration constitutes a
+change and is ~~not~~ a break-fix
 
-glossary:: business requirement {sml} = (SML) A requirement that
-describes what an organization or role must do for another
-organization or role.  Business requirements begin with the phrase,
-``The organization shall...'' [G:sml:system requirement]s are derived
-from business requirements and consist of [g:sml:functional
-requirement]s, [g:sml:non-functional requirement]s, and
-[g:sml:technical requirement]s
+glossary:: business requirement {SML} = A requirement that describes
+what an organization or role must do for another organization or role.
+Business requirements begin with the phrase, ``The organization
+shall...'' [G:SML:system requirement]s are derived from business
+requirements and consist of [g:SML:functional requirement]s,
+[g:SML:non-functional requirement]s, and [g:SML:technical
+requirement]s
 
 ######################################################################
 # C
 ######################################################################
 
-glossary:: Comma Separated Value = ([ac:CSV]) a file format in which
+glossary:: Comma Separated Value = ([a:CSV]) a file format in which
 each line contains one ``record'' of data fields separated by commas
 
 ###
 
-glossary:: cardinality {sml} = (SML) The number of element in a set,
-as a property of that set
+glossary:: cardinality {SML} = The number of element in a set, as a
+property of that set
 
-glossary:: comment {sml} = (SML) A [g:sml:division] to be omitted from
-the rendered [g:sml:document].
+glossary:: comment {SML} = A [g:SML:division] to be omitted from the
+rendered [g:SML:document].
 
-glossary:: compliance directive {sml} = (SML) A written authoritative
+glossary:: compliance directive {SML} = A written authoritative
 statute, regulation, or directive that requires an organization to
-comply with a process or standard.  [G:sml:business requirement]s are
-often derived from compliance directives.  See also [g:sml:mission
+comply with a process or standard.  [G:SML:business requirement]s are
+often derived from compliance directives.  See also [g:SML:mission
 directive]
 
-glossary:: component integration test {sml} = (SML) Testing of groups
-of related releasable components to verify they satisfy allocated
+glossary:: component integration test {SML} = Testing of groups of
+related releasable components to verify they satisfy allocated
 requirements and work together as designed
 
-glossary:: component test {sml} = (SML) Testing of individual
-releasable software components to verify they satisfy allocated
-requirements
+glossary:: component test {SML} = Testing of individual releasable
+software components to verify they satisfy allocated requirements
 
-glossary:: conditional {sml} = (SML) A [g:sml:division] to be included
-in the rendered document only if a token is defined in the
-[g:sml:document] [g:sml:preamble].
+glossary:: conditional {SML} = A [g:SML:division] to be included in
+the rendered document only if a token is defined in the
+[g:SML:document] [g:SML:preamble].
 
-glossary:: content {sml} = (SML) Text meant to convey meaning.  A type
-of markup feature that describes the ~~meaning~~ of [g:sml:text] which
-allows authors to establish relationships between [g:sml:entity]s in a
-[g:sml:document]. For example: [g:sml:exercise]s, [g:sml:slide]s,
-[g:sml:quotation]s, [g:sml:demo], [g:sml:problem]s, [g:sml:solution]s,
-[g:sml:test]s, [g:sml:result]s, [g:sml:task]s, [g:sml:role]s
+glossary:: content {SML} = Text meant to convey meaning.  A type of
+markup feature that describes the ~~meaning~~ of [g:SML:text] which
+allows authors to establish relationships between [g:SML:entity]s in a
+[g:SML:document]. For example: [g:SML:exercise]s, [g:SML:slide]s,
+[g:SML:quotation]s, [g:SML:demo], [g:SML:problem]s, [g:SML:solution]s,
+[g:SML:test]s, [g:SML:result]s, [g:SML:task]s, [g:SML:role]s
 
 ######################################################################
 # D
 ######################################################################
 
-glossary:: Device Independent = ([ac:DVI]) The native output format of
+glossary:: Device Independent = ([a:DVI]) The native output format of
 LaTeX
 
 ###
 
-glossary:: data format {sml} = (SML) The structure of a computer file
+glossary:: data format {SML} = The structure of a computer file
 
-glossary:: definition {sml} = (SML) A special [g:sml:block] that
-defines an key/value pair.  Definitions are limited to a single block
-of text. Definitions can declare themselves part of a namespace to
+glossary:: definition {SML} = A special [g:SML:block] that defines an
+key/value pair.  Definitions are limited to a single block of
+text. Definitions can declare themselves part of a namespace to
 distinguish between duplicate keys from different namespaces.
 Definitions can declare themselves a specific alternative to
 distinguish between multiple identical keys within the same namespace
 
-glossary:: demo {sml} = (SML) A [g:sml:region] that represents a
+glossary:: demo {SML} = A [g:SML:region] that represents a
 demonstration that an instructor might give during a classroom
-presentation.  Demos are expressed as [g:sml:region]s so they may
+presentation.  Demos are expressed as [g:SML:region]s so they may
 contain environments like tables and figures
 
-glossary:: demonstration {sml} = (SML) A procedure to verify system
+glossary:: demonstration {SML} = A procedure to verify system
 requirements that cannot be tested otherwise
 
-glossary:: description {sml} = (SML) A [g:sml:block] that describes the
-contents of a [g:sml:document], [g:sml:environment], [g:sml:region],
-[g:sml:entity], or [g:sml:section].  A document description is the same
-as a document abstract
+glossary:: description {SML} = A [g:SML:block] that describes the
+contents of a [g:SML:document], [g:SML:environment], [g:SML:region],
+[g:SML:entity], or [g:SML:section].  A document description is the
+same as a document abstract
 
-glossary:: descriptive markup {sml} = [G:sml:markup] designed to
+glossary:: descriptive markup {SML} = [G:SML:markup] designed to
 describe the meaning, structure, or presentation of the content.  See
-[g:sml:markup language]. Contrast with [g:sml:procedural markup]
+[g:SML:markup language]. Contrast with [g:SML:procedural markup]
 
-glossary:: development testing {sml} = (SML) Testing conducted to
-establish whether a new software product or software-based system (or
-components of it) satisfies its criteria. The criteria will vary based
-on the level of test being performed. Developmental testing in
-comprised of the following test levels: (1) [g:sml:unit test], (2)
-[g:sml:component test], and (3) [g:sml:component integration test]
+glossary:: development testing {SML} = Testing conducted to establish
+whether a new software product or software-based system (or components
+of it) satisfies its criteria. The criteria will vary based on the
+level of test being performed. Developmental testing in comprised of
+the following test levels: (1) [g:SML:unit test], (2) [g:SML:component
+test], and (3) [g:SML:component integration test]
 
-glossary:: division {sml} = (SML) A contiguous sequence of whole
-[g:sml:line]s.  A division has an ~~unambiguous~~ beginning and end.
+glossary:: division {SML} = A contiguous sequence of whole
+[g:SML:line]s.  A division has an ~~unambiguous~~ beginning and end.
 Sometimes the beginning and end are explicit and other times they are
-implicit.  A division may be uniquely identified using an [ac:sml:ID].
-The [ac:sml:ID] may be used to refer to the division
+implicit.  A division may be uniquely identified using an [a:SML:ID].
+The [a:SML:ID] may be used to refer to the division
 
-glossary:: document {sml} = (SML) A written work about a topic.
-[a:SML] document types are: book, report, and article. An [a:SML]
-document is composed of a [g:sml:document preamble] followed by a
-[g:sml:document narrative]
+glossary:: document {SML} = A written work about a topic.  [a:SML]
+document types are: book, report, and article. An [a:SML] document is
+composed of a [g:SML:document preamble] followed by a [g:SML:document
+narrative]
 
-glossary:: document narrative {sml} = (SML) The [g:sml:division] of a
-[a:SML] [g:sml:document] that immediately follows the [g:sml:document
-preamble] and goes to the end of the [g:sml:document].  Document
-narratives may contain [g:sml:block]s, [g:sml:section]s,
-[g:sml:environment]s, [g:sml:region]s, and [g:sml:element]s.  The
-document narrative begins with the first [g:sml:block],
-[g:sml:section], [g:sml:environment], [g:sml:region], or non-preamble
-[g:sml:element]
+glossary:: document narrative {SML} = The [g:SML:division] of a
+[a:SML] [g:SML:document] that immediately follows the [g:SML:document
+preamble] and goes to the end of the [g:SML:document].  Document
+narratives may contain [g:SML:block]s, [g:SML:section]s,
+[g:SML:environment]s, [g:SML:region]s, and [g:SML:element]s.  The
+document narrative begins with the first [g:SML:block],
+[g:SML:section], [g:SML:environment], [g:SML:region], or non-preamble
+[g:SML:element]
 
-glossary:: document preamble {sml} = (SML) The [g:sml:division] of a
-[a:SML] [g:sml:document] that starts at the beginning of the document
-and goes to the beginning of the [g:sml:document narrative]. Document
-preambles contain [g:sml:element]s that describe the document.
+glossary:: document preamble {SML} = The [g:SML:division] of a [a:SML]
+[g:SML:document] that starts at the beginning of the document and goes
+to the beginning of the [g:SML:document narrative]. Document preambles
+contain [g:SML:element]s that describe the document.
 
 ######################################################################
 # E
 ######################################################################
 
-glossary:: eXtensible markup Language = ([ac:XML]) a ``meta-language''
+glossary:: eXtensible markup Language = ([a:XML]) a ``meta-language''
 used to define markup languages
 
 ###
 
-glossary:: element {sml} = (SML) A [g:sml:block] containing a
-name/value pair expressing a piece of structured information or
-instructing the processor to take some action. See also
-[g:sml:property]
+glossary:: element {SML} = A [g:SML:block] containing a name/value
+pair expressing a piece of structured information or instructing the
+processor to take some action. See also [g:SML:property]
 
-glossary:: entity {sml} = (SML) A thing of interest to an organization
-about which data is held. Entity types are declared in an
-[g:sml:ontology]. Entities are represented by
-[g:sml:division]s. Entities have properties and are often related to
-other entities. See [g:sml:property]
+glossary:: entity {SML} = A thing of interest to an organization about
+which data is held. Entity types are declared in an
+[g:SML:ontology]. Entities are represented by
+[g:SML:division]s. Entities have properties and are often related to
+other entities. See [g:SML:property]
 
-glossary:: environment {sml} = (SML) A [g:sml:division] that describes
-the intended ~~format~~, ~~structure~~, or ~~content~~ of the
-contained [g:sml:block]s of [g:sml:text].  Environments are composed
-of a [g:sml:preamble] followed by an optional [g:sml:environment
+glossary:: environment {SML} = A [g:SML:division] that describes the
+intended ~~format~~, ~~structure~~, or ~~content~~ of the contained
+[g:SML:block]s of [g:SML:text].  Environments are composed of a
+[g:SML:preamble] followed by an optional [g:SML:environment
 narrative].  Environments ~~may not~~ be nested. Environments ~~may
-not~~ contain [g:sml:region]s.  Environments commonly have titles,
-IDs, and descriptions. Common environments include [g:sml:table]s,
-[g:sml:figure]s, [g:sml:listing]s, and [g:sml:attachment]s. Contrast
-with [g:sml:region]
+not~~ contain [g:SML:region]s.  Environments commonly have titles,
+IDs, and descriptions. Common environments include [g:SML:table]s,
+[g:SML:figure]s, [g:SML:listing]s, and [g:SML:attachment]s. Contrast
+with [g:SML:region]
 
-glossary:: environment narrative {sml} = (SML) The [g:sml:division] of
-a [a:SML] [g:sml:environment] that immediately follows the
-[g:sml:preamble] and goes to the end of the [g:sml:environment].
-Environment narratives may contain [g:sml:block]s and
-[g:sml:element]s.  Environment narratives ~~may not~~ contain
-[g:sml:region]s or [g:sml:environment]s
+glossary:: environment narrative {SML} = The [g:SML:division] of a
+[a:SML] [g:SML:environment] that immediately follows the
+[g:SML:preamble] and goes to the end of the [g:SML:environment].
+Environment narratives may contain [g:SML:block]s and
+[g:SML:element]s.  Environment narratives ~~may not~~ contain
+[g:SML:region]s or [g:SML:environment]s
 
-glossary:: epigraph {sml} = (SML) A quotation at the beginning of a
-book, chapter, etc. suggesting its theme
+glossary:: epigraph {SML} = A quotation at the beginning of a book,
+chapter, etc. suggesting its theme
 
-glossary:: epigraph environment {sml} = (SML) An [g:sml:environment]
-that tells the publishing application to render the [g:sml:content] as
-an [g:sml:epigraph]
+glossary:: epigraph environment {SML} = An [g:SML:environment] that
+tells the publishing application to render the [g:SML:content] as an
+[g:SML:epigraph]
 
-glossary:: exercise {sml} = (SML) A [g:sml:region] that represents an
+glossary:: exercise {SML} = A [g:SML:region] that represents an
 exercise a student might work through to better understand concepts
 described in the text
 
@@ -240,168 +237,164 @@ described in the text
 # F
 ######################################################################
 
-glossary:: Functional Requirements Document {sml} = (SML)
-([ac:sml:FRD]) Serves as the foundation for system design and
-development; captures functional/user requirements to be implemented
-in a new or enhanced system; the systems subject matter experts
-document these requirements into the requirements traceability matrix,
-which shows mapping of each detailed functional requirement to its
-source (Concept of Operations, System Boundary Document, Mission Need
-Statement, and System Security Plan). This is a complete, user
-oriented functional and data requirements for the system which must be
-defined, analyzed, and documented to ensure that user and system
-requirements have been collected and documented
+glossary:: Functional Requirements Document {SML} = ([a:SML:FRD])
+Serves as the foundation for system design and development; captures
+functional/user requirements to be implemented in a new or enhanced
+system; the systems subject matter experts document these requirements
+into the requirements traceability matrix, which shows mapping of each
+detailed functional requirement to its source (Concept of Operations,
+System Boundary Document, Mission Need Statement, and System Security
+Plan). This is a complete, user oriented functional and data
+requirements for the system which must be defined, analyzed, and
+documented to ensure that user and system requirements have been
+collected and documented
 
 ###
 
-glossary:: feasibility {sml} = (SML) The extent to which the benefits
-of a new or enhanced system will exceed the total costs and also
-satisfies the business requirements
+glossary:: feasibility {SML} = The extent to which the benefits of a
+new or enhanced system will exceed the total costs and also satisfies
+the business requirements
 
-glossary:: figure {sml} = (SML) An [g:sml:environment] that instructs
-the publishing application to insert a figure into the document
+glossary:: figure {SML} = An [g:SML:environment] that instructs the
+publishing application to insert a figure into the document
 
-glossary:: file {sml} = (SML) A collection of data stored on a
-permanent storage device
+glossary:: file {SML} = A collection of data stored on a permanent
+storage device
 
-glossary:: footnote {sml} = (SML) A short note of explanation or
-reference separated from the main text to prevent disrupting the flow
-of the main text
+glossary:: footnote {SML} = A short note of explanation or reference
+separated from the main text to prevent disrupting the flow of the
+main text
 
-glossary:: format {sml} = (SML) (noun) A specification for
-representing document content, structure, and presentation; (verb) To
-transform document content from one format to another format
+glossary:: format {SML} = (noun) A specification for representing
+document content, structure, and presentation; (verb) To transform
+document content from one format to another format
 
-glossary:: fragment {sml} = (SML) A file containing SML text designed
-to be reused in multiple SML documents
+glossary:: fragment {SML} = A division containing SML text designed to
+be reused in multiple places
 
-glossary:: functional requirement {sml} = (SML) A requirement that
-describes what a [g:ieee:system] or [g:sml:system component] must do
-for a [g:ieee:user].  Functional requirements begin with the phrase,
-``The system shall enable the user to...'' Functional requirements are
-typically derived from [g:sml:business requirement]s. Functional
+glossary:: functional requirement {SML} = A requirement that describes
+what a [g:IEEE:system] or [g:SML:system component] must do for a
+[g:IEEE:user].  Functional requirements begin with the phrase, ``The
+system shall enable the user to...'' Functional requirements are
+typically derived from [g:SML:business requirement]s. Functional
 requirements are independent of system implementation. See also
-[g:sml:non-functional requirement] and [g:sml:system requirement]
+[g:SML:non-functional requirement] and [g:SML:system requirement]
 
 ######################################################################
 # G
 ######################################################################
 
-glossary:: General Public License = ([ac:GPL]) A software license
+glossary:: General Public License = ([a:GPL]) A software license
 designed to ensure software is freely usable by anyone for any
 purpose.  The GPL takes away your right to put restrictions on
 software use
 
 ###
 
-glossary:: glossary {sml} = (SML) A list of terms in a special
-subject, field, or area of usage, with accompanying definitions
+glossary:: glossary {SML} = A list of terms in a special subject,
+field, or area of usage, with accompanying definitions
 
-glossary:: glossary definition {sml} = (SML) A [g:sml:definition] that
-defines a [g:sml:glossary] term.  Glossary definitions are limited to
+glossary:: glossary definition {SML} = A [g:SML:definition] that
+defines a [g:SML:glossary] term.  Glossary definitions are limited to
 a single block of text
-
-######################################################################
-# H
-######################################################################
 
 ######################################################################
 # I
 ######################################################################
 
-glossary:: include environment {sml} = (SML) An [g:sml:environment]
-that tells the publishing application to include the [g:sml:text] from
+glossary:: include environment {SML} = An [g:SML:environment] that
+tells the publishing application to include the [g:SML:text] from
 another file
 
-glossary:: index {sml} = (SML) An alphabetically organized listing of
-terms and with references to where those terms are used in the
-document
+glossary:: index {SML} = An alphabetically organized listing of terms
+and with references to where those terms are used in the document
 
-glossary:: inline {sml} = (SML) A contiguous string of [g:sml:text]
-that may be a ~~partial~~ line of text or may span one or more ~~whole
-or partial~~ lines. Inline elements may be used within [g:sml:block]s
-but not vice-versa.  An inline text element may span multiple
-[g:sml:line]s but may ~~not~~ span multiple [g:sml:block]s
+glossary:: inline {SML} = A contiguous string of [g:SML:text] that may
+be a ~~partial~~ line of text or may span one or more ~~whole or
+partial~~ lines. Inline elements may be used within [g:SML:block]s but
+not vice-versa.  An inline text element may span multiple
+[g:SML:line]s but may ~~not~~ span multiple [g:SML:block]s
 
-glossary:: instructional demonstration {sml} = (SML) a description of
-a series of tasks that reinforce and illustrate concepts being taught
-
-######################################################################
-# J
-######################################################################
+glossary:: instructional demonstration {SML} = a description of a
+series of tasks that reinforce and illustrate concepts being taught
 
 ######################################################################
 # K
 ######################################################################
 
-glossary:: keypoints {sml} = (SML) A [g:sml:region] that represents the
-key points of a document section
+glossary:: keypoints {SML} = A [g:SML:region] that represents the key
+points of a document section
 
 ######################################################################
 # L
 ######################################################################
 
-glossary:: library {sml} = (SML) A collection of related [a:SML]
-[g:sml:document]s which describe entities, [g:sml:entity] properties,
-and entity relationships conforming to a pre-defined [g:sml:ontology]
+glossary:: library {SML} = A collection of related [a:SML]
+[g:SML:document]s which describe entities, [g:SML:entity] properties,
+and entity relationships conforming to a pre-defined [g:SML:ontology]
 
-glossary:: library object model {sml} = (SML) A model of related
-object classes, and the public interfaces of those classes, that
-describes the content of an SML [g:sml:library].
+glossary:: library object model {SML} = A model of related object
+classes, and the public interfaces of those classes, that describes
+the content of an SML [g:SML:library].
 
-glossary:: line {sml} = (SML) A single line of raw text from a [a:SML]
-file or generated by a [g:sml:script] or [g:sml:plugin].  A line
-begins in the first column even if the leading characters are
-whitespace characters.  A line ends with a [g:sml:newline] character.
-Authors often wrap lines after approximately 70 characters to improve
+glossary:: line {SML} = A single line of raw text from a [a:SML] file
+or generated by a [g:SML:script] or [g:SML:plugin].  A line begins in
+the first column even if the leading characters are whitespace
+characters.  A line ends with a [g:SML:newline] character.  Authors
+often wrap lines after approximately 70 characters to improve
 readability
 
-glossary:: listing {sml} = (SML) An [g:sml:environment] that instructs
-the publishing application to insert a listing into the document
+glossary:: listing {SML} = An [g:SML:environment] that instructs the
+publishing application to insert a listing into the document
 
 ######################################################################
 # M
 ######################################################################
 
-glossary:: markup {sml} = (SML) In an [a:SML] file, text strings that
-describe the intended meaning, [g:sml:structure],
-[g:sml:presentation], or processing of content, sometimes called
-``tags.''  Contrast with [g:sml:content].  See [g:sml:descriptive
-markup] and [g:sml:procedural markup]
+glossary:: manuscript {SML} = an author's original typed copy of a
+work, as distinguished from the published version of the same.  Like
+source code is compiled into an executable program, a manuscript is
+published into a finished document
 
-glossary:: markup language {sml} = A standard for annotating text that
+glossary:: markup {SML} = In an [a:SML] file, text strings that
+describe the intended meaning, [g:SML:structure],
+[g:SML:presentation], or processing of content, sometimes called
+``tags.''  Contrast with [g:SML:content].  See [g:SML:descriptive
+markup] and [g:SML:procedural markup]
+
+glossary:: markup language {SML} = A standard for annotating text that
 syntactically distinguishes markup from content for the purpose of
-describing content ([g:sml:descriptive markup]) or directing how a
-processing application should process the content ([g:sml:procedural
+describing content ([g:SML:descriptive markup]) or directing how a
+processing application should process the content ([g:SML:procedural
 markup]).  The term originated from the ``marking up'' of authors'
 manuscripts, i.e. the typesetting instructions added by editors
 
-glossary:: mission directive {sml} = (SML) A written authoritative
-statute, regulation, or directive that allocates a mission to an
-organization.  [G:sml:business requirement]s are often derived from
-mission directives.  See also [g:sml:compliance directive]
+glossary:: mission directive {SML} = A written authoritative statute,
+regulation, or directive that allocates a mission to an organization.
+[G:SML:business requirement]s are often derived from mission
+directives.  See also [g:SML:compliance directive]
 
 ######################################################################
 # N
 ######################################################################
 
-glossary:: narrative {sml} = (SML) The [g:sml:division] of an [a:SML]
-[g:sml:document], [g:sml:region], or [g:sml:environment] that
-immediately follows the [g:sml:preamble] and continues to the end of
-the [g:sml:document], [g:sml:region], or [g:sml:environment].  See
-also [g:sml:document narrative], [g:sml:region narrative], and
-[g:sml:environment narrative]
+glossary:: narrative {SML} = The [g:SML:division] of an [a:SML]
+[g:SML:document], [g:SML:region], or [g:SML:environment] that
+immediately follows the [g:SML:preamble] and continues to the end of
+the [g:SML:document], [g:SML:region], or [g:SML:environment].  See
+also [g:SML:document narrative], [g:SML:region narrative], and
+[g:SML:environment narrative]
 
-glossary:: narrative element {sml} = (SML) An [g:sml:element] that may
+glossary:: narrative element {SML} = An [g:SML:element] that may
 appear anywhere in narrative content but not in preamble content.
-Most elements are [g:sml:preamble element]s only allowed in preamble
-content.  Contrast with [g:sml:preamble element]
+Most elements are [g:SML:preamble element]s only allowed in preamble
+content.  Contrast with [g:SML:preamble element]
 
-glossary:: newline {sml} = (SML) The character that ends a line of
-text.  Newline is also known as ``line break,'' ``end-of-line,'' or
-``EOL.''  Software and operating systems typically represent newline
-characters with one or two control characters. Systems based on ASCII
-or a compatible character set use either ||LF|| (Line feed, `||\n||',
+glossary:: newline {SML} = The character that ends a line of text.
+Newline is also known as ``line break,'' ``end-of-line,'' or ``EOL.''
+Software and operating systems typically represent newline characters
+with one or two control characters. Systems based on ASCII or a
+compatible character set use either ||LF|| (Line feed, `||\n||',
 ||0x0A||, 10 in decimal) or ||CR|| (Carriage return, `||\r||',
 ||0x0D||, 13 in decimal) individually, or ||CR|| followed by ||LF||
 (||CR+LF||, `||\r\n||', ||0x0D0A||). These characters are based on
@@ -410,27 +403,26 @@ should feed out of the printer, and a carriage return indicated that
 the printer carriage should return to the beginning of the current
 line
 
-glossary:: non-functional requirement {sml} = (SML) A type of
-[g:sml:system requirement] that defines something a system must ~~be~~
-(i.e. be secure, be maintainable, be scalable, be usable, be
-available, etc.).  Non-functional requirements are often called
-`ilities' (security, maintainability, scalability, usability,
-availability, etc.).  Non-functional requirements begin with the
-phrase, ``The system shall be...'' Non-functional requirements are
-often derived from [g:sml:business requirement]s.See also
-[g:sml:functional requirement] and [g:sml:technical requirement]
+glossary:: non-functional requirement {SML} = A type of [g:SML:system
+requirement] that defines something a system must ~~be~~ (i.e. be
+secure, be maintainable, be scalable, be usable, be available, etc.).
+Non-functional requirements are often called `ilities' (security,
+maintainability, scalability, usability, availability, etc.).
+Non-functional requirements begin with the phrase, ``The system shall
+be...'' Non-functional requirements are often derived from
+[g:SML:business requirement]s.See also [g:SML:functional requirement]
+and [g:SML:technical requirement]
 
 ######################################################################
 # O
 ######################################################################
 
-glossary:: ontology {sml} = (SML) An explicit formal specification of
-terms to represent the entities defined to exist in some area of
-interest, the relationships that hold among them, and the formal
-axioms that constrain the interpretation and well-formed use of these
-terms
+glossary:: ontology {SML} = An explicit formal specification of terms
+to represent the entities defined to exist in some area of interest,
+the relationships that hold among them, and the formal axioms that
+constrain the interpretation and well-formed use of these terms
 
-glossary:: operational baseline {sml} = (SML) A [g:ieee:baseline] that
+glossary:: operational baseline {SML} = A [g:IEEE:baseline] that
 identifies the system accepted and configured by the users in the
 operational environment after a period of onsite test using production
 data
@@ -439,296 +431,290 @@ data
 # P
 ######################################################################
 
-glossary:: PDFLaTeX = A variation of the LaTeX system that produces PDF
-output instead of [ac:DVI] output
+glossary:: PDFLaTeX = A variation of the LaTeX system that produces
+PDF output instead of [a:DVI] output
 
 glossary:: Perl = Practical Extraction and Reporting Language.  The
 Swiss Army chain-saw of scripting languages.
 
 ###
 
-glossary:: parser {sml} = (SML) A software artifact that performs
-syntactic analysis of text (a sequence of tokens) to check for correct
-syntax and build a data structure implicit in the input tokens
+glossary:: parser {SML} = A software artifact that performs syntactic
+analysis of text (a sequence of tokens) to check for correct syntax
+and build a data structure implicit in the input tokens
 
-glossary:: part {sml} = (SML) A syntactic unit of document content.
-SML syntax defines three types of parts: [g:sml:string]s,
-[g:sml:block]s, and [g:sml:division]s.
+glossary:: part {SML} = A syntactic unit of document content.  SML
+syntax defines three types of parts: [g:SML:string]s, [g:SML:block]s,
+and [g:SML:division]s.
 
-glossary:: pattern {sml} = (SML) a general reusable solution to a
-commonly occurring problem within a given context in software
-design. A design pattern is not a finished design that can be
-transformed directly into code. It is a description or template for
-how to solve a problem that can be used in many different situations
+glossary:: pattern {SML} = a general reusable solution to a commonly
+occurring problem within a given context in software design. A design
+pattern is not a finished design that can be transformed directly into
+code. It is a description or template for how to solve a problem that
+can be used in many different situations
 
-glossary:: plugin {sml} = (SML) An [g:sml:element] that instructs the
-SML parser to run a program and place the output into the document.
-Plugins have access to the [g:sml:library object model].  See also
-[g:sml:script]
+glossary:: plugin {SML} = An [g:SML:element] that instructs the SML
+parser to run a program and place the output into the document.
+Plugins have access to the [g:SML:library object model].  See also
+[g:SML:script]
 
-glossary:: preamble {sml} = (SML) The opening [g:sml:division] of an
-[a:SML] [g:sml:document], [g:sml:region] or [g:sml:environment] that
-contains data [g:sml:element]s
+glossary:: preamble {SML} = The opening [g:SML:division] of an [a:SML]
+[g:SML:document], [g:SML:region] or [g:SML:environment] that contains
+data [g:SML:element]s
 
-glossary:: preamble element {sml} = (SML) An [g:sml:element] that may
-be used in [g:sml:preamble] content but not [g:sml:narrative] content.
-Most elements are preamble elements.  Contrast with [g:sml:narrative
+glossary:: preamble element {SML} = An [g:SML:element] that may be
+used in [g:SML:preamble] content but not [g:SML:narrative] content.
+Most elements are preamble elements.  Contrast with [g:SML:narrative
 element]
 
-glossary:: preformatted {sml} = (SML) An [g:sml:environment] that
-instructs the publishing application to insert its [g:sml:content] as
+glossary:: preformatted {SML} = An [g:SML:environment] that instructs
+the publishing application to insert its [g:SML:content] as
 preformatted text
 
-glossary:: presentation {sml} = (SML) The appearance of content. A type
-of markup feature that describes the appearance of
-[g:sml:content]. For example: bold, italics, line break, page break,
-font size, text justification
+glossary:: presentation {SML} = The appearance of content. A type of
+markup feature that describes the appearance of [g:SML:content]. For
+example: bold, italics, line break, page break, font size, text
+justification
 
-glossary:: problem {sml} = (SML) A [g:sml:region] that describes a
-problem to be solved.  A problem is an [g:sml:entity]
+glossary:: problem {SML} = A [g:SML:region] that describes a problem
+to be solved.  A problem is an [g:SML:entity]
 
-glossary:: procedural markup {sml} = [G:sml:markup] designed to direct
-a processing application how to process text.  See [g:sml:markup
-language].  Contras with [g:sml:descriptive markup]
+glossary:: procedural markup {SML} = [G:SML:markup] designed to direct
+a processing application how to process text.  See [g:SML:markup
+language].  Contras with [g:SML:descriptive markup]
 
-glossary:: property {sml} = (SML) A characteristic attribute that
-describes an [g:sml:entity].  Allowed properties are declared in the
-[g:sml:ontology]. Properties are expressed using
-[g:sml:element]s. Property values have [g:sml:cardinality] of either
+glossary:: property {SML} = A characteristic attribute that describes
+an [g:SML:entity].  Allowed properties are declared in the
+[g:SML:ontology]. Properties are expressed using
+[g:SML:element]s. Property values have [g:SML:cardinality] of either
 one or many, meaning, they may be either single-valued or
 multi-valued.  Properties may be required or optional.  Properties may
 also be ``imply-only'' meaning that them may ~~not~~ be explicitly
 declared using elements, but may ~~only~~ be infered by the
-[g:sml:reasoner].
+[g:SML:reasoner].
 
-glossary:: publish {sml} = (SML) A program that converts minimally
-formatted text files into published documents
+glossary:: publish {SML} = A program that converts minimally formatted
+text files into published documents
 
 ######################################################################
 # Q
 ######################################################################
 
-glossary:: quotation {sml} = (SML) A [g:sml:region] that represents a
+glossary:: quotation {SML} = A [g:SML:region] that represents a
 quotation
 
 ######################################################################
 # R
 ######################################################################
 
-glossary:: Rich Text Format = ([ac:RTF]) the document interchange format
-used by Microsoft Word.
+glossary:: Rich Text Format = ([a:RTF]) the document interchange
+format used by Microsoft Word.
 
 ###
 
-glossary:: reasoner {sml} = (SML) A semantic reasoner, reasoning
-engine, rules engine, or simply a reasoner, is a piece of software
-able to infer logical consequences from a set of asserted facts or
-axioms. The notion of a semantic reasoner generalizes that of an
-inference engine, by providing a richer set of mechanisms to work
-with. The inference rules are commonly specified by means of an
-ontology language, and often a description language. Many reasoners
-use first-order predicate logic to perform reasoning; inference
-commonly proceeds by forward chaining and backward chaining
-[cite:wp-semantic-reasoner]
+glossary:: reasoner {SML} = A semantic reasoner, reasoning engine,
+rules engine, or simply a reasoner, is a piece of software able to
+infer logical consequences from a set of asserted facts or axioms. The
+notion of a semantic reasoner generalizes that of an inference engine,
+by providing a richer set of mechanisms to work with. The inference
+rules are commonly specified by means of an ontology language, and
+often a description language. Many reasoners use first-order predicate
+logic to perform reasoning; inference commonly proceeds by forward
+chaining and backward chaining [cite:wp-semantic-reasoner]
 
-glossary:: reference {sml} = (SML) Same as a [g:sml:source]
+glossary:: reference {SML} = Same as a [g:SML:source]
 
-glossary:: region {sml} = (SML) A [g:sml:division] that describes the
-intended ~~content~~ of the [g:sml:text].  Regions consist of a
-[g:sml:preamble] followed by an optional [g:sml:region
-narrative]. Regions ~~may~~ contain [g:sml:environment]s. Some regions
-represent [g:sml:entity]s ([g:sml:problem]s, [g:sml:solution]s,
-[g:sml:test]s, [g:sml:result]s, [g:sml:task]s, and
-[g:sml:role]s). Other common regions include [g:sml:demo],
-[g:sml:exercise], [g:sml:keypoints], [g:sml:quotation], and
-[g:sml:slide]. Contrast with [g:sml:environment]
+glossary:: region {SML} = A [g:SML:division] that describes the
+intended ~~content~~ of the [g:SML:text].  Regions consist of a
+[g:SML:preamble] followed by an optional [g:SML:region
+narrative]. Regions ~~may~~ contain [g:SML:environment]s. Some regions
+represent [g:SML:entity]s ([g:SML:problem]s, [g:SML:solution]s,
+[g:SML:test]s, [g:SML:result]s, [g:SML:task]s, and
+[g:SML:role]s). Other common regions include [g:SML:demo],
+[g:SML:exercise], [g:SML:keypoints], [g:SML:quotation], and
+[g:SML:slide]. Contrast with [g:SML:environment]
 
-glossary:: region narrative {sml} = (SML) The [g:sml:division] of a
-[a:SML] [g:sml:region] that immediately follows the [g:sml:preamble]
-and goes to the end of the [g:sml:region].  Region narratives may
-contain [g:sml:block]s, [g:sml:element]s, and [g:sml:environment]s.
-Region narratives ~~may not~~ contain [g:sml:region]s
+glossary:: region narrative {SML} = The [g:SML:division] of a [a:SML]
+[g:SML:region] that immediately follows the [g:SML:preamble] and goes
+to the end of the [g:SML:region].  Region narratives may contain
+[g:SML:block]s, [g:SML:element]s, and [g:SML:environment]s.  Region
+narratives ~~may not~~ contain [g:SML:region]s
 
-glossary:: regression test {sml} = (SML) In software maintenance, the
+glossary:: regression test {SML} = In software maintenance, the
 rerunning of test cases that previously executed correctly in order to
 detect errors introduced by the maintenance activity
 
-glossary:: release {sml} = (SML) A configuration management activity
-wherein a specific version of a software product is made available for
-use
+glossary:: release {SML} = A configuration management activity wherein
+a specific version of a software product is made available for use
 
-glossary:: requirement {sml} = (SML) A statement of needed
-organizational or system capability.  Requirements for organizational
-capability are called [g:sml:business requirement]s.  Requirements for
-system capability are called [g:sml:system requirement]s
+glossary:: requirement {SML} = A statement of needed organizational or
+system capability.  Requirements for organizational capability are
+called [g:SML:business requirement]s.  Requirements for system
+capability are called [g:SML:system requirement]s
 
-glossary:: requirements traceability matrix {sml} = (SML)
-([ac:sml:RTM]) A document or document part that provides a method for
-tracing requirements and their implementation through the development
-process
+glossary:: requirements traceability matrix {SML} = ([a:SML:RTM]) A
+document or document part that provides a method for tracing
+requirements and their implementation through the development process
 
-glossary:: result {sml} = (SML) An [g:sml:entity] that represents the
-result of a test.  A result is expressed as a [g:sml:division]
+glossary:: result {SML} = An [g:SML:entity] that represents the result
+of a test.  A result is expressed as a [g:SML:division]
 
-glossary:: revisions environment {sml} = (SML) An
-[g:sml:environment] that describes the revision history of a
-document
+glossary:: revisions environment {SML} = An [g:SML:environment] that
+describes the revision history of a document
 
-glossary:: role {sml} = (SML) A [g:sml:region] that represents the role
-of an individual, that is, a description of the individual's
+glossary:: role {SML} = A [g:SML:region] that represents the role of
+an individual, that is, a description of the individual's
 responsibilities
 
 ######################################################################
 # S
 ######################################################################
 
-glossary:: SML file {sml} = (SML) A [g:sml:file] containing [a:SML]
-formatted [g:sml:text]
+glossary:: SML file {SML} = A [g:SML:file] containing [a:SML]
+formatted [g:SML:text]
 
-glossary:: Semantic Manuscript Language {sml} = (SML) A minimalistic
-[g:sml:descriptive markup] language designed to be human readable,
-easy to edit, easy to automatically generate, able to express and
-validate semantic relationships, and contain all information necessary
-to publish professional documentation from plain text manuscripts
+glossary:: Semantic Manuscript Language {SML} = A minimalistic plain
+text [g:SML:descriptive markup] language designed to be human
+readable, easy to edit, easy to automatically generate, able to
+express and validate semantic relationships, and contain everything
+necessary to publish professional documentation from plain text
+manuscripts
 
 ###
 
-glossary:: script {sml} = (SML) An [g:sml:element] that instructs the
-SML parser to run a script and place the output into the
-document. Scripts ~~do not~~ have access to the [g:sml:library object
-model]. See also [g:sml:plugin]
+glossary:: script {SML} = An [g:SML:element] that instructs the SML
+parser to run a script and place the output into the document. Scripts
+~~do not~~ have access to the [g:SML:library object model]. See also
+[g:SML:plugin]
 
-glossary:: section {sml} = (SML) A [g:sml:division] of document
-structure that begins with a section heading and contains information
-about a specific topic.  Authors may create section headings at
-different levels to create a hierarchy of sections to organize
-document content
+glossary:: section {SML} = A [g:SML:division] of document structure
+that begins with a section heading and contains information about a
+specific topic.  Authors may create section headings at different
+levels to create a hierarchy of sections to organize document content
 
-glossary:: semantics {sml} = (SML) The set of rules that governs the
-meaning of document content. For [a:SML] these rules are defined in an
-[g:sml:ontology]
+glossary:: semantic {SML} = relating to meaning in language or logic
 
-glossary:: sidebar {sml} = (SML) An [g:sml:environment] that instructs
-the publishing application to insert its [g:sml:content] as a side bar
+glossary:: semantics {SML} = The set of rules that governs the meaning
+of document content. For [a:SML] these rules are defined in an
+[g:SML:ontology]
 
-glossary:: shall statement {sml} = (SML) A definitive statement of a
+glossary:: sidebar {SML} = An [g:SML:environment] that instructs the
+publishing application to insert its [g:SML:content] as a side bar
+
+glossary:: shall statement {SML} = A definitive statement of a
 requirement.  Requirements are meant to communicate needs between
 stakeholders and solution providers. Requirements should be easy to
 understand for users and solution providers. One common way to
 document a system requirement is stating what the system ~~shall~~
-do. See also [g:sml:use case]
+do. See also [g:SML:use case]
 
-glossary:: slide {sml} = (SML) A [g:sml:region] that describes the
-content of a presentation slide that an instructor might use to teach
-a class
+glossary:: slide {SML} = A [g:SML:region] that describes the content
+of a presentation slide that an instructor might use to teach a class
 
-glossary:: solution {sml} = (SML) A [g:sml:region] that describes the
-solution to a problem.  A solution is an [g:sml:entity]
+glossary:: solution {SML} = A [g:SML:region] that describes the
+solution to a problem.  A solution is an [g:SML:entity]
 
-glossary:: source {sml} = (SML) An [g:sml:environment] that describes a
+glossary:: source {SML} = An [g:SML:environment] that describes a
 cite-able bibliographic source
 
-glossary:: special feature {sml} = (SML) A feature that enables
-document authors to minimize the maintenance burden of updating
-documents and to automate certain document content generation
+glossary:: special feature {SML} = A feature that enables document
+authors to minimize the maintenance burden of updating documents and
+to automate certain document content generation
 
-glossary:: string {sml} = (SML) A sequence of characters. A string is
-a document [g:sml:part] consisting of [g:sml:text] that may be a
+glossary:: string {SML} = A sequence of characters. A string is a
+document [g:SML:part] consisting of [g:SML:text] that may be a
 ~~partial~~ line or may span one or more ~~whole or partial~~ lines. A
-string may span multiple [g:sml:line]s but may ~~not~~ span multiple
-[g:sml:block]s.  Some strings have special meaning like bold, italics,
+string may span multiple [g:SML:line]s but may ~~not~~ span multiple
+[g:SML:block]s.  Some strings have special meaning like bold, italics,
 underlined, fixed width, superscript, and subscript strings.  Strings
 are also used to represent cross references and other content with
 special meaning.  Strings may be nested inside other strings. The
-content of a [g:sml:block] is a string. See also [g:sml:line],
-[g:sml:block], and [g:sml:division]
+content of a [g:SML:block] is a string. See also [g:SML:line],
+[g:SML:block], and [g:SML:division]
 
-glossary:: structure {sml} = (SML) The way content is organized.  A
-type of markup feature used to ~~organize~~ [g:sml:document]
-content. For example: sentences, paragraphs, [g:sml:section]
-hierarchies, [g:sml:table]s, [g:sml:figure]s, [g:sml:listing]s
+glossary:: structure {SML} = The way content is organized.  A type of
+markup feature used to ~~organize~~ [g:SML:document] content. For
+example: sentences, paragraphs, [g:SML:section] hierarchies,
+[g:SML:table]s, [g:SML:figure]s, [g:SML:listing]s
 
-glossary:: syntax {sml} = (SML) The set of rules that defines the
+glossary:: syntax {SML} = The set of rules that defines the
 combinations of symbols that are considered to be a correctly
 structured document or fragment of a formal language
 
-glossary:: system component {sml} = (SML) Any discrete item that is
-part of a system or subsystem
+glossary:: system component {SML} = Any discrete item that is part of
+a system or subsystem
 
-glossary:: system requirement {sml} = (SML) A requirement that
-describes what a system must ~~do~~ or ~~be~~.  There are three types
-of system requirements: [g:sml:functional requirement]s,
-[g:sml:non-functional requirement]s, and [g:sml:technical
-requirement]s
+glossary:: system requirement {SML} = A requirement that describes
+what a system must ~~do~~ or ~~be~~.  There are three types of system
+requirements: [g:SML:functional requirement]s, [g:SML:non-functional
+requirement]s, and [g:SML:technical requirement]s
 
-glossary:: systems engineering {sml} = (SML) The interdisciplinary
-approach governing the total technical and managerial effort required
-to transform a set of customer needs, expectations, and constraints
-into a product solution and support that solution throughout the
-product's life. This includes the definition of technical performance
-measures, the integration of engineering specialties towards the
-establishment of a product architecture, and the definition of
-supporting life-cycle processes that balance cost, performance, and
-schedule objectives.
+glossary:: systems engineering {SML} = The interdisciplinary approach
+governing the total technical and managerial effort required to
+transform a set of customer needs, expectations, and constraints into
+a product solution and support that solution throughout the product's
+life. This includes the definition of technical performance measures,
+the integration of engineering specialties towards the establishment
+of a product architecture, and the definition of supporting life-cycle
+processes that balance cost, performance, and schedule objectives.
 
 ######################################################################
 # T
 ######################################################################
 
-glossary:: table {sml} = (SML) An [g:sml:environment] that instructs
-the publishing application to insert a table into the document.
-Tables can include titles and descriptions (i.e., captions)
+glossary:: table {SML} = An [g:SML:environment] that instructs the
+publishing application to insert a table into the document.  Tables
+can include titles and descriptions (i.e., captions)
 
-glossary:: task {sml} = (SML) A [g:sml:region] that represents a task,
-a unit of work to be performed.  A task is an [g:sml:entity]
+glossary:: task {SML} = A [g:SML:region] that represents a task, a
+unit of work to be performed.  A task is an [g:SML:entity]
 
-glossary:: technical requirement {sml} = (SML) A [g:sml:requirement]
-that describes something a [g:ieee:system] must ~~do~~ to support
-another system function.  Note the difference between a ~~technical
-requirement~~ and a ~~[g:sml:functional requirement]~~.  A ~~technical
+glossary:: technical requirement {SML} = A [g:SML:requirement] that
+describes something a [g:IEEE:system] must ~~do~~ to support another
+system function.  Note the difference between a ~~technical
+requirement~~ and a ~~[g:SML:functional requirement]~~.  A ~~technical
 requirement~~ describes what the system must do for another
-[g:ieee:system] or [g:sml:system component].  A ~~functional
+[g:IEEE:system] or [g:SML:system component].  A ~~functional
 requirement~~ describes what the system must do for a ~~user~~.
 Technical requirements begin with the phrase, ``The system shall...''
 Technical requirements may be implementation specific/dependent. See
-also DHS definition of [g:sml:system requirement].  Technical
-requirements are derived from [g:sml:functional requirement]s and
-[g:sml:non-functional requirement]s.
+also DHS definition of [g:SML:system requirement].  Technical
+requirements are derived from [g:SML:functional requirement]s and
+[g:SML:non-functional requirement]s.
 
-glossary:: template {sml} = (SML) A [g:sml:fragment] that represents a
-reusable division of document [g:sml:structure] the [g:sml:content] of
-which is filled-in via [g:sml:variable definition], [g:sml:attribute
-definition], and/or [g:sml:glossary definition] substitution
+glossary:: template {SML} = A [g:SML:fragment] that represents a
+reusable division of document [g:SML:structure] the [g:SML:content] of
+which is filled-in via [g:SML:variable definition], [g:SML:attribute
+definition], and/or [g:SML:glossary definition] substitution
 
-glossary:: test {sml} = (SML) A [g:sml:region] that describes a test, a
+glossary:: test {SML} = A [g:SML:region] that describes a test, a
 method of proving a solution solves a problem.  A test is an
-[g:sml:entity]
+[g:SML:entity]
 
-glossary:: text {sml} = (SML) A string of 7-bit ASCII encoded
-characters, any length, may contain white space characters (space,
-tab, newline).  See also [g:sml:inline], [g:sml:markup] and
-[g:sml:content]
+glossary:: text {SML} = A string of 7-bit ASCII encoded characters,
+any length, may contain white space characters (space, tab, newline).
+See also [g:SML:inline], [g:SML:markup] and [g:SML:content]
 
-glossary:: title {sml} = (SML) A [g:sml:block] that is a brief name,
-description, or heading of a [g:sml:document], [g:sml:environment],
-[g:sml:region], [g:sml:entity], or [g:sml:section]
+glossary:: title {SML} = A [g:SML:block] that is a brief name,
+description, or heading of a [g:SML:document], [g:SML:environment],
+[g:SML:region], [g:SML:entity], or [g:SML:section]
 
 ######################################################################
 # U
 ######################################################################
 
-glossary:: unit test {sml} = (SML) The lowest level of automated test,
-often called an ``assertion,'' that tests a single program function or
+glossary:: unit test {SML} = The lowest level of automated test, often
+called an ``assertion,'' that tests a single program function or
 configuration for expected success or failure
 
-glossary:: unit test case {sml} = (SML) (1) An automated, repeatable
-[g:ieee:test case] containing [g:sml:unit test]s; (2) A unit test case
+glossary:: unit test case {SML} = (1) An automated, repeatable
+[g:IEEE:test case] containing [g:SML:unit test]s; (2) A unit test case
 description file that uniquely identifies and describes a unit test
 case and serves to establish traceability between unit test cases,
 test results, configuration items, and requirements.  A unit test case
 traces to a single test result file
 
-glossary:: use case {sml} = (SML) A technique for capturing functional
+glossary:: use case {SML} = A technique for capturing functional
 requirements of business systems and, potentially, of an IT system to
 support the business system.  The use case model uses ``Actors'' and
 ``use cases.'' An Actor is the representation of a person or system
@@ -743,28 +729,12 @@ steps
 # V
 ######################################################################
 
-glossary:: variable definition {sml} = (SML) A [g:sml:definition] that
+glossary:: variable definition {SML} = A [g:SML:definition] that
 defines a key/value pair where the key is the variable name and the
 value is the definition.  Variable definitions are limited to a single
 block of text
 
-glossary:: video {sml} = (SML) An [g:sml:environment] that instructs
-the publishing application to insert a video clip into the document
-
-######################################################################
-# W
-######################################################################
-
-######################################################################
-# X
-######################################################################
-
-######################################################################
-# Y
-######################################################################
-
-######################################################################
-# Z
-######################################################################
+glossary:: video {SML} = An [g:SML:environment] that instructs the
+publishing application to insert a video clip into the document
 
 <<<RAW

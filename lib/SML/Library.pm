@@ -505,18 +505,11 @@ sub add_division {
   my $id   = $division->get_id;
   my $hash = $self->_get_division_hash;
 
-  if ( exists $hash->{$id} )
-    {
-      $logger->warn("LIBRARY ALREADY HAS DIVISION $id");
-      return 0;
-    }
+  # Replace the division if it already exists.
 
-  else
-    {
-      $hash->{$id} = $division;
+  $hash->{$id} = $division;
 
-      return 1;
-    }
+  return 1;
 }
 
 ######################################################################

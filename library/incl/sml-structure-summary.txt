@@ -81,23 +81,9 @@ index:: definition lists; lists!definition
 
 :
 
-  = term 1 = term 1 means...
-  = term 2 = term 2 means...
-  = term 3 = term 3 means...
-
----
-
-: !!Images.!! ([ref:images]) Insert an image (JPEG, GIF, or PNG) into
-a figure or anywhere in the text by pointing to the file containing
-the image.
-
-index:: images
-
-:
-
-  image:: my-image.png
-
-  image:: images/my-other-image.gif
+  = term 1 = definition of term 1...
+  = term 2 = definition of term 2...
+  = term 3 = definition of term 3...
 
 ---
 
@@ -149,6 +135,20 @@ index:: baretables
   : row 3 column 1
   : row 3 column 2
   ---
+
+---
+
+: !!Images.!! ([ref:images]) Insert an image (JPEG, GIF, or PNG) into
+a figure or anywhere in the text by pointing to the file containing
+the image.
+
+index:: images
+
+:
+
+  image:: my-image.png
+
+  image:: images/my-other-image.gif
 
 ---
 
@@ -211,11 +211,27 @@ index:: attachments
 
 ---
 
-: !!Pre-formatted.!! ([ref:preformatted-text]) ~~Simple~~ preformatted
-text is ~~indented text~~ which is rendered as verbatim
-text. ~~Fancy~~ preformatted text is a block of text that begins and
-ends with `||---preformatted||,' does not need to be indented and is
-rendered as verbatim text.
+: !!Simple Pre-formatted Text.!! ([ref:preformatted-text]) ~~Simple~~
+preformatted text is ~~indented text~~ which is rendered as verbatim
+text.  I usually use two spaces to indent pre-formatted text.
+
+index:: preformatted text
+
+:
+
+  simple
+  preformatted
+  text
+
+---
+
+: !!Fancy Pre-formatted Text.!! ([ref:preformatted-text]) ~~Fancy~~
+preformatted text is a block of text that begins with
+`||>>>PREFORMATTED||' and ends with `||<<<PREFORMATTED||.'
+Pre-formatted text divisions do not need to be indented and will be
+rendered as verbatim text.  If you want your pre-formatted text to
+have a number, caption, and/or description, then you want a listing
+(See [ref:listings]) instead of a pre-formatted text division.
 
 index:: preformatted text
 
@@ -223,7 +239,7 @@ index:: preformatted text
 
   >>>PREFORMATTED
 
-  some
+  fancy
     preformatted
       text...
 
@@ -335,9 +351,23 @@ index:: sidebars
 
 ---
 
-: !!Glossary.!! ([ref:building-a-glossary]) The presence of glossary
-entries result in the generation of an alphabetical glossary inserted
-at the end of the document.
+: !!Acronym Entries.!! ([ref:acronyms-list]) The presence of acronym
+entries result in the generation of an alphabetical list of acronyms
+inserted at the end of the document.
+
+index:: acronyms
+
+:
+
+  What does [a:TLA] mean?
+
+  acronym:: TLA = Three Letter Acronym
+
+---
+
+: !!Glossary Entries.!! ([ref:building-a-glossary]) The presence of
+glossary entries result in the generation of an alphabetical glossary
+inserted at the end of the document.
 
 index:: glossary
 
@@ -349,9 +379,9 @@ index:: glossary
 
 ---
 
-: !!Index.!! ([ref:building-an-index]) The presence of index entries
-result in the generation of an alphabetical index inserted at the end
-of the document.
+: !!Index Entries.!! ([ref:building-an-index]) The presence of index
+entries result in the generation of an alphabetical index inserted at
+the end of the document.
 
 index:: index; gophers
 

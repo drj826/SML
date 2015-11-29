@@ -10,6 +10,16 @@
 <br/>
 <br/>
 
+[%- IF document.has_property('logo_image_center') -%]
+<div align="center">
+[%- SET property = document.get_property('logo_image_center') -%]
+[%- FOREACH image IN property.get_element_list -%]
+[%- INCLUDE image.tt self = image -%]
+[%- END -%]
+<br/><br/>
+</div>
+[%- END -%]
+
 <hr align="center" noshade size="4" width="60%">
 <div class="title">
 [% IF document.has_property('title') %]

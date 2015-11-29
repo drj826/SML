@@ -1,3 +1,4 @@
+[%- SET id = self.get_id -%]
 [%- SET style = '' -%]
 
 [%- IF self.has_justification -%]
@@ -10,11 +11,11 @@
 
 
 [%- IF self.has_emphasis -%]
-<td style="[%style%]">
+<td style="[%style%]" id="[%id%]">
 <b>[%- INCLUDE part_list.tt -%]</b>
 </td>
 [%- ELSE -%]
-<td style="[%style%]">
+<td style="[%style%]" id="[%id%]">
 [%- INCLUDE part_list.tt -%]
 </td>
 [%- END -%]

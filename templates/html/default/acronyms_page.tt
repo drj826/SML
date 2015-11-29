@@ -44,6 +44,9 @@
 <td style="background-color:[%bgcolor%]">
 [%- INCLUDE STRING.tt self = entry.get_definition_string -%]
 </td>
+<td style="width:6%;background-color:[%bgcolor%];">
+[%- entry.get_namespace -%]
+</td>
 </tr>
 
 [%- END -%]

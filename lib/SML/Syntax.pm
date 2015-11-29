@@ -979,7 +979,7 @@ has plugin_element =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(\*+\s+)?plugin::([\w\-\*\$]+:)*\s+(\S+?)\s+(.*)?$',
+   default => '^(\*+\s+)?plugin::([\w\-\*\$]+:)*\s*(\S+)?\s*(.*)?$',
    #            1                2                 3        4
   );
 
@@ -1009,13 +1009,13 @@ has script_element =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^script::(\S+?:)?\s*(.*?)\s*(\#(.*))?$',
+   default => '^(\*+\s+)?script::(\S+?:)?\s*(.*?)$',
+   #            1                2          3
   );
 
-# $1 = option
-# $2 = filespec
-# $3
-# $4 = comment text
+# $1 = leading asterisks
+# $2 = args
+# $3 = command
 
 ######################################################################
 
@@ -1083,7 +1083,7 @@ has image_element =>
    default => '^(image|logo_image_(left|center|right|small))::\s*(.*?)\s*(\#(.*))?\s*$',
   );
 
-# $1 = image type
+# $1 = element_name
 # $2
 # $3 = filespec
 # $4

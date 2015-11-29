@@ -39,7 +39,7 @@
     [%- SET docid = document.get_id -%]
     [%- SET section = division.get_containing_section -%]
     [%- SET secnum = section.get_number -%]
-<b>[%ucfname%]&nbsp;[%number%]</b>&nbsp;&nbsp;<a href="[%docid%].[%secnum%].html#[%name%].[%number%]">[%- INCLUDE property.tt property = division.get_property('title') -%]</a>&nbsp;&nbsp;
+<b>[%ucfname%]&nbsp;[%number%]</b>&nbsp;&nbsp;<a href="[%docid%].[%secnum%].html#[%locator%]">[%- INCLUDE property.tt property = division.get_property('title') -%]</a>&nbsp;&nbsp;
   [%- END -%]
 </div>
 </td>
@@ -61,7 +61,7 @@
         [%- SET docid = document.get_id -%]
         [%- SET section = division.get_containing_section -%]
         [%- SET secnum = section.get_number -%]
-<b>[%ucfname%]&nbsp;[%number%]</b>&nbsp;&nbsp;<a href="[%docid%].[%secnum%].html#[%name%].[%number%]">[%- INCLUDE property.tt property = division.get_property('title') -%]</a>&nbsp;&nbsp;
+<b>[%ucfname%]&nbsp;[%number%]</b>&nbsp;&nbsp;<a href="[%docid%].[%secnum%].html#[%locator%]">[%- INCLUDE property.tt property = division.get_property('title') -%]</a>&nbsp;&nbsp;
       [%- END -%]
 </div>
 </td>
@@ -83,7 +83,7 @@
             [%- SET docid = document.get_id -%]
             [%- SET section = division.get_containing_section -%]
             [%- SET secnum = section.get_number -%]
-<b>[%ucfname%]&nbsp;[%number%]</b>&nbsp;&nbsp;<a href="[%docid%].[%secnum%].html#[%name%].[%number%]">[%- INCLUDE property.tt property = division.get_property('title') -%]</a>&nbsp;&nbsp;
+<b>[%ucfname%]&nbsp;[%number%]</b>&nbsp;&nbsp;<a href="[%docid%].[%secnum%].html#[%locator%]">[%- INCLUDE property.tt property = division.get_property('title') -%]</a>&nbsp;&nbsp;
           [%- END -%]
 </div>
 </td>

@@ -1,1 +1,1 @@
-[% INCLUDE part_list.tt self = document -%]
+[% INCLUDE part_list.tt -%]

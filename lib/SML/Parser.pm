@@ -158,7 +158,8 @@ sub parse {
     {
       # line-oriented processing
       $self->_resolve_includes  while $self->_contains_include;
-      $self->_run_scripts       while $self->_contains_script;
+      $self->_resolve_plugins   while $self->_contains_plugin;
+      $self->_resolve_scripts   while $self->_contains_script;
 
       # parse lines into blocks and divisions
       $self->_parse_lines;
@@ -1896,7 +1897,6 @@ sub _resolve_includes {
     {
       my $text = $old_line->get_content;
 
-      # process comment markers
       if ( $text =~ /$syntax->{start_division}/ and $1 eq 'COMMENT' )
 	{
 	  $in_comment = 1;
@@ -1911,14 +1911,12 @@ sub _resolve_includes {
 	  next LINE;
 	}
 
-      # keep lines in comments as-is
       elsif ( $in_comment )
 	{
 	  push @{ $new_line_list }, $old_line;
 	  next LINE;
 	}
 
-      # keep comment lines as-is
       elsif ( $text =~ /$syntax->{comment_line}/ )
 	{
 	  push @{ $new_line_list }, $old_line;
@@ -1928,7 +1926,29 @@ sub _resolve_includes {
       # resolve include line into replacement lines
       elsif ( $text =~ /$syntax->{include_element}/ )
 	{
-	  my $repl_line_list = $self->_resolve_include_line($old_line,$depth,$1,$2,$3,$4,$5);
+	  # $1 = leading asterisks
+	  # $2 = args
+	  # $3 = division ID
+	  # $4
+	  # $5 = comment text
+
+	  my $leading_asterisks = $1 || q{};
+	  my $args              = $2 || q{};
+	  my $included_id       = $3;
+	  my $ignore            = $4 || q{};
+	  my $comment_text      = $5 || q{};
+
+	  my $repl_line_list = $self->_resolve_include_line
+	    (
+	     $old_line,
+	     $depth,
+	     $leading_asterisks,
+	     $args,
+	     $included_id,
+	     $ignore,
+	     $comment_text,
+	    );
+
 	  foreach my $repl_line (@{ $repl_line_list })
 	    {
 	      push @{ $new_line_list }, $repl_line;
@@ -1959,28 +1979,21 @@ sub _resolve_includes {
 
 ######################################################################
 
-sub _run_scripts {
-
-  # Scan lines, replace 'script' requests with script outputs.
+sub _resolve_plugins {
 
   my $self = shift;
 
+  my $count_method   = $self->_get_count_method_hash;
+  my $count          = ++ $count_method->{'_resolve_plugins'};
   my $library        = $self->get_library;
   my $syntax         = $library->get_syntax;
   my $util           = $library->get_util;
-  my $count_method   = $self->_get_count_method_hash;
-  my $newlines       = [];
-  my $oldlines       = $self->_get_line_list;
-  my $gen_content    = $self->_get_gen_content_hash;
   my $options        = $util->get_options;
-  my $glossary       = $library->get_glossary;
-  my $max_iterations = $options->get_MAX_RUN_SCRIPTS;
-  my $count          = ++ $count_method->{'_run_scripts'};
-  my $in_comment     = 0;
+  my $max_iterations = $options->get_MAX_RESOLVE_PLUGINS;
 
-  $logger->info("($count) run scripts");
+  $logger->info("($count) resolve plugins");
 
-  return if not $options->run_scripts;
+  return if not $options->resolve_plugins;
 
   if ( $count > $max_iterations )
     {
@@ -1988,35 +2001,253 @@ sub _run_scripts {
       $logger->logcroak("$msg");
     }
 
- LINE:
-  foreach my $line (@{ $oldlines })
-    {
-      my $file = $line->get_file;
-      my $num  = $line->get_num;
-      my $text = $line->get_content;
+  my $in_comment     = 0;
+  my $depth          = 1;
+  my $new_line_list  = [];
+  my $old_line_list  = $self->_get_line_list;
 
-      #---------------------------------------------------------------
-      # Ignore comments
-      #
+ LINE:
+  foreach my $old_line (@{ $old_line_list })
+    {
+      my $text = $old_line->get_content;
+
       if ( $text =~ /$syntax->{start_division}/ and $1 eq 'COMMENT' )
 	{
 	  $in_comment = 1;
+	  push @{ $new_line_list }, $old_line;
 	  next LINE;
 	}
 
       elsif ( $text =~ /$syntax->{end_division}/ and $1 eq 'COMMENT' )
 	{
 	  $in_comment = 0;
+	  push @{ $new_line_list }, $old_line;
 	  next LINE;
 	}
 
       elsif ( $in_comment )
 	{
+	  push @{ $new_line_list }, $old_line;
 	  next LINE;
 	}
 
       elsif ( $text =~ /$syntax->{'comment_line'}/ )
 	{
+	  push @{ $new_line_list }, $old_line;
+	  next LINE;
+	}
+
+      # !!! BUG HERE !!!
+      #
+      # Should the 'plugin' feature be subject to conditional text?
+      # In other words, should the parser run a script if its in a
+      # division that is conditionally ignored?
+
+      # resolve plugin line into replacement lines
+      elsif ( $text =~ /$syntax->{plugin_element}/ )
+	{
+	  # $1 = leading asterisks
+	  # $2 = args
+	  # $3 = plugin name
+	  # $4 = plugin arguments
+
+	  my $leading_asterisks = $1 || q{};
+	  my $args              = $2 || q{};
+	  my $plugin            = $3;
+	  my $plugin_args       = $4 || q{};
+
+	  my $plugin_line_list = $self->_run_plugin
+	    (
+	     $old_line,
+	     $depth,
+	     $leading_asterisks,
+	     $args,
+	     $plugin,
+	     $plugin_args
+	    );
+
+	  foreach my $new_line (@{ $plugin_line_list })
+	    {
+	      push @{ $new_line_list }, $new_line;
+	    }
+
+	  next LINE;
+	}
+
+      # track current section depth
+      elsif ( $text =~ /$syntax->{start_section}/ )
+	{
+	  $depth = length($1);
+	  push @{ $new_line_list }, $old_line;
+	  next LINE;
+	}
+
+      # nothing special about this line
+      else
+	{
+	  push @{ $new_line_list }, $old_line;
+	  next LINE;
+	}
+    }
+
+  $self->_set_line_list($new_line_list);
+
+  return 1;
+}
+
+######################################################################
+
+sub _run_plugin {
+
+  my $self              = shift;
+  my $old_line          = shift;        # old line begin replaced
+  my $depth             = shift;        # current section depth
+  my $leading_asterisks = shift;        # desired section depth
+  my $args              = shift;        # element arguments
+  my $plugin            = shift;
+  my $plugin_args       = shift;
+
+  $logger->info("  $plugin $plugin_args");
+
+  my $library     = $self->get_library;
+  my $plugins_dir = $library->get_plugins_dir;
+  my $perl_module = "$plugins_dir/$plugin.pm";
+
+  if ( not -f $perl_module )
+    {
+      $logger->error("NO PLUGIN CALLED $plugin");
+      return 0;
+    }
+
+  require $perl_module;
+
+  my $document;
+
+  if ( $self->_has_current_document )
+    {
+      $document = $self->_get_current_document;
+    }
+
+  my $object = $plugin->new
+    (
+     library  => $library,
+     document => $document,
+     args     => $plugin_args,
+    );
+
+  my $raw_line_list = $object->render;  # list of raw text lines
+  my $line_list     = [];               # list of line objects
+
+  foreach my $raw_line (@{ $raw_line_list })
+    {
+      my $newline = SML::Line->new
+	(
+	 file    => $old_line->get_file,
+	 num     => $old_line->get_num,
+	 content => $raw_line,
+	);
+
+      push(@{$line_list},$newline);
+    }
+
+  return $line_list;
+}
+
+######################################################################
+
+sub _run_script {
+
+  my $self              = shift;
+  my $old_line          = shift;        # old line being replaced
+  my $depth             = shift;        # current section depth
+  my $leading_asterisks = shift;        # desired section depth
+  my $args              = shift;        # element arguments
+  my $command           = shift;        # script command to execute
+
+  $logger->info("  $command");
+
+  if ($^O eq 'MSWin32')
+    {
+      $command =~ s/\//\\/g;
+    }
+
+  my @output = eval { `"$command"` };
+
+  my $line_list = [];
+
+  foreach my $raw_line ( @output )
+    {
+      my $line = SML::Line->new
+	(
+	 file    => $old_line->get_file,
+	 num     => $old_line->get_num,
+	 content => $raw_line,
+	);
+      push @{ $line_list }, $line;
+    }
+
+  return $line_list;
+}
+
+######################################################################
+
+sub _resolve_scripts {
+
+  # Scan lines, replace 'script' requests with script outputs.
+
+  my $self = shift;
+
+  my $count_method   = $self->_get_count_method_hash;
+  my $count          = ++ $count_method->{'_resolve_scripts'};
+  my $library        = $self->get_library;
+  my $syntax         = $library->get_syntax;
+  my $util           = $library->get_util;
+  my $options        = $util->get_options;
+  my $max_iterations = $options->get_MAX_RESOLVE_SCRIPTS;
+
+  $logger->info("($count) resolve scripts");
+
+  return if not $options->resolve_scripts;
+
+  if ( $count > $max_iterations )
+    {
+      my $msg = "EXCEEDED MAX ITERATIONS ($max_iterations)";
+      $logger->logcroak("$msg");
+    }
+
+  my $in_comment     = 0;
+  my $depth          = 1;
+  my $old_line_list  = $self->_get_line_list;
+  my $new_line_list  = [];
+
+ LINE:
+  foreach my $old_line (@{ $old_line_list })
+    {
+      my $text = $old_line->get_content;
+
+      if ( $text =~ /$syntax->{start_division}/ and $1 eq 'COMMENT' )
+	{
+	  $in_comment = 1;
+	  push @{ $new_line_list }, $old_line;
+	  next LINE;
+	}
+
+      elsif ( $text =~ /$syntax->{end_division}/ and $1 eq 'COMMENT' )
+	{
+	  $in_comment = 0;
+	  push @{ $new_line_list }, $old_line;
+	  next LINE;
+	}
+
+      elsif ( $in_comment )
+	{
+	  push @{ $new_line_list }, $old_line;
+	  next LINE;
+	}
+
+      elsif ( $text =~ /$syntax->{'comment_line'}/ )
+	{
+	  push @{ $new_line_list }, $old_line;
 	  next LINE;
 	}
 
@@ -2026,54 +2257,43 @@ sub _run_scripts {
       # In other words, should the parser run a script if its in a
       # division that is conditionally ignored?
 
-      #---------------------------------------------------------------
-      # script:
-      #
+      # resolve script line into replacement lines
       elsif ( $text =~ /$syntax->{script_element}/ )
 	{
-	  my $script_attr1 = $1 || '';
-	  my $command      = $2;
-	  my @output       = ();
+	  # $1 = leading asterisks
+	  # $2 = args
+	  # $3 = command
 
-	  $logger->info("    $command");
+	  my $leading_asterisks = $1 || q{};
+	  my $args              = $2 || q{};
+	  my $command           = $3;
 
-	  if ($^O eq 'MSWin32')
+	  my $script_line_list = $self->_run_script
+	    (
+	     $old_line,
+	     $depth,
+	     $leading_asterisks,
+	     $args,
+	     $command,
+	    );
+
+	  foreach my $new_line (@{ $script_line_list })
 	    {
-	      $command =~ s/\//\\/g;
+	      push @{ $new_line_list }, $new_line;
 	    }
 
-	  @output = eval { `"$command"` };
-
-	  if ( $script_attr1 eq 'hide:' )
-	    {
-	      next LINE;
-	    }
-	  else
-	    {
-	      foreach my $text (@output)
-		{
-		  my $newline = SML::Line->new
-		    (
-		     file    => $file,
-		     num     => $num,
-		     content => $text,
-		    );
-		  push @{ $newlines }, $newline;
-		}
-	      next LINE;
-	    }
+	  next LINE;
 	}
 
-      #---------------------------------------------------------------
-      # no script statement on this line
-      #
+      # nothing special about this line
       else
 	{
-	  push @{ $newlines }, $line;
+	  push @{ $new_line_list }, $old_line;
+	  next LINE;
 	}
     }
 
-  $self->_set_line_list($newlines);
+  $self->_set_line_list($new_line_list);
 
   return 1;
 }
@@ -2239,7 +2459,8 @@ sub _parse_lines {
 
       elsif ( $text =~ /$syntax->{image_element}/ )
 	{
-	  $self->_process_start_image_element($line);
+	  # $1 = element name
+	  $self->_process_start_image_element($line,$1);
 	}
 
       elsif ( $text =~ /$syntax->{element}/ )
@@ -2334,7 +2555,12 @@ sub _process_segment_separator_line {
   $logger->trace("----- segment separator");
 
   # new preformatted block
-  my $block = SML::PreformattedBlock->new(name=>$name,library=>$library);
+  my $block = SML::PreformattedBlock->new
+    (
+     name    => $name,
+     library => $library,
+    );
+
   $block->add_line($line);
   $self->_begin_block($block);
 
@@ -2820,10 +3046,10 @@ sub _insert_content {
   my $library        = $self->get_library;
   my $syntax         = $library->get_syntax;
   my $util           = $library->get_util;
-  my $newlines       = [];
+  my $new_line_list       = [];
   my $division       = $self->_get_division;
   my $count_method   = $self->_get_count_method_hash;
-  my $oldlines       = $self->_get_line_list;
+  my $old_line_list       = $self->_get_line_list;
   my $gen_content    = $self->_get_gen_content_hash;
   my $options        = $util->get_options;
   my $glossary       = $library->get_glossary;
@@ -2839,7 +3065,7 @@ sub _insert_content {
     }
 
  LINE:
-  foreach my $line (@{ $oldlines })
+  foreach my $line (@{ $old_line_list })
     {
       my $text     = $line->get_content;
       my $location = $line->get_location;
@@ -2868,7 +3094,7 @@ sub _insert_content {
 		 content       => $text,
 		);
 
-	      push @{ $newlines }, $newline;
+	      push @{ $new_line_list }, $newline;
 
 	      next LINE;
 	    }
@@ -2888,7 +3114,7 @@ sub _insert_content {
 		 content       => "insert_ins:: $name;$id;$options\n",
 		);
 
-	      push @{ $newlines }, $newline;
+	      push @{ $new_line_list }, $newline;
 
 	      next LINE;
 	    }
@@ -2911,7 +3137,7 @@ sub _insert_content {
 	    $replacement_lines = $library->get_data_segment_line_list($id);
 	    foreach my $newline (@{ $replacement_lines })
 	      {
-		push @{ $newlines }, $newline;
+		push @{ $new_line_list }, $newline;
 	      }
 	  }
 
@@ -2920,7 +3146,7 @@ sub _insert_content {
 	    $replacement_lines = $library->get_narrative_line_list($id);
 	    foreach my $newline (@{ $replacement_lines })
 	      {
-		push @{ $newlines }, $newline;
+		push @{ $new_line_list }, $newline;
 	      }
 	  }
 
@@ -2937,7 +3163,7 @@ sub _insert_content {
 	       included_from => $line,
 	       content       => "$replacement_text\n",
 	      );
-	    push @{ $newlines }, $newline;
+	    push @{ $new_line_list }, $newline;
 	  }
 
 	else
@@ -2970,7 +3196,7 @@ sub _insert_content {
 	       included_from => $line,
 	       content       => "$newtext\n",
 	      );
-	    push @{ $newlines }, $newline;
+	    push @{ $new_line_list }, $newline;
 	  }
 
 	next LINE;
@@ -2980,12 +3206,12 @@ sub _insert_content {
     # no insert statement on this line
     #
     else {
-      push @{ $newlines }, $line;
+      push @{ $new_line_list }, $line;
     }
   }
 
   $self->_set_requires_processing(1);
-  $self->_set_line_list($newlines);
+  $self->_set_line_list($new_line_list);
 
   return 1;
 }
@@ -3143,8 +3369,8 @@ sub _resolve_templates {
   my $util           = $library->get_util;
   my $division       = $self->_get_division;
   my $count_method   = $self->_get_count_method_hash;
-  my $newlines       = [];
-  my $oldlines       = $self->_get_line_list;
+  my $new_line_list       = [];
+  my $old_line_list       = $self->_get_line_list;
   my $options        = $util->get_options;
   my $max_iterations = $options->get_MAX_RESOLVE_TEMPLATES;
   my $count          = ++ $count_method->{'_resolve_templates'};
@@ -3159,7 +3385,7 @@ sub _resolve_templates {
     }
 
  LINE:
-  foreach my $line ( @{ $oldlines } )
+  foreach my $line ( @{ $old_line_list } )
     {
       my $num  = $line->get_num;        # line number in file
       my $text = $line->get_content;    # line content
@@ -3253,18 +3479,18 @@ sub _resolve_templates {
 		 num     => $num,
 		 content => "$newlinetext\n",
 		);
-	      push @{ $newlines }, $newline;
+	      push @{ $new_line_list }, $newline;
 	    }
 	  next LINE;
 	}
       else
 	{
-	  push @{ $newlines }, $line;
+	  push @{ $new_line_list }, $line;
 	}
     }
 
   $self->_set_requires_processing(1);
-  $self->_set_line_list($newlines);
+  $self->_set_line_list($new_line_list);
 
   return 1;
 }
@@ -3284,9 +3510,9 @@ sub _generate_content {
   my $count_method   = $self->_get_count_method_hash;
   my $to_be_gen      = $self->_get_to_be_gen_hash;
   my $gen_content    = $self->_get_gen_content_hash;
-  my $oldlines       = $self->_get_line_list;
+  my $old_line_list       = $self->_get_line_list;
   my $options        = $util->get_options;
-  my $newlines       = [];
+  my $new_line_list       = [];
   my $max_iterations = $options->get_MAX_GENERATE_CONTENT;
   my $count          = ++ $count_method->{'_generate_content'};
   my $divid          = '';
@@ -3301,7 +3527,7 @@ sub _generate_content {
     }
 
  LINE:
-  foreach my $line (@{ $oldlines })
+  foreach my $line (@{ $old_line_list })
     {
       my $text = $line->get_content;    # line content
 
@@ -3337,17 +3563,17 @@ sub _generate_content {
 	     content  => "insert_gen:: $name;$divid;$args",
 	    );
 
-	  push(@{ $newlines }, $newline);
+	  push(@{ $new_line_list }, $newline);
 	}
 
       else
 	{
-	  push(@{ $newlines }, $line);
+	  push(@{ $new_line_list }, $line);
 	}
     }
 
   $self->_set_requires_processing(1);
-  $self->_set_line_list($newlines);
+  $self->_set_line_list($new_line_list);
 
   #-------------------------------------------------------------------
   # If there is content to be generated, do it now.
@@ -3890,6 +4116,64 @@ sub _contains_script {
 
 ######################################################################
 
+sub _contains_plugin {
+
+  # This method MUST parse line-by-line (rather than block-by-block or
+  # element-by-element) because it is called BEFORE _parse_lines
+  # builds arrays of blocks and elements.
+
+  my $self = shift;
+
+  my $library    = $self->get_library;
+  my $syntax     = $library->get_syntax;
+  my $in_comment = 0;
+
+ LINE:
+  foreach my $line ( @{ $self->_get_line_list } )
+    {
+      my $text = $line->get_content;
+
+      $text =~ s/[\r\n]*$//;            # chomp;
+
+      #---------------------------------------------------------------
+      # Ignore comments
+      #
+      if ( $text =~ /$syntax->{start_division}/ and $1 eq 'COMMENT' )
+	{
+	  $in_comment = 1;
+	  next LINE;
+	}
+
+      elsif ( $text =~ /$syntax->{end_division}/ and $1 eq 'COMMENT' )
+	{
+	  $in_comment = 0;
+	  next LINE;
+	}
+
+      elsif ( $in_comment )
+	{
+	  next LINE;
+	}
+
+      elsif ( $text =~ /$syntax->{comment_line}/ )
+	{
+	  next LINE;
+	}
+
+      #---------------------------------------------------------------
+      # Plugin element
+      #
+      elsif ( $text =~ /$syntax->{plugin_element}/ )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
 sub _contains_insert {
 
   my $self = shift;
@@ -4065,30 +4349,24 @@ sub _text_requires_processing {
     {
       my $text = $element->get_content;
 
-      if ( $text =~ /$syntax->{include_element}/ )
-	{
-	  return 1;
-	}
-
-      elsif ( $text =~ /$syntax->{script_element}/ )
-	{
-	  return 1;
-	}
-
-      elsif (   $text =~ /$syntax->{'insert_element'}/
-	     or $text =~ /$syntax->{'insert_ins_element'}/
-	     or $text =~ /$syntax->{'insert_gen_element'}/
-	    )
-	{
-	  return 1;
-	}
-
-      elsif ( $text =~ /^template::/ )
-	{
-	  return 1;
-	}
-
-      elsif ( $text =~ /$syntax->{generate_element}/ )
+      if
+	(
+	 $text =~ /$syntax->{include_element}/
+	 or
+	 $text =~ /$syntax->{script_element}/
+	 or
+	 $text =~ /$syntax->{plugin_element}/
+	 or
+	 $text =~ /$syntax->{insert_element}/
+	 or
+	 $text =~ /$syntax->{insert_ins_element}/
+	 or
+	 $text =~ /$syntax->{insert_gen_element}/
+	 or
+	 $text =~ /$syntax->{template_element}/
+	 or
+	 $text =~ /$syntax->{generate_element}/
+	)
 	{
 	  return 1;
 	}
@@ -4106,21 +4384,14 @@ sub _text_requires_processing {
 
       my $text = $block->get_content;
 
-      next if $text =~ /$syntax->{'comment_line'}/;
+      next if $text =~ /$syntax->{comment_line}/;
 
-      if ( $text =~ /$syntax->{variable_ref}/ )
-	{
-	  return 1;
-	}
-
-      elsif ( $text =~ /$syntax->{lookup_ref}/ )
-	{
-	  return 1;
-	}
-
-      elsif (   $text =~ /^(-){3,}template/
-	     or $text =~ /^(\.){3,}template/
-	 )
+      if
+	(
+	 $text =~ /$syntax->{variable_ref}/
+	 or
+	 $text =~ /$syntax->{lookup_ref}/
+	)
 	{
 	  return 1;
 	}
@@ -5146,40 +5417,40 @@ sub _divname_for {
 
 ######################################################################
 
-sub _region_tag {
+# sub _region_tag {
 
-  # Create and return a region begin or end tag line.
+#   # Create and return a region begin or end tag line.
 
-  my $self   = shift;                   # SML::Parser object
-  my $type   = shift;                   # string (begin or end)
-  my $region = shift;                   # string
-  my $file   = shift;                   # file file for warnings
-  my $num    = shift;                   # line number
+#   my $self   = shift;                   # SML::Parser object
+#   my $type   = shift;                   # string (begin or end)
+#   my $region = shift;                   # string
+#   my $file   = shift;                   # file file for warnings
+#   my $num    = shift;                   # line number
 
-  my $tag = '';
+#   my $tag = '';
 
-  if ( $type eq 'begin' )
-    {
-      $tag = ">>>$region\n\n";
-    }
-  elsif ( $type eq 'end' )
-    {
-      $tag = "<<<$region\n\n";
-    }
-  else
-    {
-      ERROR "tag type $type is not begin or end";
-    }
+#   if ( $type eq 'begin' )
+#     {
+#       $tag = ">>>$region\n\n";
+#     }
+#   elsif ( $type eq 'end' )
+#     {
+#       $tag = "<<<$region\n\n";
+#     }
+#   else
+#     {
+#       ERROR "tag type $type is not begin or end";
+#     }
 
-  my $line = SML::Line->new
-    (
-     file    => $file,
-     num     => $num,
-     content => "$tag",
-    );
+#   my $line = SML::Line->new
+#     (
+#      file    => $file,
+#      num     => $num,
+#      content => "$tag",
+#     );
 
-  return $line;
-}
+#   return $line;
+# }
 
 ######################################################################
 
@@ -5541,6 +5812,17 @@ sub _process_start_division_marker {
   $division->add_part($block);
   $self->_begin_division($division);
 
+  if ( $name eq 'PREFORMATTED' )
+    {
+      my $block = SML::PreformattedBlock->new
+	(
+	 library => $library,
+	);
+
+      $self->_begin_block($block);
+      $division->add_part($block);
+    }
+
   return 1;
 }
 
@@ -5795,8 +6077,6 @@ sub _process_start_element {
     )
     {
       $logger->trace("..... UNIVERSAL element in DATA SEGMENT");
-
-      # $self->_end_data_segment;
 
       my $division = $self->_get_current_division;
       $division->add_part($element);
@@ -6867,6 +7147,7 @@ sub _process_start_image_element {
 
   my $self = shift;
   my $line = shift;
+  my $name = shift;
 
   my $library = $self->get_library;
 
@@ -6874,7 +7155,11 @@ sub _process_start_image_element {
 
   if ( $self->_in_preformatted_division )
     {
-      my $block = SML::PreformattedBlock->new(library=>$library);
+      my $block = SML::PreformattedBlock->new
+	(
+	 library => $library,
+	);
+
       $block->add_line($line);
       $self->_begin_block($block);
 
@@ -6888,6 +7173,7 @@ sub _process_start_image_element {
 
       my $image = SML::Image->new
 	(
+	 name    => $name,
 	 library => $library,
 	);
 
@@ -6896,6 +7182,7 @@ sub _process_start_image_element {
 
       my $division = $self->_get_current_division;
       $division->add_part($image);
+      $division->add_property_element($image);
     }
 
   return 1;
@@ -8192,10 +8479,6 @@ sub _process_paragraph_text {
 
   $logger->trace("----- paragraph text");
 
-  # $self->_end_all_lists       if $self->_in_bullet_list;
-  # $self->_end_all_lists       if $self->_in_enumerated_list;
-  # $self->_end_definition_list if $self->_in_definition_list;
-
   if ( $self->_in_paragraph )
     {
       $logger->trace("..... continue paragraph");
@@ -8214,6 +8497,8 @@ sub _process_paragraph_text {
     {
       if ( $self->_has_block )
 	{
+	  $logger->trace("..... continue preformatted block");
+
 	  my $block = $self->_get_block;
 	  $block->add_line($line);
 	}
@@ -9905,20 +10190,17 @@ sub _toggle_boolean {
 
 sub _resolve_include_line {
 
-  my $self  = shift;
-  my $line  = shift;                    # include line being resolved
-  my $depth = shift;                    # current section depth
-  my $one   = shift;                    # leading asterisks
-  my $two   = shift;                    # args
-  my $three = shift;                    # included ID
-  my $four  = shift;                    # not used
-  my $five  = shift;                    # comment text
+  my $self         = shift;
+  my $line         = shift;             # include line being resolved
+  my $depth        = shift;             # current section depth
+  my $asterisks    = shift;             # leading asterisks
+  my $args         = shift;             # args
+  my $included_id  = shift;             # included ID
+  my $ignore       = shift;             # not used
+  my $comment_text = shift;             # comment text
 
   my $library = $self->get_library;
 
-  my $asterisks      = $one || '';      # desired section depth
-  my $args           = $two || '';      # arguments
-  my $included_id    = $three;          # ID of included division
   my $repl_line_list = [];              # replacement line list
 
   # get list of lines to include

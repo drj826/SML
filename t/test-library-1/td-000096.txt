@@ -1,0 +1,26 @@
+>>>DOCUMENT.td-000096
+
+title:: Pre-Formatted Division Test
+
+* Introduction
+
+This is a test of a pre-formatted division.
+
+>>>PREFORMATTED
+
++---------------------------------------------------------+
+|                                                         |
+|                         ---                             |
+|                       /     \                           |
+|                      (  * *  )                          |
+|                       |  ^  |                           |
+|                       |  o  |                           |
+|                        \___/                            |
+|                                                         |
+|                     Monkey Boy                          |
+|                                                         |
++---------------------------------------------------------+
+
+<<<PREFORMATTED
+
+<<<DOCUMENT

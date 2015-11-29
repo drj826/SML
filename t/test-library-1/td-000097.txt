@@ -1,0 +1,12 @@
+>>>DOCUMENT.td-000097
+
+title:: Plugin Test 1
+
+* Introduction
+
+This document tests the SML plugin feature.  The plugin `TestPlugin1'
+simply identifies the library of which this document is a part.
+
+plugin:: TestPlugin1
+
+<<<DOCUMENT

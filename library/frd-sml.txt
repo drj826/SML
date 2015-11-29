@@ -22,8 +22,6 @@ date:: $Date: 2013-07-07 09:35:23 -0600 (Sun, 07 Jul 2013) $
 
 use_formal_status:: 1
 
-# [#v:tmpl/item-summary.txt:6530]
-
 >>>REVISIONS
 
 rev:: 0.5 = 2012-03-25 = Added rq-000201 "Validate Allowed Entity
@@ -50,35 +48,40 @@ rev:: 0.1 = 2011-04-08 = Initial draft.
 
 type:: chapter
 
-This is the Functional Requirements Document (FRD) for a ~~structured
-manuscript data format~~.  The required data format will be used to
-represent book, article, and report manuscripts that will be published
-to multiple document renditions by a publishing application.
+This is the [a:SML:FRD] for the [a:SML] data format.  The required
+data format will be used to represent book, article, and report
+manuscripts that will be published to multiple document renditions by
+a publishing application.
 
 Intended applications of this data format include: (1) requirements
 documentation, (2) design documentation, (3) test documentation, (4)
 training documentation, and (5) project plans.
 
 The overarching purpose of the data format is to enable authors to
-create modular, re-usable documents and document fragments they can
-automatically publish to multiple different renditions.  Authors
-shouldn't have to re-write the same information twice.  Therefore they
-need the capability to combine and re-use fragments of documents to
-create whole documents.
+create readable, modular, re-usable documents and document fragments
+they can automatically publish to multiple different renditions.
+Authors shouldn't have to re-write the same information twice.
+Therefore they need the capability to combine and re-use fragments of
+documents to create whole documents.
 
-Why call it a ``structured manuscript'' data format?
+Why call it a [acl:SML] data format?
 
-The term ~~structured~~ implies information can be modularly organized
-and can contain predefined relationships.
+The term [g:SML:manuscript] implies that I intend authors to use the
+language to manually capture their ideas in an original form that can
+be processed and published in a variety of ways.
 
-A ~~manuscript~~ contains manually created written information.  The
-term implies it is the ~~original~~ version as opposed to a duplicated
-or published version.
+The term [g:SML:semantic] implies the language must have a structured
+mechanism to express the ~~meaning~~ of the text so that processing
+applications can automatically ~~reason~~ about document content.  For
+instance, I want applications to have the capability to validate that
+text conforms to the meaning expressed in a user-defined
+[g:SML:ontology].
 
-The concept of a ``structured manuscript'' aligns well with the
-overarching purpose to enable authors to create modular, re-usable
-documents and document fragments they can automatically publish to
-multiple different document renditions.
+The concept of a ``semantic manuscript'' aligns well with my purpose
+to enable authors to create readable, modular, re-usable documents and
+document fragments they can automatically publish to multiple
+different document renditions and to write applications that can
+reason about the meaning of their documents.
 
 # include::$r9648$: problems/rq-000005.txt # Minimize Presentation Markup
 # include::$r6525$: problems/rq-000009.txt # Represent Special Features
@@ -92,119 +95,119 @@ contains a complete collection of terms and their definitions.
 
 = TLA = Three Letter Acronym
 
-= [g:ieee:baseline] = [def:ieee:baseline]
+= [g:IEEE:baseline] = [def:IEEE:baseline]
 
-= [g:ieee:allocated baseline] = [def:ieee:allocated baseline]
+= [g:IEEE:allocated baseline] = [def:IEEE:allocated baseline]
 
-= [g:cmmi:bidirectional traceability] = [def:cmmi:bidirectional traceability]
+= [g:CMMI:bidirectional traceability] = [def:CMMI:bidirectional traceability]
 
-= [g:BRD] = [def:BRD]
+= [a:BRD] = [acl:BRD]
 
-= [g:sml:business requirement] = [def:sml:business requirement]
+= [g:SML:business requirement] = [def:SML:business requirement]
 
-= [g:sml:compliance directive] = [def:sml:compliance directive]
+= [g:SML:compliance directive] = [def:SML:compliance directive]
 
-= [g:ieee:component] = [def:ieee:component]
+= [g:IEEE:component] = [def:IEEE:component]
 
-= [g:cmmi:customer requirement] = [def:cmmi:customer requirement]
+= [g:CMMI:customer requirement] = [def:CMMI:customer requirement]
 
-= [g:sml:demonstration] = [def:sml:demonstration]
+= [g:SML:demonstration] = [def:SML:demonstration]
 
-= [g:cmmi:derived requirements] = [def:cmmi:derived requirements]
+= [g:CMMI:derived requirements] = [def:CMMI:derived requirements]
 
-= [g:ieee:design requirement] = [def:ieee:design requirement]
+= [g:IEEE:design requirement] = [def:IEEE:design requirement]
 
-= [g:sml:feasibility] = [def:sml:feasibility]
+= [g:SML:feasibility] = [def:SML:feasibility]
 
-= [g:sml:FRD] = [def:sml:FRD]
+= [a:SML:FRD] = [acl:SML:FRD]
 
-= [g:cmmi:functional analysis] = [def:cmmi:functional analysis]
+= [g:CMMI:functional analysis] = [def:CMMI:functional analysis]
 
-= [g:cmmi:functional architecture] = [def:cmmi:functional architecture]
+= [g:CMMI:functional architecture] = [def:CMMI:functional architecture]
 
-= [g:ieee:functional baseline] = [def:ieee:functional baseline]
+= [g:IEEE:functional baseline] = [def:IEEE:functional baseline]
 
-= [g:ieee:functional configuration audit] = [def:ieee:functional configuration audit]
+= [g:IEEE:functional configuration audit] = [def:IEEE:functional configuration audit]
 
-= [g:sml:functional requirement] = [def:sml:functional requirement]
+= [g:SML:functional requirement] = [def:SML:functional requirement]
 
-= [g:sml:Functional Requirements Document] = [def:sml:Functional Requirements Document]
+= [g:SML:Functional Requirements Document] = [def:SML:Functional Requirements Document]
 
-= [g:ieee:functional specification] = [def:ieee:functional specification]
+= [g:IEEE:functional specification] = [def:IEEE:functional specification]
 
-= [g:ieee:interface requirement] = [def:ieee:interface requirement]
+= [g:IEEE:interface requirement] = [def:IEEE:interface requirement]
 
-= [g:ieee:implementation requirement] = [def:ieee:implementation requirement]
+= [g:IEEE:implementation requirement] = [def:IEEE:implementation requirement]
 
-= [g:sml:mission directive] = [def:sml:mission directive]
+= [g:SML:mission directive] = [def:SML:mission directive]
 
-= [g:sml:non-functional requirement] = [def:sml:non-functional requirement]
+= [g:SML:non-functional requirement] = [def:SML:non-functional requirement]
 
-= [g:sml:operational baseline] = [def:sml:operational baseline]
+= [g:SML:operational baseline] = [def:SML:operational baseline]
 
-= [g:cmmi:operational scenario] = [def:cmmi:operational scenario]
+= [g:CMMI:operational scenario] = [def:CMMI:operational scenario]
 
-= [g:ieee:performance requirement] = [def:ieee:performance requirement]
+= [g:IEEE:performance requirement] = [def:IEEE:performance requirement]
 
-= [g:ieee:physical requirement] = [def:ieee:physical requirement]
+= [g:IEEE:physical requirement] = [def:IEEE:physical requirement]
 
-= [g:ieee:product baseline] = [def:ieee:product baseline]
+= [g:IEEE:product baseline] = [def:IEEE:product baseline]
 
-= [g:cmmi:product requirements] = [def:cmmi:product requirements]
+= [g:CMMI:product requirements] = [def:CMMI:product requirements]
 
-= [g:ieee:qualification requirement] = [def:ieee:qualification requirement]
+= [g:IEEE:qualification requirement] = [def:IEEE:qualification requirement]
 
-= [g:sml:release] = [def:sml:release]
+= [g:SML:release] = [def:SML:release]
 
-= [g:sml:requirement] = [def:sml:requirement]
+= [g:SML:requirement] = [def:SML:requirement]
 
-= [g:cmmi:requirements analysis] = [def:cmmi:requirements analysis]
+= [g:CMMI:requirements analysis] = [def:CMMI:requirements analysis]
 
-= [g:cmmi:requirements elicitation] = [def:cmmi:requirements elicitation]
+= [g:CMMI:requirements elicitation] = [def:CMMI:requirements elicitation]
 
-= [g:cmmi:requirements management] = [def:cmmi:requirements management]
+= [g:CMMI:requirements management] = [def:CMMI:requirements management]
 
-= [g:ieee:requirements phase] = [def:ieee:requirements phase]
+= [g:IEEE:requirements phase] = [def:IEEE:requirements phase]
 
-= [g:ieee:requirements specification] = [def:ieee:requirements specification]
+= [g:IEEE:requirements specification] = [def:IEEE:requirements specification]
 
-= [g:cmmi:requirements traceability] = [def:cmmi:requirements traceability]
+= [g:CMMI:requirements traceability] = [def:CMMI:requirements traceability]
 
-= [g:sml:requirements traceability matrix] = [def:sml:requirements traceability matrix]
+= [g:SML:requirements traceability matrix] = [def:SML:requirements traceability matrix]
 
-= [g:sml:RTM] = [def:sml:RTM]
+= [a:SML:RTM] = [acl:SML:RTM]
 
-= [g:sml:shall statement] = [def:sml:shall statement]
+= [g:SML:shall statement] = [def:SML:shall statement]
 
-= [g:sml:SRD] = [def:sml:SRD]
+= [a:SML:SRD] = [acl:SML:SRD]
 
-= [g:ieee:SRR] = [def:ieee:SRR]
+= [a:IEEE:SRR] = [acl:IEEE:SRR]
 
-= [g:ieee:software requirements review] = [def:ieee:software requirements review]
+= [g:IEEE:software requirements review] = [def:IEEE:software requirements review]
 
-= [g:ieee:Software Requirements Specification] = [def:ieee:Software Requirements Specification]
+= [g:IEEE:Software Requirements Specification] = [def:IEEE:Software Requirements Specification]
 
-= [g:ieee:System Requirements Review] = [def:ieee:System Requirements Review]
+= [g:IEEE:System Requirements Review] = [def:IEEE:System Requirements Review]
 
-= [g:sml:systems engineering] = [def:sml:systems engineering]
+= [g:SML:systems engineering] = [def:SML:systems engineering]
 
-= [g:sml:system requirement] = [def:sml:system requirement]
+= [g:SML:system requirement] = [def:SML:system requirement]
 
-= [g:sml:technical requirement] = [def:sml:technical requirement]
+= [g:SML:technical requirement] = [def:SML:technical requirement]
 
-= [g:ieee:testability] = [def:ieee:testability]
+= [g:IEEE:testability] = [def:IEEE:testability]
 
-= [g:ieee:traceability] = [def:ieee:traceability]
+= [g:IEEE:traceability] = [def:IEEE:traceability]
 
-= [g:ieee:traceability matrix] = [def:ieee:traceability matrix]
+= [g:IEEE:traceability matrix] = [def:IEEE:traceability matrix]
 
-= [g:sml:use case] = [def:sml:use case]
+= [g:SML:use case] = [def:SML:use case]
 
-= [g:ieee:validation] = [def:ieee:validation]
+= [g:IEEE:validation] = [def:IEEE:validation]
 
-= [g:ieee:verification] = [def:ieee:verification]
+= [g:IEEE:verification] = [def:IEEE:verification]
 
-= [g:ieee:verification and validation] = [def:ieee:verification and validation]
+= [g:IEEE:verification and validation] = [def:IEEE:verification and validation]
 
 #---------------------------------------------------------------------
 
@@ -212,6 +215,12 @@ contains a complete collection of terms and their definitions.
 
 ######################################################################
 # Backmatter
+
+include:: acronyms-sml
+
+include:: acronyms-ieee
+
+include:: acronyms-cmmi
 
 include:: glossary-sml
 

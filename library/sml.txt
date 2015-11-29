@@ -14,11 +14,11 @@ logo_image_small:: files/images/sml_logo.png
 
 logo_image_center:: files/images/lost-creek-meadow.jpg
 
-version:: 1.6
+version:: 2.0-DRAFT
 
-revision:: $Revision: 15146 $
+revision:: 314159
 
-date:: $Date: 2013-07-07 11:42:01 -0600 (Sun, 07 Jul 2013) $
+date:: 28 Nov 2015
 
 status:: yellow
 
@@ -57,25 +57,53 @@ author:: Donald C. Gause & Gerald M. Weinberg
 
 <<<EPIGRAPH
 
-[a:SML] is a minimalistic [g:sml:descriptive markup] language designed
-to be human readable, easy to edit, easy to automatically generate,
-able to express and validate semantic relationships, and contain all
-information necessary to publish professional documentation from plain
-text manuscripts.
+[a:SML] is a minimalistic plain text [g:SML:descriptive markup]
+language designed to:
 
-This book describes how to construct documents using [a:SML] and
-how to publish them using the [g:sml:publish] program.
+- be human readable
 
-index:: Semantic Manuscript Language; [a:SML]; structured text;
-||publish|| program
+- be easy to edit
+
+- be easy to automatically generate
+
+- express and validate semantic relationships
+
+- publish complex documentation libraries
+
+This book describes how to construct documents using [a:SML]. Why call
+it ``[acl:SML]''?
+
+index:: Semantic Manuscript Language; SML; structured text
+
+The term [g:SML:manuscript] means authors use the language to capture
+ideas in an ~~original~~ form that can be processed and published just
+as a manuscript is the original form for a published document.
+
+The term [g:SML:semantic] means the language has a structured way to
+express the ~~meaning~~ of the text so that applications can
+automatically ~~reason~~ about document content.
+
+The concept of a ``semantic manuscript'' aligns well with my purpose
+to enable authors to create readable, modular, re-usable documents and
+document fragments which can be automatically published to multiple
+renditions and processed by applications that can reason about their
+meaning.
 
 [a:SML] enables you to represent full-length, full-featured, high-quality
 books, reports, and articles in minimally formatted text files.  Its
 simple mark-up rules ensure the plain text manuscript is easy to read,
 but still contains everything necessary to turn the text into a
-professionally typeset hardcopy.  In addition to hardcopy (via
-[a:PDF]), [a:SML] files can also be rendered as [a:HTML], [a:XML],
-[a:RTF], and [a:CSV].[f:getting-started:1]
+professionally typeset hardcopy.
+
+[a:SML] documents can be rendered to:
+
+- [a:PDF]
+
+- [a:HTML]
+
+- [a:XML]
+
+- [a:CSV][f:getting-started:1]
 
 index:: published rendition!PDF; published rendition!HTML; published
 rendition!XML; published rendition!RTF; published rendition!CSV
@@ -105,6 +133,9 @@ elements of the document to a spreadsheet or database.
 
 ** Documentation Is Like Software
 
+The purpose of this section is to convince you it's better to write
+documentation using [a:SML] than a word processor.
+
 ~~Why don't we write software the way we write documentation?~~
 Because it would be ~~terribly~~ inefficient and result in
 unmaintainable software.
@@ -121,44 +152,33 @@ Word^^[rtm]^^. Word processors have you construct the content,
 structure, and format of a document simultaneously all in a single
 file.  What you see is what you get.  It's simple.
 
-Word processor users use practices long ago discarded as
-[g:sml:anti-pattern]s by programmers. Ask yourself if ~~you~~ use any
+Word processors force us into practices long ago discarded as
+[g:SML:anti-pattern]s by programmers. Ask yourself if ~~you~~ use any
 of these common ``documentation anti-patterns'' when ~~you~~ write
 documents.
 
-[pagebreak]
+- ~~Copy and paste documentation~~ -- Do you ever find yourself
+copying from one document and pasting into another?  Of course you do.
+Multiple documents often need to contain the same text.  Rather than
+writing the information each time from scratch, you copy from one
+document into the others. I do this all the time with documents.  I
+used to do this with code until I found myself updating the same code
+in six places.  I decided to modularize my code into libraries and now
+I can use the same code in many places but maintainin it in only one.
+The same is true of documentation.  When I want the same text in
+multiple documents I just save it as an SML [g:SML:fragment] and
+maintain it in one place.
 
-:: Programming Anti-Pattern
-
-:: Documentation Anti-Pattern
-
----
-
-: ~~Copy and paste programming~~ -- Copying (and modifying) existing
-code rather than creating re-usable software. 
-
-: ~~Copy and paste documentation~~ -- Copying (and modifying) existing
-documentation rather than creating re-usable document parts.
-
----
-
-: ~~Waterfall Method~~ -- The waterfall method of software development
-incorrectly assumes software can be manufactured like physical
-products through a series of sequential steps: requirements, design,
-implementation, verification, and maintenance.  It under-emphasizes
-the need to continuously improve software to meet changing
-requirements.
-
-: ~~Write Once and Done~~ -- The write-once-and-done method of
-document development incorrectly assumes documentation can be
-manufactured like physical products through a series of sequential
-steps: draft, review, edit, finalize. It under-emphasizes the need to
-continuously update documentation to capture changing requirements,
-designs, and implementations.  This method often accompanies a simple
-compliance mindset of `churning out' required documentation.  Such
-`one-time' documentation rarely serves its intended purpose.
-
----
+- ~~Write Once and Done~~ -- Similar to the [g:IEEE:waterfall model]
+of software development, the write-once-and-done method of document
+development incorrectly assumes documentation can be manufactured like
+physical products through a series of sequential steps: draft, review,
+edit, finalize. It under-emphasizes the need to continuously update
+documentation to capture changing information. This method often
+accompanies a simple compliance mindset of `churning out' required
+documentation.  Such `one-time' documentation rarely serves its
+intended purpose.  If you have old documentation that no longer serves
+its intended purpose, you've fallen into this trap.
 
 Advantages of ``compiling'' documentation:
 
@@ -170,10 +190,10 @@ Advantages of ``compiling'' documentation:
 
 #---------------------------------------------------------------------
 
-**.why-use-sml Why Use SML/||publish||?
+**.why-use-sml Why Use SML?
 
-Why Use [a:SML]/||publish||? Productivity.  Most people use a `modern'
-word processor, like Microsoft Word or OpenOffice.org Writer, to write
+Why Use [a:SML]? Productivity.  Most people use a `modern' word
+processor, like Microsoft Word or OpenOffice.org Writer, to write
 documents. An unfortunate side effect of `modern' word processors is
 that authors spend time fiddling with styles and alternative
 presentations when they should be writing.[f:why-use-sml:1] I wish I
@@ -181,8 +201,8 @@ could calculate the lost productivity due to easily distracted authors
 who waste their time playing with formatting options rather than doing
 the hard work of producing quality content.
 
-Here is a short list of reasons you might consider using
-[a:SML]/[cmd:publish] rather than a traditional word processor:
+Here is a short list of reasons you might consider using [a:SML]
+rather than a traditional word processor:
 
 - !!Productivity.!!  [a:SML] eliminates most presentation options, forcing
   authors to focus on structure and content, making them more
@@ -192,19 +212,18 @@ Here is a short list of reasons you might consider using
 - !!Re-usability.!!  Word processors do not provide an easy way to
   re-use document content.  If you want to use the same content in
   multiple documents, you cut-and-paste from one document to the
-  other. Now you must maintain the content in two places.
-  [a:SML]/[cmd:publish] enables you to modularize your content to re-use
-  chunks wherever you would like.
+  other. Now you must maintain the content in two places.  [a:SML]
+  enables you to modularize your content to re-use chunks wherever you
+  would like.
 
 - !!Modularity.!! You should modularize the content of most major
   works (books, reference documents, requirements documents) to enable
   many people to work on different parts of the document at the same
   time.  If you store your 600+ page reference document in Microsoft
   Word, only one person at a time can make changes.  With the help of
-  CVS[f:why-use-sml:2] or Subversion[f:why-use-sml:3],
-  [a:SML]/[cmd:publish] enables multiple people to work on the ~~same~~
-  part of the document at the ~~same~~ time and automatically merge
-  the changes.
+  CVS[f:why-use-sml:2] or Subversion[f:why-use-sml:3], [a:SML] enables
+  multiple people to work on the ~~same~~ part of the document at the
+  ~~same~~ time and automatically merge the changes.
 
 - !!Revision Control.!! You can benefit from a disciplined approach to
   document creation and management by keeping your [a:SML] files under
@@ -237,12 +256,11 @@ Here is a short list of reasons you might consider using
   construction and publication of documents.  This is the key to
   quickly producing high-quality documents with few people.
 
-- !!High Quality Hardcopy.!!  [a:SML]/[cmd:publish] uses the
-  [cmd:pdflatex] program, part of the TeX/LaTeX family of typesetting
-  applications to create high-quality hardcopy (via PDF).  This is the
-  same software used to typeset many text books.  It produces higher
-  quality typeset documentation than a word-processing program like
-  Microsoft Word.
+- !!High Quality Hardcopy.!!  [a:SML] uses the [cmd:pdflatex] program,
+  part of the TeX/LaTeX family of typesetting applications to create
+  high-quality hardcopy (via PDF).  This is the same software used to
+  typeset many text books.  It produces higher quality typeset
+  documentation than a word-processing program like Microsoft Word.
 
 - !!Traceability.!! [a:SML] features rich traceability features for
   systems engineering documentation.
@@ -291,7 +309,7 @@ documents~~, ~~project documentation~~, ~~test results~~, and
 - For ~~test results~~, it provides a way to automatically generate
   test result documentation by merging tests and result summaries.
 
-- The ``||script::||'' and ``||generate::||'' [g:sml:element]s provide
+- The ``||script::||'' and ``||generate::||'' [g:SML:element]s provide
   powerful ways to ~~automatically generate~~ high-quality
   documentation.
 
@@ -323,7 +341,7 @@ documents using a simple text editor.
 One benefit is reuseability.  Not only can you publish [a:SML] documents
 in a variety of forms, but you can also modularize the content and
 reuse bits and pieces in different documents.  Using the
-``||include::||'' [g:sml:element], the actual text can be stored in
+``||include::||'' [g:SML:element], the actual text can be stored in
 one file and reused in many others.
 
 Descriptive markup can be used to describe format, structure, and
@@ -575,8 +593,13 @@ index::end: special features
 
 ** Alternatives
 
-There are alternative programs with features similar to the ||publish||
-program:
+There are alternative programs with features similar to using [a:SML]:
+
+- Markdown ([url:https://en.wikipedia.org/wiki/Markdown])
+
+- reStructuredText  ([url:https://en.wikipedia.org/wiki/ReStructuredText])
+
+- Plain Old Documentation ([url:https://en.wikipedia.org/wiki/Plain_Old_Documentation])
 
 - Emacs Muse ([url:http://www.mwolson.org/projects/MuseMode.html])
 
@@ -588,13 +611,13 @@ program:
 
 index::begin: pros and cons
 
-Why use the ||publish|| program instead of a word processor like
-MSWord or OpenOffice.org?  Here are some pros and cons of using
-[a:SML]/||publish|| instead of a word processor to produce documents.
+Why use [a:SML] to publish your documentation instead of a word
+processor like MSWord or OpenOffice.org?  Here are some pros and cons
+of using [a:SML] instead of a word processor to produce documents.
 
 : !!PROS!!
 
-- ~~Concentrate on writing content.~~ - [a:SML]/||publish|| removes the
+- ~~Concentrate on writing content.~~ - [a:SML] removes the
 distractions and time-consuming struggles of choosing the appearance
 of your content.
 
@@ -1569,45 +1592,45 @@ Want to add a title to your document?  Want to identify the author of
 the document?  These are simple ``elements.''
 
 [a:SML] is a formal descriptive markup language.  That means it has
-[g:sml:syntax] and semantics.  The syntax is fixed.
+[g:SML:syntax] and semantics.  The syntax is fixed.
 
 [a:SML] semantics are ~~extensible~~.  This means you can customize the
 language to describe the things you care about.  More importantly, you
 can describe how the things you care about are allowed to interrelate.
-You customize [a:SML] semantics by writing [g:sml:ontology] rules.
+You customize [a:SML] semantics by writing [g:SML:ontology] rules.
 
-A [g:sml:library] of documents share common semantics.  That means all
-documentation in a library shares a common [g:sml:ontology].
+All documents in a [g:SML:library] share common semantics defined in a
+common [g:SML:ontology].
 
 #---------------------------------------------------------------------
 
 **.syntax_semantics Syntax and Semantics
 
-The [g:sml:Semantic Manuscript Language] has a pre-defined
-[g:sml:syntax].  It has [g:sml:semantics] rules defined in a core
-[g:sml:ontology].  These semantics can be extended by defining
+The [g:SML:Semantic Manuscript Language] has a pre-defined
+[g:SML:syntax].  It has [g:SML:semantics] rules defined in a core
+[g:SML:ontology].  These semantics can be extended by defining
 additional ontology rules for any given library.
 
 The syntactic components of [a:SML] are:
 
-= [g:sml:line] = [def:sml:line]
+= [g:SML:line] = [def:SML:line]
 
-= [g:sml:part] = [def:sml:part]
+= [g:SML:part] = [def:SML:part]
 
-= [g:sml:string] = [def:sml:string]
+= [g:SML:string] = [def:SML:string]
 
-= [g:sml:block] = [def:sml:block]
+= [g:SML:block] = [def:SML:block]
 
-= [g:sml:element] = [def:sml:element]
+= [g:SML:element] = [def:SML:element]
 
-= [g:sml:division] = [def:sml:division]
+= [g:SML:division] = [def:SML:division]
 
 The syntactic components are used to express semantic components of
 [a:SML]:
 
-= [g:sml:entity] = [def:sml:entity]
+= [g:SML:entity] = [def:SML:entity]
 
-= [g:sml:property] = [def:sml:property]
+= [g:SML:property] = [def:SML:property]
 
 index:: line; part; string; block; element; division; entity;
 property; syntax; semantics
@@ -1618,18 +1641,18 @@ property; syntax; semantics
 
 index:: Elements
 
-An [g:sml:element] is a block of text that enables you to insert data
-fields into your narrative text.  For example:
+An [g:SML:element] is a [g:SML:block] of text that enables you to
+insert data fields into your manuscript.  For example:
 
   title:: A Sample Document
 
   author:: Bilbo Baggins
 
-An element starts with the element's name and double colon and the
-beginning of a line (i.e. `title::', or `author::').  The value of the
-element is everything that follows, up to the next element or a blank
-line.  Since a blank line ends an element, elements can't be any more
-complicated than a paragraph.
+An element starts with the element's name flowwed by a double colon at
+the beginning of a line (i.e. `title::', or `author::').  The value of
+the element is everything that follows, up to the next element or a
+blank line.  Since a blank line ends an element, elements can't be any
+more complicated than a paragraph.
 
 Data elements are used to:
 
@@ -1718,6 +1741,7 @@ Environments begin and end with three or more hyphens and the name of
 the environment like this example table:
 
   >>>TABLE.tab-my-table
+
   title:: My Table
 
   :: column 1 heading
@@ -1728,6 +1752,7 @@ the environment like this example table:
   ---
   : row 2 column 1
   : row 2 column 2
+
   <<<TABLE
 
 ~~Regions,~~ which describe semantic document elements, are:
@@ -2415,8 +2440,18 @@ width:: 6in
 
 ***.preformatted-text Preformatted Text
 
-Insert pre-formatted text by indenting each line in the preformatted
-block.  Here's an example:
+Insert ~~simple~~ pre-formatted text by indenting each line in the
+preformatted block:
+
+  This is
+  some
+  pre-formatted
+  text.
+
+Insert ~~fancy~~ pre-formatted text using a ||PREFORMATTED|| division
+like this:
+
+  >>>PREFORMATTED
 
   +---------------------------------------------------------+
   |                                                         |
@@ -2430,6 +2465,28 @@ block.  Here's an example:
   |                     Monkey Boy                          |
   |                                                         |
   +---------------------------------------------------------+
+
+  <<<PREFORMATTED
+
+When rendered the pe-formatted division (unsuprisingly) looks like
+this:
+
+>>>PREFORMATTED
+
++---------------------------------------------------------+
+|                                                         |
+|                         ---                             |
+|                       /     \                           |
+|                      (  * *  )                          |
+|                       |  ^  |                           |
+|                       |  o  |                           |
+|                        \___/                            |
+|                                                         |
+|                     Monkey Boy                          |
+|                                                         |
++---------------------------------------------------------+
+
+<<<PREFORMATTED
 
 #---------------------------------------------------------------------
 
@@ -3697,6 +3754,35 @@ Images put inside a slide will be turned into clickable thumbnails.
 In the HTML rendition, clicking on a thumbnail image in a slide will
 pop up a window containing the full sized image.  Click anywhere
 outside the popup image to make it go away.  Here's an example:
+
+For example:
+
+  >>>SLIDE.session-handshaking
+
+  title:: Session Handshaking
+
+  - Transmission Control Protocol (TCP) establish (3-way handshake)
+    - SYN
+    - SYN/ACK
+    - ACK
+
+  image:: files/images/mod01_tcp_three_way_handshake.png
+
+  - Session tear-down File Transfer Protocol (FTP)
+    - FIN/ACK
+    - ACK
+
+  image:: files/images/mod01_ftp_session_tear_down.png
+
+  - No listening port
+    - SYN
+    - RST/ACK
+
+  image:: files/images/mod01_no_listening_port.png
+
+  <<<SLIDE
+
+Renders like this:
 
 >>>SLIDE.session-handshaking
 
@@ -5537,9 +5623,57 @@ implemented index publishing for the HTML rendition.
 
 #---------------------------------------------------------------------
 
+***.acronyms-list Acronyms List
+
+It's easy to build a list of acronyms in your documents and in your
+library.  A List of Acronyms will be automatically generated and
+included in the backmatter of your document.  Define an acronym
+anywhere in your text like this:
+
+  acronym:: TLA = Three Letter Acronym
+
+The syntax for an acronym definition is:
+
+  acronym:: <acronym> {<namespace>} = <definition>
+
+The same acronym often has multiple meanings.  Use the ``namespace''
+feature to distinguish between duplicate acronyms like this:
+
+  acronym:: TLA {theatre} = Theater of Living Arts
+
+  acronym:: TLA {texas} = Texas Library Association
+
+  acronym:: TLA {cheesy} = The Last Airbender
+
+When you want to refer to an acronym in the text of your document
+insert an acronym reference like:
+
+  [a:TLA]
+
+The syntax for acronym references is:
+
+  [<tag>:<acronym>]
+
+or
+
+  [<tag>:<namespace>:<acronym>]
+
+The value of <tag> must be one of:
+
+= a = If this is the first reference to an acronym, include the
+definition followed by the acronym in parenthesis.
+
+= ac = same as `a'
+
+= acs = render the ~~short~~ form of the acronym
+
+= acl = render the ~~long~~ form of the acronym
+
+#---------------------------------------------------------------------
+
 ***.building-a-glossary Building a Glossary
 
-Its easy to build a [g:sml:glossary] of terms within your document. If
+Its easy to build a [g:SML:glossary] of terms within your document. If
 you've defined glossary terms in your document, the glossary will
 automatically be inserted at the end of the document between the
 bibliography and the index.
@@ -5564,7 +5698,7 @@ To indicate the definition of the term ``glossary'' can be found in
 the glossary simply surround the term with ||{lit:[g:term]}|| like
 this:
 
-  Its easy to build a [g:sml:glossary] of terms within your document.  If
+  Its easy to build a [g:SML:glossary] of terms within your document.  If
   you've defined glossary terms in your document, the glossary will
   automatically be inserted at the end.
 
@@ -5589,7 +5723,15 @@ The following additional glossary definition features are available.
 **** Glossary References
 
 [ref:building-a-glossary] described the most basic way to refer to a
-glossary term.
+glossary term.  Here is a more complete 
+
+:: reference type
+
+:: SML syntax
+
+:: Example
+
+---
 
 : lower case glossary term reference
 
@@ -5598,7 +5740,7 @@ glossary term.
   [g:<term>]
   [gls:<term>]
 
-: Insert a [g:sml:glossary] term.
+: Insert a [g:SML:glossary] term.
 
 ---
 
@@ -5609,7 +5751,7 @@ glossary term.
   [G:<term>]
   [Gls:<term>]
 
-: Insert a [G:sml:glossary] term; upper-case the initial letter of
+: Insert a [G:SML:glossary] term; upper-case the initial letter of
 each word.
 
 ---
@@ -5621,7 +5763,7 @@ each word.
   [def:<term>]
   [def:<namespace>:<term>]
 
-: A string is: [def:sml:string]
+: A string is: [def:SML:string]
 
 ---
 
@@ -6808,6 +6950,10 @@ file:: files/.emacs
 # Backmatter
 
 include:: acronyms-sml
+
+include:: acronyms-cmmi
+
+include:: acronyms-ieee
 
 include:: glossary-sml
 

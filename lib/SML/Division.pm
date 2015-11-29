@@ -308,22 +308,22 @@ sub add_property_element {
       $logger->error("NO ELEMENT NAME for \'$element\'");
     }
 
-  my $div = $element->get_containing_division;
+  # my $div = $element->get_containing_division;
 
-  if ( not $div )
-    {
-      my $content = $element->get_content;
-      $logger->error("NO CONTAINING DIVISION for \'$element\' containing \'$content\'");
-    }
+  # if ( not $div )
+  #   {
+  #     my $content = $element->get_content;
+  #     $logger->error("NO CONTAINING DIVISION for \'$element\' containing \'$content\'");
+  #   }
 
-  my $divid   = $div->get_id;
-  my $divname = $div->get_name;
+  my $divid   = $self->get_id;
+  my $divname = $self->get_name;
 
   if ( $logger->is_trace() )
     {
       my $value = $element->get_value;
 
-      $logger->trace("add_property_element \'$divname\' \'$name\' = \'$value\'");
+      $logger->trace("add_property_element $divname $name");
     }
 
   if ( $self->has_property($name) )

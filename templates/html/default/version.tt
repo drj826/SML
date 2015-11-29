@@ -1,19 +1,27 @@
-[%#
+[%
 
-$Id: $
+version  = document.get_property_value('version')
+revision = document.get_property_value('revision')
+date     = document.get_property_value('date')
 
 %]
-<!-- begin version nav -->
+
 <tr>
 <td>
-<div style="font-size: 8pt;" align="center">
-<font color="#888888">v0.5</font>
-</br>
-<font color="#888888">r204</font>
-</br>
-<font color="#888888">Tue, 06 May 2014</font>
-</br></br>
+<div style="text-align:center;font-size:8pt;">
+
+[%- IF version -%]
+<font color="#888888">v[%version%]</font><br/>
+[%- END -%]
+
+[%- IF revision -%]
+<font color="#888888">r[%revision%]</font><br/>
+[%- END -%]
+
+[%- IF date -%]
+<font color="#888888">[%date%]</font><br/>
+[%- END -%]
+
 </div>
 </td>
 </tr>
-<!-- end version nav -->

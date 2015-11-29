@@ -2,130 +2,130 @@
 
 # CMMI Vocabulary
 
+# This vocabulary uses acronyms from acronyms-cmmi.txt
+
 ######################################################################
 # A
 ######################################################################
 
-glossary:: acceptance criteria {cmmi} = (CMMI) The criteria that a
-product or product component must satisfy to be accepted by a user,
-customer, or other authorized entity [cite:cmmi]
+glossary:: acceptance criteria {CMMI} = The criteria that a product or
+product component must satisfy to be accepted by a user, customer, or
+other authorized entity [cite:cmmi]
 
-glossary:: acceptance testing {cmmi} = (CMMI) Formal testing conducted
-to enable a user, customer, or other authorized entity to determine
+glossary:: acceptance testing {CMMI} = Formal testing conducted to
+enable a user, customer, or other authorized entity to determine
 whether to accept a product or product component. (See also
-[g:cmmi:unit testing].) [cite:cmmi]
+[g:CMMI:unit testing].) [cite:cmmi]
 
-glossary:: achievement profile {cmmi} = (CMMI) In the continuous
+glossary:: achievement profile {CMMI} = In the continuous
 representation, a list of process areas and their corresponding
 capability levels that represent the organization's progress for each
 process area while advancing through the capability levels. (See also
-[g:cmmi:capability level profile], [g:cmmi:target profile], and
-[g:cmmi:target staging].)  [cite:cmmi]
+[g:CMMI:capability level profile], [g:CMMI:target profile], and
+[g:CMMI:target staging].)  [cite:cmmi]
 
-glossary:: acquisition {cmmi} = (CMMI) The process of obtaining
-products (goods and services) through contract. [cite:cmmi] See also
-[g:cmmi:acquisition strategy]
+glossary:: acquisition {CMMI} = The process of obtaining products
+(goods and services) through contract. [cite:cmmi] See also
+[g:CMMI:acquisition strategy]
 
-glossary:: acquisition strategy {cmmi} = (CMMI) The specific approach
-to acquiring products and services that is based on considerations of
+glossary:: acquisition strategy {CMMI} = The specific approach to
+acquiring products and services that is based on considerations of
 supply sources, acquisition methods, requirements specification types,
 contract or agreement types, and the related acquisition risk
 [cite:cmmi]
 
-glossary:: addition {cmmi} = (CMMI) In the CMMI Product Suite, a
-clearly marked model component that contains information of interest
-to particular users. In a CMMI model, all additions bearing the same
-name (e.g., the [g:cmmi:IPPD] addition) may be optionally selected as
-a group for use [cite:cmmi]
+glossary:: addition {CMMI} = In the CMMI Product Suite, a clearly
+marked model component that contains information of interest to
+particular users. In a CMMI model, all additions bearing the same name
+(e.g., the [acs:CMMI:IPPD] addition) may be optionally selected as a
+group for use [cite:cmmi]
 
-glossary:: adequate {cmmi} = (CMMI) This word is used so that you can
+glossary:: adequate {CMMI} = This word is used so that you can
 interpret goals and practices in light of your organization's business
 objectives.  When using any CMMI model, you must interpret the
 practices so that they work for your organization. This term is used
 in goals and practices where certain activities may not be done all of
-the time. (See also [g:cmmi:appropriate] and [g:cmmi:as needed].)
+the time. (See also [g:CMMI:appropriate] and [g:CMMI:as needed].)
 
-glossary:: allocated requirement {cmmi} = (CMMI) Requirement that
-levies all or part of the performance and functionality of a higher
-level requirement on a lower level architectural element or design
-component [cite:cmmi]
+glossary:: allocated requirement {CMMI} = Requirement that levies all
+or part of the performance and functionality of a higher level
+requirement on a lower level architectural element or design component
+[cite:cmmi]
 
-glossary:: alternative practice {cmmi} = (CMMI) A practice that is a
+glossary:: alternative practice {CMMI} = A practice that is a
 substitute for one or more generic or specific practices contained in
 CMMI models that achieves an equivalent effect toward satisfying the
 generic or specific goal associated with model practices. Alternative
 practices are not necessarily one-for-one replacements for the generic
 or specific practices [cite:cmmi]
 
-glossary:: amplification {cmmi} = (CMMI) Amplifications are
-informative model components that contain information relevant to a
-particular discipline. For example, to find an amplification for
-software engineering, you would look in the model for items labeled
-``For Software Engineering.'' The same is true for other disciplines
+glossary:: amplification {CMMI} = Amplifications are informative model
+components that contain information relevant to a particular
+discipline. For example, to find an amplification for software
+engineering, you would look in the model for items labeled ``For
+Software Engineering.'' The same is true for other disciplines
 [cite:cmmi]
 
-glossary:: appraisal {cmmi} = (CMMI) In the CMMI Product Suite, an
+glossary:: appraisal {CMMI} = In the CMMI Product Suite, an
 examination of one or more processes by a trained team of
 professionals using an appraisal reference model as the basis for
 determining, at a minimum, strengths and weaknesses. (See also
-[g:cmmi:assessment] and [g:cmmi:capability evaluation].)  [cite:cmmi]
+[g:CMMI:assessment] and [g:CMMI:capability evaluation].)  [cite:cmmi]
 
-glossary:: appraisal findings {cmmi} = (CMMI) The results of an
-appraisal that identify the most important issues, problems, or
-opportunities for process improvement within the appraisal
-scope. Appraisal findings are inferences drawn from corroborated
-objective evidence [cite:cmmi]
+glossary:: appraisal findings {CMMI} = The results of an appraisal
+that identify the most important issues, problems, or opportunities
+for process improvement within the appraisal scope. Appraisal findings
+are inferences drawn from corroborated objective evidence [cite:cmmi]
 
-glossary:: appraisal participants {cmmi} = (CMMI) Members of the
+glossary:: appraisal participants {CMMI} = Members of the
 organizational unit who participate in providing information during
 the appraisal [cite:cmmi]
 
-glossary:: appraisal rating {cmmi} = (CMMI) As used in CMMI appraisal
+glossary:: appraisal rating {CMMI} = As used in CMMI appraisal
 materials, the value assigned by an appraisal team to (a) a CMMI goal
 or process area, (b) the capability level of a process area, or (c)
 the maturity level of an organizational unit. The rating is determined
 by enacting the defined rating process for the appraisal method being
 employed [cite:cmmi]
 
-glossary:: appraisal reference model {cmmi} = (CMMI) As used in CMMI
+glossary:: appraisal reference model {CMMI} = As used in CMMI
 appraisal materials, the CMMI model to which an appraisal team
 correlates implemented process activities [cite:cmmi]
 
-glossary:: appraisal scope {cmmi} = (CMMI) The definition of the
-boundaries of the appraisal encompassing the organizational limits and
-the CMMI model limits within which the processes to be investigated
-operate [cite:cmmi]
-
-glossary:: appropriate {cmmi} = (CMMI) This word is used so that you
-can interpret goals and practices in light of your organization's
-business objectives.  When using any CMMI model, you must interpret
-the practices so that they work for your organization. This term is
-used in goals and practices where certain activities may not be done
-all of the time. (See also [g:cmmi:adequate] and [g:cmmi:as needed].)
+glossary:: appraisal scope {CMMI} = The definition of the boundaries
+of the appraisal encompassing the organizational limits and the CMMI
+model limits within which the processes to be investigated operate
 [cite:cmmi]
 
-glossary:: as needed {cmmi} = (CMMI) This phrase is used so that you
-can interpret goals and practices in light of your organization's
-business objectives.  When using any CMMI model, you must interpret
-the practices so that they work for your organization. This term is
-used in goals and practices where certain activities may not be done
-all the time. (See also [g:cmmi:adequate] and [g:cmmi:appropriate].)
+glossary:: appropriate {CMMI} = This word is used so that you can
+interpret goals and practices in light of your organization's business
+objectives.  When using any CMMI model, you must interpret the
+practices so that they work for your organization. This term is used
+in goals and practices where certain activities may not be done all of
+the time. (See also [g:CMMI:adequate] and [g:CMMI:as needed].)
 [cite:cmmi]
 
-glossary:: assessment {cmmi} = (CMMI) In the CMMI Product Suite, an
-appraisal that an organization does internally for the purposes of
-process improvement.  The word assessment is also used in the CMMI
-Product Suite in an everyday English sense (e.g., risk assessment).
-(See also [g:cmmi:appraisal] and [g:cmmi:capability evaluation].)
+glossary:: as needed {CMMI} = This phrase is used so that you can
+interpret goals and practices in light of your organization's business
+objectives.  When using any CMMI model, you must interpret the
+practices so that they work for your organization. This term is used
+in goals and practices where certain activities may not be done all
+the time. (See also [g:CMMI:adequate] and [g:CMMI:appropriate].)
 [cite:cmmi]
 
-glossary:: assignable cause of process variation {cmmi} = (CMMI) In
-CMMI, the term special cause of process variation is used in place of
-assignable cause of process variation to ensure consistency. The two
-terms are defined identically. (See [g:cmmi:special cause of process
+glossary:: assessment {CMMI} = In the CMMI Product Suite, an appraisal
+that an organization does internally for the purposes of process
+improvement.  The word assessment is also used in the CMMI Product
+Suite in an everyday English sense (e.g., risk assessment).  (See also
+[g:CMMI:appraisal] and [g:CMMI:capability evaluation].)  [cite:cmmi]
+
+glossary:: assignable cause of process variation {CMMI} = In CMMI, the
+term special cause of process variation is used in place of assignable
+cause of process variation to ensure consistency. The two terms are
+defined identically. (See [g:CMMI:special cause of process
 variation].) [cite:cmmi]
 
-glossary:: audit {cmmi} = (CMMI) In CMMI process improvement work, an
+glossary:: audit {CMMI} = In CMMI process improvement work, an
 objective examination of a work product or set of work products
 against specific criteria (e.g., requirements) [cite:cmmi]
 
@@ -133,232 +133,218 @@ against specific criteria (e.g., requirements) [cite:cmmi]
 # B
 ######################################################################
 
-glossary:: base measure {cmmi} = (CMMI) A distinct property or
-characteristic of an entity and the method for quantifying it. (See
-also [g:cmmi:derived measures].) [cite:cmmi]
+glossary:: base measure {CMMI} = A distinct property or characteristic
+of an entity and the method for quantifying it. (See also
+[g:CMMI:derived measures].) [cite:cmmi]
 
-glossary:: baseline {cmmi} = (CMMI) A set of specifications or work
-products that has been formally reviewed and agreed on, which
-thereafter serves as the basis for further development, and which can
-be changed only through change control procedures. (See also
-[g:cmmi:configuration baseline] and [g:cmmi:product baseline].)
-[cite:cmmi]
+glossary:: baseline {CMMI} = A set of specifications or work products
+that has been formally reviewed and agreed on, which thereafter serves
+as the basis for further development, and which can be changed only
+through change control procedures. (See also [g:CMMI:configuration
+baseline] and [g:CMMI:product baseline].)  [cite:cmmi]
 
-glossary:: bidirectional traceability {cmmi} = (CMMI) An association
-among two or more logical entities that is discernible in either
-direction (i.e., to and from an entity).  (See also
-[g:cmmi:requirements traceability] and [g:cmmi:traceability].)
-[cite:cmmi]
+glossary:: bidirectional traceability {CMMI} = An association among
+two or more logical entities that is discernible in either direction
+(i.e., to and from an entity).  (See also [g:CMMI:requirements
+traceability] and [g:CMMI:traceability].)  [cite:cmmi]
 
-glossary:: business objectives {cmmi} = (CMMI) Same as
-[g:cmmi:organization's business objectives] [cite:cmmi]
+glossary:: business objectives {CMMI} = Same as [g:CMMI:organization's
+business objectives] [cite:cmmi]
 
 ######################################################################
 # C
 ######################################################################
 
-glossary:: CCB {cmmi} = (CMMI) [g:cmmi:configuration control board]
+glossary:: CMMI Framework {CMMI} = The basic structure that organizes
+CMMI components, including common elements of the current CMMI models
+as well as rules and methods for generating models, appraisal methods
+(including associated artifacts), and training materials. The
+framework enables new disciplines to be added to CMMI so that the new
+disciplines will integrate with the existing ones. (See also
+[g:CMMI:CMMI model] and [g:CMMI:CMMI Product Suite].)  [cite:cmmi]
 
-glossary:: COTS {cmmi} = (CMMI) [g:cmmi:commercial off the shelf]
+glossary:: CMMI model {CMMI} = One from the entire collection of
+possible models that can be generated from the CMMI Framework. Since
+the CMMI Framework can generate different models based on the needs of
+the organization using it, there are multiple CMMI models. (See also
+[g:CMMI:CMMI Framework] and [g:CMMI:CMMI Product Suite].)  [cite:cmmi]
 
-###
+glossary:: CMMI model component {CMMI} = Any of the main architectural
+elements that compose a CMMI model. Some of the main elements of a
+CMMI model include specific practices, generic practices, specific
+goals, generic goals, process areas, capability levels, and maturity
+levels [cite:cmmi]
 
-glossary:: CMMI Framework {cmmi} = (CMMI) The basic structure that
-organizes CMMI components, including common elements of the current
-CMMI models as well as rules and methods for generating models,
-appraisal methods (including associated artifacts), and training
-materials. The framework enables new disciplines to be added to CMMI
-so that the new disciplines will integrate with the existing
-ones. (See also [g:cmmi:CMMI model] and [g:cmmi:CMMI Product Suite].)
-[cite:cmmi]
-
-glossary:: CMMI model {cmmi} = (CMMI) One from the entire collection
-of possible models that can be generated from the CMMI
-Framework. Since the CMMI Framework can generate different models
-based on the needs of the organization using it, there are multiple
-CMMI models. (See also [g:cmmi:CMMI Framework] and [g:cmmi:CMMI
-Product Suite].)  [cite:cmmi]
-
-glossary:: CMMI model component {cmmi} = (CMMI) Any of the main
-architectural elements that compose a CMMI model. Some of the main
-elements of a CMMI model include specific practices, generic
-practices, specific goals, generic goals, process areas, capability
-levels, and maturity levels [cite:cmmi]
-
-glossary:: CMMI Product Suite {cmmi} = (CMMI) The complete set of
-products developed around the CMMI concept. These products include the
+glossary:: CMMI Product Suite {CMMI} = The complete set of products
+developed around the CMMI concept. These products include the
 framework itself, models, appraisal methods, appraisal materials, and
-various types of training. (See also [g:cmmi:CMMI Framework] and
-[g:cmmi:CMMI model].) [cite:cmmi]
+various types of training. (See also [g:CMMI:CMMI Framework] and
+[g:CMMI:CMMI model].) [cite:cmmi]
 
 ###
 
-glossary:: capability evaluation {cmmi} = (CMMI) An appraisal by a
-trained team of professionals used as a discriminator to select
-suppliers, to monitor suppliers against the contract, or to determine
-and enforce incentives.  Evaluations are used to gain insight into the
-process capability of a supplier organization and are intended to help
+glossary:: capability evaluation {CMMI} = An appraisal by a trained
+team of professionals used as a discriminator to select suppliers, to
+monitor suppliers against the contract, or to determine and enforce
+incentives.  Evaluations are used to gain insight into the process
+capability of a supplier organization and are intended to help
 decision makers make better acquisition decisions, improve
 subcontractor performance, and provide insight to a purchasing
-organization. (See also [g:cmmi:appraisal] and [g:cmmi:assessment].)
+organization. (See also [g:CMMI:appraisal] and [g:CMMI:assessment].)
 [cite:cmmi]
 
-glossary:: capability level {cmmi} = (CMMI) Achievement of process
+glossary:: capability level {CMMI} = Achievement of process
 improvement within an individual process area. A capability level is
 defined by the appropriate specific and generic practices for a
-process area. (See also [g:cmmi:generic goal], [g:cmmi:generic
-practice], [g:cmmi:maturity level], and [g:cmmi:process area].)
+process area. (See also [g:CMMI:generic goal], [g:CMMI:generic
+practice], [g:CMMI:maturity level], and [g:CMMI:process area].)
 [cite:cmmi]
 
-glossary:: capability level profile {cmmi} = (CMMI) In the continuous
+glossary:: capability level profile {CMMI} = In the continuous
 representation, a list of process areas and their corresponding
-capability levels. (See also [g:cmmi:achievement profile],
-[g:cmmi:target profile], and [g:cmmi:target staging].)  The profile
+capability levels. (See also [g:CMMI:achievement profile],
+[g:CMMI:target profile], and [g:CMMI:target staging].)  The profile
 may be an achievement profile when it represents the organization's
 progress for each process area while advancing through the capability
 levels. Or, the profile may be a target profile when it represents an
 objective for process improvement [cite:cmmi]
 
-glossary:: capability maturity model {cmmi} = (CMMI) A model that
-contains the essential elements of effective processes for one or more
+glossary:: capability maturity model {CMMI} = A model that contains
+the essential elements of effective processes for one or more
 disciplines and describes an evolutionary improvement path from ad
 hoc, immature processes to disciplined, mature processes with improved
 quality and effectiveness [cite:cmmi]
 
-glossary:: capable process {cmmi} = (CMMI) A process that can satisfy
-its specified product quality, service quality, and process
-performance objectives. (See also [g:cmmi:stable process],
-[g:cmmi:standard process], and [g:cmmi:statistically managed
-process].)  [cite:cmmi]
+glossary:: capable process {CMMI} = A process that can satisfy its
+specified product quality, service quality, and process performance
+objectives. (See also [g:CMMI:stable process], [g:CMMI:standard
+process], and [g:CMMI:statistically managed process].)  [cite:cmmi]
 
-glossary:: causal analysis {cmmi} = (CMMI) The analysis of defects to
+glossary:: causal analysis {CMMI} = The analysis of defects to
 determine their cause [cite:cmmi]
 
-glossary:: change management {cmmi} = (CMMI) Judicious use of means to
-effect a change, or a proposed change, on a product or service. (See
-also [g:cmmi:configuration management].) [cite:cmmi]
+glossary:: change management {CMMI} = Judicious use of means to effect
+a change, or a proposed change, on a product or service. (See also
+[g:CMMI:configuration management].) [cite:cmmi]
 
-glossary:: commercial off the shelf {cmmi} = (CMMI) ([g:cmmi:COTS])
-Items that can be purchased from a commercial vendor [cite:cmmi]
+glossary:: commercial off the shelf {CMMI} = ([acs:CMMI:COTS]) Items
+that can be purchased from a commercial vendor [cite:cmmi]
 
-glossary:: common cause of process variation {cmmi} = (CMMI) The
-variation of a process that exists because of normal and expected
-interactions among the components of a process.  (See also
-[g:cmmi:special cause of process variation].) [cite:cmmi]
+glossary:: common cause of process variation {CMMI} = The variation of
+a process that exists because of normal and expected interactions
+among the components of a process.  (See also [g:CMMI:special cause of
+process variation].) [cite:cmmi]
 
-glossary:: concept of operations {cmmi} = (CMMI) Same as
-[g:cmmi:operational concept] [cite:cmmi]
+glossary:: concept of operations {CMMI} = Same as [g:CMMI:operational
+concept] [cite:cmmi]
 
-glossary:: configuration audit {cmmi} = (CMMI) An audit conducted to
-verify that a configuration item, or a collection of configuration
-items that make up a baseline, conforms to a specified standard or
-requirement. (See also [g:cmmi:audit], [g:cmmi:configuration item],
-[g:cmmi:functional configuration audit], and [g:cmmi:physical
+glossary:: configuration audit {CMMI} = An audit conducted to verify
+that a configuration item, or a collection of configuration items that
+make up a baseline, conforms to a specified standard or
+requirement. (See also [g:CMMI:audit], [g:CMMI:configuration item],
+[g:CMMI:functional configuration audit], and [g:CMMI:physical
 configuration audit].) [cite:cmmi]
 
-glossary:: configuration baseline {cmmi} = (CMMI) The configuration
+glossary:: configuration baseline {CMMI} = The configuration
 information formally designated at a specific time during a product's
 or product component's life.  Configuration baselines, plus approved
 changes from those baselines, constitute the current configuration
-information.  (See also [g:cmmi:product lifecycle].) [cite:cmmi]
+information.  (See also [g:CMMI:product lifecycle].) [cite:cmmi]
 
-glossary:: configuration control {cmmi} = (CMMI) An element of
-configuration management consisting of the evaluation, coordination,
-approval or disapproval, and implementation of changes to
-configuration items after formal establishment of their configuration
-identification.  (See also [g:cmmi:configuration identification],
-[g:cmmi:configuration item], and [g:cmmi:configuration management].)
-[cite:cmmi]
+glossary:: configuration control {CMMI} = An element of configuration
+management consisting of the evaluation, coordination, approval or
+disapproval, and implementation of changes to configuration items
+after formal establishment of their configuration identification.
+(See also [g:CMMI:configuration identification], [g:CMMI:configuration
+item], and [g:CMMI:configuration management].)  [cite:cmmi]
 
-glossary:: configuration control board {cmmi} = (CMMI) ([g:cmmi:CCB])
-A group of people responsible for evaluating and approving or
+glossary:: configuration control board {CMMI} = ([acs:CMMI:CCB]) A
+group of people responsible for evaluating and approving or
 disapproving proposed changes to configuration items, and for ensuring
-implementation of approved changes. (See also [g:cmmi:configuration
+implementation of approved changes. (See also [g:CMMI:configuration
 item].)  Configuration control boards are also known as change control
 boards [cite:cmmi]
 
-glossary:: configuration identification {cmmi} = (CMMI) An element of
+glossary:: configuration identification {CMMI} = An element of
 configuration management consisting of selecting the configuration
 items for a product, assigning unique identifiers to them, and
 recording their functional and physical characteristics in technical
-documentation. (See also [g:cmmi:configuration item],
-[g:cmmi:configuration management], and [g:cmmi:product].)  [cite:cmmi]
+documentation. (See also [g:CMMI:configuration item],
+[g:CMMI:configuration management], and [g:CMMI:product].)  [cite:cmmi]
 
-glossary:: configuration management {cmmi} = (CMMI) A discipline
-applying technical and administrative direction and surveillance to
-(1) identify and document the functional and physical characteristics
-of a configuration item, (2) control changes to those characteristics,
-(3) record and report change processing and implementation status, and
-(4) verify compliance with specified requirements. (See also
-[g:cmmi:configuration audit], [g:cmmi:configuration control],
-[g:cmmi:configuration identification], and [g:cmmi:configuration
+glossary:: configuration management {CMMI} = A discipline applying
+technical and administrative direction and surveillance to (1)
+identify and document the functional and physical characteristics of a
+configuration item, (2) control changes to those characteristics, (3)
+record and report change processing and implementation status, and (4)
+verify compliance with specified requirements. (See also
+[g:CMMI:configuration audit], [g:CMMI:configuration control],
+[g:CMMI:configuration identification], and [g:CMMI:configuration
 status accounting].) [cite:cmmi]
 
-glossary:: configuration item {cmmi} = (CMMI) An aggregation of work
-products that is designated for configuration management and treated
-as a single entity in the configuration management process. (See also
-[g:cmmi:configuration management].) [cite:cmmi]
+glossary:: configuration item {CMMI} = An aggregation of work products
+that is designated for configuration management and treated as a
+single entity in the configuration management process. (See also
+[g:CMMI:configuration management].) [cite:cmmi]
 
-glossary:: configuration status accounting {cmmi} = (CMMI) An element
-of configuration management consisting of the recording and reporting
-of information needed to manage a configuration effectively. This
+glossary:: configuration status accounting {CMMI} = An element of
+configuration management consisting of the recording and reporting of
+information needed to manage a configuration effectively. This
 information includes a listing of the approved configuration
 identification, the status of proposed changes to the configuration,
 and the implementation status of approved changes. (See also
-[g:cmmi:configuration identification] and [g:cmmi:configuration
+[g:CMMI:configuration identification] and [g:CMMI:configuration
 management].)  [cite:cmmi]
 
-glossary:: continuous representation {cmmi} = (CMMI) A capability
-maturity model structure wherein capability levels provide a
-recommended order for approaching process improvement within each
-specified process area.  (See also [g:cmmi:capability level],
-[g:cmmi:process area], and [g:cmmi:staged representation].)
-[cite:cmmi]
+glossary:: continuous representation {CMMI} = A capability maturity
+model structure wherein capability levels provide a recommended order
+for approaching process improvement within each specified process
+area.  (See also [g:CMMI:capability level], [g:CMMI:process area], and
+[g:CMMI:staged representation].)  [cite:cmmi]
 
-glossary:: contractor {cmmi} = (CMMI) Same as [g:cmmi:supplier]
-[cite:cmmi]
+glossary:: contractor {CMMI} = Same as [g:CMMI:supplier] [cite:cmmi]
 
-glossary:: corrective action {cmmi} = (CMMI) Acts or deeds used to
-remedy a situation, remove an error, or adjust a condition [cite:cmmi]
+glossary:: corrective action {CMMI} = Acts or deeds used to remedy a
+situation, remove an error, or adjust a condition [cite:cmmi]
 
-glossary:: customer {cmmi} = (CMMI) The party (individual, project, or
+glossary:: customer {CMMI} = The party (individual, project, or
 organization) responsible for accepting the product or for authorizing
 payment. The customer is external to the project (except possibly when
-integrated teams are used, as in [g:cmmi:IPPD]), but not necessarily
+integrated teams are used, as in [acs:CMMI:IPPD]), but not necessarily
 external to the organization. The customer may be a higher level
 project. Customers are a subset of stakeholders. (See also
-[g:cmmi:stakeholder].)  In most cases where this term is used, the
+[g:CMMI:stakeholder].)  In most cases where this term is used, the
 preceding definition is intended; however, in some contexts, the term
 ``customer'' is intended to include other relevant stakeholders. (See
-also [g:cmmi:customer requirement].) [cite:cmmi]
+also [g:CMMI:customer requirement].) [cite:cmmi]
 
-glossary:: customer requirement {cmmi} = (CMMI) The result of
-eliciting, consolidating, and resolving conflicts among the needs,
-expectations, constraints, and interfaces of the product's relevant
-stakeholders in a way that is acceptable to the customer. (See also
-[g:cmmi:customer].) [cite:cmmi]
+glossary:: customer requirement {CMMI} = The result of eliciting,
+consolidating, and resolving conflicts among the needs, expectations,
+constraints, and interfaces of the product's relevant stakeholders in
+a way that is acceptable to the customer. (See also
+[g:CMMI:customer].) [cite:cmmi]
 
 ######################################################################
 # D
 ######################################################################
 
-glossary:: data {cmmi} = (CMMI) Recorded information, regardless of
-the form or method of recording, including technical data, computer
-software documents, financial information, management information,
+glossary:: data {CMMI} = Recorded information, regardless of the form
+or method of recording, including technical data, computer software
+documents, financial information, management information,
 representation of facts, numbers, or datum of any nature that can be
 communicated, stored, and processed [cite:cmmi]
 
-glossary:: data management {cmmi} = (CMMI) The disciplined processes
-and systems that plan for, acquire, and provide stewardship for
-business and technical data, consistent with data requirements,
-throughout the data lifecycle [cite:cmmi]
+glossary:: data management {CMMI} = The disciplined processes and
+systems that plan for, acquire, and provide stewardship for business
+and technical data, consistent with data requirements, throughout the
+data lifecycle [cite:cmmi]
 
-glossary:: defect density {cmmi} = (CMMI) Number of defects per unit
-of product size (e.g., problem reports per thousand lines of code)
+glossary:: defect density {CMMI} = Number of defects per unit of
+product size (e.g., problem reports per thousand lines of code)
 [cite:cmmi]
 
-glossary:: defined {cmmi} = (CMMI) At maturity level 3, processes are
-well characterized and understood, and are described in standards,
+glossary:: defined {CMMI} = At maturity level 3, processes are well
+characterized and understood, and are described in standards,
 procedures, tools, and methods. The organization's set of standard
 processes, which is the basis for maturity level 3, is established and
 improved over time. These standard processes are used to establish
@@ -367,7 +353,7 @@ processes by tailoring the organization's set of standard processes
 according to tailoring guidelines. (See the glossary for a definition
 of ``organization's set of standard processes.'') [cite:cmmi, pg 37]
 
-glossary:: defined {cmmi-2} = (CMMI) A capability level 3 process is
+glossary:: defined {CMMI-2} = A capability level 3 process is
 characterized as a ``defined process.'' A defined process is a managed
 (capability level 2) process that is tailored from the organization's
 set of standard processes according to the organization's tailoring
@@ -375,80 +361,79 @@ guidelines, and contributes work products, measures, and other process
 improvement information to the organizational process
 assets. [cite:cmmi, pg 33]
 
-glossary:: defined process {cmmi} = (CMMI) A managed process that is
-tailored from the organization's set of standard processes according
-to the organization's tailoring guidelines; has a maintained process
+glossary:: defined process {CMMI} = A managed process that is tailored
+from the organization's set of standard processes according to the
+organization's tailoring guidelines; has a maintained process
 description; and contributes work products, measures, and other
 process improvement information to the organizational process
-assets. (See also [g:cmmi:managed process].) [cite:cmmi]
+assets. (See also [g:CMMI:managed process].) [cite:cmmi]
 
-glossary:: derived measures {cmmi} = (CMMI) Data resulting from the
+glossary:: derived measures {CMMI} = Data resulting from the
 mathematical function of two or more base measures. (See also
-[g:cmmi:base measure].) [cite:cmmi]
+[g:CMMI:base measure].) [cite:cmmi]
 
-glossary:: derived requirements {cmmi} = (CMMI) Requirements that are
-not explicitly stated in the customer requirements, but are inferred
-(1) from contextual requirements (e.g., applicable standards, laws,
+glossary:: derived requirements {CMMI} = Requirements that are not
+explicitly stated in the customer requirements, but are inferred (1)
+from contextual requirements (e.g., applicable standards, laws,
 policies, common practices, and management decisions), or (2) from
 requirements needed to specify a product component.  Derived
 requirements can also arise during analysis and design of components
-of the product or system. (See also [g:cmmi:product requirements].)
+of the product or system. (See also [g:CMMI:product requirements].)
 [cite:cmmi]
 
-glossary:: design review {cmmi} = (CMMI) A formal, documented,
-comprehensive, and systematic examination of a design to evaluate the
-design requirements and the capability of the design to meet these
+glossary:: design review {CMMI} = A formal, documented, comprehensive,
+and systematic examination of a design to evaluate the design
+requirements and the capability of the design to meet these
 requirements, and to identify problems and propose solutions
 [cite:cmmi]
 
-glossary:: development {cmmi} = (CMMI) In the CMMI Product Suite, not
-only development activities but also maintenance activities may be
+glossary:: development {CMMI} = In the CMMI Product Suite, not only
+development activities but also maintenance activities may be
 included. Projects that benefit from the best practices of CMMI can
 focus on development, maintenance, or both [cite:cmmi]
 
-glossary:: developmental plan {cmmi} = (CMMI) A plan for guiding,
+glossary:: developmental plan {CMMI} = A plan for guiding,
 implementing, and controlling the design and development of one or
-more products. (See also [g:cmmi:product lifecycle] and
-[g:cmmi:project plan].) [cite:cmmi]
+more products. (See also [g:CMMI:product lifecycle] and
+[g:CMMI:project plan].) [cite:cmmi]
 
-glossary:: discipline {cmmi} = (CMMI) In the CMMI Product Suite, the
-bodies of knowledge available to you when selecting a CMMI model
-(e.g., systems engineering). The CMMI Product Team envisions that
-other bodies of knowledge will be integrated into the CMMI Framework
-in the future [cite:cmmi]
+glossary:: discipline {CMMI} = In the CMMI Product Suite, the bodies
+of knowledge available to you when selecting a CMMI model (e.g.,
+systems engineering). The CMMI Product Team envisions that other
+bodies of knowledge will be integrated into the CMMI Framework in the
+future [cite:cmmi]
 
-glossary:: document {cmmi} = (CMMI) A collection of data, regardless
-of the medium on which it is recorded, that generally has permanence
-and can be read by humans or machines. So, documents include both
-paper and electronic documents [cite:cmmi]
+glossary:: document {CMMI} = A collection of data, regardless of the
+medium on which it is recorded, that generally has permanence and can
+be read by humans or machines. So, documents include both paper and
+electronic documents [cite:cmmi]
 
 ######################################################################
 # E
 ######################################################################
 
-glossary:: enterprise {cmmi} = (CMMI) The full composition of
+glossary:: enterprise {CMMI} = The full composition of
 companies. Companies may consist of many organizations in many
-locations with different customers. (See also [g:cmmi:organization].)
+locations with different customers. (See also [g:CMMI:organization].)
 [cite:cmmi]
 
-glossary:: entry criteria {cmmi} = (CMMI) States of being that must be
+glossary:: entry criteria {CMMI} = States of being that must be
 present before an effort can begin successfully [cite:cmmi]
 
-glossary:: equivalent staging {cmmi} = (CMMI) A target staging,
-created using the continuous representation, which is defined so that
-the results of using the target staging can be compared to the
-maturity levels of the staged representation. (See also
-[g:cmmi:capability level profile], [g:cmmi:maturity level],
-[g:cmmi:target profile], and [g:cmmi:target staging].)  Such staging
-permits benchmarking of progress among organizations, enterprises, and
-projects, regardless of the CMMI representation used. The organization
-may implement components of CMMI models beyond those reported as part
-of equivalent staging. Equivalent staging is only a measure to relate
-how the organization is compared to other organizations in terms of
-maturity levels [cite:cmmi]
+glossary:: equivalent staging {CMMI} = A target staging, created using
+the continuous representation, which is defined so that the results of
+using the target staging can be compared to the maturity levels of the
+staged representation. (See also [g:CMMI:capability level profile],
+[g:CMMI:maturity level], [g:CMMI:target profile], and [g:CMMI:target
+staging].)  Such staging permits benchmarking of progress among
+organizations, enterprises, and projects, regardless of the CMMI
+representation used. The organization may implement components of CMMI
+models beyond those reported as part of equivalent staging. Equivalent
+staging is only a measure to relate how the organization is compared
+to other organizations in terms of maturity levels [cite:cmmi]
 
-glossary:: establish and maintain {cmmi} = (CMMI) In the CMMI Product
-Suite, you will encounter goals and practices that include the phrase
+glossary:: establish and maintain {CMMI} = In the CMMI Product Suite,
+you will encounter goals and practices that include the phrase
 ``establish and maintain.''  This phrase means more than a combination
 of its component terms; it includes documentation and usage. For
 example, ``Establish and maintain an organizational policy for
@@ -457,160 +442,152 @@ means that not only must a policy be formulated, but it also must be
 documented, and it must be used throughout the organization
 [cite:cmmi]
 
-glossary:: evidence {cmmi} = (CMMI) Same as [g:cmmi:objective
-evidence] [cite:cmmi]
-
-glossary:: executive {cmmi} = (CMMI) Same as [g:cmmi:senior manager]
+glossary:: evidence {CMMI} = Same as [g:CMMI:objective evidence]
 [cite:cmmi]
 
-glossary:: exit criteria {cmmi} = (CMMI) States of being that must be
-present before an effort can end successfully [cite:cmmi]
+glossary:: executive {CMMI} = Same as [g:CMMI:senior manager]
+[cite:cmmi]
 
-glossary:: expected CMMI components {cmmi} = (CMMI) CMMI components
-that explain what may be done to satisfy a required CMMI
-component. Model users can implement the expected components
-explicitly or implement equivalent alternative practices to these
-components. Specific and generic practices are expected model
-components [cite:cmmi]
+glossary:: exit criteria {CMMI} = States of being that must be present
+before an effort can end successfully [cite:cmmi]
+
+glossary:: expected CMMI components {CMMI} = CMMI components that
+explain what may be done to satisfy a required CMMI component. Model
+users can implement the expected components explicitly or implement
+equivalent alternative practices to these components. Specific and
+generic practices are expected model components [cite:cmmi]
 
 ######################################################################
 # F
 ######################################################################
 
-glossary:: finding {cmmi} = (CMMI) See [g:cmmi:appraisal findings]
+glossary:: finding {CMMI} = See [g:CMMI:appraisal findings]
 [cite:cmmi]
 
-glossary:: formal evaluation process {cmmi} = (CMMI) A structured
-approach to evaluating alternative solutions against established
-criteria to determine a recommended solution to address an issue
-[cite:cmmi]
+glossary:: formal evaluation process {CMMI} = A structured approach to
+evaluating alternative solutions against established criteria to
+determine a recommended solution to address an issue [cite:cmmi]
 
-glossary:: framework {cmmi} = (CMMI) See [g:cmmi:CMMI Framework]
-[cite:cmmi]
+glossary:: framework {CMMI} = See [g:CMMI:CMMI Framework] [cite:cmmi]
 
-glossary:: functional analysis {cmmi} = (CMMI) Examination of a
-defined function to identify all the subfunctions necessary to the
+glossary:: functional analysis {CMMI} = Examination of a defined
+function to identify all the subfunctions necessary to the
 accomplishment of that function; identification of functional
 relationships and interfaces (internal and external) and capturing
 these in a functional architecture; and flow down of upper level
 performance requirements and assignment of these requirements to lower
-level subfunctions. (See also [g:cmmi:functional architecture].)
+level subfunctions. (See also [g:CMMI:functional architecture].)
 [cite:cmmi]
 
-glossary:: functional architecture {cmmi} = (CMMI) The hierarchical
+glossary:: functional architecture {CMMI} = The hierarchical
 arrangement of functions, their internal and external (external to the
 aggregation itself) functional interfaces and external physical
 interfaces, their respective functional and performance requirements,
 and their design constraints [cite:cmmi]
 
-glossary:: functional configuration audit {cmmi} = (CMMI) An audit
-conducted to verify that the development of a configuration item has
-been completed satisfactorily, that the item has achieved the
-performance and functional characteristics specified in the functional
-or allocated configuration identification, and that its operational
-and support documents are complete and satisfactory. (See also
-[g:cmmi:configuration audit], [g:cmmi:configuration management], and
-[g:cmmi:physical configuration audit].)  [cite:cmmi]
+glossary:: functional configuration audit {CMMI} = An audit conducted
+to verify that the development of a configuration item has been
+completed satisfactorily, that the item has achieved the performance
+and functional characteristics specified in the functional or
+allocated configuration identification, and that its operational and
+support documents are complete and satisfactory. (See also
+[g:CMMI:configuration audit], [g:CMMI:configuration management], and
+[g:CMMI:physical configuration audit].)  [cite:cmmi]
 
 ######################################################################
 # G
 ######################################################################
 
-glossary:: generic goal {cmmi} = (CMMI) A required model component
-that describes the characteristics that must be present to
-institutionalize the processes that implement a process area. (See
-also [g:cmmi:institutionalization].) [cite:cmmi]
+glossary:: generic goal {CMMI} = A required model component that
+describes the characteristics that must be present to institutionalize
+the processes that implement a process area. (See also
+[g:CMMI:institutionalization].) [cite:cmmi]
 
-glossary:: generic practice {cmmi} = (CMMI) An expected model
-component that is considered important in achieving the associated
-generic goal. The generic practices associated with a generic goal
-describe the activities that are expected to result in achievement of
-the generic goal and contribute to the institutionalization of the
-processes associated with a process area [cite:cmmi]
+glossary:: generic practice {CMMI} = An expected model component that
+is considered important in achieving the associated generic goal. The
+generic practices associated with a generic goal describe the
+activities that are expected to result in achievement of the generic
+goal and contribute to the institutionalization of the processes
+associated with a process area [cite:cmmi]
 
-glossary:: generic practice elaboration {cmmi} = (CMMI) An informative
-model component that appears after a generic practice to provide
-guidance on how the generic practice should be applied to the process
-area [cite:cmmi]
+glossary:: generic practice elaboration {CMMI} = An informative model
+component that appears after a generic practice to provide guidance on
+how the generic practice should be applied to the process area
+[cite:cmmi]
 
-glossary:: goal {cmmi} = (CMMI) A required CMMI component that can be
-either a generic goal or a specific goal. When you see the word goal
-in a CMMI model, it always refers to a model component (e.g., generic
-goal and specific goal). (See also [g:cmmi:generic goal],
-[g:cmmi:objective], and [g:cmmi:specific goal].) [cite:cmmi]
+glossary:: goal {CMMI} = A required CMMI component that can be either
+a generic goal or a specific goal. When you see the word goal in a
+CMMI model, it always refers to a model component (e.g., generic goal
+and specific goal). (See also [g:CMMI:generic goal],
+[g:CMMI:objective], and [g:CMMI:specific goal].) [cite:cmmi]
 
 ######################################################################
 # H
 ######################################################################
 
-glossary:: hardware engineering {cmmi} = (CMMI) The application of a
+glossary:: hardware engineering {CMMI} = The application of a
 systematic, disciplined, and quantifiable approach to transform a set
 of requirements representing the collection of stakeholder needs,
 expectations, and constraints using documented techniques and
 technology to design, implement, and maintain a tangible product. (See
-also [g:cmmi:software engineering] and [g:cmmi:systems engineering].)
+also [g:CMMI:software engineering] and [g:CMMI:systems engineering].)
 In CMMI, hardware engineering represents all technical fields (e.g.,
 electrical or mechanical) that transform requirements and ideas into
 tangible and producible products [cite:cmmi]
 
-glossary:: higher level management {cmmi} = (CMMI) The person or
-persons who provide the policy and overall guidance for the process,
-but do not provide the direct day-to-day monitoring and controlling of
-the process. Such persons belong to a level of management in the
+glossary:: higher level management {CMMI} = The person or persons who
+provide the policy and overall guidance for the process, but do not
+provide the direct day-to-day monitoring and controlling of the
+process. Such persons belong to a level of management in the
 organization above the immediate level responsible for the process and
 can be (but are not necessarily) senior managers. (See also
-[g:cmmi:senior manager].) [cite:cmmi]
+[g:CMMI:senior manager].) [cite:cmmi]
 
 ######################################################################
 # I
 ######################################################################
 
-glossary:: IPPD {cmmi} = (CMMI) [g:cmmi:integrated product and process
-development]
-
-###
-
-glossary:: incomplete {cmmi} = (CMMI) An ``incomplete process'' is a
-process that either is not performed or partially performed. One or
-more of the specific goals of the process area are not satisfied, and
-no generic goals exist for this level since there is no reason to
+glossary:: incomplete {CMMI} = An ``incomplete process'' is a process
+that either is not performed or partially performed. One or more of
+the specific goals of the process area are not satisfied, and no
+generic goals exist for this level since there is no reason to
 institutionalize a partially performed process. [cite:cmmi,pg 33]
 
-glossary:: incomplete process {cmmi} = (CMMI) A process that is not
-performed or is performed only partially (also known as capability
-level 0). One or more of the specific goals of the process area are
-not satisfied [cite:cmmi]
+glossary:: incomplete process {CMMI} = A process that is not performed
+or is performed only partially (also known as capability level 0). One
+or more of the specific goals of the process area are not satisfied
+[cite:cmmi]
 
-glossary:: informative CMMI components {cmmi} = (CMMI) CMMI components
-that help model users understand the required and expected components
-of a model. These components can contain examples, detailed
-explanations, or other helpful information. Subpractices, notes,
-references, goal titles, practice titles, sources, typical work
-products, amplifications, and generic practice elaborations are
-informative model components [cite:cmmi]
+glossary:: informative CMMI components {CMMI} = CMMI components that
+help model users understand the required and expected components of a
+model. These components can contain examples, detailed explanations,
+or other helpful information. Subpractices, notes, references, goal
+titles, practice titles, sources, typical work products,
+amplifications, and generic practice elaborations are informative
+model components [cite:cmmi]
 
-glossary:: initial {cmmi} = (CMMI) At maturity level 1, processes are
-usually ad hoc and chaotic. The organization usually does not provide
-a stable environment to support the processes. Success in these
-organizations depends on the competence and heroics of the people in
-the organization and not on the use of proven processes. In spite of
-this chaos, maturity level 1 organizations often produce products and
+glossary:: initial {CMMI} = At maturity level 1, processes are usually
+ad hoc and chaotic. The organization usually does not provide a stable
+environment to support the processes. Success in these organizations
+depends on the competence and heroics of the people in the
+organization and not on the use of proven processes. In spite of this
+chaos, maturity level 1 organizations often produce products and
 services that work; however, they frequently exceed their budgets and
 do not meet their schedules.  Maturity level 1 organizations are
 characterized by a tendency to over commit, abandon processes in the
 time of crisis, and not be able to repeat their past successes
 again. [cite:cmmi, pg 36]
 
-glossary:: institutionalization {cmmi} = (CMMI) The ingrained way of
-doing business that an organization follows routinely as part of its
+glossary:: institutionalization {CMMI} = The ingrained way of doing
+business that an organization follows routinely as part of its
 corporate culture [cite:cmmi]
 
-glossary:: integrated product and process development {cmmi} = (CMMI)
-([g:cmmi:IPPD]) A systematic approach to product development that
+glossary:: integrated product and process development {CMMI} =
+([acs:CMMI:IPPD]) A systematic approach to product development that
 achieves a timely collaboration of relevant stakeholders throughout
 the product lifecycle to better satisfy customer needs [cite:cmmi]
 
-glossary:: integrated team {cmmi} = (CMMI) A group of people with
+glossary:: integrated team {CMMI} = A group of people with
 complementary skills and expertise who are committed to delivering
 specified work products in timely collaboration. Integrated team
 members provide skills and advocacy appropriate to all phases of the
@@ -620,44 +597,31 @@ empowered representatives from organizations, disciplines, and
 functions that have a stake in the success of the work products
 [cite:cmmi]
 
-glossary:: interface control {cmmi} = (CMMI) In configuration
-management, the process of (1) identifying all functional and physical
-characteristics relevant to the interfacing of two or more
-configuration items provided by one or more organizations, and (2)
-ensuring that the proposed changes to these characteristics are
-evaluated and approved prior to implementation. (See also
-[g:cmmi:configuration item] and [g:cmmi:configuration management].)
-[cite:cmmi]
-
-######################################################################
-# J
-######################################################################
-
-######################################################################
-# K
-######################################################################
+glossary:: interface control {CMMI} = In configuration management, the
+process of (1) identifying all functional and physical characteristics
+relevant to the interfacing of two or more configuration items
+provided by one or more organizations, and (2) ensuring that the
+proposed changes to these characteristics are evaluated and approved
+prior to implementation. (See also [g:CMMI:configuration item] and
+[g:CMMI:configuration management].)  [cite:cmmi]
 
 ######################################################################
 # L
 ######################################################################
 
-glossary:: lifecycle model {cmmi} = (CMMI) A partitioning of the life
-of a product or project into phases [cite:cmmi]
+glossary:: lifecycle model {CMMI} = A partitioning of the life of a
+product or project into phases [cite:cmmi]
 
 ######################################################################
 # M
 ######################################################################
 
-glossary:: MOA {cmmi} = (CMMI) [g:cmmi:memorandum of agreement]
-
-###
-
-glossary:: managed {cmmi} = (CMMI) At maturity level 2, the projects
-of the organization have ensured that processes are planned and
-executed in accordance with policy; the projects employ skilled people
-who have adequate resources to produce controlled outputs; involve
-relevant stakeholders; are monitored, controlled, and reviewed; and
-are evaluated for adherence to their process descriptions. The process
+glossary:: managed {CMMI} = At maturity level 2, the projects of the
+organization have ensured that processes are planned and executed in
+accordance with policy; the projects employ skilled people who have
+adequate resources to produce controlled outputs; involve relevant
+stakeholders; are monitored, controlled, and reviewed; and are
+evaluated for adherence to their process descriptions. The process
 discipline reflected by maturity level 2 helps to ensure that existing
 practices are retained during times of stress. When these practices
 are in place, projects are performed and managed according to their
@@ -669,7 +633,7 @@ and are revised as needed. Work products are appropriately
 controlled. The work products and services satisfy their specified
 process descriptions, standards, and procedures. [cite:cmmi, pg 36]
 
-glossary:: managed {cmmi-2} = (CMMI) A capability level 2 process is
+glossary:: managed {CMMI-2} = A capability level 2 process is
 characterized as a ``managed process.'' A managed process is a
 performed (capability level 1) process that has the basic
 infrastructure in place to support the process. It is planned and
@@ -680,186 +644,181 @@ for adherence to its process description. The process discipline
 reflected by capability level 2 helps to ensure that existing
 practices are retained during times of stress. [cite:cmmi, pg 33]
 
-glossary:: managed process {cmmi} = (CMMI) A performed process that is
+glossary:: managed process {CMMI} = A performed process that is
 planned and executed in accordance with policy; employs skilled people
 having adequate resources to produce controlled outputs; involves
 relevant stakeholders; is monitored, controlled, and reviewed; and is
 evaluated for adherence to its process description. (See also
-[g:cmmi:performed process].) [cite:cmmi]
+[g:CMMI:performed process].) [cite:cmmi]
 
-glossary:: manager {cmmi} = (CMMI) In the CMMI Product Suite, a person
-who provides technical and administrative direction and control to
-those performing tasks or activities within the manager's area of
+glossary:: manager {CMMI} = In the CMMI Product Suite, a person who
+provides technical and administrative direction and control to those
+performing tasks or activities within the manager's area of
 responsibility.  The traditional functions of a manager include
 planning, organizing, directing, and controlling work within an area
 of responsibility [cite:cmmi]
 
-glossary:: maturity level {cmmi} = (CMMI) Degree of process
-improvement across a predefined set of process areas in which all
-goals in the set are attained. (See also [g:cmmi:capability level] and
-[g:cmmi:process area].) [cite:cmmi]
+glossary:: maturity level {CMMI} = Degree of process improvement
+across a predefined set of process areas in which all goals in the set
+are attained. (See also [g:CMMI:capability level] and [g:CMMI:process
+area].) [cite:cmmi]
 
-glossary:: memorandum of agreement {cmmi} = (CMMI) ([g:cmmi:MOA])
-Binding documents of understanding or agreements between two or more
+glossary:: memorandum of agreement {CMMI} = ([acs:CMMI:MOA]) Binding
+documents of understanding or agreements between two or more
 parties. Also known as a ``memorandum of understanding'' [cite:cmmi]
 
 ######################################################################
 # N
 ######################################################################
 
-glossary:: NDI {cmmi} = (CMMI) [g:cmmi:nondevelopmental item]
+glossary:: natural bounds {CMMI} = The inherent process reflected by
+measures of process performance, sometimes referred to as ``voice of
+the process.'' Techniques such as control charts, confidence
+intervals, and prediction intervals are used to determine whether the
+variation is due to common causes (i.e., the process is predictable or
+``stable'') or is due to some special cause that can and should be
+identified and removed [cite:cmmi]
 
-###
+glossary:: nondevelopmental item {CMMI} = ([acs:CMMI:NDI]) An item of
+supply that was developed prior to its current use in an acquisition
+or development process. Such an item may require minor modifications
+to meet the requirements of its current intended use [cite:cmmi]
 
-glossary:: natural bounds {cmmi} = (CMMI) The inherent process
-reflected by measures of process performance, sometimes referred to as
-``voice of the process.'' Techniques such as control charts,
-confidence intervals, and prediction intervals are used to determine
-whether the variation is due to common causes (i.e., the process is
-predictable or ``stable'') or is due to some special cause that can
-and should be identified and removed [cite:cmmi]
-
-glossary:: nondevelopmental item {cmmi} = (CMMI) ([g:cmmi:NDI]) An
-item of supply that was developed prior to its current use in an
-acquisition or development process. Such an item may require minor
-modifications to meet the requirements of its current intended use
-[cite:cmmi]
-
-glossary:: nontechnical requirements {cmmi} = (CMMI) Contractual
-provisions, commitments, conditions, and terms that affect how
-products or services are to be acquired.  Examples include products to
-be delivered, data rights for delivered commercial off-the-shelf
-(COTS) nondevelopmental items (NDIs), delivery dates, and milestones
-with exit criteria. Other nontechnical requirements include training
+glossary:: nontechnical requirements {CMMI} = Contractual provisions,
+commitments, conditions, and terms that affect how products or
+services are to be acquired.  Examples include products to be
+delivered, data rights for delivered commercial off-the-shelf (COTS)
+nondevelopmental items (NDIs), delivery dates, and milestones with
+exit criteria. Other nontechnical requirements include training
 requirements, site requirements, and deployment schedules [cite:cmmi]
 
 ######################################################################
 # O
 ######################################################################
 
-glossary:: objective {cmmi} = (CMMI) When used as a noun in the CMMI
-Product Suite, the term objective replaces the word goal as used in
-its common everyday sense since the word goal is reserved for use when
-referring to the CMMI model components called specific goals and
-generic goals. (See also [g:cmmi:goal].) [cite:cmmi]
+glossary:: objective {CMMI} = When used as a noun in the CMMI Product
+Suite, the term objective replaces the word goal as used in its common
+everyday sense since the word goal is reserved for use when referring
+to the CMMI model components called specific goals and generic
+goals. (See also [g:CMMI:goal].) [cite:cmmi]
 
-glossary:: objective evidence {cmmi} = (CMMI) As used in CMMI
-appraisal materials, documents or interview results used as indicators
-of the implementation or institutionalization of model
-practices. Sources of objective evidence can include instruments,
-presentations, documents, and interviews [cite:cmmi]
+glossary:: objective evidence {CMMI} = As used in CMMI appraisal
+materials, documents or interview results used as indicators of the
+implementation or institutionalization of model practices. Sources of
+objective evidence can include instruments, presentations, documents,
+and interviews [cite:cmmi]
 
-glossary:: objectively evaluate {cmmi} = (CMMI) To review activities
-and work products against criteria which minimize subjectivity and
-bias by the reviewer. An example of an objective evaluation is an
-audit against requirements, standards, or procedures by an independent
-quality assurance function. (See also [g:cmmi:audit].) [cite:cmmi]
+glossary:: objectively evaluate {CMMI} = To review activities and work
+products against criteria which minimize subjectivity and bias by the
+reviewer. An example of an objective evaluation is an audit against
+requirements, standards, or procedures by an independent quality
+assurance function. (See also [g:CMMI:audit].) [cite:cmmi]
 
-glossary:: observation {cmmi} = (CMMI) As used in CMMI appraisal
-materials, a written record that represents the appraisal team
-members' understanding of information either seen or heard during the
-appraisal data collection activities. The written record may take the
-form of a statement or may take alternative forms as long as the
-information content is preserved [cite:cmmi]
+glossary:: observation {CMMI} = As used in CMMI appraisal materials, a
+written record that represents the appraisal team members'
+understanding of information either seen or heard during the appraisal
+data collection activities. The written record may take the form of a
+statement or may take alternative forms as long as the information
+content is preserved [cite:cmmi]
 
-glossary:: operational concept {cmmi} = (CMMI) A general description
-of the way in which an entity is used or operates. (Also known as
-[g:cmmi:concept of operations].) [cite:cmmi]
+glossary:: operational concept {CMMI} = A general description of the
+way in which an entity is used or operates. (Also known as
+[g:CMMI:concept of operations].) [cite:cmmi]
 
-glossary:: operational scenario {cmmi} = (CMMI) A description of an
-imagined sequence of events that includes the interaction of the
-product with its environment and users, as well as interaction among
-its product components. Operational scenarios are used to evaluate the
+glossary:: operational scenario {CMMI} = A description of an imagined
+sequence of events that includes the interaction of the product with
+its environment and users, as well as interaction among its product
+components. Operational scenarios are used to evaluate the
 requirements and design of the system and to verify and validate the
 system [cite:cmmi]
 
-glossary:: optimizing {cmmi} = (CMMI) At maturity level 5, an
-organization continually improves its processes based on a
-quantitative understanding of the common causes of variation inherent
-in processes. (See the definition of ``common cause of process
+glossary:: optimizing {CMMI} = At maturity level 5, an organization
+continually improves its processes based on a quantitative
+understanding of the common causes of variation inherent in
+processes. (See the definition of ``common cause of process
 variation'' in the glossary.) [cite:cmmi, pg 38]
 
-glossary:: optimizing {cmmi-2} = (CMMI) A capability level 5 process
-is characterized as an ``optimizing process.'' An optimizing process
-is a quantitatively managed (capability level 4) process that is
-improved based on an understanding of the common causes of variation
-inherent in the process. The focus of an optimizing process is on
-continually improving the range of process performance through both
-incremental and innovative improvements. [cite:cmmi, pg 34]
+glossary:: optimizing {CMMI-2} = A capability level 5 process is
+characterized as an ``optimizing process.'' An optimizing process is a
+quantitatively managed (capability level 4) process that is improved
+based on an understanding of the common causes of variation inherent
+in the process. The focus of an optimizing process is on continually
+improving the range of process performance through both incremental
+and innovative improvements. [cite:cmmi, pg 34]
 
-glossary:: optimizing process {cmmi} = (CMMI) A quantitatively managed
+glossary:: optimizing process {CMMI} = A quantitatively managed
 process that is improved based on an understanding of the common
 causes of variation inherent in the process. The focus of an
 optimizing process is on continually improving the range of process
 performance through both incremental and innovative improvements. (See
-also [g:cmmi:common cause of process variation], [g:cmmi:defined
-process], and [g:cmmi:quantitatively managed process].)  [cite:cmmi]
+also [g:CMMI:common cause of process variation], [g:CMMI:defined
+process], and [g:CMMI:quantitatively managed process].)  [cite:cmmi]
 
-glossary:: organization {cmmi} = (CMMI) An administrative structure in
-which people collectively manage one or more projects as a whole, and
-whose projects share a senior manager and operate under the same
+glossary:: organization {CMMI} = An administrative structure in which
+people collectively manage one or more projects as a whole, and whose
+projects share a senior manager and operate under the same
 policies. However, the word organization as used throughout CMMI
 models can also apply to one person who performs a function in a small
 organization that might be performed by a group of people in a large
-organization. (See also [g:cmmi:enterprise] and [g:cmmi:organizational
+organization. (See also [g:CMMI:enterprise] and [g:CMMI:organizational
 unit].)  [cite:cmmi]
 
-glossary:: organizational maturity {cmmi} = (CMMI) The extent to which
-an organization has explicitly and consistently deployed processes
-that are documented, managed, measured, controlled, and continually
+glossary:: organizational maturity {CMMI} = The extent to which an
+organization has explicitly and consistently deployed processes that
+are documented, managed, measured, controlled, and continually
 improved.  Organizational maturity may be measured via appraisals
 [cite:cmmi]
 
-glossary:: organizational policy {cmmi} = (CMMI) A guiding principle
+glossary:: organizational policy {CMMI} = A guiding principle
 typically established by senior management that is adopted by an
 organization to influence and determine decisions [cite:cmmi]
 
-glossary:: organizational process assets {cmmi} = (CMMI) Artifacts
-that relate to describing, implementing, and improving processes
-(e.g., policies, measurements, process descriptions, and process
+glossary:: organizational process assets {CMMI} = Artifacts that
+relate to describing, implementing, and improving processes (e.g.,
+policies, measurements, process descriptions, and process
 implementation support tools).  The term process assets is used to
 indicate that these artifacts are developed or acquired to meet the
 business objectives of the organization, and they represent
 investments by the organization that are expected to provide current
-and future business value. (See also [g:cmmi:process asset library].)
+and future business value. (See also [g:CMMI:process asset library].)
 [cite:cmmi]
 
-glossary:: organizational unit {cmmi} = (CMMI) The part of an
-organization that is the subject of an appraisal. An organizational
-unit deploys one or more processes that have a coherent process
-context and operates within a coherent set of business objectives. An
+glossary:: organizational unit {CMMI} = The part of an organization
+that is the subject of an appraisal. An organizational unit deploys
+one or more processes that have a coherent process context and
+operates within a coherent set of business objectives. An
 organizational unit is typically part of a larger organization,
 although in a small organization, the organizational unit may be the
 whole organization [cite:cmmi]
 
-glossary:: organization's business objectives {cmmi} = (CMMI) Senior
+glossary:: organization's business objectives {CMMI} = Senior
 management developed strategies designed to ensure an organization's
 continued existence and enhance its profitability, market share, and
 other factors influencing the organization's success. (See also
-[g:cmmi:quality and process performance objectives] and
-[g:cmmi:quantitative objective].)  Such objectives may include
+[g:CMMI:quality and process performance objectives] and
+[g:CMMI:quantitative objective].)  Such objectives may include
 reducing the number of change requests during a system's integration
 phase, reducing development cycle time, increasing the number of
 errors found in a product's first or second phase of development, and
 reducing the number of customer-reported defects, when applied to
 systems engineering activities [cite:cmmi]
 
-glossary:: organization's measurement repository {cmmi} = (CMMI) A
-repository used to collect and make available measurement data on
-processes and work products, particularly as they relate to the
-organization's set of standard processes. This repository contains or
-references actual measurement data and related information needed to
-understand and analyze the measurement data [cite:cmmi]
+glossary:: organization's measurement repository {CMMI} = A repository
+used to collect and make available measurement data on processes and
+work products, particularly as they relate to the organization's set
+of standard processes. This repository contains or references actual
+measurement data and related information needed to understand and
+analyze the measurement data [cite:cmmi]
 
-glossary:: organization's process asset library {cmmi} = (CMMI) A
-library of information used to store and make available process assets
-that are useful to those who are defining, implementing, and managing
-processes in the organization.  This library contains process assets
-that include process related documentation such as policies, defined
+glossary:: organization's process asset library {CMMI} = A library of
+information used to store and make available process assets that are
+useful to those who are defining, implementing, and managing processes
+in the organization.  This library contains process assets that
+include process related documentation such as policies, defined
 processes, checklists, lessons-learned documents, templates,
 standards, procedures, plans, and training materials [cite:cmmi]
 
-glossary:: organization's set of standard processes {cmmi} = (CMMI) A
+glossary:: organization's set of standard processes {CMMI} = A
 collection of definitions of the processes that guide activities in an
 organization. These process descriptions cover the fundamental process
 elements (and their relationships to each other, such as ordering and
@@ -867,27 +826,26 @@ interfaces) that must be incorporated into the defined processes that
 are implemented in projects across the organization. A standard
 process enables consistent development and maintenance activities
 across the organization and is essential for long-term stability and
-improvement. (See also [g:cmmi:defined process] and [g:cmmi:process
+improvement. (See also [g:CMMI:defined process] and [g:CMMI:process
 element].)  [cite:cmmi]
 
-glossary:: outsourcing {cmmi} = (CMMI) See [g:cmmi:acquisition]
-[cite:cmmi]
+glossary:: outsourcing {CMMI} = See [g:CMMI:acquisition] [cite:cmmi]
 
 ######################################################################
 # P
 ######################################################################
 
-glossary:: peer review {cmmi} = (CMMI) The review of work products
-performed by peers during development of the work products to identify
-defects for removal. The term peer review is used in the CMMI Product
-Suite instead of the term work product inspection. (See also
-[g:cmmi:work product].) [cite:cmmi]
+glossary:: peer review {CMMI} = The review of work products performed
+by peers during development of the work products to identify defects
+for removal. The term peer review is used in the CMMI Product Suite
+instead of the term work product inspection. (See also [g:CMMI:work
+product].) [cite:cmmi]
 
-glossary:: performance parameters {cmmi} = (CMMI) The measures of
+glossary:: performance parameters {CMMI} = The measures of
 effectiveness and other key measures used to guide and control
 progressive development [cite:cmmi]
 
-glossary:: performed {cmmi} = (CMMI) A capability level 1 process is
+glossary:: performed {CMMI} = A capability level 1 process is
 characterized as a ``performed process.'' A performed process is a
 process that satisfies the specific goals of the process area. It
 supports and enables the work needed to produce work products.
@@ -897,304 +855,297 @@ institutionalized. The application of institutionalization (the CMMI
 generic practices at capability levels 2 through 5) helps to ensure
 that improvements are maintained. [cite:cmmi, pg 33]
 
-glossary:: performed process {cmmi} = (CMMI) A process that
-accomplishes the needed work to produce work products. The specific
-goals of the process area are satisfied [cite:cmmi]
+glossary:: performed process {CMMI} = A process that accomplishes the
+needed work to produce work products. The specific goals of the
+process area are satisfied [cite:cmmi]
 
-glossary:: physical configuration audit {cmmi} = (CMMI) An audit
-conducted to verify that a configuration item, as built, conforms to
-the technical documentation that defines and describes it. (See also,
-[g:cmmi:configuration audit], [g:cmmi:configuration management], and
-[g:cmmi:functional configuration audit].)  [cite:cmmi]
+glossary:: physical configuration audit {CMMI} = An audit conducted to
+verify that a configuration item, as built, conforms to the technical
+documentation that defines and describes it. (See also,
+[g:CMMI:configuration audit], [g:CMMI:configuration management], and
+[g:CMMI:functional configuration audit].)  [cite:cmmi]
 
-glossary:: planned process {cmmi} = (CMMI) A process that is
-documented by both a description and a plan. The description and plan
-should be coordinated, and the plan should include standards,
-requirements, objectives, resources, assignments, and so on
+glossary:: planned process {CMMI} = A process that is documented by
+both a description and a plan. The description and plan should be
+coordinated, and the plan should include standards, requirements,
+objectives, resources, assignments, and so on [cite:cmmi]
+
+glossary:: policy {CMMI} = See [g:CMMI:organizational policy]
 [cite:cmmi]
 
-glossary:: policy {cmmi} = (CMMI) See [g:cmmi:organizational policy]
-[cite:cmmi]
-
-glossary:: process {cmmi} = (CMMI) In the CMMI Product Suite,
-activities that can be recognized as implementations of practices in a
-CMMI model. These activities can be mapped to one or more practices in
-CMMI process areas to allow a model to be useful for process
-improvement and process appraisal. (See also [g:cmmi:process area],
-[g:cmmi:subprocess], and [g:cmmi:process element].)  There is a
+glossary:: process {CMMI} = In the CMMI Product Suite, activities that
+can be recognized as implementations of practices in a CMMI
+model. These activities can be mapped to one or more practices in CMMI
+process areas to allow a model to be useful for process improvement
+and process appraisal. (See also [g:CMMI:process area],
+[g:CMMI:subprocess], and [g:CMMI:process element].)  There is a
 special use of the phrase ``the process'' in the statements and
 descriptions of the generic goals and generic practices. ``The
 process,'' as used in Part Two, is the process or processes that
 implement the process area [cite:cmmi]
 
-glossary:: process action plan {cmmi} = (CMMI) A plan, usually
-resulting from appraisals, that documents how specific improvements
-targeting the weaknesses uncovered by an appraisal will be implemented
-[cite:cmmi]
+glossary:: process action plan {CMMI} = A plan, usually resulting from
+appraisals, that documents how specific improvements targeting the
+weaknesses uncovered by an appraisal will be implemented [cite:cmmi]
 
-glossary:: process action team {cmmi} = (CMMI) A team that has the
+glossary:: process action team {CMMI} = A team that has the
 responsibility to develop and implement process improvement activities
 for an organization as documented in a process action plan [cite:cmmi]
 
-glossary:: process and technology improvements {cmmi} = (CMMI)
-Incremental and innovative improvements to processes and to process or
-product technologies [cite:cmmi]
+glossary:: process and technology improvements {CMMI} = Incremental
+and innovative improvements to processes and to process or product
+technologies [cite:cmmi]
 
-glossary:: process architecture {cmmi} = (CMMI) The ordering,
-interfaces, interdependencies, and other relationships among the
-process elements in a standard process. Process architecture also
-describes the interfaces, interdependencies, and other relationships
-between process elements and external processes (e.g., contract
-management) [cite:cmmi]
+glossary:: process architecture {CMMI} = The ordering, interfaces,
+interdependencies, and other relationships among the process elements
+in a standard process. Process architecture also describes the
+interfaces, interdependencies, and other relationships between process
+elements and external processes (e.g., contract management)
+[cite:cmmi]
 
-glossary:: process area {cmmi} = (CMMI) A cluster of related practices
-in an area that, when implemented collectively, satisfy a set of goals
+glossary:: process area {CMMI} = A cluster of related practices in an
+area that, when implemented collectively, satisfy a set of goals
 considered important for making improvement in that area. All CMMI
 process areas are common to both continuous and staged representations
 [cite:cmmi]
 
-glossary:: process asset {cmmi} = (CMMI) Anything that the
-organization considers useful in attaining the goals of a process
-area. (See also [g:cmmi:organizational process assets].) [cite:cmmi]
+glossary:: process asset {CMMI} = Anything that the organization
+considers useful in attaining the goals of a process area. (See also
+[g:CMMI:organizational process assets].) [cite:cmmi]
 
-glossary:: process asset library {cmmi} = (CMMI) A collection of
-process asset holdings that can be used by an organization or
-project. (See also [g:cmmi:organization's process asset library].)
-[cite:cmmi]
+glossary:: process asset library {CMMI} = A collection of process
+asset holdings that can be used by an organization or project. (See
+also [g:CMMI:organization's process asset library].)  [cite:cmmi]
 
-glossary:: process attribute {cmmi} = (CMMI) A measurable
-characteristic of process capability applicable to any process
-[cite:cmmi]
+glossary:: process attribute {CMMI} = A measurable characteristic of
+process capability applicable to any process [cite:cmmi]
 
-glossary:: process capability {cmmi} = (CMMI) The range of expected
-results that can be achieved by following a process [cite:cmmi]
+glossary:: process capability {CMMI} = The range of expected results
+that can be achieved by following a process [cite:cmmi]
 
-glossary:: process definition {cmmi} = (CMMI) The act of defining and
+glossary:: process definition {CMMI} = The act of defining and
 describing a process. The result of a process definition is a process
-description. (See also [g:cmmi:process description].) [cite:cmmi]
+description. (See also [g:CMMI:process description].) [cite:cmmi]
 
-glossary:: process description {cmmi} = (CMMI) A documented expression
-of a set of activities performed to achieve a given purpose.  A
-process description provides an operational definition of the major
-components of a process. The description specifies, in a complete,
-precise, and verifiable manner, the requirements, design, behavior, or
-other characteristics of a process. It also may include procedures for
+glossary:: process description {CMMI} = A documented expression of a
+set of activities performed to achieve a given purpose.  A process
+description provides an operational definition of the major components
+of a process. The description specifies, in a complete, precise, and
+verifiable manner, the requirements, design, behavior, or other
+characteristics of a process. It also may include procedures for
 determining whether these provisions have been satisfied. Process
 descriptions can be found at the activity, project, or organizational
 level [cite:cmmi]
 
-glossary:: process element {cmmi} = (CMMI) The fundamental unit of a
+glossary:: process element {CMMI} = The fundamental unit of a
 process. A process can be defined in terms of subprocesses or process
 elements. A subprocess can be further decomposed into subprocesses or
-process elements; a process element cannot. (See also [g:cmmi:process]
-and [g:cmmi:subprocess].)  Each process element covers a closely
+process elements; a process element cannot. (See also [g:CMMI:process]
+and [g:CMMI:subprocess].)  Each process element covers a closely
 related set of activities (e.g., estimating element and peer review
 element). Process elements can be portrayed using templates to be
 completed, abstractions to be refined, or descriptions to be modified
 or used. A process element can be an activity or task [cite:cmmi]
 
-glossary:: process group {cmmi} = (CMMI) A collection of specialists
-who facilitate the definition, maintenance, and improvement of the
+glossary:: process group {CMMI} = A collection of specialists who
+facilitate the definition, maintenance, and improvement of the
 processes used by the organization [cite:cmmi]
 
-glossary:: process improvement {cmmi} = (CMMI) A program of activities
+glossary:: process improvement {CMMI} = A program of activities
 designed to improve the performance and maturity of the organization's
 processes and the results of such a program [cite:cmmi]
 
-glossary:: process improvement objectives {cmmi} = (CMMI) A set of
-target characteristics established to guide the effort to improve an
-existing process in a specific, measurable way either in terms of
-resultant product characteristics (e.g., quality, performance, and
-conformance to standards) or in the way in which the process is
-executed (e.g., elimination of redundant process steps, combination of
-process steps, and improvement of cycle time). (See also
-[g:cmmi:organization's business objectives] and [g:cmmi:quantitative
-objective].) [cite:cmmi]
+glossary:: process improvement objectives {CMMI} = A set of target
+characteristics established to guide the effort to improve an existing
+process in a specific, measurable way either in terms of resultant
+product characteristics (e.g., quality, performance, and conformance
+to standards) or in the way in which the process is executed (e.g.,
+elimination of redundant process steps, combination of process steps,
+and improvement of cycle time). (See also [g:CMMI:organization's
+business objectives] and [g:CMMI:quantitative objective].) [cite:cmmi]
 
-glossary:: process improvement plan {cmmi} = (CMMI) A plan for
-achieving organizational process improvement objectives based on a
-thorough understanding of the current strengths and weaknesses of the
+glossary:: process improvement plan {CMMI} = A plan for achieving
+organizational process improvement objectives based on a thorough
+understanding of the current strengths and weaknesses of the
 organization's processes and process assets [cite:cmmi]
 
-glossary:: process measurement {cmmi} = (CMMI) The set of definitions,
+glossary:: process measurement {CMMI} = The set of definitions,
 methods, and activities used to take measurements of a process and its
 resulting products for the purpose of characterizing and understanding
 the process [cite:cmmi]
 
-glossary:: process owner {cmmi} = (CMMI) The person (or team)
-responsible for defining and maintaining a process. At the
-organizational level, the process owner is the person (or team)
-responsible for the description of a standard process; at the project
-level, the process owner is the person (or team) responsible for the
-description of the defined process. A process may therefore have
-multiple owners at different levels of responsibility.  (See also
-[g:cmmi:defined process] and [g:cmmi:standard process].)  [cite:cmmi]
+glossary:: process owner {CMMI} = The person (or team) responsible for
+defining and maintaining a process. At the organizational level, the
+process owner is the person (or team) responsible for the description
+of a standard process; at the project level, the process owner is the
+person (or team) responsible for the description of the defined
+process. A process may therefore have multiple owners at different
+levels of responsibility.  (See also [g:CMMI:defined process] and
+[g:CMMI:standard process].)  [cite:cmmi]
 
-glossary:: process performance {cmmi} = (CMMI) A measure of actual
-results achieved by following a process.  It is characterized by both
-process measures (e.g., effort, cycle time, and defect removal
-efficiency) and product measures (e.g., reliability, defect density,
-and response time) [cite:cmmi]
+glossary:: process performance {CMMI} = A measure of actual results
+achieved by following a process.  It is characterized by both process
+measures (e.g., effort, cycle time, and defect removal efficiency) and
+product measures (e.g., reliability, defect density, and response
+time) [cite:cmmi]
 
-glossary:: process-performance baseline {cmmi} = (CMMI) A documented
+glossary:: process-performance baseline {CMMI} = A documented
 characterization of the actual results achieved by following a
 process, which is used as a benchmark for comparing actual process
 performance against expected process performance. (See also
-[g:cmmi:process performance].) [cite:cmmi]
+[g:CMMI:process performance].) [cite:cmmi]
 
-glossary:: process-performance model {cmmi} = (CMMI) A description of
-the relationships among attributes of a process and its work products
-that is developed from historical process-performance data and
-calibrated using collected process and product measures from the
-project and that is used to predict results to be achieved by
-following a process [cite:cmmi]
+glossary:: process-performance model {CMMI} = A description of the
+relationships among attributes of a process and its work products that
+is developed from historical process-performance data and calibrated
+using collected process and product measures from the project and that
+is used to predict results to be achieved by following a process
+[cite:cmmi]
 
-glossary:: process tailoring {cmmi} = (CMMI) Making, altering, or
-adapting a process description for a particular end. For example, a
-project tailors its defined process from the organization's set of
-standard processes to meet the objectives, constraints, and
-environment of the project. (See also [g:cmmi:defined process],
-[g:cmmi:organization's set of standard processes], and [g:cmmi:process
-description].) [cite:cmmi]
+glossary:: process tailoring {CMMI} = Making, altering, or adapting a
+process description for a particular end. For example, a project
+tailors its defined process from the organization's set of standard
+processes to meet the objectives, constraints, and environment of the
+project. (See also [g:CMMI:defined process], [g:CMMI:organization's
+set of standard processes], and [g:CMMI:process description].)
+[cite:cmmi]
 
-glossary:: product {cmmi} = (CMMI) In the CMMI Product Suite, a work
-product that is intended for delivery to a customer or end user. The
-form of a product can vary in different contexts. (See also
-[g:cmmi:customer], [g:cmmi:product component], [g:cmmi:service], and
-[g:cmmi:work product].)  [cite:cmmi]
+glossary:: product {CMMI} = In the CMMI Product Suite, a work product
+that is intended for delivery to a customer or end user. The form of a
+product can vary in different contexts. (See also [g:CMMI:customer],
+[g:CMMI:product component], [g:CMMI:service], and [g:CMMI:work
+product].)  [cite:cmmi]
 
-glossary:: product baseline {cmmi} = (CMMI) In configuration
-management, the initial approved technical data package (including,
-for software, the source code listing) defining a configuration item
-during the production, operation, maintenance, and logistic support of
-its lifecycle.  (See also [g:cmmi:configuration item] and
-[g:cmmi:configuration management].) [cite:cmmi]
+glossary:: product baseline {CMMI} = In configuration management, the
+initial approved technical data package (including, for software, the
+source code listing) defining a configuration item during the
+production, operation, maintenance, and logistic support of its
+lifecycle.  (See also [g:CMMI:configuration item] and
+[g:CMMI:configuration management].) [cite:cmmi]
 
-glossary:: product component {cmmi} = (CMMI) In the CMMI Product
-Suite, a work product that is a lower level component of the
-product. Product components are integrated to produce the
-product. There may be multiple levels of product components. (See also
-[g:cmmi:product] and [g:cmmi:work product].) [cite:cmmi]
+glossary:: product component {CMMI} = In the CMMI Product Suite, a
+work product that is a lower level component of the product. Product
+components are integrated to produce the product. There may be
+multiple levels of product components. (See also [g:CMMI:product] and
+[g:CMMI:work product].) [cite:cmmi]
 
-glossary:: product component requirements {cmmi} = (CMMI) A complete
+glossary:: product component requirements {CMMI} = A complete
 specification of a product component, including fit, form, function,
 performance, and any other requirement [cite:cmmi]
 
-glossary:: product lifecycle {cmmi} = (CMMI) The period of time,
-consisting of phases, which begins when a product is conceived and
-ends when the product is no longer available for use. Since an
-organization may be producing multiple products for multiple
-customers, one description of a product lifecycle may not be adequate.
-Therefore, the organization may define a set of approved product
-lifecycle models. These models are typically found in published
-literature and are likely to be tailored for use in an organization.
-A product lifecycle could consist of the following phases: (1)
-concept/vision, (2) feasibility, (3) design/development, (4)
-production, and (5) phase out [cite:cmmi]
+glossary:: product lifecycle {CMMI} = The period of time, consisting
+of phases, which begins when a product is conceived and ends when the
+product is no longer available for use. Since an organization may be
+producing multiple products for multiple customers, one description of
+a product lifecycle may not be adequate.  Therefore, the organization
+may define a set of approved product lifecycle models. These models
+are typically found in published literature and are likely to be
+tailored for use in an organization.  A product lifecycle could
+consist of the following phases: (1) concept/vision, (2) feasibility,
+(3) design/development, (4) production, and (5) phase out [cite:cmmi]
 
-glossary:: product line {cmmi} = (CMMI) A group of products sharing a
-common, managed set of features that satisfy specific needs of a
-selected market or mission [cite:cmmi]
+glossary:: product line {CMMI} = A group of products sharing a common,
+managed set of features that satisfy specific needs of a selected
+market or mission [cite:cmmi]
 
-glossary:: product-related lifecycle processes {cmmi} = (CMMI)
-Processes associated with a product throughout one or more phases of
-its life (e.g., from conception through disposal), such as the
-manufacturing and support processes [cite:cmmi]
+glossary:: product-related lifecycle processes {CMMI} = Processes
+associated with a product throughout one or more phases of its life
+(e.g., from conception through disposal), such as the manufacturing
+and support processes [cite:cmmi]
 
-glossary:: product requirements {cmmi} = (CMMI) A refinement of the
-customer requirements into the developers' language, making implicit
+glossary:: product requirements {CMMI} = A refinement of the customer
+requirements into the developers' language, making implicit
 requirements into explicit derived requirements. (See also
-[g:cmmi:derived requirements] and [g:cmmi:product component
+[g:CMMI:derived requirements] and [g:CMMI:product component
 requirements].)  The developer uses the product requirements to guide
 the design and building of the product [cite:cmmi]
 
-glossary:: product suite {cmmi} = (CMMI) See [g:cmmi:CMMI Product
-Suite] [cite:cmmi]
+glossary:: product suite {CMMI} = See [g:CMMI:CMMI Product Suite]
+[cite:cmmi]
 
-glossary:: profile {cmmi} = (CMMI) See [g:cmmi:achievement profile]
-and [g:cmmi:target profile]
+glossary:: profile {CMMI} = See [g:CMMI:achievement profile] and
+[g:CMMI:target profile]
 
-glossary:: program {cmmi} = (CMMI) (1) A project. (2) A collection of
-related projects and the infrastructure that supports them, including
+glossary:: program {CMMI} = (1) A project. (2) A collection of related
+projects and the infrastructure that supports them, including
 objectives, methods, activities, plans, and success measures. (See
-also [g:cmmi:project].) [cite:cmmi]
+also [g:CMMI:project].) [cite:cmmi]
 
-glossary:: project {cmmi} = (CMMI) In the CMMI Product Suite, a
-managed set of interrelated resources which delivers one or more
-products to a customer or end user. A project has a definite beginning
-(i.e., project startup) and typically operates according to a
-plan. Such a plan is frequently documented and specifies what is to be
-delivered or implemented, the resources and funds to be used, the work
-to be done, and a schedule for doing the work. A project can be
-composed of projects. (See also [g:cmmi:project startup].) [cite:cmmi]
+glossary:: project {CMMI} = In the CMMI Product Suite, a managed set
+of interrelated resources which delivers one or more products to a
+customer or end user. A project has a definite beginning (i.e.,
+project startup) and typically operates according to a plan. Such a
+plan is frequently documented and specifies what is to be delivered or
+implemented, the resources and funds to be used, the work to be done,
+and a schedule for doing the work. A project can be composed of
+projects. (See also [g:CMMI:project startup].) [cite:cmmi]
 
-glossary:: project manager {cmmi} = (CMMI) In the CMMI Product Suite,
-the person responsible for planning, directing, controlling,
-structuring, and motivating the project. The project manager is
-responsible for satisfying the customer. [cite:cmmi]
+glossary:: project manager {CMMI} = In the CMMI Product Suite, the
+person responsible for planning, directing, controlling, structuring,
+and motivating the project. The project manager is responsible for
+satisfying the customer. [cite:cmmi]
 
-glossary:: project plan {cmmi} = (CMMI) A plan that provides the basis
-for performing and controlling the project's activities, which
-addresses the commitments to the project's customer.  Project planning
-includes estimating the attributes of the work products and tasks,
-determining the resources needed, negotiating commitments, producing a
-schedule, and identifying and analyzing project risks. Iterating
-through these activities may be necessary to establish the project
-plan [cite:cmmi]
+glossary:: project plan {CMMI} = A plan that provides the basis for
+performing and controlling the project's activities, which addresses
+the commitments to the project's customer.  Project planning includes
+estimating the attributes of the work products and tasks, determining
+the resources needed, negotiating commitments, producing a schedule,
+and identifying and analyzing project risks. Iterating through these
+activities may be necessary to establish the project plan [cite:cmmi]
 
-glossary:: project progress and performance {cmmi} = (CMMI) What a
-project achieves with respect to implementing project plans, including
-effort, cost, schedule, and technical performance [cite:cmmi]
+glossary:: project progress and performance {CMMI} = What a project
+achieves with respect to implementing project plans, including effort,
+cost, schedule, and technical performance [cite:cmmi]
 
-glossary:: project startup {cmmi} = (CMMI) When a set of interrelated
+glossary:: project startup {CMMI} = When a set of interrelated
 resources are directed to develop or deliver one or more products for
-a customer or end user.  (See also [g:cmmi:project].) [cite:cmmi]
+a customer or end user.  (See also [g:CMMI:project].) [cite:cmmi]
 
-glossary:: project's defined process {cmmi} = (CMMI) The integrated
-and defined process that is tailored from the organization's set of
-standard processes. (See also [g:cmmi:defined process].)  [cite:cmmi]
+glossary:: project's defined process {CMMI} = The integrated and
+defined process that is tailored from the organization's set of
+standard processes. (See also [g:CMMI:defined process].)  [cite:cmmi]
 
-glossary:: prototype {cmmi} = (CMMI) A preliminary type, form, or
-instance of a product or product component that serves as a model for
-later stages or for the final, complete version of the product. This
-model (e.g., physical, electronic, digital, and analytical) can be
-used for the following (and other) purposes: (1) Assessing the
-feasibility of a new or unfamiliar technology (2) Assessing or
-mitigating technical risk (3) Validating requirements (4)
-Demonstrating critical features (5) Qualifying a product (6)
-Qualifying a process (7) Characterizing performance or product
-features (8) Elucidating physical principles [cite:cmmi]
+glossary:: prototype {CMMI} = A preliminary type, form, or instance of
+a product or product component that serves as a model for later stages
+or for the final, complete version of the product. This model (e.g.,
+physical, electronic, digital, and analytical) can be used for the
+following (and other) purposes: (1) Assessing the feasibility of a new
+or unfamiliar technology (2) Assessing or mitigating technical risk
+(3) Validating requirements (4) Demonstrating critical features (5)
+Qualifying a product (6) Qualifying a process (7) Characterizing
+performance or product features (8) Elucidating physical principles
+[cite:cmmi]
 
 ######################################################################
 # Q
 ######################################################################
 
-glossary:: quality {cmmi} = (CMMI) The ability of a set of inherent
+glossary:: quality {CMMI} = The ability of a set of inherent
 characteristics of a product, product component, or process to fulfill
 requirements of customers [cite:cmmi]
 
-glossary:: quality and process performance objectives {cmmi} = (CMMI)
+glossary:: quality and process performance objectives {CMMI} =
 Objectives and requirements for product quality, service quality, and
 process performance. Process-performance objectives include quality;
 however, to emphasize the importance of quality in the CMMI Product
 Suite, the phrase quality and process-performance objectives is used
 rather than just process-performance objectives [cite:cmmi]
 
-glossary:: quality assurance {cmmi} = (CMMI) A planned and systematic
-means for assuring management that the defined standards, practices,
+glossary:: quality assurance {CMMI} = A planned and systematic means
+for assuring management that the defined standards, practices,
 procedures, and methods of the process are applied [cite:cmmi]
 
-glossary:: quality control {cmmi} = (CMMI) The operational techniques
-and activities that are used to fulfill requirements for quality. (See
-also [g:cmmi:quality assurance].) [cite:cmmi]
+glossary:: quality control {CMMI} = The operational techniques and
+activities that are used to fulfill requirements for quality. (See
+also [g:CMMI:quality assurance].) [cite:cmmi]
 
-glossary:: quantitative objective {cmmi} = (CMMI) Desired target value
-expressed as quantitative measures.  (See also [g:cmmi:process
-improvement objectives] and [g:cmmi:quality and process performance
+glossary:: quantitative objective {CMMI} = Desired target value
+expressed as quantitative measures.  (See also [g:CMMI:process
+improvement objectives] and [g:CMMI:quality and process performance
 objectives].) [cite:cmmi]
 
-glossary:: quantitatively managed {cmmi} = (CMMI) At maturity level 4,
-the organization and projects establish quantitative objectives for
+glossary:: quantitatively managed {CMMI} = At maturity level 4, the
+organization and projects establish quantitative objectives for
 quality and process performance and use them as criteria in managing
 processes. Quantitative objectives are based on the needs of the
 customer, end users, organization, and process implementers. Quality
@@ -1202,8 +1153,8 @@ and process performance is understood in statistical terms and is
 managed throughout the life of the processes (SEI 2001). [cite:cmmi,
 pg 37]
 
-glossary:: quantitatively managed {cmmi-2} = (CMMI) A capability level
-4 process is characterized as a ``quantitatively managed process.'' A
+glossary:: quantitatively managed {CMMI-2} = A capability level 4
+process is characterized as a ``quantitatively managed process.'' A
 quantitatively managed process is a defined (capability level 3)
 process that is controlled using statistical and other quantitative
 techniques. Quantitative objectives for quality and process
@@ -1212,245 +1163,243 @@ process. Quality and process performance is understood in statistical
 terms and is managed throughout the life of the process. [cite:cmmi,
 pg 34]
 
-glossary:: quantitatively managed process {cmmi} = (CMMI) A defined
-process that is controlled using statistical and other quantitative
+glossary:: quantitatively managed process {CMMI} = A defined process
+that is controlled using statistical and other quantitative
 techniques. The product quality, service quality, and
 process-performance attributes are measurable and controlled
-throughout the project. (See also [g:cmmi:defined process],
-[g:cmmi:optimizing process], and [g:cmmi:statistically managed
+throughout the project. (See also [g:CMMI:defined process],
+[g:CMMI:optimizing process], and [g:CMMI:statistically managed
 process].)  [cite:cmmi]
 
 ######################################################################
 # R
 ######################################################################
 
-glossary:: rating {cmmi} = (CMMI) See [g:cmmi:appraisal rating]
-[cite:cmmi]
+glossary:: rating {CMMI} = See [g:CMMI:appraisal rating] [cite:cmmi]
 
-glossary:: reference {cmmi} = (CMMI) An informative model component
-that points to additional or more detailed information in related
-process areas [cite:cmmi]
+glossary:: reference {CMMI} = An informative model component that
+points to additional or more detailed information in related process
+areas [cite:cmmi]
 
-glossary:: reference model {cmmi} = (CMMI) A model that is used as a
+glossary:: reference model {CMMI} = A model that is used as a
 benchmark for measuring some attribute [cite:cmmi]
 
-glossary:: relevant stakeholder {cmmi} = (CMMI) A stakeholder that is
+glossary:: relevant stakeholder {CMMI} = A stakeholder that is
 identified for involvement in specified activities and is included in
-a plan. (See also [g:cmmi:stakeholder].) [cite:cmmi]
+a plan. (See also [g:CMMI:stakeholder].) [cite:cmmi]
 
-glossary:: representation {cmmi} = (CMMI) The organization, use, and
+glossary:: representation {CMMI} = The organization, use, and
 presentation of a CMM's components. Overall, two types of approaches
 to presenting best practices are evident: the staged representation
 and the continuous representation [cite:cmmi]
 
-glossary:: required CMMI components {cmmi} = (CMMI) CMMI components
-that are essential to achieving process improvement in a given process
+glossary:: required CMMI components {CMMI} = CMMI components that are
+essential to achieving process improvement in a given process
 area. These components are used in appraisals to determine process
 capability.  Specific goals and generic goals are required model
 components [cite:cmmi]
 
-glossary:: requirement {cmmi} = (CMMI) (1) A condition or capability
-needed by a user to solve a problem or achieve an objective. (2) A
-condition or capability that must be met or possessed by a product or
-product component to satisfy a contract, standard, specification, or
-other formally imposed documents. (3) A documented representation of a
+glossary:: requirement {CMMI} = (1) A condition or capability needed
+by a user to solve a problem or achieve an objective. (2) A condition
+or capability that must be met or possessed by a product or product
+component to satisfy a contract, standard, specification, or other
+formally imposed documents. (3) A documented representation of a
 condition or capability as in (1) or (2) [cite:cmmi]
 
-glossary:: requirements analysis {cmmi} = (CMMI) The determination of
+glossary:: requirements analysis {CMMI} = The determination of
 product-specific performance and functional characteristics based on
 analyses of customer needs, expectations, and constraints; operational
 concept; projected utilization environments for people, products, and
 processes; and measures of effectiveness [cite:cmmi]
 
-glossary:: requirements elicitation {cmmi} = (CMMI) Using systematic
+glossary:: requirements elicitation {CMMI} = Using systematic
 techniques, such as prototypes and structured surveys, to proactively
 identify and document customer and end-user needs [cite:cmmi]
 
-glossary:: requirements management {cmmi} = (CMMI) The management of
-all requirements received by or generated by the project, including
-both technical and nontechnical requirements as well as those
-requirements levied on the project by the organization [cite:cmmi]
+glossary:: requirements management {CMMI} = The management of all
+requirements received by or generated by the project, including both
+technical and nontechnical requirements as well as those requirements
+levied on the project by the organization [cite:cmmi]
 
-glossary:: requirements traceability {cmmi} = (CMMI) A discernible
+glossary:: requirements traceability {CMMI} = A discernible
 association between requirements and related requirements,
-implementations, and verifications. (See also [g:cmmi:bidirectional
-traceability] and [g:cmmi:traceability].) [cite:cmmi]
+implementations, and verifications. (See also [g:CMMI:bidirectional
+traceability] and [g:CMMI:traceability].) [cite:cmmi]
 
-glossary:: return on investment {cmmi} = (CMMI) The ratio of revenue
-from output (product) to production costs, which determines whether an
+glossary:: return on investment {CMMI} = The ratio of revenue from
+output (product) to production costs, which determines whether an
 organization benefits from performing an action to produce something
 [cite:cmmi]
 
-glossary:: risk analysis {cmmi} = (CMMI) The evaluation,
-classification, and prioritization of risks [cite:cmmi]
+glossary:: risk analysis {CMMI} = The evaluation, classification, and
+prioritization of risks [cite:cmmi]
 
-glossary:: risk identification {cmmi} = (CMMI) An organized, thorough
+glossary:: risk identification {CMMI} = An organized, thorough
 approach to seek out probable or realistic risks in achieving
 objectives [cite:cmmi]
 
-glossary:: risk management {cmmi} = (CMMI) An organized, analytic
-process to identify what might cause harm or loss (identify risks); to
-assess and quantify the identified risks; and to develop and, if
+glossary:: risk management {CMMI} = An organized, analytic process to
+identify what might cause harm or loss (identify risks); to assess and
+quantify the identified risks; and to develop and, if needed,
+implement an appropriate approach to prevent or handle causes of risk
+that could result in significant harm or loss [cite:cmmi]
+
+glossary:: risk management strategy {CMMI} = An organized, technical
+approach to identify what might cause harm or loss (identify risks);
+to assess and quantify the identified risks; and to develop and, if
 needed, implement an appropriate approach to prevent or handle causes
-of risk that could result in significant harm or loss [cite:cmmi]
+of risk that could result in significant harm or loss.  Typically,
+risk management is performed for project, organization, or product
+developing organizational units [cite:cmmi]
 
-glossary:: risk management strategy {cmmi} = (CMMI) An organized,
-technical approach to identify what might cause harm or loss (identify
-risks); to assess and quantify the identified risks; and to develop
-and, if needed, implement an appropriate approach to prevent or handle
-causes of risk that could result in significant harm or loss.
-Typically, risk management is performed for project, organization, or
-product developing organizational units [cite:cmmi]
-
-glossary:: root cause {cmmi} = (CMMI) A source of a defect such that
-if it is removed, the defect is decreased or removed [cite:cmmi]
+glossary:: root cause {CMMI} = A source of a defect such that if it is
+removed, the defect is decreased or removed [cite:cmmi]
 
 ######################################################################
 # S
 ######################################################################
 
-glossary:: senior manager {cmmi} = (CMMI) In the CMMI Product Suite, a
+glossary:: senior manager {CMMI} = In the CMMI Product Suite, a
 management role at a high enough level in an organization that the
 primary focus of the person filling the role is the long-term vitality
 of the organization rather than short-term project and contractual
 concerns and pressures. A senior manager has authority to direct the
 allocation or reallocation of resources in support of organizational
-process improvement effectiveness. (See also [g:cmmi:higher level
+process improvement effectiveness. (See also [g:CMMI:higher level
 management].)  A senior manager can be any manager who satisfies this
 description, including the head of the organization.  Synonyms for
-``senior manager'' include [g:cmmi:executive] and ``top-level
+``senior manager'' include [g:CMMI:executive] and ``top-level
 manager.''  However, to ensure consistency and usability, these
 synonyms are not used in CMMI models [cite:cmmi]
 
-glossary:: service {cmmi} = (CMMI) In the CMMI Product Suite, a
-service is a product that is intangible and non-storable. (See also
-[g:cmmi:product], [g:cmmi:customer], and [g:cmmi:work product].)
+glossary:: service {CMMI} = In the CMMI Product Suite, a service is a
+product that is intangible and non-storable. (See also
+[g:CMMI:product], [g:CMMI:customer], and [g:CMMI:work product].)
 [cite:cmmi]
 
-glossary:: shared vision {cmmi} = (CMMI) A common understanding of
-guiding principles including mission, objectives, expected behavior,
-values, and final outcomes, which are developed and used by a project
+glossary:: shared vision {CMMI} = A common understanding of guiding
+principles including mission, objectives, expected behavior, values,
+and final outcomes, which are developed and used by a project
 [cite:cmmi]
 
-glossary:: software engineering {cmmi} = (CMMI) (1) The application of
-a systematic, disciplined, quantifiable approach to the development,
+glossary:: software engineering {CMMI} = (1) The application of a
+systematic, disciplined, quantifiable approach to the development,
 operation, and maintenance of software. (2) The study of approaches as
-in (1). (See also [g:cmmi:hardware engineering], and [g:cmmi:systems
+in (1). (See also [g:CMMI:hardware engineering], and [g:CMMI:systems
 engineering].) [cite:cmmi]
 
-glossary:: solicitation {cmmi} = (CMMI) The process of preparing a
-package to be used in selecting a supplier (contractor) [cite:cmmi]
+glossary:: solicitation {CMMI} = The process of preparing a package to
+be used in selecting a supplier (contractor) [cite:cmmi]
 
-glossary:: special cause of process variation {cmmi} = (CMMI) A cause
-of a defect that is specific to some transient circumstance and not an
-inherent part of a process. (See also [g:cmmi:common cause of process
+glossary:: special cause of process variation {CMMI} = A cause of a
+defect that is specific to some transient circumstance and not an
+inherent part of a process. (See also [g:CMMI:common cause of process
 variation].) [cite:cmmi]
 
-glossary:: specific goal {cmmi} = (CMMI) A required model component
-that describes the unique characteristics that must be present to
-satisfy the process area. (See also [g:cmmi:capability level],
-[g:cmmi:generic goal], [g:cmmi:organization's business objectives],
-and [g:cmmi:process area].) [cite:cmmi]
+glossary:: specific goal {CMMI} = A required model component that
+describes the unique characteristics that must be present to satisfy
+the process area. (See also [g:CMMI:capability level], [g:CMMI:generic
+goal], [g:CMMI:organization's business objectives], and
+[g:CMMI:process area].) [cite:cmmi]
 
-glossary:: specific practice {cmmi} = (CMMI) An expected model
-component that is considered important in achieving the associated
-specific goal. The specific practices describe the activities expected
-to result in achievement of the specific goals of a process area. (See
-also [g:cmmi:process area] and [g:cmmi:specific goal].)  [cite:cmmi]
+glossary:: specific practice {CMMI} = An expected model component that
+is considered important in achieving the associated specific goal. The
+specific practices describe the activities expected to result in
+achievement of the specific goals of a process area. (See also
+[g:CMMI:process area] and [g:CMMI:specific goal].)  [cite:cmmi]
 
-glossary:: stable process {cmmi} = (CMMI) The state in which all
-special causes of process variation have been removed and prevented
-from recurring so that only the common causes of process variation of
-the process remain. (See also [g:cmmi:capable process], [g:cmmi:common
-cause of process variation], [g:cmmi:special cause of process
-variation], [g:cmmi:standard process], and [g:cmmi:statistically
+glossary:: stable process {CMMI} = The state in which all special
+causes of process variation have been removed and prevented from
+recurring so that only the common causes of process variation of the
+process remain. (See also [g:CMMI:capable process], [g:CMMI:common
+cause of process variation], [g:CMMI:special cause of process
+variation], [g:CMMI:standard process], and [g:CMMI:statistically
 managed process].) [cite:cmmi]
 
-glossary:: staged representation {cmmi} = (CMMI) A model structure
-wherein attaining the goals of a set of process areas establishes a
-maturity level; each level builds a foundation for subsequent
-levels. (See also [g:cmmi:maturity level] and [g:cmmi:process area].)
-[cite:cmmi]
+glossary:: staged representation {CMMI} = A model structure wherein
+attaining the goals of a set of process areas establishes a maturity
+level; each level builds a foundation for subsequent levels. (See also
+[g:CMMI:maturity level] and [g:CMMI:process area].)  [cite:cmmi]
 
-glossary:: stakeholder {cmmi} = (CMMI) In the CMMI Product Suite, a
-group or individual that is affected by or is in some way accountable
-for the outcome of an undertaking. Stakeholders may include project
-members, suppliers, customers, end users, and others. (See also
-[g:cmmi:customer] and [g:cmmi:relevant stakeholder].)  [cite:cmmi]
+glossary:: stakeholder {CMMI} = In the CMMI Product Suite, a group or
+individual that is affected by or is in some way accountable for the
+outcome of an undertaking. Stakeholders may include project members,
+suppliers, customers, end users, and others. (See also
+[g:CMMI:customer] and [g:CMMI:relevant stakeholder].)  [cite:cmmi]
 
-glossary:: standard {cmmi} = (CMMI) When you see the word standard
-used as a noun in a CMMI model, it refers to the formal mandatory
-requirements developed and used to prescribe consistent approaches to
-development (e.g., ISO/IEC standards, IEEE standards, and
-organizational standards). Instead of using standard in its common
-everyday sense, we use another term that means the same thing (e.g.,
-typical, traditional, usual, or customary) [cite:cmmi]
+glossary:: standard {CMMI} = When you see the word standard used as a
+noun in a CMMI model, it refers to the formal mandatory requirements
+developed and used to prescribe consistent approaches to development
+(e.g., ISO/IEC standards, IEEE standards, and organizational
+standards). Instead of using standard in its common everyday sense, we
+use another term that means the same thing (e.g., typical,
+traditional, usual, or customary) [cite:cmmi]
 
-glossary:: standard process {cmmi} = (CMMI) An operational definition
-of the basic process that guides the establishment of a common process
-in an organization.  A standard process describes the fundamental
-process elements that are expected to be incorporated into any defined
+glossary:: standard process {CMMI} = An operational definition of the
+basic process that guides the establishment of a common process in an
+organization.  A standard process describes the fundamental process
+elements that are expected to be incorporated into any defined
 process. It also describes the relationships (e.g., ordering and
-interfaces) among these process elements.  (See also [g:cmmi:defined
+interfaces) among these process elements.  (See also [g:CMMI:defined
 process].) [cite:cmmi]
 
-glossary:: statement of work {cmmi} = (CMMI) A description of
-contracted work required to complete a project [cite:cmmi]
+glossary:: statement of work {CMMI} = A description of contracted work
+required to complete a project [cite:cmmi]
 
-glossary:: statistical predictability {cmmi} = (CMMI) The performance
-of a quantitative process that is controlled using statistical and
-other quantitative techniques [cite:cmmi]
+glossary:: statistical predictability {CMMI} = The performance of a
+quantitative process that is controlled using statistical and other
+quantitative techniques [cite:cmmi]
 
-glossary:: statistical process control {cmmi} = (CMMI) Statistically
-based analysis of a process and measurements of process performance,
-which will identify common and special causes of variation in the
-process performance and maintain process performance within
-limits. (See also [g:cmmi:common cause of process variation],
-[g:cmmi:special cause of process variation], and [g:cmmi:statistically
-managed process].)  [cite:cmmi]
+glossary:: statistical process control {CMMI} = Statistically based
+analysis of a process and measurements of process performance, which
+will identify common and special causes of variation in the process
+performance and maintain process performance within limits. (See also
+[g:CMMI:common cause of process variation], [g:CMMI:special cause of
+process variation], and [g:CMMI:statistically managed process].)
+[cite:cmmi]
 
-glossary:: statistical techniques {cmmi} = (CMMI) An analytic
-technique that employs statistical methods (e.g., statistical process
-control, confidence intervals, and prediction intervals) [cite:cmmi]
+glossary:: statistical techniques {CMMI} = An analytic technique that
+employs statistical methods (e.g., statistical process control,
+confidence intervals, and prediction intervals) [cite:cmmi]
 
-glossary:: statistically managed process {cmmi} = (CMMI) A process
-that is managed by a statistically based technique in which processes
-are analyzed, special causes of process variation are identified, and
+glossary:: statistically managed process {CMMI} = A process that is
+managed by a statistically based technique in which processes are
+analyzed, special causes of process variation are identified, and
 performance is contained within well-defined limits. (See also
-[g:cmmi:capable process], [g:cmmi:special cause of process variation],
-[g:cmmi:stable process], [g:cmmi:standard process], and
-[g:cmmi:statistical process control].)  [cite:cmmi]
+[g:CMMI:capable process], [g:CMMI:special cause of process variation],
+[g:CMMI:stable process], [g:CMMI:standard process], and
+[g:CMMI:statistical process control].)  [cite:cmmi]
 
-glossary:: subpractice {cmmi} = (CMMI) An informative model component
-that provides guidance for interpreting and implementing a specific or
+glossary:: subpractice {CMMI} = An informative model component that
+provides guidance for interpreting and implementing a specific or
 generic practice.  Subpractices may be worded as if prescriptive, but
 are actually meant only to provide ideas that may be useful for
 process improvement [cite:cmmi]
 
-glossary:: subprocess {cmmi} = (CMMI) A process that is part of a
-larger process. A subprocess can be decomposed into subprocesses
-and/or process elements. (See also [g:cmmi:process], [g:cmmi:process
-description], and [g:cmmi:process element].)  [cite:cmmi]
+glossary:: subprocess {CMMI} = A process that is part of a larger
+process. A subprocess can be decomposed into subprocesses and/or
+process elements. (See also [g:CMMI:process], [g:CMMI:process
+description], and [g:CMMI:process element].)  [cite:cmmi]
 
-glossary:: supplier {cmmi} = (CMMI) (1) An entity delivering products
-or performing services being acquired. (2) An individual, partnership,
+glossary:: supplier {CMMI} = (1) An entity delivering products or
+performing services being acquired. (2) An individual, partnership,
 company, corporation, association, or other service having an
 agreement (contract) with an acquirer for the design, development,
 manufacture, maintenance, modification, or supply of items under the
 terms of an agreement (contract) [cite:cmmi]
 
-glossary:: sustainment {cmmi} = (CMMI) The processes used to ensure
-that a product can be utilized operationally by its end users or
+glossary:: sustainment {CMMI} = The processes used to ensure that a
+product can be utilized operationally by its end users or
 customers. Sustainment ensures that maintenance is done such that the
 product is in an operable condition whether or not the product is in
 use by customers or end users [cite:cmmi]
 
-glossary:: systems engineering {cmmi} = (CMMI) The interdisciplinary
-approach governing the total technical and managerial effort required
-to transform a set of customer needs, expectations, and constraints
-into a product solution and to support that solution throughout the
-product's life. (See also [g:cmmi:hardware engineering] and
-[g:cmmi:software engineering].)  This includes the definition of
+glossary:: systems engineering {CMMI} = The interdisciplinary approach
+governing the total technical and managerial effort required to
+transform a set of customer needs, expectations, and constraints into
+a product solution and to support that solution throughout the
+product's life. (See also [g:CMMI:hardware engineering] and
+[g:CMMI:software engineering].)  This includes the definition of
 technical performance measures, the integration of engineering
 specialties toward the establishment of a product architecture, and
 the definition of supporting lifecycle processes that balance cost,
@@ -1460,15 +1409,15 @@ performance, and schedule objectives [cite:cmmi]
 # T
 ######################################################################
 
-glossary:: tailoring {cmmi} = (CMMI) Tailoring a process makes,
-alters, or adapts the process description for a particular end. For
-example, a project establishes its defined process by tailoring from
-the organization's set of standard processes to meet the objectives,
+glossary:: tailoring {CMMI} = Tailoring a process makes, alters, or
+adapts the process description for a particular end. For example, a
+project establishes its defined process by tailoring from the
+organization's set of standard processes to meet the objectives,
 constraints, and environment of the project [cite:cmmi]
 
-glossary:: tailoring guidelines {cmmi} = (CMMI) Organizational
-guidelines that enable projects, groups, and organizational functions
-to appropriately adapt standard processes for their use. The
+glossary:: tailoring guidelines {CMMI} = Organizational guidelines
+that enable projects, groups, and organizational functions to
+appropriately adapt standard processes for their use. The
 organization's set of standard processes is described at a general
 level that may not be directly usable to perform a process.  Tailoring
 guidelines aid those who establish the defined processes for
@@ -1479,25 +1428,25 @@ needs. Tailoring guidelines describe what can and cannot be modified
 and identify process components that are candidates for modification
 [cite:cmmi]
 
-glossary:: target profile {cmmi} = (CMMI) In the continuous
-representation, a list of process areas and their corresponding
-capability levels that represent an objective for process
-improvement. (See also [g:cmmi:achievement profile] and
-[g:cmmi:capability level profile].) [cite:cmmi]
+glossary:: target profile {CMMI} = In the continuous representation, a
+list of process areas and their corresponding capability levels that
+represent an objective for process improvement. (See also
+[g:CMMI:achievement profile] and [g:CMMI:capability level profile].)
+[cite:cmmi]
 
-glossary:: target staging {cmmi} = (CMMI) In the continuous
-representation, a sequence of target profiles that describes the path
-of process improvement to be followed by the organization. (See also
-[g:cmmi:achievement profile], [g:cmmi:capability level profile], and
-[g:cmmi:target profile].) [cite:cmmi]
+glossary:: target staging {CMMI} = In the continuous representation, a
+sequence of target profiles that describes the path of process
+improvement to be followed by the organization. (See also
+[g:CMMI:achievement profile], [g:CMMI:capability level profile], and
+[g:CMMI:target profile].) [cite:cmmi]
 
-glossary:: technical data package {cmmi} = (CMMI) A collection of
-items that can include the following if such information is
-appropriate to the type of product and product component (e.g.,
-material and manufacturing requirements may not be useful for product
-components associated with software services or processes): (1)
-Product architecture description (2) Allocated requirements (3)
-Product component descriptions (4) Product-related lifecycle process
+glossary:: technical data package {CMMI} = A collection of items that
+can include the following if such information is appropriate to the
+type of product and product component (e.g., material and
+manufacturing requirements may not be useful for product components
+associated with software services or processes): (1) Product
+architecture description (2) Allocated requirements (3) Product
+component descriptions (4) Product-related lifecycle process
 descriptions if not described as separate product components (5) Key
 product characteristics (6) Required physical characteristics and
 constraints (7) Interface requirements (8) Materials requirements
@@ -1511,31 +1460,30 @@ verifications throughout the life of the product (12) Rationale for
 decisions and characteristics (e.g., requirements, requirement
 allocations, and design choices) [cite:cmmi]
 
-glossary:: technical requirements {cmmi} = (CMMI) Properties
-(attributes) of products or services to be acquired or developed
+glossary:: technical requirements {CMMI} = Properties (attributes) of
+products or services to be acquired or developed [cite:cmmi]
+
+glossary:: test procedure {CMMI} = Detailed instructions for the
+setup, execution, and evaluation of results for a given test
 [cite:cmmi]
 
-glossary:: test procedure {cmmi} = (CMMI) Detailed instructions for
-the setup, execution, and evaluation of results for a given test
-[cite:cmmi]
+glossary:: traceability {CMMI} = A discernible association among two
+or more logical entities such as requirements, system elements,
+verifications, or tasks. (See also [g:CMMI:bidirectional traceability]
+and [g:CMMI:requirements traceability].)  [cite:cmmi]
 
-glossary:: traceability {cmmi} = (CMMI) A discernible association
-among two or more logical entities such as requirements, system
-elements, verifications, or tasks. (See also [g:cmmi:bidirectional
-traceability] and [g:cmmi:requirements traceability].)  [cite:cmmi]
+glossary:: trade study {CMMI} = An evaluation of alternatives, based
+on criteria and systematic analysis, to select the best alternative
+for attaining determined objectives [cite:cmmi]
 
-glossary:: trade study {cmmi} = (CMMI) An evaluation of alternatives,
-based on criteria and systematic analysis, to select the best
-alternative for attaining determined objectives [cite:cmmi]
+glossary:: training {CMMI} = Formal and informal learning options,
+which may include in-class training, informal mentoring, Web-based
+training, guided self-study, and formalized on-the-job training
+programs. The learning options selected for each situation are based
+on an assessment of the need for training and the performance gap to
+be addressed [cite:cmmi]
 
-glossary:: training {cmmi} = (CMMI) Formal and informal learning
-options, which may include in-class training, informal mentoring,
-Web-based training, guided self-study, and formalized on-the-job
-training programs. The learning options selected for each situation
-are based on an assessment of the need for training and the
-performance gap to be addressed [cite:cmmi]
-
-glossary:: typical work product {cmmi} = (CMMI) An informative model
+glossary:: typical work product {CMMI} = An informative model
 component that provides sample outputs from a specific practice. These
 examples are called typical work products because there are often
 other work products that are just as effective but are not listed
@@ -1545,69 +1493,52 @@ other work products that are just as effective but are not listed
 # U
 ######################################################################
 
-glossary:: unit testing {cmmi} = (CMMI) Testing of individual hardware
-or software units or groups of related units. (See also
-[g:cmmi:acceptance testing].) [cite:cmmi]
+glossary:: unit testing {CMMI} = Testing of individual hardware or
+software units or groups of related units. (See also
+[g:CMMI:acceptance testing].) [cite:cmmi]
 
 ######################################################################
 # V
 ######################################################################
 
-glossary:: validation {cmmi} = (CMMI) Confirmation that the product,
-as provided (or as it will be provided), will fulfill its intended
+glossary:: validation {CMMI} = Confirmation that the product, as
+provided (or as it will be provided), will fulfill its intended
 use. In other words, validation ensures that ``you built the right
-thing.'' (See also [g:cmmi:verification].) [cite:cmmi]
+thing.'' (See also [g:CMMI:verification].) [cite:cmmi]
 
-glossary:: verification {cmmi} = (CMMI) Confirmation that work
-products properly reflect the requirements specified for them. In
-other words, verification ensures that ``you built it right.'' (See
-also [g:cmmi:validation].) [cite:cmmi]
+glossary:: verification {CMMI} = Confirmation that work products
+properly reflect the requirements specified for them. In other words,
+verification ensures that ``you built it right.'' (See also
+[g:CMMI:validation].) [cite:cmmi]
 
-glossary:: version control {cmmi} = (CMMI) The establishment and
-maintenance of baselines and the identification of changes to
-baselines that make it possible to return to the previous baseline
-[cite:cmmi]
+glossary:: version control {CMMI} = The establishment and maintenance
+of baselines and the identification of changes to baselines that make
+it possible to return to the previous baseline [cite:cmmi]
 
 ######################################################################
 # W
 ######################################################################
 
-glossary:: WBS {cmmi} = (CMMI) [g:cmmi:Work Breakdown Structure]
-
-###
-
-glossary:: Work Breakdown Structure {cmmi} = (CMMI) ([g:cmmi:WBS]) An
+glossary:: Work Breakdown Structure {CMMI} = ([acs:CMMI:WBS]) An
 arrangement of work elements and their relationship to each other and
 to the end product [cite:cmmi]
 
-glossary:: work product {cmmi} = (CMMI) In the CMMI Product Suite, a
-useful result of a process. This can include files, documents,
-products, parts of a product, services, process descriptions,
-specifications, and invoices.  A key distinction between a work
-product and a product component is that a work product is not
-necessarily part of the product. (See also [g:cmmi:product] and
-[g:cmmi:product component].)  In CMMI models, you will see the phrase
-work products and services. Even though the definition of work product
-includes services, this phrase is used to emphasize the inclusion of
-services in the discussion [cite:cmmi]
+glossary:: work product {CMMI} = In the CMMI Product Suite, a useful
+result of a process. This can include files, documents, products,
+parts of a product, services, process descriptions, specifications,
+and invoices.  A key distinction between a work product and a product
+component is that a work product is not necessarily part of the
+product. (See also [g:CMMI:product] and [g:CMMI:product component].)
+In CMMI models, you will see the phrase work products and
+services. Even though the definition of work product includes
+services, this phrase is used to emphasize the inclusion of services
+in the discussion [cite:cmmi]
 
-glossary:: work product and task attributes {cmmi} = (CMMI)
-Characteristics of products, services, and project tasks used to help
-in estimating project work. These characteristics include items such
-as size, complexity, weight, form, fit, and function. They are
-typically used as one input to deriving other project and resource
-estimates (e.g., effort, cost, and schedule) [cite:cmmi]
-
-######################################################################
-# X
-######################################################################
-
-######################################################################
-# Y
-######################################################################
-
-######################################################################
-# Z
-######################################################################
+glossary:: work product and task attributes {CMMI} = Characteristics
+of products, services, and project tasks used to help in estimating
+project work. These characteristics include items such as size,
+complexity, weight, form, fit, and function. They are typically used
+as one input to deriving other project and resource estimates (e.g.,
+effort, cost, and schedule) [cite:cmmi]
 
 <<<RAW

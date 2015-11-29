@@ -1,81 +1,89 @@
->>>RAW.acronyms-sml
+>>>RAW.acronyms-ieee
 
-######################################################################
-# B
-######################################################################
-
-acronym:: BNF = [g:Backus-Naur Form]
-
-acronym:: BRD = Business Requirements Document
+# IEEE Acronyms
 
 ######################################################################
 # C
 ######################################################################
 
-acronym:: CSV = [g:Comma Separated Value]
+acronym:: CCB {IEEE} = [g:IEEE:Configuration Control Board]
+
+acronym:: CDR {IEEE} = [g:IEEE:Critical Design Review]
+
+acronym:: CI {IEEE} = [g:IEEE:configuration item]
+
+acronym:: CM {IEEE} = [g:IEEE:configuration management]
 
 ######################################################################
 # D
 ######################################################################
 
-acronym:: DVI = [g:Device Independent]
-
-######################################################################
-# E
-######################################################################
-
-acronym:: EBNF = Extended [ac:BNF]
+acronym:: DFD {IEEE} = [g:IEEE:data flow diagram]
 
 ######################################################################
 # F
 ######################################################################
 
-acronym:: FRD {SML} = [g:SML:Functional Requirements Document]
-
-######################################################################
-# G
-######################################################################
-
-acronym:: GPL = General Public License
+acronym:: FCA {IEEE} = [g:IEEE:functional configuration audit]
 
 ######################################################################
 # H
 ######################################################################
 
-acronym:: HTML = Hypertext markup Language
+acronym:: HIPO {IEEE} = [g:IEEE:hierarchical input-process-output]
 
 ######################################################################
 # I
 ######################################################################
 
-acronym:: ID {SML} = Identifier
+acronym:: IRS {IEEE} = [g:IEEE:Interface Requirements Specification]
+
+acronym:: IV&V {IEEE} = [g:IEEE:Independent Verification and Validation]
 
 ######################################################################
 # P
 ######################################################################
 
-acronym:: PDF = Portable Document Format
+acronym:: PCA {IEEE} = [g:IEEE:physical configuration audit]
+
+acronym:: PDR {IEEE} = [g:IEEE:Preliminary Design Review]
 
 ######################################################################
 # R
 ######################################################################
 
-acronym:: RTF = [g:Rich Text Format]
-
-acronym:: RTM {SML} = [g:SML:requirements traceability matrix]
+acronym:: RFP {IEEE} = [g:IEEE:request for proposal]
 
 ######################################################################
 # S
 ######################################################################
 
-acronym:: SML = [g:SML:Semantic Manuscript Language]
+acronym:: SCM {IEEE} = [g:IEEE:Software Configuration Management]
 
-acronym:: SRD {SML} = System Requirements Document
+acronym:: SCN {IEEE} = [g:IEEE:specification change notice]
+
+acronym:: SDD {IEEE} = [g:IEEE:software design description]
+
+acronym:: SDR {IEEE} = [g:IEEE:system design review]
+
+acronym:: SOW {IEEE} = [g:IEEE:statement of work]
+
+acronym:: SRR {IEEE} = [g:IEEE:System Requirements Review]
+
+acronym:: SRR {IEEE-2} = [g:IEEE:software requirements review]
+
+acronym:: SRS {IEEE} = System Requirements Specification
+
+######################################################################
+# V
+######################################################################
+
+acronym:: V&V {IEEE} = [g:IEEE:verification and validation]
+
+acronym:: VDD {IEEE} = [g:IEEE:Version Description Document]
 
 ######################################################################
 # X
 ######################################################################
-
-acronym:: XML = [g:eXtensible markup Language]
 
 <<<RAW

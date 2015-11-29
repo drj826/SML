@@ -50,7 +50,7 @@ family!New Century; font family!Palatino
 rendition of the entire document from 10, 11 or 12 point font (default
 is 10).
 
-index:: font size
+index:: font size!document
 
 : 
 
@@ -62,7 +62,7 @@ index:: font size
 a table from: ~~tiny~~, ~~scriptsize~~, ~~footnotesize~~, ~~small~~
 (default), ~~normalsize~~ or ~~large~~.
 
-index:: table font size
+index:: table font size;font size!table
 
 : 
 
