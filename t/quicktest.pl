@@ -6,16 +6,9 @@ use lib "../lib";
 
 use SML::Library;
 
-my $library = SML::Library->new(config_filename=>'test-library-1.conf');
+my $library = SML::Library->new(config_filename=>'library.conf');
 
-my $document = $library->get_document('td-000097');
-
-my $structure = $document->dump_part_structure;
-
-$logger->info("STRUCTURE:\n",$structure,"\n");
-
-my $text = $document->render('sml','default');
-
-$logger->info("SML:\n",$text,"\n");
+$library->publish('sml',    'html','default');
+$library->publish('frd-sml','html','default');
 
 1;

@@ -1,0 +1,13 @@
+>>>DOCUMENT.td-000098
+
+title:: Plugin Test 2
+
+* Introduction
+
+This document test the SML plugin feature.  The plugin
+`parts2sections' includes a hierarchy of entities as a hierarchy of
+sections.
+
+plugin:: parts2sections rq-001
+
+<<<DOCUMENT

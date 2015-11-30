@@ -1,0 +1,9 @@
+>>>requirement.rq-002
+
+title:: Buy a Water Filter
+
+is_part_of:: rq-001
+
+description:: To provide filtered water I need to buy a water filter.
+
+<<<requirement

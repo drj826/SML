@@ -49,7 +49,7 @@ publishing application to insert an audio clip into the document
 # B
 ######################################################################
 
-glossary:: Backus-Naur Form = ([a:BNF]) a notation technique for
+glossary:: Backus-Naur Form = ([acs:BNF]) a notation technique for
 context-free grammars, often used to describe the syntax of languages
 used in computing, such as computer programming languages, document
 formats, instruction sets and communication protocols. It is applied
@@ -84,7 +84,7 @@ requirement]s
 # C
 ######################################################################
 
-glossary:: Comma Separated Value = ([a:CSV]) a file format in which
+glossary:: Comma Separated Value = ([acs:CSV]) a file format in which
 each line contains one ``record'' of data fields separated by commas
 
 ###
@@ -123,8 +123,8 @@ allows authors to establish relationships between [g:SML:entity]s in a
 # D
 ######################################################################
 
-glossary:: Device Independent = ([a:DVI]) The native output format of
-LaTeX
+glossary:: Device Independent = ([acs:DVI]) The native output format
+of LaTeX
 
 ###
 
@@ -190,8 +190,8 @@ contain [g:SML:element]s that describe the document.
 # E
 ######################################################################
 
-glossary:: eXtensible markup Language = ([a:XML]) a ``meta-language''
-used to define markup languages
+glossary:: eXtensible markup Language = ([acs:XML]) a
+``meta-language'' used to define markup languages
 
 ###
 
@@ -237,8 +237,9 @@ described in the text
 # F
 ######################################################################
 
-glossary:: Functional Requirements Document {SML} = ([a:SML:FRD])
-Serves as the foundation for system design and development; captures
+glossary:: Functional Requirements Document {SML} = ([acs:SML:FRD])
+Answers the question, ``what does (or should) the system do?''; Serves
+as the foundation for system design and development; captures
 functional/user requirements to be implemented in a new or enhanced
 system; the systems subject matter experts document these requirements
 into the requirements traceability matrix, which shows mapping of each
@@ -284,7 +285,7 @@ requirements are independent of system implementation. See also
 # G
 ######################################################################
 
-glossary:: General Public License = ([a:GPL]) A software license
+glossary:: General Public License = ([acs:GPL]) A software license
 designed to ensure software is freely usable by anyone for any
 purpose.  The GPL takes away your right to put restrictions on
 software use
@@ -507,7 +508,7 @@ quotation
 # R
 ######################################################################
 
-glossary:: Rich Text Format = ([a:RTF]) the document interchange
+glossary:: Rich Text Format = ([acs:RTF]) the document interchange
 format used by Microsoft Word.
 
 ###
@@ -552,7 +553,7 @@ system capability.  Requirements for organizational capability are
 called [g:SML:business requirement]s.  Requirements for system
 capability are called [g:SML:system requirement]s
 
-glossary:: requirements traceability matrix {SML} = ([a:SML:RTM]) A
+glossary:: requirements traceability matrix {SML} = ([acs:SML:RTM]) A
 document or document part that provides a method for tracing
 requirements and their implementation through the development process
 

@@ -2378,7 +2378,7 @@ sub BUILD {
       my $list       = $self->get_image_list;
 
       opendir(DIR,"$images_dir") or die "Couldn't open dir: $images_dir";
-      foreach my $image ( grep {/\.png$/} readdir(DIR) )
+      foreach my $image ( grep {/\.(png|jpg|jpeg|gif)$/} readdir(DIR) )
 	{
 	  push(@{$list},$image);
 	}

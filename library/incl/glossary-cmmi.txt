@@ -209,11 +209,20 @@ progress for each process area while advancing through the capability
 levels. Or, the profile may be a target profile when it represents an
 objective for process improvement [cite:cmmi]
 
-glossary:: capability maturity model {CMMI} = A model that contains
-the essential elements of effective processes for one or more
-disciplines and describes an evolutionary improvement path from ad
-hoc, immature processes to disciplined, mature processes with improved
-quality and effectiveness [cite:cmmi]
+glossary:: capability maturity model {CMMI} = ([acs:CMMI:CMM]) A model
+that contains the essential elements of effective processes for one or
+more disciplines and describes an evolutionary improvement path from
+ad hoc, immature processes to disciplined, mature processes with
+improved quality and effectiveness [cite:cmmi]
+
+glossary:: capability maturity model integration {CMMI} =
+([acs:CMMI:CMMI]) a process improvement training and appraisal program
+and service administered and marketed by Carnegie Mellon University
+([acs:CMMI:CMU]) and required by many DoD and U.S. Government contracts,
+especially in software development. CMU claims CMMI can be used to
+guide process improvement across a project, division, or an entire
+organization. CMMI defines the following maturity levels for
+processes: Initial, Managed and Defined
 
 glossary:: capable process {CMMI} = A process that can satisfy its
 specified product quality, service quality, and process performance
@@ -272,20 +281,20 @@ recording their functional and physical characteristics in technical
 documentation. (See also [g:CMMI:configuration item],
 [g:CMMI:configuration management], and [g:CMMI:product].)  [cite:cmmi]
 
-glossary:: configuration management {CMMI} = A discipline applying
-technical and administrative direction and surveillance to (1)
-identify and document the functional and physical characteristics of a
-configuration item, (2) control changes to those characteristics, (3)
-record and report change processing and implementation status, and (4)
-verify compliance with specified requirements. (See also
-[g:CMMI:configuration audit], [g:CMMI:configuration control],
-[g:CMMI:configuration identification], and [g:CMMI:configuration
-status accounting].) [cite:cmmi]
+glossary:: configuration management {CMMI} = ([acs:CMMI:CM]) A
+discipline applying technical and administrative direction and
+surveillance to (1) identify and document the functional and physical
+characteristics of a configuration item, (2) control changes to those
+characteristics, (3) record and report change processing and
+implementation status, and (4) verify compliance with specified
+requirements. (See also [g:CMMI:configuration audit],
+[g:CMMI:configuration control], [g:CMMI:configuration identification],
+and [g:CMMI:configuration status accounting].) [cite:cmmi]
 
-glossary:: configuration item {CMMI} = An aggregation of work products
-that is designated for configuration management and treated as a
-single entity in the configuration management process. (See also
-[g:CMMI:configuration management].) [cite:cmmi]
+glossary:: configuration item {CMMI} = ([acs:CMMI:CI]) An aggregation
+of work products that is designated for configuration management and
+treated as a single entity in the configuration management
+process. (See also [g:CMMI:configuration management].) [cite:cmmi]
 
 glossary:: configuration status accounting {CMMI} = An element of
 configuration management consisting of the recording and reporting of

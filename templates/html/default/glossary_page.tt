@@ -22,7 +22,7 @@
 
 [%- FOREACH group IN glossary.get_group_list -%]
 
-<tr><td colspan="2"><h1>[%group%]</h1></td></tr>
+<tr><td colspan="3"><h1>[%group%]</h1></td></tr>
 
 [%- SET bgcolor = '#eeeeee' -%]
 [%- FOREACH entry IN glossary.get_group_entry_list(group) -%]

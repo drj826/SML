@@ -402,21 +402,36 @@ sub _publish_html_document {
 	  $logger->info("made directory $published_dir/images");
 	}
 
+      if ( not -d "$output_dir/images" )
+	{
+	  mkdir "$output_dir/images", 0755;
+	  $logger->info("made directory $output_dir/images");
+	}
+
       foreach my $image (@{ $library->get_image_list })
 	{
-	  my $orig = "$images_dir/$image";
-	  my $copy = "$published_dir/images/$image";
+	  my $orig  = "$images_dir/$image";
+	  my $copy1 = "$published_dir/images/$image";
+	  my $copy2 = "$output_dir/images/$image";
 
 	  if ( not -f $orig )
 	    {
 	      $logger->error("IMAGE FILE NOT FOUND \'$orig\'");
+	      next;
 	    }
 
-	  elsif ( not -f $copy )
+	  if ( not -f $copy1 )
 	    {
 	      $logger->info("copying image $image");
-	      File::Copy::copy($orig,$copy);
-	      utime undef, undef, "$copy";
+	      File::Copy::copy($orig,$copy1);
+	      utime undef, undef, "$copy1";
+	    }
+
+	  if ( not -f $copy2 )
+	    {
+	      $logger->info("copying image $image");
+	      File::Copy::copy($orig,$copy2);
+	      utime undef, undef, "$copy2";
 	    }
 	}
     }

@@ -8,6 +8,16 @@
 
 acronym:: CCB {CMMI} = [g:CMMI:configuration control board]
 
+acronym:: CI {CMMI} = [g:CMMI:configuration item]
+
+acronym:: CM {CMMI} = [g:CMMI:configuration management]
+
+acronym:: CMM {CMMI} = [g:CMMI:capability maturity model]
+
+acronym:: CMMI {CMMI} = [g:CMMI:capability maturity model integration]
+
+acronym:: CMU {CMMI} = Carnegie Mellon University
+
 acronym:: COTS {CMMI} = [g:CMMI:commercial off the shelf]
 
 ######################################################################

@@ -154,25 +154,30 @@ sub parse {
 
   $self->_set_line_list( $line_list );
 
+  # line-oriented processing
   do
     {
-      # line-oriented processing
-      $self->_resolve_includes  while $self->_contains_include;
-      $self->_resolve_plugins   while $self->_contains_plugin;
-      $self->_resolve_scripts   while $self->_contains_script;
-
-      # parse lines into blocks and divisions
-      $self->_parse_lines;
-
-      # block-oriented processing
-      $self->_insert_content       if $self->_contains_insert;
-      $self->_resolve_templates    if $self->_contains_template;
-      $self->_resolve_lookups      if $self->_contains_lookup;
-      $self->_substitute_variables if $self->_contains_variable;
-      $self->_generate_content     if $self->_contains_generate;
+      $self->_resolve_includes  if $self->_contains_include;
+      $self->_resolve_plugins   if $self->_contains_plugin;
+      $self->_resolve_scripts   if $self->_contains_script;
+      $self->_resolve_templates if $self->_contains_template;
     }
 
-      while $self->_text_requires_processing;
+    while $self->_text_requires_line_processing;
+
+  # parse lines into blocks and divisions
+  $self->_parse_lines;
+
+  # block-oriented processing
+  do
+    {
+      $self->_resolve_lookups      if $self->_contains_lookup;
+      $self->_substitute_variables if $self->_contains_variable;
+      # $self->_insert_content       if $self->_contains_insert;
+      # $self->_generate_content     if $self->_contains_generate;
+    }
+
+      while $self->_text_requires_block_processing;
 
   my $division = $self->_get_division;
 
@@ -4174,6 +4179,64 @@ sub _contains_plugin {
 
 ######################################################################
 
+sub _contains_template {
+
+  # This method MUST parse line-by-line (rather than block-by-block or
+  # element-by-element) because it is called BEFORE _parse_lines
+  # builds arrays of blocks and elements.
+
+  my $self = shift;
+
+  my $library    = $self->get_library;
+  my $syntax     = $library->get_syntax;
+  my $in_comment = 0;
+
+ LINE:
+  foreach my $line ( @{ $self->_get_line_list } )
+    {
+      my $text = $line->get_content;
+
+      $text =~ s/[\r\n]*$//;            # chomp;
+
+      #---------------------------------------------------------------
+      # Ignore comments
+      #
+      if ( $text =~ /$syntax->{start_division}/ and $1 eq 'COMMENT' )
+	{
+	  $in_comment = 1;
+	  next LINE;
+	}
+
+      elsif ( $text =~ /$syntax->{end_division}/ and $1 eq 'COMMENT' )
+	{
+	  $in_comment = 0;
+	  next LINE;
+	}
+
+      elsif ( $in_comment )
+	{
+	  next LINE;
+	}
+
+      elsif ( $text =~ /$syntax->{comment_line}/ )
+	{
+	  next LINE;
+	}
+
+      #---------------------------------------------------------------
+      # template element
+      #
+      elsif ( $text =~ /$syntax->{template_element}/ )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
 sub _contains_insert {
 
   my $self = shift;
@@ -4273,40 +4336,6 @@ sub _contains_lookup {
 
 ######################################################################
 
-sub _contains_template {
-
-  my $self = shift;
-
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-
-  my $division   = $self->_get_division;
-  my $block_list = $division->get_block_list;
-
-  foreach my $block ( @{ $block_list } )
-    {
-      next if $block->isa('CommentBlock');
-      next if $block->is_in_a('SML::CommentDivision');
-
-      my $text = $block->get_content;
-
-      $text =~ s/[\r\n]*$//;            # chomp;
-
-      if (    $text =~ /^template::/                   # deprecate someday
-	   or $text =~ /^(-){3,}template/              # deprecate someday
-	   or $text =~ /^(\.){3,}template/             # deprecate someday
-	   or $text =~ /$syntax->{template_element}/
-	 )
-	{
-	  return 1;
-	}
-    }
-
-  return 0;
-}
-
-######################################################################
-
 sub _contains_generate {
 
   my $self = shift;
@@ -4326,30 +4355,54 @@ sub _contains_generate {
 
 ######################################################################
 
-sub _text_requires_processing {
+sub _text_requires_line_processing {
 
-  # Return 1 if text contains anything that needs to be resolved.
+  # This method MUST parse line-by-line (rather than block-by-block or
+  # element-by-element) because it is called BEFORE _parse_lines
+  # builds arrays of blocks and elements.
 
   my $self = shift;
 
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
+  my $library    = $self->get_library;
+  my $syntax     = $library->get_syntax;
+  my $in_comment = 0;
 
-  if ( $self->_requires_processing )
+ LINE:
+  foreach my $line ( @{ $self->_get_line_list } )
     {
-      $self->_set_requires_processing(0);
-      return 1;
-    }
+      my $text = $line->get_content;
 
-  my $division     = $self->_get_division;
-  my $element_list = $division->get_element_list;
+      $text =~ s/[\r\n]*$//;            # chomp;
 
-  # check for unresolved elements
-  foreach my $element ( @{ $element_list } )
-    {
-      my $text = $element->get_content;
+      #---------------------------------------------------------------
+      # Ignore comments
+      #
+      if ( $text =~ /$syntax->{start_division}/ and $1 eq 'COMMENT' )
+	{
+	  $in_comment = 1;
+	  next LINE;
+	}
 
-      if
+      elsif ( $text =~ /$syntax->{end_division}/ and $1 eq 'COMMENT' )
+	{
+	  $in_comment = 0;
+	  next LINE;
+	}
+
+      elsif ( $in_comment )
+	{
+	  next LINE;
+	}
+
+      elsif ( $text =~ /$syntax->{comment_line}/ )
+	{
+	  next LINE;
+	}
+
+      #---------------------------------------------------------------
+      # resolvable element
+      #
+      elsif
 	(
 	 $text =~ /$syntax->{include_element}/
 	 or
@@ -4357,22 +4410,27 @@ sub _text_requires_processing {
 	 or
 	 $text =~ /$syntax->{plugin_element}/
 	 or
-	 $text =~ /$syntax->{insert_element}/
-	 or
-	 $text =~ /$syntax->{insert_ins_element}/
-	 or
-	 $text =~ /$syntax->{insert_gen_element}/
-	 or
 	 $text =~ /$syntax->{template_element}/
-	 or
-	 $text =~ /$syntax->{generate_element}/
 	)
 	{
 	  return 1;
 	}
     }
 
-  # check for unresolved inline text
+  return 0;
+}
+
+######################################################################
+
+sub _text_requires_block_processing {
+
+  # Return 1 if text contains anything that needs to be resolved.
+
+  my $self = shift;
+
+  my $library    = $self->get_library;
+  my $syntax     = $library->get_syntax;
+  my $division   = $self->_get_division;
   my $block_list = $division->get_block_list;
 
   foreach my $block ( @{ $block_list } )
