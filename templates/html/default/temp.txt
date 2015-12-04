@@ -1,0 +1,2 @@
+<dt><b>[%- self.get_term -%]</b></dt>
+<dd>[%- self.get_definition -%]<br/><br/></dd>

@@ -1,0 +1,43 @@
+[%# args:
+
+self          => an entity object
+property_name => entity property name (i.e. 'is_part_of')
+label         => entity property name label (i.e. 'is part of:')
+
+%]
+[%- IF self.has_property(property_name) -%]
+<tr>
+<td>[%label%]</td>
+<td>
+[%-
+
+property = self.get_property(property_name)
+library  = self.get_library
+
+-%]
+[%- FOREACH element IN property.get_element_list -%]
+[%-
+
+value = element.get_value
+
+-%]
+[%- IF property_name == 'title' -%]
+<b>[%- INCLUDE part_list.tt self = element -%]</b>
+[%- ELSIF library.has_division_id(value) -%]
+[%-
+
+entity_id    = value
+entity       = library.get_division(entity_id)
+entity_title = entity.get_property('title')
+status       = entity.get_property_value('status')
+
+-%]
+[%- INCLUDE status_icon.tt -%] [%- INCLUDE id_link.tt id = entity_id -%] - [%- INCLUDE property.tt property = entity_title -%]
+<br/>
+[%- ELSE -%]
+[%- INCLUDE part_list.tt self = element -%]
+[%- END -%]
+[%- END -%]
+</td>
+</tr>
+[%- END -%]

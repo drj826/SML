@@ -15,12 +15,12 @@ priority:: routine
 type:: functional
 
 description:: The software shall generate an HTML list of
-[g:sml:demonstration]s.  The purpose of this listing is to enable
+[g:SML:demonstration]s.  The purpose of this listing is to enable
 readers to quickly navigate to any demonstration in the document.
 
 index:: rq-000268; list of demonstrations!HTML; HTML list of
 demonstrations
 
-= [g:sml:demonstration] = [def:sml:demonstration]
+= [g:SML:demonstration] = [def:SML:demonstration]
 
 <<<requirement

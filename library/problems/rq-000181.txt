@@ -22,7 +22,7 @@ detect and handle these conditions to prevent the application from
 
 index:: rq-000181; infinite loop!prevent
 
-[g:sml:SML] features that could cause an infinite loop:
+[a:SML] features that could cause an infinite loop:
 
 - An item that declares itself as its own parent
 

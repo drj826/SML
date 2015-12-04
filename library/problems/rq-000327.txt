@@ -15,7 +15,7 @@ priority:: routine
 type:: data format
 
 description:: The data format shall have the capability to represent a
-[g:sml:document] [g:sml:block].
+[g:SML:document] [g:SML:block].
 
 index:: rq-000327
 

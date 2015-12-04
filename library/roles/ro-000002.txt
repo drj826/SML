@@ -1,0 +1,8 @@
+>>>role.ro-000002
+
+title:: Document Author
+
+description:: A document author is responsible for preparing
+manuscripts.
+
+<<<role

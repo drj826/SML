@@ -17,7 +17,7 @@ type:: technical
 associated:: rq-000166
 
 description:: The software shall resolve included flat text.  The
-[g:sml:SML] data format enables authors to include the content of an
+[a:SML] data format enables authors to include the content of an
 external file as `flat' text, that is, the software must `flatten' any
 section hierarchy within the included file.
 

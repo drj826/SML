@@ -9,8 +9,7 @@ priority:: routine
 type:: functional
 
 description:: The system shall enable a user to render the
-[g:sml:element]s within [g:sml:Semantic Manuscript Language]
-([g:sml:SML]) [g:sml:document]s to [g:CSV] files.
+[g:SML:element]s within [a:SML] [g:SML:document]s to [a:CSV] files.
 
 revision:: $Revision: 11687 $
 

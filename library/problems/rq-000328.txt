@@ -16,7 +16,7 @@ type:: technical
 
 associated:: rq-000326
 
-description:: The software shall have the capability to [g:sml:format]
+description:: The software shall have the capability to [g:SML:format]
 a document division according to a template.
 
 index:: rq-000328; division

@@ -15,7 +15,7 @@ priority:: routine
 type:: data format
 
 description:: The data format shall have the capability to represent
-a [g:sml:document] [g:sml:division].
+a [g:SML:document] [g:SML:division].
 
 index:: rq-000326
 

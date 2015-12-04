@@ -15,8 +15,7 @@ priority:: routine
 type:: functional
 
 description:: The system shall enable a user to render
-[g:sml:document]s from [g:sml:Semantic Manuscript Language]
-([g:sml:SML]) to plain text.
+[g:SML:document]s from [a:SML] to plain text.
 
 index:: rq-000114; plain text!render
 

@@ -9,8 +9,8 @@ is_part_of:: rq-000107
 type:: data format
 
 description:: The data format shall have the capability to represent
-specific document [g:sml:special feature]s.  The purpose of document
-[G:sml:special feature]s is to minimize the maintenance burden of
+specific document [g:SML:special feature]s.  The purpose of document
+[G:SML:special feature]s is to minimize the maintenance burden of
 updating documents and to automatically generate specified elements of
 document content.  This requirement serves as a container for all
 document document special features.

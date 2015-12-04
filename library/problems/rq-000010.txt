@@ -9,10 +9,10 @@ is_part_of:: rq-000327
 type:: data format
 
 description:: The data format shall have the capability to represent
-a paragraph.  A paragraph is an element of document [g:sml:structure],
-a [g:sml:block] of [g:sml:text] that communicates an idea. The data
+a paragraph.  A paragraph is an element of document [g:SML:structure],
+a [g:SML:block] of [g:SML:text] that communicates an idea. The data
 format representation of a paragraph must allow but not mandate
-[g:sml:newline] characters within a paragraph.
+[g:SML:newline] characters within a paragraph.
 
 revision:: $Revision: 11687 $
 

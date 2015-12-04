@@ -17,7 +17,7 @@ description:: The software shall emit an ~~error~~ message upon
 finding ~~major~~ invalid first-order document semantics.  A ~~major~~
 invalid semantics problem is one that prevents the production of
 meaningful document output. First-order document semantics are
-expressed as rules (axioms) in a [g:sml:library]'s [g:sml:ontology].
+expressed as rules (axioms) in a [g:SML:library]'s [g:SML:ontology].
 
 index:: rq-000191; error!emit; first-order semantics
 

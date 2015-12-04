@@ -18,10 +18,11 @@ bookmark = entry.get_bookmark
 [%- ELSIF tag == 'acl' -%]
 <a href="[%docid%].acronyms.html#[%bookmark%]">[%- INCLUDE STRING.tt self = definition_string -%]</a>
 [%- ELSIF (tag == 'a') || (tag == 'ac') -%]
-[%- IF entry.already_used -%]
+  [%- IF entry.already_used -%]
 <a href="[%docid%].acronyms.html#[%bookmark%]">[%- INCLUDE STRING.tt self = term_string -%]</a>
-[%- ELSE -%]
-<a href="[%docid%].acronyms.html#[%bookmark%]">[%- INCLUDE STRING.tt self = definition_string -%]</a> (<a href="[%docid%].acronyms.html#[%bookmark%]">[%- INCLUDE STRING.tt self = term_string -%]</a>)
-[%- CALL entry.set_already_used(1) -%]
-[%- END -%]
+  [%- ELSE -%]
+<a href="[%docid%].acronyms.html#[%bookmark%]">[%- INCLUDE STRING.tt self = definition_string -%]</a>
+(<a href="[%docid%].acronyms.html#[%bookmark%]">[%- INCLUDE STRING.tt self = term_string -%]</a>)
+  [%- CALL entry.set_already_used(1) -%]
+  [%- END -%]
 [%- END -%]

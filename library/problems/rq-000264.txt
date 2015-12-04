@@ -31,7 +31,7 @@ cases, then the list of recent updates would have a section for each
 of these entity types, listing which ones have been recently updated
 along with the changelog entry committed with the change.
 
-= [g:sml:entity] = [def:sml:entity]
+= [g:SML:entity] = [def:SML:entity]
 
 This requirement is similar to but different from [id:rq-000278],
 ``[lookup:title:rq-000278]'' which lists recent changes in

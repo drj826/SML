@@ -112,12 +112,13 @@ glossary:: conditional {SML} = A [g:SML:division] to be included in
 the rendered document only if a token is defined in the
 [g:SML:document] [g:SML:preamble].
 
-glossary:: content {SML} = Text meant to convey meaning.  A type of
-markup feature that describes the ~~meaning~~ of [g:SML:text] which
-allows authors to establish relationships between [g:SML:entity]s in a
-[g:SML:document]. For example: [g:SML:exercise]s, [g:SML:slide]s,
-[g:SML:quotation]s, [g:SML:demo], [g:SML:problem]s, [g:SML:solution]s,
-[g:SML:test]s, [g:SML:result]s, [g:SML:task]s, [g:SML:role]s
+glossary:: content {SML} = (1) Text meant to convey meaning.  (2) A
+type of markup feature that describes the ~~meaning~~ of [g:SML:text]
+which allows authors to establish relationships between
+[g:SML:entity]s in a [g:SML:document]. For example: [g:SML:exercise]s,
+[g:SML:slide]s, [g:SML:quotation]s, [g:SML:demo], [g:SML:problem]s,
+[g:SML:solution]s, [g:SML:test]s, [g:SML:result]s, [g:SML:task]s,
+[g:SML:role]s
 
 ######################################################################
 # D
@@ -198,6 +199,10 @@ glossary:: eXtensible markup Language = ([acs:XML]) a
 glossary:: element {SML} = A [g:SML:block] containing a name/value
 pair expressing a piece of structured information or instructing the
 processor to take some action. See also [g:SML:property]
+
+glossary:: engineer {SML} = the skill level needed to invent, design
+and implement systems to solve real world problems.  Contrast with
+[g:SML:technician] and [g:SML:operator]
 
 glossary:: entity {SML} = A thing of interest to an organization about
 which data is held. Entity types are declared in an
@@ -427,6 +432,9 @@ glossary:: operational baseline {SML} = A [g:IEEE:baseline] that
 identifies the system accepted and configured by the users in the
 operational environment after a period of onsite test using production
 data
+
+glossary:: operator {SML} = the skill level necessary to operate a
+system.  Contrast with [g:SML:engineer] and [g:SML:technician]
 
 ######################################################################
 # P
@@ -682,6 +690,10 @@ Technical requirements may be implementation specific/dependent. See
 also DHS definition of [g:SML:system requirement].  Technical
 requirements are derived from [g:SML:functional requirement]s and
 [g:SML:non-functional requirement]s.
+
+glossary:: technician {SML} = the skill level needed to deploy,
+configure and repair systems. Contrast with [g:SML:engineer] and
+[g:SML:operator]
 
 glossary:: template {SML} = A [g:SML:fragment] that represents a
 reusable division of document [g:SML:structure] the [g:SML:content] of

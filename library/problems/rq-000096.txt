@@ -15,7 +15,7 @@ is_part_of:: rq-000035
 type:: data format
 
 description:: The data format shall have the capability to represent
-the option of formally determining [g:sml:entity] status from formal
+the option of formally determining [g:SML:entity] status from formal
 outcomes rather than from informal entity status attributes.  The
 purpose of this requirement is to enable authors to declare whether
 they want entity status to come from formal test results and audits,

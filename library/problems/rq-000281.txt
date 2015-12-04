@@ -15,13 +15,13 @@ priority:: routine
 type:: functional
 
 description:: The software shall generate an HTML page for each document
-[g:sml:section].  The purpose of this requirement is to improve
+[g:SML:section].  The purpose of this requirement is to improve
 document readability by keeping the size of each page small and to
 keep the size of each HTML file small to speed browser page generateing.
 Chapters and appendices are considered types of sections.
 
 index:: rq-000281
 
-= [g:sml:section] = [def:sml:section]
+= [g:SML:section] = [def:SML:section]
 
 <<<requirement

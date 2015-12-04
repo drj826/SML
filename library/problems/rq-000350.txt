@@ -14,7 +14,7 @@ priority:: routine
 
 type:: non-functional
 
-description:: The [g:sml:ontology] shall permit the user to configure
+description:: The [g:SML:ontology] shall permit the user to configure
 the allowed properties of entities. This is a `configurability'
 requirement.  The purpose of this requirement is to ensure the
 solution does ~~not~~ hard-code allowed entity properties into the

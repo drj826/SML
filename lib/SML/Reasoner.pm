@@ -56,27 +56,26 @@ sub infer_inverse_property {
   my $self    = shift;
   my $element = shift;
 
-  my $library               = $self->get_library;
-  my $ontology              = $library->get_ontology;
-  my $util                  = $library->get_util;
-  my $division              = $element->get_containing_division;
+  my $library  = $self->get_library;
+  my $ontology = $library->get_ontology;
+  my $division = $element->get_containing_division;
 
   if ( not $division )
     {
-      $logger->warn("ELEMENT NOT IN DIVISION CONTEXT.  CAN'T INFER INVERSE PROPERTY");
+      my $location = $element->get_location;
+      $logger->warn("CAN'T INFER INVERSE PROPERTY, ELEMENT NOT IN DIVISION CONTEXT at $location");
       return 0;
     }
 
-  my $division_id           = $division->get_id;
-  my $division_name         = $division->get_name;
-  my $element_name          = $element->get_name;
-  my $element_value         = $element->get_value;
+  my $division_id   = $division->get_id;
+  my $division_name = $division->get_name;
+  my $element_name  = $element->get_name;
+  my $element_value = $element->get_value;
 
   if ( not $element_value )
     {
       my $location = $element->get_location;
-      $logger->warn("NO ELEMENT VALUE FOR $element_name at $location");
-
+      $logger->warn("CAN'T INFER INVERSE PROPERTY, NO ELEMENT VALUE FOR $element_name at $location");
       return 0;
     }
 
@@ -95,7 +94,7 @@ sub infer_inverse_property {
       return 0;
     }
 
-  if ( $inverse_rule_id and $library->has_division($inverse_division_id) )
+  if ( $inverse_rule_id and $library->has_division_id($inverse_division_id) )
     {
       my $inverse_division      = $library->get_division($inverse_division_id);
       my $inverse_division_name = $inverse_division->get_name;
@@ -129,10 +128,11 @@ sub infer_inverse_property {
 		);
 
 	      $inverse_element->add_line($inverse_line);
+	      $inverse_element->set_value($division_id);
 
 	      $inverse_element->set_containing_division($inverse_division);
 	      $inverse_division->add_property_element($inverse_element);
-	      $logger->trace("..... implied property: $inverse_division_id now has $inverse_property_name $division_id");
+	      $logger->trace("..... implied property: $inverse_division_id $inverse_property_name $division_id");
 	      return 1;
 	    }
 	}
@@ -153,7 +153,6 @@ sub infer_status_from_outcomes {
 
   my $self    = shift;
   my $library = $self->get_library;
-  my $util    = $library->get_util;
 
   foreach my $entity_id (@{ $library->get_outcome_entity_id_list })
     {

@@ -17,7 +17,7 @@ description:: The software shall emit a ~~warning~~ message upon
 finding ~~minor~~ invalid first-order document semantics.  A ~~minor~~
 invalid semantics problem is one that results in erroneous or
 misleading document content. First-order document semantics are
-expressed as rules (axioms) in a [g:sml:library]'s [g:sml:ontology].
+expressed as rules (axioms) in a [g:SML:library]'s [g:SML:ontology].
 
 index:: rq-000192; warning!emit; first-order semantics
 

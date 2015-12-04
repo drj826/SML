@@ -14,9 +14,9 @@ priority:: routine
 
 type:: non-functional
 
-description:: The [g:sml:library] [g:sml:ontology] shall be
-configurable in specified ways.  The [g:sml:ontology] applies to all
-[g:sml:document]s in a [g:sml:library].
+description:: The [g:SML:library] [g:SML:ontology] shall be
+configurable in specified ways.  The [g:SML:ontology] applies to all
+[g:SML:document]s in a [g:SML:library].
 
 index:: rq-000183; ontology!configurability
 

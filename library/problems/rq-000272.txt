@@ -15,11 +15,11 @@ priority:: routine
 type:: functional
 
 description:: The software shall generate an HTML list of
-[g:sml:table]s.  The purpose of this table is to enable readers to
+[g:SML:table]s.  The purpose of this table is to enable readers to
 quickly navigate to any table in the document.
 
 index:: rq-000272; list of tables!HTML; HTML list of tables
 
-= [g:sml:table] = [def:sml:table]
+= [g:SML:table] = [def:SML:table]
 
 <<<requirement

@@ -113,6 +113,7 @@ $OUTPUT_AUTOFLUSH = 1;
 
 has library =>
   (
+   is        => 'ro',
    isa       => 'SML::Library',
    reader    => 'get_library',
    required  => 1,
@@ -140,7 +141,9 @@ sub parse {
       return 0;
     }
 
-  $logger->info("parse \'$id\'");
+  my $number = $self->_get_number;
+
+  $logger->info("{$number} parse \'$id\'");
 
   $self->_init;                         # initialize parser
 
@@ -190,16 +193,6 @@ sub parse {
   foreach my $block (@{ $division->get_block_list })
     {
       $self->_parse_block($block);
-
-      $self->_validate_theversion_ref_semantics($block);
-      $self->_validate_therevision_ref_semantics($block);
-      $self->_validate_thedate_ref_semantics($block);
-      $self->_validate_status_ref_semantics($block);
-      $self->_validate_glossary_term_ref_semantics($block);
-      $self->_validate_glossary_def_ref_semantics($block);
-      $self->_validate_acronym_ref_semantics($block);
-      $self->_validate_source_citation_semantics($block);
-      $self->_validate_file_ref_semantics($block);
     }
 
   return $division;
@@ -211,6 +204,16 @@ sub parse {
 ## Private Attributes
 ##
 ######################################################################
+######################################################################
+
+has number =>
+  (
+   is       => 'ro',
+   isa      => 'Int',
+   reader   => '_get_number',
+   required => 1,
+  );
+
 ######################################################################
 
 has division =>
@@ -1883,8 +1886,9 @@ sub _resolve_includes {
   my $util           = $library->get_util;
   my $options        = $util->get_options;
   my $max_iterations = $options->get_MAX_RESOLVE_INCLUDES;
+  my $number         = $self->_get_number;
 
-  $logger->info("($count) resolve includes");
+  $logger->info("{$number} ($count) resolve includes");
 
   if ( $count > $max_iterations )
     {
@@ -1958,6 +1962,7 @@ sub _resolve_includes {
 	    {
 	      push @{ $new_line_list }, $repl_line;
 	    }
+
 	  next LINE;
 	}
 
@@ -1995,8 +2000,9 @@ sub _resolve_plugins {
   my $util           = $library->get_util;
   my $options        = $util->get_options;
   my $max_iterations = $options->get_MAX_RESOLVE_PLUGINS;
+  my $number         = $self->_get_number;
 
-  $logger->info("($count) resolve plugins");
+  $logger->info("{$number} ($count) resolve plugins");
 
   return if not $options->resolve_plugins;
 
@@ -2112,7 +2118,9 @@ sub _run_plugin {
   my $plugin            = shift;
   my $plugin_args       = shift;
 
-  $logger->info("  $plugin $plugin_args");
+  my $number = $self->_get_number;
+
+  $logger->info("{$number} run plugin: $plugin $plugin_args");
 
   my $library     = $self->get_library;
   my $plugins_dir = $library->get_plugins_dir;
@@ -2169,7 +2177,9 @@ sub _run_script {
   my $args              = shift;        # element arguments
   my $command           = shift;        # script command to execute
 
-  $logger->info("  $command");
+  my $number = $self->_get_number;
+
+  $logger->info("{$number} run script: $command");
 
   if ($^O eq 'MSWin32')
     {
@@ -2209,8 +2219,9 @@ sub _resolve_scripts {
   my $util           = $library->get_util;
   my $options        = $util->get_options;
   my $max_iterations = $options->get_MAX_RESOLVE_SCRIPTS;
+  my $number         = $self->_get_number;
 
-  $logger->info("($count) resolve scripts");
+  $logger->info("{$number} ($count) resolve scripts");
 
   return if not $options->resolve_scripts;
 
@@ -2318,8 +2329,9 @@ sub _parse_lines {
   my $count_method   = $self->_get_count_method_hash;
   my $max_iterations = $options->get_MAX_PARSE_LINES;
   my $count          = ++ $count_method->{'_parse_lines'};
+  my $number         = $self->_get_number;
 
-  $logger->info("($count) parse lines");
+  $logger->info("{$number} ($count) parse lines");
 
   # MAX interations exceeded?
   if ( $count > $max_iterations )
@@ -3051,17 +3063,18 @@ sub _insert_content {
   my $library        = $self->get_library;
   my $syntax         = $library->get_syntax;
   my $util           = $library->get_util;
-  my $new_line_list       = [];
+  my $new_line_list  = [];
   my $division       = $self->_get_division;
   my $count_method   = $self->_get_count_method_hash;
-  my $old_line_list       = $self->_get_line_list;
+  my $old_line_list  = $self->_get_line_list;
   my $gen_content    = $self->_get_gen_content_hash;
   my $options        = $util->get_options;
   my $glossary       = $library->get_glossary;
   my $max_iterations = $options->get_MAX_INSERT_CONTENT;
   my $count          = ++ $count_method->{'_insert_content'};
+  my $number         = $self->_get_number;
 
-  $logger->info("($count) insert content");
+  $logger->info("{$number} ($count) insert content");
 
   if ( $count > $max_iterations )
     {
@@ -3240,8 +3253,9 @@ sub _substitute_variables {
   my $count          = ++ $count_method->{'_substitute_variables'};
   my $document       = undef;
   my $docid          = '';
+  my $number         = $self->_get_number;
 
-  $logger->info("($count) substitute variables");
+  $logger->info("{$number} ($count) substitute variables");
 
   if ( $count > $max_iterations )
     {
@@ -3310,8 +3324,9 @@ sub _resolve_lookups {
   my $options        = $util->get_options;
   my $max_iterations = $options->get_MAX_RESOLVE_LOOKUPS;
   my $count          = ++ $count_method->{'_resolve_lookups'};
+  my $number         = $self->_get_number;
 
-  $logger->info("($count) resolve lookups");
+  $logger->info("{$number} ($count) resolve lookups");
 
   if ( $count > $max_iterations )
     {
@@ -3374,14 +3389,15 @@ sub _resolve_templates {
   my $util           = $library->get_util;
   my $division       = $self->_get_division;
   my $count_method   = $self->_get_count_method_hash;
-  my $new_line_list       = [];
-  my $old_line_list       = $self->_get_line_list;
+  my $new_line_list  = [];
+  my $old_line_list  = $self->_get_line_list;
   my $options        = $util->get_options;
   my $max_iterations = $options->get_MAX_RESOLVE_TEMPLATES;
   my $count          = ++ $count_method->{'_resolve_templates'};
   my $in_comment     = 0;
+  my $number         = $self->_get_number;
 
-  $logger->info("($count) resolve templates");
+  $logger->info("{$number} ($count) resolve templates");
 
   if ( $count > $max_iterations )
     {
@@ -3515,15 +3531,16 @@ sub _generate_content {
   my $count_method   = $self->_get_count_method_hash;
   my $to_be_gen      = $self->_get_to_be_gen_hash;
   my $gen_content    = $self->_get_gen_content_hash;
-  my $old_line_list       = $self->_get_line_list;
+  my $old_line_list  = $self->_get_line_list;
   my $options        = $util->get_options;
-  my $new_line_list       = [];
+  my $new_line_list  = [];
   my $max_iterations = $options->get_MAX_GENERATE_CONTENT;
   my $count          = ++ $count_method->{'_generate_content'};
   my $divid          = '';
   my $docid          = '';
+  my $number         = $self->_get_number;
 
-  $logger->info("($count) generate content");
+  $logger->info("{$number} ($count) generate content");
 
   if ( $count > $max_iterations )
     {
@@ -3978,6 +3995,11 @@ sub _end_element {
       $self->_process_end_index_element($element);
     }
 
+  elsif ( $name eq 'author' )
+    {
+      $self->_process_end_author_element($element);
+    }
+
   elsif ( $name eq 'date' )
     {
       $self->_process_end_date_element($element);
@@ -3998,7 +4020,14 @@ sub _end_element {
       $self->_process_end_element($element);
     }
 
-  my $library  = $self->get_library;
+  my $value   = $element->get_value;
+  my $library = $self->get_library;
+
+  if ( $library->has_division_id($value) )
+    {
+      $library->get_division($value);
+    }
+
   my $reasoner = $library->get_reasoner;
 
   $reasoner->infer_inverse_property($element);
@@ -5820,7 +5849,7 @@ sub _process_start_division_marker {
   my $name = shift;                     # division name
   my $id   = shift || q{};              # division ID
 
-  return if $name eq 'RAW';
+  # return if $name eq 'RAW';
 
   $logger->trace("----- start division ($name.$id)");
 
@@ -5892,7 +5921,7 @@ sub _process_end_division_marker {
   my $line = shift;
   my $name = shift;
 
-  return if $name eq 'RAW';
+  # return if $name eq 'RAW';
 
   my $library = $self->get_library;
 
@@ -5931,6 +5960,29 @@ sub _process_end_division_marker {
     }
 
   my $division = $self->_get_current_division;
+
+  if ( not $division )
+    {
+      my $location = $line->get_location;
+      $logger->error("at location: $location");
+      $logger->logcluck("THIS SHOULD NEVER HAPPEN");
+    }
+
+  if ( $name eq 'DOCUMENT' )
+    {
+      foreach my $block (@{ $division->get_block_list })
+	{
+	  $self->_validate_theversion_ref_semantics($block);
+	  $self->_validate_therevision_ref_semantics($block);
+	  $self->_validate_thedate_ref_semantics($block);
+	  $self->_validate_status_ref_semantics($block);
+	  $self->_validate_glossary_term_ref_semantics($block);
+	  $self->_validate_glossary_def_ref_semantics($block);
+	  $self->_validate_acronym_ref_semantics($block);
+	  $self->_validate_source_citation_semantics($block);
+	  $self->_validate_file_ref_semantics($block);
+	}
+    }
 
   my $block = SML::PreformattedBlock->new
     (
@@ -8665,6 +8717,37 @@ sub _process_end_date_element {
 
 ######################################################################
 
+sub _process_end_author_element {
+
+  my $self    = shift;
+  my $element = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $element->get_content;
+
+  if ( $text =~ /$syntax->{svn_author_field}/ )
+    {
+      # $1 = value (i.e. don.johnson)
+      $element->set_value($1);
+    }
+
+  elsif ( $text =~ /$syntax->{element}/ )
+    {
+      # $3 = element value
+      $element->set_value($3);
+    }
+
+  else
+    {
+      $element->set_value($text);
+    }
+
+  return 1;
+}
+
+######################################################################
+
 sub _process_end_revision_element {
 
   my $self    = shift;
@@ -10259,29 +10342,15 @@ sub _resolve_include_line {
 
   my $library = $self->get_library;
 
-  my $repl_line_list = [];              # replacement line list
-
-  # get list of lines to include
-  my $line_list;
-
-  if ( $included_id )
+  if ( not $library->has_division_id($included_id) )
     {
-      my $file = $library->get_file_containing_id($included_id);
-
-      if ( not $file )
-	{
-	  my $location = $line->get_location;
-	  $logger->error("NO LIBRARY FILE CONTAINS ID \'$included_id\' at $location");
-	  return 0;
-	}
-
-      $line_list = $file->get_line_list;
+      my $location = $line->get_location;
+      $logger->logcroak("CAN'T RESOLVE INCLUDE LINE, LIBRARY DOESN'T HAVE ID \'$included_id\' at $location");
+      return 0;
     }
 
-  else
-    {
-      $logger->logcroak("THIS SHOULD NEVER HAPPEN");
-    }
+  my $division  = $library->get_division($included_id);
+  my $line_list = $division->get_line_list;
 
   # flatten (i.e. include::flat: my-division)
   if ( $args =~ /flat:/ )
@@ -10380,7 +10449,6 @@ sub _convert_to_section_line_list {
   my $nll     = [];                     # new line list
 
   my $title     = $self->_extract_title_text($oll);
-  my $narrative = $self->_extract_narrative_lines($oll);
   my $asterisks = q{};
 
   $asterisks .= '*' until length($asterisks) == $depth;
@@ -10390,7 +10458,7 @@ sub _convert_to_section_line_list {
   push @{ $nll }, $sechead;
   push @{ $nll }, $util->get_blank_line;
 
-  foreach my $line (@{ $narrative })
+  foreach my $line (@{ $oll })
     {
       push @{ $nll }, $line;
     }
@@ -11712,10 +11780,9 @@ sub _validate_glossary_term_ref_semantics {
       return 1;
     }
 
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $util    = $library->get_util;
-  my $text    = $block->get_content;
+  my $library  = $self->get_library;
+  my $syntax   = $library->get_syntax;
+  my $text     = $block->get_content;
 
   if (
       not
@@ -11729,25 +11796,29 @@ sub _validate_glossary_term_ref_semantics {
       return 1;
     }
 
+  my $util = $library->get_util;
+
   $text = $util->remove_literals($text);
 
   my $valid = 1;
 
-  if ( not $block->get_containing_document )
-    {
-      $logger->error("CAN'T VALIDATE GLOSSARY TERM REFERENCES not in document context");
-      return 0;
-    }
+  my $glossary = $library->get_glossary;
+
+  # if ( not $block->get_containing_document )
+  #   {
+  #     $logger->error("CAN'T VALIDATE GLOSSARY TERM REFERENCES not in document context");
+  #     return 0;
+  #   }
 
   while ( $text =~ /$syntax->{gloss_term_ref}/xms )
     {
       my $namespace = $3 || q{};
       my $term      = $4;
 
-      unless ( $library->get_glossary->has_entry($term,$namespace) )
+      unless ( $glossary->has_entry($term,$namespace) )
 	{
 	  my $location = $block->get_location;
-	  $logger->warn("TERM NOT IN GLOSSARY \'$namespace\' \'$term\' at $location");
+	  $logger->warn("TERM NOT IN LIBRARY GLOSSARY $term {$namespace} at $location");
 	  $valid = 0;
 	}
 
@@ -12246,10 +12317,10 @@ sub _validate_composition {
 	  my $location   = $division->get_location;
 	  my $first_line = $division->get_first_line;
 
-	  if ( $division->has_included_from_line )
+	  if ( $division->has_origin_line )
 	    {
-	      my $included_from_line = $division->get_included_from_line;
-	      my $include_location = $included_from_line->get_location;
+	      my $origin_line = $division->get_origin_line;
+	      my $include_location = $origin_line->get_location;
 	      $logger->warn("INVALID COMPOSITION $name in $container_name (included at $include_location) at $location");
 	    }
 
@@ -12264,75 +12335,6 @@ sub _validate_composition {
 
   return $valid;
 }
-
-######################################################################
-
-# sub _validate_id_uniqueness {
-
-#   my $self     = shift;
-#   my $division = shift;
-
-#   my $valid   = 1;
-#   my $library = $self->get_library;
-#   my $syntax  = $library->get_syntax;
-#   my $seen    = {};
-
-#   foreach my $element (@{ $division->get_element_list })
-#     {
-#       if ($element->get_name ne 'id')
-# 	{
-# 	  next;
-# 	}
-
-#       my $id       = $element->get_value;
-#       my $location = $element->get_location;
-
-#       if ( not exists $seen->{$id} )
-# 	{
-# 	  $seen->{$id} = $element;
-# 	}
-
-#       else
-# 	{
-# 	  my $current_line  = $element->get_first_line;
-# 	  my $previous      = $seen->{$id};
-# 	  my $previous_line = $previous->get_first_line;
-
-# 	  if (
-# 	      defined $current_line->get_included_from_line
-# 	      and
-# 	      defined $previous_line->get_included_from_line
-# 	     )
-# 	    {
-# 	      my $current_location  = $current_line->get_location;
-# 	      my $previous_location = $previous_line->get_location;
-# 	      my $included_location = $previous_line->get_included_from_line->get_location;
-
-# 	      $logger->warn("INVALID NON-UNIQUE ID at $location: \"$id\" (included at $current_location) previously defined at $previous_location (included at $included_location)");
-# 	      $valid = 0;
-# 	    }
-
-# 	  elsif ( defined $previous_line->get_included_from_line )
-# 	    {
-# 	      my $previous_location = $previous_line->get_location;
-# 	      my $included_location = $previous_line->get_included_from_line->get_location;
-
-# 	      $logger->warn("INVALID NON-UNIQUE ID at $location: \"$id\" previously defined at $previous_location (included at $included_location)");
-# 	      $valid = 0;
-# 	    }
-
-# 	  else
-# 	    {
-# 	      my $previous_location = $previous_line->get_location;
-
-# 	      $logger->warn("INVALID NON-UNIQUE ID at $location: \"$id\" previously defined at $previous_location");
-# 	      $valid = 0;
-# 	    }
-# 	}
-#     }
-
-#   return $valid;
-# }
 
 ######################################################################
 

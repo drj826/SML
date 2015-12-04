@@ -20,6 +20,6 @@ any slide in the document.
 
 index:: rq-000265; list of slides!HTML; HTML list of slides
 
-= [g:sml:slide] = [def:sml:slide]
+= [g:SML:slide] = [def:SML:slide]
 
 <<<requirement

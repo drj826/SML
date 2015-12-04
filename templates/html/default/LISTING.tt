@@ -1,15 +1,20 @@
-[% SET number = self.get_number %]
-[% SET title = self.get_property_value('title') %]
-[% SET anchor = 'LISTING.' _ number %]
+[%-
+
+number = self.get_number
+anchor = 'LISTING.' _ number
+
+-%]
 
 <div class="listing" id="[%anchor%]">
 
 <!-- put listing navigation link table here -->
 
-<b>Listing [%number%] - [%title%]</b>
-<br>
+<b>Listing [%number%] - [% INCLUDE property.tt property = self.get_property('title') %]</b>
+<br/>
 <pre>
-[%-FILTER html-%][%-self.get_content-%][%-END-%]
+[%-FILTER html-%]
+[%-self.get_content-%]
+[%-END-%]
 </pre>
 </div>
 

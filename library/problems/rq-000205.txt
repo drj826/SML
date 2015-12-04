@@ -12,7 +12,7 @@ is_part_of:: rq-000102
 
 type:: technical
 
-description:: The software shall format a [g:sml:block] of SML text
+description:: The software shall format a [g:SML:block] of SML text
 into a target rendition according to a specified style template.  For
 example, render an SML paragraph into an HTML paragraph according to a
 specified style template.

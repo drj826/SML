@@ -23,7 +23,7 @@ provide readers a summary updates in each version.
 
 index:: rq-000263; list of revisions!HTML; HTML list of revisions
 
-= [g:sml:revisions environment] = [def:sml:revisions environment]
+= [g:SML:revisions environment] = [def:SML:revisions environment]
 
 
 <<<requirement

@@ -39,7 +39,7 @@ associated:: rq-000077 # Represent Templates
 
 index:: rq-000174; external file reference validation
 
-The following [g:sml:SML] features involve the use of external file
+The following [a:SML] features involve the use of external file
 references:
 
 - figures ([id:rq-000015])

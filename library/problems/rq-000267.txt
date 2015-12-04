@@ -15,11 +15,11 @@ priority:: routine
 type:: functional
 
 description:: The software shall generate an HTML list of
-[g:sml:quotation]s.  The purpose of this listing is to enable readers
+[g:SML:quotation]s.  The purpose of this listing is to enable readers
 to quickly navigate to any quotation in the document.
 
 index:: rq-000267; list of quotations!HTML; HTML list of quotations
 
-= [g:sml:quotation] = [def:sml:quotation]
+= [g:SML:quotation] = [def:SML:quotation]
 
 <<<requirement

@@ -50,193 +50,6 @@ has value =>
 ######################################################################
 ######################################################################
 
-# sub validate_element_allowed {
-
-#   my $self = shift;
-
-#   my $library  = $self->get_library;
-#   my $ontology = $library->get_ontology;
-#   my $name     = $self->get_name;
-#   my $division = $self->get_containing_division;
-#   my $valid    = 1;
-
-#   return 0 if not defined $division;
-
-#   my $divname      = $division->get_name;
-#   my $value        = $self->get_value;
-#   my $object_type  = $self->_type_of($value);
-
-#   if
-#     (
-#      $ontology->get_rule_for($divname,$name,$object_type)
-#      or
-#      $ontology->get_rule_for($divname,$name,'STRING')
-#     )
-#       {
-# 	# valid
-#       }
-
-#   elsif
-#     (
-#      $ontology->get_rule_for('UNIVERSAL',$name,$object_type)
-#      or
-#      $ontology->get_rule_for('UNIVERSAL',$name,'STRING')
-#     )
-#       {
-# 	# valid
-#       }
-
-#   elsif ( $name eq 'id' and $divname eq $object_type )
-#       {
-# 	# valid
-#       }
-
-#   else
-#     {
-#       my $location = $self->get_location;
-#       $logger->warn("ELEMENT NOT ALLOWED \'$divname\' \'$name\' \'$object_type\' at $location");
-#       $valid = 0;
-#     }
-
-#   return $valid;
-# }
-
-######################################################################
-
-# sub validate_outcome_semantics {
-
-#   my $self = shift;
-
-#   my $valid   = 1;
-#   my $library = $self->get_library;
-#   my $syntax  = $library->get_syntax;
-#   my $util    = $library->get_util;
-#   my $text    = $self->get_content;
-
-#   $text =~ s/[\r\n]*$//;                # chomp;
-
-#   if ( $text =~ /$syntax->{outcome_element}/xms )
-#     {
-#       my $date        = $2;
-#       my $entity_id   = $3;
-#       my $status      = $4;
-#       my $description = $5;
-
-#       # date valid?
-#       if ( not $date =~ /$syntax->{valid_date}/xms )
-# 	{
-# 	  my $location = $self->get_location;
-# 	  $logger->error("INVALID OUTCOME DATE at $location: \'$date\'");
-# 	  $valid = 0;
-# 	}
-
-#       # item under test valid?
-#       if ( not $library->has_division($entity_id) )
-# 	{
-# 	  my $location = $self->get_location;
-# 	  $logger->error("INVALID OUTCOME ITEM at $location: \'$entity_id\'");
-# 	  $valid = 0;
-# 	}
-
-#       # status valid?
-#       if ( not $status =~ /$syntax->{valid_status}/xms )
-# 	{
-# 	  my $location = $self->get_location;
-# 	  $logger->error("INVALID OUTCOME STATUS at $location: must be green, yellow, red, or grey");
-# 	  $valid = 0;
-# 	}
-
-#       # description valid?
-#       if ( not $description =~ /$syntax->{valid_description}/xms )
-# 	{
-# 	  my $location = $self->get_location;
-# 	  $logger->error("INVALID OUTCOME DESCRIPTION at $location: description not provided");
-# 	  $valid = 0;
-# 	}
-
-#       return $valid;
-#     }
-
-#   else
-#     {
-#       my $location = $self->get_location;
-#       $logger->error("This should never happen (at $location)");
-#       $valid = 0;
-#     }
-
-#   return $valid;
-# }
-
-######################################################################
-
-# sub validate_footnote_syntax {
-
-#   my $self = shift;
-
-#   my $valid   = 1;
-#   my $library = $self->get_library;
-#   my $syntax  = $library->get_syntax;
-#   my $text    = $self->get_content;
-
-#   if ( not $text =~ /$syntax->{footnote_element}/xms )
-#     {
-#       my $location = $self->get_location;
-#       $logger->warn("INVALID FOOTNOTE SYNTAX: at $location");
-#       $self->set_valid(0);
-#       $valid = 0;
-#     }
-
-#   return $valid;
-# }
-
-######################################################################
-
-# override 'validate_syntax' => sub {
-
-#   my $self = shift;
-
-#   my $name  = $self->get_name;
-#   my $valid = super();
-
-#   if ( $name eq 'footnote' )
-#     {
-#       if ( not $self->validate_footnote_syntax )
-# 	{
-# 	  $valid = 0;
-# 	}
-#     }
-
-#   return $valid;
-# };
-
-######################################################################
-
-# override 'validate_semantics' => sub {
-
-#   # Validate there is an ontology rule for this element. In other
-#   # words, validate the ontology allows this element.
-
-#   my $self = shift;
-
-#   my $valid = super();
-#   my $name  = $self->get_name;
-
-#   if ( not $self->validate_element_allowed )
-#     {
-#       $valid = 0;
-#     }
-
-#   if ( $name eq 'outcome' )
-#     {
-#       if ( not $self->validate_outcome_semantics )
-# 	{
-# 	  $valid = 0;
-# 	}
-#     }
-
-#   return $valid;
-# };
-
 ######################################################################
 ######################################################################
 ##
@@ -245,53 +58,58 @@ has value =>
 ######################################################################
 ######################################################################
 
-sub _build_value {
+# sub _build_value {
 
-  # Strip the element name off the beginning of the element content.
-  # Strip any comment text off the end of the element content.
+#   # Strip the element name off the beginning of the element content.
+#   # Strip any comment text off the end of the element content.
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $text    = $self->get_content || q{};
+#   my $library = $self->get_library;
+#   my $syntax  = $library->get_syntax;
+#   my $text    = $self->get_content || q{};
 
-  $text =~ s/[\r\n]*$//;                # chomp;
+#   $text =~ s/[\r\n]*$//;                # chomp;
 
-  if ( $text =~ /$syntax->{'element'}/xms )
-    {
-      my $util = $library->get_util;
+#   if ( $text =~ /$syntax->{'element'}/xms )
+#     {
+#       my $util = $library->get_util;
 
-      if ( $1 eq 'date' and $3 =~ /^\$Date:\s*(.*)\s*\$$/ )
-	{
-	  return $1;
-	}
+#       if ( $1 eq 'date' and $3 =~ /^\$Date:\s*(.*)\s*\$$/ )
+# 	{
+# 	  return $1;
+# 	}
 
-      elsif ( $1 eq 'revision' and $3 =~ /^\$Revision:\s*(.*)\s*\$$/ )
-	{
-	  return $1;
-	}
+#       elsif ( $1 eq 'revision' and $3 =~ /^\$Revision:\s*(.*)\s*\$$/ )
+# 	{
+# 	  return $1;
+# 	}
 
-      else
-	{
-	  return $util->trim_whitespace($3);
-	}
-    }
+#       elsif ( $1 eq 'author' and $3 =~ /^\$Author:\s*(.*)\s*\$$/ )
+# 	{
+# 	  return $1;
+# 	}
 
-  elsif ( $text =~ /$syntax->{'start_section'}/xms )
-    {
-      my $util = $library->get_util;
+#       else
+# 	{
+# 	  return $util->trim_whitespace($3);
+# 	}
+#     }
 
-      return $util->trim_whitespace($4);
-    }
+#   elsif ( $text =~ /$syntax->{'start_section'}/xms )
+#     {
+#       my $util = $library->get_util;
 
-  else
-    {
-      my $name = $self->get_name;
-      $logger->error("This should never happen $name $self (\'$text\')");
-      return q{};
-    }
-}
+#       return $util->trim_whitespace($4);
+#     }
+
+#   else
+#     {
+#       my $name = $self->get_name;
+#       $logger->error("This should never happen $name $self (\'$text\')");
+#       return q{};
+#     }
+# }
 
 ######################################################################
 

@@ -17,7 +17,7 @@ type:: technical
 associated:: rq-000169
 
 description:: The software shall resolve included hidden text.  The
-[g:sml:SML] data format enables authors to include the content of an
+[a:SML] data format enables authors to include the content of an
 external file as hidden text, meaning, the text should be included but
 not shown in the rendered document.  This enables authors to re-use
 properties of the hidden text without displaying the full text of the

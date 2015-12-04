@@ -78,112 +78,15 @@ has 'containing_division' =>
 
 ######################################################################
 
-has 'included_from_line' =>
+has 'origin_line' =>
   (
    isa       => 'SML::Line',
-   reader    => 'get_included_from_line',
-   predicate => 'has_included_from_line',
+   reader    => 'get_origin_line',
+   predicate => 'has_origin_line',
   );
 
 # If this division was included via the `include' mechanism, this is
 # the SML::Line object that included the division.
-
-######################################################################
-
-# has 'valid' =>
-#   (
-#    isa       => 'Bool',
-#    reader    => 'is_valid',
-#    lazy      => 1,
-#    builder   => '_validate_division',
-#   );
-
-######################################################################
-
-# has 'valid_syntax' =>
-#   (
-#    isa       => 'Bool',
-#    reader    => 'has_valid_syntax',
-#    lazy      => 1,
-#    builder   => '_validate_syntax',
-#   );
-
-######################################################################
-
-# has 'valid_semantics' =>
-#   (
-#    isa       => 'Bool',
-#    reader    => 'has_valid_semantics',
-#    lazy      => 1,
-#    builder   => '_validate_semantics',
-#   );
-
-# division conforms with property cardinality rules
-# division elements conform with infer-only rules
-# division elements conform with allowed value rules
-# division conforms with required property rules
-# division conforms with composition rules
-# division IDs are all unique
-
-######################################################################
-
-# has 'valid_property_cardinality' =>
-#   (
-#    isa       => 'Bool',
-#    reader    => 'has_valid_property_cardinality',
-#    lazy      => 1,
-#    builder   => '_validate_property_cardinality',
-#   );
-
-######################################################################
-
-# has 'valid_property_values' =>
-#   (
-#    isa       => 'Bool',
-#    reader    => 'has_valid_property_values',
-#    lazy      => 1,
-#    builder   => '_validate_property_values',
-#   );
-
-######################################################################
-
-# has 'valid_infer_only_conformance' =>
-#   (
-#    isa       => 'Bool',
-#    reader    => 'has_valid_infer_only_conformance',
-#    lazy      => 1,
-#    builder   => '_validate_infer_only_conformance',
-#   );
-
-######################################################################
-
-# has 'valid_required_properties' =>
-#   (
-#    isa       => 'Bool',
-#    reader    => 'has_valid_required_properties',
-#    lazy      => 1,
-#    builder   => '_validate_required_properties',
-#   );
-
-######################################################################
-
-# has 'valid_composition' =>
-#   (
-#    isa       => 'Bool',
-#    reader    => 'has_valid_composition',
-#    lazy      => 1,
-#    builder   => '_validate_composition',
-#   );
-
-######################################################################
-
-# has 'valid_id_uniqueness' =>
-#   (
-#    isa       => 'Bool',
-#    reader    => 'has_valid_id_uniqueness',
-#    lazy      => 1,
-#    builder   => '_validate_id_uniqueness',
-#   );
 
 ######################################################################
 ######################################################################
@@ -1142,6 +1045,8 @@ sub get_property_value {
 
   else
     {
+      # my $id = $self->get_id;
+      # $logger->error("CAN'T GET PROPERTY VALUE \'$id\' has no \'$name\' property");
       return q{};
     }
 }

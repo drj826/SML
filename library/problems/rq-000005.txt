@@ -9,7 +9,7 @@ priority:: routine
 type:: data format
 
 description:: The data format shall minimize document
-[g:sml:presentation] markup.  The purpose of this requirement is to
+[g:SML:presentation] markup.  The purpose of this requirement is to
 allow a manuscript to be automatically published in multiple
 renditions and to limit authors capability to adjust presentation. In
 other words, ~~deny~~ authors the ability to specify the ~~style~~ or

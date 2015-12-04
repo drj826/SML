@@ -12,9 +12,9 @@ is_part_of:: rq-000102
 
 type:: technical
 
-description:: The software shall format a [g:sml:division] of SML text
+description:: The software shall format a [g:SML:division] of SML text
 into target rendition according to a specified style template.  For
-example, format an [g:sml:exercise] into an HTML division according to
+example, format an [g:SML:exercise] into an HTML division according to
 a specified style template.
 
 index:: rq-000206; format division

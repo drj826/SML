@@ -10,7 +10,7 @@ author:: $Author: don.johnson $
 
 is_part_of:: rq-000104
 
-priority:: routine
+priority:: critical
 
 type:: functional
 

@@ -17,7 +17,7 @@ type:: technical
 associated:: rq-000168
 
 description:: The software shall resolve included raw text.  The
-[g:sml:SML] data format enables authors to include the content of an
+[a:SML] data format enables authors to include the content of an
 external file as a raw text, meaning, the text should be included ~~as
 is~~ with no alterations at `include' time.  Note that raw text is
 ~~not~~ the same as pre-formatted text.

@@ -112,7 +112,14 @@ sub has_value {
 
   foreach my $element (@{ $self->get_element_list })
     {
-      if ( $element->get_value eq $value )
+      my $element_value = $element->get_value;
+
+      if
+	(
+	 $element_value
+	 and
+	 $element_value eq $value
+	)
 	{
 	  return 1;
 	}

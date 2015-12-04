@@ -1,0 +1,43 @@
+[%# args:
+
+self => an entity object
+
+%]
+
+[%-
+
+id       = self.get_property_value('id')
+priority = self.get_property_value('priority')
+status   = self.get_property_value('status')
+type     = self.get_property_value('type')
+date     = self.get_property_value('date')
+author   = self.get_property_value('author')
+revision = self.get_property_value('revision')
+
+-%]
+
+<table>
+
+<tr>
+<td style="width:14%;background-color:#eeeeee;">ID:</td>
+<td style="width:10%;background-color:#eeeeee;">Priority:</td>
+<td style="width:10%;background-color:#eeeeee;">Status:</td>
+<td style="width:14%;background-color:#eeeeee;">Type:</td>
+<td style="width:18%;background-color:#eeeeee;">Last Modified:</td>
+<td style="width:18%;background-color:#eeeeee;">By:</td>
+<td style="width:14%;background-color:#eeeeee;">Changeset:</td>
+</tr>
+
+<tr>
+<td style="width:14%;background-color:#eeeeee;">[%id%]</td>
+<td style="width:14%;background-color:#eeeeee;">[% INCLUDE priority_icon.tt %] [%priority%]</td>
+<td style="width:14%;background-color:#eeeeee;">[% INCLUDE status_icon.tt %] [%status%]</td>
+<td style="width:14%;background-color:#eeeeee;">[%type%]</td>
+<td style="width:14%;background-color:#eeeeee;">[%date%]</td>
+<td style="width:14%;background-color:#eeeeee;">[%author%]</td>
+<td style="width:14%;background-color:#eeeeee;">[%revision%]</td>
+</tr>
+
+</table>
+
+

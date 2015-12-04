@@ -117,19 +117,6 @@ has ontology_rule_filespec_list =>
 
 ######################################################################
 
-has parser =>
-  (
-   isa      => 'SML::Parser',
-   reader   => 'get_parser',
-   lazy     => 1,
-   builder  => '_build_parser',
-  );
-
-# The parser is tightly coupled to a library because it implements the
-# semantics of the library.
-
-######################################################################
-
 has reasoner =>
   (
    isa      => 'SML::Reasoner',
@@ -319,6 +306,23 @@ sub publish {
   my $result = $publisher->publish($id,$rendition,$style);
 
   return $result;
+}
+
+######################################################################
+
+sub get_parser {
+
+  my $self = shift;
+
+  my $count = $self->_get_parser_count;
+
+  $self->_set_parser_count( $count + 1 );
+
+  return SML::Parser->new
+    (
+     number  => $count,
+     library => $self,
+    );
 }
 
 ######################################################################
@@ -578,18 +582,6 @@ sub add_index_term {
 
   return 1;
 }
-
-######################################################################
-
-# sub add_fragment_file {
-
-#   my $self     = shift;
-#   my $filespec = shift;
-
-#   push @{ $self->fragment_files }, $filespec;
-
-#   return 1;
-# }
 
 ######################################################################
 
@@ -1038,6 +1030,32 @@ sub get_division {
 
 ######################################################################
 
+sub get_division_id_list_by_name {
+
+  # Return a list of division IDs that have the specified name.
+
+  my $self = shift;
+  my $name = shift;
+
+  my $id_list = [];
+  my $id_hash = $self->_get_id_hash;
+
+  foreach my $id ( keys %{ $id_hash } )
+    {
+      my $pair          = $id_hash->{$id};
+      my $division_name = $pair->[1];
+
+      if ( $division_name eq $name )
+	{
+	  push(@{$id_list},$id);
+	}
+    }
+
+  return $id_list;
+}
+
+######################################################################
+
 sub get_property {
 
   my $self = shift;
@@ -1227,7 +1245,7 @@ sub get_narrative_line_list {
 
 sub get_type {
 
-  # Return the type of a value (object name, STRING, or BOOLEAN)
+  # Return the type of a value (division name, STRING, or BOOLEAN)
 
   my $self  = shift;
   my $value = shift;
@@ -1238,12 +1256,13 @@ sub get_type {
       return 0;
     }
 
-  my $name = q{};
+  my $id_hash = $self->_get_id_hash;
 
-  if ( defined $self->_get_division_hash->{$value} )
+  if ( defined $id_hash->{$value} )
     {
-      my $division = $self->_get_division_hash->{$value};
-      return $division->get_name;
+      my $pair = $id_hash->{$value};
+
+      return $pair->[1];
     }
 
   elsif ( $value eq '0' or $value eq '1' )
@@ -1611,20 +1630,21 @@ sub summarize_glossary {
 
   my $self = shift;
 
-  my $summary = q{};
+  my $summary  = q{};
+  my $glossary = $self->get_glossary;
 
-  if (@{ $self->get_glossary->get_entry_list })
+  if ( my $entry_list = $glossary->get_entry_list )
     {
       $summary .= "Glossary Entries:\n\n";
 
-      foreach my $definition (@{ $self->get_glossary->get_entry_list })
+      foreach my $definition (@{ $entry_list })
 	{
 	  my $term      = $definition->get_term;
 	  my $namespace = $definition->get_namespace;
 
 	  $summary .= "  $term";
 	  if ($namespace) {
-	    $summary .= " [$namespace]";
+	    $summary .= " {$namespace}";
 	  }
 	  $summary .= "\n";
 	}
@@ -1641,20 +1661,21 @@ sub summarize_acronyms {
 
   my $self = shift;
 
-  my $summary = q{};
+  my $summary      = q{};
+  my $acronym_list = $self->get_acronym_list;
 
-  if (@{ $self->get_acronym_list->get_acronym_list })
+  if ( my $entry_list = $acronym_list->get_entry_list )
     {
       $summary .= "Acronyms:\n\n";
 
-      foreach my $definition (@{ $self->get_acronym_list->get_acronym_list })
+      foreach my $definition (@{ $entry_list })
 	{
 	  my $acronym   = $definition->get_term;
 	  my $namespace = $definition->get_namespace;
 
 	  $summary .= "  $acronym";
 	  if ($namespace) {
-	    $summary .= " [$namespace]";
+	    $summary .= " {$namespace}";
 	  }
 	  $summary .= "\n";
 	}
@@ -2276,6 +2297,19 @@ has generated_content_type_hash =>
   );
 
 ######################################################################
+
+has parser_count =>
+  (
+   is       => 'ro',
+   isa      => 'Int',
+   reader   => '_get_parser_count',
+   writer   => '_set_parser_count',
+   default  => 0,
+  );
+
+# This is a count of the number of parsers the Library has created.
+
+######################################################################
 ######################################################################
 ##
 ## Private Methods
@@ -2756,10 +2790,10 @@ sub _build_ontology {
 
 ######################################################################
 
-sub _build_parser {
-  my $self = shift;
-  return SML::Parser->new(library=>$self);
-}
+# sub _build_parser {
+#   my $self = shift;
+#   return SML::Parser->new(library=>$self);
+# }
 
 ######################################################################
 

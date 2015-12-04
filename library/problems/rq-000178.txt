@@ -17,8 +17,8 @@ type:: technical
 associated:: rq-000167
 
 description:: The software shall resolve included regions.  The
-[g:sml:SML] data format enables authors to include the content of an
-external file as a [g:sml:region].
+[a:SML] data format enables authors to include the content of an
+external file as a [g:SML:region].
 
 index:: rq-000178; include
 

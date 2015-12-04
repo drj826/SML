@@ -11,11 +11,11 @@ type:: data format
 associated:: rq-000005 # Minimize Presentation Markup
 
 description:: The data format shall have the capability to represent
-document [g:sml:presentation] features. [G:sml:presentation] features
-allow [g:sml:text] to be presented with a certain appearance (bold,
+document [g:SML:presentation] features. [G:SML:presentation] features
+allow [g:SML:text] to be presented with a certain appearance (bold,
 italics, line breaks, page breaks, font size, text justification,
 etc.).  This requirement serves as a container for all
-[g:sml:presentation] representation requirements.
+[g:SML:presentation] representation requirements.
 
 revision:: $Revision: 11687 $
 

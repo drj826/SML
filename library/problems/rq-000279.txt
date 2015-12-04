@@ -15,11 +15,11 @@ priority:: routine
 type:: functional
 
 description:: The software shall generate an HTML list of
-[g:sml:reference]s.  The purpose of this reference is to enable
+[g:SML:reference]s.  The purpose of this reference is to enable
 readers to quickly navigate to any reference in the document.
 
 index:: rq-000279; list of references!HTML; HTML list of references
 
-= [g:sml:reference] = [def:sml:reference]
+= [g:SML:reference] = [def:SML:reference]
 
 <<<requirement

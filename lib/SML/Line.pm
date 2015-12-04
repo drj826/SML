@@ -55,14 +55,6 @@ has 'num' =>
 # line number in the file.
 
 ######################################################################
-
-# has 'included_from_line' =>
-#   (
-#    isa       => 'SML::Line',
-#    reader    => 'get_included_from_line',
-#   );
-
-######################################################################
 ######################################################################
 ##
 ## Public Methods
@@ -142,8 +134,6 @@ line number, and knows what file it came from.
 =head2 get_file
 
 =head2 get_num
-
-=head2 get_included_from_line
 
 =head2 get_filespec
 

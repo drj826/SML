@@ -17,7 +17,7 @@ type:: technical
 associated:: rq-000165
 
 description:: The software shall resolve included sections.  The
-[g:sml:SML] data format enables authors to include the content of an
+[a:SML] data format enables authors to include the content of an
 external file as a section.
 
 index:: rq-000176; include

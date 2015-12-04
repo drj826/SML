@@ -14,7 +14,7 @@ priority:: routine
 
 type:: technical
 
-description:: The software shall parse [g:sml:SML] files.  This means the
+description:: The software shall parse [a:SML] files.  This means the
 software shall perform a syntactic analysis of text to check for
 correct syntax and to build a data structure implicit in the input
 tokens.  It includes the function of resolving specified statements

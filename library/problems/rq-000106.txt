@@ -15,15 +15,15 @@ priority:: routine
 type:: functional
 
 description:: The software shall enable a user to validate first-order
-document semantics.  First-order document semantics are expressed as
-rules (axioms) in a [g:sml:library]'s [g:sml:ontology]. Validate that
-entities with semantic significance conform to a specified ontology.
-More specifically, valid entities must: (1) have all required
-properties, (2) not have any dis-allowed properties, (3) have valid
-relationships with other entities, that (4) not have `imply-only'
-properties stated explicitly. Warn the user of invalid semantics with
-a notification that includes an error description, file, and line
-number.
+document [g:SML:semantic]s.  First-order document semantics are
+expressed as rules (axioms) in a [g:SML:library]'s
+[g:SML:ontology]. Validate that entities with [g:SML:semantic]
+significance conform to a specified [g:SML:ontology].  More
+specifically, valid entities must: (1) have all required properties,
+(2) not have any dis-allowed properties, (3) have valid relationships
+with other entities, that (4) not have `imply-only' properties stated
+explicitly. Warn the user of invalid semantics with a notification
+that includes an error description, file, and line number.
 
 index:: rq-000106; validation!semantics
 

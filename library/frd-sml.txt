@@ -93,8 +93,6 @@ reason about the meaning of their documents.
 This section defines key terms used in this document.  The glossary
 contains a complete collection of terms and their definitions.
 
-= TLA = Three Letter Acronym
-
 = [g:IEEE:baseline] = [def:IEEE:baseline]
 
 = [g:IEEE:allocated baseline] = [def:IEEE:allocated baseline]
@@ -211,7 +209,27 @@ contains a complete collection of terms and their definitions.
 
 #---------------------------------------------------------------------
 
+# Perform Functions For Users
+
 * plugin:: parts2sections rq-000104
+
+#---------------------------------------------------------------------
+
+# Represent Document Content
+
+* plugin:: parts2sections rq-000107
+
+#---------------------------------------------------------------------
+
+# Satisfy Non-Functional Requirements
+
+* plugin:: parts2sections rq-000111
+
+#---------------------------------------------------------------------
+
+# Satisfy Technical Requirements
+
+* plugin:: parts2sections rq-000199
 
 ######################################################################
 # Backmatter

@@ -1,0 +1,16 @@
+[%# args:
+
+priority => one of: critical, high, routine, low
+
+-%]
+[%- IF priority == 'critical' -%]
+<img src="images/priority_red.png">
+[%- ELSIF priority == 'high' -%]
+<img src="images/priority_orange.png">
+[%- ELSIF priority == 'routine' -%]
+<img src="images/priority_yellow.png">
+[%- ELSIF priority == 'low' -%]
+<img src="images/priority_green.png">
+[%- ELSE -%]
+<img src="images/priority_grey.png">
+[%- END -%]

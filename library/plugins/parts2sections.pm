@@ -50,13 +50,44 @@ sub render {
       return [];
     }
 
-  my $output = [];
+  my $division = $library->get_division($division_id);
+  my $name     = $division->get_name;
+  my $id_list  = $library->get_division_id_list_by_name($name);
+
+  foreach my $id ( sort @{ $id_list } )
+    {
+      $library->get_division($id);
+    }
+
+  my $output_line_list = [];
 
   my $text = "* include:: $division_id\n\n";
 
-  push(@{$output},$text);
+  push(@{ $output_line_list }, $text);
 
-  return $output;
+  my $part_property = $division->get_property('has_part');
+
+  my $element_list  = $part_property->get_element_list;
+  my $depth         = 2;
+
+  foreach my $element (@{ $element_list })
+    {
+      my $name = $element->get_name;
+
+      my $part_id = $element->get_value;
+
+      if ( $part_id )
+	{
+	  $self->_render_subsection_include_element
+	    (
+	     $output_line_list,
+	     $depth,
+	     $part_id,
+	    );
+	}
+    }
+
+  return $output_line_list;
 }
 
 ######################################################################
@@ -101,6 +132,50 @@ has args =>
 ## Private Methods
 ##
 ######################################################################
+######################################################################
+
+sub _render_subsection_include_element {
+
+  my $self             = shift;
+  my $output_line_list = shift;
+  my $depth            = shift;
+  my $division_id      = shift;
+
+  my $asterisks = q{};
+
+  $asterisks .= '*' until length $asterisks == $depth;
+
+  my $text = "$asterisks include:: $division_id\n\n";
+
+  push(@{ $output_line_list }, $text);
+
+  my $library  = $self->_get_library;
+  my $division = $library->get_division($division_id);
+
+  if ( $division->has_property('has_part') )
+    {
+      $depth = $depth + 1;
+
+      my $part_property = $division->get_property('has_part');
+      my $element_list  = $part_property->get_element_list;
+
+      foreach my $element (@{ $element_list })
+	{
+	  my $part_id = $element->get_value;
+
+	  if ( $part_id )
+	    {
+	      $self->_render_subsection_include_element
+		(
+		 $output_line_list,
+		 $depth,
+		 $part_id,
+		);
+	    }
+	}
+    }
+}
+
 ######################################################################
 
 no Moose;

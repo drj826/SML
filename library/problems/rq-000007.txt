@@ -9,12 +9,12 @@ is_part_of:: rq-000107
 type:: data format
 
 description:: The data format shall have the capability to represent
-semantic [g:sml:content].  Semantic [g:sml:content] features allow
-[g:sml:division]s of a document to have special meaning (i.e.,
-[g:sml:exercise]s, [g:sml:slide]s, [g:sml:quotation]s, [g:sml:demo],
-[g:sml:problem]s, [g:sml:solution]s, [g:sml:test]s, [g:sml:result]s,
-[g:sml:task]s, and [g:sml:role]s).  This requirement serves as a
-container for all [g:sml:content] representation requirements.
+semantic [g:SML:content].  Semantic [g:SML:content] features allow
+[g:SML:division]s of a document to have special meaning (i.e.,
+[g:SML:exercise]s, [g:SML:slide]s, [g:SML:quotation]s, [g:SML:demo],
+[g:SML:problem]s, [g:SML:solution]s, [g:SML:test]s, [g:SML:result]s,
+[g:SML:task]s, and [g:SML:role]s).  This requirement serves as a
+container for all [g:SML:content] representation requirements.
 
 revision:: $Revision: 11687 $
 
