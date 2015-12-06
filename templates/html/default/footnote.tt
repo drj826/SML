@@ -1,6 +1,15 @@
-[%- SET section = self.get_containing_section -%]
-[%- SET label = section.get_id -%]
-[%- SET num = self.get_number -%]
-[%- SET anchor = 'footnote' _ '.' _ label _ '.' _ num -%]
+[%# args:
+
+self => an SML::Note object with name = 'footnote'
+
+%]
+[%-
+
+section = self.get_containing_section
+label   = section.get_id
+num     = self.get_number
+anchor  = 'footnote.' _ label _ '.' _ num
+
+-%]
 <p class="footnote" id="[%anchor%]">[[%num%]] [%- INCLUDE part_list.tt -%]</p>
 

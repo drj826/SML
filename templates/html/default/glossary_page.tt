@@ -1,56 +1,61 @@
+[%# args:
+
+document => an SML::Document object
+
+%]
+[%-
+
+glossary = document.get_glossary
+id       = document.get_id
+title    = document.get_property('title')
+
+-%]
 [%- WRAPPER page.tt -%]
 
-[%- SET glossary = document.get_glossary -%]
+<table style="width:100%">
+<tr>
+<td style="font-size:8pt;text-align:center"><a href="[%id%].toc.html">[%- INCLUDE property.tt property = title -%]</a></td>
+</tr>
+</table>
 
-[%- IF document.has_property('title') -%]
-<div class="title">
-[%- INCLUDE property.tt property = document.get_property('title') -%]
-</div>
-[% END %]
+<h1 style="text-align:center;">Glossary</h1>
 
-[%- IF document.has_property('subtitle') -%]
-<div class="subtitle">
-[%- INCLUDE property.tt property = document.get_property('subtitle') -%]
-</div>
-[% END %]
-
-[%- INCLUDE preamble.tt -%]
-
-<h3 align="center">Glossary</h3>
+[%- INCLUDE glossary_button_bar.tt -%]
 
 <table style="width:100%">
 
 [%- FOREACH group IN glossary.get_group_list -%]
 
-<tr><td colspan="3"><h1>[%group%]</h1></td></tr>
+<tr id="[%group%]"><td colspan="3"><span style="font-size:20pt;">[%group%]</span></td></tr>
 
-[%- SET bgcolor = '#eeeeee' -%]
-[%- FOREACH entry IN glossary.get_group_entry_list(group) -%]
-  [%- SET term = entry.get_term -%]
-  [%- SET definition = entry.get_definition -%]
-  [%- SET alt = entry.get_alt -%]
-  [%- SET value = entry.get_value -%]
-  [%- SET bookmark = entry.get_bookmark -%]
-  [%- IF bgcolor == '#eeeeee' -%]
-    [%- SET bgcolor = '#ffffff' -%]
-  [%- ELSE -%]
-    [%- SET bgcolor = '#eeeeee' -%]
-  [%- END -%]
-
+  [%- bgcolor = '#eeeeee' -%]
+  [%- FOREACH entry IN glossary.get_group_entry_list(group) -%]
+    [%-
+    term              = entry.get_term
+    term_string       = entry.get_term_string
+    definition        = entry.get_definition
+    definition_string = entry.get_definition_string
+    namespace         = entry.get_namespace
+    bookmark          = entry.get_bookmark
+    -%]
+    [%- IF bgcolor == '#eeeeee' -%]
+      [%- bgcolor = '#ffffff' -%]
+    [%- ELSE -%]
+      [%- bgcolor = '#eeeeee' -%]
+    [%- END -%]
 <tr>
 <td style="width:20%;background-color:[%bgcolor%];" id="[%bookmark%]">
-[%- INCLUDE STRING.tt self = entry.get_term_string -%]
+[%- INCLUDE STRING.tt self = term_string -%]
 </td>
 <td style="background-color:[%bgcolor%]">
-[%- INCLUDE STRING.tt self = entry.get_definition_string -%]
+[%- INCLUDE STRING.tt self = definition_string -%]
 </td>
 <td style="width:6%;background-color:[%bgcolor%]">
-[%- entry.get_namespace -%]
+[%namespace%]
 </td>
 </tr>
 
 [%- END -%]
-
 [%- END -%]
 
 </table>

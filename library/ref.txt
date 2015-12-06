@@ -8,8 +8,6 @@ date:: $Date: 2013-07-07 09:35:23 -0600 (Sun, 07 Jul 2013) $
 
 logo_image_small:: files/images/sml_logo.png
 
-===
-
 #---------------------------------------------------------------------
 # Structure Summary
 #---------------------------------------------------------------------
@@ -24,9 +22,7 @@ column::2:width: 50
 column::1:head: Feature
 column::2:head: Example
 
-===
-
-include::raw: sml-structure-summary
+include:: sml-structure-summary
 
 <<<TABLE
 
@@ -44,9 +40,7 @@ column::2:width: 50
 column::1:head: Feature
 column::2:head: Example
 
-===
-
-include::raw: sml-content-summary
+include:: sml-content-summary
 
 <<<TABLE
 
@@ -64,9 +58,7 @@ column::2:width: 50
 column::1:head: Feature
 column::2:head: Example
 
-===
-
-include::raw: sml-presentation-summary
+include:: sml-presentation-summary
 
 <<<TABLE
 
@@ -84,9 +76,7 @@ column::2:width: 50
 column::1:head: Feature
 column::2:head: Example
 
-===
-
-include::raw: sml-special-summary
+include:: sml-special-summary
 
 <<<TABLE
 

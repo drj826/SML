@@ -1,1 +1,6 @@
-&#8220;[%- INCLUDE part_list.tt -%]&#8221;
+[%# args:
+
+self => an SML::String object
+
+%]
+&#8220;[%- INCLUDE STRING.tt -%]&#8221;

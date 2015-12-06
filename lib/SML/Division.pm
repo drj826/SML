@@ -621,6 +621,63 @@ sub has_listings {
 
 ######################################################################
 
+sub has_demos {
+
+  # Return 1 if this division contains one or more demos.
+
+  my $self = shift;
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      if ( $part->isa('SML::Demo') )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub has_exercises {
+
+  # Return 1 if this division contains one or more exercises.
+
+  my $self = shift;
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      if ( $part->isa('SML::Exercise') )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub has_slides {
+
+  # Return 1 if this division contains one or more slides.
+
+  my $self = shift;
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      if ( $part->isa('SML::Slide') )
+	{
+	  return 1;
+	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
 sub get_section_list {
 
   # Return an ordered list of sections within this division.
@@ -695,6 +752,69 @@ sub get_listing_list {
   foreach my $part (@{ $self->get_division_list })
     {
       if ( $part->isa('SML::Listing') )
+	{
+	  push @{ $list }, $part;
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
+
+sub get_demo_list {
+
+  # Return an ordered list of demos within this division.
+
+  my $self = shift;
+
+  my $list = [];                        # demo list
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      if ( $part->isa('SML::Demo') )
+	{
+	  push @{ $list }, $part;
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
+
+sub get_exercise_list {
+
+  # Return an ordered list of exercises within this division.
+
+  my $self = shift;
+
+  my $list = [];                        # exercise list
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      if ( $part->isa('SML::Exercise') )
+	{
+	  push @{ $list }, $part;
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
+
+sub get_slide_list {
+
+  # Return an ordered list of slides within this division.
+
+  my $self = shift;
+
+  my $list = [];                        # slide list
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      if ( $part->isa('SML::Slide') )
 	{
 	  push @{ $list }, $part;
 	}

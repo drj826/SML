@@ -21,7 +21,7 @@ appears in the back matter, immediately before the index.  Names are
 arranged alphabetically but not inverted (``John A. Smith,'' not
 ``Smith, John A.'').  Brief biological notes, academic affiliations,
 or, as in many symposium volumes, office addresses accompany the
-names. [cite:cms15, [[section]]1.89]
+names. [cite:cms15, [section]1.89]
 
 index:: rq-000150; list of contributors
 

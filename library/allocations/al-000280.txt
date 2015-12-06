@@ -2,7 +2,7 @@
 
 solution:: ci-000004 # SML Software Library
 
-problem::  rq-000199 # Satisfy Technical Requirements
+requirement::  rq-000199 # Satisfy Technical Requirements
 
 test::     tc-000040 # Analysis
 
@@ -11,8 +11,6 @@ revision:: $Revision: 10970 $
 date::     $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
 
 author::   $Author: don.johnson $
-
-===
 
 outcome::2012-03-25:al-000280:yellow: Many software functions are not
 yet implemented.

@@ -17,32 +17,40 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-===
-
 index:: tc-000004; unit test case!SML.pm
 
 [ref:lis-sml-pm-unit-test-case] shows the unit test case for
 [file:SML.pm].
 
 >>>LISTING.lis-sml-pm-unit-test-case
-title::       SML.t - Unit Test Case for SML.pm
-numbers::     left
-language::    Perl
+
+title:: SML.t - Unit Test Case for SML.pm
+
+numbers:: left
+
+language:: Perl
+
 orientation:: landscape
-fontsize::    footnotesize
-===
+
+fontsize:: footnotesize
+
 file:: ../../t/SML.t
+
 <<<LISTING
 
 [ref:lis-sml-pm-unit-test-results] shows the results of executing the
 SML.pm unit test case.
 
 >>>LISTING.lis-sml-pm-unit-test-results
-title::     SML.pm Unit Test Case Results
-numbers::   left
-fontsize::  footnotesize
-===
-script:: scripts/run-unit-test.bat SML.t
+
+title:: SML.pm Unit Test Case Results
+
+numbers:: left
+
+fontsize:: footnotesize
+
+# script:: scripts/run-unit-test.bat SML.t
+
 <<<LISTING
 
 <<<test

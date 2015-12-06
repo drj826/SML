@@ -18,7 +18,7 @@
 </tr>
 </table>
 
-<h2 style="text-align:center">Table of Contents</h2>
+<h2 style="text-align:center;">Table of Contents</h2>
 
 [%- FOREACH section IN document.get_section_list -%]
 

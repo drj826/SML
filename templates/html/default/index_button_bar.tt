@@ -1,0 +1,17 @@
+[%# args:
+
+index => an SML::Index object
+
+%]
+<div align="center">
+<table>
+<tr>
+
+[%- FOREACH group IN index.get_group_list -%]
+<td style="text-align:center;padding:0px;"><button type="button" style="width:25px" onclick="goToA('#[%group%]');">[%group%]</button></td>
+
+[%- END -%]
+
+</tr>
+</table>
+</div>

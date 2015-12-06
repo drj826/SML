@@ -1,1 +1,6 @@
+[%# args:
+
+self => an SML::FileReference object
+
+%]
 <tt>[%self.get_filespec%]</tt>

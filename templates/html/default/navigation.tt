@@ -37,6 +37,18 @@
 <a href="[% document.get_id %].listings.html">Listings</a><br/>
 [%- END -%]
 
+[%- IF document.has_demos -%]
+<a href="[% document.get_id %].demos.html">Demonstrations</a><br/>
+[%- END -%]
+
+[%- IF document.has_exercises -%]
+<a href="[% document.get_id %].exercises.html">Exercises</a><br/>
+[%- END -%]
+
+[%- IF document.has_slides -%]
+<a href="[% document.get_id %].slides.html">Slides</a><br/>
+[%- END -%]
+
 <br/>
 
 [%- IF document.get_glossary.has_entries -%]

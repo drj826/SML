@@ -17,32 +17,40 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-===
-
 index:: tc-000053; unit test case!Formatter.pm
 
 [ref:lis-formatter-pm-unit-test-case] shows the unit test for
 [file:Formatter.pm].
 
 >>>LISTING.lis-formatter-pm-unit-test-case
-title::       Formatter.t - Unit Test Case for Formatter.pm
-numbers::     left
-language::    Perl
+
+title:: Formatter.t - Unit Test Case for Formatter.pm
+
+numbers:: left
+
+language:: Perl
+
 orientation:: landscape
-fontsize::    footnotesize
-===
+
+fontsize:: footnotesize
+
 file:: ../../t/Formatter.t
+
 <<<LISTING
 
 [ref:lis-formatter-pm-unit-test-results] shows the results of
 executing the Formatter.pm unit test case.
 
 >>>LISTING.lis-formatter-pm-unit-test-results
-title::     Formatter.pm Unit Test Case Results
-numbers::   left
-fontsize::  footnotesize
-===
-script:: scripts/run-unit-test.bat Formatter.t
+
+title:: Formatter.pm Unit Test Case Results
+
+numbers:: left
+
+fontsize:: footnotesize
+
+# script:: scripts/run-unit-test.bat Formatter.t
+
 <<<LISTING
 
 <<<test

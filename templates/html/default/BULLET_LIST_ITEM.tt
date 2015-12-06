@@ -1,1 +1,6 @@
+[%# args:
+
+self => an SML::BulletListItem object
+
+%]
 <li>[%- INCLUDE part_list.tt -%]</li>

@@ -112,23 +112,6 @@ sub init {
 
 ######################################################################
 
-# sub has_content {
-
-#   my $self = shift;
-
-#   if ( $self->get_content )
-#     {
-#       return 1;
-#     }
-
-#   else
-#     {
-#       return 0;
-#     }
-# }
-
-######################################################################
-
 sub contains_parts {
 
   # Return the number of parts in the part list.  This is typically
@@ -224,6 +207,26 @@ sub get_part {
 
 ######################################################################
 
+sub get_narrative_part_list {
+
+  my $self = shift;
+
+  my $part_list           = $self->get_part_list;
+  my $narrative_part_list = [];
+
+  foreach my $part (@{ $part_list })
+    {
+      if ( $self->is_narrative_part($part) )
+	{
+	  push(@{ $narrative_part_list }, $part);
+	}
+    }
+
+  return $narrative_part_list;
+}
+
+######################################################################
+
 sub add_part {
 
   # Add a part to the part list.
@@ -289,6 +292,34 @@ sub is_in_section {
     }
 
   return 0;
+}
+
+######################################################################
+
+sub is_narrative_part {
+
+  my $self = shift;                     # this part
+  my $part = shift;                     # part of this part
+
+  my $name     = $part->get_name;
+  my $library  = $self->get_library;
+  my $ontology = $library->get_ontology;
+  my $type     = ref $part;
+
+  if
+    (
+     $part->isa('SML::Element')
+     and
+     not $ontology->property_is_universal($name)
+    )
+    {
+      return 0;
+    }
+
+  else
+    {
+      return 1;
+    }
 }
 
 ######################################################################

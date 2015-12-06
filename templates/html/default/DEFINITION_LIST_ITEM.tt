@@ -1,2 +1,13 @@
-<dt><b>[%- INCLUDE STRING.tt self = self.get_term_string -%]</b></dt>
-<dd>[%- INCLUDE STRING.tt self = self.get_definition_string -%]<br/><br/></dd>
+[%# args:
+
+self => an SML::DefinitionListItem object
+
+%]
+[%-
+
+term_string       = self.get_term_string
+definition_string = self.get_definition_string
+
+-%]
+<dt><b>[%- INCLUDE STRING.tt self = term_string -%]</b></dt>
+<dd>[%- INCLUDE STRING.tt self = definition_string -%]<br/><br/></dd>

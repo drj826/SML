@@ -18,8 +18,6 @@ date:: $Date: 2012-10-27 14:28:23 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-===
-
 index:: tc-000042; inspection
 
 <<<test

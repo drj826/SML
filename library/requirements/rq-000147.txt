@@ -18,7 +18,7 @@ description:: The software shall enable a user to generate a list of
 notes (footnotes, end notes). The list of notes should follow any
 appendices and precede the bibliography or reference list.  Endnotes
 are normally set smaller than the text but larger than
-footnotes. [cite:cms15, [[section]]1.86]
+footnotes. [cite:cms15, [section]1.86]
 
 index:: rq-000147; list of notes
 

@@ -1,12 +1,25 @@
-[%- SET target_id = self.get_target_id -%]
-[%- SET document = self.get_containing_document -%]
-[%- SET docid = document.get_id -%]
-[%- SET target_part = document.get_part(target_id) -%]
-[%- SET target_name = target_part.get_name -%]
-[%- SET target_num = target_part.get_number -%]
+[%# args:
+
+self => an SML::PageReference object
+
+%]
+[%-
+
+target_id   = self.get_target_id
+document    = self.get_containing_document
+docid       = document.get_id
+target_part = document.get_part(target_id)
+target_name = target_part.get_name
+target_num  = target_part.get_number
+
+-%]
 [%- IF document.has_sections -%]
-  [%- SET section = target_part.get_containing_section -%]
-  [%- SET section_num = section.get_number -%]
+[%-
+
+section     = target_part.get_containing_section
+section_num = section.get_number
+
+-%]
 <a href="[%docid%].[%section_num%].html#[%target_name%].[%target_num%]">link</a>
 [%- ELSE -%]
 <a href="[%docid%].0.html#[%target_name%].[%target_num%]">link</a>

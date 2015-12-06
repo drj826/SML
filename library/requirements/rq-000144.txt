@@ -17,7 +17,7 @@ type:: functional
 description:: The software shall enable a user to generate a list of
 tables.  The list of tables should match the table of contents in type
 size and general style. Titles given in the list of figures may be
-shortened. [cite:cms15, [[section]]1.47]
+shortened. [cite:cms15, [section]1.47]
 
 index:: rq-000144; list of tables
 

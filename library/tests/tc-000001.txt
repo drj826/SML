@@ -15,30 +15,36 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-===
-
 index:: tc-000001; unit test cases
 
 All unit tests can be executed by the single action of executing
 [cmd:test.bat] shown in [ref:lis-test-bat].
 
 >>>LISTING.lis-test-bat
-title::    test.bat - Run All Unit Tests
-numbers::  left
+
+title:: test.bat - Run All Unit Tests
+
+numbers:: left
+
 language:: Perl
-===
+
 file:: ../../t/test.bat
+
 <<<LISTING
 
 [ref:lis-test-bat-unit-test-results] shows the result of running each
 unit test.
 
 >>>LISTING.lis-test-bat-unit-test-results
-title::     Result of Each Unit Test
-numbers::   left
-fontsize::  footnotesize
-===
-script::    scripts/run-test.bat
+
+title:: Result of Each Unit Test
+
+numbers:: left
+
+fontsize:: footnotesize
+
+# script:: scripts/run-test.bat
+
 <<<LISTING
 
 <<<test

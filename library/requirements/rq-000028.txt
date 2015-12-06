@@ -25,15 +25,15 @@ index:: rq-000028; slides; presentation slides
 
 Elements of presentation slide meta data include:
 
-:: data element
+:: element
 
 :: description
 
 :: type
 
-:: required or optional?
+:: required?
 
-:: single or multi-valued?
+:: cardinality
 
 ---
 

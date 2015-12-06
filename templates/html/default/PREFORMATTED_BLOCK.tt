@@ -1,3 +1,8 @@
+[%# args:
+
+self => an SML::PreformattedBlock object
+
+%]
 <pre>
 [%FILTER html-%][%-self.get_content-%][%-END-%]
 </pre>

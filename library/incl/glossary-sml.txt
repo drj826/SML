@@ -143,7 +143,7 @@ demonstration that an instructor might give during a classroom
 presentation.  Demos are expressed as [g:SML:region]s so they may
 contain environments like tables and figures
 
-glossary:: demonstration {SML} = A procedure to verify system
+glossary:: demonstration {SML} = a procedure to verify system
 requirements that cannot be tested otherwise
 
 glossary:: description {SML} = A [g:SML:block] that describes the

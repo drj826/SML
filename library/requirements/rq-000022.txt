@@ -159,15 +159,15 @@ formally published.
 
 Elements of bibliography entry meta data include:
 
-:: data element
+:: element
 
 :: description
 
 :: type
 
-:: required or optional?
+:: required?
 
-:: single or multi-valued?
+:: cardinality
 
 ---
 

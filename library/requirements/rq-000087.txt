@@ -21,15 +21,15 @@ of document meta data needed to publish books, reports, and articles.
 
 index:: rq-000087
 
-:: data element
+:: element
 
 :: description
 
 :: type
 
-:: required or optional?
+:: required?
 
-:: single or multi valued?
+:: cardinality
 
 ---
 

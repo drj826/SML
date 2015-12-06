@@ -2,7 +2,7 @@
 
 solution:: ci-000006 # Ontology Configuration File
 
-problem::  rq-000118 # Implement SML Semantics
+requirement::  rq-000118 # Implement SML Semantics
 
 test::     tc-000040 # Analysis
 
@@ -11,8 +11,6 @@ revision:: $Revision: 11525 $
 date:: $Date: 2012-11-27 12:51:40 -0700 (Tue, 27 Nov 2012) $
 
 author:: $Author: don.johnson $
-
-===
 
 outcome::2011-11-27:al-000010:green: The SML semantics is formally
 specified in a ||HASH|| in the publish.pl script and in the

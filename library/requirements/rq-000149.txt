@@ -17,7 +17,7 @@ type:: functional
 description:: The software shall enable a user to generate a
 bibliography (list of references). Bibliographies and reference lists
 are normally set smaller than the text and in flush-and-hang
-style. [cite:cms15, [[section]]1.88]
+style. [cite:cms15, [section]1.88]
 
 index:: rq-000149; bibliography; list of references
 

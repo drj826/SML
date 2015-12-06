@@ -17,32 +17,40 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-===
-
 index:: tc-000051; unit test case!Definition.pm
 
 [ref:lis-definition-pm-unit-test-case] shows the unit test for
 [file:Definition.pm].
 
 >>>LISTING.lis-definition-pm-unit-test-case
-title::       Definition.t - Unit Test Case for Definition.pm
-numbers::     left
-language::    Perl
+
+title:: Definition.t - Unit Test Case for Definition.pm
+
+numbers:: left
+
+language:: Perl
+
 orientation:: landscape
-fontsize::    footnotesize
-===
+
+fontsize:: footnotesize
+
 file:: ../../t/Definition.t
+
 <<<LISTING
 
 [ref:lis-definition-pm-unit-test-results] shows the results of
 executing the Definition.pm unit test case.
 
 >>>LISTING.lis-definition-pm-unit-test-results
-title::     Definition.pm Unit Test Case Results
-numbers::   left
-fontsize::  footnotesize
-===
-script:: scripts/run-unit-test.bat Definition.t
+
+title:: Definition.pm Unit Test Case Results
+
+numbers:: left
+
+fontsize:: footnotesize
+
+# script:: scripts/run-unit-test.bat Definition.t
+
 <<<LISTING
 
 <<<test

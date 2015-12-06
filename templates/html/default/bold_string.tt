@@ -1,1 +1,1 @@
-<b>[%- INCLUDE part_list.tt -%]</b>
+<span style="font-weight:bold;">[%- INCLUDE part_list.tt -%]</span>

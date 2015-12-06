@@ -2,7 +2,7 @@
 
 solution:: ci-000001 # Structured Manuscript Language (SML)
 
-problem::  rq-000046 # Represent Fixed-Width Text
+requirement::  rq-000046 # Represent Fixed-Width Text
 
 test::     tc-000041 # Demonstration
 
@@ -11,8 +11,6 @@ revision:: $Revision: 10970 $
 date:: $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
-
-===
 
 outcome::2012-04-01:al-000080:green: OK
 

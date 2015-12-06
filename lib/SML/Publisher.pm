@@ -286,11 +286,6 @@ sub _publish_html_document {
 
   my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
 
-  my $vars =
-    {
-     document => $document,
-    };
-
   if ( $document->has_sections )
     {
       foreach my $section (@{ $document->get_section_list })
@@ -304,6 +299,11 @@ sub _publish_html_document {
 	  $tt->process('section.tt',$vars,$outfile)
 	    || die $tt->error(), "\n";
 	}
+
+      my $vars =
+	{
+	 document => $document,
+	};
 
       # title page
       $logger->info("publishing $id.titlepage.html");
@@ -344,6 +344,30 @@ sub _publish_html_document {
 	{
 	  $logger->info("publishing $id.listings.html");
 	  $tt->process("list_of_listings_page.tt",$vars,"$id.listings.html")
+	    || die $tt->error(), "\n";
+	}
+
+      # list of demos
+      if ( $document->has_demos )
+	{
+	  $logger->info("publishing $id.demos.html");
+	  $tt->process("list_of_demos_page.tt",$vars,"$id.demos.html")
+	    || die $tt->error(), "\n";
+	}
+
+      # list of exercises
+      if ( $document->has_exercises )
+	{
+	  $logger->info("publishing $id.exercises.html");
+	  $tt->process("list_of_exercises_page.tt",$vars,"$id.exercises.html")
+	    || die $tt->error(), "\n";
+	}
+
+      # list of slides
+      if ( $document->has_slides )
+	{
+	  $logger->info("publishing $id.slides.html");
+	  $tt->process("list_of_slides_page.tt",$vars,"$id.slides.html")
 	    || die $tt->error(), "\n";
 	}
 

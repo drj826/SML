@@ -2,7 +2,7 @@
 
 solution:: ci-000001 # Structured Manuscript Language (SML)
 
-problem::  rq-000253 # Represent a Unique Division Identifier
+requirement::  rq-000253 # Represent a Unique Division Identifier
 
 test::     tc-000041 # Demonstration
 
@@ -11,7 +11,5 @@ revision:: $Revision: 10970 $
 date:: $Date: 2012-10-27 14:43:17 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
-
-===
 
 <<<allocation

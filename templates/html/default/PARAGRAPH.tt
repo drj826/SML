@@ -1,3 +1,8 @@
+[%# args:
+
+self => an SML::Paragraph object
+
+%]
 <p>
 [%- IF self.contains_parts -%]
   [%- INCLUDE part_list.tt -%]

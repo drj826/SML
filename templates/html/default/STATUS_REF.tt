@@ -1,4 +1,13 @@
-[%- SET status_or_id = self.get_entity_id -%]
+[%# args:
+
+self => an SML::Entity object
+
+%]
+[%-
+
+status_or_id = self.get_entity_id
+
+-%]
 [%- IF status_or_id == 'green' -%]
 <image src="images/status_green.png" border="0"/>
 [%- ELSIF status_or_id == 'yellow' -%]
@@ -8,18 +17,29 @@
 [%- ELSIF status_or_id == 'grey' -%]
 <image src="images/status_grey.png" border="0"/>
 [%- ELSE -%]
-  [%- SET status = 'grey' -%]
-  [%- SET library = self.get_library -%]
+[%-
+
+status = 'grey'
+library = self.get_library
+
+-%]
   [%- IF library.has_entity(status_or_id) -%]
-    [%- SET entity = library.get_entity(status_or_id) -%]
-    [%- SET status = entity.get_property_value('status') -%]
+    [%-
+    entity = library.get_entity(status_or_id)
+    status = entity.get_property_value('status')
+    -%]
   [%- ELSIF library.has_document(status_or_id) -%]
-    [%- SET document = library.get_document(status_or_id) -%]
-    [%- SET status = document.get_property_value('status') -%]
+    [%-
+    document = library.get_document(status_or_id)
+    status   = document.get_property_value('status')
+    -%]
   [%- ELSIF library.has_division(status_or_id) -%]
-    [%- SET division = library.get_division(status_or_id) -%]
-    [%- SET status = division.get_property_value('status') -%]
+    [%-
+    division = library.get_division(status_or_id)
+    status   = division.get_property_value('status')
+    -%]
   [%- END -%]
+
   [%- IF status == 'green' -%]
 <image src="images/status_green.png" border="0"/>
   [%- ELSIF status == 'yellow' -%]

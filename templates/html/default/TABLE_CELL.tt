@@ -1,5 +1,14 @@
-[%- SET id = self.get_id -%]
-[%- SET style = '' -%]
+[%# args:
+
+self => an SML::TableCell object
+
+%]
+[%-
+
+id    = self.get_id
+style = ''
+
+-%]
 
 [%- IF self.has_justification -%]
   [%- SET style = style _ 'text-align:' _ self.get_justification _ ';' -%]
@@ -11,11 +20,9 @@
 
 
 [%- IF self.has_emphasis -%]
-<td style="[%style%]" id="[%id%]">
-<b>[%- INCLUDE part_list.tt -%]</b>
-</td>
-[%- ELSE -%]
+  [%- SET style = style _ 'font-weight:bold;' -%]
+[%- END -%]
+
 <td style="[%style%]" id="[%id%]">
 [%- INCLUDE part_list.tt -%]
 </td>
-[%- END -%]

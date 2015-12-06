@@ -1,0 +1,20 @@
+[%# args:
+
+self  => an SML::Division object
+label => a label (i.e. 'Demonstration')
+
+%]
+[%-
+
+number = self.get_number
+
+-%]
+<span style="font-weight:bold;">
+[%label%] [%number%]
+[%- IF self.has_property('title') -%]
+ - [%- INCLUDE property.tt property = self.get_property('title') -%]
+[%- END -%]
+</span>
+[%- IF self.has_property('description') -%]
+ - [%- INCLUDE property.tt property = self.get_property('description') -%]
+[%- END -%]

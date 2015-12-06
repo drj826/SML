@@ -1432,7 +1432,7 @@ has valid_ontology_rule_type =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '(cls|prp|enu|cmp)',
+   default => '(div|prp|enu|cmp)',
   );
 
 ######################################################################

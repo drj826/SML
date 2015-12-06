@@ -76,8 +76,8 @@ it ``[acl:SML]''?
 index:: Semantic Manuscript Language; SML; structured text
 
 The term [g:SML:manuscript] means authors use the language to capture
-ideas in an ~~original~~ form that can be processed and published just
-as a manuscript is the original form for a published document.
+ideas in an ~~original~~ form that can be processed and published.  A
+manuscript is the original form for a published document.
 
 The term [g:SML:semantic] means the language has a structured way to
 express the ~~meaning~~ of the text so that applications can
@@ -596,6 +596,8 @@ index::end: special features
 There are alternative programs with features similar to using [a:SML]:
 
 - Markdown ([url:https://en.wikipedia.org/wiki/Markdown])
+
+- CommonMark ([url:http://commonmark.org/])
 
 - reStructuredText  ([url:https://en.wikipedia.org/wiki/ReStructuredText])
 
@@ -2250,6 +2252,16 @@ index:: subscript; text!subscript
   An ,,example,,
 
 : An ,,example,,
+
+---
+
+: user entered text
+
+:
+
+  [en:username]
+
+: [en:username]
 
 ---
 

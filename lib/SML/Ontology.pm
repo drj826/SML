@@ -112,51 +112,6 @@ sub get_entity_allowed_property_list {
 
 ######################################################################
 
-# sub get_allowed_environment_list {
-
-#   my $self = shift;
-
-#   my $list = [];                        # allowed environments list
-#   my $hash = $self->_get_rule_hash;
-
-#   foreach my $rule ( values %{ $hash } )
-#     {
-#       my $entity_name = $rule->get_entity_name;
-#       my $rule_type   = $rule->get_rule_type;
-#       my $value_type  = $rule->get_value_type;
-
-#       if ( $rule_type eq 'cls' and $self->allows_environment($entity_name) )
-# 	{
-# 	  push @{ $list }, $entity_name;
-# 	}
-#     }
-
-#   my $ae = [ sort @{ $list } ];
-
-#   return $ae;
-# }
-
-######################################################################
-
-# sub get_entity_type {
-
-#   my $self        = shift;
-#   my $entity_name = shift;
-
-#   if ( not defined $self->_get_types_by_entity_name_hash->{$entity_name} )
-#     {
-#       $logger->info("NO TYPE DEFINED: for $entity_name");
-#       return 0;
-#     }
-
-#   else
-#     {
-#       return $self->_get_types_by_entity_name_hash->{$entity_name};
-#     }
-# }
-
-######################################################################
-
 sub get_rule_for {
 
   # Return the rule for (1) the entity named $entity_name, (2) the
@@ -179,11 +134,11 @@ sub get_rule_for {
 
 sub get_rule_with_id {
 
-  my $self = shift;
-  my $id   = shift;
+  my $self    = shift;
+  my $rule_id = shift;
 
   my $hash = $self->_get_rule_hash;
-  my $rule = $hash->{$id};
+  my $rule = $hash->{$rule_id};
 
   if ( defined $rule )
     {
@@ -192,36 +147,10 @@ sub get_rule_with_id {
 
   else
     {
-      $logger->error("CAN'T GET RULE \'$id\'");
+      $logger->error("CAN'T GET RULE \'$rule_id\'");
       return 0;
     }
 }
-
-######################################################################
-
-# sub get_divisions_by_name_hash {
-
-#   my $self = shift;
-
-#   my $dbn  = {};                        # divisions by name
-#   my $hash = $self->_get_rule_hash;
-
-#   foreach my $rule ( values %{ $hash } )
-#     {
-#       my $rule_type = $rule->get_rule_type;
-
-#       if ($rule_type ne 'cls') {
-# 	next;
-#       }
-
-#       my $entity_name = $rule->get_entity_name;
-#       my $value_type  = $rule->get_value_type;
-
-#       $dbn->{$entity_name} = [ $value_type ];
-#     }
-
-#   return $dbn;
-# }
 
 ######################################################################
 
@@ -290,6 +219,30 @@ sub has_entity_with_name {
 	{
 	  return 1;
 	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub has_inverse_rule_for {
+
+  # Return 1 if the ontology has an inverse rule for the specified
+  # division name and property name.
+
+  my $self          = shift;
+  my $division_name = shift;
+  my $property_name = shift;
+  my $name_or_value = shift;
+
+  my $prlh = $self->_get_property_rules_lookup_hash;
+
+  my $rule = $prlh->{$division_name}{$property_name}{$name_or_value};
+
+  if ( $rule->get_inverse_rule_id )
+    {
+      return 1;
     }
 
   return 0;
@@ -531,6 +484,31 @@ sub property_allows_cardinality {
 }
 
 ######################################################################
+
+sub get_entity_name_list {
+
+  # Return a list of division names that have a value type of
+  # SML::Entity.
+
+  my $self = shift;
+
+  my $list  = [];
+  my $tbenh = $self->_get_types_by_entity_name_hash;
+
+  foreach my $name ( sort keys %{ $tbenh } )
+    {
+      my $value = $tbenh->{$name};
+
+      if ( $value eq 'SML::Entity' )
+	{
+	  push(@{$list},$name);
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes
@@ -545,6 +523,8 @@ has 'rule_hash' =>
    default   => sub {{}},
   );
 
+# $hash->{$rule_id} = $ontology_rule;
+
 ######################################################################
 
 has 'types_by_entity_name_hash' =>
@@ -554,6 +534,8 @@ has 'types_by_entity_name_hash' =>
    lazy     => 1,
    builder  => '_build_types_by_entity_name_hash',
   );
+
+# $hash->{$entity_name} = $value_type;
 
 ######################################################################
 
@@ -565,6 +547,8 @@ has 'properties_by_entity_name_hash' =>
    builder  => '_build_properties_by_entity_name_hash',
   );
 
+# $hash->{$entity_name}{$property_name} = 1;
+
 ######################################################################
 
 has 'property_rules_lookup_hash' =>
@@ -574,6 +558,8 @@ has 'property_rules_lookup_hash' =>
    lazy    => 1,
    builder => '_build_property_rules_lookup_hash',
   );
+
+# $hash->{$entity_name}{$property_name}{$name_or_value} = $ontology_rule;
 
 ######################################################################
 
@@ -585,6 +571,8 @@ has 'allowed_property_values_hash' =>
    builder => '_build_allowed_property_values_hash',
   );
 
+# $hash->{$entity_name}{$property_name} = $value_list
+
 ######################################################################
 
 has 'allowed_compositions_hash' =>
@@ -594,6 +582,8 @@ has 'allowed_compositions_hash' =>
    lazy    => 1,
    builder => '_build_allowed_compositions_hash',
   );
+
+# $hash->{$containee_name}{$container_name} = 1;
 
 ######################################################################
 
@@ -605,6 +595,8 @@ has 'imply_only_properties_hash' =>
    builder => '_build_imply_only_properties_hash',
   );
 
+# $hash->{$entity_name}{$property_name} = 1;
+
 ######################################################################
 
 has 'cardinality_of_properties_hash' =>
@@ -615,6 +607,8 @@ has 'cardinality_of_properties_hash' =>
    builder => '_build_cardinality_of_properties_hash',
   );
 
+# $hash->{$entity_name}{$property_name} = $cardinality;
+
 ######################################################################
 
 has 'required_properties_hash' =>
@@ -624,6 +618,8 @@ has 'required_properties_hash' =>
    lazy    => 1,
    builder => '_build_required_properties_hash',
   );
+
+# $hash->{$entity_name}{$property_name} = 1;
 
 ######################################################################
 ######################################################################
@@ -733,22 +729,18 @@ sub _add_rule {
   my $self = shift;
   my $rule = shift;
 
-  if ( $rule->isa('SML::OntologyRule') )
-    {
-      my $hash   = $self->_get_rule_hash;
-      my $ruleid = $rule->get_id;
-
-      $hash->{$ruleid} = $rule;
-
-      return 1;
-    }
-
-  else
+  unless ( $rule->isa('SML::OntologyRule') )
     {
       $logger->error("CAN'T ADD RULE \'$rule\' is not a SML::OntologyRule");
       return 0;
     }
 
+  my $hash    = $self->_get_rule_hash;
+  my $rule_id = $rule->get_id;
+
+  $hash->{$rule_id} = $rule;
+
+  return 1;
 }
 
 ######################################################################
@@ -764,9 +756,10 @@ sub _build_properties_by_entity_name_hash {
     {
       my $rule_type = $rule->get_rule_type;
 
-      if ($rule_type ne 'prp') {
-	next;
-      }
+      unless ($rule_type eq 'prp')
+	{
+	  next;
+	}
 
       my $rule_entity_name   = $rule->get_entity_name;
       my $rule_property_name = $rule->get_property_name;
@@ -791,13 +784,15 @@ sub _build_types_by_entity_name_hash {
     {
       my $rule_type = $rule->get_rule_type;
 
-      if ($rule_type ne 'cls') {
-	next;
-      }
+      unless ($rule_type eq 'div')
+	{
+	  next;
+	}
 
       my $entity_name = $rule->get_entity_name;
+      my $value_type  = $rule->get_value_type;
 
-      $tbenh->{$entity_name} = $rule->get_value_type;
+      $tbenh->{$entity_name} = $value_type;
     }
 
   return $tbenh;
@@ -816,9 +811,10 @@ sub _build_property_rules_lookup_hash {
     {
       my $rule_type = $rule->get_rule_type;
 
-      if ($rule_type ne 'prp') {
-	next;
-      }
+      unless ($rule_type eq 'prp')
+	{
+	  next;
+	}
 
       my $entity_name   = $rule->get_entity_name   || q{};
       my $property_name = $rule->get_property_name || q{};
@@ -843,13 +839,20 @@ sub _build_allowed_property_values_hash {
     {
       my $rule_type = $rule->get_rule_type;
 
-      if ($rule_type ne 'enu') {
-	next;
-      }
+      unless ($rule_type eq 'enu')
+	{
+	  next;
+	}
 
       my $entity_name   = $rule->get_entity_name;
       my $property_name = $rule->get_property_name;
       my $value         = $rule->get_name_or_value;
+
+      # !!! BUG HERE !!!
+      #
+      # The hash values should not be lists.  This should be a
+      # 3-dimensional hash.  The third dimension should be the allowed
+      # property value and the hash value should be a boolean (1);
 
       if ( not defined $apvh->{$entity_name} )
 	{
@@ -875,9 +878,10 @@ sub _build_allowed_compositions_hash {
     {
       my $rule_type = $rule->get_rule_type;
 
-      if ($rule_type ne 'cmp') {
-	next;
-      }
+      unless ($rule_type eq 'cmp')
+	{
+	  next;
+	}
 
       my $container_name = $rule->get_entity_name;
       my $containee_name = $rule->get_name_or_value;
@@ -902,9 +906,12 @@ sub _build_imply_only_properties_hash {
 
   foreach my $rule ( values %{ $hash } )
     {
-      if ($rule->get_rule_type ne 'prp') {
-	next;
-      }
+      my $rule_type = $rule->get_rule_type;
+
+      unless ($rule_type eq 'prp')
+	{
+	  next;
+	}
 
       if ( $rule->is_imply_only )
 	{
@@ -932,9 +939,12 @@ sub _build_cardinality_of_properties_hash {
 
   foreach my $rule ( values %{ $hash } )
     {
-      if ($rule->get_rule_type ne 'prp') {
-	next;
-      }
+      my $rule_type = $rule->get_rule_type;
+
+      unless ($rule_type eq 'prp')
+	{
+	  next;
+	}
 
       my $entity_name   = $rule->get_entity_name;
       my $property_name = $rule->get_property_name;
@@ -960,9 +970,12 @@ sub _build_required_properties_hash {
 
   foreach my $rule ( values %{ $hash } )
     {
-      if ($rule->get_rule_type ne 'prp') {
-	next;
-      }
+      my $rule_type = $rule->get_rule_type;
+
+      unless ($rule_type eq 'prp')
+	{
+	  next;
+	}
 
       if ( $rule->is_required )
 	{

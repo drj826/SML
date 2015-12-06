@@ -1,14 +1,21 @@
-[% SET number = self.get_number %]
-[% SET title = self.get_property_value('title') %]
-[% SET anchor = 'slide' _ '.' _ number %]
+[%# args:
 
-<a name="[%anchor%]">
-<div class="slide">
+self => an SML::Slide object
+
+%]
+[%-
+
+number = self.get_number
+anchor = 'SLIDE.' _ number
+
+-%]
+<div class="slide" id="[%anchor%]">
 
 <!-- put slide navigation link table here -->
 
-<b>Slide [%number%] - [%title%]</b>
-<br>
-[%- INCLUDE part_list.tt -%]
+[%- INCLUDE division_heading.tt label = 'Slide' -%]
+
+[%- INCLUDE narrative_part_list.tt -%]
+
 </div>
 

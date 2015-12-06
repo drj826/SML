@@ -72,11 +72,9 @@ sub infer_inverse_property {
   my $element_name  = $element->get_name;
   my $element_value = $element->get_value;
 
-  if ( not $element_value )
+  unless ( $element_value )
     {
-      my $location = $element->get_location;
-      $logger->warn("CAN'T INFER INVERSE PROPERTY, NO ELEMENT VALUE FOR $element_name at $location");
-      return 0;
+      return 1;
     }
 
   my $inverse_division_id   = $element_value;

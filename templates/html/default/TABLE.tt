@@ -1,6 +1,14 @@
-[% SET number = self.get_number %]
-[% SET anchor = 'TABLE.' _ number %]
+[%# args:
 
+self => an SML::Table object
+
+%]
+[%-
+
+number = self.get_number
+anchor = 'TABLE.' _ number
+
+-%]
 <div class="table" id="[%anchor%]">
 
 <br/>
@@ -18,7 +26,9 @@
 </p>
 
 <table>
+
 [% INCLUDE part_list.tt %]
+
 </table>
 
 </div>

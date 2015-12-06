@@ -336,7 +336,7 @@ sub get_file_containing_id {
 
   if ( not $id )
     {
-      $logger->logcluck("YOU MUST SPECIFY AN ID");
+      $logger->logcluck("CAN'T GET FILE CONTAINING ID, YOU MUST SPECIFY AN ID");
       return 0;
     }
 
@@ -737,7 +737,7 @@ sub has_division_id {
 
   if ( not $id )
     {
-      $logger->error("YOU MUST SPECIFY AN ID");
+      $logger->logcluck("CAN'T DETERMINE IF LIBRARY HAS DIVISION, YOU MUST SPECIFY AN ID");
       return 0;
     }
 
@@ -760,7 +760,7 @@ sub has_entity {
 
   if ( not $id )
     {
-      $logger->error("YOU MUST SPECIFY AN ID");
+      $logger->error("CAN'T DETERMINE IF LIBRARY HAS ENTITY, YOU MUST SPECIFY AN ID");
       return 0;
     }
 
@@ -784,7 +784,7 @@ sub has_division {
 
   if ( not $id )
     {
-      $logger->error("YOU MUST SPECIFY AN ID");
+      $logger->error("CAN'T DETERMINE IF LIBRARY HAS DIVISION, YOU MUST SPECIFY AN ID");
       return 0;
     }
 
@@ -1011,7 +1011,7 @@ sub get_division {
 
   if ( not $id )
     {
-      $logger->logcluck("YOU MUST SPECIFY AN ID");
+      $logger->logcluck("CAN'T GET DIVISION, YOU MUST SPECIFY AN ID");
       return 0;
     }
 
@@ -1026,6 +1026,28 @@ sub get_division {
 
       return $parser->parse($id);
     }
+}
+
+######################################################################
+
+sub get_all_entities {
+
+  my $self = shift;
+
+  my $ontology = $self->get_ontology;
+  my $id_hash  = $self->_get_id_hash;
+
+  foreach my $name (@{ $ontology->get_entity_name_list })
+    {
+      my $id_list = $self->get_division_id_list_by_name($name);
+
+      foreach my $id (@{ $id_list })
+	{
+	  $self->get_division($id);
+	}
+    }
+
+  return 1;
 }
 
 ######################################################################

@@ -1,3 +1,12 @@
-[%- SET id = self.get_section_id -%]
-[%- SET num = self.get_number -%]
-<span style="font-size:8pt;"><a href="#footnote.[%id%].[%num%]"><sup>[[% num %]]</sup></a></span>
+[%# args:
+
+self => an SML::FootnoteReference object
+
+%]
+[%-
+
+id  = self.get_section_id
+num = self.get_number
+
+-%]
+<span style="font-size:8pt;"><a href="#footnote.[%id%].[%num%]"><sup>[[%num%]]</sup></a></span>

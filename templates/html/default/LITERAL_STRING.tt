@@ -1,1 +1,6 @@
+[%# args:
+
+self => an SML::LiteralString object
+
+%]
 [%-FILTER html-%][%-self.get_content-%][%-END-%]

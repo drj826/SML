@@ -26,15 +26,15 @@ index:: rq-000032; problems
 
 Elements of problem meta data include:
 
-:: data element
+:: element
 
 :: description
 
 :: type
 
-:: required or optional?
+:: required?
 
-:: single or multi-valued?
+:: cardinality
 
 ---
 

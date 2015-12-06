@@ -17,32 +17,40 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-===
-
 index:: tc-000030; unit test case!Audio.pm
 
 [ref:lis-audio-pm-unit-test-case] shows the unit test case for
 [file:Audio.pm].
 
 >>>LISTING.lis-audio-pm-unit-test-case
-title::       Audio.t - Unit Test Case for Audio.pm
-numbers::     left
-language::    Perl
+
+title:: Audio.t - Unit Test Case for Audio.pm
+
+numbers:: left
+
+language:: Perl
+
 orientation:: portrait
-fontsize::    footnotesize
-===
+
+fontsize:: footnotesize
+
 file:: ../../t/Audio.t
+
 <<<LISTING
 
 [ref:lis-audio-pm-unit-test-results] shows the results of executing
 the [file:Audio.pm] unit test case.
 
 >>>LISTING.lis-audio-pm-unit-test-results
-title::     Audio.pm Unit Test Case Results
-numbers::   left
-fontsize::  footnotesize
-===
-script:: scripts/run-unit-test.bat Audio.t
+
+title:: Audio.pm Unit Test Case Results
+
+numbers:: left
+
+fontsize:: footnotesize
+
+# script:: scripts/run-unit-test.bat Audio.t
+
 <<<LISTING
 
 <<<test

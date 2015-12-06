@@ -149,7 +149,7 @@ sub parse {
 
   my $line_list = $self->_get_line_list_for_id($id);
 
-  if ( not $line_list )
+  if ( not scalar @{ $line_list } )
     {
       $logger->error("DIVISION HAS NO LINE LIST \'$id\'");
       return 0;
@@ -1777,10 +1777,10 @@ sub _extract_div_line_list {
 
   my $library            = $self->get_library;
   my $syntax             = $library->get_syntax;
-  my $lines              = [];  # Extracted lines
-  my $div_stack          = [];  # stack of division names
-  my $in_comment         = 0;   # in a comment division?
-  my $in_target_division = 0;   # in the division targeted for extraction?
+  my $lines              = [];          # Extracted lines
+  my $div_stack          = [];          # stack of division names
+  my $in_comment         = 0;           # in a comment division?
+  my $in_target_division = 0;           # in the division targeted for extraction?
 
   foreach my $line (@{ $line_list })
     {
@@ -1856,11 +1856,16 @@ sub _extract_div_line_list {
 	      return $lines;
 	    }
 
-	  else
+	  elsif ( $in_target_division )
 	    {
 	      pop @{ $div_stack };
 
 	      push @{ $lines }, $line;
+	    }
+
+	  else
+	    {
+	      pop @{ $div_stack };
 	    }
 	}
 
@@ -1888,7 +1893,7 @@ sub _resolve_includes {
   my $max_iterations = $options->get_MAX_RESOLVE_INCLUDES;
   my $number         = $self->_get_number;
 
-  $logger->info("{$number} ($count) resolve includes");
+  $logger->trace("{$number} ($count) resolve includes");
 
   if ( $count > $max_iterations )
     {
@@ -2002,7 +2007,7 @@ sub _resolve_plugins {
   my $max_iterations = $options->get_MAX_RESOLVE_PLUGINS;
   my $number         = $self->_get_number;
 
-  $logger->info("{$number} ($count) resolve plugins");
+  $logger->trace("{$number} ($count) resolve plugins");
 
   return if not $options->resolve_plugins;
 
@@ -2221,7 +2226,7 @@ sub _resolve_scripts {
   my $max_iterations = $options->get_MAX_RESOLVE_SCRIPTS;
   my $number         = $self->_get_number;
 
-  $logger->info("{$number} ($count) resolve scripts");
+  $logger->trace("{$number} ($count) resolve scripts");
 
   return if not $options->resolve_scripts;
 
@@ -2331,7 +2336,7 @@ sub _parse_lines {
   my $count          = ++ $count_method->{'_parse_lines'};
   my $number         = $self->_get_number;
 
-  $logger->info("{$number} ($count) parse lines");
+  $logger->trace("{$number} ($count) parse lines");
 
   # MAX interations exceeded?
   if ( $count > $max_iterations )
@@ -2375,7 +2380,7 @@ sub _parse_lines {
 
       $text =~ s/[\r\n]*$//;            # chomp;
 
-      $logger->trace("line: $text");
+      $logger->trace("{$number} line: $text");
 
       if (
 	  $self->_in_data_segment
@@ -2552,7 +2557,9 @@ sub _begin_data_segment {
 
   my $self = shift;
 
-  $logger->trace("..... begin data segment");
+  my $number = $self->_get_number;
+
+  $logger->trace("{$number} ..... begin data segment");
   $self->_set_in_data_segment(1);
 
   return 1;
@@ -2568,8 +2575,9 @@ sub _process_segment_separator_line {
   my $name     = 'SEGMENT_SEPARATOR';
   my $library  = $self->get_library;
   my $location = $line->get_location;
+  my $number   = $self->_get_number;
 
-  $logger->trace("----- segment separator");
+  $logger->trace("{$number} ----- segment separator");
 
   # new preformatted block
   my $block = SML::PreformattedBlock->new
@@ -2590,7 +2598,7 @@ sub _process_segment_separator_line {
 
       my $divname = $division->get_name;
       my $id   = $division->get_id;
-      $logger->trace("..... end $divname.$id data segment");
+      $logger->trace("{$number} ..... end $divname.$id data segment");
       $self->_set_in_data_segment(0);
 
       return 1;
@@ -2616,9 +2624,10 @@ sub _begin_division {
       $self->_set_division($division);
     }
 
-  my $name = $division->get_name;
+  my $name   = $division->get_name;
+  my $number = $self->_get_number;
 
-  $logger->trace("..... begin division $name");
+  $logger->trace("{$number} ..... begin division $name");
 
   my $library = $self->get_library;
 
@@ -2884,8 +2893,9 @@ sub _end_division {
   my $olddiv  = $self->_pop_division_stack;
   my $oldname = $olddiv->get_name;
   my $oldtype = ref $olddiv;
+  my $number  = $self->_get_number;
 
-  $logger->trace("..... end division $oldtype");
+  $logger->trace("{$number} ..... end division $oldtype");
 
   return 1;
 }
@@ -3037,7 +3047,9 @@ sub _begin_default_section {
 
   return if $self->_in_section;
 
-  $logger->trace("..... begin default section");
+  my $number = $self->_get_number;
+
+  $logger->trace("{$number} ..... begin default section");
 
   my $division = $self->_get_current_division;
   my $library  = $self->get_library;
@@ -3074,7 +3086,7 @@ sub _insert_content {
   my $count          = ++ $count_method->{'_insert_content'};
   my $number         = $self->_get_number;
 
-  $logger->info("{$number} ($count) insert content");
+  $logger->trace("{$number} ($count) insert content");
 
   if ( $count > $max_iterations )
     {
@@ -3255,7 +3267,7 @@ sub _substitute_variables {
   my $docid          = '';
   my $number         = $self->_get_number;
 
-  $logger->info("{$number} ($count) substitute variables");
+  $logger->trace("{$number} ($count) substitute variables");
 
   if ( $count > $max_iterations )
     {
@@ -3326,7 +3338,7 @@ sub _resolve_lookups {
   my $count          = ++ $count_method->{'_resolve_lookups'};
   my $number         = $self->_get_number;
 
-  $logger->info("{$number} ($count) resolve lookups");
+  $logger->trace("{$number} ($count) resolve lookups");
 
   if ( $count > $max_iterations )
     {
@@ -3354,7 +3366,7 @@ sub _resolve_lookups {
 
 	  if ( $library->has_property($id,$name) )
 	    {
-	      $logger->trace("..... $id $name is in library");
+	      $logger->trace("{$number} ..... $id $name is in library");
 	      my $value = $library->get_property_value($id,$name);
 
 	      $text =~ s/$syntax->{lookup_ref}/$value/;
@@ -3397,7 +3409,7 @@ sub _resolve_templates {
   my $in_comment     = 0;
   my $number         = $self->_get_number;
 
-  $logger->info("{$number} ($count) resolve templates");
+  $logger->trace("{$number} ($count) resolve templates");
 
   if ( $count > $max_iterations )
     {
@@ -3540,7 +3552,7 @@ sub _generate_content {
   my $docid          = '';
   my $number         = $self->_get_number;
 
-  $logger->info("{$number} ($count) generate content");
+  $logger->trace("{$number} ($count) generate content");
 
   if ( $count > $max_iterations )
     {
@@ -4023,7 +4035,14 @@ sub _end_element {
   my $value   = $element->get_value;
   my $library = $self->get_library;
 
-  if ( $library->has_division_id($value) )
+  if
+    (
+     $name ne 'index'
+     and
+     $name ne 'outcome'
+     and
+     $library->has_division_id($value)
+    )
     {
       $library->get_division($value);
     }
@@ -5784,12 +5803,13 @@ sub _process_comment_line {
   my $line = shift;
 
   my $library = $self->get_library;
+  my $number  = $self->_get_number;
 
-  $logger->trace("----- comment line");
+  $logger->trace("{$number} ----- comment line");
 
   if ( not $self->_in_comment_block )
     {
-      $logger->trace("..... begin comment block");
+      $logger->trace("{$number} ..... begin comment block");
 
       my $block = SML::CommentBlock->new(library=>$library);
       $block->add_line($line);
@@ -5801,7 +5821,7 @@ sub _process_comment_line {
 
   else
     {
-      $logger->trace("..... continue comment block");
+      $logger->trace("{$number} ..... continue comment block");
 
       my $block = $self->_get_block;
       $block->add_line($line);
@@ -5818,8 +5838,9 @@ sub _process_comment_division_line {
   my $line = shift;
 
   my $library = $self->get_library;
+  my $number  = $self->_get_number;
 
-  $logger->trace("----- line in comment division");
+  $logger->trace("{$number} ----- line in comment division");
 
   if ( not $self->_get_block )
     {
@@ -5851,7 +5872,9 @@ sub _process_start_division_marker {
 
   # return if $name eq 'RAW';
 
-  $logger->trace("----- start division ($name.$id)");
+  my $number = $self->_get_number;
+
+  $logger->trace("{$number} ----- start division ($name.$id)");
 
   my $library  = $self->get_library;
   my $location = $line->get_location;
@@ -5924,8 +5947,9 @@ sub _process_end_division_marker {
   # return if $name eq 'RAW';
 
   my $library = $self->get_library;
+  my $number  = $self->_get_number;
 
-  $logger->trace("----- end division ($name)");
+  $logger->trace("{$number} ----- end division ($name)");
 
   $self->_set_in_data_segment(0);
 
@@ -6010,8 +6034,9 @@ sub _process_start_section_heading {
   my $library  = $self->get_library;
   my $location = $line->get_location;
   my $depth    = length($1);
+  my $number   = $self->_get_number;
 
-  $logger->trace("----- start division (SECTION.$id)");
+  $logger->trace("{$number} ----- start division (SECTION.$id)");
 
   $self->_end_step_list       if $self->_in_step_list;
   $self->_end_all_lists       if $self->_in_bullet_list;
@@ -6024,7 +6049,7 @@ sub _process_start_section_heading {
   $self->_set_in_data_segment(1);
 
   # new title element
-  $logger->trace("..... new title");
+  $logger->trace("{$number} ..... new title");
 
   my $element = SML::Element->new
     (
@@ -6068,8 +6093,9 @@ sub _process_end_table_row {
   my $name     = 'END_TABLE_ROW';
   my $library  = $self->get_library;
   my $location = $line->get_location;
+  my $number   = $self->_get_number;
 
-  $logger->trace("----- end table row marker");
+  $logger->trace("{$number} ----- end table row marker");
 
   if ( not $self->_in_table and not $self->_in_baretable )
     {
@@ -6112,7 +6138,9 @@ sub _process_blank_line {
   my $self = shift;
   my $line = shift;
 
-  $logger->trace("----- blank line");
+  my $number = $self->_get_number;
+
+  $logger->trace("{$number} ----- blank line");
 
   if ( $self->_get_block )
     {
@@ -6128,7 +6156,7 @@ sub _process_blank_line {
 
   else
     {
-      $logger->trace("..... blank line not in block?");
+      $logger->trace("{$number} ..... blank line not in block?");
       return 0;
     }
 
@@ -6155,7 +6183,9 @@ sub _process_start_element {
      library => $library,
     );
 
-  $logger->trace("----- element ($name) \'$element\'");
+  my $number = $self->_get_number;
+
+  $logger->trace("{$number} ----- element ($name) \'$element\'");
 
   $element->add_line($line);
   $self->_begin_block($element);
@@ -6172,7 +6202,7 @@ sub _process_start_element {
      $ontology->allows_property($divname,$name)
     )
     {
-      $logger->trace("..... DATA element ($name)");
+      $logger->trace("{$number} ..... DATA element ($name)");
 
       my $division = $self->_get_current_division;
       $division->add_part($element);
@@ -6186,7 +6216,7 @@ sub _process_start_element {
      $ontology->allows_property('UNIVERSAL',$name)
     )
     {
-      $logger->trace("..... UNIVERSAL element in DATA SEGMENT");
+      $logger->trace("{$number} ..... UNIVERSAL element in DATA SEGMENT");
 
       my $division = $self->_get_current_division;
       $division->add_part($element);
@@ -6206,7 +6236,7 @@ sub _process_start_element {
      $ontology->allows_property('DOCUMENT',$name)
     )
     {
-      $logger->trace("..... begin document DATA SEGMENT element");
+      $logger->trace("{$number} ..... begin document DATA SEGMENT element");
 
       my $division = $self->_get_current_division;
       $division->add_part($element);
@@ -6220,9 +6250,9 @@ sub _process_start_element {
      $ontology->allows_property('UNIVERSAL',$name)
     )
     {
-      $logger->trace("..... begin UNIVERSAL element while in DATA SEGMENT");
+      $logger->trace("{$number} ..... begin UNIVERSAL element while in DATA SEGMENT");
 
-      $logger->trace("..... end document DATA SEGMENT");
+      $logger->trace("{$number} ..... end document DATA SEGMENT");
 
       # $self->_end_data_segment;
 
@@ -6233,7 +6263,7 @@ sub _process_start_element {
 
   else
     {
-      $logger->trace("..... begin UNIVERSAL element");
+      $logger->trace("{$number} ..... begin UNIVERSAL element");
 
       $division->add_part($element);
       $division->add_property_element($element);
@@ -6289,9 +6319,10 @@ sub _process_start_footnote_element {
   my $self  = shift;
   my $line  = shift;
 
-  my $library  = $self->get_library;
+  my $library = $self->get_library;
+  my $number  = $self->_get_number;
 
-  $logger->trace("----- element (note)");
+  $logger->trace("{$number} ----- element (note)");
 
   my $element = SML::Note->new(library=>$library);
 
@@ -6308,7 +6339,7 @@ sub _process_start_footnote_element {
 
   if ( $self->_in_data_segment )
     {
-      $logger->trace("..... note element in DATA SEGMENT");
+      $logger->trace("{$number} ..... note element in DATA SEGMENT");
 
       # $self->_end_data_segment;
 
@@ -6318,7 +6349,7 @@ sub _process_start_footnote_element {
 
   else
     {
-      $logger->trace("..... begin UNIVERSAL element");
+      $logger->trace("{$number} ..... begin UNIVERSAL element");
 
       $division->add_part($element);
       $division->add_property_element($element);
@@ -6372,8 +6403,9 @@ sub _process_start_glossary_entry {
 
   my $library   = $self->get_library;
   my $util      = $library->get_util;
+  my $number    = $self->_get_number;
 
-  $logger->trace("----- element (glossary)");
+  $logger->trace("{$number} ----- element (glossary)");
 
   my $definition = SML::Definition->new
     (
@@ -6392,7 +6424,7 @@ sub _process_start_glossary_entry {
 
   if ( $self->_in_data_segment )
     {
-      $logger->trace("..... glossary definition in DATA SEGMENT");
+      $logger->trace("{$number} ..... glossary definition in DATA SEGMENT");
 
       # $self->_end_data_segment;
 
@@ -6403,7 +6435,7 @@ sub _process_start_glossary_entry {
 
   else
     {
-      $logger->trace("..... begin UNIVERSAL element");
+      $logger->trace("{$number} ..... begin UNIVERSAL element");
 
       my $division = $self->_get_current_division;
       $division->add_part($definition);
@@ -6500,8 +6532,9 @@ sub _process_start_acronym_entry {
 
   my $library   = $self->get_library;
   my $util      = $library->get_util;
+  my $number    = $self->_get_number;
 
-  $logger->trace("----- element (acronym)");
+  $logger->trace("{$number} ----- element (acronym)");
 
   my $definition = SML::Definition->new
     (
@@ -6520,7 +6553,7 @@ sub _process_start_acronym_entry {
 
   if ( $self->_in_data_segment )
     {
-      $logger->trace("..... acronym definition in DATA SEGMENT");
+      $logger->trace("{$number} ..... acronym definition in DATA SEGMENT");
 
       # $self->_end_data_segment;
 
@@ -6531,7 +6564,7 @@ sub _process_start_acronym_entry {
 
   else
     {
-      $logger->trace("..... begin UNIVERSAL element");
+      $logger->trace("{$number} ..... begin UNIVERSAL element");
 
       my $division = $self->_get_current_division;
       $division->add_part($definition);
@@ -6600,8 +6633,9 @@ sub _process_start_variable_definition {
   my $util     = $library->get_util;
   my $division = $self->_get_current_division;
   my $divname  = $division->get_name;
+  my $number   = $self->_get_number;
 
-  $logger->trace("----- element (VARIABLE DEFINITION)");
+  $logger->trace("{$number} ----- element (VARIABLE DEFINITION)");
 
   my $definition = SML::Definition->new
     (
@@ -6620,7 +6654,7 @@ sub _process_start_variable_definition {
 
   if ( $self->_in_data_segment )
     {
-      $logger->trace("..... variable definition in DATA SEGMENT");
+      $logger->trace("{$number} ..... variable definition in DATA SEGMENT");
 
       # $self->_end_data_segment;
 
@@ -6631,7 +6665,7 @@ sub _process_start_variable_definition {
 
   else
     {
-      $logger->trace("..... begin UNIVERSAL element");
+      $logger->trace("{$number} ..... begin UNIVERSAL element");
 
       $division->add_part($definition);
       $division->add_property_element($definition);
@@ -6688,8 +6722,9 @@ sub _process_bull_list_item {
 
   my $indent  = length($whitespace);
   my $library = $self->get_library;
+  my $number  = $self->_get_number;
 
-  $logger->trace("----- bullet list item (indent=$indent)");
+  $logger->trace("{$number} ----- bullet list item (indent=$indent)");
 
   if ( $self->_in_data_segment )
     {
@@ -6737,7 +6772,7 @@ sub _process_bull_list_item {
     {
       if ( $self->_in_preformatted_block )
 	{
-	  $logger->trace("..... continue preformatted block");
+	  $logger->trace("{$number} ..... continue preformatted block");
 
 	  my $block = $self->_get_block;
 	  $block->add_line($line);
@@ -6745,7 +6780,7 @@ sub _process_bull_list_item {
 
       else
 	{
-	  $logger->trace("..... new preformatted block");
+	  $logger->trace("{$number} ..... new preformatted block");
 
 	  my $block = SML::PreformattedBlock->new(library=>$library);
 	  $block->add_line($line);
@@ -6823,7 +6858,7 @@ sub _process_bull_list_item {
       $self->_end_all_lists       if $self->_in_enumerated_list;
       $self->_end_definition_list if $self->_in_definition_list;
 
-      $logger->trace("..... new top level bullet list");
+      $logger->trace("{$number} ..... new top level bullet list");
 
       my $count = $library->get_bullet_list_count;
 
@@ -6837,7 +6872,7 @@ sub _process_bull_list_item {
       $self->_begin_division($list);
       $self->_push_list_stack($list);
 
-      $logger->trace("..... new top level bullet item");
+      $logger->trace("{$number} ..... new top level bullet item");
 
       my $item = SML::BulletListItem->new
 	(
@@ -6873,7 +6908,7 @@ sub _process_bull_list_item {
      $indent == $self->_get_current_list_indent
     )
     {
-      $logger->trace("..... new bullet item");
+      $logger->trace("{$number} ..... new bullet item");
 
       my $item = SML::BulletListItem->new
 	(
@@ -6914,7 +6949,7 @@ sub _process_bull_list_item {
     {
       $self->_end_enumerated_list;
 
-      $logger->trace("..... new sub bullet list");
+      $logger->trace("{$number} ..... new sub bullet list");
 
       my $count = $library->get_bullet_list_count;
 
@@ -6928,7 +6963,7 @@ sub _process_bull_list_item {
       $self->_begin_division($list);
       $self->_push_list_stack($list);
 
-      $logger->trace("..... new sub bullet item");
+      $logger->trace("{$number} ..... new sub bullet item");
 
       my $item = SML::BulletListItem->new
 	(
@@ -6987,14 +7022,14 @@ sub _process_bull_list_item {
 	{
 	  if ( $self->_in_bullet_list )
 	    {
-	      $logger->trace("..... end bullet list");
+	      $logger->trace("{$number} ..... end bullet list");
 
 	      $self->_end_bullet_list;
 	    }
 
 	  elsif ( $self->_in_enumerated_list )
 	    {
-	      $logger->trace("..... end enumerated list");
+	      $logger->trace("{$number} ..... end enumerated list");
 
 	      $self->_end_enumerated_list;
 	    }
@@ -7005,7 +7040,7 @@ sub _process_bull_list_item {
 	    }
 	}
 
-      $logger->trace("..... new bullet item");
+      $logger->trace("{$number} ..... new bullet item");
 
       my $item = SML::BulletListItem->new
 	(
@@ -7064,18 +7099,18 @@ sub _process_bull_list_item {
 	 $indent == $self->_get_current_list_indent
 	)
 	{
-	  $logger->trace("..... end previous list");
+	  $logger->trace("{$number} ..... end previous list");
 
 	  if ( $self->_in_bullet_list )
 	    {
-	      $logger->trace("..... end bullet list");
+	      $logger->trace("{$number} ..... end bullet list");
 
 	      $self->_end_bullet_list;
 	    }
 
 	  elsif ( $self->_in_enumerated_list )
 	    {
-	      $logger->trace("..... end enumerated list");
+	      $logger->trace("{$number} ..... end enumerated list");
 
 	      $self->_end_enumerated_list;
 	    }
@@ -7086,7 +7121,7 @@ sub _process_bull_list_item {
 	    }
 	}
 
-      $logger->trace("..... new bullet list");
+      $logger->trace("{$number} ..... new bullet list");
 
       my $count = $library->get_bullet_list_count;
 
@@ -7100,7 +7135,7 @@ sub _process_bull_list_item {
       $self->_begin_division($list);
       $self->_push_list_stack($list);
 
-      $logger->trace("..... new bullet item");
+      $logger->trace("{$number} ..... new bullet item");
 
       my $item = SML::BulletListItem->new
 	(
@@ -7145,7 +7180,7 @@ sub _process_bull_list_item {
      $indent > $self->_get_current_list_indent
     )
     {
-      $logger->trace("..... new bullet list");
+      $logger->trace("{$number} ..... new bullet list");
 
       my $count = $library->get_bullet_list_count;
 
@@ -7159,7 +7194,7 @@ sub _process_bull_list_item {
       $self->_begin_division($list);
       $self->_push_list_stack($list);
 
-      $logger->trace("..... new bullet item");
+      $logger->trace("{$number} ..... new bullet item");
 
       my $item = SML::BulletListItem->new
 	(
@@ -7196,8 +7231,9 @@ sub _process_start_step_element {
   my $line = shift;
 
   my $library = $self->get_library;
+  my $number  = $self->_get_number;
 
-  $logger->trace("----- step");
+  $logger->trace("{$number} ----- step");
 
   # if ( $self->_in_data_segment )
   #   {
@@ -7232,7 +7268,7 @@ sub _process_start_step_element {
 	  $self->_begin_division($list);
 	}
 
-      $logger->trace("..... begin step element");
+      $logger->trace("{$number} ..... begin step element");
 
       my $step = SML::Step->new
 	(
@@ -7260,8 +7296,9 @@ sub _process_start_image_element {
   my $name = shift;
 
   my $library = $self->get_library;
+  my $number  = $self->_get_number;
 
-  $logger->trace("----- image");
+  $logger->trace("{$number} ----- image");
 
   if ( $self->_in_preformatted_division )
     {
@@ -7279,7 +7316,7 @@ sub _process_start_image_element {
 
   else
     {
-      $logger->trace("..... begin image element");
+      $logger->trace("{$number} ..... begin image element");
 
       my $image = SML::Image->new
 	(
@@ -7308,8 +7345,9 @@ sub _process_end_step_element {
   my $library = $self->get_library;
   my $syntax  = $library->get_syntax;
   my $text    = $element->get_content;
+  my $number  = $self->_get_number;
 
-  $logger->trace("..... end step element");
+  $logger->trace("{$number} ..... end step element");
 
   if ( $text =~ /$syntax->{step_element}/ )
     {
@@ -7335,8 +7373,9 @@ sub _process_start_attr_definition {
 
   my $library = $self->get_library;
   my $syntax  = $library->get_syntax;
+  my $number  = $self->_get_number;
 
-  $logger->trace("----- element (ATTR DEFINITION)");
+  $logger->trace("{$number} ----- element (ATTR DEFINITION)");
 
   my $definition = SML::Definition->new
     (
@@ -7357,7 +7396,7 @@ sub _process_start_attr_definition {
 
   if ( $self->_in_data_segment )
     {
-      $logger->trace("..... attr definition in DATA SEGMENT");
+      $logger->trace("{$number} ..... attr definition in DATA SEGMENT");
 
       # $self->_end_data_segment;
 
@@ -7367,7 +7406,7 @@ sub _process_start_attr_definition {
 
   else
     {
-      $logger->trace("..... begin UNIVERSAL element");
+      $logger->trace("{$number} ..... begin UNIVERSAL element");
 
       $division->add_part($definition);
       $division->add_property_element($definition);
@@ -7431,7 +7470,9 @@ sub _process_start_outcome {
      library => $library,
     );
 
-  $logger->trace("----- element (outcome)");
+  my $number = $self->_get_number;
+
+  $logger->trace("{$number} ----- element (outcome)");
 
   $outcome->add_line($line);
   $self->_begin_block($outcome);
@@ -7499,7 +7540,9 @@ sub _process_start_review {
      library => $library,
     );
 
-  $logger->trace("----- element (review)");
+  my $number = $self->_get_number;
+
+  $logger->trace("{$number} ----- element (review)");
 
   $review->add_line($line);
   $self->_begin_block($review);
@@ -7697,8 +7740,9 @@ sub _process_enum_list_item {
 
   my $indent  = length($whitespace);
   my $library = $self->get_library;
+  my $number  = $self->_get_number;
 
-  $logger->trace("----- enumerated list item (indent=$indent)");
+  $logger->trace("{$number} ----- enumerated list item (indent=$indent)");
 
   if ( $self->_in_data_segment )
     {
@@ -7746,7 +7790,7 @@ sub _process_enum_list_item {
     {
       if ( $self->_in_preformatted_block )
 	{
-	  $logger->trace("..... continue preformatted block");
+	  $logger->trace("{$number} ..... continue preformatted block");
 
 	  my $block = $self->_get_block;
 	  $block->add_line($line);
@@ -8173,8 +8217,9 @@ sub _process_start_def_list_item {
   my $line = shift;
 
   my $library = $self->get_library;
+  my $number  = $self->_get_number;
 
-  $logger->trace("----- definition list item");
+  $logger->trace("{$number} ----- definition list item");
 
   if ( $self->_in_data_segment )
     {
@@ -8312,8 +8357,9 @@ sub _process_start_table_cell {
   my $library = $self->get_library;
   my $syntax  = $library->get_syntax;
   my $text    = $line->get_content;
+  my $number  = $self->_get_number;
 
-  $logger->trace("----- table cell");
+  $logger->trace("{$number} ----- table cell");
 
   $self->_end_all_lists       if $self->_in_bullet_list;
   $self->_end_all_lists       if $self->_in_enumerated_list;
@@ -8586,18 +8632,19 @@ sub _process_paragraph_text {
   my $line = shift;
 
   my $library = $self->get_library;
+  my $number  = $self->_get_number;
 
-  $logger->trace("----- paragraph text");
+  $logger->trace("{$number} ----- paragraph text");
 
   if ( $self->_in_paragraph )
     {
-      $logger->trace("..... continue paragraph");
+      $logger->trace("{$number} ..... continue paragraph");
       $self->_get_block->add_line($line);
     }
 
   elsif ( $self->_in_element )
     {
-      $logger->trace("..... continue element");
+      $logger->trace("{$number} ..... continue element");
 
       my $block = $self->_get_block;
       $block->add_line($line);
@@ -8607,7 +8654,7 @@ sub _process_paragraph_text {
     {
       if ( $self->_has_block )
 	{
-	  $logger->trace("..... continue preformatted block");
+	  $logger->trace("{$number} ..... continue preformatted block");
 
 	  my $block = $self->_get_block;
 	  $block->add_line($line);
@@ -8615,7 +8662,7 @@ sub _process_paragraph_text {
 
       else
 	{
-	  $logger->trace("..... new preformatted block");
+	  $logger->trace("{$number} ..... new preformatted block");
 
 	  my $block = SML::PreformattedBlock->new(library=>$library);
 	  $block->add_line($line);
@@ -8626,7 +8673,7 @@ sub _process_paragraph_text {
 
   elsif ( $self->_in_table_cell )
     {
-      $logger->trace("..... adding to block in table cell");
+      $logger->trace("{$number} ..... adding to block in table cell");
       my $block = $self->_get_block;
 
       if ($block)
@@ -8643,7 +8690,7 @@ sub _process_paragraph_text {
 
   elsif ( $self->_in_listitem )
     {
-      $logger->trace("..... adding to block in list item");
+      $logger->trace("{$number} ..... adding to block in list item");
 
       my $block = $self->_get_block;
       $block->add_line( $line );
@@ -8651,7 +8698,7 @@ sub _process_paragraph_text {
 
   else
     {
-      $logger->trace("..... new paragraph");
+      $logger->trace("{$number} ..... new paragraph");
 
       $self->_end_all_lists       if $self->_in_bullet_list;
       $self->_end_all_lists       if $self->_in_enumerated_list;
@@ -8812,12 +8859,13 @@ sub _process_indented_text {
   my $line = shift;
 
   my $library = $self->get_library;
+  my $number  = $self->_get_number;
 
-  $logger->trace("----- indented text");
+  $logger->trace("{$number} ----- indented text");
 
   if ( $self->_in_preformatted_block )
     {
-      $logger->trace("..... continue preformatted block");
+      $logger->trace("{$number} ..... continue preformatted block");
 
       my $block = $self->_get_block;
 
@@ -8826,7 +8874,7 @@ sub _process_indented_text {
 
   elsif ( $self->_in_listitem )
     {
-      $logger->trace("..... continue list item");
+      $logger->trace("{$number} ..... continue list item");
 
       my $block = $self->_get_block;
 
@@ -8835,7 +8883,7 @@ sub _process_indented_text {
 
   else
     {
-      $logger->trace("..... new preformatted block");
+      $logger->trace("{$number} ..... new preformatted block");
 
       # if ( $self->_in_data_segment )
       # 	{
@@ -8864,8 +8912,9 @@ sub _process_non_blank_line {
 
   my $library  = $self->get_library;
   my $location = $line->get_location;
+  my $number   = $self->_get_number;
 
-  $logger->trace("----- non-blank line");
+  $logger->trace("{$number} ----- non-blank line");
 
   if (
       $self->_in_environment
@@ -8903,7 +8952,7 @@ sub _process_non_blank_line {
 
   else
     {
-      $logger->trace("..... add non-blank line to block");
+      $logger->trace("{$number} ..... add non-blank line to block");
       $self->_get_block->add_line($line);
     }
 

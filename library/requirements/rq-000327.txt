@@ -1,6 +1,6 @@
 >>>requirement.rq-000327
 
-title:: Represent A Document Block
+title:: Represent A Block of Text
 
 revision:: $Revision: 10973 $
 
@@ -15,8 +15,10 @@ priority:: routine
 type:: data format
 
 description:: The data format shall have the capability to represent a
-[g:SML:document] [g:SML:block].
+[g:SML:block] of text.
 
 index:: rq-000327
+
+= [g:SML:block] = [def:SML:block]
 
 <<<requirement

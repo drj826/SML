@@ -17,32 +17,40 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-===
-
 index:: tc-000035; unit test case!Demo.pm
 
 [ref:lis-demo-pm-unit-test-case] shows the unit test case for
 [file:Demo.pm].
 
 >>>LISTING.lis-demo-pm-unit-test-case
-title::       Demo.t - Unit Test Case for Demo.pm
-numbers::     left
-language::    Perl
+
+title:: Demo.t - Unit Test Case for Demo.pm
+
+numbers:: left
+
+language:: Perl
+
 orientation:: portrait
-fontsize::    footnotesize
-===
+
+fontsize:: footnotesize
+
 file:: ../../t/Demo.t
+
 <<<LISTING
 
 [ref:lis-demo-pm-unit-test-results] shows the results of executing the
 [file:Demo.pm] unit test case.
 
 >>>LISTING.lis-demo-pm-unit-test-results
-title::     Demo.pm Unit Test Case Results
-numbers::   left
-fontsize::  footnotesize
-===
-script:: scripts/run-unit-test.bat Demo.t
+
+title:: Demo.pm Unit Test Case Results
+
+numbers:: left
+
+fontsize:: footnotesize
+
+# script:: scripts/run-unit-test.bat Demo.t
+
 <<<LISTING
 
 <<<test

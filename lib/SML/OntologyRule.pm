@@ -51,9 +51,9 @@ has 'rule_type' =>
 
 # One of:
 #
-#   cls => class declaration
-#   prp => property declaration
-#   enu => allowed property value enumeration
+#   div => division declaration rule
+#   prp => property declaration rule
+#   enu => enumerated value rule
 #   cmp => composition rule
 
 ######################################################################
@@ -160,7 +160,7 @@ sub BUILD {
   my $entity_name = $self->get_entity_name;
   my $cardinality = $self->get_cardinality;
 
-  if ( not $rule_type =~ /$syntax->{valid_ontology_rule_type}/xms )
+  unless ( $rule_type =~ /$syntax->{valid_ontology_rule_type}/xms )
     {
       $logger->warn("INVALID RULE TYPE: \'$rule_type\' in \'$id\'");
       return 0;

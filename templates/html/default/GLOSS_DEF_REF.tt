@@ -1,7 +1,16 @@
-[%- SET document = self.get_containing_document -%]
-[%- SET glossary = document.get_glossary -%]
-[%- SET term = self.get_term -%]
-[%- SET namespace = self.get_namespace -%]
-[%- SET entry = glossary.get_entry(term,namespace) -%]
-[%- SET definition = entry.get_definition_string -%]
-[%- INCLUDE part_list.tt self = definition -%]
+[%# args:
+
+self => an SML::GlossaryDefinitionReference object
+
+%]
+[%-
+
+document   = self.get_containing_document
+glossary   = document.get_glossary
+term       = self.get_term
+namespace  = self.get_namespace
+entry      = glossary.get_entry(term,namespace)
+definition = entry.get_definition_string
+
+-%]
+[%- INCLUDE STRING.tt self = definition -%]

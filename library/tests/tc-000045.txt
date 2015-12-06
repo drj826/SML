@@ -17,32 +17,40 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-===
-
 index:: tc-000045; unit test case!BulletListItem.pm
 
 [ref:lis-bullet-listitem-pm-unit-test-case] shows the unit test case for
 [file:BulletListItem.pm].
 
 >>>LISTING.lis-bullet-listitem-pm-unit-test-case
-title::       BulletListItem.t - Unit Test Case for BulletListItem.pm
-numbers::     left
-language::    Perl
+
+title:: BulletListItem.t - Unit Test Case for BulletListItem.pm
+
+numbers:: left
+
+language:: Perl
+
 orientation:: portrait
-fontsize::    footnotesize
-===
+
+fontsize:: footnotesize
+
 file:: ../../t/BulletListItem.t
+
 <<<LISTING
 
 [ref:lis-bullet-listitem-pm-unit-test-results] shows the results of
 executing the [file:BulletListItem.pm] unit test case.
 
 >>>LISTING.lis-bullet-listitem-pm-unit-test-results
-title::     BulletListItem.pm Unit Test Case Results
-numbers::   left
-fontsize::  footnotesize
-===
-script:: scripts/run-unit-test.bat BulletListItem.t
+
+title:: BulletListItem.pm Unit Test Case Results
+
+numbers:: left
+
+fontsize:: footnotesize
+
+# script:: scripts/run-unit-test.bat BulletListItem.t
+
 <<<LISTING
 
 <<<test

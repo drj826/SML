@@ -1,5 +1,15 @@
+[%# args:
+
+self => an SML::URLReference object
+
+%]
+[%-
+
+url = self.get_url
+
+-%]
 [%- IF self.has_content -%]
-<a href="[% self.get_url %]">[%-FILTER html-%][%-self.get_content-%][%-END-%]</a>
+<a href="[%url%]">[%-FILTER html-%][%-self.get_content-%][%-END-%]</a>
 [%- ELSE -%]
-<a href="[% self.get_url %]">[% self.get_url %]</a>
+<a href="[%url%]">[%url%]</a>
 [%- END -%]

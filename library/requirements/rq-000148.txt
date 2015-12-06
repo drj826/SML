@@ -17,7 +17,7 @@ type:: functional
 description:: The software shall enable a user to generate a
 glossary. Terms should be arranged in alphabetical order, each on a
 separate line and followed by its definition. [cite:cms15,
-[[section]]1.87]
+[section]1.87]
 
 index:: rq-000148; glossary
 

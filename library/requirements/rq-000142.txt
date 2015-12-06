@@ -21,7 +21,7 @@ should list the title and beginning page number of each section of the
 book including the front matter, text divisions, and back matter,
 including the index.  If the book is divided into parts as well as
 chapters, the part titles appear in the contents, but their page
-numbers are omitted.[cite:cms15, [[section]]1.41]
+numbers are omitted.[cite:cms15, [section]1.41]
 
 index:: rq-000142; table of contents
 

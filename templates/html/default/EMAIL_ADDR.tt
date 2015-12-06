@@ -1,5 +1,15 @@
+[%# args:
+
+self => an SML::EmailAddr object
+
+%]
+[%-
+
+email_addr = self.get_email_addr
+
+-%]
 [%- IF self.contains_content -%]
-<a href="mailto:[% self.get_email_addr %]">[%-FILTER html-%][%-self.get_content-%][%-END-%]</a>
+<a href="mailto:[%email_addr%]">[%-FILTER html-%][%-self.get_content-%][%-END-%]</a>
 [%- ELSE -%]
-<a href="mailto:[% self.get_email_addr %]">[% self.get_email_addr %]</a>
+<a href="mailto:[%email_addr%]">[%email_addr%]</a>
 [%- END -%]

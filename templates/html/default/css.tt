@@ -105,6 +105,7 @@ DIV.requirement { background-color: #ffffff; margin: 10pt 20pt 10pt 20pt; paddin
 DIV.solution { background-color: #ffffff; }
 DIV.allocation { background-color: #ffffff; }
 DIV.assignment { background-color: #ffffff; }
+DIV.section { background-color: #ffffff; }
 DIV.test { background-color: #ffffff; }
 DIV.task { background-color: #ffffff; }
 DIV.result { background-color: #ffffff; }

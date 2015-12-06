@@ -1,1 +1,6 @@
+[%# args:
+
+self => an SML::StepList object
+
+%]
 [% INCLUDE part_list.tt %]

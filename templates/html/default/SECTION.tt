@@ -1,25 +1,28 @@
+[%# args:
+
+self => an SML::Section object
+
+%]
+[%-
+
+number = self.get_number
+anchor = 'section.' _ number
+title  = self.get_property('title')
+
+-%]
 [% WRAPPER page.tt -%]
 
 [%- INCLUDE previous_and_next.tt -%]
 
-<a name="section.[% self.get_number %]">
+<div class="section" id="[%anchor%]">
 
-<h2>
-[%- self.get_number -%] &nbsp;&nbsp; [% INCLUDE property.tt property = self.get_property('title') -%]
-</h2>
+<h2>[%number%] &nbsp;&nbsp; [% INCLUDE property.tt property = title -%]</h2>
 
-  [%- FOREACH part IN self.get_part_list -%]
-    [%- IF    part.get_name == 'title' -%]
-    [%- ELSIF part.get_name == 'type' -%]
-    [%- ELSIF part.get_name == 'id' -%]
-    [%- ELSE -%]
-      [%- template = part.get_name _ '.tt' -%]
-      [%- INCLUDE $template self = part -%]
-
-    [%- END -%]
-  [%- END -%]
+[%- INCLUDE narrative_part_list.tt -%]
 
 <br/>
+
+</div>
 
 [%- INCLUDE previous_and_next.tt -%]
 

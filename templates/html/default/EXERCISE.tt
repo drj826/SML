@@ -1,14 +1,21 @@
-[% SET number = self.get_number %]
-[% SET title = self.get_property_value('title') %]
-[% SET anchor = 'EXERCISE' _ '.' _ number %]
+[%# args:
 
-<a name="[%anchor%]">
-<div class="exercise">
+self => an SML::Exercise object
+
+%]
+[%-
+
+number = self.get_number
+anchor = 'EXERCISE.' _ number
+
+-%]
+<div class="exercise" id="[%anchor%]">
 
 <!-- put exercise navigation link table here -->
 
-<b>Exercise [%number%] - [%title%]</b>
-<br>
-[%- INCLUDE part_list.tt -%]
+[%- INCLUDE division_heading.tt label = 'Exercise' -%]
+
+[%- INCLUDE narrative_part_list.tt -%]
+
 </div>
 

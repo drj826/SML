@@ -1,1 +1,6 @@
+[%# args:
+
+self => an SML::XMLTag object
+
+%]
 &lt;[%-FILTER html-%][%-self.get_content-%][%-END-%]&gt;

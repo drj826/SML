@@ -1,6 +1,15 @@
-[%- SET basename = self.get_basename -%]
-[%- SET width = self.get_width -%]
-[%- SET height = self.get_height -%]
+[%# args:
+
+self => an SML::Image object
+
+%]
+[%-
+
+basename = self.get_basename
+width    = self.get_width
+height   = self.get_height
+
+-%]
 [%- IF width > 605 -%]
 <div align="center">
 <a href="images/[%basename%]">

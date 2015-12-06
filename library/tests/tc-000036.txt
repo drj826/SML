@@ -17,32 +17,40 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-===
-
 index:: tc-000036; unit test case!Exercise.pm
 
 [ref:lis-exercise-pm-unit-test-case] shows the unit test case for
 [file:Exercise.pm].
 
 >>>LISTING.lis-exercise-pm-unit-test-case
-title::       Exercise.t - Unit Test Case for Exercise.pm
-numbers::     left
-language::    Perl
+
+title:: Exercise.t - Unit Test Case for Exercise.pm
+
+numbers:: left
+
+language:: Perl
+
 orientation:: portrait
-fontsize::    footnotesize
-===
+
+fontsize:: footnotesize
+
 file:: ../../t/Exercise.t
+
 <<<LISTING
 
 [ref:lis-exercise-pm-unit-test-results] shows the results of executing
 the [file:Exercise.pm] unit test case.
 
 >>>LISTING.lis-exercise-pm-unit-test-results
-title::     Exercise.pm Unit Test Case Results
-numbers::   left
-fontsize::  footnotesize
-===
-script:: scripts/run-unit-test.bat Exercise.t
+
+title:: Exercise.pm Unit Test Case Results
+
+numbers:: left
+
+fontsize:: footnotesize
+
+# script:: scripts/run-unit-test.bat Exercise.t
+
 <<<LISTING
 
 <<<test

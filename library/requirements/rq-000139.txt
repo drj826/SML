@@ -26,7 +26,7 @@ index:: rq-000139
 
 According to The Chicago Manual of Style the following parts
 generally, but not always, make up the front matter, text, and back
-matter: [cite:cms15, [[section]]1.4]
+matter: [cite:cms15, [section]1.4]
 
 >>>TABLE.tab-doc-divisions-and-parts
 
