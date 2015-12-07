@@ -11,5 +11,6 @@ my $library = SML::Library->new(config_filename=>'library.conf');
 $library->get_all_entities;
 
 $library->publish('frd-sml','html','default');
+$library->publish('sml',    'html','default');
 
 1;

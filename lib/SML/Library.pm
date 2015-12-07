@@ -1078,6 +1078,22 @@ sub get_division_id_list_by_name {
 
 ######################################################################
 
+sub get_all_documents {
+
+  my $self = shift;
+
+  my $id_list = $self->get_division_id_list_by_name('DOCUMENT');
+
+  foreach my $id ( @{ $id_list } )
+    {
+      $self->get_division($id);
+    }
+
+  return 1;
+}
+
+######################################################################
+
 sub get_property {
 
   my $self = shift;

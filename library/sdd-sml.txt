@@ -23,10 +23,6 @@ date:: $Date: 2013-07-07 09:35:23 -0600 (Sun, 07 Jul 2013) $
 
 use_formal_status:: 1
 
-# [#v:tmpl/ci-summary.txt:4325]
-
-===
-
 >>>REVISIONS
 
 rev:: 0.3 = 2012-03-25 = Reorganized description of classes in the SML
@@ -42,8 +38,6 @@ rev:: 0.1 = 2011-04-10 = Initial draft.
 #---------------------------------------------------------------------
 
 * Introduction
-
-===
 
 This is the Software Design Document (SDD) for the Structured
 Manuscript Language (SML) data format and the ``Publish'' application
@@ -62,8 +56,6 @@ The purpose of this document is to:
 
 *.philosophy Philosophy
 
-===
-
 The overarching philosophy of the Structured Manuscript Language is
 that the data format should make simple things easy, hard things
 possible, and that its OK to make dumb things
@@ -76,8 +68,6 @@ footnote::1: This philosophy embraces and extends the Perl philosophy,
 #---------------------------------------------------------------------
 
 ** Simple Things
-
-===
 
 Simple things should be easy. Simple things are those you can easily
 represent in rich text documents.
@@ -113,8 +103,6 @@ represent in rich text documents.
 #---------------------------------------------------------------------
 
 ** Hard Things
-
-===
 
 Hard things should be possible. Hard things are those you generally
 need a word processing format to represent.
@@ -161,8 +149,6 @@ need a word processing format to represent.
 
 **.dumb-things Dumb Things
 
-===
-
 People do dumb things with word processors because they don't know any
 better and because word processing data formats let them.  SML doesn't
 allow you to do the following things.  I'm sorry.[f:dumb-things:1]
@@ -176,8 +162,6 @@ footnote::1: Not really.
 #---------------------------------------------------------------------
 
 *.key-terms Key Terms and Definitions
-
-===
 
 The following key terms and definitions describe SML document
 structures.[f:key-terms:1]
@@ -212,8 +196,6 @@ footnote::1: These definitions are also in the glossary.
 
 *.data-format-design Data Format Design
 
-===
-
 An [g:sml:SML] [g:sml:document] is composed of [g:sml:division]s,
 divisions are composed of [g:sml:block]s, and blocks are composed of
 whole [g:sml:line]s of [g:sml:text].  An SML document has two
@@ -230,8 +212,6 @@ narrative] are both optional. An empty file is a valid SML document.
 
 ** SML Grammar
 
-===
-
 include::id=ci-000001: tmpl/item-summary.txt
 
 include::id=ci-000379: tmpl/item-summary.txt
@@ -241,8 +221,6 @@ include::id=ci-000006: tmpl/item-summary.txt
 #---------------------------------------------------------------------
 
 ** SML Document Structure
-
-===
 
 [ref:fig-block-diagram-sml-document-1] is a block diagram of an SML
 [g:sml:document].  It shows a [g:sml:document preamble] and a
@@ -269,8 +247,6 @@ width:: 3.0in
 title::   Simple SML Document
 
 numbers:: left
-
-===
 
 file::    files/simple-sml-document.txt
 
@@ -382,8 +358,6 @@ You may comment out a whole division of text by putting
 
 *** Document Rules
 
-===
-
 - ~~document container~~ - A document is represented by a
   file. Although parts of the document may be included from other
   files, the beginning and end of the document is the begin and end of
@@ -427,8 +401,6 @@ You may comment out a whole division of text by putting
 #---------------------------------------------------------------------
 
 *** Section Rules
-
-===
 
 - ~~section names~~ - Each section has a name that must be one of
   those specified.
@@ -485,8 +457,6 @@ You may comment out a whole division of text by putting
 
 *** Region Rules
 
-===
-
 - ~~region names~~ - Each region has a name that must be one of those
   specified.
 
@@ -530,8 +500,6 @@ You may comment out a whole division of text by putting
 #---------------------------------------------------------------------
 
 *** Environment Rules
-
-===
 
 - ~~environment names~~ - Each environment has a name that must be one
   of those specified.
@@ -579,8 +547,6 @@ You may comment out a whole division of text by putting
 
 *** Comment Rules
 
-===
-
 - ~~comment begin~~ - A comment division begins with a line starting
   with three or more pound signs and the word 'comment'
   (i.e. ||>>>COMMENT||).  No leading whitespace is allowed before the
@@ -598,8 +564,6 @@ You may comment out a whole division of text by putting
 #---------------------------------------------------------------------
 
 *** Conditional Rules
-
-===
 
 - ~~conditional tokens~~ - Each conditional division is named by a
   token.  A token is a string composed of upper or lower-case alpha
@@ -623,8 +587,6 @@ You may comment out a whole division of text by putting
 
 *** Data Element Rules
 
-===
-
 - ~~data element begin~~ - A data element begins with a line starting
   with a data element name ending with a colon (i.e. ||file::||).  No
   leading whitespace is allowed before the data element name.  Data
@@ -645,59 +607,8 @@ You may comment out a whole division of text by putting
 
 type:: chapter
 
-===
-
 Use dependency injection for defining configuration options.  See:
 [url:http://www.modernperlbooks.com/mt/2011/08/youre-already-using-dependency-injection.html]
-
-#---------------------------------------------------------------------
-
-*.sdd-requirements Requirements
-
-type:: appendix
-
-===
-
-This appendix contains a reference listing of all requirements.
-
-include:: auto/sdd-sml-problems.txt
-
-#---------------------------------------------------------------------
-
-*.sdd-solutions Solutions
-
-type:: appendix
-
-===
-
-In 2010 I began designing an object-oriented solution to the
-functional requirements and implementing it as a software library.
-
-include:: auto/sdd-sml-solutions.txt
-
-#---------------------------------------------------------------------
-
-*.sdd-allocations Allocations
-
-type:: appendix
-
-===
-
-This appendix contains a reference listing of all allocations.
-
-include:: auto/sdd-sml-allocations.txt
-
-######################################################################
-
-*.sdd-tests Tests
-
-type:: appendix
-
-===
-
-This appendix contains a reference listing of all tests.
-
-include:: auto/sdd-sml-tests.txt
 
 ######################################################################
 # Backmatter

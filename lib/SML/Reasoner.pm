@@ -48,39 +48,49 @@ sub infer_inverse_property {
   # This is possible because properties may have inverse
   # (a.k.a. bi-directional) relationships declared in the ontology.
   #
-  # Imagine an entity 'problem-A' has a property named 'solution' with
-  # value 'solution-A'.  This means that 'problem-A' is 'solved by'
-  # 'solution-A'. The inverse may be infered that entity 'solution-A'
-  # 'solves' the problem 'problem-A'.
+  # Imagine an entity 'problem-A' has a property named 'allocation' with
+  # value 'allocation-A'.  This means that 'problem-A' is 'allocated by'
+  # 'allocation-A'. The inverse may be infered that 'allocation-A'
+  # 'allocates' the problem 'problem-A'.
+  #
+  # problem-A    --> allocated by --> allocation-A
+  # allocation-A --> allocates    --> problem-A
 
   my $self    = shift;
   my $element = shift;
 
-  my $library  = $self->get_library;
-  my $ontology = $library->get_ontology;
+  unless ( ref $element and $element->isa('SML::Element') )
+    {
+      $logger->error("CAN'T INFER INVERSE PROPERTY, NOT AN ELEMENT \'$element\'");
+      return 0;
+    }
+
+  my $element_value = $element->get_value;
+
+  unless ( $element_value )
+    {
+      $logger->warn("CAN'T INFER INVERSE PROPERTY, NO ELEMENT VALUE \'$element\'");
+      return 1;
+    }
+
   my $division = $element->get_containing_division;
 
-  if ( not $division )
+  unless ( $division )
     {
       my $location = $element->get_location;
       $logger->warn("CAN'T INFER INVERSE PROPERTY, ELEMENT NOT IN DIVISION CONTEXT at $location");
       return 0;
     }
 
-  my $division_id   = $division->get_id;
-  my $division_name = $division->get_name;
-  my $element_name  = $element->get_name;
-  my $element_value = $element->get_value;
-
-  unless ( $element_value )
-    {
-      return 1;
-    }
-
+  my $library               = $self->get_library;
+  my $ontology              = $library->get_ontology;
+  my $division_id           = $division->get_id;
+  my $division_name         = $division->get_name;
+  my $element_name          = $element->get_name;
   my $inverse_division_id   = $element_value;
   my $inverse_division_name = $library->get_type($inverse_division_id);
   my $rule                  = $ontology->get_rule_for($division_name,$element_name,$inverse_division_name);
-  my $inverse_rule_id       = '';
+  my $inverse_rule_id       = q{};
 
   if ( $rule )
     {
@@ -130,7 +140,7 @@ sub infer_inverse_property {
 
 	      $inverse_element->set_containing_division($inverse_division);
 	      $inverse_division->add_property_element($inverse_element);
-	      $logger->trace("..... implied property: $inverse_division_id $inverse_property_name $division_id");
+	      $logger->info("implied property: $inverse_division_id $inverse_property_name $division_id");
 	      return 1;
 	    }
 	}

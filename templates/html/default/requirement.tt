@@ -16,7 +16,7 @@ self => an SML::Entity object (name = 'requirement')
 [%- INCLUDE entity_property_row.tt property_name = 'state'        label = 'state:'        -%]
 [%- INCLUDE entity_property_row.tt property_name = 'is_part_of'   label = 'is part of:'   -%]
 [%- INCLUDE entity_property_row.tt property_name = 'has_part'     label = 'has parts:'    -%]
-[%- INCLUDE entity_property_row.tt property_name = 'allocation'   label = 'allocated to:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'allocation'   label = 'allocations:'  -%]
 [%- INCLUDE entity_property_row.tt property_name = 'validated_by' label = 'validated by:' -%]
 [%- INCLUDE entity_property_row.tt property_name = 'stakeholder'  label = 'stakeholders:' -%]
 [%- INCLUDE entity_property_row.tt property_name = 'task'         label = 'tasks:'        -%]
