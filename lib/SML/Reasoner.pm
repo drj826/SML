@@ -140,7 +140,7 @@ sub infer_inverse_property {
 
 	      $inverse_element->set_containing_division($inverse_division);
 	      $inverse_division->add_property_element($inverse_element);
-	      $logger->info("implied property: $inverse_division_id $inverse_property_name $division_id");
+	      $logger->info("inferred property: $inverse_division_id $inverse_property_name $division_id");
 	      return 1;
 	    }
 	}

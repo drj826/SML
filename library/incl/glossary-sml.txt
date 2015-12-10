@@ -196,9 +196,10 @@ glossary:: eXtensible markup Language = ([acs:XML]) a
 
 ###
 
-glossary:: element {SML} = A [g:SML:block] containing a name/value
-pair expressing a piece of structured information or instructing the
-processor to take some action. See also [g:SML:property]
+glossary:: element {SML} = A [g:SML:block] that represents a
+name/value pair expressing a piece of structured information or
+instructing the processor to take some action. See also
+[g:SML:property]
 
 glossary:: engineer {SML} = the skill level needed to invent, design
 and implement systems to solve real world problems.  Contrast with

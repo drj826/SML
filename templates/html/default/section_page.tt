@@ -1,22 +1,29 @@
-[%- SET document = self.get_containing_document -%]
+[%# args:
 
-<html>
-<head>
-<title>[%- INCLUDE self.get_property_value('title') -%]</title>
-</head>
-<body>
+self => an SML::Section object
 
-<h1>
-[% self.get_number %]
-[% SET title = self.get_property('title') %]
-[% FOREACH self IN title.get_element_list %]
-[%- INCLUDE part_list.tt -%]
-[% END %]
-</h1>
+%]
+[%-
 
-[%- FOREACH part IN self.get_part_list -%]
-[% part.get_id %] [% part.get_name %] [%-FILTER html-%][%-self.get_content-%][%-END-%]
-[%- END %]
+number = self.get_number
+anchor = 'section.' _ number
+title  = self.get_property('title')
 
-</body>
-</html>
+-%]
+[% WRAPPER page.tt -%]
+
+[%- INCLUDE previous_and_next.tt -%]
+
+<div class="section" id="[%anchor%]">
+
+<h2>[%number%] &nbsp;&nbsp; [% INCLUDE property.tt property = title -%]</h2>
+
+[%- INCLUDE narrative_part_list.tt -%]
+
+<br/>
+
+</div>
+
+[%- INCLUDE previous_and_next.tt -%]
+
+[%- END -%]

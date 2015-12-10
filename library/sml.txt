@@ -18,7 +18,7 @@ version:: 2.0-DRAFT
 
 revision:: 314159
 
-date:: 28 Nov 2015
+date:: 9 Dec 2015
 
 status:: yellow
 
@@ -1643,41 +1643,61 @@ property; syntax; semantics
 
 index:: Elements
 
-An [g:SML:element] is a [g:SML:block] of text that enables you to
-insert data fields into your manuscript.  For example:
+An [g:SML:element] is a [g:SML:block] of text that represents a
+name/value pair.  For example:
 
-  title:: A Sample Document
+  title:: Feed the Pigs
 
-  author:: Bilbo Baggins
+  author:: Farmer John
 
-An element starts with the element's name flowwed by a double colon at
-the beginning of a line (i.e. `title::', or `author::').  The value of
-the element is everything that follows, up to the next element or a
-blank line.  Since a blank line ends an element, elements can't be any
-more complicated than a paragraph.
+  type:: task
 
-Data elements are used to:
+  is_part_of:: task-001 # Do Barnyard Chores
 
-- specify information about the overall document in the document
-  `preamble' (title, author, date, copyright...)
+  index:: pigs
 
-- insert text with special meaning (file, image, footnote,
-  glossary...)
+The [g:SML:syntax] for an element is:
 
-- describe attributes of special text environments like tables,
-  figures, and listings (width, size, language...)
+  <element-name>:: <element-value>
 
-- describe structured data in special text regions like exercises,
-  quotations, problems, solutions, and tests (description, type,
-  status, parent...)
+Note that:
 
-Data elements are simple key/value pairs and the value of
-a data element is a paragraph.  Often, this paragraph is a single
-line, or even a single word or character.
+- The element ~~name~~ is everything before the double colon.
 
-Some data elements can have attributes.  For instance, you can use the
-``column'' data element to specify the widths of a table columns like
-this:
+- The element ~~value~~ is everything after the double colon.
+
+- The double colon must be on the first line of the block, meaning,
+  the element ~~name~~ must be completely contained on the first line.
+
+- The element ~~value~~ may span multiple lines.
+
+- The element ~~name~~ must start at the beginning of the line (first
+  column).
+
+- The element name ~~cannot~~ contain spaces.
+
+- No space is allowed between the element name and the double colon.
+
+- Since a blank line ends an element, elements can't be any more
+  complicated than a paragraph.
+
+Elements are used to:
+
+- represent elements of document structure (i.e. title, subtitle,
+  description, glossary, acronym, index, footnote, image, step,
+  include, script, plugin, var)
+
+- describe attributes of special division like tables, figures, and
+  listings (width, size, language...)
+
+- represent entity property values
+
+Elements are simple name/value pairs and the value of a data element
+is a paragraph.  Often, this paragraph is a single line, or even a
+single word or character.
+
+Some elements have attributes.  For instance, you can use the
+``column'' element to specify the width of a table column like this:
 
   column::1:width: 30
   column::2:width: 30
@@ -1686,13 +1706,9 @@ this:
 In this example, the column numbers (1, 2, and 3), and the parameter,
 ``width'' are attributes.
 
-Most data elements are single-valued, but some can be multi-valued;
-meaning, there can be many with the same name in the same section,
-environment or region.  For instance, a `source' environment (which
-describes a bibliographic source) can have multiple `author' data
-elements.  A `problem' region (which describes a problem to be solved)
-can have multiple `stakeholders' (people interested in getting the
-problem solved).
+Elements are single-valued.  But, a division can have multiple
+elements with the same name.  For instance, a document can have more
+than one author.
 
 #---------------------------------------------------------------------
 

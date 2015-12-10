@@ -1,3 +1,8 @@
+[%# args:
+
+document => an SML::Document object
+
+%]
 <div class="preamble">
 [%- IF document.has_property('author') -%]
 <div align="center">By [%- document.get_property_value('author') -%]</div>

@@ -1,1 +1,1 @@
-type: [%-FILTER html-%][%-self.get_content-%][%-END-%]
+[%# type element %]

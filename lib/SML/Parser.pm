@@ -4041,6 +4041,8 @@ sub _end_element {
      and
      $name ne 'outcome'
      and
+     $name ne 'review'
+     and
      $library->has_division_id($value)
     )
     {

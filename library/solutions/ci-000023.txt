@@ -16,11 +16,6 @@ date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-#---------------------------------------------------------------------
-# allocations
-
-allocation:: al-000218 # rq-000133 Generate Content
-
 index:: ci-000023; subroutine![cmd:generate_content]
 
 <<<solution

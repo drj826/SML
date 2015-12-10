@@ -848,18 +848,31 @@ sub get_attachment_list {
 
 sub get_source_list {
 
-  # Return an ordered list of sources within this division.
+  # Return a list of sources within this division ordered by source
+  # ID.
 
   my $self = shift;
 
-  my $list = [];                        # source list
+  my $hash = {};                        # source hash
 
   foreach my $part (@{ $self->get_division_list })
     {
       if ( $part->isa('SML::Source') )
 	{
-	  push @{ $list }, $part;
+	  my $source = $part;
+	  my $id     = $source->get_id;
+
+	  $hash->{$id} = $source;
 	}
+    }
+
+  my $list = [];
+
+  foreach my $id ( sort keys %{ $hash } )
+    {
+      my $source = $hash->{$id};
+
+      push(@{$list},$source);
     }
 
   return $list;

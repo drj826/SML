@@ -1,0 +1,162 @@
+[%# args:
+
+document => an SML::Document object
+
+%]
+[%-
+
+library  = document.get_library
+ontology = library.get_ontology
+id       = document.get_id
+title    = document.get_property('title')
+
+-%]
+[%- WRAPPER page.tt -%]
+
+<div style="font-size:8pt;text-align:center">
+<a href="[%id%].toc.html">[%- INCLUDE property.tt property = title -%]</a>
+</div>
+
+<h1 align="center">Ontology</h1>
+
+[%- FOREACH entity_name IN ontology.get_entity_name_list -%]
+  [%-
+  entity_class = ontology.get_class_for_entity_name(entity_name)
+  -%]
+<h2 style="background-color:#eeeeee;padding:10px;" id="[%entity_name%]">[%entity_name%]</h2>
+
+<table>
+
+<tr>
+<td style="width:10%">class:</td>
+<td>[%entity_class%]</td>
+</tr>
+
+<tr>
+<td>may contain:</td>
+<td>
+[%- FOREACH division_name IN ontology.get_allowed_containee_name_list(entity_name) -%]
+<a href="#[%division_name%]">[%division_name%]</a>, 
+[%- END -%]
+</td>
+</tr>
+
+</table>
+
+<table>
+
+<tr>
+<td style="font-weight:bold;">rule ID</td>
+<td style="font-weight:bold;">subject</td>
+<td style="font-weight:bold;">property (predicate)</td>
+<td style="font-weight:bold;">object</td>
+<td style="font-weight:bold;">allowed values</td>
+<td style="font-weight:bold;">inverse rule</td>
+<td style="font-weight:bold;">cardinality</td>
+<td style="font-weight:bold;">required?</td>
+<td style="font-weight:bold;">imply only?</td>
+</tr>
+
+[%- FOREACH property_name IN ontology.get_entity_allowed_property_list(entity_name) -%]
+  [%-
+  allowed_value_list = ontology.get_allowed_property_value_list(entity_name,property_name)
+  object_name_list   = ontology.get_allowed_property_object_name_list(entity_name,property_name)
+  is_required        = ontology.property_is_required(entity_name,property_name)
+  is_imply_only      = ontology.property_is_imply_only(entity_name,property_name)
+  cardinality        = ontology.property_allows_cardinality(entity_name,property_name)
+  -%]
+  [%- FOREACH object_name IN object_name_list -%]
+    [%-
+    rule            = ontology.get_rule_for(entity_name,property_name,object_name)
+    rule_id         = rule.get_id
+    inverse_rule_id = rule.get_inverse_rule_id
+    -%]
+<tr>
+<td id="[%rule_id%]">[%rule_id%]</td>
+<td>[%entity_name%]</td>
+<td>[%property_name%]</td>
+<td>[%object_name%]</td>
+<td>[%FOREACH value IN allowed_value_list%][%value%], [%END%]</td>
+<td><a href="#[%inverse_rule_id%]">[%inverse_rule_id%]</a></td>
+<td style="text-align:center;">[%cardinality%]</td>
+<td style="text-align:center;">[%is_required%]</td>
+<td style="text-align:center;">[%is_imply_only%]</td>
+</tr>
+[%- END -%]
+[%- END -%]
+
+</table>
+
+[%- END -%]
+
+[%- FOREACH structure_name IN ontology.get_structure_name_list -%]
+  [%-
+  structure_class = ontology.get_class_for_entity_name(structure_name)
+  -%]
+<h2 style="background-color:#eeeeee;padding:10px;" id="[%structure_name%]">[%structure_name%]</h2>
+
+<table>
+
+<tr>
+<td style="width:10%">class:</td>
+<td>[%structure_class%]</td>
+</tr>
+
+<tr>
+<td>may contain:</td>
+<td>
+[%- FOREACH division_name IN ontology.get_allowed_containee_name_list(structure_name) -%]
+<a href="#[%division_name%]">[%division_name%]</a>, 
+[%- END -%]
+</td>
+</tr>
+
+</table>
+
+<table>
+
+<tr>
+<td style="font-weight:bold;">rule ID</td>
+<td style="font-weight:bold;">subject</td>
+<td style="font-weight:bold;">property (predicate)</td>
+<td style="font-weight:bold;">object</td>
+<td style="font-weight:bold;">allowed values</td>
+<td style="font-weight:bold;">inverse rule</td>
+<td style="font-weight:bold;">cardinality</td>
+<td style="font-weight:bold;">required?</td>
+<td style="font-weight:bold;">imply only?</td>
+</tr>
+
+[%- FOREACH property_name IN ontology.get_entity_allowed_property_list(structure_name) -%]
+  [%-
+  allowed_value_list = ontology.get_allowed_property_value_list(structure_name,property_name)
+  object_name_list   = ontology.get_allowed_property_object_name_list(structure_name,property_name)
+  is_required        = ontology.property_is_required(structure_name,property_name)
+  is_imply_only      = ontology.property_is_imply_only(structure_name,property_name)
+  cardinality        = ontology.property_allows_cardinality(structure_name,property_name)
+  -%]
+  [%- FOREACH object_name IN object_name_list -%]
+    [%-
+    rule    = ontology.get_rule_for(structure_name,property_name,object_name)
+    rule_id = rule.get_id
+    inverse_rule_id = rule.get_inverse_rule_id
+    -%]
+<tr>
+<td>[%rule_id%]</td>
+<td>[%structure_name%]</td>
+<td>[%property_name%]</td>
+<td>[%object_name%]</td>
+<td>[%FOREACH value IN allowed_value_list%][%value%], [%END%]</td>
+<td><a href="#[%inverse_rule_id%]">[%inverse_rule_id%]</a></td>
+<td style="text-align:center;">[%cardinality%]</td>
+<td style="text-align:center;">[%is_required%]</td>
+<td style="text-align:center;">[%is_imply_only%]</td>
+</tr>
+[%- END -%]
+[%- END -%]
+
+</table>
+
+[%- END -%]
+
+[%- END -%]

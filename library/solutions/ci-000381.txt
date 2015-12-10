@@ -19,11 +19,6 @@ date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-#---------------------------------------------------------------------
-# allocations
-
-allocation:: al-000337 # rq-000206 Render a Division According to a Style
-
 index:: ci-000381; Division.pm
 
 = [g:sml:division] = [def:sml:division].
@@ -32,18 +27,27 @@ index:: ci-000381; Division.pm
 [g:sml:division].
 
 >>>FIGURE.fig-class-diagram-division
+
 title:: Division Classes
+
 image:: ../files/images/class-diagram-division.png
+
 width:: 6.0in
+
 <<<FIGURE
 
 >>>LISTING.lis-division-pm
-title::     Division.pm
-numbers::   left
-language::  Perl
-fontsize::  footnotesize
-===
+
+title:: Division.pm
+
+numbers:: left
+
+language:: Perl
+
+fontsize:: footnotesize
+
 file:: ../../lib/SML/Division.pm
+
 <<<LISTING
 
 [clearpage]

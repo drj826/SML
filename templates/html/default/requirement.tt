@@ -53,4 +53,20 @@ self => an SML::Entity object (name = 'requirement')
 
 [%- INCLUDE narrative_part_list.tt -%]
 
+<pre style="background-color:#eeffee;padding:10px;">
+[%-FILTER html-%][%-self.dump_part_structure-%][%-END-%]
+</pre>
+
+<pre style="background-color:#eeeeff;padding:10px;">
+[%- FOREACH property IN self.get_property_list -%]
+  [%-
+  name  = property.get_name
+  value = property.get_value
+  -%]
+
+[%name%] => [%value%]
+
+[%- END -%]
+</pre>
+
 </div>

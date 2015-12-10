@@ -1,1 +1,6 @@
-<span style="font-weight:bold;">[%- INCLUDE part_list.tt -%]</span>
+[%#
+
+self => an SML::String object
+
+%]
+<span style="font-weight:bold;">[%- INCLUDE STRING.tt -%]</span>

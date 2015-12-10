@@ -12,11 +12,9 @@ title = document.get_property('title')
 -%]
 [%- WRAPPER page.tt -%]
 
-<table style="width:100%">
-<tr>
-<td style="font-size:8pt;text-align:center"><a href="[%id%].toc.html">[%- INCLUDE property.tt property = title -%]</a></td>
-</tr>
-</table>
+<div style="font-size:8pt;text-align:center">
+<a href="[%id%].toc.html">[%- INCLUDE property.tt property = title -%]</a>
+</div>
 
 <h1 style="text-align:center;">Index</h1>
 

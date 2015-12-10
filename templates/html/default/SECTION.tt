@@ -1,29 +1,6 @@
-[%# args:
+[%#
 
-self => an SML::Section object
+sections are rendered, one per HTML page, by the publisher using the
+section_page.tt template
 
 %]
-[%-
-
-number = self.get_number
-anchor = 'section.' _ number
-title  = self.get_property('title')
-
--%]
-[% WRAPPER page.tt -%]
-
-[%- INCLUDE previous_and_next.tt -%]
-
-<div class="section" id="[%anchor%]">
-
-<h2>[%number%] &nbsp;&nbsp; [% INCLUDE property.tt property = title -%]</h2>
-
-[%- INCLUDE narrative_part_list.tt -%]
-
-<br/>
-
-</div>
-
-[%- INCLUDE previous_and_next.tt -%]
-
-[%- END -%]

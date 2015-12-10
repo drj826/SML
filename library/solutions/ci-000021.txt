@@ -15,12 +15,6 @@ date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-#---------------------------------------------------------------------
-# allocations
-
-allocation:: al-000211 # rq-000128 Gather Data
-allocation:: al-000212 # rq-000129 Insert Content
-
 index:: ci-000021; subroutine![cmd:pass_two]
 
 <<<solution

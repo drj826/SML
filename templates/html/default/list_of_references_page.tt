@@ -1,23 +1,25 @@
+[%# args:
+
+document => an SML::Document object
+
+%]
+[%-
+
+source_list = document.get_source_list
+id          = document.get_id
+title       = document.get_property('title')
+
+-%]
 [%- WRAPPER page.tt -%]
 
-[%- IF document.has_property('title') -%]
-<div class="title">
-[%- INCLUDE property.tt property = document.get_property('title') -%]
+<div style="font-size:8pt;text-align:center">
+<a href="[%id%].toc.html">[%- INCLUDE property.tt property = title -%]</a>
 </div>
-[% END %]
 
-[%- IF document.has_property('subtitle') -%]
-<div class="subtitle">
-[%- INCLUDE property.tt property = document.get_property('subtitle') -%]
-</div>
-[% END %]
+<h1 align="center">List of References</h1>
 
-[%- INCLUDE preamble.tt -%]
-
-<h3 align="center">List of References</h3>
-
-[%- FOREACH source IN document.get_source_list -%]
-  [%- INCLUDE source_entry.tt -%]
+[%- FOREACH source IN source_list -%]
+[%- INCLUDE source_entry.tt -%]
 [%- END -%]
 
 [%- END -%]

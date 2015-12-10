@@ -23,24 +23,20 @@ date:: $Date: 2009-09-08 14:49:48 -0600 (Tue, 08 Sep 2009) $
 
 author:: $Author: don.johnson $
 
-#---------------------------------------------------------------------
-# Allocations
-
-allocation:: al-000181 # rq-000170 Implement SML Data Format
-allocation:: al-000009 # rq-000112 Implement SML Syntax
-allocation:: al-000010 # rq-000118 Implement SML Semantics
-allocation:: al-000011 # rq-000184 List Allowed Entity Properties
-
-index:: ci-000002; SML.pm
-
 >>>LISTING.lis-sml-pm
-title::       SML.pm
+
+title:: SML.pm
+
 orientation:: landscape
-numbers::     left
-language::    Perl
-fontsize::    footnotesize
-===
+
+numbers:: left
+
+language:: Perl
+
+fontsize:: footnotesize
+
 file:: ../../lib/SML.pm
+
 <<<LISTING
 
 <<<solution

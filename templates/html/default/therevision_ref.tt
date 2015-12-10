@@ -1,2 +1,11 @@
-[%- SET document = self.get_containing_document -%]
+[%# args:
+
+self => an SML::Symbol object
+
+%]
+[%-
+
+document = self.get_containing_document
+
+-%]
 [%- document.get_property_value('revision') -%]

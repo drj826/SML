@@ -11,21 +11,13 @@ anchor = 'FIGURE.' _ number
 -%]
 <div class="figure" id="[%anchor%]">
 
-<!-- put figure navigation link table here -->
+<div style="text-align:center;">
+[%- INCLUDE division_heading.tt label = 'Figure' -%]
+</div>
 
-<p align="center"><b>Figure [%number%]
-[%- IF self.has_property('title') -%]
-  - 
-  [%- INCLUDE property.tt property = self.get_property('title') -%]
-[%- END -%]
-</b>
-[%- IF self.has_property('description') -%]
-  - 
-  [%- INCLUDE property.tt property = self.get_property('description') -%]
-[%- END -%]
-</p>
+<br/><br/>
 
-[%- INCLUDE part_list.tt -%]
+[%- INCLUDE narrative_part_list.tt -%]
 
 </div>
 

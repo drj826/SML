@@ -1,5 +1,10 @@
+[%# args:
+
+document => an SML::Document object
+
+%]
 [%- UNLESS document -%]
-[%- SET document = self.get_containing_document -%]
+[%- document = self.get_containing_document -%]
 [%- END -%]
 
 <!-- navigation -->
@@ -65,6 +70,10 @@
 
 [%- IF document.get_index.has_entries -%]
 <a href="[% document.get_id %].index.html">Index</a><br/>
+[%- END -%]
+
+[%- IF document.get_library.get_ontology -%]
+<a href="[% document.get_id %].ontology.html">Ontology</a><br/>
 [%- END -%]
 
 </td>

@@ -296,7 +296,7 @@ sub _publish_html_document {
 
 	  $logger->info("publishing $outfile");
 
-	  $tt->process('section.tt',$vars,$outfile)
+	  $tt->process('section_page.tt',$vars,$outfile)
 	    || die $tt->error(), "\n";
 	}
 
@@ -405,6 +405,10 @@ sub _publish_html_document {
 	  $tt->process("list_of_references_page.tt",$vars,"$id.references.html")
 	    || die $tt->error(), "\n";
 	}
+
+      $logger->info("publishing $id.ontology.html");
+      $tt->process("ontology_page.tt",$vars,"$id.ontology.html")
+	|| die $tt->error(), "\n";
     }
 
   else

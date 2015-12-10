@@ -18,59 +18,6 @@ date:: $Date: 2009-09-08 14:49:48 -0600 (Tue, 08 Sep 2009) $
 
 author:: $Author: don.johnson $
 
-#---------------------------------------------------------------------
-# Allocations
-
-allocation:: al-000012 # rq-000105 Parse SML Files
-
-allocation:: al-000022 # rq-000156 Read Files
-
-allocation:: al-000013 # rq-000108 Resolve Includes
-allocation:: al-000019 # rq-000131 Resolve Lookups
-allocation:: al-000020 # rq-000132 Resolve Templates
-allocation:: al-000025 # rq-000176 Resolve Included Sections
-allocation:: al-000026 # rq-000177 Resolve Included Flat Text
-allocation:: al-000027 # rq-000178 Resolve Included Regions
-allocation:: al-000028 # rq-000179 Resolve Included Raw Text
-allocation:: al-000029 # rq-000180 Resolve And Hide Included Text
-
-allocation:: al-000014 # rq-000109 Ignore Comments
-allocation:: al-000015 # rq-000127 Run Scripts
-allocation:: al-000016 # rq-000128 Gather Data
-allocation:: al-000017 # rq-000129 Insert Content
-allocation:: al-000018 # rq-000130 Substitute Variables
-allocation:: al-000021 # rq-000133 Generate Content
-allocation:: al-000188 # rq-000188 Remember Document Division Order
-
-allocation:: al-000139 # rq-000119 Validate Document Syntax
-allocation:: al-000023 # rq-000174 Validate External File References
-
-allocation:: al-000131 # rq-000106 Validate Document Semantics
-allocation:: al-000182 # rq-000171 Validate Imply-Only Properties
-allocation:: al-000183 # rq-000172 Validate Required Properties
-allocation:: al-000184 # rq-000173 Validate Property Cardinality
-allocation:: al-000285 # rq-000201 Validate Allowed Entity Properties
-allocation:: al-000286 # rq-000202 Validate Entity Relationships
-
-allocation:: al-000024 # rq-000175 Process Multiple Documents Without Restarting
-allocation:: al-000030 # rq-000181 Prevent Infinite Loops
-
-allocation:: al-000185 # rq-000183 Permit Library Ontology Configuration
-
-allocation:: al-000262 # rq-000099 Parse SML Special Features
-
-allocation:: al-000339 # rq-000203 Log Parsing Events
-allocation:: al-000263 # rq-000191 Emit ERROR Message On Major...
-allocation:: al-000265 # rq-000192 Emit WARNING Message On Minor...
-allocation:: al-000268 # rq-000193 Emit INFO Message On Inference...
-allocation:: al-000334 # rq-000258 Notify Users of Syntax Errors
-allocation:: al-000335 # rq-000257 Notify Users of Uncommitted Changes
-
-allocation:: al-000271 # rq-000190 Validate Doc Contains No Redundant Allocations
-
-allocation:: al-000277 # rq-000100 Parse SML Conditional Divisions
-allocation:: al-000278 # rq-000101 Parse SML Comment Divisions
-
 index:: ci-000003
 
 Here is the definition of `parser' from the glossary:
@@ -80,21 +27,30 @@ Here is the definition of `parser' from the glossary:
 [ref:lis-parser-pm] shows the Parser.pm file.
 
 >>>LISTING.lis-parser-pm
-title::     Parser.pm
-numbers::   left
-language::  Perl
-fontsize::  footnotesize
-===
+
+title:: Parser.pm
+
+numbers:: left
+
+language:: Perl
+
+fontsize:: footnotesize
+
 file:: ../../lib/SML/Parser.pm
+
 <<<LISTING
 
 [ref:fig-ad-parsefile] is an activity diagram that describes how the
 parser works.
 
 >>>FIGURE.fig-ad-parsefile
+
 title:: SML::Parser::parsefile Activity Diagram
+
 image:: ../files/images/ad-parsefile.png
+
 width:: 6in
+
 <<<FIGURE
 
 <<<solution

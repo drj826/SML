@@ -1,8 +1,18 @@
+[%# args:
+
+document => an SML::Document object
+
+%]
+[%-
+
+id = document.get_id
+
+-%]
 [% WRAPPER page.tt -%]
 
 <table style="width:100%">
 <tr>
-<td style="font-size:8pt;text-align:right"><a href="[%-document.get_id-%].toc.html">Table of Contents &gt;</a></td>
+<td style="font-size:8pt;text-align:right"><a href="[%id%].toc.html">Table of Contents &gt;</a></td>
 </tr>
 </table>
 

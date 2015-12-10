@@ -19,40 +19,40 @@ date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-#---------------------------------------------------------------------
-# allocations
-
-allocation:: al-000039 # rq-000183 Ontology Configurability
-
-allocation:: al-000007 # rq-000007 Represent Semantic Content
-allocation:: al-000283 # rq-000194 Represent Semantic Entities
-allocation:: al-000145 # rq-000125 Represent Inline Semantic Content
-allocation:: al-000284 # rq-000194 Represent Inference Rules
-
 index:: ci-000006
 
 [ref:lis-sml-ontology-config] shows the [file:ontology_rules_sml.conf]
 file.
 
 >>>LISTING.lis-sml-ontology-config
-title::       ontology_rules_sml.conf
-numbers::     left
-fontsize::    footnotesize
+
+title:: ontology_rules_sml.conf
+
+numbers:: left
+
+fontsize:: footnotesize
+
 orientation:: landscape
-===
+
 file:: ../ontology_rules_sml.conf
+
 <<<LISTING
 
 [ref:lis-lib-ontology-config] shows the [file:ontology_rules_lib.conf]
 file.
 
 >>>LISTING.lis-lib-ontology-config
-title::       ontology_rules_lib.conf
-numbers::     left
-fontsize::    footnotesize
+
+title:: ontology_rules_lib.conf
+
+numbers:: left
+
+fontsize:: footnotesize
+
 orientation:: landscape
-===
+
 file:: ../ontology_rules_lib.conf
+
 <<<LISTING
 
 <<<solution

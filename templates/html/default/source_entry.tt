@@ -1,3 +1,8 @@
+[%# args:
+
+source => an SML::Source object
+
+%]
 <table border="0" style="width:100%" id="[%-source.get_id-%]">
 <tr>
 <td colspan="2" bgcolor="#eeeeee" id="[%- source.get_id -%]">[[%- source.get_id -%]]</td>

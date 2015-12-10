@@ -11,23 +11,11 @@ anchor = 'TABLE.' _ number
 -%]
 <div class="table" id="[%anchor%]">
 
-<br/>
-<p align="center">
-<b>Table [%number%]
-[%- IF self.has_property('title') -%]
-  - 
-  [%- INCLUDE property.tt property = self.get_property('title') -%]
-[%- END -%]
-</b>
-[%- IF self.has_property('description') -%]
-  - 
-  [%- INCLUDE property.tt property = self.get_property('description') -%]
-[%- END -%]
-</p>
+[%- INCLUDE division_heading.tt label = 'Table' -%]
 
 <table>
 
-[% INCLUDE part_list.tt %]
+[% INCLUDE narrative_part_list.tt %]
 
 </table>
 

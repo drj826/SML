@@ -74,13 +74,26 @@ sub add_rules_from_file {
 sub get_allowed_property_value_list {
 
   # Given an entity name and a property name, return a list of allowed
-  # property values.
+  # property values as defined in enumerated value rules.
 
   my $self          = shift;
   my $entity_name   = shift;
   my $property_name = shift;
 
   return $self->_get_allowed_property_values_hash->{$entity_name}{$property_name};
+}
+
+######################################################################
+
+sub get_allowed_property_object_name_list {
+
+  my $self          = shift;
+  my $entity_name   = shift;
+  my $property_name = shift;
+
+  my $hash = $self->_get_property_rules_lookup_hash;
+
+  return [ sort keys %{ $hash->{$entity_name}{$property_name} }];
 }
 
 ######################################################################
@@ -455,6 +468,30 @@ sub property_is_universal {
 
 ######################################################################
 
+sub property_is_required {
+
+  # Return 1 if the specified property is required for the specified
+  # division.
+
+  my $self          = shift;
+  my $division_name = shift;
+  my $property_name = shift;
+
+  my $hash = $self->_get_required_properties_hash;
+
+  if ( exists $hash->{$division_name}{$property_name} )
+    {
+      return 1;
+    }
+
+  else
+    {
+      return 0;
+    }
+}
+
+######################################################################
+
 sub property_is_imply_only {
 
   my $self          = shift;
@@ -506,6 +543,58 @@ sub get_entity_name_list {
     }
 
   return $list;
+}
+
+######################################################################
+
+sub get_structure_name_list {
+
+  # Return a list of division names that DON'T have a value type of
+  # SML::Entity.
+
+  my $self = shift;
+
+  my $list  = [];
+  my $tbenh = $self->_get_types_by_entity_name_hash;
+
+  foreach my $name ( sort keys %{ $tbenh } )
+    {
+      my $value = $tbenh->{$name};
+
+      if ( $value ne 'SML::Entity' )
+	{
+	  push(@{$list},$name);
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
+
+sub get_allowed_containee_name_list {
+
+  # Return a list of divisions allowed within the specified one.
+
+  my $self          = shift;
+  my $division_name = shift;
+
+  my $hash = $self->_get_allowed_compositions_hash;
+
+  my $result_hash = {};
+
+  foreach my $containee_name ( keys %{ $hash } )
+    {
+      foreach my $container_name ( keys %{ $hash->{$containee_name} } )
+	{
+	  if ( $container_name eq $division_name )
+	    {
+	      $result_hash->{$containee_name} = 1;
+	    }
+	}
+    }
+
+  return [ sort keys %{ $result_hash } ];
 }
 
 ######################################################################

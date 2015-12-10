@@ -1,3 +1,1 @@
-[%- FOREACH element IN title.get_element_list -%]
-[%- INCLUDE part_list.tt self = element -%]
-[%- END -%]
+[%# title element %]
