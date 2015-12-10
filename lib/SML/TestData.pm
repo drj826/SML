@@ -48,13 +48,13 @@ has acronym_term_reference_test_case_list =>
 
 ######################################################################
 
-has assertion_test_case_list =>
+has triple_test_case_list =>
   (
    is      => 'ro',
    isa     => 'ArrayRef',
-   reader  => 'get_assertion_test_case_list',
+   reader  => 'get_triple_test_case_list',
    lazy    => 1,
-   builder => '_build_assertion_test_case_list',
+   builder => '_build_triple_test_case_list',
   );
 
 ######################################################################
@@ -597,14 +597,14 @@ sub _build_acronym_term_reference_test_case_list {
 
 ######################################################################
 
-sub _build_assertion_test_case_list {
+sub _build_triple_test_case_list {
 
   my $self = shift;
 
   return
     [
      {
-      name => 'assertion_1',
+      name => 'triple_1',
       args =>
       {
        id        => 'a1',
@@ -622,7 +622,7 @@ sub _build_assertion_test_case_list {
      },
 
      {
-      name => 'assertion_2',
+      name => 'triple_2',
       args =>
       {
        id        => 'a2',
@@ -4314,7 +4314,7 @@ sub _build_ontology_test_case_list {
        ],
        get_allowed_environment_list =>
        [
-	'ASSERTION',
+	'TRIPLE',
 	'ATTACHMENT',
 	'AUDIO',
 	'BARE_TABLE',
@@ -7427,7 +7427,7 @@ C<SML::TestData> - unit test cases and test data
 
   my $tcl = $td->get_acronym_list_test_case_list;
   my $tcl = $td->get_acronym_term_reference_test_case_list;
-  my $tcl = $td->get_assertion_test_case_list;
+  my $tcl = $td->get_triple_test_case_list;
   my $tcl = $td->get_block_test_case_list;
   my $tcl = $td->get_bullet_list_item_test_case_list;
   my $tcl = $td->get_cross_reference_test_case_list;
@@ -7466,7 +7466,7 @@ A class that contains and provides test cases and test data.
 
 =head2 get_acronym_term_reference_test_case_list
 
-=head2 get_assertion_test_case_list
+=head2 get_triple_test_case_list
 
 =head2 get_block_test_case_list
 

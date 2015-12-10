@@ -93,7 +93,7 @@ use SML::Baretable;                   # ci-000414
 use SML::Audio;                       # ci-000402
 use SML::Video;                       # ci-000403
 use SML::Entity;                      # ci-000416
-use SML::Assertion;                   # ci-000404
+use SML::Triple;                      # ci-000404
 use SML::Slide;                       # ci-000405
 use SML::Demo;                        # ci-000406
 use SML::Exercise;                    # ci-000407

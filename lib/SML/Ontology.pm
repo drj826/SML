@@ -314,7 +314,7 @@ sub allows_division {
 	or
 	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Library'
 	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Assertion'
+	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Triple'
 	or
 	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Attachment'
 	or

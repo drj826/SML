@@ -1746,7 +1746,7 @@ showing associated regular expressions defined by SML::Syntax:
    |    |    |    |
    |    |    |    +-- regex: end_table_row
    |    |
-   |    +-- SML::Assertion
+   |    +-- SML::Triple
    |    +-- SML::Attachment
    |    +-- SML::Audio
    |    +-- SML::Baretable

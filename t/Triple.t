@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: Assertion.t 259 2015-04-02 20:27:00Z drj826@gmail.com $
+# $Id: Triple.t 259 2015-04-02 20:27:00Z drj826@gmail.com $
 
 use lib "../lib";
 use Test::More tests => 9;
@@ -21,7 +21,7 @@ $logger_library->level('WARN');
 use SML::TestData;
 
 my $td      = SML::TestData->new;
-my $tcl     = $td->get_assertion_test_case_list;
+my $tcl     = $td->get_triple_test_case_list;
 my $library = $td->get_test_library_1;
 
 #---------------------------------------------------------------------
@@ -29,8 +29,8 @@ my $library = $td->get_test_library_1;
 #---------------------------------------------------------------------
 
 BEGIN {
-  use SML::Assertion;
-  use_ok( 'SML::Assertion' );
+  use SML::Triple;
+  use_ok( 'SML::Triple' );
 }
 
 #---------------------------------------------------------------------
@@ -45,9 +45,9 @@ $args->{predicate} = 'is';
 $args->{object}    = 'blue.';
 $args->{library}   = $library;
 
-my $obj = SML::Assertion->new(%{ $args });
+my $obj = SML::Triple->new(%{ $args });
 
-isa_ok( $obj, 'SML::Assertion' );
+isa_ok( $obj, 'SML::Triple' );
 
 #---------------------------------------------------------------------
 # Implements designed public methods?
@@ -55,12 +55,12 @@ isa_ok( $obj, 'SML::Assertion' );
 
 my @public_methods =
   (
-   # SML::Assertion attribute accessors
+   # SML::Triple attribute accessors
    'get_subject',
    'get_predicate',
    'get_object',
 
-   # SML::Assertion public methods
+   # SML::Triple public methods
 
    # SML::Environment attribute accessors (inherited)
 
@@ -133,10 +133,10 @@ sub get_subject_ok {
   my $tcname    = $tc->{name};
   my $expected  = $tc->{expected}{get_subject};
   my $args      = $tc->{args};
-  my $assertion = SML::Assertion->new(%{$args});
+  my $triple = SML::Triple->new(%{$args});
 
   # act
-  my $result = $assertion->get_subject;
+  my $result = $triple->get_subject;
 
   # assert
   is($result,$expected,"$tcname get_subject $result");
@@ -152,10 +152,10 @@ sub get_predicate_ok {
   my $tcname    = $tc->{name};
   my $expected  = $tc->{expected}{get_predicate};
   my $args      = $tc->{args};
-  my $assertion = SML::Assertion->new(%{$args});
+  my $triple = SML::Triple->new(%{$args});
 
   # act
-  my $result = $assertion->get_predicate;
+  my $result = $triple->get_predicate;
 
   # assert
   is($result,$expected,"$tcname get_predicate $result");
@@ -171,10 +171,10 @@ sub get_object_ok {
   my $tcname    = $tc->{name};
   my $expected  = $tc->{expected}{get_object};
   my $args      = $tc->{args};
-  my $assertion = SML::Assertion->new(%{$args});
+  my $triple = SML::Triple->new(%{$args});
 
   # act
-  my $result = $assertion->get_object;
+  my $result = $triple->get_object;
 
   # assert
   is($result,$expected,"$tcname get_object $result");

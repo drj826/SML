@@ -201,7 +201,7 @@ __END__
 
 =head1 NAME
 
-C<SML::OntologyRule> - a rule that makes an assertion about
+C<SML::OntologyRule> - a rule that asserts a triple about
 L<"SML::Entity">s and how they may relate to one another.
 
 =head1 VERSION

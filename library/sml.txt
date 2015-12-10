@@ -1735,7 +1735,7 @@ Elsewhere in this document, regions are called ``items.''
 
 - preformatted
 - epigraph
-- assertion
+- triple
 
 :
 
@@ -4110,7 +4110,7 @@ column::4:width: 35
 
 column::1:head: Structured Information
 
-column::2:head: Assertion
+column::2:head: Triple
 
 column::4:head: Examples
 
@@ -4584,7 +4584,7 @@ column::4:width: 30
 
 column::1:head: Structured Information
 
-column::2:head: Assertion
+column::2:head: Triple
 
 column::4:head: Examples
 
@@ -5094,7 +5094,7 @@ column::4:width: 30
 
 column::1:head: Structured Information
 
-column::2:head: Assertion
+column::2:head: Triple
 
 column::4:head: Examples
 

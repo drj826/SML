@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
-# $Id: Assertion.pm 194 2015-03-08 13:46:17Z drj826@gmail.com $
+# $Id: Triple.pm 194 2015-03-08 13:46:17Z drj826@gmail.com $
 
-package SML::Assertion;
+package SML::Triple;
 
 use Moose;
 
@@ -14,7 +14,7 @@ use namespace::autoclean;
 
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
-my $logger = Log::Log4perl::get_logger('sml.Assertion');
+my $logger = Log::Log4perl::get_logger('sml.Triple');
 
 ######################################################################
 ######################################################################
@@ -26,7 +26,7 @@ my $logger = Log::Log4perl::get_logger('sml.Assertion');
 
 has '+name' =>
   (
-   default => 'ASSERTION',
+   default => 'TRIPLE',
   );
 
 ######################################################################
@@ -72,7 +72,7 @@ __END__
 
 =head1 NAME
 
-C<SML::Assertion> - a logical assertion, consisting of (1) a subject,
+C<SML::Triple> - a logical triple, consisting of (1) a subject,
 (2) a predicate, and (3) an object.
 
 =head1 VERSION
@@ -83,30 +83,30 @@ C<SML::Assertion> - a logical assertion, consisting of (1) a subject,
 
   extends SML::Division
 
-  my $assertion = SML::Assertion->new();
+  my $triple = SML::Triple->new();
 
-  my $subject   = $assertion->get_subject;
-  my $predicate = $assertion->get_predicate;
-  my $object    = $assertion->get_object;
+  my $subject   = $triple->get_subject;
+  my $predicate = $triple->get_predicate;
+  my $object    = $triple->get_object;
 
 =head1 DESCRIPTION
 
-A L<"SML::Assertion"> is a L<"SML::Division"> that represents a
-logical assertion (subjetc, predicate, object triple).
+A L<"SML::Triple"> is a L<"SML::Division"> that represents a
+logical triple (subjetc, predicate, object triple).
 
 =head1 METHODS
 
 =head2 get_subject
 
-Get the subject of the assertion.
+Get the subject of the triple.
 
 =head2 get_predicate
 
-Get the predicate of the assertion.
+Get the predicate of the triple.
 
 =head2 get_object
 
-Get the object of the assertion.
+Get the object of the triple.
 
 =head1 AUTHOR
 

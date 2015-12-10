@@ -5,7 +5,6 @@ use Test::Harness;
 my @unit_tests =
   (
    'AcronymList.t',
-   'Assertion.t',
    'Attachment.t',
    'Audio.t',
    'Baretable.t',
@@ -62,6 +61,7 @@ my @unit_tests =
    'Table.t',
    'TableCell.t',
    'TableRow.t',
+   'Triple.t',
    'Util.t',
    'Video.t',
   );
