@@ -135,7 +135,7 @@ sub parse {
   my $self = shift;                     # Parser
   my $id   = shift;                     # ID of division to parse
 
-  if ( not $id )
+  unless ( $id )
     {
       $logger->logcluck("YOU MUST SPECIFY AN ID");
       return 0;
@@ -149,7 +149,7 @@ sub parse {
 
   my $line_list = $self->_get_line_list_for_id($id);
 
-  if ( not scalar @{ $line_list } )
+  unless ( scalar @{ $line_list } )
     {
       $logger->error("DIVISION HAS NO LINE LIST \'$id\'");
       return 0;
@@ -184,7 +184,7 @@ sub parse {
 
   my $division = $self->_get_division;
 
-  if ( not $division )
+  unless ( $division )
     {
       # this should never happen
       $logger->logdie("PARSER FOUND NO DIVISION \'$id\'");
@@ -683,8 +683,8 @@ sub _init {
   $self->_set_requires_processing(0);
   $self->_clear_section_counter_hash;
   $self->_set_section_counter_hash({});
-  $self->_clear_division_counter_hash;
-  $self->_set_division_counter_hash({});
+  # $self->_clear_division_counter_hash;
+  # $self->_set_division_counter_hash({});
   $self->_clear_is_valid;
 
   return 1;
@@ -2356,7 +2356,7 @@ sub _parse_lines {
   $self->_set_index_hash({});
   $self->_set_template_hash({});
   $self->_set_section_counter_hash({});
-  $self->_set_division_counter_hash({});
+  # $self->_set_division_counter_hash({});
   $self->_set_count_total_hash({});
 
   $self->_clear_block;
@@ -3367,7 +3367,11 @@ sub _resolve_lookups {
 	  if ( $library->has_property($id,$name) )
 	    {
 	      $logger->trace("{$number} ..... $id $name is in library");
-	      my $value = $library->get_property_value($id,$name);
+
+	      my $list = $library->get_property_value_list($id,$name);
+
+	      # use the first value, ignore the rest
+	      my $value = $list->[0];
 
 	      $text =~ s/$syntax->{lookup_ref}/$value/;
 	    }
@@ -3955,74 +3959,74 @@ sub _end_element {
   my $self    = shift;
   my $element = shift;
 
-  my $name = $element->get_name;
+  my $element_name = $element->get_name;
 
-  if ( $name eq 'var' )
+  if ( $element_name eq 'var' )
     {
       $self->_process_end_variable_definition($element);
     }
 
-  elsif ( $name eq 'attr' )
+  elsif ( $element_name eq 'attr' )
     {
       $self->_process_end_attr_definition($element);
     }
 
-  elsif ( $name eq 'footnote' )
+  elsif ( $element_name eq 'footnote' )
     {
       $self->_process_end_footnote_element($element);
     }
 
-  elsif ( $name eq 'step' )
+  elsif ( $element_name eq 'step' )
     {
       $self->_process_end_step_element($element);
     }
 
-  elsif ( $name eq 'glossary' )
+  elsif ( $element_name eq 'glossary' )
     {
       $self->_process_end_glossary_entry($element);
     }
 
-  elsif ( $name eq 'acronym' )
+  elsif ( $element_name eq 'acronym' )
     {
       $self->_process_end_acronym_entry($element);
     }
 
-  elsif ( $name eq 'outcome' )
+  elsif ( $element_name eq 'outcome' )
     {
       $self->_process_end_outcome($element);
     }
 
-  elsif ( $name eq 'review' )
+  elsif ( $element_name eq 'review' )
     {
       $self->_process_end_review($element);
     }
 
-  elsif ( $name eq 'image' )
+  elsif ( $element_name eq 'image' )
     {
       $self->_process_end_element($element);
     }
 
-  elsif ( $name eq 'index' )
+  elsif ( $element_name eq 'index' )
     {
       $self->_process_end_index_element($element);
     }
 
-  elsif ( $name eq 'author' )
+  elsif ( $element_name eq 'author' )
     {
       $self->_process_end_author_element($element);
     }
 
-  elsif ( $name eq 'date' )
+  elsif ( $element_name eq 'date' )
     {
       $self->_process_end_date_element($element);
     }
 
-  elsif ( $name eq 'revision' )
+  elsif ( $element_name eq 'revision' )
     {
       $self->_process_end_revision_element($element);
     }
 
-  elsif ( $name eq 'use_formal_status' )
+  elsif ( $element_name eq 'use_formal_status' )
     {
       $self->_end_use_formal_status_element($element);
     }
@@ -4032,26 +4036,77 @@ sub _end_element {
       $self->_process_end_element($element);
     }
 
-  my $value   = $element->get_value;
-  my $library = $self->get_library;
+  my $element_value = $element->get_value;
+  my $library       = $self->get_library;
+  my $ontology      = $library->get_ontology;
+  my $reasoner      = $library->get_reasoner;
 
-  if
-    (
-     $name ne 'index'
-     and
-     $name ne 'outcome'
-     and
-     $name ne 'review'
-     and
-     $library->has_division_id($value)
-    )
+  if ( not $ontology->property_is_universal($element_name) )
     {
-      $library->get_division($value);
+
+      my $division    = $element->get_containing_division;
+      my $division_id = $division->get_id;
+
+      $library->add_property_value
+	(
+	 $division_id,
+	 $element_name,
+	 $element_value,
+	 $element,
+	);
+
+      if ( $library->has_division_id($element_value) )
+	{
+	  # parse the referenced division into memory
+	  $library->get_division($element_value);
+
+	  my $subject   = $division->get_id;  # rq-002
+	  my $predicate = $element->get_name; # is_part_of
+	  my $object    = $element_value;     # rq-001
+
+	  if ( $ontology->allows_triple($subject,$predicate,$object) )
+	    {
+	      unless ( $library->has_triple($subject,$predicate,$object) )
+		{
+		  my $triple = SML::Triple->new
+		    (
+		     subject   => $subject,
+		     predicate => $predicate,
+		     object    => $object,
+		     library   => $library,
+		     origin    => $element,
+		    );
+
+		  $library->add_triple($triple);
+
+		  my $inverse_triple = $reasoner->infer_inverse_triple($triple);
+
+		  if ( $inverse_triple )
+		    {
+		      my $subject          = $inverse_triple->get_subject;
+		      my $predicate        = $inverse_triple->get_predicate;
+		      my $object           = $inverse_triple->get_object;
+		      my $subject_division = $library->get_division($subject);
+
+		      $library->add_property_value
+			(
+			 $subject,
+			 $predicate,
+			 $object,
+			 $element,
+			);
+
+		      $library->add_triple($inverse_triple);
+		    }
+		}
+	    }
+
+	  else
+	    {
+	      $logger->error("ONTOLOGY DOESN'T ALLOW TRIPLE $subject $predicate $object");
+	    }
+	}
     }
-
-  my $reasoner = $library->get_reasoner;
-
-  $reasoner->infer_inverse_property($element);
 
   return 1;
 }
@@ -4529,934 +4584,934 @@ sub _already_in_array {
 
 ######################################################################
 
-sub _traceability_matrix {
-
-  my $self = shift;
-  my $name = shift;                     # problem, solution, test...
-
-  my $library = $self->get_library;
-  my $util    = $library->get_util;
-  my $text    = q{};
-
-  # Generate and return the structured manuscript language (SML) text
-  # for a complete domain traceability matrix.  Domains include: (1)
-  # problem, (2) solution, (3) task, (4) test, (5) result, and (6)
-  # role.
-  #
-  # Items are listed in sets.  Each set consists of a "is_part_of" item
-  # and its immediate children. Each set is rendered as a table.  The
-  # first set consists of the top level problems, followed by the
-  # immediate children of the top level problems, followed by their
-  # children, and so on.
-  #
-  # Each table has five columns: (1) item title and description, (2)
-  # number of parts (i.e. children), (3) item priority, (4) item
-  # status, and (5) traceability.
-
-  $text .= <<"END_OF_TEXT";
-:grey: !!Top Level!!
-
-:grey:
-
-:grey:
-
-:grey:
-
-:grey:
-
----
-
-:grey: ~~$name~~
-
-:grey: ~~parts~~
-
-:grey: ~~priority~~
-
-:grey: ~~status~~
-
-:grey: ~~traceability~~
-
----
-
-END_OF_TEXT
-
-  #-------------------------------------------------------------------
-  # Make a queue of items to be added to the item domain listing and
-  # add all of the toplevel items.  A toplevel item is simply any item
-  # that doesn't have a "is_part_of".
-  #
-  my @queue         = ();
-  my @toplevelitems = ();
-
-  foreach my $division (@{ $self->_list_by_name($name) }) {
-    if ( not $division->has_property('is_part_of')) {
-      push @toplevelitems, $division;
-    }
-  }
-
-  #-------------------------------------------------------------------
-  # Add each toplevel item to the domain traceability matrix.
-  #
-  foreach my $division (@toplevelitems) {
-
-    my $id = $division->get_id;
-
-    #---------------------------------------------------------------
-    # If this division has children, add it to the list of divisions
-    # in the queue
-    #
-    if ( $division->has_property('has_part') )
-      {
-	push @queue, $division;
-      }
-
-    else
-      {
-	my $name = $division->get_name;
-	my $id   = $division->get_id;
-	$logger->warn("NO \'has_part\' PROPERTY ($name $id)");
-      }
-
-    #---------------------------------------------------------------
-    # Look up values that need to go into the domain traceability
-    # matrix for this division.
-    #
-    my $title        = q{};
-    my $description  = q{};
-    my $type         = q{};
-    my $priority     = 'routine';
-    my $status       = 'grey';
-    my $stakeholders = [];
-    my $requests     = [];
-    my $childcount   = 0;
-
-    if ( $division->has_property('title') )
-      {
-	$title = $division->get_property_value('title');
-      }
-
-    if ( $division->has_property('description') )
-      {
-	$description = $division->get_property_value('description');
-      }
-
-    if ( $division->has_property('type') )
-      {
-	$type = $division->get_property_value('type');
-      }
-
-    if ( $division->has_property('priority') )
-      {
-	$priority = $division->get_property_value('priority');
-      }
-
-    if ( $division->has_property('stakeholder') )
-      {
-	$stakeholders = $division->get_property_value('stakeholder');
-      }
-
-    if ( $division->has_property('request') )
-      {
-	$requests = $division->get_property_value('request');
-      }
-
-    if ( $division->has_property('has_part') )
-      {
-	my $property = $division->get_property('has_part');
-	$childcount = $property->get_element_count;
-      }
-
-    #-----------------------------------------------------------------
-    # info
-    #
-    my @info = ();
-    push @info, $type            if $type;
-    push @info, $id              if $id;
-    push @info, $stakeholders    if $stakeholders;
-    push @info, $requests        if $requests;
-    push @info, "[ref:$id]"      if $id;
-    my $info = join(', ', @info);
-
-    #-----------------------------------------------------------------
-    # status color
-    #
-    my $status_color = 'white';
-    $status_color = 'red'    if $status eq 'red';
-    $status_color = 'yellow' if $status eq 'yellow';
-    $status_color = 'green'  if $status eq 'green';
-    $status_color = 'grey'   if $status eq 'grey';
-    $status_color = 'grey'   if $status eq 'gray';
-
-    #-----------------------------------------------------------------
-    # priority color
-    #
-    my $priority_color = 'white';
-    $priority_color = 'red'    if $priority eq 'critical';
-    $priority_color = 'orange' if $priority eq 'high';
-    $priority_color = 'yellow' if $priority eq 'routine';
-    $priority_color = 'grey'   if $priority eq 'low';
-
-    #-----------------------------------------------------------------
-    # title, description, and other info
-    #
-    my $title_description_info = $util->wrap("!!$title:!! $description ~~$info~~");
-
-    #---------------------------------------------------------------
-    # Put this toplevel item into the domain traceability matrix.
-    #
-    $text .= <<"END_OF_TEXT";
-: $title_description_info
-
-: $childcount
-
-:$priority_color: $priority
-
-:$status_color: $status
-
-:
-
-END_OF_TEXT
-
-    if ( $division->has_property('directed_by') )
-      {
-	my $property = $division->get_property('directed_by');
-	$text .= $property->get_elements_as_enum_list;
-      }
-
-    if ( $division->has_property('problem') )
-      {
-	my $property = $division->get_property('problem');
-	$text .= $property->get_elements_as_enum_list;
-      }
-
-    if ( $division->has_property('solution') )
-      {
-	my $property = $division->get_property('solution');
-	$text .= $property->get_elements_as_enum_list;
-      }
-
-    if ( $division->has_property('task') )
-      {
-	my $property = $division->get_property('task');
-	$text .= $property->get_elements_as_enum_list;
-      }
-
-    if ( $division->has_property('test') )
-      {
-	my $property = $division->get_property('test');
-	$text .= $property->get_elements_as_enum_list;
-      }
-
-    if ( $division->has_property('result') )
-      {
-	my $property = $division->get_property('result');
-	$text .= $property->get_elements_as_enum_list;
-      }
-
-    if ( $division->has_property('role') )
-      {
-	my $property = $division->get_property('role');
-	$text .= $property->get_elements_as_enum_list;
-      }
-
-    $text .= <<"END_OF_TEXT";
----
-
-END_OF_TEXT
-
-  }
-
-  #-----------------------------------------------------------------
-  # Now process each item on the queue, adding new items to the back
-  # of the queue as you find ones that have children.
-  #
-  foreach my $division (@queue) {
-
-    my $id = $division->get_id;
-
-    #---------------------------------------------------------------
-    # title, is_part_of, children
-    #
-    my $title    = q{};
-    my $is_part_of  = q{};
-    my $children = [];
-
-    if ( $division->has_property('title') )
-      {
-	$title = $division->get_property_value('title');
-      }
-
-    if ( $division->has_property('is_part_of') )
-      {
-	$is_part_of = $division->get_property('is_part_of');
-      }
-
-    if ( $division->has_property('has_part') )
-      {
-	$children = $division->get_property('has_part');
-      }
-
-    $title = $util->wrap("$title");
-
-    #---------------------------------------------------------------
-    # Insert the header row for this item.
-    #
-    $text .= <<"END_OF_TEXT";
-:grey: !!$title!!
-
-:grey:
-
-:grey:
-
-:grey:
-
-:grey:
-
----
-
-:grey: ~~$name~~
-
-:grey: ~~parts~~
-
-:grey: ~~priority~~
-
-:grey: ~~status~~
-
-:grey: ~~traceability~~
-
----
-
-END_OF_TEXT
-
-    #---------------------------------------------------------------
-    # Insert the children of this division.
-    #
-    foreach my $element (@{ $children->get_element_list }) {
-
-      my $child_id = $element->get_value;
-      my $child    = undef;
-
-      if ( $library->has_division($child_id) )
-	{
-	  $child = $library->get_division($child_id);
-	}
-
-      next if not $child;
-
-      #-------------------------------------------------------------
-      # If this child has children, add them to the queue.
-      #
-      if ( $child->has_property('has_part') )
-	{
-	  push @queue, $child;
-	}
-
-      #-------------------------------------------------------------
-      # Look up the values that need to go into the traceability
-      # matrix for this child
-      #
-      my $title        = q{};
-      my $description  = q{};
-      my $type         = q{};
-      my $priority     = 'routine';
-      my $status       = 'grey';
-      my $stakeholders = [];
-      my $requests     = [];
-      my $childcount   = 0;
-
-      if ( $library->has_property($child_id,'title') )
-	{
-	  $title = $library->get_property_value($child_id,'title');
-	}
-
-      if ( $library->has_property($child_id,'description') )
-	{
-	  $description = $library->get_property_value($child_id,'description');
-	}
-
-      if ( $library->has_property($child_id,'type') )
-	{
-	  $type = $library->get_property_value($child_id,'type');
-	}
-
-      if ( $library->has_property($child_id,'priority') )
-	{
-	  $priority = $library->get_property_value($child_id,'priority');
-	}
-
-      if ( $library->has_property($child_id,'stakeholder') )
-	{
-	  $stakeholders = $library->get_property_value($child_id,'stakeholder');
-	}
-
-      if ( $library->has_property($child_id,'request') )
-	{
-	  $requests = $library->get_property_value($child_id,'request');
-	}
-
-      if ( $child->has_property('has_part') )
-	{
-	  my $child_child = $child->get_property('has_part');
-	  $childcount = $child_child->get_element_count;
-	}
-
-      #---------------------------------------------------------------
-      # info
-      #
-      my @info = ();
-      push @info, $type             if $type;
-      push @info, $child_id         if $child_id;
-      push @info, $stakeholders     if $stakeholders;
-      push @info, $requests         if $requests;
-      push @info, "[ref:$child_id]" if $child_id;
-      my $info = join(', ', @info);
-
-      #---------------------------------------------------------------
-      # status color
-      #
-      my $status_color = 'white';
-      $status_color = 'red'    if $status eq 'red';
-      $status_color = 'yellow' if $status eq 'yellow';
-      $status_color = 'green'  if $status eq 'green';
-      $status_color = 'grey'   if $status eq 'grey';
-      $status_color = 'grey'   if $status eq 'gray';
-
-      #---------------------------------------------------------------
-      # priority color
-      #
-      my $priority_color = 'white';
-      $priority_color = 'red'    if $priority eq 'critical';
-      $priority_color = 'orange' if $priority eq 'high';
-      $priority_color = 'yellow' if $priority eq 'routine';
-      $priority_color = 'grey'   if $priority eq 'low';
-
-      my $title_description_info = $util->wrap("!!$title:!! $description ~~$info~~");
-
-      #-------------------------------------------------------------
-      # Add this item to the traceability matrix.
-      #
-      $text .= <<"END_OF_TEXT";
-: $title_description_info
-
-: $childcount
-
-:$priority_color: $priority
-
-:$status_color: $status
-
-:
-
-END_OF_TEXT
-
-      if ( $division->has_property('directed_by') )
-	{
-	  my $property = $division->get_property('directed_by');
-	  $text .= $property->get_elements_as_enum_list;
-	}
-
-      if ( $division->has_property('problem') )
-	{
-	  my $property = $division->get_property('problem');
-	  $text .= $property->get_elements_as_enum_list;
-	}
-
-      if ( $division->has_property('solution') )
-	{
-	  my $property = $division->get_property('solution');
-	  $text .= $property->get_elements_as_enum_list;
-	}
-
-      if ( $division->has_property('task') )
-	{
-	  my $property = $division->get_property('task');
-	  $text .= $property->get_elements_as_enum_list;
-	}
-
-      if ( $division->has_property('test') )
-	{
-	  my $property = $division->get_property('test');
-	  $text .= $property->get_elements_as_enum_list;
-	}
-
-      if ( $division->has_property('result') )
-	{
-	  my $property = $division->get_property('result');
-	  $text .= $property->get_elements_as_enum_list;
-	}
-
-      if ( $division->has_property('role') )
-	{
-	  my $property = $division->get_property('role');
-	  $text .= $property->get_elements_as_enum_list;
-	}
-
-      $text .= <<"END_OF_TEXT";
----
-
-END_OF_TEXT
-
-    }
-
-  }
-
-  return $text;
-}
+# sub _traceability_matrix {
+
+#   my $self = shift;
+#   my $name = shift;                     # problem, solution, test...
+
+#   my $library = $self->get_library;
+#   my $util    = $library->get_util;
+#   my $text    = q{};
+
+#   # Generate and return the structured manuscript language (SML) text
+#   # for a complete domain traceability matrix.  Domains include: (1)
+#   # problem, (2) solution, (3) task, (4) test, (5) result, and (6)
+#   # role.
+#   #
+#   # Items are listed in sets.  Each set consists of a "is_part_of" item
+#   # and its immediate children. Each set is rendered as a table.  The
+#   # first set consists of the top level problems, followed by the
+#   # immediate children of the top level problems, followed by their
+#   # children, and so on.
+#   #
+#   # Each table has five columns: (1) item title and description, (2)
+#   # number of parts (i.e. children), (3) item priority, (4) item
+#   # status, and (5) traceability.
+
+#   $text .= <<"END_OF_TEXT";
+# :grey: !!Top Level!!
+
+# :grey:
+
+# :grey:
+
+# :grey:
+
+# :grey:
+
+# ---
+
+# :grey: ~~$name~~
+
+# :grey: ~~parts~~
+
+# :grey: ~~priority~~
+
+# :grey: ~~status~~
+
+# :grey: ~~traceability~~
+
+# ---
+
+# END_OF_TEXT
+
+#   #-------------------------------------------------------------------
+#   # Make a queue of items to be added to the item domain listing and
+#   # add all of the toplevel items.  A toplevel item is simply any item
+#   # that doesn't have a "is_part_of".
+#   #
+#   my @queue         = ();
+#   my @toplevelitems = ();
+
+#   foreach my $division (@{ $self->_list_by_name($name) }) {
+#     if ( not $division->has_property('is_part_of')) {
+#       push @toplevelitems, $division;
+#     }
+#   }
+
+#   #-------------------------------------------------------------------
+#   # Add each toplevel item to the domain traceability matrix.
+#   #
+#   foreach my $division (@toplevelitems) {
+
+#     my $id = $division->get_id;
+
+#     #---------------------------------------------------------------
+#     # If this division has children, add it to the list of divisions
+#     # in the queue
+#     #
+#     if ( $division->has_property('has_part') )
+#       {
+# 	push @queue, $division;
+#       }
+
+#     else
+#       {
+# 	my $name = $division->get_name;
+# 	my $id   = $division->get_id;
+# 	$logger->warn("NO \'has_part\' PROPERTY ($name $id)");
+#       }
+
+#     #---------------------------------------------------------------
+#     # Look up values that need to go into the domain traceability
+#     # matrix for this division.
+#     #
+#     my $title        = q{};
+#     my $description  = q{};
+#     my $type         = q{};
+#     my $priority     = 'routine';
+#     my $status       = 'grey';
+#     my $stakeholders = [];
+#     my $requests     = [];
+#     my $childcount   = 0;
+
+#     if ( $division->has_property('title') )
+#       {
+# 	$title = $division->get_property_value('title');
+#       }
+
+#     if ( $division->has_property('description') )
+#       {
+# 	$description = $division->get_property_value('description');
+#       }
+
+#     if ( $division->has_property('type') )
+#       {
+# 	$type = $division->get_property_value('type');
+#       }
+
+#     if ( $division->has_property('priority') )
+#       {
+# 	$priority = $division->get_property_value('priority');
+#       }
+
+#     if ( $division->has_property('stakeholder') )
+#       {
+# 	$stakeholders = $division->get_property_value('stakeholder');
+#       }
+
+#     if ( $division->has_property('request') )
+#       {
+# 	$requests = $division->get_property_value('request');
+#       }
+
+#     if ( $division->has_property('has_part') )
+#       {
+# 	my $property = $division->get_property('has_part');
+# 	$childcount = $property->get_element_count;
+#       }
+
+#     #-----------------------------------------------------------------
+#     # info
+#     #
+#     my @info = ();
+#     push @info, $type            if $type;
+#     push @info, $id              if $id;
+#     push @info, $stakeholders    if $stakeholders;
+#     push @info, $requests        if $requests;
+#     push @info, "[ref:$id]"      if $id;
+#     my $info = join(', ', @info);
+
+#     #-----------------------------------------------------------------
+#     # status color
+#     #
+#     my $status_color = 'white';
+#     $status_color = 'red'    if $status eq 'red';
+#     $status_color = 'yellow' if $status eq 'yellow';
+#     $status_color = 'green'  if $status eq 'green';
+#     $status_color = 'grey'   if $status eq 'grey';
+#     $status_color = 'grey'   if $status eq 'gray';
+
+#     #-----------------------------------------------------------------
+#     # priority color
+#     #
+#     my $priority_color = 'white';
+#     $priority_color = 'red'    if $priority eq 'critical';
+#     $priority_color = 'orange' if $priority eq 'high';
+#     $priority_color = 'yellow' if $priority eq 'routine';
+#     $priority_color = 'grey'   if $priority eq 'low';
+
+#     #-----------------------------------------------------------------
+#     # title, description, and other info
+#     #
+#     my $title_description_info = $util->wrap("!!$title:!! $description ~~$info~~");
+
+#     #---------------------------------------------------------------
+#     # Put this toplevel item into the domain traceability matrix.
+#     #
+#     $text .= <<"END_OF_TEXT";
+# : $title_description_info
+
+# : $childcount
+
+# :$priority_color: $priority
+
+# :$status_color: $status
+
+# :
+
+# END_OF_TEXT
+
+#     if ( $division->has_property('directed_by') )
+#       {
+# 	my $property = $division->get_property('directed_by');
+# 	$text .= $property->get_elements_as_enum_list;
+#       }
+
+#     if ( $division->has_property('problem') )
+#       {
+# 	my $property = $division->get_property('problem');
+# 	$text .= $property->get_elements_as_enum_list;
+#       }
+
+#     if ( $division->has_property('solution') )
+#       {
+# 	my $property = $division->get_property('solution');
+# 	$text .= $property->get_elements_as_enum_list;
+#       }
+
+#     if ( $division->has_property('task') )
+#       {
+# 	my $property = $division->get_property('task');
+# 	$text .= $property->get_elements_as_enum_list;
+#       }
+
+#     if ( $division->has_property('test') )
+#       {
+# 	my $property = $division->get_property('test');
+# 	$text .= $property->get_elements_as_enum_list;
+#       }
+
+#     if ( $division->has_property('result') )
+#       {
+# 	my $property = $division->get_property('result');
+# 	$text .= $property->get_elements_as_enum_list;
+#       }
+
+#     if ( $division->has_property('role') )
+#       {
+# 	my $property = $division->get_property('role');
+# 	$text .= $property->get_elements_as_enum_list;
+#       }
+
+#     $text .= <<"END_OF_TEXT";
+# ---
+
+# END_OF_TEXT
+
+#   }
+
+#   #-----------------------------------------------------------------
+#   # Now process each item on the queue, adding new items to the back
+#   # of the queue as you find ones that have children.
+#   #
+#   foreach my $division (@queue) {
+
+#     my $id = $division->get_id;
+
+#     #---------------------------------------------------------------
+#     # title, is_part_of, children
+#     #
+#     my $title    = q{};
+#     my $is_part_of  = q{};
+#     my $children = [];
+
+#     if ( $division->has_property('title') )
+#       {
+# 	$title = $division->get_property_value('title');
+#       }
+
+#     if ( $division->has_property('is_part_of') )
+#       {
+# 	$is_part_of = $division->get_property('is_part_of');
+#       }
+
+#     if ( $division->has_property('has_part') )
+#       {
+# 	$children = $division->get_property('has_part');
+#       }
+
+#     $title = $util->wrap("$title");
+
+#     #---------------------------------------------------------------
+#     # Insert the header row for this item.
+#     #
+#     $text .= <<"END_OF_TEXT";
+# :grey: !!$title!!
+
+# :grey:
+
+# :grey:
+
+# :grey:
+
+# :grey:
+
+# ---
+
+# :grey: ~~$name~~
+
+# :grey: ~~parts~~
+
+# :grey: ~~priority~~
+
+# :grey: ~~status~~
+
+# :grey: ~~traceability~~
+
+# ---
+
+# END_OF_TEXT
+
+#     #---------------------------------------------------------------
+#     # Insert the children of this division.
+#     #
+#     foreach my $element (@{ $children->get_element_list }) {
+
+#       my $child_id = $element->get_value;
+#       my $child    = undef;
+
+#       if ( $library->has_division($child_id) )
+# 	{
+# 	  $child = $library->get_division($child_id);
+# 	}
+
+#       next if not $child;
+
+#       #-------------------------------------------------------------
+#       # If this child has children, add them to the queue.
+#       #
+#       if ( $child->has_property('has_part') )
+# 	{
+# 	  push @queue, $child;
+# 	}
+
+#       #-------------------------------------------------------------
+#       # Look up the values that need to go into the traceability
+#       # matrix for this child
+#       #
+#       my $title        = q{};
+#       my $description  = q{};
+#       my $type         = q{};
+#       my $priority     = 'routine';
+#       my $status       = 'grey';
+#       my $stakeholders = [];
+#       my $requests     = [];
+#       my $childcount   = 0;
+
+#       if ( $library->has_property($child_id,'title') )
+# 	{
+# 	  $title = $library->get_property_value($child_id,'title');
+# 	}
+
+#       if ( $library->has_property($child_id,'description') )
+# 	{
+# 	  $description = $library->get_property_value($child_id,'description');
+# 	}
+
+#       if ( $library->has_property($child_id,'type') )
+# 	{
+# 	  $type = $library->get_property_value($child_id,'type');
+# 	}
+
+#       if ( $library->has_property($child_id,'priority') )
+# 	{
+# 	  $priority = $library->get_property_value($child_id,'priority');
+# 	}
+
+#       if ( $library->has_property($child_id,'stakeholder') )
+# 	{
+# 	  $stakeholders = $library->get_property_value($child_id,'stakeholder');
+# 	}
+
+#       if ( $library->has_property($child_id,'request') )
+# 	{
+# 	  $requests = $library->get_property_value($child_id,'request');
+# 	}
+
+#       if ( $child->has_property('has_part') )
+# 	{
+# 	  my $child_child = $child->get_property('has_part');
+# 	  $childcount = $child_child->get_element_count;
+# 	}
+
+#       #---------------------------------------------------------------
+#       # info
+#       #
+#       my @info = ();
+#       push @info, $type             if $type;
+#       push @info, $child_id         if $child_id;
+#       push @info, $stakeholders     if $stakeholders;
+#       push @info, $requests         if $requests;
+#       push @info, "[ref:$child_id]" if $child_id;
+#       my $info = join(', ', @info);
+
+#       #---------------------------------------------------------------
+#       # status color
+#       #
+#       my $status_color = 'white';
+#       $status_color = 'red'    if $status eq 'red';
+#       $status_color = 'yellow' if $status eq 'yellow';
+#       $status_color = 'green'  if $status eq 'green';
+#       $status_color = 'grey'   if $status eq 'grey';
+#       $status_color = 'grey'   if $status eq 'gray';
+
+#       #---------------------------------------------------------------
+#       # priority color
+#       #
+#       my $priority_color = 'white';
+#       $priority_color = 'red'    if $priority eq 'critical';
+#       $priority_color = 'orange' if $priority eq 'high';
+#       $priority_color = 'yellow' if $priority eq 'routine';
+#       $priority_color = 'grey'   if $priority eq 'low';
+
+#       my $title_description_info = $util->wrap("!!$title:!! $description ~~$info~~");
+
+#       #-------------------------------------------------------------
+#       # Add this item to the traceability matrix.
+#       #
+#       $text .= <<"END_OF_TEXT";
+# : $title_description_info
+
+# : $childcount
+
+# :$priority_color: $priority
+
+# :$status_color: $status
+
+# :
+
+# END_OF_TEXT
+
+#       if ( $division->has_property('directed_by') )
+# 	{
+# 	  my $property = $division->get_property('directed_by');
+# 	  $text .= $property->get_elements_as_enum_list;
+# 	}
+
+#       if ( $division->has_property('problem') )
+# 	{
+# 	  my $property = $division->get_property('problem');
+# 	  $text .= $property->get_elements_as_enum_list;
+# 	}
+
+#       if ( $division->has_property('solution') )
+# 	{
+# 	  my $property = $division->get_property('solution');
+# 	  $text .= $property->get_elements_as_enum_list;
+# 	}
+
+#       if ( $division->has_property('task') )
+# 	{
+# 	  my $property = $division->get_property('task');
+# 	  $text .= $property->get_elements_as_enum_list;
+# 	}
+
+#       if ( $division->has_property('test') )
+# 	{
+# 	  my $property = $division->get_property('test');
+# 	  $text .= $property->get_elements_as_enum_list;
+# 	}
+
+#       if ( $division->has_property('result') )
+# 	{
+# 	  my $property = $division->get_property('result');
+# 	  $text .= $property->get_elements_as_enum_list;
+# 	}
+
+#       if ( $division->has_property('role') )
+# 	{
+# 	  my $property = $division->get_property('role');
+# 	  $text .= $property->get_elements_as_enum_list;
+# 	}
+
+#       $text .= <<"END_OF_TEXT";
+# ---
+
+# END_OF_TEXT
+
+#     }
+
+#   }
+
+#   return $text;
+# }
 
 ######################################################################
 
-sub _generate_prioritized_problem_listing {
+# sub _generate_prioritized_problem_listing {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $library     = $self->get_library;
-  my $util        = $library->get_util;
-  my $lookup      = $library->get_lookup_hash;
-  my $count_total = $self->_get_count_total_hash;
+#   my $library     = $self->get_library;
+#   my $util        = $library->get_util;
+#   my $lookup      = $library->get_lookup_hash;
+#   my $count_total = $self->_get_count_total_hash;
 
-  $logger->trace;
+#   $logger->trace;
 
-  #-------------------------------------------------------------------
-  #
-  #    Generate and return the structured text for a prioritized
-  #    listing (table) of problems.
-  #
-  #    This subroutine gets called during pass 2 runs, meaning that
-  #    the lookup data structure has not yet been created.  DO NOT try
-  #    to use the lookup data structure to generate requested
-  #    content. You'll have to rely on the 'data' data structure.
-  #
-  #    This subroutine generates structured text.
-  #
-  #-------------------------------------------------------------------
+#   #-------------------------------------------------------------------
+#   #
+#   #    Generate and return the structured text for a prioritized
+#   #    listing (table) of problems.
+#   #
+#   #    This subroutine gets called during pass 2 runs, meaning that
+#   #    the lookup data structure has not yet been created.  DO NOT try
+#   #    to use the lookup data structure to generate requested
+#   #    content. You'll have to rely on the 'data' data structure.
+#   #
+#   #    This subroutine generates structured text.
+#   #
+#   #-------------------------------------------------------------------
 
-  printstatus("generating prioritized problem listing...");
+#   printstatus("generating prioritized problem listing...");
 
-  my $text = '';
+#   my $text = '';
 
-  #-------------------------------------------------------------------
-  # Assign ranking number to each problem in the problem domain.
-  #
-  my %problems  = ();
-  foreach my $problem (@{ $self->_list_by_name('problem') }) {
-    my $priority = $lookup->{$problem}{'priority'};
-    my $status   = 'grey';
+#   #-------------------------------------------------------------------
+#   # Assign ranking number to each problem in the problem domain.
+#   #
+#   my %problems  = ();
+#   foreach my $problem (@{ $self->_list_by_name('problem') }) {
+#     my $priority = $lookup->{$problem}{'priority'};
+#     my $status   = 'grey';
 
-    if ( id_exists($problem) )
-      {
-	$status = status_of($problem);
-      }
+#     if ( id_exists($problem) )
+#       {
+# 	$status = status_of($problem);
+#       }
 
-    my $rank     = rank_for($priority,$status);
-    push @{$problems{$rank}}, $problem;
-    ++ $count_total->{'priority'}{'total'} if $rank >= 1 and $rank <= 8;
-  }
+#     my $rank     = rank_for($priority,$status);
+#     push @{$problems{$rank}}, $problem;
+#     ++ $count_total->{'priority'}{'total'} if $rank >= 1 and $rank <= 8;
+#   }
 
-  #-----------------------------------------------------------------
-  # Begin the problem priorities table
-  #
-  $text .= <<"END_OF_TEXT";
-:grey: !!Prioritized List of Problems To Be Solved!!
+#   #-----------------------------------------------------------------
+#   # Begin the problem priorities table
+#   #
+#   $text .= <<"END_OF_TEXT";
+# :grey: !!Prioritized List of Problems To Be Solved!!
 
-:grey:
+# :grey:
 
-:grey:
+# :grey:
 
-:grey:
+# :grey:
 
-:grey:
+# :grey:
 
----
+# ---
 
-:grey: ~~problem~~
+# :grey: ~~problem~~
 
-:grey: ~~rank~~
+# :grey: ~~rank~~
 
-:grey: ~~importance~~
+# :grey: ~~importance~~
 
-:grey: ~~priority~~
+# :grey: ~~priority~~
 
-:grey: ~~status~~
+# :grey: ~~status~~
 
----
+# ---
 
-END_OF_TEXT
+# END_OF_TEXT
 
-  #-----------------------------------------------------------------
-  # Output a row for each problem priority
-  #
-  foreach my $rank (1..8) {
-    foreach my $problem (@{$problems{$rank}}) {
+#   #-----------------------------------------------------------------
+#   # Output a row for each problem priority
+#   #
+#   foreach my $rank (1..8) {
+#     foreach my $problem (@{$problems{$rank}}) {
 
-      my $title        = $lookup->{$problem}{'title'};
-      my $description  = $lookup->{$problem}{'description'};
-      my $priority     = $lookup->{$problem}{'priority'};
-      my $status       = 'grey';
+#       my $title        = $lookup->{$problem}{'title'};
+#       my $description  = $lookup->{$problem}{'description'};
+#       my $priority     = $lookup->{$problem}{'priority'};
+#       my $status       = 'grey';
 
-      if ( id_exists($problem) )
-	{
-	  $status = status_of($problem);
-	}
+#       if ( id_exists($problem) )
+# 	{
+# 	  $status = status_of($problem);
+# 	}
 
-      # stakeholders...
-      #
-      my @stakeholders = @{$lookup->{$problem}{'stakeholder'}};
-      my $stakeholders = '';
-      if (@stakeholders) {
-	$stakeholders = join(', ', @stakeholders);
-      }
+#       # stakeholders...
+#       #
+#       my @stakeholders = @{$lookup->{$problem}{'stakeholder'}};
+#       my $stakeholders = '';
+#       if (@stakeholders) {
+# 	$stakeholders = join(', ', @stakeholders);
+#       }
 
-      # requests...
-      #
-      my @requests     = @{$lookup->{$problem}{'request'}};
-      my $requests     = '';
-      if (@requests) {
-	$requests = join(', ', @requests);
-      }
+#       # requests...
+#       #
+#       my @requests     = @{$lookup->{$problem}{'request'}};
+#       my $requests     = '';
+#       if (@requests) {
+# 	$requests = join(', ', @requests);
+#       }
 
-      # determine importance...
-      #
-      my $importance   = 'routine';
-      $importance      = 'urgent' if $rank <= 4;
+#       # determine importance...
+#       #
+#       my $importance   = 'routine';
+#       $importance      = 'urgent' if $rank <= 4;
 
-      my $info = '';
-      $info .= $problem;
-      $info .= ", $stakeholders"  if $stakeholders;
-      $info .= ", $requests"      if $requests;
-      $info .= ", [ref:$problem]" if $problem;
+#       my $info = '';
+#       $info .= $problem;
+#       $info .= ", $stakeholders"  if $stakeholders;
+#       $info .= ", $requests"      if $requests;
+#       $info .= ", [ref:$problem]" if $problem;
 
-      my $status_color = 'white';
-      $status_color = 'red'    if $status eq 'red';
-      $status_color = 'yellow' if $status eq 'yellow';
-      $status_color = 'green'  if $status eq 'green';
-      $status_color = 'grey'   if $status eq 'grey';
-      $status_color = 'grey'   if $status eq 'gray';
+#       my $status_color = 'white';
+#       $status_color = 'red'    if $status eq 'red';
+#       $status_color = 'yellow' if $status eq 'yellow';
+#       $status_color = 'green'  if $status eq 'green';
+#       $status_color = 'grey'   if $status eq 'grey';
+#       $status_color = 'grey'   if $status eq 'gray';
 
-      my $priority_color = 'white';
-      $priority_color = 'red'    if $priority eq 'critical';
-      $priority_color = 'orange' if $priority eq 'high';
-      $priority_color = 'yellow' if $priority eq 'routine';
-      $priority_color = 'grey'   if $priority eq 'low';
+#       my $priority_color = 'white';
+#       $priority_color = 'red'    if $priority eq 'critical';
+#       $priority_color = 'orange' if $priority eq 'high';
+#       $priority_color = 'yellow' if $priority eq 'routine';
+#       $priority_color = 'grey'   if $priority eq 'low';
 
-      my $title_description_info =
-	$util->wrap("!!$title:!! $description ~~$info~~");
+#       my $title_description_info =
+# 	$util->wrap("!!$title:!! $description ~~$info~~");
 
-      $text .= <<"END_OF_TEXT";
-: $title_description_info
+#       $text .= <<"END_OF_TEXT";
+# : $title_description_info
 
-: $rank
+# : $rank
 
-: $importance
+# : $importance
 
-:$priority_color: $priority
+# :$priority_color: $priority
 
-:$status_color: $status
+# :$status_color: $status
 
----
+# ---
 
-END_OF_TEXT
-    }
-  }
+# END_OF_TEXT
+#     }
+#   }
 
-  return $text;
-}
+#   return $text;
+# }
 
 ######################################################################
 
-sub _generate_prioritized_solution_listing {
+# sub _generate_prioritized_solution_listing {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $library     = $self->get_library;
-  my $util        = $library->get_util;
-  my $lookup      = $library->get_lookup_hash;
-  my $count_total = $self->_get_count_total_hash;
+#   my $library     = $self->get_library;
+#   my $util        = $library->get_util;
+#   my $lookup      = $library->get_lookup_hash;
+#   my $count_total = $self->_get_count_total_hash;
 
-  $logger->trace;
+#   $logger->trace;
 
-  #-------------------------------------------------------------------
-  #
-  #    Generate and return the structured text for a prioritized
-  #    listing (table) of solutions requiring attention.
-  #
-  #    This subroutine gets called during pass 2 runs, meaning that
-  #    the lookup data structure has not yet been created.  DO NOT try
-  #    to use the lookup data structure to generate requested
-  #    content. You'll have to rely on the 'data' data structure.
-  #
-  #    This subroutine generates structured text.
-  #
-  #-------------------------------------------------------------------
+#   #-------------------------------------------------------------------
+#   #
+#   #    Generate and return the structured text for a prioritized
+#   #    listing (table) of solutions requiring attention.
+#   #
+#   #    This subroutine gets called during pass 2 runs, meaning that
+#   #    the lookup data structure has not yet been created.  DO NOT try
+#   #    to use the lookup data structure to generate requested
+#   #    content. You'll have to rely on the 'data' data structure.
+#   #
+#   #    This subroutine generates structured text.
+#   #
+#   #-------------------------------------------------------------------
 
-  my $text = '';
+#   my $text = '';
 
-  #-------------------------------------------------------------------
-  # Assign ranking number to each solution in the solution domain.
-  #
-  my %solutions  = ();
-  foreach my $solution (@{ $self->_list_by_name('solution') }) {
-    my $priority = $lookup->{$solution}{'priority'};
-    my $status   = 'grey';
+#   #-------------------------------------------------------------------
+#   # Assign ranking number to each solution in the solution domain.
+#   #
+#   my %solutions  = ();
+#   foreach my $solution (@{ $self->_list_by_name('solution') }) {
+#     my $priority = $lookup->{$solution}{'priority'};
+#     my $status   = 'grey';
 
-    if ( id_exists($solution) )
-      {
-	$status = status_of($solution);
-      }
+#     if ( id_exists($solution) )
+#       {
+# 	$status = status_of($solution);
+#       }
 
-    my $rank     = rank_for($priority,$status);
-    push @{$solutions{$rank}}, $solution;
-    ++ $count_total->{'priority'}{'total'} if $rank >= 1 and $rank <= 8;
-  }
+#     my $rank     = rank_for($priority,$status);
+#     push @{$solutions{$rank}}, $solution;
+#     ++ $count_total->{'priority'}{'total'} if $rank >= 1 and $rank <= 8;
+#   }
 
-  #-----------------------------------------------------------------
-  # Begin the solution priorities table
-  #
-  $text .= <<"END_OF_TEXT";
-:grey: !!Prioritized List of Solutions To Be Improved!!
+#   #-----------------------------------------------------------------
+#   # Begin the solution priorities table
+#   #
+#   $text .= <<"END_OF_TEXT";
+# :grey: !!Prioritized List of Solutions To Be Improved!!
 
-:grey:
+# :grey:
 
-:grey:
+# :grey:
 
-:grey:
+# :grey:
 
-:grey:
+# :grey:
 
----
+# ---
 
-:grey: ~~solution~~
+# :grey: ~~solution~~
 
-:grey: ~~rank~~
+# :grey: ~~rank~~
 
-:grey: ~~importance~~
+# :grey: ~~importance~~
 
-:grey: ~~priority~~
+# :grey: ~~priority~~
 
-:grey: ~~status~~
+# :grey: ~~status~~
 
----
+# ---
 
-END_OF_TEXT
+# END_OF_TEXT
 
-  #-----------------------------------------------------------------
-  # Output a row for each solution priority
-  #
-  foreach my $rank (1..8) {
-    foreach my $solution (@{$solutions{$rank}}) {
+#   #-----------------------------------------------------------------
+#   # Output a row for each solution priority
+#   #
+#   foreach my $rank (1..8) {
+#     foreach my $solution (@{$solutions{$rank}}) {
 
-      my $title        = $lookup->{$solution}{'title'};
-      my $description  = $lookup->{$solution}{'description'};
-      my $priority     = $lookup->{$solution}{'priority'};
-      my $status       = 'grey';
+#       my $title        = $lookup->{$solution}{'title'};
+#       my $description  = $lookup->{$solution}{'description'};
+#       my $priority     = $lookup->{$solution}{'priority'};
+#       my $status       = 'grey';
 
-      if ( id_exists($solution) )
-	{
-	  $status = status_of($solution);
-	}
+#       if ( id_exists($solution) )
+# 	{
+# 	  $status = status_of($solution);
+# 	}
 
-      # stakeholders...
-      #
-      my @stakeholders = @{$lookup->{$solution}{'stakeholder'}};
-      my $stakeholders = '';
-      if (@stakeholders) {
-	$stakeholders = join(', ', @stakeholders);
-      }
+#       # stakeholders...
+#       #
+#       my @stakeholders = @{$lookup->{$solution}{'stakeholder'}};
+#       my $stakeholders = '';
+#       if (@stakeholders) {
+# 	$stakeholders = join(', ', @stakeholders);
+#       }
 
-      # requests...
-      #
-      my @requests     = @{$lookup->{$solution}{'request'}};
-      my $requests     = '';
-      if (@requests) {
-	$requests = join(', ', @requests);
-      }
+#       # requests...
+#       #
+#       my @requests     = @{$lookup->{$solution}{'request'}};
+#       my $requests     = '';
+#       if (@requests) {
+# 	$requests = join(', ', @requests);
+#       }
 
-      # determine importance...
-      #
-      my $importance   = 'routine';
-      $importance      = 'urgent' if $rank <= 4;
+#       # determine importance...
+#       #
+#       my $importance   = 'routine';
+#       $importance      = 'urgent' if $rank <= 4;
 
-      my $info = '';
-      $info .= $solution;
-      $info .= ", $stakeholders"   if $stakeholders;
-      $info .= ", $requests"       if $requests;
-      $info .= ", [ref:$solution]" if $solution;
+#       my $info = '';
+#       $info .= $solution;
+#       $info .= ", $stakeholders"   if $stakeholders;
+#       $info .= ", $requests"       if $requests;
+#       $info .= ", [ref:$solution]" if $solution;
 
-      my $status_color = 'white';
-      $status_color   = 'red'    if $status   eq 'red';
-      $status_color   = 'yellow' if $status   eq 'yellow';
-      $status_color   = 'green'  if $status   eq 'green';
-      $status_color   = 'grey'   if $status   eq 'grey';
-      $status_color   = 'grey'   if $status   eq 'gray';
+#       my $status_color = 'white';
+#       $status_color   = 'red'    if $status   eq 'red';
+#       $status_color   = 'yellow' if $status   eq 'yellow';
+#       $status_color   = 'green'  if $status   eq 'green';
+#       $status_color   = 'grey'   if $status   eq 'grey';
+#       $status_color   = 'grey'   if $status   eq 'gray';
 
-      my $priority_color = 'white';
-      $priority_color = 'red'    if $priority eq 'critical';
-      $priority_color = 'orange' if $priority eq 'high';
-      $priority_color = 'yellow' if $priority eq 'routine';
-      $priority_color = 'grey'   if $priority eq 'low';
+#       my $priority_color = 'white';
+#       $priority_color = 'red'    if $priority eq 'critical';
+#       $priority_color = 'orange' if $priority eq 'high';
+#       $priority_color = 'yellow' if $priority eq 'routine';
+#       $priority_color = 'grey'   if $priority eq 'low';
 
-      my $title_description_info = $util->wrap("!!$title:!! $description ~~$info~~");
+#       my $title_description_info = $util->wrap("!!$title:!! $description ~~$info~~");
 
-      $text .= <<"END_OF_TEXT";
-: $title_description_info
+#       $text .= <<"END_OF_TEXT";
+# : $title_description_info
 
-: $rank
+# : $rank
 
-: $importance
+# : $importance
 
-:$priority_color: $priority
+# :$priority_color: $priority
 
-:$status_color: $status
+# :$status_color: $status
 
----
+# ---
 
-END_OF_TEXT
-    }
-  }
+# END_OF_TEXT
+#     }
+#   }
 
-  return $text;
-}
-
-######################################################################
-
-sub _generate_associated_problem_listing {
-
-  my $self = shift;
-  my $id   = shift;
-
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $util    = $library->get_util;
-  my $lookup  = $library->get_lookup_hash;
-
-  $logger->trace("$id");
-
-  #-------------------------------------------------------------------
-  #
-  #    Generate and return the structured text for a listing of
-  #    problems associated with the specified id.
-  #
-  #-------------------------------------------------------------------
-
-  my $text = '';
-
-  #-------------------------------------------------------------------
-  # make a list of everything associated with this id.
-  #
-  my @associates = @{ $lookup->{$id}{'associated'} };
-
-  #-------------------------------------------------------------------
-  # go through the list of associates and pick out the problems
-  #
-  my @problems = ();
-  foreach my $associate (@associates) {
-    my $associate_name = name_for($associate);
-    if ($associate_name eq 'problem') {
-      push @problems, $associate;
-    }
-  }
-
-  #-------------------------------------------------------------------
-  # If there were no problems, insert a statement that no problems
-  # have been identified.
-  #
-  if (not @problems) {
-    $text .= <<"END_OF_TEXT";
-(U) No problems have been identified.
-
-END_OF_TEXT
-
-    return $text;
-  }
-
-  #-------------------------------------------------------------------
-  # build the listing
-  #
-  foreach my $problem (@problems) {
-
-    my $title =    $lookup->{$problem}{'title'};
-    my @type  = @{ $lookup->{$problem}{'type'} };
-    my $type  = join(', ', @type);
-
-    printstatus("  $problem: $type: $title");
-
-    $text .= <<"END_OF_TEXT";
-- $title ([ref:$problem])
-
-END_OF_TEXT
-
-  }
-
-  return $text;
-}
+#   return $text;
+# }
 
 ######################################################################
 
-sub _generate_associated_solution_listing {
+# sub _generate_associated_problem_listing {
 
-  my $self = shift;
-  my $id   = shift;
+#   my $self = shift;
+#   my $id   = shift;
 
-  my $library = $self->get_library;
-  my $util    = $library->get_util;
-  my $lookup  = $library->get_lookup_hash;
+#   my $library = $self->get_library;
+#   my $syntax  = $library->get_syntax;
+#   my $util    = $library->get_util;
+#   my $lookup  = $library->get_lookup_hash;
 
-  $logger->trace("$id");
+#   $logger->trace("$id");
 
-  #-------------------------------------------------------------------
-  #
-  #    Generate and return the structured text for a listing of
-  #    solutions associated with the specified id.
-  #
-  #-------------------------------------------------------------------
+#   #-------------------------------------------------------------------
+#   #
+#   #    Generate and return the structured text for a listing of
+#   #    problems associated with the specified id.
+#   #
+#   #-------------------------------------------------------------------
 
-  my $text = '';
+#   my $text = '';
 
-  #-------------------------------------------------------------------
-  # make a list of everything associated with this id.
-  #
-  my @associates = @{ $lookup->{$id}{'associated'} };
+#   #-------------------------------------------------------------------
+#   # make a list of everything associated with this id.
+#   #
+#   my @associates = @{ $lookup->{$id}{'associated'} };
 
-  #-------------------------------------------------------------------
-  # go through the list of associates and pick out the solutions
-  #
-  my @solutions = ();
-  foreach my $associate (@associates) {
-    my $associate_name = name_for($associate);
-    if ($associate_name eq 'solution') {
-      push @solutions, $associate;
-    }
-  }
+#   #-------------------------------------------------------------------
+#   # go through the list of associates and pick out the problems
+#   #
+#   my @problems = ();
+#   foreach my $associate (@associates) {
+#     my $associate_name = name_for($associate);
+#     if ($associate_name eq 'problem') {
+#       push @problems, $associate;
+#     }
+#   }
 
-  #-------------------------------------------------------------------
-  # If there were no solutions, insert a statement that no solutions
-  # have been identified.
-  #
-  if (not @solutions) {
-    $text .= <<"END_OF_TEXT";
-(U) No solutions have been identified.
+#   #-------------------------------------------------------------------
+#   # If there were no problems, insert a statement that no problems
+#   # have been identified.
+#   #
+#   if (not @problems) {
+#     $text .= <<"END_OF_TEXT";
+# (U) No problems have been identified.
 
-END_OF_TEXT
+# END_OF_TEXT
 
-    return $text;
-  }
+#     return $text;
+#   }
 
-  #-------------------------------------------------------------------
-  # build the listing
-  #
-  foreach my $solution (@solutions) {
+#   #-------------------------------------------------------------------
+#   # build the listing
+#   #
+#   foreach my $problem (@problems) {
 
-    my $title =    $lookup->{$solution}{'title'};
-    my @type  = @{ $lookup->{$solution}{'type'} };
-    my $type  = join(', ', @type);
+#     my $title =    $lookup->{$problem}{'title'};
+#     my @type  = @{ $lookup->{$problem}{'type'} };
+#     my $type  = join(', ', @type);
 
-    $text .= <<"END_OF_TEXT";
-- $title ([ref:$solution])
+#     printstatus("  $problem: $type: $title");
 
-END_OF_TEXT
+#     $text .= <<"END_OF_TEXT";
+# - $title ([ref:$problem])
 
-  }
+# END_OF_TEXT
 
-  return $text;
-}
+#   }
+
+#   return $text;
+# }
+
+######################################################################
+
+# sub _generate_associated_solution_listing {
+
+#   my $self = shift;
+#   my $id   = shift;
+
+#   my $library = $self->get_library;
+#   my $util    = $library->get_util;
+#   my $lookup  = $library->get_lookup_hash;
+
+#   $logger->trace("$id");
+
+#   #-------------------------------------------------------------------
+#   #
+#   #    Generate and return the structured text for a listing of
+#   #    solutions associated with the specified id.
+#   #
+#   #-------------------------------------------------------------------
+
+#   my $text = '';
+
+#   #-------------------------------------------------------------------
+#   # make a list of everything associated with this id.
+#   #
+#   my @associates = @{ $lookup->{$id}{'associated'} };
+
+#   #-------------------------------------------------------------------
+#   # go through the list of associates and pick out the solutions
+#   #
+#   my @solutions = ();
+#   foreach my $associate (@associates) {
+#     my $associate_name = name_for($associate);
+#     if ($associate_name eq 'solution') {
+#       push @solutions, $associate;
+#     }
+#   }
+
+#   #-------------------------------------------------------------------
+#   # If there were no solutions, insert a statement that no solutions
+#   # have been identified.
+#   #
+#   if (not @solutions) {
+#     $text .= <<"END_OF_TEXT";
+# (U) No solutions have been identified.
+
+# END_OF_TEXT
+
+#     return $text;
+#   }
+
+#   #-------------------------------------------------------------------
+#   # build the listing
+#   #
+#   foreach my $solution (@solutions) {
+
+#     my $title =    $lookup->{$solution}{'title'};
+#     my @type  = @{ $lookup->{$solution}{'type'} };
+#     my $type  = join(', ', @type);
+
+#     $text .= <<"END_OF_TEXT";
+# - $title ([ref:$solution])
+
+# END_OF_TEXT
+
+#   }
+
+#   return $text;
+# }
 
 ######################################################################
 
@@ -5522,43 +5577,6 @@ sub _divname_for {
       return 0;
     }
 }
-
-######################################################################
-
-# sub _region_tag {
-
-#   # Create and return a region begin or end tag line.
-
-#   my $self   = shift;                   # SML::Parser object
-#   my $type   = shift;                   # string (begin or end)
-#   my $region = shift;                   # string
-#   my $file   = shift;                   # file file for warnings
-#   my $num    = shift;                   # line number
-
-#   my $tag = '';
-
-#   if ( $type eq 'begin' )
-#     {
-#       $tag = ">>>$region\n\n";
-#     }
-#   elsif ( $type eq 'end' )
-#     {
-#       $tag = "<<<$region\n\n";
-#     }
-#   else
-#     {
-#       ERROR "tag type $type is not begin or end";
-#     }
-
-#   my $line = SML::Line->new
-#     (
-#      file    => $file,
-#      num     => $num,
-#      content => "$tag",
-#     );
-
-#   return $line;
-# }
 
 ######################################################################
 
@@ -5881,9 +5899,9 @@ sub _process_start_division_marker {
   my $library  = $self->get_library;
   my $location = $line->get_location;
   my $ontology = $library->get_ontology;
-  my $num      = $self->_increment_division_count($name);
+  my $num      = $library->increment_division_count($name);
 
-  if ( not $ontology->allows_division($name) )
+  unless ( $ontology->allows_division($name) )
     {
       my $msg = "UNDEFINED DIVISION at $location: \"$name\"";
       $logger->logdie("$msg");
@@ -5970,17 +5988,17 @@ sub _process_end_division_marker {
       $self->_end_section;
     }
 
-  if ( $name eq 'TABLE' and $self->_in_table_row )
+  elsif ( $name eq 'TABLE' and $self->_in_table_row )
     {
       $self->_end_table_row;
     }
 
-  if ( $name eq 'DEMO' and $self->_in_step_list )
+  elsif ( $name eq 'DEMO' and $self->_in_step_list )
     {
       $self->_end_step_list;
     }
 
-  if ( $name eq 'EXERCISE' and $self->_in_step_list )
+  elsif ( $name eq 'EXERCISE' and $self->_in_step_list )
     {
       $self->_end_step_list;
     }
@@ -6077,8 +6095,6 @@ sub _process_start_section_heading {
     );
 
   $section->add_part($element);
-
-  $section->add_property_element($element);
 
   $self->_begin_division($section);
 
@@ -6208,7 +6224,6 @@ sub _process_start_element {
 
       my $division = $self->_get_current_division;
       $division->add_part($element);
-      $division->add_property_element($element);
     }
 
   elsif
@@ -6222,7 +6237,6 @@ sub _process_start_element {
 
       my $division = $self->_get_current_division;
       $division->add_part($element);
-      $division->add_property_element($element);
     }
 
   elsif ( $self->_in_data_segment )
@@ -6242,7 +6256,6 @@ sub _process_start_element {
 
       my $division = $self->_get_current_division;
       $division->add_part($element);
-      $division->add_property_element($element);
     }
 
   elsif
@@ -6260,7 +6273,6 @@ sub _process_start_element {
 
       my $division = $self->_get_current_division;
       $division->add_part($element);
-      $division->add_property_element($element);
     }
 
   else
@@ -6268,7 +6280,6 @@ sub _process_start_element {
       $logger->trace("{$number} ..... begin UNIVERSAL element");
 
       $division->add_part($element);
-      $division->add_property_element($element);
     }
 
   return 1;
@@ -6346,7 +6357,6 @@ sub _process_start_footnote_element {
       # $self->_end_data_segment;
 
       $division->add_part($element);
-      $division->add_property_element($element);
     }
 
   else
@@ -6354,7 +6364,6 @@ sub _process_start_footnote_element {
       $logger->trace("{$number} ..... begin UNIVERSAL element");
 
       $division->add_part($element);
-      $division->add_property_element($element);
     }
 
   return 1;
@@ -6432,7 +6441,6 @@ sub _process_start_glossary_entry {
 
       my $division = $self->_get_current_division;
       $division->add_part($definition);
-      $division->add_property_element($definition);
     }
 
   else
@@ -6441,7 +6449,6 @@ sub _process_start_glossary_entry {
 
       my $division = $self->_get_current_division;
       $division->add_part($definition);
-      $division->add_property_element($definition);
     }
 
   return 1;
@@ -6561,7 +6568,6 @@ sub _process_start_acronym_entry {
 
       my $division = $self->_get_current_division;
       $division->add_part($definition);
-      $division->add_property_element($definition);
     }
 
   else
@@ -6570,7 +6576,6 @@ sub _process_start_acronym_entry {
 
       my $division = $self->_get_current_division;
       $division->add_part($definition);
-      $division->add_property_element($definition);
     }
 
   return 1;
@@ -6662,7 +6667,6 @@ sub _process_start_variable_definition {
 
       my $division = $self->_get_current_division;
       $division->add_part($definition);
-      $division->add_property_element($definition);
     }
 
   else
@@ -6670,7 +6674,6 @@ sub _process_start_variable_definition {
       $logger->trace("{$number} ..... begin UNIVERSAL element");
 
       $division->add_part($definition);
-      $division->add_property_element($definition);
     }
 
   return 1;
@@ -7331,7 +7334,6 @@ sub _process_start_image_element {
 
       my $division = $self->_get_current_division;
       $division->add_part($image);
-      $division->add_property_element($image);
     }
 
   return 1;
@@ -7403,7 +7405,6 @@ sub _process_start_attr_definition {
       # $self->_end_data_segment;
 
       $division->add_part($definition);
-      $division->add_property_element($definition);
     }
 
   else
@@ -7411,7 +7412,6 @@ sub _process_start_attr_definition {
       $logger->trace("{$number} ..... begin UNIVERSAL element");
 
       $division->add_part($definition);
-      $division->add_property_element($definition);
     }
 
   return 1;
@@ -9623,15 +9623,15 @@ sub _count_divisions {
 
 ######################################################################
 
-sub _increment_division_count {
+# sub _increment_division_count {
 
-  my $self = shift;
-  my $name = shift;                     # division name (i.e. COMMENT)
+#   my $self = shift;
+#   my $name = shift;                     # division name (i.e. COMMENT)
 
-  my $counter = $self->_get_division_counter_hash;
+#   my $counter = $self->_get_division_counter_hash;
 
-  return ++ $counter->{$name};
-}
+#   return ++ $counter->{$name};
+# }
 
 ######################################################################
 
@@ -11604,8 +11604,9 @@ sub _validate_theversion_ref_semantics {
 
   $text = $util->remove_literals($text);
 
-  my $valid = 1;
-  my $doc   = $block->get_containing_document;
+  my $valid  = 1;
+  my $doc    = $block->get_containing_document;
+  my $doc_id = $doc->get_id;
 
   if ( not $doc )
     {
@@ -11615,7 +11616,7 @@ sub _validate_theversion_ref_semantics {
 
   while ( $text =~ /$syntax->{theversion_ref}/xms )
     {
-      if ( $doc->has_property('version') )
+      if ( $library->has_property($doc_id,'version') )
 	{
 	  $logger->trace("version reference is valid");
 	}
@@ -11657,8 +11658,9 @@ sub _validate_therevision_ref_semantics {
 
   $text = $util->remove_literals($text);
 
-  my $valid = 1;
-  my $doc   = $block->get_containing_document;
+  my $valid  = 1;
+  my $doc    = $block->get_containing_document;
+  my $doc_id = $doc->get_id;
 
   if ( not $doc )
     {
@@ -11668,7 +11670,7 @@ sub _validate_therevision_ref_semantics {
 
   while ( $text =~ /$syntax->{therevision_ref}/xms )
     {
-      if ( $doc->has_property('revision') )
+      if ( $library->has_property($doc_id,'revision') )
 	{
 	  $logger->trace("revision reference is valid");
 	}
@@ -11710,8 +11712,9 @@ sub _validate_thedate_ref_semantics {
 
   $text = $util->remove_literals($text);
 
-  my $valid = 1;
-  my $doc   = $block->get_containing_document;
+  my $valid  = 1;
+  my $doc    = $block->get_containing_document;
+  my $doc_id = $doc->get_id;
 
   if ( not $doc )
     {
@@ -11721,7 +11724,7 @@ sub _validate_thedate_ref_semantics {
 
   while ( $text=~ /$syntax->{thedate_ref}/xms )
     {
-      if ( $doc->has_property('date') )
+      if ( $library->has_property($doc_id,'date') )
 	{
 	  $logger->trace("date reference is valid");
 	}
@@ -11793,7 +11796,7 @@ sub _validate_status_ref_semantics {
 	    {
 	      my $division = $library->get_division($id);
 
-	      if ( not $division->has_property('status') )
+	      if ( not $library->has_property($id,'status') )
 		{
 		  my $location = $block->get_location;
 		  $logger->warn("INVALID STATUS REFERENCE at $location \'$id\' has no status property");
@@ -12149,9 +12152,8 @@ sub _validate_property_cardinality {
   my $divid    = $division->get_id;
   my $ontology = $library->get_ontology;
 
-  foreach my $property (@{ $division->get_property_list })
+  foreach my $property_name (@{ $library->get_property_name_list($divid) })
     {
-      my $property_name = $property->get_name;
       my $cardinality;
 
       if ( $property_name eq 'id' )
@@ -12179,8 +12181,9 @@ sub _validate_property_cardinality {
 
       else
 	{
-	  my $list = $property->get_element_list;
+	  my $list  = $library->get_property_value_list($divid,$property_name);
 	  my $count = scalar(@{ $list });
+
 	  if ( $cardinality eq '1' and $count > 1 )
 	    {
 	      my $location = $division->get_location;
@@ -12207,36 +12210,22 @@ sub _validate_property_values {
   my $divname  = $division->get_name;
   my $divid    = $division->get_id;
 
-  foreach my $property (@{ $division->get_property_list })
+  foreach my $property_name (@{ $library->get_property_name_list($divid) })
     {
-      my $property_name = $property->get_name;
-
       $seen->{$property_name} = 1;
 
       my $imply_only  = $ontology->property_is_imply_only($divname,$property_name);
-      my $list        = $property->get_element_list;
+      my $list        = $library->get_property_value_list($divid,$property_name);
       my $cardinality = $ontology->property_allows_cardinality($divname,$property_name);
 
-      foreach my $element (@{ $list })
+      foreach my $value (@{ $list })
 	{
-	  my $value      = $element->get_value;
-	  my $first_line = $element->get_first_line;
-
-	  next if not defined $first_line;
-
-	  my $file = $first_line->get_file;
-
-	  next if not defined $file;
-
-	  next if $file->get_filespec eq 'empty_file';
-
 	  # validate property value is allowed
-	  if ( not $ontology->allows_property_value($divname,$property_name,$value) )
+	  unless ( $ontology->allows_property_value($divname,$property_name,$value) )
 	    {
-	      my $location = $element->get_location;
 	      my $list = $ontology->get_allowed_property_value_list($divname,$property_name);
 	      my $valid_property_values = join(', ', @{ $list });
-	      $logger->warn("INVALID PROPERTY VALUE \'$value\' $divname $property_name must be one of: $valid_property_values at $location");
+	      $logger->warn("INVALID PROPERTY VALUE \'$value\' $divname $property_name must be one of: $valid_property_values");
 	      $valid = 0;
 	    }
 	}
@@ -12259,34 +12248,20 @@ sub _validate_infer_only_conformance {
   my $divname  = $division->get_name;
   my $divid    = $division->get_id;
 
-  foreach my $property (@{ $division->get_property_list })
+  foreach my $property_name (@{ $library->get_property_name_list($divid) })
     {
-      my $property_name = $property->get_name;
-
       $seen->{$property_name} = 1;
 
       my $imply_only  = $ontology->property_is_imply_only($divname,$property_name);
-      my $list        = $property->get_element_list;
+      my $list        = $library->get_property_value_list($divid,$property_name);
       my $cardinality = $ontology->property_allows_cardinality($divname,$property_name);
 
-      foreach my $element (@{ $list })
+      foreach my $value (@{ $list })
 	{
-	  my $value      = $element->get_value;
-	  my $first_line = $element->get_first_line;
-
-	  next if not defined $first_line;
-
-	  my $file = $first_line->get_file;
-
-	  next if not defined $file;
-
-	  next if $file->get_filespec eq 'empty_file';
-
 	  # Validate infer-only conformance
 	  if ( $imply_only )
 	    {
-	      my $location   = $element->get_location;
-	      $logger->warn("INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY \'$property_name\' at $location: $divname $divid");
+	      $logger->warn("INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY \'$property_name\' $divname $divid");
 	      $valid = 0;
 	    }
 
@@ -12311,10 +12286,8 @@ sub _validate_required_properties {
   my $divname  = $division->get_name;
   my $divid    = $division->get_id;
 
-  foreach my $property (@{ $division->get_property_list })
+  foreach my $property_name (@{ $library->get_property_name_list($divid) })
     {
-      my $property_name = $property->get_name;
-
       $seen->{$property_name} = 1;
     }
 

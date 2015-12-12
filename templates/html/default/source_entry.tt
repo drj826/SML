@@ -3,194 +3,298 @@
 source => an SML::Source object
 
 %]
+[%-
+
+library   = source.get_library
+source_id = source.get_id
+
+-%]
 <table border="0" style="width:100%" id="[%-source.get_id-%]">
 <tr>
 <td colspan="2" bgcolor="#eeeeee" id="[%- source.get_id -%]">[[%- source.get_id -%]]</td>
 </tr>
 
-[%- IF source.has_property('author') -%]
+[%- IF library.has_property(source_id,'author') -%]
+[%- author_list = library.get_property_value_list(source_id,'author') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>author:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('author') -%]</td>
+<td style="width:80%">[%author_list.join(', ')%]</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('date') -%]
+[%- IF library.has_property(source_id,'date') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>date:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('date') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'date') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('editor') -%]
+[%- IF library.has_property(source_id,'editor') -%]
+[%- editor_list = library.get_property_value_list(source_id,'editor') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>editor:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('editor') -%]</td>
+<td style="width:80%">[%editor_list.join(', ')%]</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('title') -%]
+[%- IF library.has_property(source_id,'title') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>title:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('title') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'title') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('subtitle') -%]
+[%- IF library.has_property(source_id,'subtitle') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>subtitle:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('subtitle') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'subtitle') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('school') -%]
+[%- IF library.has_property(source_id,'school') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>school:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('school') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'school') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('institution') -%]
+[%- IF library.has_property(source_id,'institution') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>institution:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('institution') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'institution') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('chapter') -%]
+[%- IF library.has_property(source_id,'chapter') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>chapter:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('chapter') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'chapter') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('booktitle') -%]
+[%- IF library.has_property(source_id,'booktitle') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>booktitle:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('booktitle') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'booktitle') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('journal') -%]
+[%- IF library.has_property(source_id,'journal') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>journal:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('journal') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'journal') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('howpublished') -%]
+[%- IF library.has_property(source_id,'howpublished') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>howpublished:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('howpublished') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'howpublished') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('organization') -%]
+[%- IF library.has_property(source_id,'organization') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>organization:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('organization') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'organization') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('publisher') -%]
+[%- IF library.has_property(source_id,'publisher') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>publisher:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('publisher') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'publisher') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('month') -%]
+[%- IF library.has_property(source_id,'month') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>month:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('month') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'month') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('year') -%]
+[%- IF library.has_property(source_id,'year') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>year:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('year') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'year') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('volume') -%]
+[%- IF library.has_property(source_id,'volume') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>volume:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('volume') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'volume') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('number') -%]
+[%- IF library.has_property(source_id,'number') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>number:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('number') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'number') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('series') -%]
+[%- IF library.has_property(source_id,'series') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>series:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('series') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'series') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('type') -%]
+[%- IF library.has_property(source_id,'type') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>type:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('type') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'type') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('key') -%]
+[%- IF library.has_property(source_id,'key') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>key:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('key') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'key') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('pages') -%]
+[%- IF library.has_property(source_id,'pages') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>pages:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('pages') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'pages') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('address') -%]
+[%- IF library.has_property(source_id,'address') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>address:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('address') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'address') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('edition') -%]
+[%- IF library.has_property(source_id,'edition') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>edition:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('edition') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'edition') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('annote') -%]
+[%- IF library.has_property(source_id,'annote') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>annote:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('annote') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'annote') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('crossref') -%]
+[%- IF library.has_property(source_id,'crossref') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>crossref:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('crossref') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'crossref') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('note') -%]
+[%- IF library.has_property(source_id,'note') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>note:&nbsp;&nbsp;</i></td>
-<td style="width:80%">[%- INCLUDE property.tt property = source.get_property('note') -%]</td>
+<td style="width:80%">
+[%- FOREACH element IN library.get_property_value_element_list(source_id,'note') -%]
+[%- INCLUDE element.tt -%]
+[%- END -%]
+</td>
 </tr>
 [%- END -%]
 
-[%- IF source.has_property('file') -%]
+[%- IF library.has_property(source_id,'file') -%]
 <tr>
 <td style="width:20%;text-align:right;"><i>file:&nbsp;&nbsp;</i></td>
 <td style="width:80%"><a href="files/[%- source.get_basename -%]">[%- source.get_basename -%]</a></td>

@@ -5,15 +5,18 @@ document => an SML::Document object
 %]
 [%-
 
-index = document.get_index
-id    = document.get_id
-title = document.get_property('title')
+library                = document.get_library
+index                  = document.get_index
+document_id            = document.get_id
+document_title_element = library.get_property_value_element(document_id,'title')
 
 -%]
 [%- WRAPPER page.tt -%]
 
 <div style="font-size:8pt;text-align:center">
-<a href="[%id%].toc.html">[%- INCLUDE property.tt property = title -%]</a>
+<a href="[%document_id%].toc.html">
+[%- INCLUDE element.tt element = document_title_element -%]
+</a>
 </div>
 
 <h1 style="text-align:center;">Index</h1>
@@ -34,16 +37,18 @@ title = document.get_property('title')
 <div style="text-indent:0pt;">
   [%- FOREACH locator IN entry.get_locator_list -%]
     [%-
-    division = entry.get_location(locator)
-    id       = division.get_id
-    name     = division.get_name
-    ucfname  = name.lower.ucfirst
-    number   = division.get_number
-    docid    = document.get_id
-    section  = division.get_containing_section
-    secnum   = section.get_number
+    division    = entry.get_location(locator)
+    division_id = division.get_id
+    name        = division.get_name
+    ucfname     = name.lower.ucfirst
+    number      = division.get_number
+    section     = division.get_containing_section
+    secnum      = section.get_number
     -%]
-<b>[%ucfname%]&nbsp;[%number%]</b>&nbsp;&nbsp;<a href="[%docid%].[%secnum%].html#[%locator%]">[%- INCLUDE property.tt property = division.get_property('title') -%]</a>&nbsp;&nbsp;
+<b>[%ucfname%]&nbsp;[%number%]</b>&nbsp;&nbsp;
+<a href="[%document_id%].[%secnum%].html#[%locator%]">
+[%- INCLUDE element.tt element = library.get_property_value_element(division_id,'title') -%]
+</a>&nbsp;&nbsp;
   [%- END -%]
 </div>
 </td>
@@ -58,16 +63,18 @@ title = document.get_property('title')
 <div style="text-indent:10pt;">
       [%- FOREACH locator IN subentry.get_locator_list -%]
         [%-
-	division = subentry.get_location(locator)
-        id       = division.get_id
-        name     = division.get_name
-        ucfname  = name.lower.ucfirst
-        number   = division.get_number
-        docid    = document.get_id
-        section  = division.get_containing_section
-        secnum   = section.get_number
+	division    = subentry.get_location(locator)
+        division_id = division.get_id
+        name        = division.get_name
+        ucfname     = name.lower.ucfirst
+        number      = division.get_number
+        section     = division.get_containing_section
+        secnum      = section.get_number
 	-%]
-<b>[%ucfname%]&nbsp;[%number%]</b>&nbsp;&nbsp;<a href="[%docid%].[%secnum%].html#[%locator%]">[%- INCLUDE property.tt property = division.get_property('title') -%]</a>&nbsp;&nbsp;
+<b>[%ucfname%]&nbsp;[%number%]</b>&nbsp;&nbsp;
+<a href="[%document_id%].[%secnum%].html#[%locator%]">
+[%- INCLUDE element.tt element = library.get_property_value_element(division_id,'title') -%]
+</a>&nbsp;&nbsp;
       [%- END -%]
 </div>
 </td>
@@ -82,16 +89,18 @@ title = document.get_property('title')
 <div style="text-indent:20pt;">
           [%- FOREACH locator IN subsubentry.get_locator_list -%]
             [%-
-	    division = subsubentry.get_location(locator)
-            id       = division.get_id
-            name     = division.get_name
-            ucfname  = name.lower.ucfirst
-            number   = division.get_number
-            docid    = document.get_id
-            section  = division.get_containing_section
-            secnum   = section.get_number
+	    division    = subsubentry.get_location(locator)
+            division_id = division.get_id
+            name        = division.get_name
+            ucfname     = name.lower.ucfirst
+            number      = division.get_number
+            section     = division.get_containing_section
+            secnum      = section.get_number
 	    -%]
-<b>[%ucfname%]&nbsp;[%number%]</b>&nbsp;&nbsp;<a href="[%docid%].[%secnum%].html#[%locator%]">[%- INCLUDE property.tt property = division.get_property('title') -%]</a>&nbsp;&nbsp;
+<b>[%ucfname%]&nbsp;[%number%]</b>&nbsp;&nbsp;
+<a href="[%document_id%].[%secnum%].html#[%locator%]">
+[%- INCLUDE element.tt element = library.get_property_value_element(division_id,'title') -%]
+</a>&nbsp;&nbsp;
           [%- END -%]
 </div>
 </td>

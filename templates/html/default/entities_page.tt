@@ -1,0 +1,49 @@
+[%# args:
+
+document => an SML::Document object
+
+%]
+[%-
+
+library                = document.get_library
+ontology               = library.get_ontology
+document_id            = document.get_id
+document_title_element = library.get_property_value_element(document_id,'title')
+
+-%]
+[%- WRAPPER page.tt -%]
+
+<div style="font-size:8pt;text-align:center">
+<a href="[%document_id%].toc.html">
+[%- INCLUDE element.tt element = document_title_element -%]
+</a>
+</div>
+
+<h1 align="center">Entities</h1>
+
+[%- FOREACH entity_name IN ontology.get_entity_name_list -%]
+  [%-
+  entity_class = ontology.get_class_for_entity_name(entity_name)
+  -%]
+<h2 style="background-color:#eeeeee;padding:10px;" id="[%entity_name%]">[%entity_name%]</h2>
+
+<table>
+[%- entity_id_list = library.get_division_id_list_by_name(entity_name) -%]
+
+[%- FOREACH entity_id IN entity_id_list -%]
+<tr>
+<td style="width:10%;">[%entity_id%]</td>
+<td>
+[%- IF entity_name == 'allocation' -%]
+[%- INCLUDE allocation_title.tt id = entity_id -%]
+[%- ELSE -%]
+[%- INCLUDE element.tt element = library.get_property_value_element(entity_id,'title') -%]
+[%- END -%]
+</td>
+</tr>
+[%- END %]
+
+</table>
+
+[%- END -%]
+[%- END -%]

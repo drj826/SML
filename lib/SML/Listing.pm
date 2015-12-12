@@ -59,14 +59,20 @@ sub _build_content {
 
   my $self = shift;
 
-  if ( $self->has_property('file') )
+  my $library = $self->get_library;
+  my $id      = $self->get_id;
+
+  if ( $library->has_property($id,'file') )
     {
-      my $filespec = $self->get_property_value('file');
+      my $list = $library->get_property_value_list($id,'file');
+
+      # just take the first value, ignore the rest
+      my $filespec = $list->[0];
 
       my $file = SML::File->new
 	(
 	 filespec => $filespec,
-	 library  => $self->get_library,
+	 library  => $library,
 	);
 
       return $file->get_text;

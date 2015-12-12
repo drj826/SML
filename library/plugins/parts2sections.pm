@@ -65,17 +65,11 @@ sub render {
 
   push(@{ $output_line_list }, $text);
 
-  my $part_property = $division->get_property('has_part');
+  my $part_id_list = $library->get_property_value_list($division_id,'has_part');
+  my $depth        = 2;
 
-  my $element_list  = $part_property->get_element_list;
-  my $depth         = 2;
-
-  foreach my $element (@{ $element_list })
+  foreach my $part_id (@{ $part_id_list })
     {
-      my $name = $element->get_name;
-
-      my $part_id = $element->get_value;
-
       if ( $part_id )
 	{
 	  $self->_render_subsection_include_element
@@ -152,26 +146,20 @@ sub _render_subsection_include_element {
   my $library  = $self->_get_library;
   my $division = $library->get_division($division_id);
 
-  if ( $division->has_property('has_part') )
+  if ( $library->has_property($division_id,'has_part') )
     {
       $depth = $depth + 1;
 
-      my $part_property = $division->get_property('has_part');
-      my $element_list  = $part_property->get_element_list;
+      my $part_id_list = $library->get_property_value_list($division_id,'has_part');
 
-      foreach my $element (@{ $element_list })
+      foreach my $part_id (@{ $part_id_list })
 	{
-	  my $part_id = $element->get_value;
-
-	  if ( $part_id )
-	    {
-	      $self->_render_subsection_include_element
-		(
-		 $output_line_list,
-		 $depth,
-		 $part_id,
-		);
-	    }
+	  $self->_render_subsection_include_element
+	    (
+	     $output_line_list,
+	     $depth,
+	     $part_id,
+	    );
 	}
     }
 }

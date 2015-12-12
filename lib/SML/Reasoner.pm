@@ -37,122 +37,45 @@ has 'library' =>
 ######################################################################
 ######################################################################
 
-sub infer_inverse_property {
+sub infer_inverse_triple {
 
-  # If the specified element represents a property to which an inverse
-  # rule applies, infer the inverse property.
-  #
-  # An element is a single value of a potentially multi-valued
-  # property.
-  #
-  # This is possible because properties may have inverse
-  # (a.k.a. bi-directional) relationships declared in the ontology.
-  #
-  # Imagine an entity 'problem-A' has a property named 'allocation' with
-  # value 'allocation-A'.  This means that 'problem-A' is 'allocated by'
-  # 'allocation-A'. The inverse may be infered that 'allocation-A'
-  # 'allocates' the problem 'problem-A'.
-  #
-  # problem-A    --> allocated by --> allocation-A
-  # allocation-A --> allocates    --> problem-A
+  my $self   = shift;
+  my $triple = shift;
 
-  my $self    = shift;
-  my $element = shift;
-
-  unless ( ref $element and $element->isa('SML::Element') )
+  unless ( ref $triple and $triple->isa('SML::Triple') )
     {
-      $logger->error("CAN'T INFER INVERSE PROPERTY, NOT AN ELEMENT \'$element\'");
+      $logger->error("CAN'T INFER INVERSE TRIPLE.  \'$triple\' IS NOT A TRIPLE");
       return 0;
     }
 
-  my $element_value = $element->get_value;
+  my $library      = $self->get_library;
+  my $ontology     = $library->get_ontology;
+  my $subject      = $triple->get_subject;
+  my $predicate    = $triple->get_predicate;
+  my $object       = $triple->get_object;
+  my $subject_name = $library->get_division_name_for_id($subject);
+  my $object_name  = $library->get_division_name_for_id($object);
 
-  unless ( $element_value )
-    {
-      $logger->warn("CAN'T INFER INVERSE PROPERTY, NO ELEMENT VALUE \'$element\'");
-      return 1;
-    }
-
-  my $division = $element->get_containing_division;
-
-  unless ( $division )
-    {
-      my $location = $element->get_location;
-      $logger->warn("CAN'T INFER INVERSE PROPERTY, ELEMENT NOT IN DIVISION CONTEXT at $location");
-      return 0;
-    }
-
-  my $library               = $self->get_library;
-  my $ontology              = $library->get_ontology;
-  my $division_id           = $division->get_id;
-  my $division_name         = $division->get_name;
-  my $element_name          = $element->get_name;
-  my $inverse_division_id   = $element_value;
-  my $inverse_division_name = $library->get_type($inverse_division_id);
-  my $rule                  = $ontology->get_rule_for($division_name,$element_name,$inverse_division_name);
-  my $inverse_rule_id       = q{};
-
-  if ( $rule )
-    {
-      $inverse_rule_id = $rule->get_inverse_rule_id;
-    }
-
-  else
+  unless ( $ontology->has_inverse_rule_for($subject_name,$predicate,$object_name) )
     {
       return 0;
     }
 
-  if ( $inverse_rule_id and $library->has_division_id($inverse_division_id) )
-    {
-      my $inverse_division      = $library->get_division($inverse_division_id);
-      my $inverse_division_name = $inverse_division->get_name;
-      my $inverse_rule          = $ontology->get_rule_with_id($inverse_rule_id);
-      my $inverse_property_name = $inverse_rule->get_property_name;
+  my $inverse_rule      = $ontology->get_inverse_rule_for($subject_name,$predicate,$object_name);
+  my $inverse_predicate = $inverse_rule->get_property_name;
 
-      if ( $ontology->allows_property($inverse_division_name,$inverse_property_name ) )
-	{
-	  if (
-	      $inverse_division->has_property($inverse_property_name)
-	      and
-	      $inverse_division->has_property_value($inverse_property_name,$division_id)
-	     )
-	    {
-	      $logger->trace("..... $inverse_division_name $inverse_division_id already has $inverse_property_name $division_id");
-	      return 0;
-	    }
+  my $inverse_triple = SML::Triple->new
+    (
+     subject   => $object,
+     predicate => $inverse_predicate,
+     object    => $subject,
+     library   => $library,
+     origin    => $triple->get_origin,
+    );
 
-	  else
-	    {
-	      my $inverse_line = SML::Line->new
-		(
-		 content => "${inverse_property_name}:: $division_id\n",
-		);
+  $logger->info("inferred inverse triple $object $inverse_predicate $subject");
 
-	      my $inverse_element = SML::Element->new
-		(
-		 name     => $inverse_property_name,
-		 division => $inverse_division,
-		 library  => $self->get_library,
-		);
-
-	      $inverse_element->add_line($inverse_line);
-	      $inverse_element->set_value($division_id);
-
-	      $inverse_element->set_containing_division($inverse_division);
-	      $inverse_division->add_property_element($inverse_element);
-	      $logger->info("inferred property: $inverse_division_id $inverse_property_name $division_id");
-	      return 1;
-	    }
-	}
-
-      else
-	{
-	  my $location = $element->get_location;
-	  $logger->warn("NO INFERRED PROPERTY at $location: \"$division_name\" \"$inverse_property_name\"");
-	}
-    }
-
-  return 1;
+  return $inverse_triple;
 }
 
 ######################################################################
@@ -167,36 +90,17 @@ sub infer_status_from_outcomes {
       foreach my $date (@{ $library->get_outcome_date_list($entity_id) })
 	{
 	  my $outcome = $library->get_outcome($entity_id,$date);
+	  my $status  = $outcome->get_status;
 
-	  if ( $library->has_division($entity_id) )
+	  if ( $library->has_division_id($entity_id) )
 	    {
-	      my $division = $library->get_division($entity_id);
-
-	      if ( $division->has_property('status') )
-		{
-		  $division->add_property_element($outcome);
-		}
-
-	      else
-		{
-		  my $property = SML::Property->new
-		    (
-		     id      => $entity_id,
-		     name    => 'status',
-		     library => $library,
-		    );
-
-		  $division->add_property($property);
-		  $division->add_property_element($outcome);
-		}
+	      $library->set_property_value($entity_id,'status',$status);
 	    }
 
 	  else
 	    {
 	      $logger->error("CAN'T INFER STATUS FROM OUTCOMES for non-existent entity \'$entity_id\'");
 	    }
-
-	  my $outcome_status = $library->get_outcome_status($entity_id,$date);
 	}
     }
 

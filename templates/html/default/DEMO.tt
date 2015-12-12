@@ -5,8 +5,8 @@ self => an SML::Demo object
 %]
 [%-
 
-number = self.get_number
-anchor = 'DEMO.' _ number
+demo_number = self.get_number
+anchor      = 'DEMO.' _ demo_number
 
 -%]
 <div class="demo" id="[%anchor%]">

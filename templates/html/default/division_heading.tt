@@ -6,15 +6,17 @@ label => a label (i.e. 'Demonstration')
 %]
 [%-
 
-number = self.get_number
+library = self.get_library
+number  = self.get_number
+id      = self.get_id
 
 -%]
 <span style="font-weight:bold;">
 [%label%] [%number%]
-[%- IF self.has_property('title') -%]
- - [%- INCLUDE property.tt property = self.get_property('title') -%]
+[%- IF library.has_property(id,'title') -%]
+ - [%- INCLUDE element.tt element = library.get_property_value_element(id,'title') -%]
 [%- END -%]
 </span>
-[%- IF self.has_property('description') -%]
- - [%- INCLUDE property.tt property = self.get_property('description') -%]
+[%- IF library.has_property(id,'description') -%]
+ - [%- INCLUDE element.tt element = library.get_property_value_element(id,'description') -%]
 [%- END -%]

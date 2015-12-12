@@ -5,29 +5,21 @@ self => an SML::Listing object
 %]
 [%-
 
-number = self.get_number
-anchor = 'LISTING.' _ number
+listing_number = self.get_number
+anchor         = 'LISTING.' _ listing_number
 
 -%]
 <div class="listing" id="[%anchor%]">
 
 <!-- put listing navigation link table here -->
 
-<b>Listing [%number%]
-[%- IF self.has_property('title') -%]
-  -
-  [% INCLUDE property.tt property = self.get_property('title') %]
-[%- END -%]
-</b>
-[%- IF self.has_property('description') -%]
-  - 
-  [%- INCLUDE property.tt property = self.get_property('description') -%]
-[%- END -%]
-<br/>
+[%- INCLUDE division_heading.tt label = 'Listing' -%]
+
+[%- INCLUDE narrative_part_list.tt -%]
+
 <pre>
-[%-FILTER html-%]
-[%-self.get_content-%]
-[%-END-%]
+[%-FILTER html-%][%-self.get_content-%][%-END-%]
 </pre>
+
 </div>
 

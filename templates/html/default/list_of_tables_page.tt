@@ -5,23 +5,49 @@ document => an SML::Document object
 %]
 [%-
 
-id = document.get_id
+library                = document.get_library
+document_id            = document.get_id
+document_title_element = library.get_property_value_element(document_id,'title')
 
 -%]
 [%- WRAPPER page.tt -%]
 
 <table style="width:100%">
 <tr>
-<td style="width:20%;font-size:8pt;text-align:left"><a href="[%id%].toc.html">&lt; Table of Contents</a></td>
-<td style="width:60%;font-size:8pt;text-align:center"><a href="[%id%].toc.html">[%-document.get_property_value('title')-%]</a></td>
+
+[%# PREVIOUS %]
+<td style="width:20%;font-size:8pt;text-align:left">
+<a href="[%document_id%].toc.html">&lt; Table of Contents</a>
+</td>
+
+[%# LINK TO TABLE OF CONTENTS %]
+<td style="width:60%;font-size:8pt;text-align:center">
+<a href="[%document_id%].toc.html">
+[%- INCLUDE element.tt element = document_title_element -%]
+</a>
+</td>
+
+[%# NEXT %]
 [%- IF document.has_figures -%]
-<td style="width:20%;font-size:8pt;text-align:right"><a href="[%id%].figures.html">List of Figures &gt;</a></td>
+<td style="width:20%;font-size:8pt;text-align:right">
+<a href="[%document_id%].figures.html">List of Figures &gt;</a>
+</td>
+
 [%- ELSIF document.has_attachments -%]
-<td style="width:20%;font-size:8pt;text-align:right"><a href="[%id%].attachments.html">List of Attachments &gt;</a></td>
+<td style="width:20%;font-size:8pt;text-align:right">
+<a href="[%document_id%].attachments.html">List of Attachments &gt;</a>
+</td>
+
 [%- ELSIF document.has_listings -%]
-<td style="width:20%;font-size:8pt;text-align:right"><a href="[%id%].listings.html">List of Listings &gt;</a></td>
+<td style="width:20%;font-size:8pt;text-align:right">
+<a href="[%document_id%].listings.html">List of Listings &gt;</a>
+</td>
+
 [%- ELSE -%]
-<td style="width:20%;font-size:8pt;text-align:right"><a href="[%id%].1.html">NEXT &gt;</a></td>
+<td style="width:20%;font-size:8pt;text-align:right">
+<a href="[%document_id%].1.html">NEXT &gt;</a>
+</td>
+
 [%- END -%]
 </tr>
 </table>
@@ -29,19 +55,37 @@ id = document.get_id
 <h2 align="center">List of Tables</h2>
 
 [%- FOREACH section IN document.get_section_list -%]
-[%- SET secnum = section.get_number -%]
-[%- SET page = id _ '.' _ secnum _ '.html' -%]
 
-[%- IF section.get_depth == 1 -%]
-<h4>Chapter [%secnum%] &nbsp;&nbsp; <a href="[%page%]">[%- INCLUDE property.tt property = section.get_property('title') -%]</a></h4>
+[%-
 
-[%- END -%]
+section_number = section.get_number
+section_id     = section.get_id
+section_depth  = section.get_depth
+page           = document_id _ '.' _ section_number _ '.html'
+
+-%]
+
+[%- IF section_depth == 1 -%]
+<h4>Chapter [%section_number%]&nbsp;&nbsp;
+<a href="[%page%]">
+[%- INCLUDE element.tt element = library.get_property_value_element(section_id,'title') -%]
+</a></h4>
+[%- END %]
 
 [%- IF section.has_tables -%]
 [%- FOREACH table IN section.get_table_list -%]
-[%- SET number = table.get_number -%]
-[%- SET bookmark = 'TABLE.' _ number -%]
-<div style="text-indent:60pt;font-size:8pt;">Table [%number%] - <a href="[%page%]#[%bookmark%]">[%- INCLUDE property.tt property = table.get_property('title') -%]</a></div>
+[%-
+
+table_number = table.get_number
+table_id     = table.get_id
+bookmark     = 'TABLE.' _ number
+
+-%]
+<div style="text-indent:60pt;font-size:8pt;">Table [%table_number%] -
+<a href="[%page%]#[%bookmark%]">
+[%- INCLUDE element.tt element = library.get_property_value_element(table_id,'title') -%]
+</a>
+</div>
 
 [%- END -%]
 [%- END -%]

@@ -403,7 +403,7 @@ sub dump_part_structure {
   my $indent = shift || q{};
 
   my $structure = q{};
-  my $summary   = substr($self->get_content,0,20);
+  my $summary   = substr($self->get_content,0,40);
 
   $summary =~ s/[\r\n]*$//;     # chomp
   $summary =~ s/[\r\n]+/.../;   # compress newlines

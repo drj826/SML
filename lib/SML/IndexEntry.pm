@@ -184,7 +184,9 @@ sub get_location {
 
       while ( $division )
 	{
-	  if ( $division->has_property('title') )
+	  my $division_id = $division->get_id;
+
+	  if ( $library->has_property($division_id,'title') )
 	    {
 	      return $division;
 	    }

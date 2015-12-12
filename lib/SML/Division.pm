@@ -18,8 +18,6 @@ my $logger = Log::Log4perl::get_logger('sml.Division');
 
 use lib "..";
 
-use SML::Property;
-
 ######################################################################
 ######################################################################
 ##
@@ -162,99 +160,6 @@ sub add_part {
 
 ######################################################################
 
-sub add_property {
-
-  my $self     = shift;
-  my $property = shift;
-
-  # validate input
-  if (
-      not ref $property
-      or
-      not $property->isa('SML::Property')
-     )
-    {
-      $logger->error("NOT A PROPERTY \'$property\'");
-      return 0;
-    }
-
-  my $name = $property->get_name;
-  my $ph   = $self->_get_property_hash;
-
-  $ph->{$name} = $property;
-
-  return 1;
-}
-
-######################################################################
-
-sub add_property_element {
-
-  my $self    = shift;
-  my $element = shift;
-
-  # validate input
-  if (
-      not ref $element
-      or
-      not $element->isa('SML::Element')
-     )
-    {
-      $logger->error("NOT AN ELEMENT \'$element\'");
-      return 0;
-    }
-
-  my $name = $element->get_name;
-
-  if ( not $name )
-    {
-      $logger->error("NO ELEMENT NAME for \'$element\'");
-    }
-
-  # my $div = $element->get_containing_division;
-
-  # if ( not $div )
-  #   {
-  #     my $content = $element->get_content;
-  #     $logger->error("NO CONTAINING DIVISION for \'$element\' containing \'$content\'");
-  #   }
-
-  my $divid   = $self->get_id;
-  my $divname = $self->get_name;
-
-  if ( $logger->is_trace() )
-    {
-      my $value = $element->get_value;
-
-      $logger->trace("add_property_element $divname $name");
-    }
-
-  if ( $self->has_property($name) )
-    {
-      my $property = $self->get_property($name);
-      $property->add_element($element);
-    }
-
-  else
-    {
-      my $library = $self->get_library;
-
-      my $property = SML::Property->new
-	(
-	 id      => $divid,
-	 name    => $name,
-	 library => $library,
-	);
-
-      $property->add_element($element);
-      $self->add_property($property);
-    }
-
-  return 1;
-}
-
-######################################################################
-
 sub add_attribute {
 
   # What's the difference between attributes and properties?
@@ -339,58 +244,55 @@ sub contains_division {
 
 ######################################################################
 
-sub has_property {
+# sub has_property {
 
-  my $self = shift;
-  my $name = shift;
+#   my $self = shift;
+#   my $name = shift;
 
-  # validate input
-  if ( not $name )
-    {
-      $logger->error("YOU MUST SPECIFY A NAME");
-      return 0;
-    }
+#   unless ( $name )
+#     {
+#       $logger->error("CAN'T CHECK IF DIVISION HAS PROPERTY, YOU MUST SPECIFY A NAME");
+#       return 0;
+#     }
 
-  if ( exists $self->_get_property_hash->{$name} )
-    {
-      return 1;
-    }
+#   my $library = $self->get_library;
+#   my $id      = $self->get_id;
 
-  else
-    {
-      return 0;
-    }
-}
+#   if ( $library->has_property($id,$name) )
+#     {
+#       return 1;
+#     }
+
+#   return 0;
+# }
 
 ######################################################################
 
-sub has_property_value {
+# sub has_property_value {
 
-  # Return 1 if the division already has the specified property
-  # name/value pair.
+#   # Return 1 if the division already has the specified property
+#   # name/value pair.
 
-  my $self  = shift;
-  my $name  = shift;
-  my $value = shift;
+#   my $self  = shift;
+#   my $name  = shift;
+#   my $value = shift;
 
-  # validate input
-  if ( not $name or not $value )
-    {
-      $logger->error("YOU MUST SPECIFY NAME AND VALUE");
-      return 0;
-    }
+#   unless ( $name and $value )
+#     {
+#       $logger->error("CAN'T CHECK IF DIVISION HAS PROPERTY VALUE, YOU MUST SPECIFY NAME AND VALUE");
+#       return 0;
+#     }
 
-  if ( $self->has_property($name) )
-    {
-      my $property = $self->get_property($name);
-      if ( $property->has_value($value) )
-	{
-	  return 1;
-	}
-    }
+#   my $library = $self->get_library;
+#   my $id      = $self->get_id;
 
-  return 0;
-}
+#   if ( $library->has_property_value($id,$name,$value) )
+#     {
+#       return 1;
+#     }
+
+#   return 0;
+# }
 
 ######################################################################
 
@@ -1127,62 +1029,68 @@ sub get_first_line {
 
 ######################################################################
 
-sub get_property_list {
+# sub get_property_list {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $list = [];                        # property list
+#   my $list = [];                        # property list
 
-  foreach my $name ( sort keys %{ $self->_get_property_hash } )
-    {
-      push @{ $list }, $self->_get_property_hash->{$name};
-    }
+#   foreach my $name ( sort keys %{ $self->_get_property_hash } )
+#     {
+#       push @{ $list }, $self->_get_property_hash->{$name};
+#     }
 
-  return $list;
-}
-
-######################################################################
-
-sub get_property {
-
-  my $self = shift;
-  my $name = shift;
-
-  if ( $self->has_property($name) )
-    {
-      return $self->_get_property_hash->{$name};
-    }
-
-  else
-    {
-      my $id = $self->get_id;
-      $logger->error("CAN'T GET PROPERTY \'$id\' has no \'$name\' property");
-      return 0;
-    }
-}
+#   return $list;
+# }
 
 ######################################################################
 
-sub get_property_value {
+# sub get_property {
 
-  my $self = shift;
-  my $name = shift;
+#   my $self = shift;
+#   my $name = shift;
 
-  if ( $self->has_property($name) )
-    {
-      my $property = $self->get_property($name);
-      my $value    = $property->get_value;
+#   unless ( $name )
+#     {
+#       $logger->error("CAN'T GET PROPERTY, YOU MUST SPECIFY A NAME");
+#       return 0;
+#     }
 
-      return $value;
-    }
+#   if ( $self->has_property($name) )
+#     {
+#       return $self->_get_property_hash->{$name};
+#     }
 
-  else
-    {
-      # my $id = $self->get_id;
-      # $logger->error("CAN'T GET PROPERTY VALUE \'$id\' has no \'$name\' property");
-      return q{};
-    }
-}
+#   else
+#     {
+#       my $id = $self->get_id;
+#       $logger->error("CAN'T GET PROPERTY \'$id\' has no \'$name\' property");
+#       return 0;
+#     }
+# }
+
+######################################################################
+
+# sub get_property_value {
+
+#   my $self = shift;
+#   my $name = shift;
+
+#   if ( $self->has_property($name) )
+#     {
+#       my $property = $self->get_property($name);
+#       my $value    = $property->get_value;
+
+#       return $value;
+#     }
+
+#   else
+#     {
+#       # my $id = $self->get_id;
+#       # $logger->error("CAN'T GET PROPERTY VALUE \'$id\' has no \'$name\' property");
+#       return q{};
+#     }
+# }
 
 ######################################################################
 
@@ -1292,34 +1200,19 @@ sub is_in_a {
 
 ######################################################################
 
-# sub validate {
+sub get_content {
 
-#   my $self = shift;
+  my $self = shift;
 
-#   my $valid = 1;
+  my $content = q{};
 
-#   if ( not $self->has_valid_syntax )
-#     {
-#       $valid = 0;
-#     }
+  foreach my $block (@{ $self->get_block_list })
+    {
+      $content .= $block->get_content . "\n\n";
+    }
 
-#   if ( not $self->has_valid_semantics )
-#     {
-#       $valid = 0;
-#     }
-
-#   if ($valid)
-#     {
-#       $logger->info("valid");
-#     }
-
-#   else
-#     {
-#       $logger->warn("NOT VALID");
-#     }
-
-#   return $valid;
-# }
+  return $content;
+}
 
 ######################################################################
 ######################################################################
@@ -1343,12 +1236,12 @@ has 'division_hash' =>
 
 ######################################################################
 
-has 'property_hash' =>
-  (
-   isa       => 'HashRef',
-   reader    => '_get_property_hash',
-   default   => sub {{}},
-  );
+# has 'property_hash' =>
+#   (
+#    isa       => 'HashRef',
+#    reader    => '_get_property_hash',
+#    default   => sub {{}},
+#   );
 
 # This datastructure contains property values indexed by name. Allowed
 # properties are defined in the SML ontology.  Every property has a
@@ -1380,16 +1273,17 @@ sub BUILD {
   my $id      = $self->get_id;
   my $library = $self->get_library;
 
-  my $id_property = SML::Property->new
-    (
-     id      => $id,
-     name    => 'id',
-     library => $library,
-    );
+  if ( $id )
+    {
+      my $id_element = SML::Element->new
+	(
+	 name    => 'id',
+	 library => $self->get_library,
+	 value   => $id,
+	);
 
-  $id_property->add_value($id);
-
-  $self->add_property($id_property);
+      $library->add_property_value($id,'id',$id,$id_element);
+    }
 
   return 1;
 }
@@ -1582,7 +1476,6 @@ L<"SML::Block">s.
   my $boolean  = $division->add_division($division);
   my $boolean  = $division->add_part($part);
   my $boolean  = $division->add_property($property);
-  my $boolean  = $division->add_property_element($element);
   my $boolean  = $division->add_attribute($element);
   my $boolean  = $division->contains_division($id);
   my $boolean  = $division->has_property($property_name);
@@ -1602,9 +1495,6 @@ L<"SML::Block">s.
   my $list     = $division->get_narrative_line_list;
   my $part     = $division->get_first_part;
   my $line     = $division->get_first_line;
-  my $list     = $division->get_property_list;
-  my $property = $division->get_property($name);
-  my $string   = $division->get_property_value($name);
   my $document = $division->get_containing_document;
   my $string   = $division->get_location;
   my $section  = $division->get_section;
@@ -1666,10 +1556,6 @@ Divisions may contain other divisions.
 
 =head2 contains_division($id)
 
-=head2 has_property($property_name)
-
-=head2 has_property_value($property_name,$value)
-
 =head2 has_attribute($attribute_name)
 
 =head2 get_division_list
@@ -1691,12 +1577,6 @@ Divisions may contain other divisions.
 =head2 get_first_part
 
 =head2 get_first_line
-
-=head2 get_property_list
-
-=head2 get_property($name)
-
-=head2 get_property_value($name)
 
 =head2 get_containing_document
 

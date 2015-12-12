@@ -79,9 +79,15 @@ sub _build_image_file_basename {
 
   my $self = shift;
 
-  if ( $self->has_property('image') )
+  my $library = $self->get_library;
+  my $id      = $self->get_id;
+
+  if ( $library->has_property($id,'image') )
     {
-      my $image_filespec = $self->get_property_value('image');
+      my $list = $library->get_property_value_list($id,'image');
+
+      # just take the first value, ignore any others
+      my $image_filespec = $list->[0];
 
       return basename($image_filespec);
     }

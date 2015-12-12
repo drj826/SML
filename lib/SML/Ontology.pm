@@ -145,6 +145,28 @@ sub get_rule_for {
 
 ######################################################################
 
+sub get_inverse_rule_for {
+
+  my $self         = shift;
+  my $subject_name = shift;             # rq-002
+  my $predicate    = shift;             # is_part_of
+  my $object_name  = shift;             # rq-001
+
+  unless ( $subject_name and $predicate and $object_name )
+    {
+      $logger->error("CAN'T GET INVERSE RULE FOR $subject_name $predicate $object_name");
+      return 0;
+    }
+
+  my $rule = $self->get_rule_for($subject_name,$predicate,$object_name);
+
+  my $inverse_rule_id = $rule->get_inverse_rule_id;
+
+  return $self->get_rule_with_id($inverse_rule_id);
+}
+
+######################################################################
+
 sub get_rule_with_id {
 
   my $self    = shift;
@@ -232,6 +254,28 @@ sub has_entity_with_name {
 	{
 	  return 1;
 	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub has_rule_for {
+
+  # Return 1 if the ontology has a rule for the specified division
+  # name, property name, and object name or value.
+
+  my $self          = shift;
+  my $division_name = shift;
+  my $property_name = shift;
+  my $name_or_value = shift;
+
+  my $prlh = $self->_get_property_rules_lookup_hash;
+
+  if ( exists $prlh->{$division_name}{$property_name}{$name_or_value} )
+    {
+      return 1;
     }
 
   return 0;
@@ -441,6 +485,33 @@ sub allows_property_value {
 	{
 	  return 1;
 	}
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub allows_triple {
+
+  my $self      = shift;
+  my $subject   = shift;                # rq-002
+  my $predicate = shift;                # is_part_of
+  my $object    = shift;                # rq-001
+
+  unless ( $subject and $predicate and $object )
+    {
+      $logger->error("CAN'T CHECK IF ONTOLOGY ALLOWS TRIPLE $subject $predicate $object");
+      return 0;
+    }
+
+  my $library      = $self->get_library;
+  my $subject_name = $library->get_division_name_for_id($subject);
+  my $object_name  = $library->get_division_name_for_id($object);
+
+  if ( $self->has_rule_for($subject_name,$predicate,$object_name) )
+    {
+      return 1;
     }
 
   return 0;

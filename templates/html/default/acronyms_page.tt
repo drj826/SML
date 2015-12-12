@@ -5,15 +5,18 @@ document => an SML::Document object
 %]
 [%-
 
-acronym_list = document.get_acronym_list
-id           = document.get_id
-title        = document.get_property('title')
+library                = document.get_library
+acronym_list           = document.get_acronym_list
+document_id            = document.get_id
+document_title_element = library.get_property_value_element(document_id,'title')
 
 -%]
 [%- WRAPPER page.tt -%]
 
 <div style="font-size:8pt;text-align:center">
-<a href="[%id%].toc.html">[%- INCLUDE property.tt property = title -%]</a>
+<a href="[%document_id%].toc.html">
+[%- INCLUDE element.tt element = document_title_element -%]
+</a>
 </div>
 
 <h1 style="text-align:center;">Acronyms</h1>

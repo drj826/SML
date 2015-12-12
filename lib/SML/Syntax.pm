@@ -864,7 +864,8 @@ has element =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^([a-zA-Z_]+)::(\S+:)?\s*(.*?)\s*(\#(.*))?$',
+   default => '^([a-zA-Z_]+)::(\S+:)?\s*(.*?)(\s*\#(.*))?$',
+   #            1             2         3    4     5
   );
 
 # $1 = element name

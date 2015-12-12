@@ -5,10 +5,11 @@ self => an SML::Attachment object
 %]
 [%-
 
-number = self.get_number
-title  = self.get_property_value('title')
-file   = self.get_property_value('file')
-anchor = 'ATTACHMENT.' _ number
+library = self.get_library
+number  = self.get_number
+id      = self.get_id
+file    = library.get_property_value(id,'file')
+anchor  = 'ATTACHMENT.' _ number
 
 -%]
 
@@ -17,10 +18,9 @@ anchor = 'ATTACHMENT.' _ number
 <tr>
 <td><a href="[%file%]"><img src="images/paperclip.png"></a></td>
 <td>
-<p><b><a href="[%file%]">Attachment [%number%] - [%title%]</a></b></p>
-[%- IF self.has_property('description') -%]
-<p>[%- INCLUDE property.tt property = self.get_property('description') -%]</p>
-[%- END -%]
+
+[%- INCLUDE division_heading.tt label = 'Attachment' -%]
+
 </td>
 </tr>
 </table>

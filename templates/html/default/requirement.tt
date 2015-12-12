@@ -53,20 +53,42 @@ self => an SML::Entity object (name = 'requirement')
 
 [%- INCLUDE narrative_part_list.tt -%]
 
-<pre style="background-color:#eeffee;padding:10px;">
+[%# DEBUGGING... %]
+
+<br/><br/>
+
+<div style="background-color:#ffeeee;padding:10px;">
+<b>original manuscript:</b>
+<pre>
+[%-FOREACH line IN self.get_line_list-%]
+[%-FILTER html-%][%-line.get_content-%][%-END-%]
+[%-END-%]
+</pre>
+</div>
+
+<div style="background-color:#eeffee;padding:10px;">
+<b>part structure:</b>
+<pre>
 [%-FILTER html-%][%-self.dump_part_structure-%][%-END-%]
 </pre>
+</div>
 
-<pre style="background-color:#eeeeff;padding:10px;">
-[%- FOREACH property IN self.get_property_list -%]
-  [%-
-  name  = property.get_name
-  value = property.get_value
-  -%]
+[%-
 
-[%name%] => [%value%]
+library = self.get_library
+id      = self.get_id
 
+-%]
+<div style="background-color:#eeeeff;padding:10px;">
+<b>properties:</b>
+<table>
+[%- FOREACH property_name IN library.get_property_name_list(id) -%]
+<tr>
+<td>[%property_name%]</td>
+<td>[%FOREACH value IN library.get_property_value_list(id,property_name)%][%value%], [%END%]</td>
+</tr>
 [%- END -%]
-</pre>
+</table>
+</div>
 
 </div>

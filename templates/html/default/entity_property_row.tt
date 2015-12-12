@@ -5,34 +5,40 @@ property_name => entity property name (i.e. 'is_part_of')
 label         => entity property name label (i.e. 'is part of:')
 
 %]
-[%- IF self.has_property(property_name) -%]
+[%-
+
+library   = self.get_library
+entity_id = self.get_id
+
+-%]
+[%- IF library.has_property(entity_id,property_name) -%]
 <tr>
 <td>[%label%]</td>
 <td>
-  [%-
-  property = self.get_property(property_name)
-  library  = self.get_library
-  -%]
-  [%- FOREACH element IN property.get_element_list -%]
-    [%-
-    value = element.get_value
-    -%]
+  [%- FOREACH value IN library.get_property_value_list(entity_id,property_name) -%]
     [%- IF property_name == 'title' -%]
-<b>[%- INCLUDE part_list.tt self = element -%]</b>
+<b>[%- INCLUDE element.tt element = library.get_property_value_element(entity_id,property_name) -%]</b>
+    [%- ELSIF property_name == 'allocation' AND library.has_division_id(value) -%]
+      [%- id = value -%]
+      [%- IF library.has_property(id,'status') -%]
+      [%- status = library.get_property_value(id,'status') -%]
+      [%- ELSE -%]
+      [%- status = 'grey' -%]
+      [%- END -%]
+[%- INCLUDE status_icon.tt -%] [%- INCLUDE id_link.tt -%] - [%- INCLUDE allocation_title.tt -%]<br/>
     [%- ELSIF library.has_division_id(value) -%]
       [%-
-      entity_id    = value
-      entity       = library.get_division(entity_id)
-      entity_title = entity.get_property('title')
-      status       = entity.get_property_value('status')
+      id            = value
+      title_element = library.get_property_value_element(id,'title')
       -%]
-[%- INCLUDE status_icon.tt -%]
-[%- INCLUDE id_link.tt id = entity_id -%]
-&nbsp;-&nbsp;
-[%- INCLUDE property.tt property = entity_title -%]
-<br/>
+      [%- IF library.has_property(id,'status') -%]
+      [%- status = library.get_property_value(id,'status') -%]
+      [%- ELSE -%]
+      [%- status = 'grey' -%]
+      [%- END -%]
+[%- INCLUDE status_icon.tt -%] [%- INCLUDE id_link.tt -%] - [%- INCLUDE element.tt element = title_element -%]<br/>
     [%- ELSE -%]
-[%- INCLUDE part_list.tt self = element -%]
+[%- INCLUDE element.tt element = library.get_property_value_element(entity_id,property_name) -%]
     [%- END -%]
   [%- END -%]
 </td>

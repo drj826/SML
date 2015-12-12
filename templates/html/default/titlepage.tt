@@ -5,14 +5,15 @@ document => an SML::Document object
 %]
 [%-
 
-id = document.get_id
+document_id = document.get_id
+library     = document.get_library
 
 -%]
 [% WRAPPER page.tt -%]
 
 <table style="width:100%">
 <tr>
-<td style="font-size:8pt;text-align:right"><a href="[%id%].toc.html">Table of Contents &gt;</a></td>
+<td style="font-size:8pt;text-align:right"><a href="[%document_id%].toc.html">Table of Contents &gt;</a></td>
 </tr>
 </table>
 
@@ -20,24 +21,14 @@ id = document.get_id
 <br/>
 <br/>
 
-[%- IF document.has_property('logo_image_center') -%]
-<div align="center">
-[%- SET property = document.get_property('logo_image_center') -%]
-[%- FOREACH image IN property.get_element_list -%]
-[%- INCLUDE image.tt self = image -%]
-[%- END -%]
+[%- IF library.has_property(document_id,'logo_image_center') -%]
+[%- INCLUDE image.tt self = library.get_property_value_element(document_id,'logo_image_center') -%]
 <br/><br/>
-</div>
 [%- END -%]
 
 <hr align="center" noshade size="4" width="60%">
 <div class="title">
-[% IF document.has_property('title') %]
-[% SET property = document.get_property('title') %]
-[% FOREACH self IN property.get_element_list %]
-[%- INCLUDE part_list.tt -%]
-[% END %]
-[% END %]
+[%- INCLUDE part_list.tt self = library.get_property_value_element(document_id,'title') -%]
 </div>
 <hr align="center" noshade size="4" width="60%">
 
@@ -45,12 +36,9 @@ id = document.get_id
 <br/>
 <br/>
 
-[% IF document.has_property('subtitle') %]
+[% IF library.has_property(document_id,'subtitle') %]
 <div class="subtitle">
-  [% SET property = document.get_property('subtitle') %]
-  [% FOREACH self IN property.get_element_list %]
-  [%- INCLUDE part_list.tt -%]
-  [% END %]
+[%- INCLUDE part_list.tt self = library.get_property_value_element(document_id,'subtitle') -%]
 </div>
 [% END %]
 
@@ -58,19 +46,16 @@ id = document.get_id
 <br/>
 <br/>
 
-[%- IF document.has_property('version') -%]
-  [% SET property = document.get_property('version') %]
-  [% FOREACH self IN property.get_element_list %]
-<p align="center">Version [% INCLUDE part_list.tt %]</p>
-  [% END %]
+[%- IF library.has_property(document_id,'version') -%]
+<p align="center">Version [% INCLUDE part_list.tt self = library.get_property_value_element(document_id,'version') %]</p>
 [%- END -%]
 
-[%- IF document.has_property('date') -%]
-<p align="center">[% document.get_property_value('date') %]</p>
+[%- IF library.has_property(document_id,'date') -%]
+<p align="center">[% library.get_property_value(document_id,'date') %]</p>
 [%- END -%]
 
-[%- IF document.has_property('organization') -%]
-<p align="center">[% document.get_property_value('organization') -%]</p>
+[%- IF library.has_property(document_id,'organization') -%]
+<p align="center">[% library.get_property_value(document_id,'organization') -%]</p>
 [%- END -%]
 
 [%- END -%]

@@ -1,0 +1,10 @@
+[%# args:
+
+element => an SML::Element object
+
+%]
+[%- IF element.contains_parts -%]
+  [%- INCLUDE part_list.tt  self = element -%]
+[%- ELSE -%]
+  [%-FILTER html-%][%-element.get_content-%][%-END-%]
+[%- END -%]

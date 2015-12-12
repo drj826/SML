@@ -409,6 +409,10 @@ sub _publish_html_document {
       $logger->info("publishing $id.ontology.html");
       $tt->process("ontology_page.tt",$vars,"$id.ontology.html")
 	|| die $tt->error(), "\n";
+
+      $logger->info("publishing $id.entities.html");
+      $tt->process("entities_page.tt",$vars,"$id.entities.html")
+	|| die $tt->error(), "\n";
     }
 
   else

@@ -5,29 +5,57 @@ document => an SML::Document object
 %]
 [%-
 
-id = document.get_id
+library                = document.get_library
+document_id            = document.get_id
+document_title_element = library.get_property_value_element(document_id,'title')
 
 -%]
 [%- WRAPPER page.tt -%]
 
 <table style="width:100%">
 <tr>
+
+[%# PREVIOUS %]
 [%- IF document.has_attachments -%]
-<td style="width:20%;font-size:8pt;text-align:left"><a href="[%id%].attachments.html">&lt; List of Attachments</a></td>
+<td style="width:20%;font-size:8pt;text-align:left">
+<a href="[%document_id%].attachments.html">&lt; List of Attachments</a>
+</td>
+
 [%- ELSIF document.has_figures -%]
-<td style="width:20%;font-size:8pt;text-align:left"><a href="[%id%].figures.html">&lt; List of Figures</a></td>
+<td style="width:20%;font-size:8pt;text-align:left">
+<a href="[%document_id%].figures.html">&lt; List of Figures</a>
+</td>
+
 [%- ELSIF document.has_tables -%]
-<td style="width:20%;font-size:8pt;text-align:left"><a href="[%id%].tables.html">&lt; List of Tables</a></td>
+<td style="width:20%;font-size:8pt;text-align:left">
+<a href="[%document_id%].tables.html">&lt; List of Tables</a>
+</td>
+
 [%- ELSE -%]
-<td style="width:20%;font-size:8pt;text-align:left"><a href="[%id%].toc.html">&lt; Table of Contents</a></td>
+<td style="width:20%;font-size:8pt;text-align:left">
+<a href="[%document_id%].toc.html">&lt; Table of Contents</a>
+</td>
+
 [%- END -%]
 
-<td style="width:60%;font-size:8pt;text-align:center"><a href="[%id%].toc.html">[%-document.get_property_value('title')-%]</a></td>
+[%# LINK TO TABLE OF CONTENTS %]
+<td style="width:60%;font-size:8pt;text-align:center">
+<a href="[%document_id%].toc.html">
+[%- INCLUDE element.tt element = document_title_element -%]
+</a>
+</td>
 
+[%# NEXT %]
 [%- IF document.has_demos -%]
-<td style="width:20%;font-size:8pt;text-align:right"><a href="[%id%].demos.html">List of Demos &gt;</a></td>
+<td style="width:20%;font-size:8pt;text-align:right">
+<a href="[%document_id%].demos.html">List of Demos &gt;</a>
+</td>
+
 [%- ELSE -%]
-<td style="width:20%;font-size:8pt;text-align:right"><a href="[%id%].1.html">NEXT &gt;</a></td>
+<td style="width:20%;font-size:8pt;text-align:right">
+<a href="[%document_id%].1.html">NEXT &gt;</a>
+</td>
+
 [%- END -%]
 </tr>
 </table>
@@ -35,19 +63,37 @@ id = document.get_id
 <h2 align="center">List of Listings</h2>
 
 [%- FOREACH section IN document.get_section_list -%]
-[%- SET secnum = section.get_number -%]
-[%- SET page = id _ '.' _ secnum _ '.html' -%]
+[%-
 
-[%- IF section.get_depth == 1 -%]
-<h4>Listing [%secnum%] &nbsp;&nbsp; <a href="[%page%]">[%- INCLUDE property.tt property = section.get_property('title') -%]</a></h4>
+section_number = section.get_number
+section_id     = section.get_id
+section_depth  = section.get_depth
+page           = document_id _ '.' _ section_number _ '.html'
 
-[%- END -%]
+-%]
+
+[%- IF section_depth == 1 -%]
+<h4>Listing [%section_number%]&nbsp;&nbsp;
+<a href="[%page%]">
+[%- INCLUDE element.tt element = library.get_property_value_element(section_id,'title') -%]
+</a></h4>
+[%- END %]
 
 [%- IF section.has_listings -%]
 [%- FOREACH listing IN section.get_listing_list -%]
-[%- SET number = listing.get_number -%]
-[%- SET bookmark = 'LISTING.' _ number -%]
-<div style="text-indent:60pt;font-size:8pt;">Listing [%number%] - <a href="[%page%]#[%bookmark%]">[%- INCLUDE property.tt property = listing.get_property('title') -%]</a></div>
+[%-
+
+listing_number = listing.get_number
+listing_id     = listing.get_id
+bookmark       = 'LISTING.' _ listing_number
+
+-%]
+<div style="text-indent:60pt;font-size:8pt;">
+Listing [%listing_number%] -
+<a href="[%page%]#[%bookmark%]">
+[%- INCLUDE element.tt element = library.get_property_value_element(listing_id,'title') -%]
+</a>
+</div>
 
 [%- END -%]
 [%- END -%]

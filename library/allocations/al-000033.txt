@@ -1,10 +1,10 @@
 >>>allocation.al-000033
 
-solution:: ci-000005 # Document.pm Perl Module
+solution:: ci-000005          # SML::Document Class
 
-requirement::  rq-000001 # Publish To HTML
+requirement:: rq-000001       # Publish To HTML
 
-test::     tc-000006 # Document.pm Unit Test Case
+test:: tc-000006              # Document.pm Unit Test Case
 
 revision:: $Revision: 10970 $
 

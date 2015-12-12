@@ -5,9 +5,11 @@ self => an SML::Section object
 %]
 [%-
 
-number = self.get_number
-anchor = 'section.' _ number
-title  = self.get_property('title')
+library        = self.get_library
+section_number = self.get_number
+section_id     = self.get_id
+anchor         = 'section.' _ section_number
+title_element  = library.get_property_value_element(section_id,'title')
 
 -%]
 [% WRAPPER page.tt -%]
@@ -16,7 +18,7 @@ title  = self.get_property('title')
 
 <div class="section" id="[%anchor%]">
 
-<h2>[%number%] &nbsp;&nbsp; [% INCLUDE property.tt property = title -%]</h2>
+<h2>[%section_number%]&nbsp;&nbsp;[%- INCLUDE element.tt element = title_element -%]</h2>
 
 [%- INCLUDE narrative_part_list.tt -%]
 

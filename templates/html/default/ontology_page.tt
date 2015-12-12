@@ -5,16 +5,18 @@ document => an SML::Document object
 %]
 [%-
 
-library  = document.get_library
-ontology = library.get_ontology
-id       = document.get_id
-title    = document.get_property('title')
+library                = document.get_library
+ontology               = library.get_ontology
+document_id            = document.get_id
+document_title_element = library.get_property_value_element(document_id,'title')
 
 -%]
 [%- WRAPPER page.tt -%]
 
 <div style="font-size:8pt;text-align:center">
-<a href="[%id%].toc.html">[%- INCLUDE property.tt property = title -%]</a>
+<a href="[%document_id%].toc.html">
+[%- INCLUDE element.tt element = document_title_element -%]
+</a>
 </div>
 
 <h1 align="center">Ontology</h1>
@@ -75,8 +77,16 @@ title    = document.get_property('title')
 <td id="[%rule_id%]">[%rule_id%]</td>
 <td>[%entity_name%]</td>
 <td>[%property_name%]</td>
-<td>[%object_name%]</td>
-<td>[%FOREACH value IN allowed_value_list%][%value%], [%END%]</td>
+
+<td>
+[%- IF object_name != 'STRING' -%]
+<a href="#[%object_name%]">[%object_name%]</a>
+[%- ELSE -%]
+[%object_name%]
+[%- END -%]
+</td>
+
+<td>[%allowed_value_list.join(', ')%]</td>
 <td><a href="#[%inverse_rule_id%]">[%inverse_rule_id%]</a></td>
 <td style="text-align:center;">[%cardinality%]</td>
 <td style="text-align:center;">[%is_required%]</td>
@@ -145,8 +155,15 @@ title    = document.get_property('title')
 <td>[%rule_id%]</td>
 <td>[%structure_name%]</td>
 <td>[%property_name%]</td>
-<td>[%object_name%]</td>
-<td>[%FOREACH value IN allowed_value_list%][%value%], [%END%]</td>
+<td>
+[%- IF object_name != 'STRING' -%]
+<a href="#[%object_name%]">[%object_name%]</a>
+[%- ELSE -%]
+[%object_name%]
+[%- END -%]
+</td>
+
+<td>[%allowed_value_list.join(', ')%]</td>
 <td><a href="#[%inverse_rule_id%]">[%inverse_rule_id%]</a></td>
 <td style="text-align:center;">[%cardinality%]</td>
 <td style="text-align:center;">[%is_required%]</td>
@@ -158,5 +175,4 @@ title    = document.get_property('title')
 </table>
 
 [%- END -%]
-
 [%- END -%]

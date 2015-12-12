@@ -58,61 +58,6 @@ has value =>
 ######################################################################
 ######################################################################
 
-# sub _build_value {
-
-#   # Strip the element name off the beginning of the element content.
-#   # Strip any comment text off the end of the element content.
-
-#   my $self = shift;
-
-#   my $library = $self->get_library;
-#   my $syntax  = $library->get_syntax;
-#   my $text    = $self->get_content || q{};
-
-#   $text =~ s/[\r\n]*$//;                # chomp;
-
-#   if ( $text =~ /$syntax->{'element'}/xms )
-#     {
-#       my $util = $library->get_util;
-
-#       if ( $1 eq 'date' and $3 =~ /^\$Date:\s*(.*)\s*\$$/ )
-# 	{
-# 	  return $1;
-# 	}
-
-#       elsif ( $1 eq 'revision' and $3 =~ /^\$Revision:\s*(.*)\s*\$$/ )
-# 	{
-# 	  return $1;
-# 	}
-
-#       elsif ( $1 eq 'author' and $3 =~ /^\$Author:\s*(.*)\s*\$$/ )
-# 	{
-# 	  return $1;
-# 	}
-
-#       else
-# 	{
-# 	  return $util->trim_whitespace($3);
-# 	}
-#     }
-
-#   elsif ( $text =~ /$syntax->{'start_section'}/xms )
-#     {
-#       my $util = $library->get_util;
-
-#       return $util->trim_whitespace($4);
-#     }
-
-#   else
-#     {
-#       my $name = $self->get_name;
-#       $logger->error("This should never happen $name $self (\'$text\')");
-#       return q{};
-#     }
-# }
-
-######################################################################
-
 sub _type_of {
 
   # Return the TYPE of the element value (object name, STRING, or

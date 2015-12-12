@@ -5,14 +5,13 @@ self => an SML::Entity object
 %]
 [%-
 
-id       = self.get_property_value('id')
-priority = self.get_property_value('priority')
-status   = self.get_property_value('status')
-type     = self.get_property_value('type')
-date     = self.get_property_value('date')
-author   = self.get_property_value('author')
-revision = self.get_property_value('revision')
+library  = self.get_library
+id       = self.get_id
 name     = self.get_name.ucfirst
+type     = library.get_property_value(id,'type')
+date     = library.get_property_value(id,'date')
+author   = library.get_property_value(id,'author')
+revision = library.get_property_value(id,'revision')
 
 -%]
 <table style="width:100%;">
@@ -34,8 +33,25 @@ name     = self.get_name.ucfirst
 <tr>
 <td style="width:14%;background-color:#eeeeee;">[%id%]</td>
 <td style="width:14%;background-color:#eeeeee;">[%type%]</td>
-<td style="width:10%;background-color:#eeeeee;">[% INCLUDE priority_icon.tt %] [%priority%]</td>
-<td style="width:10%;background-color:#eeeeee;">[% INCLUDE status_icon.tt %] [%status%]</td>
+
+<td style="width:10%;background-color:#eeeeee;">
+[%- IF library.has_property(id,'priority') -%]
+[%- priority = library.get_property_value(id,'priority') -%]
+[% INCLUDE priority_icon.tt %] [%priority%]
+[%- ELSE -%]
+[% INCLUDE priority_icon.tt %]
+[%- END -%]
+</td>
+
+<td style="width:10%;background-color:#eeeeee;">
+[%- IF library.has_property(id,'status') -%]
+[%- status = library.get_property_value(id,'status') -%]
+[% INCLUDE status_icon.tt %] [%status%]
+[%- ELSE -%]
+[% INCLUDE status_icon.tt %]
+[%- END -%]
+</td>
+
 <td style="width:18%;background-color:#eeeeee;">[%date%]</td>
 <td style="width:18%;background-color:#eeeeee;">[%author%]</td>
 <td style="width:14%;background-color:#eeeeee;">[%revision%]</td>

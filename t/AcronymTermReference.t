@@ -3,7 +3,7 @@
 # $Id: AcronymTermReference.t 125 2015-02-24 02:43:25Z drj826@gmail.com $
 
 use lib "../lib";
-use Test::More tests => 6;
+use Test::More tests => 5;
 
 use SML;
 

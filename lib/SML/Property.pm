@@ -142,17 +142,14 @@ sub get_value {
 
   my $self = shift;
 
-  my $values  = [];
+  my $hash    = {};                     # dedupe hash
+  my $id      = $self->get_id;
   my $name    = $self->get_name;
   my $library = $self->get_library;
   my $util    = $library->get_util;
   my $options = $util->get_options;
 
-  if (
-      $name eq 'status'
-      and
-      $options->use_formal_status
-     )
+  if ( $name eq 'status' and $options->use_formal_status )
     {
       # If 'status' is the requested property and the
       # 'use_formal_status' option is set, return the status from the
@@ -180,17 +177,21 @@ sub get_value {
     {
       foreach my $element (@{ $self->get_element_list })
 	{
-	  push @{ $values }, $element->get_value;
+	  $hash->{ $element->get_value } = 1;
 	}
 
       foreach my $property_value (@{ $self->get_value_list })
 	{
-	  push @{ $values }, $property_value;
+	  $hash->{ $property_value } = 1;
+	}
+
+      foreach my $object (@{ $library->get_object_list($id,$name) })
+	{
+	  $hash->{ $object } = 1;
 	}
     }
 
-  return join(', ', @{ $values });
-
+  return join(', ', sort keys %{ $hash });
 }
 
 ######################################################################
