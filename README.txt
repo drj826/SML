@@ -1,6 +1,16 @@
+I created the Semantic Manuscript Language (SML) because I wanted to
+create and maintain documentation the same way I create and maintain
+software.  I wanted a `compiler' to mercilessly throw errors found in
+my documents.  I also wanted the to validate the meaning of document
+content against my own ontology (like a semantic schema) so that an
+application warns me when I say something that doesn't make sense.
+
 Semantic Manuscript Language (SML) is a plain text language that:
 
 - is human readable
+
+- enables you to capture and validate the meaning (i.e. the semantics)
+  of document content pre-defined by you in an ontology
 
 - minimizes markup
 
@@ -23,32 +33,26 @@ Semantic Manuscript Language (SML) is a plain text language that:
 
 - makes it easy to automatically generate document content
 
-- enables you to capture and validate the meaning (i.e. the semantics)
-  of document content pre-defined by you in an ontology
-
 The Perl code here enables you to:
 
-- parse SML text into an object model (Parser.pm)
+- (Parser.pm) parse SML text into an object model
 
-- reason about document content (Reasoner.pm)
+- (Reasoner.pm) reason about document content
 
-- manage a collection of related documents (Library.pm)
+- (Library.pm) manage a collection of related documents
 
-- publish SML documents to a variety of renditions and styles
-  (Publisher.pm)
+- (Publisher.pm) publish SML documents to a variety of renditions and
+  styles
 
-I created SML because I wanted to create and maintain documentation
-the same way I create and maintain code.  I wanted a `compiler' to
-mercilessly throw syntax errors found in my documents or when my
-document says something that doesn't make any sense.
+Think of the SML code as a `compiler' for documentation containing
+rich semantics. For instance, I wanted this document `compiler' to
+throw an error if a `test' is not associated with a `requirement' and
+a `solution.'  Or, throw an error when I try to do something silly
+like make a `bicycle' part of a `person.'
 
-For instance, I wanted the document `compiler' to throw an error if a
-`test' is not associated with a `requirement' and a `solution.'  Or,
-throw an error when I try to make a `bicycle' part of a `person.'
-
-I've been using early prototypes for years to manage thousands of
-pages of documentation.  But I've never gotten around to sharing the
-code with a wider community until now.
+I've been using versions of this software for years to manage
+thousands of pages of documentation.  But I've never gotten around to
+sharing the code with a wider community until now.
 
 This project is very rough around the edges and is not yet
 packaged for distribution.
