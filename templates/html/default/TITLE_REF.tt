@@ -5,13 +5,14 @@ self => an SML::TitleReference object
 %]
 [%-
 
-target_id   = self.get_target_id
-document    = self.get_containing_document
-docid       = document.get_id
-target_part = document.get_part(target_id)
-title       = target_part.get_property_value('title')
-target_name = target_part.get_name
-target_num  = target_part.get_number
+library      = self.get_library
+target_id    = self.get_target_id
+document     = self.get_containing_document
+docid        = document.get_id
+target_part  = document.get_part(target_id)
+target_title = library.get_first_property_value(target_id,'title')
+target_name  = target_part.get_name
+target_num   = target_part.get_number
 
 -%]
 [%- IF document.has_sections -%]
@@ -19,7 +20,7 @@ target_num  = target_part.get_number
   section     = target_part.get_containing_section
   section_num = section.get_number
   -%]
-<a href="[%docid%].[%section_num%].html#[%target_name%].[%target_num%]">[%title%]</a>
+<a href="[%docid%].[%section_num%].html#[%target_name%].[%target_num%]">[%target_title%]</a>
 [%- ELSE -%]
-<a href="[%docid%].0.html#[%target_name%].[%target_num%]">[%title%]</a>
+<a href="[%docid%].0.html#[%target_name%].[%target_num%]">[%target_title%]</a>
 [%- END -%]

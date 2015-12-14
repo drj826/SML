@@ -7,7 +7,7 @@ document => an SML::Document object
 
 library                = document.get_library
 document_id            = document.get_id
-document_title_element = library.get_property_value_element(document_id,'title')
+document_title_element = library.get_first_property_value_element(document_id,'title')
 
 -%]
 [%- WRAPPER page.tt -%]
@@ -71,7 +71,7 @@ page           = document_id _ '.' _ section_number _ '.html'
 [%- IF section_depth == 1 -%]
 <h4>Chapter [%section_number%]&nbsp;&nbsp;
 <a href="[%page%]">
-[%- INCLUDE element.tt element = library.get_property_value_element(section_id,'title') -%]
+[%- INCLUDE element.tt element = library.get_first_property_value_element(section_id,'title') -%]
 </a></h4>
 [%- END %]
 
@@ -87,7 +87,7 @@ bookmark          = 'ATTACHMENT.' _ attachment_number
 <div style="text-indent: 60pt; font-size: 8pt;">
 Attachment [%attachment_number%] -
 <a href="[%page%]#[%bookmark%]">
-[%- INCLUDE element.tt element = library.get_property_value_element(attachment_id,'title') -%]
+[%- INCLUDE element.tt element = library.get_first_property_value_element(attachment_id,'title') -%]
 </a>
 </div>
 

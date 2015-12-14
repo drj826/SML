@@ -225,51 +225,51 @@ sub get_element_count {
 
 ######################################################################
 
-sub get_elements_as_enum_list {
+# sub get_elements_as_enum_list {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $library = $self->get_library;
-  my $util    = $library->get_util;
+#   my $library = $self->get_library;
+#   my $util    = $library->get_util;
 
-  foreach my $element (@{ $self->get_element_list })
-    {
-      my $value = $element->get_value;
+#   foreach my $element (@{ $self->get_element_list })
+#     {
+#       my $value = $element->get_value;
 
-      # is this element value actually a division ID?
-      #
-      if ( $library->has_division($value) )
-	{
-	  my $assoc_division = $library->get_division($value);
+#       # is this element value actually a division ID?
+#       #
+#       if ( $library->has_division($value) )
+# 	{
+# 	  my $assoc_division = $library->get_division($value);
 
-	  my $title  = $assoc_division->get_property_value('title');
-	  my $tier   = $assoc_division->get_property_value('tier');
-	  my $id     = $assoc_division->get_property_value('id');
-	  my $name   = $assoc_division->get_property_value('name');
-	  my $string = $util->wrap("- $name $id ($tier) $title");
+# 	  my $title  = $assoc_division->get_property_value('title');
+# 	  my $tier   = $assoc_division->get_property_value('tier');
+# 	  my $id     = $assoc_division->get_property_value('id');
+# 	  my $name   = $assoc_division->get_property_value('name');
+# 	  my $string = $util->wrap("- $name $id ($tier) $title");
 
-	  return "$string\n\n";
-	}
+# 	  return "$string\n\n";
+# 	}
 
-      # or else is this element value a string?
-      #
-      elsif ( $value )
-	{
-	  my $string = $util->wrap("- $value");
-	  return "$string\n\n";
-	}
+#       # or else is this element value a string?
+#       #
+#       elsif ( $value )
+# 	{
+# 	  my $string = $util->wrap("- $value");
+# 	  return "$string\n\n";
+# 	}
 
-      # or else does this element have no value?
-      #
-      else
-	{
-	  my $location = $element->get_location;
-	  $logger->warn("EMPTY ELEMENT VALUE at $location");
-	}
-    }
+#       # or else does this element have no value?
+#       #
+#       else
+# 	{
+# 	  my $location = $element->get_location;
+# 	  $logger->warn("EMPTY ELEMENT VALUE at $location");
+# 	}
+#     }
 
-  return 0;
-}
+#   return 0;
+# }
 
 ######################################################################
 

@@ -15,7 +15,7 @@ anchor          = 'epigraph.' _ epigraph_number
 [%- IF library.has_property(epigraph_id,'text')  -%]
 <p align="right">
 <i>
-[%- INCLUDE element.tt element = library.get_property_value_element(epigraph_id,'text') -%]
+[%- INCLUDE element.tt element = library.get_first_property_value_element(epigraph_id,'text') -%]
 </i>
 </p>
 [%- END -%]
@@ -23,22 +23,22 @@ anchor          = 'epigraph.' _ epigraph_number
 [%- IF library.has_property(epigraph_id,'author') and library.has_property(epigraph_id,'source') -%]
 <p align="right">
 <small>&mdash;
-[%- INCLUDE element.tt element = library.get_property_value_element(epigraph_id,'author') -%],
-[%- INCLUDE element.tt element = library.get_property_value_element(epigraph_id,'source') -%]
+[%- INCLUDE element.tt element = library.get_first_property_value_element(epigraph_id,'author') -%],
+[%- INCLUDE element.tt element = library.get_first_property_value_element(epigraph_id,'source') -%]
 </small>
 </p>
 
 [%- ELSIF library.has_property(epigraph_id,'source') -%]
 <p align="right">
 <small>&mdash;
-[%- INCLUDE element.tt element = library.get_property_value_element(epigraph_id,'source') -%]
+[%- INCLUDE element.tt element = library.get_first_property_value_element(epigraph_id,'source') -%]
 </small>
 </p>
 
 [%- ELSIF library.has_property(epigraph_id,'author')  -%]
 <p align="right">
 <small>&mdash;
-[%- INCLUDE element.tt element = library.get_property_value_element(epigraph_id,'author') -%]
+[%- INCLUDE element.tt element = library.get_first_property_value_element(epigraph_id,'author') -%]
 </small>
 </p>
 [%- END -%]

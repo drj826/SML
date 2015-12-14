@@ -8,7 +8,7 @@ self => an SML::Attachment object
 library = self.get_library
 number  = self.get_number
 id      = self.get_id
-file    = library.get_property_value(id,'file')
+file    = library.get_first_property_value(id,'file')
 anchor  = 'ATTACHMENT.' _ number
 
 -%]

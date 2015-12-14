@@ -48,6 +48,8 @@ self => an SML::Entity object (name = 'requirement')
 [%- INCLUDE entity_property_row.tt property_name = 'copyright'    label = 'copyright:'    -%]
 [%- INCLUDE entity_property_row.tt property_name = 'order'        label = 'order:'        -%]
 [%- INCLUDE entity_property_row.tt property_name = 'assignment'   label = 'assignment:'   -%]
+[%- INCLUDE entity_property_row.tt property_name = 'review'       label = 'reviews:'      -%]
+[%- INCLUDE entity_property_row.tt property_name = 'outcome'      label = 'outcomes:'     -%]
 
 </table>
 
@@ -56,6 +58,10 @@ self => an SML::Entity object (name = 'requirement')
 [%# DEBUGGING... %]
 
 <br/><br/>
+
+<div style="background-color:#ffffee;padding:10px;">
+<b>The rest of this content is for debugging...</b>
+</div>
 
 <div style="background-color:#ffeeee;padding:10px;">
 <b>original manuscript:</b>

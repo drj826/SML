@@ -8,7 +8,7 @@ document => an SML::Document object
 library                = document.get_library
 glossary               = document.get_glossary
 document_id            = document.get_id
-document_title_element = library.get_property_value_element(document_id,'title')
+document_title_element = library.get_first_property_value_element(document_id,'title')
 
 -%]
 [%- WRAPPER page.tt -%]

@@ -22,13 +22,13 @@ library     = document.get_library
 <br/>
 
 [%- IF library.has_property(document_id,'logo_image_center') -%]
-[%- INCLUDE image.tt self = library.get_property_value_element(document_id,'logo_image_center') -%]
+[%- INCLUDE image.tt self = library.get_first_property_value_element(document_id,'logo_image_center') -%]
 <br/><br/>
 [%- END -%]
 
 <hr align="center" noshade size="4" width="60%">
 <div class="title">
-[%- INCLUDE part_list.tt self = library.get_property_value_element(document_id,'title') -%]
+[%- INCLUDE part_list.tt self = library.get_first_property_value_element(document_id,'title') -%]
 </div>
 <hr align="center" noshade size="4" width="60%">
 
@@ -38,7 +38,7 @@ library     = document.get_library
 
 [% IF library.has_property(document_id,'subtitle') %]
 <div class="subtitle">
-[%- INCLUDE part_list.tt self = library.get_property_value_element(document_id,'subtitle') -%]
+[%- INCLUDE part_list.tt self = library.get_first_property_value_element(document_id,'subtitle') -%]
 </div>
 [% END %]
 
@@ -47,15 +47,15 @@ library     = document.get_library
 <br/>
 
 [%- IF library.has_property(document_id,'version') -%]
-<p align="center">Version [% INCLUDE part_list.tt self = library.get_property_value_element(document_id,'version') %]</p>
+<p align="center">Version [% INCLUDE part_list.tt self = library.get_first_property_value_element(document_id,'version') %]</p>
 [%- END -%]
 
 [%- IF library.has_property(document_id,'date') -%]
-<p align="center">[% library.get_property_value(document_id,'date') %]</p>
+<p align="center">[% library.get_first_property_value(document_id,'date') %]</p>
 [%- END -%]
 
 [%- IF library.has_property(document_id,'organization') -%]
-<p align="center">[% library.get_property_value(document_id,'organization') -%]</p>
+<p align="center">[% library.get_first_property_value(document_id,'organization') -%]</p>
 [%- END -%]
 
 [%- END -%]

@@ -5,9 +5,10 @@ document => an SML::Document object
 %]
 [%
 
-version  = document.get_property_value('version')
-revision = document.get_property_value('revision')
-date     = document.get_property_value('date')
+document_id = document.get_id
+version     = library.get_first_property_value(document_id,'version')
+revision    = library.get_first_property_value(document_id,'revision')
+date        = library.get_first_property_value(document_id,'date')
 
 %]
 <tr>

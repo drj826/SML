@@ -14,9 +14,9 @@ id      = self.get_id
 <span style="font-weight:bold;">
 [%label%] [%number%]
 [%- IF library.has_property(id,'title') -%]
- - [%- INCLUDE element.tt element = library.get_property_value_element(id,'title') -%]
+ - [%- INCLUDE element.tt element = library.get_first_property_value_element(id,'title') -%]
 [%- END -%]
 </span>
 [%- IF library.has_property(id,'description') -%]
- - [%- INCLUDE element.tt element = library.get_property_value_element(id,'description') -%]
+ - [%- INCLUDE element.tt element = library.get_first_property_value_element(id,'description') -%]
 [%- END -%]

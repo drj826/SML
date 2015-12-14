@@ -8,7 +8,7 @@ document => an SML::Document object
 library                = document.get_library
 ontology               = library.get_ontology
 document_id            = document.get_id
-document_title_element = library.get_property_value_element(document_id,'title')
+document_title_element = library.get_first_property_value_element(document_id,'title')
 
 -%]
 [%- WRAPPER page.tt -%]
@@ -20,6 +20,8 @@ document_title_element = library.get_property_value_element(document_id,'title')
 </div>
 
 <h1 align="center">Ontology</h1>
+
+[%- INCLUDE ontology_button_bar.tt -%]
 
 [%- FOREACH entity_name IN ontology.get_entity_name_list -%]
   [%-

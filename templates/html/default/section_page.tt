@@ -9,7 +9,7 @@ library        = self.get_library
 section_number = self.get_number
 section_id     = self.get_id
 anchor         = 'section.' _ section_number
-title_element  = library.get_property_value_element(section_id,'title')
+title_element  = library.get_first_property_value_element(section_id,'title')
 
 -%]
 [% WRAPPER page.tt -%]

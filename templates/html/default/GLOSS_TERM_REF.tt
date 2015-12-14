@@ -5,20 +5,20 @@ self => an SML::GlossaryTermReference object
 %]
 [%-
 
-document  = self.get_containing_document
-docid     = document.get_id
-tag       = self.get_tag
-term      = self.get_term
-namespace = self.get_namespace
-glossary  = document.get_glossary
-entry     = glossary.get_entry(term,namespace)
-bookmark  = entry.get_bookmark
+document    = self.get_containing_document
+document_id = document.get_id
+tag         = self.get_tag
+term        = self.get_term
+namespace   = self.get_namespace
+glossary    = document.get_glossary
+entry       = glossary.get_entry(term,namespace)
+bookmark    = entry.get_bookmark
 
 -%]
 [%- IF (tag == 'g') || (tag == 'gls') -%]
-<a href="[%docid%].glossary.html#[%bookmark%]">[%term%]</a>
+<a href="[%document_id%].glossary.html#[%bookmark%]">[%term%]</a>
 [%- ELSIF (tag == 'G') || (tag == 'Gls') -%]
-<a href="[%docid%].glossary.html#[%bookmark%]">[%term.ucfirst%]</a>
+<a href="[%document_id%].glossary.html#[%bookmark%]">[%term.ucfirst%]</a>
 [%- ELSE -%]
 <span style="color: red;">This should never happen</span>
 [%- END -%]

@@ -1,8 +1,15 @@
 [%# args:
 
+self    => document part represented by content
 content => content to be wrapped by the page
 
 %]
+[%-
+
+library = self.get_library
+id      = self.get_id
+
+-%]
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/1999/xhtml" xml:lang="en">
 
 <!-- ============================================================= -->
@@ -23,7 +30,7 @@ content => content to be wrapped by the page
 <html>
 <head>
 
-<title>[%- self.get_property_value('title') -%]</title>
+<title>[%- library.get_first_property_value(id,'title') -%]</title>
 
 [% INCLUDE js_popimage.tt -%]
 [% INCLUDE js_treetable.tt -%]

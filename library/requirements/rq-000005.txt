@@ -9,10 +9,12 @@ priority:: routine
 type:: data format
 
 description:: The data format shall minimize document
-[g:SML:presentation] markup.  The primary purpose of this requirement
-is to limit authors capability to adjust presentation. In other words,
-~~deny~~ authors the ability to specify the ~~style~~ or
-~~appearance~~ of their content.
+[g:SML:presentation] markup.  Presentation markup is markup that
+controls how content is presented (i.e. bold, italics, big, small,
+etc.). The primary purpose of this requirement is to limit authors
+capability to adjust presentation. In other words, ~~deny~~ authors
+the ability to specify the ~~style~~ or ~~appearance~~ of their
+content.
 
 revision:: $Revision: 11687 $
 
@@ -27,7 +29,18 @@ document presentation.  Modern documents are often published to
 multiple formats and authors often do not control how their content is
 presented to readers.
 
+review::2015-12-12:rq-000005:yellow: In my opioniion, this requirement
+is complete and understandable (Don Johnson).
+
+review::2015-12-13:rq-000005:red: I've changed my mind.  Now I think
+this requirement is horrible.  It is poorly written, and I don't
+understand what it means. (Don Johnson)
+
 outcome::2015-12-12:rq-000005:green: This requirement is complete and
-understandable.
+understandable (Don Johnson).
+
+outcome::2015-12-13:rq-000005:yellow: This requirement is partially
+complete and partially understandable. Elaborate on the meaning of
+`presentation markup' to make this green. (Don Johnson)
 
 <<<requirement

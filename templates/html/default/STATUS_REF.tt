@@ -25,18 +25,21 @@ library = self.get_library
 -%]
   [%- IF library.has_entity(status_or_id) -%]
     [%-
-    entity = library.get_entity(status_or_id)
-    status = entity.get_property_value('status')
+    entity_id = status_or_id
+    entity    = library.get_entity(entity_id)
+    status    = library.get_first_property_value(entity_id'status')
     -%]
   [%- ELSIF library.has_document(status_or_id) -%]
     [%-
-    document = library.get_document(status_or_id)
-    status   = document.get_property_value('status')
+    document_id = status_or_id
+    document    = library.get_document(document_id)
+    status      = library.get_first_property_value(document_id,'status')
     -%]
   [%- ELSIF library.has_division(status_or_id) -%]
     [%-
-    division = library.get_division(status_or_id)
-    status   = division.get_property_value('status')
+    division_id = status_or_id
+    division    = library.get_division(division_id)
+    status      = library.get_first_property_value(division_id,'status')
     -%]
   [%- END -%]
 

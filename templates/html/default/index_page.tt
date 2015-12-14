@@ -8,7 +8,7 @@ document => an SML::Document object
 library                = document.get_library
 index                  = document.get_index
 document_id            = document.get_id
-document_title_element = library.get_property_value_element(document_id,'title')
+document_title_element = library.get_first_property_value_element(document_id,'title')
 
 -%]
 [%- WRAPPER page.tt -%]
@@ -47,7 +47,7 @@ document_title_element = library.get_property_value_element(document_id,'title')
     -%]
 <b>[%ucfname%]&nbsp;[%number%]</b>&nbsp;&nbsp;
 <a href="[%document_id%].[%secnum%].html#[%locator%]">
-[%- INCLUDE element.tt element = library.get_property_value_element(division_id,'title') -%]
+[%- INCLUDE element.tt element = library.get_first_property_value_element(division_id,'title') -%]
 </a>&nbsp;&nbsp;
   [%- END -%]
 </div>
@@ -73,7 +73,7 @@ document_title_element = library.get_property_value_element(document_id,'title')
 	-%]
 <b>[%ucfname%]&nbsp;[%number%]</b>&nbsp;&nbsp;
 <a href="[%document_id%].[%secnum%].html#[%locator%]">
-[%- INCLUDE element.tt element = library.get_property_value_element(division_id,'title') -%]
+[%- INCLUDE element.tt element = library.get_first_property_value_element(division_id,'title') -%]
 </a>&nbsp;&nbsp;
       [%- END -%]
 </div>
@@ -99,7 +99,7 @@ document_title_element = library.get_property_value_element(document_id,'title')
 	    -%]
 <b>[%ucfname%]&nbsp;[%number%]</b>&nbsp;&nbsp;
 <a href="[%document_id%].[%secnum%].html#[%locator%]">
-[%- INCLUDE element.tt element = library.get_property_value_element(division_id,'title') -%]
+[%- INCLUDE element.tt element = library.get_first_property_value_element(division_id,'title') -%]
 </a>&nbsp;&nbsp;
           [%- END -%]
 </div>

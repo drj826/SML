@@ -1,0 +1,18 @@
+[%# args:
+
+ontology => an SML::Ontology object
+
+%]
+<div align="center">
+[%- FOREACH entity_name IN ontology.get_entity_name_list -%]
+<button type="button" onclick="goToA('#[%entity_name%]');">[%entity_name%]</button>
+[%- END -%]
+</div>
+
+<br/>
+
+<div style="text-align:center;">
+[%- FOREACH structure_name IN ontology.get_structure_name_list -%]
+<a href="#[%structure_name%]">[%structure_name%]</a> &middot; 
+[%- END -%]
+</div>

@@ -782,10 +782,10 @@ sub has_property_value {
 
 ######################################################################
 
-sub get_property_value {
+sub get_first_property_value {
 
-  # Return the property value.  If there is more than one value,
-  # return the first one and warn that there is more than one.
+  # Return the first property value for the specified division ID and
+  # property name.  WARN if there is more than one value.
 
   my $self = shift;
 
@@ -818,12 +818,11 @@ sub get_property_value {
 
 ######################################################################
 
-sub get_property_value_element {
+sub get_first_property_value_element {
 
-  # Return the SML::Element associated with the specified property
-  # value.  If there is more than one value (and therefore more than
-  # one element), return the first one and warn that there is more
-  # than one.
+  # Return the first SML::Element associated with the specified
+  # division ID and property name.  WARN if there is more than one
+  # value (and therefore more than one element).
 
   my $self = shift;
 
@@ -854,6 +853,36 @@ sub get_property_value_element {
   my $value = $list->[0];
 
   return $hash->{$division_id}{$property_name}{$value};
+}
+
+######################################################################
+
+sub get_property_value_element {
+
+  # Return the SML::Element associated with the specified division ID,
+  # property name, and property value.
+
+  my $self = shift;
+
+  my $division_id    = shift;
+  my $property_name  = shift;
+  my $property_value = shift;
+
+  unless ( $division_id and $property_name and $property_value )
+    {
+      $logger->error("CAN'T GET PROPERTY VALUE ELEMENT, MISSING ARGUMENTS");
+      return 0;
+    }
+
+  my $hash = $self->_get_property_hash;
+
+  unless ( exists $hash->{$division_id}{$property_name}{$property_value} )
+    {
+      $logger->error("CAN'T GET PROPERTY VALUE ELEMENT FOR $division_id $property_name $property_value, NO VALUE");
+      return 0;
+    }
+
+  return $hash->{$division_id}{$property_name}{$property_value};
 }
 
 ######################################################################
@@ -1383,37 +1412,6 @@ sub get_all_documents {
 
 ######################################################################
 
-# sub get_property {
-
-#   my $self = shift;
-#   my $id   = shift;
-#   my $name = shift;
-
-#   if ( exists $self->_get_division_hash->{$id} )
-#     {
-#       my $division = $self->_get_division_hash->{$id};
-
-#       if ( $division->has_property($name) )
-# 	{
-# 	  return $division->get_property($name);
-# 	}
-
-#       else
-# 	{
-# 	  $logger->error("CAN'T GET PROPERTY \'$id\' entity doesn't have \'$name\' property");
-# 	  return 0;
-# 	}
-#     }
-
-#   else
-#     {
-#       $logger->error("CAN'T GET PROPERTY \'$id\' entity doesn't exist");
-#       return 0;
-#     }
-# }
-
-######################################################################
-
 sub get_variable {
 
   my $self      = shift;
@@ -1469,39 +1467,6 @@ sub get_index_term {
       return 0;
     }
 }
-
-######################################################################
-
-# sub get_property_value {
-
-#   my $self = shift;
-#   my $id   = shift;
-#   my $name = shift;
-
-#   if ( $self->has_division($id) )
-#     {
-#       my $division = $self->get_division($id);
-
-#       if ( $division->has_property($name) )
-# 	{
-# 	  my $property = $division->get_property($name);
-# 	  return $property->get_value;
-# 	}
-
-#       else
-# 	{
-# 	  $logger->error("CAN'T GET PROPERTY VALUE \'$id\' has no \'$name\' property");
-# 	  return 0;
-# 	}
-#     }
-
-#   else
-#     {
-#       $logger->error("CAN'T GET PROPERTY VALUE \'$id\' division not found");
-#       return 0;
-#     }
-
-# }
 
 ######################################################################
 

@@ -80,29 +80,25 @@ sub infer_inverse_triple {
 
 ######################################################################
 
-sub infer_status_from_outcomes {
+sub infer_status_from_outcome {
 
   my $self    = shift;
-  my $library = $self->get_library;
+  my $outcome = shift;
 
-  foreach my $entity_id (@{ $library->get_outcome_entity_id_list })
+  my $library     = $self->get_library;
+  my $entity_id   = $outcome->get_entity_id;
+  my $status      = $outcome->get_status;
+  my $date        = $outcome->get_date;
+  my $description = $outcome->get_description;
+
+  unless ( $library->has_division_id($entity_id) )
     {
-      foreach my $date (@{ $library->get_outcome_date_list($entity_id) })
-	{
-	  my $outcome = $library->get_outcome($entity_id,$date);
-	  my $status  = $outcome->get_status;
-
-	  if ( $library->has_division_id($entity_id) )
-	    {
-	      $library->set_property_value($entity_id,'status',$status);
-	    }
-
-	  else
-	    {
-	      $logger->error("CAN'T INFER STATUS FROM OUTCOMES for non-existent entity \'$entity_id\'");
-	    }
-	}
+      $logger->error("CAN'T INFER STATUS FROM OUTCOMES for non-existent entity \'$entity_id\'");
+      next;
     }
+
+  $logger->trace("inferred status $status from outcome for $entity_id");
+  $library->set_property_value($entity_id,'status',$status);
 
   return 1;
 }

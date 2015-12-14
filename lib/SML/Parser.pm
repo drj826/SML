@@ -2545,8 +2545,8 @@ sub _parse_lines {
   $self->_generate_section_numbers;
   $self->_generate_division_numbers;
 
-  my $reasoner = $library->get_reasoner;
-  $reasoner->infer_status_from_outcomes;
+  # my $reasoner = $library->get_reasoner;
+  # $reasoner->infer_status_from_outcomes;
 
   return 1;
 }
@@ -6051,12 +6051,15 @@ sub _process_start_section_heading {
   my $asterisks = shift;
   my $id        = shift || q{};
 
-  my $library  = $self->get_library;
-  my $location = $line->get_location;
-  my $depth    = length($1);
   my $number   = $self->_get_number;
 
   $logger->trace("{$number} ----- start division (SECTION.$id)");
+
+  my $library  = $self->get_library;
+  my $location = $line->get_location;
+  my $ontology = $library->get_ontology;
+  my $num      = $library->increment_division_count('SECTION');
+  my $depth    = length($1);
 
   $self->_end_step_list       if $self->_in_step_list;
   $self->_end_all_lists       if $self->_in_bullet_list;
@@ -6082,7 +6085,6 @@ sub _process_start_section_heading {
 
   if ( not $id )
     {
-      my $num = $self->_count_sections;
       $id = "section-$num";
     }
 
@@ -7510,21 +7512,35 @@ sub _process_end_outcome {
       # $3 = entity ID
       # $4 = status color (green, yellow, red, grey)
       # $5 = outcome description
-      $outcome->set_date($2);
-      $outcome->set_entity_id($3);
-      $outcome->set_status($4);
-      $outcome->set_description($5);
+
+      my $date        = $2;
+      my $entity_id   = $3;
+      my $status      = $4;
+      my $description = $5;
+
+      $outcome->set_date($date);
+      $outcome->set_entity_id($entity_id);
+      $outcome->set_status($status);
+      $outcome->set_description($description);
+
+      $library->add_outcome($outcome);
+
+      my $outcome_value = "$date $status - $description";
+      $library->add_property_value($entity_id,'outcome',$outcome_value,$outcome);
+
+      my $reasoner = $library->get_reasoner;
+      $reasoner->infer_status_from_outcome($outcome);
+
+      return 1;
     }
 
   else
     {
       my $location = $outcome->get_location;
       $logger->error("SYNTAX ERROR IN OUTCOME AT $location");
+
+      return 0;
     }
-
-  $library->add_outcome($outcome);
-
-  return 1;
 }
 
 ######################################################################
@@ -7580,21 +7596,32 @@ sub _process_end_review {
       # $3 = entity ID
       # $4 = status color (green, yellow, red, grey)
       # $5 = review description
-      $review->set_date($2);
-      $review->set_entity_id($3);
-      $review->set_status($4);
-      $review->set_description($5);
+
+      my $date        = $2;
+      my $entity_id   = $3;
+      my $status      = $4;
+      my $description = $5;
+
+      $review->set_date($date);
+      $review->set_entity_id($entity_id);
+      $review->set_status($status);
+      $review->set_description($description);
+
+      $library->add_review($review);
+
+      my $review_value = "$date $status - $description";
+      $library->add_property_value($entity_id,'review',$review_value,$review);
+
+      return 1;
     }
 
   else
     {
       my $location = $review->get_location;
       $logger->error("SYNTAX ERROR IN REVIEW AT $location");
+
+      return 0;
     }
-
-  $library->add_review($review);
-
-  return 1;
 }
 
 ######################################################################

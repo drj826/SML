@@ -7,7 +7,7 @@ document => an SML::Document object
 
 document_id            = document.get_id
 library                = document.get_library
-document_title_element = library.get_property_value_element(document_id,'title')
+document_title_element = library.get_first_property_value_element(document_id,'title')
 
 -%]
 [%- WRAPPER page.tt -%]
@@ -65,7 +65,7 @@ document_title_element = library.get_property_value_element(document_id,'title')
 section_id            = section.get_id
 section_number        = section.get_number
 section_depth         = section.get_depth
-section_title_element = library.get_property_value_element(section_id,'title')
+section_title_element = library.get_first_property_value_element(section_id,'title')
 
 -%]
 

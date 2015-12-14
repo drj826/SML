@@ -5,7 +5,8 @@ self => an SML::Symbol object
 %]
 [%-
 
-document = self.get_containing_document
+document    = self.get_containing_document
+document_id = document.get_id
 
 -%]
-[%- document.get_property_value('date') -%]
+[%- library.get_first_property_value(document_id,'date') -%]
