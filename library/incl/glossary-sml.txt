@@ -583,12 +583,12 @@ responsibilities
 glossary:: SML file {SML} = A [g:SML:file] containing [a:SML]
 formatted [g:SML:text]
 
-glossary:: Semantic Manuscript Language {SML} = A minimalistic plain
-text [g:SML:descriptive markup] language designed to be human
-readable, easy to edit, easy to automatically generate, able to
-express and validate semantic relationships, and contain everything
-necessary to publish professional documentation from plain text
-manuscripts
+glossary:: Semantic Manuscript Language {SML} = ([a:SML]) A
+minimalistic plain text [g:SML:descriptive markup] language designed
+to be human readable, easy to edit, easy to automatically generate,
+able to express and validate semantic relationships, and contain
+everything necessary to publish professional documentation from plain
+text manuscripts
 
 ###
 

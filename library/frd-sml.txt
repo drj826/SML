@@ -14,11 +14,9 @@ logo_image_small:: files/images/sml_logo.png
 
 logo_image_center:: images/crags.jpg
 
-version:: 0.5
+version:: 2.0-DRAFT
 
-revision:: $Revision: 15138 $
-
-date:: $Date: 2013-07-07 09:35:23 -0600 (Sun, 07 Jul 2013) $
+date:: 13 Dec 2015
 
 use_formal_status:: 1
 

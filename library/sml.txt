@@ -16,9 +16,9 @@ logo_image_center:: files/images/lost-creek-meadow.jpg
 
 version:: 2.0-DRAFT
 
-revision:: 314159
+revision:: 31415926
 
-date:: 9 Dec 2015
+date:: 13 Dec 2015
 
 status:: yellow
 
