@@ -4093,7 +4093,7 @@ sub _end_element {
 			 $subject,
 			 $predicate,
 			 $object,
-			 $element,
+			 1,
 			);
 
 		      $library->add_triple($inverse_triple);
@@ -12283,10 +12283,12 @@ sub _validate_infer_only_conformance {
       my $list        = $library->get_property_value_list($divid,$property_name);
       my $cardinality = $ontology->property_allows_cardinality($divname,$property_name);
 
-      foreach my $value (@{ $list })
+      foreach my $property_value (@{ $list })
 	{
+	  my $value = $library->get_property_value_object($divid,$property_name,$property_value);
+
 	  # Validate infer-only conformance
-	  if ( $imply_only )
+	  if ( $imply_only and $value->is_from_manuscript )
 	    {
 	      $logger->warn("INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY \'$property_name\' $divname $divid");
 	      $valid = 0;

@@ -27,6 +27,7 @@ use SML::AcronymList;
 use SML::References;
 use SML::Publisher;
 use SML::Util;
+use SML::Value;
 
 ######################################################################
 ######################################################################
@@ -674,17 +675,11 @@ sub add_property_value {
   my $division_id    = shift;
   my $property_name  = shift;
   my $property_value = shift;
-  my $origin_element = shift;
+  my $origin         = shift;
 
-  unless ( $division_id and $property_name and $property_value and $origin_element )
+  unless ( $division_id and $property_name and $property_value and $origin )
     {
       $logger->logcluck("CAN'T ADD PROPERTY VALUE, MISSING ARGUMENT(S)");
-      return 0;
-    }
-
-  unless ( ref $origin_element and $origin_element->isa('SML::Element') )
-    {
-      $logger->logcluck("CAN'T ADD PROPERTY VALUE, ORIGIN ELEMENT \'$origin_element\' NOT AN ELEMENT");
       return 0;
     }
 
@@ -696,7 +691,22 @@ sub add_property_value {
       return 0;
     }
 
-  $hash->{$division_id}{$property_name}{$property_value} = $origin_element;
+  my $args = {};
+
+  if ( ref $origin and $origin->isa('SML::Element') )
+    {
+      $args->{element}         = $origin;
+      $args->{from_manuscript} = 1;
+    }
+
+  else
+    {
+      $args->{from_manuscript} = 0;
+    }
+
+  my $value = SML::Value->new(%{$args});
+
+  $hash->{$division_id}{$property_name}{$property_value} = $value;
 
   return 1;
 }
@@ -850,9 +860,17 @@ sub get_first_property_value_element {
       $logger->warn("RETURNING ONLY ONE VALUE. $division_id $property_name HAS MULTIPLE VALUES");
     }
 
-  my $value = $list->[0];
+  my $property_value = $list->[0];
 
-  return $hash->{$division_id}{$property_name}{$value};
+  my $value = $hash->{$division_id}{$property_name}{$property_value};
+
+  unless ( $value->has_element )
+    {
+      $logger->error("FIRST PROPERTY VALUE HAS NO ELEMENT $division_id $property_name");
+      return 0;
+    }
+
+  return $value->get_element;
 }
 
 ######################################################################
@@ -882,7 +900,46 @@ sub get_property_value_element {
       return 0;
     }
 
+  my $value = $hash->{$division_id}{$property_name}{$property_value};
+
+  unless ( $value->has_element )
+    {
+      $logger->error("PROPERTY VALUE HAS NO ELEMENT $division_id $property_name $property_value");
+      return 0;
+    }
+
+  return $value->get_element;
+}
+
+######################################################################
+
+sub get_property_value_object {
+
+  # Return the SML::Value object associated with the specified
+  # division ID, property name, and property value.
+
+  my $self = shift;
+
+  my $division_id    = shift;
+  my $property_name  = shift;
+  my $property_value = shift;
+
+  unless ( $division_id and $property_name and $property_value )
+    {
+      $logger->error("CAN'T GET PROPERTY VALUE OBJECT, MISSING ARGUMENTS");
+      return 0;
+    }
+
+  my $hash = $self->_get_property_hash;
+
+  unless ( exists $hash->{$division_id}{$property_name}{$property_value} )
+    {
+      $logger->error("CAN'T GET PROPERTY VALUE OBJECT FOR $division_id $property_name $property_value, NO VALUE");
+      return 0;
+    }
+
   return $hash->{$division_id}{$property_name}{$property_value};
+
 }
 
 ######################################################################
@@ -942,11 +999,16 @@ sub get_property_value_element_list {
 
   my $list = [];
 
-  foreach my $value ( sort keys %{ $hash->{$division_id}{$property_name} } )
+  foreach my $property_value ( sort keys %{ $hash->{$division_id}{$property_name} } )
     {
-      my $element = $hash->{$division_id}{$property_name}{$value};
+      my $value = $hash->{$division_id}{$property_name}{$property_value};
 
-      push(@{$list},$element);
+      if ( $value->has_element )
+	{
+	  my $element = $value->get_element;
+
+	  push(@{$list},$element);
+	}
     }
 
   return $list;
@@ -2621,7 +2683,14 @@ has property_hash =>
 
 # This is a hash of all properties of division in the library.
 #
-# $hash->{$division_id}{$property_name}{$property_value} = 1;
+# $hash->{$division_id}{$property_name}{$property_value} = $value_object;
+#
+# where:
+#
+#   $division_id    => STRING
+#   $property_name  => STRING
+#   $property_value => STRING
+#   $value_object   => SML::Value object
 
 ######################################################################
 
