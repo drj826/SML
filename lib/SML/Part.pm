@@ -306,14 +306,12 @@ sub is_narrative_part {
   my $ontology = $library->get_ontology;
   my $type     = ref $part;
 
-  if
-    (
-     $part->isa('SML::Element')
-     and
-     not $ontology->property_is_universal($name)
-    )
+  if ( $part->isa('SML::Element') )
     {
-      return 0;
+      unless ( $ontology->property_is_universal($name) )
+	{
+	  return 0;
+	}
     }
 
   else

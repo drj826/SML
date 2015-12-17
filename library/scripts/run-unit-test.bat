@@ -2,7 +2,7 @@
 
 set test=%1
 
-cd ..
+cd ../t
 
 @echo on
 

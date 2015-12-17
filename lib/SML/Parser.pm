@@ -2182,16 +2182,23 @@ sub _run_script {
   my $args              = shift;        # element arguments
   my $command           = shift;        # script command to execute
 
-  my $number = $self->_get_number;
-
-  $logger->info("{$number} run script: $command");
-
   if ($^O eq 'MSWin32')
     {
       $command =~ s/\//\\/g;
     }
 
+  my $number = $self->_get_number;
+  $logger->info("{$number} run script: $command");
+
+  my $library       = $self->get_library;
+  my $library_path  = $library->get_directory_path;
+  my $original_path = getcwd;
+
+  chdir $library_path;
+
   my @output = eval { `"$command"` };
+
+  chdir $original_path;
 
   my $line_list = [];
 

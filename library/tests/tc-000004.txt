@@ -19,8 +19,17 @@ author:: $Author: don.johnson $
 
 index:: tc-000004; unit test case!SML.pm
 
-[ref:lis-sml-pm-unit-test-case] shows the unit test case for
-[file:SML.pm].
+>>>LISTING.lis-sml-pm-unit-test-results
+
+title:: SML.pm Unit Test Case Results
+
+numbers:: left
+
+fontsize:: footnotesize
+
+script:: scripts/run-unit-test.bat SML.t
+
+<<<LISTING
 
 >>>LISTING.lis-sml-pm-unit-test-case
 
@@ -35,21 +44,6 @@ orientation:: landscape
 fontsize:: footnotesize
 
 file:: ../t/SML.t
-
-<<<LISTING
-
-[ref:lis-sml-pm-unit-test-results] shows the results of executing the
-SML.pm unit test case.
-
->>>LISTING.lis-sml-pm-unit-test-results
-
-title:: SML.pm Unit Test Case Results
-
-numbers:: left
-
-fontsize:: footnotesize
-
-# script:: scripts/run-unit-test.bat SML.t
 
 <<<LISTING
 

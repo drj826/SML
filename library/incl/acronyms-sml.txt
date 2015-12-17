@@ -68,9 +68,17 @@ acronym:: RTM {SML} = [g:SML:requirements traceability matrix]
 # S
 ######################################################################
 
+acronym:: SDD {SML} = System Design Document
+
 acronym:: SML = [g:SML:Semantic Manuscript Language]
 
 acronym:: SRD {SML} = System Requirements Document
+
+######################################################################
+# T
+######################################################################
+
+acronym:: TED {SML} = Test and Evaluation Document
 
 ######################################################################
 # X

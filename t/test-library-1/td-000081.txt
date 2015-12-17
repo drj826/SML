@@ -15,13 +15,13 @@ type:: technical
 description:: There problem with this problem is that it contains a
 solution and that isn't allowed.
 
->>>solution.solution-81-1
+>>>configuration_item.solution-81-1
 
-title:: OUT OF PLACE SOLUTION
+title:: OUT OF PLACE CONFIGURATION ITEM
 
-description:: This solution can't be inside a problem.
+description:: This configuration item can't be inside a problem.
 
-<<<solution
+<<<configuration_item
 
 <<<requirement
 

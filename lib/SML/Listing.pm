@@ -62,6 +62,23 @@ sub get_content {
       return $file->get_text;
     }
 
+  else
+    {
+      my $text = q{};
+
+      foreach my $part (@{ $self->get_narrative_part_list })
+	{
+	  my $name = $part->get_name;
+
+	  next if $name eq 'BEGIN_DIVISION';
+	  next if $name eq 'END_DIVISION';
+
+	  $text .= $part->get_content;
+	}
+
+      return $text;
+    }
+
   return 0;
 }
 
