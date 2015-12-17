@@ -1,6 +1,6 @@
 >>>allocation.al-000153
 
-solution:: ci-000005 # Document.pm Perl Module
+configuration_item:: ci-000005 # Document.pm Perl Module
 
 requirement::  rq-000141 # Generate a Copyright Page
 

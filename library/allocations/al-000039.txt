@@ -1,6 +1,6 @@
 >>>allocation.al-000039
 
-solution:: ci-000006 # Ontology Configuration File (ontology.conf)
+configuration_item:: ci-000006 # Ontology Configuration File (ontology.conf)
 
 requirement::  rq-000183 # Permit Library Ontology Configuration
 

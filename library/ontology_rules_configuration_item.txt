@@ -1,0 +1,1301 @@
+>>>COMMENT
+
+Ontology Rules for Configuration Items
+
+An ontology is an explicit formal specification of terms to represent
+the entities defined to exist in some area of interest, the properties
+of those entities, the relationships that hold among the entities, and
+the formal axioms that constrain the interpretation and well-formed
+use of these terms.
+
+Software Engineering is the area of interest represented by this
+ontology.
+
+An SML ontology is expressed as a set of rules.  This file contains
+the ontology rules that pertain to configuration items.
+
+The ontology rules defined in this file extend the core SML ontology
+rules.
+
+<<<COMMENT
+
+######################################################################
+
+>>>DIVISION_DECLARATION.ci000
+
+has_division:: configuration_item
+
+class:: SML::Entity
+
+description:: A configuration item (CI) is an aggregation of hardware,
+software, or both, that is designated for configuration management and
+treated as a single entity in the configuration management process.
+
+
+<<<DIVISION_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci001
+
+division:: configuration_item
+
+has_property:: title
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+required:: 1
+
+description:: A configuration item `title' is a succinct description
+of the item.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci002
+
+division:: configuration_item
+
+has_property:: id
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+required:: 1
+
+description:: A configuration item `id' is a unique identifier for the
+CI.  The ID must be unique within the library.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci003
+
+division:: configuration_item
+
+has_property:: description
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+required:: 1
+
+description:: A configuration_item `description' is a one paragraph
+summary of the CI.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci004
+
+division:: configuration_item
+
+has_property:: priority
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A configuration item `priority' represents the
+criticality of the CI to the stakeholder organization.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci005
+
+division:: configuration_item
+
+has_property:: status
+
+object_type:: Str
+
+object_name:: STRING
+
+description:: A configuration item `status' represents the degree to
+which the CI is complete.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci006
+
+division:: configuration_item
+
+has_property:: type
+
+object_type:: Str
+
+object_name:: STRING
+
+description:: A configuration item `type' describes the category to
+which a CI belongs.  Common CI types include: software, configuration
+file, and document.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci007
+
+division:: configuration_item
+
+has_property:: is_part_of
+
+object_type:: SML::Entity
+
+object_name:: configuration_item
+
+inverse_rule:: ci008
+
+cardinality:: 1
+
+description:: A configuration item `is_part_of' property represents
+the CI of which this one is a part.  CIs may be arranged in a
+whole/part (container/containee) hierarchy.  A contained CI can only
+be part of ~~one~~ container CI.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci008
+
+division:: configuration_item
+
+has_property:: has_part
+
+object_type:: SML::Entity
+
+object_name:: configuration_item
+
+inverse_rule:: ci007
+
+cardinality:: many
+
+infer_only:: 1
+
+description:: A configuration item `has_part' property represents a CI
+that is part of this one. CIs may be arranged in a whole/part
+(container/containee) hierarchy.  A contained CI can only be part of
+~~one~~ container CI. You may ~~not~~ insert a `has_part' property
+directly into a manuscript.  This property may only be inferred from
+the inverse `is_part_of' property.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci011
+
+division:: configuration_item
+
+has_property:: owner
+
+object_type:: SML::Entity
+
+object_name:: role
+
+inverse_rule:: rol010
+
+cardinality:: 1
+
+description:: A configuration item `owner' represents the role that
+owns this CI.  Only ~~one~~ role can be identified as the CI `owner.'
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci012
+
+division:: configuration_item
+
+has_property:: stakeholder
+
+object_type:: SML::Entity
+
+object_name:: role
+
+inverse_rule:: rol015
+
+cardinality:: many
+
+description:: A configuration item `stakeholder' represents any role
+that holds a stake in the status of this CI.  Any number of roles can
+be identified as CI `stakeholders.'
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci015
+
+division:: configuration_item
+
+has_property:: class_of
+
+object_type:: SML::Entity
+
+object_name:: configuration_item
+
+inverse_rule:: ci016
+
+cardinality:: many
+
+description:: A configuration item `class_of' property represents that
+the CI inherits the characteristics of another CI.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci016
+
+division:: configuration_item
+
+has_property:: instance_of
+
+object_type:: SML::Entity
+
+object_name:: configuration_item
+
+inverse_rule:: ci015
+
+cardinality:: many
+
+description:: A configuration item `instance_of' property represents
+that the CI inherits the characteristics of another CI.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci017
+
+division:: configuration_item
+
+has_property:: directed_by
+
+object_type:: SML::Entity
+
+object_name:: requirement
+
+inverse_rule:: req031
+
+cardinality:: many
+
+description:: A configuration item `directed_by' property may
+represent that the CI is authoritatively directed to be implemented by
+some requirement (typically called a directive).  Multiple
+requirements may direct the implementation of the same CI.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci018
+
+division:: configuration_item
+
+has_property:: uses
+
+object_type:: SML::Entity
+
+object_name:: configuration_item
+
+inverse_rule:: ci019
+
+cadinality:: many
+
+description:: A configuration_item `uses' property represents that the
+CI uses another CI.  One CI may use many other CIs. Usage is a
+dependency relationship in which one CI (a client) requires another CI
+(a supplier) for its full implementation or operation.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci019
+
+division:: condfiguration_item
+
+has_property:: used_by
+
+object_type:: SML::Entity
+
+object_name:: configuration_item
+
+inverse_rule:: ci018
+
+cardinality:: many
+
+infer_only:: 1
+
+description:: A configuration item `used_by' property represents that
+one CI is used by another CI.  One CI may be used by many other
+CIs. Usage is a dependency relationship in which one CI (a client)
+requires another CI (a supplier) for its full implementation or
+operation.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci020
+
+division:: configuration_item
+
+has_property:: depends_on
+
+object_type:: SML::Entity
+
+object_name:: configuration_item
+
+inverse_rule:: ci021
+
+cadinality:: many
+
+description:: A configuration_item `depends_on' property represents
+that the CI depends on another CI.  One CI may depend on many other
+CIs.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci021
+
+division:: condfiguration_item
+
+has_property:: required_by
+
+object_type:: SML::Entity
+
+object_name:: configuration_item
+
+inverse_rule:: ci020
+
+cardinality:: many
+
+infer_only:: 1
+
+description:: A configuration item `required_by' property represents
+that one CI is required by another CI.  One CI may be required by many
+other CIs.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci024
+
+division:: configuration_item
+
+has_property:: realizes
+
+object_type:: SML::Entity
+
+object_name:: configuration_item
+
+inverse_rule:: ci025
+
+cadinality:: many
+
+description:: A configuration_item `realizes' property represents that
+one CI representing a class realizes another CI representing an
+interface.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci025
+
+division:: configuration_item
+
+has_property:: realized_by
+
+object_type:: SML::Entity
+
+object_name:: configuration_item
+
+inverse_rule:: ci024
+
+cadinality:: many
+
+description:: A configuration_item `realized_by' property represents
+that one CI representing an interface is realized by another CI
+representing a class.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci026
+
+division:: configuration_item
+
+has_property:: version
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A configuration item `version' property represents a
+version number assigned by a person.  This is often a decimal number,
+which, if it is a value less than 1.0 (like 0.9) indicates the CI has
+not yet reached a quality level sufficient to be considered
+complete. A CI may have only one value for the `version' property.
+Contrast with revision ([id:ci037]).
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci027
+
+division:: configuration_item
+
+has_property:: license
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: many
+
+description:: A configuration item `license' property identifies a
+license which governs the use of the CI.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci028
+
+division:: configuration_item
+
+has_property:: cost
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A configuration item `cost' property represents the cost
+of the CI.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci029
+
+division:: configuration_item
+
+has_property:: pro
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: many
+
+description:: A configuration item `pro' property identifies a
+~~positive~~ characteristic of the CI.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci030
+
+division:: configuration_item
+
+has_property:: con
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: many
+
+description:: A configuration item `con' property identifies a
+~~negative~~ characteristic of the CI.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci032
+
+division:: configuration_item
+
+has_property:: request
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: many
+
+description:: A configuration item `request' property represents any
+request that identified the need for this specific CI.  This is often
+a request made by a user or stakeholder to implement a CI.This
+`request' property serves to document the origin of the CI and may
+trace back to a ticket number and the requestor.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci033
+
+division:: configuration_item
+
+has_property:: associated
+
+object_type:: SML::Entity
+
+object_name:: configuration_item
+
+inverse_rule:: ci033
+
+cardinality:: many
+
+description:: A configuration item `associated' property identifies a
+CI that is somehow (often loosely) associated with another CI.
+Multiple CIs may be associated with one another.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci034
+
+division:: configuration_item
+
+has_property:: next
+
+object_type:: SML::Entity
+
+object_name:: configuration_item
+
+inverse_rule:: ci035
+
+cardinality:: many
+
+description:: A configuration item `next' property identifies the next
+CI in a sequence of CIs.  Many CIs may be identified as ones that may
+directly follow the CI in the sequence.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci035
+
+division:: configuration_item
+
+has_property:: previous
+
+object_type:: SML::Entity
+
+object_name:: configuration_item
+
+inverse_rule:: ci034
+
+cardinality:: many
+
+description:: A configuration item `previous' property identifies the
+previous CI in a sequence of CIs.  Many CIs may be identified as ones
+that come directly before the CI in the sequence.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci036
+
+division:: configuration_item
+
+has_property:: state
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A configuration item `state' property represents the
+current location of the CI in a workflow.  For instance, the state may
+be DRAFT, REJECTED, APPROVED, etc.  A CI may have only one value for
+the `state' property.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci037
+
+division:: configuration_item
+
+has_property:: revision
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A configuration item `revision' property represents the
+automatically assigned revision identifier of the CI.  This is often
+an integer number, automatically assigned by a version control system,
+that represents the revision in a sequence of revisions in a
+history. A CI may have only one value for the `revision'
+property. Contrast with version ([id:ci026]).
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci038
+
+division:: configuration_item
+
+has_property:: date_created
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A configuration item `date_created' property represents
+the date the CI was originally created.  A CI may have only one value
+for the `date_created' property.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci039
+
+division:: configuration_item
+
+has_property:: date_changed
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A configuration item `date_changed' property represents
+the date the CI was last modified.  A CI may have only one value for
+the `date_changed' property.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci040
+
+division:: configuration_item
+
+has_property:: created_by
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A configuration item `created_by' property represents
+the name of the individual who first created the CI.  A CI may have
+only one value for the `created_by' property.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci041
+
+division:: configuration_item
+
+has_property:: changed_by
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A configuration item `changed_by' property represents
+the name of the indivisdual who last changed the CI.  A CI may have
+only one value for the `changed_by' property.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci042
+
+division:: configuration_item
+
+has_property:: attr
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: many
+
+description:: A configuration item `attr' (attribute) property may
+represent any arbitrary property name/value pair not otherwise
+declared in the ontology (attr:: color = blue). The CI may have many
+different `attr' properties.  Properties defined using the `attr'
+property can not be used in machine reasoning since their meaning is
+not pre-defined in the ontology.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci043
+
+division:: configuration_item
+
+has_property:: copyright
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: many
+
+description:: A configuration item `copyright' property represents a
+copyright assertion over the content of the CI. The CI may have
+multiple values for the copyright property.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci044
+
+division:: configuration_item
+
+has_property:: date
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A configuration item `date' property represents the date
+the CI was last modified.  A CI may have only one value for the `date'
+property.  (This rule duplicates ci039.  One or the other should be
+deprecated.)
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci045
+
+division:: configuration_item
+
+has_property:: author
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A configuration item `author' property represents the
+name of the indivisdual who last changed the CI.  A CI may have only
+one value for the `author' property. (This rule duplicates ci041.  One
+or the other should be deprecated.)
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci047
+
+division:: configuration_item
+
+has_property:: allocation
+
+object_type:: SML::Entity
+
+object_name:: allocation
+
+inverse_rule:: all008
+
+cardinality:: many
+
+infer_only:: 1
+
+description:: A configuration item `allocation' property represents
+that a requirement has been allocated to the CI and that a test case
+has been identified to verify the CI satisfies the allocated
+requirement.  The CI may be identified by multiple allocations,
+meaning, that multiple requirements must be satisfied by the CI.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci049
+
+division:: configuration_item
+
+has_property:: generalizes
+
+object_type:: SML::Entity
+
+object_name:: configuration_item
+
+inverse_rule:: ci050
+
+cardinality:: many
+
+infer_only:: 1
+
+description:: A configuration item `generalizes' property represents
+that the CI is the generalization of another CI.  One CI may
+generalize many other CIs.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci050
+
+division:: configuration_item
+
+has_property:: specializes
+
+object_type:: SML::Entity
+
+object_name:: configuration_item
+
+inverse_rule:: ci049
+
+cardinality:: many
+
+description:: A configuration item `specializes' property represents
+that the CI is the specialization of another CI.  One CI may
+specialize many other CIs.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci051
+
+division:: configuration_item
+
+has_property:: review
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: many
+
+description:: A configuration item `review' property represents the
+outcome of an informal review of the CI to determine its status
+(i.e. the degree to which it is complete).  The CI may have multiple
+values for the review property.  Each value of the review property
+includes the date of the review and the status of the CI determined by
+the review.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.ci052
+
+division:: configuration_item
+
+has_property:: outcome
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: many
+
+description:: A configuration item `outcome' property represents the
+outcome of formal evaluation of the CI to determine its status
+(i.e. the degree to which it is complete).  The CI may have multiple
+values for the outcome property.  Each value of the outcome property
+includes the date of the evaluation and the status of the CI determine
+by the evaluation.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.ci101
+
+division:: configuration_item
+
+containee_type:: SML::CommentDivision
+
+containee_name:: COMMENT
+
+cardinality:: many
+
+description:: A configuration item may contain multiple COMMENT
+divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.ci102
+
+division:: configuration_item
+
+containee_type:: SML::Conditional
+
+containee_name:: CONDITIONAL
+
+cardinality:: many
+
+description:: A configuration item may contain multiple CONDITIONAL
+divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.ci106
+
+division:: configuration_item
+
+containee_type:: SML::Quotation
+
+containee_name:: QUOTATION
+
+cardinality:: many
+
+description:: A configuration item may contain multiple QUOTATION
+divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.ci112
+
+division:: configuration_item
+
+containee_type:: SML::Attachment
+
+containee_name:: ATTACHMENT
+
+cardinality:: many
+
+description:: A configuration item may contain multiple ATTACHMENT
+divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.ci115
+
+division:: configuration_item
+
+containee_type:: SML::Figure
+
+containee_name:: FIGURE
+
+cardinality:: many
+
+description:: A configuration item may contain multiple FIGURE
+divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.ci116
+
+division:: configuration_item
+
+containee_type:: SML::PreformattedDivision
+
+containee_name:: PREFORMATTED
+
+cardinality:: many
+
+description:: A configuration item may contain multiple PREFORMATTED
+divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.ci118
+
+division:: configuration_item
+
+containee_type:: SML::Listing
+
+containee_name:: LISTING
+
+cardinality:: many
+
+description:: A configuration item may contain multiple LISTING
+divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.ci119
+
+division:: configuration_item
+
+containee_type:: SML::Source
+
+containee_name:: SOURCE
+
+cardinality:: many
+
+description:: A configuration item may contain multiple SOURCE
+divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.ci120
+
+division:: configuration_item
+
+containee_type:: SML::Table
+
+containee_name:: TABLE
+
+cardinality:: many
+
+description:: A configuration item may contain multiple TABLE
+divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.ci121
+
+division:: configuration_item
+
+containee_type:: SML::Audio
+
+containee_name:: AUDIO
+
+cardinality:: many
+
+description:: A configuration item may contain multiple AUDIO
+divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.ci122
+
+division:: configuration_item
+
+containee_type:: SML::Video
+
+containee_name:: VIDEO
+
+cardinality:: many
+
+description:: A configuration item may contain multiple VIDEO
+divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.ci123
+
+division:: configuration_item
+
+containee_type:: SML::Triple
+
+containee_name:: TRIPLE
+
+cardinality:: many
+
+description:: A configuration item may contain multiple TRIPLE
+divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.ci124
+
+division:: configuration_item
+
+containee_type:: SML::Baretable
+
+containee_name:: BARE_TABLE
+
+cardinality:: many
+
+description:: A configuration item may contain multiple BARE_TABLE
+divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.ci127
+
+division:: configuration_item
+
+containee_type:: SML::DefinitionList
+
+containee_name:: DEFINITION_LIST
+
+cardinality:: many
+
+description:: A configuration item may contain multiple
+DEFINITION_LIST divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.ci128
+
+division:: configuration_item
+
+containee_type:: SML::BulletList
+
+containee_name:: BULLET_LIST
+
+cardinality:: many
+
+description:: A configuration item may contain multiple BULLET_LIST
+divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.ci129
+
+division:: configuration_item
+
+containee_type:: SML::EnumeratedList
+
+containee_name:: ENUMERATED_LIST
+
+cardinality:: many
+
+description:: A configuration item may contain multiple
+ENUMERATED_LIST divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.ci201
+
+division:: configuration_item
+
+property:: type
+
+allowed_value:: software
+
+description:: A configuration item type of `software' means the CI
+describes a piece of code.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.ci202
+
+division:: configuration_item
+
+property:: type
+
+allowed_value:: data format
+
+description:: A configuration item type of `data format' means the CI
+describes a data format.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.ci203
+
+division:: configuration_item
+
+property:: type
+
+allowed_value:: specification
+
+description:: A configuration item type of `specification' means the
+CI describes a specification of some sort.  This makes sense when you
+consider that a specification can be a work product managed under
+configuration management.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.ci204
+
+division:: configuration_item
+
+property:: type
+
+allowed_value:: configuration file
+
+description:: A configuration item type of `configuration file' means
+the CI describes a configuration file.  This makes sense when you
+consider that a configuration file can be a work product managed under
+configuration management.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################

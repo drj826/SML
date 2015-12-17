@@ -1,6 +1,6 @@
 >>>allocation.al-000086
 
-solution:: ci-000001 # Structured Manuscript Language (SML)
+configuration_item:: ci-000001 # Structured Manuscript Language (SML)
 
 requirement::  rq-000053 # Represent a `Take Note' Symbol
 

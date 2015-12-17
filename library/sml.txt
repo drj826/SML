@@ -18,7 +18,7 @@ version:: 2.0-DRAFT
 
 revision:: 31415926
 
-date:: 13 Dec 2015
+date:: 16 Dec 2015
 
 status:: yellow
 
@@ -125,7 +125,7 @@ index:: LaTeX; PDFLaTeX
 # footnotes
 
 footnote::1: The CSV rendition only captures the structured data
-portions of the document such as requirements, problems, solutions,
+portions of the document such as requirements, configuration_items,
 tests, and tasks.  It is useful for exporting these structured
 elements of the document to a spreadsheet or database.
 
@@ -5311,7 +5311,7 @@ describe that computer.
 
 title:: Sample Region With Attributes
 
-file:: solutions/ci-000294.txt
+file:: configuration_items/ci-000294.txt
 
 <<<LISTING
 
@@ -5331,7 +5331,7 @@ default configuration of a workstation computer ([ref:lis-ci-000293]).
 
 title:: Sample Configuration of a Workstation Computer
 
-file:: solutions/ci-000293.txt
+file:: configuration_items/ci-000293.txt
 
 <<<LISTING
 
@@ -5342,7 +5342,7 @@ instantiation of a computer workstation ([ref:lis-ci-000295]).
 
 title:: Unique Instantiation of a Workstation Computer
 
-file:: solutions/ci-000295.txt
+file:: configuration_items/ci-000295.txt
 
 <<<LISTING
 

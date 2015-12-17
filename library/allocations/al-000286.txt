@@ -1,6 +1,6 @@
 >>>allocation.al-000286
 
-solution:: ci-000003 # Parser.pm module
+configuration_item:: ci-000003 # Parser.pm module
 
 requirement::  rq-000202 # Validate Entity Relationships
 

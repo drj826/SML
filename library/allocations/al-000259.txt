@@ -1,6 +1,6 @@
 >>>allocation.al-000259
 
-solution:: ci-000004
+configuration_item:: ci-000004
 
 requirement::  rq-000182
 

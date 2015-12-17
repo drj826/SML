@@ -1,6 +1,6 @@
 >>>allocation.al-000202
 
-solution:: ci-000007 # publish.pl Script
+configuration_item:: ci-000007 # publish.pl Script
 
 requirement::  rq-000114 # Publish to Plain Text
 

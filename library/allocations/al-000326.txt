@@ -1,6 +1,6 @@
 >>>allocation.al-000326
 
-solution:: ci-000387 # SML/Block.pm Module
+configuration_item:: ci-000387 # SML/Block.pm Module
 
 requirement::  rq-000247 # Render an HTML Path Name
 

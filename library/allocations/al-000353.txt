@@ -1,6 +1,6 @@
 >>>allocation.al-000353
 
-solution:: ci-000005 # Document.pm
+configuration_item:: ci-000005 # Document.pm
 
 requirement::  rq-000273 # Render HTML List of Figures
 

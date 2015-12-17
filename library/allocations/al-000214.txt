@@ -1,6 +1,6 @@
 >>>allocation.al-000214
 
-solution:: ci-000197 # escape_latex Subroutine
+configuration_item:: ci-000197 # escape_latex Subroutine
 
 requirement::  rq-000130 # Substitute Variables
 

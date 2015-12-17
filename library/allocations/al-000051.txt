@@ -1,6 +1,6 @@
 >>>allocation.al-000051
 
-solution:: ci-000001 # Structured Manuscript Language (SML)
+configuration_item:: ci-000001 # Structured Manuscript Language (SML)
 
 requirement::  rq-000017 # Represent Attachments
 

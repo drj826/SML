@@ -1,6 +1,6 @@
 >>>allocation.al-000407
 
-solution:: ci-000431 # SML/EnumeratedListItem.pm
+configuration_item:: ci-000431 # SML/EnumeratedListItem.pm
 
 requirement::  rq-000343 # Return Value of Enumerated List Item
 

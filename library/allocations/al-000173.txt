@@ -1,6 +1,6 @@
 >>>allocation.al-000173
 
-solution:: ci-000001 # Structured Manuscript Language (SML)
+configuration_item:: ci-000001 # Structured Manuscript Language (SML)
 
 requirement::  rq-000162 # Represent Option to Persist Generated Content In Document
 

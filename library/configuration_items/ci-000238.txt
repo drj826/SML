@@ -1,0 +1,19 @@
+>>>configuration_item.ci-000238
+
+title:: `by_doc_order' Subroutine
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+is_part_of:: ci-000007
+
+description:: The [cmd:by_doc_order] subroutine 
+
+index:: ci-000238; subroutine![cmd:by_doc_order]
+
+<<<configuration_item

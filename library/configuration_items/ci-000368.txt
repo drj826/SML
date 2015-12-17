@@ -1,0 +1,19 @@
+>>>configuration_item.ci-000368
+
+title:: `no_longer_in_any_environment' Subroutine
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+is_part_of:: ci-000007
+
+description:: The [cmd:no_longer_in_any_environment] subroutine 
+
+index:: ci-000368; subroutine![cmd:no_longer_in_any_environment]
+
+<<<configuration_item

@@ -1,6 +1,6 @@
 >>>allocation.al-000181
 
-solution:: ci-000002 # SML.pm Module
+configuration_item:: ci-000002 # SML.pm Module
 
 requirement::  rq-000170 # Implement SML Data Format
 

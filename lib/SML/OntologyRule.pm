@@ -160,29 +160,31 @@ sub BUILD {
   my $entity_name = $self->get_entity_name;
   my $cardinality = $self->get_cardinality;
 
+  # validate rule type
   unless ( $rule_type =~ /$syntax->{valid_ontology_rule_type}/xms )
     {
-      $logger->warn("INVALID RULE TYPE: \'$rule_type\' in \'$id\'");
+      $logger->warn("INVALID RULE TYPE \'$rule_type\' in \'$id\'");
       return 0;
     }
 
+  # validate division name
   if (
-      (
-       $rule_type eq 'prp'
-       or
-       $rule_type eq 'enu'
-       or
-       $rule_type eq 'cmp'
-      )
-      and
-      not $ontology->has_entity_with_name($entity_name)
+      $rule_type eq 'prp'
+      or
+      $rule_type eq 'enu'
+      or
+      $rule_type eq 'cmp'
      )
     {
-      $logger->warn("INVALID ENTITY: \'$entity_name\' in \'$id\'");
-      return 0;
+      unless ( $ontology->has_entity_with_name($entity_name) )
+	{
+	  $logger->warn("INVALID DIVISION IN ONTOLOGY RULE \'$entity_name\' in \'$id\'");
+	  return 0;
+	}
     }
 
-  if ( not $cardinality =~ /$syntax->{valid_cardinality_value}/xms )
+  # validate cardinality value
+  unless ( $cardinality =~ /$syntax->{valid_cardinality_value}/xms )
     {
       $logger->warn("INVALID CARDINALITY: \"$cardinality\" in $id");
       return 0;

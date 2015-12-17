@@ -1,6 +1,6 @@
 >>>allocation.al-000336
 
-solution:: ci-000387 # Block.pm
+configuration_item:: ci-000387 # Block.pm
 
 requirement::  rq-000205 # Render a Block According to a Style
 

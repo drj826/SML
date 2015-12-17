@@ -1,6 +1,6 @@
 >>>allocation.al-000283
 
-solution:: ci-000006 # SML Semantics
+configuration_item:: ci-000006 # SML Semantics
 
 requirement::  rq-000195 # Represent Semantic Entities
 

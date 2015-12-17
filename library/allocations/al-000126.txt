@@ -1,6 +1,6 @@
 >>>allocation.al-000126
 
-solution:: ci-000001 # Structured Manuscript Language (SML)
+configuration_item:: ci-000001 # Structured Manuscript Language (SML)
 
 requirement::  rq-000094 # Represent the Result of a Review
 

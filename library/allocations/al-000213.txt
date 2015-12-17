@@ -1,6 +1,6 @@
 >>>allocation.al-000213
 
-solution:: ci-000195 # escape_html Subroutine
+configuration_item:: ci-000195 # escape_html Subroutine
 
 requirement::  rq-000130 # Substitute Variables
 

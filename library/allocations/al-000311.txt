@@ -1,6 +1,6 @@
 >>>allocation.al-000311
 
-solution:: ci-000387 # SML/Block.pm Module
+configuration_item:: ci-000387 # SML/Block.pm Module
 
 requirement::  rq-000232 # Render an HTML Trademark Symbol
 

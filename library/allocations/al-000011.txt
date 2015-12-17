@@ -1,6 +1,6 @@
 >>>allocation.al-000011
 
-solution:: ci-000002 # SML.pm Perl Module
+configuration_item:: ci-000002 # SML.pm Perl Module
 
 requirement::  rq-000184 # List Allowed Entity Properties
 

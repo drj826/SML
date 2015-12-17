@@ -1,6 +1,6 @@
 >>>allocation.al-000335
 
-solution:: ci-000003 # Parser.pm
+configuration_item:: ci-000003 # Parser.pm
 
 requirement::  rq-000257 # Notify User of Uncommitted Changes
 

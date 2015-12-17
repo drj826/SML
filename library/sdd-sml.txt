@@ -5,7 +5,7 @@ title:: Software Design Document
 subtitle:: SML Data Format [linebreak] and [linebreak] SML Software
 Library
 
-version:: 0.3
+version:: 2.0-DRAFT
 
 author:: Don Johnson (drj826@acm.org)
 
@@ -19,7 +19,7 @@ logo_image_center:: files/images/sml_logo.png
 
 revision:: $Revision: 15138 $
 
-date:: $Date: 2013-07-07 09:35:23 -0600 (Sun, 07 Jul 2013) $
+date:: 16 Dec 2015
 
 use_formal_status:: 1
 
@@ -166,29 +166,29 @@ footnote::1: Not really.
 The following key terms and definitions describe SML document
 structures.[f:key-terms:1]
 
-= [g:sml:document] = [def:sml:document]
+= [g:SML:document] = [def:SML:document]
 
-= [g:sml:document preamble] = [def:sml:document preamble]
+= [g:SML:document preamble] = [def:SML:document preamble]
 
-= [g:sml:document narrative] = [def:sml:document narrative]
+= [g:SML:document narrative] = [def:SML:document narrative]
 
-= [g:sml:section] = [def:sml:section]
+= [g:SML:section] = [def:SML:section]
 
-= [g:sml:environment] = [def:sml:environment]
+= [g:SML:environment] = [def:SML:environment]
 
-= [g:sml:region] = [def:sml:region]
+= [g:SML:region] = [def:SML:region]
 
-= [g:sml:line] = [def:sml:line]
+= [g:SML:line] = [def:SML:line]
 
-= [g:sml:inline] = [def:sml:inline]
+= [g:SML:inline] = [def:SML:inline]
 
-= [g:sml:block] = [def:sml:block]
+= [g:SML:block] = [def:SML:block]
 
-= [g:sml:division] = [def:sml:division]
+= [g:SML:division] = [def:SML:division]
 
-= [g:sml:element] = [def:sml:element]
+= [g:SML:element] = [def:SML:element]
 
-= [g:sml:entity] = [def:sml:entity]
+= [g:SML:entity] = [def:SML:entity]
 
 footnote::1: These definitions are also in the glossary.
 
@@ -196,422 +196,38 @@ footnote::1: These definitions are also in the glossary.
 
 *.data-format-design Data Format Design
 
-An [g:sml:SML] [g:sml:document] is composed of [g:sml:division]s,
-divisions are composed of [g:sml:block]s, and blocks are composed of
-whole [g:sml:line]s of [g:sml:text].  An SML document has two
-top-level divisions, a [g:sml:document preamble] and a [g:sml:document
-narrative].[f:data-format-design:1] Preambles contain [g:sml:element]s
+An [a:SML] [g:SML:document] is composed of [g:SML:division]s,
+divisions are composed of [g:SML:block]s, and blocks are composed of
+whole [g:SML:line]s of [g:SML:text].  An SML document has two
+top-level divisions, a [g:SML:document preamble] and a [g:SML:document
+narrative].[f:data-format-design:1] Preambles contain [g:SML:element]s
 which represent structured data.  Narratives contain a mix of
-[g:sml:block]s, [g:sml:section]s, [g:sml:environment]s,
-[g:sml:region]s, and [g:sml:element]s.
+[g:SML:block]s, [g:SML:section]s, [g:SML:environment]s,
+[g:SML:region]s, and [g:SML:element]s.
 
-footnote::1: The [g:sml:document preamble] and [g:sml:document
+footnote::1: The [g:SML:document preamble] and [g:SML:document
 narrative] are both optional. An empty file is a valid SML document.
 
 #---------------------------------------------------------------------
 
-** SML Grammar
+# Semantic Manuscript Language
 
-include::id=ci-000001: tmpl/item-summary.txt
-
-include::id=ci-000379: tmpl/item-summary.txt
-
-include::id=ci-000006: tmpl/item-summary.txt
+* plugin:: parts2sections ci-000001
 
 #---------------------------------------------------------------------
 
-** SML Document Structure
+# SML Software Library
 
-[ref:fig-block-diagram-sml-document-1] is a block diagram of an SML
-[g:sml:document].  It shows a [g:sml:document preamble] and a
-[g:sml:document narrative].  The document preamble contains
-[g:sml:element]s (structured information) that describe the document.
-The [g:sml:document narrative] contains the rest of the textual
-content.  which may include structured ~~and~~ unstructured
-information.
-
->>>FIGURE.fig-block-diagram-sml-document-1
-
-title:: Block Diagram of an SML Document
-
-image:: files/images/block-diagram-sml-document-1.png
-
-width:: 3.0in
-
-<<<FIGURE
-
-[ref:lis-simple-sml-document] shows a very simple SML document
-
->>>LISTING.lis-simple-sml-document
-
-title::   Simple SML Document
-
-numbers:: left
-
-file::    files/simple-sml-document.txt
-
-<<<LISTING
-
-The [g:sml:document preamble] is composed of [g:sml:element]s like
-``title,'' ``author,'' and ``version'' that describe the document
-([ref:fig-block-diagram-document-preamble]).
-
->>>FIGURE.fig-block-diagram-document-preamble
-
-title:: Block Diagram of a Document Preamble
-
-image:: files/images/block-diagram-document-preamble.png
-
-width:: 3.0in
-
-<<<FIGURE
-
-The [g:sml:document narrative] is composed of [g:sml:block]s,
-[g:sml:section]s, [g:sml:environment]s, [g:sml:region]s, and
-[g:sml:element]s ([ref:fig-block-diagram-document-narrative]).
-
->>>FIGURE.fig-block-diagram-document-narrative
-
-title:: Block Diagram of a Document Narrative
-
-image:: files/images/block-diagram-document-narrative.png
-
-width:: 3.0in
-
-<<<FIGURE
-
-Blocks include paragraphs and list items.  For instance:
-
-  This is a paragraph.  A paragraph is a block of text.  A block of
-  text is a contiguous sequence of one or more whole lines of text.  A
-  blank line indicates the end of a paragraph.
-
-Sections begin with a section heading.  A section heading is a line
-that begins with one or more asterisks.  The number of asterisks
-indicates the depth of the section. For instance:
-
-  * My Section
-
-  ** My Sub-section
-
-  *** My Sub-sub-section
-
-Environments represent tables, figures, listings, assertions,
-attachments, revision histories, epigraphs, pre-formatted text,
-sidebars, bibliographic sources, audio clips, and video clips. For
-instance:
-
-  >>>FIGURE.fig-block-diagram-document-preamble
-
-  title:: Block Diagram of a Document Preamble
-
-  image:: files/images/block-diagram-document-preamble.png
-
-  width:: 3.0in
-
-  <<<FIGURE
-
-Regions represent demos, exercises, presentation slides, lists of
-keypoints, quotations, problems, solutions, tests, results, tasks, and
-roles. For instance:
-
-  >>>problem.my-problem
-
-  title::       My Problem
-
-  description:: My problem is that I don't understand the problem.
-
-  <<<problem
-
-Document narrative data elements include footnotes, glossary term
-definitions, acronym definitions, procedural steps, index entries,
-variable definitions, and other specialized data elements.  For
-instance:
-
-  footnote:: The document preamble and narrative are both optional. An
-  empty file is therefore a valid SML document.
-
-SML documents may also contain comments.  Comments are ignored by
-applications that process SML documents.  You can comment out a single
-line by putting a `||#||' in the first column.
-
-  # This line is commented out.
-
-You may comment out a whole division of text by putting
-`||###comment||' at the beginning and end.
-
-  >>>COMMENT
-
-  These
-
-  lines
-
-  are
-
-  commented
-
-  out.
-
-  <<<COMMENT
-
-#---------------------------------------------------------------------
-
-*** Document Rules
-
-- ~~document container~~ - A document is represented by a
-  file. Although parts of the document may be included from other
-  files, the beginning and end of the document is the begin and end of
-  the main file.
-
-- ~~document begin~~ - A document begins at the beginning of the file
-  that contains it.
-
-  - The beginning of the document triggers the beginning of the
-    document preamble.
-
-- ~~document composition~~ - A document is composed of one optional
-  [g:sml:preamble] followed by one optional [g:sml:narrative].
-
-- ~~document preamble composition~~ - A document preamble may contain
-  specified [g:sml:element]s, [g:sml:comment]s, and
-  [g:sml:conditional]s.
-
-- ~~document narrative begin~~ - The document narrative begins with
-  the first [g:sml:block] that is not one of the allowed
-  [g:sml:document] [g:sml:preamble] [g:sml:element]s.
-
-- ~~document narrative composition~~ - A document narrative may
-  contain any number of [g:sml:block]s, [g:sml:element]s,
-  [g:sml:section]s, [g:sml:region]s, [g:sml:environment]s,
-  [g:sml:comment]s, and [g:sml:conditional]s.
-
-- ~~document end~~ - A document ends at the end of the file that
-  contains it.
-
-  - The end of the document triggers the end of any [g:sml:element].
-
-  - The end of the document triggers the end of any
-    [g:sml:environment].
-
-  - The end of the document triggers the end of any [g:sml:region].
-
-  - The end of the document marks the end of the [g:sml:document]
-    [g:sml:narrative].
-
-#---------------------------------------------------------------------
-
-*** Section Rules
-
-- ~~section names~~ - Each section has a name that must be one of
-  those specified.
-
-- ~~section begin~~ - A section begins with a block starting with one
-  or more asterisks, some whitespace, and a section header (i.e. ||*
-  Introduction||).  No leading whitespace is allowed before the
-  asterisks.  The number of asterisks indicates the section level
-  depth.
-
-  - The beginning of a section triggers the end of any data element.
-
-  - The beginning of a section triggers the end of any environment.
-
-  - The beginning of a section triggers the end of any region.
-
-  - The beginning of a section triggers the beginning of the section
-    preamble.
-
-  - The beginning of a section triggers the beginning of the section
-    title data element.
-
-- ~~section composition~~ - A section is composed of one optional
-  preamble followed by one optional narrative.
-
-- ~~section preamble begin~~ - A section preamble begins the
-  section. Parsing applications assume the section begins with a
-  preamble.
-
-- ~~section preamble composition~~ - A section preamble is composed of
-  specified data elements (label, type).
-
-- ~~section narrative begin~~ A section narrative begins with the
-  first block that is not one of the allowed section preamble data
-  elements.
-
-- ~~section narrative composition~~ - A section narrative may contain
-  any number of blocks, data elements, sections, regions,
-  environments, comments, and conditionals.
-
-- ~~section end~~ - A section ends at either the beginning of the next
-  section, or the end of the document.  The end of a section ends all
-  regions, environments, and data elements.
-
-  - The end of a section triggers the end of any data element.
-
-  - The end of a section triggers the end of any environment.
-
-  - The end of a section triggers the end of any region.
-
-  - The end of a section marks the end of the section narrative.
-
-#---------------------------------------------------------------------
-
-*** Region Rules
-
-- ~~region names~~ - Each region has a name that must be one of those
-  specified.
-
-- ~~region begin~~ - A region begins with a line starting with three
-  or more greater-than signs and a region name (i.e. ||>>>exercise||).
-  No leading whitespace is allowed before the greater-than signs.
-
-  - The beginning of a region triggers the end of any data element.
-
-  - The beginning of a region triggers the end of any environment.
-
-  - The beginning of a region triggers the beginning of the region
-    preamble.
-
-- ~~region composition~~ - A region is composed of one optional
-  preamble followed by one optional narrative.
-
-- ~~region preamble composition~~ - A region preamble is composed of
-  data elements specified for that region's name.
-
-- ~~region narrative begin~~ - A region narrative begins with the
-  first block that is not one of the allowed region preamble data
-  elements.
-
-- ~~region narrative composition~~ - A region narrative may contain
-  any number of blocks, data elements, environments, comments, and
-  conditionals.  A region narrative ~~may not~~ contain sections, or
-  other regions.
-
-- ~~region end~~ - A region ends with a line starting with three or
-  more less-than signs and a region name (i.e. ||<<<exercise||).  No
-  leading whitespace is allowed before the less-than signs.  The end
-  of a region ends any environment and/or data element.
-
-  - The end of a region triggers the end of any data element.
-
-  - The end of a region triggers the end of any environment.
-
-  - The end of a region marks the end of the region narrative.
-
-#---------------------------------------------------------------------
-
-*** Environment Rules
-
-- ~~environment names~~ - Each environment has a name that must be one
-  of those specified.
-
-- ~~environment begin~~ - An environment begins with a line starting
-  with three or more hyphens and an environment name
-  (i.e. ||---table||).  No leading whitespace is allowed before the
-  hyphens.
-
-  - The beginning of an environment triggers the end of any data
-    element.
-
-  - The beginning of an environment triggers the end of any previous
-    environment.
-
-  - The beginning of an environment triggers the beginning of the
-    environment preamble.
-
-- ~~environment composition~~ - An environment is composed of one
-  optional preamble followed by one optional narrative.
-
-- ~~environment preamble composition~~ - An environment preamble is
-  composed of data elements specified for that environment's name.
-
-- ~~environment narrative begin~~ - An environment begins with the
-  first block that is not one of the allowed environment preamble data
-  elements.
-
-- ~~environment narrative composition~~ - An environment may contain
-  any number of blocks, data elements, comments, and conditionals.  An
-  environment ~~may not~~ contain sections, regions, or other
-  environments.
-
-- ~~environment end~~ - An environment ends with a line starting with
-  three or more less-than signs and an environment name
-  (i.e. ||---table||).  No leading whitespace is allowed before the
-  hyphens.
-
-  - The end of an environment triggers the end of any data element.
-
-  - The end of an environment marks the end of the environment
-    narrative.
-
-#---------------------------------------------------------------------
-
-*** Comment Rules
-
-- ~~comment begin~~ - A comment division begins with a line starting
-  with three or more pound signs and the word 'comment'
-  (i.e. ||>>>COMMENT||).  No leading whitespace is allowed before the
-  pound signs.
-
-- ~~comment composition~~ - A comment division may contain any text
-  except the comment end tag.  Comments can span sections, regions,
-  and environments.
-
-- ~~comment end~~ - A comment division ends with a line starting with
-  three or more pound signs and the word 'comment'
-  (i.e. ||<<<COMMENT||).  No leading whitespace is allowed before the
-  pound signs.
-
-#---------------------------------------------------------------------
-
-*** Conditional Rules
-
-- ~~conditional tokens~~ - Each conditional division is named by a
-  token.  A token is a string composed of upper or lower-case alpha
-  characters and numerals (no spaces).
-
-- ~~conditional begin~~ - A conditional division begins with a line
-  starting with three or more question marks and a token
-  (i.e. ||>>>CONDITIONAL.version-2||).  No leading whitespace is
-  allowed before the markup.
-
-- ~~conditional composition~~ - A conditional division may contain any
-  text except the conditional end tag.  Conditionals can span
-  sections, regions, and environments.
-
-- ~~conditional end~~ - A conditional division ends with a line
-  starting with three or more question marks and a token
-  (i.e. ||<<<CONDITIONAL||). No leading whitespace is allowed before
-  the markup.
-
-#---------------------------------------------------------------------
-
-*** Data Element Rules
-
-- ~~data element begin~~ - A data element begins with a line starting
-  with a data element name ending with a colon (i.e. ||file::||).  No
-  leading whitespace is allowed before the data element name.  Data
-  element names cannot contain whitespace.
-
-  - The beginning of a data element triggers the end of any other data
-    element.
-
-- ~~data element composition~~ - Data elements are limited to a single
-  block and therefore cannot contain divisions or other data elements.
-
-- ~~data element end~~ - A data element ends with a blank line or the
-  beginning of any division or other data element.
-
-#---------------------------------------------------------------------
-
-*.design-patterns Design Patterns
-
-type:: chapter
-
-Use dependency injection for defining configuration options.  See:
-[url:http://www.modernperlbooks.com/mt/2011/08/youre-already-using-dependency-injection.html]
+* plugin:: parts2sections ci-000004
 
 ######################################################################
 # Backmatter
+
+include:: acronyms-sml
+
+include:: acronyms-ieee
+
+include:: acronyms-cmmi
 
 include:: glossary-sml
 

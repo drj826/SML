@@ -1,6 +1,6 @@
 >>>allocation.al-000184
 
-solution:: ci-000003 # Parser.pm Module
+configuration_item:: ci-000003 # Parser.pm Module
 
 requirement::  rq-000173 # Validate Property Cardinality
 

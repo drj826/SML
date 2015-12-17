@@ -1,6 +1,6 @@
 >>>allocation.al-000164
 
-solution:: ci-000005 # Document.pm Perl Module
+configuration_item:: ci-000005 # Document.pm Perl Module
 
 requirement::  rq-000152 # Generate a Prioritized List of Entities
 

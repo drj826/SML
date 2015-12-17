@@ -1,6 +1,6 @@
 >>>allocation.al-000009
 
-solution:: ci-000002 # SML.pm Perl Module
+configuration_item:: ci-000002 # SML.pm Perl Module
 
 requirement::  rq-000112 # Implement SML Syntax
 

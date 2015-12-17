@@ -1,6 +1,6 @@
 >>>allocation.al-000006
 
-solution:: ci-000001 # SML
+configuration_item:: ci-000001 # SML
 
 requirement::  rq-000006 # Represent Document Structures
 

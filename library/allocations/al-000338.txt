@@ -1,6 +1,6 @@
 >>>allocation.al-000338
 
-solution:: ci-000005 # Document.pm
+configuration_item:: ci-000005 # Document.pm
 
 requirement::  rq-000207 # Render a Document According to a Style
 

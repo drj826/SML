@@ -426,8 +426,9 @@ and [g:SML:technical requirement]
 
 glossary:: ontology {SML} = An explicit formal specification of terms
 to represent the entities defined to exist in some area of interest,
-the relationships that hold among them, and the formal axioms that
-constrain the interpretation and well-formed use of these terms
+the properties of those entities, the relationships that hold among
+those entities, and the formal axioms that constrain the
+interpretation and well-formed use of these terms
 
 glossary:: operational baseline {SML} = A [g:IEEE:baseline] that
 identifies the system accepted and configured by the users in the
@@ -681,16 +682,17 @@ unit of work to be performed.  A task is an [g:SML:entity]
 
 glossary:: technical requirement {SML} = A [g:SML:requirement] that
 describes something a [g:IEEE:system] must ~~do~~ to support another
-system function.  Note the difference between a ~~technical
-requirement~~ and a ~~[g:SML:functional requirement]~~.  A ~~technical
-requirement~~ describes what the system must do for another
-[g:IEEE:system] or [g:SML:system component].  A ~~functional
-requirement~~ describes what the system must do for a ~~user~~.
-Technical requirements begin with the phrase, ``The system shall...''
-Technical requirements may be implementation specific/dependent. See
-also DHS definition of [g:SML:system requirement].  Technical
-requirements are derived from [g:SML:functional requirement]s and
-[g:SML:non-functional requirement]s.
+system function but is not necessarily apparent to a user.  Note the
+difference between a ~~technical requirement~~ and a
+~~[g:SML:functional requirement]~~.  A ~~technical requirement~~
+describes what the system must do for another [g:IEEE:system] or
+[g:SML:system component].  A ~~functional requirement~~ describes what
+the system must do for a ~~user~~.  Technical requirements begin with
+the phrase, ``The system shall...''  Technical requirements may be
+implementation specific/dependent. See also DHS definition of
+[g:SML:system requirement].  Technical requirements are derived from
+[g:SML:functional requirement]s and [g:SML:non-functional
+requirement]s.
 
 glossary:: technician {SML} = the skill level needed to deploy,
 configure and repair systems. Contrast with [g:SML:engineer] and

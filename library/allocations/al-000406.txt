@@ -1,6 +1,6 @@
 >>>allocation.al-000406
 
-solution:: ci-000430 # SML/BulletListItem.pm
+configuration_item:: ci-000430 # SML/BulletListItem.pm
 
 requirement::  rq-000339 # Return Value of Bullet List Item
 

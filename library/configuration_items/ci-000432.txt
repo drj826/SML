@@ -1,0 +1,41 @@
+>>>configuration_item.ci-000432
+
+title:: SML/DefinitionListItem.pm Module
+
+type:: software
+
+is_part_of:: ci-000004
+
+description:: The SML/DefinitionListItem.pm Module implements the
+{lit:SML::DefinitionListItem} class which represents definition list
+items.
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+index:: ci-000432; definition list item
+
+>>>LISTING.lis-definition-list-item-pm
+
+title:: DefinitionListItem.pm
+
+numbers:: left
+
+language:: Perl
+
+fontsize:: footnotesize
+
+file:: ../lib/SML/DefinitionListItem.pm
+
+<<<LISTING
+
+[clearpage]
+
+<<<configuration_item
+
+>>>RESOURCES
+7a9bdfcb848dc13b0025f7e37f193ec6ce9f54f2 ../../SML/DefinitionListItem.pm
+<<<RESOURCES

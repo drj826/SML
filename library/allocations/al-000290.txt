@@ -1,6 +1,6 @@
 >>>allocation.al-000290
 
-solution:: ci-000387 # SML/Block.pm Module
+configuration_item:: ci-000387 # SML/Block.pm Module
 
 requirement::  rq-000211 # Render an HTML Footnote Reference
 

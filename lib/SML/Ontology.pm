@@ -669,6 +669,29 @@ sub get_allowed_containee_name_list {
 }
 
 ######################################################################
+
+sub get_rule_type_count {
+
+  my $self = shift;
+  my $type = shift;
+
+  my $count     = 0;
+  my $rule_hash = $self->_get_rule_hash;
+
+  foreach my $rule ( values %{ $rule_hash } )
+    {
+      my $rule_type = $rule->get_rule_type;
+
+      if ( $rule_type eq $type )
+	{
+	  ++ $count;
+	}
+    }
+
+  return $count;
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes
@@ -796,6 +819,8 @@ sub BUILD {
   my $library = $self->get_library;
   my $result  = 1;
 
+  $self->_build_builtin_rules;
+
   foreach my $filespec (@{ $library->get_ontology_rule_filespec_list })
     {
       my $outcome = $self->_read_rule_file($filespec);
@@ -807,6 +832,79 @@ sub BUILD {
     }
 
   return $result;
+}
+
+######################################################################
+
+sub _build_builtin_rules {
+
+  my $self = shift;
+
+  my $builtin_rules =
+    [
+     # rule ID   type   division name              property         object type      name/val inv crd  rq im
+     ['SML001', 'div', 'DIVISION_DECLARATION',    'exists',        'SML::Division', ''      ,'',  1,  '', ''],
+     ['SML002', 'prp', 'DIVISION_DECLARATION',    'has_division',  'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML003', 'prp', 'DIVISION_DECLARATION',    'class',         'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML004', 'prp', 'DIVISION_DECLARATION',    'description',   'Str'          , 'STRING','',  1,   0 ,''],
+
+     ['SML005', 'div', 'PROPERTY_DECLARATION',    'exists',        'SML::Division', '',      '',  1,   '',''],
+     ['SML006', 'prp', 'PROPERTY_DECLARATION',    'division',      'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML007', 'prp', 'PROPERTY_DECLARATION',    'has_property',  'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML008', 'prp', 'PROPERTY_DECLARATION',    'object_type',   'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML009', 'prp', 'PROPERTY_DECLARATION',    'object_name',   'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML010', 'prp', 'PROPERTY_DECLARATION',    'cardinality',   'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML011', 'prp', 'PROPERTY_DECLARATION',    'required',      'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML011', 'prp', 'PROPERTY_DECLARATION',    'description',   'Str'          , 'STRING','',  1,   0 ,''],
+
+     ['SML012', 'div', 'COMPOSITION_DECLARATION', 'exists',        'SML::Division', '',      '',  1,   '',''],
+     ['SML013', 'prp', 'COMPOSITION_DECLARATION', 'division',      'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML014', 'prp', 'COMPOSITION_DECLARATION', 'containee_type','Str'          , 'STRING','',  1,   1 ,''],
+     ['SML015', 'prp', 'COMPOSITION_DECLARATION', 'containee_name','Str'          , 'STRING','',  1,   1 ,''],
+     ['SML016', 'prp', 'COMPOSITION_DECLARATION', 'cardinality',   'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML017', 'prp', 'COMPOSITION_DECLARATION', 'description',   'Str'          , 'STRING','',  1,   0 ,''],
+     ['SML018', 'enu', 'COMPOSITION_DECLARATION', 'cardinality',   'Str'          , '1',     '',  1,   1 ,''],
+     ['SML019', 'enu', 'COMPOSITION_DECLARATION', 'cardinality',   'Str'          , 'many',  '',  1,   1 ,''],
+
+     ['SML020', 'div', 'ENUMERATION_DECLARATION', 'exists',        'SML::Division', '',      '',  1,   '',''],
+     ['SML021', 'prp', 'ENUMERATION_DECLARATION', 'division',      'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML022', 'prp', 'ENUMERATION_DECLARATION', 'property',      'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML023', 'prp', 'ENUMERATION_DECLARATION', 'allowed_value', 'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML024', 'prp', 'ENUMERATION_DECLARATION', 'description',   'Str'          , 'STRING','',  1,   0 ,''],
+    ];
+
+  foreach my $rule (@{ $builtin_rules })
+    {
+      my $rule_id         = $rule->[0];
+      my $rule_type       = $rule->[1];
+      my $entity_name     = $rule->[2];
+      my $property_name   = $rule->[3];
+      my $value_type      = $rule->[4];
+      my $name_or_value   = $rule->[5];
+      my $inverse_rule_id = $rule->[6];
+      my $cardinality     = $rule->[7];
+      my $required        = $rule->[8];
+      my $imply_only      = $rule->[9];
+
+      my $ontology_rule = SML::OntologyRule->new
+	(
+	 ontology        => $self,
+	 id              => $rule_id,
+	 rule_type       => $rule_type,
+	 entity_name     => $entity_name,
+	 property_name   => $property_name,
+	 value_type      => $value_type,
+	 name_or_value   => $name_or_value,
+	 inverse_rule_id => $inverse_rule_id,
+	 cardinality     => $cardinality,
+	 required        => $required,
+	 imply_only      => $imply_only,
+	);
+
+      $self->_add_rule($ontology_rule);
+    }
+
+  return 1;
 }
 
 ######################################################################

@@ -1,0 +1,45 @@
+>>>configuration_item.ci-000379
+
+title:: SML Syntax (sml.ebnf)
+
+type:: specification
+
+is_part_of:: ci-000001
+
+description:: The [a:SML] syntax defines the rules governing the
+expression of statements and combinations of statements used to
+represent the content of an SML document. The SML syntax specification
+is a context free grammar implemented in [a:EBNF].  The SML syntax is
+not customizable and applies the same to all SML libraries.
+
+revision:: $Revision: 6476 $
+
+date:: $Date: 2012-03-05 07:05:48 -0700 (Mon, 05 Mar 2012) $
+
+author:: $Author: don.johnson $
+
+index:: ci-000379; SML syntax; EBNF
+
+There is an online EBNF validator here:
+[url:http://www.icosaedro.it/bnf_chk/bnf_chk-on-line.html].
+
+[ref:lis-sml-syntax] is a listing of the EBNF file that defines the
+SML syntax.
+
+>>>LISTING.lis-sml-syntax
+
+title:: SML syntax
+
+numbers:: left
+
+fontsize:: small
+
+file:: files/ebnf/SML-EBNF.txt
+
+<<<LISTING
+
+<<<configuration_item
+
+>>>RESOURCES
+2b78bfb7aa90489f6d9b2cacd16f3f73e9ee16ed files/ebnf/SML-EBNF.txt
+<<<RESOURCES

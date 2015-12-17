@@ -1,0 +1,19 @@
+>>>configuration_item.ci-000204
+
+title:: `term_in_glossary' Subroutine
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+is_part_of:: ci-000007
+
+description:: The [cmd:term_in_glossary] subroutine 
+
+index:: ci-000204; subroutine![cmd:term_in_glossary]
+
+<<<configuration_item

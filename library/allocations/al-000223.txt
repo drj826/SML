@@ -1,6 +1,6 @@
 >>>allocation.al-000223
 
-solution:: ci-000007 # publish.pl Script
+configuration_item:: ci-000007 # publish.pl Script
 
 requirement::  rq-000140 # Generate a Title Page
 

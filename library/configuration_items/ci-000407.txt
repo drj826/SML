@@ -1,0 +1,39 @@
+>>>configuration_item.ci-000407
+
+title:: SML/Exercise.pm Module
+
+type:: software
+
+is_part_of:: ci-000004
+
+description:: The SML/Exercise.pm Module...
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+index:: ci-000407
+
+>>>LISTING.lis-exercise-pm
+
+title:: Exercise.pm
+
+numbers:: left
+
+language:: Perl
+
+fontsize:: footnotesize
+
+file:: ../lib/SML/Exercise.pm
+
+<<<LISTING
+
+[clearpage]
+
+<<<configuration_item
+
+>>>RESOURCES
+96fb29e553a5d1e62edcd8bd3550fbc09f7854cb ../../SML/Exercise.pm
+<<<RESOURCES

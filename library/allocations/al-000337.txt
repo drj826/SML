@@ -1,6 +1,6 @@
 >>>allocation.al-000337
 
-solution:: ci-000381 # Division.pm
+configuration_item:: ci-000381 # Division.pm
 
 requirement::  rq-000206 # Render a Division According to a Style
 

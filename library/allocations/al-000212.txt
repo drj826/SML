@@ -1,6 +1,6 @@
 >>>allocation.al-000212
 
-solution:: ci-000021 # pass_two Subroutine
+configuration_item:: ci-000021 # pass_two Subroutine
 
 requirement::  rq-000129 # Insert Content
 

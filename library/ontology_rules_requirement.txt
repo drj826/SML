@@ -1,0 +1,1670 @@
+>>>COMMENT
+
+Ontology Rules for Requirements
+
+An ontology is an explicit formal specification of terms to represent
+the entities defined to exist in some area of interest, the properties
+of those entities, the relationships that hold among the entities, and
+the formal axioms that constrain the interpretation and well-formed
+use of these terms.
+
+Software Engineering is the area of interest represented by this
+ontology.
+
+An SML ontology is expressed as a set of rules.  This file contains
+the ontology rules that pertain to requirements.
+
+The ontology rules defined in this file extend the core SML ontology
+rules.
+
+<<<COMMENT
+
+######################################################################
+
+>>>DIVISION_DECLARATION.req000
+
+has_division:: requirement
+
+class:: SML::Entity
+
+description:: A requirement is a statement of needed organizational or
+system capability.  Requirements for organizational capability are
+called business requirement.  Requirements for system capability are
+called system requirements.
+
+<<<DIVISION_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req001
+
+division:: requirement
+
+has_property:: title
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+required:: 1
+
+description:: A requirement `title' is a succinct statement of need.
+Most requirement titles should be a verb phrase that describes
+something a solution should ~~do~~ or should ~~be~~.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req002
+
+division:: requirement
+
+has_property:: id
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+required:: 1
+
+description:: A requirement `id' is a unique identifier for the
+requirement.  The ID must be unique within the library.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req003
+
+division:: requirement
+
+has_property:: description
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+required:: 1
+
+description:: A requirement `description' is a one paragraph summary
+of the requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req004
+
+division:: requirement
+
+has_property:: priority
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A requirement `priority' represents the criticality of
+the requirement to the stakeholder organization.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req005
+
+division:: requirement
+
+has_property:: status
+
+object_type:: Str
+
+object_name:: STRING
+
+description:: A requirement `status' represents the degree to which
+the requirement is complete.  This means the degree to which the need
+is stated completely and ~~not~~ the degree to which the requirement
+is solved.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req006
+
+division:: requirement
+
+has_property:: type
+
+object_type:: Str
+
+object_name:: STRING
+
+description:: A requirement `type' describes the category to which a
+requirement belongs.  Common requirement types include: business
+requirement, functional requirement, and technical requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req007
+
+division:: requirement
+
+has_property:: is_part_of
+
+object_type:: SML::Entity
+
+object_name:: requirement
+
+inverse_rule:: req008
+
+cardinality:: 1
+
+description:: A requirement `is_part_of' property represents the
+requirement of which this one is a part.  Requirements may be arranged
+in a whole/part (container/containee) hierarchy.  A contained
+requirement can only be part of ~~one~~ container requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req008
+
+division:: requirement
+
+has_property:: has_part
+
+object_type:: SML::Entity
+
+object_name:: requirement
+
+inverse_rule:: req007
+
+cardinality:: many
+
+infer_only:: 1
+
+description:: A requirement `has_part' property represents a
+requirement that is part of this one. Requirements may be arranged in
+a whole/part (container/containee) hierarchy.  A contained requirement
+can only be part of ~~one~~ container requirement. You may ~~not~~
+insert a `has_part' property directly into a manuscript.  This
+property may only be inferred from the inverse `is_part_of' property.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req012
+
+division:: requirement
+
+has_property:: validated_by
+
+object_type:: SML::Entity
+
+object_name:: role
+
+inverse_rule:: rol024
+
+cardinality:: many
+
+description:: A requirement `validated_by' property represents the
+role that validates the need expressed by the requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req013
+
+division:: requirement
+
+has_property:: owner
+
+object_type:: SML::Entity
+
+object_name:: role
+
+inverse_rule:: rol009
+
+cardinality:: 1
+
+description:: A requirement `owner' represents the role that needs
+this requirement satisfied.  Only ~~one~~ role can be identified as
+the requirement `owner.'
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req014
+
+division:: requirement
+
+has_property:: stakeholder
+
+object_type:: SML::Entity
+
+object_name:: role
+
+inverse_rule:: rol014
+
+cardinality:: many
+
+description:: A requirement `stakeholder' represents any role that
+holds a stake in the satisfaction of this requirement.  Any number of
+roles can be identified as requirement `stakeholders.'
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req015
+
+division:: requirement
+
+has_property:: asignee
+
+object_type:: SML::Entity
+
+object_name:: role
+
+inverse_rule::rol019
+
+cardinality:: many
+
+description:: A requirement `asignee' represents any role assigned
+responsibility for satisfying this requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req016
+
+division:: requirement
+
+has_property:: request
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: many
+
+description:: A requirement `request' represents any request that
+identified the need described by the requirement.  This is often a
+request made by a user or stakeholder to satisfy a need.  Requests,
+unlike requirements, are often disorganized, incoherent, and/or
+duplicative.  This `request' property serves to document the origin of
+the requirement and may trace back to a ticket number and the
+requestor.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req018
+
+division:: requirement
+
+has_property:: class_of
+
+object_type:: SML::Entity
+
+object_name:: requirement
+
+inverse_rule:: req019
+
+cardinality:: many
+
+description:: A requirement `class_of' property represents that the
+requirement inherits the characteristics of another requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req019
+
+division:: requirement
+
+has_property:: instance_of
+
+object_type:: SML::Entity
+
+object_name:: requirement
+
+inverse_rule:: req018
+
+cardinality:: many
+
+description:: A requirement `instance_of' property represents that
+the requirement inherits the characteristics of another requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req020
+
+division:: requirement
+
+has_property:: derived_from
+
+object_type:: SML::Entity
+
+object_name:: requirement
+
+inverse_rule:: req021
+
+cardinality:: many
+
+description:: A requirement `derived_from' property represents that
+the need represented by this requirement logically follows from
+another requirement.  A requirement may be derived from many other
+requirements.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req021
+
+division:: requirement
+
+has_property:: derived
+
+object_type:: SML::Entity
+
+object_name:: requirement
+
+inverse_rule:: req020
+
+cardinality:: many
+
+description:: A requirement `derived' property represents other
+requirements that have been derived from this one.  Many requirements
+may be derived from one requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req026
+
+division:: requirement
+
+has_property:: used_by
+
+object_type:: SML::Entity
+
+object_name:: requirement
+
+inverse_rule:: req027
+
+cardinality:: many
+
+infer_only:: 1
+
+description:: A requirement `used_by' property represents that one
+requirement (usually representing a needed function), is used by
+another.  One requirement may be used by many other requirements.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req027
+
+division:: requirement
+
+has_property:: uses
+
+object_type:: SML::Entity
+
+object_name:: requirement
+
+inverse_rule:: req026
+
+cadinality:: many
+
+description:: A requirement `uses' property represents that one
+requirement (usually representing a needed function) uses another.
+One requirement may use many other requirements.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req028
+
+division:: requirement
+
+has_property:: directed_by
+
+object_type:: SML::Entity
+
+object_name:: requirement
+
+inverse_rule:: req029
+
+cardinality:: many
+
+description:: A requirement `directed_by' property may represent that
+one requirement is authoritatively directed to be fulfilled by another
+requirement (typically called a directive).  Multiple requirements may
+direct the fullfillment of one requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req029
+
+division:: requirement
+
+has_property:: directs
+
+object_type:: SML::Entity
+
+object_name:: requirement
+
+inverse_rule:: req028
+
+cardinality:: many
+
+infer_only:: 1
+
+description:: A requirement `directs' property may represent that this
+requirement (typically referred to as a directive) authoritatively
+directs the fulfillment of another requirement.  Multiple requirements
+may be directed to be fulfilled by one requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req030
+
+division:: requirement
+
+has_property:: directed_by
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: many
+
+description:: A requirement `directed_by' property may represent that
+a requirement is authoritatively directed to be fulfilled by something
+or someone.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req031
+
+division:: requirement
+
+has_property:: directs
+
+object_type:: SML::Entity
+
+object_name:: configuration_item
+
+inverse_rule:: ci017
+
+cardinality:: many
+
+infer_only:: 1
+
+description:: A requirement `directs' property may represent that this
+requirement (typically referred to as a directive) authoritatively
+directs the implementation of a specific configuration item.  Multiple
+configuration items may be directed to be implemented by one
+requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req032
+
+division:: requirement
+
+has_property:: directs
+
+object_type:: SML::Entity
+
+object_name:: test
+
+inverse_rule:: tst020
+
+cardinality:: many
+
+infer_only:: 1
+
+description:: A requirement `directs' property may represent that this
+requirement (typically referred to as a directive) authoritatively
+directs the performance of a specific test.  Multiple tests may be
+directed to be performed by one requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req033
+
+division:: requirement
+
+has_property:: directs
+
+object_type:: SML::Entity
+
+object_name:: task
+
+inverse_rule:: tsk021
+
+cardinality:: many
+
+infer_only:: 1
+
+description:: A requirement `directs' property may represent that this
+requirement (typically referred to as a directive) authoritatively
+directs the performance of a specific task.  Multiple tasks may be
+directed to be performed by one requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req034
+
+division:: requirement
+
+has_property:: directs
+
+object_type:: SML::Entity
+
+object_name:: role
+
+inverse_rule:: rol031
+
+cardinality:: many
+
+infer_only:: 1
+
+description:: A requirement `directs' property may represent that this
+requirement (typically referred to as a directive) authoritatively
+directs the establishment of a specific role.  Multiple roles may be
+directed to be established by one requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req035
+
+division:: requirement
+
+has_property:: work_product
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: many
+
+description:: A requirement `work_product' property may identify a
+work product that must be produced to satisfy the requirement.  Many
+work products may be identified as necessary to satisfy the
+requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req036
+
+division:: requirement
+
+has_property:: next
+
+object_type:: SML::Entity
+
+object_name:: requirement
+
+inverse_rule:: req037
+
+cardinality:: many
+
+description:: A requirement `next' property identifies the next
+requirement in a sequence of requirements.  Many requirements may be
+identified as ones that may directly follow the requirement in the
+sequence.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req037
+
+division:: requirement
+
+has_property:: previous
+
+object_type:: SML::Entity
+
+object_name:: requirement
+
+inverse_rule:: req036
+
+cardinality:: many
+
+description:: A requirement `previous' property identifies the
+previous requirement in a sequence of requirements.  Many requirements
+may be identified as ones that come directly before the requirement in
+the sequence.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req038
+
+division:: requirement
+
+has_property:: associated
+
+object_type:: SML::Entity
+
+object_name:: requirement
+
+inverse_rule:: req038
+
+cardinality:: many
+
+description:: A requirement `associated' property identifies a
+requirement that is somehow (often loosely) associated with the
+requirement.  Multiple requirements may be associated with one
+another.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req039
+
+division:: requirement
+
+has_property:: generalizes
+
+object_type:: SML::Entity
+
+object_name:: requirement
+
+inverse_rule:: req040
+
+cardinality:: many
+
+infer_only:: 1
+
+description:: A requirement `generalizes' property represents that the
+requirement is the generalization of another requirement.  One
+requirement may generalize many other requirements.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req040
+
+division:: requirement
+
+has_property:: specializes
+
+object_type:: SML::Entity
+
+object_name:: requirement
+
+inverse_rule:: req039
+
+cardinality:: many
+
+description:: A requirement `specializes' property represents that the
+requirement is the specialization of another requirement.  One
+requirement may specialize many other requirements.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req041
+
+division:: requirement
+
+has_property:: state
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A requirement `state' property represents the location
+of the requirement in a workflow.  For instance, the state may be
+DRAFT, REJECTED, APPROVED, etc.  A requirement may have only one
+value for the `state' property.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req042
+
+division:: requirement
+
+has_property:: revision
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A requirement `revision' property represents the
+automatically assigned revision identifier of the requirement.  This
+is often an integer number, automatically assigned by a version
+control system, that represents the revision in a sequence of
+revisions in a history. A requirement may have only one value for the
+`revision' property. Contrast with version ([id:req051]).
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req043
+
+division:: requirement
+
+has_property:: date_created
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A requirement `date_created' property represents the
+date the requirement was originally created.  A requirement may have
+only one value for the `date_created' property.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req044
+
+division:: requirement
+
+has_property:: date_changed
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A requirement `date_changed' property represents the
+date the requirement was last modified.  A requirement may have only
+one value for the `date_changed' property.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req045
+
+division:: requirement
+
+has_property:: created_by
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A requirement `created_by' property represents the name
+of the individual who first created the requirement.  A requirement
+may have only one value for the `created_by' property.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req046
+
+division:: requirement
+
+has_property:: changed_by
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A requirement `changed_by' property represents the name
+of the indivisdual who last changed the requirement.  A requirement
+may have only one value for the `changed_by' property.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req047
+
+division:: requirement
+
+has_property:: attr
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: many
+
+description:: A requirement `attr' (attribute) property may represent
+any arbitrary property name/value pair not otherwise declared in the
+ontology (attr:: color = blue). The requirement may have many
+different `attr' properties.  Properties defined using the `attr'
+property can not be used in machine reasoning since their meaning is
+not pre-defined in the ontology.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req048
+
+division:: requirement
+
+has_property:: copyright
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: many
+
+description:: A requirement `copyright' property represents a
+copyright assertion over the content of the requirement. The
+requirement may have multiple values for the copyright property.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req049
+
+division:: requirement
+
+has_property:: date
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A requirement `date' property represents the date the
+requirement was last modified.  A requirement may have only one value
+for the `date' property.  (This rule duplicates req044.  One or the
+other should be deprecated.)
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req050
+
+division:: requirement
+
+has_property:: author
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A requirement `author' property represents the name of
+the indivisdual who last changed the requirement.  A requirement may
+have only one value for the `author' property. (This rule duplicates
+req046.  One or the other should be deprecated.)
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req051
+
+division:: requirement
+
+has_property:: version
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: 1
+
+description:: A requirement `version' property represents a version
+number assigned by a person.  This is often a decimal number, which,
+if it is a value less than 1.0 (like 0.9) indicates the requirement
+has not yet reached a quality level sufficient to be considered
+complete. A requirement may have only one value for the `version'
+property.  Contrast with revision ([id:req042]).
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req052
+
+division:: requirement
+
+has_property:: allocation
+
+object_type:: SML::Entity
+
+object_name:: allocation
+
+inverse_rule:: all007
+
+cardinality:: many
+
+infer_only:: 1
+
+description:: A requirement `allocation' property represents that the
+requirement has been allocated to a solution component (such as a
+configuration item) and that a test case has been identified to verify
+the solution component satisfies the allocated requirement.  The
+requirement may be identified by multiple allocations, meaning, that
+multiple solutions components must satisfy the requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req054
+
+division:: requirement
+
+has_property:: assignment
+
+object_type:: SML::Entity
+
+object_name:: assignment
+
+inverse_rule:: asn007
+
+cardinality:: many
+
+infer_only:: 1
+
+description:: A requirement `assignment' property represents that the
+requirement (usually a business requirement that describes something
+an organization must do) has been assigned to a specific role and that
+an audit mechanism has been identified to verify the assignment is
+being completed as required.  The requirement may be identified by
+multiple assignments, meaning, that multiple roles must satisfy the
+requirement.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req055
+
+division:: requirement
+
+has_property:: review
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: many
+
+description:: A requirement `review' property represents the outcome
+of an informal review of the requirement to determine its status
+(i.e. the degree to which it is complete).  The requirement may have
+multiple values for the review property.  Each value of the review
+property includes the date of the review and the status of the
+requirement determined by the review.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>PROPERTY_DECLARATION.req056
+
+division:: requirement
+
+has_property:: outcome
+
+object_type:: Str
+
+object_name:: STRING
+
+cardinality:: many
+
+description:: A requirement `outcome' property represents the outcome
+of formal evaluation of the requirement to determine its status
+(i.e. the degree to which it is complete).  The requirement may have
+multiple values for the outcome property.  Each value of the outcome
+property includes the date of the evaluation and the status of the
+requirement determine by the evaluation.
+
+<<<PROPERTY_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.req101
+
+division:: requirement
+
+containee_type:: SML::CommentDivision
+
+containee_name:: COMMENT
+
+cardinality:: many
+
+description:: A requirement may contain multiple COMMENT divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.req102
+
+division:: requirement
+
+containee_type:: SML::Conditional
+
+containee_name:: CONDITIONAL
+
+cardinality:: many
+
+description:: A requirement may contain multiple CONDITIONAL divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.req106
+
+division:: requirement
+
+containee_type:: SML::Quotation
+
+containee_name:: QUOTATION
+
+cardinality:: many
+
+description:: A requirement may contain multiple QUOTATION divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.req112
+
+division:: requirement
+
+containee_type:: SML::Attachment
+
+containee_name:: ATTACHMENT
+
+cardinality:: many
+
+description:: A requirement may contain multiple ATTACHMENT divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.req115
+
+division:: requirement
+
+containee_type:: SML::Figure
+
+containee_name:: FIGURE
+
+cardinality:: many
+
+description:: A requirement may contain multiple FIGURE divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.req116
+
+division:: requirement
+
+containee_type:: SML::PreformattedDivision
+
+containee_name:: PREFORMATTED
+
+cardinality:: many
+
+description:: A requirement may contain multiple PREFORMATTED divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.req118
+
+division:: requirement
+
+containee_type:: SML::Listing
+
+containee_name:: LISTING
+
+cardinality:: many
+
+description:: A requirement may contain multiple LISTING divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.req119
+
+division:: requirement
+
+containee_type:: SML::Source
+
+containee_name:: SOURCE
+
+cardinality:: many
+
+description:: A requirement may contain multiple SOURCE divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.req120
+
+division:: requirement
+
+containee_type:: SML::Table
+
+containee_name:: TABLE
+
+cardinality:: many
+
+description:: A requirement may contain multiple TABLE divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.req121
+
+division:: requirement
+
+containee_type:: SML::Audio
+
+containee_name:: AUDIO
+
+cardinality:: many
+
+description:: A requirement may contain multiple AUDIO divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.req122
+
+division:: requirement
+
+containee_type:: SML::Video
+
+containee_name:: VIDEO
+
+cardinality:: many
+
+description:: A requirement may contain multiple VIDEO divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.req123
+
+division:: requirement
+
+containee_type:: SML::Triple
+
+containee_name:: TRIPLE
+
+cardinality:: many
+
+description:: A requirement may contain multiple TRIPLE divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.req124
+
+division:: requirement
+
+containee_type:: SML::Baretable
+
+containee_name:: BARE_TABLE
+
+cardinality:: many
+
+description:: A requirement may contain multiple BARE_TABLE divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.req127
+
+division:: requirement
+
+containee_type:: SML::DefinitionList
+
+containee_name:: DEFINITION_LIST
+
+cardinality:: many
+
+description:: A requirement may contain multiple DEFINITION_LIST divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.req128
+
+division:: requirement
+
+containee_type:: SML::BulletList
+
+containee_name:: BULLET_LIST
+
+cardinality:: many
+
+description:: A requirement may contain multiple BULLET_LIST divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>COMPOSITION_DECLARATION.req129
+
+division:: requirement
+
+containee_type:: SML::EnumeratedList
+
+containee_name:: ENUMERATED_LIST
+
+cardinality:: many
+
+description:: A requirement may contain multiple ENUMERATED_LIST divisions.
+
+<<<COMPOSITION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req201
+
+division:: requirement
+
+property:: priority
+
+allowed_value:: critical
+
+description:: A requirement priority of `critical' means that a
+stakeholder cannot complete specific ~~mission critical~~ activities
+unless this requirement is satisfied.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req202
+
+division:: requirement
+
+property:: priority
+
+allowed_value:: high
+
+description:: A requirement priority of `high' means that a
+stakeholder cannot complete specific ~~important~~ activities unless
+this requirement is satisfied.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req203
+
+division:: requirement
+
+property:: priority
+
+allowed_value:: routine
+
+description:: A requirement priority of `routine' means that a
+stakeholder cannot complete ~~routine~~ activities unless this
+requirement is satisfied.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req204
+
+division:: requirement
+
+property:: priority
+
+allowed_value:: low
+
+description:: A requirement priority of `low' means that a stakeholder
+cannot complete certain ~~low priority~~ activities unless this
+requirement is satisfied.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req205
+
+division:: requirement
+
+property:: status
+
+allowed_value:: green
+
+description:: A requirement status of `green' means the requirement is
+100% complete.  This means the need is completely described.  It
+~~doesn't~~ mean the requirement has been fulfilled.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req206
+
+division:: requirement
+
+property:: status
+
+allowed_value:: yellow
+
+description:: A requirement status of `yellow' means the requirement
+is partially complete.  This means the need has been partially, but
+not fully, described.  It ~~doesn't~~ mean the requirement has been
+partially fulfilled.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req207
+
+division:: requirement
+
+property:: status
+
+allowed_value:: red
+
+description:: A requirement status of `red' means the requirement is
+0% complete. This means the need has not been described at all or
+worse, has been improperly described.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req208
+
+division:: requirement
+
+property:: status
+
+allowed_value:: grey
+
+description:: A requirement status of `grey' means the degree to which
+the requirement is complete ~~has not been established~~, or, that the
+status is unknown.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req209
+
+division:: requirement
+
+property:: type
+
+allowed_value:: mission directive
+
+description:: A requirement type of `mission directive' means the
+requirement describes an authoritative directive to accomplish a
+mission.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req210
+
+division:: requirement
+
+property:: type
+
+allowed_value:: compliance directive
+
+description:: A requirement type of `compliance directive' means the
+requirement describes an authoritative directive to comply with a
+standard.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req211
+
+division:: requirement
+
+property:: type
+
+allowed_value:: business
+
+description:: A requirement type of `business' means the requirement
+describes a business requirement.  A business requirement describes an
+activity an organization must do. Business requirements begin with the
+phrase, ``The organization shall...''
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req212
+
+division:: requirement
+
+property:: type
+
+allowed_value:: functional
+
+description:: A requirement type of `functional' means the requirement
+describes a functional requirement.  A functional requirement
+describes a function a system or system component must ~~do~~ for a
+user.  Functional requirements begin with the phrase, ``The system
+shall...''
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req213
+
+division:: requirement
+
+property:: type
+
+allowed_value:: non-functional
+
+description:: A requirement type of `non-functional' means the
+requirement describes a non-functional requirement.  A non-functional
+requirement describes something a system or system component must
+~~be~~.  Non-functional requirements begin with the phrase, ``The
+system shall be...'' Non-functional requirements are often called
+`ilities' (security, maintainability, scalability, usability,
+availability, etc.).
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req214
+
+division:: requirement
+
+property:: type
+
+allowed_value:: technical
+
+description:: A requirement type of `technical' means the requirement
+describes a technical requirement.  A technical requirement describes
+something a system or system component must do to support another
+system function but is not necessarily apparent to a user.  Technical
+requirements begin with the phrase, ``The system shall...''
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req215
+
+division:: requirement
+
+property:: type
+
+allowed_value:: package
+
+description:: A requirement type of `package' means the requirement is
+a package (or container) for a set of requirements.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req216
+
+division:: requirement
+
+property:: type
+
+allowed_value:: data format
+
+description:: A requirement type of `data format' means the
+requirement describes characteristics required of a data format.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req217
+
+division:: requirement
+
+property:: state
+
+allowed_value:: draft
+
+description:: A requirement state of `draft' means the requirement has
+not been fully stated.  The author is still in the process of
+describing the need and the requirement should not yet be considered
+for allocation.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req218
+
+division:: requirement
+
+property:: state
+
+allowed_value:: submitted
+
+description:: A requirement state of `submitted' means the requirement
+has been submitted for approval to an approval authority.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req219
+
+division:: requirement
+
+property:: state
+
+allowed_value:: approved
+
+description:: A requirement state of `approved' means the requirement
+has been approved by an approval authority.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################
+
+>>>ENUMERATION_DECLARATION.req220
+
+division:: requirement
+
+property:: state
+
+allowed_value:: deprecated
+
+description:: A requirement state of `deprecated' means the
+requirement should no longer be used.
+
+<<<ENUMERATION_DECLARATION
+
+######################################################################

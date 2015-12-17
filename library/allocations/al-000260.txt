@@ -1,6 +1,6 @@
 >>>allocation.al-000260
 
-solution:: ci-000423 # Formatter.pm
+configuration_item:: ci-000423 # Formatter.pm
 
 requirement::  rq-000102 # Format Document Structures from SML Sources
 

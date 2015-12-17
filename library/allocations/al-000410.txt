@@ -1,6 +1,6 @@
 >>>allocation.al-000410
 
-solution:: ci-000003 # Parser.pm Perl Module
+configuration_item:: ci-000003 # Parser.pm Perl Module
 
 requirement::  rq-000351 # Ignore Markup Inside Literal Text
 

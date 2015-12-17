@@ -1,6 +1,6 @@
 >>>allocation.al-000135
 
-solution:: ci-000004 # SML Software Library
+configuration_item:: ci-000004 # SML Software Library
 
 requirement::  rq-000113 # Be Interoperable
 

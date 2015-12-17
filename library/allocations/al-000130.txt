@@ -1,6 +1,6 @@
 >>>allocation.al-000130
 
-solution:: ci-000004 # SML Software Library
+configuration_item:: ci-000004 # SML Software Library
 
 requirement::  rq-000104 # Perform Specified Software Functions
 

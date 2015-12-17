@@ -1,0 +1,19 @@
+>>>configuration_item.ci-000366
+
+title:: `already_in_array' Subroutine
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+is_part_of:: ci-000007
+
+description:: The [cmd:already_in_array] subroutine 
+
+index:: ci-000366; subroutine![cmd:already_in_array]
+
+<<<configuration_item

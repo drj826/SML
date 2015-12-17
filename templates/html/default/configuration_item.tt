@@ -1,0 +1,104 @@
+[%# args:
+
+self => an SML::Entity object (name = 'configuration_item')
+
+%]
+
+<div class="configuration_item">
+
+[%- INCLUDE entity_metadata_table.tt -%]
+
+<table>
+
+[%- INCLUDE entity_property_row.tt property_name = 'title'        label = 'title:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'description'  label = 'description:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'is_part_of'   label = 'is_part_of:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'has_part'     label = 'has_part:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'validated_by' label = 'validated_by:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'owner'        label = 'owner:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'stakeholder'  label = 'stakeholder:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'assignee'     label = 'assignee:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'validated_by' label = 'validated_by:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'class_of'     label = 'class_of:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'instance_of'  label = 'instance_of:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'directed_by'  label = 'directed_by:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'uses'         label = 'uses:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'used_by'      label = 'used_by:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'depends_on'   label = 'depends_on:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'required_by'  label = 'required_by:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'class_of'     label = 'class_of:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'instance_of'  label = 'instance_of:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'realizes'     label = 'realizes:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'realized_by'  label = 'realized_by:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'version'      label = 'version:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'license'      label = 'license:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'cost'         label = 'cost:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'pro'          label = 'pro:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'con'          label = 'con:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'has_related'  label = 'has_related:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'request'      label = 'request:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'associated'   label = 'associated:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'next'         label = 'next:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'previous'     label = 'previous:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'state'        label = 'state:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'date_created' label = 'date_created:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'date_changed' label = 'date_changed:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'created_by'   label = 'created_by:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'changed_by'   label = 'changed_by:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'attr'         label = 'attr:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'copyright'    label = 'copyright:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'version'      label = 'version:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'allocation'   label = 'allocation:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'order'        label = 'order:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'generalizes'  label = 'generalizes:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'specializes'  label = 'specializes:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'review'       label = 'review:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'outcome'      label = 'outcome:'      -%]
+
+</table>
+
+[%- INCLUDE narrative_part_list.tt -%]
+
+[%# DEBUGGING... %]
+
+<br/><br/>
+
+<div style="background-color:#ffffee;padding:10px;">
+<b>The rest of this content is for debugging...</b>
+</div>
+
+<div style="background-color:#ffeeee;padding:10px;">
+<b>original manuscript:</b>
+<pre>
+[%-FOREACH line IN self.get_line_list-%]
+[%-FILTER html-%][%-line.get_content-%][%-END-%]
+[%-END-%]
+</pre>
+</div>
+
+<div style="background-color:#eeffee;padding:10px;">
+<b>part structure:</b>
+<pre>
+[%-FILTER html-%][%-self.dump_part_structure-%][%-END-%]
+</pre>
+</div>
+
+[%-
+
+library = self.get_library
+id      = self.get_id
+
+-%]
+<div style="background-color:#eeeeff;padding:10px;">
+<b>properties:</b>
+<table>
+[%- FOREACH property_name IN library.get_property_name_list(id) -%]
+<tr>
+<td>[%property_name%]</td>
+<td>[%FOREACH value IN library.get_property_value_list(id,property_name)%][%value%], [%END%]</td>
+</tr>
+[%- END -%]
+</table>
+</div>
+
+</div>

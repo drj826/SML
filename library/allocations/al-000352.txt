@@ -1,6 +1,6 @@
 >>>allocation.al-000352
 
-solution:: ci-000005 # Document.pm
+configuration_item:: ci-000005 # Document.pm
 
 requirement::  rq-000272 # Render HTML List of Tables
 

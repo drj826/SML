@@ -1,6 +1,6 @@
 >>>allocation.al-000002
 
-solution:: ci-000001 # SML Grammar
+configuration_item:: ci-000001 # SML Grammar
 
 requirement::  rq-000082 # Be Human Readable
 

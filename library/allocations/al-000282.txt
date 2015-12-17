@@ -1,6 +1,6 @@
 >>>allocation.al-000282
 
-solution:: ci-000380 # Reasoner.pm module
+configuration_item:: ci-000380 # Reasoner.pm module
 
 requirement::  rq-000200 # Validate Engineering Document Semantics
 

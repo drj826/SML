@@ -1,6 +1,6 @@
 >>>allocation.al-000134
 
-solution:: ci-000379 # SML Syntax Specification
+configuration_item:: ci-000379 # SML Syntax Specification
 
 requirement::  rq-000122 # Implement SML Syntax
 

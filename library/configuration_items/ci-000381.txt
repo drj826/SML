@@ -1,0 +1,56 @@
+>>>configuration_item.ci-000381
+
+title:: SML/Division.pm Module
+
+type:: software
+
+is_part_of:: ci-000004
+
+description:: The Division.pm perl module implements the
+||SML::Division|| class.
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+index:: ci-000381; Division.pm
+
+= [g:SML:division] = [def:SML:division].
+
+[ref:fig-class-diagram-division] shows the composition of an SML
+[g:SML:division].
+
+>>>FIGURE.fig-class-diagram-division
+
+title:: Division Classes
+
+image:: files/images/class-diagram-division.png
+
+width:: 6.0in
+
+<<<FIGURE
+
+>>>LISTING.lis-division-pm
+
+title:: Division.pm
+
+numbers:: left
+
+language:: Perl
+
+fontsize:: footnotesize
+
+file:: ../lib/SML/Division.pm
+
+<<<LISTING
+
+[clearpage]
+
+<<<configuration_item
+
+>>>RESOURCES
+d8d85f66a2b5850fd9460c5e155f19309281d936 ../../SML/Division.pm
+a9999986ca4854af10cf3f487ecef103c6500c2a files/images/class-diagram-division.png
+<<<RESOURCES

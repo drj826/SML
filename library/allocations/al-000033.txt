@@ -1,6 +1,6 @@
 >>>allocation.al-000033
 
-solution:: ci-000005          # SML::Document Class
+configuration_item:: ci-000005          # SML::Document Class
 
 requirement:: rq-000001       # Publish To HTML
 

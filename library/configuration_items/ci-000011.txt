@@ -1,0 +1,21 @@
+>>>configuration_item.ci-000011
+
+title:: `menu_about' Subroutine
+
+type:: software
+
+is_part_of:: ci-000007
+
+description:: The [cmd:menu_about] subroutine displays the `about'
+message that provides information about the program including
+copyright information.
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+index:: ci-000011; subroutine![cmd:menu_about]
+
+<<<configuration_item

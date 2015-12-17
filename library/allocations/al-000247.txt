@@ -1,6 +1,6 @@
 >>>allocation.al-000247
 
-solution:: ci-000113 # resolve_includes Subroutine
+configuration_item:: ci-000113 # resolve_includes Subroutine
 
 requirement::  rq-000176 # Resolve Included Sections
 

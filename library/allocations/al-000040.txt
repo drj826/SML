@@ -1,6 +1,6 @@
 >>>allocation.al-000040
 
-solution:: ci-000007 # publish.pl
+configuration_item:: ci-000007 # publish.pl
 
 requirement::  rq-000001 # publish to html
 

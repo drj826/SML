@@ -1,6 +1,6 @@
 >>>allocation.al-000409
 
-solution:: ci-000432 # SML/DefinitionListItem.pm
+configuration_item:: ci-000432 # SML/DefinitionListItem.pm
 
 requirement::  rq-000345 # Return Definition of Definition List Item
 

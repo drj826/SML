@@ -1,6 +1,6 @@
 >>>allocation.al-000243
 
-solution:: ci-000380 # Reasoner.pm Module
+configuration_item:: ci-000380 # Reasoner.pm Module
 
 requirement::  rq-000117 # Validate Test Documents
 

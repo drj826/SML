@@ -1,0 +1,39 @@
+>>>configuration_item.ci-000403
+
+title:: SML/Video.pm Module
+
+type:: software
+
+is_part_of:: ci-000004
+
+description:: The SML/Video.pm Module...
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+index:: ci-000403
+
+>>>LISTING.lis-video-pm
+
+title:: Video.pm
+
+numbers:: left
+
+language:: Perl
+
+fontsize:: footnotesize
+
+file:: ../lib/SML/Video.pm
+
+<<<LISTING
+
+[clearpage]
+
+<<<configuration_item
+
+>>>RESOURCES
+eec2b2346cd92d3408015d73290484b20829e54f ../../SML/Video.pm
+<<<RESOURCES

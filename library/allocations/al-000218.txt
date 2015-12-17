@@ -1,6 +1,6 @@
 >>>allocation.al-000218
 
-solution:: ci-000023 # generate_content Subroutine
+configuration_item:: ci-000023 # generate_content Subroutine
 
 requirement::  rq-000133 # Generate Content
 

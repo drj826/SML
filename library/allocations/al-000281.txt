@@ -1,6 +1,6 @@
 >>>allocation.al-000281
 
-solution:: ci-000007 # publish.pl script
+configuration_item:: ci-000007 # publish.pl script
 
 requirement::  rq-000199 # Satisfy Technical Requirements
 

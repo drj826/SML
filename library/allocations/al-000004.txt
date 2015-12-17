@@ -1,6 +1,6 @@
 >>>allocation.al-000004
 
-solution:: ci-000379 # SML Syntax
+configuration_item:: ci-000379 # SML Syntax
 
 requirement::  rq-000086 # Represent Specified Data Types
 

@@ -1,6 +1,6 @@
 >>>allocation.al-000161
 
-solution:: ci-000005 # Document.pm Perl Module
+configuration_item:: ci-000005 # Document.pm Perl Module
 
 requirement::  rq-000149 # Generate a Bibliography
 

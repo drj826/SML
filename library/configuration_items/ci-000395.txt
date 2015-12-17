@@ -1,0 +1,39 @@
+>>>configuration_item.ci-000395
+
+title:: SML/Epigraph.pm Module
+
+type:: software
+
+is_part_of:: ci-000004
+
+description:: The SML/Epigraph.pm Module...
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+index:: ci-000395
+
+>>>LISTING.lis-epigraph-pm
+
+title:: Epigraph.pm
+
+numbers:: left
+
+language:: Perl
+
+fontsize:: footnotesize
+
+file:: ../lib/SML/Epigraph.pm
+
+<<<LISTING
+
+[clearpage]
+
+<<<configuration_item
+
+>>>RESOURCES
+af1a7a4cbd4d23f85c45620861df9673dcf69dcd ../../SML/Epigraph.pm
+<<<RESOURCES

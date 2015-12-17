@@ -1,0 +1,39 @@
+>>>configuration_item.ci-000388
+
+title:: SML/CommentDivision.pm Module
+
+revision:: $Revision: 15144 $
+
+date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+is_part_of:: ci-000004
+
+description:: The SML/CommentDivision.pm Module...
+
+index:: ci-000388
+
+>>>LISTING.lis-comment-pm
+
+title:: CommentDivision.pm
+
+numbers:: left
+
+language:: Perl
+
+fontsize:: footnotesize
+
+file:: ../lib/SML/CommentDivision.pm
+
+<<<LISTING
+
+[clearpage]
+
+<<<configuration_item
+
+>>>RESOURCES
+9e97adb4d58b51871cb82ac567bf81849303005d ../../SML/CommentDivision.pm
+<<<RESOURCES

@@ -1,6 +1,6 @@
 >>>allocation.al-000284
 
-solution:: ci-000006 # SML Semantics
+configuration_item:: ci-000006 # SML Semantics
 
 requirement::  rq-000194 # Represent Inference Rules
 

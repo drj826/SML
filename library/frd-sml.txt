@@ -16,7 +16,7 @@ logo_image_center:: images/crags.jpg
 
 version:: 2.0-DRAFT
 
-date:: 13 Dec 2015
+date:: 16 Dec 2015
 
 use_formal_status:: 1
 

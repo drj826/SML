@@ -15,8 +15,6 @@ anchor         = 'LISTING.' _ listing_number
 
 [%- INCLUDE division_heading.tt label = 'Listing' -%]
 
-[%- INCLUDE narrative_part_list.tt -%]
-
 <pre>
 [%-FILTER html-%][%-self.get_content-%][%-END-%]
 </pre>

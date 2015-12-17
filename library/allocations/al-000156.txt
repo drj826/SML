@@ -1,6 +1,6 @@
 >>>allocation.al-000156
 
-solution:: ci-000005 # Document.pm Perl Module
+configuration_item:: ci-000005 # Document.pm Perl Module
 
 requirement::  rq-000144 # Generate a List of Tables
 

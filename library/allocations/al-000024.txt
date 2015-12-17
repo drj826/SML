@@ -1,6 +1,6 @@
 >>>allocation.al-000024
 
-solution:: ci-000003 # Parser.pm Perl Module
+configuration_item:: ci-000003 # Parser.pm Perl Module
 
 requirement::  rq-000175 # Process Multiple Documents Without Restarting
 

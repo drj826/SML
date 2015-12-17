@@ -1,6 +1,6 @@
 >>>allocation.al-000027
 
-solution:: ci-000003 # Parser.pm Perl Module
+configuration_item:: ci-000003 # Parser.pm Perl Module
 
 requirement::  rq-000178 # Resolve Included Regions
 

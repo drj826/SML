@@ -1,6 +1,6 @@
 >>>allocation.al-000196
 
-solution:: ci-000007 # publish.pl Script
+configuration_item:: ci-000007 # publish.pl Script
 
 requirement::  rq-000110 # Be Reusable
 

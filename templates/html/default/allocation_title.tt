@@ -6,13 +6,13 @@ id     => ID of an allocation division
 %]
 [%-
 
-solution    = library.get_first_property_value(id,'solution')
-requirement = library.get_first_property_value(id,'requirement')
-test        = library.get_first_property_value(id,'test')
+configuration_item = library.get_first_property_value(id,'configuration_item')
+requirement        = library.get_first_property_value(id,'requirement')
+test               = library.get_first_property_value(id,'test')
 
 -%]
 <i>The</i>
-[% INCLUDE element.tt element = library.get_first_property_value_element(solution,'title') %]
+[% INCLUDE element.tt element = library.get_first_property_value_element(configuration_item,'title') %]
 <i>shall</i>
 [% INCLUDE element.tt element = library.get_first_property_value_element(requirement,'title') %]
 (<i>verified by:</i>

@@ -1,0 +1,26 @@
+>>>configuration_item.ci-000414
+
+title:: SML/Baretable.pm Module
+
+type:: software
+
+is_part_of:: ci-000004
+
+description:: The Baretable.pm module implements the SML::Baretable
+class.  An SML baretable environment instructs the publishing
+application to insert a baretable into the document.  Baretables are
+special.  They don't have begin and end tags and they don't have a
+preamble.  A baretable begins with the beginning of a table cell that
+isn't in a table and ends with the beginning of a block that (1) isn't
+a table cell, and (2) where column = 0 (i.e. immediately following the
+end of a row).
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+index:: ci-000414; Baretable.pm
+
+<<<configuration_item

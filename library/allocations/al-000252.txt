@@ -1,6 +1,6 @@
 >>>allocation.al-000252
 
-solution:: ci-000007 # publish.pl Script
+configuration_item:: ci-000007 # publish.pl Script
 
 requirement::  rq-000174 # Validate External File References
 

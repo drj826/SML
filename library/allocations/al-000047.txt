@@ -1,6 +1,6 @@
 >>>allocation.al-000047
 
-solution:: ci-000001 # Structured Manuscript Language (SML)
+configuration_item:: ci-000001 # Structured Manuscript Language (SML)
 
 requirement::  rq-000013 # Represent Images
 

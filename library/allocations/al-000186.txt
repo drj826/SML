@@ -1,6 +1,6 @@
 >>>allocation.al-000186
 
-solution:: ci-000001 # SML
+configuration_item:: ci-000001 # SML
 
 requirement::  rq-000186 # Be Easy To Debug
 

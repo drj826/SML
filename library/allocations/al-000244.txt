@@ -1,6 +1,6 @@
 >>>allocation.al-000244
 
-solution:: ci-000007 # publish.pl script
+configuration_item:: ci-000007 # publish.pl script
 
 requirement::  rq-000171 # Validate Imply-Only Properties
 

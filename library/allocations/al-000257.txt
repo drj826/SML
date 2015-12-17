@@ -1,6 +1,6 @@
 >>>allocation.al-000257
 
-solution:: ci-000007
+configuration_item:: ci-000007
 
 requirement::  rq-000115
 

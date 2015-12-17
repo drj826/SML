@@ -1,6 +1,6 @@
 >>>allocation.al-000003
 
-solution:: ci-000379 # SML Syntax
+configuration_item:: ci-000379 # SML Syntax
 
 requirement::  rq-000048 # Be Encodable Using 7-Bit ASCII
 

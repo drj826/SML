@@ -1,0 +1,19 @@
+>>>configuration_item.ci-000088
+
+title:: `begin_todo_item' Subroutine
+
+revision:: $Revision: 10975 $
+
+date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
+
+author:: $Author: don.johnson $
+
+type:: software
+
+is_part_of:: ci-000007
+
+description:: The [cmd:begin_todo_item] subroutine 
+
+index:: ci-000088; subroutine![cmd:begin_todo_item]
+
+<<<configuration_item

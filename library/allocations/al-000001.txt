@@ -1,10 +1,10 @@
 >>>allocation.al-000001
 
-solution:: ci-000001          # SML
+configuration_item:: ci-000001  # SML
 
-requirement:: rq-000005       # Minimize Presentation Markup
+requirement:: rq-000005         # Minimize Presentation Markup
 
-test:: tc-000040              # Analysis
+test:: tc-000040                # Analysis
 
 release:: 2.0
 

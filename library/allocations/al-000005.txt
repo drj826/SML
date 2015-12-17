@@ -1,6 +1,6 @@
 >>>allocation.al-000005
 
-solution:: ci-000001 # SML
+configuration_item:: ci-000001 # SML
 
 requirement::  rq-000009 # Represent Special Features
 

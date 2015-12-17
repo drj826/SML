@@ -1,6 +1,6 @@
 >>>allocation.al-000010
 
-solution:: ci-000006 # Ontology Configuration File
+configuration_item:: ci-000006 # Ontology Configuration File
 
 requirement::  rq-000118 # Implement SML Semantics
 

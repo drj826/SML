@@ -33,7 +33,7 @@ has '+id' =>
 
 ######################################################################
 
-has 'number' =>
+has number =>
   (
    isa      => 'Str',
    reader   => 'get_number',
@@ -43,7 +43,7 @@ has 'number' =>
 
 ######################################################################
 
-has 'previous_number' =>
+has previous_number =>
   (
    isa      => 'Str',
    reader   => 'get_previous_number',
@@ -53,7 +53,7 @@ has 'previous_number' =>
 
 ######################################################################
 
-has 'next_number' =>
+has next_number =>
   (
    isa      => 'Str',
    reader   => 'get_next_number',
@@ -63,7 +63,7 @@ has 'next_number' =>
 
 ######################################################################
 
-has 'containing_division' =>
+has containing_division =>
   (
    isa       => 'SML::Division',
    reader    => 'get_containing_division',
@@ -76,7 +76,7 @@ has 'containing_division' =>
 
 ######################################################################
 
-has 'origin_line' =>
+has origin_line =>
   (
    isa       => 'SML::Line',
    reader    => 'get_origin_line',

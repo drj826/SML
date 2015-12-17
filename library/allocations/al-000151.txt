@@ -1,6 +1,6 @@
 >>>allocation.al-000151
 
-solution:: ci-000005 # Document.pm Perl Module
+configuration_item:: ci-000005 # Document.pm Perl Module
 
 requirement::  rq-000139 # Publish Document Front and Back Matter
 

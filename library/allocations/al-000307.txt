@@ -1,6 +1,6 @@
 >>>allocation.al-000307
 
-solution:: ci-000387 # SML/Block.pm Module
+configuration_item:: ci-000387 # SML/Block.pm Module
 
 requirement::  rq-000228 # Render an HTML Right Arrow Symbol
 
