@@ -34,7 +34,7 @@ orientation:: landscape
 
 fontsize:: footnotesize
 
-file:: ../../t/Definition.t
+file:: ../t/Definition.t
 
 <<<LISTING
 

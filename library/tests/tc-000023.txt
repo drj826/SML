@@ -34,7 +34,7 @@ orientation:: portrait
 
 fontsize:: footnotesize
 
-file:: ../../t/Epigraph.t
+file:: ../t/Epigraph.t
 
 <<<LISTING
 

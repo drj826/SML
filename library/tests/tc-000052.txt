@@ -34,7 +34,7 @@ orientation:: landscape
 
 fontsize:: footnotesize
 
-file:: ../../t/EnumeratedListItem.t
+file:: ../t/EnumeratedListItem.t
 
 <<<LISTING
 

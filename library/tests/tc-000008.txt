@@ -34,7 +34,7 @@ orientation:: portrait
 
 fontsize:: footnotesize
 
-file:: ../../t/Util.t
+file:: ../t/Util.t
 
 <<<LISTING
 

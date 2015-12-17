@@ -34,7 +34,7 @@ orientation:: portrait
 
 fontsize:: footnotesize
 
-file:: ../../t/Parser.t
+file:: ../t/Parser.t
 
 <<<LISTING
 

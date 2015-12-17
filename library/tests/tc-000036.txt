@@ -34,7 +34,7 @@ orientation:: portrait
 
 fontsize:: footnotesize
 
-file:: ../../t/Exercise.t
+file:: ../t/Exercise.t
 
 <<<LISTING
 

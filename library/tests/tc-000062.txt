@@ -34,7 +34,7 @@ orientation:: landscape
 
 fontsize:: footnotesize
 
-file:: ../../t/Svninfo.t
+file:: ../t/Svninfo.t
 
 <<<LISTING
 

@@ -34,7 +34,7 @@ orientation:: landscape
 
 fontsize:: footnotesize
 
-file:: ../../t/PreformattedBlock.t
+file:: ../t/PreformattedBlock.t
 
 <<<LISTING
 

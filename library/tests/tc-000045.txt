@@ -34,7 +34,7 @@ orientation:: portrait
 
 fontsize:: footnotesize
 
-file:: ../../t/BulletListItem.t
+file:: ../t/BulletListItem.t
 
 <<<LISTING
 

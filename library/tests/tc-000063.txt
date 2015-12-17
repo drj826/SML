@@ -34,7 +34,7 @@ orientation:: landscape
 
 fontsize:: footnotesize
 
-file:: ../../t/TableCell.t
+file:: ../t/TableCell.t
 
 <<<LISTING
 

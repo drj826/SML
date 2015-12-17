@@ -34,7 +34,7 @@ orientation:: portrait
 
 fontsize:: footnotesize
 
-file:: ../../t/Options.t
+file:: ../t/Options.t
 
 <<<LISTING
 

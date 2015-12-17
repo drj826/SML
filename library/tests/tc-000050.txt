@@ -34,7 +34,7 @@ orientation:: landscape
 
 fontsize:: footnotesize
 
-file:: ../../t/CommentBlock.t
+file:: ../t/CommentBlock.t
 
 <<<LISTING
 

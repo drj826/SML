@@ -13,5 +13,6 @@ $library->get_all_entities;
 $library->publish('sml',    'html','default');
 $library->publish('frd-sml','html','default');
 $library->publish('sdd-sml','html','default');
+$library->publish('ted-sml','html','default');
 
 1;

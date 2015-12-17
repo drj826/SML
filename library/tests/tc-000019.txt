@@ -34,7 +34,7 @@ orientation:: portrait
 
 fontsize:: footnotesize
 
-file:: ../../t/Section.t
+file:: ../t/Section.t
 
 <<<LISTING
 

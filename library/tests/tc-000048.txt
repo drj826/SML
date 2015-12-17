@@ -34,7 +34,7 @@ orientation:: landscape
 
 fontsize:: footnotesize
 
-file:: ../../t/Baretable.t
+file:: ../t/Baretable.t
 
 <<<LISTING
 

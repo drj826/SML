@@ -16,9 +16,9 @@ type:: data format
 
 description:: The data format shall have the capability to represent
 an acronym definition.  This capability enables an author to establish
-a formal definition of an acronyms used in a document.  The data
-format representation of an acronym definition must allow but not
-mandate newline characters within an acronym definition.
+formal definitions of acronyms used in a document.  The data format
+representation of an acronym definition must allow but not mandate
+newline characters within an acronym definition.
 
 index:: rq-000089; acronym!definition
 

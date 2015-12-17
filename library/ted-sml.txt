@@ -23,8 +23,6 @@ revision:: $Revision: 15138 $
 
 use_formal_status:: 1
 
-===
-
 >>>REVISIONS
 
 rev:: 0.2 = 2012-03-25 = Added a lot of new test cases and
@@ -38,168 +36,111 @@ rev:: 0.1 = 2012-03-23 = Initial draft.
 
 * Introduction
 
-===
-
 This is the Test and Evaluation Document (TED) for the Structured
 Manuscript Language (SML) data format and SML application library.
 
 The purpose of this document is to:
 
-+ describe the [g:sml:unit test case]s that verify [g:ieee:unit]s work
++ describe the [g:SML:unit test case]s that verify [g:IEEE:unit]s work
   properly
 
-+ describe the verification [g:ieee:test case]s that verify
-  [g:sml:requirement]s are satisfied
++ describe the verification [g:IEEE:test case]s that verify
+  [g:SML:requirement]s are satisfied
 
-+ report [g:sml:unit test] results that demonstrate units are working
++ report [g:SML:unit test] results that demonstrate units are working
   properly
 
-+ report [g:ieee:verification] test results that demonstrate
++ report [g:IEEE:verification] test results that demonstrate
   requirements are satisfied
 
 #---------------------------------------------------------------------
 
 * Key Terms and Definitions
 
-===
-
 This section defines ~~key~~ terms used in this document.  The
 glossary contains a complete collection of terms and their
 definitions.
 
-= [g:sml:acceptance test] = [def:sml:acceptance test]
+= [g:SML:acceptance test] = [def:SML:acceptance test]
 
-= [g:ieee:allocated baseline] = [def:ieee:allocated baseline]
+= [g:IEEE:allocated baseline] = [def:IEEE:allocated baseline]
 
-= [g:ieee:baseline] = [def:ieee:baseline]
+= [g:IEEE:baseline] = [def:IEEE:baseline]
 
-= [g:ieee:checkout] = [def:ieee:checkout]
+= [g:IEEE:checkout] = [def:IEEE:checkout]
 
-= [g:ieee:component] = [def:ieee:component]
+= [g:IEEE:component] = [def:IEEE:component]
 
-= [g:ieee:component integration testing] = [def:ieee:component integration testing]
+= [g:IEEE:component integration testing] = [def:IEEE:component integration testing]
 
-= [g:sml:demonstration] = [def:sml:demonstration]
+= [g:SML:demonstration] = [def:SML:demonstration]
 
-= [g:sml:development testing] = [def:sml:development testing]
+= [g:SML:development testing] = [def:SML:development testing]
 
-= [g:ieee:functional baseline] = [def:ieee:functional baseline]
+= [g:IEEE:functional baseline] = [def:IEEE:functional baseline]
 
-= [g:sml:operational baseline] = [def:sml:operational baseline]
+= [g:SML:operational baseline] = [def:SML:operational baseline]
 
-= [g:ieee:operational testing] = [def:ieee:operational testing]
+= [g:IEEE:operational testing] = [def:IEEE:operational testing]
 
-= [g:ieee:product baseline] = [def:ieee:product baseline]
+= [g:IEEE:product baseline] = [def:IEEE:product baseline]
 
-= [g:sml:regression test] = [def:sml:regression test]
+= [g:SML:regression test] = [def:SML:regression test]
 
-= [g:sml:release] = [def:sml:release]
+= [g:SML:release] = [def:SML:release]
 
-= [g:ieee:system testing] = [def:ieee:system testing]
+= [g:IEEE:system testing] = [def:IEEE:system testing]
 
-= [g:sml:systems engineering] = [def:sml:systems engineering]
+= [g:SML:systems engineering] = [def:SML:systems engineering]
 
-= [g:ieee:test case] = [def:ieee:test case]
+= [g:IEEE:test case] = [def:IEEE:test case]
 
-= [g:ieee:test class] = [def:ieee:test class]
+= [g:IEEE:test class] = [def:IEEE:test class]
 
-= [g:ieee:test coverage] = [def:ieee:test coverage]
+= [g:IEEE:test coverage] = [def:IEEE:test coverage]
 
-= [g:ieee:test design] = [def:ieee:test design]
+= [g:IEEE:test design] = [def:IEEE:test design]
 
-= [g:ieee:test effort] = [def:ieee:test effort]
+= [g:IEEE:test effort] = [def:IEEE:test effort]
 
-= [g:ieee:test item] = [def:ieee:test item]
+= [g:IEEE:test item] = [def:IEEE:test item]
 
-= [g:ieee:test level] = [def:ieee:test level]
+= [g:IEEE:test level] = [def:IEEE:test level]
 
-= [g:ieee:test phase] = [def:ieee:test phase]
+= [g:IEEE:test phase] = [def:IEEE:test phase]
 
-= [g:ieee:test procedure] = [def:ieee:test procedure]
+= [g:IEEE:test procedure] = [def:IEEE:test procedure]
 
-= [g:ieee:test unit] = [def:ieee:test unit]
+= [g:IEEE:test unit] = [def:IEEE:test unit]
 
-= [g:ieee:testability] = [def:ieee:testability]
+= [g:IEEE:testability] = [def:IEEE:testability]
 
-= [g:ieee:testing] = [def:ieee:testing]
+= [g:IEEE:testing] = [def:IEEE:testing]
 
-= [g:ieee:testing task iteration] = [def:ieee:testing task iteration]
+= [g:IEEE:testing task iteration] = [def:IEEE:testing task iteration]
 
-= [g:ieee:testware] = [def:ieee:testware]
+= [g:IEEE:testware] = [def:IEEE:testware]
 
-= [g:ieee:traceability] = [def:ieee:traceability]
+= [g:IEEE:traceability] = [def:IEEE:traceability]
 
-= [g:ieee:traceability matrix] = [def:ieee:traceability matrix]
+= [g:IEEE:traceability matrix] = [def:IEEE:traceability matrix]
 
-= [g:ieee:unit] = [def:ieee:unit]
+= [g:IEEE:unit] = [def:IEEE:unit]
 
-= [g:sml:unit test] = [def:sml:unit test]
-
-#---------------------------------------------------------------------
-
-*.ted-test-cases Test Cases
-
-===
-
-type:: appendix
-
-include:: auto/ted-sml-tests.txt
+= [g:SML:unit test] = [def:SML:unit test]
 
 #---------------------------------------------------------------------
 
-*.ted-requirements Requirements
-
-===
-
-type:: appendix
-
-This appendix contains a reference listing of all requirements.
-
-include:: auto/ted-sml-problems.txt
+* plugin:: parts2sections tc-000001
 
 ######################################################################
-
-*.ted-solutions Solutions
-
-===
-
-type:: appendix
-
-This appendix contains a reference listing of all solutions.
-
-include:: auto/ted-sml-solutions.txt
-
-######################################################################
-
-*.ted-allocations Allocations
-
-===
-
-type:: appendix
-
-This appendix contains a reference listing of all allocations.
-
-include:: auto/ted-sml-allocations.txt
-
-######################################################################
-
-*.ted-roles Roles
-
-===
-
-type:: appendix
-
-This appendix contains a reference listing of all roles.
-
-include:: auto/ted-sml-roles.txt
-
-######################################################################
-
-*** SML/Backmatter
-
-===
-
 # Backmatter
+
+include:: acronyms-sml
+
+include:: acronyms-cmmi
+
+include:: acronyms-ieee
 
 include:: glossary-sml
 

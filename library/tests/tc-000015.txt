@@ -34,7 +34,7 @@ orientation:: portrait
 
 fontsize:: footnotesize
 
-file:: ../../t/Division.t
+file:: ../t/Division.t
 
 <<<LISTING
 

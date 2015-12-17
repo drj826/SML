@@ -34,7 +34,7 @@ orientation:: landscape
 
 fontsize:: footnotesize
 
-file:: ../../t/Block.t
+file:: ../t/Block.t
 
 <<<LISTING
 

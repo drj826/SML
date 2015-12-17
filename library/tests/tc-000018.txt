@@ -34,7 +34,7 @@ orientation:: portrait
 
 fontsize:: footnotesize
 
-file:: ../../t/Conditional.t
+file:: ../t/Conditional.t
 
 <<<LISTING
 

@@ -34,7 +34,7 @@ orientation:: portrait
 
 fontsize:: footnotesize
 
-file:: ../../t/Slide.t
+file:: ../t/Slide.t
 
 <<<LISTING
 

@@ -34,7 +34,7 @@ orientation:: portrait
 
 fontsize:: footnotesize
 
-file:: ../../t/Attachment.t
+file:: ../t/Attachment.t
 
 <<<LISTING
 
