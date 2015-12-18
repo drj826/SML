@@ -1,11 +1,11 @@
 >>>DOCUMENT.ted-sml
 
-title:: Test and Evaluation Document
+state:: DRAFT
+
+title:: Test and Evaluation Document (TED)
 
 subtitle:: SML Data Format [linebreak] and [linebreak] SML Software
 Library
-
-version:: 0.2
 
 author:: Don Johnson (drj826@acm.org)
 
@@ -17,7 +17,9 @@ doctype:: book
 
 logo_image_small:: files/images/sml_logo.png
 
-logo_image_center:: files/images/sml_logo.png
+logo_image_center:: files/images/river.jpg
+
+version:: 2.0
 
 revision:: $Revision: 15138 $
 

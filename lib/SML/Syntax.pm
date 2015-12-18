@@ -1433,7 +1433,7 @@ has valid_ontology_rule_type =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '(div|prp|enu|cmp)',
+   default => '(div|prp|cmp|enu|def)',
   );
 
 ######################################################################

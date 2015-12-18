@@ -53,8 +53,9 @@ has 'rule_type' =>
 #
 #   div => division declaration rule
 #   prp => property declaration rule
-#   enu => enumerated value rule
-#   cmp => composition rule
+#   enu => enumeration declaration rule
+#   cmp => composition declaration rule
+#   def => default value declaration rule
 
 ######################################################################
 
@@ -174,6 +175,8 @@ sub BUILD {
       $rule_type eq 'enu'
       or
       $rule_type eq 'cmp'
+      or
+      $rule_type eq 'def'
      )
     {
       unless ( $ontology->has_entity_with_name($entity_name) )

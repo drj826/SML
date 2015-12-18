@@ -1,6 +1,8 @@
 >>>DOCUMENT.frd-sml
 
-title:: Functional Requirements Document
+state:: DRAFT
+
+title:: Functional Requirements Document (FRD)
 
 subtitle:: SML Data Format[linebreak]and[linebreak]SML Software Library
 
@@ -12,9 +14,9 @@ doctype:: book
 
 logo_image_small:: files/images/sml_logo.png
 
-logo_image_center:: images/crags.jpg
+logo_image_center:: files/images/crags.jpg
 
-version:: 2.0-DRAFT
+version:: 2.0
 
 date:: 16 Dec 2015
 

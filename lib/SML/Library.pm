@@ -3107,21 +3107,24 @@ sub BUILD {
   my $prp_rule_count = $ontology->get_rule_type_count('prp');
   my $cmp_rule_count = $ontology->get_rule_type_count('cmp');
   my $enu_rule_count = $ontology->get_rule_type_count('enu');
+  my $def_rule_count = $ontology->get_rule_type_count('def');
 
-  my $total_rule_count = $div_rule_count + $prp_rule_count + $cmp_rule_count + $enu_rule_count;
+  my $total_rule_count = $div_rule_count + $prp_rule_count + $cmp_rule_count + $enu_rule_count + $def_rule_count;
 
   my $msg1 = sprintf("%-30s %6d","Division Declaration Rules:",$div_rule_count);
   my $msg2 = sprintf("%-30s %6d","Property Declaration Rules:",$prp_rule_count);
   my $msg3 = sprintf("%-30s %6d","Composition Declaration Rules:",$cmp_rule_count);
   my $msg4 = sprintf("%-30s %6d","Enumeration Declaration Rules:",$enu_rule_count);
-  my $msg5 = sprintf("%-30s %6d","TOTAL ONTOLOGY RULE COUNT:",$total_rule_count);
+  my $msg5 = sprintf("%-30s %6d","Default Declaration Rules:",$def_rule_count);
+  my $msg6 = sprintf("%-30s %6d","TOTAL ONTOLOGY RULE COUNT:",$total_rule_count);
 
   $logger->info("$msg1");
   $logger->info("$msg2");
   $logger->info("$msg3");
   $logger->info("$msg4");
-  $logger->info("------------------------------ ------");
   $logger->info("$msg5");
+  $logger->info("------------------------------ ------");
+  $logger->info("$msg6");
   $logger->info("");
 
   $logger->info("------------------------------ ------");

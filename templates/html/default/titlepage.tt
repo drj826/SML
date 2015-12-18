@@ -9,7 +9,7 @@ document_id = document.get_id
 library     = document.get_library
 
 -%]
-[% WRAPPER page.tt -%]
+[% WRAPPER document_page.tt -%]
 
 <table style="width:100%">
 <tr>
@@ -45,6 +45,17 @@ library     = document.get_library
 <br/>
 <br/>
 <br/>
+
+<p align="center">
+[%- state = library.get_first_property_value(document_id,'state') -%]
+[%- IF state == 'DRAFT' -%]
+<span style="font-size:18pt;color:red;">[%state%]</span>
+[%- ELSIF state == 'REVIEW' -%]
+<span style="font-size:18pt;color:green;">[%state%]</span>
+[%- ELSIF state == 'APPROVED' -%]
+<span style="font-size:18pt;color:blue;">[%state%]</span>
+[%- END -%]
+</p>
 
 [%- IF library.has_property(document_id,'version') -%]
 <p align="center">Version [% INCLUDE part_list.tt self = library.get_first_property_value_element(document_id,'version') %]</p>

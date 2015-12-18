@@ -241,11 +241,7 @@ sub _publish_html_document {
   my $document = shift;                 # document to publish
   my $style    = shift;                 # default
 
-  if (
-      not ref $document
-      or
-      not $document->isa('SML::Document')
-     )
+  unless ( ref $document and $document->isa('SML::Document') )
     {
       $logger->error("NOT A DOCUMENT $document");
       return 0;
@@ -254,7 +250,7 @@ sub _publish_html_document {
   my $library      = $self->get_library;
   my $template_dir = $library->get_template_dir . "/html/$style";
 
-  if ( not -d $template_dir )
+  unless ( -d $template_dir )
     {
       $logger->error("NOT A DIRECTORY $template_dir");
       return 0;
@@ -262,16 +258,25 @@ sub _publish_html_document {
 
   my $published_dir = $library->get_published_dir;
 
-  if ( not -d $published_dir )
+  unless ( -d $published_dir )
     {
       mkdir "$published_dir", 0755;
       $logger->info("made directory $published_dir");
     }
 
-  my $id         = $document->get_id;
-  my $output_dir = "$published_dir/$id";
+  my $id        = $document->get_id;
+  my $state     = $library->get_first_property_value($id,'state');
+  my $state_dir = "$published_dir/$state";
 
-  if ( not -d $output_dir )
+  unless ( -d $state_dir )
+    {
+      mkdir "$state_dir", 0755;
+      $logger->info("made directory $state_dir");
+    }
+
+  my $output_dir = "$state_dir/$id";
+
+  unless ( -d $output_dir )
     {
       mkdir "$output_dir", 0755;
       $logger->info("made directory $output_dir");
@@ -423,18 +428,16 @@ sub _publish_html_document {
   if ( $library->has_images )
     {
       my $id            = $document->get_id;
-      my $published_dir = $library->get_published_dir;
       my $library_dir   = $library->get_directory_path;
       my $images_dir    = $library->get_images_dir;
-      my $output_dir    = "$published_dir/$id";
 
-      if ( not -d "$published_dir/images" )
+      unless ( -d "$published_dir/images" )
 	{
 	  mkdir "$published_dir/images", 0755;
 	  $logger->info("made directory $published_dir/images");
 	}
 
-      if ( not -d "$output_dir/images" )
+      unless ( -d "$output_dir/images" )
 	{
 	  mkdir "$output_dir/images", 0755;
 	  $logger->info("made directory $output_dir/images");
@@ -636,10 +639,12 @@ sub _publish_html_image {
 
   my $id             = $document->get_id;
   my $library        = $self->get_library;
+  my $state          = $library->get_first_property_value($id,'state');
   my $published_dir  = $library->get_published_dir;
   my $filespec       = $image->get_value;
   my $library_dir    = $library->get_directory_path;
-  my $output_dir     = "$published_dir/$id";
+  my $state_dir      = "$published_dir/$state";
+  my $output_dir     = "$state_dir/$id";
   my $images_dir     = "$output_dir/images";
   my $scaled_dir     = "$output_dir/images-scaled";
   my $thumbnails_dir = "$output_dir/images-thumbnails";
@@ -649,7 +654,7 @@ sub _publish_html_image {
   my $copy     = "$images_dir/$basename";
   my $scaled   = "$scaled_dir/$basename";
 
-  if ( not -f $orig )
+  unless ( -f $orig )
     {
       $logger->error("IMAGE FILE NOT FOUND \'$orig\'");
       return 0;
@@ -657,7 +662,7 @@ sub _publish_html_image {
 
   foreach my $dir ($images_dir,$scaled_dir,$thumbnails_dir)
     {
-      if ( not -d $dir )
+      unless ( -d $dir )
 	{
 	  mkdir "$dir", 0755;
 	  $logger->info("made directory $dir");
@@ -710,23 +715,25 @@ sub _publish_html_file {
 
   my $id             = $document->get_id;
   my $library        = $self->get_library;
+  my $state          = $library->get_first_property_value($id,'state');
   my $published_dir  = $library->get_published_dir;
   my $filespec       = $file->get_value;
   my $library_dir    = $library->get_directory_path;
-  my $output_dir     = "$published_dir/$id";
+  my $state_dir      = "$published_dir/$state";
+  my $output_dir     = "$state_dir/$id";
   my $files_dir      = "$output_dir/files";
 
   my $basename = basename($filespec);
   my $orig     = "$library_dir/$filespec";
   my $copy     = "$files_dir/$basename";
 
-  if ( not -f $orig )
+  unless ( -f $orig )
     {
       $logger->error("FILE NOT FOUND \'$orig\'");
       return 0;
     }
 
-  if ( not -d $files_dir )
+  unless ( -d $files_dir )
     {
       mkdir "$files_dir", 0755;
       $logger->info("made directory $files_dir");

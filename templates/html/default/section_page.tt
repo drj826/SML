@@ -12,7 +12,7 @@ anchor         = 'section.' _ section_number
 title_element  = library.get_first_property_value_element(section_id,'title')
 
 -%]
-[% WRAPPER page.tt -%]
+[% WRAPPER document_page.tt -%]
 
 [%- INCLUDE previous_and_next.tt -%]
 

@@ -42,7 +42,7 @@ id      = self.get_id
 
 [% INCLUDE header.tt -%]
 [% INCLUDE footer.tt -%]
-[% INCLUDE navigation.tt -%]
+[% INCLUDE document_navigation.tt -%]
 
 <div id="content">
 

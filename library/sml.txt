@@ -1,5 +1,7 @@
 >>>DOCUMENT.sml
 
+state:: DRAFT
+
 title:: Semantic Manuscript Language (SML)
 
 subtitle:: User Guide
@@ -12,9 +14,9 @@ doctype:: book
 
 logo_image_small:: files/images/sml_logo.png
 
-logo_image_center:: files/images/lost-creek-meadow.jpg
+logo_image_center:: files/images/meadow.jpg
 
-version:: 2.0-DRAFT
+version:: 2.0
 
 revision:: 31415926
 
@@ -62,11 +64,11 @@ language designed to:
 
 - be human readable
 
+- express and validate semantic relationships
+
 - be easy to edit
 
 - be easy to automatically generate
-
-- express and validate semantic relationships
 
 - publish complex documentation libraries
 
@@ -475,7 +477,7 @@ complicated.
 
 The following sections summarize the features supported by [a:SML],
 divided into format, structure, content, and special feature
-categories.  For the gory details see [title:structuring-text].
+categories.  For the gory details see [title:sml-language].
 
 #------------------------------
 # footnotes
@@ -1567,7 +1569,7 @@ step:: Install Perl Modules:
 
 #---------------------------------------------------------------------
 
-*.structuring-text The Semantic Manuscript Language
+*.sml-language The Semantic Manuscript Language
 
 >>>EPIGRAPH
 
@@ -1578,17 +1580,16 @@ author:: Albert Einstein
 
 <<<EPIGRAPH
 
-[a:SML] is simple, but not too simple. It is designed with the philosophy
-that simple things should be simple and hard things should be
-possible.  [a:SML] ~~enables~~ you to describe document structures but
-~~disables~~ you from prescribing most document presentation options.
-This chapter shows you the gory details of the rules summarized in
-[r:getting-started], ``[t:getting-started].''
+[a:SML] is simple, but not too simple. It is designed with the
+philosophy that simple things should be simple and complex things
+should be possible.[f:sml-language:1] [a:SML] ~~enables~~ you to
+describe document structures but ~~disables~~ you from prescribing
+most document presentation options.  This chapter shows you the gory
+details of the language summarized in [r:getting-started],
+``[t:getting-started].''
 
-Ready to write?  Just start writing!  There are no special text
-incantations required to start a document.  [a:SML] documents are very
-simple text.  Paragraphs are separated by blank lines.  That is all
-you really need to know to get started.
+Ready to write?  Just start writing!  [a:SML] documents are plain
+text.  Paragraphs are separated by blank lines.
 
 Want to add a title to your document?  Want to identify the author of
 the document?  These are simple ``elements.''
@@ -1603,6 +1604,14 @@ You customize [a:SML] semantics by writing [g:SML:ontology] rules.
 
 All documents in a [g:SML:library] share common semantics defined in a
 common [g:SML:ontology].
+
+#------------------------------
+# footnotes
+
+footnote::1: This idea is often attributed to Alan Kay, an American
+computer scientist known for his early pioneering work on
+object-oriented programming and windowing graphical user interface
+design.
 
 #---------------------------------------------------------------------
 

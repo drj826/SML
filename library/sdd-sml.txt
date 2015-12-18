@@ -1,11 +1,11 @@
 >>>DOCUMENT.sdd-sml
 
-title:: Software Design Document
+state:: DRAFT
+
+title:: Software Design Document (SDD)
 
 subtitle:: SML Data Format [linebreak] and [linebreak] SML Software
 Library
-
-version:: 2.0-DRAFT
 
 author:: Don Johnson (drj826@acm.org)
 
@@ -15,7 +15,9 @@ doctype:: book
 
 logo_image_small:: files/images/sml_logo.png
 
-logo_image_center:: files/images/sml_logo.png
+logo_image_center:: files/images/aspen-leaf.jpg
+
+version:: 2.0
 
 revision:: $Revision: 15138 $
 
