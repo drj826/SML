@@ -411,6 +411,10 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
+      $logger->info("publishing METADATA.txt");
+      $tt->process("METADATA.tt",$vars,"METADATA.txt")
+	|| die $tt->error(), "\n";
+
       $logger->info("publishing $id.ontology.html");
       $tt->process("ontology_page.tt",$vars,"$id.ontology.html")
 	|| die $tt->error(), "\n";

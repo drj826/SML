@@ -1,0 +1,22 @@
+[%# args:
+
+document => an SML::Document object
+
+%]
+[%-
+
+library = document.get_library
+id      = document.get_id
+
+-%]
+>>>METADATA.[%id%]
+
+
+[%- FOREACH property_name IN library.get_property_name_list(id) -%]
+[%- FOREACH property_value IN library.get_property_value_list(id,property_name) -%]
+[%property_name%]:: [%property_value%]
+
+
+[%- END -%]
+[%- END -%]
+<<<METADATA
