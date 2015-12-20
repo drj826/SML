@@ -8,7 +8,7 @@ document => an SML::Document object
 [%- END -%]
 [%-
 
-library = document.get_library
+document_id = document.get_id
 
 -%]
 
@@ -25,72 +25,66 @@ library = document.get_library
 
 <tr>
 <td>
-<a href="[% document.get_id %].titlepage.html">Title Page</a><br/>
+<a href="../../index.html">Library</a><br/>
+
+<br/>
+
+<a href="[%document_id%].titlepage.html">Title Page</a><br/>
 
 [%- IF document.has_sections -%]
-<a href="[% document.get_id %].toc.html">Contents</a><br/>
+<a href="[%document_id%].toc.html">Contents</a><br/>
 [%- END -%]
 
 [%- IF document.has_tables -%]
-<a href="[% document.get_id %].tables.html">Tables</a><br/>
+<a href="[%document_id%].tables.html">Tables</a><br/>
 [%- END -%]
 
 [%- IF document.has_figures -%]
-<a href="[% document.get_id %].figures.html">Figures</a><br/>
+<a href="[%document_id%].figures.html">Figures</a><br/>
 [%- END -%]
 
 [%- IF document.has_attachments -%]
-<a href="[% document.get_id %].attachments.html">Attachments</a><br/>
+<a href="[%document_id%].attachments.html">Attachments</a><br/>
 [%- END -%]
 
 [%- IF document.has_listings -%]
-<a href="[% document.get_id %].listings.html">Listings</a><br/>
+<a href="[%document_id%].listings.html">Listings</a><br/>
 [%- END -%]
 
 [%- IF document.has_demos -%]
-<a href="[% document.get_id %].demos.html">Demonstrations</a><br/>
+<a href="[%document_id%].demos.html">Demonstrations</a><br/>
 [%- END -%]
 
 [%- IF document.has_exercises -%]
-<a href="[% document.get_id %].exercises.html">Exercises</a><br/>
+<a href="[%document_id%].exercises.html">Exercises</a><br/>
 [%- END -%]
 
 [%- IF document.has_slides -%]
-<a href="[% document.get_id %].slides.html">Slides</a><br/>
+<a href="[%document_id%].slides.html">Slides</a><br/>
 [%- END -%]
 
 <br/>
 
 [%- IF document.get_glossary.has_entries -%]
-<a href="[% document.get_id %].glossary.html">Glossary</a><br/>
+<a href="[%document_id%].glossary.html">Glossary</a><br/>
 [%- END -%]
 
 [%- IF document.get_acronym_list.has_entries -%]
-<a href="[% document.get_id %].acronyms.html">Acronyms</a><br/>
+<a href="[%document_id%].acronyms.html">Acronyms</a><br/>
 [%- END -%]
 
 [%- IF document.get_references.has_sources -%]
-<a href="[% document.get_id %].references.html">References</a><br/>
+<a href="[%document_id%].references.html">References</a><br/>
 [%- END -%]
 
 [%- IF document.get_index.has_entries -%]
-<a href="[% document.get_id %].index.html">Index</a><br/>
-[%- END -%]
-
-<br/>
-
-[%- IF library.get_ontology -%]
-<a href="[% document.get_id %].ontology.html">Ontology</a><br/>
-[%- END -%]
-
-[%- IF library.has_entities -%]
-<a href="[% document.get_id %].entities.html">Entities</a><br/>
+<a href="[%document_id%].index.html">Index</a><br/>
 [%- END -%]
 
 </td>
 </tr>
 
-[% INCLUDE version.tt -%]
+[% INCLUDE document_version.tt -%]
 
 </table>
 </div>

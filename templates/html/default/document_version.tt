@@ -3,7 +3,12 @@
 document => an SML::Document object
 
 %]
-[%- document_id = document.get_id -%]
+[%-
+
+library     = document.get_library
+document_id = document.get_id
+
+-%]
 <tr>
 <td>
 <div style="text-align:center;font-size:8pt;">
@@ -11,11 +16,11 @@ document => an SML::Document object
 <p align="center">
 [%- state = library.get_first_property_value(document_id,'state') -%]
 [%- IF state == 'DRAFT' -%]
-<span style="color:red;font-size:10pt;">[%state%]</span>
+<span style="color:red;font-size:10pt;">[%state%] Copy</span>
 [%- ELSIF state == 'REVIEW' -%]
-<span style="color:green;font-size:10pt;">[%state%]</span>
+<span style="color:green;font-size:10pt;">[%state%] Copy</span>
 [%- ELSIF state == 'APPROVED' -%]
-<span style="color:blue;font-size:10pt;">[%state%]</span>
+<span style="color:blue;font-size:10pt;">[%state%] Copy</span>
 [%- END -%]
 </p>
 

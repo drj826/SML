@@ -99,7 +99,7 @@ sub publish {
   my $self = shift;
 
   my $id        = shift;                          # document ID
-  my $rendition = shift;                          # html, latex, pdf...
+  my $rendition = shift || 'html';                # html, latex, pdf...
   my $style     = shift || 'default';             # default
 
   my $library = $self->get_library;
@@ -144,6 +144,29 @@ sub publish {
   else
     {
       $logger->error("THIS SHOULD NEVER HAPPEN");
+      return 0;
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub publish_index {
+
+  my $self = shift;
+
+  my $rendition = shift || 'html';
+  my $style     = shift || 'default';
+
+  if ( $rendition eq 'html' )
+    {
+      $self->_publish_html_index($style);
+    }
+
+  else
+    {
+      $logger->error("CAN ONLY PUBLISH HTML INDEX AT THIS TIME");
       return 0;
     }
 
@@ -239,7 +262,7 @@ sub _publish_html_document {
 
   my $self     = shift;
   my $document = shift;                 # document to publish
-  my $style    = shift;                 # default
+  my $style    = shift || 'default';    # default
 
   unless ( ref $document and $document->isa('SML::Document') )
     {
@@ -413,14 +436,6 @@ sub _publish_html_document {
 
       $logger->info("publishing METADATA.txt");
       $tt->process("METADATA.tt",$vars,"METADATA.txt")
-	|| die $tt->error(), "\n";
-
-      $logger->info("publishing $id.ontology.html");
-      $tt->process("ontology_page.tt",$vars,"$id.ontology.html")
-	|| die $tt->error(), "\n";
-
-      $logger->info("publishing $id.entities.html");
-      $tt->process("entities_page.tt",$vars,"$id.entities.html")
 	|| die $tt->error(), "\n";
     }
 
@@ -703,6 +718,61 @@ sub _publish_html_image {
 	  $self->_system_nw($command);
 	}
     }
+
+  return 1;
+}
+
+######################################################################
+
+sub _publish_html_index {
+
+  # Publish an HTML library index.
+
+  my $self  = shift;
+  my $style = shift || 'default';
+
+  my $library      = $self->get_library;
+  my $template_dir = $library->get_template_dir . "/html/$style";
+
+  unless ( -d $template_dir )
+    {
+      $logger->error("NOT A DIRECTORY $template_dir");
+      return 0;
+    }
+
+  my $published_dir = $library->get_published_dir;
+
+  unless ( -d $published_dir )
+    {
+      mkdir "$published_dir", 0755;
+      $logger->info("made directory $published_dir");
+    }
+
+  my $tt_config =
+    {
+     INCLUDE_PATH => $template_dir,
+     OUTPUT_PATH  => $published_dir,
+     RECURSION    => 1,
+    };
+
+  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+
+  my $vars = { library => $library };
+
+  # ontology page
+  $logger->info("publishing ontology.html");
+  $tt->process("ontology_page.tt",$vars,"ontology.html")
+    || die $tt->error(), "\n";
+
+  # entities page
+  $logger->info("publishing entities.html");
+  $tt->process("entities_page.tt",$vars,"entities.html")
+    || die $tt->error(), "\n";
+
+  # library index page
+  $logger->info("publishing index.html");
+  $tt->process("library_index_page.tt",$vars,"index.html")
+    || die $tt->error(), "\n";
 
   return 1;
 }

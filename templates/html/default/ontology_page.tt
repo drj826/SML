@@ -1,23 +1,14 @@
 [%# args:
 
-document => an SML::Document object
+library => an SML::Library object
 
 %]
 [%-
 
-library                = document.get_library
-ontology               = library.get_ontology
-document_id            = document.get_id
-document_title_element = library.get_first_property_value_element(document_id,'title')
+ontology = library.get_ontology
 
 -%]
-[%- WRAPPER document_page.tt -%]
-
-<div style="font-size:8pt;text-align:center">
-<a href="[%document_id%].toc.html">
-[%- INCLUDE element.tt element = document_title_element -%]
-</a>
-</div>
+[%- WRAPPER library_page.tt -%]
 
 <h1 align="center">Ontology</h1>
 

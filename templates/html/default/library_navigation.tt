@@ -1,0 +1,34 @@
+[%# args:
+
+library => an SML::Library object
+
+%]
+<!-- navigation -->
+<div id="left">
+<div class="pad4"></div>
+<div align="center">
+<a href="../index.html">
+<img src="images/sml_logo.png" style="border:0px">
+</a>
+</div>
+
+<table style="width:100%">
+
+<tr>
+<td>
+<a href="index.html">Library</a><br/><br/>
+
+[%- IF library.get_ontology -%]
+<a href="ontology.html">Ontology</a><br/>
+[%- END -%]
+
+[%- IF library.has_entities -%]
+<a href="entities.html">Entities</a><br/>
+[%- END -%]
+
+</td>
+</tr>
+
+</table>
+</div>
+

@@ -1,15 +1,8 @@
 [%# args:
 
-self    => document part represented by content
-content => content to be wrapped by the page
+library => an SML::Library object
 
 %]
-[%-
-
-library = self.get_library
-id      = self.get_id
-
--%]
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/1999/xhtml" xml:lang="en">
 
 <!-- ============================================================= -->
@@ -30,11 +23,8 @@ id      = self.get_id
 <html>
 <head>
 
-<title>[%- library.get_first_property_value(id,'title') -%]</title>
+<title>[%- library.get_name -%]</title>
 
-[% INCLUDE js_popimage.tt -%]
-[% INCLUDE js_treetable.tt -%]
-[% INCLUDE js_gotoa.tt -%]
 [% INCLUDE css.tt -%]
 
 </head>
@@ -42,7 +32,7 @@ id      = self.get_id
 
 [% INCLUDE header.tt -%]
 [% INCLUDE footer.tt -%]
-[% INCLUDE document_navigation.tt -%]
+[% INCLUDE library_navigation.tt -%]
 
 <div id="content">
 
@@ -52,3 +42,4 @@ id      = self.get_id
 
 </body>
 </html>
+

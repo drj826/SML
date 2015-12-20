@@ -311,6 +311,23 @@ sub publish {
 
 ######################################################################
 
+sub publish_index {
+
+  # Publish a library index.
+
+  my $self      = shift;
+  my $rendition = shift || 'html';
+  my $style     = shift || 'default';
+
+  my $publisher = $self->get_publisher;
+
+  my $result = $publisher->publish_index($rendition,$style);
+
+  return $result;
+}
+
+######################################################################
+
 sub get_parser {
 
   my $self = shift;

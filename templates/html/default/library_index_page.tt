@@ -1,0 +1,44 @@
+[%# args:
+
+library => an SML::Library object
+
+%]
+[%-
+
+id            = library.get_id
+name          = library.get_name
+document_list = library.get_document_list
+
+-%]
+[%- WRAPPER library_page.tt -%]
+
+<h2 style="text-align:center;">[%name%]</h2>
+
+<table>
+
+<tr>
+<td></td>
+<td>DRAFT</td>
+<td>REVIEW</td>
+<td>APPROVED</td>
+</tr>
+
+[%- FOREACH document IN document_list -%]
+[%-
+
+document_id    = document.get_id
+document_title = library.get_first_property_value(document_id,'title')
+
+-%]
+<tr>
+<td>[%document_title%]</td>
+<td><a href="DRAFT/[%document_id%]/[%document_id%].titlepage.html">HTML</a></td>
+<td><a href="REVIEW/[%document_id%]/[%document_id%].titlepage.html">HTML</a></td>
+<td><a href="APPROVED/[%document_id%]/[%document_id%].titlepage.html">HTML</a></td>
+</tr>
+
+[%- END -%]
+
+</table>
+
+[%- END -%]
