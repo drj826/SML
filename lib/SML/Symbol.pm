@@ -31,7 +31,7 @@ has '+content' =>
 
 ######################################################################
 
-has 'preceding_character' =>
+has preceding_character =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -43,7 +43,7 @@ has 'preceding_character' =>
 
 ######################################################################
 
-has 'following_character' =>
+has following_character =>
   (
    is      => 'ro',
    isa     => 'Str',

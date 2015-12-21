@@ -31,8 +31,9 @@ has '+name' =>
 
 ######################################################################
 
-has 'subject' =>
+has subject =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_subject',
    required => 1,
@@ -40,8 +41,9 @@ has 'subject' =>
 
 ######################################################################
 
-has 'predicate' =>
+has predicate =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_predicate',
    required => 1,
@@ -49,8 +51,9 @@ has 'predicate' =>
 
 ######################################################################
 
-has 'object' =>
+has object =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_object',
    required => 1,
@@ -58,8 +61,9 @@ has 'object' =>
 
 ######################################################################
 
-has 'origin' =>
+has origin =>
   (
+   is       => 'ro',
    isa      => 'SML::Element',
    reader   => 'get_origin',
    required => 1,

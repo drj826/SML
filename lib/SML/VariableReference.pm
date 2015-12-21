@@ -24,7 +24,7 @@ my $logger = Log::Log4perl::get_logger('sml.VariableReference');
 ######################################################################
 ######################################################################
 
-has 'variable_name' =>
+has variable_name =>
   (
    is       => 'ro',
    isa      => 'Str',
@@ -34,7 +34,7 @@ has 'variable_name' =>
 
 ######################################################################
 
-has 'namespace' =>
+has namespace =>
   (
    is       => 'ro',
    isa      => 'Str',

@@ -22,8 +22,9 @@ my $logger = Log::Log4perl::get_logger('sml.Property');
 ######################################################################
 ######################################################################
 
-has 'id' =>
+has id =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_id',
    required => 1,
@@ -33,8 +34,9 @@ has 'id' =>
 
 ######################################################################
 
-has 'name' =>
+has name =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_name',
    required => 1,
@@ -42,8 +44,9 @@ has 'name' =>
 
 ######################################################################
 
-has 'library' =>
+has library =>
   (
+   is       => 'ro',
    isa      => 'SML::Library',
    reader   => 'get_library',
    required => 1,
@@ -51,8 +54,9 @@ has 'library' =>
 
 ######################################################################
 
-has 'value_list' =>
+has value_list =>
   (
+   is       => 'ro',
    isa       => 'ArrayRef',
    reader    => 'get_value_list',
    default   => sub {[]},
@@ -64,8 +68,9 @@ has 'value_list' =>
 
 ######################################################################
 
-has 'element_list' =>
+has element_list =>
   (
+   is       => 'ro',
    isa       => 'ArrayRef',
    reader    => 'get_element_list',
    default   => sub {[]},

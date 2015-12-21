@@ -6,6 +6,8 @@ title:: Functional Requirements Document (FRD)
 
 subtitle:: SML Data Format[linebreak]and[linebreak]SML Software Library
 
+abbreviation:: FRD
+
 author:: Don Johnson
 
 copyright:: 2002-2012, Don Johnson
@@ -17,6 +19,8 @@ logo_image_small:: files/images/sml_logo.png
 logo_image_center:: files/images/crags.jpg
 
 version:: 2.0
+
+revision:: 31415
 
 date:: 16 Dec 2015
 

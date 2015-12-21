@@ -22,8 +22,9 @@ my $logger = Log::Log4perl::get_logger('sml.References');
 ######################################################################
 ######################################################################
 
-has 'source_hash' =>
+has source_hash =>
   (
+   is      => 'ro',
    isa     => 'HashRef',
    reader  => 'get_source_hash',
    default => sub {{}},

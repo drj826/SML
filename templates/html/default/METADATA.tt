@@ -5,15 +5,21 @@ document => an SML::Document object
 %]
 [%-
 
-library = document.get_library
-id      = document.get_id
+library   = document.get_library
+id        = document.get_id
+publisher = library.get_publisher
+date_time = publisher.get_publish_date_time
+utility   = library.get_util
 
 -%]
 >>>METADATA.[%id%]
 
+published:: [%date_time%]
+
 
 [%- FOREACH property_name IN library.get_property_name_list(id) -%]
 [%- FOREACH property_value IN library.get_property_value_list(id,property_name) -%]
+[%- property_value = utility.strip_string_markup(property_value) -%]
 [%property_name%]:: [%property_value%]
 
 

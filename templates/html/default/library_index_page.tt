@@ -15,6 +15,8 @@ blue             = '#4d96ff'
 lite_orange      = '#ffcc99'
 lite_green       = '#aae7aa'
 lite_blue        = '#cce1ff'
+num              = 0
+bgcolor          = '#eeeeee'
 
 -%]
 [%- WRAPPER library_page.tt -%]
@@ -25,7 +27,7 @@ lite_blue        = '#cce1ff'
 <table>
 
 <tr>
-<td style="background-color:[%grey%];font-weight:bold;">Document</td>
+<td style="background-color:[%grey%];font-weight:bold;width:40%;" colspan="3">Document</td>
 <td style="background-color:[%grey%];font-weight:bold;">Author</td>
 <td style="background-color:[%orange%];font-weight:bold;" colspan="2">DRAFT Copy</td>
 <td style="background-color:[%green%];font-weight:bold;" colspan="2">REVIEW Copy</td>
@@ -35,21 +37,39 @@ lite_blue        = '#cce1ff'
 [%- FOREACH document_id IN document_id_list -%]
 [%-
 
-document_title  = library.get_published_document_property_value('DRAFT',document_id,'title')
-document_author = library.get_published_document_property_value('DRAFT',document_id,'author')
+document_title    = library.get_published_document_property_value('DRAFT',document_id,'title')
+document_subtitle = library.get_published_document_property_value('DRAFT',document_id,'subtitle')
+document_author   = library.get_published_document_property_value('DRAFT',document_id,'author')
+document_abbr     = library.get_published_document_property_value('DRAFT',document_id,'abbreviation')
+num               = num + 1
 
 -%]
+[%- IF bgcolor == '#eeeeee' -%]
+[%- bgcolor = '#ffffff' -%]
+[%- ELSE -%]
+[%- bgcolor = '#eeeeee' -%]
+[%- END -%]
 <tr>
 
-<td><span style="font-weight:bold;">[%document_title%]</span></td>
+<td style="background-color:[%bgcolor%];">[%num%]</td>
 
-<td>[%document_author%]</td>
+<td style="background-color:[%bgcolor%];">[%document_abbr%]</td>
+
+<td style="background-color:[%bgcolor%];">
+<span style="font-weight:bold;">[%document_title%]</span>
+[%- IF document_subtitle -%]
+ - [%document_subtitle%]
+[%- END -%]
+</td>
+
+<td style="background-color:[%bgcolor%];">[%document_author%]</td>
 
 [%- IF library.has_published_document('DRAFT',document_id) -%]
 [%-
 
-version = library.get_published_document_property_value('DRAFT',document_id,'version')
-date    = library.get_published_document_property_value('DRAFT',document_id,'date')
+version  = library.get_published_document_property_value('DRAFT',document_id,'version')
+revision = library.get_published_document_property_value('DRAFT',document_id,'revision')
+date     = library.get_published_document_property_value('DRAFT',document_id,'date')
 
 -%]
 <td style="background-color:[%lite_orange%];">
@@ -66,7 +86,7 @@ date    = library.get_published_document_property_value('DRAFT',document_id,'dat
 </td>
 
 <td style="background-color:[%lite_orange%];">
-v[%version%]<br/>[%date%]
+v[%version%] <span style="color:#888888;">r[%revision%]</span><br/>[%date%]
 </td>
 
 [%- ELSE -%]
@@ -78,8 +98,9 @@ v[%version%]<br/>[%date%]
 [%- IF library.has_published_document('REVIEW',document_id) -%]
 [%-
 
-version = library.get_published_document_property_value('REVIEW',document_id,'version')
-date    = library.get_published_document_property_value('REVIEW',document_id,'date')
+version  = library.get_published_document_property_value('REVIEW',document_id,'version')
+revision = library.get_published_document_property_value('REVIEW',document_id,'revision')
+date     = library.get_published_document_property_value('REVIEW',document_id,'date')
 
 -%]
 <td style="background-color:[%lite_green%];">
@@ -96,7 +117,7 @@ date    = library.get_published_document_property_value('REVIEW',document_id,'da
 </td>
 
 <td style="background-color:[%lite_green%];">
-v[%version%]<br/>[%date%]
+v[%version%] <span style="color:#888888;">r[%revision%]</span><br/>[%date%]
 </td>
 
 [%- ELSE -%]
@@ -108,8 +129,9 @@ v[%version%]<br/>[%date%]
 [%- IF library.has_published_document('APPROVED',document_id) -%]
 [%-
 
-version = library.get_published_document_property_value('APPROVED',document_id,'version')
-date    = library.get_published_document_property_value('APPROVED',document_id,'date')
+version  = library.get_published_document_property_value('APPROVED',document_id,'version')
+revision = library.get_published_document_property_value('APPROVED',document_id,'revision')
+date     = library.get_published_document_property_value('APPROVED',document_id,'date')
 
 -%]
 <td style="background-color:[%lite_blue%];">
@@ -126,7 +148,7 @@ date    = library.get_published_document_property_value('APPROVED',document_id,'
 </td>
 
 <td style="background-color:[%lite_blue%];">
-v[%version%]<br/>[%date%]
+v[%version%] <span style="color:#888888;">r[%revision%]</span><br/>[%date%]
 </td>
 
 [%- ELSE -%]

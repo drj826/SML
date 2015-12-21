@@ -28,8 +28,9 @@ use SML::Options;
 ######################################################################
 ######################################################################
 
-has 'filename' =>
+has filename =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_filename',
    required => 1,
@@ -37,8 +38,9 @@ has 'filename' =>
 
 ######################################################################
 
-has 'library' =>
+has library =>
   (
+   is       => 'ro',
    isa      => 'SML::Library',
    reader   => 'get_library',
    required => 1,
@@ -46,8 +48,9 @@ has 'library' =>
 
 ######################################################################
 
-has 'revision' =>
+has revision =>
   (
+   is        => 'ro',
    isa       => 'Str',
    reader    => 'get_revision',
    writer    => 'set_revision',
@@ -57,8 +60,9 @@ has 'revision' =>
 
 ######################################################################
 
-has 'date' =>
+has date =>
   (
+   is        => 'ro',
    isa       => 'Str',
    reader    => 'get_date',
    writer    => 'set_date',
@@ -69,8 +73,9 @@ has 'date' =>
 
 ######################################################################
 
-has 'author' =>
+has author =>
   (
+   is      => 'ro',
    isa     => 'Str',
    reader  => 'get_author',
    writer  => 'set_author',
@@ -79,8 +84,9 @@ has 'author' =>
 
 ######################################################################
 
-has 'modified' =>
+has modified =>
   (
+   is      => 'ro',
    isa     => 'Bool',
    reader  => 'has_been_modified',
    writer  => 'set_has_been_modified',
@@ -89,8 +95,9 @@ has 'modified' =>
 
 ######################################################################
 
-has 'days_old' =>
+has days_old =>
   (
+   is      => 'ro',
    isa     => 'Int',
    reader  => 'get_days_old',
    writer  => 'set_days_old',
@@ -99,8 +106,9 @@ has 'days_old' =>
 
 ######################################################################
 
-has 'text' =>
+has text =>
   (
+   is      => 'ro',
    isa     => 'Str',
    reader  => 'get_text',
    writer  => 'set_text',

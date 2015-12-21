@@ -33,8 +33,9 @@ has '+name' =>
 
 ######################################################################
 
-has 'number' =>
+has number =>
   (
+   is        => 'ro',
    isa       => 'Str',
    reader    => 'get_number',
    writer    => 'set_number',

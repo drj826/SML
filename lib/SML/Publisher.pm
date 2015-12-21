@@ -29,8 +29,9 @@ my $logger = Log::Log4perl::get_logger('sml.Publisher');
 ######################################################################
 ######################################################################
 
-has 'library' =>
+has library =>
   (
+   is        => 'ro',
    isa       => 'SML::Library',
    reader    => 'get_library',
    required  => 1,
@@ -49,8 +50,9 @@ has publish_date_time =>
 
 ######################################################################
 
-has 'font_size_list' =>
+has font_size_list =>
   (
+   is      => 'ro',
    isa     => 'ArrayRef',
    reader  => 'get_font_size_list',
    lazy    => 1,
@@ -59,8 +61,9 @@ has 'font_size_list' =>
 
 ######################################################################
 
-has 'font_weight_list' =>
+has font_weight_list =>
   (
+   is      => 'ro',
    isa     => 'ArrayRef',
    reader  => 'get_font_weight_list',
    lazy    => 1,
@@ -69,8 +72,9 @@ has 'font_weight_list' =>
 
 ######################################################################
 
-has 'font_shape_list' =>
+has font_shape_list =>
   (
+   is      => 'ro',
    isa     => 'ArrayRef',
    reader  => 'get_font_shape_list',
    lazy    => 1,
@@ -79,8 +83,9 @@ has 'font_shape_list' =>
 
 ######################################################################
 
-has 'font_family_list' =>
+has font_family_list =>
   (
+   is      => 'ro',
    isa     => 'ArrayRef',
    reader  => 'get_font_family_list',
    lazy    => 1,
@@ -89,8 +94,9 @@ has 'font_family_list' =>
 
 ######################################################################
 
-has 'background_color_list' =>
+has background_color_list =>
   (
+   is      => 'ro',
    isa     => 'ArrayRef',
    reader  => 'get_background_color_list',
    lazy    => 1,

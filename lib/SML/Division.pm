@@ -1222,7 +1222,7 @@ sub get_content {
 ######################################################################
 ######################################################################
 
-has 'division_hash' =>
+has division_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_division_hash',
@@ -1236,22 +1236,7 @@ has 'division_hash' =>
 
 ######################################################################
 
-# has 'property_hash' =>
-#   (
-#    isa       => 'HashRef',
-#    reader    => '_get_property_hash',
-#    default   => sub {{}},
-#   );
-
-# This datastructure contains property values indexed by name. Allowed
-# properties are defined in the SML ontology.  Every property has a
-# name and value.  The value is an SML::Property object.
-#
-#   $ph->{$property_name} = $property;
-
-######################################################################
-
-has 'attribute_hash' =>
+has attribute_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_attribute_hash',

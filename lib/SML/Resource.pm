@@ -22,8 +22,9 @@ my $logger = Log::Log4perl::get_logger('sml.Resource');
 ######################################################################
 ######################################################################
 
-has 'tier' =>
+has tier =>
   (
+   is        => 'ro',
    isa       => 'Int',
    reader    => 'get_tier',
    writer    => '_set_tier',
@@ -39,8 +40,9 @@ has 'tier' =>
 
 ######################################################################
 
-has 'resource_hash' =>
+has resource_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => 'get_resource_hash',
    writer    => 'set_resource_hash',

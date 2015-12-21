@@ -33,8 +33,9 @@ use SML::Svninfo;
 ######################################################################
 ######################################################################
 
-has 'filespec' =>
+has filespec =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_filespec',
    required => 1,
@@ -42,18 +43,20 @@ has 'filespec' =>
 
 ######################################################################
 
-has 'filename' =>
+has filename =>
   (
-   isa     => 'Str',
-   reader  => 'get_filename',
-   lazy    => 1,
-   builder => '_build_filename',
+   is       => 'ro',
+   isa      => 'Str',
+   reader   => 'get_filename',
+   lazy     => 1,
+   builder  => '_build_filename',
   );
 
 ######################################################################
 
-has 'library' =>
+has library =>
   (
+   is       => 'ro',
    isa      => 'SML::Library',
    reader   => 'get_library',
    required => 1,
@@ -61,105 +64,90 @@ has 'library' =>
 
 ######################################################################
 
-has 'directories' =>
+has directories =>
   (
-   isa     => 'Str',
-   reader  => 'get_directories',
-   lazy    => 1,
-   builder => '_build_directories',
+   is       => 'ro',
+   isa      => 'Str',
+   reader   => 'get_directories',
+   lazy     => 1,
+   builder  => '_build_directories',
   );
 
 ######################################################################
 
-has 'path' =>
+has path =>
   (
-   isa     => 'Str',
-   reader  => 'get_path',
-   lazy    => 1,
-   builder => '_build_path',
+   is       => 'ro',
+   isa      => 'Str',
+   reader   => 'get_path',
+   lazy     => 1,
+   builder  => '_build_path',
   );
 
 ######################################################################
 
-has 'text' =>
+has text =>
   (
-   isa     => 'Str',
-   reader  => 'get_text',
-   lazy    => 1,
-   builder => '_build_text',
+   is       => 'ro',
+   isa      => 'Str',
+   reader   => 'get_text',
+   lazy     => 1,
+   builder  => '_build_text',
   );
 
 ######################################################################
 
-has 'line_list' =>
+has line_list =>
   (
-   isa     => 'ArrayRef',
-   reader  => 'get_line_list',
-   lazy    => 1,
-   builder => '_build_line_list',
+   is       => 'ro',
+   isa      => 'ArrayRef',
+   reader   => 'get_line_list',
+   lazy     => 1,
+   builder  => '_build_line_list',
   );
 
 ######################################################################
 
-has 'sha_digest' =>
+has sha_digest =>
   (
-   isa     => 'Str',
-   reader  => 'get_sha_digest',
-   lazy    => 1,
-   builder => '_build_sha_digest',
+   is       => 'ro',
+   isa      => 'Str',
+   reader   => 'get_sha_digest',
+   lazy     => 1,
+   builder  => '_build_sha_digest',
   );
 
 ######################################################################
 
-has 'md5_digest' =>
+has md5_digest =>
   (
-   isa     => 'Str',
-   reader  => 'get_md5_digest',
-   lazy    => 1,
-   builder => '_build_md5_digest',
+   is       => 'ro',
+   isa      => 'Str',
+   reader   => 'get_md5_digest',
+   lazy     => 1,
+   builder  => '_build_md5_digest',
   );
 
 ######################################################################
 
-has 'svninfo' =>
+has svninfo =>
   (
-   isa    => 'SML::Svninfo',
-   reader => 'get_svninfo',
-   writer => 'set_svninfo',
+   is       => 'ro',
+   isa      => 'SML::Svninfo',
+   reader   => 'get_svninfo',
+   writer   => 'set_svninfo',
   );
 
 ######################################################################
 
-# has 'fragment' =>
-#   (
-#    isa       => 'SML::Division',
-#    reader    => 'get_fragment',
-#    writer    => 'set_fragment',
-#    clearer   => 'clear_fragment',
-#    predicate => 'has_fragment',
-#   );
-
-######################################################################
-
-# has 'parsed' =>
-#   (
-#    isa       => 'Bool',
-#    reader    => 'has_been_parsed',
-#    writer    => 'set_has_been_parsed',
-#    clearer   => 'clear_has_been_parsed',
-#    predicate => 'has_has_been_parsed',
-#    default   => '0',
-#   );
-
-######################################################################
-
-has 'valid' =>
+has valid =>
   (
-   isa       => 'Bool',
-   reader    => 'is_valid',
-   writer    => '_set_valid',
-   lazy      => 1,
-   builder   => '_validate',
+   is       => 'ro',
+   isa      => 'Bool',
+   reader   => 'is_valid',
+   writer   => '_set_valid',
+   lazy     => 1,
+   builder  => '_validate',
   );
 
 ######################################################################
@@ -178,8 +166,9 @@ has 'valid' =>
 ######################################################################
 ######################################################################
 
-has 'from_line' =>
+has from_line =>
   (
+   is        => 'ro',
    isa       => 'SML::Line',
    reader    => '_get_from_line',
    predicate => '_has_from_line',

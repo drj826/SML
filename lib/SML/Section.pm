@@ -38,8 +38,9 @@ has '+id' =>
 
 ######################################################################
 
-has 'depth' =>
+has depth =>
   (
+   is       => 'ro',
    isa      => 'Int',
    reader   => 'get_depth',
    required => 1,
@@ -47,20 +48,22 @@ has 'depth' =>
 
 ######################################################################
 
-has 'sectype' =>
+has sectype =>
   (
-   isa     => 'Str',
-   reader  => 'get_sectype',
-   default => 'Section',
+   is       => 'ro',
+   isa      => 'Str',
+   reader   => 'get_sectype',
+   default  => 'Section',
   );
 
 ######################################################################
 
-has 'top_number' =>
+has top_number =>
   (
-   isa       => 'Str',
-   reader    => 'get_top_number',
-   writer    => 'set_top_number',
+   is       => 'ro',
+   isa      => 'Str',
+   reader   => 'get_top_number',
+   writer   => 'set_top_number',
   );
 
 ######################################################################

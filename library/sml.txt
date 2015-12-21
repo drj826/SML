@@ -1,10 +1,12 @@
 >>>DOCUMENT.sml
 
-state:: DRAFT
+state:: APPROVED
 
 title:: Semantic Manuscript Language (SML)
 
 subtitle:: User Guide
+
+abbreviation:: UG
 
 author:: Don Johnson
 
@@ -18,7 +20,7 @@ logo_image_center:: files/images/meadow.jpg
 
 version:: 2.0
 
-revision:: 31415926
+revision:: 31415
 
 date:: 21 Dec 2015
 
@@ -59,8 +61,9 @@ author:: Donald C. Gause & Gerald M. Weinberg
 
 <<<EPIGRAPH
 
-[a:SML] is a minimalistic plain text [g:SML:descriptive markup]
-language designed to:
+This book describes how to construct documents and libraries of
+documents using [a:SML]. [a:SML] is a minimalistic plain text
+[g:SML:descriptive markup] language designed to:
 
 - be human readable
 
@@ -76,8 +79,7 @@ language designed to:
 
 - publish libraries of related documents
 
-This book describes how to construct documents using [a:SML]. Why call
-it ``[acl:SML]''?
+Why call it ``[acl:SML]''?
 
 index:: Semantic Manuscript Language; SML; structured text
 

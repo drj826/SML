@@ -37,7 +37,7 @@ has '+name' =>
 
 ######################################################################
 
-has 'glossary' =>
+has glossary =>
   (
    isa      => 'SML::Glossary',
    reader   => 'get_glossary',
@@ -47,7 +47,7 @@ has 'glossary' =>
 
 ######################################################################
 
-has 'acronym_list' =>
+has acronym_list =>
   (
    isa      => 'SML::AcronymList',
    reader   => 'get_acronym_list',
@@ -57,7 +57,7 @@ has 'acronym_list' =>
 
 ######################################################################
 
-has 'references' =>
+has references =>
   (
    isa      => 'SML::References',
    reader   => 'get_references',
@@ -67,7 +67,7 @@ has 'references' =>
 
 ######################################################################
 
-has 'index' =>
+has index =>
   (
    isa      => 'SML::Index',
    reader   => 'get_index',
@@ -77,7 +77,7 @@ has 'index' =>
 
 ######################################################################
 
-has 'author' =>
+has author =>
   (
    isa       => 'Str',
    reader    => 'get_author',
@@ -85,7 +85,7 @@ has 'author' =>
 
 ######################################################################
 
-has 'date' =>
+has date =>
   (
    isa    => 'Str',
    reader => 'get_date',
@@ -93,7 +93,7 @@ has 'date' =>
 
 ######################################################################
 
-has 'revision' =>
+has revision =>
   (
    isa    => 'Str',
    reader => 'get_revision',
@@ -190,24 +190,6 @@ has 'pass_two_count',          is => 'ro', isa => 'Str';
 
 has 'using_longtable',         is => 'ro', isa => 'Boolean';
 has 'using_supertabular',      is => 'ro', isa => 'Boolean';
-
-######################################################################
-
-# has 'text_line_list' =>
-#   (
-#    isa    => 'ArrayRef',
-#    reader => 'get_text_line_list',
-#   );
-
-######################################################################
-
-# has 'valid' =>
-#   (
-#    isa       => 'Bool',
-#    reader    => 'is_valid',
-#    lazy      => 1,
-#    builder   => '_validate_document',
-#   );
 
 ######################################################################
 ######################################################################
@@ -392,7 +374,7 @@ sub replace_division_id {
 ######################################################################
 ######################################################################
 
-has 'note_hash' =>
+has note_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_note_hash',
@@ -422,7 +404,7 @@ has 'note_hash' =>
 
 ######################################################################
 
-has 'table_data_hash' =>
+has table_data_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_table_data_hash',
@@ -431,7 +413,7 @@ has 'table_data_hash' =>
 
 ######################################################################
 
-has 'baretable_data_hash' =>
+has baretable_data_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_baretable_data_hash',
@@ -440,7 +422,7 @@ has 'baretable_data_hash' =>
 
 ######################################################################
 
-has 'source_hash' =>
+has source_hash =>
   (
    isa       => 'HashRef',
    reader    => '_get_source_hash',
@@ -455,51 +437,6 @@ has 'source_hash' =>
 ## Private Methods
 ##
 ######################################################################
-######################################################################
-
-# sub _validate_document {
-
-#   my $self = shift;
-
-#   my $valid = 1;
-#   my $id    = $self->get_id;
-
-#   $logger->debug("validate document $id");
-
-#   $valid = 0 if not $self->has_valid_id_uniqueness;
-
-#   foreach my $block (@{ $self->get_block_list })
-#     {
-#       $valid = 0 if not $block->has_valid_syntax;
-#       $valid = 0 if not $block->has_valid_semantics;
-#     }
-
-#   foreach my $element (@{ $self->get_element_list })
-#     {
-#       $valid = 0 if not $element->has_valid_syntax;
-#       $valid = 0 if not $element->has_valid_semantics;
-#     }
-
-#   foreach my $division (@{ $self->get_division_list })
-#     {
-#       next if $division->get_name eq 'document';
-
-#       $valid = 0 if not $division->has_valid_semantics;
-#     }
-
-#   if ( $valid )
-#     {
-#       $logger->info("the document is valid \'$id\'");
-#     }
-
-#   else
-#     {
-#       $logger->warn("THE DOCUMENT IS NOT VALID \'$id\'");
-#     }
-
-#   return $valid;
-# }
-
 ######################################################################
 
 sub _build_glossary {
@@ -527,266 +464,6 @@ sub _build_index {
   my $self = shift;
   return SML::Index->new;
 }
-
-######################################################################
-
-sub _build_html_glossary_filename {
-
-  my $self  = shift;
-  my $docid = $self->get_id;
-
-  return $docid . ".glossary.html";
-}
-
-######################################################################
-
-sub _build_html_acronyms_filename {
-
-  my $self  = shift;
-  my $docid = $self->get_id;
-
-  return $docid . ".acronyms.html";
-}
-
-######################################################################
-
-sub _build_html_sources_filename {
-
-  my $self  = shift;
-  my $docid = $self->get_id;
-
-  return $docid . ".source.html";
-}
-
-######################################################################
-
-# sub _render_html_navigation_pane {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_title_page {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_table_of_contents {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_list_of_revisions {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_list_of_recent_updates {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_list_of_slides {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_list_of_sidebars {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_list_of_quotations {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_list_of_demonstrations {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_list_of_exercises {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_list_of_listings {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_list_of_to_do_items {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_list_of_tables {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_list_of_figures {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_list_of_attachments {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_list_of_footnotes {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_glossary {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_list_of_acronyms {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_changelog {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_list_of_references {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_index {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_document_section {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
-
-######################################################################
-
-# sub _render_html_copyright_page {
-
-#   my $self = shift;
-#   my $html = q{};
-
-#   return $html;
-# }
 
 ######################################################################
 

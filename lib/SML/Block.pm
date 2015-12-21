@@ -28,7 +28,7 @@ use Cwd;
 ######################################################################
 ######################################################################
 
-has 'line_list' =>
+has line_list =>
   (
    isa       => 'ArrayRef',
    reader    => 'get_line_list',
@@ -37,7 +37,7 @@ has 'line_list' =>
 
 ######################################################################
 
-has 'containing_division' =>
+has containing_division =>
   (
    isa       => 'SML::Division',
    reader    => 'get_containing_division',

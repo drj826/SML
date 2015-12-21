@@ -2652,7 +2652,11 @@ sub get_published_document_property_value {
 
   if ( exists $hash->{$state}{$document_id}{$property_name} )
     {
-      return $hash->{$state}{$document_id}{$property_name};
+      my $u = $self->get_util;
+
+      my $text = $hash->{$state}{$document_id}{$property_name};
+
+      return $u->strip_string_markup($text);
     }
 
   else

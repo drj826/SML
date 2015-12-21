@@ -28,8 +28,9 @@ use SML::OntologyRule;
 ######################################################################
 ######################################################################
 
-has 'library' =>
+has library =>
   (
+   is        => 'ro',
    isa       => 'SML::Library',
    reader    => 'get_library',
    required  => 1,
@@ -699,8 +700,9 @@ sub get_rule_type_count {
 ######################################################################
 ######################################################################
 
-has 'rule_hash' =>
+has rule_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_rule_hash',
    default   => sub {{}},
@@ -710,96 +712,104 @@ has 'rule_hash' =>
 
 ######################################################################
 
-has 'types_by_entity_name_hash' =>
+has types_by_entity_name_hash =>
   (
-   isa      => 'HashRef',
-   reader   => '_get_types_by_entity_name_hash',
-   lazy     => 1,
-   builder  => '_build_types_by_entity_name_hash',
+   is        => 'ro',
+   isa       => 'HashRef',
+   reader    => '_get_types_by_entity_name_hash',
+   lazy      => 1,
+   builder   => '_build_types_by_entity_name_hash',
   );
 
 # $hash->{$entity_name} = $value_type;
 
 ######################################################################
 
-has 'properties_by_entity_name_hash' =>
+has properties_by_entity_name_hash =>
   (
-   isa      => 'HashRef',
-   reader   => '_get_properties_by_entity_name_hash',
-   lazy     => 1,
-   builder  => '_build_properties_by_entity_name_hash',
+   is        => 'ro',
+   isa       => 'HashRef',
+   reader    => '_get_properties_by_entity_name_hash',
+   lazy      => 1,
+   builder   => '_build_properties_by_entity_name_hash',
   );
 
 # $hash->{$entity_name}{$property_name} = 1;
 
 ######################################################################
 
-has 'property_rules_lookup_hash' =>
+has property_rules_lookup_hash =>
   (
-   isa     => 'HashRef',
-   reader  => '_get_property_rules_lookup_hash',
-   lazy    => 1,
-   builder => '_build_property_rules_lookup_hash',
+   is        => 'ro',
+   isa       => 'HashRef',
+   reader    => '_get_property_rules_lookup_hash',
+   lazy      => 1,
+   builder   => '_build_property_rules_lookup_hash',
   );
 
 # $hash->{$entity_name}{$property_name}{$name_or_value} = $ontology_rule;
 
 ######################################################################
 
-has 'allowed_property_values_hash' =>
+has allowed_property_values_hash =>
   (
-   isa     => 'HashRef',
-   reader  => '_get_allowed_property_values_hash',
-   lazy    => 1,
-   builder => '_build_allowed_property_values_hash',
+   is        => 'ro',
+   isa       => 'HashRef',
+   reader    => '_get_allowed_property_values_hash',
+   lazy      => 1,
+   builder   => '_build_allowed_property_values_hash',
   );
 
 # $hash->{$entity_name}{$property_name} = $value_list
 
 ######################################################################
 
-has 'allowed_compositions_hash' =>
+has allowed_compositions_hash =>
   (
-   isa     => 'HashRef',
-   reader  => '_get_allowed_compositions_hash',
-   lazy    => 1,
-   builder => '_build_allowed_compositions_hash',
+   is        => 'ro',
+   isa       => 'HashRef',
+   reader    => '_get_allowed_compositions_hash',
+   lazy      => 1,
+   builder   => '_build_allowed_compositions_hash',
   );
 
 # $hash->{$containee_name}{$container_name} = 1;
 
 ######################################################################
 
-has 'imply_only_properties_hash' =>
+has imply_only_properties_hash =>
   (
-   isa     => 'HashRef',
-   reader  => '_get_imply_only_properties_hash',
-   lazy    => 1,
-   builder => '_build_imply_only_properties_hash',
+   is        => 'ro',
+   isa       => 'HashRef',
+   reader    => '_get_imply_only_properties_hash',
+   lazy      => 1,
+   builder   => '_build_imply_only_properties_hash',
   );
 
 # $hash->{$entity_name}{$property_name} = 1;
 
 ######################################################################
 
-has 'cardinality_of_properties_hash' =>
+has cardinality_of_properties_hash =>
   (
-   isa     => 'HashRef',
-   reader  => '_get_cardinality_of_properties_hash',
-   lazy    => 1,
-   builder => '_build_cardinality_of_properties_hash',
+   is        => 'ro',
+   isa       => 'HashRef',
+   reader    => '_get_cardinality_of_properties_hash',
+   lazy      => 1,
+   builder   => '_build_cardinality_of_properties_hash',
   );
 
 # $hash->{$entity_name}{$property_name} = $cardinality;
 
 ######################################################################
 
-has 'required_properties_hash' =>
+has required_properties_hash =>
   (
-   isa     => 'HashRef',
-   reader  => '_get_required_properties_hash',
-   lazy    => 1,
-   builder => '_build_required_properties_hash',
+   is        => 'ro',
+   isa       => 'HashRef',
+   reader    => '_get_required_properties_hash',
+   lazy      => 1,
+   builder   => '_build_required_properties_hash',
   );
 
 # $hash->{$entity_name}{$property_name} = 1;

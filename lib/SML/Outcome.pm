@@ -24,8 +24,9 @@ my $logger = Log::Log4perl::get_logger('sml.Outcome');
 ######################################################################
 ######################################################################
 
-has 'date' =>
+has date =>
   (
+   is        => 'ro',
    isa       => 'Str',
    reader    => 'get_date',
    writer    => 'set_date',
@@ -34,8 +35,9 @@ has 'date' =>
 
 ######################################################################
 
-has 'entity_id' =>
+has entity_id =>
   (
+   is        => 'ro',
    isa       => 'Str',
    reader    => 'get_entity_id',
    writer    => 'set_entity_id',
@@ -44,8 +46,9 @@ has 'entity_id' =>
 
 ######################################################################
 
-has 'status' =>
+has status =>
   (
+   is        => 'ro',
    isa       => 'Str',
    reader    => 'get_status',
    writer    => 'set_status',
@@ -54,8 +57,9 @@ has 'status' =>
 
 ######################################################################
 
-has 'description' =>
+has description =>
   (
+   is        => 'ro',
    isa       => 'Str',
    reader    => 'get_description',
    writer    => 'set_description',

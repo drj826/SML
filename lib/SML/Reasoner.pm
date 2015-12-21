@@ -22,8 +22,9 @@ my $logger = Log::Log4perl::get_logger('sml.Reasoner');
 ######################################################################
 ######################################################################
 
-has 'library' =>
+has library =>
   (
+   is        => 'ro',
    isa       => 'SML::Library',
    reader    => 'get_library',
    required  => 1,

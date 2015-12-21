@@ -22,8 +22,9 @@ my $logger = Log::Log4perl::get_logger('sml.OntologyRule');
 ######################################################################
 ######################################################################
 
-has 'id' =>
+has id =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_id',
    required => 1,
@@ -31,8 +32,9 @@ has 'id' =>
 
 ######################################################################
 
-has 'ontology' =>
+has ontology =>
   (
+   is       => 'ro',
    isa      => 'SML::Ontology',
    reader   => 'get_ontology',
    required => 1,
@@ -42,8 +44,9 @@ has 'ontology' =>
 
 ######################################################################
 
-has 'rule_type' =>
+has rule_type =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_rule_type',
    required => 1,
@@ -59,8 +62,9 @@ has 'rule_type' =>
 
 ######################################################################
 
-has 'entity_name' =>
+has entity_name =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_entity_name',
    required => 1,
@@ -68,8 +72,9 @@ has 'entity_name' =>
 
 ######################################################################
 
-has 'property_name' =>
+has property_name =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_property_name',
    required => 1,
@@ -79,8 +84,9 @@ has 'property_name' =>
 
 ######################################################################
 
-has 'value_type' =>
+has value_type =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_value_type',
    required => 1,
@@ -88,8 +94,9 @@ has 'value_type' =>
 
 ######################################################################
 
-has 'name_or_value' =>
+has name_or_value =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_name_or_value',
    required => 1,
@@ -97,8 +104,9 @@ has 'name_or_value' =>
 
 ######################################################################
 
-has 'inverse_rule_id' =>
+has inverse_rule_id =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_inverse_rule_id',
    required => 1,
@@ -106,8 +114,9 @@ has 'inverse_rule_id' =>
 
 ######################################################################
 
-has 'cardinality' =>
+has cardinality =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_cardinality',
    required => 1,
@@ -117,8 +126,9 @@ has 'cardinality' =>
 
 ######################################################################
 
-has 'required' =>
+has required =>
   (
+   is       => 'ro',
    isa      => 'Bool',
    reader   => 'is_required',
    required => 1,
@@ -126,8 +136,9 @@ has 'required' =>
 
 ######################################################################
 
-has 'imply_only' =>
+has imply_only =>
   (
+   is       => 'ro',
    isa      => 'Bool',
    reader   => 'is_imply_only',
    required => 1,

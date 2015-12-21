@@ -5,7 +5,7 @@ ontology => an SML::Ontology object
 %]
 <div align="center">
 [%- FOREACH entity_name IN ontology.get_entity_name_list -%]
-<button type="button" onclick="goToA('#[%entity_name%]');">[%entity_name%]</button>
+<a href="#[%entity_name%]">[%entity_name%]</a> &middot; 
 [%- END -%]
 </div>
 

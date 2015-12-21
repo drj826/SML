@@ -22,8 +22,9 @@ my $logger = Log::Log4perl::get_logger('sml.Line');
 ######################################################################
 ######################################################################
 
-has 'content' =>
+has content =>
   (
+   is        => 'ro',
    isa       => 'Str',
    reader    => 'get_content',
    required  => 1,
@@ -31,8 +32,9 @@ has 'content' =>
 
 ######################################################################
 
-has 'file' =>
+has file =>
   (
+   is        => 'ro',
    isa       => 'SML::File',
    reader    => 'get_file',
    predicate => 'has_file',
@@ -45,8 +47,9 @@ has 'file' =>
 
 ######################################################################
 
-has 'num' =>
+has num =>
   (
+   is       => 'ro',
    isa      => 'Int',
    reader   => 'get_num',
 );

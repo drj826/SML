@@ -7,6 +7,8 @@ title:: Software Design Document (SDD)
 subtitle:: SML Data Format [linebreak] and [linebreak] SML Software
 Library
 
+abbreviation:: SDD
+
 author:: Don Johnson
 
 copyright:: 2002-2012, Don Johnson
@@ -21,7 +23,7 @@ version:: 2.0
 
 revision:: $Revision: 15138 $
 
-date:: 16 Dec 2015
+date:: 21 Dec 2015
 
 use_formal_status:: 1
 

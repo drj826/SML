@@ -51,22 +51,24 @@ has remaining =>
 
 ######################################################################
 
-has 'containing_division' =>
+has containing_division =>
   (
-   isa       => 'SML::Division',
-   reader    => 'get_containing_division',
-   lazy      => 1,
-   builder   => '_build_containing_division',
+   is       => 'ro',
+   isa      => 'SML::Division',
+   reader   => 'get_containing_division',
+   lazy     => 1,
+   builder  => '_build_containing_division',
   );
 
 ######################################################################
 
-has 'containing_block' =>
+has containing_block =>
   (
-   isa       => 'SML::Block',
-   reader    => 'get_containing_block',
-   builder   => '_build_containing_block',
-   lazy      => 1,
+   is       => 'ro',
+   isa      => 'SML::Block',
+   reader   => 'get_containing_block',
+   builder  => '_build_containing_block',
+   lazy     => 1,
   );
 
 ######################################################################

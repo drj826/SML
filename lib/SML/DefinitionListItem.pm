@@ -40,7 +40,7 @@ has '+leading_whitespace' =>
 
 ######################################################################
 
-has 'term' =>
+has term =>
   (
    isa       => 'Str',
    reader    => 'get_term',
@@ -50,7 +50,7 @@ has 'term' =>
 
 ######################################################################
 
-has 'definition' =>
+has definition =>
   (
    isa       => 'Str',
    reader    => 'get_definition',
@@ -60,7 +60,7 @@ has 'definition' =>
 
 ######################################################################
 
-has 'term_string' =>
+has term_string =>
   (
    isa       => 'SML::String',
    reader    => 'get_term_string',
@@ -70,7 +70,7 @@ has 'term_string' =>
 
 ######################################################################
 
-has 'definition_string' =>
+has definition_string =>
   (
    isa       => 'SML::String',
    reader    => 'get_definition_string',

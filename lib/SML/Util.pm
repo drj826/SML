@@ -29,8 +29,9 @@ use SML::Document;
 ######################################################################
 ######################################################################
 
-has 'options' =>
+has options =>
   (
+   is        => 'ro',
    isa       => 'SML::Options',
    reader    => 'get_options',
    writer    => 'set_options',
@@ -47,8 +48,9 @@ has 'options' =>
 
 ######################################################################
 
-has 'library' =>
+has library =>
   (
+   is       => 'ro',
    isa      => 'SML::Library',
    reader   => 'get_library',
    required => 1,
@@ -56,52 +58,57 @@ has 'library' =>
 
 ######################################################################
 
-has 'blank_line' =>
+has blank_line =>
   (
-   isa     => 'SML::Line',
-   reader  => 'get_blank_line',
-   lazy    => 1,
-   builder => '_build_blank_line',
+   is       => 'ro',
+   isa      => 'SML::Line',
+   reader   => 'get_blank_line',
+   lazy     => 1,
+   builder  => '_build_blank_line',
   );
 
 ######################################################################
 
-has 'empty_block' =>
+has empty_block =>
   (
-   isa     => 'SML::Block',
-   reader  => 'get_empty_block',
-   lazy    => 1,
-   builder => '_build_empty_block',
+   is       => 'ro',
+   isa      => 'SML::Block',
+   reader   => 'get_empty_block',
+   lazy     => 1,
+   builder  => '_build_empty_block',
   );
 
 ######################################################################
 
-has 'empty_file' =>
+has empty_file =>
   (
-   isa     => 'SML::File',
-   reader  => 'get_empty_file',
-   lazy    => 1,
-   builder => '_build_empty_file',
+   is       => 'ro',
+   isa      => 'SML::File',
+   reader   => 'get_empty_file',
+   lazy     => 1,
+   builder  => '_build_empty_file',
   );
 
 ######################################################################
 
-has 'empty_document' =>
+has empty_document =>
   (
-   isa     => 'SML::Document',
-   reader  => 'get_empty_document',
-   lazy    => 1,
-   builder => '_build_empty_document',
+   is       => 'ro',
+   isa      => 'SML::Document',
+   reader   => 'get_empty_document',
+   lazy     => 1,
+   builder  => '_build_empty_document',
   );
 
 ######################################################################
 
-has 'default_section' =>
+has default_section =>
   (
-   isa       => 'SML::Section',
-   reader    => 'get_default_section',
-   lazy      => 1,
-   builder   => '_build_default_section',
+   is       => 'ro',
+   isa      => 'SML::Section',
+   reader   => 'get_default_section',
+   lazy     => 1,
+   builder  => '_build_default_section',
   );
 
 # Some documents have no explicit section structure.  However, section
@@ -261,6 +268,28 @@ sub walk_directory {
     }
 
   return 1;
+}
+
+######################################################################
+
+sub strip_string_markup {
+
+  my $self = shift;
+  my $text = shift;
+
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
+
+  $text =~ s/$syntax->{bold_string}/$1/g;
+  $text =~ s/$syntax->{italics_string}/$1/g;
+  $text =~ s/$syntax->{fixedwidth_string}/$1/g;
+  $text =~ s/$syntax->{underline_string}/$1/g;
+  $text =~ s/$syntax->{superscript_string}/$1/g;
+  $text =~ s/$syntax->{subscript_string}/$1/g;
+
+  $text =~ s/$syntax->{linebreak_symbol}/ /g;
+
+  return $text;
 }
 
 ######################################################################

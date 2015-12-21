@@ -31,7 +31,7 @@ has '+name' =>
 
 ######################################################################
 
-has 'leading_whitespace' =>
+has leading_whitespace =>
   (
    is        => 'ro',
    isa       => 'Str',
