@@ -120,6 +120,12 @@ which allows authors to establish relationships between
 [g:SML:solution]s, [g:SML:test]s, [g:SML:result]s, [g:SML:task]s,
 [g:SML:role]s
 
+glossary:: continuous integration {SML} = (CI) the practice, in
+software engineering, of merging all developer working copies to a
+shared mainline several times a day for the purpose of discovering and
+solving integration problems as soon as
+possible. [cite:wp-continuous-integration]
+
 ######################################################################
 # D
 ######################################################################
@@ -603,7 +609,8 @@ that begins with a section heading and contains information about a
 specific topic.  Authors may create section headings at different
 levels to create a hierarchy of sections to organize document content
 
-glossary:: semantic {SML} = relating to meaning in language or logic
+glossary:: semantic {SML} = relating to ~~meaning~~ in language or
+logic
 
 glossary:: semantics {SML} = The set of rules that governs the meaning
 of document content. For [a:SML] these rules are defined in an

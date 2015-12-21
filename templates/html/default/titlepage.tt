@@ -49,11 +49,11 @@ library     = document.get_library
 <p align="center">
 [%- state = library.get_first_property_value(document_id,'state') -%]
 [%- IF state == 'DRAFT' -%]
-<span style="font-size:18pt;color:red;">[%state%]</span>
+<span style="font-size:18pt;color:#ff8000;">[%state%] Copy</span>
 [%- ELSIF state == 'REVIEW' -%]
-<span style="font-size:18pt;color:green;">[%state%]</span>
+<span style="font-size:18pt;color:#006600;">[%state%] Copy</span>
 [%- ELSIF state == 'APPROVED' -%]
-<span style="font-size:18pt;color:blue;">[%state%]</span>
+<span style="font-size:18pt;color:#0000ff;">[%state%] Copy</span>
 [%- END -%]
 </p>
 

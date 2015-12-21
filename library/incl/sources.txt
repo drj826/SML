@@ -60,6 +60,18 @@ note:: [url:http://en.wikipedia.org/wiki/Reasoner]
 
 ######################################################################
 
+>>>SOURCE.wp-continuous-integration
+
+source_type:: misc
+
+title:: `Continuous Integration' Wikipedia Article
+
+note:: [url:https://en.wikipedia.org/wiki/Continuous_integration]
+
+<<<SOURCE
+
+######################################################################
+
 >>>SOURCE.kossiakoff-and-sweet
 
 source_type:: book

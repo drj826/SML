@@ -286,6 +286,19 @@ has image_list =>
   );
 
 ######################################################################
+
+has document_presentation_id_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_document_presentation_id_list',
+   default => sub {[]},
+  );
+
+# This 'document_presentation_id_list' is a list of document IDs in
+# the order they should be presented in the library index.
+
+######################################################################
 ######################################################################
 ##
 ## Public Methods
@@ -2564,6 +2577,92 @@ sub increment_division_count {
 }
 
 ######################################################################
+
+sub has_published_document {
+
+  my $self = shift;
+
+  my $state       = shift;              # DRAFT, REVIEW, APPROVED
+  my $document_id = shift;
+
+  my $hash = $self->_get_published_document_hash;
+
+  if ( exists $hash->{$state}{$document_id} )
+    {
+      return 1;
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub has_published_document_rendition {
+
+  my $self = shift;
+
+  my $state       = shift;
+  my $document_id = shift;
+  my $rendition   = shift;
+
+  my $published_dir = $self->get_published_dir;
+  my $filespec      = q{};
+
+  if ( $rendition eq 'html' )
+    {
+      $filespec = "$published_dir/$state/$document_id/$document_id.titlepage.html";
+    }
+
+  elsif ( $rendition eq 'pdf' )
+    {
+      $filespec = "$published_dir/$state/$document_id/$document_id.pdf";
+    }
+
+  else
+    {
+      $logger->error("UNKNOWN RENDITION $rendition");
+      return 0;
+    }
+
+  if ( -f $filespec )
+    {
+      return 1;
+    }
+
+  else
+    {
+      return 0;
+    }
+}
+
+######################################################################
+
+sub get_published_document_property_value {
+
+  # Return the (string) value of the specified published document
+  # property.
+
+  my $self = shift;
+
+  my $state         = shift;            # DRAFT, REVIEW, APPROVED
+  my $document_id   = shift;
+  my $property_name = shift;
+
+  my $hash = $self->_get_published_document_hash;
+
+  if ( exists $hash->{$state}{$document_id}{$property_name} )
+    {
+      return $hash->{$state}{$document_id}{$property_name};
+    }
+
+  else
+    {
+      $logger->error("CAN'T GET PUBLISHED DOCUMENT PROPERTY VALUE $state $document_id $property_name");
+      return 0;
+    }
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes
@@ -2573,6 +2672,7 @@ sub increment_division_count {
 
 has config_filespec =>
   (
+   is        => 'ro',
    isa      => 'Str',
    reader   => '_get_config_filespec',
    lazy     => 1,
@@ -2583,6 +2683,7 @@ has config_filespec =>
 
 has config_filename =>
   (
+   is        => 'ro',
    isa      => 'Str',
    reader   => '_get_config_filename',
    default  => 'library.conf',
@@ -2592,6 +2693,7 @@ has config_filename =>
 
 has ontology_rule_filename_list =>
   (
+   is        => 'ro',
    isa       => 'ArrayRef',
    reader    => '_get_ontology_rule_filename_list',
    writer    => '_set_ontology_rule_filename_list',
@@ -2602,6 +2704,7 @@ has ontology_rule_filename_list =>
 
 has directory_name =>
   (
+   is        => 'ro',
    isa       => 'Str',
    reader    => '_get_directory_name',
    default   => 'library',
@@ -2613,6 +2716,7 @@ has directory_name =>
 
 has id_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_id_hash',
    default   => sub {{}},
@@ -2626,6 +2730,7 @@ has id_hash =>
 
 has filespec_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_filespec_hash',
    default   => sub {{}},
@@ -2639,6 +2744,7 @@ has filespec_hash =>
 
 has file_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_file_hash',
    default   => sub {{}},
@@ -2651,6 +2757,7 @@ has file_hash =>
 
 has document_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_document_hash',
    default   => sub {{}},
@@ -2664,6 +2771,7 @@ has document_hash =>
 
 has division_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_division_hash',
    writer    => '_set_division_hash',
@@ -2693,6 +2801,7 @@ has entity_hash =>
 
 has property_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_property_hash',
    default   => sub {{}},
@@ -2725,11 +2834,9 @@ has triple_hash =>
 
 has variable_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_variable_hash',
-   # writer    => 'set_variable_hash',
-   # clearer   => 'clear_variable_hash',
-   # predicate => 'has_variable_hash',
    default   => sub {{}},
   );
 
@@ -2739,11 +2846,9 @@ has variable_hash =>
 
 has resource_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_resource_hash',
-   # writer    => 'set_resource_hash',
-   # clearer   => 'clear_resource_hash',
-   # predicate => 'has_resource_hash',
    default   => sub {{}},
   );
 
@@ -2753,11 +2858,9 @@ has resource_hash =>
 
 has index_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_index_hash',
-   # writer    => 'set_index_hash',
-   # clearer   => 'clear_index_hash',
-   # predicate => 'has_index_hash',
    default   => sub {{}},
   );
 
@@ -2772,11 +2875,9 @@ has index_hash =>
 
 has outcome_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_outcome_hash',
-   # writer    => 'set_outcome_hash',
-   # clearer   => 'clear_outcome_hash',
-   # predicate => 'has_outcome_hash',
    default   => sub {{}},
   );
 
@@ -2797,12 +2898,10 @@ has outcome_hash =>
 
 has review_hash =>
   (
-   isa       => 'HashRef',
-   reader    => '_get_review_hash',
-   # writer    => 'set_review_hash',
-   # clearer   => 'clear_review_hash',
-   # predicate => 'has_review_hash',
-   default   => sub {{}},
+   is       => 'ro',
+   isa      => 'HashRef',
+   reader   => '_get_review_hash',
+   default  => sub {{}},
   );
 
 # Review Data structure.  A review describes the result of an informal
@@ -2815,20 +2914,22 @@ has review_hash =>
 
 has insert_name_hash =>
   (
-   isa     => 'HashRef',
-   reader  => '_get_insert_name_hash',
-   lazy    => 1,
-   builder => '_build_insert_name_hash',
+   is       => 'ro',
+   isa      => 'HashRef',
+   reader   => '_get_insert_name_hash',
+   lazy     => 1,
+   builder  => '_build_insert_name_hash',
   );
 
 ######################################################################
 
 has generated_content_type_hash =>
   (
-   isa     => 'HashRef',
-   reader  => '_get_generated_content_type_hash',
-   lazy    => 1,
-   builder => '_build_generated_content_type_hash',
+   is       => 'ro',
+   isa      => 'HashRef',
+   reader   => '_get_generated_content_type_hash',
+   lazy     => 1,
+   builder  => '_build_generated_content_type_hash',
   );
 
 ######################################################################
@@ -2848,6 +2949,7 @@ has parser_count =>
 
 has division_counter_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_division_counter_hash',
    writer    => '_set_division_counter_hash',
@@ -2857,6 +2959,25 @@ has division_counter_hash =>
 
 # $hash->{$name}   = $count;
 # $hash->{'table'} = 4;
+
+######################################################################
+
+has published_document_hash =>
+  (
+   is        => 'ro',
+   isa       => 'HashRef',
+   reader    => '_get_published_document_hash',
+   lazy      => 1,
+   builder   => '_build_published_document_hash',
+  );
+
+# This hash holds the metadata about published documents and is used
+# to produce the library index page.
+#
+# $hash->{$state}{$document_id}{$property_name} = $string;
+#
+# $hash->{'DRAFT'}{'sdd-sml'}{'version'} = 'v2.0';
+# $hash->{'DRAFT'}{'sdd-sml'}{'date'}    = '2015-12-20';
 
 ######################################################################
 ######################################################################
@@ -2982,6 +3103,23 @@ sub BUILD {
       else
 	{
 	  $self->_add_include_path($config{'include_path'});
+	}
+    }
+
+  # set document_presentation_id_list
+  if ( $config{'document'} )
+    {
+      if ( ref $config{'document'} eq 'ARRAY' )
+	{
+	  foreach my $id (@{$config{'document'}})
+	    {
+	      $self->_add_document_presentation_id($id);
+	    }
+	}
+
+      else
+	{
+	  $self->_add_document_presentation_id($config{'document'});
 	}
     }
 
@@ -3176,6 +3314,74 @@ sub BUILD {
 
 ######################################################################
 
+sub _build_published_document_hash {
+
+  my $self = shift;
+
+  my $hash             = {};
+  my $published_dir    = $self->get_published_dir;
+  my $state_list       = ['DRAFT','REVIEW','APPROVED'];
+  my $document_id_list = $self->get_document_presentation_id_list;
+  my $syntax           = $self->get_syntax;
+
+  foreach my $id (@{ $document_id_list })
+    {
+      foreach my $state (@{ $state_list })
+	{
+	  my $filespec = "$published_dir/$state/$id/METADATA.txt";
+
+	  if ( -f $filespec )
+	    {
+	      my $raw_line_list = [];
+
+	      open my $fh, "<", $filespec or die "Can't open $filespec: $!\n";
+	      @{ $raw_line_list } = <$fh>;
+	      close $fh;
+
+	      my $property_name  = q{};
+	      my $property_value = q{};
+
+	      foreach my $line (@{ $raw_line_list })
+		{
+		  if ( $line =~ /$syntax->{element}/ )
+		    {
+		      # $1 = element name
+		      # $2 = element args
+		      # $3 = element value
+		      # $4
+		      # $5 = comment text
+
+		      $property_name  = $1;
+		      $property_value = $3;
+
+		      $hash->{$state}{$id}{$property_name} = $property_value;
+		    }
+
+		  elsif ( $line =~ /$syntax->{blank_line}/ )
+		    {
+		      $property_name  = q{};
+		      $property_value = q{};
+		    }
+
+		  elsif ( $line =~ /$syntax->{paragraph_text}/ )
+		    {
+		      # $1 = table cell markup (begin table cell)
+		      # $2 = paragraph text
+
+		      $property_value .= $2;
+
+		      $hash->{$state}{$id}{$property_name} = $property_value;
+		    }
+		}
+	    }
+	}
+    }
+
+  return $hash;
+}
+
+######################################################################
+
 sub _add_include_path {
 
   # Add a directory to the include_path array (if it exists).
@@ -3192,7 +3398,25 @@ sub _add_include_path {
       return 0;
     }
 
-  push(@{$include_path},$path);
+  push @{$include_path}, $path;
+
+  return 1;
+}
+
+######################################################################
+
+sub _add_document_presentation_id {
+
+  # Add a document ID to the document_presentation_id_list.  This is
+  # the list of document IDs in the order they should be presented in
+  # the library index.
+
+  my $self = shift;
+  my $id   = shift;
+
+  my $list = $self->get_document_presentation_id_list;
+
+  push @{$list}, $id;
 
   return 1;
 }

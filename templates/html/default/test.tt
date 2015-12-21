@@ -11,7 +11,7 @@ self => an SML::Entity object (name = 'test')
 <table>
 
 [%- INCLUDE entity_property_row.tt property_name = 'title'         label = 'title:'       -%]
-[%- INCLUDE entity_property_row.tt property_name = 'description'   label = 'description'  -%]
+[%- INCLUDE entity_property_row.tt property_name = 'description'   label = 'description:' -%]
 [%- INCLUDE entity_property_row.tt property_name = 'is_part_of'    label = 'is part of:'  -%]
 [%- INCLUDE entity_property_row.tt property_name = 'has_part'      label = 'has part:'    -%]
 [%- INCLUDE entity_property_row.tt property_name = 'owner'         label = 'owner:'       -%]

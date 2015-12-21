@@ -6,7 +6,7 @@ title:: Semantic Manuscript Language (SML)
 
 subtitle:: User Guide
 
-author:: Don Johnson (drj826@acm.org)
+author:: Don Johnson
 
 copyright:: 2002-2015, Don Johnson
 
@@ -64,7 +64,9 @@ language designed to:
 
 - be human readable
 
-- express and validate semantic relationships
+- express and validate [g:SML:semantic] relationships
+
+- enable [g:SML:continuous integration] of documentation
 
 - be easy to edit
 

@@ -7,9 +7,9 @@ title:: Test and Evaluation Document (TED)
 subtitle:: SML Data Format [linebreak] and [linebreak] SML Software
 Library
 
-author:: Don Johnson (drj826@acm.org)
+author:: Don Johnson
 
-date:: $Date: 2013-07-07 09:35:23 -0600 (Sun, 07 Jul 2013) $
+date:: 20 Dec 2015
 
 copyright:: 2002-2012, Don Johnson
 
