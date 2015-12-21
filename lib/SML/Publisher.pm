@@ -38,6 +38,17 @@ has 'library' =>
 
 ######################################################################
 
+has publish_date_time =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   reader  => 'get_publish_date_time',
+   writer  => '_set_publish_date_time',
+   default => q{},
+  );
+
+######################################################################
+
 has 'font_size_list' =>
   (
    isa     => 'ArrayRef',
@@ -101,6 +112,9 @@ sub publish {
   my $id        = shift;                          # document ID
   my $rendition = shift || 'html';                # html, latex, pdf...
   my $style     = shift || 'default';             # default
+
+  my $now = localtime();
+  $self->_set_publish_date_time( $now );
 
   my $library = $self->get_library;
 

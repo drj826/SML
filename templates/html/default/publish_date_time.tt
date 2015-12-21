@@ -1,0 +1,21 @@
+[%# args:
+
+library  => an SML::Library object (maybe)
+document => an SML::Document object
+
+%]
+[%- UNLESS library -%]
+[%- library = document.get_library -%]
+[%- END -%]
+[%-
+
+publisher = library.get_publisher
+date_time = publisher.get_publish_date_time
+
+-%]
+
+<div style="text-align:center;font-size:8pt;color:#888888;">
+
+Published [%date_time%]
+
+</div>

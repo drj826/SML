@@ -29,6 +29,13 @@ library => an SML::Library object
 </td>
 </tr>
 
+<tr>
+<td>
+<br/><br/><br/>
+[%- INCLUDE publish_date_time.tt -%]
+</td>
+</tr>
+
 </table>
 </div>
 

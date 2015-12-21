@@ -9,8 +9,6 @@ library     = document.get_library
 document_id = document.get_id
 
 -%]
-<tr>
-<td>
 <div style="text-align:center;font-size:8pt;">
 
 <p align="center">
@@ -40,5 +38,3 @@ document_id = document.get_id
 [%- END -%]
 
 </div>
-</td>
-</tr>

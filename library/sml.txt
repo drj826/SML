@@ -20,7 +20,7 @@ version:: 2.0
 
 revision:: 31415926
 
-date:: 16 Dec 2015
+date:: 21 Dec 2015
 
 status:: yellow
 
@@ -72,7 +72,9 @@ language designed to:
 
 - be easy to automatically generate
 
-- publish complex documentation libraries
+- publish complex documents
+
+- publish libraries of related documents
 
 This book describes how to construct documents using [a:SML]. Why call
 it ``[acl:SML]''?
@@ -88,7 +90,7 @@ express the ~~meaning~~ of the text so that applications can
 automatically ~~reason~~ about document content.
 
 The concept of a ``semantic manuscript'' aligns well with my purpose
-to enable authors to create readable, modular, re-usable documents and
+to enable authors to create readable, modular, documents and re-usable
 document fragments which can be automatically published to multiple
 renditions and processed by applications that can reason about their
 meaning.
@@ -97,7 +99,7 @@ meaning.
 books, reports, and articles in minimally formatted text files.  Its
 simple mark-up rules ensure the plain text manuscript is easy to read,
 but still contains everything necessary to turn the text into a
-professionally typeset hardcopy.
+professionally typeset hardcopy or web content.
 
 [a:SML] documents can be rendered to:
 

@@ -55,12 +55,12 @@ date    = library.get_published_document_property_value('DRAFT',document_id,'dat
 <td style="background-color:[%lite_orange%];">
 [%- IF library.has_published_document_rendition('DRAFT',document_id,'html') -%]
 <a href="DRAFT/[%document_id%]/[%document_id%].titlepage.html">
-<img src="images/html_icon.png" height="28" width="28">
+<img src="images/html_icon.png" height="27" width="28">
 </a>
 [%- END -%]
 [%- IF library.has_published_document_rendition('DRAFT',document_id,'pdf') -%]
 <a href="DRAFT/[%document_id%]/[%document_id%].pdf">
-<img src="images/pdf_icon.png" height="28" width="28">
+<img src="images/pdf_icon.png" height="27" width="28">
 </a>
 [%- END -%]
 </td>
@@ -85,12 +85,12 @@ date    = library.get_published_document_property_value('REVIEW',document_id,'da
 <td style="background-color:[%lite_green%];">
 [%- IF library.has_published_document_rendition('REVIEW',document_id,'html') -%]
 <a href="REVIEW/[%document_id%]/[%document_id%].titlepage.html">
-<img src="images/html_icon.png" height="28" width="28">
+<img src="images/html_icon.png" height="27" width="28">
 </a>
 [%- END -%]
 [%- IF library.has_published_document_rendition('REVIEW',document_id,'pdf') -%]
 <a href="REVIEW/[%document_id%]/[%document_id%].pdf">
-<img src="images/pdf_icon.png" height="28" width="28">
+<img src="images/pdf_icon.png" height="27" width="28">
 </a>
 [%- END -%]
 </td>
@@ -115,12 +115,12 @@ date    = library.get_published_document_property_value('APPROVED',document_id,'
 <td style="background-color:[%lite_blue%];">
 [%- IF library.has_published_document_rendition('APPROVED',document_id,'html') -%]
 <a href="APPROVED/[%document_id%]/[%document_id%].titlepage.html">
-<img src="images/html_icon.png" height="28" width="28">
+<img src="images/html_icon.png" height="27" width="28">
 </a>
 [%- END -%]
 [%- IF library.has_published_document_rendition('APPROVED',document_id,'pdf') -%]
 <a href="APPROVED/[%document_id%]/[%document_id%].pdf">
-<img src="images/pdf_icon.png" height="28" width="28">
+<img src="images/pdf_icon.png" height="27" width="28">
 </a>
 [%- END -%]
 </td>
