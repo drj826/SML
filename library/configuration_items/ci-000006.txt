@@ -34,7 +34,7 @@ fontsize:: footnotesize
 
 orientation:: landscape
 
-file:: ontology_rules_sml.conf
+file:: ontology/ontology_rules_sml.conf
 
 <<<LISTING
 
@@ -51,7 +51,7 @@ fontsize:: footnotesize
 
 orientation:: landscape
 
-file:: ontology_rules_lib.conf
+file:: ontology/ontology_rules_lib.conf
 
 <<<LISTING
 

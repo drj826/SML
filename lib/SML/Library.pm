@@ -3002,7 +3002,8 @@ sub BUILD {
   my $directory_path  = q{};
   my $catalog_file    = q{};
   my $current_dir     = getcwd;
-  my $library_dir     = dirname($config_filespec);
+  my $config_dir      = dirname($config_filespec);
+  my $library_dir     = '';
 
   use Config::General;
   use SML::Parser;
@@ -3033,14 +3034,16 @@ sub BUILD {
     }
 
   # set library directory path
-  if ( $library_dir )
+  if ( $config_dir and $config{'directory_path'} )
     {
-      $self->_set_directory_path( $library_dir );
-    }
+      $library_dir = "$config_dir/$config{'directory_path'}";
 
-  else
-    {
-      $logger->logdie("no such library directory: $library_dir");
+      unless ( -d $library_dir )
+	{
+	  $logger->logdie("no such library directory: $library_dir");
+	}
+
+      $self->_set_directory_path($library_dir);
     }
 
   # set template_dir
@@ -3494,9 +3497,14 @@ sub _build_config_filespec {
 
   my $dir_list =
     [
+     "$Bin/..",
+     "$Bin/../conf",
      "$Bin",
+     "$Bin/conf/$directory_name",
      "$Bin/$directory_name",
+     "$Bin/../conf/$directory_name",
      "$Bin/../$directory_name",
+     "$Bin/../../conf/$directory_name",
      "$Bin/../../$directory_name",
     ];
 
@@ -3507,6 +3515,11 @@ sub _build_config_filespec {
 	  $logger->debug("library config filespec: $dir/$filename");
 	  return "$dir/$filename";
 	}
+    }
+
+  foreach my $dir (@{ $dir_list })
+    {
+      $logger->fatal("checked: $dir");
     }
 
   $logger->logdie("COULD NOT LOCATE LIBRARY CONFIG FILE");
@@ -3526,8 +3539,18 @@ sub _build_sml_ontology_rule_filespec {
 
   my $dir_list =
     [
+     "$Bin/..",
+     "$Bin/../conf",
+     "$Bin/../ontology",
+     "$Bin",
+     "$Bin/conf/$directory_name",
+     "$Bin/ontology/$directory_name",
      "$Bin/$directory_name",
+     "$Bin/../conf/$directory_name",
+     "$Bin/../ontology/$directory_name",
      "$Bin/../$directory_name",
+     "$Bin/../../conf/$directory_name",
+     "$Bin/../../ontology/$directory_name",
      "$Bin/../../$directory_name",
     ];
 
@@ -3540,7 +3563,12 @@ sub _build_sml_ontology_rule_filespec {
 	}
     }
 
-  $logger->error("COULD NOT LOCATE SML ONTOLOGY CONFIG FILE");
+  foreach my $dir (@{ $dir_list })
+    {
+      $logger->fatal("checked: $dir");
+    }
+
+  $logger->logdie("COULD NOT LOCATE SML ONTOLOGY CONFIG FILE");
   return 0;
 }
 
@@ -3557,9 +3585,15 @@ sub _build_ontology_rule_filespec_list {
 
   my $dir_list =
     [
-     "$Bin/library",
-     "$Bin/../library",
-     "$Bin/../../library",
+     "$Bin",
+     "$Bin/conf",
+     "$Bin/ontology",
+     "$Bin/..",
+     "$Bin/../conf",
+     "$Bin/../ontology",
+     "$Bin/../../conf",
+     "$Bin/../../ontology",
+     "$Bin/../..",
     ];
 
   foreach my $filename (@{ $fnlist })
@@ -3577,7 +3611,12 @@ sub _build_ontology_rule_filespec_list {
 
       if ( not $found )
 	{
-	  $logger->error("COULD NOT LOCATE LIBRARY ONTOLOGY CONFIG FILE");
+	  foreach my $dir (@{ $dir_list })
+	    {
+	      $logger->fatal("checked: $dir");
+	    }
+
+	  $logger->logdie("COULD NOT LOCATE LIBRARY ONTOLOGY CONFIG FILE");
 	}
     }
 

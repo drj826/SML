@@ -1,5 +1,0 @@
-!![var:text]!!
-
-~~[var:text]~~
-
-__[var:text]__

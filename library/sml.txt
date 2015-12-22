@@ -1,6 +1,6 @@
 >>>DOCUMENT.sml
 
-state:: APPROVED
+state:: DRAFT
 
 title:: Semantic Manuscript Language (SML)
 

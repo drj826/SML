@@ -1,1 +1,0 @@
-..\..\app\perl\perl\bin\perl.exe publish.pl --svn app/svn/svn.exe --pdflatex ..\app\miktex\miktex\bin\pdflatex --bibtex ..\app\miktex\miktex\bin\bibtex --makeindex ..\app\miktex\miktex\bin\makeindex --nochangelog --render pdf --render html
