@@ -28,7 +28,7 @@ has config_filespec =>
   (
    isa     => 'Str',
    reader  => 'get_config_filespec',
-   default => 'sml.conf'
+   default => 'library.conf'
   );
 
 ######################################################################
@@ -351,12 +351,50 @@ has status_icon_red_filespec =>
 
 sub BUILD {
 
-  my $self        = shift;
+  my $self = shift;
+
   my $config_file = $self->get_config_filespec;
 
-  if ( -f $config_file )
+  use FindBin qw($Bin);
+
+  my $dir_list =
+    [
+     "$Bin",
+     "$Bin/conf",
+     "$Bin/..",
+     "$Bin/../conf",
+     "$Bin/../..",
+     "$Bin/../../conf",
+    ];
+
+  my $config_filespec;
+
+  foreach my $dir (@{ $dir_list })
     {
-      my $config = Config::General->new("$config_file");
+      if ( -r "$dir/$config_file" )
+	{
+	  $logger->debug("options config filespec: $dir/$config_file");
+
+	  $config_filespec = "$dir/$config_file";
+
+	  last;
+	}
+    }
+
+  unless ( $config_filespec )
+    {
+      foreach my $dir (@{ $dir_list })
+	{
+	  $logger->error("checked: $dir");
+	}
+
+      $logger->error("CAN'T FIND OPTIONS CONFIGURATION FILE");
+    }
+
+
+  if ( -f $config_filespec )
+    {
+      my $config = Config::General->new("$config_filespec");
       my %config = $config->getall;
 
       if ($config{'gui'}) {

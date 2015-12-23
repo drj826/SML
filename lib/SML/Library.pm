@@ -3488,12 +3488,12 @@ sub _build_config_filespec {
   # Find the configuration file by looking for it in a list of
   # directories.
 
-  use FindBin qw($Bin);
-
   my $self = shift;
 
   my $directory_name = $self->_get_directory_name;
   my $filename       = $self->_get_config_filename;
+
+  use FindBin qw($Bin);
 
   my $dir_list =
     [
