@@ -17,19 +17,14 @@ library => an SML::Library object
 <tr>
 <td>
 
-<a href="index.html">Library</a>
+<a href="DRAFT/index.html">DRAFT</a><br/>
 
-<br/><br/>
+<a href="REVIEW/index.html">REVIEW</a><br/>
 
-<a href="ontology.html">Ontology</a><br/>
-
-[%- IF library.has_entities -%]
-<a href="entities.html">Entities</a><br/>
-[%- END -%]
+<a href="APPROVED/index.html">APPROVED</a><br/>
 
 </td>
 </tr>
-
 
 <tr>
 <td>

@@ -1,7 +1,5 @@
 >>>DOCUMENT.frd-sml
 
-state:: DRAFT
-
 title:: Functional Requirements Document (FRD)
 
 subtitle:: SML Data Format[linebreak]and[linebreak]SML Software Library

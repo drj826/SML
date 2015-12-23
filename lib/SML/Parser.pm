@@ -6250,7 +6250,7 @@ sub _process_start_element {
 
   elsif ( $self->_in_data_segment )
     {
-      $logger->warn("UNKNOWN DIVISION ELEMENT: \'$divname\' \'$name\' at $location:");
+      $logger->error("UNKNOWN DIVISION ELEMENT $divname $name at $location:");
       $self->_set_is_valid(0);
     }
 

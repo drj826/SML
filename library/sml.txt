@@ -1,7 +1,5 @@
 >>>DOCUMENT.sml
 
-state:: DRAFT
-
 title:: Semantic Manuscript Language (SML)
 
 subtitle:: User Guide

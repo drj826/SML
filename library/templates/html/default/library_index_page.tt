@@ -28,10 +28,11 @@ bgcolor          = '#eeeeee'
 
 <tr>
 <td style="background-color:[%grey%];font-weight:bold;width:40%;" colspan="3">Document</td>
+<td style="background-color:[%grey%];font-weight:bold;">Date</td>
+<td style="background-color:[%grey%];font-weight:bold;">Version</td>
+<td style="background-color:[%grey%];font-weight:bold;">Revision</td>
 <td style="background-color:[%grey%];font-weight:bold;">Author</td>
-<td style="background-color:[%orange%];font-weight:bold;" colspan="2">DRAFT Copy</td>
-<td style="background-color:[%green%];font-weight:bold;" colspan="2">REVIEW Copy</td>
-<td style="background-color:[%blue%];font-weight:bold;" colspan="2">APPROVED Copy</td>
+<td style="background-color:[%grey%];font-weight:bold;">Renditions</td>
 </tr>
 
 [%- FOREACH document_id IN document_id_list -%]
@@ -56,13 +57,13 @@ num               = num + 1
 <td style="background-color:[%bgcolor%];">[%document_abbr%]</td>
 
 <td style="background-color:[%bgcolor%];">
+<a href="[%document_id%]/[%document_id%].titlepage.html">
 <span style="font-weight:bold;">[%document_title%]</span>
 [%- IF document_subtitle -%]
  - [%document_subtitle%]
 [%- END -%]
+</a>
 </td>
-
-<td style="background-color:[%bgcolor%];">[%document_author%]</td>
 
 [%- IF library.has_published_document('DRAFT',document_id) -%]
 [%-
@@ -72,88 +73,36 @@ revision = library.get_published_document_property_value('DRAFT',document_id,'re
 date     = library.get_published_document_property_value('DRAFT',document_id,'date')
 
 -%]
-<td style="background-color:[%lite_orange%];">
+<td style="background-color:[%bgcolor%];">[%date%]</td>
+
+<td style="background-color:[%bgcolor%];">v[%version%]</td>
+
+<td style="background-color:[%bgcolor%];">r[%revision%]</td>
+
+<td style="background-color:[%bgcolor%];">[%document_author%]</td>
+
+<td style="background-color:[%bgcolor%];">
+
 [%- IF library.has_published_document_rendition('DRAFT',document_id,'html') -%]
-<a href="DRAFT/[%document_id%]/[%document_id%].titlepage.html">
+<a href="[%document_id%]/[%document_id%].titlepage.html">
 <img src="images/html_icon.png" height="27" width="28">
 </a>
 [%- END -%]
+
 [%- IF library.has_published_document_rendition('DRAFT',document_id,'pdf') -%]
-<a href="DRAFT/[%document_id%]/[%document_id%].pdf">
+<a href="[%document_id%]/[%document_id%].pdf">
 <img src="images/pdf_icon.png" height="27" width="28">
 </a>
 [%- END -%]
-</td>
 
-<td style="background-color:[%lite_orange%];">
-v[%version%] <span style="color:#888888;">r[%revision%]</span><br/>[%date%]
 </td>
 
 [%- ELSE -%]
-<td style="background-color:[%lite_orange%];"></td>
-<td style="background-color:[%lite_orange%];"></td>
-
-[%- END -%]
-
-[%- IF library.has_published_document('REVIEW',document_id) -%]
-[%-
-
-version  = library.get_published_document_property_value('REVIEW',document_id,'version')
-revision = library.get_published_document_property_value('REVIEW',document_id,'revision')
-date     = library.get_published_document_property_value('REVIEW',document_id,'date')
-
--%]
-<td style="background-color:[%lite_green%];">
-[%- IF library.has_published_document_rendition('REVIEW',document_id,'html') -%]
-<a href="REVIEW/[%document_id%]/[%document_id%].titlepage.html">
-<img src="images/html_icon.png" height="27" width="28">
-</a>
-[%- END -%]
-[%- IF library.has_published_document_rendition('REVIEW',document_id,'pdf') -%]
-<a href="REVIEW/[%document_id%]/[%document_id%].pdf">
-<img src="images/pdf_icon.png" height="27" width="28">
-</a>
-[%- END -%]
-</td>
-
-<td style="background-color:[%lite_green%];">
-v[%version%] <span style="color:#888888;">r[%revision%]</span><br/>[%date%]
-</td>
-
-[%- ELSE -%]
-<td style="background-color:[%lite_green%];"></td>
-<td style="background-color:[%lite_green%];"></td>
-
-[%- END -%]
-
-[%- IF library.has_published_document('APPROVED',document_id) -%]
-[%-
-
-version  = library.get_published_document_property_value('APPROVED',document_id,'version')
-revision = library.get_published_document_property_value('APPROVED',document_id,'revision')
-date     = library.get_published_document_property_value('APPROVED',document_id,'date')
-
--%]
-<td style="background-color:[%lite_blue%];">
-[%- IF library.has_published_document_rendition('APPROVED',document_id,'html') -%]
-<a href="APPROVED/[%document_id%]/[%document_id%].titlepage.html">
-<img src="images/html_icon.png" height="27" width="28">
-</a>
-[%- END -%]
-[%- IF library.has_published_document_rendition('APPROVED',document_id,'pdf') -%]
-<a href="APPROVED/[%document_id%]/[%document_id%].pdf">
-<img src="images/pdf_icon.png" height="27" width="28">
-</a>
-[%- END -%]
-</td>
-
-<td style="background-color:[%lite_blue%];">
-v[%version%] <span style="color:#888888;">r[%revision%]</span><br/>[%date%]
-</td>
-
-[%- ELSE -%]
-<td style="background-color:[%lite_blue%];"></td>
-<td style="background-color:[%lite_blue%];"></td>
+<td style="background-color:[%bgcolor%];"></td>
+<td style="background-color:[%bgcolor%];"></td>
+<td style="background-color:[%bgcolor%];"></td>
+<td style="background-color:[%bgcolor%];"></td>
+<td style="background-color:[%bgcolor%];"></td>
 
 [%- END -%]
 

@@ -1,7 +1,5 @@
 >>>DOCUMENT.sdd-sml
 
-state:: DRAFT
-
 title:: Software Design Document (SDD)
 
 subtitle:: SML Data Format [linebreak] and [linebreak] SML Software

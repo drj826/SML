@@ -184,12 +184,40 @@ sub publish_index {
 
   if ( $rendition eq 'html' )
     {
-      $self->_publish_html_index($style);
+      $self->_publish_html_library_index_page($style);
+      $self->_publish_html_overall_index_page($style);
     }
 
   else
     {
       $logger->error("CAN ONLY PUBLISH HTML INDEX AT THIS TIME");
+      return 0;
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub publish_library_pages {
+
+  my $self = shift;
+
+  my $rendition = shift || 'html';
+  my $style     = shift || 'default';
+
+  my $now = localtime();
+  $self->_set_publish_date_time( $now );
+
+  if ( $rendition eq 'html' )
+    {
+      $self->_publish_html_ontology_page($style);
+      $self->_publish_html_entities_page($style);
+    }
+
+  else
+    {
+      $logger->error("CAN ONLY PUBLISH HTML LIBRARY PAGES AT THIS TIME");
       return 0;
     }
 
@@ -322,7 +350,7 @@ sub _publish_html_document {
     }
 
   my $id         = $document->get_id;
-  my $state      = $library->get_first_property_value($id,'state');
+  my $state      = 'DRAFT';
   my $state_dir  = "$published_dir/$state";
   my $output_dir = "$state_dir/$id";
 
@@ -483,6 +511,12 @@ sub _publish_html_document {
 	  $logger->info("made directory $published_dir/images");
 	}
 
+      unless ( -d "$state_dir/images" )
+	{
+	  mkdir "$state_dir/images", 0755;
+	  $logger->info("made directory $state_dir/images");
+	}
+
       unless ( -d "$output_dir/images" )
 	{
 	  mkdir "$output_dir/images", 0755;
@@ -493,7 +527,8 @@ sub _publish_html_document {
 	{
 	  my $orig  = "$images_dir/$image";
 	  my $copy1 = "$published_dir/images/$image";
-	  my $copy2 = "$output_dir/images/$image";
+	  my $copy2 = "$state_dir/images/$image";
+	  my $copy3 = "$output_dir/images/$image";
 
 	  if ( not -f $orig )
 	    {
@@ -513,6 +548,13 @@ sub _publish_html_document {
 	      $logger->info("copying image $image");
 	      File::Copy::copy($orig,$copy2);
 	      utime undef, undef, "$copy2";
+	    }
+
+	  if ( not -f $copy3 )
+	    {
+	      $logger->info("copying image $image");
+	      File::Copy::copy($orig,$copy3);
+	      utime undef, undef, "$copy3";
 	    }
 	}
     }
@@ -685,7 +727,7 @@ sub _publish_html_image {
 
   my $id             = $document->get_id;
   my $library        = $self->get_library;
-  my $state          = $library->get_first_property_value($id,'state');
+  my $state          = 'DRAFT';
   my $published_dir  = $library->get_published_dir;
   my $filespec       = $image->get_value;
   my $library_dir    = $library->get_directory_path;
@@ -751,9 +793,10 @@ sub _publish_html_image {
 
 ######################################################################
 
-sub _publish_html_index {
+sub _publish_html_overall_index_page {
 
-  # Publish an HTML library index.
+  # Publish an HTML 'overall' index page.  This page summarizes DRAFT,
+  # REVIEW, and APPROVED libraries.
 
   my $self  = shift;
   my $style = shift || 'default';
@@ -786,19 +829,172 @@ sub _publish_html_index {
 
   my $vars = { library => $library };
 
-  # # ontology page
-  # $logger->info("publishing ontology.html");
-  # $tt->process("ontology_page.tt",$vars,"ontology.html")
-  #   || die $tt->error(), "\n";
+  # overall index page
+  $logger->info("publishing overall index.html");
+  $tt->process("overall_index_page.tt",$vars,"index.html")
+    || die $tt->error(), "\n";
 
-  # # entities page
-  # $logger->info("publishing entities.html");
-  # $tt->process("entities_page.tt",$vars,"entities.html")
-  #   || die $tt->error(), "\n";
+  return 1;
+}
+
+######################################################################
+
+sub _publish_html_library_index_page {
+
+  # Publish an HTML library index page.  This page summarizes only the
+  # DRAFT library.
+
+  my $self  = shift;
+  my $style = shift || 'default';
+
+  my $library      = $self->get_library;
+  my $template_dir = $library->get_template_dir . "/html/$style";
+
+  unless ( -d $template_dir )
+    {
+      $logger->error("NOT A DIRECTORY $template_dir");
+      return 0;
+    }
+
+  my $published_dir = $library->get_published_dir;
+
+  unless ( -d $published_dir )
+    {
+      mkdir "$published_dir", 0755;
+      $logger->info("made directory $published_dir");
+    }
+
+  my $state     = 'DRAFT';
+  my $state_dir = "$published_dir/$state";
+
+  unless ( -d $state_dir )
+    {
+      mkdir "$state_dir", 0755;
+      $logger->info("made directory $state_dir");
+    }
+
+  my $tt_config =
+    {
+     INCLUDE_PATH => $template_dir,
+     OUTPUT_PATH  => $state_dir,
+     RECURSION    => 1,
+    };
+
+  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+
+  my $vars = { library => $library };
 
   # library index page
-  $logger->info("publishing index.html");
+  $logger->info("publishing library index.html");
   $tt->process("library_index_page.tt",$vars,"index.html")
+    || die $tt->error(), "\n";
+
+  return 1;
+}
+
+######################################################################
+
+sub _publish_html_ontology_page {
+
+  # Publish an HTML ontology page.
+
+  my $self  = shift;
+  my $style = shift || 'default';
+
+  my $library      = $self->get_library;
+  my $template_dir = $library->get_template_dir . "/html/$style";
+
+  unless ( -d $template_dir )
+    {
+      $logger->error("NOT A DIRECTORY $template_dir");
+      return 0;
+    }
+
+  my $published_dir = $library->get_published_dir;
+
+  unless ( -d $published_dir )
+    {
+      mkdir "$published_dir", 0755;
+      $logger->info("made directory $published_dir");
+    }
+
+  my $state     = 'DRAFT';
+  my $state_dir = "$published_dir/$state";
+
+  unless ( -d $state_dir )
+    {
+      mkdir "$state_dir", 0755;
+      $logger->info("made directory $state_dir");
+    }
+
+  my $tt_config =
+    {
+     INCLUDE_PATH => $template_dir,
+     OUTPUT_PATH  => $state_dir,
+     RECURSION    => 1,
+    };
+
+  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+
+  my $vars = { library => $library };
+
+  # ontology page
+  $logger->info("publishing ontology.html");
+  $tt->process("ontology_page.tt",$vars,"ontology.html")
+    || die $tt->error(), "\n";
+
+  return 1;
+}
+
+######################################################################
+
+sub _publish_html_entities_page {
+
+  # Publish an HTML entities page.
+
+  my $self  = shift;
+  my $style = shift || 'default';
+
+  my $library      = $self->get_library;
+  my $template_dir = $library->get_template_dir . "/html/$style";
+
+  unless ( -d $template_dir )
+    {
+      $logger->error("NOT A DIRECTORY $template_dir");
+      return 0;
+    }
+
+  my $published_dir = $library->get_published_dir;
+
+  unless ( -d $published_dir )
+    {
+      mkdir "$published_dir", 0755;
+      $logger->info("made directory $published_dir");
+    }
+
+  my $state     = 'DRAFT';
+  my $state_dir = "$published_dir/$state";
+
+  unless ( -d $state_dir )
+    {
+      mkdir "$state_dir", 0755;
+      $logger->info("made directory $state_dir");
+    }
+
+  my $tt_config =
+    {
+     INCLUDE_PATH => $template_dir,
+     OUTPUT_PATH  => $state_dir,
+     RECURSION    => 1,
+    };
+
+  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+
+  my $vars = { library => $library };
+
+  # entities page
+  $logger->info("publishing entities.html");
+  $tt->process("entities_page.tt",$vars,"entities.html")
     || die $tt->error(), "\n";
 
   return 1;
@@ -816,7 +1012,7 @@ sub _publish_html_file {
 
   my $id             = $document->get_id;
   my $library        = $self->get_library;
-  my $state          = $library->get_first_property_value($id,'state');
+  my $state          = 'DRAFT';
   my $published_dir  = $library->get_published_dir;
   my $filespec       = $file->get_value;
   my $library_dir    = $library->get_directory_path;

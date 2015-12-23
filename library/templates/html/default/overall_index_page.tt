@@ -1,0 +1,167 @@
+[%# args:
+
+library => an SML::Library object
+
+%]
+[%-
+
+id               = library.get_id
+name             = library.get_name
+document_id_list = library.get_document_presentation_id_list
+grey             = '#dddddd'
+orange           = '#ff9933'
+green            = '#33cc33'
+blue             = '#4d96ff'
+lite_orange      = '#ffcc99'
+lite_green       = '#aae7aa'
+lite_blue        = '#cce1ff'
+num              = 0
+bgcolor          = '#eeeeee'
+
+-%]
+[%- WRAPPER overall_page.tt -%]
+
+<h1 style="text-align:center;">[%name%]</h1>
+
+<div align="center">
+<table>
+
+<tr>
+<td style="background-color:[%grey%];font-weight:bold;width:40%;" colspan="3">Document</td>
+<td style="background-color:[%grey%];font-weight:bold;">Author</td>
+<td style="background-color:[%orange%];font-weight:bold;text-align:center;" colspan="2">DRAFT</td>
+<td style="background-color:[%green%];font-weight:bold;text-align:center;" colspan="2">REVIEW</td>
+<td style="background-color:[%blue%];font-weight:bold;text-align:center;" colspan="2">APPROVED</td>
+</tr>
+
+[%- FOREACH document_id IN document_id_list -%]
+[%-
+
+document_title    = library.get_published_document_property_value('DRAFT',document_id,'title')
+document_subtitle = library.get_published_document_property_value('DRAFT',document_id,'subtitle')
+document_author   = library.get_published_document_property_value('DRAFT',document_id,'author')
+document_abbr     = library.get_published_document_property_value('DRAFT',document_id,'abbreviation')
+num               = num + 1
+
+-%]
+[%- IF bgcolor == '#eeeeee' -%]
+[%- bgcolor = '#ffffff' -%]
+[%- ELSE -%]
+[%- bgcolor = '#eeeeee' -%]
+[%- END -%]
+<tr>
+
+<td style="background-color:[%bgcolor%];">[%num%]</td>
+
+<td style="background-color:[%bgcolor%];">[%document_abbr%]</td>
+
+<td style="background-color:[%bgcolor%];">
+<span style="font-weight:bold;">[%document_title%]</span>
+[%- IF document_subtitle -%]
+ - [%document_subtitle%]
+[%- END -%]
+</td>
+
+<td style="background-color:[%bgcolor%];">[%document_author%]</td>
+
+[%- IF library.has_published_document('DRAFT',document_id) -%]
+[%-
+
+version  = library.get_published_document_property_value('DRAFT',document_id,'version')
+revision = library.get_published_document_property_value('DRAFT',document_id,'revision')
+date     = library.get_published_document_property_value('DRAFT',document_id,'date')
+
+-%]
+<td style="background-color:[%lite_orange%];">
+[%- IF library.has_published_document_rendition('DRAFT',document_id,'html') -%]
+<a href="DRAFT/[%document_id%]/[%document_id%].titlepage.html">
+<img src="images/html_icon.png" height="27" width="28">
+</a>
+[%- END -%]
+[%- IF library.has_published_document_rendition('DRAFT',document_id,'pdf') -%]
+<a href="DRAFT/[%document_id%]/[%document_id%].pdf">
+<img src="images/pdf_icon.png" height="27" width="28">
+</a>
+[%- END -%]
+</td>
+
+<td style="background-color:[%lite_orange%];">
+v[%version%] <span style="color:#888888;">r[%revision%]</span><br/>[%date%]
+</td>
+
+[%- ELSE -%]
+<td style="background-color:[%lite_orange%];"></td>
+<td style="background-color:[%lite_orange%];"></td>
+
+[%- END -%]
+
+[%- IF library.has_published_document('REVIEW',document_id) -%]
+[%-
+
+version  = library.get_published_document_property_value('REVIEW',document_id,'version')
+revision = library.get_published_document_property_value('REVIEW',document_id,'revision')
+date     = library.get_published_document_property_value('REVIEW',document_id,'date')
+
+-%]
+<td style="background-color:[%lite_green%];">
+[%- IF library.has_published_document_rendition('REVIEW',document_id,'html') -%]
+<a href="REVIEW/[%document_id%]/[%document_id%].titlepage.html">
+<img src="images/html_icon.png" height="27" width="28">
+</a>
+[%- END -%]
+[%- IF library.has_published_document_rendition('REVIEW',document_id,'pdf') -%]
+<a href="REVIEW/[%document_id%]/[%document_id%].pdf">
+<img src="images/pdf_icon.png" height="27" width="28">
+</a>
+[%- END -%]
+</td>
+
+<td style="background-color:[%lite_green%];">
+v[%version%] <span style="color:#888888;">r[%revision%]</span><br/>[%date%]
+</td>
+
+[%- ELSE -%]
+<td style="background-color:[%lite_green%];"></td>
+<td style="background-color:[%lite_green%];"></td>
+
+[%- END -%]
+
+[%- IF library.has_published_document('APPROVED',document_id) -%]
+[%-
+
+version  = library.get_published_document_property_value('APPROVED',document_id,'version')
+revision = library.get_published_document_property_value('APPROVED',document_id,'revision')
+date     = library.get_published_document_property_value('APPROVED',document_id,'date')
+
+-%]
+<td style="background-color:[%lite_blue%];">
+[%- IF library.has_published_document_rendition('APPROVED',document_id,'html') -%]
+<a href="APPROVED/[%document_id%]/[%document_id%].titlepage.html">
+<img src="images/html_icon.png" height="27" width="28">
+</a>
+[%- END -%]
+[%- IF library.has_published_document_rendition('APPROVED',document_id,'pdf') -%]
+<a href="APPROVED/[%document_id%]/[%document_id%].pdf">
+<img src="images/pdf_icon.png" height="27" width="28">
+</a>
+[%- END -%]
+</td>
+
+<td style="background-color:[%lite_blue%];">
+v[%version%] <span style="color:#888888;">r[%revision%]</span><br/>[%date%]
+</td>
+
+[%- ELSE -%]
+<td style="background-color:[%lite_blue%];"></td>
+<td style="background-color:[%lite_blue%];"></td>
+
+[%- END -%]
+
+</tr>
+
+[%- END -%]
+
+</table>
+</div>
+
+[%- END -%]

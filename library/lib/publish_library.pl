@@ -14,6 +14,7 @@ $library->publish('frd-sml','html','default');
 $library->publish('sdd-sml','html','default');
 $library->publish('ted-sml','html','default');
 
+$library->publish_library_pages;
 $library->publish_index;
 
 1;

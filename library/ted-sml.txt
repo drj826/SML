@@ -1,7 +1,5 @@
 >>>DOCUMENT.ted-sml
 
-state:: DRAFT
-
 title:: Test and Evaluation Document (TED)
 
 subtitle:: SML Data Format [linebreak] and [linebreak] SML Software

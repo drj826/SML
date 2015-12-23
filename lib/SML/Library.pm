@@ -324,6 +324,23 @@ sub publish {
 
 ######################################################################
 
+sub publish_library_pages {
+
+  # Publish a library ontology and entities pages.
+
+  my $self      = shift;
+  my $rendition = shift || 'html';
+  my $style     = shift || 'default';
+
+  my $publisher = $self->get_publisher;
+
+  my $result = $publisher->publish_library_pages($rendition,$style);
+
+  return $result;
+}
+
+######################################################################
+
 sub publish_index {
 
   # Publish a library index.

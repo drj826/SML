@@ -16,7 +16,7 @@ document_id = document.get_id
 <div id="left">
 <div class="pad4"></div>
 <div align="center">
-<a href="../../index.html">
+<a href="../index.html">
 <img src="images/logo.png" style="border:0px">
 </a>
 </div>
@@ -25,7 +25,7 @@ document_id = document.get_id
 
 <tr>
 <td>
-<a href="../../index.html">Library</a><br/>
+<a href="../index.html">Library</a><br/>
 
 <br/>
 
