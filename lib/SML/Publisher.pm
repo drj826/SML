@@ -310,16 +310,20 @@ sub _publish_html_document {
       $logger->info("made directory $published_dir");
     }
 
-  my $id        = $document->get_id;
-  my $state     = $library->get_first_property_value($id,'state');
-  my $state_dir = "$published_dir/$state";
-
-  unless ( -d $state_dir )
+  foreach my $state ('DRAFT','REVIEW','APPROVED')
     {
-      mkdir "$state_dir", 0755;
-      $logger->info("made directory $state_dir");
+      my $state_dir = "$published_dir/$state";
+
+      unless ( -d $state_dir )
+	{
+	  mkdir "$state_dir", 0755;
+	  $logger->info("made directory $state_dir");
+	}
     }
 
+  my $id         = $document->get_id;
+  my $state      = $library->get_first_property_value($id,'state');
+  my $state_dir  = "$published_dir/$state";
   my $output_dir = "$state_dir/$id";
 
   unless ( -d $output_dir )
