@@ -29,7 +29,7 @@ entity_id = self.get_id
       [%- ELSE -%]
       [%- status = 'grey' -%]
       [%- END -%]
-[%- INCLUDE status_icon.tt -%] [%- INCLUDE id_link.tt -%] - [%- INCLUDE allocation_title.tt -%]<br/>
+[%- INCLUDE status_icon.tt -%]&nbsp;[%- INCLUDE id_link.tt -%] - [%- INCLUDE allocation_title.tt -%]<br/>
 
     [%# PROPERTY VALUE IS AN EXISTING DIVISION ID %]
     [%- ELSIF library.has_division_id(value) -%]
@@ -42,7 +42,7 @@ entity_id = self.get_id
       [%- ELSE -%]
       [%- status = 'grey' -%]
       [%- END -%]
-[%- INCLUDE status_icon.tt -%] [%- INCLUDE id_link.tt -%] - [%- INCLUDE element.tt element = title_element -%]<br/>
+[%- INCLUDE status_icon.tt -%]&nbsp;[%- INCLUDE id_link.tt -%] - [%- INCLUDE element.tt element = title_element -%]<br/>
 
     [%# OUTCOME PROPERTY %]
     [%- ELSIF property_name == 'outcome' -%]
@@ -50,7 +50,7 @@ entity_id = self.get_id
     outcome = library.get_property_value_element(entity_id,'outcome',value)
     status  = outcome.get_status
     -%]
-[%- INCLUDE status_icon.tt -%] [%value%]<br/>
+[%- INCLUDE status_icon.tt -%]&nbsp;[%value%]<br/>
 
     [%# REVIEW PROPERTY %]
     [%- ELSIF property_name == 'review' -%]
@@ -58,7 +58,7 @@ entity_id = self.get_id
     review = library.get_property_value_element(entity_id,'review',value)
     status = review.get_status
     -%]
-[%- INCLUDE status_icon.tt -%] [%value%]<br/>
+[%- INCLUDE status_icon.tt -%]&nbsp;[%value%]<br/>
 
     [%# ALL OTHER PROPERTIES%]
     [%- ELSE -%]

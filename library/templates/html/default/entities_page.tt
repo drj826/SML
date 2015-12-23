@@ -31,7 +31,7 @@ ontology = library.get_ontology
   [%- END -%]
 <tr>
 
-<td style="width:12%;">[% INCLUDE status_icon.tt %] [%- INCLUDE id_link.tt id = entity_id -%]</td>
+<td style="width:12%;">[% INCLUDE status_icon.tt %]&nbsp;[%- INCLUDE library_id_link.tt id = entity_id -%]</td>
 <td>
 [%- IF entity_name == 'allocation' -%]
 [%- INCLUDE allocation_title.tt id = entity_id -%]
