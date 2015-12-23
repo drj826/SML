@@ -23,7 +23,7 @@ library => an SML::Library object
 
 <a href="ontology.html">Ontology</a><br/>
 
-[%- IF library.has_entities -%]
+[%- IF library.has_published_file('DRAFT','entities.html') -%]
 <a href="entities.html">Entities</a><br/>
 [%- END -%]
 

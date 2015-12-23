@@ -17,11 +17,17 @@ library => an SML::Library object
 <tr>
 <td>
 
+[%- IF library.has_published_file('DRAFT','index.html') -%]
 <a href="DRAFT/index.html">DRAFT</a><br/>
+[%- END -%]
 
+[%- IF library.has_published_file('REVIEW','index.html') -%]
 <a href="REVIEW/index.html">REVIEW</a><br/>
+[%- END -%]
 
+[%- IF library.has_published_file('APPROVED','index.html') -%]
 <a href="APPROVED/index.html">APPROVED</a><br/>
+[%- END -%]
 
 </td>
 </tr>

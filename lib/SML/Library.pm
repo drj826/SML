@@ -2595,6 +2595,28 @@ sub increment_division_count {
 
 ######################################################################
 
+sub has_published_file {
+
+  # Check for the existence of a specific file in the 'published'
+  # directory.
+
+  my $self = shift;
+
+  my $state    = shift;                 # DRAFT, REVIEW, APPROVED
+  my $filename = shift;
+
+  my $published_dir = $self->get_published_dir;
+
+  if ( -f "$published_dir/$state/$filename" )
+    {
+      return 1;
+    }
+
+  return 0;
+}
+
+######################################################################
+
 sub has_published_document {
 
   my $self = shift;
