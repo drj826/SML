@@ -11,17 +11,6 @@ document_id = document.get_id
 -%]
 <div style="text-align:center;font-size:8pt;">
 
-<p align="center">
-[%- state = library.get_first_property_value(document_id,'state') -%]
-[%- IF state == 'DRAFT' -%]
-<span style="color:#ff8000;font-size:10pt;">[%state%] Copy</span>
-[%- ELSIF state == 'REVIEW' -%]
-<span style="color:#006600;font-size:10pt;">[%state%] Copy</span>
-[%- ELSIF state == 'APPROVED' -%]
-<span style="color:#0000ff;font-size:10pt;">[%state%] Copy</span>
-[%- END -%]
-</p>
-
 [%- IF library.has_property(document_id,'version') -%]
 [%- version = library.get_first_property_value(document_id,'version') -%]
 <font color="#888888">v[%version%]</font><br/>

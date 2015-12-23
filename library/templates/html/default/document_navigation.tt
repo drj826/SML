@@ -86,13 +86,14 @@ document_id = document.get_id
 
 <tr>
 <td>
+<br/><br/>
 [% INCLUDE document_version.tt -%]
 </td>
 </tr>
 
 <tr>
 <td>
-<br/><br/><br/>
+<br/><br/>
 [% INCLUDE publish_date_time.tt -%]
 </td>
 </tr>

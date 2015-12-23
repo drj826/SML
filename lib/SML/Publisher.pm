@@ -179,6 +179,9 @@ sub publish_index {
   my $rendition = shift || 'html';
   my $style     = shift || 'default';
 
+  my $now = localtime();
+  $self->_set_publish_date_time( $now );
+
   if ( $rendition eq 'html' )
     {
       $self->_publish_html_index($style);
@@ -779,15 +782,15 @@ sub _publish_html_index {
 
   my $vars = { library => $library };
 
-  # ontology page
-  $logger->info("publishing ontology.html");
-  $tt->process("ontology_page.tt",$vars,"ontology.html")
-    || die $tt->error(), "\n";
+  # # ontology page
+  # $logger->info("publishing ontology.html");
+  # $tt->process("ontology_page.tt",$vars,"ontology.html")
+  #   || die $tt->error(), "\n";
 
-  # entities page
-  $logger->info("publishing entities.html");
-  $tt->process("entities_page.tt",$vars,"entities.html")
-    || die $tt->error(), "\n";
+  # # entities page
+  # $logger->info("publishing entities.html");
+  # $tt->process("entities_page.tt",$vars,"entities.html")
+  #   || die $tt->error(), "\n";
 
   # library index page
   $logger->info("publishing index.html");

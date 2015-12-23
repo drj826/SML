@@ -16,22 +16,7 @@ library => an SML::Library object
 
 <tr>
 <td>
-<a href="index.html">Library</a><br/><br/>
-
-[%- IF library.get_ontology -%]
-<a href="ontology.html">Ontology</a><br/>
-[%- END -%]
-
-[%- IF library.has_entities -%]
-<a href="entities.html">Entities</a><br/>
-[%- END -%]
-
-</td>
-</tr>
-
-<tr>
-<td>
-<br/><br/><br/>
+<br/><br/>
 [%- INCLUDE publish_date_time.tt -%]
 </td>
 </tr>

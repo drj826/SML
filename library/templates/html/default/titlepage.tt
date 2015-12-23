@@ -46,17 +46,6 @@ library     = document.get_library
 <br/>
 <br/>
 
-<p align="center">
-[%- state = library.get_first_property_value(document_id,'state') -%]
-[%- IF state == 'DRAFT' -%]
-<span style="font-size:18pt;color:#ff8000;">[%state%] Copy</span>
-[%- ELSIF state == 'REVIEW' -%]
-<span style="font-size:18pt;color:#006600;">[%state%] Copy</span>
-[%- ELSIF state == 'APPROVED' -%]
-<span style="font-size:18pt;color:#0000ff;">[%state%] Copy</span>
-[%- END -%]
-</p>
-
 [%- IF library.has_property(document_id,'version') -%]
 <p align="center">Version [% INCLUDE part_list.tt self = library.get_first_property_value_element(document_id,'version') %]</p>
 [%- END -%]
