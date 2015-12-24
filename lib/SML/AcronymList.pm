@@ -40,12 +40,7 @@ sub add_entry {
   my $definition = shift;
 
   # validate input
-  unless
-    (
-     ref $definition
-     and
-     $definition->isa('SML::Definition')
-    )
+  unless ( ref $definition and $definition->isa('SML::Definition') )
     {
       $logger->error("NOT A DEFINITION \'$definition\'");
       return 0;
@@ -75,9 +70,18 @@ sub add_entry {
 
 sub has_entry {
 
+  # Return 1 if the acronym list has the specified acronym in the
+  # specified (optional) namespace.
+
   my $self      = shift;
   my $acronym   = shift;
   my $namespace = shift || q{};
+
+  unless ( $acronym )
+    {
+      $logger->error("CAN'T CHECK FOR ENTRY, MISSING ARGUMENTS");
+      return 0;
+    }
 
   my $hash = $self->_get_entry_hash;
 
