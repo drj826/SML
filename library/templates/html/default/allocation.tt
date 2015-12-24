@@ -1,0 +1,34 @@
+[%# args:
+
+self => an SML::Entity object (name = 'allocation')
+
+%]
+[%-
+
+name = self.get_name
+num  = self.get_number
+
+-%]
+
+<div class="allocation" id="[%name%].[%num%]">
+
+[%- INCLUDE entity_metadata_table.tt -%]
+
+<table>
+
+[%- INCLUDE entity_property_row.tt property_name = 'title'              label = 'title:'             -%]
+[%- INCLUDE entity_property_row.tt property_name = 'description'        label = 'description:'       -%]
+[%- INCLUDE entity_property_row.tt property_name = 'configuration_item' label = 'configuration item:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'requirement'        label = 'requirement:'       -%]
+[%- INCLUDE entity_property_row.tt property_name = 'test'               label = 'test:'              -%]
+[%- INCLUDE entity_property_row.tt property_name = 'release'            label = 'release:'           -%]
+[%- INCLUDE entity_property_row.tt property_name = 'rel_component'      label = 'releaseable component:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'stakeholder'        label = 'stakeholders:'      -%]
+[%- INCLUDE entity_property_row.tt property_name = 'review'             label = 'review:'            -%]
+[%- INCLUDE entity_property_row.tt property_name = 'outcome'            label = 'outcome:'           -%]
+
+</table>
+
+[%- INCLUDE narrative_part_list.tt -%]
+
+</div>

@@ -3686,13 +3686,6 @@ sub _build_ontology {
 
 ######################################################################
 
-# sub _build_parser {
-#   my $self = shift;
-#   return SML::Parser->new(library=>$self);
-# }
-
-######################################################################
-
 sub _build_reasoner {
   my $self = shift;
   return SML::Reasoner->new(library=>$self);

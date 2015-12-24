@@ -222,6 +222,14 @@ narrative] are both optional. An empty file is a valid SML document.
 
 * plugin:: parts2sections ci-000004
 
+#---------------------------------------------------------------------
+
+# Allocations
+
+* Allocations
+
+plugin:: IncludeAllocations
+
 ######################################################################
 # Backmatter
 

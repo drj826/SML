@@ -8,12 +8,15 @@ self => an SML::Entity object
 library  = self.get_library
 id       = self.get_id
 name     = self.get_name.ucfirst
-type     = library.get_first_property_value(id,'type')
 date     = library.get_first_property_value(id,'date')
 author   = library.get_first_property_value(id,'author')
 revision = library.get_first_property_value(id,'revision')
 
 -%]
+[%- IF library.has_property(id,'type') -%]
+[%- type = library.get_first_property_value(id,'type') -%]
+[%- END -%]
+
 <table style="width:100%;">
 
 <tr>

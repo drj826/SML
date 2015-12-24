@@ -16,7 +16,7 @@ outcome::2012-02-15:al-000187:red: The current SML data format does
 not support arbitrary internal document hyperlinks.
 
 outcome::2012-09-04:al-000187:red: The current SML data format allows
-authors to reference (i.e., link to) identified [g:sml:division]s but
+authors to reference (i.e., link to) identified [g:SML:division]s but
 not ~~to~~ an arbitrary location in the text or ~~from~~ an arbitrary
 span of text as required by [id:rq-000187].
 
