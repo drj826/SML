@@ -24,24 +24,27 @@ my $logger = Log::Log4perl::get_logger('sml.Part');
 
 has name =>
   (
-   isa      => 'Str',
-   reader   => 'get_name',
-   required => 1,
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_name',
+   required  => 1,
   );
 
 ######################################################################
 
 has library =>
   (
-   isa      => 'SML::Library',
-   reader   => 'get_library',
-   required => 1,
+   is        => 'ro',
+   isa       => 'SML::Library',
+   reader    => 'get_library',
+   required  => 1,
   );
 
 ######################################################################
 
 has id =>
   (
+   is        => 'ro',
    isa       => 'Str',
    reader    => 'get_id',
    writer    => 'set_id',
@@ -52,6 +55,7 @@ has id =>
 
 has content =>
   (
+   is        => 'ro',
    isa       => 'Str',
    reader    => 'get_content',
    writer    => 'set_content',
@@ -67,6 +71,7 @@ has content =>
 
 has container =>
   (
+   is        => 'ro',
    isa       => 'SML::Part',
    reader    => 'get_container',
    writer    => 'set_container',
@@ -79,6 +84,7 @@ has container =>
 
 has part_list =>
   (
+   is        => 'ro',
    isa       => 'ArrayRef',
    reader    => 'get_part_list',
    writer    => '_set_part_list',

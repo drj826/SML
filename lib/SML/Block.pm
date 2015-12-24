@@ -30,6 +30,7 @@ use Cwd;
 
 has line_list =>
   (
+   is        => 'ro',
    isa       => 'ArrayRef',
    reader    => 'get_line_list',
    default   => sub {[]},
@@ -39,6 +40,7 @@ has line_list =>
 
 has containing_division =>
   (
+   is        => 'ro',
    isa       => 'SML::Division',
    reader    => 'get_containing_division',
    writer    => 'set_containing_division',
@@ -68,18 +70,14 @@ sub add_line {
   my $self = shift;
   my $line = shift;
 
-  if ( $line->isa('SML::Line') )
-    {
-      push @{ $self->get_line_list }, $line;
-      return 1;
-    }
-
-  else
+  unless ( ref $line and $line->isa('SML::Line') )
     {
       $logger->("CAN'T ADD LINE \'$line\' is not a line");
       return 0;
     }
 
+  push @{ $self->get_line_list }, $line;
+  return 1;
 }
 
 ######################################################################
@@ -91,14 +89,7 @@ sub add_part {
   my $self = shift;
   my $part = shift;
 
-  if (
-      not
-      (
-       ref $part
-       or
-       $part->isa('SML::String')
-      )
-     )
+  unless ( ref $part and $part->isa('SML::String') )
     {
       $logger->error("CAN'T ADD PART \'$part\' is not a string");
       return 0;

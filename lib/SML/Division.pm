@@ -35,6 +35,7 @@ has '+id' =>
 
 has number =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_number',
    writer   => 'set_number',
@@ -45,6 +46,7 @@ has number =>
 
 has previous_number =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_previous_number',
    writer   => 'set_previous_number',
@@ -55,6 +57,7 @@ has previous_number =>
 
 has next_number =>
   (
+   is       => 'ro',
    isa      => 'Str',
    reader   => 'get_next_number',
    writer   => 'set_next_number',
@@ -65,6 +68,7 @@ has next_number =>
 
 has containing_division =>
   (
+   is       => 'ro',
    isa       => 'SML::Division',
    reader    => 'get_containing_division',
    writer    => 'set_containing_division',
@@ -78,6 +82,7 @@ has containing_division =>
 
 has origin_line =>
   (
+   is       => 'ro',
    isa       => 'SML::Line',
    reader    => 'get_origin_line',
    predicate => 'has_origin_line',
@@ -99,12 +104,7 @@ sub add_division {
   my $self     = shift;
   my $division = shift;
 
-  # validate input
-  if (
-      not ref $division
-      or
-      not $division->isa('SML::Division')
-     )
+  unless ( ref $division and $division->isa('SML::Division') )
     {
       $logger->error("NOT A DIVISION \'$division\'");
       return 0;
@@ -132,18 +132,7 @@ sub add_part {
   my $part = shift;
 
   # validate input
-  if (
-      ( not ref $part )
-      or
-      (
-       not
-       (
-	$part->isa('SML::Block')
-	or
-	$part->isa('SML::Division')
-       )
-      )
-     )
+  unless ( ref $part and ( $part->isa('SML::Block') or $part->isa('SML::Division') ) )
     {
       $logger->error("CAN'T ADD PART TO DIVISION \'$part\' is not a block or division");
       return 0;
@@ -170,12 +159,7 @@ sub add_attribute {
   my $self    = shift;
   my $element = shift;
 
-  # validate input
-  if (
-      not ref $element
-      or
-      not $element->isa('SML::Element')
-     )
+  unless ( ref $element and $element->isa('SML::Element') )
     {
       $logger->error("NOT AN ELEMENT \'$element\'");
       return 0;
@@ -219,8 +203,7 @@ sub contains_division {
   my $self = shift;
   my $id   = shift;
 
-  # validate input
-  if ( not $id )
+  unless ( $id )
     {
       $logger->error("YOU MUST SPECIFY AN ID");
       return 0;
@@ -244,65 +227,12 @@ sub contains_division {
 
 ######################################################################
 
-# sub has_property {
-
-#   my $self = shift;
-#   my $name = shift;
-
-#   unless ( $name )
-#     {
-#       $logger->error("CAN'T CHECK IF DIVISION HAS PROPERTY, YOU MUST SPECIFY A NAME");
-#       return 0;
-#     }
-
-#   my $library = $self->get_library;
-#   my $id      = $self->get_id;
-
-#   if ( $library->has_property($id,$name) )
-#     {
-#       return 1;
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
-# sub has_property_value {
-
-#   # Return 1 if the division already has the specified property
-#   # name/value pair.
-
-#   my $self  = shift;
-#   my $name  = shift;
-#   my $value = shift;
-
-#   unless ( $name and $value )
-#     {
-#       $logger->error("CAN'T CHECK IF DIVISION HAS PROPERTY VALUE, YOU MUST SPECIFY NAME AND VALUE");
-#       return 0;
-#     }
-
-#   my $library = $self->get_library;
-#   my $id      = $self->get_id;
-
-#   if ( $library->has_property_value($id,$name,$value) )
-#     {
-#       return 1;
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
 sub has_attribute {
 
   my $self      = shift;
   my $attribute = shift;
 
-  # validate input
-  if ( not $attribute )
+  unless ( $attribute )
     {
       $logger->error("YOU MUST SPECIFY ATTRIBUTE");
       return 0;
@@ -855,137 +785,137 @@ sub get_line_list {
 
 ######################################################################
 
-sub get_data_segment_line_list {
+# sub get_data_segment_line_list {
 
-  # Return an ArrayRef of DATA SEGMENT lines.
+#   # Return an ArrayRef of DATA SEGMENT lines.
 
-  # !!! BUG HERE !!!
-  #
-  # Extracting the DATA SEGMENT lines should be a parser function and
-  # not a division function.
+#   # !!! BUG HERE !!!
+#   #
+#   # Extracting the DATA SEGMENT lines should be a parser function and
+#   # not a division function.
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $list        = [];                 # DATA SEGMENT line list
-  my $library     = $self->get_library;
-  my $syntax      = $library->get_syntax;
-  my $ontology    = $library->get_ontology;
-  my $in_data_segment = 1;
-  my $i           = 0;
-  my $lastblock   = scalar @{ $self->get_block_list };
-  my $divname     = $self->get_name;
+#   my $list        = [];                 # DATA SEGMENT line list
+#   my $library     = $self->get_library;
+#   my $syntax      = $library->get_syntax;
+#   my $ontology    = $library->get_ontology;
+#   my $in_data_segment = 1;
+#   my $i           = 0;
+#   my $lastblock   = scalar @{ $self->get_block_list };
+#   my $divname     = $self->get_name;
 
-  foreach my $block (@{ $self->get_block_list })
-    {
-      my $text = $block->get_content;
+#   foreach my $block (@{ $self->get_block_list })
+#     {
+#       my $text = $block->get_content;
 
-      $text =~ s/[\r\n]*$//;            # chomp;
+#       $text =~ s/[\r\n]*$//;            # chomp;
 
-      ++ $i;
+#       ++ $i;
 
-      next if $i == 1;
-      last if $i == $lastblock;
+#       next if $i == 1;
+#       last if $i == $lastblock;
 
-      if (
-	  $in_data_segment
-	  and
-	  $text =~ /$syntax->{element}/xms
-	  and
-	  $ontology->allows_property($divname,$1)
-	 )
-	{
-	  foreach my $line (@{ $block->get_line_list })
-	    {
-	      push @{ $list }, $line
-	    }
-	}
+#       if (
+# 	  $in_data_segment
+# 	  and
+# 	  $text =~ /$syntax->{element}/xms
+# 	  and
+# 	  $ontology->allows_property($divname,$1)
+# 	 )
+# 	{
+# 	  foreach my $line (@{ $block->get_line_list })
+# 	    {
+# 	      push @{ $list }, $line
+# 	    }
+# 	}
 
-      elsif ( $self->_line_ends_data_segment($text) )
-	{
-	  return $list;
-	}
+#       elsif ( $self->_line_ends_data_segment($text) )
+# 	{
+# 	  return $list;
+# 	}
 
-      else
-	{
-	  foreach my $line (@{ $block->get_line_list })
-	    {
-	      push @{ $list }, $line
-	    }
-	}
-    }
+#       else
+# 	{
+# 	  foreach my $line (@{ $block->get_line_list })
+# 	    {
+# 	      push @{ $list }, $line
+# 	    }
+# 	}
+#     }
 
-  return $list;
-}
+#   return $list;
+# }
 
 ######################################################################
 
-sub get_narrative_line_list {
+# sub get_narrative_line_list {
 
-  # Return an ArrayRef of narrative lines.
+#   # Return an ArrayRef of narrative lines.
 
-  # !!! BUG HERE !!!
-  #
-  # Extracting the narrative lines should be a parser function and not
-  # a division function.
+#   # !!! BUG HERE !!!
+#   #
+#   # Extracting the narrative lines should be a parser function and not
+#   # a division function.
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $list        = [];                 # narrative line list
-  my $library     = $self->get_library;
-  my $syntax      = $library->get_syntax;
-  my $ontology    = $library->get_ontology;
-  my $in_data_segment = 1;
-  my $i           = 0;
-  my $lastblock   = scalar @{ $self->get_block_list };
-  my $divname     = $self->get_name;
+#   my $list        = [];                 # narrative line list
+#   my $library     = $self->get_library;
+#   my $syntax      = $library->get_syntax;
+#   my $ontology    = $library->get_ontology;
+#   my $in_data_segment = 1;
+#   my $i           = 0;
+#   my $lastblock   = scalar @{ $self->get_block_list };
+#   my $divname     = $self->get_name;
 
-  foreach my $block (@{ $self->get_block_list })
-    {
-      my $text = $block->get_content;
+#   foreach my $block (@{ $self->get_block_list })
+#     {
+#       my $text = $block->get_content;
 
-      $text =~ s/[\r\n]*$//;            # chomp;
+#       $text =~ s/[\r\n]*$//;            # chomp;
 
-      ++ $i;
+#       ++ $i;
 
-      next if $i == 1;
-      last if $i == $lastblock;
+#       next if $i == 1;
+#       last if $i == $lastblock;
 
-      if (
-	  $in_data_segment
-	  and
-	  $text =~ /$syntax->{element}/xms
-	  and
-	  $ontology->allows_property($divname,$1)
-	 )
-	{
-	  next;
-	}
+#       if (
+# 	  $in_data_segment
+# 	  and
+# 	  $text =~ /$syntax->{element}/xms
+# 	  and
+# 	  $ontology->allows_property($divname,$1)
+# 	 )
+# 	{
+# 	  next;
+# 	}
 
-      elsif ( $self->_line_ends_data_segment($text) )
-	{
-	  $in_data_segment = 0;
-	  foreach my $line (@{ $block->get_line_list })
-	    {
-	      push @{ $list }, $line
-	    }
-	}
+#       elsif ( $self->_line_ends_data_segment($text) )
+# 	{
+# 	  $in_data_segment = 0;
+# 	  foreach my $line (@{ $block->get_line_list })
+# 	    {
+# 	      push @{ $list }, $line
+# 	    }
+# 	}
 
-      elsif ( $in_data_segment )
-	{
-	  next;
-	}
+#       elsif ( $in_data_segment )
+# 	{
+# 	  next;
+# 	}
 
-      else
-	{
-	  foreach my $line (@{ $block->get_line_list })
-	    {
-	      push @{ $list }, $line
-	    }
-	}
-    }
+#       else
+# 	{
+# 	  foreach my $line (@{ $block->get_line_list })
+# 	    {
+# 	      push @{ $list }, $line
+# 	    }
+# 	}
+#     }
 
-  return $list;
-}
+#   return $list;
+# }
 
 ######################################################################
 
@@ -1026,71 +956,6 @@ sub get_first_line {
       return 0;
     }
 }
-
-######################################################################
-
-# sub get_property_list {
-
-#   my $self = shift;
-
-#   my $list = [];                        # property list
-
-#   foreach my $name ( sort keys %{ $self->_get_property_hash } )
-#     {
-#       push @{ $list }, $self->_get_property_hash->{$name};
-#     }
-
-#   return $list;
-# }
-
-######################################################################
-
-# sub get_property {
-
-#   my $self = shift;
-#   my $name = shift;
-
-#   unless ( $name )
-#     {
-#       $logger->error("CAN'T GET PROPERTY, YOU MUST SPECIFY A NAME");
-#       return 0;
-#     }
-
-#   if ( $self->has_property($name) )
-#     {
-#       return $self->_get_property_hash->{$name};
-#     }
-
-#   else
-#     {
-#       my $id = $self->get_id;
-#       $logger->error("CAN'T GET PROPERTY \'$id\' has no \'$name\' property");
-#       return 0;
-#     }
-# }
-
-######################################################################
-
-# sub get_property_value {
-
-#   my $self = shift;
-#   my $name = shift;
-
-#   if ( $self->has_property($name) )
-#     {
-#       my $property = $self->get_property($name);
-#       my $value    = $property->get_value;
-
-#       return $value;
-#     }
-
-#   else
-#     {
-#       # my $id = $self->get_id;
-#       # $logger->error("CAN'T GET PROPERTY VALUE \'$id\' has no \'$name\' property");
-#       return q{};
-#     }
-# }
 
 ######################################################################
 
@@ -1224,6 +1089,7 @@ sub get_content {
 
 has division_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_division_hash',
    default   => sub {{}},
@@ -1238,6 +1104,7 @@ has division_hash =>
 
 has attribute_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_attribute_hash',
    default   => sub {{}},
@@ -1275,45 +1142,45 @@ sub BUILD {
 
 ######################################################################
 
-sub _line_ends_data_segment {
+# sub _line_ends_data_segment {
 
-  my $self = shift;
-  my $text = shift;
+#   my $self = shift;
+#   my $text = shift;
 
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
+#   my $library = $self->get_library;
+#   my $syntax  = $library->get_syntax;
 
-  if (
-         $text =~ /$syntax->{segment_separator}/xms
-      or $text =~ /$syntax->{start_division}/xms
-      or $text =~ /$syntax->{start_section}/xms
-      or $text =~ /$syntax->{generate_element}/xms
-      or $text =~ /$syntax->{insert_element}/xms
-      or $text =~ /$syntax->{template_element}/xms
-      or $text =~ /$syntax->{include_element}/xms
-      or $text =~ /$syntax->{script_element}/xms
-      or $text =~ /$syntax->{outcome_element}/xms
-      or $text =~ /$syntax->{review_element}/xms
-      or $text =~ /$syntax->{index_element}/xms
-      or $text =~ /$syntax->{glossary_element}/xms
-      or $text =~ /$syntax->{list_item}/xms
-      or
-      (
-       $text =~ /$syntax->{paragraph_text}/xms
-       and
-       not $text =~ /$syntax->{element}/xms
-      )
-     )
-    {
-      return 1;
-    }
+#   if (
+#          $text =~ /$syntax->{segment_separator}/xms
+#       or $text =~ /$syntax->{start_division}/xms
+#       or $text =~ /$syntax->{start_section}/xms
+#       or $text =~ /$syntax->{generate_element}/xms
+#       or $text =~ /$syntax->{insert_element}/xms
+#       or $text =~ /$syntax->{template_element}/xms
+#       or $text =~ /$syntax->{include_element}/xms
+#       or $text =~ /$syntax->{script_element}/xms
+#       or $text =~ /$syntax->{outcome_element}/xms
+#       or $text =~ /$syntax->{review_element}/xms
+#       or $text =~ /$syntax->{index_element}/xms
+#       or $text =~ /$syntax->{glossary_element}/xms
+#       or $text =~ /$syntax->{list_item}/xms
+#       or
+#       (
+#        $text =~ /$syntax->{paragraph_text}/xms
+#        and
+#        not $text =~ /$syntax->{element}/xms
+#       )
+#      )
+#     {
+#       return 1;
+#     }
 
-  else
-    {
-      return 0;
-    }
+#   else
+#     {
+#       return 0;
+#     }
 
-}
+# }
 
 ######################################################################
 
@@ -1476,8 +1343,6 @@ L<"SML::Block">s.
   my $list     = $division->get_block_list;
   my $list     = $division->get_element_list;
   my $list     = $division->get_line_list;
-  my $list     = $division->get_data_segment_line_list;
-  my $list     = $division->get_narrative_line_list;
   my $part     = $division->get_first_part;
   my $line     = $division->get_first_line;
   my $document = $division->get_containing_document;

@@ -39,6 +39,7 @@ use SML::Value;
 
 has id =>
   (
+   is        => 'ro',
    isa       => 'Str',
    reader    => 'get_id',
    writer    => '_set_id',
@@ -53,10 +54,11 @@ has id =>
 
 has name =>
   (
-   isa      => 'Str',
-   reader   => 'get_name',
-   writer   => '_set_name',
-   default  => 'library',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_name',
+   writer    => '_set_name',
+   default   => 'library',
   );
 
 # Specify the name in the library configuration file.
@@ -65,6 +67,7 @@ has name =>
 
 has revision =>
   (
+   is        => 'ro',
    isa       => 'Str',
    reader    => 'get_revision',
    lazy      => 1,
@@ -75,30 +78,33 @@ has revision =>
 
 has util =>
   (
-   isa     => 'SML::Util',
-   reader  => 'get_util',
-   lazy    => 1,
-   builder => '_build_util',
+   is        => 'ro',
+   isa       => 'SML::Util',
+   reader    => 'get_util',
+   lazy      => 1,
+   builder   => '_build_util',
   );
 
 ######################################################################
 
 has syntax =>
   (
-   isa     => 'HashRef',
-   reader  => 'get_syntax',
-   lazy    => 1,
-   builder => '_build_syntax',
+   is        => 'ro',
+   isa       => 'HashRef',
+   reader    => 'get_syntax',
+   lazy      => 1,
+   builder   => '_build_syntax',
   );
 
 ######################################################################
 
 has ontology =>
   (
-   isa     => 'SML::Ontology',
-   reader  => 'get_ontology',
-   lazy    => 1,
-   builder => '_build_ontology',
+   is        => 'ro',
+   isa       => 'SML::Ontology',
+   reader    => 'get_ontology',
+   lazy      => 1,
+   builder   => '_build_ontology',
   );
 
 # The ontology describes the semantics of the library.
@@ -107,6 +113,7 @@ has ontology =>
 
 has ontology_rule_filespec_list =>
   (
+   is        => 'ro',
    isa       => 'ArrayRef',
    reader    => 'get_ontology_rule_filespec_list',
    lazy      => 1,
@@ -120,10 +127,11 @@ has ontology_rule_filespec_list =>
 
 has reasoner =>
   (
-   isa      => 'SML::Reasoner',
-   reader   => 'get_reasoner',
-   lazy     => 1,
-   builder  => '_build_reasoner',
+   is        => 'ro',
+   isa       => 'SML::Reasoner',
+   reader    => 'get_reasoner',
+   lazy      => 1,
+   builder   => '_build_reasoner',
   );
 
 # The reasoner performs first order inferences based on semantics
@@ -133,10 +141,11 @@ has reasoner =>
 
 has publisher =>
   (
-   isa      => 'SML::Publisher',
-   reader   => 'get_publisher',
-   lazy     => 1,
-   builder  => '_build_publisher',
+   is        => 'ro',
+   isa       => 'SML::Publisher',
+   reader    => 'get_publisher',
+   lazy      => 1,
+   builder   => '_build_publisher',
   );
 
 # The publisher renders content presentations.
@@ -145,10 +154,11 @@ has publisher =>
 
 has glossary =>
   (
-   isa      => 'SML::Glossary',
-   reader   => 'get_glossary',
-   lazy     => 1,
-   builder  => '_build_glossary',
+   is        => 'ro',
+   isa       => 'SML::Glossary',
+   reader    => 'get_glossary',
+   lazy      => 1,
+   builder   => '_build_glossary',
   );
 
 # The glossary contains a library-wide collection of terms and their
@@ -158,10 +168,11 @@ has glossary =>
 
 has acronym_list =>
   (
-   isa      => 'SML::AcronymList',
-   reader   => 'get_acronym_list',
-   lazy     => 1,
-   builder  => '_build_acronym_list',
+   is        => 'ro',
+   isa       => 'SML::AcronymList',
+   reader    => 'get_acronym_list',
+   lazy      => 1,
+   builder   => '_build_acronym_list',
   );
 
 # The acronym list contains a library-wide collection of acronyms and
@@ -171,10 +182,11 @@ has acronym_list =>
 
 has references =>
   (
-   isa      => 'SML::References',
-   reader   => 'get_references',
-   lazy     => 1,
-   builder  => '_build_references',
+   is        => 'ro',
+   isa       => 'SML::References',
+   reader    => 'get_references',
+   lazy      => 1,
+   builder   => '_build_references',
   );
 
 # The references object contains a library-wide collaction of source
@@ -184,6 +196,7 @@ has references =>
 
 has directory_path =>
   (
+   is        => 'ro',
    isa       => 'Str',
    reader    => 'get_directory_path',
    writer    => '_set_directory_path',
@@ -210,10 +223,11 @@ has include_path =>
 
 has division_name_list =>
   (
-   isa     => 'ArrayRef',
-   reader  => 'get_division_name_list',
-   lazy    => 1,
-   builder => '_build_division_names',
+   is        => 'ro',
+   isa       => 'ArrayRef',
+   reader    => 'get_division_name_list',
+   lazy      => 1,
+   builder   => '_build_division_names',
   );
 
 ######################################################################
@@ -1601,46 +1615,46 @@ sub get_variable_value {
 
 ######################################################################
 
-sub get_data_segment_line_list {
+# sub get_data_segment_line_list {
 
-  my $self = shift;
-  my $id   = shift;
+#   my $self = shift;
+#   my $id   = shift;
 
-  my $division = $self->get_division($id);
+#   my $division = $self->get_division($id);
 
-  if ( $division->isa('SML::Division') )
-    {
-      return $division->get_data_segment_line_list;
-    }
+#   if ( $division->isa('SML::Division') )
+#     {
+#       return $division->get_data_segment_line_list;
+#     }
 
-  else
-    {
-      $logger->error("CAN'T GET DATA SEGMENT LINES \'$id\' is not a division ID");
-      return 0;
-    }
-}
+#   else
+#     {
+#       $logger->error("CAN'T GET DATA SEGMENT LINES \'$id\' is not a division ID");
+#       return 0;
+#     }
+# }
 
 ######################################################################
 
-sub get_narrative_line_list {
+# sub get_narrative_line_list {
 
-  my $self = shift;
-  my $id   = shift;
+#   my $self = shift;
+#   my $id   = shift;
 
-  my $division = $self->get_division($id);
+#   my $division = $self->get_division($id);
 
-  if ( $division->isa('SML::Division') )
-    {
-      return $division->get_narrative_line_list;
-    }
+#   if ( $division->isa('SML::Division') )
+#     {
+#       return $division->get_narrative_line_list;
+#     }
 
-  else
-    {
-      $logger->error("CAN'T GET NARRATIVE LINES \'$id\' is not a division ID");
-      return 0;
-    }
+#   else
+#     {
+#       $logger->error("CAN'T GET NARRATIVE LINES \'$id\' is not a division ID");
+#       return 0;
+#     }
 
-}
+# }
 
 ######################################################################
 
@@ -2716,10 +2730,10 @@ sub get_published_document_property_value {
 has config_filespec =>
   (
    is        => 'ro',
-   isa      => 'Str',
-   reader   => '_get_config_filespec',
-   lazy     => 1,
-   builder  => '_build_config_filespec',
+   isa       => 'Str',
+   reader    => '_get_config_filespec',
+   lazy      => 1,
+   builder   => '_build_config_filespec',
   );
 
 ######################################################################
@@ -2727,9 +2741,9 @@ has config_filespec =>
 has config_filename =>
   (
    is        => 'ro',
-   isa      => 'Str',
-   reader   => '_get_config_filename',
-   default  => 'library.conf',
+   isa       => 'Str',
+   reader    => '_get_config_filename',
+   default   => 'library.conf',
   );
 
 ######################################################################
@@ -2831,6 +2845,7 @@ has division_hash =>
 
 has entity_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_entity_hash',
    predicate => 'has_entity_hash',
@@ -3947,8 +3962,6 @@ reusable content.
   my $resource     = $library->get_resource($filespec);
   my $term         = $library->get_index_term($term);
   my $string       = $library->get_variable_value($name,$namespace);
-  my $list         = $library->get_data_segment_line_list($id);
-  my $list         = $library->get_narrative_line_list($id);
   my $type         = $library->get_type($value);
   my $outcome      = $library->get_outcome($entity_id,$date);
   my $review       = $library->get_review($entity_id,$date);

@@ -218,6 +218,7 @@ has number =>
 
 has division =>
   (
+   is        => 'ro',
    isa       => 'SML::Division',
    reader    => '_get_division',
    writer    => '_set_division',
@@ -232,6 +233,7 @@ has division =>
 
 has line_list =>
   (
+   is        => 'ro',
    isa       => 'ArrayRef',
    reader    => '_get_line_list',
    writer    => '_set_line_list',
@@ -246,6 +248,7 @@ has line_list =>
 
 has block =>
   (
+   is        => 'ro',
    isa       => 'SML::Block',
    reader    => '_get_block',
    writer    => '_set_block',
@@ -263,6 +266,7 @@ has block =>
 
 has string =>
   (
+   is        => 'ro',
    isa       => 'SML::String',
    reader    => '_get_string',
    writer    => '_set_string',
@@ -279,6 +283,7 @@ has string =>
 
 has division_stack =>
   (
+   is        => 'ro',
    isa       => 'ArrayRef',
    reader    => '_get_division_stack',
    writer    => '_set_division_stack',
@@ -301,6 +306,7 @@ has division_stack =>
 
 has container_stack =>
   (
+   is        => 'ro',
    isa       => 'ArrayRef',
    reader    => '_get_container_stack',
    writer    => '_set_container_stack',
@@ -324,6 +330,7 @@ has container_stack =>
 
 has list_stack =>
   (
+   is        => 'ro',
    isa       => 'ArrayRef',
    reader    => '_get_list_stack',
    writer    => '_set_list_stack',
@@ -338,6 +345,7 @@ has list_stack =>
 
 has column =>
   (
+   is        => 'ro',
    isa       => 'Int',
    reader    => '_get_column',
    writer    => '_set_column',
@@ -350,6 +358,7 @@ has column =>
 
 has in_data_segment =>
   (
+   is        => 'ro',
    isa       => 'Bool',
    reader    => '_in_data_segment',
    writer    => '_set_in_data_segment',
@@ -364,6 +373,7 @@ has in_data_segment =>
 
 has count_total_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_count_total_hash',
    writer    => '_set_count_total_hash',
@@ -378,6 +388,7 @@ has count_total_hash =>
 
 has count_method_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_count_method_hash',
    writer    => '_set_count_method_hash',
@@ -393,6 +404,7 @@ has count_method_hash =>
 
 has gen_content_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_gen_content_hash',
    writer    => '_set_gen_content_hash',
@@ -406,6 +418,7 @@ has gen_content_hash =>
 
 has to_be_gen_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_to_be_gen_hash',
    writer    => '_set_to_be_gen_hash',
@@ -419,6 +432,7 @@ has to_be_gen_hash =>
 
 has outcome_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_outcome_hash',
    writer    => '_set_outcome_hash',
@@ -435,6 +449,7 @@ has outcome_hash =>
 
 has review_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_review_hash',
    writer    => '_set_review_hash',
@@ -451,6 +466,7 @@ has review_hash =>
 
 has acronym_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_acronym_hash',
    writer    => '_set_acronym_hash',
@@ -464,6 +480,7 @@ has acronym_hash =>
 
 has source_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_source_hash',
    writer    => '_set_source_hash',
@@ -513,6 +530,7 @@ has source_hash =>
 
 has index_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_index_hash',
    writer    => '_set_index_hash',
@@ -530,6 +548,7 @@ has index_hash =>
 
 has template_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_template_hash',
    writer    => '_set_template_hash',
@@ -545,6 +564,7 @@ has template_hash =>
 
 has requires_processing =>
   (
+   is        => 'ro',
    isa     => 'Bool',
    reader  => '_requires_processing',
    writer  => '_set_requires_processing',
@@ -560,6 +580,7 @@ has requires_processing =>
 
 has section_counter_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_section_counter_hash',
    writer    => '_set_section_counter_hash',
@@ -574,6 +595,7 @@ has section_counter_hash =>
 
 has division_counter_hash =>
   (
+   is        => 'ro',
    isa       => 'HashRef',
    reader    => '_get_division_counter_hash',
    writer    => '_set_division_counter_hash',
@@ -588,6 +610,7 @@ has division_counter_hash =>
 
 has valid =>
   (
+   is        => 'ro',
    isa       => 'Bool',
    reader    => '_is_valid',
    writer    => '_set_is_valid',
@@ -3073,185 +3096,185 @@ sub _begin_default_section {
 
 ######################################################################
 
-sub _insert_content {
+# sub _insert_content {
 
-  # Scan lines, insert requested content lines.
+#   # Scan lines, insert requested content lines.
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $library        = $self->get_library;
-  my $syntax         = $library->get_syntax;
-  my $util           = $library->get_util;
-  my $new_line_list  = [];
-  my $division       = $self->_get_division;
-  my $count_method   = $self->_get_count_method_hash;
-  my $old_line_list  = $self->_get_line_list;
-  my $gen_content    = $self->_get_gen_content_hash;
-  my $options        = $util->get_options;
-  my $glossary       = $library->get_glossary;
-  my $max_iterations = $options->get_MAX_INSERT_CONTENT;
-  my $count          = ++ $count_method->{'_insert_content'};
-  my $number         = $self->_get_number;
+#   my $library        = $self->get_library;
+#   my $syntax         = $library->get_syntax;
+#   my $util           = $library->get_util;
+#   my $new_line_list  = [];
+#   my $division       = $self->_get_division;
+#   my $count_method   = $self->_get_count_method_hash;
+#   my $old_line_list  = $self->_get_line_list;
+#   my $gen_content    = $self->_get_gen_content_hash;
+#   my $options        = $util->get_options;
+#   my $glossary       = $library->get_glossary;
+#   my $max_iterations = $options->get_MAX_INSERT_CONTENT;
+#   my $count          = ++ $count_method->{'_insert_content'};
+#   my $number         = $self->_get_number;
 
-  $logger->trace("{$number} ($count) insert content");
+#   $logger->trace("{$number} ($count) insert content");
 
-  if ( $count > $max_iterations )
-    {
-      my $msg = "EXCEEDED MAX ITERATIONS ($max_iterations)";
-      $logger->logcroak("$msg");
-    }
+#   if ( $count > $max_iterations )
+#     {
+#       my $msg = "EXCEEDED MAX ITERATIONS ($max_iterations)";
+#       $logger->logcroak("$msg");
+#     }
 
- LINE:
-  foreach my $line (@{ $old_line_list })
-    {
-      my $text     = $line->get_content;
-      my $location = $line->get_location;
+#  LINE:
+#   foreach my $line (@{ $old_line_list })
+#     {
+#       my $text     = $line->get_content;
+#       my $location = $line->get_location;
 
-      #----------------------------------------------------------------
-      # insert::
-      #
-      if ( $text =~ /$syntax->{insert_element}/ )
-	{
-	  my $string = $1;
-	  my $name   = $string;
-	  my $args   = $3 || '';
+#       #----------------------------------------------------------------
+#       # insert::
+#       #
+#       if ( $text =~ /$syntax->{insert_element}/ )
+# 	{
+# 	  my $string = $1;
+# 	  my $name   = $string;
+# 	  my $args   = $3 || '';
 
-	  $logger->trace("$name $args");
+# 	  $logger->trace("$name $args");
 
-	  if ( not $library->allows_insert($name) )
-	    {
-	      $logger->error("UNKNOWN INSERT NAME at $location: \"$name\"");
-	      $division->_set_is_valid(0);
+# 	  if ( not $library->allows_insert($name) )
+# 	    {
+# 	      $logger->error("UNKNOWN INSERT NAME at $location: \"$name\"");
+# 	      $division->_set_is_valid(0);
 
-	      $text =~ s/^(.*)/# $1/;
+# 	      $text =~ s/^(.*)/# $1/;
 
-	      my $newline = SML::Line->new
-		(
-		 included_from => $line,
-		 content       => $text,
-		);
+# 	      my $newline = SML::Line->new
+# 		(
+# 		 included_from => $line,
+# 		 content       => $text,
+# 		);
 
-	      push @{ $new_line_list }, $newline;
+# 	      push @{ $new_line_list }, $newline;
 
-	      next LINE;
-	    }
+# 	      next LINE;
+# 	    }
 
-	  else
-	    {
-	      my $id      = $args;
-	      my $options = '';;
-	      my $parts   = [ split(',',$args) ];
+# 	  else
+# 	    {
+# 	      my $id      = $args;
+# 	      my $options = '';;
+# 	      my $parts   = [ split(',',$args) ];
 
-	      $id      = $parts->[0] if $parts->[0];
-	      $options = $parts->[1] if $parts->[1];
+# 	      $id      = $parts->[0] if $parts->[0];
+# 	      $options = $parts->[1] if $parts->[1];
 
-	      my $newline = SML::Line->new
-		(
-		 included_from => $line,
-		 content       => "insert_ins:: $name;$id;$options\n",
-		);
+# 	      my $newline = SML::Line->new
+# 		(
+# 		 included_from => $line,
+# 		 content       => "insert_ins:: $name;$id;$options\n",
+# 		);
 
-	      push @{ $new_line_list }, $newline;
+# 	      push @{ $new_line_list }, $newline;
 
-	      next LINE;
-	    }
-	}
+# 	      next LINE;
+# 	    }
+# 	}
 
-    #----------------------------------------------------------------
-    # insert_ins::
-    #
-    elsif ( $text =~ /$syntax->{'insert_ins_element'}/ )
-      {
-	my $request           = $1;
-	my @parts             = split(';',$request);
-	my $name              = $parts[0];
-	my $id                = $parts[1] || '';
-	my $args              = $parts[2] || '';
-	my $replacement_lines = [];
+#     #----------------------------------------------------------------
+#     # insert_ins::
+#     #
+#     elsif ( $text =~ /$syntax->{'insert_ins_element'}/ )
+#       {
+# 	my $request           = $1;
+# 	my @parts             = split(';',$request);
+# 	my $name              = $parts[0];
+# 	my $id                = $parts[1] || '';
+# 	my $args              = $parts[2] || '';
+# 	my $replacement_lines = [];
 
-	if ($name eq 'DATA_SEGMENT')
-	  {
-	    $replacement_lines = $library->get_data_segment_line_list($id);
-	    foreach my $newline (@{ $replacement_lines })
-	      {
-		push @{ $new_line_list }, $newline;
-	      }
-	  }
+# 	if ($name eq 'DATA_SEGMENT')
+# 	  {
+# 	    $replacement_lines = $library->get_data_segment_line_list($id);
+# 	    foreach my $newline (@{ $replacement_lines })
+# 	      {
+# 		push @{ $new_line_list }, $newline;
+# 	      }
+# 	  }
 
-	elsif ($name eq 'NARRATIVE')
-	  {
-	    $replacement_lines = $library->get_narrative_line_list($id);
-	    foreach my $newline (@{ $replacement_lines })
-	      {
-		push @{ $new_line_list }, $newline;
-	      }
-	  }
+# 	elsif ($name eq 'NARRATIVE')
+# 	  {
+# 	    $replacement_lines = $library->get_narrative_line_list($id);
+# 	    foreach my $newline (@{ $replacement_lines })
+# 	      {
+# 		push @{ $new_line_list }, $newline;
+# 	      }
+# 	  }
 
-	elsif ($name eq 'DEFINITION')
-	  {
-	    my @parts     = split(':',$id);
-	    my $term      = $parts[0];
-	    my $namespace = $parts[1] || '';
-	    my $glossary  = $library->get_glossary;
-	    my $entry     = $glossary->get_entry($term,$namespace);
-	    my $replacement_text = $entry->get_value;
-	    my $newline = SML::Line->new
-	      (
-	       included_from => $line,
-	       content       => "$replacement_text\n",
-	      );
-	    push @{ $new_line_list }, $newline;
-	  }
+# 	elsif ($name eq 'DEFINITION')
+# 	  {
+# 	    my @parts     = split(':',$id);
+# 	    my $term      = $parts[0];
+# 	    my $namespace = $parts[1] || '';
+# 	    my $glossary  = $library->get_glossary;
+# 	    my $entry     = $glossary->get_entry($term,$namespace);
+# 	    my $replacement_text = $entry->get_value;
+# 	    my $newline = SML::Line->new
+# 	      (
+# 	       included_from => $line,
+# 	       content       => "$replacement_text\n",
+# 	      );
+# 	    push @{ $new_line_list }, $newline;
+# 	  }
 
-	else
-	  {
-	    $logger->warn("THIS SHOULD NEVER HAPPEN (2)");
-	  }
+# 	else
+# 	  {
+# 	    $logger->warn("THIS SHOULD NEVER HAPPEN (2)");
+# 	  }
 
-	next LINE;
-      }
+# 	next LINE;
+#       }
 
-    #----------------------------------------------------------------
-    # insert_gen::
-    #
-    elsif ( $text =~ /$syntax->{'insert_gen_element'}/ )
-      {
-	my $request = $1;
-	my @parts   = split(';',$request);
-	my $name    = $parts[0];
-	my $divid   = $parts[1] || '';
-	my $args    = $parts[2] || '';
+#     #----------------------------------------------------------------
+#     # insert_gen::
+#     #
+#     elsif ( $text =~ /$syntax->{'insert_gen_element'}/ )
+#       {
+# 	my $request = $1;
+# 	my @parts   = split(';',$request);
+# 	my $name    = $parts[0];
+# 	my $divid   = $parts[1] || '';
+# 	my $args    = $parts[2] || '';
 
-	my $replacement_text = $gen_content->{$name}{$divid}{$args};
+# 	my $replacement_text = $gen_content->{$name}{$divid}{$args};
 
-	my @new = split(/\n/s,"$replacement_text");
+# 	my @new = split(/\n/s,"$replacement_text");
 
-	foreach my $newtext (@new)
-	  {
-	    my $newline = SML::Line->new
-	      (
-	       included_from => $line,
-	       content       => "$newtext\n",
-	      );
-	    push @{ $new_line_list }, $newline;
-	  }
+# 	foreach my $newtext (@new)
+# 	  {
+# 	    my $newline = SML::Line->new
+# 	      (
+# 	       included_from => $line,
+# 	       content       => "$newtext\n",
+# 	      );
+# 	    push @{ $new_line_list }, $newline;
+# 	  }
 
-	next LINE;
-      }
+# 	next LINE;
+#       }
 
-    #----------------------------------------------------------------
-    # no insert statement on this line
-    #
-    else {
-      push @{ $new_line_list }, $line;
-    }
-  }
+#     #----------------------------------------------------------------
+#     # no insert statement on this line
+#     #
+#     else {
+#       push @{ $new_line_list }, $line;
+#     }
+#   }
 
-  $self->_set_requires_processing(1);
-  $self->_set_line_list($new_line_list);
+#   $self->_set_requires_processing(1);
+#   $self->_set_line_list($new_line_list);
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 

@@ -209,7 +209,8 @@ sub BUILD {
 
 sub _validate {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $path     = $self->get_path;
   my $filename = $self->get_filename;
   my $filespec = File::Spec->catdir($path,$filename);
@@ -240,8 +241,9 @@ sub _validate {
 
 sub _build_filename {
 
-  my $self      = shift;
-  my $filespec  = $self->get_filespec;
+  my $self = shift;
+
+  my $filespec = $self->get_filespec;
 
   my ($filename,$directories,$suffix) = fileparse($filespec);
 
@@ -252,8 +254,9 @@ sub _build_filename {
 
 sub _build_directories {
 
-  my $self      = shift;
-  my $filespec  = $self->get_filespec;
+  my $self = shift;
+
+  my $filespec = $self->get_filespec;
 
   my ($filename,$directories,$suffix) = fileparse($filespec);
 
@@ -264,9 +267,10 @@ sub _build_directories {
 
 sub _build_path {
 
-  my $self      = shift;
-  my $filespec  = $self->get_filespec;
-  my $cwd       = getcwd;
+  my $self = shift;
+
+  my $filespec = $self->get_filespec;
+  my $cwd      = getcwd;
 
   my ($filename,$directories,$suffix) = fileparse($filespec);
 
@@ -279,7 +283,7 @@ sub _build_text {
 
   use File::Slurp;
 
-  my $self     = shift;
+  my $self = shift;
 
   my $filespec = $self->get_filespec;
   my $library  = $self->get_library;
@@ -330,7 +334,8 @@ sub _build_line_list {
 sub _build_sha_digest {
 
   my $self = shift;
-  my $sha  = Digest::SHA->new;
+
+  my $sha = Digest::SHA->new;
 
   my $filespec = $self->get_filespec;
 
@@ -349,7 +354,8 @@ sub _build_sha_digest {
 
 sub _build_md5_digest {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $filespec = $self->get_filespec;
   my $digest   = q{};
 

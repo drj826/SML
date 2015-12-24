@@ -26,125 +26,138 @@ my $logger = Log::Log4perl::get_logger('sml.Options');
 
 has config_filespec =>
   (
-   isa     => 'Str',
-   reader  => 'get_config_filespec',
-   default => 'library.conf'
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_config_filespec',
+   default   => 'library.conf'
   );
 
 ######################################################################
 
 has gui =>
   (
-   isa     => 'Bool',
-   reader  => 'using_gui',
-   default => 0,
-   writer  => 'set_using_gui',
+   is        => 'ro',
+   isa       => 'Bool',
+   reader    => 'using_gui',
+   default   => 0,
+   writer    => 'set_using_gui',
   );
 
 ######################################################################
 
 has verbose =>
   (
-   isa     => 'Bool',
-   reader  => 'be_verbose',
-   default => 0,
-   writer  => 'set_be_verbose',
+   is        => 'ro',
+   isa       => 'Bool',
+   reader    => 'be_verbose',
+   default   => 0,
+   writer    => 'set_be_verbose',
   );
 
 ######################################################################
 
 has scripts =>
   (
-   isa     => 'Bool',
-   reader  => 'resolve_scripts',
-   default => 1,
-   writer  => 'set_resolve_scripts',
+   is        => 'ro',
+   isa       => 'Bool',
+   reader    => 'resolve_scripts',
+   default   => 1,
+   writer    => 'set_resolve_scripts',
   );
 
 ######################################################################
 
 has plugins =>
   (
-   isa     => 'Bool',
-   reader  => 'resolve_plugins',
-   default => 1,
-   writer  => 'set_resolve_plugins',
+   is        => 'ro',
+   isa       => 'Bool',
+   reader    => 'resolve_plugins',
+   default   => 1,
+   writer    => 'set_resolve_plugins',
   );
 
 ######################################################################
 
 has use_svn =>
   (
-   isa     => 'Bool',
-   reader  => 'use_svn',
-   default => 0,
-   writer  => 'set_use_svn',
+   is        => 'ro',
+   isa       => 'Bool',
+   reader    => 'use_svn',
+   default   => 0,
+   writer    => 'set_use_svn',
   );
 
 ######################################################################
 
 has svn =>
   (
-   isa     => 'Str',
-   reader  => 'get_svn_executable',
-   default => 'svn.exe',
-   writer  => 'set_svn_executable',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_svn_executable',
+   default   => 'svn.exe',
+   writer    => 'set_svn_executable',
   );
 
 ######################################################################
 
 has pdflatex =>
   (
-   isa     => 'Str',
-   reader  => 'get_pdflatex_executable',
-   default => 'pdflatex.exe',
-   writer  => 'set_pdflatex_executable',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_pdflatex_executable',
+   default   => 'pdflatex.exe',
+   writer    => 'set_pdflatex_executable',
 );
 
 ######################################################################
 
 has pdflatex_args =>
   (
-   isa     => 'Str',
-   reader  => 'get_pdflatex_args',
-   default => '--main-memory=50000000 --extra-mem-bot=50000000',
-   writer  => 'set_pdflatex_args',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_pdflatex_args',
+   default   => '--main-memory=50000000 --extra-mem-bot=50000000',
+   writer    => 'set_pdflatex_args',
 );
 
 ######################################################################
 
 has bibtex =>
   (
-   isa     => 'Str',
-   reader  => 'get_bibtex_executable',
-   default => 'bibtex.exe',
-   writer  => 'set_bibtex_executable',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_bibtex_executable',
+   default   => 'bibtex.exe',
+   writer    => 'set_bibtex_executable',
   );
 
 ######################################################################
 
 has makeindex =>
   (
-   isa     => 'Str',
-   reader  => 'get_makeindex_executable',
-   default => 'makeindex.exe',
-   writer  => 'set_makeindex_executable',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_makeindex_executable',
+   default   => 'makeindex.exe',
+   writer    => 'set_makeindex_executable',
   );
 
 ######################################################################
 
 has convert =>
   (
-   isa     => 'Str',
-   reader  => 'get_convert_executable',
-   default => 'convert.exe',
-   writer  => 'set_convert_executable',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_convert_executable',
+   default   => 'convert.exe',
+   writer    => 'set_convert_executable',
   );
 
 ######################################################################
 
 has trigger_resource_updates =>
   (
+   is        => 'ro',
    isa       => 'Bool',
    reader    => 'trigger_resource_updates',
    default   => 0,
@@ -162,6 +175,7 @@ has trigger_resource_updates =>
 
 has use_formal_status =>
   (
+   is        => 'ro',
    isa       => 'Bool',
    reader    => 'use_formal_status',
    writer    => 'set_use_formal_status',
@@ -177,160 +191,176 @@ has use_formal_status =>
 
 has MAX_SEC_DEPTH =>
   (
-   isa     => 'Int',
-   reader  => 'get_MAX_SEC_DEPTH',
-   writer  => 'set_MAX_SEC_DEPTH',
-   default => 6,
+   is        => 'ro',
+   isa       => 'Int',
+   reader    => 'get_MAX_SEC_DEPTH',
+   writer    => 'set_MAX_SEC_DEPTH',
+   default   => 6,
   );
 
 ######################################################################
 
 has MAX_RESOLVE_INCLUDES =>
   (
-   isa     => 'Int',
-   reader  => 'get_MAX_RESOLVE_INCLUDES',
-   writer  => 'set_MAX_RESOLVE_INCLUDES',
-   default => 20,
+   is        => 'ro',
+   isa       => 'Int',
+   reader    => 'get_MAX_RESOLVE_INCLUDES',
+   writer    => 'set_MAX_RESOLVE_INCLUDES',
+   default   => 20,
   );
 
 ######################################################################
 
 has MAX_RESOLVE_SCRIPTS =>
   (
-   isa     => 'Int',
-   reader  => 'get_MAX_RESOLVE_SCRIPTS',
-   writer  => 'set_MAX_RESOLVE_SCRIPTS',
-   default => 20,
+   is        => 'ro',
+   isa       => 'Int',
+   reader    => 'get_MAX_RESOLVE_SCRIPTS',
+   writer    => 'set_MAX_RESOLVE_SCRIPTS',
+   default   => 20,
   );
 
 ######################################################################
 
 has MAX_RESOLVE_PLUGINS =>
   (
-   isa     => 'Int',
-   reader  => 'get_MAX_RESOLVE_PLUGINS',
-   writer  => 'set_MAX_RESOLVE_PLUGINS',
-   default => 20,
+   is        => 'ro',
+   isa       => 'Int',
+   reader    => 'get_MAX_RESOLVE_PLUGINS',
+   writer    => 'set_MAX_RESOLVE_PLUGINS',
+   default   => 20,
   );
 
 ######################################################################
 
 has MAX_RESOLVE_CONDITIONALS =>
   (
-   isa     => 'Int',
-   reader  => 'get_MAX_RESOLVE_CONDITIONALS',
-   writer  => 'set_MAX_RESOLVE_CONDITIONALS',
-   default => 10,
+   is        => 'ro',
+   isa       => 'Int',
+   reader    => 'get_MAX_RESOLVE_CONDITIONALS',
+   writer    => 'set_MAX_RESOLVE_CONDITIONALS',
+   default   => 10,
   );
 
 ######################################################################
 
 has MAX_PARSE_LINES =>
   (
-   isa     => 'Int',
-   reader  => 'get_MAX_PARSE_LINES',
-   writer  => 'set_MAX_PARSE_LINES',
-   default => 20,
+   is        => 'ro',
+   isa       => 'Int',
+   reader    => 'get_MAX_PARSE_LINES',
+   writer    => 'set_MAX_PARSE_LINES',
+   default   => 20,
   );
 
 ######################################################################
 
 has MAX_INSERT_CONTENT =>
   (
-   isa     => 'Int',
-   reader  => 'get_MAX_INSERT_CONTENT',
-   writer  => 'set_MAX_INSERT_CONTENT',
-   default => 20,
+   is        => 'ro',
+   isa       => 'Int',
+   reader    => 'get_MAX_INSERT_CONTENT',
+   writer    => 'set_MAX_INSERT_CONTENT',
+   default   => 20,
   );
 
 ######################################################################
 
 has MAX_SUBSTITUTE_VARIABLES =>
   (
-   isa     => 'Int',
-   reader  => 'get_MAX_SUBSTITUTE_VARIABLES',
-   writer  => 'set_MAX_SUBSTITUTE_VARIABLES',
-   default => 20,
+   is        => 'ro',
+   isa       => 'Int',
+   reader    => 'get_MAX_SUBSTITUTE_VARIABLES',
+   writer    => 'set_MAX_SUBSTITUTE_VARIABLES',
+   default   => 20,
   );
 
 ######################################################################
 
 has MAX_RESOLVE_LOOKUPS =>
   (
-   isa     => 'Int',
-   reader  => 'get_MAX_RESOLVE_LOOKUPS',
-   writer  => 'set_MAX_RESOLVE_LOOKUPS',
-   default => 20,
+   is        => 'ro',
+   isa       => 'Int',
+   reader    => 'get_MAX_RESOLVE_LOOKUPS',
+   writer    => 'set_MAX_RESOLVE_LOOKUPS',
+   default   => 20,
   );
 
 ######################################################################
 
 has MAX_RESOLVE_TEMPLATES =>
   (
-   isa     => 'Int',
-   reader  => 'get_MAX_RESOLVE_TEMPLATES',
-   writer  => 'set_MAX_RESOLVE_TEMPLATES',
-   default => 20,
+   is        => 'ro',
+   isa       => 'Int',
+   reader    => 'get_MAX_RESOLVE_TEMPLATES',
+   writer    => 'set_MAX_RESOLVE_TEMPLATES',
+   default   => 20,
   );
 
 ######################################################################
 
 has MAX_GENERATE_CONTENT =>
   (
-   isa     => 'Int',
-   reader  => 'get_MAX_GENERATE_CONTENT',
-   writer  => 'set_MAX_GENERATE_CONTENT',
-   default => 20,
+   is        => 'ro',
+   isa       => 'Int',
+   reader    => 'get_MAX_GENERATE_CONTENT',
+   writer    => 'set_MAX_GENERATE_CONTENT',
+   default   => 20,
   );
 
 ######################################################################
 
 has MAX_ID_HIERARCHY_DEPTH =>
   (
-   isa     => 'Int',
-   reader  => 'get_MAX_ID_HIERARCHY_DEPTH',
-   writer  => 'set_MAX_ID_HIERARCHY_DEPTH',
-   default => 20,
+   is        => 'ro',
+   isa       => 'Int',
+   reader    => 'get_MAX_ID_HIERARCHY_DEPTH',
+   writer    => 'set_MAX_ID_HIERARCHY_DEPTH',
+   default   => 20,
   );
 
 ######################################################################
 
 has status_icon_grey_filespec =>
   (
-   isa     => 'Str',
-   reader  => 'get_status_icon_grey_filespec',
-   writer  => 'set_status_icon_grey_filespec',
-   default => 'status_grey.png',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_status_icon_grey_filespec',
+   writer    => 'set_status_icon_grey_filespec',
+   default   => 'status_grey.png',
   );
 
 ######################################################################
 
 has status_icon_green_filespec =>
   (
-   isa     => 'Str',
-   reader  => 'get_status_icon_green_filespec',
-   writer  => 'set_status_icon_green_filespec',
-   default => 'status_green.png',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_status_icon_green_filespec',
+   writer    => 'set_status_icon_green_filespec',
+   default   => 'status_green.png',
   );
 
 ######################################################################
 
 has status_icon_yellow_filespec =>
   (
-   isa     => 'Str',
-   reader  => 'get_status_icon_yellow_filespec',
-   writer  => 'set_status_icon_yellow_filespec',
-   default => 'status_yellow.png',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_status_icon_yellow_filespec',
+   writer    => 'set_status_icon_yellow_filespec',
+   default   => 'status_yellow.png',
   );
 
 ######################################################################
 
 has status_icon_red_filespec =>
   (
-   isa     => 'Str',
-   reader  => 'get_status_icon_red_filespec',
-   writer  => 'set_status_icon_red_filespec',
-   default => 'status_red.png',
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_status_icon_red_filespec',
+   writer    => 'set_status_icon_red_filespec',
+   default   => 'status_red.png',
   );
 
 ######################################################################
