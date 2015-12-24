@@ -3,8 +3,8 @@
 I created the Semantic Manuscript Language (SML) because I wanted to
 create and maintain documentation the same way I create and maintain
 software.  I wanted a "compiler" to mercilessly throw errors found in
-my documents.  I also wanted the to validate the meaning of document
-content against my own ontology (like a semantic schema) so that an
+my documents.  I also wanted to validate the *meaning* of document
+content against my own ontology (like a semantic schema); the
 application warns me when I say something that doesn't make sense.
 
 # Description
