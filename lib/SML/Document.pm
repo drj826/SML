@@ -462,7 +462,7 @@ sub _build_references {
 
 sub _build_index {
   my $self = shift;
-  return SML::Index->new;
+  return SML::Index->new( document => $self );
 }
 
 ######################################################################

@@ -22,6 +22,14 @@ my $logger = Log::Log4perl::get_logger('sml.Index');
 ######################################################################
 ######################################################################
 
+has document =>
+  (
+   is       => 'ro',
+   isa      => 'SML::Document',
+   reader   => 'get_document',
+   required => 1,
+  );
+
 ######################################################################
 ######################################################################
 ##
@@ -35,19 +43,19 @@ sub add_entry {
   my $self  = shift;
   my $entry = shift;
 
-  unless
-    (
-     ( ref $entry )
-     and
-     ( $entry->isa('SML::IndexEntry') )
-    )
+  unless ( ref $entry and $entry->isa('SML::IndexEntry') )
     {
       $logger->error("NOT AN INDEX ENTRY, CAN'T ADD TO INDEX \'$entry\'");
       return 0;
     }
 
-  my $hash = $self->_get_entry_hash;
-  my $term = $entry->get_term;
+  my $hash     = $self->_get_entry_hash;
+  my $term     = $entry->get_term;
+  my $document = $self->get_document;
+  my $library  = $document->get_library;
+  my $util     = $library->get_util;
+
+  $term = $util->strip_string_markup($term);
 
   if ( exists $hash->{$term} )
     {

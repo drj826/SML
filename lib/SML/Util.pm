@@ -286,6 +286,9 @@ sub strip_string_markup {
   $text =~ s/$syntax->{underline_string}/$1/g;
   $text =~ s/$syntax->{superscript_string}/$1/g;
   $text =~ s/$syntax->{subscript_string}/$1/g;
+  $text =~ s/$syntax->{user_entered_text}/$2/g;
+  $text =~ s/$syntax->{sglquote_string}/$1/g;
+  $text =~ s/$syntax->{dblquote_string}/$1/g;
 
   $text =~ s/$syntax->{linebreak_symbol}/ /g;
 
