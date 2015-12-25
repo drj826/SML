@@ -28,6 +28,6 @@ sha         = sha_digest.substr(0,7)
 <font color="#888888">[%date%]</font><br/>
 [%- END -%]
 
-<font color="#888888">SHA: [%sha%]...</font>
+<font color="#888888">SHA [%sha%]</font>
 
 </div>
