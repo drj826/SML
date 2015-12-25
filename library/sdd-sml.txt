@@ -214,13 +214,13 @@ narrative] are both optional. An empty file is a valid SML document.
 
 # Semantic Manuscript Language
 
-* plugin:: parts2sections ci-000001
+* plugin:: Parts2Sections ci-000001
 
 #---------------------------------------------------------------------
 
 # SML Software Library
 
-* plugin:: parts2sections ci-000004
+* plugin:: Parts2Sections ci-000004
 
 #---------------------------------------------------------------------
 

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package parts2sections;
+package Parts2Sections;
 
 use Moose;
 
@@ -36,7 +36,7 @@ sub render {
 
   unless ( $self->_has_args )
     {
-      print "FATAL parts2sections.pm NO DIVISION ID PROVIDED\n";
+      print "FATAL Parts2Sections.pm NO DIVISION ID PROVIDED\n";
       return [];
     }
 
@@ -46,7 +46,7 @@ sub render {
 
   unless ( $library->has_division_id($division_id) )
     {
-      print "FATAL parts2sections.pm LIBRARY HAS NO DIVISION ID $division_id\n";
+      print "FATAL Parts2Sections.pm LIBRARY HAS NO DIVISION ID $division_id\n";
       return [];
     }
 
