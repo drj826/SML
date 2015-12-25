@@ -58,4 +58,7 @@ library     = document.get_library
 <p align="center">[% library.get_first_property_value(document_id,'organization') -%]</p>
 [%- END -%]
 
+<br/><br/><br/>
+<p style="text-align:center;color:#888888;">SHA Digest: [% document.get_sha_digest %]</p>
+
 [%- END -%]

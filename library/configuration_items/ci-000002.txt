@@ -6,7 +6,7 @@ type:: software
 
 is_part_of:: ci-000004
 
-description:: The Publish.pm perl module implements the [a:SML]
+description:: The Publish.pm perl module implements the SML::Publish
 class.  [g:SML:Semantic Manuscript Language] ([a:SML]) is a
 minimalistic descriptive markup language designed to be human
 readable, simple to edit, able to express rich semantic relationships,

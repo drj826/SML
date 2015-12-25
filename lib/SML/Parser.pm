@@ -3838,7 +3838,6 @@ sub _generate_section_numbers {
     $previous_depth   = $current_depth;
     $previous_section = $section;
     $previous_number  = $number;
-
   }
 
   return 1;

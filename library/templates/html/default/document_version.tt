@@ -7,6 +7,8 @@ document => an SML::Document object
 
 library     = document.get_library
 document_id = document.get_id
+sha_digest  = document.get_sha_digest
+sha         = sha_digest.substr(0,7)
 
 -%]
 <div style="text-align:center;font-size:8pt;">
@@ -25,5 +27,7 @@ document_id = document.get_id
 [%- date = library.get_first_property_value(document_id,'date') -%]
 <font color="#888888">[%date%]</font><br/>
 [%- END -%]
+
+<font color="#888888">SHA: [%sha%]...</font>
 
 </div>

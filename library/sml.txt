@@ -394,6 +394,8 @@ of problems.
 
 index::begin: sample document
 
+NOTE: This step-by-step example is out of date.
+
 Here is a step-by-step example of creating and publishing an [a:SML]
 document using the ||publish|| program.
 
