@@ -15,7 +15,7 @@ target_num  = target_part.get_number
 
 -%]
 [%- IF document -%]
-  [%- IF document.has_sections -%]
+  [%- IF document.contains_division_with_name('SECTION') -%]
     [%-
     section     = target_part.get_containing_section
     section_num = section.get_number

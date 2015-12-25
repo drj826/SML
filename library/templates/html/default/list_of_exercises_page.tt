@@ -16,27 +16,27 @@ document_title_element = library.get_first_property_value_element(document_id,'t
 <tr>
 
 [%# PREVIOUS %]
-[%- IF document.has_attachments -%]
+[%- IF document.contains_division_with_name('ATTACHMENT') -%]
 <td style="width:20%;font-size:8pt;text-align:left">
 <a href="[%document_id%].attachments.html">&lt; List of Attachments</a>
 </td>
 
-[%- ELSIF document.has_figures -%]
+[%- ELSIF document.contains_division_with_name('FIGURE') -%]
 <td style="width:20%;font-size:8pt;text-align:left">
 <a href="[%document_id%].figures.html">&lt; List of Figures</a>
 </td>
 
-[%- ELSIF document.has_tables -%]
+[%- ELSIF document.contains_division_with_name('TABLE') -%]
 <td style="width:20%;font-size:8pt;text-align:left">
 <a href="[%document_id%].tables.html">&lt; List of Tables</a>
 </td>
 
-[%- ELSIF document.has_listings -%]
+[%- ELSIF document.contains_division_with_name('LISTING') -%]
 <td style="width:20%;font-size:8pt;text-align:left">
 <a href="[%document_id%].listings.html">&lt; List of Listings</a>
 </td>
 
-[%- ELSIF document.has_demos -%]
+[%- ELSIF document.contains_division_with_name('DEMO') -%]
 <td style="width:20%;font-size:8pt;text-align:left">
 <a href="[%document_id%].demos.html">&lt; List of Demonstrations</a>
 </td>
@@ -56,7 +56,7 @@ document_title_element = library.get_first_property_value_element(document_id,'t
 </td>
 
 [%# NEXT %]
-[%- IF document.has_slides -%]
+[%- IF document.contains_division_with_name('SLIDE') -%]
 <td style="width:20%;font-size:8pt;text-align:right">
 <a href="[%document_id%].slides.html">List of Slides &gt;</a>
 </td>
@@ -89,7 +89,7 @@ page           = document_id _ '.' _ section_number _ '.html'
 </a></h4>
 [%- END %]
 
-[%- IF section.has_exercises -%]
+[%- IF section.contains_division_with_name('EXERCISE') -%]
 [%- FOREACH exercise IN section.get_exercise_list -%]
 [%-
 

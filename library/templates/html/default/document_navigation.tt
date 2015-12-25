@@ -31,35 +31,35 @@ document_id = document.get_id
 
 <a href="[%document_id%].titlepage.html">Title Page</a><br/>
 
-[%- IF document.has_sections -%]
+[%- IF document.contains_division_with_name('SECTION') -%]
 <a href="[%document_id%].toc.html">Contents</a><br/>
 [%- END -%]
 
-[%- IF document.has_tables -%]
+[%- IF document.contains_division_with_name('TABLE') -%]
 <a href="[%document_id%].tables.html">Tables</a><br/>
 [%- END -%]
 
-[%- IF document.has_figures -%]
+[%- IF document.contains_division_with_name('FIGURE') -%]
 <a href="[%document_id%].figures.html">Figures</a><br/>
 [%- END -%]
 
-[%- IF document.has_attachments -%]
+[%- IF document.contains_division_with_name('ATTACHMENT') -%]
 <a href="[%document_id%].attachments.html">Attachments</a><br/>
 [%- END -%]
 
-[%- IF document.has_listings -%]
+[%- IF document.contains_division_with_name('LISTING') -%]
 <a href="[%document_id%].listings.html">Listings</a><br/>
 [%- END -%]
 
-[%- IF document.has_demos -%]
+[%- IF document.contains_division_with_name('DEMO') -%]
 <a href="[%document_id%].demos.html">Demonstrations</a><br/>
 [%- END -%]
 
-[%- IF document.has_exercises -%]
+[%- IF document.contains_division_with_name('EXERCISE') -%]
 <a href="[%document_id%].exercises.html">Exercises</a><br/>
 [%- END -%]
 
-[%- IF document.has_slides -%]
+[%- IF document.contains_division_with_name('SLIDE') -%]
 <a href="[%document_id%].slides.html">Slides</a><br/>
 [%- END -%]
 

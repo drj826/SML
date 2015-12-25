@@ -369,7 +369,7 @@ sub _publish_html_document {
 
   my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
 
-  if ( $document->has_sections )
+  if ( $document->contains_division_with_name('SECTION') )
     {
       foreach my $section (@{ $document->get_section_list })
 	{
@@ -399,7 +399,7 @@ sub _publish_html_document {
 	|| die $tt->error(), "\n";
 
       # list of tables
-      if ( $document->has_tables )
+      if ( $document->contains_division_with_name('TABLE') )
 	{
 	  $logger->info("publishing $id.tables.html");
 	  $tt->process("list_of_tables_page.tt",$vars,"$id.tables.html")
@@ -407,7 +407,7 @@ sub _publish_html_document {
 	}
 
       # list of figures
-      if ( $document->has_figures )
+      if ( $document->contains_division_with_name('FIGURE') )
 	{
 	  $logger->info("publishing $id.figures.html");
 	  $tt->process("list_of_figures_page.tt",$vars,"$id.figures.html")
@@ -415,7 +415,7 @@ sub _publish_html_document {
 	}
 
       # list of attachments
-      if ( $document->has_attachments )
+      if ( $document->contains_division_with_name('ATTACHMENT') )
 	{
 	  $logger->info("publishing $id.attachments.html");
 	  $tt->process("list_of_attachments_page.tt",$vars,"$id.attachments.html")
@@ -423,7 +423,7 @@ sub _publish_html_document {
 	}
 
       # list of listings
-      if ( $document->has_listings )
+      if ( $document->contains_division_with_name('LISTING') )
 	{
 	  $logger->info("publishing $id.listings.html");
 	  $tt->process("list_of_listings_page.tt",$vars,"$id.listings.html")
@@ -431,7 +431,7 @@ sub _publish_html_document {
 	}
 
       # list of demos
-      if ( $document->has_demos )
+      if ( $document->contains_division_with_name('DEMO') )
 	{
 	  $logger->info("publishing $id.demos.html");
 	  $tt->process("list_of_demos_page.tt",$vars,"$id.demos.html")
@@ -439,7 +439,7 @@ sub _publish_html_document {
 	}
 
       # list of exercises
-      if ( $document->has_exercises )
+      if ( $document->contains_division_with_name('EXERCISE') )
 	{
 	  $logger->info("publishing $id.exercises.html");
 	  $tt->process("list_of_exercises_page.tt",$vars,"$id.exercises.html")
@@ -447,7 +447,7 @@ sub _publish_html_document {
 	}
 
       # list of slides
-      if ( $document->has_slides )
+      if ( $document->contains_division_with_name('SLIDE') )
 	{
 	  $logger->info("publishing $id.slides.html");
 	  $tt->process("list_of_slides_page.tt",$vars,"$id.slides.html")

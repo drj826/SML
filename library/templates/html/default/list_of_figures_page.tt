@@ -16,7 +16,7 @@ document_title_element = library.get_first_property_value_element(document_id,'t
 <tr>
 
 [%# PREVIOUS %]
-[%- IF document.has_tables -%]
+[%- IF document.contains_division_with_name('TABLE') -%]
 <td style="width:20%;font-size:8pt;text-align:left">
 <a href="[%document_id%].tables.html">&lt; List of Tables</a>
 </td>
@@ -36,12 +36,12 @@ document_title_element = library.get_first_property_value_element(document_id,'t
 </td>
 
 [%# NEXT %]
-[%- IF document.has_attachments -%]
+[%- IF document.contains_division_with_name('ATTACHMENT') -%]
 <td style="width:20%;font-size:8pt;text-align:right">
 <a href="[%document_id%].attachments.html">List of Attachments &gt;</a>
 </td>
 
-[%- ELSIF document.has_listings -%]
+[%- ELSIF document.contains_division_with_name('LISTING') -%]
 <td style="width:20%;font-size:8pt;text-align:right">
 <a href="[%document_id%].listings.html">List of Listings &gt;</a>
 </td>
@@ -75,7 +75,7 @@ page           = document_id _ '.' _ section_number _ '.html'
 </a></h4>
 [%- END %]
 
-[%- IF section.has_figures -%]
+[%- IF section.contains_division_with_name('FIGURE') -%]
 [%- FOREACH figure IN section.get_figure_list -%]
 [%-
 
