@@ -84,8 +84,8 @@ __END__
 
 =head1 NAME
 
-C<SML::Section> - an element of document structure, that begins with a
-section heading, and contains information about a specific topic.
+C<SML::Section> - an element of document structure that begins with a
+section heading and contains information about a specific topic.
 
 =head1 VERSION
 

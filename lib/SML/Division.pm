@@ -275,31 +275,6 @@ sub has_attribute {
 
 ######################################################################
 
-sub get_division_list {
-
-  # Return an ordered list of divisions within this one.  Recurse to
-  # provide a complete ordered sequence of divisions, depth first.
-
-  my $self = shift;
-
-  my $list = [];                        # division list
-
-  no warnings 'recursion';
-
-  foreach my $part (@{ $self->get_part_list })
-    {
-      if ( $part->isa('SML::Division') )
-	{
-	  push @{ $list }, $part;
-	  push @{ $list }, @{ $part->get_division_list };
-	}
-    }
-
-  return $list;
-}
-
-######################################################################
-
 sub contains_division_with_name {
 
   # Return 1 if this division contains one or more divisions with the
@@ -323,7 +298,7 @@ sub contains_division_with_name {
   my $library  = $self->get_library;
   my $ontology = $library->get_ontology;
 
-  unless ( $ontology->allows_entity($name) )
+  unless ( $ontology->allows_division_name($name) )
     {
       $logger->error("CAN'T DETERMINE IF DIVISION CONTAINS ANOTHER, \'$name\' NOT ALLOWED");
       return 0;
@@ -435,6 +410,31 @@ sub get_list_of_elements_with_name {
       if ( $element_name eq $name )
 	{
 	  push @{ $list }, $element;
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
+
+sub get_division_list {
+
+  # Return an ordered list of divisions within this one.  Recurse to
+  # provide a complete ordered sequence of divisions, depth first.
+
+  my $self = shift;
+
+  my $list = [];                        # division list
+
+  no warnings 'recursion';
+
+  foreach my $part (@{ $self->get_part_list })
+    {
+      if ( $part->isa('SML::Division') )
+	{
+	  push @{ $list }, $part;
+	  push @{ $list }, @{ $part->get_division_list };
 	}
     }
 

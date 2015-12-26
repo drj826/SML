@@ -16,7 +16,7 @@ ontology = library.get_ontology
 
 [%- FOREACH entity_name IN ontology.get_entity_name_list -%]
   [%-
-  entity_class = ontology.get_class_for_entity_name(entity_name)
+  entity_class = ontology.get_class_for_division_name(entity_name)
   -%]
 <h2 style="background-color:#eeeeee;padding:10px;" id="[%entity_name%]">[%entity_name%]</h2>
 

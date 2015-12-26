@@ -1569,7 +1569,7 @@ sub _extract_data_segment_lines {
 	     and
 	     $text =~ /$syntax->{element}/
 	     and
-	     not $ontology->allows_property($divname,$1)
+	     not $ontology->allows_property_name_in_division_name($1,$divname)
 	    )
 	{
 	  return $data_segment_lines;
@@ -1580,7 +1580,7 @@ sub _extract_data_segment_lines {
 	     and
 	     $text =~ /$syntax->{element}/
 	     and
-	     $ontology->allows_property($divname,$1)
+	     $ontology->allows_property_name_in_division_name($1,$divname)
 	    )
 	{
 	  $in_data_segment_element = 1;
@@ -1660,7 +1660,7 @@ sub _extract_narrative_lines {
 	     and
 	     $in_data_segment
 	     and
-	     not $ontology->allows_property($divname,$1)
+	     not $ontology->allows_property_name_in_division_name($1,$divname)
 	    )
 	{
 	  $in_data_segment = 0;
@@ -1672,7 +1672,7 @@ sub _extract_narrative_lines {
 	     and
 	     $in_data_segment
 	     and
-	     $ontology->allows_property($divname,$1)
+	     $ontology->allows_property_name_in_division_name($1,$divname)
 	    )
 	{
 	  $in_data_segment_element = 1;
@@ -1766,7 +1766,7 @@ sub _create_empty_division {
   my $name     = $self->_extract_division_name($line_list);
   my $id       = $self->_extract_division_id($line_list);
   my $ontology = $library->get_ontology;
-  my $class    = $ontology->get_class_for_entity_name($name);
+  my $class    = $ontology->get_class_for_division_name($name);
 
   if ( $name eq 'SECTION' )
     {
@@ -5930,7 +5930,7 @@ sub _process_start_division_marker {
   my $ontology = $library->get_ontology;
   my $num      = $library->increment_division_count($name);
 
-  unless ( $ontology->allows_division($name) )
+  unless ( $ontology->allows_division_name($name) )
     {
       my $msg = "UNDEFINED DIVISION at $location: \"$name\"";
       $logger->logdie("$msg");
@@ -5951,7 +5951,7 @@ sub _process_start_division_marker {
       $id = "$name-$num";
     }
 
-  my $class = $ontology->get_class_for_entity_name($name);
+  my $class = $ontology->get_class_for_division_name($name);
 
   my $division = $class->new
     (
@@ -6248,7 +6248,7 @@ sub _process_start_element {
     (
      $self->_in_data_segment
      and
-     $ontology->allows_property($divname,$name)
+     $ontology->allows_property_name_in_division_name($name,$divname)
     )
     {
       $logger->trace("{$number} ..... DATA element ($name)");
@@ -6261,7 +6261,7 @@ sub _process_start_element {
     (
      $self->_in_data_segment
      and
-     $ontology->allows_property('UNIVERSAL',$name)
+     $ontology->allows_property_name_in_division_name($name,'UNIVERSAL')
     )
     {
       $logger->trace("{$number} ..... UNIVERSAL element in DATA SEGMENT");
@@ -6280,7 +6280,7 @@ sub _process_start_element {
     (
      $self->_in_data_segment
      and
-     $ontology->allows_property('DOCUMENT',$name)
+     $ontology->allows_property_name_in_division_name($name,'DOCUMENT')
     )
     {
       $logger->trace("{$number} ..... begin document DATA SEGMENT element");
@@ -6293,7 +6293,7 @@ sub _process_start_element {
     (
      $self->_in_data_segment
      and
-     $ontology->allows_property('UNIVERSAL',$name)
+     $ontology->allows_property_name_in_division_name($name,'UNIVERSAL')
     )
     {
       $logger->trace("{$number} ..... begin UNIVERSAL element while in DATA SEGMENT");
@@ -12349,14 +12349,16 @@ sub _validate_required_properties {
       $seen->{$property_name} = 1;
     }
 
-  # Validate that all required properties are declared
-  # foreach my $required ( keys %{ $ontology->get_required_properties_hash->{$divname} } )
-  foreach my $required (@{ $ontology->get_required_property_list($divname) })
+  # Validate that all required properties are defined
+
+  my $required_property_name_list = $ontology->get_list_of_required_property_names_for_division_name($divname);
+
+  foreach my $required_property_name (@{ $required_property_name_list })
     {
-      if ( not $seen->{$required} )
+      if ( not $seen->{$required_property_name} )
 	{
 	  my $location = $division->get_location;
-	  $logger->warn("MISSING REQUIRED PROPERTY $divname $divid requires \'$required\' at $location");
+	  $logger->warn("MISSING REQUIRED PROPERTY $divname $divid requires \'$required_property_name\' at $location");
 	  $valid = 0;
 	}
     }

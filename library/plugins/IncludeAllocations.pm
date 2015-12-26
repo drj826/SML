@@ -20,6 +20,8 @@ my $logger = Log::Log4perl::get_logger('sml.plugin');
 ######################################################################
 ######################################################################
 
+# NONE.
+
 ######################################################################
 ######################################################################
 ##
@@ -35,7 +37,7 @@ sub render {
   my $library  = $self->_get_library;
   my $ontology = $library->get_ontology;
 
-  unless ( $ontology->allows_entity('allocation') )
+  unless ( $ontology->allows_division_name('allocation') )
     {
       $logger->fatal("ONTOLOGY DOES NOT ALLOW allocations");
       return [];
@@ -78,6 +80,8 @@ has library =>
 ##
 ######################################################################
 ######################################################################
+
+# NONE.
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

@@ -3263,9 +3263,10 @@ sub BUILD {
 		  my $name = $1;
 
 		  # validate the ontology allows this division name
-		  if ( not $ontology->allows_division($name) )
+		  unless ( $ontology->allows_division_name($name) )
 		    {
-	      $logger->logdie("UNKNOWN DIVISION \'$name\' IN \'$filespec\'");
+		      $logger->logdie("UNKNOWN DIVISION \'$name\' IN \'$filespec\'");
+		      return 0;
 		    }
 
 		  ++ $division_count->{$name};

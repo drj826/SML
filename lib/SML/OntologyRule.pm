@@ -30,6 +30,8 @@ has id =>
    required => 1,
   );
 
+# Unique identifier of this ontology rule.
+
 ######################################################################
 
 has ontology =>
@@ -62,11 +64,11 @@ has rule_type =>
 
 ######################################################################
 
-has entity_name =>
+has division_name =>
   (
    is       => 'ro',
    isa      => 'Str',
-   reader   => 'get_entity_name',
+   reader   => 'get_division_name',
    required => 1,
   );
 
@@ -164,13 +166,13 @@ sub BUILD {
 
   my $self = shift;
 
-  my $ontology    = $self->get_ontology;
-  my $library     = $ontology->get_library;
-  my $syntax      = $library->get_syntax;
-  my $id          = $self->get_id;
-  my $rule_type   = $self->get_rule_type;
-  my $entity_name = $self->get_entity_name;
-  my $cardinality = $self->get_cardinality;
+  my $ontology      = $self->get_ontology;
+  my $library       = $ontology->get_library;
+  my $syntax        = $library->get_syntax;
+  my $id            = $self->get_id;
+  my $rule_type     = $self->get_rule_type;
+  my $division_name = $self->get_division_name;
+  my $cardinality   = $self->get_cardinality;
 
   # validate rule type
   unless ( $rule_type =~ /$syntax->{valid_ontology_rule_type}/xms )
@@ -190,9 +192,9 @@ sub BUILD {
       $rule_type eq 'def'
      )
     {
-      unless ( $ontology->has_entity_with_name($entity_name) )
+      unless ( $ontology->has_division_with_name($division_name) )
 	{
-	  $logger->warn("INVALID DIVISION IN ONTOLOGY RULE \'$entity_name\' in \'$id\'");
+	  $logger->warn("INVALID DIVISION IN ONTOLOGY RULE \'$division_name\' in \'$id\'");
 	  return 0;
 	}
     }
@@ -245,7 +247,7 @@ rule).
 
 =head2 get_rule_type
 
-=head2 get_entity_name
+=head2 get_division_name
 
 =head2 get_property_name
 

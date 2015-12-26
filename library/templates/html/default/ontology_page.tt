@@ -16,15 +16,23 @@ ontology = library.get_ontology
 
 [%- FOREACH entity_name IN ontology.get_entity_name_list -%]
   [%-
-  entity_class = ontology.get_class_for_entity_name(entity_name)
+  entity_class = ontology.get_class_for_division_name(entity_name)
   -%]
 <h2 style="background-color:#eeeeee;padding:10px;" id="[%entity_name%]">[%entity_name%]</h2>
 
 <table>
 
 <tr>
-<td style="width:10%">class:</td>
+<td style="width:15%">class:</td>
 <td>[%entity_class%]</td>
+</tr>
+
+<tr>
+<td>required properties:</td>
+<td>
+[%- required_property_list = ontology.get_list_of_required_property_names_for_division_name(entity_name) -%]
+[%required_property_list.join(', ')%]
+</td>
 </tr>
 
 <tr>
@@ -52,7 +60,9 @@ ontology = library.get_ontology
 <td style="font-weight:bold;">imply only?</td>
 </tr>
 
-[%- FOREACH property_name IN ontology.get_entity_allowed_property_list(entity_name) -%]
+[%- property_name_list = ontology.get_list_of_allowed_property_names_for_division_name(entity_name) -%]
+
+[%- FOREACH property_name IN property_name_list -%]
   [%-
   allowed_value_list = ontology.get_allowed_property_value_list(entity_name,property_name)
   object_name_list   = ontology.get_allowed_property_object_name_list(entity_name,property_name)
@@ -94,15 +104,23 @@ ontology = library.get_ontology
 
 [%- FOREACH structure_name IN ontology.get_structure_name_list -%]
   [%-
-  structure_class = ontology.get_class_for_entity_name(structure_name)
+  structure_class = ontology.get_class_for_division_name(structure_name)
   -%]
 <h2 style="background-color:#eeeeee;padding:10px;" id="[%structure_name%]">[%structure_name%]</h2>
 
 <table>
 
 <tr>
-<td style="width:10%">class:</td>
+<td style="width:15%">class:</td>
 <td>[%structure_class%]</td>
+</tr>
+
+<tr>
+<td>required properties:</td>
+<td>
+[%- required_property_list = ontology.get_list_of_required_property_names_for_division_name(structure_name) -%]
+[%required_property_list.join(', ')%]
+</td>
 </tr>
 
 <tr>
@@ -130,7 +148,9 @@ ontology = library.get_ontology
 <td style="font-weight:bold;">imply only?</td>
 </tr>
 
-[%- FOREACH property_name IN ontology.get_entity_allowed_property_list(structure_name) -%]
+[%- property_name_list = ontology.get_list_of_allowed_property_names_for_division_name(structure_name) -%]
+
+[%- FOREACH property_name IN property_name_list -%]
   [%-
   allowed_value_list = ontology.get_allowed_property_value_list(structure_name,property_name)
   object_name_list   = ontology.get_allowed_property_object_name_list(structure_name,property_name)

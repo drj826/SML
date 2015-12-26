@@ -4242,7 +4242,7 @@ sub _build_ontology_test_case_list {
        '../library/ontology_rules_sml.conf',
        '../library/ontology_rules_lib.conf',
       ],
-      entity_name => 'problem',
+      division_name => 'problem',
       environment_name => 'TABLE',
       property_name => 'status',
       property_value => 'green',
@@ -4260,7 +4260,7 @@ sub _build_ontology_test_case_list {
 	'yellow',
 	'red',
        ],
-       get_entity_allowed_property_list =>
+       get_list_of_allowed_property_names_for_division_name =>
        [
 	'allocation',
 	'assignee',
@@ -4334,14 +4334,14 @@ sub _build_ontology_test_case_list {
        get_rule_for => 'SML::OntologyRule',
        get_rule_with_id => 'SML::OntologyRule',
        get_class_for_entity_name => 'SML::Entity',
-       get_required_property_list =>
+       get_list_of_required_property_names_for_division_name =>
        [
 	'description',
 	'id',
 	'title',
 	'type',
        ],
-       has_entity_with_name => 1,
+       has_division_with_name => 1,
        allows_entity => 1,
        allows_region => 1,
        allows_environment => 1,
@@ -4359,7 +4359,7 @@ sub _build_ontology_test_case_list {
        'library/ontology_rules_sml.conf',
        'library/ontology_rules_lib.conf',
       ],
-      entity_name => 'bogus',
+      division_name => 'bogus',
       property_name => 'bogus',
       property_value => 'bogus',
       environment_name => 'bogus',
@@ -4367,7 +4367,7 @@ sub _build_ontology_test_case_list {
       division_b => 'TABLE',
       expected =>
       {
-       has_entity_with_name => 0,
+       has_division_with_name => 0,
        allows_entity => 0,
        allows_region => 0,
        allows_environment => 0,
@@ -4385,7 +4385,7 @@ sub _build_ontology_test_case_list {
        'library/ontology_rules_sml.conf',
        'library/ontology_rules_lib.conf',
       ],
-      entity_name => 'problem',
+      division_name => 'problem',
       property_name => 'status',
       property_value => 'pink',
       expected =>
@@ -4420,7 +4420,7 @@ sub _build_ontology_test_case_list {
        'library/ontology_rules_sml.conf',
        'library/ontology_rules_lib.conf',
       ],
-      entity_name => 'problem',
+      division_name => 'problem',
       property_name => 'has_part',
       expected =>
       {

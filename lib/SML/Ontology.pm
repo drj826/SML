@@ -44,102 +44,54 @@ has library =>
 ######################################################################
 ######################################################################
 
-sub add_rules_from_file {
-
-  my $self      = shift;
-  my $file_list = shift;                # list of rules files
-
-  if ( not ref $file_list eq 'ARRAY' )
-    {
-      $logger->logcluck("NOT A LIST $file_list");
-      return 0;
-    }
-
-  my $result = 1;
-
-  foreach my $filespec (@{ $file_list })
-    {
-      my $outcome = $self->_read_rule_file($filespec);
-
-      if ( $outcome == 0 )
-	{
-	  $result = 0;
-	}
-    }
-
-  return $result;
-}
-
-######################################################################
-
 sub get_allowed_property_value_list {
 
-  # Given an entity name and a property name, return a list of allowed
-  # property values as defined in enumerated value rules.
+  # Return a list of allowed property values (as defined in the
+  # enumerated value rules) for the specified division name and a
+  # property name.  For instance, return a list of allowed values for
+  # DOCUMENT state (DRAFT, REVIEW, APPROVED).
 
   my $self          = shift;
-  my $entity_name   = shift;
+  my $division_name = shift;
   my $property_name = shift;
 
-  return $self->_get_allowed_property_values_hash->{$entity_name}{$property_name};
+  my $hash = $self->_get_allowed_property_values_hash;
+
+  return $hash->{$division_name}{$property_name};
 }
 
 ######################################################################
 
 sub get_allowed_property_object_name_list {
 
+  # Return a list of allowed property object names for the specified
+  # division name and property name.
+
   my $self          = shift;
-  my $entity_name   = shift;
+  my $division_name = shift;
   my $property_name = shift;
 
   my $hash = $self->_get_property_rules_lookup_hash;
 
-  return [ sort keys %{ $hash->{$entity_name}{$property_name} }];
-}
-
-######################################################################
-
-sub get_entity_allowed_property_list {
-
-  my $self        = shift;
-  my $entity_name = shift;
-
-  if ( not $entity_name )
-    {
-      $logger->logcluck("YOU MUST PROVIDE AN ENTITY NAME");
-    }
-
-  my $href = $self->_get_properties_by_entity_name_hash->{$entity_name};
-
-  if ( not defined $href )
-    {
-      return [];
-    }
-
-  if ( not scalar keys %{ $href } )
-    {
-      return [];
-    }
-
-  return [ sort keys %{ $href } ];
+  return [ sort keys %{ $hash->{$division_name}{$property_name} }];
 }
 
 ######################################################################
 
 sub get_rule_for {
 
-  # Return the rule for (1) the entity named $entity_name, (2) the
+  # Return the rule for (1) the entity named $division_name, (2) the
   # property named $property_name, and (3) that has an optional
   # inverse entity named $inverse_entity_name.
 
   my $self          = shift;
-  my $entity_name   = shift;
+  my $division_name = shift;
   my $property_name = shift;
   my $name_or_value = shift;
 
   my $prl = $self->_get_property_rules_lookup_hash;
 
-  my $rule = $prl->{$entity_name}{$property_name}{$name_or_value} || q{};
+  my $rule = $prl->{$division_name}{$property_name}{$name_or_value} || q{};
 
   return $rule;
 }
@@ -173,6 +125,12 @@ sub get_rule_with_id {
   my $self    = shift;
   my $rule_id = shift;
 
+  unless ( $rule_id )
+    {
+      $logger->error("CAN'T GET RULE WITH ID, MISSING ARGUMENT");
+      return 0;
+    }
+
   my $hash = $self->_get_rule_hash;
   my $rule = $hash->{$rule_id};
 
@@ -190,37 +148,76 @@ sub get_rule_with_id {
 
 ######################################################################
 
-sub get_class_for_entity_name {
+# OLD: sub get_class_for_entity_name {
 
-  my $self        = shift;
-  my $entity_name = shift;
+sub get_class_for_division_name {
 
-  my $tbenh = $self->_get_types_by_entity_name_hash;
+  my $self = shift;
+  my $name = shift;
 
-  if ( exists $tbenh->{$entity_name} )
+  unless ( $name )
     {
-      return $tbenh->{$entity_name};
-    }
-
-  else
-    {
-      $logger->error("THERE IS NO CLASS FOR ENTITY NAME \'$entity_name\'");
+      $logger->error("CAN'T GET CLASS FOR DIVISION NAME, MISSING ARGUMENT");
       return 0;
     }
+
+  my $hash = $self->_get_types_by_division_name_hash;
+
+  unless ( exists $hash->{$name} )
+    {
+      $logger->error("THERE IS NO CLASS FOR DIVISION NAME \'$name\'");
+      return 0;
+    }
+
+  return $hash->{$name};
 }
 
 ######################################################################
 
-sub get_required_property_list {
+sub get_list_of_allowed_property_names_for_division_name {
 
-  my $self    = shift;
-  my $divname = shift;
+  my $self = shift;
+  my $name = shift;
 
-  my $rph = $self->_get_required_properties_hash;
-
-  if ( exists $rph->{$divname} )
+  if ( not $name )
     {
-      return [ sort keys %{ $rph->{$divname} } ]
+      $logger->logcluck("CAN'T GET LIST OF ALLOWED PROPERTY NAMES FOR DIVISION NAME, MISSING ARGUMENT");
+      return 0;
+    }
+
+  my $href = $self->_get_properties_by_division_name_hash->{$name};
+
+  if ( not defined $href )
+    {
+      return [];
+    }
+
+  if ( not scalar keys %{ $href } )
+    {
+      return [];
+    }
+
+  return [ sort keys %{ $href } ];
+}
+
+######################################################################
+
+sub get_list_of_required_property_names_for_division_name {
+
+  my $self          = shift;
+  my $division_name = shift;
+
+  unless ( $division_name )
+    {
+      $logger->error("CAN'T GET LIST OF REQUIRED PROPERTY NAMES FOR DIVISION NAME, MISSING ARGUMENT");
+      return 0;
+    }
+
+  my $hash = $self->_get_required_properties_hash;
+
+  if ( exists $hash->{$division_name} )
+    {
+      return [ sort keys %{ $hash->{$division_name} } ]
     }
 
   else
@@ -231,27 +228,27 @@ sub get_required_property_list {
 
 ######################################################################
 
-sub has_entity_with_name {
+sub has_division_with_name {
 
   # If, DURING the reading of rule files you need to know whether an
-  # entity with a specified name has been defined use THIS method.
+  # division with a specified name has been defined use THIS method.
   #
   # Notice that this method loops through the rule hash to determine
-  # whether the ontology defines an entity with the specified name.
+  # whether the ontology defines an division with the specified name.
   # The rule hash is built bit by bit as the rule files are read.
   # This means this method will return an answer based on the rules
   # read SO FAR.
 
-  my $self        = shift;
-  my $entity_name = shift;
+  my $self = shift;
+  my $name = shift;
 
   my $hash = $self->_get_rule_hash;
 
   foreach my $rule ( values %{ $hash } )
     {
-      my $name = $rule->get_entity_name;
+      my $division_name = $rule->get_division_name;
 
-      if ( $name eq $entity_name )
+      if ( $division_name eq $name )
 	{
 	  return 1;
 	}
@@ -308,94 +305,23 @@ sub has_inverse_rule_for {
 
 ######################################################################
 
-sub allows_entity {
+sub allows_division_name {
 
-  # If, AFTER the reading of rule files you need to know whether an
-  # entity with a specified name has been defined use THIS method.
-
-  my $self        = shift;
-  my $entity_name = shift;
-
-  if ( exists $self->_get_types_by_entity_name_hash->{$entity_name} )
-    {
-      return 1;
-    }
-
-  else
-    {
-      return 0;
-    }
-}
-
-######################################################################
-
-sub allows_division {
+  # Return 1 if the ontology allows the specified division name.
+  #
+  # ONLY USE AFTER the reading of rule files you need to know whether
+  # an entity with a specified name has been defined use THIS method.
 
   my $self = shift;
   my $name = shift;
 
-  if ( exists $self->_get_types_by_entity_name_hash->{$name}
-       and
-       (
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::CommentDivision'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Document'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Division'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Conditional'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Demo'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Entity'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Exercise'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Quotation'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::RESOURCES'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Slide'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Library'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Triple'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Attachment'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Audio'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Baretable'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Epigraph'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Figure'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Footer'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Header'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Keypoints'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Listing'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::PreformattedDivision'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Revisions'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Sidebar'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Source'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Table'
-	or
-	$self->_get_types_by_entity_name_hash->{$name} eq 'SML::Video'
-       )
-     )
+  my $hash = $self->_get_types_by_division_name_hash;
 
+  if ( exists $hash->{$name} )
     {
       return 1;
     }
+
   else
     {
       return 0;
@@ -404,11 +330,13 @@ sub allows_division {
 
 ######################################################################
 
-sub allows_property {
+# OLD: sub allows_property {
+
+sub allows_property_name_in_division_name {
 
   my $self          = shift;
-  my $division_name = shift;
   my $property_name = shift;
+  my $division_name = shift;
 
   if ( not $division_name )
     {
@@ -420,7 +348,7 @@ sub allows_property {
       $logger->logcluck("YOU MUST PROVIDE A PROPERTY NAME");
     }
 
-  my $list = $self->get_entity_allowed_property_list($division_name);
+  my $list = $self->get_list_of_allowed_property_names_for_division_name($division_name);
 
   if ( not $list )
     {
@@ -444,11 +372,13 @@ sub allows_composition {
 
   # Return 1 if division A is allowed within division B.
 
-  my $self   = shift;
-  my $name_a = shift;
-  my $name_b = shift;
+  my $self            = shift;
+  my $division_name_a = shift;
+  my $division_name_b = shift;
 
-  if ( defined $self->_get_allowed_compositions_hash->{$name_a}{$name_b} )
+  my $hash = $self->_get_allowed_compositions_hash;
+
+  if ( defined $hash->{$division_name_a}{$division_name_b} )
     {
       return 1;
     }
@@ -465,24 +395,27 @@ sub allows_composition {
 sub allows_property_value {
 
   my $self          = shift;
-  my $entity_name   = shift;
+  my $division_name = shift;
   my $property_name = shift;
   my $value         = shift;
 
-  my $apv = $self->_get_allowed_property_values_hash->{$entity_name}{$property_name};
+  my $hash = $self->_get_allowed_property_values_hash;
+
+  # allowed property value list
+  my $apv_list = $hash->{$division_name}{$property_name};
 
   if (
-      ( not defined $apv )
+      ( not defined $apv_list )
       or
-      ( defined $apv and not scalar @{ $apv } )
+      ( defined $apv_list and not scalar @{ $apv_list } )
      )
     {
       return 1;
     }
 
-  foreach my $allowed_value ( @{ $apv } )
+  foreach my $allowed_value ( @{ $apv_list } )
     {
-      if ( $value eq $allowed_value )
+      if ( $allowed_value eq $value )
 	{
 	  return 1;
 	}
@@ -522,12 +455,16 @@ sub allows_triple {
 
 sub property_is_universal {
 
-  my $self          = shift;
-  my $property_name = shift;
+  # Return 1 if the specified property name is universal.  That means
+  # it can appear anywhere in the text and is not restricted to
+  # certain divisions.
 
-  my $lookup = $self->_get_property_rules_lookup_hash;
+  my $self = shift;
+  my $name = shift;
 
-  if ( exists $lookup->{'UNIVERSAL'}{$property_name} )
+  my $hash = $self->_get_property_rules_lookup_hash;
+
+  if ( exists $hash->{'UNIVERSAL'}{$name} )
     {
       return 1;
     }
@@ -567,10 +504,12 @@ sub property_is_required {
 sub property_is_imply_only {
 
   my $self          = shift;
-  my $divname       = shift;
+  my $division_name = shift;
   my $property_name = shift;
 
-  if ( not $self->_get_imply_only_properties_hash->{$divname}{$property_name} )
+  my $hash = $self->_get_imply_only_properties_hash;
+
+  unless ( $hash->{$division_name}{$property_name} )
     {
       return 0;
     }
@@ -586,10 +525,17 @@ sub property_allows_cardinality {
   # property.
 
   my $self          = shift;
-  my $divname       = shift;
+  my $division_name = shift;
   my $property_name = shift;
 
-  return $self->_get_cardinality_of_properties_hash->{$divname}{$property_name};
+  my $hash = $self->_get_cardinality_of_properties_hash;
+
+  if ( exists $hash->{$division_name}{$property_name} )
+    {
+      return $hash->{$division_name}{$property_name};
+    }
+
+  return 0;
 }
 
 ######################################################################
@@ -602,7 +548,7 @@ sub get_entity_name_list {
   my $self = shift;
 
   my $list  = [];
-  my $tbenh = $self->_get_types_by_entity_name_hash;
+  my $tbenh = $self->_get_types_by_division_name_hash;
 
   foreach my $name ( sort keys %{ $tbenh } )
     {
@@ -627,7 +573,13 @@ sub get_structure_name_list {
   my $self = shift;
 
   my $list  = [];
-  my $tbenh = $self->_get_types_by_entity_name_hash;
+  my $tbenh = $self->_get_types_by_division_name_hash;
+
+  # !!! BUG HERE !!!
+  #
+  # This should check for values equal to SML::Structure rather than
+  # values NOT equal to SML::Entity (but SML::Structure doesn't exist
+  # yet).
 
   foreach my $name ( sort keys %{ $tbenh } )
     {
@@ -712,29 +664,29 @@ has rule_hash =>
 
 ######################################################################
 
-has types_by_entity_name_hash =>
+has types_by_division_name_hash =>
   (
    is        => 'ro',
    isa       => 'HashRef',
-   reader    => '_get_types_by_entity_name_hash',
+   reader    => '_get_types_by_division_name_hash',
    lazy      => 1,
-   builder   => '_build_types_by_entity_name_hash',
+   builder   => '_build_types_by_division_name_hash',
   );
 
-# $hash->{$entity_name} = $value_type;
+# $hash->{$division_name} = $value_type;
 
 ######################################################################
 
-has properties_by_entity_name_hash =>
+has properties_by_division_name_hash =>
   (
    is        => 'ro',
    isa       => 'HashRef',
-   reader    => '_get_properties_by_entity_name_hash',
+   reader    => '_get_properties_by_division_name_hash',
    lazy      => 1,
-   builder   => '_build_properties_by_entity_name_hash',
+   builder   => '_build_properties_by_division_name_hash',
   );
 
-# $hash->{$entity_name}{$property_name} = 1;
+# $hash->{$division_name}{$property_name} = 1;
 
 ######################################################################
 
@@ -747,7 +699,7 @@ has property_rules_lookup_hash =>
    builder   => '_build_property_rules_lookup_hash',
   );
 
-# $hash->{$entity_name}{$property_name}{$name_or_value} = $ontology_rule;
+# $hash->{$division_name}{$property_name}{$name_or_value} = $ontology_rule;
 
 ######################################################################
 
@@ -760,7 +712,7 @@ has allowed_property_values_hash =>
    builder   => '_build_allowed_property_values_hash',
   );
 
-# $hash->{$entity_name}{$property_name} = $value_list
+# $hash->{$division_name}{$property_name} = $value_list
 
 ######################################################################
 
@@ -786,7 +738,7 @@ has imply_only_properties_hash =>
    builder   => '_build_imply_only_properties_hash',
   );
 
-# $hash->{$entity_name}{$property_name} = 1;
+# $hash->{$division_name}{$property_name} = 1;
 
 ######################################################################
 
@@ -799,7 +751,7 @@ has cardinality_of_properties_hash =>
    builder   => '_build_cardinality_of_properties_hash',
   );
 
-# $hash->{$entity_name}{$property_name} = $cardinality;
+# $hash->{$division_name}{$property_name} = $cardinality;
 
 ######################################################################
 
@@ -812,7 +764,7 @@ has required_properties_hash =>
    builder   => '_build_required_properties_hash',
   );
 
-# $hash->{$entity_name}{$property_name} = 1;
+# $hash->{$division_name}{$property_name} = 1;
 
 ######################################################################
 ######################################################################
@@ -887,7 +839,7 @@ sub _build_builtin_rules {
     {
       my $rule_id         = $rule->[0];
       my $rule_type       = $rule->[1];
-      my $entity_name     = $rule->[2];
+      my $division_name   = $rule->[2];
       my $property_name   = $rule->[3];
       my $value_type      = $rule->[4];
       my $name_or_value   = $rule->[5];
@@ -901,7 +853,7 @@ sub _build_builtin_rules {
 	 ontology        => $self,
 	 id              => $rule_id,
 	 rule_type       => $rule_type,
-	 entity_name     => $entity_name,
+	 division_name   => $division_name,
 	 property_name   => $property_name,
 	 value_type      => $value_type,
 	 name_or_value   => $name_or_value,
@@ -960,7 +912,7 @@ sub _read_rule_file {
 
       my $rule_id         = $util->trim_whitespace( $field->[0] );
       my $rule_type       = $util->trim_whitespace( $field->[1] );
-      my $entity_name     = $util->trim_whitespace( $field->[2] );
+      my $division_name   = $util->trim_whitespace( $field->[2] );
       my $property_name   = $util->trim_whitespace( $field->[3] );
       my $value_type      = $util->trim_whitespace( $field->[4] );
       my $name_or_value   = $util->trim_whitespace( $field->[5] );
@@ -974,7 +926,7 @@ sub _read_rule_file {
 	 ontology        => $self,
 	 id              => $rule_id,
 	 rule_type       => $rule_type,
-	 entity_name     => $entity_name,
+	 division_name   => $division_name,
 	 property_name   => $property_name,
 	 value_type      => $value_type,
 	 name_or_value   => $name_or_value,
@@ -1013,7 +965,7 @@ sub _add_rule {
 
 ######################################################################
 
-sub _build_properties_by_entity_name_hash {
+sub _build_properties_by_division_name_hash {
 
   my $self = shift;
 
@@ -1029,10 +981,10 @@ sub _build_properties_by_entity_name_hash {
 	  next;
 	}
 
-      my $rule_entity_name   = $rule->get_entity_name;
+      my $rule_division_name = $rule->get_division_name;
       my $rule_property_name = $rule->get_property_name;
 
-      $pbenh->{$rule_entity_name}{$rule_property_name} = 1;
+      $pbenh->{$rule_division_name}{$rule_property_name} = 1;
 
     }
 
@@ -1041,7 +993,7 @@ sub _build_properties_by_entity_name_hash {
 
 ######################################################################
 
-sub _build_types_by_entity_name_hash {
+sub _build_types_by_division_name_hash {
 
   my $self = shift;
 
@@ -1057,10 +1009,10 @@ sub _build_types_by_entity_name_hash {
 	  next;
 	}
 
-      my $entity_name = $rule->get_entity_name;
-      my $value_type  = $rule->get_value_type;
+      my $division_name = $rule->get_division_name;
+      my $value_type    = $rule->get_value_type;
 
-      $tbenh->{$entity_name} = $value_type;
+      $tbenh->{$division_name} = $value_type;
     }
 
   return $tbenh;
@@ -1084,11 +1036,11 @@ sub _build_property_rules_lookup_hash {
 	  next;
 	}
 
-      my $entity_name   = $rule->get_entity_name   || q{};
+      my $division_name = $rule->get_division_name   || q{};
       my $property_name = $rule->get_property_name || q{};
       my $name_or_value = $rule->get_name_or_value || q{};
 
-      $prlh->{$entity_name}{$property_name}{$name_or_value} = $rule;
+      $prlh->{$division_name}{$property_name}{$name_or_value} = $rule;
     }
 
   return $prlh;
@@ -1112,7 +1064,7 @@ sub _build_allowed_property_values_hash {
 	  next;
 	}
 
-      my $entity_name   = $rule->get_entity_name;
+      my $division_name = $rule->get_division_name;
       my $property_name = $rule->get_property_name;
       my $value         = $rule->get_name_or_value;
 
@@ -1122,12 +1074,12 @@ sub _build_allowed_property_values_hash {
       # 3-dimensional hash.  The third dimension should be the allowed
       # property value and the hash value should be a boolean (1);
 
-      if ( not defined $apvh->{$entity_name} )
+      if ( not defined $apvh->{$division_name} )
 	{
-	  $apvh->{$entity_name}{$property_name} = [];
+	  $apvh->{$division_name}{$property_name} = [];
 	}
 
-      push @{ $apvh->{$entity_name}{$property_name} }, $value;
+      push @{ $apvh->{$division_name}{$property_name} }, $value;
     }
 
   return $apvh;
@@ -1151,7 +1103,7 @@ sub _build_allowed_compositions_hash {
 	  next;
 	}
 
-      my $container_name = $rule->get_entity_name;
+      my $container_name = $rule->get_division_name;
       my $containee_name = $rule->get_name_or_value;
 
       $ach->{$containee_name}{$container_name} = 1;
@@ -1183,10 +1135,10 @@ sub _build_imply_only_properties_hash {
 
       if ( $rule->is_imply_only )
 	{
-	  my $entity_name   = $rule->get_entity_name;
+	  my $division_name = $rule->get_division_name;
 	  my $property_name = $rule->get_property_name;
 
-	  $ioph->{$entity_name}{$property_name} = 1;
+	  $ioph->{$division_name}{$property_name} = 1;
 	}
     }
 
@@ -1214,11 +1166,11 @@ sub _build_cardinality_of_properties_hash {
 	  next;
 	}
 
-      my $entity_name   = $rule->get_entity_name;
+      my $division_name = $rule->get_division_name;
       my $property_name = $rule->get_property_name;
       my $cardinality   = $rule->get_cardinality;
 
-      $coph->{$entity_name}{$property_name} = $cardinality;
+      $coph->{$division_name}{$property_name} = $cardinality;
 
     }
 
@@ -1247,10 +1199,10 @@ sub _build_required_properties_hash {
 
       if ( $rule->is_required )
 	{
-	  my $entity_name   = $rule->get_entity_name;
+	  my $division_name = $rule->get_division_name;
 	  my $property_name = $rule->get_property_name;
 
-	  $rph->{$entity_name}{$property_name} = 1;
+	  $rph->{$division_name}{$property_name} = 1;
 	}
     }
 
