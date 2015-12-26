@@ -3794,7 +3794,7 @@ sub _generate_section_numbers {
       return 0;
     }
 
-  my $section_list    = $division->get_section_list;
+  my $section_list = $division->get_list_of_divisions_with_name('SECTION');
 
   foreach my $section (@{ $section_list }) {
 
@@ -3874,7 +3874,7 @@ sub _generate_division_numbers {
     next if $division->isa('SML::Document'); # skip document division
     next if $division->isa('SML::Section');  # skip section division
 
-    my $section = $division->get_section;
+    my $section = $division->get_containing_section;
 
     if ($section) {
       my $name       = $division->get_name;

@@ -18,14 +18,14 @@ sha         = sha_digest.substr(0,7)
 <font color="#888888">v[%version%]</font><br/>
 [%- END -%]
 
-[%- IF library.has_property(document_id,'revision') -%]
-[%- revision = library.get_first_property_value(document_id,'revision') -%]
-<font color="#888888">r[%revision%]</font><br/>
-[%- END -%]
-
 [%- IF library.has_property(document_id,'date') -%]
 [%- date = library.get_first_property_value(document_id,'date') -%]
 <font color="#888888">[%date%]</font><br/>
+[%- END -%]
+
+[%- IF library.has_property(document_id,'revision') -%]
+[%- revision = library.get_first_property_value(document_id,'revision') -%]
+<font color="#888888">r[%revision%]</font><br/>
 [%- END -%]
 
 <font color="#888888">SHA [%sha%]</font>

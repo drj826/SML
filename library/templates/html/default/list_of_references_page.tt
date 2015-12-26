@@ -6,9 +6,9 @@ document => an SML::Document object
 [%-
 
 library                = document.get_library
-source_list            = document.get_source_list
 document_id            = document.get_id
 document_title_element = library.get_first_property_value_element(document_id,'title')
+source_list            = document.get_list_of_divisions_with_name('SOURCE')
 
 -%]
 [%- WRAPPER document_page.tt -%]

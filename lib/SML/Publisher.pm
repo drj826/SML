@@ -371,7 +371,9 @@ sub _publish_html_document {
 
   if ( $document->contains_division_with_name('SECTION') )
     {
-      foreach my $section (@{ $document->get_section_list })
+      my $section_list = $document->get_list_of_divisions_with_name('SECTION');
+
+      foreach my $section (@{ $section_list })
 	{
 	  my $num     = $section->get_number;
 	  my $outfile = "$id.$num.html";
@@ -559,17 +561,21 @@ sub _publish_html_document {
 	}
     }
 
-  if ( $document->has_images )
+  if ( $document->contains_element_with_name('image') )
     {
-      foreach my $image (@{ $document->get_image_list })
+      my $image_list = $document->get_list_of_elements_with_name('image');
+
+      foreach my $image (@{ $image_list })
 	{
 	  $self->_publish_html_image($document,$image);
 	}
     }
 
-  if ( $document->has_files )
+  if ( $document->contains_element_with_name('file') )
     {
-      foreach my $file (@{ $document->get_file_list })
+      my $file_list = $document->get_list_of_elements_with_name('file');
+
+      foreach my $file (@{ $file_list })
 	{
 	  $self->_publish_html_file($document,$file);
 	}

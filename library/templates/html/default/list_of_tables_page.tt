@@ -8,6 +8,7 @@ document => an SML::Document object
 library                = document.get_library
 document_id            = document.get_id
 document_title_element = library.get_first_property_value_element(document_id,'title')
+section_list           = document.get_list_of_divisions_with_name('SECTION')
 
 -%]
 [%- WRAPPER document_page.tt -%]
@@ -54,7 +55,7 @@ document_title_element = library.get_first_property_value_element(document_id,'t
 
 <h2 align="center">List of Tables</h2>
 
-[%- FOREACH section IN document.get_section_list -%]
+[%- FOREACH section IN section_list -%]
 
 [%-
 
@@ -73,7 +74,8 @@ page           = document_id _ '.' _ section_number _ '.html'
 [%- END %]
 
 [%- IF section.contains_division_with_name('TABLE') -%]
-[%- FOREACH table IN section.get_table_list -%]
+[%- table_list = section.get_list_of_divisions_with_name('TABLE') -%]
+[%- FOREACH table IN table_list -%]
 [%-
 
 table_number = table.get_number

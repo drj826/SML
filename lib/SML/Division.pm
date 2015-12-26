@@ -221,21 +221,7 @@ sub add_attribute {
 
 ######################################################################
 
-sub add_image {
-
-  my $self  = shift;
-  my $image = shift;
-
-  my $image_list = $self->get_image_list;
-
-  push(@{ $image_list },$image);
-
-  return 1;
-}
-
-######################################################################
-
-sub contains_division {
+sub contains_division_with_id {
 
   # Return 1 if the division contains a division with the specified ID.
 
@@ -255,7 +241,7 @@ sub contains_division {
 	  return 1;
 	}
 
-      elsif ( $division->contains_division($id) )
+      elsif ( $division->contains_division_with_id($id) )
 	{
 	  return 1;
 	}
@@ -291,7 +277,8 @@ sub has_attribute {
 
 sub get_division_list {
 
-  # Return an ordered list of divisions within this one.
+  # Return an ordered list of divisions within this one.  Recurse to
+  # provide a complete ordered sequence of divisions, depth first.
 
   my $self = shift;
 
@@ -317,7 +304,7 @@ sub contains_division_with_name {
 
   # Return 1 if this division contains one or more divisions with the
   # specified name.  For instance, if you wanted to know if this
-  # division contains any tables, you could:
+  # division contains any tables:
   #
   #   if ( $division->contains_division_with_name('TABLE') )
   #     {
@@ -342,11 +329,11 @@ sub contains_division_with_name {
       return 0;
     }
 
-  my $class = $ontology->get_class_for_entity_name($name);
-
   foreach my $part (@{ $self->get_division_list })
     {
-      if ( $part->isa($class) )
+      my $part_name = $part->get_name;
+
+      if ( $part_name eq $name )
 	{
 	  return 1;
 	}
@@ -357,79 +344,31 @@ sub contains_division_with_name {
 
 ######################################################################
 
-# sub has_sections {
+sub contains_element_with_name {
 
-#   # Return 1 if this division contains one or more sections.
-
-#   my $self = shift;
-
-#   foreach my $part (@{ $self->get_division_list })
-#     {
-#       if ( $part->isa('SML::Section') )
-# 	{
-# 	  return 1;
-# 	}
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
-# sub has_tables {
-
-#   # Return 1 if this division contains one or more tables.
-
-#   my $self = shift;
-
-#   foreach my $division (@{ $self->get_division_list })
-#     {
-#       if ( $division->isa('SML::Table') )
-# 	{
-# 	  return 1;
-# 	}
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
-# sub has_figures {
-
-#   # Return 1 if this division contains one or more figures.
-
-#   my $self = shift;
-
-#   foreach my $part (@{ $self->get_division_list })
-#     {
-#       if ( $part->isa('SML::Figure') )
-# 	{
-# 	  return 1;
-# 	}
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
-sub has_images {
-
-  # Return 1 if this division (or any the divisions it contains) has
-  # an image element.
-
-  # !!! BUG HERE !!!
+  # Return 1 if this division contains one or more elements with the
+  # specified name.  For instance, if you wanted to know if this
+  # division contains any images:
   #
-  # Replace this method with one named 'contains_element_with_name'
+  #   if ( $division->contains_element_with_name('image') )
+  #     {
+  #       # do something...
+  #     }
 
   my $self = shift;
+  my $name = shift;
+
+  unless ( $name )
+    {
+      $logger->error("CAN'T DETERMINE IF DIVISION CONTAINS ELEMENT, MISSING ARGUMENTS");
+      return 0;
+    }
 
   foreach my $element (@{ $self->get_element_list })
     {
-      my $name = $element->get_name;
+      my $element_name = $element->get_name;
 
-      if ( $name eq 'image' )
+      if ( $element_name eq $name )
 	{
 	  return 1;
 	}
@@ -440,362 +379,63 @@ sub has_images {
 
 ######################################################################
 
-sub get_image_list {
+sub get_list_of_divisions_with_name {
+
+  # Return a list of division objects (within this one) with the
+  # specified name.  For instance, return a list of sections within
+  # this division.
 
   my $self = shift;
+  my $name = shift;
+
+  unless ( $name )
+    {
+      $logger->error("CAN'T GET LIST OF DIVISIONS WITH NAME, MISSING ARGUMENTS");
+      return 0;
+    }
+
+  my $list = [];
+
+  foreach my $part (@{ $self->get_division_list })
+    {
+      my $part_name = $part->get_name;
+
+      if ( $part_name eq $name )
+	{
+	  push @{ $list }, $part;
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
+
+sub get_list_of_elements_with_name {
+
+  # Return a list of element objects (within this division) with the
+  # specified name.  For instance, return a list of image elements
+  # within this division.
+
+  my $self = shift;
+  my $name = shift;
+
+  unless ( $name )
+    {
+      $logger->error("CAN'T GET LIST OF ELEMENTS WITH NAME, MISSING ARGUMENTS");
+      return 0;
+    }
 
   my $list = [];
 
   foreach my $element (@{ $self->get_element_list })
     {
-      if ( $element->isa('SML::Image') )
+      my $element_name = $element->get_name;
+
+      if ( $element_name eq $name )
 	{
-	  push(@{$list},$element);
+	  push @{ $list }, $element;
 	}
-    }
-
-  return $list;
-}
-
-######################################################################
-
-sub has_files {
-
-  # Return 1 if this division (or any the divisions it contains) has
-  # a file element.
-
-  # !!! BUG HERE !!!
-  #
-  # Replace this method with one named 'contains_element_with_name'
-
-  my $self = shift;
-
-  foreach my $element (@{ $self->get_element_list })
-    {
-      my $name = $element->get_name;
-
-      if ( $name eq 'file' )
-	{
-	  return 1;
-	}
-    }
-
-  return 0;
-}
-
-######################################################################
-
-sub get_file_list {
-
-  my $self = shift;
-
-  my $list = [];
-
-  foreach my $element (@{ $self->get_element_list })
-    {
-      my $name = $element->get_name;
-
-      if ( $name eq 'file' )
-	{
-	  push(@{$list},$element);
-	}
-    }
-
-  return $list;
-}
-
-######################################################################
-
-# sub has_attachments {
-
-#   # Return 1 if this division contains one or more attachments.
-
-#   my $self = shift;
-
-#   foreach my $part (@{ $self->get_division_list })
-#     {
-#       if ( $part->isa('SML::Attachment') )
-# 	{
-# 	  return 1;
-# 	}
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
-# sub has_listings {
-
-#   # Return 1 if this division contains one or more listings.
-
-#   my $self = shift;
-
-#   foreach my $part (@{ $self->get_division_list })
-#     {
-#       if ( $part->isa('SML::Listing') )
-# 	{
-# 	  return 1;
-# 	}
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
-# sub has_demos {
-
-#   # Return 1 if this division contains one or more demos.
-
-#   my $self = shift;
-
-#   foreach my $part (@{ $self->get_division_list })
-#     {
-#       if ( $part->isa('SML::Demo') )
-# 	{
-# 	  return 1;
-# 	}
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
-# sub has_exercises {
-
-#   # Return 1 if this division contains one or more exercises.
-
-#   my $self = shift;
-
-#   foreach my $part (@{ $self->get_division_list })
-#     {
-#       if ( $part->isa('SML::Exercise') )
-# 	{
-# 	  return 1;
-# 	}
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
-# sub has_slides {
-
-#   # Return 1 if this division contains one or more slides.
-
-#   my $self = shift;
-
-#   foreach my $part (@{ $self->get_division_list })
-#     {
-#       if ( $part->isa('SML::Slide') )
-# 	{
-# 	  return 1;
-# 	}
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
-sub get_section_list {
-
-  # Return an ordered list of sections within this division.
-
-  my $self = shift;
-
-  my $list = [];                        # section list
-
-  foreach my $part (@{ $self->get_division_list })
-    {
-      if ( $part->isa('SML::Section') )
-	{
-	  push @{ $list }, $part;
-	}
-    }
-
-  return $list;
-}
-
-######################################################################
-
-sub get_figure_list {
-
-  # Return an ordered list of figures within this division.
-
-  my $self = shift;
-
-  my $list = [];                        # figure list
-
-  foreach my $part (@{ $self->get_division_list })
-    {
-      if ( $part->isa('SML::Figure') )
-	{
-	  push @{ $list }, $part;
-	}
-    }
-
-  return $list;
-}
-
-######################################################################
-
-sub get_table_list {
-
-  # Return an ordered list of tables within this division.
-
-  my $self = shift;
-
-  my $list = [];                        # table list
-
-  foreach my $part (@{ $self->get_division_list })
-    {
-      if ( $part->isa('SML::Table') )
-	{
-	  push @{ $list }, $part;
-	}
-    }
-
-  return $list;
-}
-
-######################################################################
-
-sub get_listing_list {
-
-  # Return an ordered list of listings within this division.
-
-  my $self = shift;
-
-  my $list = [];                        # listing list
-
-  foreach my $part (@{ $self->get_division_list })
-    {
-      if ( $part->isa('SML::Listing') )
-	{
-	  push @{ $list }, $part;
-	}
-    }
-
-  return $list;
-}
-
-######################################################################
-
-sub get_demo_list {
-
-  # Return an ordered list of demos within this division.
-
-  my $self = shift;
-
-  my $list = [];                        # demo list
-
-  foreach my $part (@{ $self->get_division_list })
-    {
-      if ( $part->isa('SML::Demo') )
-	{
-	  push @{ $list }, $part;
-	}
-    }
-
-  return $list;
-}
-
-######################################################################
-
-sub get_exercise_list {
-
-  # Return an ordered list of exercises within this division.
-
-  my $self = shift;
-
-  my $list = [];                        # exercise list
-
-  foreach my $part (@{ $self->get_division_list })
-    {
-      if ( $part->isa('SML::Exercise') )
-	{
-	  push @{ $list }, $part;
-	}
-    }
-
-  return $list;
-}
-
-######################################################################
-
-sub get_slide_list {
-
-  # Return an ordered list of slides within this division.
-
-  my $self = shift;
-
-  my $list = [];                        # slide list
-
-  foreach my $part (@{ $self->get_division_list })
-    {
-      if ( $part->isa('SML::Slide') )
-	{
-	  push @{ $list }, $part;
-	}
-    }
-
-  return $list;
-}
-
-######################################################################
-
-sub get_attachment_list {
-
-  # Return an ordered list of attachments within this division.
-
-  my $self = shift;
-
-  my $list = [];                        # attachment list
-
-  foreach my $part (@{ $self->get_division_list })
-    {
-      if ( $part->isa('SML::Attachment') )
-	{
-	  push @{ $list }, $part;
-	}
-    }
-
-  return $list;
-}
-
-######################################################################
-
-sub get_source_list {
-
-  # Return a list of sources within this division ordered by source
-  # ID.
-
-  my $self = shift;
-
-  my $hash = {};                        # source hash
-
-  foreach my $part (@{ $self->get_division_list })
-    {
-      if ( $part->isa('SML::Source') )
-	{
-	  my $source = $part;
-	  my $id     = $source->get_id;
-
-	  $hash->{$id} = $source;
-	}
-    }
-
-  my $list = [];
-
-  foreach my $id ( sort keys %{ $hash } )
-    {
-      my $source = $hash->{$id};
-
-      push(@{$list},$source);
     }
 
   return $list;
@@ -873,140 +513,6 @@ sub get_line_list {
 
   return $list;
 }
-
-######################################################################
-
-# sub get_data_segment_line_list {
-
-#   # Return an ArrayRef of DATA SEGMENT lines.
-
-#   # !!! BUG HERE !!!
-#   #
-#   # Extracting the DATA SEGMENT lines should be a parser function and
-#   # not a division function.
-
-#   my $self = shift;
-
-#   my $list        = [];                 # DATA SEGMENT line list
-#   my $library     = $self->get_library;
-#   my $syntax      = $library->get_syntax;
-#   my $ontology    = $library->get_ontology;
-#   my $in_data_segment = 1;
-#   my $i           = 0;
-#   my $lastblock   = scalar @{ $self->get_block_list };
-#   my $divname     = $self->get_name;
-
-#   foreach my $block (@{ $self->get_block_list })
-#     {
-#       my $text = $block->get_content;
-
-#       $text =~ s/[\r\n]*$//;            # chomp;
-
-#       ++ $i;
-
-#       next if $i == 1;
-#       last if $i == $lastblock;
-
-#       if (
-# 	  $in_data_segment
-# 	  and
-# 	  $text =~ /$syntax->{element}/xms
-# 	  and
-# 	  $ontology->allows_property($divname,$1)
-# 	 )
-# 	{
-# 	  foreach my $line (@{ $block->get_line_list })
-# 	    {
-# 	      push @{ $list }, $line
-# 	    }
-# 	}
-
-#       elsif ( $self->_line_ends_data_segment($text) )
-# 	{
-# 	  return $list;
-# 	}
-
-#       else
-# 	{
-# 	  foreach my $line (@{ $block->get_line_list })
-# 	    {
-# 	      push @{ $list }, $line
-# 	    }
-# 	}
-#     }
-
-#   return $list;
-# }
-
-######################################################################
-
-# sub get_narrative_line_list {
-
-#   # Return an ArrayRef of narrative lines.
-
-#   # !!! BUG HERE !!!
-#   #
-#   # Extracting the narrative lines should be a parser function and not
-#   # a division function.
-
-#   my $self = shift;
-
-#   my $list        = [];                 # narrative line list
-#   my $library     = $self->get_library;
-#   my $syntax      = $library->get_syntax;
-#   my $ontology    = $library->get_ontology;
-#   my $in_data_segment = 1;
-#   my $i           = 0;
-#   my $lastblock   = scalar @{ $self->get_block_list };
-#   my $divname     = $self->get_name;
-
-#   foreach my $block (@{ $self->get_block_list })
-#     {
-#       my $text = $block->get_content;
-
-#       $text =~ s/[\r\n]*$//;            # chomp;
-
-#       ++ $i;
-
-#       next if $i == 1;
-#       last if $i == $lastblock;
-
-#       if (
-# 	  $in_data_segment
-# 	  and
-# 	  $text =~ /$syntax->{element}/xms
-# 	  and
-# 	  $ontology->allows_property($divname,$1)
-# 	 )
-# 	{
-# 	  next;
-# 	}
-
-#       elsif ( $self->_line_ends_data_segment($text) )
-# 	{
-# 	  $in_data_segment = 0;
-# 	  foreach my $line (@{ $block->get_line_list })
-# 	    {
-# 	      push @{ $list }, $line
-# 	    }
-# 	}
-
-#       elsif ( $in_data_segment )
-# 	{
-# 	  next;
-# 	}
-
-#       else
-# 	{
-# 	  foreach my $line (@{ $block->get_line_list })
-# 	    {
-# 	      push @{ $list }, $line
-# 	    }
-# 	}
-#     }
-
-#   return $list;
-# }
 
 ######################################################################
 
@@ -1093,7 +599,7 @@ sub get_location {
 
 ######################################################################
 
-sub get_section {
+sub get_containing_section {
 
   # Return the section containing this division.  If not in a section,
   # return undef.
@@ -1289,12 +795,13 @@ L<"SML::Block">s.
   my $boolean  = $division->add_part($part);
   my $boolean  = $division->add_property($property);
   my $boolean  = $division->add_attribute($element);
-  my $boolean  = $division->contains_division($id);
+  my $boolean  = $division->contains_division_with_name($name);
+  my $boolean  = $division->contains_division_with_id($id);
   my $boolean  = $division->has_property($property_name);
   my $boolean  = $division->has_property_value($property_name,$value);
   my $boolean  = $division->has_attribute($attribute_name);
   my $list     = $division->get_division_list;
-  my $list     = $division->get_section_list;
+  my $list     = $division->get_list_of_divisions_with_name('SECTION');
   my $list     = $division->get_block_list;
   my $list     = $division->get_element_list;
   my $list     = $division->get_line_list;
@@ -1302,7 +809,7 @@ L<"SML::Block">s.
   my $line     = $division->get_first_line;
   my $document = $division->get_containing_document;
   my $string   = $division->get_location;
-  my $section  = $division->get_section;
+  my $section  = $division->get_containing_section;
   my $boolean  = $division->is_in_a($division_type);
   my $boolean  = $division->validate;
 
@@ -1367,7 +874,7 @@ Divisions may contain other divisions.
 
 =head2 has_sections
 
-=head2 get_section_list
+=head2 get_list_of_divisions_with_name($name)
 
 =head2 get_block_list
 
@@ -1387,7 +894,7 @@ Divisions may contain other divisions.
 
 =head2 get_location
 
-=head2 get_section
+=head2 get_containing_section
 
 =head2 is_in_a($division_type)
 
