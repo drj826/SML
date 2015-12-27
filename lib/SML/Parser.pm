@@ -72,7 +72,6 @@ use SML::Document;                    # ci-000005
 use SML::Section;                     # ci-000392
 use SML::TableRow;                    # ci-000429
 use SML::TableCell;                   # ci-000428
-use SML::Revisions;                   # ci-000394
 use SML::Figure;                      # ci-000396
 use SML::Listing;                     # ci-000397
 use SML::Sidebar;                     # ci-000399
@@ -2750,7 +2749,7 @@ sub _begin_division {
       return 1;
     }
 
-  elsif ( $division->isa('SML::Revisions') )
+  elsif ( $name eq 'REVISIONS' )
     {
       return 1;
     }
@@ -2863,7 +2862,7 @@ sub _end_division {
       # do nothing.
     }
 
-  elsif ( $division->isa('SML::Revisions') )
+  elsif ( $division_name eq 'REVISIONS' )
     {
       # do nothing.
     }
