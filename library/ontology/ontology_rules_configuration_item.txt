@@ -1140,7 +1140,7 @@ division:: configuration_item
 
 containee_name:: VIDEO
 
-containee_type:: SML::Video
+containee_type:: SML::Structure
 
 cardinality:: many
 

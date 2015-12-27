@@ -76,7 +76,6 @@ use SML::Source;                      # ci-000400
 use SML::Table;                       # ci-000401
 use SML::BulletList;                  # ci-000???
 use SML::EnumeratedList;              # ci-000???
-use SML::Video;                       # ci-000403
 use SML::Triple;                      # ci-000404
 
 $OUTPUT_AUTOFLUSH = 1;
