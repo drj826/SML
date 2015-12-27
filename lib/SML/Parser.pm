@@ -30,7 +30,6 @@ use SML::Line;                        # ci-000385
 use SML::String;                      # ci-000???
 use SML::AcronymTermReference;        # ci-000???
 use SML::CitationReference;           # ci-000???
-use SML::XMLTag;                      # ci-000???
 use SML::CrossReference;              # ci-000???
 use SML::TitleReference;              # ci-000???
 use SML::FileReference;               # ci-000???
@@ -1258,11 +1257,12 @@ sub _create_string {
 	{
 	  my $args = {};
 
+	  $args->{name}      = 'XML_TAG',
 	  $args->{content}   = $1;
 	  $args->{library}   = $self->get_library;
 	  $args->{container} = $container if $container;
 
-	  return SML::XMLTag->new(%{$args});
+	  return SML::String->new(%{$args});
 	}
 
       else
