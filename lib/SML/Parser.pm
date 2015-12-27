@@ -74,7 +74,6 @@ use SML::Section;                     # ci-000392
 use SML::TableRow;                    # ci-000429
 use SML::TableCell;                   # ci-000428
 use SML::Revisions;                   # ci-000394
-use SML::Epigraph;                    # ci-000395
 use SML::Figure;                      # ci-000396
 use SML::Listing;                     # ci-000397
 use SML::PreformattedDivision;        # ci-000398
@@ -2761,7 +2760,7 @@ sub _begin_division {
       return 1;
     }
 
-  elsif ( $division->isa('SML::Epigraph') )
+  elsif ( $name eq 'EPIGRAPH' )
     {
       return 1;
     }
@@ -2879,7 +2878,7 @@ sub _end_division {
       # do nothing.
     }
 
-  elsif ( $division->isa('SML::Epigraph') )
+  elsif ( $division_name eq 'EPIGRAPH' )
     {
       # do nothing.
     }
