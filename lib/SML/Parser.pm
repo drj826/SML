@@ -74,7 +74,6 @@ use SML::TableRow;                    # ci-000429
 use SML::TableCell;                   # ci-000428
 use SML::Figure;                      # ci-000396
 use SML::Listing;                     # ci-000397
-use SML::Sidebar;                     # ci-000399
 use SML::Source;                      # ci-000400
 use SML::Table;                       # ci-000401
 use SML::StepList;                    # ci-000???
