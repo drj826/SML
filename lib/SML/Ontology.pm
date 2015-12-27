@@ -674,6 +674,59 @@ sub get_rule_type_count {
 }
 
 ######################################################################
+
+sub is_structure {
+
+  # Return 1 if the specified name is the name of a structure
+  # division.  All divisions are structure divisions except for
+  # entities.
+
+  my $self = shift;
+  my $name = shift;
+
+  unless ( $name )
+    {
+      $logger->error("CAN'T CHECK IF NAME IS A STRUCTURE, MISSING ARGUMENT");
+      return 0;
+    }
+
+  my $hash = $self->_get_types_by_division_name_hash;
+
+  my $class = $hash->{$name};
+
+  if ( $class eq 'SML::Entity' )
+    {
+      return 0;
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub is_entity {
+
+  # Return 1 if the specified name is the name of an entity division.
+  # All divisions are structure divisions except for entities.
+
+  my $self = shift;
+  my $name = shift;
+
+  unless ( $name )
+    {
+      $logger->error("CAN'T CHECK IF NAME IS AN ENTITY, MISSING ARGUMENT");
+      return 0;
+    }
+
+  if ( $self->is_structure($name) )
+    {
+      return 0;
+    }
+
+  return 1;
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes

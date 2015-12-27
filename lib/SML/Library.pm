@@ -3215,9 +3215,11 @@ sub BUILD {
   my $cwd = getcwd();
   chdir($library_dir);
 
-  my $id_hash        = $self->_get_id_hash;
-  my $filespec_hash  = $self->_get_filespec_hash;
-  my $division_count = {};
+  my $id_hash         = $self->_get_id_hash;
+  my $filespec_hash   = $self->_get_filespec_hash;
+  my $division_count  = {};
+  my $entity_count    = {};
+  my $structure_count = {};
 
   foreach my $directory (@{ $self->get_include_path })
     {
@@ -3275,6 +3277,21 @@ sub BUILD {
 
 		  ++ $division_count->{$name};
 
+		  if ( $ontology->is_structure($name) )
+		    {
+		      ++ $structure_count->{$name};
+		    }
+
+		  elsif ( $ontology->is_entity($name) )
+		    {
+		      ++ $entity_count->{$name};
+		    }
+
+		  else
+		    {
+		      $logger->error("NEITHER STRUCTURE OR ENTITY: $name");
+		    }
+
 		  my $id = $3 || $name . "-" . $division_count->{$name};
 
 		  # validate ID uniqueness (unless this is a CONDITIONAL division)
@@ -3298,6 +3315,7 @@ sub BUILD {
 		  my $name = 'SECTION';
 
 		  ++ $division_count->{$name};
+		  ++ $structure_count->{$name};
 
 		  my $id = $3 || $name . "-" . $division_count->{$name};
 
@@ -3318,10 +3336,65 @@ sub BUILD {
 	}
     }
 
-  my $total = 0;
+  my $entity_total = 0;
 
   my $libname = $self->get_name;
   $logger->info("$libname");
+  $logger->info("------------------------------ ------");
+
+  foreach my $name ( sort keys %{ $entity_count } )
+    {
+      my $count = $entity_count->{$name};
+      $entity_total = $entity_total + $count;
+      my $msg = sprintf
+	(
+	 "%-30s %6d",
+	 "$name count:",
+	 $count,
+	);
+
+      $logger->info("$msg");
+    }
+
+  my $entity_total_msg = sprintf
+    (
+     "%-30s %6d",
+     "TOTAL ENTITY COUNT:",
+     $entity_total,
+    );
+
+  $logger->info("------------------------------ ------");
+  $logger->info("$entity_total_msg");
+  $logger->info("");
+
+  my $structure_total = 0;
+
+  $logger->info("------------------------------ ------");
+  foreach my $name ( sort keys %{ $structure_count } )
+    {
+      my $count = $structure_count->{$name};
+      $structure_total = $structure_total + $count;
+      my $msg = sprintf
+	(
+	 "%-30s %6d",
+	 "$name count:",
+	 $count,
+	);
+
+      $logger->info("$msg");
+    }
+
+  my $structure_total_msg = sprintf
+    (
+     "%-30s %6d",
+     "TOTAL STRUCTURE COUNT:",
+     $structure_total,
+    );
+
+  $logger->info("------------------------------ ------");
+  $logger->info("$structure_total_msg");
+  $logger->info("");
+
   $logger->info("------------------------------ ------");
 
   my $div_rule_count = $ontology->get_rule_type_count('div');
@@ -3347,31 +3420,6 @@ sub BUILD {
   $logger->info("------------------------------ ------");
   $logger->info("$msg6");
   $logger->info("");
-
-  $logger->info("------------------------------ ------");
-  foreach my $name ( sort keys %{ $division_count } )
-    {
-      my $count = $division_count->{$name};
-      $total = $total + $count;
-      my $msg = sprintf
-	(
-	 "%-30s %6d",
-	 "$name count:",
-	 $count,
-	);
-
-      $logger->info("$msg");
-    }
-
-  my $msg = sprintf
-    (
-     "%-30s %6d",
-     "TOTAL DIVISION COUNT:",
-     $total,
-    );
-
-  $logger->info("------------------------------ ------");
-  $logger->info("$msg");
 
   chdir($cwd);
 
