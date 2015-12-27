@@ -86,7 +86,6 @@ use SML::EnumeratedList;              # ci-000???
 use SML::Video;                       # ci-000403
 use SML::Triple;                      # ci-000404
 use SML::Slide;                       # ci-000405
-use SML::Exercise;                    # ci-000407
 use SML::Keypoints;                   # ci-000408
 use SML::Quotation;                   # ci-000409
 use SML::RESOURCES;                   # ci-000xxx
@@ -2818,7 +2817,7 @@ sub _end_division {
       # do nothing.
     }
 
-  elsif ( $division->isa('SML::Exercise') )
+  elsif ( $division_name eq 'EXERCISE' )
     {
       # do nothing.
     }
