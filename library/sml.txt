@@ -5338,64 +5338,6 @@ have multiple roles.
 
 #---------------------------------------------------------------------
 
-*** Region Attributes
-
-Region preambles can contain attributes that describe the region.  For
-instance, you might create a ``solution'' region to represent a
-certain computer ([ref:lis-sample-region]) and use attributes to
-describe that computer.
-
->>>LISTING.lis-sample-region
-
-title:: Sample Region With Attributes
-
-file:: configuration_items/ci-000294.txt
-
-<<<LISTING
-
-An attribute is simply a name/value pair where the name and the value
-are separated by an equals sign.
-
-#---------------------------------------------------------------------
-
-*** Object Oriented Inheritance
-
-The ||instance_of|| and ||class_of|| data elements allow you to
-establish class -> instance relationships between items described in
-regions.  For instance, you might have a region that describes the
-default configuration of a workstation computer ([ref:lis-ci-000293]).
-
->>>LISTING.lis-ci-000293
-
-title:: Sample Configuration of a Workstation Computer
-
-file:: configuration_items/ci-000293.txt
-
-<<<LISTING
-
-Then you might have another region that describes a unique
-instantiation of a computer workstation ([ref:lis-ci-000295]).
-
->>>LISTING.lis-ci-000295
-
-title:: Unique Instantiation of a Workstation Computer
-
-file:: configuration_items/ci-000295.txt
-
-<<<LISTING
-
-Notice the data element that says, ``||instance_of: ci-000293||.''
-This tells the publishing system that ||ci-000295|| is an ~~instance
-of~~ ||ci-000293|| and that ||ci-000295|| should inherit all of the
-attributes of ||ci-000293||.  If any attributes are defined in both
-the class (||ci-000293||) and the instance (||ci-000295||) the
-attributes in the instance override the attributes in the class.  In
-this example, the instance has more RAM (6 GB) than the class (4 GB)
-and the operating system is ``Windows XP'' instead of ``Microsoft
-Windows.''
-
-#---------------------------------------------------------------------
-
 **.special-features Special Features
 
 #---------------------------------------------------------------------
