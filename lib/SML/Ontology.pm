@@ -833,35 +833,35 @@ sub _build_builtin_rules {
 
   my $builtin_rules =
     [
-     # rule ID   type   division name              property         object type      name/val inv crd  rq im
-     ['SML001', 'div', 'DIVISION_DECLARATION',    'exists',        'SML::Division', ''      ,'',  1,  '', ''],
-     ['SML002', 'prp', 'DIVISION_DECLARATION',    'has_division',  'Str'          , 'STRING','',  1,   1 ,''],
-     ['SML003', 'prp', 'DIVISION_DECLARATION',    'class',         'Str'          , 'STRING','',  1,   1 ,''],
-     ['SML004', 'prp', 'DIVISION_DECLARATION',    'description',   'Str'          , 'STRING','',  1,   0 ,''],
+     # rule ID   type   division name              property           object type      name/val inv crd  rq im
+     ['SML001', 'div', 'DIVISION_DECLARATION',    'exists',          'SML::Division', ''      ,'',  1,  '', ''],
+     ['SML002', 'prp', 'DIVISION_DECLARATION',    'has_division',    'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML003', 'prp', 'DIVISION_DECLARATION',    'class',           'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML004', 'prp', 'DIVISION_DECLARATION',    'description',     'Str'          , 'STRING','',  1,   0 ,''],
 
-     ['SML005', 'div', 'PROPERTY_DECLARATION',    'exists',        'SML::Division', '',      '',  1,   '',''],
-     ['SML006', 'prp', 'PROPERTY_DECLARATION',    'division',      'Str'          , 'STRING','',  1,   1 ,''],
-     ['SML007', 'prp', 'PROPERTY_DECLARATION',    'has_property',  'Str'          , 'STRING','',  1,   1 ,''],
-     ['SML008', 'prp', 'PROPERTY_DECLARATION',    'object_type',   'Str'          , 'STRING','',  1,   1 ,''],
-     ['SML009', 'prp', 'PROPERTY_DECLARATION',    'object_name',   'Str'          , 'STRING','',  1,   1 ,''],
-     ['SML010', 'prp', 'PROPERTY_DECLARATION',    'cardinality',   'Str'          , 'STRING','',  1,   1 ,''],
-     ['SML011', 'prp', 'PROPERTY_DECLARATION',    'required',      'Str'          , 'STRING','',  1,   1 ,''],
-     ['SML011', 'prp', 'PROPERTY_DECLARATION',    'description',   'Str'          , 'STRING','',  1,   0 ,''],
+     ['SML005', 'div', 'PROPERTY_DECLARATION',    'exists',          'SML::Division', '',      '',  1,   '',''],
+     ['SML006', 'prp', 'PROPERTY_DECLARATION',    'division',        'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML007', 'prp', 'PROPERTY_DECLARATION',    'has_property',    'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML008', 'prp', 'PROPERTY_DECLARATION',    'object_type',     'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML009', 'prp', 'PROPERTY_DECLARATION',    'object_name',     'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML010', 'prp', 'PROPERTY_DECLARATION',    'cardinality',     'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML011', 'prp', 'PROPERTY_DECLARATION',    'required',        'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML011', 'prp', 'PROPERTY_DECLARATION',    'description',     'Str'          , 'STRING','',  1,   0 ,''],
 
-     ['SML012', 'div', 'COMPOSITION_DECLARATION', 'exists',        'SML::Division', '',      '',  1,   '',''],
-     ['SML013', 'prp', 'COMPOSITION_DECLARATION', 'division',      'Str'          , 'STRING','',  1,   1 ,''],
-     ['SML014', 'prp', 'COMPOSITION_DECLARATION', 'containee_type','Str'          , 'STRING','',  1,   1 ,''],
-     ['SML015', 'prp', 'COMPOSITION_DECLARATION', 'containee_name','Str'          , 'STRING','',  1,   1 ,''],
-     ['SML016', 'prp', 'COMPOSITION_DECLARATION', 'cardinality',   'Str'          , 'STRING','',  1,   1 ,''],
-     ['SML017', 'prp', 'COMPOSITION_DECLARATION', 'description',   'Str'          , 'STRING','',  1,   0 ,''],
-     ['SML018', 'enu', 'COMPOSITION_DECLARATION', 'cardinality',   'Str'          , '1',     '',  1,   1 ,''],
-     ['SML019', 'enu', 'COMPOSITION_DECLARATION', 'cardinality',   'Str'          , 'many',  '',  1,   1 ,''],
+     ['SML012', 'div', 'COMPOSITION_DECLARATION', 'exists',          'SML::Division', '',      '',  1,   '',''],
+     ['SML013', 'prp', 'COMPOSITION_DECLARATION', 'division',        'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML014', 'prp', 'COMPOSITION_DECLARATION', 'containee_class', 'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML015', 'prp', 'COMPOSITION_DECLARATION', 'containee_name',  'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML016', 'prp', 'COMPOSITION_DECLARATION', 'cardinality',     'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML017', 'prp', 'COMPOSITION_DECLARATION', 'description',     'Str'          , 'STRING','',  1,   0 ,''],
+     ['SML018', 'enu', 'COMPOSITION_DECLARATION', 'cardinality',     'Str'          , '1',     '',  1,   1 ,''],
+     ['SML019', 'enu', 'COMPOSITION_DECLARATION', 'cardinality',     'Str'          , 'many',  '',  1,   1 ,''],
 
-     ['SML020', 'div', 'ENUMERATION_DECLARATION', 'exists',        'SML::Division', '',      '',  1,   '',''],
-     ['SML021', 'prp', 'ENUMERATION_DECLARATION', 'division',      'Str'          , 'STRING','',  1,   1 ,''],
-     ['SML022', 'prp', 'ENUMERATION_DECLARATION', 'property',      'Str'          , 'STRING','',  1,   1 ,''],
-     ['SML023', 'prp', 'ENUMERATION_DECLARATION', 'allowed_value', 'Str'          , 'STRING','',  1,   1 ,''],
-     ['SML024', 'prp', 'ENUMERATION_DECLARATION', 'description',   'Str'          , 'STRING','',  1,   0 ,''],
+     ['SML020', 'div', 'ENUMERATION_DECLARATION', 'exists',          'SML::Division', '',      '',  1,   '',''],
+     ['SML021', 'prp', 'ENUMERATION_DECLARATION', 'division',        'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML022', 'prp', 'ENUMERATION_DECLARATION', 'property',        'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML023', 'prp', 'ENUMERATION_DECLARATION', 'allowed_value',   'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML024', 'prp', 'ENUMERATION_DECLARATION', 'description',     'Str'          , 'STRING','',  1,   0 ,''],
     ];
 
   foreach my $rule (@{ $builtin_rules })

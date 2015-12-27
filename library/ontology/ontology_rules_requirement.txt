@@ -1093,7 +1093,7 @@ division:: requirement
 
 containee_name:: COMMENT
 
-containee_type:: SML::Structure
+containee_class:: SML::Structure
 
 cardinality:: many
 
@@ -1109,7 +1109,7 @@ division:: requirement
 
 containee_name:: CONDITIONAL
 
-containee_type:: SML::Structure
+containee_class:: SML::Structure
 
 cardinality:: many
 
@@ -1125,7 +1125,7 @@ division:: requirement
 
 containee_name:: QUOTATION
 
-containee_type:: SML::Structure
+containee_class:: SML::Structure
 
 cardinality:: many
 
@@ -1141,7 +1141,7 @@ division:: requirement
 
 containee_name:: ATTACHMENT
 
-containee_type:: SML::Structure
+containee_class:: SML::Structure
 
 cardinality:: many
 
@@ -1157,7 +1157,7 @@ division:: requirement
 
 containee_name:: FIGURE
 
-containee_type:: SML::Figure
+containee_class:: SML::Figure
 
 cardinality:: many
 
@@ -1173,7 +1173,7 @@ division:: requirement
 
 containee_name:: PREFORMATTED
 
-containee_type:: SML::Structure
+containee_class:: SML::Structure
 
 cardinality:: many
 
@@ -1189,7 +1189,7 @@ division:: requirement
 
 containee_name:: LISTING
 
-containee_type:: SML::Listing
+containee_class:: SML::Listing
 
 cardinality:: many
 
@@ -1205,7 +1205,7 @@ division:: requirement
 
 containee_name:: SOURCE
 
-containee_type:: SML::Source
+containee_class:: SML::Source
 
 cardinality:: many
 
@@ -1221,7 +1221,7 @@ division:: requirement
 
 containee_name:: TABLE
 
-containee_type:: SML::Table
+containee_class:: SML::Table
 
 cardinality:: many
 
@@ -1237,7 +1237,7 @@ division:: requirement
 
 containee_name:: AUDIO
 
-containee_type:: SML::Structure
+containee_class:: SML::Structure
 
 cardinality:: many
 
@@ -1253,7 +1253,7 @@ division:: requirement
 
 containee_name:: VIDEO
 
-containee_type:: SML::Structure
+containee_class:: SML::Structure
 
 cardinality:: many
 
@@ -1269,7 +1269,7 @@ division:: requirement
 
 containee_name:: TRIPLE
 
-containee_type:: SML::Triple
+containee_class:: SML::Triple
 
 cardinality:: many
 
@@ -1285,7 +1285,7 @@ division:: requirement
 
 containee_name:: BARE_TABLE
 
-containee_type:: SML::Structure
+containee_class:: SML::Structure
 
 cardinality:: many
 
@@ -1301,7 +1301,7 @@ division:: requirement
 
 containee_name:: DEFINITION_LIST
 
-containee_type:: SML::Structure
+containee_class:: SML::Structure
 
 cardinality:: many
 
@@ -1317,7 +1317,7 @@ division:: requirement
 
 containee_name:: BULLET_LIST
 
-containee_type:: SML::BulletList
+containee_class:: SML::BulletList
 
 cardinality:: many
 
@@ -1333,7 +1333,7 @@ division:: requirement
 
 containee_name:: ENUMERATED_LIST
 
-containee_type:: SML::EnumeratedList
+containee_class:: SML::EnumeratedList
 
 cardinality:: many
 
