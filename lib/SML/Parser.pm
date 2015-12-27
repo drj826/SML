@@ -43,7 +43,6 @@ use SML::PageReference;               # ci-000???
 use SML::PathReference;               # ci-000???
 use SML::StatusReference;             # ci-000???
 use SML::Symbol;                      # ci-000???
-use SML::SyntaxErrorString;           # ci-000???
 use SML::URLReference;                # ci-000???
 use SML::UserEnteredText;             # ci-000???
 use SML::VariableReference;           # ci-000???
@@ -754,11 +753,12 @@ sub _create_string {
     {
       my $args = {};
 
+      $args->{name}      = 'SYNTAX_ERROR_STRING';
       $args->{content}   = $text;
       $args->{library}   = $self->get_library;
       $args->{container} = $container if $container;
 
-      my $newstring = SML::SyntaxErrorString->new(%{$args});
+      my $newstring = SML::String->new(%{$args});
 
       return $newstring;
     }
