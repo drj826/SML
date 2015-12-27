@@ -78,6 +78,9 @@ page           = document_id _ '.' _ section_number _ '.html'
 
 -%]
 
+[%- IF section.encloses_division_with_name('DEMO') -%]
+[%- demo_list = section.get_list_of_divisions_with_name('DEMO') -%]
+
 [%- IF section_depth == 1 -%]
 <h4>Listing [%section_number%]&nbsp;&nbsp;
 <a href="[%page%]">
@@ -85,8 +88,6 @@ page           = document_id _ '.' _ section_number _ '.html'
 </a></h4>
 [%- END %]
 
-[%- IF section.contains_division_with_name('DEMO') -%]
-[%- demo_list = section.get_list_of_divisions_with_name('DEMO') -%]
 [%- FOREACH demo IN demo_list -%]
 [%-
 
