@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-7b692e0436cf90dfaed89daaf68a860fe4ae7597 ../EnumeratedListItem.t
-<<<RESOURCES

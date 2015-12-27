@@ -48,7 +48,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-7c6700f0db4fcef32436e85e517a373aa1ec8281 ../test.bat
-<<<RESOURCES

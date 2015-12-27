@@ -50,8 +50,3 @@ width:: 6in
 <<<FIGURE
 
 <<<configuration_item
-
->>>RESOURCES
-1d0d707616e5bae299d19d2e197cf6a71a2dcd81 ../../SML/Parser.pm
-f18d9c98671aa44f76ccbfba7a3afae276128198 files/images/ad-parsefile.png
-<<<RESOURCES

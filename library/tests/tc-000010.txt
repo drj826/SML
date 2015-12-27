@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-aa5c324418768e7481c2aa2150e497b365809930 ../Reasoner.t
-<<<RESOURCES

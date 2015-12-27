@@ -34,7 +34,3 @@ file:: ../lib/SML/TableRow.pm
 [clearpage]
 
 <<<configuration_item
-
->>>RESOURCES
-489898bfa5402c3e6dbfedd3645141d841c7ea14 ../../SML/TableRow.pm
-<<<RESOURCES

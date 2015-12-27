@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-5ca092d855b6558da3ac05afb498ecab7f82f90a ../Slide.t
-<<<RESOURCES

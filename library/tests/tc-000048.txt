@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-9a65c32f2a439770763f260ab0cd3148b7ecf222 ../Baretable.t
-<<<RESOURCES

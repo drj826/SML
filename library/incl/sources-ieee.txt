@@ -240,14 +240,3 @@ validation of software and software-based system products.
 ######################################################################
 
 <<<RAW
-
->>>RESOURCES
-3a5a1ec73a23a5f723330c1ef62e7d0699553154 files/ieee/ieee-std-1002-1987.pdf
-3f8187032096bf84364c5654181bd0ea6558e4ae files/ieee/ieee-std-1008-1987.pdf
-e225609e4435cdafe263a2b507b99bd55af0fd7d files/ieee/ieee-std-1012-2004.pdf
-ef0ade388ee373f6df1d55648c3a7c74f76bc8c7 files/ieee/ieee-std-12207-2008.pdf
-c66405c43ad09cabf38d6768da823f2527b7b7a0 files/ieee/ieee-std-1471-2000.pdf
-2286e4403a749b5019172ddba73e40916ef34f54 files/ieee/ieee-std-15288-2008.pdf
-d34deaebe780c9441ac802ba2f4ed60b3d91bbff files/ieee/ieee-std-610-12-1990.pdf
-cb7347feba83d901f42b162fbb7d5d24b7c10f04 files/ieee/ieee-std-829-2008.pdf
-<<<RESOURCES

@@ -48,7 +48,3 @@ file:: ../t/SML.t
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-ee05a21911fb3a2bd10ebd2cad99c7d9e6627f68 ../SML.t
-<<<RESOURCES

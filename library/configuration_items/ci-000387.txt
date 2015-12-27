@@ -33,7 +33,3 @@ file:: ../lib/SML/Block.pm
 [clearpage]
 
 <<<configuration_item
-
->>>RESOURCES
-63cca073b7cd0702eb87af8d85f11ee36deede58 ../../SML/Block.pm
-<<<RESOURCES

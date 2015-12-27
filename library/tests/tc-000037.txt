@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-f62060ef8194f99d3c4a0c43d7277b69dfa6cf80 ../Keypoints.t
-<<<RESOURCES

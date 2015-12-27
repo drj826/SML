@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-c0d954aa454bcfad2b1abb02e6611226b08ab756 ../TableCell.t
-<<<RESOURCES

@@ -268,13 +268,3 @@ include:: sources-cmmi
 ######################################################################
 
 <<<DOCUMENT
-
->>>RESOURCES
-834e76751ecb6d5aa9c9b5b70b0a17b3dbc38d2d auto/frd-sml-problems.txt
-8e2f83308edfd091af3be471a40fadab6331a820 incl/glossary-cmmi.txt
-6cc38b489395380b94fd2eb1b613422d01e0f77a incl/glossary-ieee.txt
-b135f12b52f258b5a24258151c58c07b87981bdb incl/glossary-sml.txt
-b24fe394af677b82414286f692203da27544d041 incl/sources-cmmi.txt
-bcb470316772f86a615d31273911d4f02ef80e98 incl/sources-ieee.txt
-2d438a12210cf179d43abaf0867b5b505c9c8af7 incl/sources.txt
-<<<RESOURCES

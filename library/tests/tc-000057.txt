@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-1f3a322bd61d8d1ce92b584245a8e7deeeb03776 ../PreformattedBlock.t
-<<<RESOURCES

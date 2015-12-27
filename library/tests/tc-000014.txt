@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-1cb8efea0f6ff39225ef90a2e590763a75ea115e ../Block.t
-<<<RESOURCES

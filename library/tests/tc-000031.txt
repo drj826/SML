@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-3239c233d31668cc5aabcc7f5a90cd5a51fe6f9a ../Video.t
-<<<RESOURCES

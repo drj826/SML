@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-e9b426adfe3fca1c391e474576fe4ffb463fc320 ../Entity.t
-<<<RESOURCES

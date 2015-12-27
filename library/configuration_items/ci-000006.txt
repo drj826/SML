@@ -56,8 +56,3 @@ file:: ontology/ontology_rules_lib.conf
 <<<LISTING
 
 <<<configuration_item
-
->>>RESOURCES
-a669b46d8bacf8c3d00be59f23f102092abb62b2 ontology_rules_lib.conf
-38748edd3fe991f48a2bc6d52b1daf2fd66f4013 ontology_rules_sml.conf
-<<<RESOURCES

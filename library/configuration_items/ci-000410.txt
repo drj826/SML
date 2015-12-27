@@ -50,8 +50,3 @@ file:: ../lib/SML/Library.pm
 [clearpage]
 
 <<<configuration_item
-
->>>RESOURCES
-0e9896b73b90f31d26ba293b20ee773a5304e17c ../../SML/Library.pm
-b9f272c9eeea278c439639a35805ddec336b4f13 files/images/class-diagram-library.png
-<<<RESOURCES

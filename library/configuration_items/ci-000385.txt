@@ -33,7 +33,3 @@ file:: ../lib/SML/Line.pm
 [clearpage]
 
 <<<configuration_item
-
->>>RESOURCES
-a2fe402722dfe52f3657db2002ee6d80474226e4 ../../SML/Line.pm
-<<<RESOURCES

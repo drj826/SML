@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-1aa7393365f586847171bf2f6586dea39c2ea3f2 ../Sidebar.t
-<<<RESOURCES

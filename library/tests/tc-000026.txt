@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-f8f8c23ff4de3d43139abb91d7c8c6634459b651 ../PreformattedDivision.t
-<<<RESOURCES

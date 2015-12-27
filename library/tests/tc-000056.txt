@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-00fe09807f6cfce97ecbffcb300c88a5eae6e38c ../Paragraph.t
-<<<RESOURCES

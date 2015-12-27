@@ -33,7 +33,3 @@ file:: ../lib/SML/Options.pm
 [clearpage]
 
 <<<configuration_item
-
->>>RESOURCES
-500441afa7bd3c2f30e7bf7bad741a2daa2d030b ../../SML/Options.pm
-<<<RESOURCES

@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-ce17898fd86b7c55ed98dd17d18020ae55ba2b2b ../CommentBlock.t
-<<<RESOURCES

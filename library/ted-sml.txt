@@ -171,17 +171,3 @@ include:: sources-cmmi
 ######################################################################
 
 <<<DOCUMENT
-
->>>RESOURCES
-41526465c139a523ed98ae63966ff2a022d3a2d9 auto/ted-sml-allocations.txt
-6d20ed62f8cc730069a39d47448b8093bdad3223 auto/ted-sml-problems.txt
-da39a3ee5e6b4b0d3255bfef95601890afd80709 auto/ted-sml-roles.txt
-5fa8d29c149878ae87c5ee824c86d19ff3edbbee auto/ted-sml-solutions.txt
-6b42215adba7d85af9032c6e4ca45f4ff5c7fc34 auto/ted-sml-tests.txt
-e5ae1c93144c5a9a81eeb30f3884d65e12fa6988 incl/glossary-cmmi.txt
-414c20a6a2b0e57e8e78b6dc0a922d33a202d5f3 incl/glossary-ieee.txt
-0c3df63df245167baab7f5d936c39ae9bdf38f75 incl/glossary-sml.txt
-6c4ccf53df08be2de4f303b19721149fe4d1dede incl/sources-cmmi.txt
-0ba124c70e3cca5ae117c049e8f7e27dbe490b66 incl/sources-ieee.txt
-0b65740376b5d9a28d38d2280693cca8829d707d incl/sources.txt
-<<<RESOURCES

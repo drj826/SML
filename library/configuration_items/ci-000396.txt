@@ -33,7 +33,3 @@ file:: ../lib/SML/Figure.pm
 [clearpage]
 
 <<<configuration_item
-
->>>RESOURCES
-41c98ddb70ff43f596ddca0a95fed56547de5a2c ../../SML/Figure.pm
-<<<RESOURCES

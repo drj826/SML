@@ -33,7 +33,3 @@ file:: ../lib/SML/Slide.pm
 [clearpage]
 
 <<<configuration_item
-
->>>RESOURCES
-2c2e94ec4d9a5338e25d1873a34d2e86e1e30e62 ../../SML/Slide.pm
-<<<RESOURCES

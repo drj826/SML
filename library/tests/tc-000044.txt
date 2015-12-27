@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-75b4d1cc09e890ec4083451cf85be6382499e434 ../ListItem.t
-<<<RESOURCES

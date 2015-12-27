@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-0418a149f49e0403ef1dd2692809427b5d99f6b6 ../Division.t
-<<<RESOURCES

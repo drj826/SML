@@ -7046,36 +7046,3 @@ include:: sources-cmmi
 ######################################################################
 
 <<<DOCUMENT
-
->>>RESOURCES
-dfedde61c616316e158023732d28a9bf9a65e3c5 files/.emacs
-7d019a93157a886c69b3872c92f36d547f170d58 files/ci-000293.txt
-3753b8851a2fb41eef864db24d291baa6def5360 files/ci-000294.txt
-4c89e19e44a8d53339ab50fd5960e08eef395af3 files/ci-000295.txt
-09d632755bb11e397cfcbe3a592b8529e8d0665d files/images/knoppix-4.png
-8586c8f3ee77017c882cd581fcbc07de3e7cf2bf files/images/netcraft-activesite-usage.png
-e257541aa387e8a114457fa40a506c31bc5f55b6 files/images/publish-1.png
-8537c990485c8473391ce9bd4d6864c6a9ddf9f6 files/images/publish-2.png
-b6f82aa1839ac0751c7d022dbdbe96662519cf27 files/images/publish-3.png
-ca81c0298f643c43c641d92486f04819f0b6d3dd files/images/publish-4.png
-4660fe0284f2941d016e9eec9d3a6571bdd06fda files/images/publishing-flowchart.png
-10b8c0be11bf333be5c1f950a3a4a8cf7767d96f files/images/req-traceability-matrix.png
-272c0ca1b1612acc61574a1a80f313b819447c34 files/images/requirement-parents.png
-de99d4e4d23f958c0d40912df12f267ce4d9fc8e files/images/requirement-parts.png
-5b66055e23aa6df192ec79373a682fa59b01ad1e files/images/sample-document-html.png
-7dcb93491ea7c4f4933a54bc01b447be21f6149c files/images/sample-document-pdf.png
-4fdf3487bed0505ffe2b94e3687d96d0782f97ff files/images/whole-part-req-hierarchy.png
-262b7ff1b995368e20ffb7f326435a063bbd5acc files/sample-document.txt
-72f872004bed86e41e5a841f6379566edf01861f files/text/computer-car-joke.txt
-b7ada7b66dcddaa319ef18da83b51df043485792 incl/bugs.txt
-e5ae1c93144c5a9a81eeb30f3884d65e12fa6988 incl/glossary-cmmi.txt
-414c20a6a2b0e57e8e78b6dc0a922d33a202d5f3 incl/glossary-ieee.txt
-0c3df63df245167baab7f5d936c39ae9bdf38f75 incl/glossary-sml.txt
-87ad8604c5816fc65687d10797975e4134dbee2f incl/sml-content-summary.txt
-519e40843ab95e7cea4b46cd822ce934c9177d34 incl/sml-presentation-summary.txt
-985bfd33ac95fd19920c225cee403fc6b8fc4770 incl/sml-special-summary.txt
-19514f831da9a492757fc97582da30bccd75793a incl/sml-structure-summary.txt
-857c45a18e45b63f73d596d4bd32fbb7f83b3cb3 incl/sources-cmmi.txt
-a6b1000962d5a72f3cb7a4e0636aaa289f697188 incl/sources-ieee.txt
-0b65740376b5d9a28d38d2280693cca8829d707d incl/sources.txt
-<<<RESOURCES

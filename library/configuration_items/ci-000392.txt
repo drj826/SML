@@ -33,7 +33,3 @@ file:: ../lib/SML/Section.pm
 [clearpage]
 
 <<<configuration_item
-
->>>RESOURCES
-717263d91d0a799e0eacbc7ab9057c3d126bf6c5 ../../SML/Section.pm
-<<<RESOURCES

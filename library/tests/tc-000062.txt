@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-04e4a8157f1390a1244f2599c5ce68649ecf1483 ../Svninfo.t
-<<<RESOURCES

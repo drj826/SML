@@ -54,7 +54,3 @@ fontsize::  footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-54b6aeb477fe6cb41ded2cc4eba0974631ed8508 ../Conditional.t
-<<<RESOURCES

@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-b6a3a548d2d808ca12a62cd16401be1e80636916 ../Inline.t
-<<<RESOURCES

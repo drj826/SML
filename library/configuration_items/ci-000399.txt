@@ -33,7 +33,3 @@ file:: ../lib/SML/Sidebar.pm
 [clearpage]
 
 <<<configuration_item
-
->>>RESOURCES
-20ab62433c86be31e19f05e59bf91f08c40538fe ../../SML/Sidebar.pm
-<<<RESOURCES

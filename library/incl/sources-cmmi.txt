@@ -31,7 +31,3 @@ note:: CMU/SEI-2006-TR-008, ESC-TR-2006-008
 ######################################################################
 
 <<<RAW
-
->>>RESOURCES
-67d3df5cb776582121abf265c8b0b556665fe1ca files/cmmi/CMMI-DEV-v1-2.pdf
-<<<RESOURCES

@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-cdae42f0cb98e505b5f5c90b15eb7314ba4973db ../Epigraph.t
-<<<RESOURCES

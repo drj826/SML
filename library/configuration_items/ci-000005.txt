@@ -49,8 +49,3 @@ file:: ../lib/SML/Document.pm
 [clearpage]
 
 <<<configuration_item
-
->>>RESOURCES
-7edf872dac92d5d9fed72d2b04a19279d24f8b58 ../../SML/Document.pm
-57a80837f614a01aa0db34a7184fcb37c7c9235f files/images/class-diagram-document.png
-<<<RESOURCES

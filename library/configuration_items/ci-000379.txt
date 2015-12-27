@@ -39,7 +39,3 @@ file:: files/ebnf/SML-EBNF.txt
 <<<LISTING
 
 <<<configuration_item
-
->>>RESOURCES
-2b78bfb7aa90489f6d9b2cacd16f3f73e9ee16ed files/ebnf/SML-EBNF.txt
-<<<RESOURCES

@@ -84,7 +84,6 @@ use SML::EnumeratedList;              # ci-000???
 use SML::Video;                       # ci-000403
 use SML::Triple;                      # ci-000404
 use SML::Slide;                       # ci-000405
-use SML::RESOURCES;                   # ci-000xxx
 
 $OUTPUT_AUTOFLUSH = 1;
 
@@ -2860,11 +2859,6 @@ sub _end_division {
     }
 
   elsif ( $division_name eq 'PREFORMATTED' )
-    {
-      # do nothing.
-    }
-
-  elsif ( $division->isa('SML::RESOURCES') )
     {
       # do nothing.
     }
@@ -9165,8 +9159,6 @@ sub _in_preformatted_division {
       $division->isa('SML::Listing')
       or
       $name eq 'PREFORMATTED'
-      or
-      $division->isa('SML::RESOURCES')
      )
     {
       return 1;

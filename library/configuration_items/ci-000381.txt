@@ -49,8 +49,3 @@ file:: ../lib/SML/Division.pm
 [clearpage]
 
 <<<configuration_item
-
->>>RESOURCES
-d8d85f66a2b5850fd9460c5e155f19309281d936 ../../SML/Division.pm
-a9999986ca4854af10cf3f487ecef103c6500c2a files/images/class-diagram-division.png
-<<<RESOURCES

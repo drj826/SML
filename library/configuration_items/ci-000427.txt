@@ -33,7 +33,3 @@ file:: ../lib/SML/PreformattedBlock.pm
 [clearpage]
 
 <<<configuration_item
-
->>>RESOURCES
-f2b925661df323e2a8f26ffb6f3dccbfbe5e427c ../../SML/PreformattedBlock.pm
-<<<RESOURCES

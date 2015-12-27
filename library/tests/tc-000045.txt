@@ -54,7 +54,3 @@ fontsize:: footnotesize
 <<<LISTING
 
 <<<test
-
->>>RESOURCES
-7bc642cb7841fa3b7e03c86872dfcf9b1adfabf8 ../BulletListItem.t
-<<<RESOURCES

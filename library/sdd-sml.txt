@@ -265,21 +265,3 @@ include:: sources-cmmi
 ######################################################################
 
 <<<DOCUMENT
-
->>>RESOURCES
-9e32d81106ac7b02c34afe031b78ea85ad351e46 auto/sdd-sml-allocations.txt
-87a5d548acbd91a8cbf5d50bf68a20ecf1969eb6 auto/sdd-sml-problems.txt
-a7978e6c77a207d167d8781bf704e48045cd77a6 auto/sdd-sml-solutions.txt
-541e5a3a0a34e3a9813a3e7f2f4dae065656c291 auto/sdd-sml-tests.txt
-0480d82431f70d736ca822d714d4714691708f2a files/images/block-diagram-document-narrative.png
-21bb1ad3640e5b2cab6fb127c522e9b84c885645 files/images/block-diagram-document-preamble.png
-952e9507262f6e98885dff23ec72dc322e5a723f files/images/block-diagram-sml-document-1.png
-6c867300dc42edc0bbd25451685c93dce6d7a8e7 files/simple-sml-document.txt
-e5ae1c93144c5a9a81eeb30f3884d65e12fa6988 incl/glossary-cmmi.txt
-414c20a6a2b0e57e8e78b6dc0a922d33a202d5f3 incl/glossary-ieee.txt
-0c3df63df245167baab7f5d936c39ae9bdf38f75 incl/glossary-sml.txt
-857c45a18e45b63f73d596d4bd32fbb7f83b3cb3 incl/sources-cmmi.txt
-a6b1000962d5a72f3cb7a4e0636aaa289f697188 incl/sources-ieee.txt
-0b65740376b5d9a28d38d2280693cca8829d707d incl/sources.txt
-d5a67469475298bf07fd12d6510f4ee502338701 tmpl/item-summary.txt
-<<<RESOURCES
