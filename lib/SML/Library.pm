@@ -2421,7 +2421,9 @@ sub get_definition_list_count {
 
   foreach my $division ( values %{ $hash } )
     {
-      if ( $division->isa("SML::DefinitionList") )
+      my $name = $division->get_name;
+
+      if ( $name eq 'DEFINITION_LIST' )
 	{
 	  ++ $count;
 	}

@@ -1093,7 +1093,7 @@ division:: requirement
 
 containee_name:: COMMENT
 
-containee_type:: SML::Division
+containee_type:: SML::Structure
 
 cardinality:: many
 
@@ -1109,7 +1109,7 @@ division:: requirement
 
 containee_name:: CONDITIONAL
 
-containee_type:: SML::Division
+containee_type:: SML::Structure
 
 cardinality:: many
 
@@ -1301,7 +1301,7 @@ division:: requirement
 
 containee_name:: DEFINITION_LIST
 
-containee_type:: SML::DefinitionList
+containee_type:: SML::Structure
 
 cardinality:: many
 

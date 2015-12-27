@@ -85,7 +85,6 @@ use SML::Table;                       # ci-000401
 use SML::StepList;                    # ci-000???
 use SML::BulletList;                  # ci-000???
 use SML::EnumeratedList;              # ci-000???
-use SML::DefinitionList;              # ci-000???
 use SML::Video;                       # ci-000403
 use SML::Triple;                      # ci-000404
 use SML::Slide;                       # ci-000405
@@ -8327,8 +8326,9 @@ sub _process_start_def_list_item {
 	{
 	  my $count = $library->get_definition_list_count;
 
-	  my $list = SML::DefinitionList->new
+	  my $list = SML::Structure->new
 	    (
+	     name    => 'DEFINITION_LIST',
 	     id      => "DEFINITION_LIST-$count",
 	     library => $library,
 	    );
