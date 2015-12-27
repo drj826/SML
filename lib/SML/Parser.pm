@@ -84,7 +84,6 @@ use SML::EnumeratedList;              # ci-000???
 use SML::Video;                       # ci-000403
 use SML::Triple;                      # ci-000404
 use SML::Slide;                       # ci-000405
-use SML::Quotation;                   # ci-000409
 use SML::RESOURCES;                   # ci-000xxx
 
 $OUTPUT_AUTOFLUSH = 1;

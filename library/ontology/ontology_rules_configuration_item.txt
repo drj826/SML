@@ -1004,7 +1004,7 @@ division:: configuration_item
 
 containee_name:: QUOTATION
 
-containee_type:: SML::Quotation
+containee_type:: SML::Structure
 
 cardinality:: many
 
