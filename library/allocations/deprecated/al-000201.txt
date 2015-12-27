@@ -1,5 +1,0 @@
-label::    al-000201
-solution:: ci-000007 # publish.pl Script
-problem::  rq-000103 # Publish SML Presentation Features
-
-outcome::2012-04-01:al-000201:green: OK

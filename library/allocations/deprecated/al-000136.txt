@@ -1,9 +1,0 @@
-label::    al-000136
-solution:: ci-000003 # Parser.pm Module
-problem::  rq-000115 # Validate Requirements Documents
-status::   red
-
-attr:: status explanation = (2011-11-27) Not yet implemented.
-Furthermore, I'm not sure this requirement is allocated to the right
-solution.  For higher-level rule validation (like arbitrary business
-rules) I'm not sure the Parser.pm module is the right answer.

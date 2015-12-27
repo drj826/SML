@@ -1,6 +1,0 @@
-label::    al-000137
-solution:: ci-000003 # Parser.pm Module
-problem::  rq-000116 # Validate Design Documents
-status::   red
-
-attr:: status explanation = (2011-11-27) Not yet implemented.
