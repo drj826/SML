@@ -987,7 +987,7 @@ division:: configuration_item
 
 containee_name:: CONDITIONAL
 
-containee_type:: SML::Conditional
+containee_type:: SML::Division
 
 cardinality:: many
 

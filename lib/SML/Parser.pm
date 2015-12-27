@@ -71,7 +71,6 @@ use SML::Structure;                   # ci-000393
 use SML::Entity;                      # ci-000416
 
 use SML::Document;                    # ci-000005
-use SML::Conditional;                 # ci-000389
 use SML::Section;                     # ci-000392
 use SML::TableRow;                    # ci-000429
 use SML::TableCell;                   # ci-000428
@@ -2752,7 +2751,7 @@ sub _begin_division {
       return 1;
     }
 
-  elsif ( $division->isa('SML::Conditional') )
+  elsif ( $name eq 'CONDITIONAL' )
     {
       # CONDITIONAL divisions don't have data segments
       $self->_set_in_data_segment(0);
@@ -2853,7 +2852,7 @@ sub _end_division {
       # do nothing.
     }
 
-  elsif ( $division->isa('SML::Conditional') )
+  elsif ( $division_name eq 'CONDITIONAL' )
     {
       # do nothing.
     }
@@ -9435,17 +9434,16 @@ sub _in_conditional {
 
   my $division = $self->_get_current_division;
 
-  while ( $division and not $division->isa('SML::Fragment') )
+  while ( ref $division )
     {
-      if ( $division->isa('SML::Conditional') )
+      my $name = $division->get_name;
+
+      if ( $name eq 'CONDITIONAL' )
 	{
 	  return 1;
 	}
 
-      else
-	{
-	  $division = $division->get_containing_division;
-	}
+      $division = $division->get_containing_division;
     }
 
   return 0;
@@ -9459,17 +9457,16 @@ sub _current_conditional {
 
   my $division = $self->_get_current_division;
 
-  while ( $division and not $division->isa('SML::Fragment') )
+  while ( ref $division )
     {
-      if ( $division->isa('SML::Conditional') )
+      my $name = $division->get_name;
+
+      if ( $name eq 'CONDITIONAL' )
 	{
 	  return $division;
 	}
 
-      else
-	{
-	  $division = $division->get_containing_division;
-	}
+      $division = $division->get_containing_division;
     }
 
   return 0;
@@ -9645,7 +9642,9 @@ sub _count_conditionals {
 
   foreach my $division (@{ $division_list })
     {
-      if ( $division->isa('SML::Conditional') )
+      my $name = $division->get_name;
+
+      if ( $name eq 'CONDITIONAL' )
 	{
 	  ++ $count;
 	}
@@ -9653,50 +9652,6 @@ sub _count_conditionals {
 
   return $count;
 }
-
-######################################################################
-
-# sub _count_regions {
-
-#   my $self = shift;
-
-#   my $count = 0;
-
-#   my $fragment      = $self->_get_fragment;
-#   my $division_list = $fragment->get_division_list;
-
-#   foreach my $division (@{ $division_list })
-#     {
-#       if ( $division->isa('SML::Region') )
-# 	{
-# 	  ++ $count;
-# 	}
-#     }
-
-#   return $count;
-# }
-
-######################################################################
-
-# sub _count_environments {
-
-#   my $self = shift;
-
-#   my $count = 0;
-
-#   my $fragment      = $self->_get_fragment;
-#   my $division_list = $fragment->get_division_list;
-
-#   foreach my $division (@{ $division_list })
-#     {
-#       if ( $division->isa('SML::Environment') )
-# 	{
-# 	  ++ $count;
-# 	}
-#     }
-
-#   return $count;
-# }
 
 ######################################################################
 
@@ -9712,18 +9667,6 @@ sub _count_divisions {
 
   return scalar @{ $division_list };
 }
-
-######################################################################
-
-# sub _increment_division_count {
-
-#   my $self = shift;
-#   my $name = shift;                     # division name (i.e. COMMENT)
-
-#   my $counter = $self->_get_division_counter_hash;
-
-#   return ++ $counter->{$name};
-# }
 
 ######################################################################
 
