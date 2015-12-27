@@ -2226,6 +2226,10 @@ index:: superscript; text!superscript
 
 index:: subscript; text!subscript
 
+index:: user entered text; text!user entered
+
+index:: command reference
+
 : bold
 
 :
@@ -2293,6 +2297,16 @@ index:: subscript; text!subscript
   [en:username]
 
 : [en:username]
+
+---
+
+: command reference
+
+:
+
+  [cmd:ls -al | grep *.txt]
+
+: [cmd:ls -al | grep *.txt]
 
 ---
 

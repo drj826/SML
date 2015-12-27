@@ -3,4 +3,4 @@
 self => an SML::CommandReference object
 
 %]
-<tt>[%-FILTER html-%][%-self.get_content-%][%-END-%]</tt>
+<span style="font-family:monospace;">[%-FILTER html-%][%-self.get_content-%][%-END-%]</span>
