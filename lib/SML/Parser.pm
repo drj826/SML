@@ -75,7 +75,6 @@ use SML::TableCell;                   # ci-000428
 use SML::Revisions;                   # ci-000394
 use SML::Figure;                      # ci-000396
 use SML::Listing;                     # ci-000397
-use SML::PreformattedDivision;        # ci-000398
 use SML::Sidebar;                     # ci-000399
 use SML::Source;                      # ci-000400
 use SML::Table;                       # ci-000401
@@ -2861,7 +2860,7 @@ sub _end_division {
       $self->_process_end_source_division($division);
     }
 
-  elsif ( $division->isa('SML::PreformattedDivision') )
+  elsif ( $division_name eq 'PREFORMATTED' )
     {
       # do nothing.
     }
@@ -9156,12 +9155,17 @@ sub _in_preformatted_division {
 
   my $division = $self->_get_current_division;
 
-  return 0 if not $division;
+  unless ( ref $division )
+    {
+      return 0;
+    }
+
+  my $name = $division->get_name;
 
   if (
       $division->isa('SML::Listing')
       or
-      $division->isa('SML::PreformattedDivision')
+      $name eq 'PREFORMATTED'
       or
       $division->isa('SML::RESOURCES')
      )

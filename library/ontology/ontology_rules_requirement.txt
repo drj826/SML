@@ -1173,7 +1173,7 @@ division:: requirement
 
 containee_name:: PREFORMATTED
 
-containee_type:: SML::PreformattedDivision
+containee_type:: SML::Structure
 
 cardinality:: many
 

@@ -1055,7 +1055,7 @@ division:: configuration_item
 
 containee_name:: PREFORMATTED
 
-containee_type:: SML::PreformattedDivision
+containee_type:: SML::Structure
 
 cardinality:: many
 

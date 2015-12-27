@@ -2230,6 +2230,8 @@ index:: user entered text; text!user entered
 
 index:: command reference
 
+index:: literal text
+
 : bold
 
 :
@@ -2309,6 +2311,13 @@ index:: command reference
 : [cmd:ls -al | grep *.txt]
 
 ---
+
+: literal text
+
+:
+  {lit:__init__.py}
+
+: {lit:__init__.py}
 
 #---------------------------------------------------------------------
 
