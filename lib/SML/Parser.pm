@@ -81,7 +81,6 @@ use SML::BulletList;                  # ci-000???
 use SML::EnumeratedList;              # ci-000???
 use SML::Video;                       # ci-000403
 use SML::Triple;                      # ci-000404
-use SML::Slide;                       # ci-000405
 
 $OUTPUT_AUTOFLUSH = 1;
 
@@ -2876,7 +2875,7 @@ sub _end_division {
       # do nothing.
     }
 
-  elsif ( $division->isa('SML::Slide') )
+  elsif ( $division_name eq 'SLIDE' )
     {
       # do nothing.
     }
