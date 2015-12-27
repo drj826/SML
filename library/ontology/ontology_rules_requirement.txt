@@ -1093,7 +1093,7 @@ division:: requirement
 
 containee_name:: COMMENT
 
-containee_type:: SML::CommentDivision
+containee_type:: SML::Division
 
 cardinality:: many
 

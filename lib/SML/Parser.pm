@@ -71,7 +71,6 @@ use SML::Structure;                   # ci-000393
 use SML::Entity;                      # ci-000416
 
 use SML::Document;                    # ci-000005
-use SML::CommentDivision;             # ci-000388
 use SML::Conditional;                 # ci-000389
 use SML::Section;                     # ci-000392
 use SML::TableRow;                    # ci-000429
@@ -2748,7 +2747,7 @@ sub _begin_division {
       return 1;
     }
 
-  elsif ( $division->isa('SML::CommentDivision') )
+  elsif ( $name eq 'COMMENT' )
     {
       return 1;
     }
@@ -2849,7 +2848,7 @@ sub _end_division {
       # do nothing.
     }
 
-  elsif ( $division->isa('SML::CommentDivision') )
+  elsif ( $division_name eq 'COMMENT' )
     {
       # do nothing.
     }
@@ -9415,15 +9414,17 @@ sub _in_comment_division {
 
   my $division = $self->_get_current_division;
 
-  if ( $division and $division->isa('SML::CommentDivision') )
+  if ( $division )
     {
-      return 1;
+      my $name = $division->get_name;
+
+      if ( $name eq 'COMMENT' )
+	{
+	  return 1;
+	}
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
@@ -9487,7 +9488,9 @@ sub _count_comment_divisions {
 
   foreach my $division (@{ $division_list })
     {
-      if ( $division->isa('SML::CommentDivision') )
+      my $name = $division->get_name;
+
+      if ( $name eq 'COMMENT' )
 	{
 	  ++ $count;
 	}
