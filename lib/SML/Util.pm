@@ -346,7 +346,7 @@ other amazing feats.
 
 =head1 VERSION
 
-This documentation refers to L<"SML::Audio"> version 2.0.0.
+This documentation refers to L<"SML::Util"> version 2.0.0.
 
 =head1 SYNOPSIS
 

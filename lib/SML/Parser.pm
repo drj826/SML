@@ -92,7 +92,6 @@ use SML::BulletList;                  # ci-000???
 use SML::EnumeratedList;              # ci-000???
 use SML::DefinitionList;              # ci-000???
 use SML::Baretable;                   # ci-000414
-use SML::Audio;                       # ci-000402
 use SML::Video;                       # ci-000403
 use SML::Triple;                      # ci-000404
 use SML::Slide;                       # ci-000405

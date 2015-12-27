@@ -1123,7 +1123,7 @@ division:: configuration_item
 
 containee_name:: AUDIO
 
-containee_type:: SML::Audio
+containee_type:: SML::Structure
 
 cardinality:: many
 
