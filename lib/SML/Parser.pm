@@ -31,7 +31,6 @@ use SML::String;                      # ci-000???
 use SML::AcronymTermReference;        # ci-000???
 use SML::CitationReference;           # ci-000???
 use SML::XMLTag;                      # ci-000???
-use SML::LiteralString;               # ci-000???
 use SML::CrossReference;              # ci-000???
 use SML::TitleReference;              # ci-000???
 use SML::FileReference;               # ci-000???
@@ -1287,11 +1286,12 @@ sub _create_string {
 	{
 	  my $args = {};
 
+	  $args->{name}      = 'LITERAL_STRING';
 	  $args->{content}   = $1;
 	  $args->{library}   = $self->get_library;
 	  $args->{container} = $container if $container;
 
-	  return SML::LiteralString->new(%{$args});
+	  return SML::String->new(%{$args});
 	}
 
       else
