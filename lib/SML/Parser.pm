@@ -55,7 +55,6 @@ use SML::Block;                       # ci-000387
 use SML::PreformattedBlock;           # ci-000427
 use SML::Paragraph;                   # ci-000425
 use SML::ListItem;                    # ci-000424
-use SML::EnumeratedListItem;          # ci-000431
 use SML::DefinitionListItem;          # ci-000432
 use SML::Step;                        # ci-000???
 use SML::Image;                       # ci-000???
@@ -3956,7 +3955,7 @@ sub _end_block {
       $self->_process_end_bullet_list_item($block);
     }
 
-  elsif ( $block->isa('SML::EnumeratedListItem') )
+  elsif ( $name eq 'ENUM_LIST_ITEM' )
     {
       $self->_process_end_enum_list_item($block);
     }
@@ -7968,8 +7967,9 @@ sub _process_enum_list_item {
       $self->_begin_division($list);
       $self->_push_list_stack($list);
 
-      my $item = SML::EnumeratedListItem->new
+      my $item = SML::ListItem->new
 	(
+	 name               => 'ENUM_LIST_ITEM',
 	 library            => $library,
 	 leading_whitespace => $whitespace,
 	);
@@ -8002,8 +8002,9 @@ sub _process_enum_list_item {
      $indent == $self->_get_current_list_indent
     )
     {
-      my $item = SML::EnumeratedListItem->new
+      my $item = SML::ListItem->new
 	(
+	 name               => 'ENUM_LIST_ITEM',
 	 library            => $library,
 	 leading_whitespace => $whitespace,
 	);
@@ -8053,8 +8054,9 @@ sub _process_enum_list_item {
       $self->_begin_division($list);
       $self->_push_list_stack($list);
 
-      my $item = SML::EnumeratedListItem->new
+      my $item = SML::ListItem->new
 	(
+	 name               => 'ENUM_LIST_ITEM',
 	 library            => $library,
 	 leading_whitespace => $whitespace,
 	);
@@ -8124,8 +8126,9 @@ sub _process_enum_list_item {
 	    }
 	}
 
-      my $item = SML::EnumeratedListItem->new
+      my $item = SML::ListItem->new
 	(
+	 name               => 'ENUM_LIST_ITEM',
 	 library            => $library,
 	 leading_whitespace => $whitespace,
 	);
@@ -8209,8 +8212,9 @@ sub _process_enum_list_item {
       $self->_begin_division($list);
       $self->_push_list_stack($list);
 
-      my $item = SML::EnumeratedListItem->new
+      my $item = SML::ListItem->new
 	(
+	 name               => 'ENUM_LIST_ITEM',
 	 library            => $library,
 	 leading_whitespace => $whitespace,
 	);
@@ -8264,8 +8268,9 @@ sub _process_enum_list_item {
       $self->_begin_division($list);
       $self->_push_list_stack($list);
 
-      my $item = SML::EnumeratedListItem->new
+      my $item = SML::ListItem->new
 	(
+	 name               => 'ENUM_LIST_ITEM',
 	 library            => $library,
 	 leading_whitespace => $whitespace,
 	);
@@ -10172,7 +10177,7 @@ sub _parse_block {
     (
      $name eq 'BULLET_LIST_ITEM'
      or
-     $block->isa('SML::EnumeratedListItem')
+     $name eq 'ENUM_LIST_ITEM'
      or
      $block->isa('SML::Step')
      or
