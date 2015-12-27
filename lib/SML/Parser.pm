@@ -57,7 +57,6 @@ use SML::PreformattedBlock;           # ci-000427
 use SML::CommentBlock;                # ci-000426
 use SML::Paragraph;                   # ci-000425
 use SML::ListItem;                    # ci-000424
-use SML::BulletListItem;              # ci-000430
 use SML::EnumeratedListItem;          # ci-000431
 use SML::DefinitionListItem;          # ci-000432
 use SML::Step;                        # ci-000???
@@ -2385,7 +2384,6 @@ sub _parse_lines {
   $self->_set_index_hash({});
   $self->_set_template_hash({});
   $self->_set_section_counter_hash({});
-  # $self->_set_division_counter_hash({});
   $self->_set_count_total_hash({});
 
   $self->_clear_block;
@@ -3926,6 +3924,7 @@ sub _end_block {
   my $self = shift;
 
   my $block = $self->_get_block;
+  my $name  = $block->get_name;
 
   # validate block syntax
   $self->_validate_bold_markup_syntax($block);
@@ -3953,7 +3952,7 @@ sub _end_block {
       $self->_end_element($block);
     }
 
-  elsif ( $block->isa('SML::BulletListItem') )
+  elsif ( $name eq 'BULLET_LIST_ITEM' )
     {
       $self->_process_end_bullet_list_item($block);
     }
@@ -4073,8 +4072,9 @@ sub _end_element {
   if ( not $ontology->property_is_universal($element_name) )
     {
 
-      my $division    = $element->get_containing_division;
-      my $division_id = $division->get_id;
+      my $division      = $element->get_containing_division;
+      my $division_id   = $division->get_id;
+      my $division_name = $division->get_name;
 
       $library->add_property_value
 	(
@@ -4134,6 +4134,14 @@ sub _end_element {
 	    {
 	      $logger->error("ONTOLOGY DOESN'T ALLOW TRIPLE $subject $predicate $object");
 	    }
+	}
+
+      # Check to see whether this element value should be a division
+      # ID but is non-existent.
+      elsif ( $ontology->value_must_be_division_id_for_property($division_name,$element_name) )
+	{
+	  my $location = $element->get_location;
+	  $logger->error("NON-EXISTENT DIVISION ID \'$element_value\' FOR $division_name $element_name at $location");
 	}
     }
 
@@ -6910,8 +6918,9 @@ sub _process_bull_list_item {
 
       $logger->trace("{$number} ..... new top level bullet item");
 
-      my $item = SML::BulletListItem->new
+      my $item = SML::ListItem->new
 	(
+	 name               => 'BULLET_LIST_ITEM',
 	 library            => $library,
 	 leading_whitespace => $whitespace,
 	);
@@ -6946,8 +6955,9 @@ sub _process_bull_list_item {
     {
       $logger->trace("{$number} ..... new bullet item");
 
-      my $item = SML::BulletListItem->new
+      my $item = SML::ListItem->new
 	(
+	 name               => 'BULLET_LIST_ITEM',
 	 library            => $library,
 	 leading_whitespace => $whitespace,
 	);
@@ -7001,8 +7011,9 @@ sub _process_bull_list_item {
 
       $logger->trace("{$number} ..... new sub bullet item");
 
-      my $item = SML::BulletListItem->new
+      my $item = SML::ListItem->new
 	(
+	 name               => 'BULLET_LIST_ITEM',
 	 library            => $library,
 	 leading_whitespace => $whitespace,
 	);
@@ -7078,8 +7089,9 @@ sub _process_bull_list_item {
 
       $logger->trace("{$number} ..... new bullet item");
 
-      my $item = SML::BulletListItem->new
+      my $item = SML::ListItem->new
 	(
+	 name               => 'BULLET_LIST_ITEM',
 	 library            => $library,
 	 leading_whitespace => $whitespace,
 	);
@@ -7173,8 +7185,9 @@ sub _process_bull_list_item {
 
       $logger->trace("{$number} ..... new bullet item");
 
-      my $item = SML::BulletListItem->new
+      my $item = SML::ListItem->new
 	(
+	 name               => 'BULLET_LIST_ITEM',
 	 library            => $library,
 	 leading_whitespace => $whitespace,
 	);
@@ -7232,8 +7245,9 @@ sub _process_bull_list_item {
 
       $logger->trace("{$number} ..... new bullet item");
 
-      my $item = SML::BulletListItem->new
+      my $item = SML::ListItem->new
 	(
+	 name               => 'BULLET_LIST_ITEM',
 	 library            => $library,
 	 leading_whitespace => $whitespace,
 	);
@@ -10146,17 +10160,15 @@ sub _parse_block {
   my $self  = shift;
   my $block = shift;
 
-  if (
-      not ref $block
-      or
-      not $block->isa('SML::Block')
-     )
+  unless ( ref $block and $block->isa('SML::Block') )
     {
       $logger->error("CAN'T PARSE NON-BLOCK \'$block\'");
       return 0;
     }
 
-  $logger->trace("_parse_block $block");
+  my $name = $block->get_name;
+
+  $logger->trace("_parse_block $name");
 
   $self->_set_block($block);
 
@@ -10199,7 +10211,7 @@ sub _parse_block {
 
   elsif
     (
-     $block->isa('SML::BulletListItem')
+     $name eq 'BULLET_LIST_ITEM'
      or
      $block->isa('SML::EnumeratedListItem')
      or

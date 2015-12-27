@@ -36,6 +36,8 @@ has library =>
    required  => 1,
   );
 
+# This is the library object to which the ontology belongs.
+
 ######################################################################
 ######################################################################
 ##
@@ -74,6 +76,35 @@ sub get_allowed_property_object_name_list {
   my $hash = $self->_get_property_rules_lookup_hash;
 
   return [ sort keys %{ $hash->{$division_name}{$property_name} }];
+}
+
+######################################################################
+
+sub value_must_be_division_id_for_property {
+
+  # Return 1 if the value of the specified property (division name,
+  # property name) MUST be a division ID (not a STRING or BOOLEAN).
+
+  my $self          = shift;
+  my $division_name = shift;
+  my $property_name = shift;
+
+  my $object_name_list = $self->get_allowed_property_object_name_list($division_name,$property_name);
+
+  if ( not scalar @{ $object_name_list } )
+    {
+      return 0;
+    }
+
+  foreach my $object_name (@{ $object_name_list })
+    {
+      if ( $object_name eq 'STRING' or $object_name eq 'BOOLEAN' )
+	{
+	  return 0;
+	}
+    }
+
+  return 1;
 }
 
 ######################################################################
@@ -147,8 +178,6 @@ sub get_rule_with_id {
 }
 
 ######################################################################
-
-# OLD: sub get_class_for_entity_name {
 
 sub get_class_for_division_name {
 
