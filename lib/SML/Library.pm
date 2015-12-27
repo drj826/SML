@@ -2401,7 +2401,9 @@ sub get_step_list_count {
 
   foreach my $division ( values %{ $hash } )
     {
-      if ( $division->isa("SML::StepList") )
+      my $name = $division->get_name;
+
+      if ( $name eq 'STEP_LIST' )
 	{
 	  ++ $count;
 	}

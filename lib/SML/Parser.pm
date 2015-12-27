@@ -76,7 +76,6 @@ use SML::Figure;                      # ci-000396
 use SML::Listing;                     # ci-000397
 use SML::Source;                      # ci-000400
 use SML::Table;                       # ci-000401
-use SML::StepList;                    # ci-000???
 use SML::BulletList;                  # ci-000???
 use SML::EnumeratedList;              # ci-000???
 use SML::Video;                       # ci-000403
@@ -7303,8 +7302,9 @@ sub _process_start_step_element {
 	{
 	  my $count = $library->get_step_list_count;
 
-	  my $list = SML::StepList->new
+	  my $list = SML::Structure->new
 	    (
+	     name    => 'STEP_LIST',
 	     id      => "STEP_LIST-$count",
 	     library => $library,
 	    );
