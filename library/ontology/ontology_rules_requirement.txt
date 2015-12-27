@@ -1091,9 +1091,9 @@ requirement determine by the evaluation.
 
 division:: requirement
 
-containee_type:: SML::CommentDivision
-
 containee_name:: COMMENT
+
+containee_type:: SML::CommentDivision
 
 cardinality:: many
 
@@ -1107,9 +1107,9 @@ description:: A requirement may contain multiple COMMENT divisions.
 
 division:: requirement
 
-containee_type:: SML::Conditional
-
 containee_name:: CONDITIONAL
+
+containee_type:: SML::Conditional
 
 cardinality:: many
 
@@ -1123,9 +1123,9 @@ description:: A requirement may contain multiple CONDITIONAL divisions.
 
 division:: requirement
 
-containee_type:: SML::Quotation
-
 containee_name:: QUOTATION
+
+containee_type:: SML::Quotation
 
 cardinality:: many
 
@@ -1139,9 +1139,9 @@ description:: A requirement may contain multiple QUOTATION divisions.
 
 division:: requirement
 
-containee_type:: SML::Attachment
-
 containee_name:: ATTACHMENT
+
+containee_type:: SML::Structure
 
 cardinality:: many
 
@@ -1155,9 +1155,9 @@ description:: A requirement may contain multiple ATTACHMENT divisions.
 
 division:: requirement
 
-containee_type:: SML::Figure
-
 containee_name:: FIGURE
+
+containee_type:: SML::Figure
 
 cardinality:: many
 
@@ -1171,9 +1171,9 @@ description:: A requirement may contain multiple FIGURE divisions.
 
 division:: requirement
 
-containee_type:: SML::PreformattedDivision
-
 containee_name:: PREFORMATTED
+
+containee_type:: SML::PreformattedDivision
 
 cardinality:: many
 
@@ -1187,9 +1187,9 @@ description:: A requirement may contain multiple PREFORMATTED divisions.
 
 division:: requirement
 
-containee_type:: SML::Listing
-
 containee_name:: LISTING
+
+containee_type:: SML::Listing
 
 cardinality:: many
 
@@ -1203,9 +1203,9 @@ description:: A requirement may contain multiple LISTING divisions.
 
 division:: requirement
 
-containee_type:: SML::Source
-
 containee_name:: SOURCE
+
+containee_type:: SML::Source
 
 cardinality:: many
 
@@ -1219,9 +1219,9 @@ description:: A requirement may contain multiple SOURCE divisions.
 
 division:: requirement
 
-containee_type:: SML::Table
-
 containee_name:: TABLE
+
+containee_type:: SML::Table
 
 cardinality:: many
 
@@ -1235,9 +1235,9 @@ description:: A requirement may contain multiple TABLE divisions.
 
 division:: requirement
 
-containee_type:: SML::Audio
-
 containee_name:: AUDIO
+
+containee_type:: SML::Audio
 
 cardinality:: many
 
@@ -1251,9 +1251,9 @@ description:: A requirement may contain multiple AUDIO divisions.
 
 division:: requirement
 
-containee_type:: SML::Video
-
 containee_name:: VIDEO
+
+containee_type:: SML::Video
 
 cardinality:: many
 
@@ -1267,9 +1267,9 @@ description:: A requirement may contain multiple VIDEO divisions.
 
 division:: requirement
 
-containee_type:: SML::Triple
-
 containee_name:: TRIPLE
+
+containee_type:: SML::Triple
 
 cardinality:: many
 
@@ -1283,9 +1283,9 @@ description:: A requirement may contain multiple TRIPLE divisions.
 
 division:: requirement
 
-containee_type:: SML::Baretable
-
 containee_name:: BARE_TABLE
+
+containee_type:: SML::Baretable
 
 cardinality:: many
 
@@ -1299,9 +1299,9 @@ description:: A requirement may contain multiple BARE_TABLE divisions.
 
 division:: requirement
 
-containee_type:: SML::DefinitionList
-
 containee_name:: DEFINITION_LIST
+
+containee_type:: SML::DefinitionList
 
 cardinality:: many
 
@@ -1315,9 +1315,9 @@ description:: A requirement may contain multiple DEFINITION_LIST divisions.
 
 division:: requirement
 
-containee_type:: SML::BulletList
-
 containee_name:: BULLET_LIST
+
+containee_type:: SML::BulletList
 
 cardinality:: many
 
@@ -1331,9 +1331,9 @@ description:: A requirement may contain multiple BULLET_LIST divisions.
 
 division:: requirement
 
-containee_type:: SML::EnumeratedList
-
 containee_name:: ENUMERATED_LIST
+
+containee_type:: SML::EnumeratedList
 
 cardinality:: many
 

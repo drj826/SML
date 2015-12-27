@@ -70,13 +70,15 @@ use SML::IndexEntry;                  # ci-000???
 
 # division classes
 use SML::Division;                    # ci-000381
+use SML::Structure;                   # ci-000393
+use SML::Entity;                      # ci-000416
+
 use SML::Document;                    # ci-000005
 use SML::CommentDivision;             # ci-000388
 use SML::Conditional;                 # ci-000389
 use SML::Section;                     # ci-000392
 use SML::TableRow;                    # ci-000429
 use SML::TableCell;                   # ci-000428
-use SML::Attachment;                  # ci-000393
 use SML::Revisions;                   # ci-000394
 use SML::Epigraph;                    # ci-000395
 use SML::Figure;                      # ci-000396
@@ -92,7 +94,6 @@ use SML::DefinitionList;              # ci-000???
 use SML::Baretable;                   # ci-000414
 use SML::Audio;                       # ci-000402
 use SML::Video;                       # ci-000403
-use SML::Entity;                      # ci-000416
 use SML::Triple;                      # ci-000404
 use SML::Slide;                       # ci-000405
 use SML::Demo;                        # ci-000406
