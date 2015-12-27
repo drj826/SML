@@ -53,7 +53,6 @@ use SML::EmailAddress;                # ci-000???
 # block classes
 use SML::Block;                       # ci-000387
 use SML::PreformattedBlock;           # ci-000427
-use SML::CommentBlock;                # ci-000426
 use SML::Paragraph;                   # ci-000425
 use SML::ListItem;                    # ci-000424
 use SML::EnumeratedListItem;          # ci-000431
@@ -3307,7 +3306,9 @@ sub _substitute_variables {
  BLOCK:
   foreach my $block (@{ $block_list })
     {
-      next if $block->isa('SML::CommentBlock');
+      my $block_name = $block->get_name;
+
+      next if $block_name eq 'COMMENT_BLOCK';
       next if $block->is_in_a('COMMENT');
       next if $block->isa('SML::PreformattedBlock');
       next if $block->is_in_a('PREFORMATTED');
@@ -3378,7 +3379,9 @@ sub _resolve_lookups {
  BLOCK:
   foreach my $block (@{ $block_list })
     {
-      next if $block->isa('SML::CommentBlock');
+      my $block_name = $block->get_name;
+
+      next if $block_name eq 'COMMENT_BLOCK';
       next if $block->is_in_a('COMMENT');
       next if $block->isa('SML::PreformattedBlock');
       next if $block->is_in_a('PREFORMATTED');
@@ -4422,7 +4425,9 @@ sub _contains_variable {
 
   foreach my $block ( @{ $block_list } )
     {
-      next if $block->isa('SML::CommentBlock');
+      my $block_name = $block->get_name;
+
+      next if $block_name eq 'COMMENT_BLOCK';
       next if $block->is_in_a('COMMENT');
       next if $block->isa('SML::PreformattedBlock');
       next if $block->is_in_a('PREFORMATTED');
@@ -4456,7 +4461,9 @@ sub _contains_lookup {
 
   foreach my $block ( @{ $block_list } )
     {
-      next if $block->isa('SML::CommentBlock');
+      my $block_name = $block->get_name;
+
+      next if $block_name eq 'COMMENT_BLOCK';
       next if $block->is_in_a('COMMENT');
       next if $block->isa('SML::PreformattedBlock');
       next if $block->is_in_a('PREFORMATTED');
@@ -4577,7 +4584,9 @@ sub _text_requires_block_processing {
 
   foreach my $block ( @{ $block_list } )
     {
-      next if $block->isa('SML::CommentBlock');
+      my $block_name = $block->get_name;
+
+      next if $block_name eq 'COMMENT_BLOCK';
       next if $block->is_in_a('COMMENT');
       next if $block->isa('SML::PreformattedBlock');
       next if $block->is_in_a('PREFORMATTED');
@@ -5868,7 +5877,12 @@ sub _process_comment_line {
     {
       $logger->trace("{$number} ..... begin comment block");
 
-      my $block = SML::CommentBlock->new(library=>$library);
+      my $block = SML::PreformattedBlock->new
+	(
+	 name    => 'COMMENT_BLOCK',
+	 library => $library,
+	);
+
       $block->add_line($line);
       $self->_begin_block($block);
 
@@ -9099,19 +9113,19 @@ sub _in_comment_block {
 
   my $self = shift;
 
-  if (
-      $self->_get_block
-      and
-      $self->_get_block->isa('SML::CommentBlock')
-     )
+  my $block = $self->_get_block;
+
+  if ( $block )
     {
-      return 1;
+      my $name = $block->get_name;
+
+      if ( $name eq 'COMMENT_BLOCK' )
+	{
+	  return 1;
+	}
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
@@ -10178,7 +10192,7 @@ sub _parse_block {
 
   if
     (
-     $block->isa('SML::CommentBlock')
+     $name eq 'COMMENT_BLOCK'
      or
      $block->isa('SML::PreformattedBlock')
     )
