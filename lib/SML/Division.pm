@@ -629,18 +629,25 @@ sub get_containing_section {
 
 sub is_in_a {
 
-  # Return 1 if this division is in a division of "type" (even if it
-  # is buried several divisions deep).  Don't use this method to find
-  # out whether a block is in a SML::Fragment division.
+  # Return 1 if this division is in a division of "name" (even if it
+  # is buried several divisions deep).
 
   my $self = shift;
-  my $type = shift;
+  my $name = shift;
+
+  unless ( $name )
+    {
+      $logger->error("CAN'T CHECK IF DIVISION IS IN ANOTHER, MISSING ARGUMENT");
+      return 0;
+    }
 
   my $division = $self;
 
-  while ( ref $division )
+  while ( ref $division and $division->isa('SML::Division') )
     {
-      if ( $division->isa($type) )
+      my $division_name = $division->get_name;
+
+      if ( $division_name eq $name )
 	{
 	  return 1;
 	}
@@ -810,7 +817,7 @@ L<"SML::Block">s.
   my $document = $division->get_containing_document;
   my $string   = $division->get_location;
   my $section  = $division->get_containing_section;
-  my $boolean  = $division->is_in_a($division_type);
+  my $boolean  = $division->is_in_a($division_name);
   my $boolean  = $division->validate;
 
 =head1 DESCRIPTION

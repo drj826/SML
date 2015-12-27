@@ -259,7 +259,7 @@ C<SML::Block> - one or more contiguous L<"SML::Line">s.
   my $boolean  = $block->add_part($part);
   my $line     = $block->get_first_line;
   my $string   = $block->get_location;
-  my $boolean  = $block->is_in_a($division_type);
+  my $boolean  = $block->is_in_a($division_name);
 
 =head1 DESCRIPTION
 

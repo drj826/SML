@@ -1174,7 +1174,7 @@ division:: configuration_item
 
 containee_name:: BARE_TABLE
 
-containee_type:: SML::Baretable
+containee_type:: SML::Structure
 
 cardinality:: many
 

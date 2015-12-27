@@ -91,7 +91,6 @@ use SML::StepList;                    # ci-000???
 use SML::BulletList;                  # ci-000???
 use SML::EnumeratedList;              # ci-000???
 use SML::DefinitionList;              # ci-000???
-use SML::Baretable;                   # ci-000414
 use SML::Video;                       # ci-000403
 use SML::Triple;                      # ci-000404
 use SML::Slide;                       # ci-000405
@@ -2732,7 +2731,7 @@ sub _begin_division {
       return 1;
     }
 
-  elsif ( $division->isa('SML::Baretable') )
+  elsif ( $name eq 'BARE_TABLE' )
     {
       return 1;
     }
@@ -2799,7 +2798,8 @@ sub _end_division {
 
   my $self = shift;
 
-  my $division = $self->_get_current_division;
+  my $division      = $self->_get_current_division;
+  my $division_name = $division->get_name;
 
   return 0 if not $division;
 
@@ -2842,7 +2842,7 @@ sub _end_division {
       # do nothing.
     }
 
-  elsif ( $division->isa('SML::Baretable') )
+  elsif ( $division_name eq 'BARE_TABLE' )
     {
       # do nothing.
     }
@@ -3310,9 +3310,9 @@ sub _substitute_variables {
   foreach my $block (@{ $block_list })
     {
       next if $block->isa('SML::CommentBlock');
-      next if $block->is_in_a('SML::CommentDivision');
+      next if $block->is_in_a('COMMENT');
       next if $block->isa('SML::PreformattedBlock');
-      next if $block->is_in_a('SML::PreformattedDivision');
+      next if $block->is_in_a('PREFORMATTED');
 
       my $text = $block->get_content;
 
@@ -3381,9 +3381,9 @@ sub _resolve_lookups {
   foreach my $block (@{ $block_list })
     {
       next if $block->isa('SML::CommentBlock');
-      next if $block->is_in_a('SML::CommentDivision');
+      next if $block->is_in_a('COMMENT');
       next if $block->isa('SML::PreformattedBlock');
-      next if $block->is_in_a('SML::PreformattedDivision');
+      next if $block->is_in_a('PREFORMATTED');
 
       my $text = $block->get_content;
 
@@ -4415,9 +4415,9 @@ sub _contains_variable {
   foreach my $block ( @{ $block_list } )
     {
       next if $block->isa('SML::CommentBlock');
-      next if $block->is_in_a('SML::CommentDivision');
+      next if $block->is_in_a('COMMENT');
       next if $block->isa('SML::PreformattedBlock');
-      next if $block->is_in_a('SML::PreformattedDivision');
+      next if $block->is_in_a('PREFORMATTED');
 
       my $text = $block->get_content;
 
@@ -4449,9 +4449,9 @@ sub _contains_lookup {
   foreach my $block ( @{ $block_list } )
     {
       next if $block->isa('SML::CommentBlock');
-      next if $block->is_in_a('SML::CommentDivision');
+      next if $block->is_in_a('COMMENT');
       next if $block->isa('SML::PreformattedBlock');
-      next if $block->is_in_a('SML::PreformattedDivision');
+      next if $block->is_in_a('PREFORMATTED');
 
       my $text = $block->get_content;
 
@@ -4570,9 +4570,9 @@ sub _text_requires_block_processing {
   foreach my $block ( @{ $block_list } )
     {
       next if $block->isa('SML::CommentBlock');
-      next if $block->is_in_a('SML::CommentDivision');
+      next if $block->is_in_a('COMMENT');
       next if $block->isa('SML::PreformattedBlock');
-      next if $block->is_in_a('SML::PreformattedDivision');
+      next if $block->is_in_a('PREFORMATTED');
 
       my $text = $block->get_content;
 
@@ -8459,8 +8459,9 @@ sub _process_start_table_cell {
       my $tnum = $self->_count_baretables + 1;
       my $tid  = "BARE_TABLE-$tnum";
 
-      my $baretable = SML::Baretable->new
+      my $baretable = SML::Structure->new
 	(
+	 name    => 'BARE_TABLE',
 	 id      => $tid,
 	 library => $library,
 	);
@@ -8968,16 +8969,18 @@ sub _process_non_blank_line {
   my $self = shift;
   my $line = shift;
 
-  my $library  = $self->get_library;
-  my $location = $line->get_location;
-  my $number   = $self->_get_number;
+  my $library       = $self->get_library;
+  my $location      = $line->get_location;
+  my $number        = $self->_get_number;
+  my $division      = $self->_get_current_division;
+  my $division_name = $division->get_name;
 
   $logger->trace("{$number} ----- non-blank line");
 
   if (
       $self->_in_environment
       and
-      $self->_current_environment->isa('SML::Baretable')
+      $division_name eq 'BARE_TABLE'
       and
       $self->_get_column == 0
      )
@@ -9216,7 +9219,7 @@ sub _in_table_cell {
 
   my $division = $self->_get_current_division;
 
-  if ( $division and $division->is_in_a('SML::TableCell') )
+  if ( $division and $division->is_in_a('TABLE_CELL') )
     {
       return 1;
     }
@@ -9235,7 +9238,7 @@ sub _in_table_row {
 
   my $division = $self->_get_current_division;
 
-  if ( $division->is_in_a('SML::TableRow') )
+  if ( $division->is_in_a('TABLE_ROW') )
     {
       return 1;
     }
@@ -9252,14 +9255,9 @@ sub _in_baretable {
 
   my $self = shift;
 
-  if ( not $self->_has_division )
-    {
-      return 0;
-    }
-
   my $division = $self->_get_current_division;
 
-  if ( $division and $division->is_in_a('SML::Baretable') )
+  if ( ref $division and $division->is_in_a('BARE_TABLE') )
     {
       return 1;
     }
@@ -9278,11 +9276,7 @@ sub _in_table {
 
   my $division = $self->_get_current_division;
 
-  if (
-      defined $division
-      and
-      $division->is_in_a('SML::Table')
-     )
+  if ( ref $division and $division->is_in_a('TABLE') )
     {
       return 1;
     }
@@ -9304,7 +9298,7 @@ sub _in_step_list {
   if (
       defined $division
       and
-      $division->is_in_a('SML::StepList')
+      $division->is_in_a('STEP_LIST')
      )
     {
       return 1;
@@ -9373,7 +9367,7 @@ sub _in_definition_list {
   if (
       defined $division
       and
-      $division->is_in_a('SML::DefinitionList')
+      $division->is_in_a('DEFINITION_LIST')
      )
     {
       return 1;
@@ -9485,23 +9479,27 @@ sub _count_table_rows {
 
   my $division = $self->_get_current_division;
 
-  if (
-      not $division->is_in_a('SML::Table')
-      and
-      not $division->is_in_a('SML::Baretable')
-     )
+  unless ( ref $division )
     {
       return 0;
     }
 
-  else
+  unless ( $division->is_in_a('TABLE') or $division->is_in_a('BARE_TABLE') )
     {
-      my $table = $self->_current_table;
+      return 0;
+    }
+
+  my $table = $self->_current_table;
+
+  if ( ref $table )
+    {
       my $count = 0;
 
       foreach my $part (@{ $table->get_division_list })
 	{
-	  if ( $part->isa('SML::TableRow') )
+	  my $part_name = $part->get_name;
+
+	  if ( $part_name eq 'TABLE_ROW' )
 	    {
 	      ++ $count;
 	    }
@@ -9509,6 +9507,8 @@ sub _count_table_rows {
 
       return $count;
     }
+
+  return 0;
 }
 
 ######################################################################
@@ -9522,7 +9522,7 @@ sub _count_table_cells {
 
   my $division = $self->_get_current_division;
 
-  if ( not $division->is_in_a('SML::TableRow') )
+  if ( not $division->is_in_a('TABLE_ROW') )
     {
       return 0;
     }
@@ -9552,20 +9552,25 @@ sub _current_table {
 
   my $division = $self->_get_current_division;
 
-  while ( not $division->isa('SML::Fragment') )
+  if ( ref $division )
     {
-      if (
-	  $division->isa('SML::Table')
-	  or
-	  $division->isa('SML::Baretable')
-	 )
-	{
-	  return $division;
-	}
+      my $division_name = $division->get_name;
 
-      else
+      while ( ref $division )
 	{
-	  $division = $division->get_containing_division;
+	  if (
+	      $division_name eq 'TABLE'
+	      or
+	      $division_name eq 'BARE_TABLE'
+	     )
+	    {
+	      return $division;
+	    }
+
+	  else
+	    {
+	      $division = $division->get_containing_division;
+	    }
 	}
     }
 
@@ -9731,12 +9736,14 @@ sub _count_baretables {
 
   my $count = 0;
 
-  my $division      = $self->_get_division;
-  my $division_list = $division->get_division_list;
+  my $division          = $self->_get_division;
+  my $sub_division_list = $division->get_division_list;
 
-  foreach my $division (@{ $division_list })
+  foreach my $sub_division (@{ $sub_division_list })
     {
-      if ( $division->isa('SML::Baretable') )
+      my $sub_division_name = $sub_division->get_name;
+
+      if ( $sub_division_name eq 'BARE_TABLE' )
 	{
 	  ++ $count;
 	}
