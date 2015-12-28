@@ -560,6 +560,27 @@ index::end: presentation syntax
 
 #---------------------------------------------------------------------
 
+**.content-features Summary of Content Features
+
+Content features enable you to add specific types of content in your
+document like exercises, slides, quotations, demonstrations, etc.
+
+>>>TABLE.tab-content-features
+
+title:: Summary of Content Features
+
+column::1:width: 50
+column::2:width: 50
+
+column::1:head: Feature
+column::2:head: Example
+
+include:: sml-content-summary
+
+<<<TABLE
+
+#---------------------------------------------------------------------
+
 ** Summary of Special Features
 
 index::begin: special features

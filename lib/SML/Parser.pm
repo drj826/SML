@@ -6328,7 +6328,6 @@ sub _process_end_element {
   my $syntax   = $library->get_syntax;
   my $text     = $element->get_content;
 
-
   if ( $text =~ /$syntax->{element}/ )
     {
       # $1 = element name
@@ -7727,6 +7726,7 @@ sub _process_end_index_element {
 			     term     => $subterm,
 			     document => $document,
 			    );
+
 			  $subentry->add_locator($divid);
 			  $entry->add_subentry($subentry);
 			}
@@ -7748,6 +7748,7 @@ sub _process_end_index_element {
 				 term     => $subsubterm,
 				 document => $document,
 				);
+
 			      $subsubentry->add_locator($divid);
 			      $subentry->add_subentry($subsubentry);
 			    }
@@ -7762,6 +7763,7 @@ sub _process_end_index_element {
 		     term     => $term,
 		     document => $document,
 		    );
+
 		  $entry->add_locator($divid);
 		  $index->add_entry($entry);
 		}
