@@ -64,7 +64,6 @@ use SML::IndexEntry;                  # ci-000???
 use SML::Division;                    # ci-000381
 use SML::Structure;                   # ci-000393
 use SML::Entity;                      # ci-000416
-
 use SML::Document;                    # ci-000005
 use SML::Section;                     # ci-000392
 use SML::TableRow;                    # ci-000429
@@ -94,6 +93,8 @@ has library =>
    reader    => 'get_library',
    required  => 1,
   );
+
+# This is the library to which this parser belongs.
 
 ######################################################################
 ######################################################################
@@ -6044,6 +6045,8 @@ sub _process_end_division_marker {
 
   if ( $name eq 'DOCUMENT' )
     {
+      $self->_build_document_index($division);
+
       foreach my $block (@{ $division->get_block_list })
 	{
 	  $self->_validate_theversion_ref_semantics($block);
@@ -7684,98 +7687,6 @@ sub _process_end_index_element {
     {
       my $location = $element->get_location;
       $logger->error("SYNTAX ERROR IN INDEX ELEMENT AT $location");
-    }
-
-  my $division  = $self->_get_current_division;
-  my $divid     = $division->get_id;
-  my $value     = $element->get_value;
-  my $term_list = [ split(/\s*;\s*/,$value) ];
-
-  foreach my $value (@{ $term_list })
-    {
-      if ( $value =~ /$syntax->{index_entry}/ )
-	{
-	  my $term       = $1;
-	  my $subterm    = $3 || q{};
-	  my $subsubterm = $5 || q{};
-
-	  if ( $self->_has_current_document )
-	    {
-	      my $document = $self->_get_current_document;
-	      my $index    = $document->get_index;
-
-	      if ( $index->has_entry($term) )
-		{
-		  my $entry = $index->get_entry($term);
-		  $entry->add_locator($divid);
-
-		  if ( $subterm )
-		    {
-		      my $subentry;
-
-		      if ( $entry->has_subentry($subterm) )
-			{
-			  $subentry = $entry->get_subentry($subterm);
-			  $subentry->add_locator($divid);
-			}
-
-		      else
-			{
-			  $subentry = SML::IndexEntry->new
-			    (
-			     term     => $subterm,
-			     document => $document,
-			    );
-
-			  $subentry->add_locator($divid);
-			  $entry->add_subentry($subentry);
-			}
-
-		      if ( $subsubterm )
-			{
-			  my $subsubentry;
-
-			  if ( $subentry->has_subentry($subterm) )
-			    {
-			      $subsubentry = $subentry->get_subentry($subsubterm);
-			      $subsubentry->add_locator($divid);
-			    }
-
-			  else
-			    {
-			      $subsubentry = SML::IndexEntry->new
-				(
-				 term     => $subsubterm,
-				 document => $document,
-				);
-
-			      $subsubentry->add_locator($divid);
-			      $subentry->add_subentry($subsubentry);
-			    }
-			}
-		    }
-		}
-
-	      else
-		{
-		  my $entry = SML::IndexEntry->new
-		    (
-		     term     => $term,
-		     document => $document,
-		    );
-
-		  $entry->add_locator($divid);
-		  $index->add_entry($entry);
-		}
-	    }
-	}
-
-      else
-	{
-	  my $location = $element->get_location;
-	  $logger->error("SYNTAX ERROR IN INDEX ELEMENT AT $location");
-	  next;
-	}
     }
 
   return 1;
@@ -12391,6 +12302,173 @@ sub _validate_composition {
     }
 
   return $valid;
+}
+
+######################################################################
+
+sub _process_index_string {
+
+  # Process an index string.  An index string is part of an index
+  # element value. The syntax for an index element is a little
+  # complicated. Consider this index element:
+  #
+  #   index:: font family!Computer Modern; font family!Times; font
+  #   family!Bookman; font family!Chancery; font family!Charter; font
+  #   family!New Century; font family!Palatino
+  #
+  # Strings are separated by semi-colons. This index element value has
+  # 7 strings.  Terms and subterms are separated by exclamation
+  # marks. Each string may consist of a term, subterm, and subsubterm.
+  #
+  # Validate the syntax.
+
+  my $self    = shift;
+  my $string  = shift;                  # an index value (string)
+  my $element = shift;                  # index element
+
+  unless ( $string and $element )
+    {
+      $logger->error("CAN'T PROCESS INDEX STRING, MISSING ARGUMENTS");
+      return 0;
+    }
+
+  unless ( $element->has_containing_division )
+    {
+      $logger->error("INDEX ELEMENT HAS NO CONTAINING DIVISION");
+      return 0;
+    }
+
+  my $library     = $self->get_library;
+  my $syntax      = $library->get_syntax;
+  my $division    = $element->get_containing_division;
+  my $division_id = $division->get_id;
+
+  unless ( $string =~ /$syntax->{index_entry}/ )
+    {
+      my $location = $element->get_location;
+      $logger->error("SYNTAX ERROR IN INDEX ELEMENT AT $location");
+      return 0;
+    }
+
+  my $term       = $1;
+  my $subterm    = $3 || q{};
+  my $subsubterm = $5 || q{};
+
+  my $document = $division->get_containing_document;
+
+  unless ( $document )
+    {
+      my $location = $element->get_location;
+      $logger->error("CAN'T PROCESS INDEX STRING, NO CONTAINING DOCUMENT at $location");
+      return 0;
+    }
+
+  my $index = $document->get_index;
+
+  if ( $index->has_entry($term) )
+    {
+      my $entry = $index->get_entry($term);
+      $entry->add_locator($division_id);
+
+      if ( $subterm )
+	{
+	  my $subentry;
+
+	  if ( $entry->has_subentry($subterm) )
+	    {
+	      $subentry = $entry->get_subentry($subterm);
+	      $subentry->add_locator($division_id);
+	    }
+
+	  else
+	    {
+	      $subentry = SML::IndexEntry->new
+		(
+		 term     => $subterm,
+		 document => $document,
+		);
+
+	      $subentry->add_locator($division_id);
+	      $entry->add_subentry($subentry);
+	    }
+
+	  if ( $subsubterm )
+	    {
+	      my $subsubentry;
+
+	      if ( $subentry->has_subentry($subterm) )
+		{
+		  $subsubentry = $subentry->get_subentry($subsubterm);
+		  $subsubentry->add_locator($division_id);
+		}
+
+	      else
+		{
+		  $subsubentry = SML::IndexEntry->new
+		    (
+		     term     => $subsubterm,
+		     document => $document,
+		    );
+
+		  $subsubentry->add_locator($division_id);
+		  $subentry->add_subentry($subsubentry);
+		}
+	    }
+	}
+    }
+
+  else
+    {
+      my $entry = SML::IndexEntry->new
+	(
+	 term     => $term,
+	 document => $document,
+	);
+
+      $entry->add_locator($division_id);
+      $index->add_entry($entry);
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _build_document_index {
+
+  # Process all document 'index' elements to build a document index.
+
+  my $self     = shift;
+  my $document = shift;
+
+  unless ( ref $document )
+    {
+      $logger->error("CAN'T BUILD DOCUMENT INDEX, MISSING ARGUMENTS");
+      return 0;
+    }
+
+  my $name = $document->get_name;
+
+  unless ( $name eq 'DOCUMENT' )
+    {
+      $logger->error("CAN'T BUILD DOCUMENT INDEX, NOT A DOCUMENT $document");
+      return 0;
+    }
+
+  my $index_element_list = $document->get_list_of_elements_with_name('index');
+
+  foreach my $index_element (@{ $index_element_list })
+    {
+      my $value       = $index_element->get_value;
+      my $string_list = [ split(/\s*;\s*/,$value) ];
+
+      foreach my $string (@{ $string_list })
+	{
+	  $self->_process_index_string($string,$index_element);
+	}
+    }
+
+  return 1;
 }
 
 ######################################################################

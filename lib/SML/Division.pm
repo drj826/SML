@@ -558,9 +558,11 @@ sub get_containing_document {
 
   my $division = $self;
 
-  while ( ref $division and not $division->isa('SML::Fragment') )
+  while ( ref $division )
     {
-      if ( $division->isa('SML::Document') )
+      my $name = $division->get_name;
+
+      if ( $name eq 'DOCUMENT' )
 	{
 	  return $division;
 	}

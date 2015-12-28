@@ -12,6 +12,8 @@ acronym:: BRD = Business Requirements Document
 # C
 ######################################################################
 
+acronym:: CI {SML} = [g:SML:continuous integration]
+
 acronym:: CSV = [g:Comma Separated Value]
 
 ######################################################################
