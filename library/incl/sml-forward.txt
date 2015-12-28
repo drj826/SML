@@ -1,0 +1,59 @@
+>>>RAW.sml-forward
+
+Thank you for reading this.
+
+The purpose of this section is to awaken your awareness that most
+engineering documentation does not fulfill its purpose.  The rest of
+this document describes what to do about it.
+
+Have you ever started reading a requirements document with the
+~~expectation~~ you would learn what the system does (or should do)
+but after 10 minutes give up because the document doesn't serve the
+purpose?
+
+Have you ever started reading a design document with the
+~~expectation~~ you would learn how the system works (or should work)
+but after 10 minutes give up because the document doesn't serve the
+purpose?
+
+Have you ever started reading a test document with the ~~expectation~~
+you would learn how the tests verify the system meets requirements but
+after 10 minutes give up because the document doesn't serve the
+purpose?
+
+Perhaps the documents are out of date?
+
+Have you heard the explanation that the documentation is out-of-date
+because it's impossible to keep it current when you're doing agile
+development?  Besides, doesn't agile mean you don't write
+documentation only prototypes?
+
+The ~~purpose~~ of requirements documentation is to create a common
+understanding of the problem that has been (or needs to be) solved.
+It should answer the questions, ``What does the system do?'' or ``What
+is the system ~~supposed~~ to do?''
+
+The ~~purpose~~ of the design documentation is to create a common
+understanding of the solution that has been (or needs to be)
+implemented. It should answer the questions, ``How does the system
+work?'' or ``How is the system ~~supposed~~ to work?''
+
+The ~~purpose~~ of test documentation is to create a common
+understanding of how the test cases assure that the solution satisfies
+the requirements.  I should anwer the challenge, ``Convince me your
+test cases and results prove the solution satisfies the requirements''
+and, ``Convince me your solution does what I need it to do.''
+
+Perhaps I've just run into a string of bad projects, but I haven't
+come across much documentation recently that serves these purposes.
+
+Agile means being agile with ~~all~~ work products not just the
+implemented solution.  Delivering value quickly and incrementally
+applies to all valuable work products, not just code.
+
+Can you be agile with documentation?  ~~Why not use the same processes
+for documentation that enable you to be agile with your code?~~
+
+Why not?
+
+<<<RAW
