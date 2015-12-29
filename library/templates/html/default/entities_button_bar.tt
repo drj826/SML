@@ -3,11 +3,9 @@
 ontology => an SML::Ontology object
 
 %]
-<div align="center">
-
+<div>
+Entities: 
 [%- FOREACH entity_name IN ontology.get_entity_name_list -%]
 <a href="#[%entity_name%]">[%entity_name%]</a> &middot; 
-
 [%- END -%]
-
 </div>

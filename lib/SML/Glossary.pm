@@ -35,15 +35,9 @@ sub add_entry {
   my $self       = shift;
   my $definition = shift;
 
-  unless
-    (
-     ref $definition
-     and
-     $definition->isa('SML::Definition')
-    )
+  unless ( ref $definition and $definition->isa('SML::Definition') )
     {
       $logger->error("CAN'T ADD GLOSSARY ENTRY: \'$definition\' is not a definition");
-
       return 0;
     }
 

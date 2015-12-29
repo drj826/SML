@@ -4,7 +4,7 @@ ontology => an SML::Ontology object
 
 %]
 <div>
-<span style="font-weight:bold;">Entities: </span>
+Entities: 
 [%- FOREACH entity_name IN ontology.get_entity_name_list -%]
 <a href="#[%entity_name%]">[%entity_name%]</a> &middot; 
 [%- END -%]
@@ -13,7 +13,7 @@ ontology => an SML::Ontology object
 <br/>
 
 <div>
-<span style="font-weight:bold;">Structures: </span>
+Structures: 
 [%- FOREACH structure_name IN ontology.get_structure_name_list -%]
 <a href="#[%structure_name%]">[%structure_name%]</a> &middot; 
 [%- END -%]
