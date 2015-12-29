@@ -6046,19 +6046,7 @@ sub _process_end_division_marker {
   if ( $name eq 'DOCUMENT' )
     {
       $self->_build_document_index($division);
-
-      foreach my $block (@{ $division->get_block_list })
-	{
-	  $self->_validate_theversion_ref_semantics($block);
-	  $self->_validate_therevision_ref_semantics($block);
-	  $self->_validate_thedate_ref_semantics($block);
-	  $self->_validate_status_ref_semantics($block);
-	  $self->_validate_glossary_term_ref_semantics($block);
-	  $self->_validate_glossary_def_ref_semantics($block);
-	  $self->_validate_acronym_ref_semantics($block);
-	  $self->_validate_source_citation_semantics($block);
-	  $self->_validate_file_ref_semantics($block);
-	}
+      $self->_validate_division_blocks($division);
     }
 
   my $block = SML::PreformattedBlock->new
@@ -12466,6 +12454,37 @@ sub _build_document_index {
 	{
 	  $self->_process_index_string($string,$index_element);
 	}
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _validate_division_blocks {
+
+  # Validate all blocks in the specified division.
+
+  my $self     = shift;
+  my $division = shift;
+
+  unless ( ref $division )
+    {
+      $logger->error(" CAN'T VALIDATE DIVISION BLOCKS, MISSING ARGUMENT");
+      return 0;
+    }
+
+  foreach my $block (@{ $division->get_block_list })
+    {
+      $self->_validate_theversion_ref_semantics($block);
+      $self->_validate_therevision_ref_semantics($block);
+      $self->_validate_thedate_ref_semantics($block);
+      $self->_validate_status_ref_semantics($block);
+      $self->_validate_glossary_term_ref_semantics($block);
+      $self->_validate_glossary_def_ref_semantics($block);
+      $self->_validate_acronym_ref_semantics($block);
+      $self->_validate_source_citation_semantics($block);
+      $self->_validate_file_ref_semantics($block);
     }
 
   return 1;

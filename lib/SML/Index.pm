@@ -45,12 +45,15 @@ sub add_entry {
 
   unless ( ref $entry and $entry->isa('SML::IndexEntry') )
     {
-      $logger->error("NOT AN INDEX ENTRY, CAN'T ADD TO INDEX \'$entry\'");
+      $logger->error("CAN'T ADD ENTRY, NOT AN INDEX ENTRY \'$entry\'");
       return 0;
     }
 
   my $hash     = $self->_get_entry_hash;
   my $term     = $entry->get_term;
+
+  $logger->debug("add_entry $term");
+
   my $document = $self->get_document;
   my $library  = $document->get_library;
   my $util     = $library->get_util;

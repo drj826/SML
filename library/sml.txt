@@ -2313,6 +2313,16 @@ index:: literal text
 
 ---
 
+: ID reference
+
+:
+
+  [id:rq-000005]
+
+: [id:rq-000005]
+
+---
+
 : user entered text
 
 :
@@ -6969,6 +6979,12 @@ fontsize:: footnotesize
 numbers:: left
 file:: files/.emacs
 <<<LISTING
+
+#---------------------------------------------------------------------
+
+* Included Divisions
+
+include:: rq-000005
 
 ######################################################################
 # Known Bugs, Desired Improvements

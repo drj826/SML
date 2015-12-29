@@ -72,17 +72,16 @@ sub add_subentry {
   my $self     = shift;
   my $subentry = shift;
 
-  if (
-      (not ref $subentry)
-      or
-      (not $subentry->isa('SML::IndexEntry'))
-     )
+  unless ( ref $subentry and $subentry->isa('SML::IndexEntry') )
     {
       $logger->error("NOT AN INDEX ENTRY, CAN'T USE AS SUB ENTRY \'$subentry\'");
       return 0;
     }
 
   my $term = $subentry->get_term;
+
+  $logger->debug("add_subentry $term");
+
   my $hash = $self->_get_subentry_hash;
 
   $hash->{$term} = $subentry;
@@ -237,7 +236,7 @@ sub get_subentry_list {
     {
       my $subentry = $hash->{$subterm};
 
-      push(@{$list},$subentry);
+      push @{$list}, $subentry;
     }
 
   return $list;
@@ -268,6 +267,8 @@ has subentry_hash =>
    reader  => '_get_subentry_hash',
    default => sub {{}},
   );
+
+# $hash->{$subterm} = $subentry
 
 ######################################################################
 
