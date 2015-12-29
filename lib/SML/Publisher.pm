@@ -214,6 +214,7 @@ sub publish_library_pages {
       $self->_publish_html_ontology_page($style);
       $self->_publish_html_entities_page($style);
       $self->_publish_html_library_glossary_page($style);
+      $self->_publish_html_library_acronyms_page($style);
     }
 
   else
@@ -479,7 +480,7 @@ sub _publish_html_document {
       if ( $acronym_list->has_entries )
 	{
 	  $logger->info("publishing $id.acronyms.html");
-	  $tt->process("acronyms_page.tt",$vars,"$id.acronyms.html")
+	  $tt->process("document_acronyms_page.tt",$vars,"$id.acronyms.html")
 	    || die $tt->error(), "\n";
 	}
 
@@ -1064,6 +1065,68 @@ sub _publish_html_library_glossary_page {
   # entities page
   $logger->info("publishing glossary.html");
   $tt->process("library_glossary_page.tt",$vars,"glossary.html")
+    || die $tt->error(), "\n";
+
+  return 1;
+}
+
+######################################################################
+
+sub _publish_html_library_acronyms_page {
+
+  # Publish an HTML library acronyms page.
+
+  my $self  = shift;
+  my $style = shift || 'default';
+
+  my $library      = $self->get_library;
+  my $acronym_list = $library->get_acronym_list;
+
+  unless ( $acronym_list->has_entries )
+    {
+      $logger->error("ACRONYM LIST HAS NO ENTRIES");
+      return 0;
+    }
+
+  my $template_dir = $library->get_template_dir . "/html/$style";
+
+  unless ( -d $template_dir )
+    {
+      $logger->error("NOT A DIRECTORY $template_dir");
+      return 0;
+    }
+
+  my $published_dir = $library->get_published_dir;
+
+  unless ( -d $published_dir )
+    {
+      mkdir "$published_dir", 0755;
+      $logger->info("made directory $published_dir");
+    }
+
+  my $state     = 'DRAFT';
+  my $state_dir = "$published_dir/$state";
+
+  unless ( -d $state_dir )
+    {
+      mkdir "$state_dir", 0755;
+      $logger->info("made directory $state_dir");
+    }
+
+  my $tt_config =
+    {
+     INCLUDE_PATH => $template_dir,
+     OUTPUT_PATH  => $state_dir,
+     RECURSION    => 1,
+    };
+
+  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+
+  my $vars = { library => $library };
+
+  # entities page
+  $logger->info("publishing acronyms.html");
+  $tt->process("library_acronyms_page.tt",$vars,"acronyms.html")
     || die $tt->error(), "\n";
 
   return 1;
