@@ -16,4 +16,6 @@ outcome::2012-03-31:al-000287:red: The SML-EBNF.txt does not yet
 define reserved words and require them to be ALL UPPER CASE.  I have
 begun using this convention, but nothing in the code yet enforces it.
 
+index:: [id:al-000287]
+
 <<<allocation

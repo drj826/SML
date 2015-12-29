@@ -17,7 +17,7 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-index:: tc-000005; unit test case!Parser.pm
+index:: [id:tc-000005]; unit test case!Parser.pm
 
 [ref:lis-parser-pm-unit-test-case] shows the unit test case for
 [file:Parser.pm].

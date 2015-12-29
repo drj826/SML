@@ -25,7 +25,7 @@ with other entities, that (4) not have `imply-only' properties stated
 explicitly. Warn the user of invalid semantics with a notification
 that includes an error description, file, and line number.
 
-index:: rq-000106; validation!semantics
+index:: [id:rq-000106]; validation!semantics
 
 The adjective ``first-order'' distinguishes first-order logic from
 higher-order logic in which there are predicates having predicates or

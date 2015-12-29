@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 underlined text.
 
-index:: rq-000047; underlined text; text!underlined
+index:: [id:rq-000047]; underlined text; text!underlined
 
 <<<requirement

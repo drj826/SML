@@ -15,6 +15,6 @@ is_part_of:: ci-000004
 description:: The SML/Listitem.pm module implements the SML::Listitem
 class.
 
-index:: ci-000424; listitem
+index:: [id:ci-000424]; Listitem.pm; SML::Listitem
 
 <<<configuration_item

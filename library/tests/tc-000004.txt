@@ -17,7 +17,7 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-index:: tc-000004; unit test case!SML.pm
+index:: [id:tc-000004]; unit test case!SML.pm
 
 >>>LISTING.lis-sml-pm-unit-test-results
 

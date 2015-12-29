@@ -15,6 +15,6 @@ is_part_of:: ci-000004
 description:: The SML/Glossary.pm module implements the SML::Glossary
 class which represents a glossary of terms.
 
-index:: ci-000435; glossary
+index:: [id:ci-000435]; Glossary.pm; SML::Glossary
 
 <<<configuration_item

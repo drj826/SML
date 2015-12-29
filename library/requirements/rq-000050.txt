@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 a trademark symbol.
 
-index:: rq-000050; trademark symbol; symbol!trademark
+index:: [id:rq-000050]; trademark symbol; symbol!trademark
 
 <<<requirement

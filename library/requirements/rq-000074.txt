@@ -22,7 +22,7 @@ purpose of this requirement is to maximize document maintainability by
 enabling authors to define a variable in a single location and use the
 value of that variable in multiple locations.
 
-index:: rq-000074; variables
+index:: [id:rq-000074]; variables
 
 Variables are meant to represent ~~inline~~ elements of content; that
 is, content that potentially consists of ~~partial~~ lines of text.

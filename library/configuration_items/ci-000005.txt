@@ -15,7 +15,7 @@ date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-index:: ci-000005; Document.pm
+index:: [id:ci-000005]; Document.pm; SML::Document
 
 = [g:SML:document] = [def:SML:document]
 

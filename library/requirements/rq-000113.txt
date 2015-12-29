@@ -19,6 +19,6 @@ a property of a product or system, whose interfaces are completely
 understood, to work with other products or systems, present or future,
 without any restricted access or implementation.
 
-index:: rq-000113; interoperability
+index:: [id:rq-000113]; interoperability
 
 <<<requirement

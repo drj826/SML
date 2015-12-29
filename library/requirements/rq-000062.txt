@@ -20,6 +20,6 @@ a file in a hierarchical filesystem.  The files themselves may or may
 not be part of the documentation and therefore the software does not
 validate that these inline file paths actually exist.
 
-index:: rq-000062; filesystem path
+index:: [id:rq-000062]; filesystem path
 
 <<<requirement

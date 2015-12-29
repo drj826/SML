@@ -32,6 +32,16 @@ has term =>
 
 ######################################################################
 
+has term_string =>
+  (
+   is       => 'ro',
+   isa      => 'SML::String',
+   reader   => 'get_term_string',
+   writer   => 'set_term_string',
+  );
+
+######################################################################
+
 has document =>
   (
    is        => 'ro',
@@ -82,6 +92,12 @@ sub add_subentry {
 
   $logger->debug("add_subentry $term");
 
+  my $document = $self->get_document;
+  my $library  = $document->get_library;
+  my $util     = $library->get_util;
+
+  $term = $util->strip_string_markup($term);
+
   my $hash = $self->_get_subentry_hash;
 
   $hash->{$term} = $subentry;
@@ -92,6 +108,8 @@ sub add_subentry {
 ######################################################################
 
 sub has_subentry {
+
+  # Return 1 if the index entry has the specified subentry.
 
   my $self = shift;
   my $term = shift;

@@ -18,7 +18,7 @@ description:: The [g:SML:library] [g:SML:ontology] shall be
 configurable in specified ways.  The [g:SML:ontology] applies to all
 [g:SML:document]s in a [g:SML:library].
 
-index:: rq-000183; ontology!configurability
+index:: [id:rq-000183]; ontology!configurability
 
 Users need the ability to configure the ontology in the following
 ways:

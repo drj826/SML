@@ -16,6 +16,6 @@ conforming to specified design constraints.  This requirement is the
 top-level requirement for a descriptive markup language.  It serves as
 a container for all descriptive markup representation requirements.
 
-index:: rq-000107; data representation
+index:: [id:rq-000107]; data representation
 
 <<<requirement

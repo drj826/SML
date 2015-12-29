@@ -16,4 +16,6 @@ outcome::2012-04-01:al-000151:red: The Document.pm module does not yet
 publish front and back matter.  In fact, I'll probably create a class
 for each type of front and back matter.
 
+index:: [id:al-000151]
+
 <<<allocation

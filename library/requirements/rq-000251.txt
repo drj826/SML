@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML e-mail address.
 
-index:: rq-000251; e-mail address!format HTML
+index:: [id:rq-000251]; e-mail address!format HTML
 
 <<<requirement

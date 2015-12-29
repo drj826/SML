@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX `Tex' symbol.
 
-index:: rq-000304; `TeX' symbol!format LaTeX
+index:: [id:rq-000304]; `TeX' symbol!format LaTeX
 
 <<<requirement

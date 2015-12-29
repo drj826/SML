@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent a
 commands (i.e. computer instructions entered at a command prompt).
 
-index:: rq-000063; commands
+index:: [id:rq-000063]; commands
 
 <<<requirement

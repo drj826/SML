@@ -17,6 +17,6 @@ consists of syntax and semantics.  The purpose of this requirement is
 to inform the user whether SML source files contain errors.  Errors
 may include syntax errors or errors in the semantics of a document.
 
-index:: rq-000254; validate
+index:: [id:rq-000254]; validate
 
 <<<requirement

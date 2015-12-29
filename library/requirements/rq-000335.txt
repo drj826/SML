@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent a
 section heading.
 
-index:: rq-000335; section heading
+index:: [id:rq-000335]; section heading
 
 <<<requirement

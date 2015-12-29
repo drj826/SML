@@ -26,6 +26,6 @@ requirements begin with the phrase, `The system shall enable the user
 to...' Functional requirements are independent of system
 implementation.
 
-index:: rq-000104; software functions
+index:: [id:rq-000104]; software functions
 
 <<<requirement

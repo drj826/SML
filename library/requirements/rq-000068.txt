@@ -21,6 +21,6 @@ renditions.  The data format must provide a way to mark the beginning
 and ending of a comment block without changing the lines within the
 block.
 
-index:: rq-000068; comment division
+index:: [id:rq-000068]; comment division
 
 <<<requirement

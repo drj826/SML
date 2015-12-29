@@ -17,6 +17,6 @@ into a target rendition according to a specified style template.  For
 example, render an SML paragraph into an HTML paragraph according to a
 specified style template.
 
-index:: rq-000205; format block
+index:: [id:rq-000205]; format block
 
 <<<requirement

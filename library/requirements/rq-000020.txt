@@ -24,7 +24,7 @@ to direct the reader's attention to another part of the document.  The
 cross referencing capability must enable authors to cross reference
 specified document elements.
 
-index:: rq-000020; cross references
+index:: [id:rq-000020]; cross references
 
 The data format must enable authors to cross reference the following
 elements of document content:

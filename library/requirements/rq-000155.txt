@@ -19,6 +19,6 @@ file attachments.  The listing should display the location of the
 attachment in the document and allow downloading the attachment
 directly from the listing.
 
-index:: rq-000155; list of attachments
+index:: [id:rq-000155]; list of attachments
 
 <<<requirement

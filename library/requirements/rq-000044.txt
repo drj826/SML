@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 bold text.
 
-index:: rq-000044; bold; text!bold
+index:: [id:rq-000044]; bold; text!bold
 
 <<<requirement

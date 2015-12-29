@@ -17,4 +17,6 @@ the means to specify each element of information displayed on the
 copyright page, the current software implementation does not have the
 capability to generate the copyright page.
 
+index:: [id:al-000153]
+
 <<<allocation

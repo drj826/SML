@@ -20,6 +20,6 @@ conforms to a specified set of rules.  Design validation rules may
 specify that every configuration item is traceable to allocated
 requirements, or has specified required attributes.
 
-index:: rq-000116; validation!design
+index:: [id:rq-000116]; validation!design
 
 <<<requirement

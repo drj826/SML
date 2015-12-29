@@ -15,4 +15,6 @@ author:: $Author: don.johnson $
 outcome::2012-04-01:al-000035:red: The CSV publishing function has not
 yet been implemented in the Document.pm Perl module.
 
+index:: [id:al-000035]
+
 <<<allocation

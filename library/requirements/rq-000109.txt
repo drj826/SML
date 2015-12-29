@@ -22,6 +22,6 @@ or (2) individually commented out should be ignored for the purposes
 of gathering structured data from the document and publishing document
 renditions.
 
-index:: rq-000109; comments!ignore
+index:: [id:rq-000109]; comments!ignore
 
 <<<requirement

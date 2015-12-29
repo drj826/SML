@@ -20,6 +20,6 @@ reviewers. The purpose of this requirement is to avoid tricky or
 clever mechanisms on the data format that hinder debugging and
 correction of invalid documents.
 
-index:: rq-000186; ease of debugging
+index:: [id:rq-000186]; ease of debugging
 
 <<<requirement

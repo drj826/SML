@@ -19,7 +19,7 @@ date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-index:: ci-000006
+index:: [id:ci-000006]; ontology
 
 [ref:lis-sml-ontology-config] shows the [file:ontology_rules_sml.conf]
 file.

@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX frowny symbol. :-(
 
-index:: rq-000299; frowny symbol!format LaTeX
+index:: [id:rq-000299]; frowny symbol!format LaTeX
 
 <<<requirement

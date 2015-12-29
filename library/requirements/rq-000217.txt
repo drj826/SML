@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML page reference.
 
-index:: rq-000217; page reference!format HTML
+index:: [id:rq-000217]; page reference!format HTML
 
 <<<requirement

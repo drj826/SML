@@ -16,4 +16,6 @@ outcome::2012-03-25:al-000282:red: I have not begun to implement the
 [file:Reasoner.pm] module.  I'm researching the Rete algorithm and am
 considering implementing it as the inference engine.
 
+index:: [id:al-000282]
+
 <<<allocation

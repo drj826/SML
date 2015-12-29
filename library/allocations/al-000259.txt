@@ -16,4 +16,6 @@ outcome::2012-04-01:al-000259:yellow: Some parts of the SML library
 that are configured in the [file:publish.conf] and [file:sml.conf]
 files are not yet read by the SML library classes.
 
+index:: [id:al-000259]
+
 <<<allocation

@@ -17,4 +17,6 @@ format does not yet enable specification of table column spanning
 [id:rq-000104] and there are problems with the representation of
 reviews [id:rq-000094] and outcomes [id:rq-000095].
 
+index:: [id:al-000132]
+
 <<<allocation

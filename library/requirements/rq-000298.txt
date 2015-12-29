@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX smiley symbol. :-)
 
-index:: rq-000298; smiley symbol!format LaTeX
+index:: [id:rq-000298]; smiley symbol!format LaTeX
 
 <<<requirement

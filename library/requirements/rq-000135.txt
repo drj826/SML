@@ -23,6 +23,6 @@ requirement is to maximize document maintainability by giving authors
 the capability to define content in one location and reuse it in
 multiple locations.
 
-index:: rq-000135; lookups
+index:: [id:rq-000135]; lookups
 
 <<<requirement

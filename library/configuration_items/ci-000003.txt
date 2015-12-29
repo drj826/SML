@@ -14,7 +14,7 @@ date:: $Date: 2009-09-08 14:49:48 -0600 (Tue, 08 Sep 2009) $
 
 author:: $Author: don.johnson $
 
-index:: ci-000003
+index:: [id:ci-000003]; Parser.pm; SML::Parser
 
 Here is the definition of `parser' from the glossary:
 

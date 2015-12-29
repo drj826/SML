@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format HTML underlined text.
 
-index:: rq-000240; underlined text!format HTML
+index:: [id:rq-000240]; underlined text!format HTML
 
 <<<requirement

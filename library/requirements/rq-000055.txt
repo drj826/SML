@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent a
 smiley face.
 
-index:: rq-000055; smiley face
+index:: [id:rq-000055]; smiley face
 
 <<<requirement

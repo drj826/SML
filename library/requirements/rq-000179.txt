@@ -22,6 +22,6 @@ external file as a raw text, meaning, the text should be included ~~as
 is~~ with no alterations at `include' time.  Note that raw text is
 ~~not~~ the same as pre-formatted text.
 
-index:: rq-000179; include
+index:: [id:rq-000179]; include
 
 <<<requirement

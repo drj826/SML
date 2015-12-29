@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML status reference.
 
-index:: rq-000221; status reference!format HTML
+index:: [id:rq-000221]; status reference!format HTML
 
 <<<requirement

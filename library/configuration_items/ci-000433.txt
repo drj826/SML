@@ -15,6 +15,6 @@ is_part_of:: ci-000004
 description:: The SML::Syntax class describes the allowed syntax of
 SML.
 
-index:: ci-000433; syntax
+index:: [id:ci-000433]; Syntax.pm; SML::Syntax
 
 <<<configuration_item

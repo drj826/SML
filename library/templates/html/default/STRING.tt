@@ -11,6 +11,8 @@ self => an SML::String object
   [%- INCLUDE GLOSS_DEF_REF.tt -%]
 [%- ELSIF self.isa('SML::AcronymTermReference') -%]
   [%- INCLUDE ACRONYM_TERM_REF.tt -%]
+[%- ELSIF self.isa('SML::IDReference') -%]
+  [%- INCLUDE ID_REF.tt -%]
 [%- ELSE -%]
   [%-FILTER html-%][%-self.get_content-%][%-END-%]
 [%- END -%]

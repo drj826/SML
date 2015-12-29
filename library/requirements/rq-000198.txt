@@ -23,6 +23,6 @@ an allocation is to make the content re-usable, to enable special
 listings of allocations, and to enable automatic reasoning about
 allocations.
 
-index:: rq-000198; allocations
+index:: [id:rq-000198]; allocations
 
 <<<requirement

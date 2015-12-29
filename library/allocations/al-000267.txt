@@ -15,4 +15,6 @@ author::   $Author: don.johnson $
 outcome::2012-04-01:al-000267:red: The [file:Reasoner.pm] class is not
 designed or implemented.
 
+index:: [id:al-000267]
+
 <<<allocation

@@ -19,6 +19,6 @@ document when it detects that an ~~included~~ file has been changed.
 The purpose of this requirement is to ensure document changes are
 detected and tracked even when those changes occur in included files.
 
-index:: rq-000346; update trigger
+index:: [id:rq-000346]; update trigger
 
 <<<requirement

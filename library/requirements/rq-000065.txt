@@ -26,6 +26,6 @@ this ``include'' mechanism should be ignored if it occurs within a
 comment or within a conditional text block that is conditionally
 ~~not~~ part of the current document.
 
-index:: rq-000065; include
+index:: [id:rq-000065]; include
 
 <<<requirement

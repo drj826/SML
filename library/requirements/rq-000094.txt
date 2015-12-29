@@ -25,7 +25,7 @@ of review, label of item reviewed, item status determined by the
 review, and a one-paragraph explanation of how the status was
 determined.
 
-index:: rq-000094
+index:: [id:rq-000094]
 
 Reviews may have the following meta data elements:
 

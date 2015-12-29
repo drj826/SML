@@ -16,4 +16,6 @@ outcome::2012-04-01:al-000133:yellow: The SML Software Library does
 not yet satisfy all non-functional requirements.  Specifically, it
 does not have the runtime configurability that publish.pl has.
 
+index:: [id:al-000133]
+
 <<<allocation

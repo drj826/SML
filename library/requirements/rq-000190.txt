@@ -21,6 +21,6 @@ allocation.  This requirement is part of the requirement to validate
 design documents because allocation of problems to solutions is a
 design activity.
 
-index:: rq-000190; redundant allocation; allocation!redundant
+index:: [id:rq-000190]; redundant allocation; allocation!redundant
 
 <<<requirement

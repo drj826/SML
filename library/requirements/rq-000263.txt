@@ -21,7 +21,7 @@ list of revisions comes from the author-maintained list of revisions
 in the document.  These are notes about each published version that
 provide readers a summary updates in each version.
 
-index:: rq-000263; list of revisions!HTML; HTML list of revisions
+index:: [id:rq-000263]; list of revisions!HTML; HTML list of revisions
 
 = [g:SML:revisions environment] = [def:SML:revisions environment]
 

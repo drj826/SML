@@ -17,7 +17,7 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-index:: tc-000036; unit test case!Exercise.pm
+index:: [id:tc-000036]; unit test case!Exercise.pm
 
 [ref:lis-exercise-pm-unit-test-case] shows the unit test case for
 [file:Exercise.pm].

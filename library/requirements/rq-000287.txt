@@ -16,6 +16,6 @@ associated:: rq-000090
 
 description:: The software shall format a LaTeX acronym reference.
 
-index:: rq-000287; acronym reference!format LaTeX
+index:: [id:rq-000287]; acronym reference!format LaTeX
 
 <<<requirement

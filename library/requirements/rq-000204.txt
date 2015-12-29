@@ -17,6 +17,6 @@ library-wide document styles.  The purpose of this requirement is to
 drive the solution to enable users to establish a common style for all
 documents in a library.
 
-index:: rq-000204; document style configuration
+index:: [id:rq-000204]; document style configuration
 
 <<<requirement

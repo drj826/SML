@@ -18,6 +18,6 @@ description:: The software shall format an HTML ID reference.  An ID
 reference links to a division within the document by that division's
 ID.
 
-index:: rq-000215; ID reference!format HTML
+index:: [id:rq-000215]; ID reference!format HTML
 
 <<<requirement

@@ -20,7 +20,7 @@ application.  The purpose of this requirement is to enable the
 publishing application to execute scripts that dynamically generate
 document content at publish time.
 
-index:: rq-000072; scripts
+index:: [id:rq-000072]; scripts
 
 The data format must provide the capability to represent the following
 variations on script-generated content:

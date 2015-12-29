@@ -26,7 +26,7 @@ date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-index:: ci-000380; Reasoner.pm module
+index:: [id:ci-000380]; Reasoner.pm; SML::Reasoner
 
 = [g:SML:reasoner] = [def:SML:reasoner]
 

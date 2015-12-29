@@ -18,6 +18,6 @@ description:: The data format shall have the capability to represent a
 comment line.  A comment line is a single line of text that appears in
 the source data format but not in published renditions.
 
-index:: rq-000067; comment line
+index:: [id:rq-000067]; comment line
 
 <<<requirement

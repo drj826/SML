@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 an ordered list item.
 
-index:: rq-000332; list item!ordered
+index:: [id:rq-000332]; list item!ordered
 
 <<<requirement

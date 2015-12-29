@@ -20,6 +20,6 @@ locations ~~as a named region with semantic meaning.~~ For instance,
 include content from another location as an exercise, demo, slide,
 problem, solution, etc.
 
-index:: rq-000167; include!as region
+index:: [id:rq-000167]; include!as region
 
 <<<requirement

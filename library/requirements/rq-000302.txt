@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX right arrow symbol.
 
-index:: rq-000302; right arrow symbol!format LaTeX
+index:: [id:rq-000302]; right arrow symbol!format LaTeX
 
 <<<requirement

@@ -22,6 +22,6 @@ lines so they are ignored by processing applications.  A comment
 division directs the processing application to unconditionally ignore
 that division's text.
 
-index:: rq-000101; comment division
+index:: [id:rq-000101]; comment division
 
 <<<requirement

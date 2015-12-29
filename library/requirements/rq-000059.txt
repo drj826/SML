@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 superscripted text.
 
-index:: rq-000059; superscripted text
+index:: [id:rq-000059]; superscripted text
 
 <<<requirement

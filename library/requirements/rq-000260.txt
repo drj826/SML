@@ -18,6 +18,6 @@ description:: The software shall render a common navigation pane for
 each HTML page. The purpose of this requirement is to ease navigation
 among the pages that make up a document.
 
-index:: rq-000260; navigation pane
+index:: [id:rq-000260]; navigation pane
 
 <<<requirement

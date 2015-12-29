@@ -19,6 +19,6 @@ The majority of index entries have no sub-entries.  Occasionally it's
 helpful to specify index sub-entries.  On ~~very~~ rare occasions it's
 helpful to specify sub-sub-entries.
 
-index:: rq-000352; index!entry levels; index!sub-entries
+index:: [id:rq-000352]; index!entry levels; index!sub-entries
 
 <<<requirement

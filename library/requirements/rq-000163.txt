@@ -19,6 +19,6 @@ the author's choice that generated content should persist in a
 specified file. The default behavior is to insert the generated
 content into the output document but ~~not~~ persist it anywhere.
 
-index:: rq-000163; generated content!persistent
+index:: [id:rq-000163]; generated content!persistent
 
 <<<requirement

@@ -18,6 +18,6 @@ description:: The data format shall have the capability to represent
 inline sequences of characters with semantic meaning.  This
 requirement serves as a container for those requirements.
 
-index:: rq-000125; inline semantic content
+index:: [id:rq-000125]; inline semantic content
 
 <<<requirement

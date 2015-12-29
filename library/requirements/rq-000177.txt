@@ -21,6 +21,6 @@ description:: The software shall resolve included flat text.  The
 external file as `flat' text, that is, the software must `flatten' any
 section hierarchy within the included file.
 
-index:: rq-000177; include
+index:: [id:rq-000177]; include
 
 <<<requirement

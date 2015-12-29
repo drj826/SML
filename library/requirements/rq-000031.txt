@@ -21,7 +21,7 @@ section.  The purpose of identifying content as a list of key points
 is to enable a concise summary of concepts, make the list of key
 points re-usable, and to enable special listings of key points lists.
 
-index:: rq-000031; key points; list of key points
+index:: [id:rq-000031]; key points; list of key points
 
 Elements of demonstration meta data include:
 

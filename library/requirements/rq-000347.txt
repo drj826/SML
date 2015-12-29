@@ -21,6 +21,6 @@ Circular resource use occurs when a resource uses itself or any
 ancestor in a chain of used resources.  This condition must be
 detected to prevent infinite processing loops.
 
-index:: rq-000347; circular resource use
+index:: [id:rq-000347]; circular resource use
 
 <<<requirement

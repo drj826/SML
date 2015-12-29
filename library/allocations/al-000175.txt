@@ -16,4 +16,6 @@ outcome::2012-01-26:al-000175:red: Neither the original implementation
 or the new version 2 implementation of the publishing software yet has
 the capability to define or resolve iterative templates.
 
+index:: [id:al-000175]
+
 <<<allocation

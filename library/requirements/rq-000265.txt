@@ -18,7 +18,7 @@ description:: The software shall generate an HTML list of slides.  The
 purpose of this listing is to enable readers to quickly navigate to
 any slide in the document.
 
-index:: rq-000265; list of slides!HTML; HTML list of slides
+index:: [id:rq-000265]; list of slides!HTML; HTML list of slides
 
 = [g:SML:slide] = [def:SML:slide]
 

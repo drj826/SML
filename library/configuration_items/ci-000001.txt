@@ -17,6 +17,6 @@ date:: $Date: 2009-09-08 14:49:48 -0600 (Tue, 08 Sep 2009) $
 
 author:: $Author: don.johnson $
 
-index:: Publish.pm
+index:: [id:ci-000001]; SML; Semantic Manuscript Language
 
 <<<configuration_item

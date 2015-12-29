@@ -17,6 +17,6 @@ description:: The software shall enable a user to validate that an
 properties for each entity type are specified in the [g:SML:library]
 [g:SML:ontology].
 
-index:: rq-000201; entity!allowed properties
+index:: [id:rq-000201]; entity!allowed properties
 
 <<<requirement

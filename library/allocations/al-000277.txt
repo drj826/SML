@@ -16,4 +16,6 @@ outcome::2012-03-20:al-000277:red: The [file:Parser.pm] class does not
 yet parse SML conditional divisions.  The code is partially
 implemented, but is still 0% functional.
 
+index:: [id:al-000277]
+
 <<<allocation

@@ -22,7 +22,7 @@ description is to make the problem semantically traceable to other
 elements of content (like tests and solutions), to make the content
 re-usable, and to enable special listings of problems.
 
-index:: rq-000032; problems
+index:: [id:rq-000032]; problems
 
 Elements of problem meta data include:
 

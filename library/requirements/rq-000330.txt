@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent a
 list item.
 
-index:: rq-000330; list item
+index:: [id:rq-000330]; list item
 
 <<<requirement

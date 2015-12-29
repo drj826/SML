@@ -17,6 +17,6 @@ type:: functional
 description:: The software shall enable a user to generate a change
 log listing based on the revision control change log.
 
-index:: rq-000154; change log
+index:: [id:rq-000154]; change log
 
 <<<requirement

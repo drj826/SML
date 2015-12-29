@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 a copyright symbol.
 
-index:: rq-000049; copyright symbol
+index:: [id:rq-000049]; copyright symbol
 
 <<<requirement

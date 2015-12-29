@@ -17,6 +17,6 @@ associated:: rq-000020
 description:: The software shall format an HTML cross reference.
 Cross references link two locations in the same document.
 
-index:: rq-000209; cross reference!format HTML
+index:: [id:rq-000209]; cross reference!format HTML
 
 <<<requirement

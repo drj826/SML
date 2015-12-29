@@ -18,6 +18,6 @@ description:: The software shall implement the SML data format.  This
 means the software shall implement the syntax and semantics of the
 semantic manuscript language.
 
-index:: rq-000170; data format!implement
+index:: [id:rq-000170]; data format!implement
 
 <<<requirement

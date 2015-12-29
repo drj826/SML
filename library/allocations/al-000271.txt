@@ -16,4 +16,6 @@ outcome::2012-03-20:al-000271:red: The [file:Parser.pm] class does not
 validate a document contains no redundant allocations.  I'm thinking
 of having the [file:Reasoner.pm] class perform this function.
 
+index:: [id:al-000271]
+
 <<<allocation

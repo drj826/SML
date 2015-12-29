@@ -18,7 +18,7 @@ description:: The software shall generate an HTML [g:SML:index].  The
 purpose of the index is to enable readers to quickly navigate to
 definitions of key terms used in the document.
 
-index:: rq-000280; index!HTML; HTML index
+index:: [id:rq-000280]; index!HTML; HTML index
 
 = [g:SML:index] = [def:SML:index]
 

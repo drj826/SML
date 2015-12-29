@@ -15,6 +15,6 @@ type:: technical
 description:: The software shall format an SML [g:SML:document] into a
 target rendition according to a specified style template.
 
-index:: rq-000207; render document
+index:: [id:rq-000207]; render document
 
 <<<requirement

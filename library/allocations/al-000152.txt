@@ -16,4 +16,6 @@ outcome::2012-04-01:al-000152:red: The Document.pm module doesn't
 generate a title page, and I think I'll create a title page class to
 do this.
 
+index:: [id:al-000152]
+
 <<<allocation

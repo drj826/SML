@@ -14,6 +14,6 @@ description:: The product shall satisfy specified non-functional
 requirements.  This requirement serves as a container for all
 non-functional requirements.
 
-index:: rq-000111; requirements!non-functional
+index:: [id:rq-000111]; requirements!non-functional
 
 <<<requirement

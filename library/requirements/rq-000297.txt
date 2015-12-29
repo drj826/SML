@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX `take note' indicator.
 
-index:: rq-000297; `take note' indicator!format LaTeX
+index:: [id:rq-000297]; `take note' indicator!format LaTeX
 
 <<<requirement

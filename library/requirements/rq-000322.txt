@@ -15,6 +15,6 @@ type:: technical
 description:: The software shall format a LaTeX user-entered text
 string.
 
-index:: rq-000322; user-entered text string!format LaTeX
+index:: [id:rq-000322]; user-entered text string!format LaTeX
 
 <<<requirement

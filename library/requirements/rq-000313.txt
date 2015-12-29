@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX emdash.
 
-index:: rq-000313; emdash!format LaTeX
+index:: [id:rq-000313]; emdash!format LaTeX
 
 <<<requirement

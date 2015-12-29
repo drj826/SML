@@ -5,4 +5,6 @@ title:: Document Author
 description:: A document author is responsible for preparing
 manuscripts.
 
+index:: [id:ro-000002]; Document Author
+
 <<<role

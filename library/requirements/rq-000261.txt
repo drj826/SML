@@ -19,6 +19,6 @@ page shall present the: (1) document title, (2) subtitle, (3) name of
 author(s), (4) name of editor(s), (5) name of translator(s), (6) name
 and location of the publisher, and (7) number of the edition.
 
-index:: rq-000261; title page; HTML title page
+index:: [id:rq-000261]; title page; HTML title page
 
 <<<requirement

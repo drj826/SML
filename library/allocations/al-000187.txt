@@ -20,4 +20,6 @@ authors to reference (i.e., link to) identified [g:SML:division]s but
 not ~~to~~ an arbitrary location in the text or ~~from~~ an arbitrary
 span of text as required by [id:rq-000187].
 
+index:: [id:al-000187]
+
 <<<allocation

@@ -23,6 +23,6 @@ of this requirement is to ensure the data gathered into memory from
 parsed files can be used to re-write those files back out to permanent
 storage.
 
-index:: rq-000338
+index:: [id:rq-000338]
 
 <<<requirement

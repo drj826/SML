@@ -22,6 +22,6 @@ not appear in published documents, (2) allow authors to temporarily
 ``comment out'' document content.  This requirement serves as a
 container for various data format comment representation requirements.
 
-index:: rq-000066; comments
+index:: [id:rq-000066]; comments
 
 <<<requirement

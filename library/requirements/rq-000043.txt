@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 the font size for a table cell.
 
-index:: rq-000043; table cell font size; font size!table cell
+index:: [id:rq-000043]; table cell font size; font size!table cell
 
 <<<requirement

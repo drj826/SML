@@ -17,6 +17,6 @@ type:: technical
 description:: The software shall produce a list of properties allowed
 for a specified entity.
 
-index:: rq-000184
+index:: [id:rq-000184]
 
 <<<requirement

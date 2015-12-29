@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format LaTeX superscripted text.
 
-index:: rq-000315; superscripted text!format LaTeX
+index:: [id:rq-000315]; superscripted text!format LaTeX
 
 <<<requirement

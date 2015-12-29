@@ -16,6 +16,6 @@ associated:: rq-000252
 
 description:: The software shall format a LaTeX index reference.
 
-index:: rq-000288; index reference!format LaTeX
+index:: [id:rq-000288]; index reference!format LaTeX
 
 <<<requirement

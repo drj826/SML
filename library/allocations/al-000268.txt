@@ -15,4 +15,6 @@ author::   $Author: don.johnson $
 outcome::2012-04-01:al-000268:yellow: The [file:Parser.pm] emits INFO
 messages only for bi-directional traceability inferences.
 
+index:: [id:al-000268]
+
 <<<allocation

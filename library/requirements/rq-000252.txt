@@ -17,6 +17,6 @@ an inline index reference.  In other words, give authors the inline
 capability to represent that a word or phrase should be included in
 the document index.
 
-index:: rq-000252; index reference
+index:: [id:rq-000252]; index reference
 
 <<<requirement

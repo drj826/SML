@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML emdash.
 
-index:: rq-000239; emdash!format HTML
+index:: [id:rq-000239]; emdash!format HTML
 
 <<<requirement

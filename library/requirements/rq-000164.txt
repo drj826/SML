@@ -22,6 +22,6 @@ template statement individually.  The purpose of this requirement is
 to improve document maintainability by reducing the amount of
 repetitive text in a document.
 
-index:: rq-000164; iterative template
+index:: [id:rq-000164]; iterative template
 
 <<<requirement

@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML `take note' indicator.
 
-index:: rq-000223; `take note' indicator!format HTML
+index:: [id:rq-000223]; `take note' indicator!format HTML
 
 <<<requirement

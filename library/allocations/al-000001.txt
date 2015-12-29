@@ -34,4 +34,6 @@ tc-000040   allocation  al-000001 (inferred)
 
 <<<COMMENT
 
+index:: [id:al-000001]
+
 <<<allocation

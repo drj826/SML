@@ -19,4 +19,6 @@ author:: $Author: don.johnson $
 outcome::2012-03-31:al-000004:yellow: The current SML syntax does not
 enforce the specified data types.
 
+index:: [id:al-000004]
+
 <<<allocation

@@ -18,7 +18,7 @@ description:: The software shall generate an HTML list of
 [g:SML:figure]s.  The purpose of this figure is to enable readers to
 quickly navigate to any figure in the document.
 
-index:: rq-000273; list of figures!HTML; HTML list of figures
+index:: [id:rq-000273]; list of figures!HTML; HTML list of figures
 
 = [g:SML:figure] = [def:SML:figure]
 

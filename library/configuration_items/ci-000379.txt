@@ -18,7 +18,7 @@ date:: $Date: 2012-03-05 07:05:48 -0700 (Mon, 05 Mar 2012) $
 
 author:: $Author: don.johnson $
 
-index:: ci-000379; SML syntax; EBNF
+index:: [id:ci-000379]; SML syntax; EBNF
 
 There is an online EBNF validator here:
 [url:http://www.icosaedro.it/bnf_chk/bnf_chk-on-line.html].

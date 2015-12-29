@@ -16,4 +16,6 @@ outcome::2011-06-21:al-000048:yellow: The status is yellow because the
 SML data format does not specify a representation for column or row
 spanning.
 
+index:: [id:al-000048]
+
 <<<allocation

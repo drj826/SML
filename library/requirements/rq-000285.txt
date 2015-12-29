@@ -16,6 +16,6 @@ associated:: rq-000019
 
 description:: The software shall format a LaTeX footnote reference.
 
-index:: rq-000285; footnote reference!format LaTeX
+index:: [id:rq-000285]; footnote reference!format LaTeX
 
 <<<requirement

@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 subscripted text.
 
-index:: rq-000060; subscripted text
+index:: [id:rq-000060]; subscripted text
 
 <<<requirement

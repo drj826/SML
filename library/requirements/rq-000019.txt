@@ -21,6 +21,6 @@ content not sufficiently important to add to the main text. The data
 format representation of a footnote must allow but not mandate newline
 characters within a footnote.
 
-index:: rq-000019; footnote
+index:: [id:rq-000019]; footnote
 
 <<<requirement

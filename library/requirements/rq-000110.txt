@@ -18,6 +18,6 @@ description:: The product shall provide a reusable library of software
 modules that perform functions such as parsing, publishing, and
 validation.
 
-index:: rq-000110
+index:: [id:rq-000110]
 
 <<<requirement

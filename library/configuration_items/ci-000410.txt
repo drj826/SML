@@ -14,7 +14,7 @@ date:: $Date: 2013-07-07 11:40:33 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-index:: ci-000410
+index:: [id:ci-000410]; Library.pm; SML::Library
 
 = [g:SML:library] = [def:SML:library]
 

@@ -19,6 +19,6 @@ priorities by urgency rank.  Urgency rank is computed based on item
 priority and status.  The purpose of this requirement is to produce a
 listing of items that require attention in order of importance.
 
-index:: rq-000152; list of priorities
+index:: [id:rq-000152]; list of priorities
 
 <<<requirement

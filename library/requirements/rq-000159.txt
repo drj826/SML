@@ -22,7 +22,7 @@ containing document.  The default behavior of the script function is
 to run the script and insert the output into the generated document
 but ~~not~~ persist the output in the original document.
 
-index:: rq-000159; scripts!persistent output
+index:: [id:rq-000159]; scripts!persistent output
 
 This requirement is ~~different~~ than [id:rq-000160] because it
 requires the data format to represent an option to persist script

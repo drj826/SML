@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML revision reference.
 
-index:: rq-000219; revision reference!format HTML
+index:: [id:rq-000219]; revision reference!format HTML
 
 <<<requirement

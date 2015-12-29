@@ -16,6 +16,6 @@ associated:: rq-000019
 
 description:: The software shall format an HTML footnote reference.
 
-index:: rq-000211; footnote reference!format HTML
+index:: [id:rq-000211]; footnote reference!format HTML
 
 <<<requirement

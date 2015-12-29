@@ -21,7 +21,7 @@ are not the same as ~~lists~~.  Listings have titles and descriptions
 (often called captions) and unique identifiers that allow cross
 referencing within the document.
 
-index:: rq-000016; listings
+index:: [id:rq-000016]; listings
 
 Elements of listing meta data include:
 

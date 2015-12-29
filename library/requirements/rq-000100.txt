@@ -21,6 +21,6 @@ conditional division directs the application to ignore that division's
 text unless a certain condition is met (whether or not a named token
 is defined).
 
-index:: rq-000100; conditional text
+index:: [id:rq-000100]; conditional text
 
 <<<requirement

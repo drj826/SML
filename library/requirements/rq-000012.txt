@@ -24,7 +24,7 @@ date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-index:: rq-000012; lists
+index:: [id:rq-000012]; lists
 
 The data format must have the capability to represent the following
 types of lists:

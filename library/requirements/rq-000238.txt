@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML section sign.
 
-index:: rq-000238; section sign!format HTML
+index:: [id:rq-000238]; section sign!format HTML
 
 <<<requirement

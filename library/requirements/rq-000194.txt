@@ -23,7 +23,7 @@ and semantics to express rules.  Within the context of artificial
 intelligence and expert systems, inference rules are also known as (or
 closely related to) axioms, relations, and productions.
 
-index:: rq-000194; inference rules
+index:: [id:rq-000194]; inference rules
 
 Each rule has a unique identifier, a left-hand-side (the `if' part
 also known as the antecedent), and a right-hand-side (the `then' part

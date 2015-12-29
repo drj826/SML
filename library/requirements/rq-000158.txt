@@ -21,6 +21,6 @@ data in a CSV file, the author may wish to only execute the script on
 the condition that the CSV file has been updated since it was last
 run.
 
-index:: rq-000158; scripts!conditional; conditional scripts
+index:: [id:rq-000158]; scripts!conditional; conditional scripts
 
 <<<requirement

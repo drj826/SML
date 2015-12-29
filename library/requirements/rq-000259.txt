@@ -20,7 +20,7 @@ of the error so the user knows exactly where to look for the problem.
 Error notifications should also provide an informative message that
 describes the error.
 
-index:: rq-000259; notification!semantics error
+index:: [id:rq-000259]; notification!semantics error
 
 Examples of possible first order semantics errors include:
 

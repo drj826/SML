@@ -18,6 +18,6 @@ description:: The software shall perform specified utility functions.
 This requirement serves as a container for utility function
 requirements.
 
-index:: rq-000185; utility functions; functions!utility
+index:: [id:rq-000185]; utility functions; functions!utility
 
 <<<requirement

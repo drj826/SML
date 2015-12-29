@@ -16,6 +16,6 @@ description:: The data format shall have the capability to represent
 a unique division identifier.  The identifier must be unique within
 the library.
 
-index:: rq-000253; unique division identifier
+index:: [id:rq-000253]; unique division identifier
 
 <<<requirement

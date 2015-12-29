@@ -22,7 +22,7 @@ listing of changelog entries by entity type of entities that have been
 recently updated.  The definition of ``recent'' should be configurable
 by the user as some number of days.
 
-index:: rq-000264; list of recent updates!HTML; HTML list of recent
+index:: [id:rq-000264]; list of recent updates!HTML; HTML list of recent
 updates
 
 For example, if the document is a system design document containing

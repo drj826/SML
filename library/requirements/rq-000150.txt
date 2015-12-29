@@ -23,6 +23,6 @@ arranged alphabetically but not inverted (``John A. Smith,'' not
 or, as in many symposium volumes, office addresses accompany the
 names. [cite:cms15, [section]1.89]
 
-index:: rq-000150; list of contributors
+index:: [id:rq-000150]; list of contributors
 
 <<<requirement

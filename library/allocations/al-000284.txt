@@ -63,4 +63,6 @@ requirement.  Reserved words are in all UPPERCASE.
 
 This is a start.
 
+index:: [id:al-000284]
+
 <<<allocation

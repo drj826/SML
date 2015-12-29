@@ -21,6 +21,6 @@ of identifying content as a role is to make that role semantically
 traceable to other elements of content (like tasks and problems), to
 make the content re-usable, and to enable special listings of roles.
 
-index:: rq-000037; roles
+index:: [id:rq-000037]; roles
 
 <<<requirement

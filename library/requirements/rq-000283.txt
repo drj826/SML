@@ -17,6 +17,6 @@ associated:: rq-000020
 description:: The software shall format a LaTeX cross reference.
 Cross references link two locations in the same document.
 
-index:: rq-000283; cross reference!format LaTeX
+index:: [id:rq-000283]; cross reference!format LaTeX
 
 <<<requirement

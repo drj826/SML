@@ -18,6 +18,6 @@ description:: The software shall resolve inline lookup tags with the
 looked-up values.  Every property and attribute of every identified
 division may be looked up and re-used.
 
-index:: rq-000131; resolve lookups
+index:: [id:rq-000131]; resolve lookups
 
 <<<requirement

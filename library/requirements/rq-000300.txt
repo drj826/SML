@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX keystroke symbol.
 
-index:: rq-000300; keystroke symbol!format LaTeX
+index:: [id:rq-000300]; keystroke symbol!format LaTeX
 
 <<<requirement

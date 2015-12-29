@@ -23,6 +23,6 @@ completed: (1) resolve `includes', (2) run scripts, (3) resolve
 requests, (6) fill in templates, and (7) resolve requests to generate
 content.
 
-index:: rq-000126; SML!render
+index:: [id:rq-000126]; SML!render
 
 <<<requirement

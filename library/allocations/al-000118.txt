@@ -15,4 +15,6 @@ author:: $Author: don.johnson $
 outcome::2011-06-21:al-000118:green: SML represents all specified data
 types.
 
+index:: [id:al-000118]
+
 <<<allocation

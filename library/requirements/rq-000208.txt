@@ -18,6 +18,6 @@ distinguish reserved words from non-reserved words.  Reserved words
 are terms with special meaning to the language itself that may ~~not~~
 be re-used by users for their own purposes.
 
-index:: rq-000208; reserved words
+index:: [id:rq-000208]; reserved words
 
 <<<requirement

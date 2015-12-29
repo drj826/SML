@@ -18,7 +18,7 @@ description:: The data format shall have the capability to insert
 blocks of content defined elsewhere in the document.  A block of
 content is one or more ~~whole~~ lines of text.
 
-index:: rq-000078; inserts
+index:: [id:rq-000078]; inserts
 
 Inserts are meant to represent ~~blocks~~ of content; that is, content
 that consists of one or more ~~whole~~ lines of text.  Variables, on

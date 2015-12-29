@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX path name.
 
-index:: rq-000321; path name!format LaTeX
+index:: [id:rq-000321]; path name!format LaTeX
 
 <<<requirement

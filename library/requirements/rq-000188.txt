@@ -23,6 +23,6 @@ software should not remember order of entities independently by type
 (i.e. problem, solution, etc.).  This will enable the software to list
 divisions in document order both independent of type and by type.
 
-index:: rq-000188; entity document order
+index:: [id:rq-000188]; entity document order
 
 <<<requirement

@@ -18,6 +18,6 @@ description:: The data format shall have the capability to represent
 an unordered list.  Unordered lists are often called ``bulletized''
 lists.
 
-index:: rq-000083; unordered lists
+index:: [id:rq-000083]; unordered lists
 
 <<<requirement

@@ -15,4 +15,6 @@ author:: $Author: don.johnson $
 outcome::2011-11-27:al-000135:green: I think the SML library's
 interoperability rates green because SML documents are 7-bit ASCII.
 
+index:: [id:al-000135]
+
 <<<allocation

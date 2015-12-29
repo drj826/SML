@@ -22,6 +22,6 @@ be explicitly declared in a document.  The purpose of disallowing
 explicit declaration of certain properties is to prevent conflicting
 property declarations.
 
-index:: rq-000171; validation!infer-only properties; infer-only
+index:: [id:rq-000171]; validation!infer-only properties; infer-only
 
 <<<requirement

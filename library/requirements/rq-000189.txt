@@ -20,6 +20,6 @@ text that appear in the source data format but not in published
 renditions.  They begin at some point on a line and continue to the
 end of the line.
 
-index:: rq-000189; line-ending comment
+index:: [id:rq-000189]; line-ending comment
 
 <<<requirement

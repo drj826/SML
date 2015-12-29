@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 a [g:SML:document] [g:SML:division].
 
-index:: rq-000326
+index:: [id:rq-000326]
 
 <<<requirement

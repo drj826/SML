@@ -22,6 +22,6 @@ traceable to other elements of content (like problems, solutions, and
 tests), to make the content re-usable, and to enable special listings
 of results.
 
-index:: rq-000035; results
+index:: [id:rq-000035]; results
 
 <<<requirement

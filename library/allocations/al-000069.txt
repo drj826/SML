@@ -28,4 +28,6 @@ satisfies [id:rq-000035] ``[lookup:title:rq-000035],'' I've added
 the outcome of allocation and assignment validation now satisfies
 [id:rq-000035].
 
+index:: [id:al-000069]
+
 <<<allocation

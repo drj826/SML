@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML open double quote.
 
-index:: rq-000234; double quote!format HTML
+index:: [id:rq-000234]; double quote!format HTML
 
 <<<requirement

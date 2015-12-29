@@ -20,6 +20,6 @@ description:: The software shall return the value of a bullet list
 item.  The purpose of this function is to strip the markup (optional
 whitespace and hyphen) from the beginning of the content.
 
-index:: rq-000339
+index:: [id:rq-000339]
 
 <<<requirement

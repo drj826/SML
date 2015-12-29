@@ -15,6 +15,6 @@ date:: $Date: 2012-10-27 14:49:09 -0600 (Sat, 27 Oct 2012) $
 
 author:: $Author: don.johnson $
 
-index:: ci-000004; SML Software Library
+index:: [id:ci-000004]; SML Software Library
 
 <<<configuration_item

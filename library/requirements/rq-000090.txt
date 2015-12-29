@@ -20,6 +20,6 @@ have the capability to indicate an acronym is in the official list of
 acronyms.  The data format must allow acronym references to span
 newline characters.
 
-index:: rq-000090; acronym reference
+index:: [id:rq-000090]; acronym reference
 
 <<<requirement

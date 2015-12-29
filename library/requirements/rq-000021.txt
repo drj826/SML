@@ -19,7 +19,7 @@ an inline external hyperlink.  An inline external hyperlink enables
 authors to provide a link to a specified type of resource external to
 the document.
 
-index:: rq-000021; external hyperlinks; hyperlink!external
+index:: [id:rq-000021]; external hyperlinks; hyperlink!external
 
 The data format must enable authors to establish external hyperlinks
 to the following types of resources:

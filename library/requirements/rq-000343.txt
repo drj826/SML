@@ -20,6 +20,6 @@ description:: The software shall return the value of a enumerated list
 item.  The purpose of this function is to strip the markup (optional
 whitespace and plus sign) from the beginning of the content.
 
-index:: rq-000343
+index:: [id:rq-000343]
 
 <<<requirement

@@ -16,6 +16,6 @@ associated:: rq-000025
 
 description:: The software shall format an HTML glossary reference.
 
-index:: rq-000212; glossary reference!format HTML
+index:: [id:rq-000212]; glossary reference!format HTML
 
 <<<requirement

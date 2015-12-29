@@ -20,6 +20,6 @@ capability to indicate an acronym, word, or phrase is in the
 glossary.  The data format must allow glossary references to span
 newline characters.
 
-index:: rq-000079; glossary references
+index:: [id:rq-000079]; glossary references
 
 <<<requirement

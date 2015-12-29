@@ -18,7 +18,7 @@ description:: The software shall gather the structured data contained
 in a document into data structures for further processing by other
 software functions.
 
-index:: rq-000128; gather data
+index:: [id:rq-000128]; gather data
 
 Resolving several SML constructs requires parsing an SML document to
 be an iterative process. Therefore, the 'gather data' function may be

@@ -23,6 +23,6 @@ not shown in the rendered document.  This enables authors to re-use
 properties of the hidden text without displaying the full text of the
 included file.
 
-index:: rq-000180; include
+index:: [id:rq-000180]; include
 
 <<<requirement

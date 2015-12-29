@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML smiley symbol. :-)
 
-index:: rq-000224; smiley symbol!format HTML
+index:: [id:rq-000224]; smiley symbol!format HTML
 
 <<<requirement

@@ -21,6 +21,6 @@ a task is to make that task semantically traceable to other elements
 of content (like roles and problems), to make the content re-usable,
 and to enable special listings of tasks.
 
-index:: rq-000036; tasks
+index:: [id:rq-000036]; tasks
 
 <<<requirement

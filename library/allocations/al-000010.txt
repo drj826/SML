@@ -16,4 +16,6 @@ outcome::2011-11-27:al-000010:green: The SML semantics is formally
 specified in a ||HASH|| in the publish.pl script and in the
 [file:ontology.conf] file for the v2 implementation.
 
+index:: [id:al-000010]
+
 <<<allocation

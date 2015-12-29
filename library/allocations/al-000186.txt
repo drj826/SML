@@ -30,4 +30,6 @@ document ``disappear'' and the application cannot notify the user (1)
 that the application reached the end of the document while in a
 comment division, and (2) where that comment division began.
 
+index:: [id:al-000186]
+
 <<<allocation

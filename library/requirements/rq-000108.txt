@@ -22,6 +22,6 @@ another.  This enables authors to modularize document content.  The
 software must resolve these `include' statements as part of the
 parsing function.
 
-index:: rq-000108; includes!resolve
+index:: [id:rq-000108]; includes!resolve
 
 <<<requirement

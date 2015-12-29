@@ -18,7 +18,7 @@ description:: The software shall generate an HTML [g:SML:glossary].  The
 purpose of the glossary is to enable readers to quickly navigate to
 definitions of key terms used in the document.
 
-index:: rq-000276; glossary!HTML; HTML glossary
+index:: [id:rq-000276]; glossary!HTML; HTML glossary
 
 = [g:SML:glossary] = [def:SML:glossary]
 

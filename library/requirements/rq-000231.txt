@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML copyright symbol.
 
-index:: rq-000231; copyright symbol!format HTML
+index:: [id:rq-000231]; copyright symbol!format HTML
 
 <<<requirement

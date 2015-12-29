@@ -15,6 +15,6 @@ is_part_of:: ci-000004
 description:: The Definition.pm module implements the SML::Definition
 class. A definition is an element that defines an key/value pair.
 
-index:: ci-000415; Definition.pm
+index:: [id:ci-000415]; Definition.pm; SML::Definition
 
 <<<configuration_item

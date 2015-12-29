@@ -15,6 +15,6 @@ type:: technical
 description:: The software shall format an HTML user-entered text
 string.
 
-index:: rq-000248; user-entered text string!format HTML
+index:: [id:rq-000248]; user-entered text string!format HTML
 
 <<<requirement

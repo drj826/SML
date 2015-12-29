@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format HTML italicized text.
 
-index:: rq-000243; italicized text!format HTML
+index:: [id:rq-000243]; italicized text!format HTML
 
 <<<requirement

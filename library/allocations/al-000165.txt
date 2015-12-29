@@ -15,4 +15,6 @@ author::   $Author: don.johnson $
 outcome::2012-04-01:al-000165:red: not OK
 
 
+index:: [id:al-000165]
+
 <<<allocation

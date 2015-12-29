@@ -22,6 +22,6 @@ back matter, the list should appear before the first part in which
 abbreviations are used, whether the appendixes, the end-notes, or the
 bibliography.
 
-index:: rq-000146; list of abbreviations
+index:: [id:rq-000146]; list of abbreviations
 
 <<<requirement

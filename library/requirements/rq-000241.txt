@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format HTML superscripted text.
 
-index:: rq-000241; superscripted text!format HTML
+index:: [id:rq-000241]; superscripted text!format HTML
 
 <<<requirement

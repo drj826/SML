@@ -20,6 +20,6 @@ description:: The software shall resolve included regions.  The
 [a:SML] data format enables authors to include the content of an
 external file as a [g:SML:region].
 
-index:: rq-000178; include
+index:: [id:rq-000178]; include
 
 <<<requirement

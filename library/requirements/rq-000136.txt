@@ -21,6 +21,6 @@ maximize document maintainability by giving authors the capability to
 define terms and acronyms in one location and reuse them in multiple
 locations.
 
-index:: rq-000136; definitions
+index:: [id:rq-000136]; definitions
 
 <<<requirement

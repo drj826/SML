@@ -31,7 +31,7 @@ document_title_element = library.get_first_property_value_element(document_id,'t
 [%- FOREACH entry IN index.get_group_entry_list(group) -%]
 <tr>
 <td>
-<div style="text-indent:0pt;">[%- entry.get_term -%]</div>
+<div style="text-indent:0pt;">[%- INCLUDE STRING.tt self = entry.get_term_string -%]</div>
 </td>
 <td>
 <div style="text-indent:0pt;">

@@ -15,4 +15,6 @@ author:: $Author: don.johnson $
 outcome::2011-11-27:al-000130:yellow: Some software functions are not
 yet implemented.
 
+index:: [id:al-000130]
+
 <<<allocation

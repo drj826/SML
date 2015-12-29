@@ -20,4 +20,6 @@ outcome::2011-11-27:al-000007:yellow: This is yellow because I'm not
 satisfied with the current capability to represent reviews
 ([id:rq-000094]) or outcomes ([id:rq-000095]).
 
+index:: [id:al-000007]
+
 <<<allocation

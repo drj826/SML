@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent a
 left arrow.
 
-index:: rq-000057; left arrow
+index:: [id:rq-000057]; left arrow
 
 <<<requirement

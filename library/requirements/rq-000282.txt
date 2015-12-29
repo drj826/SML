@@ -22,6 +22,6 @@ publishing history, (8) translation, (9) ISBN, (10) ISSN, (11)
 acknowledgments, permissions, and other credits, (12) grants, and (13)
 cataloging-in-publication (CIP) data
 
-index:: rq-000282; copyright page!HTML; HTML copyright page
+index:: [id:rq-000282]; copyright page!HTML; HTML copyright page
 
 <<<requirement

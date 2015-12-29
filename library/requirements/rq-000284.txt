@@ -17,6 +17,6 @@ associated:: rq-000021
 description:: The software shall format a LaTeX url reference.  URL
 references link to locations outside the current document.
 
-index:: rq-000284; URL reference!format LaTeX
+index:: [id:rq-000284]; URL reference!format LaTeX
 
 <<<requirement

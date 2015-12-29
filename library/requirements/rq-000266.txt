@@ -18,7 +18,7 @@ description:: The software shall generate an HTML list of
 [g:SML:sidebar]s.  The purpose of this listing is to enable readers to
 quickly navigate to any sidebar in the document.
 
-index:: rq-000266; list of sidebars!HTML; HTML list of sidebars
+index:: [id:rq-000266]; list of sidebars!HTML; HTML list of sidebars
 
 = [g:SML:sidebar] = [def:SML:sidebar]
 

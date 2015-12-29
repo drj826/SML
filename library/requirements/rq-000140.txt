@@ -19,6 +19,6 @@ page.  The title page displays the full title, the subtitle, the
 edition, the name of the author, editor, or translator, and the name
 and location of the publisher.
 
-index:: rq-000140; title page
+index:: [id:rq-000140]; title page
 
 <<<requirement

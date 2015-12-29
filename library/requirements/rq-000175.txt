@@ -18,6 +18,6 @@ description:: The software shall have the capability to process
 multiple documents, or the same document multiple times, without
 re-starting the application.
 
-index:: rq-000175; process multiple documents
+index:: [id:rq-000175]; process multiple documents
 
 <<<requirement

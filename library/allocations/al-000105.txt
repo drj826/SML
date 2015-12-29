@@ -17,4 +17,6 @@ yellow because I've added three new parts to this requirement and
 those parts are red.  The overall requirement is therefore yellow
 since it is only partially satisfied.
 
+index:: [id:al-000105]
+
 <<<allocation

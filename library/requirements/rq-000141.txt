@@ -24,6 +24,6 @@ Standard Serial Number (ISSN), acknowledgments, permissions, other
 credits, grants, Cataloging-in-Publication (CIP) data, and paper
 durability statement.
 
-index:: rq-000141; copyright page
+index:: [id:rq-000141]; copyright page
 
 <<<requirement

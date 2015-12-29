@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX left arrow symbol.
 
-index:: rq-000301; left arrow symbol!format LaTeX
+index:: [id:rq-000301]; left arrow symbol!format LaTeX
 
 <<<requirement

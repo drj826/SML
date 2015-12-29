@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 line breaks.
 
-index:: rq-000039; line break
+index:: [id:rq-000039]; line break
 
 <<<requirement

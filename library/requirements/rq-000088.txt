@@ -22,7 +22,7 @@ beginning of a section. The data format representation of a section
 epigraph must allow but not mandate newline characters within the
 section epigraph.
 
-index:: rq-000088; epigraph
+index:: [id:rq-000088]; epigraph
 
 Note that a ~~section~~ epigraph is not the same as a ~~document~~
 epigraph.  A document epigraph is an element of document meta data

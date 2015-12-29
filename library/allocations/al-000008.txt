@@ -19,4 +19,6 @@ author:: $Author: don.johnson $
 outcome::2011-11-27:al-000008:yellow: This is yellow because I don't
 have a way to represent a horizontal rule ([id:rq-000061]).
 
+index:: [id:al-000008]
+
 <<<allocation

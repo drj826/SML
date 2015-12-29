@@ -22,7 +22,7 @@ date:: $Date: 2012-12-06 13:59:01 -0700 (Thu, 06 Dec 2012) $
 
 author:: $Author: don.johnson $
 
-index:: rq-000005
+index:: [id:rq-000005]
 
 Authors should focus on creating content instead of fiddling with
 document presentation.  Modern documents are often published to

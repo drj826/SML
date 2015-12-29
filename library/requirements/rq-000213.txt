@@ -16,6 +16,6 @@ associated:: rq-000090
 
 description:: The software shall format an HTML acronym reference.
 
-index:: rq-000213; acronym reference!format HTML
+index:: [id:rq-000213]; acronym reference!format HTML
 
 <<<requirement

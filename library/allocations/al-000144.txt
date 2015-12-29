@@ -16,4 +16,6 @@ outcome::2011-11-24:al-000144:yellow: This is yellow because the only
 way to represent a horizontal rule ([id:rq-000061]) is to use a long
 fill-in-the-blank ([id:rq-000134]).
 
+index:: [id:al-000144]
+
 <<<allocation

@@ -20,6 +20,6 @@ containing document.  The default behavior is to insert the generated
 content into the output document but ~~not~~ persist it in the
 original document.
 
-index:: rq-000162; generated content!persistent
+index:: [id:rq-000162]; generated content!persistent
 
 <<<requirement

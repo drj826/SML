@@ -37,7 +37,7 @@ associated:: rq-000072 # Represent Script Statements
 associated:: rq-000013 # Represent Images
 associated:: rq-000077 # Represent Templates
 
-index:: rq-000174; external file reference validation
+index:: [id:rq-000174]; external file reference validation
 
 The following [a:SML] features involve the use of external file
 references:

@@ -16,4 +16,6 @@ outcome::2011-11-27:al-000032:yellow: This requirement is yellow
 because XML publishing is half-baked and plain text publishing is not
 implemented at all.
 
+index:: [id:al-000032]
+
 <<<allocation

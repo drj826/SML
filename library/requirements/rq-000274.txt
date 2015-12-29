@@ -18,7 +18,7 @@ description:: The software shall generate an HTML list of
 [g:SML:attachment]s.  The purpose of this attachment is to enable
 readers to quickly navigate to any attachment in the document.
 
-index:: rq-000274; list of attachments!HTML; HTML list of attachments
+index:: [id:rq-000274]; list of attachments!HTML; HTML list of attachments
 
 = [g:SML:attachment] = [def:SML:attachment]
 

@@ -25,6 +25,6 @@ text, or an ~~inline~~ element of content which may consist of
 ~~partial~~ lines of text.  This requirement serves as a container for
 more specific document content reuse data format requirements.
 
-index:: rq-000073; reusable content
+index:: [id:rq-000073]; reusable content
 
 <<<requirement

@@ -22,7 +22,7 @@ capability to detach and open attachments.  Attachments have titles
 and descriptions (often called captions) and unique identifiers that
 allow cross referencing within the document.
 
-index:: rq-000017; attachments
+index:: [id:rq-000017]; attachments
 
 Elements of attachment meta data include:
 

@@ -21,6 +21,6 @@ system requirement to one system configuration item, (3) each
 verification test case verifies an allocation, that is, that the
 implemented configuration item satisfies the allocated requirement(s).
 
-index:: rq-000200
+index:: [id:rq-000200]
 
 <<<requirement

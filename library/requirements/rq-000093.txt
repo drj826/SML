@@ -18,7 +18,7 @@ description:: The data format shall have the capability to represent a
 `generate' statement that directs the application to generate and
 insert specified text content.
 
-index:: rq-000093; generated text
+index:: [id:rq-000093]; generated text
 
 Specified generated text content include:
 

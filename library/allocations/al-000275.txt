@@ -15,4 +15,6 @@ author::   $Author: don.johnson $
 outcome::2012-03-20:al-000275:red: The Structured Manuscript Language
 does not have the capability to declare entity types.
 
+index:: [id:al-000275]
+
 <<<allocation

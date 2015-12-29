@@ -6046,6 +6046,7 @@ sub _process_end_division_marker {
   if ( $name eq 'DOCUMENT' )
     {
       $self->_build_document_index($division);
+      $self->_parse_document_index_terms($division);
       $self->_validate_division_blocks($division);
     }
 
@@ -12453,6 +12454,70 @@ sub _build_document_index {
       foreach my $string (@{ $string_list })
 	{
 	  $self->_process_index_string($string,$index_element);
+	}
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _parse_document_index_terms {
+
+  # Parse each plain text index term into an SML::String object.
+
+  my $self     = shift;
+  my $document = shift;
+
+  unless ( ref $document )
+    {
+      $logger->error("CAN'T PARSE DOCUMENT INDEX TERMS, MISSING ARGUMENTS");
+      return 0;
+    }
+
+  my $name = $document->get_name;
+
+  unless ( $name eq 'DOCUMENT' )
+    {
+      $logger->error("CAN'T PARSE DOCUMENT INDEX TERMS, NOT A DOCUMENT $document");
+      return 0;
+    }
+
+  my $index = $document->get_index;
+
+  foreach my $entry (@{ $index->get_entry_list })
+    {
+      $self->_parse_index_term($entry);
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _parse_index_term {
+
+  # Parse a plain text index term into an SML::String object.
+
+  my $self  = shift;
+  my $entry = shift;
+
+  unless ( ref $entry )
+    {
+      $logger->error("CAN'T PARSE INDEX TERM, MISSING ARGUMENT");
+      return 0;
+    }
+
+  my $term   = $entry->get_term;
+  my $string = $self->_create_string($term);
+
+  $entry->set_term_string($string);
+
+  if ( $entry->has_subentries )
+    {
+      foreach my $subentry (@{ $entry->get_subentry_list })
+	{
+	  $self->_parse_index_term($subentry);
 	}
     }
 

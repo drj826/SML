@@ -17,7 +17,7 @@ type:: data format
 description:: The data format shall have the capability to represent a
 [g:SML:block] of text.
 
-index:: rq-000327
+index:: [id:rq-000327]
 
 = [g:SML:block] = [def:SML:block]
 

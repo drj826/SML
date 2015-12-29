@@ -14,4 +14,6 @@ author:: $Author: don.johnson $
 
 outcome::2013-03-13:al-000410:green: OK
 
+index:: [id:al-000410]
+
 <<<allocation

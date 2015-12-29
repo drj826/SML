@@ -23,7 +23,7 @@ represent the date of review, label of item tested/audited, item
 status determined by the test/audit, and a one-paragraph explanation
 of how the status was determined.
 
-index:: rq-000094
+index:: [id:rq-000094]
 
 Outcomes may have the following meta data elements:
 

@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 a definition list item.
 
-index:: rq-000333; list item!definition
+index:: [id:rq-000333]; list item!definition
 
 <<<requirement

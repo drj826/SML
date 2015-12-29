@@ -20,6 +20,6 @@ of potentially many steps within a sequence. The data format
 representation of a procedural step must allow but not mandate newline
 characters within a procedural step.
 
-index:: rq-000023; procedural step
+index:: [id:rq-000023]; procedural step
 
 <<<requirement

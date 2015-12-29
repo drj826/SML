@@ -18,6 +18,6 @@ description:: The software shall enable a user to render documents
 from SML source files to specified renditions. This requirement serves
 as a container for rendition-specific requirements.
 
-index:: rq-000098; document renditions
+index:: [id:rq-000098]; document renditions
 
 <<<requirement

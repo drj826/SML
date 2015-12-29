@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX e-mail address.
 
-index:: rq-000325; e-mail address!format LaTeX
+index:: [id:rq-000325]; e-mail address!format LaTeX
 
 <<<requirement

@@ -22,6 +22,6 @@ is not always necessary and causes significant runtime performance
 degradation.  The purpose of this requirement is to give users the
 choice of whether to enable or disable these functions.
 
-index:: rq-000342; SVN functions
+index:: [id:rq-000342]; SVN functions
 
 <<<requirement

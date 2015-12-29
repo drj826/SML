@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format LaTeX italicized text.
 
-index:: rq-000317; italicized text!format LaTeX
+index:: [id:rq-000317]; italicized text!format LaTeX
 
 <<<requirement

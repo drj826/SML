@@ -15,6 +15,6 @@ type:: technical
 description:: The software shall format a LaTeX registered trademark
 symbol.
 
-index:: rq-000307; registered trademark symbol!format LaTeX
+index:: [id:rq-000307]; registered trademark symbol!format LaTeX
 
 <<<requirement

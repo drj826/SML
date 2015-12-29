@@ -20,4 +20,6 @@ outcome::2011-06-21:al-000002:green: SML is human readable.  In my
 opinion it is more human readable than other languages designed to be
 human readable like XML and HTML (Don Johnson).
 
+index:: [id:al-000002]
+
 <<<allocation

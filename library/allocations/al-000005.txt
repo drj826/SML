@@ -20,4 +20,6 @@ outcome::2011-06-21:al-000005:yellow: SML meets all the data format
 requirements for special document features except the one for
 assertions ([id:rq-000081]).
 
+index:: [id:al-000005]
+
 <<<allocation

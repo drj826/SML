@@ -17,6 +17,6 @@ type:: technical
 description:: The software shall substitute inline variable tags with
 the values of those variables.
 
-index:: rq-000130; substitute variables
+index:: [id:rq-000130]; substitute variables
 
 <<<requirement

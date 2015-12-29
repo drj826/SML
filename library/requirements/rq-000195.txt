@@ -18,6 +18,6 @@ description:: The data format shall have the capability to represent
 semantic entities.  An entity is any singular item with semantic
 meaning.
 
-index:: rq-000195; entities
+index:: [id:rq-000195]; entities
 
 <<<requirement

@@ -15,4 +15,6 @@ author:: $Author: don.johnson $
 outcome::2011-11-27:al-000037:red: I have not bothered to implement a
 plain text publishing capability because I haven't needed it.
 
+index:: [id:al-000037]
+
 <<<allocation

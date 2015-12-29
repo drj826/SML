@@ -20,7 +20,7 @@ files.  The purpose of this requirement is to keep the data format as
 readable as possible so people are comfortable reading and writing in
 the raw data format using simple text editing tools.
 
-index:: rq-000082; human readable
+index:: [id:rq-000082]; human readable
 
 Markup languages like XML and HTML also have a goal of being human
 readable but have accumulated so much complexity that most files are

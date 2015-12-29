@@ -21,6 +21,6 @@ between hidden text and commented text is that the meta-data portions
 of hidden text must be available for use in the document using a
 variety of reusable content mechanisms.
 
-index:: rq-000070; hidden text
+index:: [id:rq-000070]; hidden text
 
 <<<requirement

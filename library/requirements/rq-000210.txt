@@ -17,6 +17,6 @@ associated:: rq-000021
 description:: The software shall format an HTML url reference.  URL
 references link to locations outside the current document.
 
-index:: rq-000210; URL reference!format HTML
+index:: [id:rq-000210]; URL reference!format HTML
 
 <<<requirement

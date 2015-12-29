@@ -22,7 +22,7 @@ automatically generated.  Other parts, like the preface, are written
 manually by the author.  This requirement serves as a container for
 software requirements to publish document front and back matter.
 
-index:: rq-000139
+index:: [id:rq-000139]
 
 According to The Chicago Manual of Style the following parts
 generally, but not always, make up the front matter, text, and back

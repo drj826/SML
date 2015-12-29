@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 an ordered list.  Ordered lists are often called ``numbered'' lists.
 
-index:: rq-000084; ordered lists
+index:: [id:rq-000084]; ordered lists
 
 <<<requirement

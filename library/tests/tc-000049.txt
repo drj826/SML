@@ -17,7 +17,7 @@ date:: $Date: 2013-07-07 11:41:13 -0600 (Sun, 07 Jul 2013) $
 
 author:: $Author: don.johnson $
 
-index:: tc-000049; unit test case!BulletListItem.pm
+index:: [id:tc-000049]; unit test case!BulletListItem.pm
 
 [ref:lis-bulletlistitem-pm-unit-test-case] shows the unit test for
 [file:BulletListItem.pm].

@@ -19,6 +19,6 @@ rule which defines a set of conditions that, if satisfied, enables the
 software to infer one or more non-explicit facts about the document
 subject matter.
 
-index:: rq-000193; information message!emit; first-order semantics
+index:: [id:rq-000193]; information message!emit; first-order semantics
 
 <<<requirement

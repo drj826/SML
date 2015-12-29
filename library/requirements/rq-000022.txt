@@ -18,7 +18,7 @@ description:: The data format shall have the capability to represent a
 bibliography entry.  This capability enables authors to document
 sources from which they draw information.
 
-index:: rq-000022; bibliography entries
+index:: [id:rq-000022]; bibliography entries
 
 The data format must have the capability to represent the following
 types of bibliographic sources.

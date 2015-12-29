@@ -19,6 +19,6 @@ an inline comment.  An inline comment is a ~~partial~~ line of text
 that appears in the source data format but not in published
 renditions.
 
-index:: rq-000069; inline comment
+index:: [id:rq-000069]; inline comment
 
 <<<requirement

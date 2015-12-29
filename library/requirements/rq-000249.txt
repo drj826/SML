@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML command.
 
-index:: rq-000249; command!format HTML
+index:: [id:rq-000249]; command!format HTML
 
 <<<requirement

@@ -21,7 +21,7 @@ solution does ~~not~~ hard-code allowed entity properties into the
 software solution but instead enables users to configure custom entity
 properties in their own libraries.
 
-index:: rq-000349
+index:: [id:rq-000349]
 
 For instance, in a library intended to hold systems engineering
 information, a user might define entity types:

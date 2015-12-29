@@ -20,6 +20,6 @@ capability to indicate when information originates from a
 bibliographic source.  The data format must allow source citations to
 span newline characters.
 
-index:: rq-000097; source citations
+index:: [id:rq-000097]; source citations
 
 <<<requirement

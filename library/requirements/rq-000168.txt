@@ -19,6 +19,6 @@ an `include' raw statement to include content from another locations
 ~~as raw text~~.  This means insert the contents of an external file
 exactly as-is line-for-line.
 
-index:: rq-000168; include!raw
+index:: [id:rq-000168]; include!raw
 
 <<<requirement

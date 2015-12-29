@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX section sign.
 
-index:: rq-000312; section sign!format LaTeX
+index:: [id:rq-000312]; section sign!format LaTeX
 
 <<<requirement

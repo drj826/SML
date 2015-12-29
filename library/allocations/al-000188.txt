@@ -15,4 +15,6 @@ author::   $Author: don.johnson $
 outcome::2012-02-21:al-000188:yellow: This is partially implemented in
 publish.pl.  There is no implementation yet in Parser.pm.
 
+index:: [id:al-000188]
+
 <<<allocation

@@ -17,6 +17,6 @@ type:: data format
 description:: The data format shall have the capability to represent
 page breaks.
 
-index:: rq-000038; page break
+index:: [id:rq-000038]; page break
 
 <<<requirement

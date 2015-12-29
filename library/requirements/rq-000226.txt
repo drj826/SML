@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format an HTML keystroke symbol.
 
-index:: rq-000226; keystroke symbol!format HTML
+index:: [id:rq-000226]; keystroke symbol!format HTML
 
 <<<requirement

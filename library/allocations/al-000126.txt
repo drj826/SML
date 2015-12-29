@@ -15,4 +15,6 @@ author:: $Author: don.johnson $
 outcome::2011-11-27:al-000126:red: See status explanation in
 [id:al-000069].
 
+index:: [id:al-000126]
+
 <<<allocation

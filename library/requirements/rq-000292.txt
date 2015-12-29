@@ -14,6 +14,6 @@ type:: technical
 
 description:: The software shall format a LaTeX version reference.
 
-index:: rq-000292; version reference!format LaTeX
+index:: [id:rq-000292]; version reference!format LaTeX
 
 <<<requirement

@@ -20,7 +20,7 @@ description:: The data format must have the capability to represent
 specified data types.  The purpose of this requirement is to ensure
 the data format defines and makes consistent use of basic data types.
 
-index:: rq-000086; data types
+index:: [id:rq-000086]; data types
 
 The data types the data format must have the capability to represent
 are:

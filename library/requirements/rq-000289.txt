@@ -18,6 +18,6 @@ description:: The software shall format a LaTeX ID reference.  An ID
 reference links to a division within the document by that division's
 ID.
 
-index:: rq-000289; ID reference!format LaTeX
+index:: [id:rq-000289]; ID reference!format LaTeX
 
 <<<requirement
