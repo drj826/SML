@@ -27,6 +27,10 @@ library => an SML::Library object
 <a href="entities.html">Entities</a><br/>
 [%- END -%]
 
+[%- IF library.has_published_file('DRAFT','glossary.html') -%]
+<a href="glossary.html">Glossary</a><br/>
+[%- END -%]
+
 </td>
 </tr>
 
