@@ -114,7 +114,15 @@ sub parse {
 
   unless ( $id )
     {
-      $logger->logcluck("YOU MUST SPECIFY AN ID");
+      $logger->error("CAN'T PARSE DIVISION, YOU MUST SPECIFY AN ID");
+      return 0;
+    }
+
+  my $library = $self->get_library;
+
+  unless ( $library->has_division_id($id) )
+    {
+      $logger->error("CAN'T PARSE DIVISION, DIVISION NOT IN LIBRARY $id");
       return 0;
     }
 
@@ -675,8 +683,6 @@ sub _init {
   $self->_set_requires_processing(0);
   $self->_clear_section_counter_hash;
   $self->_set_section_counter_hash({});
-  # $self->_clear_division_counter_hash;
-  # $self->_set_division_counter_hash({});
   $self->_clear_is_valid;
 
   return 1;
@@ -698,9 +704,9 @@ sub _create_string {
   # reference.  Is this a problem?  Perhaps lookups are all 'resolved'
   # before this code is invoked?
 
-  if ( not $text )
+  unless ( $text )
     {
-      $logger->logcluck("YOU MUST PROVIDE TEXT");
+      $logger->logcluck("CAN'T CREATE STRING, MISSING ARGUMENT");
       return 0;
     }
 
@@ -1317,89 +1323,89 @@ sub _create_string {
 
 ######################################################################
 
-sub _extract_division_name {
+# sub _extract_division_name {
 
-  # Extract a division name string from a sequence of lines.
+#   # Extract a division name string from a sequence of lines.
 
-  # NOTE: This ONLY works for a sequence of lines that represents a
-  # division.  In other words, the first line must be a division
-  # starting line.
+#   # NOTE: This ONLY works for a sequence of lines that represents a
+#   # division.  In other words, the first line must be a division
+#   # starting line.
 
-  my $self  = shift;
-  my $lines = shift;
+#   my $self  = shift;
+#   my $lines = shift;
 
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $text    = $lines->[0]->get_content;
+#   my $library = $self->get_library;
+#   my $syntax  = $library->get_syntax;
+#   my $text    = $lines->[0]->get_content;
 
-  if ( $text =~ /$syntax->{start_division}/ )
-    {
-      return $1;                        # $1 = name (see Syntax.pm)
-    }
+#   if ( $text =~ /$syntax->{start_division}/ )
+#     {
+#       return $1;                        # $1 = name (see Syntax.pm)
+#     }
 
-  elsif ( $text =~ /$syntax->{start_section}/ )
-    {
-      return 'SECTION';
-    }
+#   elsif ( $text =~ /$syntax->{start_section}/ )
+#     {
+#       return 'SECTION';
+#     }
 
-  else
-    {
-      # $logger->warn("DIVISION NAME NOT FOUND IN...");
+#   else
+#     {
+#       # $logger->warn("DIVISION NAME NOT FOUND IN...");
 
-      # foreach my $line (@{$lines})
-      # 	{
-      # 	  my $text = $line->get_content;
-      # 	  $logger->warn($text);
-      # 	}
-      # return '';
-    }
+#       # foreach my $line (@{$lines})
+#       # 	{
+#       # 	  my $text = $line->get_content;
+#       # 	  $logger->warn($text);
+#       # 	}
+#       # return '';
+#     }
 
-}
+# }
 
 ######################################################################
 
-sub _extract_division_id {
+# sub _extract_division_id {
 
-  # Extract a division ID string from a sequence of lines.
+#   # Extract a division ID string from a sequence of lines.
 
-  # NOTE: This ONLY works for a sequence of lines that represents a
-  # division.  In other words, the first line must be a division
-  # starting line.
+#   # NOTE: This ONLY works for a sequence of lines that represents a
+#   # division.  In other words, the first line must be a division
+#   # starting line.
 
-  my $self  = shift;
-  my $lines = shift;
+#   my $self  = shift;
+#   my $lines = shift;
 
-  my $library = $self->get_library;
-  my $syntax  = $library->get_syntax;
-  my $text    = $lines->[0]->get_content;
+#   my $library = $self->get_library;
+#   my $syntax  = $library->get_syntax;
+#   my $text    = $lines->[0]->get_content;
 
-  # !!! BUG HERE !!!
-  #
-  # What happens if a division marker lacks an ID?
+#   # !!! BUG HERE !!!
+#   #
+#   # What happens if a division marker lacks an ID?
 
-  if ( $text =~ /$syntax->{start_division}/ )
-    {
-      return $3;                        # $3 = ID (see Syntax.pm)
-    }
+#   if ( $text =~ /$syntax->{start_division}/ )
+#     {
+#       return $3;                        # $3 = ID (see Syntax.pm)
+#     }
 
-  elsif ( $text =~ /$syntax->{start_section}/ )
-    {
-      return $3;                        # $3 = ID (see Syntax.pm)
-    }
+#   elsif ( $text =~ /$syntax->{start_section}/ )
+#     {
+#       return $3;                        # $3 = ID (see Syntax.pm)
+#     }
 
-  else
-    {
-      # $logger->warn("DIVISION ID NOT FOUND IN...");
+#   else
+#     {
+#       # $logger->warn("DIVISION ID NOT FOUND IN...");
 
-      # foreach my $line (@{$lines})
-      # 	{
-      # 	  my $text = $line->get_content;
-      # 	  $logger->warn($text);
-      # 	}
-      # return '';
-    }
+#       # foreach my $line (@{$lines})
+#       # 	{
+#       # 	  my $text = $line->get_content;
+#       # 	  $logger->warn($text);
+#       # 	}
+#       # return '';
+#     }
 
-}
+# }
 
 ######################################################################
 
@@ -1501,202 +1507,202 @@ sub _extract_title_text {
 
 ######################################################################
 
-sub _extract_data_segment_lines {
+# sub _extract_data_segment_lines {
 
-  # Extract data segment lines from a sequence of division lines.
+#   # Extract data segment lines from a sequence of division lines.
 
-  # !!! BUG HERE !!!
-  #
-  #   This method doesn't work for sections.
+#   # !!! BUG HERE !!!
+#   #
+#   #   This method doesn't work for sections.
 
-  my $self  = shift;
-  my $lines = shift;
+#   my $self  = shift;
+#   my $lines = shift;
 
-  my $library             = $self->get_library;
-  my $syntax              = $library->get_syntax;
-  my $ontology            = $library->get_ontology;
-  my $data_segment_lines      = [];
-  my $divname             = $self->_extract_division_name($lines);
-  my $in_data_segment         = 1;
-  my $in_data_segment_element = 0;
-  my $i                   = 0;
-  my $last                = scalar @{ $lines };
+#   my $library             = $self->get_library;
+#   my $syntax              = $library->get_syntax;
+#   my $ontology            = $library->get_ontology;
+#   my $data_segment_lines      = [];
+#   my $divname             = $self->_extract_division_name($lines);
+#   my $in_data_segment         = 1;
+#   my $in_data_segment_element = 0;
+#   my $i                   = 0;
+#   my $last                = scalar @{ $lines };
 
-  foreach my $line (@{ $lines })
-    {
-      my $text = $line->get_content;
+#   foreach my $line (@{ $lines })
+#     {
+#       my $text = $line->get_content;
 
-      $text =~ s/[\r\n]*$//;            # chomp;
+#       $text =~ s/[\r\n]*$//;            # chomp;
 
-      ++ $i;
+#       ++ $i;
 
-      next if $i == 1;                  # skip first line
-      last if $i == $last;              # skip last line
+#       next if $i == 1;                  # skip first line
+#       last if $i == $last;              # skip last line
 
-      if ( $self->_line_ends_data_segment($text) )
-	{
-	  return $data_segment_lines;
-	}
+#       if ( $self->_line_ends_data_segment($text) )
+# 	{
+# 	  return $data_segment_lines;
+# 	}
 
-      elsif (
-	     $in_data_segment
-	     and
-	     $text =~ /$syntax->{element}/
-	     and
-	     not $ontology->allows_property_name_in_division_name($1,$divname)
-	    )
-	{
-	  return $data_segment_lines;
-	}
+#       elsif (
+# 	     $in_data_segment
+# 	     and
+# 	     $text =~ /$syntax->{element}/
+# 	     and
+# 	     not $ontology->allows_property_name_in_division_name($1,$divname)
+# 	    )
+# 	{
+# 	  return $data_segment_lines;
+# 	}
 
-      elsif (
-	     $in_data_segment
-	     and
-	     $text =~ /$syntax->{element}/
-	     and
-	     $ontology->allows_property_name_in_division_name($1,$divname)
-	    )
-	{
-	  $in_data_segment_element = 1;
-	  push @{ $data_segment_lines }, $line;
-	}
+#       elsif (
+# 	     $in_data_segment
+# 	     and
+# 	     $text =~ /$syntax->{element}/
+# 	     and
+# 	     $ontology->allows_property_name_in_division_name($1,$divname)
+# 	    )
+# 	{
+# 	  $in_data_segment_element = 1;
+# 	  push @{ $data_segment_lines }, $line;
+# 	}
 
-      elsif (
-	     $text =~ /$syntax->{paragraph_text}/
-	     and
-	     not $in_data_segment_element
-	    )
-	{
-	  return $data_segment_lines;
-	}
+#       elsif (
+# 	     $text =~ /$syntax->{paragraph_text}/
+# 	     and
+# 	     not $in_data_segment_element
+# 	    )
+# 	{
+# 	  return $data_segment_lines;
+# 	}
 
-      elsif ( $text =~ /$syntax->{blank_line}/ )
-	{
-	  $in_data_segment_element = 0;
-	  push @{ $data_segment_lines }, $line;
-	}
+#       elsif ( $text =~ /$syntax->{blank_line}/ )
+# 	{
+# 	  $in_data_segment_element = 0;
+# 	  push @{ $data_segment_lines }, $line;
+# 	}
 
-      elsif ( $in_data_segment )
-	{
-	  push @{ $data_segment_lines }, $line;
-	}
+#       elsif ( $in_data_segment )
+# 	{
+# 	  push @{ $data_segment_lines }, $line;
+# 	}
 
-      else
-	{
-	  # do nothing.
-	}
-    }
+#       else
+# 	{
+# 	  # do nothing.
+# 	}
+#     }
 
-  return $data_segment_lines;
-}
+#   return $data_segment_lines;
+# }
 
 ######################################################################
 
-sub _extract_narrative_lines {
+# sub _extract_narrative_lines {
 
-  # Extract narrative lines from a sequence of division lines.
+#   # Extract narrative lines from a sequence of division lines.
 
-  # !!! BUG HERE !!!
-  #
-  #   This method doesn't work for sections.
+#   # !!! BUG HERE !!!
+#   #
+#   #   This method doesn't work for sections.
 
-  my $self  = shift;
-  my $lines = shift;
+#   my $self  = shift;
+#   my $lines = shift;
 
-  my $library             = $self->get_library;
-  my $syntax              = $library->get_syntax;
-  my $ontology            = $library->get_ontology;
-  my $narrative_lines     = [];
-  my $divname             = $self->_extract_division_name($lines);
-  my $in_data_segment         = 1;
-  my $in_data_segment_element = 0;
-  my $i                   = 0;
-  my $last                = scalar @{ $lines };
+#   my $library             = $self->get_library;
+#   my $syntax              = $library->get_syntax;
+#   my $ontology            = $library->get_ontology;
+#   my $narrative_lines     = [];
+#   my $divname             = $self->_extract_division_name($lines);
+#   my $in_data_segment         = 1;
+#   my $in_data_segment_element = 0;
+#   my $i                   = 0;
+#   my $last                = scalar @{ $lines };
 
-  foreach my $line (@{ $lines })
-    {
-      my $text = $line->get_content;
+#   foreach my $line (@{ $lines })
+#     {
+#       my $text = $line->get_content;
 
-      $text =~ s/[\r\n]*$//;            # chomp;
+#       $text =~ s/[\r\n]*$//;            # chomp;
 
-      ++ $i;
+#       ++ $i;
 
-      next if $i == 1;                  # skip first line
-      last if $i == $last;              # skip last line
+#       next if $i == 1;                  # skip first line
+#       last if $i == $last;              # skip last line
 
-      if ( $self->_line_ends_data_segment($text) )
-	{
-	  $in_data_segment = 0;
-	}
+#       if ( $self->_line_ends_data_segment($text) )
+# 	{
+# 	  $in_data_segment = 0;
+# 	}
 
-      elsif (
-	     $text =~ /$syntax->{element}/
-	     and
-	     $in_data_segment
-	     and
-	     not $ontology->allows_property_name_in_division_name($1,$divname)
-	    )
-	{
-	  $in_data_segment = 0;
-	  push @{ $narrative_lines }, $line;
-	}
+#       elsif (
+# 	     $text =~ /$syntax->{element}/
+# 	     and
+# 	     $in_data_segment
+# 	     and
+# 	     not $ontology->allows_property_name_in_division_name($1,$divname)
+# 	    )
+# 	{
+# 	  $in_data_segment = 0;
+# 	  push @{ $narrative_lines }, $line;
+# 	}
 
-      elsif (
-	     $text =~ /$syntax->{element}/
-	     and
-	     $in_data_segment
-	     and
-	     $ontology->allows_property_name_in_division_name($1,$divname)
-	    )
-	{
-	  $in_data_segment_element = 1;
-	}
+#       elsif (
+# 	     $text =~ /$syntax->{element}/
+# 	     and
+# 	     $in_data_segment
+# 	     and
+# 	     $ontology->allows_property_name_in_division_name($1,$divname)
+# 	    )
+# 	{
+# 	  $in_data_segment_element = 1;
+# 	}
 
-      elsif (
-	     $text =~ /$syntax->{paragraph_text}/
-	     and
-	     $in_data_segment_element
-	    )
-	{
-	  # do nothing
-	}
+#       elsif (
+# 	     $text =~ /$syntax->{paragraph_text}/
+# 	     and
+# 	     $in_data_segment_element
+# 	    )
+# 	{
+# 	  # do nothing
+# 	}
 
-      elsif (
-	     $text =~ /$syntax->{paragraph_text}/
-	     and
-	     $in_data_segment
-	     and
-	     not $in_data_segment_element
-	    )
-	{
-	  $in_data_segment = 0;
-	  push @{ $narrative_lines }, $line;
-	}
+#       elsif (
+# 	     $text =~ /$syntax->{paragraph_text}/
+# 	     and
+# 	     $in_data_segment
+# 	     and
+# 	     not $in_data_segment_element
+# 	    )
+# 	{
+# 	  $in_data_segment = 0;
+# 	  push @{ $narrative_lines }, $line;
+# 	}
 
-      elsif (
-	     $text =~ /$syntax->{blank_line}/
-	     and
-	     $in_data_segment
-	     and
-	     $in_data_segment_element
-	    )
-	{
-	  $in_data_segment_element = 0;
-	}
+#       elsif (
+# 	     $text =~ /$syntax->{blank_line}/
+# 	     and
+# 	     $in_data_segment
+# 	     and
+# 	     $in_data_segment_element
+# 	    )
+# 	{
+# 	  $in_data_segment_element = 0;
+# 	}
 
-      elsif ( $in_data_segment )
-	{
-	  # do nothing
-	}
+#       elsif ( $in_data_segment )
+# 	{
+# 	  # do nothing
+# 	}
 
-      else
-	{
-	  push @{ $narrative_lines }, $line;
-	}
-    }
+#       else
+# 	{
+# 	  push @{ $narrative_lines }, $line;
+# 	}
+#     }
 
-  return $narrative_lines;
-}
+#   return $narrative_lines;
+# }
 
 ######################################################################
 
@@ -1729,37 +1735,37 @@ sub _get_line_list_for_id {
 
 ######################################################################
 
-sub _create_empty_division {
+# sub _create_empty_division {
 
-  # Return a division object.
+#   # Return a division object.
 
-  my $self      = shift;
-  my $line_list = shift;
+#   my $self      = shift;
+#   my $line_list = shift;
 
-  my $library  = $self->get_library;
-  my $name     = $self->_extract_division_name($line_list);
-  my $id       = $self->_extract_division_id($line_list);
-  my $ontology = $library->get_ontology;
-  my $class    = $ontology->get_class_for_division_name($name);
+#   my $library  = $self->get_library;
+#   my $name     = $self->_extract_division_name($line_list);
+#   my $id       = $self->_extract_division_id($line_list);
+#   my $ontology = $library->get_ontology;
+#   my $class    = $ontology->get_class_for_division_name($name);
 
-  if ( $name eq 'SECTION' )
-    {
-      my $syntax = $library->get_syntax;
-      my $line   = $line_list->[0];
-      my $text   = $line->get_content;
+#   if ( $name eq 'SECTION' )
+#     {
+#       my $syntax = $library->get_syntax;
+#       my $line   = $line_list->[0];
+#       my $text   = $line->get_content;
 
-      if ( $text =~ $syntax->{start_section} )
-	{
-	  my $depth = length($1);
-	  return $class->new(id=>$id,library=>$library,depth=>$depth);
-	}
-    }
+#       if ( $text =~ $syntax->{start_section} )
+# 	{
+# 	  my $depth = length($1);
+# 	  return $class->new(id=>$id,library=>$library,depth=>$depth);
+# 	}
+#     }
 
-  else
-    {
-      return $class->new(id=>$id,library=>$library);
-    }
-}
+#   else
+#     {
+#       return $class->new(id=>$id,library=>$library);
+#     }
+# }
 
 ######################################################################
 
@@ -2427,10 +2433,10 @@ sub _parse_lines {
 	  $self->_process_comment_line($line);
 	}
 
-      elsif ( $text =~ /$syntax->{segment_separator}/ )
-	{
-	  $self->_process_segment_separator_line($line);
-	}
+      # elsif ( $text =~ /$syntax->{segment_separator}/ )
+      # 	{
+      # 	  $self->_process_segment_separator_line($line);
+      # 	}
 
       elsif ( $text =~ /$syntax->{blank_line}/ )
 	{
@@ -2556,64 +2562,64 @@ sub _parse_lines {
 
 ######################################################################
 
-sub _begin_data_segment {
+# sub _begin_data_segment {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $number = $self->_get_number;
+#   my $number = $self->_get_number;
 
-  $logger->trace("{$number} ..... begin data segment");
-  $self->_set_in_data_segment(1);
+#   $logger->trace("{$number} ..... begin data segment");
+#   $self->_set_in_data_segment(1);
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
-sub _process_segment_separator_line {
+# sub _process_segment_separator_line {
 
-  my $self = shift;
-  my $line = shift;
+#   my $self = shift;
+#   my $line = shift;
 
-  my $name     = 'SEGMENT_SEPARATOR';
-  my $library  = $self->get_library;
-  my $location = $line->get_location;
-  my $number   = $self->_get_number;
+#   my $name     = 'SEGMENT_SEPARATOR';
+#   my $library  = $self->get_library;
+#   my $location = $line->get_location;
+#   my $number   = $self->_get_number;
 
-  $logger->trace("{$number} ----- segment separator");
+#   $logger->trace("{$number} ----- segment separator");
 
-  # new preformatted block
-  my $block = SML::PreformattedBlock->new
-    (
-     name    => $name,
-     library => $library,
-    );
+#   # new preformatted block
+#   my $block = SML::PreformattedBlock->new
+#     (
+#      name    => $name,
+#      library => $library,
+#     );
 
-  $block->add_line($line);
-  $self->_begin_block($block);
+#   $block->add_line($line);
+#   $self->_begin_block($block);
 
-  # division handling
-  my $division = $self->_get_current_division;
+#   # division handling
+#   my $division = $self->_get_current_division;
 
-  if ( $division )
-    {
-      $division->add_part( $block );
+#   if ( $division )
+#     {
+#       $division->add_part( $block );
 
-      my $divname = $division->get_name;
-      my $id   = $division->get_id;
-      $logger->trace("{$number} ..... end $divname.$id data segment");
-      $self->_set_in_data_segment(0);
+#       my $divname = $division->get_name;
+#       my $id   = $division->get_id;
+#       $logger->trace("{$number} ..... end $divname.$id data segment");
+#       $self->_set_in_data_segment(0);
 
-      return 1;
-    }
+#       return 1;
+#     }
 
-  else
-    {
-      my $location = $line->get_location;
-      $logger->error("NO CURRENT DIVISION. CAN'T PROCESS SEGMENT SEPARATOR LINE\n  at $location");
-      return 0;
-    }
-}
+#   else
+#     {
+#       my $location = $line->get_location;
+#       $logger->error("NO CURRENT DIVISION. CAN'T PROCESS SEGMENT SEPARATOR LINE\n  at $location");
+#       return 0;
+#     }
+# }
 
 ######################################################################
 
@@ -2632,22 +2638,23 @@ sub _begin_division {
 
   $logger->trace("{$number} ..... begin division $name");
 
-  my $library = $self->get_library;
+  my $library  = $self->get_library;
+  my $ontology = $library->get_ontology;
 
   $library->add_division($division);
 
-  unless
-    (
-        $name eq 'BULLET_LIST',
-     or $name eq 'ENUMERATED_LIST',
-     or $name eq 'DEFINITION_LIST',
-     or $name eq 'RAW',
-     or $name eq 'CONDITIONAL',
-     or $name eq 'TABLE_CELL',
-    )
-    {
-      $self->_begin_data_segment;
-    }
+  # unless
+  #   (
+  #       $name eq 'BULLET_LIST',
+  #    or $name eq 'ENUMERATED_LIST',
+  #    or $name eq 'DEFINITION_LIST',
+  #    or $name eq 'RAW',
+  #    or $name eq 'CONDITIONAL',
+  #    or $name eq 'TABLE_CELL',
+  #   )
+  #   {
+  #     $self->_begin_data_segment;
+  #   }
 
   # add this division to the one it is part of
   my $containing_division = $self->_get_current_division;
@@ -2668,25 +2675,25 @@ sub _begin_division {
 
   $self->_push_container_stack($division);
 
-  if ( $division->isa('SML::Document') )
+  if ( $name eq 'DOCUMENT' )
     {
       return 1;
     }
 
-  elsif ( $division->isa('SML::Entity') )
+  elsif ( $ontology->is_entity($name) )
     {
       $library->add_entity($division);
       return 1;
     }
 
-  elsif ( $division->isa('SML::Source') )
+  elsif ( $name eq 'SOURCE' )
     {
       my $references = $library->get_references;
       $references->add_source($division);
       return 1;
     }
 
-  elsif ( $division->isa('SML::TableCell') )
+  elsif ( $name eq 'TABLE_CELL' )
     {
       # table cells don't have data segments
       $self->_set_in_data_segment(0);
@@ -2694,13 +2701,13 @@ sub _begin_division {
       return 1;
     }
 
-  elsif ( $division->isa('SML::TableRow') )
+  elsif ( $name eq 'TABLE_ROW' )
     {
       $self->_set_column(0);
       return 1;
     }
 
-  elsif ( $division->isa('SML::Table') )
+  elsif ( $name eq 'TABLE' )
     {
       return 1;
     }
@@ -2710,17 +2717,17 @@ sub _begin_division {
       return 1;
     }
 
-  elsif ( $division->isa('SML::Listing') )
+  elsif ( $name eq 'LISTING' )
     {
       return 1;
     }
 
-  elsif ( $division->isa('SML::Figure') )
+  elsif ( $name eq 'FIGURE' )
     {
       return 1;
     }
 
-  elsif ( $division->isa('SML::Section') )
+  elsif ( $name eq 'SECTION' )
     {
       return 1;
     }
@@ -2843,7 +2850,7 @@ sub _end_division {
 
   elsif ( $division->isa('SML::Source') )
     {
-      $self->_process_end_source_division($division);
+      # do nothing
     }
 
   elsif ( $division_name eq 'PREFORMATTED' )
@@ -5415,21 +5422,6 @@ sub _add_table {
 
 ######################################################################
 
-# sub _add_source {
-
-#   my $self     = shift;
-#   my $division = shift;
-
-#   my $library    = $self->get_library;
-#   my $references = $library->get_references;
-
-#   $references->add_source($division);
-
-#   return 1;
-# }
-
-######################################################################
-
 sub _add_template {
 
   my $self     = shift;
@@ -5597,8 +5589,6 @@ sub _process_end_division_marker {
   my $line = shift;
   my $name = shift;
 
-  # return if $name eq 'RAW';
-
   my $library = $self->get_library;
   my $number  = $self->_get_number;
 
@@ -5647,12 +5637,15 @@ sub _process_end_division_marker {
 
   if ( $name eq 'DOCUMENT' )
     {
-      $self->_build_document_index($division);
-      $self->_parse_document_index_terms($division);
-      $self->_validate_division_blocks($division);
-      $self->_parse_division_blocks($division);
-      $self->_build_document_glossary($division);
-      $self->_build_document_acronym_list($division);
+      my $document = $division;
+
+      $self->_build_document_index($document);
+      $self->_parse_document_index_terms($document);
+      $self->_validate_division_blocks($document);
+      $self->_parse_division_blocks($document);
+      $self->_build_document_glossary($document);
+      $self->_build_document_acronym_list($document);
+      $self->_build_document_references($document);
     }
 
   my $block = SML::PreformattedBlock->new
@@ -6133,32 +6126,27 @@ sub _process_end_glossary_entry {
 
 ######################################################################
 
-sub _process_end_source_division {
+# sub _process_end_source_division {
 
-  my $self   = shift;
-  my $source = shift;
+#   my $self   = shift;
+#   my $source = shift;
 
-  if
-    (
-     not $source
-     or
-     not $source->isa('SML::Source')
-    )
-    {
-      $logger->errror("NOT A SOURCE DIVISION \'$source\'");
-      return 0;
-    }
+#   unless ( ref $source and $source->isa('SML::Source') )
+#     {
+#       $logger->errror("NOT A SOURCE DIVISION \'$source\'");
+#       return 0;
+#     }
 
-  if ( $self->_has_current_document )
-    {
-      my $document            = $self->_get_current_document;
-      my $document_references = $document->get_references;
+#   if ( $self->_has_current_document )
+#     {
+#       my $document            = $self->_get_current_document;
+#       my $document_references = $document->get_references;
 
-      $document_references->add_source($source);
-    }
+#       $document_references->add_source($source);
+#     }
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
@@ -12259,6 +12247,61 @@ sub _build_document_acronym_list {
       else
 	{
 	  $logger->error("CAN'T ADD ACRONYM TO DOCUMENT ACRONYM LIST, NOT IN LIBRARY ACRONYM LIST $acronym $namespace");
+	}
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _build_document_references {
+
+  # Add a 'source' to the document references list for each source
+  # citation.
+
+  my $self     = shift;
+  my $document = shift;
+
+  unless ( ref $document )
+    {
+      $logger->error("CAN'T BUILD DOCUMENT REFERENCES, MISSING ARGUMENT");
+      return 0;
+    }
+
+  my $name = $document->get_name;
+
+  unless ( $name eq 'DOCUMENT' )
+    {
+      $logger->error("CAN'T BUILD DOCUMENT REFERENCES, NOT A DOCUMENT $document");
+      return 0;
+    }
+
+  my $document_references = $document->get_references;
+  my $library             = $document->get_library;
+  my $library_references  = $library->get_references;
+
+  foreach my $string (@{ $document->get_string_list })
+    {
+      my $name = $string->get_name;
+
+      next unless $name eq 'CITATION_REF';
+
+      my $source_id = $string->get_source_id;
+
+      if ( $library_references->has_source($source_id) )
+	{
+	  my $source = $library_references->get_source($source_id);
+
+	  unless ( $document_references->has_source($source_id) )
+	    {
+	      $document_references->add_source($source);
+	    }
+	}
+
+      else
+	{
+	  $logger->error("CAN'T ADD SOURCE TO DOCUMENT REFERENCES, NOT IN LIBRARY SOURCE $source_id");
 	}
     }
 

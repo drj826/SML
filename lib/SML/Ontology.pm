@@ -694,6 +694,12 @@ sub is_structure {
 
   my $class = $hash->{$name};
 
+  unless ( $class )
+    {
+      $logger->error("THIS SHOULD NEVER HAPPEN $name");
+      return 0;
+    }
+
   if ( $class eq 'SML::Entity' )
     {
       return 0;
