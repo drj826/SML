@@ -142,7 +142,18 @@ sub get_entry_list {
 
 ######################################################################
 
-sub has_entries {
+sub get_entry_count {
+
+  # Return a count of the number of entries in the glossary.
+
+  my $self = shift;
+
+  return scalar @{ $self->get_entry_list };
+}
+
+######################################################################
+
+sub contains_entries {
 
   my $self = shift;
 

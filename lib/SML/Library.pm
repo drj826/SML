@@ -2174,7 +2174,7 @@ sub summarize_sources {
 
   my $summary = q{};
 
-  if ( $self->get_references->has_sources )
+  if ( $self->get_references->contains_entries )
     {
       $summary .= "Source References:\n\n";
 
@@ -2551,7 +2551,7 @@ sub has_triple_for {
 
 ######################################################################
 
-sub has_entities {
+sub contains_entities {
 
   # Return 1 if the library contains any entities.
 

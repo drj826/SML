@@ -99,7 +99,7 @@ sub get_entry {
 
   else
     {
-      $logger->error("CAN'T FIND GLOSSARY ENTRY: $term {$namespace}");
+      $logger->error("CAN'T GET GLOSSARY ENTRY: $term {$namespace}");
       return 0;
     }
 }
@@ -126,7 +126,18 @@ sub get_entry_list {
 
 ######################################################################
 
-sub has_entries {
+sub get_entry_count {
+
+  # Return a count of the number of entries in the glossary.
+
+  my $self = shift;
+
+  return scalar @{ $self->get_entry_list };
+}
+
+######################################################################
+
+sub contains_entries {
 
   my $self = shift;
 

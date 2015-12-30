@@ -459,7 +459,7 @@ sub _publish_html_document {
 	}
 
       # index
-      if ( $document->get_index->has_entries )
+      if ( $document->get_index->contains_entries )
 	{
 	  $logger->info("publishing $id.index.html");
 	  $tt->process("index_page.tt",$vars,"$id.index.html")
@@ -468,7 +468,7 @@ sub _publish_html_document {
 
       my $glossary = $document->get_glossary;
 
-      if ( $glossary->has_entries )
+      if ( $glossary->contains_entries )
 	{
 	  $logger->info("publishing $id.glossary.html");
 	  $tt->process("document_glossary_page.tt",$vars,"$id.glossary.html")
@@ -477,7 +477,7 @@ sub _publish_html_document {
 
       my $acronym_list = $document->get_acronym_list;
 
-      if ( $acronym_list->has_entries )
+      if ( $acronym_list->contains_entries )
 	{
 	  $logger->info("publishing $id.acronyms.html");
 	  $tt->process("document_acronyms_page.tt",$vars,"$id.acronyms.html")
@@ -486,7 +486,7 @@ sub _publish_html_document {
 
       my $references = $document->get_references;
 
-      if ( $references->has_sources )
+      if ( $references->contains_entries )
 	{
 	  $logger->info("publishing $id.references.html");
 	  $tt->process("list_of_references_page.tt",$vars,"$id.references.html")
@@ -1020,7 +1020,7 @@ sub _publish_html_library_glossary_page {
   my $library  = $self->get_library;
   my $glossary = $library->get_glossary;
 
-  unless ( $glossary->has_entries )
+  unless ( $glossary->contains_entries )
     {
       $logger->error("GLOSSARY HAS NO ENTRIES");
       return 0;
@@ -1082,7 +1082,7 @@ sub _publish_html_library_acronyms_page {
   my $library      = $self->get_library;
   my $acronym_list = $library->get_acronym_list;
 
-  unless ( $acronym_list->has_entries )
+  unless ( $acronym_list->contains_entries )
     {
       $logger->error("ACRONYM LIST HAS NO ENTRIES");
       return 0;

@@ -153,8 +153,6 @@ sub parse {
     {
       $self->_resolve_lookups      if $self->_contains_lookup;
       $self->_substitute_variables if $self->_contains_variable;
-      # $self->_insert_content       if $self->_contains_insert;
-      # $self->_generate_content     if $self->_contains_generate;
     }
 
       while $self->_text_requires_block_processing;
@@ -163,13 +161,7 @@ sub parse {
 
   unless ( $division )
     {
-      # this should never happen
       $logger->logdie("PARSER FOUND NO DIVISION \'$id\'");
-    }
-
-  foreach my $block (@{ $division->get_block_list })
-    {
-      $self->_parse_block($block);
     }
 
   return $division;
@@ -3073,188 +3065,6 @@ sub _begin_default_section {
 
 ######################################################################
 
-# sub _insert_content {
-
-#   # Scan lines, insert requested content lines.
-
-#   my $self = shift;
-
-#   my $library        = $self->get_library;
-#   my $syntax         = $library->get_syntax;
-#   my $util           = $library->get_util;
-#   my $new_line_list  = [];
-#   my $division       = $self->_get_division;
-#   my $count_method   = $self->_get_count_method_hash;
-#   my $old_line_list  = $self->_get_line_list;
-#   my $gen_content    = $self->_get_gen_content_hash;
-#   my $options        = $util->get_options;
-#   my $glossary       = $library->get_glossary;
-#   my $max_iterations = $options->get_MAX_INSERT_CONTENT;
-#   my $count          = ++ $count_method->{'_insert_content'};
-#   my $number         = $self->_get_number;
-
-#   $logger->trace("{$number} ($count) insert content");
-
-#   if ( $count > $max_iterations )
-#     {
-#       my $msg = "EXCEEDED MAX ITERATIONS ($max_iterations)";
-#       $logger->logcroak("$msg");
-#     }
-
-#  LINE:
-#   foreach my $line (@{ $old_line_list })
-#     {
-#       my $text     = $line->get_content;
-#       my $location = $line->get_location;
-
-#       #----------------------------------------------------------------
-#       # insert::
-#       #
-#       if ( $text =~ /$syntax->{insert_element}/ )
-# 	{
-# 	  my $string = $1;
-# 	  my $name   = $string;
-# 	  my $args   = $3 || '';
-
-# 	  $logger->trace("$name $args");
-
-# 	  if ( not $library->allows_insert($name) )
-# 	    {
-# 	      $logger->error("UNKNOWN INSERT NAME at $location: \"$name\"");
-# 	      $division->_set_is_valid(0);
-
-# 	      $text =~ s/^(.*)/# $1/;
-
-# 	      my $newline = SML::Line->new
-# 		(
-# 		 included_from => $line,
-# 		 content       => $text,
-# 		);
-
-# 	      push @{ $new_line_list }, $newline;
-
-# 	      next LINE;
-# 	    }
-
-# 	  else
-# 	    {
-# 	      my $id      = $args;
-# 	      my $options = '';;
-# 	      my $parts   = [ split(',',$args) ];
-
-# 	      $id      = $parts->[0] if $parts->[0];
-# 	      $options = $parts->[1] if $parts->[1];
-
-# 	      my $newline = SML::Line->new
-# 		(
-# 		 included_from => $line,
-# 		 content       => "insert_ins:: $name;$id;$options\n",
-# 		);
-
-# 	      push @{ $new_line_list }, $newline;
-
-# 	      next LINE;
-# 	    }
-# 	}
-
-#     #----------------------------------------------------------------
-#     # insert_ins::
-#     #
-#     elsif ( $text =~ /$syntax->{'insert_ins_element'}/ )
-#       {
-# 	my $request           = $1;
-# 	my @parts             = split(';',$request);
-# 	my $name              = $parts[0];
-# 	my $id                = $parts[1] || '';
-# 	my $args              = $parts[2] || '';
-# 	my $replacement_lines = [];
-
-# 	if ($name eq 'DATA_SEGMENT')
-# 	  {
-# 	    $replacement_lines = $library->get_data_segment_line_list($id);
-# 	    foreach my $newline (@{ $replacement_lines })
-# 	      {
-# 		push @{ $new_line_list }, $newline;
-# 	      }
-# 	  }
-
-# 	elsif ($name eq 'NARRATIVE')
-# 	  {
-# 	    $replacement_lines = $library->get_narrative_line_list($id);
-# 	    foreach my $newline (@{ $replacement_lines })
-# 	      {
-# 		push @{ $new_line_list }, $newline;
-# 	      }
-# 	  }
-
-# 	elsif ($name eq 'DEFINITION')
-# 	  {
-# 	    my @parts     = split(':',$id);
-# 	    my $term      = $parts[0];
-# 	    my $namespace = $parts[1] || '';
-# 	    my $glossary  = $library->get_glossary;
-# 	    my $entry     = $glossary->get_entry($term,$namespace);
-# 	    my $replacement_text = $entry->get_value;
-# 	    my $newline = SML::Line->new
-# 	      (
-# 	       included_from => $line,
-# 	       content       => "$replacement_text\n",
-# 	      );
-# 	    push @{ $new_line_list }, $newline;
-# 	  }
-
-# 	else
-# 	  {
-# 	    $logger->warn("THIS SHOULD NEVER HAPPEN (2)");
-# 	  }
-
-# 	next LINE;
-#       }
-
-#     #----------------------------------------------------------------
-#     # insert_gen::
-#     #
-#     elsif ( $text =~ /$syntax->{'insert_gen_element'}/ )
-#       {
-# 	my $request = $1;
-# 	my @parts   = split(';',$request);
-# 	my $name    = $parts[0];
-# 	my $divid   = $parts[1] || '';
-# 	my $args    = $parts[2] || '';
-
-# 	my $replacement_text = $gen_content->{$name}{$divid}{$args};
-
-# 	my @new = split(/\n/s,"$replacement_text");
-
-# 	foreach my $newtext (@new)
-# 	  {
-# 	    my $newline = SML::Line->new
-# 	      (
-# 	       included_from => $line,
-# 	       content       => "$newtext\n",
-# 	      );
-# 	    push @{ $new_line_list }, $newline;
-# 	  }
-
-# 	next LINE;
-#       }
-
-#     #----------------------------------------------------------------
-#     # no insert statement on this line
-#     #
-#     else {
-#       push @{ $new_line_list }, $line;
-#     }
-#   }
-
-#   $self->_set_requires_processing(1);
-#   $self->_set_line_list($new_line_list);
-
-#   return 1;
-# }
-
-######################################################################
-
 sub _substitute_variables {
 
   # Scan blocks, substitute inline variable tags with values.
@@ -3539,214 +3349,6 @@ sub _resolve_templates {
 
   $self->_set_requires_processing(1);
   $self->_set_line_list($new_line_list);
-
-  return 1;
-}
-
-######################################################################
-
-sub _generate_content {
-
-  # 1. Generate requested content.
-  # 2. Replace 'generate' statement(s) with 'insert_gen' statement(s)
-
-  my $self = shift;
-
-  my $library        = $self->get_library;
-  my $syntax         = $library->get_syntax;
-  my $util           = $library->get_util;
-  my $count_method   = $self->_get_count_method_hash;
-  my $to_be_gen      = $self->_get_to_be_gen_hash;
-  my $gen_content    = $self->_get_gen_content_hash;
-  my $old_line_list  = $self->_get_line_list;
-  my $options        = $util->get_options;
-  my $new_line_list  = [];
-  my $max_iterations = $options->get_MAX_GENERATE_CONTENT;
-  my $count          = ++ $count_method->{'_generate_content'};
-  my $divid          = '';
-  my $docid          = '';
-  my $number         = $self->_get_number;
-
-  $logger->trace("{$number} ($count) generate content");
-
-  if ( $count > $max_iterations )
-    {
-      my $msg = "EXCEEDED MAX ITERATIONS ($max_iterations)";
-      $logger->logcroak("$msg");
-    }
-
- LINE:
-  foreach my $line (@{ $old_line_list })
-    {
-      my $text = $line->get_content;    # line content
-
-      # !!! BUG HERE !!!
-      #
-      # The following 3 lines of code implement an UNRELIABLE method
-      # of detecting an remembering the docid.  It assumes the first
-      # ID element after the start of the document is the document ID.
-      #
-      # I think the solution is to require the docid to be part of the
-      # start document markup like this:
-      #
-      #     ---> document.frd-tvs
-      #
-      #     ...document goes here...
-      #
-      #     <--- document
-      #
-      # $docid = '' if $text =~ /$syntax->{start_document}/;
-      # $docid = '' if $text =~ /$syntax->{end_document}/;
-      # $docid = $2 if $text =~ /$syntax->{id_element}/ and not $docid;
-
-      #----------------------------------------------------------------
-      # generate::
-      #
-      if ( $text =~ /$syntax->{generate_element}/ )
-	{
-	  my $name = $1;
-	  my $args = $2 || '';
-
-	  my $newline = SML::Line->new
-	    (
-	     content  => "insert_gen:: $name;$divid;$args",
-	    );
-
-	  push(@{ $new_line_list }, $newline);
-	}
-
-      else
-	{
-	  push(@{ $new_line_list }, $line);
-	}
-    }
-
-  $self->_set_requires_processing(1);
-  $self->_set_line_list($new_line_list);
-
-  #-------------------------------------------------------------------
-  # If there is content to be generated, do it now.
-  #
-  #    This subroutine gets called during runs of pass 2, meaning that
-  #    the lookup data structure has not yet been created.  DO NOT try
-  #    to use the lookup data structure to generate requested
-  #    content. You'll have to rely on the 'data' data structure.
-  #
-  #    !!! Bug Here !!!
-  #
-  #    When I first designed the generated content mechanism I assumed
-  #    there would only be one instance of each type of generated
-  #    content in a document.  For example, I didn't imaging generating
-  #    more than one problem domain listing in the same document.
-  #
-  #    But now I find myself with the requirement to have multiple
-  #    intances of certain blocks of generated content.  For example,
-  #    I want the script to be able to generate a listing of
-  #    associated problems for any id.  There could be many of
-  #    these.  The script needs to maintain a sense of context
-  #    (i.e. the current id) for each request to generate a list of
-  #    associated problems.
-  #
-  foreach my $name (keys %{ $to_be_gen })
-    {
-      my $args  = '';
-
-      #-----------------------------------------------------------------
-      # Generate problem-domain-listing
-      #
-      #     The problem-domain-listing is NOT context sensitive.
-      #     Therefore, no matter how many times one was requested in the
-      #     document, we only have to generate it ONCE.
-      #
-      if ( $name eq 'problem-domain-listing' )
-	{
-	  $logger->trace("generating problem-domain-listing");
-	  $gen_content->{$name}{$divid}{$args} = $self->_traceability_matrix('problem');
-	  delete $to_be_gen->{'problem-domain-listing'};
-	}
-
-      #-----------------------------------------------------------------
-      # Generate solution-domain-listing
-      #
-      #     The solution-domain-listing is NOT context sensitive.
-      #     Therefore, no matter how many times one was requested in the
-      #     document, we only have to generate it ONCE.
-      #
-      if ( $name eq 'solution-domain-listing' )
-	{
-	  $logger->trace("generating solution-domain-listing");
-	  $gen_content->{$name}{$docid}{$args} = $self->_traceability_matrix('solution');
-	  delete $to_be_gen->{'solution-domain-listing'};
-	}
-
-      #-----------------------------------------------------------------
-      # Generate prioritized-problem-listing
-      #
-      #     The prioritized-problem-listing is NOT context sensitive.
-      #     Therefore, no matter how many times one was requested in the
-      #     document, we only have to generate it ONCE.
-      #
-      if ( $name eq 'prioritized-problem-listing' )
-	{
-	  $logger->trace("generating prioritized-problem-listing");
-	  $gen_content->{$name}{$docid}{$args} = $self->_generate_prioritized_problem_listing;
-	  delete $to_be_gen->{'prioritized-problem-listing'};
-	}
-
-      #-----------------------------------------------------------------
-      # Generate prioritized-solution-listing
-      #
-      #     The prioritized-solution-listing is NOT context sensitive.
-      #     Therefore, no matter how many times one was requested in the
-      #     document, we only have to generate it ONCE.
-      #
-      if ( $name eq 'prioritized-solution-listing' )
-	{
-	  $logger->trace("generating prioritized-solution-listing");
-	  $gen_content->{$name}{$docid}{$args} = $self->_generate_prioritized_solution_listing;
-	  delete $to_be_gen->{'prioritized-solution-listing'};
-	}
-
-      #-----------------------------------------------------------------
-      # Generate associated problem listing
-      #
-      #     The associated-problem-listing IS context sensitive.
-      #     Therefore, generate the associated-problem-listing for each
-      #     relevant id.
-      #
-      if (    $name eq 'associated-problem-listing'
-	  and $to_be_gen->{'associated-problem-listing'}
-	 )
-	{
-	  my @divids = keys %{$to_be_gen->{'associated-problem-listing'}};
-	  foreach my $divid (@divids)
-	    {
-	      $logger->trace("generating $divid associated-problem-listing");
-	      $gen_content->{$name}{$divid}{$args} = $self->_generate_associated_problem_listing($divid);
-	      delete $to_be_gen->{'associated-solution-listing'}{$divid};
-	    }
-	}
-
-      #-----------------------------------------------------------------
-      # Generate associated solution listing
-      #
-      #     The associated-solution-listing IS context sensitive.
-      #     Therefore, generate the associated-solution-listing for each
-      #     relevant id.
-      #
-      if (    $name eq 'associated-solution-listing'
-	  and $to_be_gen->{'associated-solution-listing'}
-	 )
-	{
-	  my @divids = keys %{$to_be_gen->{'associated-solution-listing'}};
-	  foreach my $divid (@divids)
-	    {
-	      $logger->trace("generating $divid associated-solution-listing");
-	      $gen_content->{$name}{$divid}{$args} = $self->_generate_associated_solution_listing($divid);
-	      delete $to_be_gen->{'associated-solution-listing'}{$divid};
-	    }
-	}
-    }
 
   return 1;
 }
@@ -5813,18 +5415,18 @@ sub _add_table {
 
 ######################################################################
 
-sub _add_source {
+# sub _add_source {
 
-  my $self     = shift;
-  my $division = shift;
+#   my $self     = shift;
+#   my $division = shift;
 
-  my $library    = $self->get_library;
-  my $references = $library->get_references;
+#   my $library    = $self->get_library;
+#   my $references = $library->get_references;
 
-  $references->add_source($division);
+#   $references->add_source($division);
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
@@ -6048,6 +5650,9 @@ sub _process_end_division_marker {
       $self->_build_document_index($division);
       $self->_parse_document_index_terms($division);
       $self->_validate_division_blocks($division);
+      $self->_parse_division_blocks($division);
+      $self->_build_document_glossary($division);
+      $self->_build_document_acronym_list($division);
     }
 
   my $block = SML::PreformattedBlock->new
@@ -6515,13 +6120,13 @@ sub _process_end_glossary_entry {
   my $library_glossary = $library->get_glossary;
   $library_glossary->add_entry($definition);
 
-  if ( $self->_has_current_document )
-    {
-      my $document          = $self->_get_current_document;
-      my $document_glossary = $document->get_glossary;
+  # if ( $self->_has_current_document )
+  #   {
+  #     my $document          = $self->_get_current_document;
+  #     my $document_glossary = $document->get_glossary;
 
-      $document_glossary->add_entry($definition);
-    }
+  #     $document_glossary->add_entry($definition);
+  #   }
 
   return 1;
 }
@@ -6641,13 +6246,13 @@ sub _process_end_acronym_entry {
   my $library_acronym_list = $library->get_acronym_list;
   $library_acronym_list->add_entry($definition);
 
-  if ( $self->_has_current_document )
-    {
-      my $document              = $self->_get_current_document;
-      my $document_acronym_list = $document->get_acronym_list;
+  # if ( $self->_has_current_document )
+  #   {
+  #     my $document              = $self->_get_current_document;
+  #     my $document_acronym_list = $document->get_acronym_list;
 
-      $document_acronym_list->add_entry($definition);
-    }
+  #     $document_acronym_list->add_entry($definition);
+  #   }
 
   return 1;
 }
@@ -12550,6 +12155,139 @@ sub _validate_division_blocks {
       $self->_validate_acronym_ref_semantics($block);
       $self->_validate_source_citation_semantics($block);
       $self->_validate_file_ref_semantics($block);
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _build_document_glossary {
+
+  # Add entries to the document glossary for each glossary reference.
+
+  my $self     = shift;
+  my $document = shift;
+
+  unless ( ref $document )
+    {
+      $logger->error("CAN'T BUILD DOCUMENT GLOSSARY, MISSING ARGUMENTS");
+      return 0;
+    }
+
+  my $name = $document->get_name;
+
+  unless ( $name eq 'DOCUMENT' )
+    {
+      $logger->error("CAN'T BUILD DOCUMENT GLOSSARY, NOT A DOCUMENT $document");
+      return 0;
+    }
+
+  my $document_glossary = $document->get_glossary;
+  my $library           = $document->get_library;
+  my $library_glossary  = $library->get_glossary;
+
+  foreach my $string (@{ $document->get_string_list })
+    {
+      my $name = $string->get_name;
+
+      next unless $name eq 'GLOSS_TERM_REF';
+
+      my $term      = $string->get_term;
+      my $namespace = $string->get_namespace || q{};
+
+      if ( $library_glossary->has_entry($term,$namespace) )
+	{
+	  my $entry = $library_glossary->get_entry($term,$namespace);
+
+	  $document_glossary->add_entry($entry);
+	}
+
+      else
+	{
+	  $logger->error("CAN'T ADD TERM TO DOCUMENT GLOSSARY, NOT IN LIBRARY GLOSSARY $term $namespace");
+	}
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _build_document_acronym_list {
+
+  # Add entries to the document acronym list for each acronym
+  # reference.
+
+  my $self     = shift;
+  my $document = shift;
+
+  unless ( ref $document )
+    {
+      $logger->error("CAN'T BUILD DOCUMENT ACRONYM LIST, MISSING ARGUMENTS");
+      return 0;
+    }
+
+  my $name = $document->get_name;
+
+  unless ( $name eq 'DOCUMENT' )
+    {
+      $logger->error("CAN'T BUILD DOCUMENT ACRONYM LIST, NOT A DOCUMENT $document");
+      return 0;
+    }
+
+  my $document_acronym_list = $document->get_acronym_list;
+  my $library               = $document->get_library;
+  my $library_acronym_list  = $library->get_acronym_list;
+
+  foreach my $string (@{ $document->get_string_list })
+    {
+      my $name = $string->get_name;
+
+      next unless $name eq 'ACRONYM_TERM_REF';
+
+      my $acronym   = $string->get_acronym;
+      my $namespace = $string->get_namespace || q{};
+
+      if ( $library_acronym_list->has_entry($acronym,$namespace) )
+	{
+	  my $entry = $library_acronym_list->get_entry($acronym,$namespace);
+
+	  $document_acronym_list->add_entry($entry);
+	}
+
+      else
+	{
+	  $logger->error("CAN'T ADD ACRONYM TO DOCUMENT ACRONYM LIST, NOT IN LIBRARY ACRONYM LIST $acronym $namespace");
+	}
+    }
+
+  return 1;
+}
+
+######################################################################
+
+sub _parse_division_blocks {
+
+  # Parse each block in the specified division into strings.
+
+  my $self     = shift;
+  my $division = shift;
+
+  unless ( $division )
+    {
+      $logger->error("CAN'T PARSE DIVISION BLOCKS, MISSING ARGUMENT");
+      return 0;
+    }
+
+  unless ( ref $division and $division->isa('SML::Division') )
+    {
+      $logger->error("CAN'T PARSE DIVISION BLOCKS, NOT A DIVISION $division");
+    }
+
+  foreach my $block (@{ $division->get_block_list })
+    {
+      $self->_parse_block($block);
     }
 
   return 1;

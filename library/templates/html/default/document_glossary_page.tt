@@ -21,6 +21,9 @@ document_title_element = library.get_first_property_value_element(document_id,'t
 
 <h1 style="text-align:center;">Glossary</h1>
 
+[%- count = glossary.get_entry_count -%]
+<p align="center">([%count%] entries)</p>
+
 [%- INCLUDE glossary_button_bar.tt -%]
 
 <table style="width:100%">

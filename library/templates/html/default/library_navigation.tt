@@ -23,16 +23,20 @@ library => an SML::Library object
 
 <a href="ontology.html">Ontology</a><br/>
 
-[%- IF library.has_published_file('DRAFT','entities.html') -%]
+[%- IF library.contains_entities OR library.has_published_file('DRAFT','entities.html') -%]
 <a href="entities.html">Entities</a><br/>
 [%- END -%]
 
-[%- IF library.has_published_file('DRAFT','glossary.html') -%]
+[%- IF library.get_glossary.contains_entries OR library.has_published_file('DRAFT','glossary.html') -%]
 <a href="glossary.html">Glossary</a><br/>
 [%- END -%]
 
-[%- IF library.has_published_file('DRAFT','acronyms.html') -%]
+[%- IF library.get_acronym_list.contains_entries OR library.has_published_file('DRAFT','acronyms.html') -%]
 <a href="acronyms.html">Acronyms</a><br/>
+[%- END -%]
+
+[%- IF library.get_references.contains_entries OR library.has_published_file('DRAFT','references.html') -%]
+<a href="references.html">References</a><br/>
 [%- END -%]
 
 </td>

@@ -65,19 +65,19 @@ document_id = document.get_id
 
 <br/>
 
-[%- IF document.get_glossary.has_entries -%]
+[%- IF document.get_glossary.contains_entries -%]
 <a href="[%document_id%].glossary.html">Glossary</a><br/>
 [%- END -%]
 
-[%- IF document.get_acronym_list.has_entries -%]
+[%- IF document.get_acronym_list.contains_entries -%]
 <a href="[%document_id%].acronyms.html">Acronyms</a><br/>
 [%- END -%]
 
-[%- IF document.get_references.has_sources -%]
+[%- IF document.get_references.contains_entries -%]
 <a href="[%document_id%].references.html">References</a><br/>
 [%- END -%]
 
-[%- IF document.get_index.has_entries -%]
+[%- IF document.get_index.contains_entries -%]
 <a href="[%document_id%].index.html">Index</a><br/>
 [%- END -%]
 

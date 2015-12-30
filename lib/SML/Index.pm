@@ -145,7 +145,7 @@ sub get_entry_list {
 
 ######################################################################
 
-sub has_entries {
+sub contains_entries {
 
   # Return 1 if the index has any entries.
 

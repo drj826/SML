@@ -476,6 +476,26 @@ sub get_block_list {
 
 ######################################################################
 
+sub get_string_list {
+
+  # Return an ordered list of strings withing this division.
+
+  my $self = shift;
+
+  my $list = [];                        # string list
+
+  no warnings 'recursion';
+
+  foreach my $block (@{ $self->get_block_list })
+    {
+      $self->_add_parts_to_list($block,$list);
+    }
+
+  return $list;
+}
+
+######################################################################
+
 sub get_element_list {
 
   # Return an ordered list of elements within this division.
@@ -752,6 +772,39 @@ sub _build_sha_digest {
   $sha->add($data);
 
   return $sha->hexdigest;
+}
+
+######################################################################
+
+sub _add_parts_to_list {
+
+  my $self = shift;
+  my $part = shift;
+  my $list = shift;
+
+  unless ( $part and $list )
+    {
+      $logger->error("CAN'T ADD PARTS TO LIST, MISSING ARGUMENTS");
+      return 0;
+    }
+
+  unless ( $part->isa('SML::Part') )
+    {
+      $logger->error("CAN'T ADD PARTS TO LIST, PART IS NOT A PART $part");
+      return 0;
+    }
+
+  foreach my $subpart (@{ $part->get_part_list })
+    {
+      push @{$list}, $subpart;
+
+      if ( $subpart->contains_parts )
+	{
+	  $self->_add_parts_to_list($subpart,$list);
+	}
+    }
+
+  return 1;
 }
 
 ######################################################################

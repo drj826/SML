@@ -22,18 +22,6 @@ my $logger = Log::Log4perl::get_logger('sml.References');
 ######################################################################
 ######################################################################
 
-has source_hash =>
-  (
-   is      => 'ro',
-   isa     => 'HashRef',
-   reader  => 'get_source_hash',
-   default => sub {{}},
-  );
-
-# This hash is indexed by source ID.
-#
-#   $sources->{$id} = $source;
-
 ######################################################################
 ######################################################################
 ##
@@ -46,9 +34,24 @@ sub add_source {
 
   my $self   = shift;
   my $source = shift;
-  my $id     = $source->get_id;
 
-  $self->get_source_hash->{$id} = $source;
+  unless ( $source )
+    {
+      $logger->error("CAN'T ADD SOURCE, MISSING ARGUMENT");
+      return 0;
+    }
+
+  unless ( ref $source and $source->isa('SML::Source') )
+    {
+      $logger->error("CAN'T ADD SOURCE, NOT A SOURCE $source");
+      return 0;
+    }
+
+  my $id = $source->get_id;
+
+  my $hash = $self->_get_source_hash;
+
+  $hash->{$id} = $source;
 
   return 1;
 }
@@ -60,7 +63,13 @@ sub has_source {
   my $self = shift;
   my $id   = shift;
 
-  if ( defined $self->get_source_hash->{$id} )
+  unless ( $id )
+    {
+      $logger->error("CAN'T CHECK FOR SOURCE, MISSING ARGUMENT");
+      return 0;
+    }
+
+  if ( defined $self->_get_source_hash->{$id} )
     {
       return 1;
     }
@@ -73,12 +82,12 @@ sub has_source {
 
 ######################################################################
 
-sub has_sources {
+sub contains_entries {
 
   my $self = shift;
   my $id   = shift;
 
-  if ( values %{ $self->get_source_hash } )
+  if ( values %{ $self->_get_source_hash } )
     {
       return 1;
     }
@@ -96,9 +105,9 @@ sub get_source {
   my $self = shift;
   my $id   = shift;
 
-  if ( defined $self->get_source_hash->{$id} )
+  if ( defined $self->_get_source_hash->{$id} )
     {
-      return $self->get_source_hash->{$id};
+      return $self->_get_source_hash->{$id};
     }
 
   else
@@ -115,9 +124,9 @@ sub get_sources {
   my $self = shift;
   my $id   = shift;
 
-  if ( values %{ $self->get_source_hash } )
+  if ( values %{ $self->_get_source_hash } )
     {
-      return $self->get_source_hash;
+      return $self->_get_source_hash;
     }
 
   else
@@ -139,18 +148,38 @@ sub replace_division_id {
   my $source = shift;
   my $id     = shift;
 
-  foreach my $stored_id (keys %{ $self->get_source_hash })
+  foreach my $stored_id (keys %{ $self->_get_source_hash })
     {
-      my $stored_source = $self->get_source_hash->{$stored_id};
+      my $stored_source = $self->_get_source_hash->{$stored_id};
       if ( $stored_source == $source )
 	{
-	  delete $self->get_source_hash->{$stored_id};
-	  $self->get_source_hash->{$id} = $source;
+	  delete $self->_get_source_hash->{$stored_id};
+	  $self->_get_source_hash->{$id} = $source;
 	}
     }
 
   return 1;
 }
+
+######################################################################
+######################################################################
+##
+## Private Attributes
+##
+######################################################################
+######################################################################
+
+has source_hash =>
+  (
+   is      => 'ro',
+   isa     => 'HashRef',
+   reader  => '_get_source_hash',
+   default => sub {{}},
+  );
+
+# This hash is indexed by source ID.
+#
+#   $sources->{$id} = $source;
 
 ######################################################################
 
@@ -178,13 +207,9 @@ A references object remembers information about referenced sources.
 
 =head1 METHODS
 
-=head2 get_source_hash
-
 =head2 add_source
 
 =head2 has_source
-
-=head2 has_sources
 
 =head2 get_source
 
