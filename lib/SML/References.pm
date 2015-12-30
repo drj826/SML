@@ -162,6 +162,36 @@ sub replace_division_id {
 }
 
 ######################################################################
+
+sub get_entry_count {
+
+  # Return the number of sources in this source references list.
+
+  my $self = shift;
+
+  return scalar keys %{ $self->_get_source_hash }
+}
+
+######################################################################
+
+sub get_entry_list {
+
+  # Return a list of sources in this source references list.
+
+  my $self = shift;
+
+  my $hash = $self->_get_source_hash;
+  my $list = [];
+
+  foreach my $id ( sort keys %{$hash} )
+    {
+      push @{$list}, $hash->{$id};
+    }
+
+  return $list;
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes

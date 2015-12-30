@@ -8,7 +8,7 @@ document => an SML::Document object
 library                = document.get_library
 document_id            = document.get_id
 document_title_element = library.get_first_property_value_element(document_id,'title')
-source_list            = document.get_list_of_divisions_with_name('SOURCE')
+references_list        = document.get_list_of_divisions_with_name('SOURCE')
 
 -%]
 [%- WRAPPER document_page.tt -%]
@@ -21,7 +21,10 @@ source_list            = document.get_list_of_divisions_with_name('SOURCE')
 
 <h1 align="center">List of References</h1>
 
-[%- FOREACH source IN source_list -%]
+[%- count = references_list.get_entry_count -%]
+<p align="center">([%count%] entries)</p>
+
+[%- FOREACH source IN references_list -%]
 [%- INCLUDE source_entry.tt -%]
 [%- END -%]
 

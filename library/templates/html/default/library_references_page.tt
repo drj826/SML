@@ -1,0 +1,24 @@
+[%# args:
+
+library => an SML::Library object
+
+%]
+[%-
+
+references_list = library.get_references
+
+-%]
+[%- WRAPPER library_page.tt -%]
+
+<h1 align="center">Library List of References</h1>
+
+[%- count = references_list.get_entry_count -%]
+<p align="center">([%count%] entries)</p>
+
+[%- source_list = references_list.get_entry_list -%]
+
+[%- FOREACH source IN source_list -%]
+[%- INCLUDE source_entry.tt -%]
+[%- END -%]
+
+[%- END -%]

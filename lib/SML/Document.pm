@@ -204,14 +204,16 @@ sub add_note {
   my $self = shift;
   my $note = shift;
 
-  # validate $note is a SML::Note
-  if (
-      not ref $note
-      or
-      not $note->isa('SML::Note')
-     )
+  unless ( $note )
     {
-      $logger->error("NOT A NOTE: $note");
+      $logger->error("CAN'T ADD NOTE, MISSING ARGUMENT");
+      return 0;
+    }
+
+  unless ( ref $note and $note->isa('SML::Note') )
+    {
+      $logger->error("CAN'T ADD NOTE, NOT A NOTE $note");
+      return 0;
     }
 
   my $divid = q{};
@@ -244,9 +246,9 @@ sub add_note {
 
 sub has_note {
 
-  my $self  = shift;
-  my $divid = shift;
-  my $number   = shift;
+  my $self   = shift;
+  my $divid  = shift;
+  my $number = shift;
 
   my $nh = $self->_get_note_hash;
 
@@ -364,6 +366,60 @@ sub replace_division_id {
     }
 
   return 1;
+}
+
+######################################################################
+
+sub contains_header {
+
+  # Return 1 if the document contains a header.
+
+  my $self = shift;
+
+  if
+    (
+        $self->header_left
+     or $self->header_left_odd
+     or $self->header_left_even
+     or $self->header_center
+     or $self->header_center_odd
+     or $self->header_center_even
+     or $self->header_right
+     or $self->header_right_odd
+     or $self->header_right_even
+    )
+    {
+      return 1;
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub contains_footer {
+
+  # Return 1 if the document contains a header.
+
+  my $self = shift;
+
+  if
+    (
+        $self->footer_left
+     or $self->footer_left_odd
+     or $self->footer_left_even
+     or $self->footer_center
+     or $self->footer_center_odd
+     or $self->footer_center_even
+     or $self->footer_right
+     or $self->footer_right_odd
+     or $self->footer_right_even
+    )
+    {
+      return 1;
+    }
+
+  return 0;
 }
 
 ######################################################################
