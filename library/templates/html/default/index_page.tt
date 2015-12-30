@@ -57,7 +57,7 @@ document_title_element = library.get_first_property_value_element(document_id,'t
     [%- FOREACH subentry IN entry.get_subentry_list -%]
 <tr>
 <td>
-<div style="text-indent:10pt;">[%- subentry.get_term -%]</div>
+<div style="text-indent:10pt;">[%- INCLUDE STRING.tt self = subentry.get_term_string -%]</div>
 </td>
 <td>
 <div style="text-indent:10pt;">
@@ -83,7 +83,7 @@ document_title_element = library.get_first_property_value_element(document_id,'t
         [%- FOREACH subsubentry IN subentry.get_subentry_list -%]
 <tr>
 <td>
-<div style="text-indent:20pt;">[%- subsubentry.get_term -%]</div>
+<div style="text-indent:20pt;">[%- INCLUDE STRING.tt self = subsubentry.get_term_string -%]</div>
 </td>
 <td>
 <div style="text-indent:20pt;">
