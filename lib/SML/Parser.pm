@@ -11948,10 +11948,8 @@ sub _process_index_string {
       return 0;
     }
 
-  my $library     = $self->_get_library;
-  my $syntax      = $library->get_syntax;
-  my $division    = $element->get_containing_division;
-  my $division_id = $division->get_id;
+  my $library = $self->_get_library;
+  my $syntax  = $library->get_syntax;
 
   unless ( $string =~ /$syntax->{index_entry}/ )
     {
@@ -11964,7 +11962,15 @@ sub _process_index_string {
   my $subterm    = $3 || q{};
   my $subsubterm = $5 || q{};
 
-  my $document = $division->get_containing_document;
+  my $util = $library->get_util;
+
+  $term       = $util->strip_string_markup($term);
+  $subterm    = $util->strip_string_markup($subterm);
+  $subsubterm = $util->strip_string_markup($subsubterm);
+
+  my $division    = $element->get_containing_division;
+  my $division_id = $division->get_id;
+  my $document    = $division->get_containing_document;
 
   unless ( $document )
     {
@@ -11975,68 +11981,54 @@ sub _process_index_string {
 
   my $index = $document->get_index;
 
-  if ( $index->has_entry($term) )
+  my ( $entry, $subentry, $subsubentry );
+
+  if ( not $index->has_entry($term) )
     {
-      my $entry = $index->get_entry($term);
-      $entry->add_locator($division_id);
-
-      if ( $subterm )
-	{
-	  my $subentry;
-
-	  if ( $entry->has_subentry($subterm) )
-	    {
-	      $subentry = $entry->get_subentry($subterm);
-	      $subentry->add_locator($division_id);
-	    }
-
-	  else
-	    {
-	      $subentry = SML::IndexEntry->new
-		(
-		 term     => $subterm,
-		 document => $document,
-		);
-
-	      $subentry->add_locator($division_id);
-	      $entry->add_subentry($subentry);
-	    }
-
-	  if ( $subsubterm )
-	    {
-	      my $subsubentry;
-
-	      if ( $subentry->has_subentry($subterm) )
-		{
-		  $subsubentry = $subentry->get_subentry($subsubterm);
-		  $subsubentry->add_locator($division_id);
-		}
-
-	      else
-		{
-		  $subsubentry = SML::IndexEntry->new
-		    (
-		     term     => $subsubterm,
-		     document => $document,
-		    );
-
-		  $subsubentry->add_locator($division_id);
-		  $subentry->add_subentry($subsubentry);
-		}
-	    }
-	}
-    }
-
-  else
-    {
-      my $entry = SML::IndexEntry->new
+      $entry = SML::IndexEntry->new
 	(
 	 term     => $term,
 	 document => $document,
 	);
 
-      $entry->add_locator($division_id);
       $index->add_entry($entry);
+    }
+
+  $entry = $index->get_entry($term);
+  $entry->add_locator($division_id);
+
+  if ( $subterm )
+    {
+      if ( not $entry->has_subentry($subterm) )
+	{
+	  $subentry = SML::IndexEntry->new
+	    (
+	     term     => $subterm,
+	     document => $document,
+	    );
+
+	  $entry->add_subentry($subentry);
+	}
+
+      $subentry = $entry->get_subentry($subterm);
+      $subentry->add_locator($division_id);
+
+      if ( $subsubterm )
+	{
+	  if ( not $subentry->has_subentry($subterm) )
+	    {
+	      $subsubentry = SML::IndexEntry->new
+		(
+		 term     => $subsubterm,
+		 document => $document,
+		);
+
+	      $subentry->add_subentry($subsubentry);
+	    }
+
+	  $subsubentry = $subentry->get_subentry($subsubterm);
+	  $subsubentry->add_locator($division_id);
+	}
     }
 
   return 1;
