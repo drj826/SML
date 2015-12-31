@@ -6973,11 +6973,17 @@ Here are some things I put in my ||.emacs|| file that help the editing
 process:
 
 >>>LISTING.lis-emacs-startup
+
 title:: Add This To Your ||.emacs|| File
+
 language:: lisp
+
 fontsize:: footnotesize
+
 numbers:: left
+
 file:: files/.emacs
+
 <<<LISTING
 
 #---------------------------------------------------------------------

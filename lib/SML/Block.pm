@@ -56,6 +56,21 @@ after 'set_containing_division' => sub {
 };
 
 ######################################################################
+
+has has_been_parsed =>
+  (
+   is      => 'ro',
+   isa     => 'Bool',
+   reader  => 'has_been_parsed',
+   writer  => 'set_has_been_parsed',
+   default => 0,
+  );
+
+# This boolean value tracks whether the block has been parsed into
+# strings.  There's no reason to perform the unnecessary work of
+# parsing the same block over and over again.
+
+######################################################################
 ######################################################################
 ##
 ## Public Methods

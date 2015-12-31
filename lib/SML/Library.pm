@@ -1422,7 +1422,7 @@ sub get_division {
   my $self = shift;
   my $id   = shift;
 
-  if ( not $id )
+  unless ( $id )
     {
       $logger->logcluck("CAN'T GET DIVISION, YOU MUST SPECIFY AN ID");
       return 0;
