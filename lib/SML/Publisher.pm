@@ -216,6 +216,13 @@ sub publish_library_pages {
       $self->_publish_html_library_glossary_page($style);
       $self->_publish_html_library_acronyms_page($style);
       $self->_publish_html_library_references_page($style);
+
+      my $library = $self->get_library;
+
+      if ( $library->contains_error )
+	{
+	  $self->_publish_html_library_errors_page($style);
+	}
     }
 
   else
@@ -491,6 +498,13 @@ sub _publish_html_document {
 	{
 	  $logger->info("publishing $id.references.html");
 	  $tt->process("document_references_page.tt",$vars,"$id.references.html")
+	    || die $tt->error(), "\n";
+	}
+
+      if ( $document->contains_error )
+	{
+	  $logger->info("publishing $id.errors.html");
+	  $tt->process("document_errors_page.tt",$vars,"$id.errors.html")
 	    || die $tt->error(), "\n";
 	}
 
@@ -1190,6 +1204,61 @@ sub _publish_html_library_references_page {
   # entities page
   $logger->info("publishing references.html");
   $tt->process("library_references_page.tt",$vars,"references.html")
+    || die $tt->error(), "\n";
+
+  return 1;
+}
+
+######################################################################
+
+sub _publish_html_library_errors_page {
+
+  # Publish an HTML library errors page.
+
+  my $self  = shift;
+  my $style = shift || 'default';
+
+  my $library = $self->get_library;
+
+  my $template_dir = $library->get_template_dir . "/html/$style";
+
+  unless ( -d $template_dir )
+    {
+      $logger->error("NOT A DIRECTORY $template_dir");
+      return 0;
+    }
+
+  my $published_dir = $library->get_published_dir;
+
+  unless ( -d $published_dir )
+    {
+      mkdir "$published_dir", 0755;
+      $logger->info("made directory $published_dir");
+    }
+
+  my $state     = 'DRAFT';
+  my $state_dir = "$published_dir/$state";
+
+  unless ( -d $state_dir )
+    {
+      mkdir "$state_dir", 0755;
+      $logger->info("made directory $state_dir");
+    }
+
+  my $tt_config =
+    {
+     INCLUDE_PATH => $template_dir,
+     OUTPUT_PATH  => $state_dir,
+     RECURSION    => 1,
+    };
+
+  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+
+  my $vars = { library => $library };
+
+  # errors page
+  $logger->info("publishing errors.html");
+  $tt->process("library_errors_page.tt",$vars,"errors.html")
     || die $tt->error(), "\n";
 
   return 1;

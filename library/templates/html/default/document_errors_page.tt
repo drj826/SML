@@ -1,0 +1,34 @@
+[%# args:
+
+document => an SML::Document object
+
+%]
+[%-
+
+error_list = document.get_error_list
+
+-%]
+[%- WRAPPER document_page.tt -%]
+
+<h1 align="center">This Document Contains Errors</h1>
+
+[%- count = document.get_error_count -%]
+<p align="center">([%count%] errors)</p>
+
+<table>
+[%- FOREACH error IN error_list -%]
+  [%-
+  level    = error.get_level
+  location = error.get_location
+  message  = error.get_message
+  -%]
+<tr>
+<td>[%level%]</td>
+<td>[%message%]</td>
+<td>[%location%]</td>
+</tr>
+
+[%- END -%]
+</table>
+
+[%- END -%]

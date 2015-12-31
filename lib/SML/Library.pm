@@ -28,6 +28,7 @@ use SML::References;
 use SML::Publisher;
 use SML::Util;
 use SML::Value;
+use SML::Error;
 
 ######################################################################
 ######################################################################
@@ -1615,49 +1616,6 @@ sub get_variable_value {
 
 ######################################################################
 
-# sub get_data_segment_line_list {
-
-#   my $self = shift;
-#   my $id   = shift;
-
-#   my $division = $self->get_division($id);
-
-#   if ( $division->isa('SML::Division') )
-#     {
-#       return $division->get_data_segment_line_list;
-#     }
-
-#   else
-#     {
-#       $logger->error("CAN'T GET DATA SEGMENT LINES \'$id\' is not a division ID");
-#       return 0;
-#     }
-# }
-
-######################################################################
-
-# sub get_narrative_line_list {
-
-#   my $self = shift;
-#   my $id   = shift;
-
-#   my $division = $self->get_division($id);
-
-#   if ( $division->isa('SML::Division') )
-#     {
-#       return $division->get_narrative_line_list;
-#     }
-
-#   else
-#     {
-#       $logger->error("CAN'T GET NARRATIVE LINES \'$id\' is not a division ID");
-#       return 0;
-#     }
-
-# }
-
-######################################################################
-
 sub get_type {
 
   # Return the type of a value (division name, STRING, or BOOLEAN)
@@ -2724,6 +2682,94 @@ sub get_published_document_property_value {
 }
 
 ######################################################################
+
+sub add_error {
+
+  my $self  = shift;
+  my $error = shift;
+
+  unless ( $error )
+    {
+      $logger->error("CAN'T ADD ERROR, MISSING ARGUMENT");
+      return 0;
+    }
+
+  unless ( ref $error and $error->isa('SML::Error') )
+    {
+      $logger->error("CAN'T ADD ERROR, NOT AN ERROR $error");
+      return 0;
+    }
+
+  my $hash     = $self->_get_error_hash;
+  my $level    = $error->get_level;
+  my $location = $error->get_location;
+  my $message  = $error->get_message;
+
+  if ( exists $hash->{$level}{$location}{$message} )
+    {
+      $logger->warn("ERROR ALREADY EXISTS $level $location $message");
+      return 0;
+    }
+
+  $hash->{$level}{$location}{$message} = $error;
+
+  return 1;
+}
+
+######################################################################
+
+sub get_error_list {
+
+  my $self = shift;
+
+  my $list = [];
+
+  my $hash = $self->_get_error_hash;
+
+  foreach my $level ( sort keys %{ $hash } )
+    {
+      foreach my $location ( sort keys %{ $hash->{$level} } )
+	{
+	  foreach my $message ( sort keys %{ $hash->{$level}{$location} })
+	    {
+	      my $error = $hash->{$level}{$location}{$message};
+
+	      push @{$list}, $error;
+	    }
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
+
+sub get_error_count {
+
+  my $self = shift;
+
+  return scalar @{ $self->get_error_list };
+}
+
+######################################################################
+
+sub contains_error {
+
+  # Return 1 if the library contains an error.
+
+  my $self = shift;
+
+  my $hash = $self->_get_error_hash;
+
+  if ( scalar keys %{$hash} )
+    {
+      return 1;
+    }
+
+  return 0;
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes
@@ -3040,6 +3086,22 @@ has published_document_hash =>
 #
 # $hash->{'DRAFT'}{'sdd-sml'}{'version'} = 'v2.0';
 # $hash->{'DRAFT'}{'sdd-sml'}{'date'}    = '2015-12-20';
+
+######################################################################
+
+has error_hash =>
+  (
+   is      => 'ro',
+   isa     => 'HashRef',
+   reader  => '_get_error_hash',
+   default => sub {{}},
+  );
+
+# This is a hash of error objects.
+
+# $hash->{$level}{$location}{$message} = $error;
+
+# see also: add_error, get_error_list
 
 ######################################################################
 ######################################################################

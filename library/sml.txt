@@ -210,8 +210,8 @@ the hard work of producing quality content.
 Here is a short list of reasons you might consider using [a:SML]
 rather than a traditional word processor:
 
-- !!Productivity.!!  [a:SML] eliminates most presentation options, forcing
-  authors to focus on structure and content, making them more
+- !!Productivity.!!  [a:SML] eliminates most presentation options,
+  forcing authors to focus on structure and content, making them more
   productive. The absence of presentation information also enables you
   to more easily re-use the content.
 

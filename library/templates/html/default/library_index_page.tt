@@ -43,11 +43,14 @@ document_subtitle   = library.get_published_document_property_value('DRAFT',docu
 document_author     = library.get_published_document_property_value('DRAFT',document_id,'author')
 document_abbr       = library.get_published_document_property_value('DRAFT',document_id,'abbreviation')
 document_sha_digest = library.get_published_document_property_value('DRAFT',document_id,'sha_digest')
+document_errors     = library.get_published_document_property_value('DRAFT',document_id,'contains_error')
 sha                 = document_sha_digest.substr(0,7)
 num                 = num + 1
 
 -%]
-[%- IF bgcolor == '#eeeeee' -%]
+[%- IF document_errors -%]
+[%- bgcolor = '#ffb3b3' -%]
+[%- ELSIF bgcolor == '#eeeeee' -%]
 [%- bgcolor = '#ffffff' -%]
 [%- ELSE -%]
 [%- bgcolor = '#eeeeee' -%]

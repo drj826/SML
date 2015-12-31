@@ -5,12 +5,13 @@ document => an SML::Document object
 %]
 [%-
 
-library    = document.get_library
-id         = document.get_id
-sha_digest = document.get_sha_digest
-publisher  = library.get_publisher
-date_time  = publisher.get_publish_date_time
-utility    = library.get_util
+library        = document.get_library
+id             = document.get_id
+sha_digest     = document.get_sha_digest
+contains_error = document.contains_error
+publisher      = library.get_publisher
+date_time      = publisher.get_publish_date_time
+utility        = library.get_util
 
 -%]
 >>>METADATA.[%id%]
@@ -18,6 +19,8 @@ utility    = library.get_util
 published:: [%date_time%]
 
 sha_digest:: [%sha_digest%]
+
+contains_error:: [%contains_error%]
 
 
 [%- FOREACH property_name IN library.get_property_name_list(id) -%]

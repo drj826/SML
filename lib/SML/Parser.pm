@@ -25,6 +25,7 @@ my $logger = Log::Log4perl::get_logger('sml.Parser');
 use SML::Options;                     # ci-000382
 use SML::File;                        # ci-000384
 use SML::Line;                        # ci-000385
+use SML::Error;                       # ci-000???
 
 # string classes
 use SML::String;                      # ci-000???
@@ -114,7 +115,8 @@ sub parse {
 
   unless ( $library->has_division_id($id) )
     {
-      $logger->error("CAN'T PARSE DIVISION, DIVISION NOT IN LIBRARY $id");
+      my $msg = "CAN'T PARSE DIVISION, DIVISION NOT IN LIBRARY $id";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -339,36 +341,6 @@ has column =>
 
 ######################################################################
 
-# has in_data_segment =>
-#   (
-#    is        => 'ro',
-#    isa       => 'Bool',
-#    reader    => '_in_data_segment',
-#    writer    => '_set_in_data_segment',
-#    default   => 0,
-#   );
-
-# This is a boolean flag that indicates whether the current line is in
-# a data segment.  A data segment is the opening part of a division
-# that contains (structured data) elements.
-
-######################################################################
-
-# has count_total_hash =>
-#   (
-#    is        => 'ro',
-#    isa       => 'HashRef',
-#    reader    => '_get_count_total_hash',
-#    writer    => '_set_count_total_hash',
-#    default   => sub {{}},
-#   );
-
-# This is a count of the total number of "things" in document.
-
-#   $count = $count_total->{$name};
-
-######################################################################
-
 has count_method_hash =>
   (
    is        => 'ro',
@@ -382,166 +354,6 @@ has count_method_hash =>
 # This is a count of the number of times a method has been invoked.
 
 #   $count = $count_method->{$name};
-
-######################################################################
-
-# has gen_content_hash =>
-#   (
-#    is        => 'ro',
-#    isa       => 'HashRef',
-#    reader    => '_get_gen_content_hash',
-#    writer    => '_set_gen_content_hash',
-#    clearer   => '_clear_gen_content_hash',
-#    default   => sub {{}},
-#   );
-
-# This is a hash of generated content.
-
-######################################################################
-
-# has to_be_gen_hash =>
-#   (
-#    is        => 'ro',
-#    isa       => 'HashRef',
-#    reader    => '_get_to_be_gen_hash',
-#    writer    => '_set_to_be_gen_hash',
-#    clearer   => '_clear_to_be_gen_hash',
-#    default   => sub {{}},
-#   );
-
-# This is a hash of 'to be generated' content items.
-
-######################################################################
-
-# has outcome_hash =>
-#   (
-#    is        => 'ro',
-#    isa       => 'HashRef',
-#    reader    => '_get_outcome_hash',
-#    writer    => '_set_outcome_hash',
-#    clearer   => '_clear_outcome_hash',
-#    default   => sub {{}},
-#   );
-
-# This is the outcome data structure containing test outcomes indexed
-# by test case ID.
-#
-#   $outcome_description = $outcome->{$test} ?????
-
-######################################################################
-
-# has review_hash =>
-#   (
-#    is        => 'ro',
-#    isa       => 'HashRef',
-#    reader    => '_get_review_hash',
-#    writer    => '_set_review_hash',
-#    clearer   => '_clear_review_hash',
-#    default   => sub {{}},
-#   );
-
-# This is the review data structure containing test reviews indexed
-# by test case ID.
-#
-#   $review_description = $review->{$test} ?????
-
-######################################################################
-
-# has acronym_hash =>
-#   (
-#    is        => 'ro',
-#    isa       => 'HashRef',
-#    reader    => '_get_acronym_hash',
-#    writer    => '_set_acronym_hash',
-#    clearer   => '_clear_acronym_hash',
-#    default   => sub {{}},
-#   );
-
-#   $definition = $acronyms->{$term}{$namespace};
-
-######################################################################
-
-# has source_hash =>
-#   (
-#    is        => 'ro',
-#    isa       => 'HashRef',
-#    reader    => '_get_source_hash',
-#    writer    => '_set_source_hash',
-#    clearer   => '_clear_source_hash',
-#    default   => sub {{}},
-#   );
-
-# $sources->{$sourceid} =
-#   {
-#    title        => 'CMMI for Development, Version 1.2',
-#    label        => 'cmmi',
-#    description  => '',
-#    address      => '',
-#    annote       => '',
-#    author       => '',
-#    booktitle    => '',
-#    chapter      => '',
-#    crossref     => '',
-#    edition      => '',
-#    editor       => '',
-#    howpublished => '',
-#    institution  => '',
-#    journal      => '',
-#    key          => '',
-#    month        => 'August',
-#    note         => 'CMU/SEI-2006-TR-008, ESC-TR-2006-008',
-#    number       => '',
-#    organization => '',
-#    pages        => '',
-#    publisher    => '',
-#    school       => '',
-#    series       => '',
-#    source       => 'misc',
-#    subtitle     => '',
-#    type         => '',
-#    volume       => '',
-#    year         => '2006',
-#    appearance   => '',
-#    color        => '',
-#    date         => '',
-#    icon         => '',
-#    mimetype     => '',
-#    file         => 'files/cmmi/CMMI-DEV-v1-2.pdf',
-#   };
-
-######################################################################
-
-# has index_hash =>
-#   (
-#    is        => 'ro',
-#    isa       => 'HashRef',
-#    reader    => '_get_index_hash',
-#    writer    => '_set_index_hash',
-#    clearer   => '_clear_index_hash',
-#    default   => sub {{}},
-#   );
-
-# This is a hash of indexed terms where the key is the term and the
-# value is an anonymous array of IDs of the divisions in which the
-# terms appear.
-#
-#   $index->{$term} = [$id1, $id2, $id3...]
-
-######################################################################
-
-# has template_hash =>
-#   (
-#    is        => 'ro',
-#    isa       => 'HashRef',
-#    reader    => '_get_template_hash',
-#    writer    => '_set_template_hash',
-#    clearer   => '_clear_template_hash',
-#    default   => sub {{}},
-#   );
-
-# This is a data structure for memoizing templates.  Memoizing
-# templates improves performance by avoiding reading oft used
-# templates from the file over-and-over again.
 
 ######################################################################
 
@@ -667,24 +479,6 @@ sub _init {
   $self->_clear_container_stack;
   $self->_set_container_stack([]);
   $self->_set_column(0);
-  # $self->_set_in_data_segment(1);
-  # $self->_set_count_total_hash({});
-  # $self->_clear_gen_content_hash;
-  # $self->_set_gen_content_hash({});
-  # $self->_clear_to_be_gen_hash;
-  # $self->_set_to_be_gen_hash({});
-  # $self->_clear_outcome_hash;
-  # $self->_set_outcome_hash({});
-  # $self->_clear_review_hash;
-  # $self->_set_review_hash({});
-  # $self->_clear_acronym_hash;
-  # $self->_set_acronym_hash({});
-  # $self->_clear_source_hash;
-  # $self->_set_source_hash({});
-  # $self->_clear_index_hash;
-  # $self->_set_index_hash({});
-  # $self->_clear_template_hash;
-  # $self->_set_template_hash({});
   $self->_clear_requires_processing;
   $self->_set_requires_processing(0);
   $self->_clear_section_counter_hash;
@@ -1329,92 +1123,6 @@ sub _create_string {
 
 ######################################################################
 
-# sub _extract_division_name {
-
-#   # Extract a division name string from a sequence of lines.
-
-#   # NOTE: This ONLY works for a sequence of lines that represents a
-#   # division.  In other words, the first line must be a division
-#   # starting line.
-
-#   my $self  = shift;
-#   my $lines = shift;
-
-#   my $library = $self->_get_library;
-#   my $syntax  = $library->get_syntax;
-#   my $text    = $lines->[0]->get_content;
-
-#   if ( $text =~ /$syntax->{start_division}/ )
-#     {
-#       return $1;                        # $1 = name (see Syntax.pm)
-#     }
-
-#   elsif ( $text =~ /$syntax->{start_section}/ )
-#     {
-#       return 'SECTION';
-#     }
-
-#   else
-#     {
-#       # $logger->warn("DIVISION NAME NOT FOUND IN...");
-
-#       # foreach my $line (@{$lines})
-#       # 	{
-#       # 	  my $text = $line->get_content;
-#       # 	  $logger->warn($text);
-#       # 	}
-#       # return '';
-#     }
-
-# }
-
-######################################################################
-
-# sub _extract_division_id {
-
-#   # Extract a division ID string from a sequence of lines.
-
-#   # NOTE: This ONLY works for a sequence of lines that represents a
-#   # division.  In other words, the first line must be a division
-#   # starting line.
-
-#   my $self  = shift;
-#   my $lines = shift;
-
-#   my $library = $self->_get_library;
-#   my $syntax  = $library->get_syntax;
-#   my $text    = $lines->[0]->get_content;
-
-#   # !!! BUG HERE !!!
-#   #
-#   # What happens if a division marker lacks an ID?
-
-#   if ( $text =~ /$syntax->{start_division}/ )
-#     {
-#       return $3;                        # $3 = ID (see Syntax.pm)
-#     }
-
-#   elsif ( $text =~ /$syntax->{start_section}/ )
-#     {
-#       return $3;                        # $3 = ID (see Syntax.pm)
-#     }
-
-#   else
-#     {
-#       # $logger->warn("DIVISION ID NOT FOUND IN...");
-
-#       # foreach my $line (@{$lines})
-#       # 	{
-#       # 	  my $text = $line->get_content;
-#       # 	  $logger->warn($text);
-#       # 	}
-#       # return '';
-#     }
-
-# }
-
-######################################################################
-
 sub _extract_title_text {
 
   # Extract the title from an array of lines and return it as a
@@ -1513,205 +1221,6 @@ sub _extract_title_text {
 
 ######################################################################
 
-# sub _extract_data_segment_lines {
-
-#   # Extract data segment lines from a sequence of division lines.
-
-#   # !!! BUG HERE !!!
-#   #
-#   #   This method doesn't work for sections.
-
-#   my $self  = shift;
-#   my $lines = shift;
-
-#   my $library             = $self->_get_library;
-#   my $syntax              = $library->get_syntax;
-#   my $ontology            = $library->get_ontology;
-#   my $data_segment_lines      = [];
-#   my $divname             = $self->_extract_division_name($lines);
-#   my $in_data_segment         = 1;
-#   my $in_data_segment_element = 0;
-#   my $i                   = 0;
-#   my $last                = scalar @{ $lines };
-
-#   foreach my $line (@{ $lines })
-#     {
-#       my $text = $line->get_content;
-
-#       $text =~ s/[\r\n]*$//;            # chomp;
-
-#       ++ $i;
-
-#       next if $i == 1;                  # skip first line
-#       last if $i == $last;              # skip last line
-
-#       if ( $self->_line_ends_data_segment($text) )
-# 	{
-# 	  return $data_segment_lines;
-# 	}
-
-#       elsif (
-# 	     $in_data_segment
-# 	     and
-# 	     $text =~ /$syntax->{element}/
-# 	     and
-# 	     not $ontology->allows_property_name_in_division_name($1,$divname)
-# 	    )
-# 	{
-# 	  return $data_segment_lines;
-# 	}
-
-#       elsif (
-# 	     $in_data_segment
-# 	     and
-# 	     $text =~ /$syntax->{element}/
-# 	     and
-# 	     $ontology->allows_property_name_in_division_name($1,$divname)
-# 	    )
-# 	{
-# 	  $in_data_segment_element = 1;
-# 	  push @{ $data_segment_lines }, $line;
-# 	}
-
-#       elsif (
-# 	     $text =~ /$syntax->{paragraph_text}/
-# 	     and
-# 	     not $in_data_segment_element
-# 	    )
-# 	{
-# 	  return $data_segment_lines;
-# 	}
-
-#       elsif ( $text =~ /$syntax->{blank_line}/ )
-# 	{
-# 	  $in_data_segment_element = 0;
-# 	  push @{ $data_segment_lines }, $line;
-# 	}
-
-#       elsif ( $in_data_segment )
-# 	{
-# 	  push @{ $data_segment_lines }, $line;
-# 	}
-
-#       else
-# 	{
-# 	  # do nothing.
-# 	}
-#     }
-
-#   return $data_segment_lines;
-# }
-
-######################################################################
-
-# sub _extract_narrative_lines {
-
-#   # Extract narrative lines from a sequence of division lines.
-
-#   # !!! BUG HERE !!!
-#   #
-#   #   This method doesn't work for sections.
-
-#   my $self  = shift;
-#   my $lines = shift;
-
-#   my $library             = $self->_get_library;
-#   my $syntax              = $library->get_syntax;
-#   my $ontology            = $library->get_ontology;
-#   my $narrative_lines     = [];
-#   my $divname             = $self->_extract_division_name($lines);
-#   my $in_data_segment         = 1;
-#   my $in_data_segment_element = 0;
-#   my $i                   = 0;
-#   my $last                = scalar @{ $lines };
-
-#   foreach my $line (@{ $lines })
-#     {
-#       my $text = $line->get_content;
-
-#       $text =~ s/[\r\n]*$//;            # chomp;
-
-#       ++ $i;
-
-#       next if $i == 1;                  # skip first line
-#       last if $i == $last;              # skip last line
-
-#       if ( $self->_line_ends_data_segment($text) )
-# 	{
-# 	  $in_data_segment = 0;
-# 	}
-
-#       elsif (
-# 	     $text =~ /$syntax->{element}/
-# 	     and
-# 	     $in_data_segment
-# 	     and
-# 	     not $ontology->allows_property_name_in_division_name($1,$divname)
-# 	    )
-# 	{
-# 	  $in_data_segment = 0;
-# 	  push @{ $narrative_lines }, $line;
-# 	}
-
-#       elsif (
-# 	     $text =~ /$syntax->{element}/
-# 	     and
-# 	     $in_data_segment
-# 	     and
-# 	     $ontology->allows_property_name_in_division_name($1,$divname)
-# 	    )
-# 	{
-# 	  $in_data_segment_element = 1;
-# 	}
-
-#       elsif (
-# 	     $text =~ /$syntax->{paragraph_text}/
-# 	     and
-# 	     $in_data_segment_element
-# 	    )
-# 	{
-# 	  # do nothing
-# 	}
-
-#       elsif (
-# 	     $text =~ /$syntax->{paragraph_text}/
-# 	     and
-# 	     $in_data_segment
-# 	     and
-# 	     not $in_data_segment_element
-# 	    )
-# 	{
-# 	  $in_data_segment = 0;
-# 	  push @{ $narrative_lines }, $line;
-# 	}
-
-#       elsif (
-# 	     $text =~ /$syntax->{blank_line}/
-# 	     and
-# 	     $in_data_segment
-# 	     and
-# 	     $in_data_segment_element
-# 	    )
-# 	{
-# 	  $in_data_segment_element = 0;
-# 	}
-
-#       elsif ( $in_data_segment )
-# 	{
-# 	  # do nothing
-# 	}
-
-#       else
-# 	{
-# 	  push @{ $narrative_lines }, $line;
-# 	}
-#     }
-
-#   return $narrative_lines;
-# }
-
-######################################################################
-
 sub _get_line_list_for_id {
 
   # Return the line list for the division with the specified ID.
@@ -1738,40 +1247,6 @@ sub _get_line_list_for_id {
 
   return $self->_extract_div_line_list($file_line_list,$id);
 }
-
-######################################################################
-
-# sub _create_empty_division {
-
-#   # Return a division object.
-
-#   my $self      = shift;
-#   my $line_list = shift;
-
-#   my $library  = $self->_get_library;
-#   my $name     = $self->_extract_division_name($line_list);
-#   my $id       = $self->_extract_division_id($line_list);
-#   my $ontology = $library->get_ontology;
-#   my $class    = $ontology->get_class_for_division_name($name);
-
-#   if ( $name eq 'SECTION' )
-#     {
-#       my $syntax = $library->get_syntax;
-#       my $line   = $line_list->[0];
-#       my $text   = $line->get_content;
-
-#       if ( $text =~ $syntax->{start_section} )
-# 	{
-# 	  my $depth = length($1);
-# 	  return $class->new(id=>$id,library=>$library,depth=>$depth);
-# 	}
-#     }
-
-#   else
-#     {
-#       return $class->new(id=>$id,library=>$library);
-#     }
-# }
 
 ######################################################################
 
@@ -2359,20 +1834,13 @@ sub _parse_lines {
     {
       my $msg = "$count: EXCEEDED MAX ITERATIONS ($max_iterations)";
       $logger->logcroak("$msg");
+      return 0;
     }
 
   $self->_set_division_stack([]);
   $self->_set_container_stack([]);
 
-  # $self->_set_to_be_gen_hash({});
-  # $self->_set_outcome_hash({});
-  # $self->_set_review_hash({});
-  # $self->_set_acronym_hash({});
-  # $self->_set_source_hash({});
-  # $self->_set_index_hash({});
-  # $self->_set_template_hash({});
   $self->_set_section_counter_hash({});
-  # $self->_set_count_total_hash({});
 
   $self->_clear_block;
 
@@ -2390,8 +1858,7 @@ sub _parse_lines {
  LINE:
   foreach my $line ( @{ $self->_get_line_list } )
     {
-      my $text     = $line->get_content;
-      my $location = $line->get_location;
+      my $text = $line->get_content;
 
       $text =~ s/[\r\n]*$//;            # chomp;
 
@@ -2438,11 +1905,6 @@ sub _parse_lines {
 	{
 	  $self->_process_comment_line($line);
 	}
-
-      # elsif ( $text =~ /$syntax->{segment_separator}/ )
-      # 	{
-      # 	  $self->_process_segment_separator_line($line);
-      # 	}
 
       elsif ( $text =~ /$syntax->{blank_line}/ )
 	{
@@ -2547,7 +2009,9 @@ sub _parse_lines {
 
       else
 	{
-	  $logger->warn("SOMETHING UNEXPECTED HAPPENED: at $location");
+	  my $msg = "SOMETHING UNEXPECTED HAPPENED";
+	  my $location = $line->get_location;
+	  $self->_handle_error('warn',$msg,$location);
 	  $self->_set_is_valid(0);
 	}
     }
@@ -2560,72 +2024,8 @@ sub _parse_lines {
   $self->_generate_section_numbers;
   $self->_generate_division_numbers;
 
-  # my $reasoner = $library->get_reasoner;
-  # $reasoner->infer_status_from_outcomes;
-
   return 1;
 }
-
-######################################################################
-
-# sub _begin_data_segment {
-
-#   my $self = shift;
-
-#   my $number = $self->_get_number;
-
-#   $logger->trace("{$number} ..... begin data segment");
-#   $self->_set_in_data_segment(1);
-
-#   return 1;
-# }
-
-######################################################################
-
-# sub _process_segment_separator_line {
-
-#   my $self = shift;
-#   my $line = shift;
-
-#   my $name     = 'SEGMENT_SEPARATOR';
-#   my $library  = $self->_get_library;
-#   my $location = $line->get_location;
-#   my $number   = $self->_get_number;
-
-#   $logger->trace("{$number} ----- segment separator");
-
-#   # new preformatted block
-#   my $block = SML::PreformattedBlock->new
-#     (
-#      name    => $name,
-#      library => $library,
-#     );
-
-#   $block->add_line($line);
-#   $self->_begin_block($block);
-
-#   # division handling
-#   my $division = $self->_get_current_division;
-
-#   if ( $division )
-#     {
-#       $division->add_part( $block );
-
-#       my $divname = $division->get_name;
-#       my $id   = $division->get_id;
-#       $logger->trace("{$number} ..... end $divname.$id data segment");
-#       $self->_set_in_data_segment(0);
-
-#       return 1;
-#     }
-
-#   else
-#     {
-#       my $location = $line->get_location;
-#       $logger->error("NO CURRENT DIVISION. CAN'T PROCESS SEGMENT SEPARATOR LINE\n  at $location");
-#       return 0;
-#     }
-# }
 
 ######################################################################
 
@@ -2648,19 +2048,6 @@ sub _begin_division {
   my $ontology = $library->get_ontology;
 
   $library->add_division($division);
-
-  # unless
-  #   (
-  #       $name eq 'BULLET_LIST',
-  #    or $name eq 'ENUMERATED_LIST',
-  #    or $name eq 'DEFINITION_LIST',
-  #    or $name eq 'RAW',
-  #    or $name eq 'CONDITIONAL',
-  #    or $name eq 'TABLE_CELL',
-  #   )
-  #   {
-  #     $self->_begin_data_segment;
-  #   }
 
   # add this division to the one it is part of
   my $containing_division = $self->_get_current_division;
@@ -2701,9 +2088,6 @@ sub _begin_division {
 
   elsif ( $name eq 'TABLE_CELL' )
     {
-      # table cells don't have data segments
-      # $self->_set_in_data_segment(0);
-
       return 1;
     }
 
@@ -2745,9 +2129,6 @@ sub _begin_division {
 
   elsif ( $name eq 'CONDITIONAL' )
     {
-      # CONDITIONAL divisions don't have data segments
-      # $self->_set_in_data_segment(0);
-
       return 1;
     }
 
@@ -2763,16 +2144,16 @@ sub _begin_division {
 
   elsif ( $division->isa('SML::Division') )
     {
-      # raw divisions don't have data segments
-      # $self->_set_in_data_segment(0);
-
       return 1;
     }
 
   else
     {
       my $type = ref $division;
-      $logger->error("THIS SHOULD NEVER HAPPEN (1) ($type)");
+      my $msg  = "THIS SHOULD NEVER HAPPEN ($type)";
+
+      $self->_handle_message('error',$msg);
+
       return 0;
     }
 }
@@ -2898,7 +2279,8 @@ sub _end_division {
     {
       my $type = ref $division;
       my $name = $division->get_name;
-      $logger->warn("WHAT JUST HAPPENED? ($type $name)");
+      my $msg  = "WHAT JUST HAPPENED? $type $name";
+      $self->_handle_message('warn',$msg);
       return 0;
     }
 
@@ -3137,9 +2519,10 @@ sub _substitute_variables {
 
 	  else
 	    {
-	      # error handling
+	      my $msg = "UNDEFINED VARIABLE $name";
 	      my $location = $block->get_location;
-	      $logger->warn("UNDEFINED VARIABLE: \'$name\' at $location");
+	      $self->_handle_error('warn',$msg,$location);
+
 	      $self->_set_is_valid(0);
 	      $division->_set_is_valid(0);
 
@@ -3213,10 +2596,9 @@ sub _resolve_lookups {
 	  else
 	    {
 	      my $location = $block->get_location;
-	      my $msg = "LOOKUP FAILED: at $location: \'$id\' \'$name\'";
-	      $logger->warn($msg);
+	      my $msg      = "LOOKUP FAILED $id $name";
+	      $self->_handle_error('warn',$msg,$location);
 	      $self->_set_is_valid(0);
-	      # $division->_set_is_valid(0);
 
 	      $text =~ s/$syntax->{lookup_ref}/($msg)/;
 	    }
@@ -3227,144 +2609,6 @@ sub _resolve_lookups {
 
   return 1;
 }
-
-######################################################################
-
-# sub _resolve_templates {
-
-#   my $self = shift;
-
-#   my $library        = $self->_get_library;
-#   my $syntax         = $library->get_syntax;
-#   my $util           = $library->get_util;
-#   my $division       = $self->_get_division;
-#   my $count_method   = $self->_get_count_method_hash;
-#   my $new_line_list  = [];
-#   my $old_line_list  = $self->_get_line_list;
-#   my $options        = $util->get_options;
-#   my $max_iterations = $options->get_MAX_RESOLVE_TEMPLATES;
-#   my $count          = ++ $count_method->{'_resolve_templates'};
-#   my $in_comment     = 0;
-#   my $number         = $self->_get_number;
-
-#   $logger->trace("{$number} ($count) resolve templates");
-
-#   if ( $count > $max_iterations )
-#     {
-#       my $msg = "EXCEEDED MAX ITERATIONS ($max_iterations)";
-#       $logger->logcroak("$msg");
-#     }
-
-#  LINE:
-#   foreach my $line ( @{ $old_line_list } )
-#     {
-#       my $num  = $line->get_num;        # line number in file
-#       my $text = $line->get_content;    # line content
-
-#       #---------------------------------------------------------------
-#       # Ignore comments
-#       #
-#       if ( $text =~ /$syntax->{start_division}/ and $1 eq 'COMMENT' )
-# 	{
-# 	  $in_comment = 1;
-# 	  next LINE;
-# 	}
-
-#       elsif ( $text =~ /$syntax->{end_division}/ and $1 eq 'COMMENT' )
-# 	{
-# 	  $in_comment = 0;
-# 	  next LINE;
-# 	}
-
-#       elsif ( $in_comment )
-# 	{
-# 	  next LINE;
-# 	}
-
-#       elsif ( $text =~ /$syntax->{'comment_line'}/ )
-# 	{
-# 	  next LINE;
-# 	}
-
-#       #---------------------------------------------------------------
-#       # Process template element
-#       #
-#       elsif ( $text =~ /$syntax->{template_element}/ )
-# 	{
-# 	  my $attrs     = $1;
-# 	  my $template  = $4;
-# 	  my $comment   = $6;
-# 	  my $variables = {};
-# 	  my $tmpltext  = '';
-
-# 	  if ( not -f $template )
-# 	    {
-# 	      my $cwd = getcwd;
-# 	      $logger->logcroak("NO TEMPLATE FILE \"$template\" (from \"$cwd\")");
-# 	    }
-
-# 	  elsif ( exists $self->_get_template_hash->{$template} )
-# 	    {
-# 	      $tmpltext = $self->_get_template_hash->{$template};
-# 	    }
-
-# 	  else
-# 	    {
-# 	      # read template file
-# 	      my $file = SML::File->new(filespec=>$template,library=>$library);
-# 	      if ( not $file->validate )
-# 		{
-# 		  my $location = $line->get_location;
-# 		  $logger->error("TEMPLATE FILE NOT FOUND \'$template\' at $location");
-# 		  $division->_set_is_valid(0);
-# 		}
-# 	      $tmpltext = $file->get_text;
-# 	      $self->_get_template_hash->{$template} = $tmpltext;
-# 	    }
-
-# 	  my @vars = split(/:/,$attrs);
-
-# 	  for my $var (@vars)
-# 	    {
-# 	      if ($var =~ /^\s*(.*?)\s*=\s*(.*?)\s*$/)
-# 		{
-# 		  $variables->{$1} = $2;
-# 		}
-# 	      else
-# 		{
-# 		  # ignore it
-# 		}
-# 	    }
-
-# 	  for my $key ( keys %{ $variables } )
-# 	    {
-# 	      my $value = $variables->{$key};
-# 	      $tmpltext =~ s/\[var:$key\]/$value/g;
-# 	    }
-
-# 	  for my $newlinetext ( split(/\n/s, $tmpltext) )
-# 	    {
-# 	      my $newline = SML::Line->new
-# 		(
-# 		 file    => $line->get_file,
-# 		 num     => $num,
-# 		 content => "$newlinetext\n",
-# 		);
-# 	      push @{ $new_line_list }, $newline;
-# 	    }
-# 	  next LINE;
-# 	}
-#       else
-# 	{
-# 	  push @{ $new_line_list }, $line;
-# 	}
-#     }
-
-#   $self->_set_requires_processing(1);
-#   $self->_set_line_list($new_line_list);
-
-#   return 1;
-# }
 
 ######################################################################
 
@@ -3386,7 +2630,8 @@ sub _generate_section_numbers {
 
   if ( not $division )
     {
-      $logger->error("NO DIVISION. CAN'T GENERATE SECTION NUMBERS.");
+      my $msg = "CAN'T GENERATE SECTION NUMBERS, NO DIVISION";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -3459,7 +2704,8 @@ sub _generate_division_numbers {
 
   if ( not $division )
     {
-      $logger->error("NO DIVISION. CAN'T GENERATE DIVISION NUMBERS.");
+      my $msg = "CAN'T GENERATE DIVISION NUMBERS, NO DIVISION";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -3730,7 +2976,8 @@ sub _end_element {
 
 	  else
 	    {
-	      $logger->error("ONTOLOGY DOESN'T ALLOW TRIPLE $subject $predicate $object");
+	      my $msg = "ONTOLOGY DOESN'T ALLOW TRIPLE $subject $predicate $object";
+	      $self->_handle_error('error',$msg);
 	    }
 	}
 
@@ -3738,8 +2985,9 @@ sub _end_element {
       # ID but is non-existent.
       elsif ( $ontology->value_must_be_division_id_for_property($division_name,$element_name) )
 	{
+	  my $msg = "NON-EXISTENT DIVISION ID $element_value FOR $division_name $element_name";
 	  my $location = $element->get_location;
-	  $logger->error("NON-EXISTENT DIVISION ID \'$element_value\' FOR $division_name $element_name at $location");
+	  $self->_handle_error('error',$msg,$location);
 	}
     }
 
@@ -4080,25 +3328,6 @@ sub _contains_lookup {
 
 ######################################################################
 
-# sub _contains_generate {
-
-#   my $self = shift;
-
-#   my $to_be_gen = $self->_get_to_be_gen_hash;
-#   my $count     = scalar keys %{ $to_be_gen };
-
-#   if ( $count > 0 )
-#     {
-#       return 1;
-#     }
-#   else
-#     {
-#       return 0;
-#     }
-# }
-
-######################################################################
-
 sub _text_requires_line_processing {
 
   # This method MUST parse line-by-line (rather than block-by-block or
@@ -4225,937 +3454,6 @@ sub _already_in_array {
 
 ######################################################################
 
-# sub _traceability_matrix {
-
-#   my $self = shift;
-#   my $name = shift;                     # problem, solution, test...
-
-#   my $library = $self->_get_library;
-#   my $util    = $library->get_util;
-#   my $text    = q{};
-
-#   # Generate and return the structured manuscript language (SML) text
-#   # for a complete domain traceability matrix.  Domains include: (1)
-#   # problem, (2) solution, (3) task, (4) test, (5) result, and (6)
-#   # role.
-#   #
-#   # Items are listed in sets.  Each set consists of a "is_part_of" item
-#   # and its immediate children. Each set is rendered as a table.  The
-#   # first set consists of the top level problems, followed by the
-#   # immediate children of the top level problems, followed by their
-#   # children, and so on.
-#   #
-#   # Each table has five columns: (1) item title and description, (2)
-#   # number of parts (i.e. children), (3) item priority, (4) item
-#   # status, and (5) traceability.
-
-#   $text .= <<"END_OF_TEXT";
-# :grey: !!Top Level!!
-
-# :grey:
-
-# :grey:
-
-# :grey:
-
-# :grey:
-
-# ---
-
-# :grey: ~~$name~~
-
-# :grey: ~~parts~~
-
-# :grey: ~~priority~~
-
-# :grey: ~~status~~
-
-# :grey: ~~traceability~~
-
-# ---
-
-# END_OF_TEXT
-
-#   #-------------------------------------------------------------------
-#   # Make a queue of items to be added to the item domain listing and
-#   # add all of the toplevel items.  A toplevel item is simply any item
-#   # that doesn't have a "is_part_of".
-#   #
-#   my @queue         = ();
-#   my @toplevelitems = ();
-
-#   foreach my $division (@{ $self->_list_by_name($name) }) {
-#     if ( not $division->has_property('is_part_of')) {
-#       push @toplevelitems, $division;
-#     }
-#   }
-
-#   #-------------------------------------------------------------------
-#   # Add each toplevel item to the domain traceability matrix.
-#   #
-#   foreach my $division (@toplevelitems) {
-
-#     my $id = $division->get_id;
-
-#     #---------------------------------------------------------------
-#     # If this division has children, add it to the list of divisions
-#     # in the queue
-#     #
-#     if ( $division->has_property('has_part') )
-#       {
-# 	push @queue, $division;
-#       }
-
-#     else
-#       {
-# 	my $name = $division->get_name;
-# 	my $id   = $division->get_id;
-# 	$logger->warn("NO \'has_part\' PROPERTY ($name $id)");
-#       }
-
-#     #---------------------------------------------------------------
-#     # Look up values that need to go into the domain traceability
-#     # matrix for this division.
-#     #
-#     my $title        = q{};
-#     my $description  = q{};
-#     my $type         = q{};
-#     my $priority     = 'routine';
-#     my $status       = 'grey';
-#     my $stakeholders = [];
-#     my $requests     = [];
-#     my $childcount   = 0;
-
-#     if ( $division->has_property('title') )
-#       {
-# 	$title = $division->get_property_value('title');
-#       }
-
-#     if ( $division->has_property('description') )
-#       {
-# 	$description = $division->get_property_value('description');
-#       }
-
-#     if ( $division->has_property('type') )
-#       {
-# 	$type = $division->get_property_value('type');
-#       }
-
-#     if ( $division->has_property('priority') )
-#       {
-# 	$priority = $division->get_property_value('priority');
-#       }
-
-#     if ( $division->has_property('stakeholder') )
-#       {
-# 	$stakeholders = $division->get_property_value('stakeholder');
-#       }
-
-#     if ( $division->has_property('request') )
-#       {
-# 	$requests = $division->get_property_value('request');
-#       }
-
-#     if ( $division->has_property('has_part') )
-#       {
-# 	my $property = $division->get_property('has_part');
-# 	$childcount = $property->get_element_count;
-#       }
-
-#     #-----------------------------------------------------------------
-#     # info
-#     #
-#     my @info = ();
-#     push @info, $type            if $type;
-#     push @info, $id              if $id;
-#     push @info, $stakeholders    if $stakeholders;
-#     push @info, $requests        if $requests;
-#     push @info, "[ref:$id]"      if $id;
-#     my $info = join(', ', @info);
-
-#     #-----------------------------------------------------------------
-#     # status color
-#     #
-#     my $status_color = 'white';
-#     $status_color = 'red'    if $status eq 'red';
-#     $status_color = 'yellow' if $status eq 'yellow';
-#     $status_color = 'green'  if $status eq 'green';
-#     $status_color = 'grey'   if $status eq 'grey';
-#     $status_color = 'grey'   if $status eq 'gray';
-
-#     #-----------------------------------------------------------------
-#     # priority color
-#     #
-#     my $priority_color = 'white';
-#     $priority_color = 'red'    if $priority eq 'critical';
-#     $priority_color = 'orange' if $priority eq 'high';
-#     $priority_color = 'yellow' if $priority eq 'routine';
-#     $priority_color = 'grey'   if $priority eq 'low';
-
-#     #-----------------------------------------------------------------
-#     # title, description, and other info
-#     #
-#     my $title_description_info = $util->wrap("!!$title:!! $description ~~$info~~");
-
-#     #---------------------------------------------------------------
-#     # Put this toplevel item into the domain traceability matrix.
-#     #
-#     $text .= <<"END_OF_TEXT";
-# : $title_description_info
-
-# : $childcount
-
-# :$priority_color: $priority
-
-# :$status_color: $status
-
-# :
-
-# END_OF_TEXT
-
-#     if ( $division->has_property('directed_by') )
-#       {
-# 	my $property = $division->get_property('directed_by');
-# 	$text .= $property->get_elements_as_enum_list;
-#       }
-
-#     if ( $division->has_property('problem') )
-#       {
-# 	my $property = $division->get_property('problem');
-# 	$text .= $property->get_elements_as_enum_list;
-#       }
-
-#     if ( $division->has_property('solution') )
-#       {
-# 	my $property = $division->get_property('solution');
-# 	$text .= $property->get_elements_as_enum_list;
-#       }
-
-#     if ( $division->has_property('task') )
-#       {
-# 	my $property = $division->get_property('task');
-# 	$text .= $property->get_elements_as_enum_list;
-#       }
-
-#     if ( $division->has_property('test') )
-#       {
-# 	my $property = $division->get_property('test');
-# 	$text .= $property->get_elements_as_enum_list;
-#       }
-
-#     if ( $division->has_property('result') )
-#       {
-# 	my $property = $division->get_property('result');
-# 	$text .= $property->get_elements_as_enum_list;
-#       }
-
-#     if ( $division->has_property('role') )
-#       {
-# 	my $property = $division->get_property('role');
-# 	$text .= $property->get_elements_as_enum_list;
-#       }
-
-#     $text .= <<"END_OF_TEXT";
-# ---
-
-# END_OF_TEXT
-
-#   }
-
-#   #-----------------------------------------------------------------
-#   # Now process each item on the queue, adding new items to the back
-#   # of the queue as you find ones that have children.
-#   #
-#   foreach my $division (@queue) {
-
-#     my $id = $division->get_id;
-
-#     #---------------------------------------------------------------
-#     # title, is_part_of, children
-#     #
-#     my $title    = q{};
-#     my $is_part_of  = q{};
-#     my $children = [];
-
-#     if ( $division->has_property('title') )
-#       {
-# 	$title = $division->get_property_value('title');
-#       }
-
-#     if ( $division->has_property('is_part_of') )
-#       {
-# 	$is_part_of = $division->get_property('is_part_of');
-#       }
-
-#     if ( $division->has_property('has_part') )
-#       {
-# 	$children = $division->get_property('has_part');
-#       }
-
-#     $title = $util->wrap("$title");
-
-#     #---------------------------------------------------------------
-#     # Insert the header row for this item.
-#     #
-#     $text .= <<"END_OF_TEXT";
-# :grey: !!$title!!
-
-# :grey:
-
-# :grey:
-
-# :grey:
-
-# :grey:
-
-# ---
-
-# :grey: ~~$name~~
-
-# :grey: ~~parts~~
-
-# :grey: ~~priority~~
-
-# :grey: ~~status~~
-
-# :grey: ~~traceability~~
-
-# ---
-
-# END_OF_TEXT
-
-#     #---------------------------------------------------------------
-#     # Insert the children of this division.
-#     #
-#     foreach my $element (@{ $children->get_element_list }) {
-
-#       my $child_id = $element->get_value;
-#       my $child    = undef;
-
-#       if ( $library->has_division($child_id) )
-# 	{
-# 	  $child = $library->get_division($child_id);
-# 	}
-
-#       next if not $child;
-
-#       #-------------------------------------------------------------
-#       # If this child has children, add them to the queue.
-#       #
-#       if ( $child->has_property('has_part') )
-# 	{
-# 	  push @queue, $child;
-# 	}
-
-#       #-------------------------------------------------------------
-#       # Look up the values that need to go into the traceability
-#       # matrix for this child
-#       #
-#       my $title        = q{};
-#       my $description  = q{};
-#       my $type         = q{};
-#       my $priority     = 'routine';
-#       my $status       = 'grey';
-#       my $stakeholders = [];
-#       my $requests     = [];
-#       my $childcount   = 0;
-
-#       if ( $library->has_property($child_id,'title') )
-# 	{
-# 	  $title = $library->get_property_value($child_id,'title');
-# 	}
-
-#       if ( $library->has_property($child_id,'description') )
-# 	{
-# 	  $description = $library->get_property_value($child_id,'description');
-# 	}
-
-#       if ( $library->has_property($child_id,'type') )
-# 	{
-# 	  $type = $library->get_property_value($child_id,'type');
-# 	}
-
-#       if ( $library->has_property($child_id,'priority') )
-# 	{
-# 	  $priority = $library->get_property_value($child_id,'priority');
-# 	}
-
-#       if ( $library->has_property($child_id,'stakeholder') )
-# 	{
-# 	  $stakeholders = $library->get_property_value($child_id,'stakeholder');
-# 	}
-
-#       if ( $library->has_property($child_id,'request') )
-# 	{
-# 	  $requests = $library->get_property_value($child_id,'request');
-# 	}
-
-#       if ( $child->has_property('has_part') )
-# 	{
-# 	  my $child_child = $child->get_property('has_part');
-# 	  $childcount = $child_child->get_element_count;
-# 	}
-
-#       #---------------------------------------------------------------
-#       # info
-#       #
-#       my @info = ();
-#       push @info, $type             if $type;
-#       push @info, $child_id         if $child_id;
-#       push @info, $stakeholders     if $stakeholders;
-#       push @info, $requests         if $requests;
-#       push @info, "[ref:$child_id]" if $child_id;
-#       my $info = join(', ', @info);
-
-#       #---------------------------------------------------------------
-#       # status color
-#       #
-#       my $status_color = 'white';
-#       $status_color = 'red'    if $status eq 'red';
-#       $status_color = 'yellow' if $status eq 'yellow';
-#       $status_color = 'green'  if $status eq 'green';
-#       $status_color = 'grey'   if $status eq 'grey';
-#       $status_color = 'grey'   if $status eq 'gray';
-
-#       #---------------------------------------------------------------
-#       # priority color
-#       #
-#       my $priority_color = 'white';
-#       $priority_color = 'red'    if $priority eq 'critical';
-#       $priority_color = 'orange' if $priority eq 'high';
-#       $priority_color = 'yellow' if $priority eq 'routine';
-#       $priority_color = 'grey'   if $priority eq 'low';
-
-#       my $title_description_info = $util->wrap("!!$title:!! $description ~~$info~~");
-
-#       #-------------------------------------------------------------
-#       # Add this item to the traceability matrix.
-#       #
-#       $text .= <<"END_OF_TEXT";
-# : $title_description_info
-
-# : $childcount
-
-# :$priority_color: $priority
-
-# :$status_color: $status
-
-# :
-
-# END_OF_TEXT
-
-#       if ( $division->has_property('directed_by') )
-# 	{
-# 	  my $property = $division->get_property('directed_by');
-# 	  $text .= $property->get_elements_as_enum_list;
-# 	}
-
-#       if ( $division->has_property('problem') )
-# 	{
-# 	  my $property = $division->get_property('problem');
-# 	  $text .= $property->get_elements_as_enum_list;
-# 	}
-
-#       if ( $division->has_property('solution') )
-# 	{
-# 	  my $property = $division->get_property('solution');
-# 	  $text .= $property->get_elements_as_enum_list;
-# 	}
-
-#       if ( $division->has_property('task') )
-# 	{
-# 	  my $property = $division->get_property('task');
-# 	  $text .= $property->get_elements_as_enum_list;
-# 	}
-
-#       if ( $division->has_property('test') )
-# 	{
-# 	  my $property = $division->get_property('test');
-# 	  $text .= $property->get_elements_as_enum_list;
-# 	}
-
-#       if ( $division->has_property('result') )
-# 	{
-# 	  my $property = $division->get_property('result');
-# 	  $text .= $property->get_elements_as_enum_list;
-# 	}
-
-#       if ( $division->has_property('role') )
-# 	{
-# 	  my $property = $division->get_property('role');
-# 	  $text .= $property->get_elements_as_enum_list;
-# 	}
-
-#       $text .= <<"END_OF_TEXT";
-# ---
-
-# END_OF_TEXT
-
-#     }
-
-#   }
-
-#   return $text;
-# }
-
-######################################################################
-
-# sub _generate_prioritized_problem_listing {
-
-#   my $self = shift;
-
-#   my $library     = $self->_get_library;
-#   my $util        = $library->get_util;
-#   my $lookup      = $library->get_lookup_hash;
-#   my $count_total = $self->_get_count_total_hash;
-
-#   $logger->trace;
-
-#   #-------------------------------------------------------------------
-#   #
-#   #    Generate and return the structured text for a prioritized
-#   #    listing (table) of problems.
-#   #
-#   #    This subroutine gets called during pass 2 runs, meaning that
-#   #    the lookup data structure has not yet been created.  DO NOT try
-#   #    to use the lookup data structure to generate requested
-#   #    content. You'll have to rely on the 'data' data structure.
-#   #
-#   #    This subroutine generates structured text.
-#   #
-#   #-------------------------------------------------------------------
-
-#   printstatus("generating prioritized problem listing...");
-
-#   my $text = '';
-
-#   #-------------------------------------------------------------------
-#   # Assign ranking number to each problem in the problem domain.
-#   #
-#   my %problems  = ();
-#   foreach my $problem (@{ $self->_list_by_name('problem') }) {
-#     my $priority = $lookup->{$problem}{'priority'};
-#     my $status   = 'grey';
-
-#     if ( id_exists($problem) )
-#       {
-# 	$status = status_of($problem);
-#       }
-
-#     my $rank     = rank_for($priority,$status);
-#     push @{$problems{$rank}}, $problem;
-#     ++ $count_total->{'priority'}{'total'} if $rank >= 1 and $rank <= 8;
-#   }
-
-#   #-----------------------------------------------------------------
-#   # Begin the problem priorities table
-#   #
-#   $text .= <<"END_OF_TEXT";
-# :grey: !!Prioritized List of Problems To Be Solved!!
-
-# :grey:
-
-# :grey:
-
-# :grey:
-
-# :grey:
-
-# ---
-
-# :grey: ~~problem~~
-
-# :grey: ~~rank~~
-
-# :grey: ~~importance~~
-
-# :grey: ~~priority~~
-
-# :grey: ~~status~~
-
-# ---
-
-# END_OF_TEXT
-
-#   #-----------------------------------------------------------------
-#   # Output a row for each problem priority
-#   #
-#   foreach my $rank (1..8) {
-#     foreach my $problem (@{$problems{$rank}}) {
-
-#       my $title        = $lookup->{$problem}{'title'};
-#       my $description  = $lookup->{$problem}{'description'};
-#       my $priority     = $lookup->{$problem}{'priority'};
-#       my $status       = 'grey';
-
-#       if ( id_exists($problem) )
-# 	{
-# 	  $status = status_of($problem);
-# 	}
-
-#       # stakeholders...
-#       #
-#       my @stakeholders = @{$lookup->{$problem}{'stakeholder'}};
-#       my $stakeholders = '';
-#       if (@stakeholders) {
-# 	$stakeholders = join(', ', @stakeholders);
-#       }
-
-#       # requests...
-#       #
-#       my @requests     = @{$lookup->{$problem}{'request'}};
-#       my $requests     = '';
-#       if (@requests) {
-# 	$requests = join(', ', @requests);
-#       }
-
-#       # determine importance...
-#       #
-#       my $importance   = 'routine';
-#       $importance      = 'urgent' if $rank <= 4;
-
-#       my $info = '';
-#       $info .= $problem;
-#       $info .= ", $stakeholders"  if $stakeholders;
-#       $info .= ", $requests"      if $requests;
-#       $info .= ", [ref:$problem]" if $problem;
-
-#       my $status_color = 'white';
-#       $status_color = 'red'    if $status eq 'red';
-#       $status_color = 'yellow' if $status eq 'yellow';
-#       $status_color = 'green'  if $status eq 'green';
-#       $status_color = 'grey'   if $status eq 'grey';
-#       $status_color = 'grey'   if $status eq 'gray';
-
-#       my $priority_color = 'white';
-#       $priority_color = 'red'    if $priority eq 'critical';
-#       $priority_color = 'orange' if $priority eq 'high';
-#       $priority_color = 'yellow' if $priority eq 'routine';
-#       $priority_color = 'grey'   if $priority eq 'low';
-
-#       my $title_description_info =
-# 	$util->wrap("!!$title:!! $description ~~$info~~");
-
-#       $text .= <<"END_OF_TEXT";
-# : $title_description_info
-
-# : $rank
-
-# : $importance
-
-# :$priority_color: $priority
-
-# :$status_color: $status
-
-# ---
-
-# END_OF_TEXT
-#     }
-#   }
-
-#   return $text;
-# }
-
-######################################################################
-
-# sub _generate_prioritized_solution_listing {
-
-#   my $self = shift;
-
-#   my $library     = $self->_get_library;
-#   my $util        = $library->get_util;
-#   my $lookup      = $library->get_lookup_hash;
-#   my $count_total = $self->_get_count_total_hash;
-
-#   $logger->trace;
-
-#   #-------------------------------------------------------------------
-#   #
-#   #    Generate and return the structured text for a prioritized
-#   #    listing (table) of solutions requiring attention.
-#   #
-#   #    This subroutine gets called during pass 2 runs, meaning that
-#   #    the lookup data structure has not yet been created.  DO NOT try
-#   #    to use the lookup data structure to generate requested
-#   #    content. You'll have to rely on the 'data' data structure.
-#   #
-#   #    This subroutine generates structured text.
-#   #
-#   #-------------------------------------------------------------------
-
-#   my $text = '';
-
-#   #-------------------------------------------------------------------
-#   # Assign ranking number to each solution in the solution domain.
-#   #
-#   my %solutions  = ();
-#   foreach my $solution (@{ $self->_list_by_name('solution') }) {
-#     my $priority = $lookup->{$solution}{'priority'};
-#     my $status   = 'grey';
-
-#     if ( id_exists($solution) )
-#       {
-# 	$status = status_of($solution);
-#       }
-
-#     my $rank     = rank_for($priority,$status);
-#     push @{$solutions{$rank}}, $solution;
-#     ++ $count_total->{'priority'}{'total'} if $rank >= 1 and $rank <= 8;
-#   }
-
-#   #-----------------------------------------------------------------
-#   # Begin the solution priorities table
-#   #
-#   $text .= <<"END_OF_TEXT";
-# :grey: !!Prioritized List of Solutions To Be Improved!!
-
-# :grey:
-
-# :grey:
-
-# :grey:
-
-# :grey:
-
-# ---
-
-# :grey: ~~solution~~
-
-# :grey: ~~rank~~
-
-# :grey: ~~importance~~
-
-# :grey: ~~priority~~
-
-# :grey: ~~status~~
-
-# ---
-
-# END_OF_TEXT
-
-#   #-----------------------------------------------------------------
-#   # Output a row for each solution priority
-#   #
-#   foreach my $rank (1..8) {
-#     foreach my $solution (@{$solutions{$rank}}) {
-
-#       my $title        = $lookup->{$solution}{'title'};
-#       my $description  = $lookup->{$solution}{'description'};
-#       my $priority     = $lookup->{$solution}{'priority'};
-#       my $status       = 'grey';
-
-#       if ( id_exists($solution) )
-# 	{
-# 	  $status = status_of($solution);
-# 	}
-
-#       # stakeholders...
-#       #
-#       my @stakeholders = @{$lookup->{$solution}{'stakeholder'}};
-#       my $stakeholders = '';
-#       if (@stakeholders) {
-# 	$stakeholders = join(', ', @stakeholders);
-#       }
-
-#       # requests...
-#       #
-#       my @requests     = @{$lookup->{$solution}{'request'}};
-#       my $requests     = '';
-#       if (@requests) {
-# 	$requests = join(', ', @requests);
-#       }
-
-#       # determine importance...
-#       #
-#       my $importance   = 'routine';
-#       $importance      = 'urgent' if $rank <= 4;
-
-#       my $info = '';
-#       $info .= $solution;
-#       $info .= ", $stakeholders"   if $stakeholders;
-#       $info .= ", $requests"       if $requests;
-#       $info .= ", [ref:$solution]" if $solution;
-
-#       my $status_color = 'white';
-#       $status_color   = 'red'    if $status   eq 'red';
-#       $status_color   = 'yellow' if $status   eq 'yellow';
-#       $status_color   = 'green'  if $status   eq 'green';
-#       $status_color   = 'grey'   if $status   eq 'grey';
-#       $status_color   = 'grey'   if $status   eq 'gray';
-
-#       my $priority_color = 'white';
-#       $priority_color = 'red'    if $priority eq 'critical';
-#       $priority_color = 'orange' if $priority eq 'high';
-#       $priority_color = 'yellow' if $priority eq 'routine';
-#       $priority_color = 'grey'   if $priority eq 'low';
-
-#       my $title_description_info = $util->wrap("!!$title:!! $description ~~$info~~");
-
-#       $text .= <<"END_OF_TEXT";
-# : $title_description_info
-
-# : $rank
-
-# : $importance
-
-# :$priority_color: $priority
-
-# :$status_color: $status
-
-# ---
-
-# END_OF_TEXT
-#     }
-#   }
-
-#   return $text;
-# }
-
-######################################################################
-
-# sub _generate_associated_problem_listing {
-
-#   my $self = shift;
-#   my $id   = shift;
-
-#   my $library = $self->_get_library;
-#   my $syntax  = $library->get_syntax;
-#   my $util    = $library->get_util;
-#   my $lookup  = $library->get_lookup_hash;
-
-#   $logger->trace("$id");
-
-#   #-------------------------------------------------------------------
-#   #
-#   #    Generate and return the structured text for a listing of
-#   #    problems associated with the specified id.
-#   #
-#   #-------------------------------------------------------------------
-
-#   my $text = '';
-
-#   #-------------------------------------------------------------------
-#   # make a list of everything associated with this id.
-#   #
-#   my @associates = @{ $lookup->{$id}{'associated'} };
-
-#   #-------------------------------------------------------------------
-#   # go through the list of associates and pick out the problems
-#   #
-#   my @problems = ();
-#   foreach my $associate (@associates) {
-#     my $associate_name = name_for($associate);
-#     if ($associate_name eq 'problem') {
-#       push @problems, $associate;
-#     }
-#   }
-
-#   #-------------------------------------------------------------------
-#   # If there were no problems, insert a statement that no problems
-#   # have been identified.
-#   #
-#   if (not @problems) {
-#     $text .= <<"END_OF_TEXT";
-# (U) No problems have been identified.
-
-# END_OF_TEXT
-
-#     return $text;
-#   }
-
-#   #-------------------------------------------------------------------
-#   # build the listing
-#   #
-#   foreach my $problem (@problems) {
-
-#     my $title =    $lookup->{$problem}{'title'};
-#     my @type  = @{ $lookup->{$problem}{'type'} };
-#     my $type  = join(', ', @type);
-
-#     printstatus("  $problem: $type: $title");
-
-#     $text .= <<"END_OF_TEXT";
-# - $title ([ref:$problem])
-
-# END_OF_TEXT
-
-#   }
-
-#   return $text;
-# }
-
-######################################################################
-
-# sub _generate_associated_solution_listing {
-
-#   my $self = shift;
-#   my $id   = shift;
-
-#   my $library = $self->_get_library;
-#   my $util    = $library->get_util;
-#   my $lookup  = $library->get_lookup_hash;
-
-#   $logger->trace("$id");
-
-#   #-------------------------------------------------------------------
-#   #
-#   #    Generate and return the structured text for a listing of
-#   #    solutions associated with the specified id.
-#   #
-#   #-------------------------------------------------------------------
-
-#   my $text = '';
-
-#   #-------------------------------------------------------------------
-#   # make a list of everything associated with this id.
-#   #
-#   my @associates = @{ $lookup->{$id}{'associated'} };
-
-#   #-------------------------------------------------------------------
-#   # go through the list of associates and pick out the solutions
-#   #
-#   my @solutions = ();
-#   foreach my $associate (@associates) {
-#     my $associate_name = name_for($associate);
-#     if ($associate_name eq 'solution') {
-#       push @solutions, $associate;
-#     }
-#   }
-
-#   #-------------------------------------------------------------------
-#   # If there were no solutions, insert a statement that no solutions
-#   # have been identified.
-#   #
-#   if (not @solutions) {
-#     $text .= <<"END_OF_TEXT";
-# (U) No solutions have been identified.
-
-# END_OF_TEXT
-
-#     return $text;
-#   }
-
-#   #-------------------------------------------------------------------
-#   # build the listing
-#   #
-#   foreach my $solution (@solutions) {
-
-#     my $title =    $lookup->{$solution}{'title'};
-#     my @type  = @{ $lookup->{$solution}{'type'} };
-#     my $type  = join(', ', @type);
-
-#     $text .= <<"END_OF_TEXT";
-# - $title ([ref:$solution])
-
-# END_OF_TEXT
-
-#   }
-
-#   return $text;
-# }
-
-######################################################################
-
 sub _print_lines {
 
   my $self = shift;
@@ -5279,122 +3577,6 @@ sub _sechead_line {
 
   return $line;
 }
-
-######################################################################
-
-# sub _add_generate_request {
-
-#   # Add a request for generated content.
-
-#   my $self    = shift;
-#   my $element = shift;
-
-#   my $library   = $self->_get_library;
-#   my $to_be_gen = $self->_get_to_be_gen_hash;
-#   my $value     = $element->get_value;
-#   my $location  = $element->get_location;
-
-#   if ( $value =~ /([\w\-]+)(\([\w\-]+\))?/ )
-#     {
-#       # GOOD generate request syntax
-#       my $name = $1;
-#       my $args = $2 || '';
-
-#       if ( $library->allows_generate($name) )
-# 	{
-# 	  # GOOD generate request name
-# 	  my $divid = $element->get_containing_division->get_id || '';
-# 	  $to_be_gen->{$name}{$divid}{$args} = 1;
-# 	  return 1;
-# 	}
-
-#       else
-# 	{
-# 	  # BAD generate request name
-# 	  $logger->warn("INVALID GENERATE REQUEST: at $location: \"$value\"");
-# 	  $self->_set_is_valid(0);
-# 	  return 0;
-# 	}
-#     }
-
-#   else
-#     {
-#       # BAD generate request syntax
-#       $logger->warn("INVALID GENERATE REQUEST SYNTAX: at $location: \"$value\"");
-#       $self->_set_is_valid(0);
-#       return 0;
-#     }
-
-#   return 1;
-# }
-
-######################################################################
-
-# sub _add_review {
-
-#   my $self    = shift;
-#   my $element = shift;
-
-#   my $library  = $self->_get_library;
-#   my $syntax   = $library->get_syntax;
-#   my $util     = $library->get_util;
-#   my $review   = $self->_get_review_hash;
-#   my $division = $element->get_containing_division;
-#   my $div_id   = $division->get_id;
-#   my $location = $element->get_location;
-#   my $text     = $element->get_content;
-
-#   $text =~ s/[\r\n]*$//;                # chomp;
-
-#   if ( $text =~ /$syntax->{review_element}/ )
-#     {
-#       my $date        = $1;
-#       my $item        = $2;
-#       my $status      = $3;
-#       my $description = $4;
-
-#       # date valid?
-#       unless ( $date =~ /$syntax->{valid_date}/ )
-# 	{
-# 	  $logger->error("INVALID REVIEW DATE at $location");
-# 	  return 0;
-# 	}
-
-#       # item under test valid?
-#       unless ( $library->has_division($item) )
-# 	{
-# 	  $logger->error("INVALID REVIEW ITEM at $location");
-# 	  return 0;
-# 	}
-
-#       # status valid?
-#       unless ( $status =~ /$syntax->{valid_status}/ )
-# 	{
-# 	  $logger->error("INVALID REVIEW STATUS at $location: must be green, yellow, red, or grey");
-# 	  return 0;
-# 	}
-
-#       # description valid?
-#       unless ( $description =~ /$syntax->{valid_description}/ )
-# 	{
-# 	  $logger->error("INVALID REVIEW DESCRIPTION at $location: description not provided");
-# 	  return 0;
-# 	}
-
-#       # review is valid
-#       $review->{$item}{$date}{'status'}      = $status;
-#       $review->{$item}{$date}{'description'} = $description;
-#       $review->{$item}{$date}{'source'}      = $div_id;
-
-#     }
-
-#   else
-#     {
-#       $logger->error("INVALID REVIEW SYNTAX at $location ($text)");
-#     }
-
-#   return 1;
-# }
 
 ######################################################################
 
@@ -5637,7 +3819,7 @@ sub _process_end_division_marker {
   if ( not $division )
     {
       my $location = $line->get_location;
-      $logger->error("at location: $location");
+      $logger->fatal("at location: $location");
       $logger->logcluck("THIS SHOULD NEVER HAPPEN");
     }
 
@@ -5750,7 +3932,8 @@ sub _process_end_table_row {
 
   if ( not $self->_in_table_row )
     {
-      $logger->warn("TABLE ROW END MARKER NOT IN TABLE ROW: at $location");
+      my $msg = "TABLE ROW END MARKER NOT IN TABLE ROW";
+      $self->_handle_error('warn',$msg,$location);
       $self->_set_is_valid(0);
     }
 
@@ -5759,9 +3942,6 @@ sub _process_end_table_row {
       $self->_end_all_lists       if $self->_in_bullet_list;
       $self->_end_all_lists       if $self->_in_enumerated_list;
       $self->_end_definition_list if $self->_in_definition_list;
-
-      # $self->_clear_current_bullet_list_item;
-      # $self->_clear_current_enumerated_list_item;
 
       $self->_end_table_row;
     }
@@ -5843,75 +4023,6 @@ sub _process_start_element {
 
   $division->add_part($element);
 
-  # if
-  #   (
-  #    $self->_in_data_segment
-  #    and
-  #    $ontology->allows_property_name_in_division_name($name,$divname)
-  #   )
-  #   {
-  #     $logger->trace("{$number} ..... DATA element ($name)");
-
-  #     my $division = $self->_get_current_division;
-  #     $division->add_part($element);
-  #   }
-
-  # elsif
-  #   (
-  #    $self->_in_data_segment
-  #    and
-  #    $ontology->allows_property_name_in_division_name($name,'UNIVERSAL')
-  #   )
-  #   {
-  #     $logger->trace("{$number} ..... UNIVERSAL element in DATA SEGMENT");
-
-  #     my $division = $self->_get_current_division;
-  #     $division->add_part($element);
-  #   }
-
-  # elsif ( $self->_in_data_segment )
-  #   {
-  #     $logger->error("UNKNOWN DIVISION ELEMENT $divname $name at $location:");
-  #     $self->_set_is_valid(0);
-  #   }
-
-  # elsif
-  #   (
-  #    $self->_in_data_segment
-  #    and
-  #    $ontology->allows_property_name_in_division_name($name,'DOCUMENT')
-  #   )
-  #   {
-  #     $logger->trace("{$number} ..... begin document DATA SEGMENT element");
-
-  #     my $division = $self->_get_current_division;
-  #     $division->add_part($element);
-  #   }
-
-  # elsif
-  #   (
-  #    $self->_in_data_segment
-  #    and
-  #    $ontology->allows_property_name_in_division_name($name,'UNIVERSAL')
-  #   )
-  #   {
-  #     $logger->trace("{$number} ..... begin UNIVERSAL element while in DATA SEGMENT");
-
-  #     $logger->trace("{$number} ..... end document DATA SEGMENT");
-
-  #     # $self->_end_data_segment;
-
-  #     my $division = $self->_get_current_division;
-  #     $division->add_part($element);
-  #   }
-
-  # else
-  #   {
-  #     $logger->trace("{$number} ..... begin UNIVERSAL element");
-
-  #     $division->add_part($element);
-  #   }
-
   return 1;
 }
 
@@ -5947,8 +4058,9 @@ sub _process_end_element {
 
   else
     {
+      my $msg = "SYNTAX ERROR IN ELEMENT";
       my $location = $element->get_location;
-      $logger->error("SYNTAX ERROR IN ELEMENT AT $location");
+      $self->_handle_error('error',$msg,$location);
     }
 
   return 1;
@@ -5981,22 +4093,6 @@ sub _process_start_footnote_element {
 
   $division->add_part($element);
 
-  # if ( $self->_in_data_segment )
-  #   {
-  #     $logger->trace("{$number} ..... note element in DATA SEGMENT");
-
-  #     # $self->_end_data_segment;
-
-  #     $division->add_part($element);
-  #   }
-
-  # else
-  #   {
-  #     $logger->trace("{$number} ..... begin UNIVERSAL element");
-
-  #     $division->add_part($element);
-  #   }
-
   return 1;
 }
 
@@ -6022,8 +4118,9 @@ sub _process_end_footnote_element {
 
   else
     {
+      my $msg = "SYNTAX ERROR IN FOOTNOTE";
       my $location = $footnote->get_location;
-      $logger->error("SYNTAX ERROR IN FOOTNOTE AT $location");
+      $self->_handle_error('error',$msg,$location);
     }
 
   if ( $self->_has_current_document )
@@ -6068,24 +4165,6 @@ sub _process_start_glossary_entry {
 
   $division->add_part($definition);
 
-  # if ( $self->_in_data_segment )
-  #   {
-  #     $logger->trace("{$number} ..... glossary definition in DATA SEGMENT");
-
-  #     # $self->_end_data_segment;
-
-  #     my $division = $self->_get_current_division;
-  #     $division->add_part($definition);
-  #   }
-
-  # else
-  #   {
-  #     $logger->trace("{$number} ..... begin UNIVERSAL element");
-
-  #     my $division = $self->_get_current_division;
-  #     $division->add_part($definition);
-  #   }
-
   return 1;
 }
 
@@ -6119,48 +4198,17 @@ sub _process_end_glossary_entry {
 
   else
     {
+      my $msg = "SYNTAX ERROR IN GLOSSARY DEFINITION";
       my $location = $definition->get_location;
-      $logger->error("SYNTAX ERROR IN GLOSSARY DEFINITION AT $location");
+      $self->_handle_error('error',$msg,$location);
     }
 
 
   my $library_glossary = $library->get_glossary;
   $library_glossary->add_entry($definition);
 
-  # if ( $self->_has_current_document )
-  #   {
-  #     my $document          = $self->_get_current_document;
-  #     my $document_glossary = $document->get_glossary;
-
-  #     $document_glossary->add_entry($definition);
-  #   }
-
   return 1;
 }
-
-######################################################################
-
-# sub _process_end_source_division {
-
-#   my $self   = shift;
-#   my $source = shift;
-
-#   unless ( ref $source and $source->isa('SML::Source') )
-#     {
-#       $logger->errror("NOT A SOURCE DIVISION \'$source\'");
-#       return 0;
-#     }
-
-#   if ( $self->_has_current_document )
-#     {
-#       my $document            = $self->_get_current_document;
-#       my $document_references = $document->get_references;
-
-#       $document_references->add_source($source);
-#     }
-
-#   return 1;
-# }
 
 ######################################################################
 
@@ -6193,24 +4241,6 @@ sub _process_start_acronym_entry {
   my $division = $self->_get_current_division;
 
   $division->add_part($definition);
-
-  # if ( $self->_in_data_segment )
-  #   {
-  #     $logger->trace("{$number} ..... acronym definition in DATA SEGMENT");
-
-  #     # $self->_end_data_segment;
-
-  #     my $division = $self->_get_current_division;
-  #     $division->add_part($definition);
-  #   }
-
-  # else
-  #   {
-  #     $logger->trace("{$number} ..... begin UNIVERSAL element");
-
-  #     my $division = $self->_get_current_division;
-  #     $division->add_part($definition);
-  #   }
 
   return 1;
 }
@@ -6245,20 +4275,13 @@ sub _process_end_acronym_entry {
 
   else
     {
+      my $msg = "SYNTAX ERROR IN ACRONYM DEFINITION";
       my $location = $definition->get_location;
-      $logger->error("SYNTAX ERROR IN ACRONYM DEFINITION AT $location");
+      $self->_handle_error('error',$msg,$location);
     }
 
   my $library_acronym_list = $library->get_acronym_list;
   $library_acronym_list->add_entry($definition);
-
-  # if ( $self->_has_current_document )
-  #   {
-  #     my $document              = $self->_get_current_document;
-  #     my $document_acronym_list = $document->get_acronym_list;
-
-  #     $document_acronym_list->add_entry($definition);
-  #   }
 
   return 1;
 }
@@ -6294,23 +4317,6 @@ sub _process_start_variable_definition {
 
   $division->add_part($definition);
 
-  # if ( $self->_in_data_segment )
-  #   {
-  #     $logger->trace("{$number} ..... variable definition in DATA SEGMENT");
-
-  #     # $self->_end_data_segment;
-
-  #     my $division = $self->_get_current_division;
-  #     $division->add_part($definition);
-  #   }
-
-  # else
-  #   {
-  #     $logger->trace("{$number} ..... begin UNIVERSAL element");
-
-  #     $division->add_part($definition);
-  #   }
-
   return 1;
 }
 
@@ -6342,8 +4348,9 @@ sub _process_end_variable_definition {
 
   else
     {
+      my $msg = "SYNTAX ERROR IN VARIABLE DEFINITION";
       my $location = $definition->get_location;
-      $logger->logdie("SYNTAX ERROR IN VARIABLE DEFINITION AT $location");
+      $self->_handle_error('error',$msg,$location);
     }
 
 
@@ -6365,11 +4372,6 @@ sub _process_bull_list_item {
   my $number  = $self->_get_number;
 
   $logger->trace("{$number} ----- bullet list item (indent=$indent)");
-
-  # if ( $self->_in_data_segment )
-  #   {
-  #     $logger->error("BULLET LIST ITEM IN DATA SEGMENT");
-  #   }
 
   # What are all the possible actions the parser may need to take upon
   # encountering a bullet list item line?
@@ -6466,8 +4468,9 @@ sub _process_bull_list_item {
      )
     )
     {
+      my $msg = "IMPROPER BULLET ITEM INDENT $indent";
       my $location = $line->get_location;
-      $logger->logdie("IMPROPER BULLET ITEM INDENT ($indent) AT $location");
+      $self->_handle_error('error',$msg,$location);
     }
 
   # CASE 3: new top level bullet item
@@ -6679,7 +4682,8 @@ sub _process_bull_list_item {
 
 	  else
 	    {
-	      $logger->logdie("THIS SHOULD NEVER HAPPEN");
+	      my $msg = "THIS SHOULD NEVER HAPPEN";
+	      $self->_handle_error('fatal',$msg);
 	    }
 	}
 
@@ -6761,7 +4765,8 @@ sub _process_bull_list_item {
 
 	  else
 	    {
-	      $logger->logdie("THIS SHOULD NEVER HAPPEN");
+	      my $msg = "THIS SHOULD NEVER HAPPEN";
+	      $self->_handle_error('fatal',$msg);
 	    }
 	}
 
@@ -6855,15 +4860,11 @@ sub _process_bull_list_item {
       $division->add_part($item);
     }
 
-  # else
-  # {
-  #   This should never happen.
-  # }
-
   else
     {
+      my $msg = "THIS SHOULD NEVER HAPPEN";
       my $location = $line->get_location;
-      $logger->logdie("THIS SHOULD NEVER HAPPEN at \'$location\'");
+      $self->_handle_error('fatal',$msg,$location);
     }
 
   return 1;
@@ -6880,11 +4881,6 @@ sub _process_start_step_element {
   my $number  = $self->_get_number;
 
   $logger->trace("{$number} ----- step");
-
-  # if ( $self->_in_data_segment )
-  #   {
-  #     $logger->error("STEP ELEMENT IN DATA SEGMENT");
-  #   }
 
   if ( $self->_in_preformatted_division )
     {
@@ -7005,8 +5001,9 @@ sub _process_end_step_element {
 
   else
     {
+      my $msg = "SYNTAX ERROR IN STEP";
       my $location = $element->get_location;
-      $logger->error("SYNTAX ERROR IN STEP AT $location");
+      $self->_handle_error('error',$msg,$location);
     }
 }
 
@@ -7040,22 +5037,6 @@ sub _process_start_attr_definition {
 
   $division->add_part($definition);
 
-  # if ( $self->_in_data_segment )
-  #   {
-  #     $logger->trace("{$number} ..... attr definition in DATA SEGMENT");
-
-  #     # $self->_end_data_segment;
-
-  #     $division->add_part($definition);
-  #   }
-
-  # else
-  #   {
-  #     $logger->trace("{$number} ..... begin UNIVERSAL element");
-
-  #     $division->add_part($definition);
-  #   }
-
   return 1;
 }
 
@@ -7087,8 +5068,9 @@ sub _process_end_attr_definition {
 
   else
     {
+      my $msg = "SYNTAX ERROR IN ATTR";
       my $location = $definition->get_location;
-      $logger->error("SYNTAX ERROR IN ATTR AT $location");
+      $self->_handle_error('error',$msg,$location);
     }
 
   # add attr to library?
@@ -7176,8 +5158,9 @@ sub _process_end_outcome {
 
   else
     {
+      my $msg = "SYNTAX ERROR IN OUTCOME";
       my $location = $outcome->get_location;
-      $logger->error("SYNTAX ERROR IN OUTCOME AT $location");
+      $self->_handle_error('error',$msg,$location);
 
       return 0;
     }
@@ -7257,8 +5240,9 @@ sub _process_end_review {
 
   else
     {
+      my $msg = "SYNTAX ERROR IN REVIEW";
       my $location = $review->get_location;
-      $logger->error("SYNTAX ERROR IN REVIEW AT $location");
+      $self->_handle_error('error',$msg,$location);
 
       return 0;
     }
@@ -7286,8 +5270,9 @@ sub _process_end_index_element {
 
   else
     {
+      my $msg = "SYNTAX ERROR IN INDEX ELEMENT";
       my $location = $element->get_location;
-      $logger->error("SYNTAX ERROR IN INDEX ELEMENT AT $location");
+      $self->_handle_error('error',$msg,$location);
     }
 
   return 1;
@@ -7323,11 +5308,6 @@ sub _process_enum_list_item {
   my $number  = $self->_get_number;
 
   $logger->trace("{$number} ----- enumerated list item (indent=$indent)");
-
-  # if ( $self->_in_data_segment )
-  #   {
-  #     $logger->error("ENUMERATED LIST ITEM IN DATA SEGMENT");
-  #   }
 
   # What are all the possible actions the parser may need to take upon
   # encountering an enumerated list item line?
@@ -7422,8 +5402,9 @@ sub _process_enum_list_item {
      )
     )
     {
+      my $msg = "IMPROPER ENUMERATED ITEM INDENT $indent";
       my $location = $line->get_location;
-      $logger->logdie("IMPROPER ENUMERATED ITEM INDENT ($indent) AT $location");
+      $self->_handle_error('fatal',$msg,$location);
     }
 
   # CASE 3: new toplevel enumerated item
@@ -7621,7 +5602,8 @@ sub _process_enum_list_item {
 
 	  else
 	    {
-	      $logger->logdie("THIS SHOULD NEVER HAPPEN");
+	      my $msg = "THIS SHOULD NEVER HAPPEN";
+	      $self->_handle_error('fatal',$msg);
 	    }
 	}
 
@@ -7695,7 +5677,8 @@ sub _process_enum_list_item {
 
 	  else
 	    {
-	      $logger->logdie("THIS SHOULD NEVER HAPPEN");
+	      my $msg = "THIS SHOULD NEVER HAPPEN";
+	      $self->_handle_error('fatal',$msg);
 	    }
 	}
 
@@ -7788,8 +5771,9 @@ sub _process_enum_list_item {
 
   else
     {
+      my $msg = "THIS SHOULD NEVER HAPPEN";
       my $location = $line->get_location;
-      $logger->logdie("THIS SHOULD NEVER HAPPEN at \'$location\'");
+      $self->_handle_error('fatal',$msg,$location);
     }
 
   return 1;
@@ -7806,11 +5790,6 @@ sub _process_start_def_list_item {
   my $number  = $self->_get_number;
 
   $logger->trace("{$number} ----- definition list item");
-
-  # if ( $self->_in_data_segment )
-  #   {
-  #     $logger->error("DEFINITION LIST ITEM IN DATA SEGMENT");
-  #   }
 
   if ( $self->_in_preformatted_division )
     {
@@ -7870,8 +5849,9 @@ sub _process_end_bullet_list_item {
 
   else
     {
+      my $msg = "SYNTAX ERROR IN BULLET LIST ITEM";
       my $location = $item->get_location;
-      $logger->error("SYNTAX ERROR IN BULLET LIST ITEM AT $location");
+      $self->_handle_error('error',$msg,$location);
     }
 
   return 1;
@@ -7897,8 +5877,9 @@ sub _process_end_enum_list_item {
 
   else
     {
+      my $msg = "SYNTAX ERROR IN ENUMERATED LIST ITEM";
       my $location = $item->get_location;
-      $logger->error("SYNTAX ERROR IN ENUMERATED LIST ITEM AT $location");
+      $self->_handle_error('error',$msg,$location);
     }
 
   return 1;
@@ -7925,8 +5906,9 @@ sub _process_end_def_list_item {
 
   else
     {
+      my $msg = "SYNTAX ERROR IN DEFINITION LIST ITEM";
       my $location = $item->get_location;
-      $logger->error("SYNTAX ERROR IN DEFINITION LIST ITEM AT $location");
+      $self->_handle_error('error',$msg,$location);
     }
 
   return 1;
@@ -8205,8 +6187,9 @@ sub _process_start_table_cell {
 
   else
     {
+      my $msg = "UNEXPECTED TABLE CELL";
       my $location = $line->get_location;
-      $logger->logdie("UNEXPECTED TABLE CELL at $location");
+      $self->_handle_error('fatal',$msg,$location);
     }
 
   return 1;
@@ -8271,8 +6254,9 @@ sub _process_paragraph_text {
 
       else
 	{
+	  my $msg = "CAN'T PROCESS PARAGRAPH TEXT, CAN'T ADD LINE TO BLOCK";
 	  my $location = $line->get_location;
-	  $logger->warn("CAN'T ADD LINE TO BLOCK AT $location");
+	  $self->_handle_error('warn',$msg,$location);
 	}
     }
 
@@ -8306,8 +6290,9 @@ sub _process_paragraph_text {
 
       else
 	{
+	  my $msg = "CAN'T ADD NEW PARAGRAPH, NO CURRENT DIVISION";
 	  my $location = $line->get_location;
-	  $logger->error("NO CURRENT DIVISION. CAN'T ADD NEW PARAGRAPH\n  at $location");
+	  $self->_handle_error('error',$msg,$location);
 	  return 0;
 	}
     }
@@ -8432,8 +6417,9 @@ sub _process_end_paragraph {
 
   else
     {
+      my $msg = "SYNTAX ERROR IN PARAGRAPH";
       my $location = $item->get_location;
-      $logger->error("SYNTAX ERROR IN PARAGRAPH AT $location");
+      $self->_handle_error('error',$msg,$location);
     }
 
   return 1;
@@ -8472,15 +6458,6 @@ sub _process_indented_text {
   else
     {
       $logger->trace("{$number} ..... new preformatted block");
-
-      # if ( $self->_in_data_segment )
-      # 	{
-      # 	  my $division = $self->_get_current_division;
-      # 	  my $name     = $division->get_name;
-      # 	  my $id       = $division->get_id;
-      # 	  my $location = $line->get_location;
-      # 	  $logger->error("PREFORMATTED BLOCK IN $name.$id DATA SEGMENT at $location");
-      # 	}
 
       my $block = SML::PreformattedBlock->new(library=>$library);
       $block->add_line($line);
@@ -8525,7 +6502,8 @@ sub _process_non_blank_line {
 
   elsif ( not $self->_get_block )
     {
-      $logger->logdie("UNRECOGNIZED BLOCK at $location Should I start a paragraph?");
+      my $msg = "UNRECOGNIZED BLOCK";
+      $self->_handle_error('fatal',$msg,$location);
     }
 
   else
@@ -9247,54 +7225,6 @@ sub _count_sections {
 
 ######################################################################
 
-# sub _in_region {
-
-#   my $self = shift;
-
-#   my $division = $self->_get_current_division;
-
-#   while ( $division and not $division->isa('SML::Fragment') )
-#     {
-#       if ( $division->isa('SML::Region') )
-# 	{
-# 	  return 1;
-# 	}
-
-#       else
-# 	{
-# 	  $division = $division->get_containing_division;
-# 	}
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
-# sub _in_environment {
-
-#   my $self = shift;
-
-#   my $division = $self->_get_current_division;
-
-#   while ( $division and not $division->isa('SML::Fragment') )
-#     {
-#       if ( $division->isa('SML::Environment') )
-# 	{
-# 	  return 1;
-# 	}
-
-#       else
-# 	{
-# 	  $division = $division->get_containing_division;
-# 	}
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
 sub _in_section {
 
   my $self = shift;
@@ -9436,7 +7366,8 @@ sub _text_contains_substring {
     {
       if ( not exists $syntax->{$string_type} )
 	{
-	  $logger->error("THIS SHOULD NEVER HAPPEN \'$string_type\'");
+	  my $msg = "THIS SHOULD NEVER HAPPEN $string_type";
+	  $self->_handle_error('error',$msg);
 	  return 0;
 	}
 
@@ -9462,9 +7393,10 @@ sub _get_next_substring_type {
   my $self = shift;
   my $text = shift;
 
-  if ( not $text )
+  unless ( $text )
     {
-      $logger->error("YOU MUST PROVIDE A TEXT STRING");
+      my $msg = "CAN'T GET NEXT SUBSTRING TYPE, MISSING ARGUMENT";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -9476,7 +7408,8 @@ sub _get_next_substring_type {
     {
       if ( not exists $syntax->{$string_type} )
 	{
-	  $logger->error("THIS SHOULD NEVER HAPPEN \'$string_type\'");
+	  my $msg = "THIS SHOULD NEVER HAPPEN $string_type";
+	  $self->_handle_error('error',$msg);
 	  return 0;
 	}
 
@@ -9616,7 +7549,8 @@ sub _parse_block {
 
   unless ( ref $block and $block->isa('SML::Block') )
     {
-      $logger->error("CAN'T PARSE NON-BLOCK \'$block\'");
+      my $msg = "CAN'T PARSE NON-BLOCK $block";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -9697,8 +7631,6 @@ sub _parse_block {
 
   if ( not $text )
     {
-      # $logger->error("BLOCK HAS NO TEXT \'$block\'");
-
       $self->_clear_block;
 
       $block->set_has_been_parsed(1);
@@ -9727,13 +7659,10 @@ sub _parse_string_text {
   my $self   = shift;
   my $string = shift;
 
-  if (
-      not ref $string
-      or
-      not $string->isa('SML::String')
-     )
+  unless ( ref $string and $string->isa('SML::String') )
     {
-      $logger->error("CAN'T PARSE NON-STRING \'$string\'");
+      my $msg = "CAN'T PARSE NON-STRING $string";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -9754,9 +7683,10 @@ sub _parse_next_substring {
 
   my $text = $string->get_remaining;    # text to parse
 
-  if ( not $text )
+  unless ( $text )
     {
-      $logger->error("THERE IS NO TEXT LEFT TO PARSE IN $string");
+      my $msg = "THERE IS NO TEXT LEFT TO PARSE IN $string";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -9788,7 +7718,8 @@ sub _parse_next_substring {
 
       else
 	{
-	  $logger->error("THIS SHOULD NEVER HAPPEN (5)");
+	  my $msg = "THIS SHOULD NEVER HAPPEN (5)";
+	  $self->_handle_error('error',$msg);
 	}
     }
 
@@ -9827,7 +7758,8 @@ sub _get_string_type {
 
       elsif ( not exists $syntax->{$string_type} )
 	{
-	  $logger->error("THIS SHOULD NEVER HAPPEN \'$string_type\'");
+	  my $msg = "THIS SHOULD NEVER HAPPEN $string_type";
+	  $self->_handle_error('error',$msg);
 	  return 0;
 	}
     }
@@ -9943,13 +7875,11 @@ sub _resolve_include_line {
 
   unless ( $library->has_division_id($included_id) )
     {
+      my $msg = "CAN'T RESOLVE INCLUDE LINE, LIBRARY DOESN'T HAVE ID $included_id";
       my $location = $line->get_location;
-      $logger->logcroak("CAN'T RESOLVE INCLUDE LINE, LIBRARY DOESN'T HAVE ID \'$included_id\' at $location");
+      $self->_handle_error('fatal',$msg,$location);
       return 0;
     }
-
-  # my $division  = $library->get_division($included_id);
-  # my $line_list = $division->get_line_list;
 
   my $line_list = $self->_get_line_list_for_id($included_id);
 
@@ -10136,7 +8066,8 @@ sub _get_current_list {
 
   else
     {
-      $logger->error("THERE IS NO CURRENT LIST");
+      my $msg = "THERE IS NO CURRENT LIST";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 }
@@ -10163,7 +8094,8 @@ sub _get_current_list_indent {
 
   else
     {
-      $logger->error("CAN'T GET INDENT, THERE IS NO CURRENT LIST");
+      my $msg = "CAN'T GET INDENT, THERE IS NO CURRENT LIST";
+      $self->_handle_error('error',$msg);
     }
 }
 
@@ -10191,7 +8123,8 @@ sub _has_list_at_indent {
 
   else
     {
-      $logger->error("NO LIST STACK DEFINED");
+      my $msg = "NO LIST STACK DEFINED";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 }
@@ -10219,7 +8152,8 @@ sub _end_all_lists {
 
       else
 	{
-	  $self->logdie("THIS SHOULD NEVER HAPPEN");
+	  my $msg = "CAN'T END ALL LISTS, THIS SHOULD NEVER HAPPEN";
+	  $self->_handle_error('fatal',$msg);
 	}
     }
 
@@ -10246,8 +8180,9 @@ sub _end_use_formal_status_element {
 
   else
     {
+      my $msg = "SYNTAX ERROR IN use_formal_status ELEMENT";
       my $location = $element->get_location;
-      $logger->error("SYNTAX ERROR IN use_formal_status ELEMENT at $location");
+      $self->_handle_error('error',$msg,$location);
       return 0;
     }
 }
@@ -10336,8 +8271,9 @@ sub _validate_bold_markup_syntax {
 
   if ( $count % 2 == 1 )
     {
+      my $msg = "INVALID BOLD MARKUP";
       my $location = $block->get_location;
-      $logger->warn("INVALID BOLD MARKUP at $location");
+      $self->_handle_error('warn',$msg,$location);
       return 0;
     }
 
@@ -10377,8 +8313,9 @@ sub _validate_italics_markup_syntax {
 
   if ( $count % 2 == 1 )
     {
+      my $msg = "INVALID ITALICS MARKUP";
       my $location = $block->get_location;
-      $logger->warn("INVALID ITALICS MARKUP at $location");
+      $self->_handle_error('warn',$msg,$location);
       return 0;
     }
 
@@ -10418,8 +8355,9 @@ sub _validate_fixedwidth_markup_syntax {
 
   if ( $count % 2 == 1 )
     {
+      my $msg = "INVALID FIXED-WIDTH MARKUP";
       my $location = $block->get_location;
-      $logger->warn("INVALID FIXED-WIDTH MARKUP at $location");
+      $self->_handle_error('warn',$msg,$location);
       return 0;
     }
 
@@ -10459,8 +8397,9 @@ sub _validate_underline_markup_syntax {
 
   if ( $count % 2 == 1 )
     {
+      my $msg = "INVALID UNDERLINE MARKUP";
       my $location = $block->get_location;
-      $logger->warn("INVALID UNDERLINE MARKUP at $location");
+      $self->_handle_error('warn',$msg,$location);
       return 0;
     }
 
@@ -10500,8 +8439,9 @@ sub _validate_superscript_markup_syntax {
 
   if ( $count % 2 == 1 )
     {
+      my $msg = "INVALID SUPERSCRIPT MARKUP";
       my $location = $block->get_location;
-      $logger->warn("INVALID SUPERSCRIPT MARKUP at $location");
+      $self->_handle_error('warn',$msg,$location);
       return 0;
     }
 
@@ -10541,8 +8481,9 @@ sub _validate_subscript_markup_syntax {
 
   if ( $count % 2 == 1 )
     {
+      my $msg = "INVALID SUBSCRIPT MARKUP";
       my $location = $block->get_location;
-      $logger->warn("INVALID SUBSCRIPT MARKUP at $location");
+      $self->_handle_error('warn',$msg,$location);
       return 0;
     }
 
@@ -10583,8 +8524,9 @@ sub _validate_inline_tags {
 
       if ( $name !~ /$syntax->{valid_inline_tags}/xms )
 	{
+	  my $msg = "INVALID INLINE TAG $tag";
 	  my $location = $block->get_location;
-	  $logger->warn("INVALID INLINE TAG \'$tag\' at $location");
+	  $self->_handle_error('warn',$msg,$location);
 	  $valid = 0;
 	}
 
@@ -10641,8 +8583,9 @@ sub _validate_cross_ref_syntax {
 
   if ( $text =~ /$syntax->{begin_cross_ref}/xms )
     {
+      my $msg = "INVALID CROSS REFERENCE SYNTAX";
       my $location = $block->get_location;
-      $logger->warn("INVALID CROSS REFERENCE SYNTAX at $location");
+      $self->_handle_error('warn',$msg,$location);
       $valid = 0;
     }
 
@@ -10696,8 +8639,9 @@ sub _validate_cross_ref_semantics {
 
       else
 	{
+	  my $msg = "INVALID CROSS REFERENCE $id NOT DEFINED";
 	  my $location = $block->get_location;
-	  $logger->warn("INVALID CROSS REFERENCE \'$id\' not defined at $location");
+	  $self->_handle_error('warn',$msg,$location);
 	  $valid = 0;
 	}
 
@@ -10754,8 +8698,9 @@ sub _validate_id_ref_syntax {
 
   if ( $text =~ /$syntax->{begin_id_ref}/xms )
     {
+      my $msg = "INVALID ID REFERENCE SYNTAX";
       my $location = $block->get_location;
-      $logger->warn("INVALID ID REFERENCE SYNTAX at $location");
+      $self->_handle_error('warn',$msg,$location);
       $valid = 0;
     }
 
@@ -10806,8 +8751,9 @@ sub _validate_id_ref_semantics {
 
       else
 	{
+	  my $msg = "INVALID ID REFERENCE $id";
 	  my $location = $block->get_location;
-	  $logger->warn("INVALID ID REFERENCE \'$id\' not defined at $location");
+	  $self->_handle_error('warn',$msg,$location);
 	  $valid = 0;
 	}
 
@@ -10857,8 +8803,9 @@ sub _validate_page_ref_syntax {
 
   if ( $text =~ /$syntax->{begin_page_ref}/xms )
     {
+      my $msg = "INVALID PAGE REFERENCE SYNTAX";
       my $location = $block->get_location;
-      $logger->warn("INVALID PAGE REFERENCE SYNTAX at $location");
+      $self->_handle_error('warn',$msg,$location);
       $valid = 0;
     }
 
@@ -10909,8 +8856,9 @@ sub _validate_page_ref_semantics {
 
       else
 	{
+	  my $msg = "INVALID PAGE REFERENCE $id";
 	  my $location = $block->get_location;
-	  $logger->warn("INVALID PAGE REFERENCE \'$id\' not defined at $location");
+	  $self->_handle_error('warn',$msg,$location);
 	  $valid = 0;
 	}
 
@@ -10964,8 +8912,9 @@ sub _validate_glossary_term_ref_syntax {
 
   if ( $text =~ /$syntax->{begin_gloss_term_ref}/xms )
     {
+      my $msg = "INVALID GLOSSARY TERM REFERENCE SYNTAX";
       my $location = $block->get_location;
-      $logger->warn("INVALID GLOSSARY TERM REFERENCE SYNTAX at $location");
+      $self->_handle_error('warn',$msg,$location);
       $valid = 0;
     }
 
@@ -11016,8 +8965,9 @@ sub _validate_glossary_def_ref_syntax {
 
   if ( $text =~ /$syntax->{begin_gloss_def_ref}/xms )
     {
+      my $msg = "INVALID GLOSSARY DEFINITION REFERENCE SYNTAX";
       my $location = $block->get_location;
-      $logger->warn("INVALID GLOSSARY DEFINITION REFERENCE SYNTAX at $location");
+      $self->_handle_error('warn',$msg,$location);
       $valid = 0;
     }
 
@@ -11068,8 +9018,9 @@ sub _validate_acronym_ref_syntax {
 
   if ( $text =~ /$syntax->{begin_acronym_term_ref}/xms )
     {
+      my $msg = "INVALID ACRONYM REFERENCE SYNTAX";
       my $location = $block->get_location;
-      $logger->warn("INVALID ACRONYM REFERENCE SYNTAX: at $location");
+      $self->_handle_error('warn',$msg,$location);
       $valid = 0;
     }
 
@@ -11120,8 +9071,9 @@ sub _validate_source_citation_syntax {
 
   if ( $text =~ /$syntax->{begin_citation_ref}/xms )
     {
+      my $msg = "INVALID SOURCE CITATION SYNTAX";
       my $location = $block->get_location;
-      $logger->warn("INVALID SOURCE CITATION SYNTAX at $location");
+      $self->_handle_error('warn',$msg,$location);
       $valid = 0;
     }
 
@@ -11158,9 +9110,10 @@ sub _validate_theversion_ref_semantics {
   my $doc    = $block->get_containing_document;
   my $doc_id = $doc->get_id;
 
-  if ( not $doc )
+  unless ( $doc )
     {
-      $logger->error("NOT IN DOCUMENT CONTEXT can't validate version references");
+      my $msg = "NOT IN DOCUMENT CONTEXT can't validate version references";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -11173,8 +9126,9 @@ sub _validate_theversion_ref_semantics {
 
       else
 	{
+	  my $msg = "INVALID VERSION REFERENCE, DOCUMENT HAS NO VERSION PROPERTY";
 	  my $location = $block->get_location;
-	  $logger->warn("INVALID VERSION REFERENCE at $location document has no version property");
+	  $self->_handle_error('warn',$msg,$location);
 	  $valid = 0;
 	}
 
@@ -11214,7 +9168,8 @@ sub _validate_therevision_ref_semantics {
 
   if ( not $doc )
     {
-      $logger->error("NOT IN DOCUMENT CONTEXT can't validate revision references");
+      my $msg = "CAN'T VALIDATE REVISION REFERENCES, NOT IN DOCUMENT CONTEXT";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -11227,8 +9182,9 @@ sub _validate_therevision_ref_semantics {
 
       else
 	{
+	  my $msg = "CAN'T VALIDATE REVISION REFERENCES, INVALID REVISION REFERENCE";
 	  my $location = $block->get_location;
-	  $logger->warn("INVALID REVISION REFERENCE at $location document has no revision property");
+	  $self->_handle_error('warn',$msg,$location);
 	  $valid = 0;
 	}
 
@@ -11266,9 +9222,10 @@ sub _validate_thedate_ref_semantics {
   my $doc    = $block->get_containing_document;
   my $doc_id = $doc->get_id;
 
-  if ( not $doc )
+  unless ( $doc )
     {
-      $logger->error("NOT IN DOCUMENT CONTEXT can't validate date references");
+      my $msg = "CAN'T VALIDATE DATE REFERENCES, NOT IN DOCUMENT CONTEXT";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -11281,8 +9238,9 @@ sub _validate_thedate_ref_semantics {
 
       else
 	{
+	  my $msg = "INVALID DATE REFERENCE, DOCUMENT HAS NO DATE PROPERTY";
 	  my $location = $block->get_location;
-	  $logger->warn("INVALID DATE REFERENCE at $location document has no date property");
+	  $self->_handle_error('warn',$msg,$location);
 	  $valid = 0;
 	}
 
@@ -11338,7 +9296,8 @@ sub _validate_status_ref_semantics {
 
 	  if ( not $block->get_containing_document )
 	    {
-	      $logger->error("NOT IN DOCUMENT CONTEXT can't validate status references");
+	      my $msg = "CAN'T VALIDATE STATUS REFERENCE SEMANTICS, NOT IN DOCUMENT CONTEXT";
+	      $self->_handle_error('error',$msg);
 	      return 0;
 	    }
 
@@ -11348,16 +9307,18 @@ sub _validate_status_ref_semantics {
 
 	      if ( not $library->has_property($id,'status') )
 		{
+		  my $msg = "INVALID STATUS REFERENCE";
 		  my $location = $block->get_location;
-		  $logger->warn("INVALID STATUS REFERENCE at $location \'$id\' has no status property");
+		  $self->_handle_error('warn',$msg,$location);
 		  $valid = 0;
 		}
 	    }
 
 	  else
 	    {
+	      my $msg = "INVALID STATUS REFERENCE $id";
 	      my $location = $block->get_location;
-	      $logger->warn("INVALID STATUS REFERENCE at $location \'$id\' not defined");
+	      $self->_handle_error('warn',$msg,$location);
 	      $valid = 0;
 	    }
 	}
@@ -11408,12 +9369,6 @@ sub _validate_glossary_term_ref_semantics {
 
   my $glossary = $library->get_glossary;
 
-  # if ( not $block->get_containing_document )
-  #   {
-  #     $logger->error("CAN'T VALIDATE GLOSSARY TERM REFERENCES not in document context");
-  #     return 0;
-  #   }
-
   while ( $text =~ /$syntax->{gloss_term_ref}/xms )
     {
       my $namespace = $3 || q{};
@@ -11421,8 +9376,9 @@ sub _validate_glossary_term_ref_semantics {
 
       unless ( $glossary->has_entry($term,$namespace) )
 	{
+	  my $msg = "TERM NOT IN LIBRARY GLOSSARY $term {$namespace}";
 	  my $location = $block->get_location;
-	  $logger->warn("TERM NOT IN LIBRARY GLOSSARY $term {$namespace} at $location");
+	  $self->_handle_error('warn',$msg,$location);
 	  $valid = 0;
 	}
 
@@ -11471,7 +9427,8 @@ sub _validate_glossary_def_ref_semantics {
 
   if ( not $block->get_containing_document )
     {
-      $logger->error("NOT IN DOCUMENT CONTEXT can't validate glossary definition references");
+      my $msg = "CAN'T VALIDATE GLOSSARY DEFINITION REFERENCES, NOT IN DOCUMENT CONTEXT";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -11482,8 +9439,9 @@ sub _validate_glossary_def_ref_semantics {
 
       unless ( $library->get_glossary->has_entry($term,$namespace) )
 	{
+	  my $msg = "DEFINITION NOT IN GLOSSARY $namespace $term";
 	  my $location = $block->get_location;
-	  $logger->warn("DEFINITION NOT IN GLOSSARY \'$namespace\' \'$term\' at $location");
+	  $self->_handle_error('warn',$msg,$location);
 	  $valid = 0;
 	}
 
@@ -11532,7 +9490,8 @@ sub _validate_acronym_ref_semantics {
 
   if ( not $block->get_containing_document )
     {
-      $logger->error("CAN'T VALIDATE ACRONYM REFERENCES: not in document context");
+      my $msg = "CAN'T VALIDATE ACRONYM REFERENCES, NOT IN DOCUMENT CONTEXT";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -11545,8 +9504,9 @@ sub _validate_acronym_ref_semantics {
 
       unless ( $acronym_list->has_entry($acronym,$namespace) )
 	{
+	  my $msg = "ACRONYM NOT IN LIBRARY ACRONYM LIST $acronym $namespace";
 	  my $location = $block->get_location;
-	  $logger->warn("ACRONYM NOT IN LIBRARY ACRONYM LIST: \'$acronym\' \'$namespace\' at $location");
+	  $self->_handle_error('warn',$msg,$location);
 	  $valid = 0;
 	}
 
@@ -11595,7 +9555,8 @@ sub _validate_source_citation_semantics {
 
   if ( not $block->get_containing_document )
     {
-      $logger->error("NOT IN DOCUMENT CONTEXT can't validate source citations");
+      my $msg = "CAN'T VALIDATE SOURCE CITATIONS, NOT IN DOCUMENT CONTEXT";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -11606,8 +9567,9 @@ sub _validate_source_citation_semantics {
 
       if ( not $library->get_references->has_source($source) )
 	{
+	  my $msg = "CAN'T VALIDATE SOURCE CITATION SEMANTICS, INVALID SOURCE CITATION $source";
 	  my $location = $block->get_location;
-	  $logger->warn("INVALID SOURCE CITATION source \'$source\' not defined at $location");
+	  $self->_handle_error('warn',$msg,$location);
 	  $valid = 0;
 	}
 
@@ -11679,11 +9641,12 @@ sub _validate_file_ref_semantics {
 	}
     }
 
-  if ( not $found_file )
+  unless ( $found_file )
     {
-      $valid = 0;
+      my $msg = "FILE NOT FOUND $resource_spec";
       my $location = $block->get_location;
-      $logger->warn("FILE NOT FOUND \'$resource_spec\' at $location");
+      $self->_handle_error('warn',$msg,$location);
+      $valid = 0;
     }
 
   return $valid;
@@ -11724,8 +9687,9 @@ sub _validate_property_cardinality {
 
       elsif ( not defined $cardinality )
 	{
+	  my $msg = "NO CARDINALITY FOR $divname $property_name";
 	  my $location = $division->get_location;
-	  $logger->error("NO CARDINALITY for $divname $property_name at $location");
+	  $self->_handle_error('error',$msg,$location);
 	  $valid = 0;
 	}
 
@@ -11736,8 +9700,9 @@ sub _validate_property_cardinality {
 
 	  if ( $cardinality eq '1' and $count > 1 )
 	    {
+	      my $msg = "INVALID PROPERTY CARDINALITY $divname ALLOWS ONLY 1 $property_name";
 	      my $location = $division->get_location;
-	      $logger->warn("INVALID PROPERTY CARDINALITY $divname allows only 1 $property_name at $location");
+	      $self->_handle_error('warn',$msg,$location);
 	      $valid = 0;
 	    }
 	}
@@ -11775,7 +9740,8 @@ sub _validate_property_values {
 	    {
 	      my $list = $ontology->get_allowed_property_value_list($divname,$property_name);
 	      my $valid_property_values = join(', ', @{ $list });
-	      $logger->warn("INVALID PROPERTY VALUE \'$value\' $divname $property_name must be one of: $valid_property_values");
+	      my $msg = "INVALID PROPERTY VALUE $value, $divname $property_name MUST BE ONE OF: $valid_property_values";
+	      $self->_handle_error('warn',$msg);
 	      $valid = 0;
 	    }
 	}
@@ -11813,7 +9779,8 @@ sub _validate_infer_only_conformance {
 	  # Validate infer-only conformance
 	  if ( $imply_only and $value->is_from_manuscript )
 	    {
-	      $logger->warn("INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY \'$property_name\' $divname $divid");
+	      my $msg = "INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY $property_name, $divname $divid";
+	      $self->_handle_error('warn',$msg);
 	      $valid = 0;
 	    }
 
@@ -11851,8 +9818,9 @@ sub _validate_required_properties {
     {
       if ( not $seen->{$required_property_name} )
 	{
+	  my $msg = "MISSING REQUIRED PROPERTY $divname; $divid requires $required_property_name";
 	  my $location = $division->get_location;
-	  $logger->warn("MISSING REQUIRED PROPERTY $divname $divid requires \'$required_property_name\' at $location");
+	  $self->_handle_error('warn',$msg,$location);
 	  $valid = 0;
 	}
     }
@@ -11899,12 +9867,14 @@ sub _validate_composition {
 	    {
 	      my $origin_line = $division->get_origin_line;
 	      my $include_location = $origin_line->get_location;
-	      $logger->warn("INVALID COMPOSITION $name in $container_name (included at $include_location) at $location");
+	      my $msg = "INVALID COMPOSITION $name IN $container_name (INCLUDED AT $include_location)";
+	      $self->_handle_error('warn',$msg,$location);
 	    }
 
 	  else
 	    {
-	      $logger->warn("INVALID COMPOSITION $name in $container_name at $location");
+	      my $msg = "INVALID COMPOSITION $name IN $container_name";
+	      $self->_handle_error('warn',$msg);
 	    }
 
 	  return 0;
@@ -11938,13 +9908,15 @@ sub _process_index_string {
 
   unless ( $string and $element )
     {
-      $logger->error("CAN'T PROCESS INDEX STRING, MISSING ARGUMENTS");
+      my $msg = "CAN'T PROCESS INDEX STRING, MISSING ARGUMENTS";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
   unless ( $element->has_containing_division )
     {
-      $logger->error("INDEX ELEMENT HAS NO CONTAINING DIVISION");
+      my $msg = "INDEX ELEMENT HAS NO CONTAINING DIVISION";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -11953,8 +9925,9 @@ sub _process_index_string {
 
   unless ( $string =~ /$syntax->{index_entry}/ )
     {
+      my $msg = "SYNTAX ERROR IN INDEX ELEMENT";
       my $location = $element->get_location;
-      $logger->error("SYNTAX ERROR IN INDEX ELEMENT AT $location");
+      $self->_handle_error('error',$msg,$location);
       return 0;
     }
 
@@ -11974,8 +9947,9 @@ sub _process_index_string {
 
   unless ( $document )
     {
+      my $msg = "CAN'T PROCESS INDEX STRING, NO CONTAINING DOCUMENT";
       my $location = $element->get_location;
-      $logger->error("CAN'T PROCESS INDEX STRING, NO CONTAINING DOCUMENT at $location");
+      $self->_handle_error('error',$msg,$location);
       return 0;
     }
 
@@ -12045,7 +10019,8 @@ sub _build_document_index {
 
   unless ( ref $document )
     {
-      $logger->error("CAN'T BUILD DOCUMENT INDEX, MISSING ARGUMENTS");
+      my $msg = "CAN'T BUILD DOCUMENT INDEX, MISSING ARGUMENT";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -12053,7 +10028,8 @@ sub _build_document_index {
 
   unless ( $name eq 'DOCUMENT' )
     {
-      $logger->error("CAN'T BUILD DOCUMENT INDEX, NOT A DOCUMENT $document");
+      my $msg = "CAN'T BUILD DOCUMENT INDEX, NOT A DOCUMENT $document";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -12084,7 +10060,8 @@ sub _parse_document_index_terms {
 
   unless ( ref $document )
     {
-      $logger->error("CAN'T PARSE DOCUMENT INDEX TERMS, MISSING ARGUMENTS");
+      my $msg = "CAN'T PARSE DOCUMENT INDEX TERMS, MISSING ARGUMENT";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -12092,7 +10069,8 @@ sub _parse_document_index_terms {
 
   unless ( $name eq 'DOCUMENT' )
     {
-      $logger->error("CAN'T PARSE DOCUMENT INDEX TERMS, NOT A DOCUMENT $document");
+      my $msg = "CAN'T PARSE DOCUMENT INDEX TERMS, NOT A DOCUMENT $document";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -12117,7 +10095,8 @@ sub _parse_index_term {
 
   unless ( ref $entry )
     {
-      $logger->error("CAN'T PARSE INDEX TERM, MISSING ARGUMENT");
+      my $msg = "CAN'T PARSE INDEX TERM, MISSING ARGUMENT";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -12148,7 +10127,8 @@ sub _validate_division_blocks {
 
   unless ( ref $division )
     {
-      $logger->error(" CAN'T VALIDATE DIVISION BLOCKS, MISSING ARGUMENT");
+      my $msg = "CAN'T VALIDATE DIVISION BLOCKS, MISSING ARGUMENT";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -12179,7 +10159,8 @@ sub _build_document_glossary {
 
   unless ( ref $document )
     {
-      $logger->error("CAN'T BUILD DOCUMENT GLOSSARY, MISSING ARGUMENTS");
+      my $msg = "CAN'T BUILD DOCUMENT GLOSSARY, MISSING ARGUMENT";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -12187,7 +10168,8 @@ sub _build_document_glossary {
 
   unless ( $name eq 'DOCUMENT' )
     {
-      $logger->error("CAN'T BUILD DOCUMENT GLOSSARY, NOT A DOCUMENT $document");
+      my $msg = "CAN'T BUILD DOCUMENT GLOSSARY, NOT A DOCUMENT $document";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -12213,7 +10195,8 @@ sub _build_document_glossary {
 
       else
 	{
-	  $logger->error("CAN'T ADD TERM TO DOCUMENT GLOSSARY, NOT IN LIBRARY GLOSSARY $term $namespace");
+	  my $msg = "CAN'T ADD TERM TO DOCUMENT GLOSSARY, NOT IN LIBRARY GLOSSARY $term {$namespace}";
+	  $self->_handle_error('error',$msg);
 	}
     }
 
@@ -12232,7 +10215,8 @@ sub _build_document_acronym_list {
 
   unless ( ref $document )
     {
-      $logger->error("CAN'T BUILD DOCUMENT ACRONYM LIST, MISSING ARGUMENTS");
+      my $msg = "CAN'T BUILD DOCUMENT ACRONYM LIST, MISSING ARGUMENT";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -12240,7 +10224,8 @@ sub _build_document_acronym_list {
 
   unless ( $name eq 'DOCUMENT' )
     {
-      $logger->error("CAN'T BUILD DOCUMENT ACRONYM LIST, NOT A DOCUMENT $document");
+      my $msg = "CAN'T BUILD DOCUMENT ACRONYM LIST, NOT A DOCUMENT $document";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -12266,7 +10251,8 @@ sub _build_document_acronym_list {
 
       else
 	{
-	  $logger->error("CAN'T ADD ACRONYM TO DOCUMENT ACRONYM LIST, NOT IN LIBRARY ACRONYM LIST $acronym $namespace");
+	  my $msg = "CAN'T ADD ACRONYM TO DOCUMENT ACRONYM LIST, NOT IN LIBRARY ACRONYM LIST $acronym $namespace";
+	  $self->_handle_error('error',$msg);
 	}
     }
 
@@ -12285,7 +10271,8 @@ sub _build_document_references {
 
   unless ( ref $document )
     {
-      $logger->error("CAN'T BUILD DOCUMENT REFERENCES, MISSING ARGUMENT");
+      my $msg = "CAN'T BUILD DOCUMENT REFERENCES, MISSING ARGUMENT";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -12293,7 +10280,8 @@ sub _build_document_references {
 
   unless ( $name eq 'DOCUMENT' )
     {
-      $logger->error("CAN'T BUILD DOCUMENT REFERENCES, NOT A DOCUMENT $document");
+      my $msg = "CAN'T BUILD DOCUMENT REFERENCES, NOT A DOCUMENT $document";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
@@ -12321,7 +10309,8 @@ sub _build_document_references {
 
       else
 	{
-	  $logger->error("CAN'T ADD SOURCE TO DOCUMENT REFERENCES, NOT IN LIBRARY SOURCE $source_id");
+	  my $msg = "CAN'T ADD SOURCE TO DOCUMENT REFERENCES, NOT IN LIBRARY SOURCE $source_id";
+	  $self->_handle_error('error',$msg);
 	}
     }
 
@@ -12339,19 +10328,65 @@ sub _parse_division_blocks {
 
   unless ( $division )
     {
-      $logger->error("CAN'T PARSE DIVISION BLOCKS, MISSING ARGUMENT");
+      my $msg = "CAN'T PARSE DIVISION BLOCKS, MISSING ARGUMENT";
+      $self->_handle_error('error',$msg);
       return 0;
     }
 
   unless ( ref $division and $division->isa('SML::Division') )
     {
-      $logger->error("CAN'T PARSE DIVISION BLOCKS, NOT A DIVISION $division");
+      my $msg = "CAN'T PARSE DIVISION BLOCKS, NOT A DIVISION $division";
+      $self->_handle_error('error',$msg);
     }
 
   foreach my $block (@{ $division->get_block_list })
     {
       $self->_parse_block($block);
     }
+
+  return 1;
+}
+
+######################################################################
+
+sub _handle_error {
+
+  my $self     = shift;
+  my $level    = shift;
+  my $message  = shift;
+  my $location = shift || q{};
+
+  unless ( $level and $message )
+    {
+      $logger->error("CAN'T HANDLE ERROR, MISSING ARGUMENTS");
+      return 0;
+    }
+
+  my $library = $self->_get_library;
+  my $syntax  = $library->get_syntax;
+
+  unless ( $level =~ /$syntax->{valid_error_level}/ )
+    {
+      $logger->error("INVALID ERROR LEVEL $level");
+      return 0;
+    }
+
+  my $error = SML::Error->new
+    (
+     level    => $level,
+     message  => $message,
+     location => $location,
+    );
+
+  $library->add_error($error);
+
+  if ( $self->_has_current_document )
+    {
+      my $document = $self->_get_current_document;
+      $document->add_error($error);
+    }
+
+  $logger->$level($message);
 
   return 1;
 }

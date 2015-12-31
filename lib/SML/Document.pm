@@ -423,6 +423,94 @@ sub contains_footer {
 }
 
 ######################################################################
+
+sub add_error {
+
+  my $self  = shift;
+  my $error = shift;
+
+  unless ( $error )
+    {
+      $logger->error("CAN'T ADD ERROR, MISSING ARGUMENT");
+      return 0;
+    }
+
+  unless ( ref $error and $error->isa('SML::Error') )
+    {
+      $logger->error("CAN'T ADD ERROR, NOT AN ERROR $error");
+      return 0;
+    }
+
+  my $hash     = $self->_get_error_hash;
+  my $level    = $error->get_level;
+  my $location = $error->get_location;
+  my $message  = $error->get_message;
+
+  if ( exists $hash->{$level}{$location}{$message} )
+    {
+      $logger->warn("ERROR ALREADY EXISTS $level $location $message");
+      return 0;
+    }
+
+  $hash->{$level}{$location}{$message} = $error;
+
+  return 1;
+}
+
+######################################################################
+
+sub get_error_list {
+
+  my $self = shift;
+
+  my $list = [];
+
+  my $hash = $self->_get_error_hash;
+
+  foreach my $level ( sort keys %{ $hash } )
+    {
+      foreach my $location ( sort keys %{ $hash->{$level} } )
+	{
+	  foreach my $message ( sort keys %{ $hash->{$level}{$location} })
+	    {
+	      my $error = $hash->{$level}{$location}{$message};
+
+	      push @{$list}, $error;
+	    }
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
+
+sub get_error_count {
+
+  my $self = shift;
+
+  return scalar @{ $self->get_error_list };
+}
+
+######################################################################
+
+sub contains_error {
+
+  # Return 1 if the library contains an error.
+
+  my $self = shift;
+
+  my $hash = $self->_get_error_hash;
+
+  if ( scalar keys %{$hash} )
+    {
+      return 1;
+    }
+
+  return 0;
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes
@@ -441,22 +529,6 @@ has note_hash =>
 # note number.
 
 #   my $note = $nh->{section-2}{a};
-
-######################################################################
-
-# has 'index_hash' =>
-#   (
-#    isa       => 'HashRef',
-#    reader    => '_get_index_hash',
-#    default   => sub {{}},
-#   );
-
-# Index term data structure.  This is a hash of all index terms.  The
-# hash keys are the indexed terms.  The hash values are anonymous
-# hashes in which the key is the division ID in which the term
-# appears, and the value is simply a boolean.
-#
-#   $index_ds->{$term} = { $divid_1 => 1, $divid_2 => 1, ... };
 
 ######################################################################
 
@@ -486,6 +558,22 @@ has source_hash =>
    clearer   => '_clear_source_hash',
    predicate => '_has_source_hash',
   );
+
+######################################################################
+
+has error_hash =>
+  (
+   is      => 'ro',
+   isa     => 'HashRef',
+   reader  => '_get_error_hash',
+   default => sub {{}},
+  );
+
+# This is a hash of error objects.
+
+# $hash->{$level}{$location}{$message} = $error;
+
+# see also: add_error, get_error_list
 
 ######################################################################
 ######################################################################

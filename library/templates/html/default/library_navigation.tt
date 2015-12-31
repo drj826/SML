@@ -39,6 +39,11 @@ library => an SML::Library object
 <a href="references.html">References</a><br/>
 [%- END -%]
 
+[%- IF library.contains_error OR library.has_published_file('DRAFT','errors.html') -%]
+<br/>
+<a href="errors.html"><span style="color:red;">ERRORS</span></a><br/>
+[%- END -%]
+
 </td>
 </tr>
 

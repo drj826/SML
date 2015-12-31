@@ -81,6 +81,11 @@ document_id = document.get_id
 <a href="[%document_id%].index.html">Index</a><br/>
 [%- END -%]
 
+[%- IF document.contains_error -%]
+<br/>
+<a href="[%document_id%].errors.html"><span style="color:red;">ERRORS</span></a><br/>
+[%- END -%]
+
 </td>
 </tr>
 
