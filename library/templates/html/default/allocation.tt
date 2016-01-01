@@ -27,6 +27,8 @@ num  = self.get_number
 [%- INCLUDE entity_property_row.tt property_name = 'review'             label = 'review:'            -%]
 [%- INCLUDE entity_property_row.tt property_name = 'outcome'            label = 'outcome:'           -%]
 
+[%- INCLUDE entity_attribute_row.tt -%]
+
 </table>
 
 [%- INCLUDE narrative_part_list.tt -%]

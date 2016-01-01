@@ -94,11 +94,23 @@ note:: ISBN 0-471-23443-5
 <<<SOURCE
 
 ######################################################################
+
+>>>SOURCE.wp-formal-grammar
+
+source_type:: misc
+
+title:: Wikipedia Article on Formal Grammar
+
+note:: [url:https://en.wikipedia.org/wiki/Formal_grammar]
+
+<<<SOURCE
+
+######################################################################
 # Local Emacs Variables
 
 # Local Variables:
 # mode: outline
-# coding: us-ascii
+# coding: utf-8
 # fill-column: 70
 # End:
 

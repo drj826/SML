@@ -1,6 +1,6 @@
 >>>configuration_item.ci-000433
 
-title:: Syntax.pm
+title:: SML/Syntax.pm
 
 revision:: $Revision: 11580 $
 

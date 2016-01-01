@@ -311,6 +311,14 @@ glossary:: glossary definition {SML} = A [g:SML:definition] that
 defines a [g:SML:glossary] term.  Glossary definitions are limited to
 a single block of text
 
+glossary:: grammar {SML} = In theoretical computer science, a formal
+grammar (sometimes simply called a grammar) is a set of formation
+rules that describe which strings formed from the alphabet of a formal
+language are syntactically valid within the language. A grammar only
+addresses the location and manipulation of the strings of the
+language. It does not describe anything else about a language, such as
+its semantics (i.e. what the strings mean) [cite:wp-formal-grammar]
+
 ######################################################################
 # I
 ######################################################################

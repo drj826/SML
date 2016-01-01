@@ -1,0 +1,21 @@
+[%# args:
+
+self => an SML::Entity object
+
+%]
+[%-
+
+library   = self.get_library
+entity_id = self.get_id
+
+-%]
+[%- IF library.has_property(entity_id,'attr') -%]
+[%- attribute_list = library.get_property_value_element_list(entity_id,'attr') -%]
+[%- FOREACH attribute IN attribute_list -%]
+<tr>
+<td>[% INCLUDE STRING.tt self = attribute.get_term_string %]:</td>
+<td>[% INCLUDE STRING.tt self = attribute.get_definition_string %]</td>
+</tr>
+
+[%- END -%]
+[%- END -%]

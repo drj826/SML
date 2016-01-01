@@ -1,0 +1,44 @@
+[%# args:
+
+self => an SML::Entity object
+
+%]
+<br/><br/>
+
+<div style="background-color:#ffffee;padding:10px;">
+<b>The rest of this content is for debugging...</b>
+</div>
+
+<div style="background-color:#ffeeee;padding:10px;">
+<b>original manuscript:</b>
+<pre>
+[%-FOREACH line IN self.get_line_list-%]
+[%-FILTER html-%][%-line.get_content-%][%-END-%]
+[%-END-%]
+</pre>
+</div>
+
+<div style="background-color:#eeffee;padding:10px;">
+<b>part structure:</b>
+<pre>
+[%-FILTER html-%][%-self.dump_part_structure-%][%-END-%]
+</pre>
+</div>
+
+[%-
+
+library = self.get_library
+id      = self.get_id
+
+-%]
+<div style="background-color:#eeeeff;padding:10px;">
+<b>properties:</b>
+<table>
+[%- FOREACH property_name IN library.get_property_name_list(id) -%]
+<tr>
+<td>[%property_name%]</td>
+<td>[%FOREACH value IN library.get_property_value_list(id,property_name)%][%value%], [%END%]</td>
+</tr>
+[%- END -%]
+</table>
+</div>
