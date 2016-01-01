@@ -211,12 +211,6 @@ sub publish_library_pages {
 
   if ( $rendition eq 'html' )
     {
-      $self->_publish_html_ontology_page($style);
-      $self->_publish_html_entities_page($style);
-      $self->_publish_html_library_glossary_page($style);
-      $self->_publish_html_library_acronyms_page($style);
-      $self->_publish_html_library_references_page($style);
-
       my $library       = $self->get_library;
       my $published_dir = $library->get_published_dir;
       my $state_dir     = "$published_dir/DRAFT";
@@ -230,6 +224,12 @@ sub publish_library_pages {
 	{
 	  $self->_publish_html_library_errors_page($style);
 	}
+
+      $self->_publish_html_ontology_page($style);
+      $self->_publish_html_entities_page($style);
+      $self->_publish_html_library_glossary_page($style);
+      $self->_publish_html_library_acronyms_page($style);
+      $self->_publish_html_library_references_page($style);
     }
 
   else
