@@ -225,6 +225,7 @@ sub publish_library_pages {
 	  $self->_publish_html_library_errors_page($style);
 	}
 
+      $self->_publish_html_traceability_page($style);
       $self->_publish_html_ontology_page($style);
       $self->_publish_html_entities_page($style);
       $self->_publish_html_library_glossary_page($style);
@@ -929,6 +930,60 @@ sub _publish_html_library_index_page {
 
 ######################################################################
 
+sub _publish_html_traceability_page {
+
+  # Publish an HTML traceability page.
+
+  my $self  = shift;
+  my $style = shift || 'default';
+
+  my $library      = $self->get_library;
+  my $template_dir = $library->get_template_dir . "/html/$style";
+
+  unless ( -d $template_dir )
+    {
+      $logger->error("NOT A DIRECTORY $template_dir");
+      return 0;
+    }
+
+  my $published_dir = $library->get_published_dir;
+
+  unless ( -d $published_dir )
+    {
+      mkdir "$published_dir", 0755;
+      $logger->info("made directory $published_dir");
+    }
+
+  my $state     = 'DRAFT';
+  my $state_dir = "$published_dir/$state";
+
+  unless ( -d $state_dir )
+    {
+      mkdir "$state_dir", 0755;
+      $logger->info("made directory $state_dir");
+    }
+
+  my $tt_config =
+    {
+     INCLUDE_PATH => $template_dir,
+     OUTPUT_PATH  => $state_dir,
+     RECURSION    => 1,
+    };
+
+  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+
+  my $vars = { library => $library };
+
+  # traceability page
+  $logger->info("publishing traceability.html");
+  $tt->process("library_traceability_page.tt",$vars,"traceability.html")
+    || die $tt->error(), "\n";
+
+  return 1;
+}
+
+######################################################################
+
 sub _publish_html_ontology_page {
 
   # Publish an HTML ontology page.
@@ -1029,7 +1084,7 @@ sub _publish_html_entities_page {
 
   # entities page
   $logger->info("publishing entities.html");
-  $tt->process("entities_page.tt",$vars,"entities.html")
+  $tt->process("library_entities_page.tt",$vars,"entities.html")
     || die $tt->error(), "\n";
 
   return 1;

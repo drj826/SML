@@ -21,6 +21,8 @@ library => an SML::Library object
 
 <br/><br/>
 
+<a href="traceability.html">Traceability</a><br/>
+
 <a href="ontology.html">Ontology</a><br/>
 
 [%- IF library.contains_entities OR library.has_published_file('DRAFT','entities.html') -%]

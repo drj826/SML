@@ -1,0 +1,15 @@
+[%# args:
+
+library => an SML::Library object
+
+%]
+[%-
+
+ontology = library.get_ontology
+
+-%]
+[%- WRAPPER library_page.tt -%]
+
+<h1 align="center">Traceability</h1>
+
+[%- END -%]

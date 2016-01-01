@@ -9350,6 +9350,67 @@ sub _validate_glossary_term_ref_semantics {
 
 ######################################################################
 
+sub _validate_lookup_ref_semantics {
+
+  # Validate that each lookup reference has a valid id/property pair.
+  # Lookup references are inline tags like '[lookup:title:rq-000001]'.
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->_get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $block->get_content;
+
+  unless ( $text =~ /$syntax->{lookup_ref}/xms )
+    {
+      return 1;
+    }
+
+  my $util = $library->get_util;
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{lookup_ref}/xms )
+    {
+      # $1 = element name
+      # $2 = target property name
+      # $3 = target division id
+
+      my $target_property_name = $2;
+      my $target_id            = $3;
+
+      if ( not $library->has_division_id($target_id) )
+	{
+	  my $msg = "INVALID LOOKUP, DIVISION DOESN'T EXIST $target_id";
+	  my $location = $block->get_location;
+	  $self->_handle_error('warn',$msg,$location);
+	  $valid = 0;
+	}
+
+      elsif ( not $library->has_property($target_id,$target_property_name) )
+	{
+	  my $msg = "INVALID LOOKUP, PROPERTY DOESN'T EXIST $target_id $target_property_name";
+	  my $location = $block->get_location;
+	  $self->_handle_error('warn',$msg,$location);
+	  $valid = 0;
+	}
+
+      $text =~ s/$syntax->{lookup_ref}//xms;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
 sub _validate_glossary_def_ref_semantics {
 
   # Validate that each glossary definition reference has a valid
@@ -10109,6 +10170,7 @@ sub _validate_division_blocks {
       $self->_validate_acronym_ref_semantics($block);
       $self->_validate_source_citation_semantics($block);
       $self->_validate_file_ref_semantics($block);
+      $self->_validate_lookup_ref_semantics($block);
     }
 
   return 1;
