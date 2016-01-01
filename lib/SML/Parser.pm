@@ -32,6 +32,7 @@ use SML::String;                      # ci-000???
 use SML::AcronymTermReference;        # ci-000???
 use SML::CitationReference;           # ci-000???
 use SML::CrossReference;              # ci-000???
+use SML::LookupReference;             # ci-000???
 use SML::TitleReference;              # ci-000???
 use SML::FileReference;               # ci-000???
 use SML::FootnoteReference;           # ci-000???
@@ -153,7 +154,7 @@ sub parse {
   # block-oriented processing
   do
     {
-      $self->_resolve_lookups      if $self->_contains_lookup;
+      # $self->_resolve_lookups      if $self->_contains_lookup;
       $self->_substitute_variables if $self->_contains_variable;
     }
 
@@ -545,19 +546,19 @@ sub _create_string {
       return $newstring;
     }
 
-  elsif ( $string_type eq 'syntax_error' )
-    {
-      my $args = {};
+  # elsif ( $string_type eq 'syntax_error' )
+  #   {
+  #     my $args = {};
 
-      $args->{name}      = 'SYNTAX_ERROR_STRING';
-      $args->{content}   = $text;
-      $args->{library}   = $self->_get_library;
-      $args->{container} = $container if $container;
+  #     $args->{name}      = 'SYNTAX_ERROR_STRING';
+  #     $args->{content}   = $text;
+  #     $args->{library}   = $self->_get_library;
+  #     $args->{container} = $container if $container;
 
-      my $newstring = SML::String->new(%{$args});
+  #     my $newstring = SML::String->new(%{$args});
 
-      return $newstring;
-    }
+  #     return $newstring;
+  #   }
 
   elsif
     (
@@ -704,6 +705,27 @@ sub _create_string {
 	  $args->{container} = $container if $container;
 
 	  return SML::CrossReference->new(%{$args});
+	}
+
+      else
+	{
+	  $logger->error("DOESN'T LOOK LIKE A $string_type: $text");
+	  return 0;
+	}
+    }
+
+  elsif ( $string_type eq 'lookup_ref' )
+    {
+      if ( $text =~ /$syntax->{$string_type}/ )
+	{
+	  my $args = {};
+
+	  $args->{target_property} = $2;
+	  $args->{target_id}       = $3;
+	  $args->{library}         = $self->_get_library;
+	  $args->{container}       = $container if $container;
+
+	  return SML::LookupReference->new(%{$args});
 	}
 
       else
@@ -2538,77 +2560,77 @@ sub _substitute_variables {
 
 ######################################################################
 
-sub _resolve_lookups {
+# sub _resolve_lookups {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $library        = $self->_get_library;
-  my $syntax         = $library->get_syntax;
-  my $util           = $library->get_util;
-  my $count_method   = $self->_get_count_method_hash;
-  my $division       = $self->_get_division;
-  my $block_list     = $division->get_block_list;
-  my $options        = $util->get_options;
-  my $max_iterations = $options->get_MAX_RESOLVE_LOOKUPS;
-  my $count          = ++ $count_method->{'_resolve_lookups'};
-  my $number         = $self->_get_number;
+#   my $library        = $self->_get_library;
+#   my $syntax         = $library->get_syntax;
+#   my $util           = $library->get_util;
+#   my $count_method   = $self->_get_count_method_hash;
+#   my $division       = $self->_get_division;
+#   my $block_list     = $division->get_block_list;
+#   my $options        = $util->get_options;
+#   my $max_iterations = $options->get_MAX_RESOLVE_LOOKUPS;
+#   my $count          = ++ $count_method->{'_resolve_lookups'};
+#   my $number         = $self->_get_number;
 
-  $logger->trace("{$number} ($count) resolve lookups");
+#   $logger->trace("{$number} ($count) resolve lookups");
 
-  if ( $count > $max_iterations )
-    {
-      my $msg = "EXCEEDED MAX ITERATIONS ($max_iterations)";
-      $logger->logcroak("$msg");
-    }
+#   if ( $count > $max_iterations )
+#     {
+#       my $msg = "EXCEEDED MAX ITERATIONS ($max_iterations)";
+#       $logger->logcroak("$msg");
+#     }
 
 
- BLOCK:
-  foreach my $block (@{ $block_list })
-    {
-      my $block_name = $block->get_name;
+#  BLOCK:
+#   foreach my $block (@{ $block_list })
+#     {
+#       my $block_name = $block->get_name;
 
-      next if $block_name eq 'COMMENT_BLOCK';
-      next if $block->is_in_a('COMMENT');
-      next if $block->isa('SML::PreformattedBlock');
-      next if $block->is_in_a('PREFORMATTED');
+#       next if $block_name eq 'COMMENT_BLOCK';
+#       next if $block->is_in_a('COMMENT');
+#       next if $block->isa('SML::PreformattedBlock');
+#       next if $block->is_in_a('PREFORMATTED');
 
-      my $text = $block->get_content;
+#       my $text = $block->get_content;
 
-      next if $text =~ /$syntax->{'comment_line'}/;
+#       next if $text =~ /$syntax->{'comment_line'}/;
 
-      while ( $text =~ /$syntax->{lookup_ref}/ )
-	{
-	  my $name = $2;
-	  my $id   = $3;
+#       while ( $text =~ /$syntax->{lookup_ref}/ )
+# 	{
+# 	  my $name = $2;
+# 	  my $id   = $3;
 
-	  if ( $library->has_property($id,$name) )
-	    {
-	      $logger->trace("{$number} ..... $id $name is in library");
+# 	  if ( $library->has_property($id,$name) )
+# 	    {
+# 	      $logger->trace("{$number} ..... $id $name is in library");
 
-	      my $list = $library->get_property_value_list($id,$name);
+# 	      my $list = $library->get_property_value_list($id,$name);
 
-	      # use the first value, ignore the rest
-	      my $value = $list->[0];
+# 	      # use the first value, ignore the rest
+# 	      my $value = $list->[0];
 
-	      $text =~ s/$syntax->{lookup_ref}/$value/;
-	    }
+# 	      $text =~ s/$syntax->{lookup_ref}/$value/;
+# 	    }
 
-	  else
-	    {
-	      my $location = $block->get_location;
-	      my $msg      = "LOOKUP FAILED $id $name";
-	      $self->_handle_error('warn',$msg,$location);
-	      $self->_set_is_valid(0);
+# 	  else
+# 	    {
+# 	      my $location = $block->get_location;
+# 	      my $msg      = "LOOKUP FAILED $id $name";
+# 	      $self->_handle_error('warn',$msg,$location);
+# 	      $self->_set_is_valid(0);
 
-	      $text =~ s/$syntax->{lookup_ref}/($msg)/;
-	    }
-	}
+# 	      $text =~ s/$syntax->{lookup_ref}/($msg)/;
+# 	    }
+# 	}
 
-      $block->set_content($text);
-    }
+#       $block->set_content($text);
+#     }
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
@@ -3422,8 +3444,8 @@ sub _text_requires_block_processing {
       if
 	(
 	 $text =~ /$syntax->{variable_ref}/
-	 or
-	 $text =~ /$syntax->{lookup_ref}/
+	 # or
+	 # $text =~ /$syntax->{lookup_ref}/
 	)
 	{
 	  return 1;
@@ -7455,6 +7477,7 @@ sub _build_string_type_list {
 
      # substrings that form references
      'cross_ref',
+     'lookup_ref',
      'title_ref',
      'url_ref',
      'footnote_ref',

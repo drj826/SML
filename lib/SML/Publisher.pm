@@ -217,7 +217,14 @@ sub publish_library_pages {
       $self->_publish_html_library_acronyms_page($style);
       $self->_publish_html_library_references_page($style);
 
-      my $library = $self->get_library;
+      my $library       = $self->get_library;
+      my $published_dir = $library->get_published_dir;
+      my $state_dir     = "$published_dir/DRAFT";
+
+      if ( -f "$state_dir/errors.html" )
+	{
+	  unlink "$state_dir/errors.html";
+	}
 
       if ( $library->contains_error )
 	{
@@ -368,6 +375,11 @@ sub _publish_html_document {
     {
       mkdir "$output_dir", 0755;
       $logger->info("made directory $output_dir");
+    }
+
+  if ( -f "$output_dir/$id.errors.html" )
+    {
+      unlink "$output_dir/$id.errors.html";
     }
 
   my $tt_config =

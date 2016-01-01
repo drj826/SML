@@ -289,8 +289,8 @@ has lookup_ref =>
   );
 
 # $1 = element name
-# $2 = property_name
-# $3 = division_id
+# $2 = target property name
+# $3 = target division id
 
 ######################################################################
 
