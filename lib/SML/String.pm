@@ -83,7 +83,7 @@ sub get_location {
 
   my $self = shift;
 
-  if ( $self->_has_containing_block )
+  if ( $self->get_containing_block )
     {
       my $block = $self->get_containing_block;
       return $block->get_location;

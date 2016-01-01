@@ -2560,80 +2560,6 @@ sub _substitute_variables {
 
 ######################################################################
 
-# sub _resolve_lookups {
-
-#   my $self = shift;
-
-#   my $library        = $self->_get_library;
-#   my $syntax         = $library->get_syntax;
-#   my $util           = $library->get_util;
-#   my $count_method   = $self->_get_count_method_hash;
-#   my $division       = $self->_get_division;
-#   my $block_list     = $division->get_block_list;
-#   my $options        = $util->get_options;
-#   my $max_iterations = $options->get_MAX_RESOLVE_LOOKUPS;
-#   my $count          = ++ $count_method->{'_resolve_lookups'};
-#   my $number         = $self->_get_number;
-
-#   $logger->trace("{$number} ($count) resolve lookups");
-
-#   if ( $count > $max_iterations )
-#     {
-#       my $msg = "EXCEEDED MAX ITERATIONS ($max_iterations)";
-#       $logger->logcroak("$msg");
-#     }
-
-
-#  BLOCK:
-#   foreach my $block (@{ $block_list })
-#     {
-#       my $block_name = $block->get_name;
-
-#       next if $block_name eq 'COMMENT_BLOCK';
-#       next if $block->is_in_a('COMMENT');
-#       next if $block->isa('SML::PreformattedBlock');
-#       next if $block->is_in_a('PREFORMATTED');
-
-#       my $text = $block->get_content;
-
-#       next if $text =~ /$syntax->{'comment_line'}/;
-
-#       while ( $text =~ /$syntax->{lookup_ref}/ )
-# 	{
-# 	  my $name = $2;
-# 	  my $id   = $3;
-
-# 	  if ( $library->has_property($id,$name) )
-# 	    {
-# 	      $logger->trace("{$number} ..... $id $name is in library");
-
-# 	      my $list = $library->get_property_value_list($id,$name);
-
-# 	      # use the first value, ignore the rest
-# 	      my $value = $list->[0];
-
-# 	      $text =~ s/$syntax->{lookup_ref}/$value/;
-# 	    }
-
-# 	  else
-# 	    {
-# 	      my $location = $block->get_location;
-# 	      my $msg      = "LOOKUP FAILED $id $name";
-# 	      $self->_handle_error('warn',$msg,$location);
-# 	      $self->_set_is_valid(0);
-
-# 	      $text =~ s/$syntax->{lookup_ref}/($msg)/;
-# 	    }
-# 	}
-
-#       $block->set_content($text);
-#     }
-
-#   return 1;
-# }
-
-######################################################################
-
 sub _generate_section_numbers {
 
   # Do this BEFORE generating division numbers!
@@ -2999,7 +2925,8 @@ sub _end_element {
 	  else
 	    {
 	      my $msg = "ONTOLOGY DOESN'T ALLOW TRIPLE $subject $predicate $object";
-	      $self->_handle_error('error',$msg);
+	      my $location = $element->get_location;
+	      $self->_handle_error('error',$msg,$location);
 	    }
 	}
 
@@ -4705,7 +4632,8 @@ sub _process_bull_list_item {
 	  else
 	    {
 	      my $msg = "THIS SHOULD NEVER HAPPEN";
-	      $self->_handle_error('fatal',$msg);
+	      my $location = $line->get_location;
+	      $self->_handle_error('fatal',$msg,$location);
 	    }
 	}
 
@@ -4788,7 +4716,8 @@ sub _process_bull_list_item {
 	  else
 	    {
 	      my $msg = "THIS SHOULD NEVER HAPPEN";
-	      $self->_handle_error('fatal',$msg);
+	      my $location = $line->get_location;
+	      $self->_handle_error('fatal',$msg,$location);
 	    }
 	}
 
@@ -5625,7 +5554,8 @@ sub _process_enum_list_item {
 	  else
 	    {
 	      my $msg = "THIS SHOULD NEVER HAPPEN";
-	      $self->_handle_error('fatal',$msg);
+	      my $location = $line->get_location;
+	      $self->_handle_error('fatal',$msg,$location);
 	    }
 	}
 
@@ -5700,7 +5630,8 @@ sub _process_enum_list_item {
 	  else
 	    {
 	      my $msg = "THIS SHOULD NEVER HAPPEN";
-	      $self->_handle_error('fatal',$msg);
+	      my $location = $line->get_location;
+	      $self->_handle_error('fatal',$msg,$location);
 	    }
 	}
 
@@ -7709,7 +7640,8 @@ sub _parse_next_substring {
   unless ( $text )
     {
       my $msg = "THERE IS NO TEXT LEFT TO PARSE IN $string";
-      $self->_handle_error('error',$msg);
+      my $location = $string->get_location;
+      $self->_handle_error('error',$msg,$location);
       return 0;
     }
 
@@ -7742,7 +7674,8 @@ sub _parse_next_substring {
       else
 	{
 	  my $msg = "THIS SHOULD NEVER HAPPEN (5)";
-	  $self->_handle_error('error',$msg);
+	  my $location = $string->get_location;
+	  $self->_handle_error('error',$msg,$location);
 	}
     }
 
@@ -9136,7 +9069,8 @@ sub _validate_theversion_ref_semantics {
   unless ( $doc )
     {
       my $msg = "NOT IN DOCUMENT CONTEXT can't validate version references";
-      $self->_handle_error('error',$msg);
+      my $location = $block->get_location;
+      $self->_handle_error('error',$msg,$location);
       return 0;
     }
 
@@ -9192,7 +9126,8 @@ sub _validate_therevision_ref_semantics {
   if ( not $doc )
     {
       my $msg = "CAN'T VALIDATE REVISION REFERENCES, NOT IN DOCUMENT CONTEXT";
-      $self->_handle_error('error',$msg);
+      my $location = $block->get_location;
+      $self->_handle_error('error',$msg,$location);
       return 0;
     }
 
@@ -9248,7 +9183,8 @@ sub _validate_thedate_ref_semantics {
   unless ( $doc )
     {
       my $msg = "CAN'T VALIDATE DATE REFERENCES, NOT IN DOCUMENT CONTEXT";
-      $self->_handle_error('error',$msg);
+      my $location = $block->get_location;
+      $self->_handle_error('error',$msg,$location);
       return 0;
     }
 
@@ -9320,7 +9256,8 @@ sub _validate_status_ref_semantics {
 	  if ( not $block->get_containing_document )
 	    {
 	      my $msg = "CAN'T VALIDATE STATUS REFERENCE SEMANTICS, NOT IN DOCUMENT CONTEXT";
-	      $self->_handle_error('error',$msg);
+	      my $location = $block->get_location;
+	      $self->_handle_error('error',$msg,$location);
 	      return 0;
 	    }
 
@@ -9451,7 +9388,8 @@ sub _validate_glossary_def_ref_semantics {
   if ( not $block->get_containing_document )
     {
       my $msg = "CAN'T VALIDATE GLOSSARY DEFINITION REFERENCES, NOT IN DOCUMENT CONTEXT";
-      $self->_handle_error('error',$msg);
+      my $location = $block->get_location;
+      $self->_handle_error('error',$msg,$location);
       return 0;
     }
 
@@ -9514,7 +9452,8 @@ sub _validate_acronym_ref_semantics {
   if ( not $block->get_containing_document )
     {
       my $msg = "CAN'T VALIDATE ACRONYM REFERENCES, NOT IN DOCUMENT CONTEXT";
-      $self->_handle_error('error',$msg);
+      my $location = $block->get_location;
+      $self->_handle_error('error',$msg,$location);
       return 0;
     }
 
@@ -9579,7 +9518,8 @@ sub _validate_source_citation_semantics {
   if ( not $block->get_containing_document )
     {
       my $msg = "CAN'T VALIDATE SOURCE CITATIONS, NOT IN DOCUMENT CONTEXT";
-      $self->_handle_error('error',$msg);
+      my $location = $block->get_location;
+      $self->_handle_error('error',$msg,$location);
       return 0;
     }
 
@@ -9764,7 +9704,8 @@ sub _validate_property_values {
 	      my $list = $ontology->get_allowed_property_value_list($divname,$property_name);
 	      my $valid_property_values = join(', ', @{ $list });
 	      my $msg = "INVALID PROPERTY VALUE $value, $divname $property_name MUST BE ONE OF: $valid_property_values";
-	      $self->_handle_error('warn',$msg);
+	      my $location = $division->get_location;
+	      $self->_handle_error('warn',$msg,$location);
 	      $valid = 0;
 	    }
 	}
@@ -9803,7 +9744,8 @@ sub _validate_infer_only_conformance {
 	  if ( $imply_only and $value->is_from_manuscript )
 	    {
 	      my $msg = "INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY $property_name, $divname $divid";
-	      $self->_handle_error('warn',$msg);
+	      my $location = $division->get_location;
+	      $self->_handle_error('warn',$msg,$location);
 	      $valid = 0;
 	    }
 
@@ -9897,7 +9839,7 @@ sub _validate_composition {
 	  else
 	    {
 	      my $msg = "INVALID COMPOSITION $name IN $container_name";
-	      $self->_handle_error('warn',$msg);
+	      $self->_handle_error('warn',$msg,$location);
 	    }
 
 	  return 0;
@@ -9939,7 +9881,8 @@ sub _process_index_string {
   unless ( $element->has_containing_division )
     {
       my $msg = "INDEX ELEMENT HAS NO CONTAINING DIVISION";
-      $self->_handle_error('error',$msg);
+      my $location = $element->get_location;
+      $self->_handle_error('error',$msg,$location);
       return 0;
     }
 
@@ -10219,7 +10162,8 @@ sub _build_document_glossary {
       else
 	{
 	  my $msg = "CAN'T ADD TERM TO DOCUMENT GLOSSARY, NOT IN LIBRARY GLOSSARY $term {$namespace}";
-	  $self->_handle_error('error',$msg);
+	  my $location = $string->get_location;
+	  $self->_handle_error('error',$msg,$location);
 	}
     }
 
@@ -10275,7 +10219,8 @@ sub _build_document_acronym_list {
       else
 	{
 	  my $msg = "CAN'T ADD ACRONYM TO DOCUMENT ACRONYM LIST, NOT IN LIBRARY ACRONYM LIST $acronym $namespace";
-	  $self->_handle_error('error',$msg);
+	  my $location = $string->get_location;
+	  $self->_handle_error('error',$msg,$location);
 	}
     }
 
@@ -10333,7 +10278,8 @@ sub _build_document_references {
       else
 	{
 	  my $msg = "CAN'T ADD SOURCE TO DOCUMENT REFERENCES, NOT IN LIBRARY SOURCE $source_id";
-	  $self->_handle_error('error',$msg);
+	  my $location = $string->get_location;
+	  $self->_handle_error('error',$msg,$location);
 	}
     }
 

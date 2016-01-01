@@ -113,7 +113,7 @@ sub get_entry {
 
   else
     {
-      $logger->warn("FAILED ACRONYM LOOKUP: \'$acronym\' \'$namespace\'");
+      $logger->warn("FAILED ACRONYM LOOKUP $acronym {$namespace}");
       return 0;
     }
 }
