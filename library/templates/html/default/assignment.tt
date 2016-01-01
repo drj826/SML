@@ -1,0 +1,28 @@
+[%# args:
+
+self => an SML::Entity object (name = 'assignment')
+
+%]
+
+<div class="assignment">
+
+[%- INCLUDE entity_metadata_table.tt -%]
+
+<table>
+
+[%- INCLUDE entity_property_row.tt property_name = 'title'        label = 'title:'        -%]
+[%- INCLUDE entity_property_row.tt property_name = 'description'  label = 'description:'  -%]
+[%- INCLUDE entity_property_row.tt property_name = 'requirement'  label = 'requirement:'  -%]
+[%- INCLUDE entity_property_row.tt property_name = 'role'         label = 'role:'         -%]
+[%- INCLUDE entity_property_row.tt property_name = 'test'         label = 'test:'         -%]
+[%- INCLUDE entity_property_row.tt property_name = 'stakeholder'  label = 'stakeholders:' -%]
+[%- INCLUDE entity_property_row.tt property_name = 'review'       label = 'reviews:'      -%]
+[%- INCLUDE entity_property_row.tt property_name = 'outcome'      label = 'outcomes:'     -%]
+
+[%- INCLUDE entity_attribute_row.tt -%]
+
+</table>
+
+[%- INCLUDE narrative_part_list.tt -%]
+
+</div>

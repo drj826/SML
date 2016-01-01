@@ -1,0 +1,48 @@
+[%# args:
+
+self => an SML::Entity object (name = 'task')
+
+%]
+
+<div class="task">
+
+[%- INCLUDE entity_metadata_table.tt -%]
+
+<table>
+
+[%- INCLUDE entity_property_row.tt property_name = 'title'          label = 'title:'          -%]
+[%- INCLUDE entity_property_row.tt property_name = 'description'    label = 'description:'    -%]
+[%- INCLUDE entity_property_row.tt property_name = 'is_part_of'     label = 'is part of:'     -%]
+[%- INCLUDE entity_property_row.tt property_name = 'has_part'       label = 'has parts:'      -%]
+[%- INCLUDE entity_property_row.tt property_name = 'owner'          label = 'owner:'          -%]
+[%- INCLUDE entity_property_row.tt property_name = 'stakeholder'    label = 'stakeholders:'   -%]
+[%- INCLUDE entity_property_row.tt property_name = 'assignee'       label = 'assignees:'      -%]
+[%- INCLUDE entity_property_row.tt property_name = 'validated_by'   label = 'validated by:'   -%]
+[%- INCLUDE entity_property_row.tt property_name = 'requirement'    label = 'requirement:'    -%]
+[%- INCLUDE entity_property_row.tt property_name = 'has_related'    label = 'has_related:'    -%]
+[%- INCLUDE entity_property_row.tt property_name = 'depends_on'     label = 'depends on:'     -%]
+[%- INCLUDE entity_property_row.tt property_name = 'required_by'    label = 'required by:'    -%]
+[%- INCLUDE entity_property_row.tt property_name = 'class_of'       label = 'class of:'       -%]
+[%- INCLUDE entity_property_row.tt property_name = 'instance_of'    label = 'instance of:'    -%]
+[%- INCLUDE entity_property_row.tt property_name = 'directed_by'    label = 'directed by:'    -%]
+[%- INCLUDE entity_property_row.tt property_name = 'work_product'   label = 'work product:'   -%]
+[%- INCLUDE entity_property_row.tt property_name = 'deadline'       label = 'deadline:'       -%]
+[%- INCLUDE entity_property_row.tt property_name = 'associated'     label = 'associated:'     -%]
+[%- INCLUDE entity_property_row.tt property_name = 'next'           label = 'next:'           -%]
+[%- INCLUDE entity_property_row.tt property_name = 'previous'       label = 'previous:'       -%]
+[%- INCLUDE entity_property_row.tt property_name = 'state'          label = 'state:'          -%]
+[%- INCLUDE entity_property_row.tt property_name = 'date_created'   label = 'date created:'   -%]
+[%- INCLUDE entity_property_row.tt property_name = 'date_changed'   label = 'date changed:'   -%]
+[%- INCLUDE entity_property_row.tt property_name = 'created_by'     label = 'created by:'     -%]
+[%- INCLUDE entity_property_row.tt property_name = 'changed_by'     label = 'changed by:'     -%]
+[%- INCLUDE entity_property_row.tt property_name = 'copyright'      label = 'copyright:'      -%]
+[%- INCLUDE entity_property_row.tt property_name = 'review'         label = 'reviews:'        -%]
+[%- INCLUDE entity_property_row.tt property_name = 'outcome'        label = 'outcomes:'       -%]
+
+[%- INCLUDE entity_attribute_row.tt -%]
+
+</table>
+
+[%- INCLUDE narrative_part_list.tt -%]
+
+</div>
