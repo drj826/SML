@@ -482,8 +482,8 @@ sub _publish_html_document {
       # index
       if ( $document->get_index->contains_entries )
 	{
-	  $logger->info("publishing $id.index.html");
-	  $tt->process("index_page.tt",$vars,"$id.index.html")
+	  $logger->info("publishing $id index.html");
+	  $tt->process("index_page.tt",$vars,"index.html")
 	    || die $tt->error(), "\n";
 	}
 
@@ -491,8 +491,8 @@ sub _publish_html_document {
 
       if ( $glossary->contains_entries )
 	{
-	  $logger->info("publishing $id.glossary.html");
-	  $tt->process("document_glossary_page.tt",$vars,"$id.glossary.html")
+	  $logger->info("publishing $id glossary.html");
+	  $tt->process("document_glossary_page.tt",$vars,"glossary.html")
 	    || die $tt->error(), "\n";
 	}
 
@@ -500,8 +500,8 @@ sub _publish_html_document {
 
       if ( $acronym_list->contains_entries )
 	{
-	  $logger->info("publishing $id.acronyms.html");
-	  $tt->process("document_acronyms_page.tt",$vars,"$id.acronyms.html")
+	  $logger->info("publishing $id acronyms.html");
+	  $tt->process("document_acronyms_page.tt",$vars,"acronyms.html")
 	    || die $tt->error(), "\n";
 	}
 
@@ -509,8 +509,8 @@ sub _publish_html_document {
 
       if ( $references->contains_entries )
 	{
-	  $logger->info("publishing $id.references.html");
-	  $tt->process("document_references_page.tt",$vars,"$id.references.html")
+	  $logger->info("publishing $id references.html");
+	  $tt->process("document_references_page.tt",$vars,"references.html")
 	    || die $tt->error(), "\n";
 	}
 

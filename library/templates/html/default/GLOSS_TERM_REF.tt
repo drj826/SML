@@ -6,7 +6,6 @@ self => an SML::GlossaryTermReference object
 [%-
 
 document    = self.get_containing_document
-document_id = document.get_id
 tag         = self.get_tag
 term        = self.get_term
 namespace   = self.get_namespace
@@ -16,9 +15,9 @@ bookmark    = entry.get_bookmark
 
 -%]
 [%- IF (tag == 'g') || (tag == 'gls') -%]
-<a href="[%document_id%].glossary.html#[%bookmark%]">[%term%]</a>
+<a href="glossary.html#[%bookmark%]">[%term%]</a>
 [%- ELSIF (tag == 'G') || (tag == 'Gls') -%]
-<a href="[%document_id%].glossary.html#[%bookmark%]">[%term.ucfirst%]</a>
+<a href="glossary.html#[%bookmark%]">[%term.ucfirst%]</a>
 [%- ELSE -%]
 <span style="color: red;">This should never happen</span>
 [%- END -%]

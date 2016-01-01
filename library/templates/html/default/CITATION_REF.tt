@@ -8,11 +8,10 @@ self => an SML::CitationReference object
 source_id = self.get_source_id
 details   = self.get_details
 document  = self.get_containing_document
-docid     = document.get_id
 
 -%]
 [%- IF details -%]
-[<a href="[%docid%].references.html#[%source_id%]">[%source_id%], [%details%]</a>]
+[<a href="references.html#[%source_id%]">[%source_id%], [%details%]</a>]
 [%- ELSE -%]
-[<a href="[%docid%].references.html#[%source_id%]">[%source_id%]</a>]
+[<a href="references.html#[%source_id%]">[%source_id%]</a>]
 [%- END -%]
