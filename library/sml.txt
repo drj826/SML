@@ -1666,7 +1666,7 @@ The syntactic components of [a:SML] are:
 The syntactic components are used to express semantic components of
 [a:SML]:
 
-= [g:SML:entity] = [def:SML:entity]
+= [g:SML2:entity] = [def:SML2:entity]
 
 = [g:SML:property] = [def:SML:property]
 

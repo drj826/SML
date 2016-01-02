@@ -15,7 +15,7 @@ priority:: routine
 type:: functional
 
 description:: The software shall format output text from document
-[g:SML:structure] objects. Document structure objects are memory
+[g:SML2:structure] objects. Document structure objects are memory
 resident objects created by the parser that represent document
 structures like paragraphs, lists, sections, tables, figures, and
 listings.  This requirement serves as a container for requirements

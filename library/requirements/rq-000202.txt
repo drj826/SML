@@ -13,7 +13,7 @@ is_part_of:: rq-000106
 type:: functional
 
 description:: The software shall enable a user to validate that an
-[g:SML:entity] has valid relationships with other entities. The
+[g:SML2:entity] has valid relationships with other entities. The
 allowed relationships for each entity type are specified in the
 [g:SML:library] [g:SML:ontology].
 

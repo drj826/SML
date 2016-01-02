@@ -168,29 +168,29 @@ footnote::1: Not really.
 The following key terms and definitions describe SML document
 structures.[f:key-terms:1]
 
+= [g:SML:library] = [def:SML:library]
+
+= [g:SML:ontology] = [def:SML:ontology]
+
 = [g:SML:document] = [def:SML:document]
 
-= [g:SML:document preamble] = [def:SML:document preamble]
-
-= [g:SML:document narrative] = [def:SML:document narrative]
-
-= [g:SML:section] = [def:SML:section]
-
-= [g:SML:environment] = [def:SML:environment]
-
-= [g:SML:region] = [def:SML:region]
-
-= [g:SML:line] = [def:SML:line]
-
-= [g:SML:inline] = [def:SML:inline]
-
-= [g:SML:block] = [def:SML:block]
+= [g:SML:part] = [def:SML:part]
 
 = [g:SML:division] = [def:SML:division]
 
+= [g:SML2:structure] = [def:SML2:structure]
+
+= [g:SML:section] = [def:SML:section]
+
+= [g:SML2:entity] = [def:SML2:entity]
+
+= [g:SML:block] = [def:SML:block]
+
 = [g:SML:element] = [def:SML:element]
 
-= [g:SML:entity] = [def:SML:entity]
+= [g:SML:string] = [def:SML:string]
+
+= [g:SML:line] = [def:SML:line]
 
 footnote::1: These definitions are also in the glossary.
 
@@ -200,15 +200,8 @@ footnote::1: These definitions are also in the glossary.
 
 An [a:SML] [g:SML:document] is composed of [g:SML:division]s,
 divisions are composed of [g:SML:block]s, and blocks are composed of
-whole [g:SML:line]s of [g:SML:text].  An SML document has two
-top-level divisions, a [g:SML:document preamble] and a [g:SML:document
-narrative].[f:data-format-design:1] Preambles contain [g:SML:element]s
-which represent structured data.  Narratives contain a mix of
-[g:SML:block]s, [g:SML:section]s, [g:SML:environment]s,
-[g:SML:region]s, and [g:SML:element]s.
-
-footnote::1: The [g:SML:document preamble] and [g:SML:document
-narrative] are both optional. An empty file is a valid SML document.
+whole [g:SML:line]s of [g:SML:text].  Blocks are parsed into
+[g:SML:string]s.
 
 #---------------------------------------------------------------------
 

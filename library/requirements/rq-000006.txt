@@ -9,7 +9,7 @@ is_part_of:: rq-000107
 type:: data format
 
 description:: The data format shall have the capability to represent
-document [g:SML:structure]s.  Structures (i.e. paragraphs, sections,
+document [g:SML1:structure]s.  Structures (i.e. paragraphs, sections,
 lists, tables, figures...) enable authors to organize document
 content.  This requirement serves as a container for all document
 structure representation requirements.

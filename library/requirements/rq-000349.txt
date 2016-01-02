@@ -15,7 +15,7 @@ priority:: routine
 type:: non-functional
 
 description:: The [g:SML:ontology] shall permit the user to configure
-the [g:SML:entity] types allowed in a [g:SML:library].  This is a
+the [g:SML2:entity] types allowed in a [g:SML:library].  This is a
 `configurability' requirement.  The purpose of this requirement is to
 ensure the solution does ~~not~~ hard-code entity types into the
 software solution but instead enables users to configure custom entity
