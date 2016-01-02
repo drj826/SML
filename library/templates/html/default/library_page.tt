@@ -30,7 +30,7 @@ library => an SML::Library object
 
 <script type="text/javascript" src="javascript/jquery-2.1.4.min.js"></script>
 
-[% INCLUDE css.tt -%]
+[% INCLUDE library_css.tt -%]
 
 </head>
 <body>

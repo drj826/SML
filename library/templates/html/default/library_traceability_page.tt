@@ -12,7 +12,7 @@ ontology = library.get_ontology
 
 <h1 align="center">Traceability</h1>
 
-<br/><br/>
+<br/>
 
 [%- entity_name_list = ontology.get_entity_name_list -%]
 

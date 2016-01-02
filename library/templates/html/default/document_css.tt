@@ -1,0 +1,133 @@
+<style type="text/css">
+html { height: 100%; max-height: 100%; padding: 0; margin: 0; border: 0; }
+body { height: 100%; max-height: 100%; margin: 10px; border: 0; padding: 0; font-size: 10pt; font-family: verdana, sans-serif; }
+#content { display: block; top: 0px; bottom: 0px; max-height: 100%; overflow: visible; margin-top: 20px; margin-bottom: 20px; padding-left: 100px; margin-left: 20px; padding-right: 20px; position: relative; z-index: 3; }
+#head { position: fixed; top: 0; right: 18px; display: block; width: 100%; height: 0px; background-color: #DDDDDD; color: #888888; z-index: 4; }
+#foot { position: fixed; bottom: 0px; right: 18px; display: block; width: 100%; height: 0; background-color: #DDDDDD; color: #888888; z-index: 4; }
+#left { position: fixed; left: 0; top: 0; height: 100%; width: 110px; background-color: #c6ecc6; z-index: 5; }
+* html #head, * html #foot, * html #left { position: absolute; }
+#pad1 { display: block; width: 118px; height: 20px; float: left; }
+#pad3 { display: block; width: 118px; height: 60px; float: left; }
+.pad2 { display: block; width: 100px; height: 20px; }
+.pad4 { display: block; width: 100px; height: 10px; }
+H1 { font-size: 16pt; }
+H2 { font-size: 14pt; }
+H3 { font-size: 12pt; }
+H4 { font-size: 12pt; }
+H5 { font-size: 10pt; }
+H6 { font-size: 10pt; }
+TD { font-size:8pt; font-family:verdana,sans-serif; vertical-align:top; padding:4px; }
+P.title { font-weight: bold; text-align: center; }
+P.source { font-style: italic; margin-left: 30pt; }
+PRE { margin-left: 20pt; margin-right: 20pt; }
+A { text-decoration: none; }
+TT { font-size: 11pt; }
+UL { margin-left: 20pt; }
+UL UL { margin-left: 10pt; }
+UL UL UL { margin-left: 10pt; }
+OL { margin-left: 20pt; }
+OL OL { margin-left: 10pt; }
+OL OL OL { margin-left: 10pt; }
+TD UL { padding-left:0pt; }
+TD OL { padding-left:0pt; }
+LI { padding: 3px; }
+DIV.trace { font-size: 8pt; padding-bottom: 4pt;}
+.even { background-color: #ffffff; color: #000000; font-size: 8pt;}
+.odd { background-color: #f0f0f0; color: #000000; font-size: 8pt;}
+.header { background-color: #cccccc; color: #000000; font-size: 8pt;}
+.critical { font-size: 8pt; background-color: #ff6666; padding: 4px;}
+.high { font-size: 8pt; background-color: #ffaa66; padding: 4px;}
+.routine { font-size: 8pt; background-color: #ffff66; padding: 4px;}
+.low { font-size: 8pt; background-color: #dddddd; padding: 4px;}
+.green { font-size: 8pt; background-color: #66ff66; padding: 4px;}
+.yellow { font-size: 8pt; background-color: #ffff66; padding: 4px;}
+.orange { font-size: 8pt; background-color: #ffaa66; padding: 4px;}
+.red { font-size: 8pt; background-color: #ff6666; padding: 4px;}
+.grey { font-size: 8pt; background-color: #dddddd; padding: 4px;}
+.req_label { font-size: 8pt; padding: 0px;}
+.req_info { font-size: 8pt; padding: 0px; color: #888888;}
+.info { font-size: 8pt; padding: 0px; color: #888888;}
+.req_header { font-size: 8pt; color: #666666;}
+.req_solution { font-size: 8pt;}
+.req_allocation { font-size: 8pt;}
+.req_assignment { font-size: 8pt;}
+.req_individual { font-size: 8pt;}
+.req_parent { font-size: 8pt;}
+.req_child { font-size: 8pt;}
+.req_title { font-weight: bold; }
+.req_critical { font-size: 8pt; background-color: #ff6666; padding: 4px;}
+.req_high { font-size: 8pt; background-color: #ffaa66; padding: 4px;}
+.req_routine { font-size: 8pt; background-color: #ffff66; padding: 4px;}
+.req_low { font-size: 8pt; background-color: #dddddd; padding: 4px;}
+.req_grey { font-size: 8pt; background-color: #dddddd; padding: 4px;}
+.req_gray { font-size: 8pt; background-color: #dddddd; padding: 4px;}
+.req_green { font-size: 8pt; background-color: #66ff66; padding: 4px;}
+.req_yellow { font-size: 8pt; background-color: #ffff66; padding: 4px;}
+.req_red { font-size: 8pt; background-color: #ff6666; padding: 4px;}
+.req_header { background-color: #dddddd; color: #000000;}
+.req_even { background-color: #ffffff; color: #000000;}
+.req_odd { background-color: #f6f6f6; color: #000000;}
+.sol_label { font-size: 8pt; padding: 0px;}
+.sol_info { font-size: 8pt; padding: 0px; color: #888888;}
+.sol_header { font-size: 8pt; color: #666666;}
+.sol_solution { font-size: 8pt;}
+.sol_allocation { font-size: 8pt;}
+.sol_assignment { font-size: 8pt;}
+.sol_individual { font-size: 8pt;}
+.sol_parent { font-size: 8pt;}
+.sol_child { font-size: 8pt;}
+.sol_version { font-size: 8pt;}
+.sol_cost { font-size: 8pt;}
+.sol_problem { font-size: 8pt;}
+.sol_test { font-size: 8pt;}
+.sol_title { font-weight: bold; }
+.sol_critical { font-size: 8pt; background-color: #ff6666; padding: 4px;}
+.sol_high { font-size: 8pt; background-color: #ffaa66; padding: 4px;}
+.sol_routine { font-size: 8pt; background-color: #ffff66; padding: 4px;}
+.sol_low { font-size: 8pt; background-color: #dddddd; padding: 4px;}
+.sol_grey { font-size: 8pt; background-color: #dddddd; padding: 4px;}
+.sol_gray { font-size: 8pt; background-color: #dddddd; padding: 4px;}
+.sol_green { font-size: 8pt; background-color: #66ff66; padding: 4px;}
+.sol_yellow { font-size: 8pt; background-color: #ffff66; padding: 4px;}
+.sol_red { font-size: 8pt; background-color: #ff6666; padding: 4px;}
+.sol_header { background-color: #dddddd; color: #000000;}
+.sol_even { background-color: #ffffff; color: #000000;}
+.sol_odd { background-color: #f6f6f6; color: #000000;}
+DIV.title { font-size: 16pt; font-weight: bold; text-align: center; margin-top: 10px; margin-bottom: 10px; }
+DIV.subtitle { font-size: 12pt; text-align: center; margin-top: 10px; margin-bottom: 10px; }
+DIV.epigraph { padding-bottom:10px; }
+DIV.preamble { font-size: 8pt; background-color: #ffffff; margin: 10pt 20pt 10pt 20pt; padding: 10pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
+DIV.copyright { font-size: 10pt; text-align: center; margin-bottom: 10px; }
+DIV.slide { background-color: #fdfdaa; margin: 10pt 20pt 10pt 20pt; padding: 10pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
+DIV.sidebar { float: right; width: 40%; font-size: 8pt; background-color: #eeeeee; margin: 10pt 20pt 10pt 20pt; padding: 5pt; border-style: solid; border-width: 1px; border-color: #cccccc; margin-left: 0pt; margin-right: 0pt; }
+DIV.quotation { background-color: #ffffff; margin: 10pt 20pt 10pt 20pt; padding: 10pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
+DIV.requirement { background-color: #ffffff; margin: 10pt 20pt 10pt 20pt; padding: 10pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
+DIV.allocation { background-color: #ffffff; margin: 10pt 20pt 10pt 20pt; padding: 10pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
+DIV.configuration_item { background-color: #ffffff; margin: 10pt 20pt 10pt 20pt; padding: 10pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
+DIV.assignment { background-color: #ffffff; }
+DIV.section { background-color: #ffffff; }
+DIV.test { background-color: #ffffff; }
+DIV.task { background-color: #ffffff; }
+DIV.result { background-color: #ffffff; }
+DIV.role { background-color: #ffffff; }
+DIV.demo { background-color: #ddddff; margin: 10pt 20pt 10pt 20pt; padding: 10pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
+DIV.exercise { background-color: #ffffff; margin: 10pt 20pt 10pt 20pt; padding: 10pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
+DIV.listing { background-color: #ddffdd; margin: 10pt 20pt 10pt 20pt; padding: 10pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
+DIV.todo { background-color: #ffcccc; margin: 10pt 20pt 10pt 20pt; padding: 10pt; border-style: solid; border-width: 1px; border-color: #cccccc; font-size: 8pt; }
+DIV.keypoints { background-color: #eeeeee; margin: 10pt 20pt 10pt 20pt; padding: 10pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
+SPAN.indent { margin-left: 40pt; font-size: 8pt; }
+SPAN.keystroke { border-style: outset; border-color: #666666; border-width: 1px; background-color: #eeeeee; color: #444444; padding-top: 0px; padding-bottom: 0px; padding-left: 2px; padding-right: 2px; font-family: courier; font-size: 8pt; }
+SPAN.recent { border-style: outset; border-color: #666666; border-width: 1px; background-color: #eeee00; color: #444444; padding-top: 0px; padding-bottom: 0px; padding-left: 2px; padding-right: 2px; }
+.footnote { background-color: #eeeeee; padding: 5pt; font-size: 8pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
+.metadata { background-color: #ffffff; padding: 5pt; font-size: 8pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
+.attachment { background-color: #FFFFFF; padding: 4px; font-size: 8pt; }
+P.num { color: #aaaaaa; text-align: right; font-size: 8pt; margin-left: 0pt; margin-right: 0pt; margin-top: 0pt; margin-bottom: 0pt; }
+TABLE.treetable { padding: 4px; }
+.treetable { font-family: verdana, sans-serif; font-size: 8pt; }
+.treetable th { background:#ddd; margin:1px; padding: 0 5px; font-weight:normal; }
+.treetable td { margin:1px; padding: 0 5px; border-bottom: #dddddd solid 1px; border-top: none; border-left: none; border-right: none; }
+.treetable td.number { text-align:center; }
+.treetable a { text-decoration: none; }
+.button { border: none; margin: 0 4px 0 0 ; }
+</style>
+
