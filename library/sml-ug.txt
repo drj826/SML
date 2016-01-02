@@ -1,4 +1,4 @@
->>>DOCUMENT.sml
+>>>DOCUMENT.sml-ug
 
 title:: Semantic Manuscript Language (SML)
 
@@ -6102,9 +6102,9 @@ along with alternative syntaxes for reusing them
 
 :
 
-  [status:sml]
+  [status:sml-ug]
 
-: [status:sml]
+: [status:sml-ug]
 
 ---
 

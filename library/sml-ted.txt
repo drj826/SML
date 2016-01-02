@@ -1,4 +1,4 @@
->>>DOCUMENT.ted-sml
+>>>DOCUMENT.sml-ted
 
 title:: Test and Evaluation Document (TED)
 

@@ -359,7 +359,7 @@ sub publish_library_pages {
   my $end = time();
   my $duration = duration($end - $begin);
 
-  $logger->info("publish $style $rendition library pages duration: $duration");
+  $logger->info("publish $style $rendition library pages $duration");
 
   return $result;
 }
@@ -385,7 +385,7 @@ sub publish_index {
   my $end = time();
   my $duration = duration($end - $begin);
 
-  $logger->info("publish $style $rendition library index duration: $duration");
+  $logger->info("publish $style $rendition library index $duration");
 
   return $result;
 }
@@ -1515,7 +1515,7 @@ sub get_all_entities {
   my $end = time();
   my $duration = duration($end - $begin);
 
-  $logger->info("get all library entities duration: $duration");
+  $logger->info("get all library entities $duration");
 
   return 1;
 }

@@ -1,4 +1,4 @@
->>>DOCUMENT.frd-sml
+>>>DOCUMENT.sml-frd
 
 title:: Functional Requirements Document (FRD)
 

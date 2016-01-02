@@ -9,10 +9,10 @@ my $library = SML::Library->new(config_filename=>'library.conf');
 
 $library->get_all_entities;
 
-$library->publish('sml',    'html','default');
-$library->publish('frd-sml','html','default');
-$library->publish('sdd-sml','html','default');
-$library->publish('ted-sml','html','default');
+$library->publish('sml-ug', 'html','default');
+$library->publish('sml-frd','html','default');
+$library->publish('sml-sdd','html','default');
+$library->publish('sml-ted','html','default');
 
 $library->publish_library_pages;
 $library->publish_index;

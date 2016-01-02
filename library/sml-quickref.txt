@@ -1,4 +1,4 @@
->>>DOCUMENT.sml-quick-ref
+>>>DOCUMENT.sml-quickref
 
 title:: SML Quick Reference
 

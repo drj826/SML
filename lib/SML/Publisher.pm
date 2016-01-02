@@ -174,7 +174,7 @@ sub publish {
   my $end = time();
   my $duration = duration($end - $begin);
 
-  $logger->info("publish $style $rendition $id duration: $duration");
+  $logger->info("publish $style $rendition $id $duration");
 
   return 1;
 }

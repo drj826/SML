@@ -1,4 +1,4 @@
->>>DOCUMENT.sdd-sml
+>>>DOCUMENT.sml-sdd
 
 title:: Software Design Document (SDD)
 
