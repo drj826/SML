@@ -106,6 +106,18 @@ note:: [url:https://en.wikipedia.org/wiki/Formal_grammar]
 <<<SOURCE
 
 ######################################################################
+
+>>>SOURCE.wp-uml
+
+source_type:: misc
+
+title:: Wikipedia Article on Unified Modeling Language
+
+note:: [url:https://en.wikipedia.org/wiki/Unified_Modeling_Language]
+
+<<<SOURCE
+
+######################################################################
 # Local Emacs Variables
 
 # Local Variables:

@@ -11,7 +11,10 @@ entity_id_list = library.get_division_id_list_by_name(entity_name)
 -%]
 [%- WRAPPER library_page.tt -%]
 
-<h1 align="center">[%entity_name%] Traceability Tree</h1>
+<h1 align="center">[%entity_name.ucfirst%] Traceability Tree</h1>
+
+<button type="button" onclick="jQuery('#tree').treetable('expandAll'); return false;">Expand All</button>
+<button type="button" onclick="jQuery('#tree').treetable('collapseAll'); return false;">Collapse All</button>
 
 <table id="tree">
 
@@ -26,8 +29,6 @@ entity_id_list = library.get_division_id_list_by_name(entity_name)
 </table>
 
 <script src="javascript/jquery.treetable.js"></script>
-<script>
-$("#tree").treetable({ expandable: true, column: 1 });
-</script>
+<script>$('#tree').treetable({ expandable: true, column: 1 });</script>
 
 [%- END -%]

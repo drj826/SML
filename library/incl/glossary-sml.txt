@@ -734,6 +734,11 @@ description, or heading of a [g:SML:document], [g:SML:environment],
 # U
 ######################################################################
 
+glossary:: Unified Modeling Language {OMG} = ([acs:OMG:UML]) a
+general-purpose, developmental, modeling language in the field of
+software engineering, that is intended to provide a standard way to
+visualize the design of a system [cite:wp-uml]
+
 glossary:: unit test {SML} = The lowest level of automated test, often
 called an ``assertion,'' that tests a single program function or
 configuration for expected success or failure

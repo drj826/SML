@@ -12,13 +12,17 @@ ontology = library.get_ontology
 
 <h1 align="center">Traceability</h1>
 
+<br/><br/>
+
 [%- entity_name_list = ontology.get_entity_name_list -%]
+
+<p style="background-color:#eeeeee;padding:10px;">Whole/Part Traceability Trees</p>
 
 <ul>
 [%- FOREACH entity_name IN entity_name_list -%]
 
 [%- IF ontology.allows_property_name_in_division_name('is_part_of',entity_name) -%]
-<li><a href="tm_tree.[%entity_name%].html">[%entity_name%] traceability tree</a></li>
+<li><a href="tm_tree.[%entity_name%].html">[%entity_name.ucfirst%] Traceability Tree</a></li>
 
 [%- END -%]
 
