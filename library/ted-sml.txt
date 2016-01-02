@@ -25,16 +25,18 @@ revision:: $Revision: 15138 $
 
 use_formal_status:: 1
 
->>>REVISIONS
+######################################################################
 
-rev:: 0.2 = 2012-03-25 = Added a lot of new test cases and
+>>>VERSION_HISTORY
+
+version:: 0.2 = 2012-03-25 = Added a lot of new test cases and
 automatically generated unit test results.
 
-rev:: 0.1 = 2012-03-23 = Initial draft.
+version:: 0.1 = 2012-03-23 = Initial draft.
 
-<<<REVISIONS
+<<<VERSION_HISTORY
 
-#---------------------------------------------------------------------
+######################################################################
 
 * Introduction
 
@@ -55,7 +57,7 @@ The purpose of this document is to:
 + report [g:IEEE:verification] test results that demonstrate
   requirements are satisfied
 
-#---------------------------------------------------------------------
+######################################################################
 
 * Key Terms and Definitions
 
@@ -131,11 +133,11 @@ definitions.
 
 = [g:SML:unit test] = [def:SML:unit test]
 
-#---------------------------------------------------------------------
+######################################################################
 
 * plugin:: Parts2Sections tc-000039
 
-#---------------------------------------------------------------------
+######################################################################
 
 * plugin:: Parts2Sections tc-000001
 

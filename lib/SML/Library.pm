@@ -13,6 +13,7 @@ use namespace::autoclean;
 use Cwd;                                # current working directory
 use Carp;                               # error reporting
 use File::Basename;                     # determine file basename
+use Time::Duration;
 
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
@@ -347,9 +348,18 @@ sub publish_library_pages {
   my $rendition = shift || 'html';
   my $style     = shift || 'default';
 
+  my $begin = time();
+
+  $logger->info("publish $style $rendition library pages");
+
   my $publisher = $self->get_publisher;
 
   my $result = $publisher->publish_library_pages($rendition,$style);
+
+  my $end = time();
+  my $duration = duration($end - $begin);
+
+  $logger->info("publish $style $rendition library pages duration: $duration");
 
   return $result;
 }
@@ -364,9 +374,18 @@ sub publish_index {
   my $rendition = shift || 'html';
   my $style     = shift || 'default';
 
+  my $begin = time();
+
+  $logger->info("publish $style $rendition library index");
+
   my $publisher = $self->get_publisher;
 
   my $result = $publisher->publish_index($rendition,$style);
+
+  my $end = time();
+  my $duration = duration($end - $begin);
+
+  $logger->info("publish $style $rendition library index duration: $duration");
 
   return $result;
 }
@@ -1476,6 +1495,10 @@ sub get_all_entities {
 
   my $self = shift;
 
+  my $begin = time();
+
+  $logger->info("get all library entities");
+
   my $ontology = $self->get_ontology;
   my $id_hash  = $self->_get_id_hash;
 
@@ -1488,6 +1511,11 @@ sub get_all_entities {
 	  $self->get_division($id);
 	}
     }
+
+  my $end = time();
+  my $duration = duration($end - $begin);
+
+  $logger->info("get all library entities duration: $duration");
 
   return 1;
 }

@@ -24,27 +24,29 @@ date:: 16 Dec 2015
 
 use_formal_status:: 1
 
->>>REVISIONS
+######################################################################
 
-rev:: 0.5 = 2012-03-25 = Added rq-000201 "Validate Allowed Entity
+>>>VERSION_HISTORY
+
+version:: 0.5 = 2012-03-25 = Added rq-000201 "Validate Allowed Entity
 Properties", and rq-000202 "Validate Entity Relationships"
 
-rev:: 0.4 = 2012-03-23 = Re-organized system requirements into
+version:: 0.4 = 2012-03-23 = Re-organized system requirements into
 `functional' and `technical' categories; Updated glossary organization
 
-rev:: 0.3 = 2012-02-15 = Added requirement for internal hyperlinks,
-updated template function requirements, updated all requirement status
-(informal) and supplied status explanations.
+version:: 0.3 = 2012-02-15 = Added requirement for internal
+hyperlinks, updated template function requirements, updated all
+requirement status (informal) and supplied status explanations.
 
-rev:: 0.2 = 2011-06-16 = Added a significant number of new data format
-requirements plus other constraints like the data format must use
-7-bit ASCII and be human readable.
+version:: 0.2 = 2011-06-16 = Added a significant number of new data
+format requirements plus other constraints like the data format must
+use 7-bit ASCII and be human readable.
 
-rev:: 0.1 = 2011-04-08 = Initial draft.
+version:: 0.1 = 2011-04-08 = Initial draft.
 
-<<<REVISIONS
+<<<VERSION_HISTORY
 
-#---------------------------------------------------------------------
+######################################################################
 
 * Introduction
 
@@ -85,7 +87,7 @@ document fragments they can automatically publish to multiple
 different document renditions and to write applications that can
 reason about the meaning of their documents.
 
-#---------------------------------------------------------------------
+######################################################################
 
 * Key Terms and Definitions
 
@@ -206,25 +208,25 @@ contains a complete collection of terms and their definitions.
 
 = [g:IEEE:verification and validation] = [def:IEEE:verification and validation]
 
-#---------------------------------------------------------------------
+######################################################################
 
 # Perform Functions For Users
 
 * plugin:: Parts2Sections rq-000104
 
-#---------------------------------------------------------------------
+######################################################################
 
 # Represent Document Content
 
 * plugin:: Parts2Sections rq-000107
 
-#---------------------------------------------------------------------
+######################################################################
 
 # Satisfy Non-Functional Requirements
 
 * plugin:: Parts2Sections rq-000111
 
-#---------------------------------------------------------------------
+######################################################################
 
 # Satisfy Technical Requirements
 

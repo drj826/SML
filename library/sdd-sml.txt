@@ -25,19 +25,21 @@ date:: 21 Dec 2015
 
 use_formal_status:: 1
 
->>>REVISIONS
+######################################################################
 
-rev:: 0.3 = 2012-03-25 = Reorganized description of classes in the SML
-software library.
+>>>VERSION_HISTORY
 
-rev:: 0.2 = 2012-03-23 = Updated glossary organization; many other
+version:: 0.3 = 2012-03-25 = Reorganized description of classes in the
+SML software library.
+
+version:: 0.2 = 2012-03-23 = Updated glossary organization; many other
 changes.  This is still and early draft.
 
-rev:: 0.1 = 2011-04-10 = Initial draft.
+version:: 0.1 = 2011-04-10 = Initial draft.
 
-<<<REVISIONS
+<<<VERSION_HISTORY
 
-#---------------------------------------------------------------------
+######################################################################
 
 * Introduction
 
@@ -54,7 +56,7 @@ The purpose of this document is to:
 
 + allocate requirements to elements of the design
 
-#---------------------------------------------------------------------
+######################################################################
 
 *.philosophy Philosophy
 
@@ -67,7 +69,7 @@ ideas about what is simple, hard, and dumb.
 footnote::1: This philosophy embraces and extends the Perl philosophy,
 ``make simple things easy and hard things possible.''
 
-#---------------------------------------------------------------------
+######################################################################
 
 ** Simple Things
 
@@ -102,7 +104,7 @@ represent in rich text documents.
 
 ---
 
-#---------------------------------------------------------------------
+######################################################################
 
 ** Hard Things
 
@@ -147,7 +149,7 @@ need a word processing format to represent.
 
 ---
 
-#---------------------------------------------------------------------
+######################################################################
 
 **.dumb-things Dumb Things
 
@@ -161,7 +163,7 @@ allow you to do the following things.  I'm sorry.[f:dumb-things:1]
 
 footnote::1: Not really.
 
-#---------------------------------------------------------------------
+######################################################################
 
 *.key-terms Key Terms and Definitions
 
@@ -194,7 +196,7 @@ structures.[f:key-terms:1]
 
 footnote::1: These definitions are also in the glossary.
 
-#---------------------------------------------------------------------
+######################################################################
 
 *.data-format-design Data Format Design
 
@@ -203,19 +205,19 @@ divisions are composed of [g:SML:block]s, and blocks are composed of
 whole [g:SML:line]s of [g:SML:text].  Blocks are parsed into
 [g:SML:string]s.
 
-#---------------------------------------------------------------------
+######################################################################
 
 # Semantic Manuscript Language
 
 * plugin:: Parts2Sections ci-000001
 
-#---------------------------------------------------------------------
+######################################################################
 
 # SML Software Library
 
 * plugin:: Parts2Sections ci-000004
 
-#---------------------------------------------------------------------
+######################################################################
 
 # Allocations
 

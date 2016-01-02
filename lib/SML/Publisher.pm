@@ -14,7 +14,7 @@ use Cwd;
 use File::Basename;
 use File::Copy;
 use File::Copy::Recursive qw( dircopy );
-
+use Time::Duration;
 use Template;
 
 use Log::Log4perl qw(:easy);
@@ -119,6 +119,10 @@ sub publish {
   my $rendition = shift || 'html';                # html, latex, pdf...
   my $style     = shift || 'default';             # default
 
+  my $begin = time();
+
+  $logger->info("publish $style $rendition $id");
+
   my $now = localtime();
   $self->_set_publish_date_time( $now );
 
@@ -166,6 +170,11 @@ sub publish {
       $logger->error("THIS SHOULD NEVER HAPPEN");
       return 0;
     }
+
+  my $end = time();
+  my $duration = duration($end - $begin);
+
+  $logger->info("publish $style $rendition $id duration: $duration");
 
   return 1;
 }
@@ -353,7 +362,7 @@ sub _publish_html_document {
   unless ( -d $published_dir )
     {
       mkdir "$published_dir", 0755;
-      $logger->info("made directory $published_dir");
+      $logger->debug("made directory $published_dir");
     }
 
   foreach my $state ('DRAFT','REVIEW','APPROVED')
@@ -363,7 +372,7 @@ sub _publish_html_document {
       unless ( -d $state_dir )
 	{
 	  mkdir "$state_dir", 0755;
-	  $logger->info("made directory $state_dir");
+	  $logger->debug("made directory $state_dir");
 	}
     }
 
@@ -375,7 +384,7 @@ sub _publish_html_document {
   unless ( -d $output_dir )
     {
       mkdir "$output_dir", 0755;
-      $logger->info("made directory $output_dir");
+      $logger->debug("made directory $output_dir");
     }
 
   if ( -f "$output_dir/$id.errors.html" )
@@ -402,7 +411,7 @@ sub _publish_html_document {
 	  my $outfile = "$id.$num.html";
 	  my $vars    = { self => $section };
 
-	  $logger->info("publishing $outfile");
+	  $logger->debug("publishing $outfile");
 
 	  $tt->process('section_page.tt',$vars,$outfile)
 	    || die $tt->error(), "\n";
@@ -414,19 +423,19 @@ sub _publish_html_document {
 	};
 
       # title page
-      $logger->info("publishing $id.titlepage.html");
+      $logger->debug("publishing $id.titlepage.html");
       $tt->process("titlepage.tt",$vars,"$id.titlepage.html")
 	|| die $tt->error(), "\n";
 
       # table of contents
-      $logger->info("publishing $id.toc.html");
+      $logger->debug("publishing $id.toc.html");
       $tt->process("toc.tt",$vars,"$id.toc.html")
 	|| die $tt->error(), "\n";
 
       # list of tables
       if ( $document->contains_division_with_name('TABLE') )
 	{
-	  $logger->info("publishing $id.tables.html");
+	  $logger->debug("publishing $id.tables.html");
 	  $tt->process("list_of_tables_page.tt",$vars,"$id.tables.html")
 	    || die $tt->error(), "\n";
 	}
@@ -434,7 +443,7 @@ sub _publish_html_document {
       # list of figures
       if ( $document->contains_division_with_name('FIGURE') )
 	{
-	  $logger->info("publishing $id.figures.html");
+	  $logger->debug("publishing $id.figures.html");
 	  $tt->process("list_of_figures_page.tt",$vars,"$id.figures.html")
 	    || die $tt->error(), "\n";
 	}
@@ -442,7 +451,7 @@ sub _publish_html_document {
       # list of attachments
       if ( $document->contains_division_with_name('ATTACHMENT') )
 	{
-	  $logger->info("publishing $id.attachments.html");
+	  $logger->debug("publishing $id.attachments.html");
 	  $tt->process("list_of_attachments_page.tt",$vars,"$id.attachments.html")
 	    || die $tt->error(), "\n";
 	}
@@ -450,7 +459,7 @@ sub _publish_html_document {
       # list of listings
       if ( $document->contains_division_with_name('LISTING') )
 	{
-	  $logger->info("publishing $id.listings.html");
+	  $logger->debug("publishing $id.listings.html");
 	  $tt->process("list_of_listings_page.tt",$vars,"$id.listings.html")
 	    || die $tt->error(), "\n";
 	}
@@ -458,7 +467,7 @@ sub _publish_html_document {
       # list of demos
       if ( $document->contains_division_with_name('DEMO') )
 	{
-	  $logger->info("publishing $id.demos.html");
+	  $logger->debug("publishing $id.demos.html");
 	  $tt->process("list_of_demos_page.tt",$vars,"$id.demos.html")
 	    || die $tt->error(), "\n";
 	}
@@ -466,7 +475,7 @@ sub _publish_html_document {
       # list of exercises
       if ( $document->contains_division_with_name('EXERCISE') )
 	{
-	  $logger->info("publishing $id.exercises.html");
+	  $logger->debug("publishing $id.exercises.html");
 	  $tt->process("list_of_exercises_page.tt",$vars,"$id.exercises.html")
 	    || die $tt->error(), "\n";
 	}
@@ -474,7 +483,7 @@ sub _publish_html_document {
       # list of slides
       if ( $document->contains_division_with_name('SLIDE') )
 	{
-	  $logger->info("publishing $id.slides.html");
+	  $logger->debug("publishing $id.slides.html");
 	  $tt->process("list_of_slides_page.tt",$vars,"$id.slides.html")
 	    || die $tt->error(), "\n";
 	}
@@ -482,7 +491,7 @@ sub _publish_html_document {
       # index
       if ( $document->get_index->contains_entries )
 	{
-	  $logger->info("publishing $id index.html");
+	  $logger->debug("publishing $id index.html");
 	  $tt->process("index_page.tt",$vars,"index.html")
 	    || die $tt->error(), "\n";
 	}
@@ -491,7 +500,7 @@ sub _publish_html_document {
 
       if ( $glossary->contains_entries )
 	{
-	  $logger->info("publishing $id glossary.html");
+	  $logger->debug("publishing $id glossary.html");
 	  $tt->process("document_glossary_page.tt",$vars,"glossary.html")
 	    || die $tt->error(), "\n";
 	}
@@ -500,7 +509,7 @@ sub _publish_html_document {
 
       if ( $acronym_list->contains_entries )
 	{
-	  $logger->info("publishing $id acronyms.html");
+	  $logger->debug("publishing $id acronyms.html");
 	  $tt->process("document_acronyms_page.tt",$vars,"acronyms.html")
 	    || die $tt->error(), "\n";
 	}
@@ -509,19 +518,19 @@ sub _publish_html_document {
 
       if ( $references->contains_entries )
 	{
-	  $logger->info("publishing $id references.html");
+	  $logger->debug("publishing $id references.html");
 	  $tt->process("document_references_page.tt",$vars,"references.html")
 	    || die $tt->error(), "\n";
 	}
 
       if ( $document->contains_error )
 	{
-	  $logger->info("publishing $id.errors.html");
+	  $logger->debug("publishing $id.errors.html");
 	  $tt->process("document_errors_page.tt",$vars,"$id.errors.html")
 	    || die $tt->error(), "\n";
 	}
 
-      $logger->info("publishing METADATA.txt");
+      $logger->debug("publishing METADATA.txt");
       $tt->process("METADATA.tt",$vars,"METADATA.txt")
 	|| die $tt->error(), "\n";
     }
@@ -540,19 +549,19 @@ sub _publish_html_document {
       unless ( -d "$published_dir/images" )
 	{
 	  mkdir "$published_dir/images", 0755;
-	  $logger->info("made directory $published_dir/images");
+	  $logger->debug("made directory $published_dir/images");
 	}
 
       unless ( -d "$state_dir/images" )
 	{
 	  mkdir "$state_dir/images", 0755;
-	  $logger->info("made directory $state_dir/images");
+	  $logger->debug("made directory $state_dir/images");
 	}
 
       unless ( -d "$output_dir/images" )
 	{
 	  mkdir "$output_dir/images", 0755;
-	  $logger->info("made directory $output_dir/images");
+	  $logger->debug("made directory $output_dir/images");
 	}
 
       foreach my $image (@{ $library->get_image_list })
@@ -570,21 +579,21 @@ sub _publish_html_document {
 
 	  if ( not -f $copy1 )
 	    {
-	      $logger->info("copying image $image");
+	      $logger->debug("copying image $image");
 	      File::Copy::copy($orig,$copy1);
 	      utime undef, undef, "$copy1";
 	    }
 
 	  if ( not -f $copy2 )
 	    {
-	      $logger->info("copying image $image");
+	      $logger->debug("copying image $image");
 	      File::Copy::copy($orig,$copy2);
 	      utime undef, undef, "$copy2";
 	    }
 
 	  if ( not -f $copy3 )
 	    {
-	      $logger->info("copying image $image");
+	      $logger->debug("copying image $image");
 	      File::Copy::copy($orig,$copy3);
 	      utime undef, undef, "$copy3";
 	    }
@@ -673,7 +682,7 @@ sub _publish_sml_document {
   if ( not -d $published_dir )
     {
       mkdir "$published_dir", 0755;
-      $logger->info("made directory $published_dir");
+      $logger->debug("made directory $published_dir");
     }
 
   my $id         = $document->get_id;
@@ -682,7 +691,7 @@ sub _publish_sml_document {
   if ( not -d $output_dir )
     {
       mkdir "$output_dir", 0755;
-      $logger->info("made directory $output_dir");
+      $logger->debug("made directory $output_dir");
     }
 
   my $tt_config =
@@ -699,7 +708,7 @@ sub _publish_sml_document {
      document => $document,
     };
 
-  $logger->info("publishing $id.txt");
+  $logger->debug("publishing $id.txt");
   $tt->process("DOCUMENT.tt",$vars,"$id.txt")
     || die $tt->error(), "\n";
 
@@ -741,13 +750,13 @@ sub _publish_latex_document {
   if ( not -d $published_dir )
     {
       mkdir "$published_dir", 0755;
-      $logger->info("made directory $published_dir");
+      $logger->debug("made directory $published_dir");
     }
 
   if ( not -d $output_dir )
     {
       mkdir "$output_dir", 0755;
-      $logger->info("made directory $output_dir");
+      $logger->debug("made directory $output_dir");
     }
 
   my $tt_config =
@@ -764,7 +773,7 @@ sub _publish_latex_document {
      document => $document,
     };
 
-  $logger->info("publishing $id.latex");
+  $logger->debug("publishing $id.latex");
 
   $tt->process("document.tt",$vars,"$id.latex");
 
@@ -810,13 +819,13 @@ sub _publish_html_image {
       unless ( -d $dir )
 	{
 	  mkdir "$dir", 0755;
-	  $logger->info("made directory $dir");
+	  $logger->debug("made directory $dir");
 	}
     }
 
   if ( (not -f $copy) or ( _file_is_stale($orig,$copy) ) )
     {
-      $logger->info("copying image $basename");
+      $logger->debug("copying image $basename");
       File::Copy::copy($orig,$copy);
       utime undef, undef, "$copy";
     }
@@ -872,7 +881,7 @@ sub _publish_html_overall_index_page {
   unless ( -d $published_dir )
     {
       mkdir "$published_dir", 0755;
-      $logger->info("made directory $published_dir");
+      $logger->debug("made directory $published_dir");
     }
 
   my $tt_config =
@@ -887,7 +896,7 @@ sub _publish_html_overall_index_page {
   my $vars = { library => $library };
 
   # overall index page
-  $logger->info("publishing overall index.html");
+  $logger->debug("publishing overall index.html");
   $tt->process("overall_index_page.tt",$vars,"index.html")
     || die $tt->error(), "\n";
 
@@ -918,7 +927,7 @@ sub _publish_html_library_index_page {
   unless ( -d $published_dir )
     {
       mkdir "$published_dir", 0755;
-      $logger->info("made directory $published_dir");
+      $logger->debug("made directory $published_dir");
     }
 
   my $state     = 'DRAFT';
@@ -927,7 +936,7 @@ sub _publish_html_library_index_page {
   unless ( -d $state_dir )
     {
       mkdir "$state_dir", 0755;
-      $logger->info("made directory $state_dir");
+      $logger->debug("made directory $state_dir");
     }
 
   my $tt_config =
@@ -942,7 +951,7 @@ sub _publish_html_library_index_page {
   my $vars = { library => $library };
 
   # library index page
-  $logger->info("publishing library index.html");
+  $logger->debug("publishing library index.html");
   $tt->process("library_index_page.tt",$vars,"index.html")
     || die $tt->error(), "\n";
 
@@ -972,7 +981,7 @@ sub _publish_html_traceability_page {
   unless ( -d $published_dir )
     {
       mkdir "$published_dir", 0755;
-      $logger->info("made directory $published_dir");
+      $logger->debug("made directory $published_dir");
     }
 
   my $state     = 'DRAFT';
@@ -981,7 +990,7 @@ sub _publish_html_traceability_page {
   unless ( -d $state_dir )
     {
       mkdir "$state_dir", 0755;
-      $logger->info("made directory $state_dir");
+      $logger->debug("made directory $state_dir");
     }
 
   my $tt_config =
@@ -996,7 +1005,7 @@ sub _publish_html_traceability_page {
   my $vars = { library => $library };
 
   # traceability page
-  $logger->info("publishing traceability.html");
+  $logger->debug("publishing traceability.html");
   $tt->process("library_traceability_page.tt",$vars,"traceability.html")
     || die $tt->error(), "\n";
 
@@ -1013,7 +1022,7 @@ sub _publish_html_traceability_page {
       # allows the 'is_part_of' property.
       if ( $ontology->allows_property_name_in_division_name('is_part_of',$entity_name) )
 	{
-	  $logger->info("publishing tm_tree.$entity_name.html");
+	  $logger->debug("publishing tm_tree.$entity_name.html");
 	  $tt->process("tm_tree_page.tt",$vars,"tm_tree.$entity_name.html")
 	    || die $tt->error(), "\n";
 	}
@@ -1045,7 +1054,7 @@ sub _publish_html_ontology_page {
   unless ( -d $published_dir )
     {
       mkdir "$published_dir", 0755;
-      $logger->info("made directory $published_dir");
+      $logger->debug("made directory $published_dir");
     }
 
   my $state     = 'DRAFT';
@@ -1054,7 +1063,7 @@ sub _publish_html_ontology_page {
   unless ( -d $state_dir )
     {
       mkdir "$state_dir", 0755;
-      $logger->info("made directory $state_dir");
+      $logger->debug("made directory $state_dir");
     }
 
   my $tt_config =
@@ -1069,7 +1078,7 @@ sub _publish_html_ontology_page {
   my $vars = { library => $library };
 
   # ontology page
-  $logger->info("publishing ontology.html");
+  $logger->debug("publishing ontology.html");
   $tt->process("ontology_page.tt",$vars,"ontology.html")
     || die $tt->error(), "\n";
 
@@ -1099,7 +1108,7 @@ sub _publish_html_entities_page {
   unless ( -d $published_dir )
     {
       mkdir "$published_dir", 0755;
-      $logger->info("made directory $published_dir");
+      $logger->debug("made directory $published_dir");
     }
 
   my $state     = 'DRAFT';
@@ -1108,7 +1117,7 @@ sub _publish_html_entities_page {
   unless ( -d $state_dir )
     {
       mkdir "$state_dir", 0755;
-      $logger->info("made directory $state_dir");
+      $logger->debug("made directory $state_dir");
     }
 
   my $tt_config =
@@ -1123,7 +1132,7 @@ sub _publish_html_entities_page {
   my $vars = { library => $library };
 
   # entities page
-  $logger->info("publishing entities.html");
+  $logger->debug("publishing entities.html");
   $tt->process("library_entities_page.tt",$vars,"entities.html")
     || die $tt->error(), "\n";
 
@@ -1161,7 +1170,7 @@ sub _publish_html_library_glossary_page {
   unless ( -d $published_dir )
     {
       mkdir "$published_dir", 0755;
-      $logger->info("made directory $published_dir");
+      $logger->debug("made directory $published_dir");
     }
 
   my $state     = 'DRAFT';
@@ -1170,7 +1179,7 @@ sub _publish_html_library_glossary_page {
   unless ( -d $state_dir )
     {
       mkdir "$state_dir", 0755;
-      $logger->info("made directory $state_dir");
+      $logger->debug("made directory $state_dir");
     }
 
   my $tt_config =
@@ -1185,7 +1194,7 @@ sub _publish_html_library_glossary_page {
   my $vars = { library => $library };
 
   # entities page
-  $logger->info("publishing glossary.html");
+  $logger->debug("publishing glossary.html");
   $tt->process("library_glossary_page.tt",$vars,"glossary.html")
     || die $tt->error(), "\n";
 
@@ -1223,7 +1232,7 @@ sub _publish_html_library_acronyms_page {
   unless ( -d $published_dir )
     {
       mkdir "$published_dir", 0755;
-      $logger->info("made directory $published_dir");
+      $logger->debug("made directory $published_dir");
     }
 
   my $state     = 'DRAFT';
@@ -1232,7 +1241,7 @@ sub _publish_html_library_acronyms_page {
   unless ( -d $state_dir )
     {
       mkdir "$state_dir", 0755;
-      $logger->info("made directory $state_dir");
+      $logger->debug("made directory $state_dir");
     }
 
   my $tt_config =
@@ -1247,7 +1256,7 @@ sub _publish_html_library_acronyms_page {
   my $vars = { library => $library };
 
   # entities page
-  $logger->info("publishing acronyms.html");
+  $logger->debug("publishing acronyms.html");
   $tt->process("library_acronyms_page.tt",$vars,"acronyms.html")
     || die $tt->error(), "\n";
 
@@ -1285,7 +1294,7 @@ sub _publish_html_library_references_page {
   unless ( -d $published_dir )
     {
       mkdir "$published_dir", 0755;
-      $logger->info("made directory $published_dir");
+      $logger->debug("made directory $published_dir");
     }
 
   my $state     = 'DRAFT';
@@ -1294,7 +1303,7 @@ sub _publish_html_library_references_page {
   unless ( -d $state_dir )
     {
       mkdir "$state_dir", 0755;
-      $logger->info("made directory $state_dir");
+      $logger->debug("made directory $state_dir");
     }
 
   my $tt_config =
@@ -1309,7 +1318,7 @@ sub _publish_html_library_references_page {
   my $vars = { library => $library };
 
   # entities page
-  $logger->info("publishing references.html");
+  $logger->debug("publishing references.html");
   $tt->process("library_references_page.tt",$vars,"references.html")
     || die $tt->error(), "\n";
 
@@ -1340,7 +1349,7 @@ sub _publish_html_library_errors_page {
   unless ( -d $published_dir )
     {
       mkdir "$published_dir", 0755;
-      $logger->info("made directory $published_dir");
+      $logger->debug("made directory $published_dir");
     }
 
   my $state     = 'DRAFT';
@@ -1349,7 +1358,7 @@ sub _publish_html_library_errors_page {
   unless ( -d $state_dir )
     {
       mkdir "$state_dir", 0755;
-      $logger->info("made directory $state_dir");
+      $logger->debug("made directory $state_dir");
     }
 
   my $tt_config =
@@ -1364,7 +1373,7 @@ sub _publish_html_library_errors_page {
   my $vars = { library => $library };
 
   # errors page
-  $logger->info("publishing errors.html");
+  $logger->debug("publishing errors.html");
   $tt->process("library_errors_page.tt",$vars,"errors.html")
     || die $tt->error(), "\n";
 
@@ -1404,12 +1413,12 @@ sub _publish_html_file {
   unless ( -d $files_dir )
     {
       mkdir "$files_dir", 0755;
-      $logger->info("made directory $files_dir");
+      $logger->debug("made directory $files_dir");
     }
 
   if ( (not -f $copy) or ( _file_is_stale($orig,$copy) ) )
     {
-      $logger->info("copying file $basename");
+      $logger->debug("copying file $basename");
       File::Copy::copy($orig,$copy);
       utime undef, undef, "$copy";
     }
