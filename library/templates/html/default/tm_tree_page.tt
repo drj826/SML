@@ -1,0 +1,33 @@
+[%# args:
+
+library     => an SML::Library object
+entity_name => name of entity for which to build tree
+
+%]
+[%-
+
+entity_id_list = library.get_division_id_list_by_name(entity_name)
+
+-%]
+[%- WRAPPER library_page.tt -%]
+
+<h1 align="center">[%entity_name%] Traceability Tree</h1>
+
+<table id="tree">
+
+[%- FOREACH entity_id IN entity_id_list -%]
+[%- UNLESS library.has_property(entity_id,'is_part_of') -%]
+
+[%- INCLUDE tm_tree_row.tt -%]
+
+[%- END -%]
+[%- END -%]
+
+</table>
+
+<script src="javascript/jquery.treetable.js"></script>
+<script>
+$("#tree").treetable({ expandable: true, column: 1 });
+</script>
+
+[%- END -%]

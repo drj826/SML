@@ -615,6 +615,27 @@ sub _publish_html_document {
     {
       dircopy("$template_dir/images","$output_dir/images")
 	|| die "Couldn't copy images directory";
+
+      dircopy("$template_dir/images","$state_dir/images")
+	|| die "Couldn't copy images directory";
+    }
+
+  if ( -d "$template_dir/css" )
+    {
+      dircopy("$template_dir/css","$output_dir/css")
+	|| die "Couldn't copy css directory";
+
+      dircopy("$template_dir/css","$state_dir/css")
+	|| die "Couldn't copy css directory";
+    }
+
+  if ( -d "$template_dir/javascript" )
+    {
+      dircopy("$template_dir/javascript","$output_dir/javascript")
+	|| die "Couldn't copy javascript directory";
+
+      dircopy("$template_dir/javascript","$state_dir/javascript")
+	|| die "Couldn't copy javascript directory";
     }
 
   return 1;
@@ -978,6 +999,25 @@ sub _publish_html_traceability_page {
   $logger->info("publishing traceability.html");
   $tt->process("library_traceability_page.tt",$vars,"traceability.html")
     || die $tt->error(), "\n";
+
+  my $ontology         = $library->get_ontology;
+  my $entity_name_list = $ontology->get_entity_name_list;
+
+  foreach my $entity_name (@{ $entity_name_list })
+    {
+      $vars->{entity_name} = $entity_name;
+
+      # traceability tree page
+      #
+      # Only publish a traceability tree page if this entity_name
+      # allows the 'is_part_of' property.
+      if ( $ontology->allows_property_name_in_division_name('is_part_of',$entity_name) )
+	{
+	  $logger->info("publishing tm_tree.$entity_name.html");
+	  $tt->process("tm_tree_page.tt",$vars,"tm_tree.$entity_name.html")
+	    || die $tt->error(), "\n";
+	}
+    }
 
   return 1;
 }

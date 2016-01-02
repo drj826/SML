@@ -25,6 +25,11 @@ library => an SML::Library object
 
 <title>[%- library.get_name -%]</title>
 
+<link rel="stylesheet" href="css/jquery.treetable.css" />
+<link rel="stylesheet" href="css/jquery.treetable.theme.default.css" />
+
+<script type="text/javascript" src="javascript/jquery-2.1.4.min.js"></script>
+
 [% INCLUDE css.tt -%]
 
 </head>

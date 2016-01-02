@@ -359,8 +359,6 @@ sub allows_division_name {
 
 ######################################################################
 
-# OLD: sub allows_property {
-
 sub allows_property_name_in_division_name {
 
   my $self          = shift;
