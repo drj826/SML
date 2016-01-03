@@ -29,10 +29,10 @@ use_formal_status:: 1
 
 >>>VERSION_HISTORY
 
-version:: 0.2 = 2012-03-25 = Added a lot of new test cases and
+ver:: 0.2 = 2012-03-25 = Added a lot of new test cases and
 automatically generated unit test results.
 
-version:: 0.1 = 2012-03-23 = Initial draft.
+ver:: 0.1 = 2012-03-23 = Initial draft.
 
 <<<VERSION_HISTORY
 

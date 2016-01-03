@@ -1886,15 +1886,6 @@ sub _parse_lines {
 
       $logger->trace("{$number} line: $text");
 
-      # if (
-      # 	  $self->_in_data_segment
-      # 	  and
-      # 	  $self->_line_ends_data_segment($text)
-      # 	 )
-      # 	{
-      # 	  $self->_set_in_data_segment(0);
-      # 	}
-
       if ( $text =~ /$syntax->{start_division}/ )
 	{
 	  # $1 = division name
@@ -2821,10 +2812,10 @@ sub _end_element {
       $self->_process_end_review($element);
     }
 
-  elsif ( $element_name eq 'image' )
-    {
-      $self->_process_end_element($element);
-    }
+  # elsif ( $element_name eq 'image' )
+  #   {
+  #     $self->_process_end_element($element);
+  #   }
 
   elsif ( $element_name eq 'index' )
     {
@@ -2839,6 +2830,11 @@ sub _end_element {
   elsif ( $element_name eq 'date' )
     {
       $self->_process_end_date_element($element);
+    }
+
+  elsif ( $element_name eq 'ver' )
+    {
+      $self->_process_end_ver_element($element);
     }
 
   elsif ( $element_name eq 'revision' )
@@ -3943,6 +3939,7 @@ sub _process_blank_line {
 sub _process_start_element {
 
   my $self = shift;
+
   my $line = shift;
   my $name = shift;
 
@@ -4955,6 +4952,56 @@ sub _process_end_step_element {
       my $msg = "SYNTAX ERROR IN STEP";
       my $location = $element->get_location;
       $self->_handle_error('error',$msg,$location);
+    }
+}
+
+######################################################################
+
+sub _process_end_ver_element {
+
+  my $self    = shift;
+  my $element = shift;                  # ver element
+
+  my $library = $self->_get_library;
+  my $syntax  = $library->get_syntax;
+  my $text    = $element->get_content;
+  my $number  = $self->_get_number;
+
+  $logger->trace("{$number} ..... end ver element");
+
+  unless ( $text =~ /$syntax->{ver_element}/ )
+    {
+      my $msg = "SYNTAX ERROR IN VER";
+      my $location = $element->get_location;
+      $self->_handle_error('error',$msg,$location);
+    }
+
+  # $1 = version
+  # $2 = date
+  # $3 = description
+
+  my $version     = $1;
+  my $date        = $2;
+  my $description = $3;
+
+  $element->set_value($description);
+
+  if ( $self->_has_current_document )
+    {
+      my $document = $self->_get_current_document;
+
+      $document->add_version($version,$date,$description);
+
+      return 1;
+    }
+
+  else
+    {
+      my $msg = "VER ELEMENT OUTSIDE DOCUMENT";
+      my $location = $element->get_location;
+      $self->_handle_error('error',$msg,$location);
+
+      return 0;
     }
 }
 

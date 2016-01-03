@@ -511,6 +511,79 @@ sub contains_error {
 }
 
 ######################################################################
+
+sub add_version {
+
+  # Add a version to the version history.
+
+  my $self = shift;
+
+  my $version = shift;                  # 2.0
+  my $date    = shift;                  # 2015-12-31
+  my $string  = shift;                  # SML::String
+
+  unless ( $version and $date and $string )
+    {
+      $logger->error("CAN'T ADD VERSION, MISSING ARGUMENTS");
+      return 0;
+    }
+
+  my $hash = $self->_get_version_history_hash;
+
+  if ( exists $hash->{$version}{$date} )
+    {
+      $logger->error("VERSION ALREADY EXISTS $version $date");
+      return 0;
+    }
+
+  $hash->{$version}{$date} = $string;
+
+  return 1;
+}
+
+######################################################################
+
+sub contains_version_history {
+
+  # Return 1 if this document contains version history information.
+
+  my $self = shift;
+
+  my $hash = $self->_get_version_history_hash;
+
+  if ( scalar keys %{$hash} )
+    {
+      return 1;
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub get_version_history_list {
+
+  # Return a list of document versions in the version history.
+
+  my $self = shift;
+
+  my $hash = $self->_get_version_history_hash;
+
+  my $list = [];                        # version history list
+
+  foreach my $version ( reverse sort keys %{ $hash } )
+    {
+      foreach my $date ( sort keys %{ $hash->{$version} } )
+	{
+	  my $string = $hash->{$version}{$date};
+	  push @{$list}, [$version,$date,$string];
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes
@@ -529,6 +602,18 @@ has note_hash =>
 # note number.
 
 #   my $note = $nh->{section-2}{a};
+
+######################################################################
+
+has version_history_hash =>
+  (
+   is      => 'ro',
+   isa     => 'HashRef',
+   reader  => '_get_version_history_hash',
+   default => sub {{}},
+  );
+
+# $hash->{$version}{$date} = $string;
 
 ######################################################################
 

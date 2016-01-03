@@ -113,7 +113,7 @@ which allows authors to establish relationships between
 [g:SML:solution]s, [g:SML:test]s, [g:SML:result]s, [g:SML:task]s,
 [g:SML:role]s
 
-glossary:: continuous integration {SML} = ([a:SML:CI]) the practice,
+glossary:: continuous integration {SML} = ([acs:SML:CI]) the practice,
 in software engineering, of merging all developer working copies to a
 shared mainline several times a day for the purpose of discovering and
 solving integration problems as soon as

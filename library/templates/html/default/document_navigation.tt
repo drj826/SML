@@ -63,6 +63,10 @@ document_id = document.get_id
 <a href="[%document_id%].slides.html">Slides</a><br/>
 [%- END -%]
 
+[%- IF document.contains_version_history -%]
+<a href="[%document_id%].history.html">History</a><br/>
+[%- END -%]
+
 <br/>
 
 [%- IF document.get_glossary.contains_entries -%]

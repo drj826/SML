@@ -28,20 +28,9 @@ status:: yellow
 
 >>>VERSION_HISTORY
 
-version:: 1.6 = 2012-09-18 = Updated description of footnote syntax.
+ver:: 1.6 = 2012-09-18 = Updated description of footnote syntax.
 
-version:: 1.5 = 2012-03-23 = Updated glossary organization.
-
-version:: 1.4 = 2011-03-17 = Updated description of environments and
-regions to include recent additions ([ref:environments-and-regions]).
-Updated the description of using [cmd:emacs] variables to include how
-to declare variables at the end of your manuscript file
-([ref:emacs-variables]).  Added a description of the
-``||use_formal_status||'' declaration ([ref:preamble]), Added
-descriptions of ``items'' ([ref:advanced-document-structures]),
-``tests'' ([ref:tests]), ``results'' ([ref:results]), ``outcomes''
-([ref:outcomes]), ``reviews'' ([ref:reviews]), ``tasks''
-([ref:tasks]), and ``roles'' ([ref:roles]).
+ver:: 1.5 = 2012-03-23 = Updated glossary organization.
 
 <<<VERSION_HISTORY
 
@@ -60,8 +49,9 @@ author:: Donald C. Gause & Gerald M. Weinberg
 <<<EPIGRAPH
 
 This book describes how to construct documents and libraries of
-documents using [a:SML]. [a:SML] is a minimalistic plain text
-[g:SML:descriptive markup] language designed to:
+documents using [a:SML]. ~~This~~ document was written using [a:SML].
+[a:SML] is a minimalistic plain text [g:SML:descriptive markup]
+language designed to:
 
 - be human readable
 
@@ -1597,6 +1587,13 @@ step:: Install Perl Modules:
 ######################################################################
 
 *.sml-language The Semantic Manuscript Language
+
+>>>EPIGRAPH
+
+text:: If a picture is worth a thousand words why am I still writing
+programs in text?
+
+<<<EPIGRAPH
 
 >>>EPIGRAPH
 

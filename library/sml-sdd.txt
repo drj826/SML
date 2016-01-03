@@ -29,13 +29,13 @@ use_formal_status:: 1
 
 >>>VERSION_HISTORY
 
-version:: 0.3 = 2012-03-25 = Reorganized description of classes in the
-SML software library.
+ver:: 0.3 = 2012-03-25 = Reorganized description of classes in the SML
+software library.
 
-version:: 0.2 = 2012-03-23 = Updated glossary organization; many other
+ver:: 0.2 = 2012-03-23 = Updated glossary organization; many other
 changes.  This is still and early draft.
 
-version:: 0.1 = 2011-04-10 = Initial draft.
+ver:: 0.1 = 2011-04-10 = Initial draft.
 
 <<<VERSION_HISTORY
 

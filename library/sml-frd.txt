@@ -28,21 +28,21 @@ use_formal_status:: 1
 
 >>>VERSION_HISTORY
 
-version:: 0.5 = 2012-03-25 = Added rq-000201 "Validate Allowed Entity
+ver:: 0.5 = 2012-03-25 = Added rq-000201 "Validate Allowed Entity
 Properties", and rq-000202 "Validate Entity Relationships"
 
-version:: 0.4 = 2012-03-23 = Re-organized system requirements into
-`functional' and `technical' categories; Updated glossary organization
+ver:: 0.4 = 2012-03-23 = Re-organized system requirements into
+functional and technical categories; Updated glossary organization
 
-version:: 0.3 = 2012-02-15 = Added requirement for internal
-hyperlinks, updated template function requirements, updated all
-requirement status (informal) and supplied status explanations.
+ver:: 0.3 = 2012-02-15 = Added requirement for internal hyperlinks,
+updated template function requirements, updated all requirement status
+(informal) and supplied status explanations.
 
-version:: 0.2 = 2011-06-16 = Added a significant number of new data
-format requirements plus other constraints like the data format must
-use 7-bit ASCII and be human readable.
+ver:: 0.2 = 2011-06-16 = Added a significant number of new data format
+requirements plus other constraints like the data format must use
+7-bit ASCII and be human readable.
 
-version:: 0.1 = 2011-04-08 = Initial draft.
+ver:: 0.1 = 2011-04-08 = Initial draft.
 
 <<<VERSION_HISTORY
 

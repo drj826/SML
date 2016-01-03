@@ -488,6 +488,14 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
+      # version history
+      if ( $document->contains_version_history )
+	{
+	  $logger->debug("publishing $id.history.html");
+	  $tt->process("version_history_page.tt",$vars,"$id.history.html")
+	    || die $tt->error(), "\n";
+	}
+
       # index
       if ( $document->get_index->contains_entries )
 	{

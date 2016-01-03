@@ -1,4 +1,8 @@
-[%# args:
+[%#
+
+titlepage.tt
+
+ARGS:
 
 document => an SML::Document object
 
