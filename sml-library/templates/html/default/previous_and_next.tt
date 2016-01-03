@@ -20,33 +20,33 @@ document_title_element = library.get_first_property_value_element(document_id,'t
 
 [%# PREVIOUS %]
 [%- IF previous -%]
-<td style="width:20%;text-align:left;">
+<td style="width:20%;text-align:left;" class="navigation">
 <a href="[%document_id%].[% previous%].html">&lt; PREVIOUS [% previous%]</a>
 </td>
 
 [%- ELSIF document.contains_division_with_name('ATTACHMENT') -%]
-<td style="width:20%;font-size:8pt;text-align:left">
+<td style="width:20%;font-size:8pt;text-align:left" class="navigation">
 <a href="[%document_id%].attachments.html">&lt; List of Attachments</a>
 </td>
 
 [%- ELSIF document.contains_division_with_name('FIGURE') -%]
-<td style="width:20%;font-size:8pt;text-align:left">
+<td style="width:20%;font-size:8pt;text-align:left" class="navigation">
 <a href="[%document_id%].figures.html">&lt; List of Figures</a>
 </td>
 
 [%- ELSIF document.contains_division_with_name('TABLE') -%]
-<td style="width:20%;font-size:8pt;text-align:left">
+<td style="width:20%;font-size:8pt;text-align:left" class="navigation">
 <a href="[%document_id%].tables.html">&lt; List of Tables</a>
 </td>
 
 [%- ELSE -%]
-<td style="width:20%;font-size:8pt;text-align:left">
+<td style="width:20%;font-size:8pt;text-align:left" class="navigation">
 <a href="[%document_id%].toc.html">&lt; Table of Contents</a>
 </td>
 [%- END %]
 
 [%# LINK TO TABLE OF CONTENTS %]
-<td style="width:60%;text-align:center;">
+<td style="width:60%;text-align:center;" class="navigation">
 <a href="[%document_id%].toc.html">
 [%- INCLUDE element.tt element = document_title_element -%]
 </a>
@@ -54,12 +54,12 @@ document_title_element = library.get_first_property_value_element(document_id,'t
 
 [%# NEXT %]
 [% IF next -%]
-<td style="width:20%;text-align:right;">
+<td style="width:20%;text-align:right;" class="navigation">
 <a href="[%document_id%].[% next%].html">[% next%] NEXT &gt;</a>
 </td>
 
 [% ELSE -%]
-<td style="width:20%;text-align:right;"></td>
+<td style="width:20%;text-align:right;" class="navigation"></td>
 [% END -%]
 
 </tr>

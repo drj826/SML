@@ -10,13 +10,15 @@ body { height: 100%; max-height: 100%; margin: 10px; border: 0; padding: 0; font
 #pad3 { display: block; width: 118px; height: 60px; float: left; }
 .pad2 { display: block; width: 100px; height: 20px; }
 .pad4 { display: block; width: 100px; height: 10px; }
+.navigation { font-size: 8pt; }
 H1 { font-size: 16pt; }
 H2 { font-size: 14pt; }
 H3 { font-size: 12pt; }
 H4 { font-size: 12pt; }
 H5 { font-size: 10pt; }
 H6 { font-size: 10pt; }
-TD { font-size:8pt; font-family:verdana,sans-serif; vertical-align:top; padding:4px; }
+TD { font-size: 10pt; font-family:verdana,sans-serif; vertical-align:top; padding:4px; }
+TD P { padding: 0px; margin: 0px; }
 P.title { font-weight: bold; text-align: center; }
 P.source { font-style: italic; margin-left: 30pt; }
 PRE { margin-left: 20pt; margin-right: 20pt; }
@@ -122,12 +124,5 @@ SPAN.recent { border-style: outset; border-color: #666666; border-width: 1px; ba
 .metadata { background-color: #ffffff; padding: 5pt; font-size: 8pt; border-style: solid; border-width: 1px; border-color: #cccccc; }
 .attachment { background-color: #FFFFFF; padding: 4px; font-size: 8pt; }
 P.num { color: #aaaaaa; text-align: right; font-size: 8pt; margin-left: 0pt; margin-right: 0pt; margin-top: 0pt; margin-bottom: 0pt; }
-TABLE.treetable { padding: 4px; }
-.treetable { font-family: verdana, sans-serif; font-size: 8pt; }
-.treetable th { background:#ddd; margin:1px; padding: 0 5px; font-weight:normal; }
-.treetable td { margin:1px; padding: 0 5px; border-bottom: #dddddd solid 1px; border-top: none; border-left: none; border-right: none; }
-.treetable td.number { text-align:center; }
-.treetable a { text-decoration: none; }
-.button { border: none; margin: 0 4px 0 0 ; }
 </style>
 

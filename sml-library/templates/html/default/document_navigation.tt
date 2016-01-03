@@ -24,7 +24,7 @@ document_id = document.get_id
 <table style="width:100%">
 
 <tr>
-<td>
+<td class="navigation">
 <a href="../index.html">Library</a><br/>
 
 <br/>
@@ -94,14 +94,14 @@ document_id = document.get_id
 </tr>
 
 <tr>
-<td>
+<td class="navigation">
 <br/><br/>
 [% INCLUDE document_version.tt -%]
 </td>
 </tr>
 
 <tr>
-<td>
+<td class="navigation">
 <br/><br/>
 [% INCLUDE publish_date_time.tt -%]
 </td>

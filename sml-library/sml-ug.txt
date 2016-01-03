@@ -184,6 +184,8 @@ Advantages of ``compiling'' documentation:
 
 - multiple output formats
 
+- consistent formatting
+
 ######################################################################
 
 **.why-use-sml Why Use SML?
@@ -384,7 +386,11 @@ of problems.
 
 index::begin: sample document
 
-NOTE: This step-by-step example is out of date.
+:yellow: NOTE: This step-by-step example is out of date. If you try to
+follow it you'll be disappointed :-(. I plan to update it in an
+upcoming release.  -- Don Johnson, 2016-01-02
+
+---
 
 Here is a step-by-step example of creating and publishing an [a:SML]
 document using the ||publish|| program.
