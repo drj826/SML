@@ -48,7 +48,7 @@ sha                 = document_sha_digest.substr(0,7)
 num                 = num + 1
 
 -%]
-[%- IF document_errors -%]
+[%- IF document_errors == 1 -%]
 [%- bgcolor = '#ffb3b3' -%]
 [%- ELSIF bgcolor == '#eeeeee' -%]
 [%- bgcolor = '#ffffff' -%]
