@@ -1,8 +1,0 @@
-[%# args:
-
-self => an SML::Step object
-
-%]
-[%- num = self.get_number -%]
-<p><input type="checkbox"><b><span style="font-size: 8pt;">STEP [%num%]</span></b> - [% INCLUDE part_list.tt %]</p>
-

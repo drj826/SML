@@ -1,6 +1,0 @@
-[%# args:
-
-self => as SML::IndexReference object
-
-%]
-[%- self.get_entry -%]

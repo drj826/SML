@@ -1,2 +1,0 @@
-source_type:: [% self.get_value %]
-

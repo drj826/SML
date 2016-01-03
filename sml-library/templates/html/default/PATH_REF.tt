@@ -1,6 +1,0 @@
-[%# args:
-
-self => an SML::PathReference object
-
-%]
-<tt>[% self.get_pathspec %]</tt>

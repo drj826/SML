@@ -1,5 +1,0 @@
-???[% self.get_token %]
-
-[% INCLUDE part_list.tt -%]
-???[% self.get_token %]
-

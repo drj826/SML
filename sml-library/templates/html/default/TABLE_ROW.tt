@@ -1,8 +1,0 @@
-[%# args:
-
-self => an SML::TableRow object
-
-%]
-<tr>
-[%- INCLUDE part_list.tt -%]
-</tr>

@@ -1,6 +1,0 @@
-[%#
-
-sections are rendered, one per HTML page, by the publisher using the
-section_page.tt template
-
-%]

@@ -1,2 +1,0 @@
-[%- SET document = self.get_containing_document -%]
-[%- document.get_property_value('version') -%]

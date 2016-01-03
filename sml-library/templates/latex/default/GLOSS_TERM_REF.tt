@@ -1,8 +1,0 @@
-[%- SET tag = self.get_tag -%]
-[%- SET term = self.get_term -%]
-[%- SET namespace = self.get_namespace -%]
-[%- IF (tag == 'g') || (tag == 'gls') -%]
-\gls{[%term%]:[%namespace%]}
-[%- ELSIF (tag == 'G') || (tag == 'Gls') -%]
-\Gls{[%term%]:[%namespace%]}
-[%- END -%]

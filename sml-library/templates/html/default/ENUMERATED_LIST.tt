@@ -1,8 +1,0 @@
-[%# args:
-
-self => an SML::EnumeratedList object
-
-%]
-<ol>
-[% INCLUDE part_list.tt %]
-</ol>
