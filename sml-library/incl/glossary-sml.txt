@@ -166,7 +166,7 @@ sequence of whole [g:SML:line]s.  A division has an ~~unambiguous~~
 beginning and end.  Sometimes the beginning and end are explicit and
 other times they are implicit.  A division may be uniquely identified
 using an [a:SML:ID].  The [a:SML:ID] may be used to refer to the
-division
+division from other parts of the [g:SML:document] or [g:SML:library]
 
 glossary:: document {SML} = A written work about a topic.  [a:SML]
 document types are: book, report, and article

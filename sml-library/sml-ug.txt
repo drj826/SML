@@ -1609,22 +1609,38 @@ philosophy that simple things should be simple and complex things
 should be possible.[f:sml-language:1] [a:SML] ~~enables~~ you to
 describe document structures but ~~disables~~ you from prescribing
 most document presentation options.  This chapter shows you the gory
-details of the language summarized in [r:getting-started],
+details of [a:SML] summarized in [r:getting-started],
 ``[t:getting-started].''
 
-Ready to write?  Just start writing!  [a:SML] documents are plain
-text.  Paragraphs are separated by blank lines.
+Ready to write a document?  Start with this:[f:sml-language:2]:
 
-Want to add a title to your document?  Want to identify the author of
-the document?  These are simple ``elements.''
+  >>>DOCUMENT.my-doc
 
-[a:SML] is a formal descriptive markup language.  That means it has
-[g:SML:syntax] and semantics.  The syntax is fixed.
+  title:: This is My Document
 
-[a:SML] semantics are ~~extensible~~.  This means you can customize the
-language to describe the things you care about.  More importantly, you
-can describe how the things you care about are allowed to interrelate.
-You customize [a:SML] semantics by writing [g:SML:ontology] rules.
+  <<<DOCUMENT
+
+Congratulations!  You've just learned the most complicated part of
+[a:SML].  [a:SML] documents are plain text and require a title. A
+document is a [g:SML:division]. The title is an [g:SML:element].
+Divisions start with {lit:>>>DIVISION_NAME.id} and end with
+{lit:<<<DIVISION_NAME}.  The divisions allowed in your library are
+enumerated in the [g:SML:ontology].
+
+In the following sections you'll learn how to add paragraphs,
+[g:SML:section]s, [g:SML:table]s, [g:SML:figure]s, [g:SML:listing]s,
+and other document [g:SML2:structure]s.
+
+[a:SML] is a formal [g:SML:descriptive markup] language.  That means
+it has [g:SML:syntax] and [g:SML:semantics].  The syntax is fixed but
+the semantics can be extended to fit the needs of your
+[g:SML:library].
+
+[a:SML] [g:SML:semantics] are ~~extensible~~.  This means you can
+customize the language to describe the things you care about.  More
+importantly, you can describe how the things you care about are
+allowed to interrelate.  You customize [a:SML] semantics by writing
+[g:SML:ontology] rules.
 
 All documents in a [g:SML:library] share common semantics defined in a
 common [g:SML:ontology].
@@ -1636,6 +1652,8 @@ footnote::1: This idea is often attributed to Alan Kay, an American
 computer scientist known for his early pioneering work on
 object-oriented programming and windowing graphical user interface
 design.
+
+footnote::2: choose a better document identifier than ``my-doc''
 
 ######################################################################
 
