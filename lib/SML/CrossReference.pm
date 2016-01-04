@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: CrossReference.pm 276 2015-05-11 12:07:00Z drj826@gmail.com $
-
 package SML::CrossReference;
 
 use Moose;

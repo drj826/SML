@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Entity.pm 200 2015-03-09 21:46:10Z drj826@gmail.com $
-
 package SML::Entity;
 
 use Moose;

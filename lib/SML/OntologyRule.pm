@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: OntologyRule.pm 258 2015-04-02 13:56:17Z drj826@gmail.com $
-
 package SML::OntologyRule;
 
 use Moose;

@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Triple.pm 194 2015-03-08 13:46:17Z drj826@gmail.com $
-
 package SML::Triple;
 
 use Moose;

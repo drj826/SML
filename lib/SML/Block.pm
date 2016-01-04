@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Block.pm 255 2015-04-01 16:07:27Z drj826@gmail.com $
-
 package SML::Block;
 
 use Moose;

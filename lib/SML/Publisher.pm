@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Publisher.pm 77 2015-01-31 17:48:03Z drj826@gmail.com $
-
 package SML::Publisher;
 
 use Moose;

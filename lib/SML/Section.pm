@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Section.pm 185 2015-03-08 12:57:49Z drj826@gmail.com $
-
 package SML::Section;
 
 use Moose;

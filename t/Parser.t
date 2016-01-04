@@ -1,9 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Parser.t 264 2015-05-11 11:56:25Z drj826@gmail.com $
-
-# tc-000005 -- unit test case for Parser.pm (ci-000003)
-
 use lib "../lib";
 use Test::More;
 

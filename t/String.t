@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: String.t 286 2015-07-11 12:59:53Z drj826@gmail.com $
-
 use lib "../lib";
 use Test::More;
 

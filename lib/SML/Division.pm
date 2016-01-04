@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Division.pm 274 2015-05-11 12:05:43Z drj826@gmail.com $
-
 package SML::Division;
 
 use Moose;

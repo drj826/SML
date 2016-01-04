@@ -1,9 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Svninfo.t 78 2015-01-31 17:51:43Z drj826@gmail.com $
-
-# Svninfo.pm unit tests
-
 use lib "../lib";
 use Test::More tests => 3;
 

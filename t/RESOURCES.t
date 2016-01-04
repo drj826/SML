@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: RESOURCES.t 259 2015-04-02 20:27:00Z drj826@gmail.com $
-
 use lib "../lib";
 use Test::More tests => 3;
 

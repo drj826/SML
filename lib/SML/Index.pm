@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Index.pm 214 2015-03-13 21:03:43Z drj826@gmail.com $
-
 package SML::Index;
 
 use Moose;

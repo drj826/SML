@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: CitationReference.pm 277 2015-05-11 12:07:29Z drj826@gmail.com $
-
 package SML::CitationReference;
 
 use Moose;

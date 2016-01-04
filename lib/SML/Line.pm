@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Line.pm 209 2015-03-10 02:00:29Z drj826@gmail.com $
-
 package SML::Line;
 
 use Moose;

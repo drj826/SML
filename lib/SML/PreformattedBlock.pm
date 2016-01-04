@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: PreformattedBlock.pm 238 2015-03-23 20:24:35Z drj826@gmail.com $
-
 package SML::PreformattedBlock;
 
 use Moose;

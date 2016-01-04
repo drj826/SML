@@ -1,9 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: SML.t 249 2015-03-29 15:29:41Z drj826@gmail.com $
-
-# tc-000004 -- unit test case for SML.pm (ci-000002)
-
 use lib "../lib";
 use Test::More tests => 3;
 

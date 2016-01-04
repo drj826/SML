@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Symbol.pm 281 2015-07-11 12:53:25Z drj826@gmail.com $
-
 package SML::Symbol;
 
 use Moose;

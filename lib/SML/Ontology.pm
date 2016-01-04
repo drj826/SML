@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Ontology.pm 258 2015-04-02 13:56:17Z drj826@gmail.com $
-
 package SML::Ontology;
 
 use Moose;

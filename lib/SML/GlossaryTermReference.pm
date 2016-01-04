@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: GlossaryTermReference.pm 230 2015-03-21 17:50:52Z drj826@gmail.com $
-
 package SML::GlossaryTermReference;
 
 use Moose;

@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Parser.pm 283 2015-07-11 12:56:40Z drj826@gmail.com $
-
 package SML::Parser;
 
 use Moose;

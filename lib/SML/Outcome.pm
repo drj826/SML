@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Outcome.pm 236 2015-03-23 20:22:31Z drj826@gmail.com $
-
 package SML::Outcome;
 
 use Moose;

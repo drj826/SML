@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: AcronymList.pm 183 2015-03-08 12:54:06Z drj826@gmail.com $
-
 package SML::AcronymList;
 
 use Moose;

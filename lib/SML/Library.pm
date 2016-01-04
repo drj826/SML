@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Library.pm 272 2015-05-11 12:04:25Z drj826@gmail.com $
-
 package SML::Library; # ci-000410
 
 use Moose;

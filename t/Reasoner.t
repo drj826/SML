@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Reasoner.t 264 2015-05-11 11:56:25Z drj826@gmail.com $
-
 use lib "../lib";
 use Test::More tests => 3;
 

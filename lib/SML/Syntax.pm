@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Syntax.pm 280 2015-07-11 12:52:43Z drj826@gmail.com $
-
 package SML::Syntax;
 
 use Moose;

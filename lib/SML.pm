@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: SML.pm 250 2015-03-29 15:31:53Z drj826@gmail.com $
-
 package SML;
 
 use Moose;
@@ -15,9 +13,7 @@ use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.SML');
 
-use SML::Syntax;
-use SML::Ontology;
-use SML::Util;
+use SML::Library;
 
 use Text::CSV;
 use Cwd;

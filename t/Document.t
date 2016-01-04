@@ -1,9 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Document.t 286 2015-07-11 12:59:53Z drj826@gmail.com $
-
-# Document.pm (ci-000005) unit tests
-
 use lib "../lib";
 use Test::More;
 use Test::Exception;

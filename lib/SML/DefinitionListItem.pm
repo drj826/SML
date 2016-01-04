@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: DefinitionListItem.pm 275 2015-05-11 12:06:26Z drj826@gmail.com $
-
 package SML::DefinitionListItem;
 
 use Moose;

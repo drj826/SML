@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Options.pm 262 2015-04-02 22:37:20Z drj826@gmail.com $
-
 package SML::Options;
 
 use Moose;

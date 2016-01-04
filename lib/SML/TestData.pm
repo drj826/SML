@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: TestData.pm 279 2015-07-11 12:51:39Z drj826@gmail.com $
-
 package SML::TestData;
 
 use Moose;

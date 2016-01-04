@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: PageReference.pm 271 2015-05-11 12:03:25Z drj826@gmail.com $
-
 package SML::PageReference;
 
 use Moose;

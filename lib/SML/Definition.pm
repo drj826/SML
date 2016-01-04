@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Definition.pm 235 2015-03-23 20:21:38Z drj826@gmail.com $
-
 package SML::Definition;
 
 use Moose;

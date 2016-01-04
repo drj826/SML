@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Document.pm 273 2015-05-11 12:05:04Z drj826@gmail.com $
-
 package SML::Document;
 
 use Moose;

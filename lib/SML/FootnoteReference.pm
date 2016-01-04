@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: FootnoteReference.pm 230 2015-03-21 17:50:52Z drj826@gmail.com $
-
 package SML::FootnoteReference;
 
 use Moose;

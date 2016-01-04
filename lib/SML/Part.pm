@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# $Id: Part.pm 282 2015-07-11 12:54:24Z drj826@gmail.com $
-
 package SML::Part;
 
 use Moose;
