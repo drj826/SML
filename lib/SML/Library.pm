@@ -65,14 +65,14 @@ has name =>
 
 ######################################################################
 
-has revision =>
-  (
-   is        => 'ro',
-   isa       => 'Str',
-   reader    => 'get_revision',
-   lazy      => 1,
-   builder   => '_build_revision',
-  );
+# has revision =>
+#   (
+#    is        => 'ro',
+#    isa       => 'Str',
+#    reader    => 'get_revision',
+#    lazy      => 1,
+#    builder   => '_build_revision',
+#   );
 
 ######################################################################
 
