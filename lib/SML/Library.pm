@@ -2796,6 +2796,33 @@ sub contains_error {
 }
 
 ######################################################################
+
+sub store_sha_digest_file {
+
+  my $self = shift;
+
+  my $filespec = $self->_get_sha_digest_filespec;
+
+  my $us_id_hash = $self->_get_user_specified_id_hash;
+  my $us_id_list = [ sort keys %{ $us_id_hash } ];
+
+  open my $fh, ">", $filespec or die "Can't open $filespec: $!\n";
+  foreach my $id (@{ $us_id_list })
+    {
+      my $division = $self->get_division($id);
+
+      if ( $division )
+	{
+	  my $sha_digest = $division->get_sha_digest;
+	  print $fh "$sha_digest $id\n";
+	}
+    }
+  close $fh;
+
+  return 1;
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes
@@ -2855,9 +2882,27 @@ has id_hash =>
    default   => sub {{}},
   );
 
-# $id_hash->{$id} = [$filename,$division_name];
+# $hash->{$id} = [$filename,$division_name];
 #
-# This is the collection of IDs in the library.
+# This is the collection of all divisions IDs in the library.
+# Division IDs are either user-specified or system generated.  This
+# hash contains ALL divisions IDs.
+
+######################################################################
+
+has user_specified_id_hash =>
+  (
+   is        => 'ro',
+   isa       => 'HashRef',
+   reader    => '_get_user_specified_id_hash',
+   default   => sub {{}},
+  );
+
+# $hash->{$id} = [$filename,$division_name];
+#
+# This is the collection of user-specified divisions IDs in the
+# library.  Division IDs are either user-specified or system
+# generated.  This hash contains ONLY USER SPECIFIED divisions IDs.
 
 ######################################################################
 
@@ -3130,6 +3175,40 @@ has error_hash =>
 # see also: add_error, get_error_list
 
 ######################################################################
+
+has sha_digest_filename =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   reader  => '_get_sha_digest_filename',
+   default => '.sha_digest',
+  );
+
+# The SHA digest file is a library file that stores the SHA digest of
+# each identified library division.  That is, every division with an
+# ID.
+#
+# The purpose of storing the SHA digest for every identified division
+# is to detect when the division changed.  By comparing the SHA digest
+# file from one version of the library to the SHA digest file from
+# another you can detect what has changed.
+#
+# Since each SHA digest represents the *parsed* manuscript of the
+# division, the digest will change even when an INCLUDED division
+# changes.
+
+######################################################################
+
+has sha_digest_filespec =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   reader  => '_get_sha_digest_filespec',
+   lazy    => 1,
+   builder => '_build_sha_digest_filespec',
+  );
+
+######################################################################
 ######################################################################
 ##
 ## Private Methods
@@ -3304,6 +3383,7 @@ sub BUILD {
   chdir($library_dir);
 
   my $id_hash         = $self->_get_id_hash;
+  my $us_id_hash      = $self->_get_user_specified_id_hash;
   my $filespec_hash   = $self->_get_filespec_hash;
   my $division_count  = {};
   my $entity_count    = {};
@@ -3394,6 +3474,11 @@ sub BUILD {
 		      else
 			{
 			  $id_hash->{$id} = [$filespec,$name];
+
+			  if ( $3 )
+			    {
+			      $us_id_hash->{$id} = [$filespec,$name];
+			    }
 			}
 		    }
 		}
@@ -3418,6 +3503,11 @@ sub BUILD {
 		  else
 		    {
 		      $id_hash->{$id} = [$filespec,$name];
+
+		      if ( $3 )
+			{
+			  $us_id_hash->{$id} = [$filespec,$name];
+			}
 		    }
 		}
 	    }
@@ -4018,6 +4108,18 @@ sub _build_generated_content_type_hash {
      'associated-problem-listing'   => "context sensitive",
      'associated-solution-listing'  => "context sensitive",
     };
+}
+
+######################################################################
+
+sub _build_sha_digest_filespec {
+
+  my $self = shift;
+
+  my $path     = $self->get_directory_path;
+  my $filename = $self->_get_sha_digest_filename;
+
+  return "$path/$filename";
 }
 
 ######################################################################

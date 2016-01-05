@@ -129,7 +129,10 @@ sub parse {
 
   unless ( scalar @{ $line_list } )
     {
+      my $file     = $library->get_file_containing_id($id);
+      my $filespec = $file->get_filespec;
       $logger->error("DIVISION HAS NO LINE LIST \'$id\'");
+      $logger->error("  filespec: $filespec");
       return 0;
     }
 
@@ -141,7 +144,6 @@ sub parse {
       $self->_resolve_includes  if $self->_contains_include;
       $self->_resolve_plugins   if $self->_contains_plugin;
       $self->_resolve_scripts   if $self->_contains_script;
-      # $self->_resolve_templates if $self->_contains_template;
     }
 
     while $self->_text_requires_line_processing;
@@ -9944,7 +9946,7 @@ sub _validate_composition {
 
 	  else
 	    {
-	      my $msg = "INVALID COMPOSITION $name IN $container_name";
+	      my $msg = "INVALID COMPOSITION $name IN $container_name ($location)";
 	      $self->_handle_error('warn',$msg,$location);
 	    }
 
@@ -10100,8 +10102,9 @@ sub _build_document_index {
 
   unless ( $name eq 'DOCUMENT' )
     {
-      my $msg = "CAN'T BUILD DOCUMENT INDEX, NOT A DOCUMENT $document";
-      $self->_handle_error('error',$msg);
+      my $location = $document->get_location;
+      my $msg = "CAN'T BUILD DOCUMENT INDEX, NOT A DOCUMENT $document ($location)";
+      $self->_handle_error('error',$msg,$location);
       return 0;
     }
 
