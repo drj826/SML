@@ -155,29 +155,29 @@ has 'logo_image_left',    is => 'ro', isa => 'Str';
 has 'logo_image_center',  is => 'ro', isa => 'Str';
 has 'logo_image_right',   is => 'ro', isa => 'Str';
 
-has 'header_left',        is => 'ro', isa => 'Str';
-has 'header_left_odd',    is => 'ro', isa => 'Str';
-has 'header_left_even',   is => 'ro', isa => 'Str';
+# has 'header_left',        is => 'ro', isa => 'Str';
+# has 'header_left_odd',    is => 'ro', isa => 'Str';
+# has 'header_left_even',   is => 'ro', isa => 'Str';
 
-has 'header_center',      is => 'ro', isa => 'Str';
-has 'header_center_odd',  is => 'ro', isa => 'Str';
-has 'header_center_even', is => 'ro', isa => 'Str';
+# has 'header_center',      is => 'ro', isa => 'Str';
+# has 'header_center_odd',  is => 'ro', isa => 'Str';
+# has 'header_center_even', is => 'ro', isa => 'Str';
 
-has 'header_right',       is => 'ro', isa => 'Str';
-has 'header_right_odd',   is => 'ro', isa => 'Str';
-has 'header_right_even',  is => 'ro', isa => 'Str';
+# has 'header_right',       is => 'ro', isa => 'Str';
+# has 'header_right_odd',   is => 'ro', isa => 'Str';
+# has 'header_right_even',  is => 'ro', isa => 'Str';
 
-has 'footer_left',        is => 'ro', isa => 'Str';
-has 'footer_left_odd',    is => 'ro', isa => 'Str';
-has 'footer_left_even',   is => 'ro', isa => 'Str';
+# has 'footer_left',        is => 'ro', isa => 'Str';
+# has 'footer_left_odd',    is => 'ro', isa => 'Str';
+# has 'footer_left_even',   is => 'ro', isa => 'Str';
 
-has 'footer_center',      is => 'ro', isa => 'Str';
-has 'footer_center_odd',  is => 'ro', isa => 'Str';
-has 'footer_center_even', is => 'ro', isa => 'Str';
+# has 'footer_center',      is => 'ro', isa => 'Str';
+# has 'footer_center_odd',  is => 'ro', isa => 'Str';
+# has 'footer_center_even', is => 'ro', isa => 'Str';
 
-has 'footer_right',       is => 'ro', isa => 'Str';
-has 'footer_right_odd',   is => 'ro', isa => 'Str';
-has 'footer_right_even',  is => 'ro', isa => 'Str';
+# has 'footer_right',       is => 'ro', isa => 'Str';
+# has 'footer_right_odd',   is => 'ro', isa => 'Str';
+# has 'footer_right_even',  is => 'ro', isa => 'Str';
 
 has 'DEFAULT_RENDITION',       is => 'ro', isa => 'Str';
 has 'MAX_SEC_DEPTH',           is => 'ro', isa => 'Str';
@@ -370,21 +370,22 @@ sub replace_division_id {
 
 sub contains_header {
 
-  # Return 1 if the document contains a header.
-
   my $self = shift;
+
+  my $id      = $self->get_id;
+  my $library = $self->get_library;
 
   if
     (
-        $self->header_left
-     or $self->header_left_odd
-     or $self->header_left_even
-     or $self->header_center
-     or $self->header_center_odd
-     or $self->header_center_even
-     or $self->header_right
-     or $self->header_right_odd
-     or $self->header_right_even
+        $library->has_property($id,'header_left')
+     or $library->has_property($id,'header_center')
+     or $library->has_property($id,'header_right')
+     or $library->has_property($id,'header_left_even')
+     or $library->has_property($id,'header_center_even')
+     or $library->has_property($id,'header_right_even')
+     or $library->has_property($id,'header_left_odd')
+     or $library->has_property($id,'header_center_odd')
+     or $library->has_property($id,'header_right_odd')
     )
     {
       return 1;
@@ -397,21 +398,22 @@ sub contains_header {
 
 sub contains_footer {
 
-  # Return 1 if the document contains a header.
-
   my $self = shift;
+
+  my $id      = $self->get_id;
+  my $library = $self->get_library;
 
   if
     (
-        $self->footer_left
-     or $self->footer_left_odd
-     or $self->footer_left_even
-     or $self->footer_center
-     or $self->footer_center_odd
-     or $self->footer_center_even
-     or $self->footer_right
-     or $self->footer_right_odd
-     or $self->footer_right_even
+        $library->has_property($id,'footer_left')
+     or $library->has_property($id,'footer_center')
+     or $library->has_property($id,'footer_right')
+     or $library->has_property($id,'footer_left_even')
+     or $library->has_property($id,'footer_center_even')
+     or $library->has_property($id,'footer_right_even')
+     or $library->has_property($id,'footer_left_odd')
+     or $library->has_property($id,'footer_center_odd')
+     or $library->has_property($id,'footer_right_odd')
     )
     {
       return 1;
