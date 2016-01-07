@@ -114,7 +114,7 @@ sub parse {
 
   unless ( $library->has_division_id($id) )
     {
-      my $msg = "CAN'T PARSE DIVISION, DIVISION NOT IN LIBRARY $id";
+      my $msg = "CAN'T PARSE DIVISION, DIVISION ID NOT IN LIBRARY $id";
       $self->_handle_error('error',$msg);
       return 0;
     }
@@ -1282,6 +1282,7 @@ sub _extract_div_line_list {
   my $target_id = shift;                # ID of division to be extracted
 
   my $library            = $self->_get_library;
+  my $target_name        = $library->get_division_name_for_id($target_id);
   my $syntax             = $library->get_syntax;
   my $lines              = [];          # Extracted lines
   my $div_stack          = [];          # stack of division names
@@ -1340,6 +1341,16 @@ sub _extract_div_line_list {
 	      push @{ $lines }, $line;
 	    }
 
+	  elsif ( $in_target_division and $target_name eq 'SECTION')
+	    {
+	      # If we're already in the target division which is a
+	      # section, and we've found the start of the NEXT
+	      # section, it means we've found the end of the section
+	      # we were looking for.
+
+	      return $lines;
+	    }
+
 	  else
 	    {
 	      # This is NOT the division we're looking for.
@@ -1348,6 +1359,8 @@ sub _extract_div_line_list {
 
       elsif ( $text =~ /$syntax->{end_division}/xms )
 	{
+	  my $division_name = $1;       # $1 = division name (see Syntax.pm)
+
 	  # If this is the end of the division being extracted...
 	  if (
 	      $in_target_division
@@ -1358,6 +1371,15 @@ sub _extract_div_line_list {
 	      $in_target_division = 0;
 
 	      push @{ $lines }, $line;
+
+	      return $lines;
+	    }
+
+	  elsif ( $in_target_division and $target_name eq 'SECTION' and $division_name eq 'DOCUMENT' )
+	    {
+	      # If we're extracting a section and have reached the end
+	      # of a document, we have reached the end of the section
+	      # we're extracting.
 
 	      return $lines;
 	    }
@@ -1869,12 +1891,17 @@ sub _parse_lines {
   $self->_set_column(0);
   $self->_set_requires_processing(0);
 
-  if ( $self->_has_division )
-    {
-      my $division = $self->_get_division;
-      $division->init;
-      $self->_begin_division($division);
-    }
+  # if ( $self->_has_division )
+  #   {
+  #     my $division = $self->_get_division;
+  #     $division->init;
+  #     $self->_begin_division($division);
+  #   }
+
+  # else
+  #   {
+  #     $logger->error("NO DIVISION.  WHY DID THIS HAPPEN?");
+  #   }
 
   # parse line-by-line
  LINE:
@@ -3761,10 +3788,10 @@ sub _process_end_division_marker {
 
   my $division = $self->_get_current_division;
 
-  if ( not $division )
+  unless ( $division )
     {
       my $location = $line->get_location;
-      $logger->fatal("at location: $location");
+      $logger->fatal("$name at location: $location");
       $logger->logcluck("THIS SHOULD NEVER HAPPEN");
     }
 
@@ -6554,7 +6581,9 @@ sub _pop_division_stack {
 
   my $self = shift;
 
-  return pop @{ $self->_get_division_stack };
+  my $division = pop @{ $self->_get_division_stack };
+
+  return $division;
 }
 
 ######################################################################

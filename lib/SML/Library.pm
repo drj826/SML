@@ -2801,6 +2801,10 @@ sub store_sha_digest_file {
 
   my $self = shift;
 
+  $logger->info("update sha digest file");
+
+  my $begin = time();
+
   my $filespec = $self->_get_sha_digest_filespec;
 
   my $us_id_hash = $self->_get_user_specified_id_hash;
@@ -2818,6 +2822,11 @@ sub store_sha_digest_file {
 	}
     }
   close $fh;
+
+  my $end = time();
+  my $duration = duration($end - $begin);
+
+  $logger->info("update sha digest file $duration");
 
   return 1;
 }
