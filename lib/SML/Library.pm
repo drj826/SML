@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::Library; # ci-000410
+package SML::Library;                   # ci-000410
 
 use Moose;
 
@@ -11,7 +11,8 @@ use namespace::autoclean;
 use Cwd;                                # current working directory
 use Carp;                               # error reporting
 use File::Basename;                     # determine file basename
-use Time::Duration;
+use File::Slurp;                        # slurp a file into a string
+use Time::Duration;                     # measure how long it takes
 
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
@@ -2875,42 +2876,70 @@ sub get_change_list {
   my $list = [];
 
   # list adds first
-  foreach my $division_id ( sort keys %{ $hash } )
+  foreach my $division_id ( sort keys %{ $hash->{ADDED} } )
     {
-      foreach my $action ( keys %{ $hash->{$division_id} } )
-	{
-	  if ( $action eq 'ADDED' )
-	    {
-	      push @{$list}, ['ADDED',$division_id];
-	    }
-	}
+      push @{$list}, ['ADDED',$division_id];
     }
 
   # list deletes second
-  foreach my $division_id ( sort keys %{ $hash } )
+  foreach my $division_id ( sort keys %{ $hash->{DELETED} } )
     {
-      foreach my $action ( keys %{ $hash->{$division_id} } )
-	{
-	  if ( $action eq 'DELETED' )
-	    {
-	      push @{$list}, ['DELETED',$division_id];
-	    }
-	}
+      push @{$list}, ['DELETED',$division_id];
     }
 
   # list updates third
-  foreach my $division_id ( sort keys %{ $hash } )
+  foreach my $division_id ( sort keys %{ $hash->{UPDATED} } )
     {
-      foreach my $action ( keys %{ $hash->{$division_id} } )
-	{
-	  if ( $action eq 'UPDATED' )
-	    {
-	      push @{$list}, ['UPDATED',$division_id];
-	    }
-	}
+      push @{$list}, ['UPDATED',$division_id];
     }
 
   return $list;
+}
+
+######################################################################
+
+sub get_change_count {
+
+  # Return the number of actions (add, update, delete) since the
+  # previous version.
+
+  my $self   = shift;
+  my $action = shift;                   # add, update, or delete
+
+  unless ( $action )
+    {
+      $logger->error("CAN'T GET CHANGE COUNT, MISSING ARGUMENT");
+      return 0;
+    }
+
+  unless ( $action eq 'add' or $action eq 'update' or $action eq 'delete' )
+    {
+      $logger->error("CAN'T GET CHANGE COUND, ARG MUST BE ONE OF: add, update, or delete");
+      return 0;
+    }
+
+  my $hash = $self->_get_change_hash;
+
+  if ( $action eq 'add' )
+    {
+      return scalar keys $hash->{ADDED};
+    }
+
+  elsif ( $action eq 'update' )
+    {
+      return scalar keys $hash->{UPDATED};
+    }
+
+  elsif ( $action eq 'delete' )
+    {
+      return scalar keys $hash->{DELETED};
+    }
+
+  else
+    {
+      $logger->error("THIS SHOULD NEVER HAPPEN");
+      return 0;
+    }
 }
 
 ######################################################################
@@ -4270,8 +4299,10 @@ sub _build_change_hash {
     {
       my $git = $options->get_git_executable;
 
-      my $previous_sha_text = `$git show $previous_version:.sha_digest`;
-      my $current_sha_text  = `$git show HEAD:.sha_digest`;
+      my $sha_digest_filename = '.sha_digest';
+      my $sha_digest_filespec = $self->_get_sha_digest_filespec;
+      my $previous_sha_text   = `$git show $previous_version:$sha_digest_filename`;
+      my $current_sha_text    = read_file($sha_digest_filespec);
 
       my $previous_sha_hash = {};
       my $current_sha_hash  = {};
@@ -4283,7 +4314,7 @@ sub _build_change_hash {
 	      my $digest      = $1;
 	      my $division_id = $2;
 
-	      $previous_sha_hash->{$division_id}{$digest} = 1;
+	      $previous_sha_hash->{$division_id} = $digest;
 	    }
 
 	  else
@@ -4299,7 +4330,7 @@ sub _build_change_hash {
 	      my $digest      = $1;
 	      my $division_id = $2;
 
-	      $current_sha_hash->{$division_id}{$digest} = 1;
+	      $current_sha_hash->{$division_id} = $digest;
 	    }
 
 	  else
@@ -4312,7 +4343,7 @@ sub _build_change_hash {
 	{
 	  if ( not exists $current_sha_hash->{$id} )
 	    {
-	      $hash->{$id}{'DELETED'} = 1;
+	      $hash->{'DELETED'}{$id} = 1;
 	    }
 
 	  else
@@ -4322,7 +4353,7 @@ sub _build_change_hash {
 
 	      if ( $current_digest ne $previous_digest )
 		{
-		  $hash->{$id}{'UPDATED'} = 1;
+		  $hash->{'UPDATED'}{$id} = 1;
 		}
 	    }
 	}
@@ -4331,7 +4362,7 @@ sub _build_change_hash {
 	{
 	  if ( not exists $previous_sha_hash->{$id} )
 	    {
-	      $hash->{$id}{'ADDED'} = 1;
+	      $hash->{'ADDED'}{$id} = 1;
 	    }
 
 	  else
@@ -4341,7 +4372,7 @@ sub _build_change_hash {
 
 	      if ( $current_digest ne $previous_digest )
 		{
-		  $hash->{$id}{'UPDATED'} = 1;
+		  $hash->{'UPDATED'}{$id} = 1;
 		}
 	    }
 	}
