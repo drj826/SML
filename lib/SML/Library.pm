@@ -72,7 +72,7 @@ has version =>
    isa       => 'Str',
    reader    => 'get_version',
    writer    => '_set_version',
-   predicate => '_has_version',
+   predicate => 'has_version',
    clearer   => '_clear_version',
   );
 
@@ -84,7 +84,7 @@ has previous_version =>
    isa       => 'Str',
    reader    => 'get_previous_version',
    writer    => '_set_previous_version',
-   predicate => '_has_previous_version',
+   predicate => 'has_previous_version',
    clearer   => '_clear_previous_version',
   );
 
@@ -4286,7 +4286,7 @@ sub _build_change_hash {
 
   my $hash = {};
 
-  unless ( $self->_has_version and $self->_has_previous_version )
+  unless ( $self->has_version and $self->has_previous_version )
     {
       return $hash;
     }
