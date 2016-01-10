@@ -2900,8 +2900,8 @@ sub get_change_list {
 
 sub get_change_count {
 
-  # Return the number of actions (add, update, delete) since the
-  # previous version.
+  # Return the number of change actions (add, update, delete) since
+  # the previous version.
 
   my $self   = shift;
   my $action = shift;                   # add, update, or delete

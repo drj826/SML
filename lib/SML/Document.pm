@@ -584,6 +584,106 @@ sub get_version_history_list {
 }
 
 ######################################################################
+
+sub contains_changes {
+
+  # Return 1 if this document contains changes since the previous
+  # (library) version.
+
+  my $self = shift;
+
+  my $change_list = $self->get_change_list;
+
+  if ( scalar @{ $change_list } )
+    {
+      return 1;
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub get_change_list {
+
+  # Return a list of changes since the previous (library) version.
+
+  my $self = shift;
+
+  my $library             = $self->get_library;
+  my $library_change_list = $library->get_change_list;
+  my $list                = [];
+
+  foreach my $change (@{ $library_change_list })
+    {
+      my $action      = $change->[0];
+      my $division_id = $change->[1];
+
+      if ( $self->contains_division_with_id($division_id) )
+	{
+	  push @{$list}, $change;
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
+
+sub get_change_count {
+
+  # Return the number of change actions (add, update, delete) since
+  # the previous (library) version.
+
+  my $self   = shift;
+  my $action = shift;                   # add, update, or delete
+
+  unless ( $action )
+    {
+      $logger->error("CAN'T GET CHANGE COUNT, MISSING ARGUMENT");
+      return 0;
+    }
+
+  unless ( $action eq 'add' or $action eq 'update' or $action eq 'delete' )
+    {
+      $logger->error("CAN'T GET CHANGE COUND, ARG MUST BE ONE OF: add, update, or delete");
+      return 0;
+    }
+
+  my $change_list = $self->get_change_list;
+  my $hash        = {};
+
+  foreach my $change (@{ $change_list })
+    {
+      my $action      = $change->[0];
+      my $division_id = $change->[1];
+
+      $hash->{$action}{$division_id} = 1;
+    }
+
+  if ( $action eq 'add' )
+    {
+      return scalar keys %{ $hash->{ADDED} };
+    }
+
+  elsif ( $action eq 'update' )
+    {
+      return scalar keys %{ $hash->{UPDATED} };
+    }
+
+  elsif ( $action eq 'delete' )
+    {
+      return scalar keys %{ $hash->{DELETED} };
+    }
+
+  else
+    {
+      $logger->error("THIS SHOULD NEVER HAPPEN");
+      return 0;
+    }
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes

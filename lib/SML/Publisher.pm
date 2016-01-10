@@ -497,6 +497,14 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
+      # document changes
+      if ( $document->contains_changes )
+	{
+	  $logger->debug("publishing $id.change.html");
+	  $tt->process("document_change_page.tt",$vars,"$id.change.html")
+	    || die $tt->error(), "\n";
+	}
+
       # document glossary
       my $glossary = $document->get_glossary;
 
