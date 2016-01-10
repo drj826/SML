@@ -238,6 +238,11 @@ sub publish_library_pages {
       $self->_publish_html_library_glossary_page($style);
       $self->_publish_html_library_acronyms_page($style);
       $self->_publish_html_library_references_page($style);
+
+      if ( $library->contains_changes )
+	{
+	  $self->_publish_html_change_page($style);
+	}
     }
 
   else
@@ -342,7 +347,7 @@ sub _publish_html_document {
 
   unless ( ref $document and $document->isa('SML::Document') )
     {
-      $logger->error("NOT A DOCUMENT $document");
+      $logger->error("CAN'T PUBLISH HTML DOCUMENT, $document IS NOT A DOCUMENT");
       return 0;
     }
 
@@ -351,7 +356,7 @@ sub _publish_html_document {
 
   unless ( -d $template_dir )
     {
-      $logger->error("NOT A DIRECTORY $template_dir");
+      $logger->error("CAN'T PUBLISH HTML DOCUMENT, $template_dir IS NOT A TEMPLATE DIRECTORY");
       return 0;
     }
 
@@ -385,6 +390,7 @@ sub _publish_html_document {
       $logger->debug("made directory $output_dir");
     }
 
+  # delete old errors file (if any)
   if ( -f "$output_dir/$id.errors.html" )
     {
       unlink "$output_dir/$id.errors.html";
@@ -415,22 +421,19 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
-      my $vars =
-	{
-	 document => $document,
-	};
+      my $vars = { document => $document };
 
-      # title page
+      # document title page
       $logger->debug("publishing $id.titlepage.html");
       $tt->process("titlepage.tt",$vars,"$id.titlepage.html")
 	|| die $tt->error(), "\n";
 
-      # table of contents
+      # document table of contents
       $logger->debug("publishing $id.toc.html");
       $tt->process("toc.tt",$vars,"$id.toc.html")
 	|| die $tt->error(), "\n";
 
-      # list of tables
+      # document list of tables
       if ( $document->contains_division_with_name('TABLE') )
 	{
 	  $logger->debug("publishing $id.tables.html");
@@ -438,7 +441,7 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
-      # list of figures
+      # document list of figures
       if ( $document->contains_division_with_name('FIGURE') )
 	{
 	  $logger->debug("publishing $id.figures.html");
@@ -446,7 +449,7 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
-      # list of attachments
+      # document list of attachments
       if ( $document->contains_division_with_name('ATTACHMENT') )
 	{
 	  $logger->debug("publishing $id.attachments.html");
@@ -454,7 +457,7 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
-      # list of listings
+      # document list of listings
       if ( $document->contains_division_with_name('LISTING') )
 	{
 	  $logger->debug("publishing $id.listings.html");
@@ -462,7 +465,7 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
-      # list of demos
+      # document list of demos
       if ( $document->contains_division_with_name('DEMO') )
 	{
 	  $logger->debug("publishing $id.demos.html");
@@ -470,7 +473,7 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
-      # list of exercises
+      # document list of exercises
       if ( $document->contains_division_with_name('EXERCISE') )
 	{
 	  $logger->debug("publishing $id.exercises.html");
@@ -478,7 +481,7 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
-      # list of slides
+      # document list of slides
       if ( $document->contains_division_with_name('SLIDE') )
 	{
 	  $logger->debug("publishing $id.slides.html");
@@ -486,7 +489,7 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
-      # version history
+      # document version history
       if ( $document->contains_version_history )
 	{
 	  $logger->debug("publishing $id.history.html");
@@ -494,14 +497,7 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
-      # index
-      if ( $document->get_index->contains_entries )
-	{
-	  $logger->debug("publishing $id index.html");
-	  $tt->process("index_page.tt",$vars,"index.html")
-	    || die $tt->error(), "\n";
-	}
-
+      # document glossary
       my $glossary = $document->get_glossary;
 
       if ( $glossary->contains_entries )
@@ -511,6 +507,7 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
+      # document acronym list
       my $acronym_list = $document->get_acronym_list;
 
       if ( $acronym_list->contains_entries )
@@ -520,12 +517,21 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
+      # document references (bibliography)
       my $references = $document->get_references;
 
       if ( $references->contains_entries )
 	{
 	  $logger->debug("publishing $id references.html");
 	  $tt->process("document_references_page.tt",$vars,"references.html")
+	    || die $tt->error(), "\n";
+	}
+
+      # document index
+      if ( $document->get_index->contains_entries )
+	{
+	  $logger->debug("publishing $id index.html");
+	  $tt->process("index_page.tt",$vars,"index.html")
 	    || die $tt->error(), "\n";
 	}
 
@@ -1033,6 +1039,60 @@ sub _publish_html_traceability_page {
 	    || die $tt->error(), "\n";
 	}
     }
+
+  return 1;
+}
+
+######################################################################
+
+sub _publish_html_change_page {
+
+  # Publish an HTML change page.
+
+  my $self  = shift;
+  my $style = shift || 'default';
+
+  my $library      = $self->get_library;
+  my $template_dir = $library->get_template_dir . "/html/$style";
+
+  unless ( -d $template_dir )
+    {
+      $logger->error("NOT A DIRECTORY $template_dir");
+      return 0;
+    }
+
+  my $published_dir = $library->get_published_dir;
+
+  unless ( -d $published_dir )
+    {
+      mkdir "$published_dir", 0755;
+      $logger->debug("made directory $published_dir");
+    }
+
+  my $state     = 'DRAFT';
+  my $state_dir = "$published_dir/$state";
+
+  unless ( -d $state_dir )
+    {
+      mkdir "$state_dir", 0755;
+      $logger->debug("made directory $state_dir");
+    }
+
+  my $tt_config =
+    {
+     INCLUDE_PATH => $template_dir,
+     OUTPUT_PATH  => $state_dir,
+     RECURSION    => 1,
+    };
+
+  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+
+  my $vars = { library => $library };
+
+  # change page
+  $logger->debug("publishing change.html");
+  $tt->process("library_change_page.tt",$vars,"change.html")
+    || die $tt->error(), "\n";
 
   return 1;
 }

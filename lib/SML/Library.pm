@@ -65,14 +65,27 @@ has name =>
 
 ######################################################################
 
-# has revision =>
-#   (
-#    is        => 'ro',
-#    isa       => 'Str',
-#    reader    => 'get_revision',
-#    lazy      => 1,
-#    builder   => '_build_revision',
-#   );
+has version =>
+  (
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_version',
+   writer    => '_set_version',
+   predicate => '_has_version',
+   clearer   => '_clear_version',
+  );
+
+######################################################################
+
+has previous_version =>
+  (
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_previous_version',
+   writer    => '_set_previous_version',
+   predicate => '_has_previous_version',
+   clearer   => '_clear_previous_version',
+  );
 
 ######################################################################
 
@@ -2832,6 +2845,75 @@ sub store_sha_digest_file {
 }
 
 ######################################################################
+
+sub contains_changes {
+
+  # Return 1 if this document contains changes from a previous version
+  # that can be enumerated on a change page.
+
+  my $self = shift;
+
+  my $hash = $self->_get_change_hash;
+
+  if ( scalar keys %{$hash} )
+    {
+      return 1;
+    }
+
+  return 0;
+}
+
+######################################################################
+
+sub get_change_list {
+
+  # Return a list of changes since the previous version.
+
+  my $self = shift;
+
+  my $hash = $self->_get_change_hash;
+  my $list = [];
+
+  # list adds first
+  foreach my $division_id ( sort keys %{ $hash } )
+    {
+      foreach my $action ( keys %{ $hash->{$division_id} } )
+	{
+	  if ( $action eq 'ADDED' )
+	    {
+	      push @{$list}, ['ADDED',$division_id];
+	    }
+	}
+    }
+
+  # list deletes second
+  foreach my $division_id ( sort keys %{ $hash } )
+    {
+      foreach my $action ( keys %{ $hash->{$division_id} } )
+	{
+	  if ( $action eq 'DELETED' )
+	    {
+	      push @{$list}, ['DELETED',$division_id];
+	    }
+	}
+    }
+
+  # list updates third
+  foreach my $division_id ( sort keys %{ $hash } )
+    {
+      foreach my $action ( keys %{ $hash->{$division_id} } )
+	{
+	  if ( $action eq 'UPDATED' )
+	    {
+	      push @{$list}, ['UPDATED',$division_id];
+	    }
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes
@@ -3218,6 +3300,22 @@ has sha_digest_filespec =>
   );
 
 ######################################################################
+
+has change_hash =>
+  (
+   is      => 'ro',
+   isa     => 'HashRef',
+   reader  => '_get_change_hash',
+   lazy    => 1,
+   builder => '_build_change_hash',
+  );
+
+# $hash->{$division_id}{$action} = 1;
+#
+# $division_id => division that changed
+# $action      => add, update, delete
+
+######################################################################
 ######################################################################
 ##
 ## Private Methods
@@ -3265,6 +3363,18 @@ sub BUILD {
   if ( $config{'name'} )
     {
       $self->_set_name($config{'name'});
+    }
+
+  # set library version
+  if ( $config{'version'} )
+    {
+      $self->_set_version($config{'version'});
+    }
+
+  # set library previous version
+  if ( $config{'previous_version'} )
+    {
+      $self->_set_previous_version($config{'previous_version'});
     }
 
   # set library directory path
@@ -4129,6 +4239,115 @@ sub _build_sha_digest_filespec {
   my $filename = $self->_get_sha_digest_filename;
 
   return "$path/$filename";
+}
+
+######################################################################
+
+sub _build_change_hash {
+
+  # Return a hash that represents changes since the previous version
+  # of the document:
+  #
+  #   $hash->{$division_id}{$action} = 1;
+  #
+  #   $division_id => division that changed
+  #   $action      => add, update, delete
+
+  my $self = shift;
+
+  my $hash = {};
+
+  unless ( $self->_has_version and $self->_has_previous_version )
+    {
+      return $hash;
+    }
+
+  my $previous_version = $self->get_previous_version;
+  my $util             = $self->get_util;
+  my $options          = $util->get_options;
+
+  if ( $options->use_git )
+    {
+      my $git = $options->get_git_executable;
+
+      my $previous_sha_text = `$git show $previous_version:.sha_digest`;
+      my $current_sha_text  = `$git show HEAD:.sha_digest`;
+
+      my $previous_sha_hash = {};
+      my $current_sha_hash  = {};
+
+      foreach my $line ( split /\n/, $previous_sha_text )
+	{
+	  if ( $line =~ /^(\S+)\s(\S+)$/ )
+	    {
+	      my $digest      = $1;
+	      my $division_id = $2;
+
+	      $previous_sha_hash->{$division_id}{$digest} = 1;
+	    }
+
+	  else
+	    {
+	      $logger->error("WEIRD LINE IN PREVIOUS SHA DIGEST FILE $line");
+	    }
+	}
+
+      foreach my $line ( split /\n/, $current_sha_text )
+	{
+	  if ( $line =~ /^(\S+)\s(\S+)$/ )
+	    {
+	      my $digest      = $1;
+	      my $division_id = $2;
+
+	      $current_sha_hash->{$division_id}{$digest} = 1;
+	    }
+
+	  else
+	    {
+	      $logger->error("WEIRD LINE IN CURRENT SHA DIGEST FILE $line");
+	    }
+	}
+
+      foreach my $id ( keys %{ $previous_sha_hash } )
+	{
+	  if ( not exists $current_sha_hash->{$id} )
+	    {
+	      $hash->{$id}{'DELETED'} = 1;
+	    }
+
+	  else
+	    {
+	      my $previous_digest = $previous_sha_hash->{$id};
+	      my $current_digest  = $current_sha_hash->{$id};
+
+	      if ( $current_digest ne $previous_digest )
+		{
+		  $hash->{$id}{'UPDATED'} = 1;
+		}
+	    }
+	}
+
+      foreach my $id ( keys %{ $current_sha_hash } )
+	{
+	  if ( not exists $previous_sha_hash->{$id} )
+	    {
+	      $hash->{$id}{'ADDED'} = 1;
+	    }
+
+	  else
+	    {
+	      my $previous_digest = $previous_sha_hash->{$id};
+	      my $current_digest  = $current_sha_hash->{$id};
+
+	      if ( $current_digest ne $previous_digest )
+		{
+		  $hash->{$id}{'UPDATED'} = 1;
+		}
+	    }
+	}
+    }
+
+  return $hash;
 }
 
 ######################################################################

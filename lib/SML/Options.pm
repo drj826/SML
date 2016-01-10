@@ -98,6 +98,28 @@ has svn =>
 
 ######################################################################
 
+has use_git =>
+  (
+   is        => 'ro',
+   isa       => 'Bool',
+   reader    => 'use_git',
+   default   => 0,
+   writer    => 'set_use_git',
+  );
+
+######################################################################
+
+has git =>
+  (
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_git_executable',
+   default   => 'git.exe',
+   writer    => 'set_git_executable',
+  );
+
+######################################################################
+
 has pdflatex =>
   (
    is        => 'ro',
@@ -438,11 +460,19 @@ sub BUILD {
       }
 
       if ($config{'use_svn'}) {
-	$self->set_svn($config{'use_svn'});
+	$self->set_use_svn($config{'use_svn'});
       }
 
       if ($config{'svn'}) {
 	$self->set_svn_executable($config{'svn'});
+      }
+
+      if ($config{'use_git'}) {
+	$self->set_use_git($config{'use_git'});
+      }
+
+      if ($config{'git'}) {
+	$self->set_git_executable($config{'git'});
       }
 
       if ($config{'pdflatex'}) {
