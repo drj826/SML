@@ -2900,6 +2900,9 @@ sub store_sha_digest_file {
 
   my $begin = time();
 
+  $self->get_all_entities;
+  $self->get_all_documents;
+
   my $filespec = $self->_get_sha_digest_filespec;
 
   my $us_id_hash = $self->_get_user_specified_id_hash;
