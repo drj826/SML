@@ -327,6 +327,61 @@ has document_presentation_id_list =>
 # the order they should be presented in the library index.
 
 ######################################################################
+
+has change_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_change_list',
+   lazy    => 1,
+   builder => '_build_change_list',
+  );
+
+# push @{$list}, [$action,$division_id];
+
+######################################################################
+
+has add_count =>
+  (
+   is      => 'ro',
+   isa     => 'Int',
+   reader  => 'get_add_count',
+   lazy    => 1,
+   builder => '_build_add_count',
+  );
+
+# This is number of divisions that have been ADDED since the previous
+# version.
+
+######################################################################
+
+has delete_count =>
+  (
+   is      => 'ro',
+   isa     => 'Int',
+   reader  => 'get_delete_count',
+   lazy    => 1,
+   builder => '_build_delete_count',
+  );
+
+# This is number of divisions that have been DELETED since the
+# previous version.
+
+######################################################################
+
+has update_count =>
+  (
+   is      => 'ro',
+   isa     => 'Int',
+   reader  => 'get_update_count',
+   lazy    => 1,
+   builder => '_build_update_count',
+  );
+
+# This is number of divisions that have been UPDATED since the
+# previous version.
+
+######################################################################
 ######################################################################
 ##
 ## Public Methods
@@ -1507,12 +1562,16 @@ sub get_all_entities {
 
   my $self = shift;
 
+  if ( $self->_got_all_entities )
+    {
+      return 1;
+    }
+
   my $begin = time();
 
   $logger->info("get all library entities");
 
   my $ontology = $self->get_ontology;
-  my $id_hash  = $self->_get_id_hash;
 
   foreach my $name (@{ $ontology->get_entity_name_list })
     {
@@ -1524,10 +1583,48 @@ sub get_all_entities {
 	}
     }
 
+  $self->_set_got_all_entities(1);
+
   my $end = time();
   my $duration = duration($end - $begin);
 
   $logger->info("get all library entities $duration");
+
+  return 1;
+}
+
+######################################################################
+
+sub get_all_documents {
+
+  # Parse all library documents into memory.
+
+  my $self = shift;
+
+  if ( $self->_got_all_documents )
+    {
+      return 1;
+    }
+
+  my $begin = time();
+
+  $logger->info("get all library documents");
+
+  my $ontology = $self->get_ontology;
+
+  my $id_list = $self->get_division_id_list_by_name('DOCUMENT');
+
+  foreach my $id (@{ $id_list })
+    {
+      $self->get_division($id);
+    }
+
+  $self->_set_got_all_documents(1);
+
+  my $end = time();
+  my $duration = duration($end - $begin);
+
+  $logger->info("get all library documents $duration");
 
   return 1;
 }
@@ -1556,22 +1653,6 @@ sub get_division_id_list_by_name {
     }
 
   return $id_list;
-}
-
-######################################################################
-
-sub get_all_documents {
-
-  my $self = shift;
-
-  my $id_list = $self->get_division_id_list_by_name('DOCUMENT');
-
-  foreach my $id ( @{ $id_list } )
-    {
-      $self->get_division($id);
-    }
-
-  return 1;
 }
 
 ######################################################################
@@ -2854,92 +2935,14 @@ sub contains_changes {
 
   my $self = shift;
 
-  my $hash = $self->_get_change_hash;
+  my $list = $self->get_change_list;
 
-  if ( scalar keys %{$hash} )
+  if ( scalar @{$list} )
     {
       return 1;
     }
 
   return 0;
-}
-
-######################################################################
-
-sub get_change_list {
-
-  # Return a list of changes since the previous version.
-
-  my $self = shift;
-
-  my $hash = $self->_get_change_hash;
-  my $list = [];
-
-  # list adds first
-  foreach my $division_id ( sort keys %{ $hash->{ADDED} } )
-    {
-      push @{$list}, ['ADDED',$division_id];
-    }
-
-  # list deletes second
-  foreach my $division_id ( sort keys %{ $hash->{DELETED} } )
-    {
-      push @{$list}, ['DELETED',$division_id];
-    }
-
-  # list updates third
-  foreach my $division_id ( sort keys %{ $hash->{UPDATED} } )
-    {
-      push @{$list}, ['UPDATED',$division_id];
-    }
-
-  return $list;
-}
-
-######################################################################
-
-sub get_change_count {
-
-  # Return the number of change actions (add, update, delete) since
-  # the previous version.
-
-  my $self   = shift;
-  my $action = shift;                   # add, update, or delete
-
-  unless ( $action )
-    {
-      $logger->error("CAN'T GET CHANGE COUNT, MISSING ARGUMENT");
-      return 0;
-    }
-
-  unless ( $action eq 'add' or $action eq 'update' or $action eq 'delete' )
-    {
-      $logger->error("CAN'T GET CHANGE COUND, ARG MUST BE ONE OF: add, update, or delete");
-      return 0;
-    }
-
-  my $hash = $self->_get_change_hash;
-
-  if ( $action eq 'add' )
-    {
-      return scalar keys $hash->{ADDED};
-    }
-
-  elsif ( $action eq 'update' )
-    {
-      return scalar keys $hash->{UPDATED};
-    }
-
-  elsif ( $action eq 'delete' )
-    {
-      return scalar keys $hash->{DELETED};
-    }
-
-  else
-    {
-      $logger->error("THIS SHOULD NEVER HAPPEN");
-      return 0;
-    }
 }
 
 ######################################################################
@@ -3330,19 +3333,25 @@ has sha_digest_filespec =>
 
 ######################################################################
 
-has change_hash =>
+has got_all_entities =>
   (
    is      => 'ro',
-   isa     => 'HashRef',
-   reader  => '_get_change_hash',
-   lazy    => 1,
-   builder => '_build_change_hash',
+   isa     => 'Bool',
+   reader  => '_got_all_entities',
+   writer  => '_set_got_all_entities',
+   default => 0,
   );
 
-# $hash->{$division_id}{$action} = 1;
-#
-# $division_id => division that changed
-# $action      => add, update, delete
+######################################################################
+
+has got_all_documents =>
+  (
+   is      => 'ro',
+   isa     => 'Bool',
+   reader  => '_got_all_documents',
+   writer  => '_set_got_all_documents',
+   default => 0,
+  );
 
 ######################################################################
 ######################################################################
@@ -4272,7 +4281,7 @@ sub _build_sha_digest_filespec {
 
 ######################################################################
 
-sub _build_change_hash {
+sub _build_change_list {
 
   # Return a hash that represents changes since the previous version
   # of the document:
@@ -4283,6 +4292,13 @@ sub _build_change_hash {
   #   $action      => add, update, delete
 
   my $self = shift;
+
+  # To have a complete view of all changes, the library must first
+  # parse all entities and documents into memory.  If an entity or
+  # document is already in memory it will not be re-parsed.
+
+  $self->get_all_entities;
+  $self->get_all_documents;
 
   my $hash = {};
 
@@ -4343,7 +4359,7 @@ sub _build_change_hash {
 	{
 	  if ( not exists $current_sha_hash->{$id} )
 	    {
-	      $hash->{'DELETED'}{$id} = 1;
+	      $hash->{DELETED}{$id} = 1;
 	    }
 
 	  else
@@ -4353,7 +4369,7 @@ sub _build_change_hash {
 
 	      if ( $current_digest ne $previous_digest )
 		{
-		  $hash->{'UPDATED'}{$id} = 1;
+		  $hash->{UPDATED}{$id} = 1;
 		}
 	    }
 	}
@@ -4362,7 +4378,7 @@ sub _build_change_hash {
 	{
 	  if ( not exists $previous_sha_hash->{$id} )
 	    {
-	      $hash->{'ADDED'}{$id} = 1;
+	      $hash->{ADDED}{$id} = 1;
 	    }
 
 	  else
@@ -4372,13 +4388,87 @@ sub _build_change_hash {
 
 	      if ( $current_digest ne $previous_digest )
 		{
-		  $hash->{'UPDATED'}{$id} = 1;
+		  $hash->{UPDATED}{$id} = 1;
 		}
 	    }
 	}
     }
 
-  return $hash;
+  my $list = [];
+
+  # list adds first
+  foreach my $division_id ( sort keys %{ $hash->{ADDED} } )
+    {
+      push @{$list}, ['ADDED',$division_id];
+    }
+
+  # list deletes second
+  foreach my $division_id ( sort keys %{ $hash->{DELETED} } )
+    {
+      push @{$list}, ['DELETED',$division_id];
+    }
+
+  # list updates third
+  foreach my $division_id ( sort keys %{ $hash->{UPDATED} } )
+    {
+      push @{$list}, ['UPDATED',$division_id];
+    }
+
+  return $list;
+}
+
+######################################################################
+
+sub _build_add_count {
+
+  my $self = shift;
+
+  my $count = 0;
+
+  foreach my $change (@{ $self->get_change_list })
+    {
+      my $action = $change->[0];
+
+      ++ $count if $action eq 'ADDED';
+    }
+
+  return $count;
+}
+
+######################################################################
+
+sub _build_delete_count {
+
+  my $self = shift;
+
+  my $count = 0;
+
+  foreach my $change (@{ $self->get_change_list })
+    {
+      my $action = $change->[0];
+
+      ++ $count if $action eq 'DELETED';
+    }
+
+  return $count;
+}
+
+######################################################################
+
+sub _build_update_count {
+
+  my $self = shift;
+
+  my $count = 0;
+
+  foreach my $change (@{ $self->get_change_list })
+    {
+      my $action = $change->[0];
+
+      ++ $count if $action eq 'UPDATED';
+    }
+
+  return $count;
 }
 
 ######################################################################

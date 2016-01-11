@@ -155,30 +155,6 @@ has 'logo_image_left',    is => 'ro', isa => 'Str';
 has 'logo_image_center',  is => 'ro', isa => 'Str';
 has 'logo_image_right',   is => 'ro', isa => 'Str';
 
-# has 'header_left',        is => 'ro', isa => 'Str';
-# has 'header_left_odd',    is => 'ro', isa => 'Str';
-# has 'header_left_even',   is => 'ro', isa => 'Str';
-
-# has 'header_center',      is => 'ro', isa => 'Str';
-# has 'header_center_odd',  is => 'ro', isa => 'Str';
-# has 'header_center_even', is => 'ro', isa => 'Str';
-
-# has 'header_right',       is => 'ro', isa => 'Str';
-# has 'header_right_odd',   is => 'ro', isa => 'Str';
-# has 'header_right_even',  is => 'ro', isa => 'Str';
-
-# has 'footer_left',        is => 'ro', isa => 'Str';
-# has 'footer_left_odd',    is => 'ro', isa => 'Str';
-# has 'footer_left_even',   is => 'ro', isa => 'Str';
-
-# has 'footer_center',      is => 'ro', isa => 'Str';
-# has 'footer_center_odd',  is => 'ro', isa => 'Str';
-# has 'footer_center_even', is => 'ro', isa => 'Str';
-
-# has 'footer_right',       is => 'ro', isa => 'Str';
-# has 'footer_right_odd',   is => 'ro', isa => 'Str';
-# has 'footer_right_even',  is => 'ro', isa => 'Str';
-
 has 'DEFAULT_RENDITION',       is => 'ro', isa => 'Str';
 has 'MAX_SEC_DEPTH',           is => 'ro', isa => 'Str';
 has 'MAX_ID_HIERARCHY_DEPTH',  is => 'ro', isa => 'Str';
@@ -188,6 +164,61 @@ has 'pass_two_count',          is => 'ro', isa => 'Str';
 
 has 'using_longtable',         is => 'ro', isa => 'Boolean';
 has 'using_supertabular',      is => 'ro', isa => 'Boolean';
+
+######################################################################
+
+has change_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_change_list',
+   lazy    => 1,
+   builder => '_build_change_list',
+  );
+
+# push @{$list}, [$action,$division_id];
+
+######################################################################
+
+has add_count =>
+  (
+   is      => 'ro',
+   isa     => 'Int',
+   reader  => 'get_add_count',
+   lazy    => 1,
+   builder => '_build_add_count',
+  );
+
+# This is number of divisions that have been ADDED since the previous
+# version.
+
+######################################################################
+
+has delete_count =>
+  (
+   is      => 'ro',
+   isa     => 'Int',
+   reader  => 'get_delete_count',
+   lazy    => 1,
+   builder => '_build_delete_count',
+  );
+
+# This is number of divisions that have been DELETED since the
+# previous version.
+
+######################################################################
+
+has update_count =>
+  (
+   is      => 'ro',
+   isa     => 'Int',
+   reader  => 'get_update_count',
+   lazy    => 1,
+   builder => '_build_update_count',
+  );
+
+# This is number of divisions that have been UPDATED since the
+# previous version.
 
 ######################################################################
 ######################################################################
@@ -603,87 +634,6 @@ sub contains_changes {
 }
 
 ######################################################################
-
-sub get_change_list {
-
-  # Return a list of changes since the previous (library) version.
-
-  my $self = shift;
-
-  my $library             = $self->get_library;
-  my $library_change_list = $library->get_change_list;
-  my $list                = [];
-
-  foreach my $change (@{ $library_change_list })
-    {
-      my $action      = $change->[0];
-      my $division_id = $change->[1];
-
-      if ( $self->contains_division_with_id($division_id) )
-	{
-	  push @{$list}, $change;
-	}
-    }
-
-  return $list;
-}
-
-######################################################################
-
-sub get_change_count {
-
-  # Return the number of change actions (add, update, delete) since
-  # the previous (library) version.
-
-  my $self   = shift;
-  my $action = shift;                   # add, update, or delete
-
-  unless ( $action )
-    {
-      $logger->error("CAN'T GET CHANGE COUNT, MISSING ARGUMENT");
-      return 0;
-    }
-
-  unless ( $action eq 'add' or $action eq 'update' or $action eq 'delete' )
-    {
-      $logger->error("CAN'T GET CHANGE COUND, ARG MUST BE ONE OF: add, update, or delete");
-      return 0;
-    }
-
-  my $change_list = $self->get_change_list;
-  my $hash        = {};
-
-  foreach my $change (@{ $change_list })
-    {
-      my $action      = $change->[0];
-      my $division_id = $change->[1];
-
-      $hash->{$action}{$division_id} = 1;
-    }
-
-  if ( $action eq 'add' )
-    {
-      return scalar keys %{ $hash->{ADDED} };
-    }
-
-  elsif ( $action eq 'update' )
-    {
-      return scalar keys %{ $hash->{UPDATED} };
-    }
-
-  elsif ( $action eq 'delete' )
-    {
-      return scalar keys %{ $hash->{DELETED} };
-    }
-
-  else
-    {
-      $logger->error("THIS SHOULD NEVER HAPPEN");
-      return 0;
-    }
-}
-
-######################################################################
 ######################################################################
 ##
 ## Private Attributes
@@ -792,6 +742,84 @@ sub _build_references {
 sub _build_index {
   my $self = shift;
   return SML::Index->new( document => $self );
+}
+
+######################################################################
+
+sub _build_change_list {
+
+  # Return a list of changes since the previous (library) version.
+
+  my $self = shift;
+
+  my $library = $self->get_library;
+  my $list    = [];
+
+  foreach my $change (@{ $library->get_change_list })
+    {
+      my $division_id = $change->[1];
+
+      if ( $self->contains_division_with_id($division_id) )
+	{
+	  push @{$list}, $change;
+	}
+    }
+
+  return $list;
+}
+
+######################################################################
+
+sub _build_add_count {
+
+  my $self = shift;
+
+  my $count = 0;
+
+  foreach my $change (@{ $self->get_change_list })
+    {
+      my $action = $change->[0];
+
+      ++ $count if $action eq 'ADDED';
+    }
+
+  return $count;
+}
+
+######################################################################
+
+sub _build_delete_count {
+
+  my $self = shift;
+
+  my $count = 0;
+
+  foreach my $change (@{ $self->get_change_list })
+    {
+      my $action = $change->[0];
+
+      ++ $count if $action eq 'DELETED';
+    }
+
+  return $count;
+}
+
+######################################################################
+
+sub _build_update_count {
+
+  my $self = shift;
+
+  my $count = 0;
+
+  foreach my $change (@{ $self->get_change_list })
+    {
+      my $action = $change->[0];
+
+      ++ $count if $action eq 'UPDATED';
+    }
+
+  return $count;
 }
 
 ######################################################################
