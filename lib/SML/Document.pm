@@ -634,6 +634,409 @@ sub contains_changes {
 }
 
 ######################################################################
+
+sub get_page_after {
+
+  # Return the page name of the page that should come AFTER the one
+  # specified.  This works for front matter pages, section pages, and
+  # back matter pages.
+  #
+  # Front matter pages should appear in the following default order:
+  #
+  #   1.  titlepage
+  #   2.  contents
+  #   3.  tables
+  #   4.  figures
+  #   5.  attachments
+  #   6.  listings
+  #   7.  demos
+  #   8.  exercises
+  #   9.  slides
+  #   10. history
+  #   11. change
+  #
+  #   ...pages by section number...
+  #
+  #   12. glossary
+  #   13. acronyms
+  #   14. references
+  #   15. index
+
+  my $self     = shift;
+  my $pagename = shift;
+
+  my $library = $self->get_library;
+  my $id      = $self->get_id;
+
+  if ( $pagename eq 'titlepage' )
+    {
+      return 'contents'    if $self->contains_division_with_name('SECTION');
+      return 'tables'      if $self->contains_division_with_name('TABLE');
+      return 'figures'     if $self->contains_division_with_name('FIGURE');
+      return 'attachments' if $self->contains_division_with_name('ATTACHMENT');
+      return 'listings'    if $self->contains_division_with_name('LISTING');
+      return 'demos'       if $self->contains_division_with_name('DEMO');
+      return 'exercises'   if $self->contains_division_with_name('EXERCISE');
+      return 'slides'      if $self->contains_division_with_name('SLIDE');
+      return 'history'     if $self->contains_version_history;
+      return 'change'      if $self->contains_changes;
+      return "1";
+    }
+
+  elsif ( $pagename eq 'contents' )
+    {
+      return 'tables'      if $self->contains_division_with_name('TABLE');
+      return 'figures'     if $self->contains_division_with_name('FIGURE');
+      return 'attachments' if $self->contains_division_with_name('ATTACHMENT');
+      return 'listings'    if $self->contains_division_with_name('LISTING');
+      return 'demos'       if $self->contains_division_with_name('DEMO');
+      return 'exercises'   if $self->contains_division_with_name('EXERCISE');
+      return 'slides'      if $self->contains_division_with_name('SLIDE');
+      return 'history'     if $self->contains_version_history;
+      return 'change'      if $self->contains_changes;
+      return "1";
+    }
+
+  elsif ( $pagename eq 'tables' )
+    {
+      return 'figures'     if $self->contains_division_with_name('FIGURE');
+      return 'attachments' if $self->contains_division_with_name('ATTACHMENT');
+      return 'listings'    if $self->contains_division_with_name('LISTING');
+      return 'demos'       if $self->contains_division_with_name('DEMO');
+      return 'exercises'   if $self->contains_division_with_name('EXERCISE');
+      return 'slides'      if $self->contains_division_with_name('SLIDE');
+      return 'history'     if $self->contains_version_history;
+      return 'change'      if $self->contains_changes;
+      return "1";
+    }
+
+  elsif ( $pagename eq 'figures' )
+    {
+      return 'attachments' if $self->contains_division_with_name('ATTACHMENT');
+      return 'listings'    if $self->contains_division_with_name('LISTING');
+      return 'demos'       if $self->contains_division_with_name('DEMO');
+      return 'exercises'   if $self->contains_division_with_name('EXERCISE');
+      return 'slides'      if $self->contains_division_with_name('SLIDE');
+      return 'history'     if $self->contains_version_history;
+      return 'change'      if $self->contains_changes;
+      return "1";
+    }
+
+  elsif ( $pagename eq 'attachments' )
+    {
+      return 'listings'    if $self->contains_division_with_name('LISTING');
+      return 'demos'       if $self->contains_division_with_name('DEMO');
+      return 'exercises'   if $self->contains_division_with_name('EXERCISE');
+      return 'slides'      if $self->contains_division_with_name('SLIDE');
+      return 'history'     if $self->contains_version_history;
+      return 'change'      if $self->contains_changes;
+      return "1";
+    }
+
+  elsif ( $pagename eq 'listings' )
+    {
+      return 'demos'       if $self->contains_division_with_name('DEMO');
+      return 'exercises'   if $self->contains_division_with_name('EXERCISE');
+      return 'slides'      if $self->contains_division_with_name('SLIDE');
+      return 'history'     if $self->contains_version_history;
+      return 'change'      if $self->contains_changes;
+      return "1";
+    }
+
+  elsif ( $pagename eq 'demos' )
+    {
+      return 'exercises'   if $self->contains_division_with_name('EXERCISE');
+      return 'slides'      if $self->contains_division_with_name('SLIDE');
+      return 'history'     if $self->contains_version_history;
+      return 'change'      if $self->contains_changes;
+      return "1";
+    }
+
+  elsif ( $pagename eq 'exercises' )
+    {
+      return 'slides'      if $self->contains_division_with_name('SLIDE');
+      return 'history'     if $self->contains_version_history;
+      return 'change'      if $self->contains_changes;
+      return "1";
+    }
+
+  elsif ( $pagename eq 'slides' )
+    {
+      return 'history'     if $self->contains_version_history;
+      return 'change'      if $self->contains_changes;
+      return "1";
+    }
+
+  elsif ( $pagename eq 'history' )
+    {
+      return 'change'      if $self->contains_changes;
+      return "1";
+    }
+
+  elsif ( $pagename eq 'change' )
+    {
+      return "1";
+    }
+
+  elsif ( $pagename =~ /^([\d\.]+)$/ )
+    {
+      my $section_number = $1;
+      my $section_list   = $self->get_list_of_divisions_with_name('SECTION');
+
+      foreach my $section (@{ $section_list })
+	{
+	  my $number = $section->get_number;
+
+	  if ( $number eq $section_number )
+	    {
+	      my $next_number = $section->get_next_number;
+
+	      return "$next_number";
+	    }
+	}
+
+      $logger->error("THIS SHOULD NEVER HAPPEN, BAD PAGE NAME $pagename");
+    }
+
+  elsif ( $pagename eq 'glossary' )
+    {
+      return 'acronyms'   if $self->get_acronym_list->contains_entries;
+      return 'references' if $self->get_references->contains_entries;
+      return 'index'      if $self->get_index->contains_entries;
+      return 'titlepage';
+    }
+
+  elsif ( $pagename eq 'acronyms' )
+    {
+      return 'references' if $self->get_references->contains_entries;
+      return 'index'      if $self->get_index->contains_entries;
+      return 'titlepage';
+    }
+
+  elsif ( $pagename eq 'references' )
+    {
+      return 'index'      if $self->get_index->contains_entries;
+      return 'titlepage';
+    }
+
+  elsif ( $pagename eq 'index' )
+    {
+      return 'titlepage';
+    }
+
+  else
+    {
+      $logger->error("THIS SHOULD NEVER HAPPEN, BAD PAGE NAME $pagename");
+    }
+}
+
+######################################################################
+
+sub get_page_before {
+
+  # Return the page name of the page that should come BEFORE the one
+  # specified.  This works for front matter pages, section pages, and
+  # back matter pages.
+  #
+  # Front matter pages should appear in the following default order:
+  #
+  #   1.  titlepage
+  #   2.  contents
+  #   3.  tables
+  #   4.  figures
+  #   5.  attachments
+  #   6.  listings
+  #   7.  demos
+  #   8.  exercises
+  #   9.  slides
+  #   10. history
+  #   11. change
+  #
+  #   ...pages by section number...
+  #
+  #   12. glossary
+  #   13. acronyms
+  #   14. references
+  #   15. index
+
+  my $self     = shift;
+  my $pagename = shift;
+
+  my $library = $self->get_library;
+  my $id      = $self->get_id;
+
+  if ( $pagename eq 'titlepage' )
+    {
+      return 'index'       if $self->get_index->contains_entries;
+      return 'references'  if $self->get_references->contains_entries;
+      return 'acronyms'    if $self->get_acronym_list->contains_entries;
+      return 'glossary'    if $self->get_glossary->contains_entries;
+      return "1";
+    }
+
+  elsif ( $pagename eq 'contents' )
+    {
+      return 'titlepage';
+    }
+
+  elsif ( $pagename eq 'tables' )
+    {
+      return 'contents'    if $self->contains_division_with_name('SECTION');
+      return 'titlepage';
+    }
+
+  elsif ( $pagename eq 'figures' )
+    {
+      return 'tables'      if $self->contains_division_with_name('TABLE');
+      return 'contents'    if $self->contains_division_with_name('SECTION');
+      return 'titlepage';
+    }
+
+  elsif ( $pagename eq 'attachments' )
+    {
+      return 'figures'     if $self->contains_division_with_name('FIGURE');
+      return 'tables'      if $self->contains_division_with_name('TABLE');
+      return 'contents'    if $self->contains_division_with_name('SECTION');
+      return 'titlepage';
+    }
+
+  elsif ( $pagename eq 'listings' )
+    {
+      return 'attachments' if $self->contains_division_with_name('ATTACHMENT');
+      return 'figures'     if $self->contains_division_with_name('FIGURE');
+      return 'tables'      if $self->contains_division_with_name('TABLE');
+      return 'contents'    if $self->contains_division_with_name('SECTION');
+      return 'titlepage';
+    }
+
+  elsif ( $pagename eq 'demos' )
+    {
+      return 'listings'    if $self->contains_division_with_name('LISTING');
+      return 'attachments' if $self->contains_division_with_name('ATTACHMENT');
+      return 'figures'     if $self->contains_division_with_name('FIGURE');
+      return 'tables'      if $self->contains_division_with_name('TABLE');
+      return 'contents'    if $self->contains_division_with_name('SECTION');
+      return 'titlepage';
+    }
+
+  elsif ( $pagename eq 'exercises' )
+    {
+      return 'demos'       if $self->contains_division_with_name('DEMO');
+      return 'listings'    if $self->contains_division_with_name('LISTING');
+      return 'attachments' if $self->contains_division_with_name('ATTACHMENT');
+      return 'figures'     if $self->contains_division_with_name('FIGURE');
+      return 'tables'      if $self->contains_division_with_name('TABLE');
+      return 'contents'    if $self->contains_division_with_name('SECTION');
+      return 'titlepage';
+    }
+
+  elsif ( $pagename eq 'slides' )
+    {
+      return 'exercises'   if $self->contains_division_with_name('EXERCISE');
+      return 'demos'       if $self->contains_division_with_name('DEMO');
+      return 'listings'    if $self->contains_division_with_name('LISTING');
+      return 'attachments' if $self->contains_division_with_name('ATTACHMENT');
+      return 'figures'     if $self->contains_division_with_name('FIGURE');
+      return 'tables'      if $self->contains_division_with_name('TABLE');
+      return 'contents'    if $self->contains_division_with_name('SECTION');
+      return 'titlepage';
+    }
+
+  elsif ( $pagename eq 'history' )
+    {
+      return 'slides'      if $self->contains_division_with_name('SLIDE');
+      return 'exercises'   if $self->contains_division_with_name('EXERCISE');
+      return 'demos'       if $self->contains_division_with_name('DEMO');
+      return 'listings'    if $self->contains_division_with_name('LISTING');
+      return 'attachments' if $self->contains_division_with_name('ATTACHMENT');
+      return 'figures'     if $self->contains_division_with_name('FIGURE');
+      return 'tables'      if $self->contains_division_with_name('TABLE');
+      return 'contents'    if $self->contains_division_with_name('SECTION');
+      return 'titlepage';
+    }
+
+  elsif ( $pagename eq 'change' )
+    {
+      return 'history'     if $self->contains_version_history;
+      return 'slides'      if $self->contains_division_with_name('SLIDE');
+      return 'exercises'   if $self->contains_division_with_name('EXERCISE');
+      return 'demos'       if $self->contains_division_with_name('DEMO');
+      return 'listings'    if $self->contains_division_with_name('LISTING');
+      return 'attachments' if $self->contains_division_with_name('ATTACHMENT');
+      return 'figures'     if $self->contains_division_with_name('FIGURE');
+      return 'tables'      if $self->contains_division_with_name('TABLE');
+      return 'contents'    if $self->contains_division_with_name('SECTION');
+      return 'titlepage';
+    }
+
+  elsif ( $pagename =~ /^([\d\.]+)$/ )
+    {
+      my $section_number = $1;
+      my $section_list   = $self->get_list_of_divisions_with_name('SECTION');
+
+      if ( $pagename eq '1' )
+	{
+	  return 'change'      if $self->contains_changes;
+	  return 'history'     if $self->contains_version_history;
+	  return 'slides'      if $self->contains_division_with_name('SLIDE');
+	  return 'exercises'   if $self->contains_division_with_name('EXERCISE');
+	  return 'demos'       if $self->contains_division_with_name('DEMO');
+	  return 'listings'    if $self->contains_division_with_name('LISTING');
+	  return 'attachments' if $self->contains_division_with_name('ATTACHMENT');
+	  return 'figures'     if $self->contains_division_with_name('FIGURE');
+	  return 'tables'      if $self->contains_division_with_name('TABLE');
+	  return 'contents'    if $self->contains_division_with_name('SECTION');
+	  return 'titlepage';
+	}
+
+      foreach my $section (@{ $section_list })
+	{
+	  my $number = $section->get_number;
+
+	  if ( $number eq $section_number )
+	    {
+	      my $previous_number = $section->get_previous_number;
+
+	      return "$previous_number";
+	    }
+	}
+
+      $logger->error("THIS SHOULD NEVER HAPPEN, BAD PAGE NAME $pagename");
+    }
+
+  elsif ( $pagename eq 'glossary' )
+    {
+      return "contents";
+    }
+
+  elsif ( $pagename eq 'acronyms' )
+    {
+      return 'glossary'   if $self->get_glossary->contains_entries;
+      return "contents";
+    }
+
+  elsif ( $pagename eq 'references' )
+    {
+      return 'acronyms'   if $self->get_acronym_list->contains_entries;
+      return 'glossary'   if $self->get_glossary->contains_entries;
+      return "contents";
+    }
+
+  elsif ( $pagename eq 'index' )
+    {
+      return 'references' if $self->get_references->contains_entries;
+      return 'acronyms'   if $self->get_acronym_list->contains_entries;
+      return 'glossary'   if $self->get_glossary->contains_entries;
+      return "contents";
+    }
+
+  else
+    {
+      $logger->error("THIS SHOULD NEVER HAPPEN, BAD PAGE NAME $pagename");
+    }
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes

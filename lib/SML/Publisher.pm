@@ -424,84 +424,84 @@ sub _publish_html_document {
       my $vars = { document => $document };
 
       # document title page
-      $logger->debug("publishing $id.titlepage.html");
-      $tt->process("titlepage.tt",$vars,"$id.titlepage.html")
+      $logger->debug("publishing $id titlepage.html");
+      $tt->process("titlepage.tt",$vars,"titlepage.html")
 	|| die $tt->error(), "\n";
 
       # document table of contents
-      $logger->debug("publishing $id.toc.html");
-      $tt->process("toc.tt",$vars,"$id.toc.html")
+      $logger->debug("publishing $id contents.html");
+      $tt->process("toc.tt",$vars,"contents.html")
 	|| die $tt->error(), "\n";
 
       # document list of tables
       if ( $document->contains_division_with_name('TABLE') )
 	{
-	  $logger->debug("publishing $id.tables.html");
-	  $tt->process("list_of_tables_page.tt",$vars,"$id.tables.html")
+	  $logger->debug("publishing $id tables.html");
+	  $tt->process("list_of_tables_page.tt",$vars,"tables.html")
 	    || die $tt->error(), "\n";
 	}
 
       # document list of figures
       if ( $document->contains_division_with_name('FIGURE') )
 	{
-	  $logger->debug("publishing $id.figures.html");
-	  $tt->process("list_of_figures_page.tt",$vars,"$id.figures.html")
+	  $logger->debug("publishing $id figures.html");
+	  $tt->process("list_of_figures_page.tt",$vars,"figures.html")
 	    || die $tt->error(), "\n";
 	}
 
       # document list of attachments
       if ( $document->contains_division_with_name('ATTACHMENT') )
 	{
-	  $logger->debug("publishing $id.attachments.html");
-	  $tt->process("list_of_attachments_page.tt",$vars,"$id.attachments.html")
+	  $logger->debug("publishing $id attachments.html");
+	  $tt->process("list_of_attachments_page.tt",$vars,"attachments.html")
 	    || die $tt->error(), "\n";
 	}
 
       # document list of listings
       if ( $document->contains_division_with_name('LISTING') )
 	{
-	  $logger->debug("publishing $id.listings.html");
-	  $tt->process("list_of_listings_page.tt",$vars,"$id.listings.html")
+	  $logger->debug("publishing $id listings.html");
+	  $tt->process("list_of_listings_page.tt",$vars,"listings.html")
 	    || die $tt->error(), "\n";
 	}
 
       # document list of demos
       if ( $document->contains_division_with_name('DEMO') )
 	{
-	  $logger->debug("publishing $id.demos.html");
-	  $tt->process("list_of_demos_page.tt",$vars,"$id.demos.html")
+	  $logger->debug("publishing $id demos.html");
+	  $tt->process("list_of_demos_page.tt",$vars,"demos.html")
 	    || die $tt->error(), "\n";
 	}
 
       # document list of exercises
       if ( $document->contains_division_with_name('EXERCISE') )
 	{
-	  $logger->debug("publishing $id.exercises.html");
-	  $tt->process("list_of_exercises_page.tt",$vars,"$id.exercises.html")
+	  $logger->debug("publishing $id exercises.html");
+	  $tt->process("list_of_exercises_page.tt",$vars,"exercises.html")
 	    || die $tt->error(), "\n";
 	}
 
       # document list of slides
       if ( $document->contains_division_with_name('SLIDE') )
 	{
-	  $logger->debug("publishing $id.slides.html");
-	  $tt->process("list_of_slides_page.tt",$vars,"$id.slides.html")
+	  $logger->debug("publishing $id slides.html");
+	  $tt->process("list_of_slides_page.tt",$vars,"slides.html")
 	    || die $tt->error(), "\n";
 	}
 
       # document version history
       if ( $document->contains_version_history )
 	{
-	  $logger->debug("publishing $id.history.html");
-	  $tt->process("version_history_page.tt",$vars,"$id.history.html")
+	  $logger->debug("publishing $id history.html");
+	  $tt->process("version_history_page.tt",$vars,"history.html")
 	    || die $tt->error(), "\n";
 	}
 
       # document changes
       if ( $document->contains_changes )
       	{
-      	  $logger->debug("publishing $id.change.html");
-      	  $tt->process("document_change_page.tt",$vars,"$id.change.html")
+      	  $logger->debug("publishing $id change.html");
+      	  $tt->process("document_change_page.tt",$vars,"change.html")
       	    || die $tt->error(), "\n";
       	}
 
@@ -545,12 +545,12 @@ sub _publish_html_document {
 
       if ( $document->contains_error )
 	{
-	  $logger->debug("publishing $id.errors.html");
-	  $tt->process("document_errors_page.tt",$vars,"$id.errors.html")
+	  $logger->debug("publishing $id errors.html");
+	  $tt->process("document_errors_page.tt",$vars,"errors.html")
 	    || die $tt->error(), "\n";
 	}
 
-      $logger->debug("publishing METADATA.txt");
+      $logger->debug("publishing $id METADATA.txt");
       $tt->process("METADATA.tt",$vars,"METADATA.txt")
 	|| die $tt->error(), "\n";
     }

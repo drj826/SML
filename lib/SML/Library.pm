@@ -2773,7 +2773,7 @@ sub has_published_document_rendition {
 
   if ( $rendition eq 'html' )
     {
-      $filespec = "$published_dir/$state/$document_id/$document_id.titlepage.html";
+      $filespec = "$published_dir/$state/$document_id/titlepage.html";
     }
 
   elsif ( $rendition eq 'pdf' )
