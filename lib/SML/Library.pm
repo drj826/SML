@@ -389,20 +389,49 @@ has update_count =>
 ######################################################################
 ######################################################################
 
-sub publish {
+# sub publish {
 
-  # Publish a document.
+#   # Publish a document.
 
-  my $self      = shift;
-  my $id        = shift;                # document ID
-  my $rendition = shift;                # html, latex, pdf...
-  my $style     = shift;                # default, fancy...
+#   my $self      = shift;
+#   my $id        = shift;                # document ID
+#   my $rendition = shift;                # html, latex, pdf...
+#   my $style     = shift;                # default, fancy...
+
+#   my $publisher = $self->get_publisher;
+
+#   my $result = $publisher->publish($id,$rendition,$style);
+
+#   return $result;
+# }
+
+######################################################################
+
+sub publish_all_documents {
+
+  my $self = shift;
+
+  my $rendition = shift;
+  my $style     = shift;
+
+  my $begin = time();
+
+  $logger->info("publish all library documents");
 
   my $publisher = $self->get_publisher;
+  my $id_list   = $self->get_division_id_list_by_name('DOCUMENT');
 
-  my $result = $publisher->publish($id,$rendition,$style);
+  foreach my $id (@{ $id_list })
+    {
+      $publisher->publish($id,$rendition,$style);
+    }
 
-  return $result;
+  my $end = time();
+  my $duration = duration($end - $begin);
+
+  $logger->info("publish all library documents $duration");
+
+  return 1;
 }
 
 ######################################################################
@@ -433,7 +462,7 @@ sub publish_library_pages {
 
 ######################################################################
 
-sub publish_index {
+sub publish_library_index_page {
 
   # Publish a library index.
 
@@ -1609,8 +1638,6 @@ sub get_all_documents {
   my $begin = time();
 
   $logger->info("get all library documents");
-
-  my $ontology = $self->get_ontology;
 
   my $id_list = $self->get_division_id_list_by_name('DOCUMENT');
 
@@ -4317,6 +4344,20 @@ sub _build_change_list {
   if ( $options->use_git )
     {
       my $git = $options->get_git_executable;
+
+      unless ( -e $git )
+	{
+	  $logger->error("CAN'T BUILD CHANGE LIST, git NOT EXECUTABLE $git");
+	  return [];
+	}
+
+      my $directory_path = $self->get_directory_path;
+
+      unless ( -d "$directory_path/.git" )
+	{
+	  $logger->error("CAN'T BUILD CHANGE LIST, NO .git DIRECTORY");
+	  return [];
+	}
 
       my $sha_digest_filename = '.sha_digest';
       my $sha_digest_filespec = $self->_get_sha_digest_filespec;
