@@ -1883,25 +1883,10 @@ sub _parse_lines {
 
   $self->_set_division_stack([]);
   $self->_set_container_stack([]);
-
   $self->_set_section_counter_hash({});
-
   $self->_clear_block;
-
   $self->_set_column(0);
   $self->_set_requires_processing(0);
-
-  # if ( $self->_has_division )
-  #   {
-  #     my $division = $self->_get_division;
-  #     $division->init;
-  #     $self->_begin_division($division);
-  #   }
-
-  # else
-  #   {
-  #     $logger->error("NO DIVISION.  WHY DID THIS HAPPEN?");
-  #   }
 
   # parse line-by-line
  LINE:
@@ -3975,6 +3960,13 @@ sub _process_start_element {
   my $location = $line->get_location;
   my $division = $self->_get_current_division;
   my $divname  = $division->get_name;
+
+  unless ( $ontology->allows_property_name_in_division_name($name,$divname) )
+    {
+      my $msg = "UNRECOGNIZED ELEMENT $name IN $divname";
+      my $location = $line->get_location;
+      $self->_handle_error('error',$msg,$location);
+    }
 
   my $element = SML::Element->new
     (
@@ -9152,7 +9144,7 @@ sub _validate_theversion_ref_semantics {
 
   while ( $text =~ /$syntax->{theversion_ref}/xms )
     {
-      if ( $library->has_property($doc_id,'version') )
+      if ( $library->has_version )
 	{
 	  $logger->trace("version reference is valid");
 	}

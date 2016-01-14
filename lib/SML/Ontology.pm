@@ -388,6 +388,16 @@ sub allows_property_name_in_division_name {
 	}
     }
 
+  my $universal_list = $self->get_list_of_allowed_property_names_for_division_name('UNIVERSAL');
+
+  foreach my $name (@{ $universal_list })
+    {
+      if ( $name eq $property_name )
+	{
+	  return 1;
+	}
+    }
+
   return 0;
 }
 
