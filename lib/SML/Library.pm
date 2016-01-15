@@ -76,6 +76,9 @@ has version =>
    clearer   => '_clear_version',
   );
 
+# This is the current version of the library.  Specify the version in
+# the library configuration file.
+
 ######################################################################
 
 has previous_version =>
@@ -87,6 +90,9 @@ has previous_version =>
    predicate => 'has_previous_version',
    clearer   => '_clear_previous_version',
   );
+
+# This is the previous version of the library.  Specify the previous
+# version in the library configuration file.
 
 ######################################################################
 
@@ -235,14 +241,14 @@ has include_path =>
 
 ######################################################################
 
-has division_name_list =>
-  (
-   is        => 'ro',
-   isa       => 'ArrayRef',
-   reader    => 'get_division_name_list',
-   lazy      => 1,
-   builder   => '_build_division_names',
-  );
+# has division_name_list =>
+#   (
+#    is        => 'ro',
+#    isa       => 'ArrayRef',
+#    reader    => 'get_division_name_list',
+#    lazy      => 1,
+#    builder   => '_build_division_names',
+#   );
 
 ######################################################################
 
@@ -615,18 +621,17 @@ sub add_file {
   my $self = shift;
   my $file = shift;
 
-  if ( $file->isa('SML::File') )
-    {
-      my $id = $file->get_id;
-      $self->_get_file_hash->{$id} = $file;
-      return 1;
-    }
-
-  else
+  unless ( $file->isa('SML::File') )
     {
       $logger->error("CAN'T ADD FILE \'$file\' is not a SML::File");
       return 0;
     }
+
+  my $id = $file->get_id;
+
+  $self->_get_file_hash->{$id} = $file;
+
+  return 1;
 }
 
 ######################################################################
@@ -636,18 +641,17 @@ sub add_document {
   my $self     = shift;
   my $document = shift;
 
-  if ( $document->isa('SML::Document') )
-    {
-      my $id = $document->get_id;
-      $self->_get_document_hash->{$id} = $document;
-      return 1;
-    }
-
-  else
+  unless ( $document->isa('SML::Document') )
     {
       $logger->error("CAN'T ADD DOCUMENT \'$document\' is not a SML::Document");
       return 0;
     }
+
+  my $id = $document->get_id;
+
+  $self->_get_document_hash->{$id} = $document;
+
+  return 1;
 }
 
 ######################################################################
@@ -657,18 +661,17 @@ sub add_entity {
   my $self   = shift;
   my $entity = shift;
 
-  if ( $entity->isa('SML::Entity') )
-    {
-      my $id = $entity->get_id;
-      $self->_get_entity_hash->{$id} = $entity;
-      return 1;
-    }
-
-  else
+  unless ( $entity->isa('SML::Entity') )
     {
       $logger->error("CAN'T ADD ENTITY \'$entity\' is not a SML::Entity");
       return 0;
     }
+
+  my $id = $entity->get_id;
+
+  $self->_get_entity_hash->{$id} = $entity;
+
+  return 1;
 }
 
 ######################################################################
@@ -720,24 +723,24 @@ sub add_variable {
 
 ######################################################################
 
-sub add_resource {
+# sub add_resource {
 
-  my $self     = shift;
-  my $resource = shift;
+#   my $self     = shift;
+#   my $resource = shift;
 
-  if ( $resource->isa('SML::Resource') )
-    {
-      my $filespec = $resource->get_filespec;
-      $self->_get_resource_hash->{$filespec} = $resource;
-      return 1;
-    }
+#   if ( $resource->isa('SML::Resource') )
+#     {
+#       my $filespec = $resource->get_filespec;
+#       $self->_get_resource_hash->{$filespec} = $resource;
+#       return 1;
+#     }
 
-  else
-    {
-      $logger->error("CAN'T ADD RESOOURCE \'$resource\' is not a SML::Resource");
-      return 0;
-    }
-}
+#   else
+#     {
+#       $logger->error("CAN'T ADD RESOOURCE \'$resource\' is not a SML::Resource");
+#       return 0;
+#     }
+# }
 
 ######################################################################
 
@@ -1223,10 +1226,10 @@ sub get_property_name_list {
 
 sub has_file {
 
-  my $self = shift;
-  my $id   = shift;
+  my $self     = shift;
+  my $filename = shift;
 
-  if ( exists $self->_get_file_hash->{$id} )
+  if ( exists $self->_get_file_hash->{$filename} )
     {
       return 1;
     }
@@ -1373,21 +1376,21 @@ sub has_variable {
 
 ######################################################################
 
-sub has_resource {
+# sub has_resource {
 
-  my $self     = shift;
-  my $filespec = shift;
+#   my $self     = shift;
+#   my $filespec = shift;
 
-  if ( exists $self->_get_resource_hash->{$filespec} )
-    {
-      return 1;
-    }
+#   if ( exists $self->_get_resource_hash->{$filespec} )
+#     {
+#       return 1;
+#     }
 
-  else
-    {
-      return 0;
-    }
-}
+#   else
+#     {
+#       return 0;
+#     }
+# }
 
 ######################################################################
 
@@ -1704,22 +1707,22 @@ sub get_variable {
 
 ######################################################################
 
-sub get_resource {
+# sub get_resource {
 
-  my $self     = shift;
-  my $filespec = shift;
+#   my $self     = shift;
+#   my $filespec = shift;
 
-  if ( exists $self->_get_resource_hash->{$filespec} )
-    {
-      return $self->_get_resource_hash->{$filespec};
-    }
+#   if ( exists $self->_get_resource_hash->{$filespec} )
+#     {
+#       return $self->_get_resource_hash->{$filespec};
+#     }
 
-  else
-    {
-      $logger->error("CAN'T GET RESOURCE \'$filespec\'");
-      return 0;
-    }
-}
+#   else
+#     {
+#       $logger->error("CAN'T GET RESOURCE \'$filespec\'");
+#       return 0;
+#     }
+# }
 
 ######################################################################
 
@@ -2225,26 +2228,26 @@ sub summarize_variables {
 
 ######################################################################
 
-sub summarize_resources {
+# sub summarize_resources {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $summary = q{};
+#   my $summary = q{};
 
-  if (keys %{ $self->_get_resource_hash })
-    {
-      $summary .= "Resources:\n\n";
+#   if (keys %{ $self->_get_resource_hash })
+#     {
+#       $summary .= "Resources:\n\n";
 
-      foreach my $filespec (sort keys %{ $self->_get_resource_hash })
-	{
-	  $summary .= "  $filespec\n";
-	}
+#       foreach my $filespec (sort keys %{ $self->_get_resource_hash })
+# 	{
+# 	  $summary .= "  $filespec\n";
+# 	}
 
-      $summary .= "\n";
-    }
+#       $summary .= "\n";
+#     }
 
-  return $summary;
-}
+#   return $summary;
+# }
 
 ######################################################################
 
@@ -2357,34 +2360,34 @@ sub summarize_reviews {
 
 ######################################################################
 
-sub replace_division_id {
+# sub replace_division_id {
 
-  # THIS IS A HACK.  I should change the syntax of the division start
-  # markup to include the ID so this isn't necessary.  That way the
-  # library can remember the correct division ID at the start of the
-  # division.
+#   # THIS IS A HACK.  I should change the syntax of the division start
+#   # markup to include the ID so this isn't necessary.  That way the
+#   # library can remember the correct division ID at the start of the
+#   # division.
 
-  my $self     = shift;
-  my $division = shift;
-  my $id       = shift;
+#   my $self     = shift;
+#   my $division = shift;
+#   my $id       = shift;
 
-  foreach my $stored_id (keys %{ $self->_get_division_hash })
-    {
-      my $stored_division = $self->_get_division_hash->{$stored_id};
-      if ( $stored_division == $division )
-	{
-	  delete $self->_get_division_hash->{$stored_id};
-	  $self->_get_division_hash->{$id} = $division;
-	}
-    }
+#   foreach my $stored_id (keys %{ $self->_get_division_hash })
+#     {
+#       my $stored_division = $self->_get_division_hash->{$stored_id};
+#       if ( $stored_division == $division )
+# 	{
+# 	  delete $self->_get_division_hash->{$stored_id};
+# 	  $self->_get_division_hash->{$id} = $division;
+# 	}
+#     }
 
-  if ( $division->isa('SML::Source') )
-    {
-      $self->get_references->replace_division_id($division,$id);
-    }
+#   if ( $division->isa('SML::Source') )
+#     {
+#       $self->get_references->replace_division_id($division,$id);
+#     }
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
@@ -2419,42 +2422,42 @@ sub update_status_from_outcome {
 
 ######################################################################
 
-sub allows_insert {
+# sub allows_insert {
 
-  my $self = shift;
-  my $name = shift;
+#   my $self = shift;
+#   my $name = shift;
 
-  if (
-      defined $self->_get_insert_name_hash->{$name}
-      and
-      $self->_get_insert_name_hash->{$name} == 1
-     )
-    {
-      return 1;
-    }
-  else
-    {
-      return 0;
-    }
-}
+#   if (
+#       defined $self->_get_insert_name_hash->{$name}
+#       and
+#       $self->_get_insert_name_hash->{$name} == 1
+#      )
+#     {
+#       return 1;
+#     }
+#   else
+#     {
+#       return 0;
+#     }
+# }
 
 ######################################################################
 
-sub allows_generate {
+# sub allows_generate {
 
-  my $self = shift;
-  my $name = shift;
+#   my $self = shift;
+#   my $name = shift;
 
-  if ( defined $self->_get_generated_content_type_hash->{$name} )
-    {
-      return 1;
-    }
+#   if ( defined $self->_get_generated_content_type_hash->{$name} )
+#     {
+#       return 1;
+#     }
 
-  else
-    {
-      return 0;
-    }
-}
+#   else
+#     {
+#       return 0;
+#     }
+# }
 
 ######################################################################
 
@@ -2657,6 +2660,19 @@ sub has_triple_for {
 
 ######################################################################
 
+sub get_object_list {
+
+  my $self      = shift;
+  my $subject   = shift;
+  my $predicate = shift;
+
+  my $hash = $self->_get_triple_hash;
+
+  return [ sort keys %{ $hash->{$subject}{$predicate} } ];
+}
+
+######################################################################
+
 sub contains_entities {
 
   # Return 1 if the library contains any entities.
@@ -2684,19 +2700,6 @@ sub contains_entities {
     }
 
   return 0;
-}
-
-######################################################################
-
-sub get_object_list {
-
-  my $self      = shift;
-  my $subject   = shift;
-  my $predicate = shift;
-
-  my $hash = $self->_get_triple_hash;
-
-  return [ sort keys %{ $hash->{$subject}{$predicate} } ];
 }
 
 ######################################################################
@@ -3176,13 +3179,13 @@ has variable_hash =>
 
 ######################################################################
 
-has resource_hash =>
-  (
-   is        => 'ro',
-   isa       => 'HashRef',
-   reader    => '_get_resource_hash',
-   default   => sub {{}},
-  );
+# has resource_hash =>
+#   (
+#    is        => 'ro',
+#    isa       => 'HashRef',
+#    reader    => '_get_resource_hash',
+#    default   => sub {{}},
+#   );
 
 #   $resource_ds->{$filespec} = $resource;
 
@@ -4552,7 +4555,6 @@ reusable content.
   my $references   = $library->get_references;
   my $string       = $library->get_directory_path;
   my $list         = $library->get_include_path;
-  my $list         = $library->get_division_name_list;
   my $list         = $library->get_region_name_list;
   my $list         = $library->get_environment_name_list;
   my $string       = $library->get_template_dir;
@@ -4613,7 +4615,6 @@ reusable content.
   my $string       = $library->summarize_sources;
   my $string       = $library->summarize_outcomes;
   my $string       = $library->summarize_reviews;
-  my $boolean      = $library->replace_division_id($division,$id);
   my $boolean      = $library->update_status_from_outcome($outcome);
 
 =head1 DESCRIPTION

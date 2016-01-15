@@ -1269,7 +1269,6 @@ C<SML::Document> - a written work about a topic
   my $definition   = $document->get_acronym_definition($acronym,$namespace);
   my $note         = $document->get_note($division_id,$number);
   my $term         = $document->get_index_term($term);
-  my $boolean      = $document->replace_division_id($division,$id);
 
 =head1 DESCRIPTION
 
