@@ -7151,7 +7151,7 @@ sub _build_test_object_hash {
     my $library  = SML::Library->new(config_filename=>'library.conf');
     my $parser   = $library->get_parser;
     my $fragment = $parser->create_fragment('td-000020.txt');
-    my $document = $library->get_document('td-000020');
+    my $document = $library->get_division('td-000020');
 
     $toh->{'SML::Document'}{'td-000020'} = $document;
   }
@@ -7243,7 +7243,7 @@ sub _build_test_document_1 {
 
   my $library = $self->get_test_library_1;
 
-  return $library->get_document('td-000020');
+  return $library->get_division('td-000020');
 }
 
 ######################################################################

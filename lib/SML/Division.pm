@@ -250,26 +250,26 @@ sub contains_division_with_id {
 
 ######################################################################
 
-sub has_attribute {
+# sub has_attribute {
 
-  my $self      = shift;
-  my $attribute = shift;
+#   my $self      = shift;
+#   my $attribute = shift;
 
-  unless ( $attribute )
-    {
-      $logger->error("YOU MUST SPECIFY ATTRIBUTE");
-      return 0;
-    }
+#   unless ( $attribute )
+#     {
+#       $logger->error("YOU MUST SPECIFY ATTRIBUTE");
+#       return 0;
+#     }
 
-  if ( exists $self->_get_attribute_hash->{$attribute} )
-    {
-      return 1;
-    }
-  else
-    {
-      return 0;
-    }
-}
+#   if ( exists $self->_get_attribute_hash->{$attribute} )
+#     {
+#       return 1;
+#     }
+#   else
+#     {
+#       return 0;
+#     }
+# }
 
 ######################################################################
 
@@ -630,7 +630,9 @@ sub get_containing_section {
 
   while ( $division )
     {
-      if ( $division->isa('SML::Section') )
+      my $name = $division->get_name;
+
+      if ( $name eq 'SECTION' )
 	{
 	  return $division;
 	}
@@ -859,7 +861,6 @@ L<"SML::Block">s.
   my $boolean  = $division->contains_division_with_id($id);
   my $boolean  = $division->has_property($property_name);
   my $boolean  = $division->has_property_value($property_name,$value);
-  my $boolean  = $division->has_attribute($attribute_name);
   my $list     = $division->get_division_list;
   my $list     = $division->get_list_of_divisions_with_name('SECTION');
   my $list     = $division->get_block_list;

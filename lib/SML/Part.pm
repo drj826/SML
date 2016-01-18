@@ -94,6 +94,17 @@ has part_list =>
 # The 'part_list' is the array of parts within this part.
 
 ######################################################################
+
+has is_narrative_part =>
+  (
+   is      => 'ro',
+   isa     => 'Bool',
+   reader  => 'is_narrative_part',
+   lazy    => 1,
+   builder => '_build_is_narrative_part',
+  );
+
+######################################################################
 ######################################################################
 ##
 ## Public Methods
@@ -220,7 +231,7 @@ sub get_narrative_part_list {
 
   foreach my $part (@{ $part_list })
     {
-      if ( $self->is_narrative_part($part) )
+      if ( $part->is_narrative_part )
 	{
 	  push(@{ $narrative_part_list }, $part);
 	}
@@ -296,32 +307,6 @@ sub is_in_section {
     }
 
   return 0;
-}
-
-######################################################################
-
-sub is_narrative_part {
-
-  my $self = shift;                     # this part
-  my $part = shift;                     # part of this part
-
-  my $name     = $part->get_name;
-  my $library  = $self->get_library;
-  my $ontology = $library->get_ontology;
-  my $type     = ref $part;
-
-  if ( $part->isa('SML::Element') )
-    {
-      unless ( $ontology->property_is_universal($name) )
-	{
-	  return 0;
-	}
-    }
-
-  else
-    {
-      return 1;
-    }
 }
 
 ######################################################################
@@ -446,26 +431,24 @@ sub _build_content {
 
 ######################################################################
 
-sub _build_id_path {
+sub _build_is_narrative_part {
 
-  my $self          = shift;
-  my $container_ids = [];
-  my $id            = $self->get_id;
-  my $container     = $self->get_containing_division;
+  my $self = shift;
 
-  push @{ $container_ids }, $id;
+  my $library  = $self->get_library;
+  my $ontology = $library->get_ontology;
 
-  while ( ref $container )
+  if ( $self->isa('SML::Element') )
     {
-      my $container_id = $container->get_id;
-      push @{ $container_ids }, $container_id;
+      my $name = $self->get_name;
 
-      $container = $container->get_containing_division;
+      unless ( $ontology->property_is_universal($name) )
+	{
+	  return 0;
+	}
     }
 
-  my $id_path = join('.', reverse @{ $container_ids });
-
-  return $id_path;
+  return 1;
 }
 
 ######################################################################

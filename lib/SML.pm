@@ -15,9 +15,6 @@ my $logger = Log::Log4perl::get_logger('sml.SML');
 
 use SML::Library;
 
-use Text::CSV;
-use Cwd;
-
 ######################################################################
 ######################################################################
 ##
@@ -26,83 +23,7 @@ use Cwd;
 ######################################################################
 ######################################################################
 
-has 'syntax' =>
-  (
-   isa     => 'HashRef',
-   reader  => 'get_syntax',
-   lazy    => 1,
-   builder => '_build_syntax',
-  );
-
-######################################################################
-
-has 'util' =>
-  (
-   isa     => 'SML::Util',
-   reader  => 'get_util',
-   lazy    => 1,
-   builder => '_build_util',
-  );
-
-######################################################################
-
-has 'font_size_list' =>
-  (
-   isa     => 'ArrayRef',
-   reader  => 'get_font_size_list',
-   lazy    => 1,
-   builder => '_build_font_size_list',
-  );
-
-# BUG HERE -- Perhaps this should be part of SML::Formatter?
-
-######################################################################
-
-has 'font_weight_list' =>
-  (
-   isa     => 'ArrayRef',
-   reader  => 'get_font_weight_list',
-   lazy    => 1,
-   builder => '_build_font_weight_list',
-  );
-
-# BUG HERE -- Perhaps this should be part of SML::Formatter?
-
-######################################################################
-
-has 'font_shape_list' =>
-  (
-   isa     => 'ArrayRef',
-   reader  => 'get_font_shape_list',
-   lazy    => 1,
-   builder => '_build_font_shape_list',
-  );
-
-# BUG HERE -- Perhaps this should be part of SML::Formatter?
-
-######################################################################
-
-has 'font_family_list' =>
-  (
-   isa     => 'ArrayRef',
-   reader  => 'get_font_family_list',
-   lazy    => 1,
-   builder => '_build_font_family_list',
-  );
-
-# BUG HERE -- Perhaps this should be part of SML::Formatter?
-
-######################################################################
-
-has 'background_color_list' =>
-  (
-   isa     => 'ArrayRef',
-   reader  => 'get_background_color_list',
-   lazy    => 1,
-   builder => '_build_background_color_list',
-  );
-
-# BUG HERE -- Perhaps this should be part of SML::Formatter?
+# NONE
 
 ######################################################################
 ######################################################################
@@ -202,36 +123,6 @@ has 'library_hash' =>
 # A hash of libraries keyed by library name.
 
 ######################################################################
-
-has 'division_hash' =>
-  (
-   isa     => 'HashRef',
-   reader  => '_get_division_hash',
-   lazy    => 1,
-   builder => '_build_divisions',
-  );
-
-######################################################################
-
-has 'insert_name_hash' =>
-  (
-   isa     => 'HashRef',
-   reader  => '_get_insert_name_hash',
-   lazy    => 1,
-   builder => '_build_insert_name_hash',
-  );
-
-######################################################################
-
-has 'generated_content_type_hash' =>
-  (
-   isa     => 'HashRef',
-   reader  => '_get_generated_content_type_hash',
-   lazy    => 1,
-   builder => '_build_generated_content_type_hash',
-  );
-
-######################################################################
 ######################################################################
 ##
 ## Private Methods
@@ -239,132 +130,7 @@ has 'generated_content_type_hash' =>
 ######################################################################
 ######################################################################
 
-sub _build_syntax {
-
-  my $self = shift;
-
-  my $syn       = {};
-  my $syntax    = SML::Syntax->new;
-  my $metaclass = $syntax->meta;
-
-  foreach my $attribute ( $metaclass->get_attribute_list )
-    {
-      $syn->{$attribute} = $syntax->$attribute;
-    }
-
-  return $syn;
-}
-
-######################################################################
-
-sub _build_util {
-  my $self = shift;
-  return SML::Util->new;
-}
-
-######################################################################
-
-sub _build_divisions {
-
-  my $self     = shift;
-  my $ontology = $self->get_ontology;
-
-  return $ontology->divisions_by_name;
-}
-
-######################################################################
-
-sub _build_insert_name_hash {
-
-  my $self = shift;
-
-  return
-    {
-     PREAMBLE   => 1,
-     NARRATIVE  => 1,
-     DEFINITION => 1,
-    };
-}
-
-######################################################################
-
-sub _build_generated_content_type_hash {
-
-  my $self = shift;
-
-  return
-    {
-     'problem-domain-listing'       => "not context sensitive",
-     'solution-domain-listing'      => "not context sensitive",
-     'prioritized-problem-listing'  => "not context sensitive",
-     'prioritized-solution-listing' => "not context sensitive",
-     'associated-problem-listing'   => "context sensitive",
-     'associated-solution-listing'  => "context sensitive",
-    };
-}
-
-######################################################################
-
-sub _build_font_size_list {
-
-  my $self = shift;
-
-  return
-    [
-     'tiny', 'scriptsize', 'footnotesize', 'small', 'normalsize',
-     'large', 'Large', 'LARGE', 'huge', 'Huge',
-    ];
-}
-
-######################################################################
-
-sub _build_font_weight_list {
-
-  my $self = shift;
-
-  return
-     [
-      'medium', 'bold', 'bold_extended', 'semi_bold', 'condensed',
-     ];
-}
-
-######################################################################
-
-sub _build_font_shape_list {
-
-  my $self = shift;
-
-  return
-     [
-      'normal', 'italic', 'slanted', 'smallcaps',
-     ];
-}
-
-######################################################################
-
-sub _build_font_family_list {
-
-  my $self = shift;
-
-  return
-     [
-      'roman', 'serif', 'typewriter'
-     ];
-}
-
-######################################################################
-
-sub _build_background_color_list {
-
-  my $self = shift;
-
-  return
-     [
-      'red',      'yellow',     'blue',
-      'green',    'orange',     'purple',
-      'white',    'litegrey',   'grey',    'darkgrey',
-     ];
-}
+# NONE
 
 ######################################################################
 
@@ -386,19 +152,7 @@ This documentation refers to L<SML> version 2.0.0.
 
   use SML;
 
-  my $sml      = SML->instance;
-
-  my $syntax   = $sml->get_syntax;
-  my $ontology = $sml->get_ontology;
-  my $util     = $sml->get_util;
-  my $fsl      = $sml->get_font_size_list;
-  my $fwl      = $sml->get_font_weight_list;
-  my $fshl     = $sml->get_font_shape_list;
-  my $ffl      = $sml->get_font_family_list;
-  my $bcl      = $sml->get_background_color_list;
-  my $dnl      = $sml->get_division_name_list;
-  my $rnl      = $sml->get_region_name_list;
-  my $enl      = $sml->get_environment_name_list;
+  my $sml = SML->instance;
 
 =head1 DESCRIPTION
 
@@ -409,66 +163,6 @@ semantic relationships, and contain all information necessary to
 publish professional documentation from plain text manuscripts.
 
 =head1 METHODS
-
-=head2 allows_insert
-
-Return 1 if SML allows you to insert specified name. Return 0
-otherwise.
-
-=head2 allows_generate
-
-Return 1 if SML allows you to generate specified type of generated
-content. Return 0 otherwise;
-
-=head2 get_ontology_config_filespec
-
-Return the filespec string for the ontology configuration file.
-
-=head2 get_syntax
-
-Return the L<SML::Syntax> object that represents the language syntax.
-
-=head2 get_ontology
-
-Return the L<SML::Ontology> object that represents the language
-semantics.
-
-=head2 get_util
-
-Return the L<SML::Util> object that performs amazing string
-manipulation feats.
-
-=head2 get_font_size_list
-
-Return an C<ArrayRef> to a list of allowed font sizes.
-
-=head2 get_font_weight_list
-
-Return an C<ArrayRef> to a list of allowed font weights.
-
-=head2 get_font_shape_list
-
-Return an C<ArrayRef> to a list of allowed font shapes.
-
-=head2 get_font_family_list
-
-Return an C<ArrayRef> to a list of allowed font families.
-
-=head2 get_background_color_list
-
-Return an C<ArrayRef> to a list of allowed background colors.
-
-=head2 get_division_name_list
-
-Return an C<ArrayRef> to a list of allowed division names.
-
-=head2 get_region_name_list
-
-Return an C<ArrayRef> to a list of allowed region names.
-
-=head2 get_environment_name_list
-
-Return an C<ArrayRef> to a list of allowed environment names.
 
 =head1 AUTHOR
 

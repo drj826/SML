@@ -33,13 +33,9 @@ isa_ok($obj,'SML');
 
 my @public_methods =
   (
-   'get_syntax',
-   'get_util',
-   'get_font_size_list',
-   'get_font_weight_list',
-   'get_font_shape_list',
-   'get_font_family_list',
-   'get_background_color_list',
+   'get_library',
+   'add_library',
+   'has_library',
   );
 
 can_ok( $obj, @public_methods );
@@ -57,3 +53,5 @@ can_ok( $obj, @public_methods );
 #---------------------------------------------------------------------
 
 ######################################################################
+
+1;

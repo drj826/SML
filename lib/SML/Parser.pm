@@ -4468,7 +4468,7 @@ sub _process_bull_list_item {
 
       $logger->trace("{$number} ..... new top level bullet list");
 
-      my $count = $library->get_bullet_list_count;
+      my $count = $library->increment_division_count('BULLET_LIST');
 
       my $list = SML::BulletList->new
 	(
@@ -4561,7 +4561,7 @@ sub _process_bull_list_item {
 
       $logger->trace("{$number} ..... new sub bullet list");
 
-      my $count = $library->get_bullet_list_count;
+      my $count = $library->increment_division_count('BULLET_LIST');
 
       my $list = SML::BulletList->new
 	(
@@ -4739,7 +4739,7 @@ sub _process_bull_list_item {
 
       $logger->trace("{$number} ..... new bullet list");
 
-      my $count = $library->get_bullet_list_count;
+      my $count = $library->increment_division_count('BULLET_LIST');
 
       my $list = SML::BulletList->new
 	(
@@ -4799,7 +4799,7 @@ sub _process_bull_list_item {
     {
       $logger->trace("{$number} ..... new bullet list");
 
-      my $count = $library->get_bullet_list_count;
+      my $count = $library->increment_division_count('BULLET_LIST');
 
       my $list = SML::BulletList->new
 	(
@@ -4865,7 +4865,7 @@ sub _process_start_step_element {
 
       if ( not $self->_in_step_list )
 	{
-	  my $count = $library->get_step_list_count;
+	  my $count = $library->increment_division_count('STEP_LIST');
 
 	  my $list = SML::Structure->new
 	    (
@@ -5452,7 +5452,7 @@ sub _process_enum_list_item {
       $self->_end_all_lists       if $self->_in_bullet_list;
       $self->_end_definition_list if $self->_in_definition_list;
 
-      my $count = $library->get_enumerated_list_count;
+      my $count = $library->increment_division_count('ENUMERATED_LIST');
 
       my $list = SML::EnumeratedList->new
 	(
@@ -5539,7 +5539,7 @@ sub _process_enum_list_item {
     {
       $self->_end_bullet_list;
 
-      my $count = $library->get_enumerated_list_count;
+      my $count = $library->increment_division_count('ENUMERATED_LIST');
 
       my $list = SML::EnumeratedList->new
 	(
@@ -5701,7 +5701,7 @@ sub _process_enum_list_item {
 	    }
 	}
 
-      my $count = $library->get_enumerated_list_count;
+      my $count = $library->increment_division_count('ENUMERATED_LIST');
 
       my $list = SML::EnumeratedList->new
 	(
@@ -5757,7 +5757,7 @@ sub _process_enum_list_item {
      $indent > $self->_get_current_list_indent
     )
     {
-      my $count = $library->get_enumerated_list_count;
+      my $count = $library->increment_division_count('ENUMERATED_LIST');
 
       my $list = SML::EnumeratedList->new
 	(
@@ -5825,7 +5825,7 @@ sub _process_start_def_list_item {
 
       if ( not $self->_in_definition_list )
 	{
-	  my $count = $library->get_definition_list_count;
+	  my $count = $library->increment_division_count('DEFINITION_LIST');
 
 	  my $list = SML::Structure->new
 	    (

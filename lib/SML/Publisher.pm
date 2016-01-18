@@ -140,8 +140,7 @@ sub publish {
       return 0;
     }
 
-  my $parser   = $library->get_parser;
-  my $document = $parser->parse($id);
+  my $document = $library->get_division($id);
 
   if ( $rendition eq 'html' )
     {

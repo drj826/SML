@@ -1488,13 +1488,13 @@ sub get_file {
 
 ######################################################################
 
-sub get_document {
+# sub get_document {
 
-  my $self = shift;
-  my $id   = shift;
+#   my $self = shift;
+#   my $id   = shift;
 
-  return $self->get_division($id);
-}
+#   return $self->get_division($id);
+# }
 
 ######################################################################
 
@@ -1556,7 +1556,9 @@ sub get_division {
     {
       my $parser = $self->get_parser;
 
-      return $parser->parse($id);
+      my $division = $parser->parse($id);
+
+      return $division;
     }
 }
 
@@ -1575,7 +1577,7 @@ sub get_division_name_for_id {
 
   unless ( $self->has_division_id($id) )
     {
-      $logger->error("CAN'T GET DIVISION NAME FOR ID \'$id\' THERE IS NO DIVISION WITH ID \'$id\'");
+      $logger->logcluck("CAN'T GET DIVISION NAME FOR ID \'$id\' THERE IS NO DIVISION WITH ID \'$id\'");
       return 0;
     }
 
@@ -2461,87 +2463,87 @@ sub update_status_from_outcome {
 
 ######################################################################
 
-sub get_bullet_list_count {
+# sub get_bullet_list_count {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $hash  = $self->_get_division_hash;
-  my $count = 0;
+#   my $hash  = $self->_get_division_hash;
+#   my $count = 0;
 
-  foreach my $division ( values %{ $hash } )
-    {
-      if ( $division->isa("SML::BulletList") )
-	{
-	  ++ $count;
-	}
-    }
+#   foreach my $division ( values %{ $hash } )
+#     {
+#       if ( $division->isa("SML::BulletList") )
+# 	{
+# 	  ++ $count;
+# 	}
+#     }
 
-  return $count;
-}
-
-######################################################################
-
-sub get_enumerated_list_count {
-
-  my $self = shift;
-
-  my $hash  = $self->_get_division_hash;
-  my $count = 0;
-
-  foreach my $division ( values %{ $hash } )
-    {
-      if ( $division->isa("SML::EnumeratedList") )
-	{
-	  ++ $count;
-	}
-    }
-
-  return $count;
-}
+#   return $count;
+# }
 
 ######################################################################
 
-sub get_step_list_count {
+# sub get_enumerated_list_count {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $hash  = $self->_get_division_hash;
-  my $count = 0;
+#   my $hash  = $self->_get_division_hash;
+#   my $count = 0;
 
-  foreach my $division ( values %{ $hash } )
-    {
-      my $name = $division->get_name;
+#   foreach my $division ( values %{ $hash } )
+#     {
+#       if ( $division->isa("SML::EnumeratedList") )
+# 	{
+# 	  ++ $count;
+# 	}
+#     }
 
-      if ( $name eq 'STEP_LIST' )
-	{
-	  ++ $count;
-	}
-    }
-
-  return $count;
-}
+#   return $count;
+# }
 
 ######################################################################
 
-sub get_definition_list_count {
+# sub get_step_list_count {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $hash  = $self->_get_division_hash;
-  my $count = 0;
+#   my $hash  = $self->_get_division_hash;
+#   my $count = 0;
 
-  foreach my $division ( values %{ $hash } )
-    {
-      my $name = $division->get_name;
+#   foreach my $division ( values %{ $hash } )
+#     {
+#       my $name = $division->get_name;
 
-      if ( $name eq 'DEFINITION_LIST' )
-	{
-	  ++ $count;
-	}
-    }
+#       if ( $name eq 'STEP_LIST' )
+# 	{
+# 	  ++ $count;
+# 	}
+#     }
 
-  return $count;
-}
+#   return $count;
+# }
+
+######################################################################
+
+# sub get_definition_list_count {
+
+#   my $self = shift;
+
+#   my $hash  = $self->_get_division_hash;
+#   my $count = 0;
+
+#   foreach my $division ( values %{ $hash } )
+#     {
+#       my $name = $division->get_name;
+
+#       if ( $name eq 'DEFINITION_LIST' )
+# 	{
+# 	  ++ $count;
+# 	}
+#     }
+
+#   return $count;
+# }
 
 ######################################################################
 
@@ -2700,6 +2702,24 @@ sub contains_entities {
     }
 
   return 0;
+}
+
+######################################################################
+
+sub get_division_count {
+
+  my $self = shift;
+  my $name = shift;
+
+  unless ( $name )
+    {
+      $logger->error("CAN'T GET DIVISION COUNT, MISSING ARGUMENT");
+      return 0;
+    }
+
+  my $hash = $self->_get_division_counter_hash;
+
+  return $hash->{$name};
 }
 
 ######################################################################
@@ -3292,8 +3312,7 @@ has division_counter_hash =>
    default   => sub {{}},
   );
 
-# $hash->{$name}   = $count;
-# $hash->{'table'} = 4;
+# $hash->{$division_name} = $count;
 
 ######################################################################
 
@@ -4585,7 +4604,6 @@ reusable content.
   my $boolean      = $library->has_outcome($entity_id,$date);
   my $boolean      = $library->has_review($entity_id,$date);
   my $file         = $library->get_file($filename);
-  my $document     = $library->get_document($id);
   my $list         = $library->get_document_list;
   my $entity       = $library->get_entity($id);
   my $division     = $library->get_division($id);
