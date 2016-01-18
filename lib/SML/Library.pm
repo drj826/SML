@@ -723,27 +723,6 @@ sub add_variable {
 
 ######################################################################
 
-# sub add_resource {
-
-#   my $self     = shift;
-#   my $resource = shift;
-
-#   if ( $resource->isa('SML::Resource') )
-#     {
-#       my $filespec = $resource->get_filespec;
-#       $self->_get_resource_hash->{$filespec} = $resource;
-#       return 1;
-#     }
-
-#   else
-#     {
-#       $logger->error("CAN'T ADD RESOOURCE \'$resource\' is not a SML::Resource");
-#       return 0;
-#     }
-# }
-
-######################################################################
-
 sub add_index_term {
 
   my $self  = shift;

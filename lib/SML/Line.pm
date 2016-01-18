@@ -56,6 +56,17 @@ has num =>
 # line number in the file.
 
 ######################################################################
+
+has location =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   reader  => 'get_location',
+   lazy    => 1,
+   builder => '_build_location',
+  );
+
+######################################################################
 ######################################################################
 ##
 ## Public Methods
@@ -63,46 +74,39 @@ has num =>
 ######################################################################
 ######################################################################
 
-sub get_filespec {
-
-  # Return the name of the file (name.ext) from which this line came.
-
-  my $self = shift;
-
-  my $file = $self->get_file;
-
-  if ( ref $file and $file->isa('SML::File') )
-    {
-      return $file->get_filespec;
-    }
-
-  else
-    {
-      return 'NO-FILE';
-    }
-}
+# NONE
 
 ######################################################################
+######################################################################
+##
+## Private Methods
+##
+######################################################################
+######################################################################
 
-sub get_location {
+sub _build_location {
 
   # Return the location (filespec + line number) from which this line
   # originated.
 
   my $self = shift;
 
-  my $filespec = $self->get_filespec;
-  my $num      = $self->get_num;
+  my $file = $self->get_file;
 
-  if ( $filespec and $num )
-    {
-      return "$filespec:$num";
-    }
-
-  else
+  unless ( $file )
     {
       return 'UNKNOWN LOCATION';
     }
+
+  my $filename = $file->get_filename;
+  my $num      = $self->get_num;
+
+  if ( $filename and $num )
+    {
+      return "$filename:$num";
+    }
+
+  return 'UNKNOWN LOCATION';
 }
 
 ######################################################################

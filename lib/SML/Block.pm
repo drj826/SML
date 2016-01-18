@@ -90,6 +90,7 @@ sub add_line {
     }
 
   push @{ $self->get_line_list }, $line;
+
   return 1;
 }
 
@@ -130,11 +131,8 @@ sub get_first_line {
       return $self->get_line_list->[0];
     }
 
-  else
-    {
-      # $logger->error("FIRST LINE DOESN'T EXIST");
-      return 0;
-    }
+  # $logger->error("FIRST LINE DOESN'T EXIST");
+  return 0;
 }
 
 ######################################################################
@@ -168,13 +166,13 @@ sub is_in_a {
   # buried several divisions deep).
 
   my $self = shift;
-  my $type = shift;
+  my $name = shift;
 
   my $division = $self->get_containing_division || q{};
 
   while ( $division )
     {
-      if ( $division->isa($type) )
+      if ( $division->isa($name) )
 	{
 	  return 1;
 	}
@@ -200,6 +198,8 @@ sub is_in_a {
 ##
 ######################################################################
 ######################################################################
+
+# NONE
 
 ######################################################################
 ######################################################################

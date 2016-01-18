@@ -10486,7 +10486,7 @@ sub _handle_error {
       $document->add_error($error);
     }
 
-  $logger->$level($message);
+  $logger->$level("$message at $location");
 
   return 1;
 }
