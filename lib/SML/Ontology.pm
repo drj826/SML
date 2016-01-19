@@ -231,10 +231,10 @@ sub get_list_of_allowed_property_names_for_division_name {
 
 sub get_list_of_required_property_names_for_division_name {
 
-  my $self          = shift;
-  my $division_name = shift;
+  my $self = shift;
+  my $name = shift;
 
-  unless ( $division_name )
+  unless ( $name )
     {
       $logger->error("CAN'T GET LIST OF REQUIRED PROPERTY NAMES FOR DIVISION NAME, MISSING ARGUMENT");
       return 0;
@@ -242,9 +242,9 @@ sub get_list_of_required_property_names_for_division_name {
 
   my $hash = $self->_get_required_properties_hash;
 
-  if ( exists $hash->{$division_name} )
+  if ( exists $hash->{$name} )
     {
-      return [ sort keys %{ $hash->{$division_name} } ]
+      return [ sort keys %{ $hash->{$name} } ]
     }
 
   else
@@ -349,10 +349,7 @@ sub allows_division_name {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
@@ -418,11 +415,7 @@ sub allows_composition {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
-
+  return 0;
 }
 
 ######################################################################
@@ -504,10 +497,7 @@ sub property_is_universal {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
@@ -528,10 +518,7 @@ sub property_is_required {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
