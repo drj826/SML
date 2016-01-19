@@ -75,98 +75,6 @@ has index =>
 
 ######################################################################
 
-has author =>
-  (
-   isa       => 'Str',
-   reader    => 'get_author',
-  );
-
-######################################################################
-
-has date =>
-  (
-   isa    => 'Str',
-   reader => 'get_date',
-  );
-
-######################################################################
-
-has revision =>
-  (
-   isa    => 'Str',
-   reader => 'get_revision',
-  );
-
-######################################################################
-
-has 'subtitle',           is => 'ro', isa => 'Str';
-has 'description',        is => 'ro', isa => 'Str';
-
-has 'editor',             is => 'ro', isa => 'Str';
-has 'translator',         is => 'ro', isa => 'Str';
-
-has 'publisher',          is => 'ro', isa => 'Str';
-has 'publisher_location', is => 'ro', isa => 'Str';
-has 'publisher_logo',     is => 'ro', isa => 'Str';
-has 'publisher_address',  is => 'ro', isa => 'Str';
-
-has 'edition',            is => 'ro', isa => 'Str';
-
-has 'biographical_note',  is => 'ro', isa => 'Str';
-has 'copyright',          is => 'ro', isa => 'Str';
-has 'full_copyright',     is => 'ro', isa => 'Str';
-has 'publication_year',   is => 'ro', isa => 'Str';
-
-has 'isbn',               is => 'ro', isa => 'Str';
-has 'issn',               is => 'ro', isa => 'Str';
-has 'cip_data',           is => 'ro', isa => 'Str';
-
-has 'permissions',        is => 'ro', isa => 'Str';
-has 'grants',             is => 'ro', isa => 'Str';
-
-has 'paper_durability',   is => 'ro', isa => 'Str';
-
-has 'dedication',         is => 'ro', isa => 'Str';
-has 'epigraph',           is => 'ro', isa => 'Str';
-has 'epigraph_source',    is => 'ro', isa => 'Str';
-
-has 'doctype',            is => 'ro', isa => 'Str';
-has 'fontsize',           is => 'ro', isa => 'Str';
-has 'organization',       is => 'ro', isa => 'Str';
-has 'version',            is => 'ro', isa => 'Str';
-
-has 'classification',     is => 'ro', isa => 'Str';
-has 'classified_by',      is => 'ro', isa => 'Str';
-has 'classif_reason',     is => 'ro', isa => 'Str';
-has 'declassify_on',      is => 'ro', isa => 'Str';
-has 'handling_caveat',    is => 'ro', isa => 'Str';
-
-has 'priority',           is => 'ro', isa => 'Str';
-has 'status',             is => 'ro', isa => 'Str';
-has 'attr',               is => 'ro', isa => 'Str';
-
-has 'use_formal_status',  is => 'ro', isa => 'Str';
-
-has 'effort_units',       is => 'ro', isa => 'Str';
-
-has 'var',                is => 'ro', isa => 'Str';
-
-has 'logo_image_left',    is => 'ro', isa => 'Str';
-has 'logo_image_center',  is => 'ro', isa => 'Str';
-has 'logo_image_right',   is => 'ro', isa => 'Str';
-
-has 'DEFAULT_RENDITION',       is => 'ro', isa => 'Str';
-has 'MAX_SEC_DEPTH',           is => 'ro', isa => 'Str';
-has 'MAX_ID_HIERARCHY_DEPTH',  is => 'ro', isa => 'Str';
-
-has 'MAX_PASS_TWO_ITERATIONS', is => 'ro', isa => 'Str';
-has 'pass_two_count',          is => 'ro', isa => 'Str';
-
-has 'using_longtable',         is => 'ro', isa => 'Boolean';
-has 'using_supertabular',      is => 'ro', isa => 'Boolean';
-
-######################################################################
-
 has change_list =>
   (
    is      => 'ro',
@@ -219,6 +127,98 @@ has update_count =>
 
 # This is number of divisions that have been UPDATED since the
 # previous version.
+
+######################################################################
+
+# has author =>
+#   (
+#    isa       => 'Str',
+#    reader    => 'get_author',
+#   );
+
+######################################################################
+
+# has date =>
+#   (
+#    isa    => 'Str',
+#    reader => 'get_date',
+#   );
+
+######################################################################
+
+# has revision =>
+#   (
+#    isa    => 'Str',
+#    reader => 'get_revision',
+#   );
+
+######################################################################
+
+# has 'subtitle',           is => 'ro', isa => 'Str';
+# has 'description',        is => 'ro', isa => 'Str';
+
+# has 'editor',             is => 'ro', isa => 'Str';
+# has 'translator',         is => 'ro', isa => 'Str';
+
+# has 'publisher',          is => 'ro', isa => 'Str';
+# has 'publisher_location', is => 'ro', isa => 'Str';
+# has 'publisher_logo',     is => 'ro', isa => 'Str';
+# has 'publisher_address',  is => 'ro', isa => 'Str';
+
+# has 'edition',            is => 'ro', isa => 'Str';
+
+# has 'biographical_note',  is => 'ro', isa => 'Str';
+# has 'copyright',          is => 'ro', isa => 'Str';
+# has 'full_copyright',     is => 'ro', isa => 'Str';
+# has 'publication_year',   is => 'ro', isa => 'Str';
+
+# has 'isbn',               is => 'ro', isa => 'Str';
+# has 'issn',               is => 'ro', isa => 'Str';
+# has 'cip_data',           is => 'ro', isa => 'Str';
+
+# has 'permissions',        is => 'ro', isa => 'Str';
+# has 'grants',             is => 'ro', isa => 'Str';
+
+# has 'paper_durability',   is => 'ro', isa => 'Str';
+
+# has 'dedication',         is => 'ro', isa => 'Str';
+# has 'epigraph',           is => 'ro', isa => 'Str';
+# has 'epigraph_source',    is => 'ro', isa => 'Str';
+
+# has 'doctype',            is => 'ro', isa => 'Str';
+# has 'fontsize',           is => 'ro', isa => 'Str';
+# has 'organization',       is => 'ro', isa => 'Str';
+# has 'version',            is => 'ro', isa => 'Str';
+
+# has 'classification',     is => 'ro', isa => 'Str';
+# has 'classified_by',      is => 'ro', isa => 'Str';
+# has 'classif_reason',     is => 'ro', isa => 'Str';
+# has 'declassify_on',      is => 'ro', isa => 'Str';
+# has 'handling_caveat',    is => 'ro', isa => 'Str';
+
+# has 'priority',           is => 'ro', isa => 'Str';
+# has 'status',             is => 'ro', isa => 'Str';
+# has 'attr',               is => 'ro', isa => 'Str';
+
+# has 'use_formal_status',  is => 'ro', isa => 'Str';
+
+# has 'effort_units',       is => 'ro', isa => 'Str';
+
+# has 'var',                is => 'ro', isa => 'Str';
+
+# has 'logo_image_left',    is => 'ro', isa => 'Str';
+# has 'logo_image_center',  is => 'ro', isa => 'Str';
+# has 'logo_image_right',   is => 'ro', isa => 'Str';
+
+# has 'DEFAULT_RENDITION',       is => 'ro', isa => 'Str';
+# has 'MAX_SEC_DEPTH',           is => 'ro', isa => 'Str';
+# has 'MAX_ID_HIERARCHY_DEPTH',  is => 'ro', isa => 'Str';
+
+# has 'MAX_PASS_TWO_ITERATIONS', is => 'ro', isa => 'Str';
+# has 'pass_two_count',          is => 'ro', isa => 'Str';
+
+# has 'using_longtable',         is => 'ro', isa => 'Boolean';
+# has 'using_supertabular',      is => 'ro', isa => 'Boolean';
 
 ######################################################################
 ######################################################################
@@ -286,116 +286,111 @@ sub has_note {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
 
-sub has_glossary_term {
+# sub has_glossary_term {
 
-  my $self      = shift;
-  my $term      = shift;
-  my $namespace = shift || q{};
+#   my $self      = shift;
+#   my $term      = shift;
+#   my $namespace = shift || q{};
 
-  if ( defined $self->get_glossary->{$term}{$namespace} )
-    {
-      return 1;
-    }
-  else
-    {
-      return 0;
-    }
-}
+#   if ( defined $self->get_glossary->{$term}{$namespace} )
+#     {
+#       return 1;
+#     }
+
+#   return 0;
+# }
 
 ######################################################################
 
-sub has_acronym {
+# sub has_acronym {
 
-  my $self      = shift;
-  my $term      = shift;
-  my $namespace = shift || q{};
+#   my $self      = shift;
+#   my $term      = shift;
+#   my $namespace = shift || q{};
 
-  if ( defined $self->acronyms->{$term}{$namespace} )
-    {
-      return 1;
-    }
-  else
-    {
-      return 0;
-    }
-}
-
-######################################################################
-
-sub has_source {
-
-  my $self = shift;
-  my $id   = shift;
-
-  if ( defined $self->_get_source_hash->{$id} )
-    {
-      return 1;
-    }
-  else
-    {
-      return 0;
-    }
-}
+#   if ( defined $self->acronyms->{$term}{$namespace} )
+#     {
+#       return 1;
+#     }
+#   else
+#     {
+#       return 0;
+#     }
+# }
 
 ######################################################################
 
-sub get_acronym_definition {
+# sub has_source {
 
-  my $self      = shift;
-  my $acronym   = shift;
-  my $namespace = shift || q{};
+#   my $self = shift;
+#   my $id   = shift;
 
-  my $acronyms = $self->acronyms;
-
-  return $acronyms->{$acronym}{$namespace};
-}
-
-######################################################################
-
-sub get_note {
-
-  my $self   = shift;
-  my $divid  = shift;
-  my $number = shift;
-
-  my $nh = $self->_get_note_hash;
-
-  return $nh->{$divid}{$number};
-}
+#   if ( defined $self->_get_source_hash->{$id} )
+#     {
+#       return 1;
+#     }
+#   else
+#     {
+#       return 0;
+#     }
+# }
 
 ######################################################################
 
-sub replace_division_id {
+# sub get_acronym_definition {
 
-  # THIS IS A HACK.  I should change the syntax of the division start
-  # markup to include the ID so this isn't necessary.  That way the
-  # document can remember the correct division ID at the start of the
-  # division.
+#   my $self      = shift;
+#   my $acronym   = shift;
+#   my $namespace = shift || q{};
 
-  my $self     = shift;
-  my $division = shift;
-  my $id       = shift;
+#   my $acronyms = $self->acronyms;
 
-  foreach my $stored_id (keys %{ $self->_get_division_hash })
-    {
-      my $stored_division = $self->_get_division_hash->{$stored_id};
-      if ( $stored_division == $division )
-	{
-	  delete $self->_get_division_hash->{$stored_id};
-	  $self->_get_division_hash->{$id} = $division;
-	}
-    }
+#   return $acronyms->{$acronym}{$namespace};
+# }
 
-  return 1;
-}
+######################################################################
+
+# sub get_note {
+
+#   my $self   = shift;
+#   my $divid  = shift;
+#   my $number = shift;
+
+#   my $hash = $self->_get_note_hash;
+
+#   return $hash->{$divid}{$number};
+# }
+
+######################################################################
+
+# sub replace_division_id {
+
+#   # THIS IS A HACK.  I should change the syntax of the division start
+#   # markup to include the ID so this isn't necessary.  That way the
+#   # document can remember the correct division ID at the start of the
+#   # division.
+
+#   my $self     = shift;
+#   my $division = shift;
+#   my $id       = shift;
+
+#   foreach my $stored_id (keys %{ $self->_get_division_hash })
+#     {
+#       my $stored_division = $self->_get_division_hash->{$stored_id};
+#       if ( $stored_division == $division )
+# 	{
+# 	  delete $self->_get_division_hash->{$stored_id};
+# 	  $self->_get_division_hash->{$id} = $division;
+# 	}
+#     }
+
+#   return 1;
+# }
 
 ######################################################################
 
@@ -1263,10 +1258,6 @@ C<SML::Document> - a written work about a topic
   my $boolean      = $document->add_index_term($term,$division_id);
   my $boolean      = $document->has_note($division_id,$number);
   my $boolean      = $document->has_index_term($term);
-  my $boolean      = $document->has_glossary_term($term,$namespace);
-  my $boolean      = $document->has_acronym($term,$namespace);
-  my $boolean      = $document->has_source($id);
-  my $definition   = $document->get_acronym_definition($acronym,$namespace);
   my $note         = $document->get_note($division_id,$number);
   my $term         = $document->get_index_term($term);
 

@@ -178,80 +178,369 @@ sub publish {
 
 ######################################################################
 
-sub publish_index {
+sub publish_all_documents {
 
   my $self = shift;
 
-  my $rendition = shift || 'html';
-  my $style     = shift || 'default';
+  my $rendition = shift;
+  my $style     = shift;
 
-  my $now = localtime();
-  $self->_set_publish_date_time( $now );
+  my $begin = time();
 
-  if ( $rendition eq 'html' )
+  my $library = $self->get_library;
+
+  $logger->info("publish all library documents");
+
+  my $id_list = $library->get_division_id_list_by_name('DOCUMENT');
+
+  foreach my $id (@{ $id_list })
     {
-      $self->_publish_html_library_index_page($style);
-      $self->_publish_html_overall_index_page($style);
+      $self->publish($id,$rendition,$style);
     }
 
-  else
-    {
-      $logger->error("CAN ONLY PUBLISH HTML INDEX AT THIS TIME");
-      return 0;
-    }
+  my $end = time();
+  my $duration = duration($end - $begin);
+
+  $logger->info("publish all library documents $duration");
 
   return 1;
 }
 
 ######################################################################
 
-sub publish_library_pages {
+sub publish_html_overall_index_page {
 
-  my $self = shift;
+  # Publish an HTML 'overall' index page.  This page summarizes DRAFT,
+  # REVIEW, and APPROVED libraries.
 
-  my $rendition = shift || 'html';
-  my $style     = shift || 'default';
+  my $self  = shift;
+  my $style = shift || 'default';
+
+  my $begin = time();
+
+  $logger->info("publish $style html overall index page");
+
+  my $library      = $self->get_library;
+  my $template_dir = $library->get_template_dir . "/html/$style";
+
+  unless ( -d $template_dir )
+    {
+      $logger->error("NOT A DIRECTORY $template_dir");
+      return 0;
+    }
+
+  my $published_dir = $library->get_published_dir;
+
+  unless ( -d $published_dir )
+    {
+      mkdir "$published_dir", 0755;
+      $logger->debug("made directory $published_dir");
+    }
+
+  my $tt_config =
+    {
+     INCLUDE_PATH => $template_dir,
+     OUTPUT_PATH  => $published_dir,
+     RECURSION    => 1,
+    };
+
+  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+
+  my $vars = { library => $library };
+
+  # overall index page
+  $logger->debug("publishing overall index.html");
+  $tt->process("overall_index_page.tt",$vars,"index.html")
+    || die $tt->error(), "\n";
+
+  my $end = time();
+  my $duration = duration($end - $begin);
+
+  $logger->info("publish $style html overall index page $duration");
+
+  return 1;
+}
+
+######################################################################
+
+sub publish_html_library_index_page {
+
+  # Publish an HTML library index page.  This page summarizes only the
+  # DRAFT library.
+
+  my $self  = shift;
+  my $style = shift || 'default';
+
+  my $begin = time();
+
+  $logger->info("publish $style html library index page");
+
+  my $library      = $self->get_library;
+  my $template_dir = $library->get_template_dir . "/html/$style";
+
+  unless ( -d $template_dir )
+    {
+      $logger->error("NOT A DIRECTORY $template_dir");
+      return 0;
+    }
+
+  my $published_dir = $library->get_published_dir;
+
+  unless ( -d $published_dir )
+    {
+      mkdir "$published_dir", 0755;
+      $logger->debug("made directory $published_dir");
+    }
+
+  my $state     = 'DRAFT';
+  my $state_dir = "$published_dir/$state";
+
+  unless ( -d $state_dir )
+    {
+      mkdir "$state_dir", 0755;
+      $logger->debug("made directory $state_dir");
+    }
+
+  my $tt_config =
+    {
+     INCLUDE_PATH => $template_dir,
+     OUTPUT_PATH  => $state_dir,
+     RECURSION    => 1,
+    };
+
+  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+
+  my $vars = { library => $library };
+
+  # library index page
+  $logger->debug("publishing library index.html");
+  $tt->process("library_index_page.tt",$vars,"index.html")
+    || die $tt->error(), "\n";
+
+  my $end = time();
+  my $duration = duration($end - $begin);
+
+  $logger->info("publish $style html library index page $duration");
+
+  return 1;
+}
+
+######################################################################
+
+# sub publish_index {
+
+#   my $self = shift;
+
+#   my $rendition = shift || 'html';
+#   my $style     = shift || 'default';
+
+#   my $now = localtime();
+#   $self->_set_publish_date_time( $now );
+
+#   if ( $rendition eq 'html' )
+#     {
+#       $self->_publish_html_library_index_page($style);
+#       $self->_publish_html_overall_index_page($style);
+#     }
+
+#   else
+#     {
+#       $logger->error("CAN ONLY PUBLISH HTML INDEX AT THIS TIME");
+#       return 0;
+#     }
+
+#   return 1;
+# }
+
+######################################################################
+
+sub publish_html_library_special_pages {
+
+  # Special pages include:
+  #
+  # - traceability page
+  # - ontology page
+  # - entities page
+  # - library glossary page
+  # - library acronym list page
+  # - library references (bibliography) page
+  # - library change page
+  # - library errors page
+
+  my $self  = shift;
+  my $style = shift || 'default';
+
+  my $begin = time();
+
+  $logger->info("publish $style html library special pages");
 
   my $now = localtime();
   $self->_set_publish_date_time( $now );
 
-  if ( $rendition eq 'html' )
+  my $library      = $self->get_library;
+  my $template_dir = $library->get_template_dir . "/html/$style";
+
+  unless ( -d $template_dir )
     {
-      my $library       = $self->get_library;
-      my $published_dir = $library->get_published_dir;
-      my $state_dir     = "$published_dir/DRAFT";
-
-      if ( -f "$state_dir/errors.html" )
-	{
-	  unlink "$state_dir/errors.html";
-	}
-
-      if ( $library->contains_error )
-	{
-	  $self->_publish_html_library_errors_page($style);
-	}
-
-      $self->_publish_html_traceability_page($style);
-      $self->_publish_html_ontology_page($style);
-      $self->_publish_html_entities_page($style);
-      $self->_publish_html_library_glossary_page($style);
-      $self->_publish_html_library_acronyms_page($style);
-      $self->_publish_html_library_references_page($style);
-
-      if ( $library->contains_changes )
-      	{
-      	  $self->_publish_html_change_page($style);
-      	}
-    }
-
-  else
-    {
-      $logger->error("CAN ONLY PUBLISH HTML LIBRARY PAGES AT THIS TIME");
+      $logger->error("NOT A DIRECTORY $template_dir");
       return 0;
     }
 
+  my $published_dir = $library->get_published_dir;
+
+  unless ( -d $published_dir )
+    {
+      mkdir "$published_dir", 0755;
+      $logger->debug("made directory $published_dir");
+    }
+
+  my $state     = 'DRAFT';
+  my $state_dir = "$published_dir/$state";
+
+  unless ( -d $state_dir )
+    {
+      mkdir "$state_dir", 0755;
+      $logger->debug("made directory $state_dir");
+    }
+
+  if ( -f "$state_dir/errors.html" )
+    {
+      unlink "$state_dir/errors.html";
+    }
+
+  my $tt_config =
+    {
+     INCLUDE_PATH => $template_dir,
+     OUTPUT_PATH  => $state_dir,
+     RECURSION    => 1,
+    };
+
+  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+
+  my $vars = { library => $library };
+
+  # traceability page
+  $logger->debug("publishing traceability.html");
+  $tt->process("library_traceability_page.tt",$vars,"traceability.html")
+    || die $tt->error(), "\n";
+
+  my $ontology         = $library->get_ontology;
+  my $entity_name_list = $ontology->get_entity_name_list;
+
+  foreach my $entity_name (@{ $entity_name_list })
+    {
+      $vars->{entity_name} = $entity_name;
+
+      # traceability tree page
+      #
+      # Only publish a traceability tree page if this entity_name
+      # allows the 'is_part_of' property.
+      if ( $ontology->allows_property_name_in_division_name('is_part_of',$entity_name) )
+	{
+	  $logger->debug("publishing tm_tree.$entity_name.html");
+	  $tt->process("tm_tree_page.tt",$vars,"tm_tree.$entity_name.html")
+	    || die $tt->error(), "\n";
+	}
+    }
+
+  # ontology page
+  $logger->debug("publishing ontology.html");
+  $tt->process("ontology_page.tt",$vars,"ontology.html")
+    || die $tt->error(), "\n";
+
+  # entities page
+  $logger->debug("publishing entities.html");
+  $tt->process("library_entities_page.tt",$vars,"entities.html")
+    || die $tt->error(), "\n";
+
+  # library glossary page
+  $logger->debug("publishing glossary.html");
+  $tt->process("library_glossary_page.tt",$vars,"glossary.html")
+    || die $tt->error(), "\n";
+
+  # library acronym list page
+  $logger->debug("publishing acronyms.html");
+  $tt->process("library_acronyms_page.tt",$vars,"acronyms.html")
+    || die $tt->error(), "\n";
+
+  # library references page
+  $logger->debug("publishing references.html");
+  $tt->process("library_references_page.tt",$vars,"references.html")
+    || die $tt->error(), "\n";
+
+  if ( $library->contains_changes )
+    {
+      # library change page
+      $logger->debug("publishing change.html");
+      $tt->process("library_change_page.tt",$vars,"change.html")
+	|| die $tt->error(), "\n";
+    }
+
+  if ( $library->contains_error )
+    {
+      # library errors page
+      $logger->debug("publishing errors.html");
+      $tt->process("library_errors_page.tt",$vars,"errors.html")
+	|| die $tt->error(), "\n";
+    }
+
+  my $end = time();
+  my $duration = duration($end - $begin);
+
+  $logger->info("publish $style html library special pages $duration");
+
   return 1;
 }
+
+######################################################################
+
+# sub publish_library_pages {
+
+#   my $self = shift;
+
+#   my $rendition = shift || 'html';
+#   my $style     = shift || 'default';
+
+#   my $now = localtime();
+#   $self->_set_publish_date_time( $now );
+
+#   if ( $rendition eq 'html' )
+#     {
+#       my $library       = $self->get_library;
+#       my $published_dir = $library->get_published_dir;
+#       my $state_dir     = "$published_dir/DRAFT";
+
+#       if ( -f "$state_dir/errors.html" )
+# 	{
+# 	  unlink "$state_dir/errors.html";
+# 	}
+
+#       if ( $library->contains_error )
+# 	{
+# 	  $self->_publish_html_library_errors_page($style);
+# 	}
+
+#       $self->_publish_html_traceability_page($style);
+#       $self->_publish_html_ontology_page($style);
+#       $self->_publish_html_entities_page($style);
+#       $self->_publish_html_library_glossary_page($style);
+#       $self->_publish_html_library_acronyms_page($style);
+#       $self->_publish_html_library_references_page($style);
+
+#       if ( $library->contains_changes )
+#       	{
+#       	  $self->_publish_html_change_page($style);
+#       	}
+#     }
+
+#   else
+#     {
+#       $logger->error("CAN ONLY PUBLISH HTML LIBRARY PAGES AT THIS TIME");
+#       return 0;
+#     }
+
+#   return 1;
+# }
 
 ######################################################################
 
@@ -268,10 +557,7 @@ sub can_publish {
 	  return 1;
 	}
 
-      else
-	{
-	  return 0;
-	}
+      return 0;
     }
 
   elsif ( $rendition eq 'latex' )
@@ -281,10 +567,7 @@ sub can_publish {
 	  return 1;
 	}
 
-      else
-	{
-	  return 0;
-	}
+      return 0;
     }
 
   elsif ( $rendition eq 'pdf' )
@@ -294,10 +577,7 @@ sub can_publish {
 	  return 1;
 	}
 
-      else
-	{
-	  return 0;
-	}
+      return 0;
     }
 
   elsif ( $rendition eq 'sml' )
@@ -307,10 +587,7 @@ sub can_publish {
 	  return 1;
 	}
 
-      else
-	{
-	  return 0;
-	}
+      return 0;
     }
 }
 
@@ -878,580 +1155,479 @@ sub _publish_html_image {
 
 ######################################################################
 
-sub _publish_html_overall_index_page {
+# sub _publish_html_traceability_page {
 
-  # Publish an HTML 'overall' index page.  This page summarizes DRAFT,
-  # REVIEW, and APPROVED libraries.
+#   # Publish an HTML traceability page.
 
-  my $self  = shift;
-  my $style = shift || 'default';
+#   my $self  = shift;
+#   my $style = shift || 'default';
 
-  my $library      = $self->get_library;
-  my $template_dir = $library->get_template_dir . "/html/$style";
+#   my $library      = $self->get_library;
+#   my $template_dir = $library->get_template_dir . "/html/$style";
 
-  unless ( -d $template_dir )
-    {
-      $logger->error("NOT A DIRECTORY $template_dir");
-      return 0;
-    }
+#   unless ( -d $template_dir )
+#     {
+#       $logger->error("NOT A DIRECTORY $template_dir");
+#       return 0;
+#     }
 
-  my $published_dir = $library->get_published_dir;
+#   my $published_dir = $library->get_published_dir;
 
-  unless ( -d $published_dir )
-    {
-      mkdir "$published_dir", 0755;
-      $logger->debug("made directory $published_dir");
-    }
+#   unless ( -d $published_dir )
+#     {
+#       mkdir "$published_dir", 0755;
+#       $logger->debug("made directory $published_dir");
+#     }
 
-  my $tt_config =
-    {
-     INCLUDE_PATH => $template_dir,
-     OUTPUT_PATH  => $published_dir,
-     RECURSION    => 1,
-    };
+#   my $state     = 'DRAFT';
+#   my $state_dir = "$published_dir/$state";
 
-  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+#   unless ( -d $state_dir )
+#     {
+#       mkdir "$state_dir", 0755;
+#       $logger->debug("made directory $state_dir");
+#     }
 
-  my $vars = { library => $library };
+#   my $tt_config =
+#     {
+#      INCLUDE_PATH => $template_dir,
+#      OUTPUT_PATH  => $state_dir,
+#      RECURSION    => 1,
+#     };
 
-  # overall index page
-  $logger->debug("publishing overall index.html");
-  $tt->process("overall_index_page.tt",$vars,"index.html")
-    || die $tt->error(), "\n";
+#   my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
 
-  return 1;
-}
+#   my $vars = { library => $library };
 
-######################################################################
+#   # traceability page
+#   $logger->debug("publishing traceability.html");
+#   $tt->process("library_traceability_page.tt",$vars,"traceability.html")
+#     || die $tt->error(), "\n";
 
-sub _publish_html_library_index_page {
+#   my $ontology         = $library->get_ontology;
+#   my $entity_name_list = $ontology->get_entity_name_list;
 
-  # Publish an HTML library index page.  This page summarizes only the
-  # DRAFT library.
+#   foreach my $entity_name (@{ $entity_name_list })
+#     {
+#       $vars->{entity_name} = $entity_name;
 
-  my $self  = shift;
-  my $style = shift || 'default';
+#       # traceability tree page
+#       #
+#       # Only publish a traceability tree page if this entity_name
+#       # allows the 'is_part_of' property.
+#       if ( $ontology->allows_property_name_in_division_name('is_part_of',$entity_name) )
+# 	{
+# 	  $logger->debug("publishing tm_tree.$entity_name.html");
+# 	  $tt->process("tm_tree_page.tt",$vars,"tm_tree.$entity_name.html")
+# 	    || die $tt->error(), "\n";
+# 	}
+#     }
 
-  my $library      = $self->get_library;
-  my $template_dir = $library->get_template_dir . "/html/$style";
-
-  unless ( -d $template_dir )
-    {
-      $logger->error("NOT A DIRECTORY $template_dir");
-      return 0;
-    }
-
-  my $published_dir = $library->get_published_dir;
-
-  unless ( -d $published_dir )
-    {
-      mkdir "$published_dir", 0755;
-      $logger->debug("made directory $published_dir");
-    }
-
-  my $state     = 'DRAFT';
-  my $state_dir = "$published_dir/$state";
-
-  unless ( -d $state_dir )
-    {
-      mkdir "$state_dir", 0755;
-      $logger->debug("made directory $state_dir");
-    }
-
-  my $tt_config =
-    {
-     INCLUDE_PATH => $template_dir,
-     OUTPUT_PATH  => $state_dir,
-     RECURSION    => 1,
-    };
-
-  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
-
-  my $vars = { library => $library };
-
-  # library index page
-  $logger->debug("publishing library index.html");
-  $tt->process("library_index_page.tt",$vars,"index.html")
-    || die $tt->error(), "\n";
-
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
-sub _publish_html_traceability_page {
+# sub _publish_html_change_page {
 
-  # Publish an HTML traceability page.
+#   # Publish an HTML change page.
 
-  my $self  = shift;
-  my $style = shift || 'default';
+#   my $self  = shift;
+#   my $style = shift || 'default';
 
-  my $library      = $self->get_library;
-  my $template_dir = $library->get_template_dir . "/html/$style";
+#   my $library      = $self->get_library;
+#   my $template_dir = $library->get_template_dir . "/html/$style";
 
-  unless ( -d $template_dir )
-    {
-      $logger->error("NOT A DIRECTORY $template_dir");
-      return 0;
-    }
+#   unless ( -d $template_dir )
+#     {
+#       $logger->error("NOT A DIRECTORY $template_dir");
+#       return 0;
+#     }
 
-  my $published_dir = $library->get_published_dir;
+#   my $published_dir = $library->get_published_dir;
 
-  unless ( -d $published_dir )
-    {
-      mkdir "$published_dir", 0755;
-      $logger->debug("made directory $published_dir");
-    }
+#   unless ( -d $published_dir )
+#     {
+#       mkdir "$published_dir", 0755;
+#       $logger->debug("made directory $published_dir");
+#     }
 
-  my $state     = 'DRAFT';
-  my $state_dir = "$published_dir/$state";
+#   my $state     = 'DRAFT';
+#   my $state_dir = "$published_dir/$state";
 
-  unless ( -d $state_dir )
-    {
-      mkdir "$state_dir", 0755;
-      $logger->debug("made directory $state_dir");
-    }
+#   unless ( -d $state_dir )
+#     {
+#       mkdir "$state_dir", 0755;
+#       $logger->debug("made directory $state_dir");
+#     }
 
-  my $tt_config =
-    {
-     INCLUDE_PATH => $template_dir,
-     OUTPUT_PATH  => $state_dir,
-     RECURSION    => 1,
-    };
+#   my $tt_config =
+#     {
+#      INCLUDE_PATH => $template_dir,
+#      OUTPUT_PATH  => $state_dir,
+#      RECURSION    => 1,
+#     };
 
-  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+#   my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
 
-  my $vars = { library => $library };
+#   my $vars = { library => $library };
 
-  # traceability page
-  $logger->debug("publishing traceability.html");
-  $tt->process("library_traceability_page.tt",$vars,"traceability.html")
-    || die $tt->error(), "\n";
+#   # change page
+#   $logger->debug("publishing change.html");
+#   $tt->process("library_change_page.tt",$vars,"change.html")
+#     || die $tt->error(), "\n";
 
-  my $ontology         = $library->get_ontology;
-  my $entity_name_list = $ontology->get_entity_name_list;
-
-  foreach my $entity_name (@{ $entity_name_list })
-    {
-      $vars->{entity_name} = $entity_name;
-
-      # traceability tree page
-      #
-      # Only publish a traceability tree page if this entity_name
-      # allows the 'is_part_of' property.
-      if ( $ontology->allows_property_name_in_division_name('is_part_of',$entity_name) )
-	{
-	  $logger->debug("publishing tm_tree.$entity_name.html");
-	  $tt->process("tm_tree_page.tt",$vars,"tm_tree.$entity_name.html")
-	    || die $tt->error(), "\n";
-	}
-    }
-
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
-sub _publish_html_change_page {
+# sub _publish_html_ontology_page {
 
-  # Publish an HTML change page.
+#   # Publish an HTML ontology page.
 
-  my $self  = shift;
-  my $style = shift || 'default';
+#   my $self  = shift;
+#   my $style = shift || 'default';
 
-  my $library      = $self->get_library;
-  my $template_dir = $library->get_template_dir . "/html/$style";
+#   my $library      = $self->get_library;
+#   my $template_dir = $library->get_template_dir . "/html/$style";
 
-  unless ( -d $template_dir )
-    {
-      $logger->error("NOT A DIRECTORY $template_dir");
-      return 0;
-    }
+#   unless ( -d $template_dir )
+#     {
+#       $logger->error("NOT A DIRECTORY $template_dir");
+#       return 0;
+#     }
 
-  my $published_dir = $library->get_published_dir;
+#   my $published_dir = $library->get_published_dir;
 
-  unless ( -d $published_dir )
-    {
-      mkdir "$published_dir", 0755;
-      $logger->debug("made directory $published_dir");
-    }
+#   unless ( -d $published_dir )
+#     {
+#       mkdir "$published_dir", 0755;
+#       $logger->debug("made directory $published_dir");
+#     }
 
-  my $state     = 'DRAFT';
-  my $state_dir = "$published_dir/$state";
+#   my $state     = 'DRAFT';
+#   my $state_dir = "$published_dir/$state";
 
-  unless ( -d $state_dir )
-    {
-      mkdir "$state_dir", 0755;
-      $logger->debug("made directory $state_dir");
-    }
+#   unless ( -d $state_dir )
+#     {
+#       mkdir "$state_dir", 0755;
+#       $logger->debug("made directory $state_dir");
+#     }
 
-  my $tt_config =
-    {
-     INCLUDE_PATH => $template_dir,
-     OUTPUT_PATH  => $state_dir,
-     RECURSION    => 1,
-    };
+#   my $tt_config =
+#     {
+#      INCLUDE_PATH => $template_dir,
+#      OUTPUT_PATH  => $state_dir,
+#      RECURSION    => 1,
+#     };
 
-  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+#   my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
 
-  my $vars = { library => $library };
+#   my $vars = { library => $library };
 
-  # change page
-  $logger->debug("publishing change.html");
-  $tt->process("library_change_page.tt",$vars,"change.html")
-    || die $tt->error(), "\n";
+#   # ontology page
+#   $logger->debug("publishing ontology.html");
+#   $tt->process("ontology_page.tt",$vars,"ontology.html")
+#     || die $tt->error(), "\n";
 
-  return 1;
-}
-
-######################################################################
-
-sub _publish_html_ontology_page {
-
-  # Publish an HTML ontology page.
-
-  my $self  = shift;
-  my $style = shift || 'default';
-
-  my $library      = $self->get_library;
-  my $template_dir = $library->get_template_dir . "/html/$style";
-
-  unless ( -d $template_dir )
-    {
-      $logger->error("NOT A DIRECTORY $template_dir");
-      return 0;
-    }
-
-  my $published_dir = $library->get_published_dir;
-
-  unless ( -d $published_dir )
-    {
-      mkdir "$published_dir", 0755;
-      $logger->debug("made directory $published_dir");
-    }
-
-  my $state     = 'DRAFT';
-  my $state_dir = "$published_dir/$state";
-
-  unless ( -d $state_dir )
-    {
-      mkdir "$state_dir", 0755;
-      $logger->debug("made directory $state_dir");
-    }
-
-  my $tt_config =
-    {
-     INCLUDE_PATH => $template_dir,
-     OUTPUT_PATH  => $state_dir,
-     RECURSION    => 1,
-    };
-
-  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
-
-  my $vars = { library => $library };
-
-  # ontology page
-  $logger->debug("publishing ontology.html");
-  $tt->process("ontology_page.tt",$vars,"ontology.html")
-    || die $tt->error(), "\n";
-
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
-sub _publish_html_entities_page {
+# sub _publish_html_entities_page {
 
-  # Publish an HTML entities page.
+#   # Publish an HTML entities page.
 
-  my $self  = shift;
-  my $style = shift || 'default';
+#   my $self  = shift;
+#   my $style = shift || 'default';
 
-  my $library      = $self->get_library;
-  my $template_dir = $library->get_template_dir . "/html/$style";
+#   my $library      = $self->get_library;
+#   my $template_dir = $library->get_template_dir . "/html/$style";
 
-  unless ( -d $template_dir )
-    {
-      $logger->error("NOT A DIRECTORY $template_dir");
-      return 0;
-    }
+#   unless ( -d $template_dir )
+#     {
+#       $logger->error("NOT A DIRECTORY $template_dir");
+#       return 0;
+#     }
 
-  my $published_dir = $library->get_published_dir;
+#   my $published_dir = $library->get_published_dir;
 
-  unless ( -d $published_dir )
-    {
-      mkdir "$published_dir", 0755;
-      $logger->debug("made directory $published_dir");
-    }
+#   unless ( -d $published_dir )
+#     {
+#       mkdir "$published_dir", 0755;
+#       $logger->debug("made directory $published_dir");
+#     }
 
-  my $state     = 'DRAFT';
-  my $state_dir = "$published_dir/$state";
+#   my $state     = 'DRAFT';
+#   my $state_dir = "$published_dir/$state";
 
-  unless ( -d $state_dir )
-    {
-      mkdir "$state_dir", 0755;
-      $logger->debug("made directory $state_dir");
-    }
+#   unless ( -d $state_dir )
+#     {
+#       mkdir "$state_dir", 0755;
+#       $logger->debug("made directory $state_dir");
+#     }
 
-  my $tt_config =
-    {
-     INCLUDE_PATH => $template_dir,
-     OUTPUT_PATH  => $state_dir,
-     RECURSION    => 1,
-    };
+#   my $tt_config =
+#     {
+#      INCLUDE_PATH => $template_dir,
+#      OUTPUT_PATH  => $state_dir,
+#      RECURSION    => 1,
+#     };
 
-  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+#   my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
 
-  my $vars = { library => $library };
+#   my $vars = { library => $library };
 
-  # entities page
-  $logger->debug("publishing entities.html");
-  $tt->process("library_entities_page.tt",$vars,"entities.html")
-    || die $tt->error(), "\n";
+#   # entities page
+#   $logger->debug("publishing entities.html");
+#   $tt->process("library_entities_page.tt",$vars,"entities.html")
+#     || die $tt->error(), "\n";
 
-  return 1;
-}
-
-######################################################################
-
-sub _publish_html_library_glossary_page {
-
-  # Publish an HTML library glossary page.
-
-  my $self  = shift;
-  my $style = shift || 'default';
-
-  my $library  = $self->get_library;
-  my $glossary = $library->get_glossary;
-
-  unless ( $glossary->contains_entries )
-    {
-      $logger->error("GLOSSARY HAS NO ENTRIES");
-      return 0;
-    }
-
-  my $template_dir = $library->get_template_dir . "/html/$style";
-
-  unless ( -d $template_dir )
-    {
-      $logger->error("NOT A DIRECTORY $template_dir");
-      return 0;
-    }
-
-  my $published_dir = $library->get_published_dir;
-
-  unless ( -d $published_dir )
-    {
-      mkdir "$published_dir", 0755;
-      $logger->debug("made directory $published_dir");
-    }
-
-  my $state     = 'DRAFT';
-  my $state_dir = "$published_dir/$state";
-
-  unless ( -d $state_dir )
-    {
-      mkdir "$state_dir", 0755;
-      $logger->debug("made directory $state_dir");
-    }
-
-  my $tt_config =
-    {
-     INCLUDE_PATH => $template_dir,
-     OUTPUT_PATH  => $state_dir,
-     RECURSION    => 1,
-    };
-
-  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
-
-  my $vars = { library => $library };
-
-  # entities page
-  $logger->debug("publishing glossary.html");
-  $tt->process("library_glossary_page.tt",$vars,"glossary.html")
-    || die $tt->error(), "\n";
-
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
-sub _publish_html_library_acronyms_page {
+# sub _publish_html_library_glossary_page {
 
-  # Publish an HTML library acronyms page.
+#   # Publish an HTML library glossary page.
 
-  my $self  = shift;
-  my $style = shift || 'default';
+#   my $self  = shift;
+#   my $style = shift || 'default';
 
-  my $library      = $self->get_library;
-  my $acronym_list = $library->get_acronym_list;
+#   my $library  = $self->get_library;
+#   my $glossary = $library->get_glossary;
 
-  unless ( $acronym_list->contains_entries )
-    {
-      $logger->error("ACRONYM LIST HAS NO ENTRIES");
-      return 0;
-    }
+#   unless ( $glossary->contains_entries )
+#     {
+#       $logger->error("GLOSSARY HAS NO ENTRIES");
+#       return 0;
+#     }
 
-  my $template_dir = $library->get_template_dir . "/html/$style";
+#   my $template_dir = $library->get_template_dir . "/html/$style";
 
-  unless ( -d $template_dir )
-    {
-      $logger->error("NOT A DIRECTORY $template_dir");
-      return 0;
-    }
+#   unless ( -d $template_dir )
+#     {
+#       $logger->error("NOT A DIRECTORY $template_dir");
+#       return 0;
+#     }
 
-  my $published_dir = $library->get_published_dir;
+#   my $published_dir = $library->get_published_dir;
 
-  unless ( -d $published_dir )
-    {
-      mkdir "$published_dir", 0755;
-      $logger->debug("made directory $published_dir");
-    }
+#   unless ( -d $published_dir )
+#     {
+#       mkdir "$published_dir", 0755;
+#       $logger->debug("made directory $published_dir");
+#     }
 
-  my $state     = 'DRAFT';
-  my $state_dir = "$published_dir/$state";
+#   my $state     = 'DRAFT';
+#   my $state_dir = "$published_dir/$state";
 
-  unless ( -d $state_dir )
-    {
-      mkdir "$state_dir", 0755;
-      $logger->debug("made directory $state_dir");
-    }
+#   unless ( -d $state_dir )
+#     {
+#       mkdir "$state_dir", 0755;
+#       $logger->debug("made directory $state_dir");
+#     }
 
-  my $tt_config =
-    {
-     INCLUDE_PATH => $template_dir,
-     OUTPUT_PATH  => $state_dir,
-     RECURSION    => 1,
-    };
+#   my $tt_config =
+#     {
+#      INCLUDE_PATH => $template_dir,
+#      OUTPUT_PATH  => $state_dir,
+#      RECURSION    => 1,
+#     };
 
-  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+#   my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
 
-  my $vars = { library => $library };
+#   my $vars = { library => $library };
 
-  # entities page
-  $logger->debug("publishing acronyms.html");
-  $tt->process("library_acronyms_page.tt",$vars,"acronyms.html")
-    || die $tt->error(), "\n";
+#   # glossary page
+#   $logger->debug("publishing glossary.html");
+#   $tt->process("library_glossary_page.tt",$vars,"glossary.html")
+#     || die $tt->error(), "\n";
 
-  return 1;
-}
-
-######################################################################
-
-sub _publish_html_library_references_page {
-
-  # Publish an HTML library references page.
-
-  my $self  = shift;
-  my $style = shift || 'default';
-
-  my $library    = $self->get_library;
-  my $references = $library->get_references;
-
-  unless ( $references->contains_entries )
-    {
-      $logger->error("REFERENCES LIST HAS NO ENTRIES");
-      return 0;
-    }
-
-  my $template_dir = $library->get_template_dir . "/html/$style";
-
-  unless ( -d $template_dir )
-    {
-      $logger->error("NOT A DIRECTORY $template_dir");
-      return 0;
-    }
-
-  my $published_dir = $library->get_published_dir;
-
-  unless ( -d $published_dir )
-    {
-      mkdir "$published_dir", 0755;
-      $logger->debug("made directory $published_dir");
-    }
-
-  my $state     = 'DRAFT';
-  my $state_dir = "$published_dir/$state";
-
-  unless ( -d $state_dir )
-    {
-      mkdir "$state_dir", 0755;
-      $logger->debug("made directory $state_dir");
-    }
-
-  my $tt_config =
-    {
-     INCLUDE_PATH => $template_dir,
-     OUTPUT_PATH  => $state_dir,
-     RECURSION    => 1,
-    };
-
-  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
-
-  my $vars = { library => $library };
-
-  # entities page
-  $logger->debug("publishing references.html");
-  $tt->process("library_references_page.tt",$vars,"references.html")
-    || die $tt->error(), "\n";
-
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
-sub _publish_html_library_errors_page {
+# sub _publish_html_library_acronyms_page {
 
-  # Publish an HTML library errors page.
+#   # Publish an HTML library acronyms page.
 
-  my $self  = shift;
-  my $style = shift || 'default';
+#   my $self  = shift;
+#   my $style = shift || 'default';
 
-  my $library = $self->get_library;
+#   my $library      = $self->get_library;
+#   my $acronym_list = $library->get_acronym_list;
 
-  my $template_dir = $library->get_template_dir . "/html/$style";
+#   unless ( $acronym_list->contains_entries )
+#     {
+#       $logger->error("ACRONYM LIST HAS NO ENTRIES");
+#       return 0;
+#     }
 
-  unless ( -d $template_dir )
-    {
-      $logger->error("NOT A DIRECTORY $template_dir");
-      return 0;
-    }
+#   my $template_dir = $library->get_template_dir . "/html/$style";
 
-  my $published_dir = $library->get_published_dir;
+#   unless ( -d $template_dir )
+#     {
+#       $logger->error("NOT A DIRECTORY $template_dir");
+#       return 0;
+#     }
 
-  unless ( -d $published_dir )
-    {
-      mkdir "$published_dir", 0755;
-      $logger->debug("made directory $published_dir");
-    }
+#   my $published_dir = $library->get_published_dir;
 
-  my $state     = 'DRAFT';
-  my $state_dir = "$published_dir/$state";
+#   unless ( -d $published_dir )
+#     {
+#       mkdir "$published_dir", 0755;
+#       $logger->debug("made directory $published_dir");
+#     }
 
-  unless ( -d $state_dir )
-    {
-      mkdir "$state_dir", 0755;
-      $logger->debug("made directory $state_dir");
-    }
+#   my $state     = 'DRAFT';
+#   my $state_dir = "$published_dir/$state";
 
-  my $tt_config =
-    {
-     INCLUDE_PATH => $template_dir,
-     OUTPUT_PATH  => $state_dir,
-     RECURSION    => 1,
-    };
+#   unless ( -d $state_dir )
+#     {
+#       mkdir "$state_dir", 0755;
+#       $logger->debug("made directory $state_dir");
+#     }
 
-  my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+#   my $tt_config =
+#     {
+#      INCLUDE_PATH => $template_dir,
+#      OUTPUT_PATH  => $state_dir,
+#      RECURSION    => 1,
+#     };
 
-  my $vars = { library => $library };
+#   my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
 
-  # errors page
-  $logger->debug("publishing errors.html");
-  $tt->process("library_errors_page.tt",$vars,"errors.html")
-    || die $tt->error(), "\n";
+#   my $vars = { library => $library };
 
-  return 1;
-}
+#   # library acronym list page
+#   $logger->debug("publishing acronyms.html");
+#   $tt->process("library_acronyms_page.tt",$vars,"acronyms.html")
+#     || die $tt->error(), "\n";
+
+#   return 1;
+# }
+
+######################################################################
+
+# sub _publish_html_library_references_page {
+
+#   # Publish an HTML library references page.
+
+#   my $self  = shift;
+#   my $style = shift || 'default';
+
+#   my $library    = $self->get_library;
+#   my $references = $library->get_references;
+
+#   unless ( $references->contains_entries )
+#     {
+#       $logger->error("REFERENCES LIST HAS NO ENTRIES");
+#       return 0;
+#     }
+
+#   my $template_dir = $library->get_template_dir . "/html/$style";
+
+#   unless ( -d $template_dir )
+#     {
+#       $logger->error("NOT A DIRECTORY $template_dir");
+#       return 0;
+#     }
+
+#   my $published_dir = $library->get_published_dir;
+
+#   unless ( -d $published_dir )
+#     {
+#       mkdir "$published_dir", 0755;
+#       $logger->debug("made directory $published_dir");
+#     }
+
+#   my $state     = 'DRAFT';
+#   my $state_dir = "$published_dir/$state";
+
+#   unless ( -d $state_dir )
+#     {
+#       mkdir "$state_dir", 0755;
+#       $logger->debug("made directory $state_dir");
+#     }
+
+#   my $tt_config =
+#     {
+#      INCLUDE_PATH => $template_dir,
+#      OUTPUT_PATH  => $state_dir,
+#      RECURSION    => 1,
+#     };
+
+#   my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+
+#   my $vars = { library => $library };
+
+#   # entities page
+#   $logger->debug("publishing references.html");
+#   $tt->process("library_references_page.tt",$vars,"references.html")
+#     || die $tt->error(), "\n";
+
+#   return 1;
+# }
+
+######################################################################
+
+# sub _publish_html_library_errors_page {
+
+#   # Publish an HTML library errors page.
+
+#   my $self  = shift;
+#   my $style = shift || 'default';
+
+#   my $library = $self->get_library;
+
+#   my $template_dir = $library->get_template_dir . "/html/$style";
+
+#   unless ( -d $template_dir )
+#     {
+#       $logger->error("NOT A DIRECTORY $template_dir");
+#       return 0;
+#     }
+
+#   my $published_dir = $library->get_published_dir;
+
+#   unless ( -d $published_dir )
+#     {
+#       mkdir "$published_dir", 0755;
+#       $logger->debug("made directory $published_dir");
+#     }
+
+#   my $state     = 'DRAFT';
+#   my $state_dir = "$published_dir/$state";
+
+#   unless ( -d $state_dir )
+#     {
+#       mkdir "$state_dir", 0755;
+#       $logger->debug("made directory $state_dir");
+#     }
+
+#   my $tt_config =
+#     {
+#      INCLUDE_PATH => $template_dir,
+#      OUTPUT_PATH  => $state_dir,
+#      RECURSION    => 1,
+#     };
+
+#   my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
+
+#   my $vars = { library => $library };
+
+#   # errors page
+#   $logger->debug("publishing errors.html");
+#   $tt->process("library_errors_page.tt",$vars,"errors.html")
+#     || die $tt->error(), "\n";
+
+#   return 1;
+# }
 
 ######################################################################
 
@@ -1533,15 +1709,15 @@ sub _system_nw {
 
 ######################################################################
 
-sub _publish_html_library {
+# sub _publish_html_library {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $library = shift;                  # library to publish
-  my $style   = shift;                  # default
+#   my $library = shift;                  # library to publish
+#   my $style   = shift;                  # default
 
-  my $template_dir = $library->get_template_dir;
-}
+#   my $template_dir = $library->get_template_dir;
+# }
 
 ######################################################################
 

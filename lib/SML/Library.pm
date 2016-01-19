@@ -413,84 +413,113 @@ has update_count =>
 
 ######################################################################
 
-sub publish_all_documents {
+# sub publish_all_documents {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $rendition = shift;
-  my $style     = shift;
+#   my $rendition = shift;
+#   my $style     = shift;
 
-  my $begin = time();
+#   my $begin = time();
 
-  $logger->info("publish all library documents");
+#   $logger->info("publish all library documents");
 
-  my $publisher = $self->get_publisher;
-  my $id_list   = $self->get_division_id_list_by_name('DOCUMENT');
+#   my $publisher = $self->get_publisher;
+#   my $id_list   = $self->get_division_id_list_by_name('DOCUMENT');
 
-  foreach my $id (@{ $id_list })
-    {
-      $publisher->publish($id,$rendition,$style);
-    }
+#   foreach my $id (@{ $id_list })
+#     {
+#       $publisher->publish($id,$rendition,$style);
+#     }
 
-  my $end = time();
-  my $duration = duration($end - $begin);
+#   my $end = time();
+#   my $duration = duration($end - $begin);
 
-  $logger->info("publish all library documents $duration");
+#   $logger->info("publish all library documents $duration");
 
-  return 1;
-}
-
-######################################################################
-
-sub publish_library_pages {
-
-  # Publish a library ontology and entities pages.
-
-  my $self      = shift;
-  my $rendition = shift || 'html';
-  my $style     = shift || 'default';
-
-  my $begin = time();
-
-  $logger->info("publish $style $rendition library pages");
-
-  my $publisher = $self->get_publisher;
-
-  my $result = $publisher->publish_library_pages($rendition,$style);
-
-  my $end = time();
-  my $duration = duration($end - $begin);
-
-  $logger->info("publish $style $rendition library pages $duration");
-
-  return $result;
-}
+#   return 1;
+# }
 
 ######################################################################
 
-sub publish_library_index_page {
+# sub publish_html_library_special_pages {
 
-  # Publish a library index.
+#   # Publish a library special pages.
 
-  my $self      = shift;
-  my $rendition = shift || 'html';
-  my $style     = shift || 'default';
+#   my $self  = shift;
+#   my $style = shift || 'default';
 
-  my $begin = time();
+#   my $begin = time();
 
-  $logger->info("publish $style $rendition library index");
+#   my $rendition = 'html';
 
-  my $publisher = $self->get_publisher;
+#   $logger->info("publish $style $rendition library special pages");
 
-  my $result = $publisher->publish_index($rendition,$style);
+#   my $publisher = $self->get_publisher;
 
-  my $end = time();
-  my $duration = duration($end - $begin);
+#   my $result = $publisher->publish_html_library_special_pages($style);
 
-  $logger->info("publish $style $rendition library index $duration");
+#   my $end = time();
+#   my $duration = duration($end - $begin);
 
-  return $result;
-}
+#   $logger->info("publish $style $rendition library special pages $duration");
+
+#   return $result;
+# }
+
+######################################################################
+
+# sub publish_html_library_index_page {
+
+#   # Publish a library index.
+
+#   my $self  = shift;
+#   my $style = shift || 'default';
+
+#   my $begin = time();
+
+#   my $rendition = 'html';
+
+#   $logger->info("publish $style $rendition library index page");
+
+#   my $publisher = $self->get_publisher;
+
+#   my $result = $publisher->publish_html_library_index_page($style);
+
+#   my $end = time();
+#   my $duration = duration($end - $begin);
+
+#   $logger->info("publish $style $rendition library index page $duration");
+
+#   return $result;
+# }
+
+######################################################################
+
+# sub publish_html_overall_index_page {
+
+#   # Publish an overall index page.
+
+#   my $self  = shift;
+#   my $style = shift || 'default';
+
+#   my $rendition = 'html';
+
+#   my $begin = time();
+
+#   $logger->info("publish $style $rendition overall index page");
+
+#   my $publisher = $self->get_publisher;
+
+#   my $result = $publisher->publish_html_overall_index_page($style);
+
+#   my $end = time();
+#   my $duration = duration($end - $begin);
+
+#   $logger->info("publish $style $rendition overall index page $duration");
+
+#   return $result;
+# }
 
 ######################################################################
 
@@ -2338,37 +2367,6 @@ sub summarize_reviews {
 
   return $summary;
 }
-
-######################################################################
-
-# sub replace_division_id {
-
-#   # THIS IS A HACK.  I should change the syntax of the division start
-#   # markup to include the ID so this isn't necessary.  That way the
-#   # library can remember the correct division ID at the start of the
-#   # division.
-
-#   my $self     = shift;
-#   my $division = shift;
-#   my $id       = shift;
-
-#   foreach my $stored_id (keys %{ $self->_get_division_hash })
-#     {
-#       my $stored_division = $self->_get_division_hash->{$stored_id};
-#       if ( $stored_division == $division )
-# 	{
-# 	  delete $self->_get_division_hash->{$stored_id};
-# 	  $self->_get_division_hash->{$id} = $division;
-# 	}
-#     }
-
-#   if ( $division->isa('SML::Source') )
-#     {
-#       $self->get_references->replace_division_id($division,$id);
-#     }
-
-#   return 1;
-# }
 
 ######################################################################
 
