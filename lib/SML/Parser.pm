@@ -460,8 +460,7 @@ sub _init {
   my $self = shift;
 
   my $library = $self->_get_library;
-  my $util    = $library->get_util;
-  my $options = $util->get_options;
+  my $options = $library->get_options;
 
   if ( not $options->use_svn )
     {
@@ -1416,8 +1415,7 @@ sub _resolve_includes {
   my $count          = ++ $count_method->{'_resolve_includes'};
   my $library        = $self->_get_library;
   my $syntax         = $library->get_syntax;
-  my $util           = $library->get_util;
-  my $options        = $util->get_options;
+  my $options        = $library->get_options;
   my $max_iterations = $options->get_MAX_RESOLVE_INCLUDES;
   my $number         = $self->_get_number;
 
@@ -1530,8 +1528,7 @@ sub _resolve_plugins {
   my $count          = ++ $count_method->{'_resolve_plugins'};
   my $library        = $self->_get_library;
   my $syntax         = $library->get_syntax;
-  my $util           = $library->get_util;
-  my $options        = $util->get_options;
+  my $options        = $library->get_options;
   my $max_iterations = $options->get_MAX_RESOLVE_PLUGINS;
   my $number         = $self->_get_number;
 
@@ -1756,8 +1753,7 @@ sub _resolve_scripts {
   my $count          = ++ $count_method->{'_resolve_scripts'};
   my $library        = $self->_get_library;
   my $syntax         = $library->get_syntax;
-  my $util           = $library->get_util;
-  my $options        = $util->get_options;
+  my $options        = $library->get_options;
   my $max_iterations = $options->get_MAX_RESOLVE_SCRIPTS;
   my $number         = $self->_get_number;
 
@@ -1864,8 +1860,7 @@ sub _parse_lines {
 
   my $library        = $self->_get_library;
   my $syntax         = $library->get_syntax;
-  my $util           = $library->get_util;
-  my $options        = $util->get_options;
+  my $options        = $library->get_options;
   my $count_method   = $self->_get_count_method_hash;
   my $max_iterations = $options->get_MAX_PARSE_LINES;
   my $count          = ++ $count_method->{'_parse_lines'};
@@ -2460,28 +2455,28 @@ sub _end_definition_list {
 
 # not used?
 
-sub _begin_default_section {
+# sub _begin_default_section {
 
-  my $self = shift;
+#   my $self = shift;
 
-  return if $self->_in_section;
+#   return if $self->_in_section;
 
-  my $number = $self->_get_number;
+#   my $number = $self->_get_number;
 
-  $logger->trace("{$number} ..... begin default section");
+#   $logger->trace("{$number} ..... begin default section");
 
-  my $division = $self->_get_current_division;
-  my $library  = $self->_get_library;
-  my $util     = $library->get_util;
-  my $section  = $util->get_default_section;
+#   my $division = $self->_get_current_division;
+#   my $library  = $self->_get_library;
+#   my $util     = $library->get_util;
+#   my $section  = $util->get_default_section;
 
-  $self->_begin_division($section);
+#   $self->_begin_division($section);
 
-  # the default section does not have a data segment
-  # $self->_set_in_data_segment(0);
+#   # the default section does not have a data segment
+#   # $self->_set_in_data_segment(0);
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
@@ -2493,8 +2488,7 @@ sub _substitute_variables {
 
   my $library        = $self->_get_library;
   my $syntax         = $library->get_syntax;
-  my $util           = $library->get_util;
-  my $options        = $util->get_options;
+  my $options        = $library->get_options;
   my $division       = $self->_get_division;
   my $block_list     = $division->get_block_list;
   my $count_method   = $self->_get_count_method_hash;
@@ -5304,8 +5298,7 @@ sub _process_end_use_formal_status_element {
 
   my $value   = $element->get_value;
   my $library = $self->_get_library;
-  my $util    = $library->get_util;
-  my $options = $util->get_options;
+  my $options = $library->get_options;
 
   $options->set_use_formal_status($value);
 
@@ -8011,7 +8004,7 @@ sub _convert_to_section_line_list {
   my $sechead = $self->_sechead_line($asterisks,$title);
 
   push @{ $nll }, $sechead;
-  push @{ $nll }, $util->get_blank_line;
+  push @{ $nll }, SML::Line->new(content=>"\n");
 
   foreach my $line (@{ $oll })
     {

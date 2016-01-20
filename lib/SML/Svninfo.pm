@@ -128,8 +128,7 @@ sub BUILD {
   my $library  = $self->get_library;
   my $filename = $self->get_filename;
   my $filespec = $library->get_filespec($filename);
-  my $util     = $library->get_util;
-  my $options  = $util->get_options;
+  my $options  = $library->get_options;
   my $svn      = $self->_find_svn_executable;
 
   #-------------------------------------------------------------------
@@ -337,8 +336,7 @@ sub _find_svn_executable {
   if ( $^O eq 'MSWin32')
     {
       my $library = $self->get_library;
-      my $util    = $library->get_util;
-      my $options = $util->get_options;
+      my $options = $library->get_options;
 
       return $options->get_svn_executable;
     }

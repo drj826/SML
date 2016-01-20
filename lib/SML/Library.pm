@@ -96,6 +96,19 @@ has previous_version =>
 
 ######################################################################
 
+has options =>
+  (
+   is        => 'ro',
+   isa       => 'SML::Options',
+   reader    => 'get_options',
+   writer    => 'set_options',
+   clearer   => 'clear_options',
+   predicate => 'has_options',
+   default   => sub { SML::Options->new },
+  );
+
+######################################################################
+
 has util =>
   (
    is        => 'ro',
@@ -676,8 +689,7 @@ sub add_outcome {
   $oh->{$entity_id}{$date}{description} = $outcome->get_description;
   $oh->{$entity_id}{$date}{outcome}     = $outcome;
 
-  my $util    = $self->get_util;
-  my $options = $util->get_options;
+  my $options = $self->get_options;
 
   if ( $options->use_formal_status )
     {
@@ -3904,8 +3916,7 @@ sub _find_svn_executable {
 
   if ( $^O eq 'MSWin32')
     {
-      my $util    = $self->get_util;
-      my $options = $util->get_options;
+      my $options = $self->get_options;
 
       return $options->get_svn_executable;
     }
@@ -4005,8 +4016,7 @@ sub _build_change_list {
     }
 
   my $previous_version = $self->get_previous_version;
-  my $util             = $self->get_util;
-  my $options          = $util->get_options;
+  my $options          = $self->get_options;
 
   if ( $options->use_git )
     {

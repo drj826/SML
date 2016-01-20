@@ -188,9 +188,8 @@ sub BUILD {
 
   my $self = shift;
 
-  my $library  = $self->get_library;
-  my $util     = $library->get_util;
-  my $options  = $util->get_options;
+  my $library = $self->get_library;
+  my $options = $library->get_options;
 
   if ( $options->use_svn )
     {

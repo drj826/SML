@@ -27,25 +27,6 @@ use SML::Document;
 ######################################################################
 ######################################################################
 
-has options =>
-  (
-   is        => 'ro',
-   isa       => 'SML::Options',
-   reader    => 'get_options',
-   writer    => 'set_options',
-   clearer   => 'clear_options',
-   predicate => 'has_options',
-   default   => sub { SML::Options->new },
-  );
-
-# An SML::Options object that remembers the runtime options such as:
-# (1) whether the program is being run in GUI or command line mode,
-# (2) whether or not to generate verbose messages, (3) whether or not
-# to run scripts, (4) the location of the SVN executable,(5) the
-# location of the pdflatex executable, etc.
-
-######################################################################
-
 has library =>
   (
    is       => 'ro',
@@ -56,58 +37,58 @@ has library =>
 
 ######################################################################
 
-has blank_line =>
-  (
-   is       => 'ro',
-   isa      => 'SML::Line',
-   reader   => 'get_blank_line',
-   lazy     => 1,
-   builder  => '_build_blank_line',
-  );
+# has blank_line =>
+#   (
+#    is       => 'ro',
+#    isa      => 'SML::Line',
+#    reader   => 'get_blank_line',
+#    lazy     => 1,
+#    builder  => '_build_blank_line',
+#   );
 
 ######################################################################
 
-has empty_block =>
-  (
-   is       => 'ro',
-   isa      => 'SML::Block',
-   reader   => 'get_empty_block',
-   lazy     => 1,
-   builder  => '_build_empty_block',
-  );
+# has empty_block =>
+#   (
+#    is       => 'ro',
+#    isa      => 'SML::Block',
+#    reader   => 'get_empty_block',
+#    lazy     => 1,
+#    builder  => '_build_empty_block',
+#   );
 
 ######################################################################
 
-has empty_file =>
-  (
-   is       => 'ro',
-   isa      => 'SML::File',
-   reader   => 'get_empty_file',
-   lazy     => 1,
-   builder  => '_build_empty_file',
-  );
+# has empty_file =>
+#   (
+#    is       => 'ro',
+#    isa      => 'SML::File',
+#    reader   => 'get_empty_file',
+#    lazy     => 1,
+#    builder  => '_build_empty_file',
+#   );
 
 ######################################################################
 
-has empty_document =>
-  (
-   is       => 'ro',
-   isa      => 'SML::Document',
-   reader   => 'get_empty_document',
-   lazy     => 1,
-   builder  => '_build_empty_document',
-  );
+# has empty_document =>
+#   (
+#    is       => 'ro',
+#    isa      => 'SML::Document',
+#    reader   => 'get_empty_document',
+#    lazy     => 1,
+#    builder  => '_build_empty_document',
+#   );
 
 ######################################################################
 
-has default_section =>
-  (
-   is       => 'ro',
-   isa      => 'SML::Section',
-   reader   => 'get_default_section',
-   lazy     => 1,
-   builder  => '_build_default_section',
-  );
+# has default_section =>
+#   (
+#    is       => 'ro',
+#    isa      => 'SML::Section',
+#    reader   => 'get_default_section',
+#    lazy     => 1,
+#    builder  => '_build_default_section',
+#   );
 
 # Some documents have no explicit section structure.  However, section
 # numbers are used in all hyperlinks.  To avoid errors, therefore,
@@ -167,19 +148,14 @@ sub remove_newlines {
 sub wrap {
 
   my $self = shift;
+  my $text = shift || '';
 
   # Wrap text to 70 columns.
 
   local($Text::Wrap::columns) = 70;
   local($Text::Wrap::huge)    = 'overflow';
 
-  my $string = shift || '';
-
-  my $result = Text::Wrap::wrap(
-        '',
-        '',
-        "$string"
-  );
+  my $result = Text::Wrap::wrap('','',"$text");
 
   return $result;
 }
@@ -190,33 +166,33 @@ sub hyphenate {
 
   # Convert periods to hyphens.
 
-  my $self   = shift;
-  my $string = shift;
+  my $self = shift;
+  my $text = shift;
 
-  if ( $string )
+  unless ( $text )
     {
-      $string =~ s/\./\-/g;
+      $logger->warn("CAN'T HYPHENATE, MISSING ARGUMENT");
+      return 0;
     }
 
-  else
-    {
-      $logger->warn("NO STRING PASSED to 'hyphenate' method");
-    }
+  $text =~ s/\./\-/g;
 
-  return $string;
-
+  return $text;
 }
 
 ######################################################################
 
 sub remove_literals {
 
-  my $self   = shift;
-  my $string = shift;
+  my $self = shift;
+  my $text = shift;
 
-  $string =~ s/\{lit:(.*?)\}//g;
+  my $library = $self->get_library;
+  my $syntax  = $library->get_syntax;
 
-  return $string;
+  $text =~ s/$syntax->{literal}//g;
+
+  return $text;
 }
 
 ######################################################################
@@ -309,33 +285,33 @@ sub strip_string_markup {
 ######################################################################
 ######################################################################
 
-sub _build_blank_line {
+# sub _build_blank_line {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $line = SML::Line->new(content=>"\n");
+#   my $line = SML::Line->new(content=>"\n");
 
-  return $line;
-}
+#   return $line;
+# }
 
 ######################################################################
 
-sub _build_default_section {
+# sub _build_default_section {
 
-  my $self = shift;
+#   my $self = shift;
 
-  use SML::Section;
+#   use SML::Section;
 
-  my $section = SML::Section->new
-    (
-     depth       => 0,
-     id          => 'SECTION-0',
-     number      => '0',
-     top_number  => '0',
-    );
+#   my $section = SML::Section->new
+#     (
+#      depth       => 0,
+#      id          => 'SECTION-0',
+#      number      => '0',
+#      top_number  => '0',
+#     );
 
-  return $section;
-}
+#   return $section;
+# }
 
 ######################################################################
 
