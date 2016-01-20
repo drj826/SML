@@ -241,17 +241,6 @@ has include_path =>
 
 ######################################################################
 
-# has division_name_list =>
-#   (
-#    is        => 'ro',
-#    isa       => 'ArrayRef',
-#    reader    => 'get_division_name_list',
-#    lazy      => 1,
-#    builder   => '_build_division_names',
-#   );
-
-######################################################################
-
 has template_dir =>
   (
    is        => 'ro',
@@ -393,134 +382,6 @@ has update_count =>
 ## Public Methods
 ##
 ######################################################################
-######################################################################
-
-# sub publish {
-
-#   # Publish a document.
-
-#   my $self      = shift;
-#   my $id        = shift;                # document ID
-#   my $rendition = shift;                # html, latex, pdf...
-#   my $style     = shift;                # default, fancy...
-
-#   my $publisher = $self->get_publisher;
-
-#   my $result = $publisher->publish($id,$rendition,$style);
-
-#   return $result;
-# }
-
-######################################################################
-
-# sub publish_all_documents {
-
-#   my $self = shift;
-
-#   my $rendition = shift;
-#   my $style     = shift;
-
-#   my $begin = time();
-
-#   $logger->info("publish all library documents");
-
-#   my $publisher = $self->get_publisher;
-#   my $id_list   = $self->get_division_id_list_by_name('DOCUMENT');
-
-#   foreach my $id (@{ $id_list })
-#     {
-#       $publisher->publish($id,$rendition,$style);
-#     }
-
-#   my $end = time();
-#   my $duration = duration($end - $begin);
-
-#   $logger->info("publish all library documents $duration");
-
-#   return 1;
-# }
-
-######################################################################
-
-# sub publish_html_library_special_pages {
-
-#   # Publish a library special pages.
-
-#   my $self  = shift;
-#   my $style = shift || 'default';
-
-#   my $begin = time();
-
-#   my $rendition = 'html';
-
-#   $logger->info("publish $style $rendition library special pages");
-
-#   my $publisher = $self->get_publisher;
-
-#   my $result = $publisher->publish_html_library_special_pages($style);
-
-#   my $end = time();
-#   my $duration = duration($end - $begin);
-
-#   $logger->info("publish $style $rendition library special pages $duration");
-
-#   return $result;
-# }
-
-######################################################################
-
-# sub publish_html_library_index_page {
-
-#   # Publish a library index.
-
-#   my $self  = shift;
-#   my $style = shift || 'default';
-
-#   my $begin = time();
-
-#   my $rendition = 'html';
-
-#   $logger->info("publish $style $rendition library index page");
-
-#   my $publisher = $self->get_publisher;
-
-#   my $result = $publisher->publish_html_library_index_page($style);
-
-#   my $end = time();
-#   my $duration = duration($end - $begin);
-
-#   $logger->info("publish $style $rendition library index page $duration");
-
-#   return $result;
-# }
-
-######################################################################
-
-# sub publish_html_overall_index_page {
-
-#   # Publish an overall index page.
-
-#   my $self  = shift;
-#   my $style = shift || 'default';
-
-#   my $rendition = 'html';
-
-#   my $begin = time();
-
-#   $logger->info("publish $style $rendition overall index page");
-
-#   my $publisher = $self->get_publisher;
-
-#   my $result = $publisher->publish_html_overall_index_page($style);
-
-#   my $end = time();
-#   my $duration = duration($end - $begin);
-
-#   $logger->info("publish $style $rendition overall index page $duration");
-
-#   return $result;
-# }
-
 ######################################################################
 
 sub get_parser {
@@ -1384,24 +1245,6 @@ sub has_variable {
 
 ######################################################################
 
-# sub has_resource {
-
-#   my $self     = shift;
-#   my $filespec = shift;
-
-#   if ( exists $self->_get_resource_hash->{$filespec} )
-#     {
-#       return 1;
-#     }
-
-#   else
-#     {
-#       return 0;
-#     }
-# }
-
-######################################################################
-
 sub has_index_term {
 
   my $self  = shift;
@@ -1493,16 +1336,6 @@ sub get_file {
       return 0;
     }
 }
-
-######################################################################
-
-# sub get_document {
-
-#   my $self = shift;
-#   my $id   = shift;
-
-#   return $self->get_division($id);
-# }
 
 ######################################################################
 
@@ -1714,25 +1547,6 @@ sub get_variable {
       return 0;
     }
 }
-
-######################################################################
-
-# sub get_resource {
-
-#   my $self     = shift;
-#   my $filespec = shift;
-
-#   if ( exists $self->_get_resource_hash->{$filespec} )
-#     {
-#       return $self->_get_resource_hash->{$filespec};
-#     }
-
-#   else
-#     {
-#       $logger->error("CAN'T GET RESOURCE \'$filespec\'");
-#       return 0;
-#     }
-# }
 
 ######################################################################
 
@@ -2238,29 +2052,6 @@ sub summarize_variables {
 
 ######################################################################
 
-# sub summarize_resources {
-
-#   my $self = shift;
-
-#   my $summary = q{};
-
-#   if (keys %{ $self->_get_resource_hash })
-#     {
-#       $summary .= "Resources:\n\n";
-
-#       foreach my $filespec (sort keys %{ $self->_get_resource_hash })
-# 	{
-# 	  $summary .= "  $filespec\n";
-# 	}
-
-#       $summary .= "\n";
-#     }
-
-#   return $summary;
-# }
-
-######################################################################
-
 sub summarize_index {
 
   my $self = shift;
@@ -2398,129 +2189,6 @@ sub update_status_from_outcome {
 
   return 1;
 }
-
-######################################################################
-
-# sub allows_insert {
-
-#   my $self = shift;
-#   my $name = shift;
-
-#   if (
-#       defined $self->_get_insert_name_hash->{$name}
-#       and
-#       $self->_get_insert_name_hash->{$name} == 1
-#      )
-#     {
-#       return 1;
-#     }
-#   else
-#     {
-#       return 0;
-#     }
-# }
-
-######################################################################
-
-# sub allows_generate {
-
-#   my $self = shift;
-#   my $name = shift;
-
-#   if ( defined $self->_get_generated_content_type_hash->{$name} )
-#     {
-#       return 1;
-#     }
-
-#   else
-#     {
-#       return 0;
-#     }
-# }
-
-######################################################################
-
-# sub get_bullet_list_count {
-
-#   my $self = shift;
-
-#   my $hash  = $self->_get_division_hash;
-#   my $count = 0;
-
-#   foreach my $division ( values %{ $hash } )
-#     {
-#       if ( $division->isa("SML::BulletList") )
-# 	{
-# 	  ++ $count;
-# 	}
-#     }
-
-#   return $count;
-# }
-
-######################################################################
-
-# sub get_enumerated_list_count {
-
-#   my $self = shift;
-
-#   my $hash  = $self->_get_division_hash;
-#   my $count = 0;
-
-#   foreach my $division ( values %{ $hash } )
-#     {
-#       if ( $division->isa("SML::EnumeratedList") )
-# 	{
-# 	  ++ $count;
-# 	}
-#     }
-
-#   return $count;
-# }
-
-######################################################################
-
-# sub get_step_list_count {
-
-#   my $self = shift;
-
-#   my $hash  = $self->_get_division_hash;
-#   my $count = 0;
-
-#   foreach my $division ( values %{ $hash } )
-#     {
-#       my $name = $division->get_name;
-
-#       if ( $name eq 'STEP_LIST' )
-# 	{
-# 	  ++ $count;
-# 	}
-#     }
-
-#   return $count;
-# }
-
-######################################################################
-
-# sub get_definition_list_count {
-
-#   my $self = shift;
-
-#   my $hash  = $self->_get_division_hash;
-#   my $count = 0;
-
-#   foreach my $division ( values %{ $hash } )
-#     {
-#       my $name = $division->get_name;
-
-#       if ( $name eq 'DEFINITION_LIST' )
-# 	{
-# 	  ++ $count;
-# 	}
-#     }
-
-#   return $count;
-# }
 
 ######################################################################
 

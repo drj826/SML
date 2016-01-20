@@ -93,7 +93,7 @@ sub infer_status_from_outcome {
   unless ( $library->has_division_id($entity_id) )
     {
       $logger->error("CAN'T INFER STATUS FROM OUTCOMES for non-existent entity \'$entity_id\'");
-      next;
+      return 0;
     }
 
   $logger->trace("inferred status $status from outcome for $entity_id");
