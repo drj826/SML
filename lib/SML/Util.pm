@@ -36,65 +36,6 @@ has library =>
   );
 
 ######################################################################
-
-# has blank_line =>
-#   (
-#    is       => 'ro',
-#    isa      => 'SML::Line',
-#    reader   => 'get_blank_line',
-#    lazy     => 1,
-#    builder  => '_build_blank_line',
-#   );
-
-######################################################################
-
-# has empty_block =>
-#   (
-#    is       => 'ro',
-#    isa      => 'SML::Block',
-#    reader   => 'get_empty_block',
-#    lazy     => 1,
-#    builder  => '_build_empty_block',
-#   );
-
-######################################################################
-
-# has empty_file =>
-#   (
-#    is       => 'ro',
-#    isa      => 'SML::File',
-#    reader   => 'get_empty_file',
-#    lazy     => 1,
-#    builder  => '_build_empty_file',
-#   );
-
-######################################################################
-
-# has empty_document =>
-#   (
-#    is       => 'ro',
-#    isa      => 'SML::Document',
-#    reader   => 'get_empty_document',
-#    lazy     => 1,
-#    builder  => '_build_empty_document',
-#   );
-
-######################################################################
-
-# has default_section =>
-#   (
-#    is       => 'ro',
-#    isa      => 'SML::Section',
-#    reader   => 'get_default_section',
-#    lazy     => 1,
-#    builder  => '_build_default_section',
-#   );
-
-# Some documents have no explicit section structure.  However, section
-# numbers are used in all hyperlinks.  To avoid errors, therefore,
-# every document has a default section.
-
-######################################################################
 ######################################################################
 ##
 ## Public Methods
@@ -285,33 +226,7 @@ sub strip_string_markup {
 ######################################################################
 ######################################################################
 
-# sub _build_blank_line {
-
-#   my $self = shift;
-
-#   my $line = SML::Line->new(content=>"\n");
-
-#   return $line;
-# }
-
-######################################################################
-
-# sub _build_default_section {
-
-#   my $self = shift;
-
-#   use SML::Section;
-
-#   my $section = SML::Section->new
-#     (
-#      depth       => 0,
-#      id          => 'SECTION-0',
-#      number      => '0',
-#      top_number  => '0',
-#     );
-
-#   return $section;
-# }
+# NONE
 
 ######################################################################
 
