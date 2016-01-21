@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 use lib "../lib";
-use Test::More tests => 3;
+use Test::More tests => 2;
 
 use Log::Log4perl;
 Log::Log4perl->init("log.test.conf");
@@ -31,14 +31,11 @@ isa_ok($obj,'SML');
 # Implements designed public methods?
 #---------------------------------------------------------------------
 
-my @public_methods =
-  (
-   'get_library',
-   'add_library',
-   'has_library',
-  );
+# my @public_methods =
+#   (
+#   );
 
-can_ok( $obj, @public_methods );
+# can_ok( $obj, @public_methods );
 
 #---------------------------------------------------------------------
 # Returns expected values?

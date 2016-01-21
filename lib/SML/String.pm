@@ -87,45 +87,43 @@ sub get_location {
       return $block->get_location;
     }
 
-  else
-    {
-      return 'unknown';
-    }
+  return 'unknown';
 }
 
 ######################################################################
 
-sub get_containing_document {
+# sub get_containing_document {
 
-  # Return the document to which this string belongs.
+#   # Return the document to which this string belongs.
 
-  my $self  = shift;
-  my $block = $self->get_containing_block;
+#   my $self = shift;
 
-  if ( not $block )
-    {
-      my $content = $self->get_content;
-      $logger->error("can't get containing block for $content ($self)");
-    }
+#   my $block = $self->get_containing_block;
 
-  my $division = $block->get_containing_division;
+#   if ( not $block )
+#     {
+#       my $content = $self->get_content;
+#       $logger->error("can't get containing block for $content ($self)");
+#     }
 
-  if ( not defined $division )
-    {
-      # $logger->error("DIVISION DOESN'T EXIST");
-      return 0;
-    }
+#   my $division = $block->get_containing_division;
 
-  elsif ( $division->isa('SML::Document') )
-    {
-      return $division;
-    }
+#   if ( not defined $division )
+#     {
+#       # $logger->error("DIVISION DOESN'T EXIST");
+#       return 0;
+#     }
 
-  else
-    {
-      return $division->get_containing_document;
-    }
-}
+#   elsif ( $division->isa('SML::Document') )
+#     {
+#       return $division;
+#     }
+
+#   else
+#     {
+#       return $division->get_containing_document;
+#     }
+# }
 
 ######################################################################
 ######################################################################
@@ -134,6 +132,8 @@ sub get_containing_document {
 ##
 ######################################################################
 ######################################################################
+
+# NONE
 
 ######################################################################
 ######################################################################

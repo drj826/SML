@@ -46,13 +46,13 @@ has depth =>
 
 ######################################################################
 
-has sectype =>
-  (
-   is       => 'ro',
-   isa      => 'Str',
-   reader   => 'get_sectype',
-   default  => 'Section',
-  );
+# has sectype =>
+#   (
+#    is       => 'ro',
+#    isa      => 'Str',
+#    reader   => 'get_sectype',
+#    default  => 'Section',
+#   );
 
 ######################################################################
 
@@ -152,7 +152,6 @@ section heading and contains information about a specific topic.
                   );
 
   my $integer = $section->get_depth;
-  my $string  = $section->get_sectype;
   my $string  = $section->get_top_number;
 
 =head1 DESCRIPTION

@@ -33,77 +33,77 @@ use SML::Library;
 ######################################################################
 ######################################################################
 
-sub get_library {
+# sub get_library {
 
-  my $self = shift;
-  my $id   = shift;
+#   my $self = shift;
+#   my $id   = shift;
 
-  if ( not $id )
-    {
-      $logger->error("YOU MUST SUPPLY THE ID OF THE LIBRARY YOU WANT");
-      return 0;
-    }
+#   if ( not $id )
+#     {
+#       $logger->error("YOU MUST SUPPLY THE ID OF THE LIBRARY YOU WANT");
+#       return 0;
+#     }
 
-  my $hash = $self->_get_library_hash;
+#   my $hash = $self->_get_library_hash;
 
-  if ( exists $hash->{$id} )
-    {
-      return $hash->{$id};
-    }
+#   if ( exists $hash->{$id} )
+#     {
+#       return $hash->{$id};
+#     }
 
-  else
-    {
-      $logger->error("LIBRARY DOESN'T EXIST: $id");
-      return 0;
-    }
-}
-
-######################################################################
-
-sub add_library {
-
-  my $self    = shift;
-  my $library = shift;
-
-  if ( not ref $library and $library->isa('SML::Library') )
-    {
-      $logger->error("CAN'T ADD NON-LIBRARY OBJECT: $library");
-      return 0;
-    }
-
-  my $hash = $self->_get_library_hash;
-  my $id = $library->get_id;
-
-  $hash->{$id} = $library;
-
-  return 1;
-}
+#   else
+#     {
+#       $logger->error("LIBRARY DOESN'T EXIST: $id");
+#       return 0;
+#     }
+# }
 
 ######################################################################
 
-sub has_library {
+# sub add_library {
 
-  my $self = shift;
-  my $id   = shift;
+#   my $self    = shift;
+#   my $library = shift;
 
-  if ( not $id )
-    {
-      $logger->error("YOU MUST SUPPLY A LIBRARY ID");
-      return 0;
-    }
+#   if ( not ref $library and $library->isa('SML::Library') )
+#     {
+#       $logger->error("CAN'T ADD NON-LIBRARY OBJECT: $library");
+#       return 0;
+#     }
 
-  my $hash = $self->_get_library_hash;
+#   my $hash = $self->_get_library_hash;
+#   my $id = $library->get_id;
 
-  if ( exists $hash->{$id} )
-    {
-      return 1;
-    }
+#   $hash->{$id} = $library;
 
-  else
-    {
-      return 0;
-    }
-}
+#   return 1;
+# }
+
+######################################################################
+
+# sub has_library {
+
+#   my $self = shift;
+#   my $id   = shift;
+
+#   if ( not $id )
+#     {
+#       $logger->error("YOU MUST SUPPLY A LIBRARY ID");
+#       return 0;
+#     }
+
+#   my $hash = $self->_get_library_hash;
+
+#   if ( exists $hash->{$id} )
+#     {
+#       return 1;
+#     }
+
+#   else
+#     {
+#       return 0;
+#     }
+# }
 
 ######################################################################
 ######################################################################
@@ -113,12 +113,12 @@ sub has_library {
 ######################################################################
 ######################################################################
 
-has 'library_hash' =>
-  (
-   isa     => 'HashRef',
-   reader  => '_get_library_hash',
-   default => sub {{}},
-  );
+# has 'library_hash' =>
+#   (
+#    isa     => 'HashRef',
+#    reader  => '_get_library_hash',
+#    default => sub {{}},
+#   );
 
 # A hash of libraries keyed by library name.
 

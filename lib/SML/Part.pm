@@ -266,13 +266,15 @@ sub get_containing_document {
 
   my $division = $self->get_containing_division;
 
-  if ( not defined $division )
+  unless ( defined $division )
     {
       # $logger->error("DIVISION DOESN'T EXIST");
       return 0;
     }
 
-  elsif ( $division->isa('SML::Document') )
+  my $name = $division->get_name;
+
+  if ( $name eq 'DOCUMENT' )
     {
       return $division;
     }

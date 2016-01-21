@@ -32,29 +32,29 @@ has config_filespec =>
 
 ######################################################################
 
-has gui =>
-  (
-   is        => 'ro',
-   isa       => 'Bool',
-   reader    => 'using_gui',
-   default   => 0,
-   writer    => 'set_using_gui',
-  );
+# has gui =>
+#   (
+#    is        => 'ro',
+#    isa       => 'Bool',
+#    reader    => 'using_gui',
+#    default   => 0,
+#    writer    => 'set_using_gui',
+#   );
 
 ######################################################################
 
-has verbose =>
-  (
-   is        => 'ro',
-   isa       => 'Bool',
-   reader    => 'be_verbose',
-   default   => 0,
-   writer    => 'set_be_verbose',
-  );
+# has verbose =>
+#   (
+#    is        => 'ro',
+#    isa       => 'Bool',
+#    reader    => 'be_verbose',
+#    default   => 0,
+#    writer    => 'set_be_verbose',
+#   );
 
 ######################################################################
 
-has scripts =>
+has resolve_scripts =>
   (
    is        => 'ro',
    isa       => 'Bool',
@@ -65,7 +65,7 @@ has scripts =>
 
 ######################################################################
 
-has plugins =>
+has resolve_plugins =>
   (
    is        => 'ro',
    isa       => 'Bool',
@@ -87,7 +87,7 @@ has use_svn =>
 
 ######################################################################
 
-has svn =>
+has svn_executable =>
   (
    is        => 'ro',
    isa       => 'Str',
@@ -109,7 +109,7 @@ has use_git =>
 
 ######################################################################
 
-has git =>
+has git_executable =>
   (
    is        => 'ro',
    isa       => 'Str',
@@ -120,7 +120,7 @@ has git =>
 
 ######################################################################
 
-has pdflatex =>
+has pdflatex_executable =>
   (
    is        => 'ro',
    isa       => 'Str',
@@ -142,7 +142,7 @@ has pdflatex_args =>
 
 ######################################################################
 
-has bibtex =>
+has bibtex_executable =>
   (
    is        => 'ro',
    isa       => 'Str',
@@ -153,7 +153,7 @@ has bibtex =>
 
 ######################################################################
 
-has makeindex =>
+has makeindex_executable =>
   (
    is        => 'ro',
    isa       => 'Str',
@@ -164,7 +164,7 @@ has makeindex =>
 
 ######################################################################
 
-has convert =>
+has convert_executable =>
   (
    is        => 'ro',
    isa       => 'Str',
@@ -175,16 +175,16 @@ has convert =>
 
 ######################################################################
 
-has trigger_resource_updates =>
-  (
-   is        => 'ro',
-   isa       => 'Bool',
-   reader    => 'trigger_resource_updates',
-   default   => 0,
-   writer    => 'set_trigger_resource_updates',
-   clearer   => 'clear_trigger_resource_updates',
-   predicate => 'has_trigger_resource_updates',
-  );
+# has trigger_resource_updates =>
+#   (
+#    is        => 'ro',
+#    isa       => 'Bool',
+#    reader    => 'trigger_resource_updates',
+#    default   => 0,
+#    writer    => 'set_trigger_resource_updates',
+#    clearer   => 'clear_trigger_resource_updates',
+#    predicate => 'has_trigger_resource_updates',
+#   );
 
 # If 'trigger_resource_updates' is true, the application should update
 # the RESOURCES division in each SML document resource.  The purpose
@@ -253,14 +253,14 @@ has MAX_RESOLVE_PLUGINS =>
 
 ######################################################################
 
-has MAX_RESOLVE_CONDITIONALS =>
-  (
-   is        => 'ro',
-   isa       => 'Int',
-   reader    => 'get_MAX_RESOLVE_CONDITIONALS',
-   writer    => 'set_MAX_RESOLVE_CONDITIONALS',
-   default   => 10,
-  );
+# has MAX_RESOLVE_CONDITIONALS =>
+#   (
+#    is        => 'ro',
+#    isa       => 'Int',
+#    reader    => 'get_MAX_RESOLVE_CONDITIONALS',
+#    writer    => 'set_MAX_RESOLVE_CONDITIONALS',
+#    default   => 10,
+#   );
 
 ######################################################################
 
@@ -275,14 +275,14 @@ has MAX_PARSE_LINES =>
 
 ######################################################################
 
-has MAX_INSERT_CONTENT =>
-  (
-   is        => 'ro',
-   isa       => 'Int',
-   reader    => 'get_MAX_INSERT_CONTENT',
-   writer    => 'set_MAX_INSERT_CONTENT',
-   default   => 20,
-  );
+# has MAX_INSERT_CONTENT =>
+#   (
+#    is        => 'ro',
+#    isa       => 'Int',
+#    reader    => 'get_MAX_INSERT_CONTENT',
+#    writer    => 'set_MAX_INSERT_CONTENT',
+#    default   => 20,
+#   );
 
 ######################################################################
 
@@ -308,80 +308,80 @@ has MAX_RESOLVE_LOOKUPS =>
 
 ######################################################################
 
-has MAX_RESOLVE_TEMPLATES =>
-  (
-   is        => 'ro',
-   isa       => 'Int',
-   reader    => 'get_MAX_RESOLVE_TEMPLATES',
-   writer    => 'set_MAX_RESOLVE_TEMPLATES',
-   default   => 20,
-  );
+# has MAX_RESOLVE_TEMPLATES =>
+#   (
+#    is        => 'ro',
+#    isa       => 'Int',
+#    reader    => 'get_MAX_RESOLVE_TEMPLATES',
+#    writer    => 'set_MAX_RESOLVE_TEMPLATES',
+#    default   => 20,
+#   );
 
 ######################################################################
 
-has MAX_GENERATE_CONTENT =>
-  (
-   is        => 'ro',
-   isa       => 'Int',
-   reader    => 'get_MAX_GENERATE_CONTENT',
-   writer    => 'set_MAX_GENERATE_CONTENT',
-   default   => 20,
-  );
+# has MAX_GENERATE_CONTENT =>
+#   (
+#    is        => 'ro',
+#    isa       => 'Int',
+#    reader    => 'get_MAX_GENERATE_CONTENT',
+#    writer    => 'set_MAX_GENERATE_CONTENT',
+#    default   => 20,
+#   );
 
 ######################################################################
 
-has MAX_ID_HIERARCHY_DEPTH =>
-  (
-   is        => 'ro',
-   isa       => 'Int',
-   reader    => 'get_MAX_ID_HIERARCHY_DEPTH',
-   writer    => 'set_MAX_ID_HIERARCHY_DEPTH',
-   default   => 20,
-  );
+# has MAX_ID_HIERARCHY_DEPTH =>
+#   (
+#    is        => 'ro',
+#    isa       => 'Int',
+#    reader    => 'get_MAX_ID_HIERARCHY_DEPTH',
+#    writer    => 'set_MAX_ID_HIERARCHY_DEPTH',
+#    default   => 20,
+#   );
 
 ######################################################################
 
-has status_icon_grey_filespec =>
-  (
-   is        => 'ro',
-   isa       => 'Str',
-   reader    => 'get_status_icon_grey_filespec',
-   writer    => 'set_status_icon_grey_filespec',
-   default   => 'status_grey.png',
-  );
+# has status_icon_grey_filespec =>
+#   (
+#    is        => 'ro',
+#    isa       => 'Str',
+#    reader    => 'get_status_icon_grey_filespec',
+#    writer    => 'set_status_icon_grey_filespec',
+#    default   => 'status_grey.png',
+#   );
 
 ######################################################################
 
-has status_icon_green_filespec =>
-  (
-   is        => 'ro',
-   isa       => 'Str',
-   reader    => 'get_status_icon_green_filespec',
-   writer    => 'set_status_icon_green_filespec',
-   default   => 'status_green.png',
-  );
+# has status_icon_green_filespec =>
+#   (
+#    is        => 'ro',
+#    isa       => 'Str',
+#    reader    => 'get_status_icon_green_filespec',
+#    writer    => 'set_status_icon_green_filespec',
+#    default   => 'status_green.png',
+#   );
 
 ######################################################################
 
-has status_icon_yellow_filespec =>
-  (
-   is        => 'ro',
-   isa       => 'Str',
-   reader    => 'get_status_icon_yellow_filespec',
-   writer    => 'set_status_icon_yellow_filespec',
-   default   => 'status_yellow.png',
-  );
+# has status_icon_yellow_filespec =>
+#   (
+#    is        => 'ro',
+#    isa       => 'Str',
+#    reader    => 'get_status_icon_yellow_filespec',
+#    writer    => 'set_status_icon_yellow_filespec',
+#    default   => 'status_yellow.png',
+#   );
 
 ######################################################################
 
-has status_icon_red_filespec =>
-  (
-   is        => 'ro',
-   isa       => 'Str',
-   reader    => 'get_status_icon_red_filespec',
-   writer    => 'set_status_icon_red_filespec',
-   default   => 'status_red.png',
-  );
+# has status_icon_red_filespec =>
+#   (
+#    is        => 'ro',
+#    isa       => 'Str',
+#    reader    => 'get_status_icon_red_filespec',
+#    writer    => 'set_status_icon_red_filespec',
+#    default   => 'status_red.png',
+#   );
 
 ######################################################################
 ######################################################################
@@ -390,6 +390,8 @@ has status_icon_red_filespec =>
 ##
 ######################################################################
 ######################################################################
+
+# NONE
 
 ######################################################################
 ######################################################################
