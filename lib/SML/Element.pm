@@ -58,34 +58,34 @@ has value =>
 ######################################################################
 ######################################################################
 
-sub _type_of {
+# sub _type_of {
 
-  # Return the TYPE of the element value (object name, STRING, or
-  # BOOLEAN)
+#   # Return the TYPE of the element value (object name, STRING, or
+#   # BOOLEAN)
 
-  my $self  = shift;
-  my $value = shift;
+#   my $self  = shift;
+#   my $value = shift;
 
-  my $library = $self->get_library;
-  my $util    = $library->get_util;
-  my $name    = q{};
+#   my $library = $self->get_library;
+#   my $util    = $library->get_util;
+#   my $name    = q{};
 
-  if ( $library->has_division_id($value) )
-    {
-      my $object = $library->get_division($value);
-      return $object->get_name;
-    }
+#   if ( $library->has_division_id($value) )
+#     {
+#       my $object = $library->get_division($value);
+#       return $object->get_name;
+#     }
 
-  elsif ( $value eq '0' or $value eq '1' )
-    {
-      return 'BOOLEAN';
-    }
+#   elsif ( $value eq '0' or $value eq '1' )
+#     {
+#       return 'BOOLEAN';
+#     }
 
-  else
-    {
-      return 'STRING';
-    }
-}
+#   else
+#     {
+#       return 'STRING';
+#     }
+# }
 
 ######################################################################
 

@@ -86,7 +86,7 @@ $OUTPUT_AUTOFLUSH = 1;
 ######################################################################
 ######################################################################
 
-# NONE.
+# NONE
 
 ######################################################################
 ######################################################################
@@ -152,13 +152,13 @@ sub parse {
   $self->_parse_lines;
 
   # block-oriented processing
-  do
-    {
-      # $self->_resolve_lookups      if $self->_contains_lookup;
-      $self->_substitute_variables if $self->_contains_variable;
-    }
+  # do
+  #   {
+  #     # $self->_resolve_lookups      if $self->_contains_lookup;
+  #     $self->_substitute_variables if $self->_contains_variable;
+  #   }
 
-      while $self->_text_requires_block_processing;
+  #     while $self->_text_requires_block_processing;
 
   my $division = $self->_get_division;
 
@@ -2450,33 +2450,6 @@ sub _end_definition_list {
   return 1;
 
 }
-
-######################################################################
-
-# not used?
-
-# sub _begin_default_section {
-
-#   my $self = shift;
-
-#   return if $self->_in_section;
-
-#   my $number = $self->_get_number;
-
-#   $logger->trace("{$number} ..... begin default section");
-
-#   my $division = $self->_get_current_division;
-#   my $library  = $self->_get_library;
-#   my $util     = $library->get_util;
-#   my $section  = $util->get_default_section;
-
-#   $self->_begin_division($section);
-
-#   # the default section does not have a data segment
-#   # $self->_set_in_data_segment(0);
-
-#   return 1;
-# }
 
 ######################################################################
 

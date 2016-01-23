@@ -6,7 +6,7 @@ use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Resource';
+# extends 'SML::Resource';
 
 use namespace::autoclean;
 
@@ -31,6 +31,16 @@ use SML::Svninfo;
 ######################################################################
 ######################################################################
 
+has library =>
+  (
+   is       => 'ro',
+   isa      => 'SML::Library',
+   reader   => 'get_library',
+   required => 1,
+  );
+
+######################################################################
+
 has filespec =>
   (
    is       => 'ro',
@@ -48,16 +58,6 @@ has filename =>
    reader   => 'get_filename',
    lazy     => 1,
    builder  => '_build_filename',
-  );
-
-######################################################################
-
-has library =>
-  (
-   is       => 'ro',
-   isa      => 'SML::Library',
-   reader   => 'get_library',
-   required => 1,
   );
 
 ######################################################################
@@ -138,15 +138,15 @@ has svninfo =>
 
 ######################################################################
 
-has valid =>
-  (
-   is       => 'ro',
-   isa      => 'Bool',
-   reader   => 'is_valid',
-   writer   => '_set_valid',
-   lazy     => 1,
-   builder  => '_validate',
-  );
+# has valid =>
+#   (
+#    is       => 'ro',
+#    isa      => 'Bool',
+#    reader   => 'is_valid',
+#    writer   => '_set_valid',
+#    lazy     => 1,
+#    builder  => '_validate',
+#   );
 
 ######################################################################
 ######################################################################
@@ -204,35 +204,35 @@ sub BUILD {
 
 ######################################################################
 
-sub _validate {
+# sub _validate {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $path     = $self->get_path;
-  my $filename = $self->get_filename;
-  my $filespec = File::Spec->catdir($path,$filename);
-  my $valid    = 1;
+#   my $path     = $self->get_path;
+#   my $filename = $self->get_filename;
+#   my $filespec = File::Spec->catdir($path,$filename);
+#   my $valid    = 1;
 
-  if ( not -e $filespec )
-    {
-      $valid = 0;
-    }
+#   if ( not -e $filespec )
+#     {
+#       $valid = 0;
+#     }
 
-  elsif ( not -r $filespec )
-    {
-      $valid = 0;
-    }
+#   elsif ( not -r $filespec )
+#     {
+#       $valid = 0;
+#     }
 
-  else
-    {
-      # File is valid.
-    }
+#   else
+#     {
+#       # File is valid.
+#     }
 
 
-  $self->_set_valid($valid);
+#   $self->_set_valid($valid);
 
-  return $valid;
-}
+#   return $valid;
+# }
 
 ######################################################################
 

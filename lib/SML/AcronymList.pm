@@ -88,10 +88,7 @@ sub has_entry {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
@@ -104,16 +101,13 @@ sub get_entry {
 
   my $hash = $self->_get_entry_hash;
 
-  if ( defined $hash->{$acronym}{$namespace} )
-    {
-      return $hash->{$acronym}{$namespace};
-    }
-
-  else
+  unless ( defined $hash->{$acronym}{$namespace} )
     {
       $logger->warn("FAILED ACRONYM LOOKUP $acronym {$namespace}");
       return 0;
     }
+
+  return $hash->{$acronym}{$namespace};
 }
 
 ######################################################################
@@ -160,10 +154,7 @@ sub contains_entries {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
