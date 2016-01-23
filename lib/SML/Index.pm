@@ -95,10 +95,7 @@ sub has_entry {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
@@ -108,18 +105,16 @@ sub get_entry {
   my $self = shift;
   my $term = shift;
 
-  if ( $self->has_entry($term) )
-    {
-      my $hash = $self->_get_entry_hash;
-
-      return $hash->{$term};
-    }
-
-  else
+  unless ( $self->has_entry($term) )
     {
       $logger->error("NO INDEX ENTRY: \'$term\'");
+
       return 0;
     }
+
+  my $hash = $self->_get_entry_hash;
+
+  return $hash->{$term};
 }
 
 ######################################################################
@@ -154,10 +149,7 @@ sub contains_entries {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################

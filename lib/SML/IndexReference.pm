@@ -32,11 +32,11 @@ has tag =>
 
 ######################################################################
 
-has entry =>
+has term =>
   (
    is       => 'ro',
    isa      => 'Str',
-   reader   => 'get_entry',
+   reader   => 'get_term',
    required => 1,
   );
 
@@ -62,6 +62,8 @@ has '+name' =>
 ######################################################################
 ######################################################################
 
+# NONE
+
 ######################################################################
 ######################################################################
 ##
@@ -70,6 +72,8 @@ has '+name' =>
 ######################################################################
 ######################################################################
 
+# NONE
+
 ######################################################################
 ######################################################################
 ##
@@ -77,6 +81,8 @@ has '+name' =>
 ##
 ######################################################################
 ######################################################################
+
+# NONE
 
 ######################################################################
 
@@ -88,7 +94,7 @@ __END__
 
 =head1 NAME
 
-C<SML::IndexReference> - a reference to an index entry
+C<SML::IndexReference> - a reference to an index term
 
 =head1 VERSION
 
@@ -102,18 +108,18 @@ C<SML::IndexReference> - a reference to an index entry
 
   my $ref = SML::IndexReference->new
               (
-                tag             => $tag,        # 'index'
-                entry           => $entry,      # 'UAT'
+                tag             => $tag,       # 'index'
+                term            => $term,      # 'UAT'
                 library         => $library,
                 containing_part => $part,
               );
 
   my $string = $ref->get_tag;        # 'index'
-  my $string = $ref->get_entry;      # 'UAT'
+  my $string = $ref->get_term;       # 'UAT'
 
 =head1 DESCRIPTION
 
-Extends C<SML::String> to represent a reference to an index entry.
+Extends C<SML::String> to represent a reference to an index term.
 
 =head1 METHODS
 

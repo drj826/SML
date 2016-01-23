@@ -870,7 +870,7 @@ sub _create_string {
 	  my $args = {};
 
 	  $args->{tag}       = $1;
-	  $args->{entry}     = $2;
+	  $args->{term}      = $2;
 	  $args->{library}   = $self->_get_library;
 	  $args->{container} = $container if $container;
 
