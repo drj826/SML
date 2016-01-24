@@ -1223,10 +1223,10 @@ sub _extract_title_text {
 	}
 
       # data segment ending text?
-      elsif ( $self->_line_ends_data_segment($text) )
-	{
-	  return $title_text;
-	}
+      # elsif ( $self->_line_ends_data_segment($text) )
+      # 	{
+      # 	  return $title_text;
+      # 	}
 
       # anything else continues the title
       elsif ( $in_title )
@@ -3091,92 +3091,92 @@ sub _contains_plugin {
 
 ######################################################################
 
-sub _contains_template {
+# sub _contains_template {
 
-  # This method MUST parse line-by-line (rather than block-by-block or
-  # element-by-element) because it is called BEFORE _parse_lines
-  # builds arrays of blocks and elements.
+#   # This method MUST parse line-by-line (rather than block-by-block or
+#   # element-by-element) because it is called BEFORE _parse_lines
+#   # builds arrays of blocks and elements.
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $library    = $self->_get_library;
-  my $syntax     = $library->get_syntax;
-  my $in_comment = 0;
+#   my $library    = $self->_get_library;
+#   my $syntax     = $library->get_syntax;
+#   my $in_comment = 0;
 
- LINE:
-  foreach my $line ( @{ $self->_get_line_list } )
-    {
-      my $text = $line->get_content;
+#  LINE:
+#   foreach my $line ( @{ $self->_get_line_list } )
+#     {
+#       my $text = $line->get_content;
 
-      $text =~ s/[\r\n]*$//;            # chomp;
+#       $text =~ s/[\r\n]*$//;            # chomp;
 
-      #---------------------------------------------------------------
-      # Ignore comments
-      #
-      if ( $text =~ /$syntax->{start_division}/ and $1 eq 'COMMENT' )
-	{
-	  $in_comment = 1;
-	  next LINE;
-	}
+#       #---------------------------------------------------------------
+#       # Ignore comments
+#       #
+#       if ( $text =~ /$syntax->{start_division}/ and $1 eq 'COMMENT' )
+# 	{
+# 	  $in_comment = 1;
+# 	  next LINE;
+# 	}
 
-      elsif ( $text =~ /$syntax->{end_division}/ and $1 eq 'COMMENT' )
-	{
-	  $in_comment = 0;
-	  next LINE;
-	}
+#       elsif ( $text =~ /$syntax->{end_division}/ and $1 eq 'COMMENT' )
+# 	{
+# 	  $in_comment = 0;
+# 	  next LINE;
+# 	}
 
-      elsif ( $in_comment )
-	{
-	  next LINE;
-	}
+#       elsif ( $in_comment )
+# 	{
+# 	  next LINE;
+# 	}
 
-      elsif ( $text =~ /$syntax->{comment_line}/ )
-	{
-	  next LINE;
-	}
+#       elsif ( $text =~ /$syntax->{comment_line}/ )
+# 	{
+# 	  next LINE;
+# 	}
 
-      #---------------------------------------------------------------
-      # template element
-      #
-      elsif ( $text =~ /$syntax->{template_element}/ )
-	{
-	  return 1;
-	}
-    }
+#       #---------------------------------------------------------------
+#       # template element
+#       #
+#       elsif ( $text =~ /$syntax->{template_element}/ )
+# 	{
+# 	  return 1;
+# 	}
+#     }
 
-  return 0;
-}
+#   return 0;
+# }
 
 ######################################################################
 
-sub _contains_insert {
+# sub _contains_insert {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $library = $self->_get_library;
-  my $syntax  = $library->get_syntax;
+#   my $library = $self->_get_library;
+#   my $syntax  = $library->get_syntax;
 
-  my $division     = $self->_get_division;
-  my $element_list = $division->get_element_list;
+#   my $division     = $self->_get_division;
+#   my $element_list = $division->get_element_list;
 
-  foreach my $element ( @{ $element_list } )
-    {
-      my $text = $element->get_content;
+#   foreach my $element ( @{ $element_list } )
+#     {
+#       my $text = $element->get_content;
 
-      $text =~ s/[\r\n]*$//;            # chomp;
+#       $text =~ s/[\r\n]*$//;            # chomp;
 
-      if (
-	     $text =~ /$syntax->{'insert_element'}/
-	  or $text =~ /$syntax->{'insert_ins_element'}/
-	  or $text =~ /$syntax->{'insert_gen_element'}/
-	 )
-	{
-	  return 1;
-	}
-    }
+#       if (
+# 	     $text =~ /$syntax->{'insert_element'}/
+# 	  or $text =~ /$syntax->{'insert_ins_element'}/
+# 	  or $text =~ /$syntax->{'insert_gen_element'}/
+# 	 )
+# 	{
+# 	  return 1;
+# 	}
+#     }
 
-  return 0;
-}
+#   return 0;
+# }
 
 ######################################################################
 
@@ -3306,8 +3306,8 @@ sub _text_requires_line_processing {
 	 $text =~ /$syntax->{script_element}/
 	 or
 	 $text =~ /$syntax->{plugin_element}/
-	 or
-	 $text =~ /$syntax->{template_element}/
+	 # or
+	 # $text =~ /$syntax->{template_element}/
 	)
 	{
 	  return 1;
@@ -7293,44 +7293,44 @@ sub _get_current_division {
 
 ######################################################################
 
-sub _line_ends_data_segment {
+# sub _line_ends_data_segment {
 
-  my $self = shift;
-  my $text = shift;
+#   my $self = shift;
+#   my $text = shift;
 
-  my $library = $self->_get_library;
-  my $syntax  = $library->get_syntax;
+#   my $library = $self->_get_library;
+#   my $syntax  = $library->get_syntax;
 
-  if (
-         $text =~ /$syntax->{segment_separator}/xms
-      or $text =~ /$syntax->{start_division}/xms
-      or $text =~ /$syntax->{start_section}/xms
-      or $text =~ /$syntax->{generate_element}/xms
-      or $text =~ /$syntax->{insert_element}/xms
-      or $text =~ /$syntax->{template_element}/xms
-      or $text =~ /$syntax->{include_element}/xms
-      or $text =~ /$syntax->{script_element}/xms
-      or $text =~ /$syntax->{outcome_element}/xms
-      or $text =~ /$syntax->{review_element}/xms
-      or $text =~ /$syntax->{index_element}/xms
-      or $text =~ /$syntax->{glossary_element}/xms
-      or $text =~ /$syntax->{list_item}/xms
-      or
-      (
-       $text =~ /$syntax->{paragraph_text}/xms
-       and
-       not $text =~ /$syntax->{element}/xms
-      )
-     )
-    {
-      return 1;
-    }
+#   if (
+#          $text =~ /$syntax->{segment_separator}/xms
+#       or $text =~ /$syntax->{start_division}/xms
+#       or $text =~ /$syntax->{start_section}/xms
+#       or $text =~ /$syntax->{generate_element}/xms
+#       or $text =~ /$syntax->{insert_element}/xms
+#       or $text =~ /$syntax->{template_element}/xms
+#       or $text =~ /$syntax->{include_element}/xms
+#       or $text =~ /$syntax->{script_element}/xms
+#       or $text =~ /$syntax->{outcome_element}/xms
+#       or $text =~ /$syntax->{review_element}/xms
+#       or $text =~ /$syntax->{index_element}/xms
+#       or $text =~ /$syntax->{glossary_element}/xms
+#       or $text =~ /$syntax->{list_item}/xms
+#       or
+#       (
+#        $text =~ /$syntax->{paragraph_text}/xms
+#        and
+#        not $text =~ /$syntax->{element}/xms
+#       )
+#      )
+#     {
+#       return 1;
+#     }
 
-  else
-    {
-      return 0;
-    }
-}
+#   else
+#     {
+#       return 0;
+#     }
+# }
 
 ######################################################################
 

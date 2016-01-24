@@ -20,6 +20,8 @@ my $logger = Log::Log4perl::get_logger('sml.References');
 ######################################################################
 ######################################################################
 
+# NONE
+
 ######################################################################
 ######################################################################
 ##
@@ -72,10 +74,7 @@ sub has_source {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
@@ -83,17 +82,13 @@ sub has_source {
 sub contains_entries {
 
   my $self = shift;
-  my $id   = shift;
 
   if ( values %{ $self->_get_source_hash } )
     {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
@@ -103,16 +98,14 @@ sub get_source {
   my $self = shift;
   my $id   = shift;
 
-  if ( defined $self->_get_source_hash->{$id} )
-    {
-      return $self->_get_source_hash->{$id};
-    }
-
-  else
+  unless ( defined $self->_get_source_hash->{$id} )
     {
       $logger->error("CAN'T GET SOURCE \'$id\'");
+
       return 0;
     }
+
+  return $self->_get_source_hash->{$id};
 }
 
 ######################################################################
@@ -122,42 +115,40 @@ sub get_sources {
   my $self = shift;
   my $id   = shift;
 
-  if ( values %{ $self->_get_source_hash } )
-    {
-      return $self->_get_source_hash;
-    }
-
-  else
+  unless ( values %{ $self->_get_source_hash } )
     {
       $logger->error("CAN'T GET SOURCES \'$id\'");
+
       return 0;
     }
+
+  return $self->_get_source_hash;
 }
 
 ######################################################################
 
-sub replace_division_id {
+# sub replace_division_id {
 
-  # This is a hack.  I should change the syntax of the source start
-  # markup to include the ID so this isn't necessary.  That way the
-  # library can remember the correct ID at the start of the source.
+#   # This is a hack.  I should change the syntax of the source start
+#   # markup to include the ID so this isn't necessary.  That way the
+#   # library can remember the correct ID at the start of the source.
 
-  my $self   = shift;
-  my $source = shift;
-  my $id     = shift;
+#   my $self   = shift;
+#   my $source = shift;
+#   my $id     = shift;
 
-  foreach my $stored_id (keys %{ $self->_get_source_hash })
-    {
-      my $stored_source = $self->_get_source_hash->{$stored_id};
-      if ( $stored_source == $source )
-	{
-	  delete $self->_get_source_hash->{$stored_id};
-	  $self->_get_source_hash->{$id} = $source;
-	}
-    }
+#   foreach my $stored_id (keys %{ $self->_get_source_hash })
+#     {
+#       my $stored_source = $self->_get_source_hash->{$stored_id};
+#       if ( $stored_source == $source )
+# 	{
+# 	  delete $self->_get_source_hash->{$stored_id};
+# 	  $self->_get_source_hash->{$id} = $source;
+# 	}
+#     }
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 

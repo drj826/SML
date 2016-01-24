@@ -6,8 +6,6 @@ use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-# extends 'SML::Resource';
-
 use namespace::autoclean;
 
 use Cwd;
@@ -201,38 +199,6 @@ sub BUILD {
 
   return 1;
 }
-
-######################################################################
-
-# sub _validate {
-
-#   my $self = shift;
-
-#   my $path     = $self->get_path;
-#   my $filename = $self->get_filename;
-#   my $filespec = File::Spec->catdir($path,$filename);
-#   my $valid    = 1;
-
-#   if ( not -e $filespec )
-#     {
-#       $valid = 0;
-#     }
-
-#   elsif ( not -r $filespec )
-#     {
-#       $valid = 0;
-#     }
-
-#   else
-#     {
-#       # File is valid.
-#     }
-
-
-#   $self->_set_valid($valid);
-
-#   return $valid;
-# }
 
 ######################################################################
 

@@ -895,12 +895,12 @@ has title_element =>
 
 ######################################################################
 
-has insert_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^insert::\s*(.*?)(\((.*)\))?\s*(\#(.*))?$',
-  );
+# has insert_element =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^insert::\s*(.*?)(\((.*)\))?\s*(\#(.*))?$',
+#   );
 
 # $1 = value
 # $2
@@ -910,34 +910,34 @@ has insert_element =>
 
 ######################################################################
 
-has insert_ins_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^insert_ins::\s*(.*)',
-  );
+# has insert_ins_element =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^insert_ins::\s*(.*)',
+#   );
 
 # $1 = value
 
 ######################################################################
 
-has insert_gen_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^insert_gen::\s*(.*)',
-  );
+# has insert_gen_element =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^insert_gen::\s*(.*)',
+#   );
 
 # $1 = value
 
 ######################################################################
 
-has template_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^include::((.*?)=(.*?):)+\s+(.*?)\s*(\#(.*))?$',
-  );
+# has template_element =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^include::((.*?)=(.*?):)+\s+(.*?)\s*(\#(.*))?$',
+#   );
 
 # $1
 # $2 = variable name
@@ -948,13 +948,13 @@ has template_element =>
 
 ######################################################################
 
-has generate_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^generate::\s*([\w\-]+)(\([\w\-]+\))?\s*(\#(.*))?$',
-   #                         1        2                3  4
-  );
+# has generate_element =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^generate::\s*([\w\-]+)(\([\w\-]+\))?\s*(\#(.*))?$',
+#    #                         1        2                3  4
+#   );
 
 # $1 = generated content type
 # $2
@@ -1285,12 +1285,12 @@ has end_table_row =>
 # OTHER REGEXS
 #---------------------------------------------------------------------
 
-has segment_separator =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^={3}$',
-  );
+# has segment_separator =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    default => '^={3}$',
+#   );
 
 ######################################################################
 

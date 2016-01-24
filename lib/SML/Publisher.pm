@@ -327,33 +327,6 @@ sub publish_html_library_index_page {
 
 ######################################################################
 
-# sub publish_index {
-
-#   my $self = shift;
-
-#   my $rendition = shift || 'html';
-#   my $style     = shift || 'default';
-
-#   my $now = localtime();
-#   $self->_set_publish_date_time( $now );
-
-#   if ( $rendition eq 'html' )
-#     {
-#       $self->_publish_html_library_index_page($style);
-#       $self->_publish_html_overall_index_page($style);
-#     }
-
-#   else
-#     {
-#       $logger->error("CAN ONLY PUBLISH HTML INDEX AT THIS TIME");
-#       return 0;
-#     }
-
-#   return 1;
-# }
-
-######################################################################
-
 sub publish_html_library_special_pages {
 
   # Special pages include:
