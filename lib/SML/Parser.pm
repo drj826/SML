@@ -173,6 +173,32 @@ sub parse {
 }
 
 ######################################################################
+
+sub parse_library_index_terms {
+
+  # Parse each plain text index term into an SML::String object.
+
+  my $self    = shift;
+  my $library = shift;
+
+  unless ( ref $library )
+    {
+      my $msg = "CAN'T PARSE LIBRARY INDEX TERMS, MISSING ARGUMENT";
+      $self->_handle_error('error',$msg);
+      return 0;
+    }
+
+  my $library_index = $library->get_index;
+
+  foreach my $entry (@{ $library_index->get_entry_list })
+    {
+      $self->_parse_index_term($entry);
+    }
+
+  return 1;
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes
@@ -10014,55 +10040,99 @@ sub _process_index_string {
       return 0;
     }
 
-  my $index = $document->get_index;
+  my $document_index = $document->get_index;
+  my $library_index  = $library->get_index;
 
-  my ( $entry, $subentry, $subsubentry );
+  my ( $document_entry, $document_subentry, $document_subsubentry );
+  my ( $library_entry,  $library_subentry,  $library_subsubentry );
 
-  if ( not $index->has_entry($term) )
+  unless ( $document_index->has_entry($term) )
     {
-      $entry = SML::IndexEntry->new
+      $document_entry = SML::IndexEntry->new
 	(
 	 term     => $term,
 	 document => $document,
 	);
 
-      $index->add_entry($entry);
+      $document_index->add_entry($document_entry);
     }
 
-  $entry = $index->get_entry($term);
-  $entry->add_locator($division_id);
+  unless ( $library_index->has_entry($term) )
+    {
+      $library_entry = SML::IndexEntry->new
+	(
+	 term     => $term,
+	 document => $document,
+	);
+
+      $library_index->add_entry($library_entry);
+    }
+
+  $document_entry = $document_index->get_entry($term);
+  $library_entry  = $library_index->get_entry($term);
+
+  $document_entry->add_locator($division_id);
+  $library_entry->add_locator($division_id);
 
   if ( $subterm )
     {
-      if ( not $entry->has_subentry($subterm) )
+      if ( not $document_entry->has_subentry($subterm) )
 	{
-	  $subentry = SML::IndexEntry->new
+	  $document_subentry = SML::IndexEntry->new
 	    (
 	     term     => $subterm,
 	     document => $document,
 	    );
 
-	  $entry->add_subentry($subentry);
+	  $document_entry->add_subentry($document_subentry);
 	}
 
-      $subentry = $entry->get_subentry($subterm);
-      $subentry->add_locator($division_id);
+      if ( not $library_entry->has_subentry($subterm) )
+	{
+	  $library_subentry = SML::IndexEntry->new
+	    (
+	     term     => $subterm,
+	     document => $document,
+	    );
+
+	  $library_entry->add_subentry($library_subentry);
+	}
+
+      $document_subentry = $document_entry->get_subentry($subterm);
+      $document_subentry->add_locator($division_id);
+
+      $library_subentry = $library_entry->get_subentry($subterm);
+      $library_subentry->add_locator($division_id);
 
       if ( $subsubterm )
 	{
-	  if ( not $subentry->has_subentry($subterm) )
+	  if ( not $document_subentry->has_subentry($subterm) )
 	    {
-	      $subsubentry = SML::IndexEntry->new
+	      $document_subsubentry = SML::IndexEntry->new
 		(
 		 term     => $subsubterm,
 		 document => $document,
 		);
 
-	      $subentry->add_subentry($subsubentry);
+	      $document_subentry->add_subentry($document_subsubentry);
 	    }
 
-	  $subsubentry = $subentry->get_subentry($subsubterm);
-	  $subsubentry->add_locator($division_id);
+	  if ( not $library_subentry->has_subentry($subterm) )
+	    {
+	      $library_subsubentry = SML::IndexEntry->new
+		(
+		 term     => $subsubterm,
+		 document => $document,
+		);
+
+	      $library_subentry->add_subentry($library_subsubentry);
+	    }
+
+	  $document_subsubentry = $document_subentry->get_subentry($subsubterm);
+	  $document_subsubentry->add_locator($division_id);
+
+	  $library_subsubentry = $library_subentry->get_subentry($subsubterm);
+	  $library_subsubentry->add_locator($division_id);
 	}
     }
 
@@ -10136,9 +10206,9 @@ sub _parse_document_index_terms {
       return 0;
     }
 
-  my $index = $document->get_index;
+  my $document_index = $document->get_index;
 
-  foreach my $entry (@{ $index->get_entry_list })
+  foreach my $entry (@{ $document_index->get_entry_list })
     {
       $self->_parse_index_term($entry);
     }

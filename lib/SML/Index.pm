@@ -20,15 +20,15 @@ my $logger = Log::Log4perl::get_logger('sml.Index');
 ######################################################################
 ######################################################################
 
-has document =>
+has library =>
   (
    is       => 'ro',
-   isa      => 'SML::Document',
-   reader   => 'get_document',
+   isa      => 'SML::Library',
+   reader   => 'get_library',
    required => 1,
   );
 
-# This is the document object to which the index belongs.
+# This is the library object to which the index belongs.
 
 ######################################################################
 ######################################################################
@@ -49,14 +49,13 @@ sub add_entry {
       return 0;
     }
 
-  my $hash     = $self->_get_entry_hash;
-  my $term     = $entry->get_term;
+  my $hash = $self->_get_entry_hash;
+  my $term = $entry->get_term;
 
   $logger->debug("add_entry $term");
 
-  my $document = $self->get_document;
-  my $library  = $document->get_library;
-  my $util     = $library->get_util;
+  my $library = $self->get_library;
+  my $util    = $library->get_util;
 
   $term = $util->strip_string_markup($term);
 
@@ -245,7 +244,7 @@ This documentation refers to L<"SML::Index"> version 2.0.0.
 
 =head1 SYNOPSIS
 
-  my $gloss = SML::Index->new();
+  my $gloss = SML::Index->new( library => $library );
 
 =head1 DESCRIPTION
 

@@ -208,7 +208,7 @@ sub publish_all_documents {
 
 ######################################################################
 
-sub publish_html_overall_index_page {
+sub publish_html_overall_main_page {
 
   # Publish an HTML 'overall' index page.  This page summarizes DRAFT,
   # REVIEW, and APPROVED libraries.
@@ -250,7 +250,7 @@ sub publish_html_overall_index_page {
 
   # overall index page
   $logger->debug("publishing overall index.html");
-  $tt->process("overall_index_page.tt",$vars,"index.html")
+  $tt->process("overall_main_page.tt",$vars,"index.html")
     || die $tt->error(), "\n";
 
   my $end = time();
@@ -263,7 +263,7 @@ sub publish_html_overall_index_page {
 
 ######################################################################
 
-sub publish_html_library_index_page {
+sub publish_html_library_main_page {
 
   # Publish an HTML library index page.  This page summarizes only the
   # DRAFT library.
@@ -314,7 +314,7 @@ sub publish_html_library_index_page {
 
   # library index page
   $logger->debug("publishing library index.html");
-  $tt->process("library_index_page.tt",$vars,"index.html")
+  $tt->process("library_main_page.tt",$vars,"index.html")
     || die $tt->error(), "\n";
 
   my $end = time();
@@ -337,6 +337,7 @@ sub publish_html_library_special_pages {
   # - library glossary page
   # - library acronym list page
   # - library references (bibliography) page
+  # - library index page
   # - library change page
   # - library errors page
 
@@ -439,6 +440,11 @@ sub publish_html_library_special_pages {
   # library references page
   $logger->debug("publishing references.html");
   $tt->process("library_references_page.tt",$vars,"references.html")
+    || die $tt->error(), "\n";
+
+  # library index page
+  $logger->debug("publishing library_index.html");
+  $tt->process("library_index_page.tt",$vars,"library_index.html")
     || die $tt->error(), "\n";
 
   if ( $library->contains_changes )
@@ -738,7 +744,7 @@ sub _publish_html_document {
       if ( $document->get_index->contains_entries )
 	{
 	  $logger->debug("publishing $id index.html");
-	  $tt->process("index_page.tt",$vars,"index.html")
+	  $tt->process("document_index_page.tt",$vars,"index.html")
 	    || die $tt->error(), "\n";
 	}
 

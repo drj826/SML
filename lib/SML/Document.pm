@@ -1138,8 +1138,12 @@ sub _build_references {
 ######################################################################
 
 sub _build_index {
+
   my $self = shift;
-  return SML::Index->new( document => $self );
+
+  my $library = $self->get_library;
+
+  return SML::Index->new( library => $library );
 }
 
 ######################################################################

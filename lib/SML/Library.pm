@@ -222,8 +222,21 @@ has references =>
    builder   => '_build_references',
   );
 
-# The references object contains a library-wide collaction of source
+# The references object contains a library-wide collection of source
 # references.
+
+######################################################################
+
+has index =>
+  (
+   is        => 'ro',
+   isa       => 'SML::Index',
+   reader    => 'get_index',
+   lazy      => 1,
+   builder   => '_build_index',
+  );
+
+# The index object contains a library-wide index of terms.
 
 ######################################################################
 
@@ -3814,6 +3827,13 @@ sub _build_acronym_list {
 sub _build_references {
   my $self = shift;
   return SML::References->new;
+}
+
+######################################################################
+
+sub _build_index {
+  my $self = shift;
+  return SML::Index->new( library => $self );
 }
 
 ######################################################################
