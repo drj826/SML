@@ -1171,12 +1171,11 @@ sub _extract_title_text {
   my $self  = shift;
   my $lines = shift;
 
-  my $library     = $self->_get_library;
-  my $syntax      = $library->get_syntax;
-  my $in_data_segment = 1;
-  my $in_title    = 0;
-  my $first_line  = 1;
-  my $title_text  = '';
+  my $library    = $self->_get_library;
+  my $syntax     = $library->get_syntax;
+  my $in_title   = 0;
+  my $first_line = 1;
+  my $title_text = '';
 
   # Ignore the first line if it begins a division.
 
@@ -1193,28 +1192,16 @@ sub _extract_title_text {
 	  next;
 	}
 
-      # begin title element
-      elsif (
-	     $in_data_segment
-	     and
-	     not $in_title
-	     and
-	     $text =~ /$syntax->{title_element}/
-	    )
+      # line begins title element
+      elsif ( not $in_title and $text =~ /$syntax->{title_element}/ )
 	{
 	  $first_line = 0;
 	  $in_title   = 1;
 	  $title_text = $3;
 	}
 
-      # begin section title
-      elsif (
-	     $in_data_segment
-	     and
-	     not $in_title
-	     and
-	     $text =~ /$syntax->{start_section}/
-	    )
+      # line begins section title
+      elsif ( not $in_title and $text =~ /$syntax->{start_section}/ )
 	{
 	  $first_line = 0;
 	  $in_title   = 1;
@@ -1222,30 +1209,16 @@ sub _extract_title_text {
 	}
 
       # blank line ends title
-      elsif (
-	     $in_title
-	     and
-	     $text =~ /$syntax->{blank_line}/
-	    )
+      elsif ( $in_title and $text =~ /$syntax->{blank_line}/ )
 	{
 	  return $title_text;
 	}
 
       # new element ends title
-      elsif (
-	     $in_title
-	     and
-	     $text =~ /$syntax->{element}/
-	    )
+      elsif ( $in_title and $text =~ /$syntax->{element}/ )
 	{
 	  return $title_text;
 	}
-
-      # data segment ending text?
-      # elsif ( $self->_line_ends_data_segment($text) )
-      # 	{
-      # 	  return $title_text;
-      # 	}
 
       # anything else continues the title
       elsif ( $in_title )
@@ -1254,6 +1227,10 @@ sub _extract_title_text {
 	  $title_text .= " $text";
 	}
 
+      else
+	{
+	  # do nothing
+	}
     }
 
   return $title_text;
@@ -3814,8 +3791,6 @@ sub _process_start_section_heading {
   $self->_end_baretable       if $self->_in_baretable;
   $self->_end_table           if $self->_in_table;
   $self->_end_section         if $self->_in_section;
-
-  # $self->_set_in_data_segment(1);
 
   # new title element
   $logger->trace("{$number} ..... new title");
@@ -7321,47 +7296,6 @@ sub _get_current_division {
 
   return $self->_get_division_stack->[-1];
 }
-
-######################################################################
-
-# sub _line_ends_data_segment {
-
-#   my $self = shift;
-#   my $text = shift;
-
-#   my $library = $self->_get_library;
-#   my $syntax  = $library->get_syntax;
-
-#   if (
-#          $text =~ /$syntax->{segment_separator}/xms
-#       or $text =~ /$syntax->{start_division}/xms
-#       or $text =~ /$syntax->{start_section}/xms
-#       or $text =~ /$syntax->{generate_element}/xms
-#       or $text =~ /$syntax->{insert_element}/xms
-#       or $text =~ /$syntax->{template_element}/xms
-#       or $text =~ /$syntax->{include_element}/xms
-#       or $text =~ /$syntax->{script_element}/xms
-#       or $text =~ /$syntax->{outcome_element}/xms
-#       or $text =~ /$syntax->{review_element}/xms
-#       or $text =~ /$syntax->{index_element}/xms
-#       or $text =~ /$syntax->{glossary_element}/xms
-#       or $text =~ /$syntax->{list_item}/xms
-#       or
-#       (
-#        $text =~ /$syntax->{paragraph_text}/xms
-#        and
-#        not $text =~ /$syntax->{element}/xms
-#       )
-#      )
-#     {
-#       return 1;
-#     }
-
-#   else
-#     {
-#       return 0;
-#     }
-# }
 
 ######################################################################
 
