@@ -20,13 +20,7 @@ my $logger = Log::Log4perl::get_logger('sml.Reasoner');
 ######################################################################
 ######################################################################
 
-has library =>
-  (
-   is        => 'ro',
-   isa       => 'SML::Library',
-   reader    => 'get_library',
-   required  => 1,
-  );
+# NONE
 
 ######################################################################
 ######################################################################
@@ -47,7 +41,7 @@ sub infer_inverse_triple {
       return 0;
     }
 
-  my $library      = $self->get_library;
+  my $library      = $self->_get_library;
   my $ontology     = $library->get_ontology;
   my $subject      = $triple->get_subject;
   my $predicate    = $triple->get_predicate;
@@ -84,7 +78,8 @@ sub infer_status_from_outcome {
   my $self    = shift;
   my $outcome = shift;
 
-  my $library     = $self->get_library;
+  my $library     = $self->_get_library;
+  my $ps          = $library->get_property_store;
   my $entity_id   = $outcome->get_entity_id;
   my $status      = $outcome->get_status;
   my $date        = $outcome->get_date;
@@ -97,10 +92,27 @@ sub infer_status_from_outcome {
     }
 
   $logger->trace("inferred status $status from outcome for $entity_id");
-  $library->set_property_value($entity_id,'status',$status);
+
+  $ps->set_property_text($entity_id,'status',$status);
 
   return 1;
 }
+
+######################################################################
+######################################################################
+##
+## Private Attributes
+##
+######################################################################
+######################################################################
+
+has library =>
+  (
+   is        => 'ro',
+   isa       => 'SML::Library',
+   reader    => '_get_library',
+   required  => 1,
+  );
 
 ######################################################################
 ######################################################################
@@ -109,6 +121,8 @@ sub infer_status_from_outcome {
 ##
 ######################################################################
 ######################################################################
+
+# NONE
 
 ######################################################################
 
@@ -148,8 +162,6 @@ to perform reasoning; inference commonly proceeds by forward chaining
 and backward chaining.
 
 =head1 METHODS
-
-=head2 get_library
 
 =head2 infer_inverse_property
 

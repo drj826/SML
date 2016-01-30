@@ -27,16 +27,6 @@ my $logger = Log::Log4perl::get_logger('sml.Publisher');
 ######################################################################
 ######################################################################
 
-has library =>
-  (
-   is        => 'ro',
-   isa       => 'SML::Library',
-   reader    => 'get_library',
-   required  => 1,
-  );
-
-######################################################################
-
 has publish_date_time =>
   (
    is      => 'ro',
@@ -124,7 +114,7 @@ sub publish {
   my $now = localtime();
   $self->_set_publish_date_time( $now );
 
-  my $library = $self->get_library;
+  my $library = $self->_get_library;
 
   # validate the library has a document with this ID
   if ( not $library->has_document_id($id) )
@@ -187,7 +177,7 @@ sub publish_all_documents {
 
   my $begin = time();
 
-  my $library = $self->get_library;
+  my $library = $self->_get_library;
 
   $logger->info("publish all library documents");
 
@@ -220,7 +210,7 @@ sub publish_html_overall_main_page {
 
   $logger->info("publish $style html overall index page");
 
-  my $library      = $self->get_library;
+  my $library      = $self->_get_library;
   my $template_dir = $library->get_template_dir . "/html/$style";
 
   unless ( -d $template_dir )
@@ -275,7 +265,7 @@ sub publish_html_library_main_page {
 
   $logger->info("publish $style html library index page");
 
-  my $library      = $self->get_library;
+  my $library      = $self->_get_library;
   my $template_dir = $library->get_template_dir . "/html/$style";
 
   unless ( -d $template_dir )
@@ -301,10 +291,18 @@ sub publish_html_library_main_page {
       $logger->debug("made directory $state_dir");
     }
 
+  my $library_dir = "$state_dir/LIBRARY";
+
+  unless ( -d $library_dir )
+    {
+      mkdir "$library_dir", 0755;
+      $logger->debug("made directory $library_dir");
+    }
+
   my $tt_config =
     {
      INCLUDE_PATH => $template_dir,
-     OUTPUT_PATH  => $state_dir,
+     OUTPUT_PATH  => $library_dir,
      RECURSION    => 1,
     };
 
@@ -351,7 +349,7 @@ sub publish_html_library_special_pages {
   my $now = localtime();
   $self->_set_publish_date_time( $now );
 
-  my $library      = $self->get_library;
+  my $library      = $self->_get_library;
   my $template_dir = $library->get_template_dir . "/html/$style";
 
   unless ( -d $template_dir )
@@ -377,15 +375,23 @@ sub publish_html_library_special_pages {
       $logger->debug("made directory $state_dir");
     }
 
-  if ( -f "$state_dir/errors.html" )
+  my $library_dir = "$state_dir/LIBRARY";
+
+  unless ( -d $library_dir )
     {
-      unlink "$state_dir/errors.html";
+      mkdir "$library_dir", 0755;
+      $logger->debug("made directory $library_dir");
+    }
+
+  if ( -f "$library_dir/errors.html" )
+    {
+      unlink "$library_dir/errors.html";
     }
 
   my $tt_config =
     {
      INCLUDE_PATH => $template_dir,
-     OUTPUT_PATH  => $state_dir,
+     OUTPUT_PATH  => $library_dir,
      RECURSION    => 1,
     };
 
@@ -528,6 +534,16 @@ sub can_publish {
 ######################################################################
 ######################################################################
 
+has library =>
+  (
+   is        => 'ro',
+   isa       => 'SML::Library',
+   reader    => '_get_library',
+   required  => 1,
+  );
+
+######################################################################
+
 has scaled_image_width =>
   (
    is      => 'ro',
@@ -556,7 +572,7 @@ sub _publish_html_document {
       return 0;
     }
 
-  my $library      = $self->get_library;
+  my $library      = $self->_get_library;
   my $template_dir = $library->get_template_dir . "/html/$style";
 
   unless ( -d $template_dir )
@@ -777,10 +793,10 @@ sub _publish_html_document {
 	  $logger->debug("made directory $published_dir/images");
 	}
 
-      unless ( -d "$state_dir/images" )
+      unless ( -d "$state_dir/LIBRARY/images" )
 	{
-	  mkdir "$state_dir/images", 0755;
-	  $logger->debug("made directory $state_dir/images");
+	  mkdir "$state_dir/LIBRARY/images", 0755;
+	  $logger->debug("made directory $state_dir/LIBRARY/images");
 	}
 
       unless ( -d "$output_dir/images" )
@@ -793,7 +809,7 @@ sub _publish_html_document {
 	{
 	  my $orig  = "$images_dir/$image";
 	  my $copy1 = "$published_dir/images/$image";
-	  my $copy2 = "$state_dir/images/$image";
+	  my $copy2 = "$state_dir/LIBRARY/images/$image";
 	  my $copy3 = "$output_dir/images/$image";
 
 	  if ( not -f $orig )
@@ -850,7 +866,7 @@ sub _publish_html_document {
       dircopy("$template_dir/images","$output_dir/images")
 	|| die "Couldn't copy images directory";
 
-      dircopy("$template_dir/images","$state_dir/images")
+      dircopy("$template_dir/images","$state_dir/LIBRARY/images")
 	|| die "Couldn't copy images directory";
     }
 
@@ -859,7 +875,7 @@ sub _publish_html_document {
       dircopy("$template_dir/css","$output_dir/css")
 	|| die "Couldn't copy css directory";
 
-      dircopy("$template_dir/css","$state_dir/css")
+      dircopy("$template_dir/css","$state_dir/LIBRARY/css")
 	|| die "Couldn't copy css directory";
     }
 
@@ -868,7 +884,7 @@ sub _publish_html_document {
       dircopy("$template_dir/javascript","$output_dir/javascript")
 	|| die "Couldn't copy javascript directory";
 
-      dircopy("$template_dir/javascript","$state_dir/javascript")
+      dircopy("$template_dir/javascript","$state_dir/LIBRARY/javascript")
 	|| die "Couldn't copy javascript directory";
     }
 
@@ -893,7 +909,7 @@ sub _publish_sml_document {
       return 0;
     }
 
-  my $library      = $self->get_library;
+  my $library      = $self->_get_library;
   my $template_dir = $library->get_template_dir . "/sml/$style";
 
   if ( not -d $template_dir )
@@ -948,7 +964,7 @@ sub _publish_latex_document {
   my $document = shift;                 # document to publish
   my $style    = shift;                 # default
 
-  my $library       = $self->get_library;
+  my $library       = $self->_get_library;
   my $published_dir = $library->get_published_dir;
   my $template_dir  = $library->get_template_dir . "/html/$style";
 
@@ -1017,7 +1033,7 @@ sub _publish_html_image {
   my $image    = shift;                 # image to resize and/or copy
 
   my $id             = $document->get_id;
-  my $library        = $self->get_library;
+  my $library        = $self->_get_library;
   my $state          = 'DRAFT';
   my $published_dir  = $library->get_published_dir;
   my $filespec       = $image->get_value;
@@ -1092,7 +1108,7 @@ sub _publish_html_file {
   my $file     = shift;                 # file to copy
 
   my $id             = $document->get_id;
-  my $library        = $self->get_library;
+  my $library        = $self->_get_library;
   my $state          = 'DRAFT';
   my $published_dir  = $library->get_published_dir;
   my $filespec       = $file->get_value;

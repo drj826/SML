@@ -744,17 +744,11 @@ sub BUILD {
 
   my $id      = $self->get_id;
   my $library = $self->get_library;
+  my $ps      = $library->get_property_store;
 
   if ( $id )
     {
-      my $id_element = SML::Element->new
-	(
-	 name    => 'id',
-	 library => $self->get_library,
-	 value   => $id,
-	);
-
-      $library->add_property_value($id,'id',$id,$id_element);
+      $ps->add_property_value($id,'id',$id);
     }
 
   return 1;

@@ -77,7 +77,7 @@ sub get_target_part {
       return 0;
     }
 
-      return $document->get_part($id);
+  return $document->get_part($id);
 }
 
 ######################################################################
@@ -95,6 +95,17 @@ sub get_target_part {
 ##
 ######################################################################
 ######################################################################
+
+sub _build_plain_text {
+
+  my $self = shift;
+
+  my $target_id = $self->get_target_id;
+  my $library   = $self->get_library;
+  my $ps        = $library->get_property_store;
+
+  return $ps->get_property_text($target_id,'title');
+}
 
 ######################################################################
 

@@ -400,18 +400,19 @@ sub contains_header {
 
   my $id      = $self->get_id;
   my $library = $self->get_library;
+  my $ps      = $library->get_property_store;
 
   if
     (
-        $library->has_property($id,'header_left')
-     or $library->has_property($id,'header_center')
-     or $library->has_property($id,'header_right')
-     or $library->has_property($id,'header_left_even')
-     or $library->has_property($id,'header_center_even')
-     or $library->has_property($id,'header_right_even')
-     or $library->has_property($id,'header_left_odd')
-     or $library->has_property($id,'header_center_odd')
-     or $library->has_property($id,'header_right_odd')
+        $ps->has_property($id,'header_left')
+     or $ps->has_property($id,'header_center')
+     or $ps->has_property($id,'header_right')
+     or $ps->has_property($id,'header_left_even')
+     or $ps->has_property($id,'header_center_even')
+     or $ps->has_property($id,'header_right_even')
+     or $ps->has_property($id,'header_left_odd')
+     or $ps->has_property($id,'header_center_odd')
+     or $ps->has_property($id,'header_right_odd')
     )
     {
       return 1;
@@ -428,18 +429,19 @@ sub contains_footer {
 
   my $id      = $self->get_id;
   my $library = $self->get_library;
+  my $ps      = $library->get_property_store;
 
   if
     (
-        $library->has_property($id,'footer_left')
-     or $library->has_property($id,'footer_center')
-     or $library->has_property($id,'footer_right')
-     or $library->has_property($id,'footer_left_even')
-     or $library->has_property($id,'footer_center_even')
-     or $library->has_property($id,'footer_right_even')
-     or $library->has_property($id,'footer_left_odd')
-     or $library->has_property($id,'footer_center_odd')
-     or $library->has_property($id,'footer_right_odd')
+        $ps->has_property($id,'footer_left')
+     or $ps->has_property($id,'footer_center')
+     or $ps->has_property($id,'footer_right')
+     or $ps->has_property($id,'footer_left_even')
+     or $ps->has_property($id,'footer_center_even')
+     or $ps->has_property($id,'footer_right_even')
+     or $ps->has_property($id,'footer_left_odd')
+     or $ps->has_property($id,'footer_center_odd')
+     or $ps->has_property($id,'footer_right_odd')
     )
     {
       return 1;

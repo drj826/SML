@@ -219,6 +219,23 @@ sub strip_string_markup {
 }
 
 ######################################################################
+
+sub commify_series {
+
+  # Return a scalar which is a comma separated series of elements
+  # joined with an "and" before the last element.
+  #
+  # Cite: Perl Cookbook section 4.2 pg 93.
+
+  my $self = shift;
+
+  ( @_ == 0 ) ? ''                :
+  ( @_ == 1 ) ? $_[0]             :
+  ( @_ == 2 ) ? join(" and ", @_) :
+                join(", ", @_[ 0 .. ($#_-1)], "and $_[-1]");
+ }
+
+######################################################################
 ######################################################################
 ##
 ## Private Methods

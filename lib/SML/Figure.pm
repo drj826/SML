@@ -83,13 +83,11 @@ sub _build_image_file_basename {
 
   my $library = $self->get_library;
   my $id      = $self->get_id;
+  my $ps      = $library->get_property_store;
 
-  if ( $library->has_property($id,'image') )
+  if ( $ps->has_property($id,'image') )
     {
-      my $list = $library->get_property_value_list($id,'image');
-
-      # just take the first value, ignore any others
-      my $image_filespec = $list->[0];
+      my $image_filespec = $ps->get_property_text($id,'image');
 
       return basename($image_filespec);
     }

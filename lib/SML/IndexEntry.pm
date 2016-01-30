@@ -190,12 +190,13 @@ sub get_location {
       my $document = $self->get_document;
       my $library  = $document->get_library;
       my $division = $library->get_division($locator);
+      my $ps       = $library->get_property_store;
 
       while ( $division )
 	{
 	  my $division_id = $division->get_id;
 
-	  if ( $library->has_property($division_id,'title') )
+	  if ( $ps->has_property($division_id,'title') )
 	    {
 	      return $division;
 	    }

@@ -178,16 +178,9 @@ sub parse_library_index_terms {
 
   # Parse each plain text index term into an SML::String object.
 
-  my $self    = shift;
-  my $library = shift;
+  my $self = shift;
 
-  unless ( ref $library )
-    {
-      my $msg = "CAN'T PARSE LIBRARY INDEX TERMS, MISSING ARGUMENT";
-      $self->_handle_error('error',$msg);
-      return 0;
-    }
-
+  my $library       = $self->_get_library;
   my $library_index = $library->get_index;
 
   foreach my $entry (@{ $library_index->get_entry_list })
@@ -199,330 +192,16 @@ sub parse_library_index_terms {
 }
 
 ######################################################################
-######################################################################
-##
-## Private Attributes
-##
-######################################################################
-######################################################################
 
-has library =>
-  (
-   is        => 'ro',
-   isa       => 'SML::Library',
-   reader    => '_get_library',
-   required  => 1,
-  );
-
-# This is the library to which this parser belongs.
-
-######################################################################
-
-has number =>
-  (
-   is       => 'ro',
-   isa      => 'Int',
-   reader   => '_get_number',
-   required => 1,
-  );
-
-######################################################################
-
-has division =>
-  (
-   is        => 'ro',
-   isa       => 'SML::Division',
-   reader    => '_get_division',
-   writer    => '_set_division',
-   predicate => '_has_division',
-   clearer   => '_clear_division',
-  );
-
-# This is the division object being parsed by parse method, often a
-# document.
-
-######################################################################
-
-has line_list =>
-  (
-   is        => 'ro',
-   isa       => 'ArrayRef',
-   reader    => '_get_line_list',
-   writer    => '_set_line_list',
-   clearer   => '_clear_line_list',
-   default   => sub {[]},
-  );
-
-# This is the sequential array of lines that make up the file being
-# parsed.
-
-######################################################################
-
-has block =>
-  (
-   is        => 'ro',
-   isa       => 'SML::Block',
-   reader    => '_get_block',
-   writer    => '_set_block',
-   predicate => '_has_block',
-   clearer   => '_clear_block',
-  );
-
-# This is the current block at any given time during parsing. A block
-# is a contiguous sequence of one or more whole lines of text.  Blocks
-# end with either a blank line or the beginning of another
-# block. Blocks cannot contain blank lines. Blocks may contain inline
-# elements which span lines.
-
-######################################################################
-
-has string =>
-  (
-   is        => 'ro',
-   isa       => 'SML::String',
-   reader    => '_get_string',
-   writer    => '_set_string',
-   clearer   => '_clear_string',
-  );
-
-# This is the current string at any given time during parsing. A
-# string is a sequence of one or more characters.  Strings can be
-# nested.  This means a string can have a list of parts which
-# themselves are strings.  A string must be contained withing a single
-# block.  Strings cannot span blocks.
-
-######################################################################
-
-has division_stack =>
-  (
-   is        => 'ro',
-   isa       => 'ArrayRef',
-   reader    => '_get_division_stack',
-   writer    => '_set_division_stack',
-   clearer   => '_clear_division_stack',
-   predicate => '_has_division_stack',
-   default   => sub {[]},
-  );
-
-# This is a stack of nested divisions at any point during document
-# parsing.  A division is a contiguous sequence of blocks.  Divisions
-# may be nested within one another. A division has an unambiguous
-# beginning and end. Sometimes the beginning and end are explicit and
-# other times they are implicit.
-#
-#   $current_division = $division_stack->[-1];
-#   $self->_push_division_stack($division);
-#   my $division = $self->_pop_division_stack;
-
-######################################################################
-
-has container_stack =>
-  (
-   is        => 'ro',
-   isa       => 'ArrayRef',
-   reader    => '_get_container_stack',
-   writer    => '_set_container_stack',
-   clearer   => '_clear_container_stack',
-   predicate => '_has_container_stack',
-   default   => sub {[]},
-  );
-
-# This is a stack of nested parts at any point during document
-# parsing.  Divisions, blocks, and strings are parts. Divisions may
-# contain other divisions and blocks.  Blocks may contain strings.
-# Strings may contain other strings. A part has an unambiguous
-# beginning and end. Sometimes the beginning and end are explicit and
-# other times they are implicit.
-#
-#   $current_container = $container_stack->[-1];
-#   $self->_push_container_stack($part);
-#   my $part = $self->_pop_container_stack;
-
-######################################################################
-
-has list_stack =>
-  (
-   is        => 'ro',
-   isa       => 'ArrayRef',
-   reader    => '_get_list_stack',
-   writer    => '_set_list_stack',
-   clearer   => '_clear_list_stack',
-   predicate => '_has_list_stack',
-   default   => sub {[]},
-  );
-
-# This is a stack of bullet and enumerated lists.
-
-######################################################################
-
-has column =>
-  (
-   is        => 'ro',
-   isa       => 'Int',
-   reader    => '_get_column',
-   writer    => '_set_column',
-   default   => 0,
-  );
-
-# This is the current table column.
-
-######################################################################
-
-has count_method_hash =>
-  (
-   is        => 'ro',
-   isa       => 'HashRef',
-   reader    => '_get_count_method_hash',
-   writer    => '_set_count_method_hash',
-   clearer   => '_clear_count_method_hash',
-   default   => sub {{}},
-  );
-
-# This is a count of the number of times a method has been invoked.
-
-#   $count = $count_method->{$name};
-
-######################################################################
-
-has requires_processing =>
-  (
-   is        => 'ro',
-   isa     => 'Bool',
-   reader  => '_requires_processing',
-   writer  => '_set_requires_processing',
-   clearer => '_clear_requires_processing',
-   default => 0,
-  );
-
-# Don't confuse this boolean value with the private method
-# '_text_requires_processing' that determines whether or not the text
-# requires further processing.
-
-######################################################################
-
-has section_counter_hash =>
-  (
-   is        => 'ro',
-   isa       => 'HashRef',
-   reader    => '_get_section_counter_hash',
-   writer    => '_set_section_counter_hash',
-   clearer   => '_clear_section_counter_hash',
-   default   => sub {{}},
-  );
-
-# $section_counter->{$depth} = $count;
-# $section_counter->{1}      = 3;         # third top-level section
-
-######################################################################
-
-has division_counter_hash =>
-  (
-   is        => 'ro',
-   isa       => 'HashRef',
-   reader    => '_get_division_counter_hash',
-   writer    => '_set_division_counter_hash',
-   clearer   => '_clear_division_counter_hash',
-   default   => sub {{}},
-  );
-
-# $division_counter->{$name}   = $count;
-# $division_counter->{'table'} = 4;      # forth table in this top-level
-
-######################################################################
-
-has valid =>
-  (
-   is        => 'ro',
-   isa       => 'Bool',
-   reader    => '_is_valid',
-   writer    => '_set_is_valid',
-   clearer   => '_clear_is_valid',
-   default   => 1,
-  );
-
-######################################################################
-
-has string_type_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => '_get_string_type_list',
-   lazy    => 1,
-   builder => '_build_string_type_list',
-  );
-
-######################################################################
-
-has single_string_type_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => '_get_single_string_type_list',
-   lazy    => 1,
-   builder => '_build_single_string_type_list',
-  );
-
-######################################################################
-
-has step_count =>
-  (
-   is      => 'ro',
-   isa     => 'Int',
-   reader  => '_get_step_count',
-   writer  => '_set_step_count',
-   default => 1,
-  );
-
-######################################################################
-######################################################################
-##
-## Private Methods
-##
-######################################################################
-######################################################################
-
-sub _init {
-
-  my $self = shift;
-
-  my $library = $self->_get_library;
-  my $options = $library->get_options;
-
-  if ( not $options->use_svn )
-    {
-      $logger->trace("not using SVN, won't warn about uncommitted changes");
-    }
-
-  $self->_clear_count_method_hash;
-  $self->_set_count_method_hash({});
-  $self->_clear_line_list;
-  $self->_set_line_list([]);
-  $self->_clear_division;
-  $self->_clear_block;
-  $self->_clear_string;
-  $self->_clear_division_stack;
-  $self->_set_division_stack([]);
-  $self->_clear_container_stack;
-  $self->_set_container_stack([]);
-  $self->_set_column(0);
-  $self->_clear_requires_processing;
-  $self->_set_requires_processing(0);
-  $self->_clear_section_counter_hash;
-  $self->_set_section_counter_hash({});
-  $self->_clear_is_valid;
-
-  return 1;
-}
-
-######################################################################
-
-sub _create_string {
+sub create_string {
 
   # Return a string object. Create the string object by parsing text
   # into a whole/part hierarchy of strings.
 
   my $self = shift;
-  my $text = shift;                     # i.e. !!my bold text!!
+
+  my $text      = shift;                # i.e. !!my bold text!!
+  my $container = shift || q{};         # containing part
 
   # !!! BUG HERE !!!
   #
@@ -536,9 +215,7 @@ sub _create_string {
       return 0;
     }
 
-  $logger->trace("_create_string $text");
-
-  my $container;                        # containing part
+  $logger->trace("create_string $text");
 
   if ( $self->_has_current_container )
     {
@@ -1166,6 +843,322 @@ sub _create_string {
       return 0;
     }
 
+}
+
+######################################################################
+######################################################################
+##
+## Private Attributes
+##
+######################################################################
+######################################################################
+
+has library =>
+  (
+   is        => 'ro',
+   isa       => 'SML::Library',
+   reader    => '_get_library',
+   required  => 1,
+  );
+
+# This is the library to which this parser belongs.
+
+######################################################################
+
+has number =>
+  (
+   is       => 'ro',
+   isa      => 'Int',
+   reader   => '_get_number',
+   required => 1,
+  );
+
+######################################################################
+
+has division =>
+  (
+   is        => 'ro',
+   isa       => 'SML::Division',
+   reader    => '_get_division',
+   writer    => '_set_division',
+   predicate => '_has_division',
+   clearer   => '_clear_division',
+  );
+
+# This is the division object being parsed by parse method, often a
+# document.
+
+######################################################################
+
+has line_list =>
+  (
+   is        => 'ro',
+   isa       => 'ArrayRef',
+   reader    => '_get_line_list',
+   writer    => '_set_line_list',
+   clearer   => '_clear_line_list',
+   default   => sub {[]},
+  );
+
+# This is the sequential array of lines that make up the file being
+# parsed.
+
+######################################################################
+
+has block =>
+  (
+   is        => 'ro',
+   isa       => 'SML::Block',
+   reader    => '_get_block',
+   writer    => '_set_block',
+   predicate => '_has_block',
+   clearer   => '_clear_block',
+  );
+
+# This is the current block at any given time during parsing. A block
+# is a contiguous sequence of one or more whole lines of text.  Blocks
+# end with either a blank line or the beginning of another
+# block. Blocks cannot contain blank lines. Blocks may contain inline
+# elements which span lines.
+
+######################################################################
+
+has string =>
+  (
+   is        => 'ro',
+   isa       => 'SML::String',
+   reader    => '_get_string',
+   writer    => '_set_string',
+   clearer   => '_clear_string',
+  );
+
+# This is the current string at any given time during parsing. A
+# string is a sequence of one or more characters.  Strings can be
+# nested.  This means a string can have a list of parts which
+# themselves are strings.  A string must be contained withing a single
+# block.  Strings cannot span blocks.
+
+######################################################################
+
+has division_stack =>
+  (
+   is        => 'ro',
+   isa       => 'ArrayRef',
+   reader    => '_get_division_stack',
+   writer    => '_set_division_stack',
+   clearer   => '_clear_division_stack',
+   predicate => '_has_division_stack',
+   default   => sub {[]},
+  );
+
+# This is a stack of nested divisions at any point during document
+# parsing.  A division is a contiguous sequence of blocks.  Divisions
+# may be nested within one another. A division has an unambiguous
+# beginning and end. Sometimes the beginning and end are explicit and
+# other times they are implicit.
+#
+#   $current_division = $division_stack->[-1];
+#   $self->_push_division_stack($division);
+#   my $division = $self->_pop_division_stack;
+
+######################################################################
+
+has container_stack =>
+  (
+   is        => 'ro',
+   isa       => 'ArrayRef',
+   reader    => '_get_container_stack',
+   writer    => '_set_container_stack',
+   clearer   => '_clear_container_stack',
+   predicate => '_has_container_stack',
+   default   => sub {[]},
+  );
+
+# This is a stack of nested parts at any point during document
+# parsing.  Divisions, blocks, and strings are parts. Divisions may
+# contain other divisions and blocks.  Blocks may contain strings.
+# Strings may contain other strings. A part has an unambiguous
+# beginning and end. Sometimes the beginning and end are explicit and
+# other times they are implicit.
+#
+#   $current_container = $container_stack->[-1];
+#   $self->_push_container_stack($part);
+#   my $part = $self->_pop_container_stack;
+
+######################################################################
+
+has list_stack =>
+  (
+   is        => 'ro',
+   isa       => 'ArrayRef',
+   reader    => '_get_list_stack',
+   writer    => '_set_list_stack',
+   clearer   => '_clear_list_stack',
+   predicate => '_has_list_stack',
+   default   => sub {[]},
+  );
+
+# This is a stack of bullet and enumerated lists.
+
+######################################################################
+
+has column =>
+  (
+   is        => 'ro',
+   isa       => 'Int',
+   reader    => '_get_column',
+   writer    => '_set_column',
+   default   => 0,
+  );
+
+# This is the current table column.
+
+######################################################################
+
+has count_method_hash =>
+  (
+   is        => 'ro',
+   isa       => 'HashRef',
+   reader    => '_get_count_method_hash',
+   writer    => '_set_count_method_hash',
+   clearer   => '_clear_count_method_hash',
+   default   => sub {{}},
+  );
+
+# This is a count of the number of times a method has been invoked.
+
+#   $count = $count_method->{$name};
+
+######################################################################
+
+has requires_processing =>
+  (
+   is        => 'ro',
+   isa     => 'Bool',
+   reader  => '_requires_processing',
+   writer  => '_set_requires_processing',
+   clearer => '_clear_requires_processing',
+   default => 0,
+  );
+
+# Don't confuse this boolean value with the private method
+# '_text_requires_processing' that determines whether or not the text
+# requires further processing.
+
+######################################################################
+
+has section_counter_hash =>
+  (
+   is        => 'ro',
+   isa       => 'HashRef',
+   reader    => '_get_section_counter_hash',
+   writer    => '_set_section_counter_hash',
+   clearer   => '_clear_section_counter_hash',
+   default   => sub {{}},
+  );
+
+# $section_counter->{$depth} = $count;
+# $section_counter->{1}      = 3;         # third top-level section
+
+######################################################################
+
+has division_counter_hash =>
+  (
+   is        => 'ro',
+   isa       => 'HashRef',
+   reader    => '_get_division_counter_hash',
+   writer    => '_set_division_counter_hash',
+   clearer   => '_clear_division_counter_hash',
+   default   => sub {{}},
+  );
+
+# $division_counter->{$name}   = $count;
+# $division_counter->{'table'} = 4;      # forth table in this top-level
+
+######################################################################
+
+has valid =>
+  (
+   is        => 'ro',
+   isa       => 'Bool',
+   reader    => '_is_valid',
+   writer    => '_set_is_valid',
+   clearer   => '_clear_is_valid',
+   default   => 1,
+  );
+
+######################################################################
+
+has string_type_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => '_get_string_type_list',
+   lazy    => 1,
+   builder => '_build_string_type_list',
+  );
+
+######################################################################
+
+has single_string_type_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => '_get_single_string_type_list',
+   lazy    => 1,
+   builder => '_build_single_string_type_list',
+  );
+
+######################################################################
+
+has step_count =>
+  (
+   is      => 'ro',
+   isa     => 'Int',
+   reader  => '_get_step_count',
+   writer  => '_set_step_count',
+   default => 1,
+  );
+
+######################################################################
+######################################################################
+##
+## Private Methods
+##
+######################################################################
+######################################################################
+
+sub _init {
+
+  my $self = shift;
+
+  my $library = $self->_get_library;
+  my $options = $library->get_options;
+
+  if ( not $options->use_svn )
+    {
+      $logger->trace("not using SVN, won't warn about uncommitted changes");
+    }
+
+  $self->_clear_count_method_hash;
+  $self->_set_count_method_hash({});
+  $self->_clear_line_list;
+  $self->_set_line_list([]);
+  $self->_clear_division;
+  $self->_clear_block;
+  $self->_clear_string;
+  $self->_clear_division_stack;
+  $self->_set_division_stack([]);
+  $self->_clear_container_stack;
+  $self->_set_container_stack([]);
+  $self->_set_column(0);
+  $self->_clear_requires_processing;
+  $self->_set_requires_processing(0);
+  $self->_clear_section_counter_hash;
+  $self->_set_section_counter_hash({});
+  $self->_clear_is_valid;
+
+  return 1;
 }
 
 ######################################################################
@@ -2817,11 +2810,6 @@ sub _end_element {
       $self->_process_end_review($element);
     }
 
-  # elsif ( $element_name eq 'image' )
-  #   {
-  #     $self->_process_end_element($element);
-  #   }
-
   elsif ( $element_name eq 'index' )
     {
       $self->_process_end_index_element($element);
@@ -2859,24 +2847,26 @@ sub _end_element {
 
   my $element_value = $element->get_value;
   my $library       = $self->_get_library;
-  my $ontology      = $library->get_ontology;
-  my $reasoner      = $library->get_reasoner;
+  my $ps            = $library->get_property_store;
+  my $division      = $element->get_containing_division;
+  my $division_id   = $division->get_id;
+  my $division_name = $division->get_name;
+
+  if ( $element_value )
+    {
+      $ps->add_element($division_id,$element);
+    }
+
+  else
+    {
+      $logger->error("WHY NO ELEMENT VALUE? $element");
+    }
+
+  my $ontology = $library->get_ontology;
+  my $reasoner = $library->get_reasoner;
 
   if ( not $ontology->property_is_universal($element_name) )
     {
-
-      my $division      = $element->get_containing_division;
-      my $division_id   = $division->get_id;
-      my $division_name = $division->get_name;
-
-      $library->add_property_value
-	(
-	 $division_id,
-	 $element_name,
-	 $element_value,
-	 $element,
-	);
-
       if ( $library->has_division_id($element_value) )
 	{
 	  # parse the referenced division into memory
@@ -2888,7 +2878,7 @@ sub _end_element {
 
 	  if ( $ontology->allows_triple($subject,$predicate,$object) )
 	    {
-	      unless ( $library->has_triple($subject,$predicate,$object) )
+	      unless ( $ps->has_triple($subject,$predicate,$object) )
 		{
 		  my $triple = SML::Triple->new
 		    (
@@ -2899,7 +2889,7 @@ sub _end_element {
 		     origin    => $element,
 		    );
 
-		  $library->add_triple($triple);
+		  $ps->add_triple($triple);
 
 		  my $inverse_triple = $reasoner->infer_inverse_triple($triple);
 
@@ -2910,15 +2900,7 @@ sub _end_element {
 		      my $object           = $inverse_triple->get_object;
 		      my $subject_division = $library->get_division($subject);
 
-		      $library->add_property_value
-			(
-			 $subject,
-			 $predicate,
-			 $object,
-			 1,
-			);
-
-		      $library->add_triple($inverse_triple);
+		      $ps->add_triple($inverse_triple);
 		    }
 		}
 	    }
@@ -3653,13 +3635,12 @@ sub _process_start_division_marker {
   my $name = shift;                     # division name
   my $id   = shift || q{};              # division ID
 
-  # return if $name eq 'RAW';
-
   my $number = $self->_get_number;
 
   $logger->trace("{$number} ----- start division ($name.$id)");
 
   my $library  = $self->_get_library;
+  my $ps       = $library->get_property_store;
   my $location = $line->get_location;
   my $ontology = $library->get_ontology;
   my $num      = $library->increment_division_count($name);
@@ -3732,8 +3713,6 @@ sub _process_end_division_marker {
 
   $logger->trace("{$number} ----- end division ($name)");
 
-  # $self->_set_in_data_segment(0);
-
   $self->_end_all_lists       if $self->_in_bullet_list;
   $self->_end_all_lists       if $self->_in_enumerated_list;
   $self->_end_definition_list if $self->_in_definition_list;
@@ -3773,6 +3752,8 @@ sub _process_end_division_marker {
       $logger->logcluck("THIS SHOULD NEVER HAPPEN");
     }
 
+  my $ontology = $library->get_ontology;
+
   if ( $name eq 'DOCUMENT' )
     {
       my $document = $division;
@@ -3781,10 +3762,16 @@ sub _process_end_division_marker {
       $self->_parse_document_index_terms($document);
       $self->_validate_division_blocks($document);
       $self->_parse_division_blocks($document);
+      # $self->_transform_elements_to_properties($division);
       $self->_build_document_glossary($document);
       $self->_build_document_acronym_list($document);
       $self->_build_document_references($document);
     }
+
+  # elsif ( $ontology->is_entity($name) )
+  #   {
+  #     $self->_transform_elements_to_properties($division);
+  #   }
 
   my $block = SML::PreformattedBlock->new
     (
@@ -3814,6 +3801,7 @@ sub _process_start_section_heading {
   $logger->trace("{$number} ----- start division (SECTION.$id)");
 
   my $library  = $self->_get_library;
+  my $ps       = $library->get_property_store;
   my $location = $line->get_location;
   my $ontology = $library->get_ontology;
   my $num      = $library->increment_division_count('SECTION');
@@ -4328,6 +4316,7 @@ sub _process_bull_list_item {
   my $indent  = length($whitespace);
   my $library = $self->_get_library;
   my $number  = $self->_get_number;
+  my $ps      = $library->get_property_store;
 
   $logger->trace("{$number} ----- bullet list item (indent=$indent)");
 
@@ -4462,10 +4451,11 @@ sub _process_bull_list_item {
       $logger->trace("{$number} ..... new top level bullet list");
 
       my $count = $library->increment_division_count('BULLET_LIST');
+      my $id    = "BULLET_LIST-$count";
 
       my $list = SML::BulletList->new
 	(
-	 id                 => "BULLET_LIST-$count",
+	 id                 => $id,
 	 leading_whitespace => $whitespace,
 	 library            => $library,
 	);
@@ -4555,10 +4545,11 @@ sub _process_bull_list_item {
       $logger->trace("{$number} ..... new sub bullet list");
 
       my $count = $library->increment_division_count('BULLET_LIST');
+      my $id    = "BULLET_LIST-$count";
 
       my $list = SML::BulletList->new
 	(
-	 id                 => "BULLET_LIST-$count",
+	 id                 => $id,
 	 leading_whitespace => $whitespace,
 	 library            => $library,
 	);
@@ -4733,10 +4724,11 @@ sub _process_bull_list_item {
       $logger->trace("{$number} ..... new bullet list");
 
       my $count = $library->increment_division_count('BULLET_LIST');
+      my $id    = "BULLET_LIST-$count";
 
       my $list = SML::BulletList->new
 	(
-	 id                 => "BULLET_LIST-$count",
+	 id                 => $id,
 	 leading_whitespace => $whitespace,
 	 library            => $library,
 	);
@@ -4793,10 +4785,11 @@ sub _process_bull_list_item {
       $logger->trace("{$number} ..... new bullet list");
 
       my $count = $library->increment_division_count('BULLET_LIST');
+      my $id    = "BULLET_LIST-$count";
 
       my $list = SML::BulletList->new
 	(
-	 id                 => "BULLET_LIST-$count",
+	 id                 => $id,
 	 leading_whitespace => $whitespace,
 	 library            => $library,
 	);
@@ -4839,6 +4832,7 @@ sub _process_start_step_element {
 
   my $library = $self->_get_library;
   my $number  = $self->_get_number;
+  my $ps      = $library->get_property_store;
 
   $logger->trace("{$number} ----- step");
 
@@ -4859,11 +4853,12 @@ sub _process_start_step_element {
       if ( not $self->_in_step_list )
 	{
 	  my $count = $library->increment_division_count('STEP_LIST');
+	  my $id    = "STEP_LIST-$count";
 
 	  my $list = SML::Structure->new
 	    (
 	     name    => 'STEP_LIST',
-	     id      => "STEP_LIST-$count",
+	     id      => $id,
 	     library => $library,
 	    );
 
@@ -5134,6 +5129,7 @@ sub _process_end_outcome {
   my $outcome = shift;
 
   my $library = $self->_get_library;
+  my $ps      = $library->get_property_store;
   my $syntax  = $library->get_syntax;
   my $text    = $outcome->get_content;
 
@@ -5145,20 +5141,21 @@ sub _process_end_outcome {
       # $4 = status color (green, yellow, red, grey)
       # $5 = outcome description
 
-      my $date        = $2;
-      my $entity_id   = $3;
-      my $status      = $4;
-      my $description = $5;
+      my $date          = $2;
+      my $entity_id     = $3;
+      my $status        = $4;
+      my $description   = $5;
+      my $outcome_value = "$date $status - $description";
 
       $outcome->set_date($date);
       $outcome->set_entity_id($entity_id);
       $outcome->set_status($status);
       $outcome->set_description($description);
+      $outcome->set_value($outcome_value);
 
       $library->add_outcome($outcome);
 
-      my $outcome_value = "$date $status - $description";
-      $library->add_property_value($entity_id,'outcome',$outcome_value,$outcome);
+      # $ps->add_property_value($entity_id,'outcome',$outcome_value);
 
       my $reasoner = $library->get_reasoner;
       $reasoner->infer_status_from_outcome($outcome);
@@ -5219,6 +5216,7 @@ sub _process_end_review {
   my $review = shift;
 
   my $library = $self->_get_library;
+  my $ps      = $library->get_property_store;
   my $syntax  = $library->get_syntax;
   my $text    = $review->get_content;
 
@@ -5230,22 +5228,21 @@ sub _process_end_review {
       # $4 = status color (green, yellow, red, grey)
       # $5 = review description
 
-      my $date        = $2;
-      my $entity_id   = $3;
-      my $status      = $4;
-      my $description = $5;
+      my $date         = $2;
+      my $entity_id    = $3;
+      my $status       = $4;
+      my $description  = $5;
+      my $review_value = "$date $status - $description";
 
       $review->set_date($date);
       $review->set_entity_id($entity_id);
       $review->set_status($status);
       $review->set_description($description);
+      $review->set_value($review_value);
 
       $library->add_review($review);
 
-      my $review_value = "$date $status - $description";
-      $library->add_property_value($entity_id,'review',$review_value,$review);
-
-      return 1;
+      # $ps->add_property_value($entity_id,'review',$review_value);
     }
 
   else
@@ -5315,6 +5312,7 @@ sub _process_enum_list_item {
   my $indent  = length($whitespace);
   my $library = $self->_get_library;
   my $number  = $self->_get_number;
+  my $ps      = $library->get_property_store;
 
   $logger->trace("{$number} ----- enumerated list item (indent=$indent)");
 
@@ -5445,10 +5443,11 @@ sub _process_enum_list_item {
       $self->_end_definition_list if $self->_in_definition_list;
 
       my $count = $library->increment_division_count('ENUMERATED_LIST');
+      my $id    = "ENUMERATED_LIST-$count";
 
       my $list = SML::EnumeratedList->new
 	(
-	 id                 => "ENUMERATED_LIST-$count",
+	 id                 => $id,
 	 leading_whitespace => $whitespace,
 	 library            => $library,
 	);
@@ -5532,10 +5531,11 @@ sub _process_enum_list_item {
       $self->_end_bullet_list;
 
       my $count = $library->increment_division_count('ENUMERATED_LIST');
+      my $id    = "ENUMERATED_LIST-$count";
 
       my $list = SML::EnumeratedList->new
 	(
-	 id                 => "ENUMERATED_LIST-$count",
+	 id                 => $id,
 	 leading_whitespace => $whitespace,
 	 library            => $library,
 	);
@@ -5694,10 +5694,11 @@ sub _process_enum_list_item {
 	}
 
       my $count = $library->increment_division_count('ENUMERATED_LIST');
+      my $id    = "ENUMERATED_LIST-$count";
 
       my $list = SML::EnumeratedList->new
 	(
-	 id                 => "ENUMERATED_LIST-$count",
+	 id                 => $id,
 	 leading_whitespace => $whitespace,
 	 library            => $library,
 	);
@@ -5750,10 +5751,11 @@ sub _process_enum_list_item {
     )
     {
       my $count = $library->increment_division_count('ENUMERATED_LIST');
+      my $id    = "ENUMERATED_LIST-$count";
 
       my $list = SML::EnumeratedList->new
 	(
-	 id                 => "ENUMERATED_LIST-$count",
+	 id                 => $id,
 	 leading_whitespace => $whitespace,
 	 library            => $library,
 	);
@@ -5799,6 +5801,7 @@ sub _process_start_def_list_item {
 
   my $library = $self->_get_library;
   my $number  = $self->_get_number;
+  my $ps      = $library->get_property_store;
 
   $logger->trace("{$number} ----- definition list item");
 
@@ -5818,11 +5821,12 @@ sub _process_start_def_list_item {
       if ( not $self->_in_definition_list )
 	{
 	  my $count = $library->increment_division_count('DEFINITION_LIST');
+	  my $id    = "DEFINITION_LIST-$count";
 
 	  my $list = SML::Structure->new
 	    (
 	     name    => 'DEFINITION_LIST',
-	     id      => "DEFINITION_LIST-$count",
+	     id      => $id,
 	     library => $library,
 	    );
 
@@ -5935,6 +5939,7 @@ sub _process_start_table_cell {
   my $attributes = shift || q{};
 
   my $library = $self->_get_library;
+  my $ps      = $library->get_property_store;
   my $syntax  = $library->get_syntax;
   my $text    = $line->get_content;
   my $number  = $self->_get_number;
@@ -7606,13 +7611,13 @@ sub _parse_block {
     )
     {
       my $term = $block->get_term;
-      my $term_string = $self->_create_string($term);
+      my $term_string = $self->create_string($term);
 
       $block->add_part($term_string);
       $block->set_term_string($term_string);
 
       my $definition = $block->get_definition;
-      my $definition_string = $self->_create_string($definition);
+      my $definition_string = $self->create_string($definition);
 
       $block->add_part($definition_string);
       $block->set_definition_string($definition_string);
@@ -7652,7 +7657,7 @@ sub _parse_block {
       return 0;
     }
 
-  my $string = $self->_create_string($text);
+  my $string = $self->create_string($text);
 
   $block->add_part($string);
 
@@ -7719,11 +7724,11 @@ sub _parse_next_substring {
 
 	  if ( $preceding_text )
 	    {
-	      my $newstring1 = $self->_create_string($preceding_text);
+	      my $newstring1 = $self->create_string($preceding_text);
 	      $string->add_part($newstring1);
 	    }
 
-	  my $newstring2 = $self->_create_string($substring);
+	  my $newstring2 = $self->create_string($substring);
 	  $string->add_part($newstring2);
 
 	  $string->set_remaining($remaining_text);
@@ -7741,7 +7746,7 @@ sub _parse_next_substring {
 
   else
     {
-      my $newstring = $self->_create_string($text);
+      my $newstring = $self->create_string($text);
       $string->add_part($newstring);
 
       $text = q{};
@@ -9168,6 +9173,7 @@ sub _validate_therevision_ref_semantics {
     }
 
   my $library = $self->_get_library;
+  my $ps      = $library->get_property_store;
   my $syntax  = $library->get_syntax;
   my $util    = $library->get_util;
   my $text    = $block->get_content;
@@ -9193,7 +9199,7 @@ sub _validate_therevision_ref_semantics {
 
   while ( $text =~ /$syntax->{therevision_ref}/xms )
     {
-      if ( $library->has_property($doc_id,'revision') )
+      if ( $ps->has_property($doc_id,'revision') )
 	{
 	  $logger->trace("revision reference is valid");
 	}
@@ -9225,6 +9231,7 @@ sub _validate_thedate_ref_semantics {
     }
 
   my $library = $self->_get_library;
+  my $ps      = $library->get_property_store;
   my $syntax  = $library->get_syntax;
   my $util    = $library->get_util;
   my $text    = $block->get_content;
@@ -9250,7 +9257,7 @@ sub _validate_thedate_ref_semantics {
 
   while ( $text=~ /$syntax->{thedate_ref}/xms )
     {
-      if ( $library->has_property($doc_id,'date') )
+      if ( $ps->has_property($doc_id,'date') )
 	{
 	  $logger->trace("date reference is valid");
 	}
@@ -9288,6 +9295,7 @@ sub _validate_status_ref_semantics {
     }
 
   my $library = $self->_get_library;
+  my $ps      = $library->get_property_store;
   my $syntax  = $library->get_syntax;
   my $util    = $library->get_util;
   my $valid   = 1;
@@ -9325,7 +9333,7 @@ sub _validate_status_ref_semantics {
 	    {
 	      my $division = $library->get_division($id);
 
-	      if ( not $library->has_property($id,'status') )
+	      if ( not $ps->has_property($id,'status') )
 		{
 		  my $msg = "INVALID STATUS REFERENCE";
 		  my $location = $block->get_location;
@@ -9424,6 +9432,7 @@ sub _validate_lookup_ref_semantics {
     }
 
   my $library = $self->_get_library;
+  my $ps      = $library->get_property_store;
   my $syntax  = $library->get_syntax;
   my $text    = $block->get_content;
 
@@ -9455,7 +9464,7 @@ sub _validate_lookup_ref_semantics {
 	  $valid = 0;
 	}
 
-      elsif ( not $library->has_property($target_id,$target_property_name) )
+      elsif ( not $ps->has_property($target_id,$target_property_name) )
 	{
 	  my $msg = "INVALID LOOKUP, PROPERTY DOESN'T EXIST $target_id $target_property_name";
 	  my $location = $block->get_location;
@@ -9745,11 +9754,12 @@ sub _validate_property_cardinality {
 
   my $valid    = 1;
   my $library  = $self->_get_library;
+  my $ps       = $library->get_property_store;
   my $divname  = $division->get_name;
   my $divid    = $division->get_id;
   my $ontology = $library->get_ontology;
 
-  foreach my $property_name (@{ $library->get_property_name_list($divid) })
+  foreach my $property_name (@{ $ps->get_property_name_list($divid) })
     {
       my $cardinality;
 
@@ -9779,7 +9789,7 @@ sub _validate_property_cardinality {
 
       else
 	{
-	  my $list  = $library->get_property_value_list($divid,$property_name);
+	  my $list  = $ps->get_property_text_list($divid,$property_name);
 	  my $count = scalar(@{ $list });
 
 	  if ( $cardinality eq '1' and $count > 1 )
@@ -9805,16 +9815,17 @@ sub _validate_property_values {
   my $valid    = 1;
   my $seen     = {};
   my $library  = $self->_get_library;
+  my $ps       = $library->get_property_store;
   my $ontology = $library->get_ontology;
   my $divname  = $division->get_name;
   my $divid    = $division->get_id;
 
-  foreach my $property_name (@{ $library->get_property_name_list($divid) })
+  foreach my $property_name (@{ $ps->get_property_name_list($divid) })
     {
       $seen->{$property_name} = 1;
 
       my $imply_only  = $ontology->property_is_imply_only($divname,$property_name);
-      my $list        = $library->get_property_value_list($divid,$property_name);
+      my $list        = $ps->get_property_text_list($divid,$property_name);
       my $cardinality = $ontology->property_allows_cardinality($divname,$property_name);
 
       foreach my $value (@{ $list })
@@ -9845,24 +9856,24 @@ sub _validate_infer_only_conformance {
   my $valid    = 1;
   my $seen     = {};
   my $library  = $self->_get_library;
+  my $ps       = $library->get_property_store;
   my $ontology = $library->get_ontology;
   my $divname  = $division->get_name;
   my $divid    = $division->get_id;
 
-  foreach my $property_name (@{ $library->get_property_name_list($divid) })
+  foreach my $property_name (@{ $ps->get_property_name_list($divid) })
     {
       $seen->{$property_name} = 1;
 
-      my $imply_only  = $ontology->property_is_imply_only($divname,$property_name);
-      my $list        = $library->get_property_value_list($divid,$property_name);
-      my $cardinality = $ontology->property_allows_cardinality($divname,$property_name);
+      my $imply_only = $ontology->property_is_imply_only($divname,$property_name);
+      my $list       = $ps->get_property_value_list($divid,$property_name);
 
-      foreach my $property_value (@{ $list })
+      foreach my $value (@{ $list })
 	{
-	  my $value = $library->get_property_value_object($divid,$property_name,$property_value);
+	  my $is_from_manuscript = $ps->is_from_manuscript($divid,$property_name,$value);
 
 	  # Validate infer-only conformance
-	  if ( $imply_only and $value->is_from_manuscript )
+	  if ( $imply_only and $is_from_manuscript )
 	    {
 	      my $msg = "INVALID EXPLICIT DECLARATION OF INFER-ONLY PROPERTY $property_name, $divname $divid";
 	      my $location = $division->get_location;
@@ -9887,11 +9898,12 @@ sub _validate_required_properties {
   my $valid    = 1;
   my $seen     = {};
   my $library  = $self->_get_library;
+  my $ps       = $library->get_property_store;
   my $ontology = $library->get_ontology;
   my $divname  = $division->get_name;
   my $divid    = $division->get_id;
 
-  foreach my $property_name (@{ $library->get_property_name_list($divid) })
+  foreach my $property_name (@{ $ps->get_property_name_list($divid) })
     {
       $seen->{$property_name} = 1;
     }
@@ -9904,7 +9916,7 @@ sub _validate_required_properties {
     {
       if ( not $seen->{$required_property_name} )
 	{
-	  my $msg = "MISSING REQUIRED PROPERTY $divname; $divid requires $required_property_name";
+	  my $msg = "MISSING REQUIRED PROPERTY $divid requires $required_property_name";
 	  my $location = $division->get_location;
 	  $self->_handle_error('warn',$msg,$location);
 	  $valid = 0;
@@ -10233,7 +10245,7 @@ sub _parse_index_term {
     }
 
   my $term   = $entry->get_term;
-  my $string = $self->_create_string($term);
+  my $string = $self->create_string($term);
 
   $entry->set_term_string($string);
 
@@ -10523,6 +10535,40 @@ sub _handle_error {
     }
 
   $logger->$level("$message at $location");
+
+  return 1;
+}
+
+######################################################################
+
+sub _transform_elements_to_properties {
+
+  my $self     = shift;
+  my $division = shift;
+
+  unless ( $division )
+    {
+      $logger->error("CAN'T TRANSFORM ELEMENTS TO PROPERTIES, MISSING ARGUMENT(S)");
+      return 0;
+    }
+
+  unless ( ref $division and $division->isa('SML::Division') )
+    {
+      $logger->error("CAN'T TRANSFORM ELEMENTS TO PROPERTIES, NOT A DIVISION $division");
+      return 0;
+    }
+
+  my $division_id = $division->get_id;
+  my $library     = $division->get_library;
+  my $ps          = $library->get_property_store;
+
+  foreach my $element (@{ $division->get_element_list })
+    {
+      if ( $element->has_value )
+	{
+	  $ps->add_element($division_id,$element);
+	}
+    }
 
   return 1;
 }

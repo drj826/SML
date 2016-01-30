@@ -70,6 +70,17 @@ has containing_block =>
   );
 
 ######################################################################
+
+has plain_text =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   reader  => 'get_plain_text',
+   builder => '_build_plain_text',
+   lazy    => 1,
+  );
+
+######################################################################
 ######################################################################
 ##
 ## Public Methods
@@ -89,41 +100,6 @@ sub get_location {
 
   return 'unknown';
 }
-
-######################################################################
-
-# sub get_containing_document {
-
-#   # Return the document to which this string belongs.
-
-#   my $self = shift;
-
-#   my $block = $self->get_containing_block;
-
-#   if ( not $block )
-#     {
-#       my $content = $self->get_content;
-#       $logger->error("can't get containing block for $content ($self)");
-#     }
-
-#   my $division = $block->get_containing_division;
-
-#   if ( not defined $division )
-#     {
-#       # $logger->error("DIVISION DOESN'T EXIST");
-#       return 0;
-#     }
-
-#   elsif ( $division->isa('SML::Document') )
-#     {
-#       return $division;
-#     }
-
-#   else
-#     {
-#       return $division->get_containing_document;
-#     }
-# }
 
 ######################################################################
 ######################################################################
@@ -172,8 +148,6 @@ sub _build_containing_block {
 
   my $self = shift;
 
-  $logger->debug("build containing block");
-
   if ( not $self->has_container )
     {
       $logger->error("STRING HAS NO CONTAINER \'$self\'");
@@ -181,10 +155,6 @@ sub _build_containing_block {
     }
 
   my $container = $self->get_container;
-
-  # DEBUG
-  my $name = $container->get_name;
-  $logger->debug("  container: $name");
 
   if ( $container->isa('SML::Block') )
     {
@@ -200,6 +170,34 @@ sub _build_containing_block {
 	  return $container;
 	}
     }
+
+  $logger->error("THIS SHOULD NEVER HAPPEN");
+  return 0;
+}
+
+######################################################################
+
+sub _build_plain_text {
+
+  my $self = shift;
+
+  if ( $self->contains_parts )
+    {
+      my $list = [];
+
+      foreach my $part (@{ $self->get_part_list })
+	{
+	  push @{$list}, $part->get_plain_text;
+	}
+
+      return join(' ', @{$list});
+    }
+
+  else
+    {
+      return $self->get_content;
+    }
+
 }
 
 ######################################################################

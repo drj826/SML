@@ -43,13 +43,11 @@ sub get_content {
 
   my $library = $self->get_library;
   my $id      = $self->get_id;
+  my $ps      = $library->get_property_store;
 
-  if ( $library->has_property($id,'file') )
+  if ( $ps->has_property($id,'file') )
     {
-      my $list = $library->get_property_value_list($id,'file');
-
-      # just take the first value, ignore the rest
-      my $filespec = $list->[0];
+      my $filespec = $ps->get_property_text($id,'file');
 
       my $file = SML::File->new
 	(

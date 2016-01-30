@@ -372,13 +372,11 @@ sub _build_basename {
 
   my $library = $self->get_library;
   my $id      = $self->get_id;
+  my $ps      = $library->get_property_store;
 
-  if ( $library->has_property($id,'file') )
+  if ( $ps->has_property($id,'file') )
     {
-      my $list = $library->get_property_value_list($id,'file');
-
-      # just take the first value, ignore any others
-      my $filespec = $list->[0];
+      my $filespec = $ps->get_property_text($id,'file');
 
       return basename($filespec);
     }
