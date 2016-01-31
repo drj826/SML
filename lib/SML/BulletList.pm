@@ -111,7 +111,7 @@ This documentation refers to L<"SML::BulletList"> version 2.0.0.
 
   extends SML::Division
 
-  my $list = SML::BulletList->new(id=>$id,library=>$library);
+  my $aref = SML::BulletList->new(id=>$id,library=>$library);
 
 =head1 DESCRIPTION
 

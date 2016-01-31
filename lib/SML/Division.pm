@@ -367,7 +367,7 @@ sub get_list_of_divisions_with_name {
       return 0;
     }
 
-  my $list = [];
+  my $aref = [];
 
   foreach my $part (@{ $self->get_division_list })
     {
@@ -375,11 +375,11 @@ sub get_list_of_divisions_with_name {
 
       if ( $part_name eq $name )
 	{
-	  push @{ $list }, $part;
+	  push @{ $aref }, $part;
 	}
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -399,7 +399,7 @@ sub get_list_of_elements_with_name {
       return 0;
     }
 
-  my $list = [];
+  my $aref = [];
 
   foreach my $element (@{ $self->get_element_list })
     {
@@ -407,11 +407,11 @@ sub get_list_of_elements_with_name {
 
       if ( $element_name eq $name )
 	{
-	  push @{ $list }, $element;
+	  push @{ $aref }, $element;
 	}
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -423,7 +423,7 @@ sub get_division_list {
 
   my $self = shift;
 
-  my $list = [];                        # division list
+  my $aref = [];                        # division list
 
   no warnings 'recursion';
 
@@ -431,12 +431,12 @@ sub get_division_list {
     {
       if ( $part->isa('SML::Division') )
 	{
-	  push @{ $list }, $part;
-	  push @{ $list }, @{ $part->get_division_list };
+	  push @{ $aref }, $part;
+	  push @{ $aref }, @{ $part->get_division_list };
 	}
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -447,7 +447,7 @@ sub get_block_list {
 
   my $self = shift;
 
-  my $list = [];                        # block list
+  my $aref = [];                        # block list
 
   no warnings 'recursion';
 
@@ -455,12 +455,12 @@ sub get_block_list {
     {
       if ( $part->isa('SML::Block' ) )
 	{
-	  push @{ $list }, $part;
+	  push @{ $aref }, $part;
 	}
 
       elsif ( $part->isa('SML::Division') )
 	{
-	  push @{ $list }, @{ $part->get_block_list };
+	  push @{ $aref }, @{ $part->get_block_list };
 	}
 
       else
@@ -469,7 +469,7 @@ sub get_block_list {
 	}
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -480,16 +480,16 @@ sub get_string_list {
 
   my $self = shift;
 
-  my $list = [];                        # string list
+  my $aref = [];                        # string list
 
   no warnings 'recursion';
 
   foreach my $block (@{ $self->get_block_list })
     {
-      $self->_add_parts_to_list($block,$list);
+      $self->_add_parts_to_list($block,$aref);
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -500,18 +500,18 @@ sub get_element_list {
 
   my $self = shift;
 
-  my $list = [];                        # element list
+  my $aref = [];                        # element list
 
   foreach my $block (@{ $self->get_block_list })
     {
       if ( $block->isa('SML::Element') )
 	{
-	  push @{ $list }, $block;
+	  push @{ $aref }, $block;
 	}
 
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -520,16 +520,16 @@ sub get_line_list {
 
   my $self = shift;
 
-  my $list = [];                        # line list
+  my $aref = [];                        # line list
 
   no warnings 'recursion';
 
   foreach my $part (@{ $self->get_part_list })
     {
-      push @{ $list }, @{ $part->get_line_list };
+      push @{ $aref }, @{ $part->get_line_list };
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -774,9 +774,9 @@ sub _add_parts_to_list {
 
   my $self = shift;
   my $part = shift;
-  my $list = shift;
+  my $aref = shift;
 
-  unless ( $part and $list )
+  unless ( $part and $aref )
     {
       $logger->error("CAN'T ADD PARTS TO LIST, MISSING ARGUMENTS");
       return 0;
@@ -790,11 +790,11 @@ sub _add_parts_to_list {
 
   foreach my $subpart (@{ $part->get_part_list })
     {
-      push @{$list}, $subpart;
+      push @{$aref}, $subpart;
 
       if ( $subpart->contains_parts )
 	{
-	  $self->_add_parts_to_list($subpart,$list);
+	  $self->_add_parts_to_list($subpart,$aref);
 	}
     }
 
@@ -855,11 +855,11 @@ L<"SML::Block">s.
   my $boolean  = $division->contains_division_with_id($id);
   my $boolean  = $division->has_property($property_name);
   my $boolean  = $division->has_property_value($property_name,$value);
-  my $list     = $division->get_division_list;
-  my $list     = $division->get_list_of_divisions_with_name('SECTION');
-  my $list     = $division->get_block_list;
-  my $list     = $division->get_element_list;
-  my $list     = $division->get_line_list;
+  my $aref     = $division->get_division_list;
+  my $aref     = $division->get_list_of_divisions_with_name('SECTION');
+  my $aref     = $division->get_block_list;
+  my $aref     = $division->get_element_list;
+  my $aref     = $division->get_line_list;
   my $part     = $division->get_first_part;
   my $line     = $division->get_first_line;
   my $document = $division->get_containing_document;

@@ -49,7 +49,7 @@ sub add_entry {
       return 0;
     }
 
-  my $hash = $self->_get_entry_hash;
+  my $href = $self->_get_entry_hash;
   my $term = $entry->get_term;
 
   $logger->debug("add_entry $term");
@@ -59,12 +59,12 @@ sub add_entry {
 
   $term = $util->strip_string_markup($term);
 
-  if ( exists $hash->{$term} )
+  if ( exists $href->{$term} )
     {
       $logger->error("ENTRY ALREADY IN INDEX \'$term\'");
     }
 
-  $hash->{$term} = $entry;
+  $href->{$term} = $entry;
 
   # Add this entry to the entry group hash.
   my $group      = lc(substr($term,0,1));
@@ -87,9 +87,9 @@ sub has_entry {
   my $self = shift;
   my $term = shift;
 
-  my $hash = $self->_get_entry_hash;
+  my $href = $self->_get_entry_hash;
 
-  if ( exists $hash->{$term} )
+  if ( exists $href->{$term} )
     {
       return 1;
     }
@@ -111,9 +111,9 @@ sub get_entry {
       return 0;
     }
 
-  my $hash = $self->_get_entry_hash;
+  my $href = $self->_get_entry_hash;
 
-  return $hash->{$term};
+  return $href->{$term};
 }
 
 ######################################################################
@@ -122,17 +122,17 @@ sub get_entry_list {
 
   my $self = shift;
 
-  my $hash = $self->_get_entry_hash;
-  my $list = [];
+  my $href = $self->_get_entry_hash;
+  my $aref = [];
 
-  foreach my $term ( sort keys %{ $hash } )
+  foreach my $term ( sort keys %{ $href } )
     {
-      my $entry = $hash->{$term};
+      my $entry = $href->{$term};
 
-      push(@{$list},$entry);
+      push(@{$aref},$entry);
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -169,24 +169,24 @@ sub get_group_entry_list {
   my $self  = shift;
   my $group = shift;
 
-  my $hash = $self->_get_entry_group_hash;
+  my $href = $self->_get_entry_group_hash;
 
-  if ( not exists $hash->{$group} )
+  if ( not exists $href->{$group} )
     {
       $logger->error("NO INDEX GROUP \'$group\'");
       return 0;
     }
 
-  my $list = [];
+  my $aref = [];
 
-  foreach my $term (sort @{ $hash->{$group} })
+  foreach my $term (sort @{ $href->{$group} })
     {
       my $entry = $self->get_entry($term);
 
-      push(@{$list},$entry);
+      push(@{$aref},$entry);
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -205,7 +205,7 @@ has entry_hash =>
    default => sub {{}},
   );
 
-#   $hash->{$term} = $entry;
+#   $href->{$term} = $entry;
 
 ######################################################################
 

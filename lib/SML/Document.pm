@@ -84,7 +84,7 @@ has change_list =>
    builder => '_build_change_list',
   );
 
-# push @{$list}, [$action,$division_id];
+# push @{$aref}, [$action,$division_id];
 
 ######################################################################
 
@@ -274,18 +274,18 @@ sub add_error {
       return 0;
     }
 
-  my $hash     = $self->_get_error_hash;
+  my $href     = $self->_get_error_hash;
   my $level    = $error->get_level;
   my $location = $error->get_location;
   my $message  = $error->get_message;
 
-  if ( exists $hash->{$level}{$location}{$message} )
+  if ( exists $href->{$level}{$location}{$message} )
     {
       $logger->warn("ERROR ALREADY EXISTS $level $location $message");
       return 0;
     }
 
-  $hash->{$level}{$location}{$message} = $error;
+  $href->{$level}{$location}{$message} = $error;
 
   return 1;
 }
@@ -296,24 +296,24 @@ sub get_error_list {
 
   my $self = shift;
 
-  my $list = [];
+  my $aref = [];
 
-  my $hash = $self->_get_error_hash;
+  my $href = $self->_get_error_hash;
 
-  foreach my $level ( sort keys %{ $hash } )
+  foreach my $level ( sort keys %{ $href } )
     {
-      foreach my $location ( sort keys %{ $hash->{$level} } )
+      foreach my $location ( sort keys %{ $href->{$level} } )
 	{
-	  foreach my $message ( sort keys %{ $hash->{$level}{$location} })
+	  foreach my $message ( sort keys %{ $href->{$level}{$location} })
 	    {
-	      my $error = $hash->{$level}{$location}{$message};
+	      my $error = $href->{$level}{$location}{$message};
 
-	      push @{$list}, $error;
+	      push @{$aref}, $error;
 	    }
 	}
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -333,9 +333,9 @@ sub contains_error {
 
   my $self = shift;
 
-  my $hash = $self->_get_error_hash;
+  my $href = $self->_get_error_hash;
 
-  if ( scalar keys %{$hash} )
+  if ( scalar keys %{$href} )
     {
       return 1;
     }
@@ -361,15 +361,15 @@ sub add_version {
       return 0;
     }
 
-  my $hash = $self->_get_version_history_hash;
+  my $href = $self->_get_version_history_hash;
 
-  if ( exists $hash->{$version}{$date} )
+  if ( exists $href->{$version}{$date} )
     {
       $logger->error("VERSION ALREADY EXISTS $version $date");
       return 0;
     }
 
-  $hash->{$version}{$date} = $string;
+  $href->{$version}{$date} = $string;
 
   return 1;
 }
@@ -382,9 +382,9 @@ sub contains_version_history {
 
   my $self = shift;
 
-  my $hash = $self->_get_version_history_hash;
+  my $href = $self->_get_version_history_hash;
 
-  if ( scalar keys %{$hash} )
+  if ( scalar keys %{$href} )
     {
       return 1;
     }
@@ -400,20 +400,20 @@ sub get_version_history_list {
 
   my $self = shift;
 
-  my $hash = $self->_get_version_history_hash;
+  my $href = $self->_get_version_history_hash;
 
-  my $list = [];                        # version history list
+  my $aref = [];                        # version history list
 
-  foreach my $version ( reverse sort keys %{ $hash } )
+  foreach my $version ( reverse sort keys %{ $href } )
     {
-      foreach my $date ( sort keys %{ $hash->{$version} } )
+      foreach my $date ( sort keys %{ $href->{$version} } )
 	{
-	  my $string = $hash->{$version}{$date};
-	  push @{$list}, [$version,$date,$string];
+	  my $string = $href->{$version}{$date};
+	  push @{$aref}, [$version,$date,$string];
 	}
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -868,7 +868,7 @@ has version_history_hash =>
    default => sub {{}},
   );
 
-# $hash->{$version}{$date} = $string;
+# $href->{$version}{$date} = $string;
 
 ######################################################################
 
@@ -911,7 +911,7 @@ has error_hash =>
 
 # This is a hash of error objects.
 
-# $hash->{$level}{$location}{$message} = $error;
+# $href->{$level}{$location}{$message} = $error;
 
 # see also: add_error, get_error_list
 
@@ -962,7 +962,7 @@ sub _build_change_list {
   my $self = shift;
 
   my $library = $self->get_library;
-  my $list    = [];
+  my $aref    = [];
 
   foreach my $change (@{ $library->get_change_list })
     {
@@ -970,11 +970,11 @@ sub _build_change_list {
 
       if ( $self->contains_division_with_id($division_id) )
 	{
-	  push @{$list}, $change;
+	  push @{$aref}, $change;
 	}
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################

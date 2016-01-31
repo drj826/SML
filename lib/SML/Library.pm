@@ -240,7 +240,7 @@ has change_list =>
    builder => '_build_change_list',
   );
 
-# push @{$list}, [$action,$division_id];
+# push @{$aref}, [$action,$division_id];
 
 ######################################################################
 
@@ -616,11 +616,11 @@ sub add_division {
     }
 
   my $id   = $division->get_id;
-  my $hash = $self->_get_division_hash;
+  my $href = $self->_get_division_hash;
 
   # Replace the division if it already exists.
 
-  $hash->{$id} = $division;
+  $href->{$id} = $division;
 
   return 1;
 }
@@ -754,413 +754,6 @@ sub add_review {
 
 ######################################################################
 
-# sub add_property_value {
-
-#   my $self = shift;
-
-#   my $division_id    = shift;
-#   my $property_name  = shift;
-#   my $property_value = shift;
-#   my $origin         = shift;
-
-#   unless ( $division_id and $property_name and $property_value and $origin )
-#     {
-#       $logger->logcluck("CAN'T ADD PROPERTY VALUE, MISSING ARGUMENT(S)");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_property_hash;
-
-#   if ( exists $hash->{$division_id}{$property_name}{$property_value} )
-#     {
-#       # $logger->warn("PROPERTY ALREADY EXISTS $division_id $property_name $property_value");
-#       return 0;
-#     }
-
-#   my $args = {};
-
-#   if ( ref $origin and $origin->isa('SML::Element') )
-#     {
-#       $args->{element}         = $origin;
-#       $args->{from_manuscript} = 1;
-#     }
-
-#   else
-#     {
-#       $args->{from_manuscript} = 0;
-#     }
-
-#   my $value = SML::Value->new(%{$args});
-
-#   $hash->{$division_id}{$property_name}{$property_value} = $value;
-
-#   return 1;
-# }
-
-######################################################################
-
-# sub set_property_value {
-
-#   my $self = shift;
-
-#   my $division_id    = shift;
-#   my $property_name  = shift;
-#   my $property_value = shift;
-
-#   unless ( $division_id and $property_name and $property_value )
-#     {
-#       $logger->error("CAN'T SET PROPERTY VALUE, MISSING ARGUMENT(S)");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_property_hash;
-
-#   if ( exists $hash->{$division_id}{$property_name} )
-#     {
-#       delete $hash->{$division_id}{$property_name};
-#     }
-
-#   $hash->{$division_id}{$property_name}{$property_value} = 1;
-
-#   return 1;
-# }
-
-######################################################################
-
-# sub has_property {
-
-#   my $self = shift;
-
-#   my $division_id   = shift;
-#   my $property_name = shift;
-
-#   unless ( $division_id and $property_name )
-#     {
-#       $logger->error("CAN'T CHECK IF LIBRARY HAS PROPERTY, MISSING ARGUMENTS");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_property_hash;
-
-#   if ( exists $hash->{$division_id}{$property_name} )
-#     {
-#       return 1;
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
-# sub has_property_value {
-
-#   my $self = shift;
-
-#   my $division_id    = shift;
-#   my $property_name  = shift;
-#   my $property_value = shift;
-
-#   unless ( $division_id and $property_name and $property_value )
-#     {
-#       $logger->error("CAN'T CHECK IF LIBRARY HAS PROPERTY VALUE, MISSING ARGUMENTS");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_property_hash;
-
-#   if ( exists $hash->{$division_id}{$property_name}{$property_value} )
-#     {
-#       return 1;
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
-# sub get_first_property_value {
-
-#   # Return the first property value for the specified division ID and
-#   # property name.  WARN if there is more than one value.
-
-#   my $self = shift;
-
-#   my $division_id   = shift;
-#   my $property_name = shift;
-
-#   unless ( $division_id and $property_name )
-#     {
-#       $logger->error("CAN'T GET PROPERTY, MISSING ARGUMENTS");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_property_hash;
-
-#   unless ( exists $hash->{$division_id}{$property_name} )
-#     {
-#       $logger->error("CAN'T GET PROPERTY VALUE LIST FOR $division_id $property_name, NO VALUES");
-#       return 0;
-#     }
-
-#   my $list = [ sort keys %{ $hash->{$division_id}{$property_name} } ];
-
-#   if ( scalar @{ $list } > 1 )
-#     {
-#       $logger->warn("RETURNING ONLY ONE VALUE. $division_id $property_name HAS MULTIPLE VALUES");
-#     }
-
-#   return $list->[0];
-# }
-
-######################################################################
-
-# sub get_first_property_value_element {
-
-#   # Return the first SML::Element associated with the specified
-#   # division ID and property name.  WARN if there is more than one
-#   # value (and therefore more than one element).
-
-#   my $self = shift;
-
-#   my $division_id   = shift;
-#   my $property_name = shift;
-
-#   unless ( $division_id and $property_name )
-#     {
-#       $logger->error("CAN'T GET PROPERTY, MISSING ARGUMENTS");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_property_hash;
-
-#   unless ( exists $hash->{$division_id}{$property_name} )
-#     {
-#       $logger->error("CAN'T GET PROPERTY VALUE LIST FOR $division_id $property_name, NO VALUES");
-#       return 0;
-#     }
-
-#   my $list = [ sort keys %{ $hash->{$division_id}{$property_name} } ];
-
-#   if ( scalar @{ $list } > 1 )
-#     {
-#       $logger->warn("RETURNING ONLY ONE VALUE. $division_id $property_name HAS MULTIPLE VALUES");
-#     }
-
-#   my $property_value = $list->[0];
-
-#   my $value = $hash->{$division_id}{$property_name}{$property_value};
-
-#   unless ( ref $value and $value->has_element )
-#     {
-#       $logger->error("FIRST PROPERTY VALUE HAS NO ELEMENT $division_id $property_name");
-#       return 0;
-#     }
-
-#   return $value->get_element;
-# }
-
-######################################################################
-
-# sub get_property_value_string {
-
-#   # Return an SML::String of the property value.  If the property has
-#   # multiple values concatenate them into a comma separated list.
-
-#   my $self = shift;
-
-#   my $division_id   = shift;
-#   my $property_name = shift;
-
-#   unless ( $division_id and $property_name )
-#     {
-#       $logger->error("CAN'T GET PROPERTY VALUE, MISSING ARGUMENTS");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_property_hash;
-
-#   unless ( exists $hash->{$division_id}{$property_name} )
-#     {
-#       $logger->error("CAN'T GET PROPERTY VALUE FOR $division_id $property_name, NO VALUE");
-#       return 0;
-#     }
-
-#   my $list = keys %{ $hash->{$division_id}{$property_name} };
-
-#   # !!! STOPPED HERE !!!
-# }
-
-######################################################################
-
-# sub get_property_value_element {
-
-#   # Return the SML::Element associated with the specified division ID,
-#   # property name, and property value.
-
-#   my $self = shift;
-
-#   my $division_id    = shift;
-#   my $property_name  = shift;
-#   my $property_value = shift;
-
-#   unless ( $division_id and $property_name and $property_value )
-#     {
-#       $logger->error("CAN'T GET PROPERTY VALUE ELEMENT, MISSING ARGUMENTS");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_property_hash;
-
-#   unless ( exists $hash->{$division_id}{$property_name}{$property_value} )
-#     {
-#       $logger->error("CAN'T GET PROPERTY VALUE ELEMENT FOR $division_id $property_name $property_value, NO VALUE");
-#       return 0;
-#     }
-
-#   my $value = $hash->{$division_id}{$property_name}{$property_value};
-
-#   unless ( $value->has_element )
-#     {
-#       $logger->error("PROPERTY VALUE HAS NO ELEMENT $division_id $property_name $property_value");
-#       return 0;
-#     }
-
-#   return $value->get_element;
-# }
-
-######################################################################
-
-# sub get_property_value_object {
-
-#   # Return the SML::Value object associated with the specified
-#   # division ID, property name, and property value.
-
-#   my $self = shift;
-
-#   my $division_id    = shift;
-#   my $property_name  = shift;
-#   my $property_value = shift;
-
-#   unless ( $division_id and $property_name and $property_value )
-#     {
-#       $logger->error("CAN'T GET PROPERTY VALUE OBJECT, MISSING ARGUMENTS");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_property_hash;
-
-#   unless ( exists $hash->{$division_id}{$property_name}{$property_value} )
-#     {
-#       $logger->error("CAN'T GET PROPERTY VALUE OBJECT FOR $division_id $property_name $property_value, NO VALUE");
-#       return 0;
-#     }
-
-#   return $hash->{$division_id}{$property_name}{$property_value};
-
-# }
-
-######################################################################
-
-# sub get_property_value_list {
-
-#   # Return a list of property values for the specified division_id and
-#   # property_name.
-
-#   my $self = shift;
-
-#   my $division_id   = shift;
-#   my $property_name = shift;
-
-#   unless ( $division_id and $property_name )
-#     {
-#       $logger->error("CAN'T GET PROPERTY, MISSING ARGUMENTS");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_property_hash;
-
-#   unless ( exists $hash->{$division_id}{$property_name} )
-#     {
-#       $logger->error("CAN'T GET PROPERTY VALUE LIST FOR $division_id $property_name, NO VALUES");
-#       return 0;
-#     }
-
-#   return [ sort keys %{ $hash->{$division_id}{$property_name} } ];
-# }
-
-######################################################################
-
-# sub get_property_value_element_list {
-
-#   # Return a list of SML::Element's associated with the specified
-#   # property value.
-
-#   my $self = shift;
-
-#   my $division_id   = shift;
-#   my $property_name = shift;
-
-#   unless ( $division_id and $property_name )
-#     {
-#       $logger->error("CAN'T GET PROPERTY, MISSING ARGUMENTS");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_property_hash;
-
-#   unless ( exists $hash->{$division_id}{$property_name} )
-#     {
-#       $logger->error("CAN'T GET PROPERTY VALUE ELEMENT LIST FOR $division_id $property_name, NO VALUES");
-#       return 0;
-#     }
-
-#   my $list = [];
-
-#   foreach my $property_value ( sort keys %{ $hash->{$division_id}{$property_name} } )
-#     {
-#       my $value = $hash->{$division_id}{$property_name}{$property_value};
-
-#       if ( $value->has_element )
-# 	{
-# 	  my $element = $value->get_element;
-
-# 	  push(@{$list},$element);
-# 	}
-#     }
-
-#   return $list;
-# }
-
-######################################################################
-
-# sub get_property_name_list {
-
-#   # Return a list of existing property names for the specified
-#   # division_id.
-
-#   my $self = shift;
-
-#   my $division_id = shift;
-
-#   unless ( $division_id )
-#     {
-#       $logger->error("CAN'T GET PROPERTY NAME LIST, MISSING ARGUMENT");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_property_hash;
-
-#   unless ( exists $hash->{$division_id} )
-#     {
-#       $logger->error("CAN'T GET PROPERTY NAME LIST FOR $division_id, NO SUCH DIVISION");
-#       return 0;
-#     }
-
-#   return [ sort keys %{ $hash->{$division_id} } ];
-# }
-
-######################################################################
-
 sub has_file {
 
   my $self     = shift;
@@ -1204,6 +797,12 @@ sub has_document_id {
   my $self = shift;
   my $id   = shift;
 
+  unless ( defined $id )
+    {
+      $logger->logcluck("CAN'T DETERMINE IF LIBRARY HAS DOCUMENT, YOU MUST SPECIFY AN ID");
+      return 0;
+    }
+
   my $id_hash = $self->_get_id_hash;
 
   if ( exists $id_hash->{$id} )
@@ -1228,7 +827,7 @@ sub has_division_id {
   my $self = shift;
   my $id   = shift;
 
-  if ( not $id )
+  unless ( defined $id )
     {
       $logger->logcluck("CAN'T DETERMINE IF LIBRARY HAS DIVISION, YOU MUST SPECIFY AN ID");
       return 0;
@@ -1373,9 +972,9 @@ sub has_images {
 
   my $self = shift;
 
-  my $list = $self->get_image_list;
+  my $aref = $self->get_image_list;
 
-  if ( scalar @{$list} )
+  if ( scalar @{$aref} )
     {
       return 1;
     }
@@ -1411,17 +1010,17 @@ sub get_document_list {
 
   my $self = shift;
 
-  my $list = [];
+  my $aref = [];
 
   foreach my $division ( values %{ $self->_get_division_hash })
     {
       if ( $division->isa('SML::Document') )
 	{
-	  push @{ $list }, $division;
+	  push @{ $aref }, $division;
 	}
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -1490,8 +1089,8 @@ sub get_division_name_for_id {
       return 0;
     }
 
-  my $hash = $self->_get_id_hash;
-  my $pair = $hash->{$id};
+  my $href = $self->_get_id_hash;
+  my $pair = $href->{$id};
   my $name = $pair->[1];
 
   return $name;
@@ -2262,134 +1861,6 @@ sub update_status_from_outcome {
 
 ######################################################################
 
-# sub add_triple {
-
-#   my $self   = shift;
-#   my $triple = shift;
-
-#   unless ( ref $triple and $triple->isa('SML::Triple') )
-#     {
-#       $logger->error("CAN'T ADD TRIPLE \'$triple\' NOT A TRIPLE");
-#       return 0;
-#     }
-
-#   my $subject   = $triple->get_subject;
-#   my $predicate = $triple->get_predicate;
-#   my $object    = $triple->get_object;
-
-#   my $hash = $self->_get_triple_hash;
-
-#   if ( exists $hash->{$subject}{$predicate}{$object} )
-#     {
-#       $logger->warn("TRIPLE ALREADY EXISTS $subject $predicate $object");
-#       return 0;
-#     }
-
-#   $logger->trace("adding triple $subject $predicate $object");
-#   $hash->{$subject}{$predicate}{$object} = $triple;
-
-#   return 1;
-# }
-
-######################################################################
-
-# sub has_triple {
-
-#   my $self      = shift;
-#   my $subject   = shift;
-#   my $predicate = shift;
-#   my $object    = shift;
-
-#   unless ( $subject and $predicate and $object )
-#     {
-#       $logger->error("CAN'T CHECK IF LIBRARY HAS TRIPLE $subject $predicate $object");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_triple_hash;
-
-#   if ( exists $hash->{$subject}{$predicate}{$object} )
-#     {
-#       return 1;
-#     }
-
-#   else
-#     {
-#       return 0;
-#     }
-# }
-
-######################################################################
-
-# sub get_triple {
-
-#   my $self      = shift;
-#   my $subject   = shift;
-#   my $predicate = shift;
-#   my $object    = shift;
-
-#   unless ( $subject and $predicate and $object )
-#     {
-#       $logger->error("CAN'T GET TRIPLE $subject $predicate $object");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_triple_hash;
-
-#   if ( exists $hash->{$subject}{$predicate}{$object} )
-#     {
-#       return $hash->{$subject}{$predicate}{$object};
-#     }
-
-#   else
-#     {
-#       $logger->error("CAN'T GET TRIPLE $subject $predicate $object TRIPLE DOESN'T EXIST");
-#       return 0;
-#     }
-# }
-
-######################################################################
-
-# sub has_triple_for {
-
-#   # Return 1 if the library has a triple for the specified subject and
-#   # predicate.
-
-#   my $self      = shift;
-#   my $subject   = shift;
-#   my $predicate = shift;
-
-#   unless ( $subject and $predicate )
-#     {
-#       $logger->error("CAN'T CHECK FOR TRIPLES WITHOUT SUBJECT AND PREDICATE");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_triple_hash;
-
-#   if ( exists $hash->{$subject}{$predicate} )
-#     {
-#       return 1;
-#     }
-
-#   return 0;
-# }
-
-######################################################################
-
-# sub get_object_list {
-
-#   my $self      = shift;
-#   my $subject   = shift;
-#   my $predicate = shift;
-
-#   my $hash = $self->_get_triple_hash;
-
-#   return [ sort keys %{ $hash->{$subject}{$predicate} } ];
-# }
-
-######################################################################
-
 sub contains_entities {
 
   # Return 1 if the library contains any entities.
@@ -2432,9 +1903,9 @@ sub get_division_count {
       return 0;
     }
 
-  my $hash = $self->_get_division_counter_hash;
+  my $href = $self->_get_division_counter_hash;
 
-  return $hash->{$name};
+  return $href->{$name};
 }
 
 ######################################################################
@@ -2486,9 +1957,9 @@ sub has_published_document {
   my $state       = shift;              # DRAFT, REVIEW, APPROVED
   my $document_id = shift;
 
-  my $hash = $self->_get_published_document_hash;
+  my $href = $self->_get_published_document_hash;
 
-  if ( exists $hash->{$state}{$document_id} )
+  if ( exists $href->{$state}{$document_id} )
     {
       return 1;
     }
@@ -2549,13 +2020,13 @@ sub get_published_document_property_value {
   my $document_id   = shift;
   my $property_name = shift;
 
-  my $hash = $self->_get_published_document_hash;
+  my $href = $self->_get_published_document_hash;
 
-  if ( exists $hash->{$state}{$document_id}{$property_name} )
+  if ( exists $href->{$state}{$document_id}{$property_name} )
     {
       my $util = $self->get_util;
 
-      my $text = $hash->{$state}{$document_id}{$property_name};
+      my $text = $href->{$state}{$document_id}{$property_name};
 
       return $util->strip_string_markup($text);
     }
@@ -2579,13 +2050,13 @@ sub get_published_library_property_value {
   my $state         = shift;            # DRAFT, REVIEW, APPROVED
   my $property_name = shift;
 
-  my $hash = $self->_get_published_library_hash;
+  my $href = $self->_get_published_library_hash;
 
-  if ( exists $hash->{$state}{$property_name} )
+  if ( exists $href->{$state}{$property_name} )
     {
       my $util = $self->get_util;
 
-      return $hash->{$state}{$property_name};
+      return $href->{$state}{$property_name};
     }
 
   $logger->error("CAN'T GET PUBLISHED LIBRARY PROPERTY VALUE $state $property_name");
@@ -2611,18 +2082,18 @@ sub add_error {
       return 0;
     }
 
-  my $hash     = $self->_get_error_hash;
+  my $href     = $self->_get_error_hash;
   my $level    = $error->get_level;
   my $location = $error->get_location;
   my $message  = $error->get_message;
 
-  if ( exists $hash->{$level}{$location}{$message} )
+  if ( exists $href->{$level}{$location}{$message} )
     {
       $logger->warn("ERROR ALREADY EXISTS $level $location $message");
       return 0;
     }
 
-  $hash->{$level}{$location}{$message} = $error;
+  $href->{$level}{$location}{$message} = $error;
 
   return 1;
 }
@@ -2633,24 +2104,24 @@ sub get_error_list {
 
   my $self = shift;
 
-  my $list = [];
+  my $aref = [];
 
-  my $hash = $self->_get_error_hash;
+  my $href = $self->_get_error_hash;
 
-  foreach my $level ( sort keys %{ $hash } )
+  foreach my $level ( sort keys %{ $href } )
     {
-      foreach my $location ( sort keys %{ $hash->{$level} } )
+      foreach my $location ( sort keys %{ $href->{$level} } )
 	{
-	  foreach my $message ( sort keys %{ $hash->{$level}{$location} })
+	  foreach my $message ( sort keys %{ $href->{$level}{$location} })
 	    {
-	      my $error = $hash->{$level}{$location}{$message};
+	      my $error = $href->{$level}{$location}{$message};
 
-	      push @{$list}, $error;
+	      push @{$aref}, $error;
 	    }
 	}
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -2670,9 +2141,9 @@ sub contains_error {
 
   my $self = shift;
 
-  my $hash = $self->_get_error_hash;
+  my $href = $self->_get_error_hash;
 
-  if ( scalar keys %{$hash} )
+  if ( scalar keys %{$href} )
     {
       return 1;
     }
@@ -2728,9 +2199,9 @@ sub contains_changes {
 
   my $self = shift;
 
-  my $list = $self->get_change_list;
+  my $aref = $self->get_change_list;
 
-  if ( scalar @{$list} )
+  if ( scalar @{$aref} )
     {
       return 1;
     }
@@ -2798,7 +2269,7 @@ has id_hash =>
    default   => sub {{}},
   );
 
-# $hash->{$id} = [$filename,$division_name];
+# $href->{$id} = [$filename,$division_name];
 #
 # This is the collection of all divisions IDs in the library.
 # Division IDs are either user-specified or system generated.  This
@@ -2814,7 +2285,7 @@ has user_specified_id_hash =>
    default   => sub {{}},
   );
 
-# $hash->{$id} = [$filename,$division_name];
+# $href->{$id} = [$filename,$division_name];
 #
 # This is the collection of user-specified divisions IDs in the
 # library.  Division IDs are either user-specified or system
@@ -2904,7 +2375,7 @@ has entity_hash =>
 
 # This is a hash of all properties of division in the library.
 #
-# $hash->{$division_id}{$property_name}{$property_value} = $value_object;
+# $href->{$division_id}{$property_name}{$property_value} = $value_object;
 #
 # where:
 #
@@ -2923,7 +2394,7 @@ has entity_hash =>
 #    default => sub {{}},
 #   );
 
-# $hash->{$subject}{$predicate}{$object} = 1;
+# $href->{$subject}{$predicate}{$object} = 1;
 
 ######################################################################
 
@@ -3052,7 +2523,7 @@ has division_counter_hash =>
    default   => sub {{}},
   );
 
-# $hash->{$division_name} = $count;
+# $href->{$division_name} = $count;
 
 ######################################################################
 
@@ -3068,10 +2539,10 @@ has published_document_hash =>
 # This hash holds the metadata about published documents and is used
 # to produce the library index page.
 #
-# $hash->{$state}{$document_id}{$property_name} = $string;
+# $href->{$state}{$document_id}{$property_name} = $string;
 #
-# $hash->{'DRAFT'}{'sdd-sml'}{'version'} = 'v2.0';
-# $hash->{'DRAFT'}{'sdd-sml'}{'date'}    = '2015-12-20';
+# $href->{'DRAFT'}{'sdd-sml'}{'version'} = 'v2.0';
+# $href->{'DRAFT'}{'sdd-sml'}{'date'}    = '2015-12-20';
 
 ######################################################################
 
@@ -3104,7 +2575,7 @@ has error_hash =>
 
 # This is a hash of error objects.
 
-# $hash->{$level}{$location}{$message} = $error;
+# $href->{$level}{$location}{$message} = $error;
 
 # see also: add_error, get_error_list
 
@@ -3279,12 +2750,12 @@ sub BUILD {
   if ( -d $self->get_images_dir )
     {
       my $images_dir = $self->get_images_dir;
-      my $list       = $self->get_image_list;
+      my $aref       = $self->get_image_list;
 
       opendir(DIR,"$images_dir") or die "Couldn't open dir: $images_dir";
       foreach my $image ( grep {/\.(png|jpg|jpeg|gif)$/} readdir(DIR) )
 	{
-	  push(@{$list},$image);
+	  push(@{$aref},$image);
 	}
       closedir(DIR);
     }
@@ -3578,7 +3049,7 @@ sub _build_published_document_hash {
 
   my $self = shift;
 
-  my $hash             = {};
+  my $href             = {};
   my $published_dir    = $self->get_published_dir;
   my $state_list       = ['DRAFT','REVIEW','APPROVED'];
   my $document_id_list = $self->get_document_presentation_id_list;
@@ -3614,7 +3085,7 @@ sub _build_published_document_hash {
 		      $property_name  = $1;
 		      $property_value = $3;
 
-		      $hash->{$state}{$id}{$property_name} = $property_value;
+		      $href->{$state}{$id}{$property_name} = $property_value;
 		    }
 
 		  elsif ( $line =~ /$syntax->{blank_line}/ )
@@ -3630,14 +3101,14 @@ sub _build_published_document_hash {
 
 		      $property_value .= $2;
 
-		      $hash->{$state}{$id}{$property_name} = $property_value;
+		      $href->{$state}{$id}{$property_name} = $property_value;
 		    }
 		}
 	    }
 	}
     }
 
-  return $hash;
+  return $href;
 }
 
 ######################################################################
@@ -3646,7 +3117,7 @@ sub _build_published_library_hash {
 
   my $self = shift;
 
-  my $hash          = {};
+  my $href          = {};
   my $published_dir = $self->get_published_dir;
   my $state_list    = ['DRAFT','REVIEW','APPROVED'];
   my $syntax        = $self->get_syntax;
@@ -3679,7 +3150,7 @@ sub _build_published_library_hash {
 		  $property_name  = $1;
 		  $property_value = $3;
 
-		  $hash->{$state}{$property_name} = $property_value;
+		  $href->{$state}{$property_name} = $property_value;
 		}
 
 	      elsif ( $line =~ /$syntax->{blank_line}/ )
@@ -3695,13 +3166,13 @@ sub _build_published_library_hash {
 
 		  $property_value .= $2;
 
-		  $hash->{$state}{$property_name} = $property_value;
+		  $href->{$state}{$property_name} = $property_value;
 		}
 	    }
 	}
     }
 
-  return $hash;
+  return $href;
 }
 
 ######################################################################
@@ -3738,9 +3209,9 @@ sub _add_document_presentation_id {
   my $self = shift;
   my $id   = shift;
 
-  my $list = $self->get_document_presentation_id_list;
+  my $aref = $self->get_document_presentation_id_list;
 
-  push @{$list}, $id;
+  push @{$aref}, $id;
 
   return 1;
 }
@@ -3994,9 +3465,9 @@ sub _build_index {
 sub _build_division_names {
 
   my $self = shift;
-  my $list = [ sort keys %{ $self->_get_division_hash } ];
+  my $aref = [ sort keys %{ $self->_get_division_hash } ];
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -4167,7 +3638,7 @@ sub _build_change_list {
   # Return a hash that represents changes since the previous version
   # of the document:
   #
-  #   $hash->{$division_id}{$action} = 1;
+  #   $href->{$division_id}{$action} = 1;
   #
   #   $division_id => division that changed
   #   $action      => add, update, delete
@@ -4181,11 +3652,11 @@ sub _build_change_list {
   $self->get_all_entities;
   $self->get_all_documents;
 
-  my $hash = {};
+  my $href = {};
 
   unless ( $self->has_version and $self->has_previous_version )
     {
-      return $hash;
+      return $href;
     }
 
   my $previous_version = $self->get_previous_version;
@@ -4253,7 +3724,7 @@ sub _build_change_list {
 	{
 	  if ( not exists $current_sha_hash->{$id} )
 	    {
-	      $hash->{DELETED}{$id} = 1;
+	      $href->{DELETED}{$id} = 1;
 	    }
 
 	  else
@@ -4263,7 +3734,7 @@ sub _build_change_list {
 
 	      if ( $current_digest ne $previous_digest )
 		{
-		  $hash->{UPDATED}{$id} = 1;
+		  $href->{UPDATED}{$id} = 1;
 		}
 	    }
 	}
@@ -4272,7 +3743,7 @@ sub _build_change_list {
 	{
 	  if ( not exists $previous_sha_hash->{$id} )
 	    {
-	      $hash->{ADDED}{$id} = 1;
+	      $href->{ADDED}{$id} = 1;
 	    }
 
 	  else
@@ -4282,33 +3753,33 @@ sub _build_change_list {
 
 	      if ( $current_digest ne $previous_digest )
 		{
-		  $hash->{UPDATED}{$id} = 1;
+		  $href->{UPDATED}{$id} = 1;
 		}
 	    }
 	}
     }
 
-  my $list = [];
+  my $aref = [];
 
   # list adds first
-  foreach my $division_id ( sort keys %{ $hash->{ADDED} } )
+  foreach my $division_id ( sort keys %{ $href->{ADDED} } )
     {
-      push @{$list}, ['ADDED',$division_id];
+      push @{$aref}, ['ADDED',$division_id];
     }
 
   # list deletes second
-  foreach my $division_id ( sort keys %{ $hash->{DELETED} } )
+  foreach my $division_id ( sort keys %{ $href->{DELETED} } )
     {
-      push @{$list}, ['DELETED',$division_id];
+      push @{$aref}, ['DELETED',$division_id];
     }
 
   # list updates third
-  foreach my $division_id ( sort keys %{ $hash->{UPDATED} } )
+  foreach my $division_id ( sort keys %{ $href->{UPDATED} } )
     {
-      push @{$list}, ['UPDATED',$division_id];
+      push @{$aref}, ['UPDATED',$division_id];
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -4402,7 +3873,7 @@ reusable content.
   my $name         = $library->get_name;
   my $revision     = $library->get_revision;
   my $ontology     = $library->get_ontology;
-  my $list         = $library->get_ontology_rule_filespec_list;
+  my $aref         = $library->get_ontology_rule_filespec_list;
   my $parser       = $library->get_parser;
   my $reasoner     = $library->get_reasoner;
   my $publisher    = $library->get_publisher;
@@ -4410,9 +3881,9 @@ reusable content.
   my $acronym_list = $library->get_acronym_list;
   my $references   = $library->get_references;
   my $string       = $library->get_directory_path;
-  my $list         = $library->get_include_path;
-  my $list         = $library->get_region_name_list;
-  my $list         = $library->get_environment_name_list;
+  my $aref         = $library->get_include_path;
+  my $aref         = $library->get_region_name_list;
+  my $aref         = $library->get_environment_name_list;
   my $string       = $library->get_template_dir;
   my $string       = $library->get_published_dir;
 
@@ -4440,7 +3911,7 @@ reusable content.
   my $boolean      = $library->has_outcome($entity_id,$date);
   my $boolean      = $library->has_review($entity_id,$date);
   my $file         = $library->get_file($filename);
-  my $list         = $library->get_document_list;
+  my $aref         = $library->get_document_list;
   my $entity       = $library->get_entity($id);
   my $division     = $library->get_division($id);
   my $variable     = $library->get_variable($name,$namespace);
@@ -4450,12 +3921,12 @@ reusable content.
   my $type         = $library->get_type($value);
   my $outcome      = $library->get_outcome($entity_id,$date);
   my $review       = $library->get_review($entity_id,$date);
-  my $list         = $library->get_outcome_entity_id_list;
-  my $list         = $library->get_review_entity_id_list;
-  my $list         = $library->get_outcome_date_list($entity_id);
-  my $list         = $library->get_review_date_list($entity_id);
-  my $list         = $library->get_outcome_status($entity_id,$date);
-  my $list         = $library->get_review_status($entity_id,$date);
+  my $aref         = $library->get_outcome_entity_id_list;
+  my $aref         = $library->get_review_entity_id_list;
+  my $aref         = $library->get_outcome_date_list($entity_id);
+  my $aref         = $library->get_review_date_list($entity_id);
+  my $aref         = $library->get_outcome_status($entity_id,$date);
+  my $aref         = $library->get_review_status($entity_id,$date);
   my $description  = $library->get_outcome_description($entity_id,$date);
   my $description  = $library->get_review_description($entity_id,$date);
   my $string       = $library->summarize_content;
