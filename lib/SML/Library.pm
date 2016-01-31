@@ -2009,6 +2009,28 @@ sub has_published_document_rendition {
 
 ######################################################################
 
+sub has_published_document_property_value {
+
+  # Return 1 if the specified published document property exists.
+
+  my $self = shift;
+
+  my $state         = shift;            # DRAFT, REVIEW, APPROVED
+  my $document_id   = shift;
+  my $property_name = shift;
+
+  my $href = $self->_get_published_document_hash;
+
+  if ( exists $href->{$state}{$document_id}{$property_name} )
+    {
+      return 1;
+    }
+
+  return 0;
+}
+
+######################################################################
+
 sub get_published_document_property_value {
 
   # Return the (string) value of the specified published document
@@ -2031,11 +2053,29 @@ sub get_published_document_property_value {
       return $util->strip_string_markup($text);
     }
 
-  else
+  $logger->error("CAN'T GET PUBLISHED DOCUMENT PROPERTY VALUE $state $document_id $property_name");
+  return 0;
+}
+
+######################################################################
+
+sub has_published_library_property_value {
+
+  # Return 1 if the specified published library property exists.
+
+  my $self = shift;
+
+  my $state         = shift;            # DRAFT, REVIEW, APPROVED
+  my $property_name = shift;
+
+  my $href = $self->_get_published_library_hash;
+
+  if ( exists $href->{$state}{$property_name} )
     {
-      $logger->error("CAN'T GET PUBLISHED DOCUMENT PROPERTY VALUE $state $document_id $property_name");
-      return 0;
+      return 1;
     }
+
+  return 0;
 }
 
 ######################################################################
