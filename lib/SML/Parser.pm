@@ -209,7 +209,7 @@ sub create_string {
   # reference.  Is this a problem?  Perhaps lookups are all 'resolved'
   # before this code is invoked?
 
-  unless ( $text )
+  unless ( defined $text )
     {
       $logger->logcluck("CAN'T CREATE STRING, MISSING ARGUMENT");
       return 0;
@@ -247,20 +247,6 @@ sub create_string {
 
       return $newstring;
     }
-
-  # elsif ( $string_type eq 'syntax_error' )
-  #   {
-  #     my $args = {};
-
-  #     $args->{name}      = 'SYNTAX_ERROR_STRING';
-  #     $args->{content}   = $text;
-  #     $args->{library}   = $self->_get_library;
-  #     $args->{container} = $container if $container;
-
-  #     my $newstring = SML::String->new(%{$args});
-
-  #     return $newstring;
-  #   }
 
   elsif
     (
@@ -2829,7 +2815,7 @@ sub _end_element {
   my $division_id   = $division->get_id;
   my $division_name = $division->get_name;
 
-  if ( $element_value )
+  if ( defined $element_value )
     {
       $ps->add_element($division_id,$element);
     }
@@ -3384,7 +3370,7 @@ sub _list_by_name {
   my $self = shift;                     # SML::Parser object
   my $name = shift;                     # string
 
-  my $list = [];
+  my $aref = [];
 
   my $division      = $self->_get_division;
   my $division_list = $division->get_division_list;
@@ -3393,11 +3379,11 @@ sub _list_by_name {
     {
       if ( $division->get_name eq $name )
 	{
-	  push(@{ $list }, $division);
+	  push(@{ $aref }, $division);
 	}
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -7379,8 +7365,8 @@ sub _get_next_substring_type {
 
   else
     {
-      my $list = [ sort {$a <=> $b} keys %{$href} ];
-      my $next_substring_type = $list->[0];
+      my $aref = [ sort {$a <=> $b} keys %{$href} ];
+      my $next_substring_type = $aref->[0];
 
       return $href->{$next_substring_type};
     }
@@ -9723,8 +9709,8 @@ sub _validate_property_cardinality {
 
       else
 	{
-	  my $list  = $ps->get_property_text_list($divid,$property_name);
-	  my $count = scalar(@{ $list });
+	  my $aref  = $ps->get_property_text_list($divid,$property_name);
+	  my $count = scalar(@{ $aref });
 
 	  if ( $cardinality eq '1' and $count > 1 )
 	    {
@@ -9759,16 +9745,16 @@ sub _validate_property_values {
       $seen->{$property_name} = 1;
 
       my $imply_only  = $ontology->property_is_imply_only($divname,$property_name);
-      my $list        = $ps->get_property_text_list($divid,$property_name);
+      my $aref        = $ps->get_property_text_list($divid,$property_name);
       my $cardinality = $ontology->property_allows_cardinality($divname,$property_name);
 
-      foreach my $value (@{ $list })
+      foreach my $value (@{ $aref })
 	{
 	  # validate property value is allowed
 	  unless ( $ontology->allows_property_value($divname,$property_name,$value) )
 	    {
-	      my $list = $ontology->get_allowed_property_value_list($divname,$property_name);
-	      my $valid_property_values = join(', ', @{ $list });
+	      my $aref = $ontology->get_allowed_property_value_list($divname,$property_name);
+	      my $valid_property_values = join(', ', @{ $aref });
 	      my $msg = "INVALID PROPERTY VALUE $value, $divname $property_name MUST BE ONE OF: $valid_property_values";
 	      my $location = $division->get_location;
 	      $self->_handle_error('warn',$msg,$location);
@@ -9800,9 +9786,9 @@ sub _validate_infer_only_conformance {
       $seen->{$property_name} = 1;
 
       my $imply_only = $ontology->property_is_imply_only($divname,$property_name);
-      my $list       = $ps->get_property_value_list($divid,$property_name);
+      my $aref       = $ps->get_property_value_list($divid,$property_name);
 
-      foreach my $value (@{ $list })
+      foreach my $value (@{ $aref })
 	{
 	  my $is_from_manuscript = $ps->is_from_manuscript($divid,$property_name,$value);
 

@@ -64,9 +64,9 @@ sub add_locator {
   my $self    = shift;
   my $locator = shift;                  # a division ID
 
-  my $hash = $self->_get_locator_hash;
+  my $href = $self->_get_locator_hash;
 
-  $hash->{$locator} = 1;
+  $href->{$locator} = 1;
 
   return 1;
 }
@@ -96,9 +96,9 @@ sub add_subentry {
 
   $term = $util->strip_string_markup($term);
 
-  my $hash = $self->_get_subentry_hash;
+  my $href = $self->_get_subentry_hash;
 
-  $hash->{$term} = $subentry;
+  $href->{$term} = $subentry;
 
   return 1;
 }
@@ -112,9 +112,9 @@ sub has_subentry {
   my $self = shift;
   my $term = shift;
 
-  my $hash = $self->_get_subentry_hash;
+  my $href = $self->_get_subentry_hash;
 
-  if ( exists $hash->{$term} )
+  if ( exists $href->{$term} )
     {
       return 1;
     }
@@ -129,11 +129,11 @@ sub get_subentry {
   my $self = shift;
   my $term = shift;
 
-  my $hash = $self->_get_subentry_hash;
+  my $href = $self->_get_subentry_hash;
 
-  if ( exists $hash->{$term} )
+  if ( exists $href->{$term} )
     {
-      return $hash->{$term};
+      return $href->{$term};
     }
 
   return 0;
@@ -148,19 +148,17 @@ sub add_cross_ref {
   my $self  = shift;
   my $entry = shift;                    # cross-referenced entry
 
-  if (
-      (not ref $entry)
-      or
-      (not $entry->isa('SML::IndexEntry'))
-     )
+  unless ( ref $entry and $entry->isa('SML::IndexEntry') )
     {
       $logger->error("NOT AN INDEX ENTRY, CAN'T CROSS REFERENCE \'$entry\'");
       return 0;
     }
 
-  my $list = $self->_get_cross_ref_hash;
+  my $term = $entry->get_term;
 
-  push(@{$list},$entry);
+  my $href = $self->_get_cross_ref_hash;
+
+  $href->{$term} = $entry;
 
   return 1;
 }
@@ -171,9 +169,9 @@ sub get_locator_list {
 
   my $self = shift;
 
-  my $hash = $self->_get_locator_hash;
+  my $href = $self->_get_locator_hash;
 
-  return keys %{ $hash };
+  return keys %{ $href };
 }
 
 ######################################################################
@@ -220,9 +218,9 @@ sub has_subentries {
 
   my $self = shift;
 
-  my $hash = $self->_get_subentry_hash;
+  my $href = $self->_get_subentry_hash;
 
-  if ( scalar keys %{ $hash } )
+  if ( scalar keys %{ $href } )
     {
       return 1;
     }
@@ -236,18 +234,18 @@ sub get_subentry_list {
 
   my $self = shift;
 
-  my $list = [];
+  my $aref = [];
 
-  my $hash = $self->_get_subentry_hash;
+  my $href = $self->_get_subentry_hash;
 
-  foreach my $subterm ( sort keys %{ $hash } )
+  foreach my $subterm ( sort keys %{ $href } )
     {
-      my $subentry = $hash->{$subterm};
+      my $subentry = $href->{$subterm};
 
-      push @{$list}, $subentry;
+      push @{$aref}, $subentry;
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -276,7 +274,7 @@ has subentry_hash =>
    default => sub {{}},
   );
 
-# $hash->{$subterm} = $subentry
+# $href->{$subterm} = $subentry
 
 ######################################################################
 
@@ -284,7 +282,7 @@ has cross_ref_hash =>
   (
    is      => 'ro',
    isa     => 'HashRef',
-   reader  => 'get_cross_ref_hash',
+   reader  => '_get_cross_ref_hash',
    default => sub {{}},
   );
 

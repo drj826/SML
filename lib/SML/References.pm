@@ -49,9 +49,9 @@ sub add_source {
 
   my $id = $source->get_id;
 
-  my $hash = $self->_get_source_hash;
+  my $href = $self->_get_source_hash;
 
-  $hash->{$id} = $source;
+  $href->{$id} = $source;
 
   return 1;
 }
@@ -127,31 +127,6 @@ sub get_sources {
 
 ######################################################################
 
-# sub replace_division_id {
-
-#   # This is a hack.  I should change the syntax of the source start
-#   # markup to include the ID so this isn't necessary.  That way the
-#   # library can remember the correct ID at the start of the source.
-
-#   my $self   = shift;
-#   my $source = shift;
-#   my $id     = shift;
-
-#   foreach my $stored_id (keys %{ $self->_get_source_hash })
-#     {
-#       my $stored_source = $self->_get_source_hash->{$stored_id};
-#       if ( $stored_source == $source )
-# 	{
-# 	  delete $self->_get_source_hash->{$stored_id};
-# 	  $self->_get_source_hash->{$id} = $source;
-# 	}
-#     }
-
-#   return 1;
-# }
-
-######################################################################
-
 sub get_entry_count {
 
   # Return the number of sources in this source references list.
@@ -169,15 +144,15 @@ sub get_entry_list {
 
   my $self = shift;
 
-  my $hash = $self->_get_source_hash;
-  my $list = [];
+  my $href = $self->_get_source_hash;
+  my $aref = [];
 
-  foreach my $id ( sort keys %{$hash} )
+  foreach my $id ( sort keys %{$href} )
     {
-      push @{$list}, $hash->{$id};
+      push @{$aref}, $href->{$id};
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################

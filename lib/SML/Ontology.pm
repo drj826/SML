@@ -55,9 +55,9 @@ sub get_allowed_property_value_list {
   my $division_name = shift;
   my $property_name = shift;
 
-  my $hash = $self->_get_allowed_property_values_hash;
+  my $href = $self->_get_allowed_property_values_hash;
 
-  return $hash->{$division_name}{$property_name};
+  return $href->{$division_name}{$property_name};
 }
 
 ######################################################################
@@ -71,9 +71,9 @@ sub get_allowed_property_object_name_list {
   my $division_name = shift;
   my $property_name = shift;
 
-  my $hash = $self->_get_property_rules_lookup_hash;
+  my $href = $self->_get_property_rules_lookup_hash;
 
-  return [ sort keys %{ $hash->{$division_name}{$property_name} }];
+  return [ sort keys %{ $href->{$division_name}{$property_name} }];
 }
 
 ######################################################################
@@ -160,8 +160,8 @@ sub get_rule_with_id {
       return 0;
     }
 
-  my $hash = $self->_get_rule_hash;
-  my $rule = $hash->{$rule_id};
+  my $href = $self->_get_rule_hash;
+  my $rule = $href->{$rule_id};
 
   if ( defined $rule )
     {
@@ -188,15 +188,15 @@ sub get_class_for_division_name {
       return 0;
     }
 
-  my $hash = $self->_get_types_by_division_name_hash;
+  my $href = $self->_get_types_by_division_name_hash;
 
-  unless ( exists $hash->{$name} )
+  unless ( exists $href->{$name} )
     {
       $logger->error("THERE IS NO CLASS FOR DIVISION NAME \'$name\'");
       return 0;
     }
 
-  return $hash->{$name};
+  return $href->{$name};
 }
 
 ######################################################################
@@ -240,11 +240,11 @@ sub get_list_of_required_property_names_for_division_name {
       return 0;
     }
 
-  my $hash = $self->_get_required_properties_hash;
+  my $href = $self->_get_required_properties_hash;
 
-  if ( exists $hash->{$name} )
+  if ( exists $href->{$name} )
     {
-      return [ sort keys %{ $hash->{$name} } ]
+      return [ sort keys %{ $href->{$name} } ]
     }
 
   else
@@ -269,9 +269,9 @@ sub has_division_with_name {
   my $self = shift;
   my $name = shift;
 
-  my $hash = $self->_get_rule_hash;
+  my $href = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $hash } )
+  foreach my $rule ( values %{ $href } )
     {
       my $division_name = $rule->get_division_name;
 
@@ -342,9 +342,9 @@ sub allows_division_name {
   my $self = shift;
   my $name = shift;
 
-  my $hash = $self->_get_types_by_division_name_hash;
+  my $href = $self->_get_types_by_division_name_hash;
 
-  if ( exists $hash->{$name} )
+  if ( exists $href->{$name} )
     {
       return 1;
     }
@@ -370,14 +370,14 @@ sub allows_property_name_in_division_name {
       $logger->logcluck("YOU MUST PROVIDE A PROPERTY NAME");
     }
 
-  my $list = $self->get_list_of_allowed_property_names_for_division_name($division_name);
+  my $aref = $self->get_list_of_allowed_property_names_for_division_name($division_name);
 
-  if ( not $list )
+  if ( not $aref )
     {
       return 0;
     }
 
-  foreach my $name (@{ $list })
+  foreach my $name (@{ $aref })
     {
       if ( $name eq $property_name )
 	{
@@ -408,9 +408,9 @@ sub allows_composition {
   my $division_name_a = shift;
   my $division_name_b = shift;
 
-  my $hash = $self->_get_allowed_compositions_hash;
+  my $href = $self->_get_allowed_compositions_hash;
 
-  if ( defined $hash->{$division_name_a}{$division_name_b} )
+  if ( defined $href->{$division_name_a}{$division_name_b} )
     {
       return 1;
     }
@@ -427,10 +427,10 @@ sub allows_property_value {
   my $property_name = shift;
   my $value         = shift;
 
-  my $hash = $self->_get_allowed_property_values_hash;
+  my $href = $self->_get_allowed_property_values_hash;
 
   # allowed property value list
-  my $apv_list = $hash->{$division_name}{$property_name};
+  my $apv_list = $href->{$division_name}{$property_name};
 
   if (
       ( not defined $apv_list )
@@ -490,9 +490,9 @@ sub property_is_universal {
   my $self = shift;
   my $name = shift;
 
-  my $hash = $self->_get_property_rules_lookup_hash;
+  my $href = $self->_get_property_rules_lookup_hash;
 
-  if ( exists $hash->{'UNIVERSAL'}{$name} )
+  if ( exists $href->{'UNIVERSAL'}{$name} )
     {
       return 1;
     }
@@ -511,9 +511,9 @@ sub property_is_required {
   my $division_name = shift;
   my $property_name = shift;
 
-  my $hash = $self->_get_required_properties_hash;
+  my $href = $self->_get_required_properties_hash;
 
-  if ( exists $hash->{$division_name}{$property_name} )
+  if ( exists $href->{$division_name}{$property_name} )
     {
       return 1;
     }
@@ -529,9 +529,9 @@ sub property_is_imply_only {
   my $division_name = shift;
   my $property_name = shift;
 
-  my $hash = $self->_get_imply_only_properties_hash;
+  my $href = $self->_get_imply_only_properties_hash;
 
-  unless ( $hash->{$division_name}{$property_name} )
+  unless ( $href->{$division_name}{$property_name} )
     {
       return 0;
     }
@@ -550,11 +550,11 @@ sub property_allows_cardinality {
   my $division_name = shift;
   my $property_name = shift;
 
-  my $hash = $self->_get_cardinality_of_properties_hash;
+  my $href = $self->_get_cardinality_of_properties_hash;
 
-  if ( exists $hash->{$division_name}{$property_name} )
+  if ( exists $href->{$division_name}{$property_name} )
     {
-      return $hash->{$division_name}{$property_name};
+      return $href->{$division_name}{$property_name};
     }
 
   return 0;
@@ -569,7 +569,7 @@ sub get_entity_name_list {
 
   my $self = shift;
 
-  my $list  = [];
+  my $aref  = [];
   my $tbenh = $self->_get_types_by_division_name_hash;
 
   foreach my $name ( sort keys %{ $tbenh } )
@@ -578,11 +578,11 @@ sub get_entity_name_list {
 
       if ( $value eq 'SML::Entity' )
 	{
-	  push(@{$list},$name);
+	  push(@{$aref},$name);
 	}
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -594,7 +594,7 @@ sub get_structure_name_list {
 
   my $self = shift;
 
-  my $list  = [];
+  my $aref  = [];
   my $tbenh = $self->_get_types_by_division_name_hash;
 
   # !!! BUG HERE !!!
@@ -609,11 +609,11 @@ sub get_structure_name_list {
 
       if ( $value ne 'SML::Entity' )
 	{
-	  push(@{$list},$name);
+	  push(@{$aref},$name);
 	}
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -625,13 +625,13 @@ sub get_allowed_containee_name_list {
   my $self          = shift;
   my $division_name = shift;
 
-  my $hash = $self->_get_allowed_compositions_hash;
+  my $href = $self->_get_allowed_compositions_hash;
 
   my $result_hash = {};
 
-  foreach my $containee_name ( keys %{ $hash } )
+  foreach my $containee_name ( keys %{ $href } )
     {
-      foreach my $container_name ( keys %{ $hash->{$containee_name} } )
+      foreach my $container_name ( keys %{ $href->{$containee_name} } )
 	{
 	  if ( $container_name eq $division_name )
 	    {
@@ -683,9 +683,9 @@ sub is_structure {
       return 0;
     }
 
-  my $hash = $self->_get_types_by_division_name_hash;
+  my $href = $self->_get_types_by_division_name_hash;
 
-  my $class = $hash->{$name};
+  my $class = $href->{$name};
 
   unless ( $class )
     {
@@ -741,7 +741,7 @@ has rule_hash =>
    default   => sub {{}},
   );
 
-# $hash->{$rule_id} = $ontology_rule;
+# $href->{$rule_id} = $ontology_rule;
 
 ######################################################################
 
@@ -754,7 +754,7 @@ has types_by_division_name_hash =>
    builder   => '_build_types_by_division_name_hash',
   );
 
-# $hash->{$division_name} = $value_type;
+# $href->{$division_name} = $value_type;
 
 ######################################################################
 
@@ -767,7 +767,7 @@ has properties_by_division_name_hash =>
    builder   => '_build_properties_by_division_name_hash',
   );
 
-# $hash->{$division_name}{$property_name} = 1;
+# $href->{$division_name}{$property_name} = 1;
 
 ######################################################################
 
@@ -780,7 +780,7 @@ has property_rules_lookup_hash =>
    builder   => '_build_property_rules_lookup_hash',
   );
 
-# $hash->{$division_name}{$property_name}{$name_or_value} = $ontology_rule;
+# $href->{$division_name}{$property_name}{$name_or_value} = $ontology_rule;
 
 ######################################################################
 
@@ -793,7 +793,7 @@ has allowed_property_values_hash =>
    builder   => '_build_allowed_property_values_hash',
   );
 
-# $hash->{$division_name}{$property_name} = $value_list
+# $href->{$division_name}{$property_name} = $value_list
 
 ######################################################################
 
@@ -806,7 +806,7 @@ has allowed_compositions_hash =>
    builder   => '_build_allowed_compositions_hash',
   );
 
-# $hash->{$containee_name}{$container_name} = 1;
+# $href->{$containee_name}{$container_name} = 1;
 
 ######################################################################
 
@@ -819,7 +819,7 @@ has imply_only_properties_hash =>
    builder   => '_build_imply_only_properties_hash',
   );
 
-# $hash->{$division_name}{$property_name} = 1;
+# $href->{$division_name}{$property_name} = 1;
 
 ######################################################################
 
@@ -832,7 +832,7 @@ has cardinality_of_properties_hash =>
    builder   => '_build_cardinality_of_properties_hash',
   );
 
-# $hash->{$division_name}{$property_name} = $cardinality;
+# $href->{$division_name}{$property_name} = $cardinality;
 
 ######################################################################
 
@@ -845,7 +845,7 @@ has required_properties_hash =>
    builder   => '_build_required_properties_hash',
   );
 
-# $hash->{$division_name}{$property_name} = 1;
+# $href->{$division_name}{$property_name} = 1;
 
 ######################################################################
 ######################################################################
@@ -1036,10 +1036,10 @@ sub _add_rule {
       return 0;
     }
 
-  my $hash    = $self->_get_rule_hash;
+  my $href    = $self->_get_rule_hash;
   my $rule_id = $rule->get_id;
 
-  $hash->{$rule_id} = $rule;
+  $href->{$rule_id} = $rule;
 
   return 1;
 }
@@ -1051,9 +1051,9 @@ sub _build_properties_by_division_name_hash {
   my $self = shift;
 
   my $pbenh = {};                       # properties by entity name
-  my $hash  = $self->_get_rule_hash;
+  my $href  = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $hash } )
+  foreach my $rule ( values %{ $href } )
     {
       my $rule_type = $rule->get_rule_type;
 
@@ -1079,9 +1079,9 @@ sub _build_types_by_division_name_hash {
   my $self = shift;
 
   my $tbenh = {};                       # types by entity name
-  my $hash  = $self->_get_rule_hash;
+  my $href  = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $hash } )
+  foreach my $rule ( values %{ $href } )
     {
       my $rule_type = $rule->get_rule_type;
 
@@ -1106,9 +1106,9 @@ sub _build_property_rules_lookup_hash {
   my $self = shift;
 
   my $prlh = {};                        # property rules lookup
-  my $hash = $self->_get_rule_hash;
+  my $href = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $hash } )
+  foreach my $rule ( values %{ $href } )
     {
       my $rule_type = $rule->get_rule_type;
 
@@ -1134,9 +1134,9 @@ sub _build_allowed_property_values_hash {
   my $self = shift;
 
   my $apvh = {};                        # allowed property values hash
-  my $hash = $self->_get_rule_hash;
+  my $href = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $hash } )
+  foreach my $rule ( values %{ $href } )
     {
       my $rule_type = $rule->get_rule_type;
 
@@ -1173,9 +1173,9 @@ sub _build_allowed_compositions_hash {
   my $self = shift;
 
   my $ach  = {};                        # allowed compositions hash
-  my $hash = $self->_get_rule_hash;
+  my $href = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $hash } )
+  foreach my $rule ( values %{ $href } )
     {
       my $rule_type = $rule->get_rule_type;
 
@@ -1203,9 +1203,9 @@ sub _build_imply_only_properties_hash {
   my $self = shift;
 
   my $ioph = {};                        # imply only properties
-  my $hash = $self->_get_rule_hash;
+  my $href = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $hash } )
+  foreach my $rule ( values %{ $href } )
     {
       my $rule_type = $rule->get_rule_type;
 
@@ -1236,9 +1236,9 @@ sub _build_cardinality_of_properties_hash {
   my $self = shift;
 
   my $coph = {};                        # cardinality of properties
-  my $hash = $self->_get_rule_hash;
+  my $href = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $hash } )
+  foreach my $rule ( values %{ $href } )
     {
       my $rule_type = $rule->get_rule_type;
 
@@ -1267,9 +1267,9 @@ sub _build_required_properties_hash {
   my $self = shift;
 
   my $rph  = {};                        # required properties hash
-  my $hash = $self->_get_rule_hash;
+  my $href = $self->_get_rule_hash;
 
-  foreach my $rule ( values %{ $hash } )
+  foreach my $rule ( values %{ $href } )
     {
       my $rule_type = $rule->get_rule_type;
 

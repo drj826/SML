@@ -183,14 +183,14 @@ sub _build_plain_text {
 
   if ( $self->contains_parts )
     {
-      my $list = [];
+      my $aref = [];
 
       foreach my $part (@{ $self->get_part_list })
 	{
-	  push @{$list}, $part->get_plain_text;
+	  push @{$aref}, $part->get_plain_text;
 	}
 
-      return join(' ', @{$list});
+      return join(' ', @{$aref});
     }
 
   else

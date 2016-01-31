@@ -44,11 +44,11 @@ sub add_entry {
       return 0;
     }
 
-  my $hash      = $self->_get_entry_hash;
+  my $href      = $self->_get_entry_hash;
   my $term      = $definition->get_term;
   my $namespace = $definition->get_namespace || q{};
 
-  $hash->{$term}{$namespace} = $definition;
+  $href->{$term}{$namespace} = $definition;
 
   # Add this entry to the entry group hash.
   my $group      = lc(substr($term,0,1));
@@ -81,9 +81,9 @@ sub has_entry {
       return 0;
     }
 
-  my $hash = $self->_get_entry_hash;
+  my $href = $self->_get_entry_hash;
 
-  if ( defined $hash->{$acronym}{$namespace} )
+  if ( defined $href->{$acronym}{$namespace} )
     {
       return 1;
     }
@@ -99,15 +99,15 @@ sub get_entry {
   my $acronym   = shift;
   my $namespace = shift || q{};
 
-  my $hash = $self->_get_entry_hash;
+  my $href = $self->_get_entry_hash;
 
-  unless ( defined $hash->{$acronym}{$namespace} )
+  unless ( defined $href->{$acronym}{$namespace} )
     {
       $logger->warn("FAILED ACRONYM LOOKUP $acronym {$namespace}");
       return 0;
     }
 
-  return $hash->{$acronym}{$namespace};
+  return $href->{$acronym}{$namespace};
 }
 
 ######################################################################
@@ -118,18 +118,18 @@ sub get_entry_list {
 
   my $self = shift;
 
-  my $hash = $self->_get_entry_hash;
-  my $list = [];                        # acronym list
+  my $href = $self->_get_entry_hash;
+  my $aref = [];                        # acronym list
 
-  foreach my $acronym ( sort keys %{ $hash } )
+  foreach my $acronym ( sort keys %{ $href } )
     {
-      foreach my $namespace ( sort keys %{ $hash->{$acronym} } )
+      foreach my $namespace ( sort keys %{ $href->{$acronym} } )
 	{
-	  push @{ $list }, $hash->{$acronym}{$namespace};
+	  push @{ $aref }, $href->{$acronym}{$namespace};
 	}
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -185,7 +185,7 @@ sub get_group_entry_list {
 
   my $entry_hash = $self->_get_entry_hash;
 
-  my $hash = {};
+  my $href = {};
 
   foreach my $term (sort @{ $group_hash->{$group} })
     {
@@ -193,20 +193,20 @@ sub get_group_entry_list {
 	{
 	  my $entry = $self->get_entry($term,$namespace);
 
-	  $hash->{"$term.$namespace"} = $entry;
+	  $href->{"$term.$namespace"} = $entry;
 	}
     }
 
-  my $list = [];
+  my $aref = [];
 
-  foreach my $term_namespace ( sort keys %{$hash} )
+  foreach my $term_namespace ( sort keys %{$href} )
     {
-      my $entry = $hash->{$term_namespace};
+      my $entry = $href->{$term_namespace};
 
-      push(@{$list},$entry);
+      push(@{$aref},$entry);
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -258,7 +258,7 @@ field, or area of usage, with accompanying definitions.
   my $boolean = $acronym_list->add_entry($definition);
   my $boolean = $acronym_list->has_entry($acronym,$namespace);
   my $acronym = $acronym_list->get_entry($acronym,$namespace);
-  my $list    = $acronym_list->get_entry_list;  # alphabetized
+  my $aref    = $acronym_list->get_entry_list;  # alphabetized
 
 =head1 DESCRIPTION
 

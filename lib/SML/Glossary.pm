@@ -41,11 +41,11 @@ sub add_entry {
       return 0;
     }
 
-  my $hash      = $self->_get_entry_hash;
+  my $href      = $self->_get_entry_hash;
   my $term      = $definition->get_term;
   my $namespace = $definition->get_namespace || q{};
 
-  $hash->{$term}{$namespace} = $definition;
+  $href->{$term}{$namespace} = $definition;
 
   # Add this entry to the entry group hash.
   my $group      = lc(substr($term,0,1));
@@ -107,18 +107,18 @@ sub get_entry_list {
 
   my $self = shift;
 
-  my $list = [];
+  my $aref = [];
   my $eh   = $self->_get_entry_hash;
 
   foreach my $term ( sort keys %{ $eh } )
     {
       foreach my $namespace ( sort keys %{ $eh->{$term} } )
 	{
-	  push @{ $list }, $eh->{$term}{$namespace};
+	  push @{ $aref }, $eh->{$term}{$namespace};
 	}
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################
@@ -174,7 +174,7 @@ sub get_group_entry_list {
 
   my $entry_hash = $self->_get_entry_hash;
 
-  my $hash = {};
+  my $href = {};
 
   foreach my $term (sort @{ $group_hash->{$group} })
     {
@@ -182,20 +182,20 @@ sub get_group_entry_list {
 	{
 	  my $entry = $self->get_entry($term,$namespace);
 
-	  $hash->{"$term.$namespace"} = $entry;
+	  $href->{"$term.$namespace"} = $entry;
 	}
     }
 
-  my $list = [];
+  my $aref = [];
 
-  foreach my $term_namespace ( sort keys %{$hash} )
+  foreach my $term_namespace ( sort keys %{$href} )
     {
-      my $entry = $hash->{$term_namespace};
+      my $entry = $href->{$term_namespace};
 
-      push(@{$list},$entry);
+      push(@{$aref},$entry);
     }
 
-  return $list;
+  return $aref;
 }
 
 ######################################################################

@@ -262,7 +262,7 @@ C<SML::Block> - one or more contiguous L<"SML::Line">s.
                   library => $library,
                 );
 
-  my $list     = $block->get_line_list;
+  my $aref     = $block->get_line_list;
   my $division = $block->get_containing_division;
   my $boolean  = $block->set_containing_division($division);
   my $boolean  = $block->has_containing_division;

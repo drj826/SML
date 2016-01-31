@@ -483,7 +483,7 @@ C<SML::Part> - a part of a document.
   my $name    = $part->get_name;
   my $result  = $part->set_content;
   my $text    = $part->get_content;
-  my $list    = $part->get_part_list;
+  my $aref    = $part->get_part_list;
   my $result  = $part->init;
   my $boolean = $part->has_content;
   my $boolean = $part->contains_parts;

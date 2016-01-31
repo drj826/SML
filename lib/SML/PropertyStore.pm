@@ -259,7 +259,7 @@ sub add_property_value {
   my $property_name = shift;
   my $value         = shift;
 
-  unless ( $division_id and $property_name and $value )
+  unless ( $division_id and $property_name and defined $value )
     {
       $logger->error("CAN'T ADD PROPERTY VALUE, MISSING ARGUMENT(S)");
       return 0;
@@ -267,15 +267,7 @@ sub add_property_value {
 
   my $href = $self->_get_property_hash;
 
-  if ( exists $href->{$division_id}{$property_name}{$value} )
-    {
-      # $logger->warn("PROPERTY ALREADY EXISTS $division_id $property_name $value");
-    }
-
-  else
-    {
-      $href->{$division_id}{$property_name}{$value} = 1;
-    }
+  $href->{$division_id}{$property_name}{$value} = 1;
 
   return 1;
 }
@@ -616,94 +608,6 @@ sub get_property_string_list {
 
   return $string_list;
 }
-
-######################################################################
-
-# sub set_property_text {
-
-#   my $self = shift;
-
-#   my $division_id   = shift;
-#   my $property_name = shift;
-#   my $text          = shift;
-
-#   unless ( $division_id and $property_name and $text )
-#     {
-#       $logger->error("CAN'T SET PROPERTY TEXT, MISSING ARGUMENT(S)");
-#       return 0;
-#     }
-
-#   my $text_href = $self->_get_property_text_hash;
-
-#   $text_href->{$division_id}{$property_name} = $text;
-
-#   my $list_href = $self->_get_property_text_list_hash;
-
-#   if ( exists $list_href->{$division_id}{$property_name} )
-#     {
-#       my $list = $list_href->{$division_id}{$property_name};
-
-#       push @{$list}, $text;
-#     }
-
-#   else
-#     {
-#       my $list = [];
-
-#       push @{$list}, $text;
-
-#       $list_href->{$division_id}{$property_name} = $list;
-#     }
-
-#   return 1;
-# }
-
-######################################################################
-
-# sub set_property_string {
-
-#   my $self = shift;
-
-#   my $division_id   = shift;
-#   my $property_name = shift;
-#   my $string        = shift;
-
-#   unless ( $division_id and $property_name and $string )
-#     {
-#       $logger->error("CAN'T SET PROPERTY STRING, MISSING ARGUMENT(S)");
-#       return 0;
-#     }
-
-#   unless ( ref $string and $string->isa('SML::String') )
-#     {
-#       $logger->error("CAN'T SET PROPERTY STRING, NOT A STRING $string");
-#       return 0;
-#     }
-
-#   my $string_href = $self->_get_property_string_hash;
-
-#   $string_href->{$division_id}{$property_name} = $string;
-
-#   my $list_href = $self->_get_property_string_list_hash;
-
-#   if ( exists $list_href->{$division_id}{$property_name} )
-#     {
-#       my $list = $list_href->{$division_id}{$property_name};
-
-#       push @{$list}, $string;
-#     }
-
-#   else
-#     {
-#       my $list = [];
-
-#       push @{$list}, $string;
-
-#       $list_href->{$division_id}{$property_name} = $list;
-#     }
-
-#   return 1;
-# }
 
 ######################################################################
 

@@ -111,7 +111,7 @@ This documentation refers to L<"SML::EnumeratedList"> version 2.0.0.
 
   extends SML::Division
 
-  my $list = SML::EnumeratedList->new(id=>$id,library=>$library);
+  my $aref = SML::EnumeratedList->new(id=>$id,library=>$library);
 
 =head1 DESCRIPTION
 
