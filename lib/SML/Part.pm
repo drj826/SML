@@ -301,7 +301,7 @@ sub is_in_section {
 
   my $division = $self->get_containing_division;
 
-  while ( ref $division and not $division->isa('SML::Fragment') )
+  while ( ref $division and not $division->isa('SML::Document') )
     {
       if ( $division->isa('SML::Section') )
 	{
@@ -332,7 +332,7 @@ sub get_containing_section {
 
   my $division = $self->get_containing_division;
 
-  while ( ref $division and not $division->isa('SML::Fragment') )
+  while ( ref $division and not $division->isa('SML::Document') )
     {
       if ( $division->isa('SML::Section') )
 	{
