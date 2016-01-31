@@ -2553,11 +2553,11 @@ sub get_published_document_property_value {
 
   if ( exists $hash->{$state}{$document_id}{$property_name} )
     {
-      my $u = $self->get_util;
+      my $util = $self->get_util;
 
       my $text = $hash->{$state}{$document_id}{$property_name};
 
-      return $u->strip_string_markup($text);
+      return $util->strip_string_markup($text);
     }
 
   else
@@ -2565,6 +2565,31 @@ sub get_published_document_property_value {
       $logger->error("CAN'T GET PUBLISHED DOCUMENT PROPERTY VALUE $state $document_id $property_name");
       return 0;
     }
+}
+
+######################################################################
+
+sub get_published_library_property_value {
+
+  # Return the (string) value of the specified published library
+  # property.
+
+  my $self = shift;
+
+  my $state         = shift;            # DRAFT, REVIEW, APPROVED
+  my $property_name = shift;
+
+  my $hash = $self->_get_published_library_hash;
+
+  if ( exists $hash->{$state}{$property_name} )
+    {
+      my $util = $self->get_util;
+
+      return $hash->{$state}{$property_name};
+    }
+
+  $logger->error("CAN'T GET PUBLISHED LIBRARY PROPERTY VALUE $state $property_name");
+  return 0;
 }
 
 ######################################################################
@@ -3047,6 +3072,25 @@ has published_document_hash =>
 #
 # $hash->{'DRAFT'}{'sdd-sml'}{'version'} = 'v2.0';
 # $hash->{'DRAFT'}{'sdd-sml'}{'date'}    = '2015-12-20';
+
+######################################################################
+
+has published_library_hash =>
+  (
+   is        => 'ro',
+   isa       => 'HashRef',
+   reader    => '_get_published_library_hash',
+   lazy      => 1,
+   builder   => '_build_published_library_hash',
+  );
+
+# This hash holds the metadata about published libraries and is used
+# to produce the overall main page.
+#
+# $href->{$state}{$property_name} = $string;
+#
+# $href->{'DRAFT'}{'version'} = 'v2.0';
+# $href->{'DRAFT'}{'date'}    = '2015-12-20';
 
 ######################################################################
 
@@ -3588,6 +3632,70 @@ sub _build_published_document_hash {
 
 		      $hash->{$state}{$id}{$property_name} = $property_value;
 		    }
+		}
+	    }
+	}
+    }
+
+  return $hash;
+}
+
+######################################################################
+
+sub _build_published_library_hash {
+
+  my $self = shift;
+
+  my $hash          = {};
+  my $published_dir = $self->get_published_dir;
+  my $state_list    = ['DRAFT','REVIEW','APPROVED'];
+  my $syntax        = $self->get_syntax;
+
+  foreach my $state (@{ $state_list })
+    {
+      my $filespec = "$published_dir/$state/LIBRARY/METADATA.txt";
+
+      if ( -f $filespec )
+	{
+	  my $raw_line_list = [];
+
+	  open my $fh, "<", $filespec or die "Can't open $filespec: $!\n";
+	  @{ $raw_line_list } = <$fh>;
+	  close $fh;
+
+	  my $property_name  = q{};
+	  my $property_value = q{};
+
+	  foreach my $line (@{ $raw_line_list })
+	    {
+	      if ( $line =~ /$syntax->{element}/ )
+		{
+		  # $1 = element name
+		  # $2 = element args
+		  # $3 = element value
+		  # $4
+		  # $5 = comment text
+
+		  $property_name  = $1;
+		  $property_value = $3;
+
+		  $hash->{$state}{$property_name} = $property_value;
+		}
+
+	      elsif ( $line =~ /$syntax->{blank_line}/ )
+		{
+		  $property_name  = q{};
+		  $property_value = q{};
+		}
+
+	      elsif ( $line =~ /$syntax->{paragraph_text}/ )
+		{
+		  # $1 = table cell markup (begin table cell)
+		  # $2 = paragraph text
+
+		  $property_value .= $2;
+
+		  $hash->{$state}{$property_name} = $property_value;
 		}
 	    }
 	}
