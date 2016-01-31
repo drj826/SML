@@ -338,6 +338,7 @@ sub publish_html_library_special_pages {
   # - library index page
   # - library change page
   # - library errors page
+  # - library METADATA page
 
   my $self  = shift;
   my $style = shift || 'default';
@@ -397,7 +398,12 @@ sub publish_html_library_special_pages {
 
   my $tt = Template->new($tt_config) || die "$Template::ERROR\n";
 
-  my $vars = { library => $library };
+  my $vars = { library => $library, publisher => $self };
+
+  # METADATA page
+  $logger->debug("publishing library METADATA.txt");
+  $tt->process("library_METADATA.tt",$vars,"METADATA.txt")
+    || die $tt->error(), "\n";
 
   # traceability page
   $logger->debug("publishing traceability.html");
@@ -772,7 +778,7 @@ sub _publish_html_document {
 	}
 
       $logger->debug("publishing $id METADATA.txt");
-      $tt->process("METADATA.tt",$vars,"METADATA.txt")
+      $tt->process("document_METADATA.tt",$vars,"METADATA.txt")
 	|| die $tt->error(), "\n";
     }
 
