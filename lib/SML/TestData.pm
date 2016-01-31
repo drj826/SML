@@ -214,14 +214,14 @@ has formatter_test_case_list =>
 
 ######################################################################
 
-has fragment_test_case_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => 'get_fragment_test_case_list',
-   lazy    => 1,
-   builder => '_build_fragment_test_case_list',
-  );
+# has fragment_test_case_list =>
+#   (
+#    is      => 'ro',
+#    isa     => 'ArrayRef',
+#    reader  => 'get_fragment_test_case_list',
+#    lazy    => 1,
+#    builder => '_build_fragment_test_case_list',
+#   );
 
 ######################################################################
 
@@ -4155,46 +4155,46 @@ sub _build_formatter_test_case_list {
 
 ######################################################################
 
-sub _build_fragment_test_case_list {
+# sub _build_fragment_test_case_list {
 
-  my $self = shift;
+#   my $self = shift;
 
-  return
-    [
-     {
-      name => 'fragment_1',
-      filespec => 'library/testdata/td-000074.txt',
-      divid => 'my-problem',
-      library => $self->get_test_library_1,
-      expected =>
-      {
-       extract_division_lines => 19,
-      },
-     },
+#   return
+#     [
+#      {
+#       name => 'fragment_1',
+#       filespec => 'library/testdata/td-000074.txt',
+#       divid => 'my-problem',
+#       library => $self->get_test_library_1,
+#       expected =>
+#       {
+#        extract_division_lines => 19,
+#       },
+#      },
 
-     {
-      name => 'fragment_2',
-      filespec => 'library/testdata/td-000074.txt',
-      divid => 'tab-solution-types',
-      library => $self->get_test_library_1,
-      expected =>
-      {
-       extract_division_lines => 29,
-      },
-     },
+#      {
+#       name => 'fragment_2',
+#       filespec => 'library/testdata/td-000074.txt',
+#       divid => 'tab-solution-types',
+#       library => $self->get_test_library_1,
+#       expected =>
+#       {
+#        extract_division_lines => 29,
+#       },
+#      },
 
-     {
-      name => 'fragment_3',
-      filespec => 'library/testdata/td-000074.txt',
-      divid => 'introduction',
-      library => $self->get_test_library_1,
-      expected =>
-      {
-       extract_division_lines => 16,
-      },
-     },
-    ];
-}
+#      {
+#       name => 'fragment_3',
+#       filespec => 'library/testdata/td-000074.txt',
+#       divid => 'introduction',
+#       library => $self->get_test_library_1,
+#       expected =>
+#       {
+#        extract_division_lines => 16,
+#       },
+#      },
+#     ];
+# }
 
 ######################################################################
 
@@ -7150,7 +7150,7 @@ sub _build_test_object_hash {
   {
     my $library  = SML::Library->new(config_filename=>'library.conf');
     my $parser   = $library->get_parser;
-    my $fragment = $parser->create_fragment('td-000020.txt');
+    # my $fragment = $parser->create_fragment('td-000020.txt');
     my $document = $library->get_division('td-000020');
 
     $toh->{'SML::Document'}{'td-000020'} = $document;
@@ -7437,7 +7437,6 @@ C<SML::TestData> - unit test cases and test data
   my $tcl = $td->get_enumerated_list_item_test_case_list;
   my $tcl = $td->get_file_test_case_list;
   my $tcl = $td->get_formatter_test_case_list;
-  my $tcl = $td->get_fragment_test_case_list;
   my $tcl = $td->get_library_test_case_list;
   my $tcl = $td->get_ontology_test_case_list;
   my $tcl = $td->get_parser_test_case_list;
@@ -7487,8 +7486,6 @@ A class that contains and provides test cases and test data.
 =head2 get_file_test_case_list
 
 =head2 get_formatter_test_case_list
-
-=head2 get_fragment_test_case_list
 
 =head2 get_library_test_case_list
 

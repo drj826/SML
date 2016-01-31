@@ -280,12 +280,14 @@ sub _build_line_list {
   foreach my $text (@{ $raw_list })
     {
       ++ $i;
+
       my $line = SML::Line->new
 	(
 	 content => $text,
 	 file    => $self,
 	 num     => $i,
 	);
+
       push(@{ $line_list },$line);
     }
 
@@ -419,8 +421,6 @@ appending the 'directories' attribute to the current working directory
 =head2 get_md5_digest
 
 =head2 get_svn_info
-
-=head2 get_fragment
 
 =head2 has_been_parsed
 

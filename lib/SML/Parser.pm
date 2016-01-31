@@ -7064,7 +7064,7 @@ sub _current_table_row {
 
   my $division = $self->_get_current_division;
 
-  while ( not $division->isa('SML::Fragment') )
+  while ( not $division->isa('SML::Document') )
     {
       if ( $division->isa('SML::TableRow') )
 	{
@@ -10503,7 +10503,7 @@ __END__
 
 =head1 NAME
 
-C<SML::Parser> - create fragment objects from raw SML text stored in
+C<SML::Parser> - create division objects from raw SML text stored in
 files; create string objects from blocks of text; extract data from
 text
 
@@ -10520,15 +10520,13 @@ text
 
 =head1 DESCRIPTION
 
-A parser creates fragment objects from raw SML text stored in files,
+A parser creates division objects from raw SML text stored in files,
 creates string objects from blocks of text, and extracts data from
 sequences of line objects.
 
 =head1 METHODS
 
 =head2 get_library
-
-=head2 create_fragment($filename)
 
 =head1 AUTHOR
 
