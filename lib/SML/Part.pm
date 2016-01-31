@@ -186,18 +186,24 @@ sub has_part {
 
 sub get_part {
 
-  # Return the part if this part contains the part with the specified
-  # ID.
+  # Return the part if this part IS the part, or contains the part
+  # with the specified ID.
 
   my $self = shift;
   my $id   = shift;
 
-  if ( not $id )
+  unless ( $id )
     {
-      $logger->logdie("YOU MUST PROVIDE AN ID");
+      $logger->logdie("CAN'T GET PART, MISSING ARGUMENT");
+      return 0;
     }
 
-  if ( $self->contains_parts )
+  if ( $self->get_id eq $id )
+    {
+      return $self;
+    }
+
+  elsif ( $self->contains_parts )
     {
       foreach my $part (@{ $self->get_part_list })
 	{
