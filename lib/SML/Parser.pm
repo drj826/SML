@@ -297,29 +297,6 @@ sub create_string {
 	}
     }
 
-  # elsif ( $string_type eq 'emdash_symbol' )
-  #   {
-  #     if ( $text =~ /$syntax->{$string_type}/ )
-  # 	{
-  # 	  my $args = {};
-
-  # 	  $args->{name}      = $string_type;
-  # 	  $args->{library}   = $self->_get_library;
-  # 	  $args->{container} = $container if $container;
-
-  # 	  $args->{preceding_character} = $1 || q{};
-  # 	  $args->{following_character} = $2 || q{};
-
-  # 	  return SML::Symbol->new(%{$args});
-  # 	}
-
-  #     else
-  # 	{
-  # 	  $logger->error("DOESN'T LOOK LIKE A $string_type: $text");
-  # 	  return 0;
-  # 	}
-  #   }
-
   elsif
     (
      $string_type eq 'take_note_symbol'
