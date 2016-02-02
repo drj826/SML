@@ -1066,11 +1066,8 @@ C<SML::Document> - a written work about a topic
   my $boolean      = $document->is_valid;
 
   my $boolean      = $document->add_note($note);
-  my $boolean      = $document->add_index_term($term,$division_id);
   my $boolean      = $document->has_note($division_id,$number);
-  my $boolean      = $document->has_index_term($term);
   my $note         = $document->get_note($division_id,$number);
-  my $term         = $document->get_index_term($term);
 
 =head1 DESCRIPTION
 

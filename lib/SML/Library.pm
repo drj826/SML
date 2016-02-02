@@ -424,6 +424,8 @@ has property_store =>
 
 sub get_parser {
 
+  # Return a new parser object.
+
   my $self = shift;
 
   my $count = $self->_get_parser_count;
@@ -462,7 +464,7 @@ sub get_file_containing_id {
   my $id_hash   = $self->_get_id_hash;
   my $filename  = $id_hash->{$id}->[0];
 
-  if ( not $self->has_file($filename) )
+  if ( not $self->_has_file($filename) )
     {
       my $filespec = $self->get_filespec($filename);
       my $file = SML::File->new(filespec=>$filespec,library=>$self);
@@ -632,68 +634,65 @@ sub add_variable {
   my $self       = shift;
   my $definition = shift;
 
-  if ( $definition->isa('SML::Definition') )
-    {
-      my $name      = $definition->get_term;
-      my $namespace = $definition->get_namespace || q{};
-
-      $self->_get_variable_hash->{$name}{$namespace} = $definition;
-
-      return 1;
-    }
-
-  else
+  unless ( $definition->isa('SML::Definition') )
     {
       $logger->error("CAN'T ADD VARIABLE \'$definition\' is not a SML::Definition");
       return 0;
     }
-}
 
-######################################################################
+  my $name      = $definition->get_term;
+  my $namespace = $definition->get_namespace || q{};
 
-sub add_index_term {
-
-  my $self  = shift;
-  my $term  = shift;
-  my $divid = shift;
-
-  if ( exists $self->_get_index_hash->{$term} )
-    {
-      my $index = $self->_get_index_hash->{$term};
-      $index->{ $divid } = 1;
-    }
-
-  else
-    {
-      $self->_get_index_hash->{$term} = { $divid => 1 };
-    }
+  $self->_get_variable_hash->{$name}{$namespace} = $definition;
 
   return 1;
 }
 
 ######################################################################
 
-sub add_reference_file {
+# sub add_index_term {
 
-  my $self     = shift;
-  my $filespec = shift;
+#   my $self  = shift;
+#   my $term  = shift;
+#   my $divid = shift;
 
-  push @{ $self->reference_files }, $filespec;
+#   if ( exists $self->_get_index_hash->{$term} )
+#     {
+#       my $index = $self->_get_index_hash->{$term};
+#       $index->{ $divid } = 1;
+#     }
 
-  return 1;
-}
+#   else
+#     {
+#       $self->_get_index_hash->{$term} = { $divid => 1 };
+#     }
+
+#   return 1;
+# }
 
 ######################################################################
 
-sub add_script_file {
+# sub add_reference_file {
 
-  my $self     = shift;
-  my $filespec = shift;
+#   my $self     = shift;
+#   my $filespec = shift;
 
-  push @{ $self->script_files }, $filespec;
+#   push @{ $self->reference_files }, $filespec;
 
-  return 1;
-}
+#   return 1;
+# }
+
+######################################################################
+
+# sub add_script_file {
+
+#   my $self     = shift;
+#   my $filespec = shift;
+
+#   push @{ $self->script_files }, $filespec;
+
+#   return 1;
+# }
 
 ######################################################################
 
@@ -750,21 +749,6 @@ sub add_review {
   $rh->{$entity_id}{$date}{review}      = $review;
 
   return 1;
-}
-
-######################################################################
-
-sub has_file {
-
-  my $self     = shift;
-  my $filename = shift;
-
-  if ( exists $self->_get_file_hash->{$filename} )
-    {
-      return 1;
-    }
-
-  return 0;
 }
 
 ######################################################################
@@ -850,9 +834,9 @@ sub has_entity {
   my $self = shift;
   my $id   = shift;
 
-  if ( not $id )
+  unless ( $id )
     {
-      $logger->error("CAN'T DETERMINE IF LIBRARY HAS ENTITY, YOU MUST SPECIFY AN ID");
+      $logger->error("CAN'T DETERMINE IF LIBRARY HAS ENTITY, MISSING ARGUMENT");
       return 0;
     }
 
@@ -861,10 +845,7 @@ sub has_entity {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
@@ -874,9 +855,9 @@ sub has_division {
   my $self = shift;
   my $id   = shift;
 
-  if ( not $id )
+  unless ( $id )
     {
-      $logger->error("CAN'T DETERMINE IF LIBRARY HAS DIVISION, YOU MUST SPECIFY AN ID");
+      $logger->error("CAN'T DETERMINE IF LIBRARY HAS DIVISION, MISSING ARGUMENT");
       return 0;
     }
 
@@ -885,10 +866,7 @@ sub has_division {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
@@ -904,29 +882,26 @@ sub has_variable {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
 
-sub has_index_term {
+# sub has_index_term {
 
-  my $self  = shift;
-  my $term  = shift;
+#   my $self  = shift;
+#   my $term  = shift;
 
-  if ( exists $self->_get_index_hash->{$term} )
-    {
-      return 1;
-    }
+#   if ( exists $self->_get_index_hash->{$term} )
+#     {
+#       return 1;
+#     }
 
-  else
-    {
-      return 0;
-    }
-}
+#   else
+#     {
+#       return 0;
+#     }
+# }
 
 ######################################################################
 
@@ -941,10 +916,7 @@ sub has_outcome {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
@@ -960,10 +932,7 @@ sub has_review {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
@@ -979,10 +948,7 @@ sub has_images {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
@@ -997,11 +963,8 @@ sub get_file {
       return $self->_get_file_hash->{$filename};
     }
 
-  else
-    {
-      $logger->error("CAN'T GET FILE \'$filename\'");
-      return 0;
-    }
+  $logger->error("CAN'T GET FILE \'$filename\'");
+  return 0;
 }
 
 ######################################################################
@@ -1030,16 +993,13 @@ sub get_entity {
   my $self = shift;
   my $id   = shift;
 
-  if ( exists $self->_get_entity_hash->{$id} )
-    {
-      return $self->_get_entity_hash->{$id};
-    }
-
-  else
+  unless ( exists $self->_get_entity_hash->{$id} )
     {
       $logger->warn("ENTITY DOESN'T EXIST \'$id\'");
       return 0;
     }
+
+  return $self->_get_entity_hash->{$id};
 }
 
 ######################################################################
@@ -1203,36 +1163,33 @@ sub get_variable {
   my $name      = shift;
   my $namespace = shift || q{};
 
-  if ( exists $self->_get_variable_hash->{$name}{$namespace} )
-    {
-      return $self->_get_variable_hash->{$name}{$namespace};
-    }
-
-  else
+  unless ( exists $self->_get_variable_hash->{$name}{$namespace} )
     {
       $logger->error("CAN'T GET VARIABLE \'$name\' \'$namespace\'");
       return 0;
     }
+
+  return $self->_get_variable_hash->{$name}{$namespace};
 }
 
 ######################################################################
 
-sub get_index_term {
+# sub get_index_term {
 
-  my $self  = shift;
-  my $term  = shift;
+#   my $self  = shift;
+#   my $term  = shift;
 
-  if ( exists $self->_get_index_hash->{$term} )
-    {
-      return $self->_get_index_hash->{$term};
-    }
+#   if ( exists $self->_get_index_hash->{$term} )
+#     {
+#       return $self->_get_index_hash->{$term};
+#     }
 
-  else
-    {
-      $logger->error("CAN'T GET INDEX TERM \'$term\'");
-      return 0;
-    }
-}
+#   else
+#     {
+#       $logger->error("CAN'T GET INDEX TERM \'$term\'");
+#       return 0;
+#     }
+# }
 
 ######################################################################
 
@@ -1242,18 +1199,15 @@ sub get_variable_value {
   my $name      = shift;
   my $namespace = shift || q{};
 
-  if ( exists $self->_get_variable_hash->{$name}{$namespace} )
-    {
-      my $definition = $self->_get_variable_hash->{$name}{$namespace};
-
-      return $definition->get_value;
-    }
-
-  else
+  unless ( exists $self->_get_variable_hash->{$name}{$namespace} )
     {
       $logger->error("CAN'T GET VARIABLE VALUE \'$name\' \'$namespace\' not defined");
       return 0;
     }
+
+  my $definition = $self->_get_variable_hash->{$name}{$namespace};
+
+  return $definition->get_value;
 }
 
 ######################################################################
@@ -1299,16 +1253,13 @@ sub get_outcome {
   my $entity_id = shift;
   my $date      = shift;
 
-  if ( exists $self->_get_outcome_hash->{$entity_id}{$date}{outcome} )
-    {
-      return $self->_get_outcome_hash->{$entity_id}{$date}{outcome};
-    }
-
-  else
+  unless ( exists $self->_get_outcome_hash->{$entity_id}{$date}{outcome} )
     {
       $logger->("OUTCOME DOESN'T EXIST \'$entity_id\' \'$date\'");
       return 0;
     }
+
+  return $self->_get_outcome_hash->{$entity_id}{$date}{outcome};
 }
 
 ######################################################################
@@ -1319,16 +1270,13 @@ sub get_review {
   my $entity_id = shift;
   my $date      = shift;
 
-  if ( exists $self->_get_review_hash->{$entity_id}{$date}{review} )
-    {
-      return $self->_get_review_hash->{$entity_id}{$date}{review};
-    }
-
-  else
+  unless ( exists $self->_get_review_hash->{$entity_id}{$date}{review} )
     {
       $logger->("REVIEW DOESN'T EXIST \'$entity_id\' \'$date\'");
       return 0;
     }
+
+  return $self->_get_review_hash->{$entity_id}{$date}{review};
 }
 
 ######################################################################
@@ -1339,14 +1287,14 @@ sub get_outcome_entity_id_list {
 
   my $self = shift;
 
-  my $oel = [];                         # outcome entity list
+  my $aref = [];                        # outcome entity list
 
   foreach my $entity_id ( keys %{ $self->_get_outcome_hash } )
     {
-      push @{ $oel }, $entity_id;
+      push @{ $aref }, $entity_id;
     }
 
-  return $oel;
+  return $aref;
 }
 
 ######################################################################
@@ -1357,14 +1305,14 @@ sub get_review_entity_id_list {
 
   my $self = shift;
 
-  my $rel = [];                         # review entity list
+  my $aref = [];                        # review entity list
 
   foreach my $entity_id ( keys %{ $self->_get_review_hash } )
     {
-      push @{ $rel }, $entity_id;
+      push @{ $aref }, $entity_id;
     }
 
-  return $rel;
+  return $aref;
 }
 
 ######################################################################
@@ -1435,16 +1383,13 @@ sub get_outcome_status {
   my $entity_id = shift;
   my $date      = shift;
 
-  if ( defined $self->_get_outcome_hash->{$entity_id}{$date}{status} )
-    {
-      return $self->_get_outcome_hash->{$entity_id}{$date}{status};
-    }
-
-  else
+  unless ( defined $self->_get_outcome_hash->{$entity_id}{$date}{status} )
     {
       $logger->error("CAN'T GET OUTCOME STATUS \'$entity_id\' \'$date\'");
       return 0;
     }
+
+  return $self->_get_outcome_hash->{$entity_id}{$date}{status};
 }
 
 ######################################################################
@@ -1455,16 +1400,13 @@ sub get_review_status {
   my $entity_id = shift;
   my $date      = shift;
 
-  if ( defined $self->_get_review_hash->{$entity_id}{$date}{status} )
-    {
-      return $self->_get_review_hash->{$entity_id}{$date}{status};
-    }
-
-  else
+  unless ( defined $self->_get_review_hash->{$entity_id}{$date}{status} )
     {
       $logger->error("CAN'T GET REVIEW STATUS \'$entity_id\' \'$date\'");
       return 0;
     }
+
+  return $self->_get_review_hash->{$entity_id}{$date}{status};
 }
 
 ######################################################################
@@ -1475,16 +1417,13 @@ sub get_outcome_description {
   my $entity_id = shift;
   my $date      = shift;
 
-  if ( defined $self->_get_outcome_hash->{$entity_id}{$date}{description} )
-    {
-      return $self->_get_outcome_hash->{$entity_id}{$date}{description};
-    }
-
-  else
+  unless ( defined $self->_get_outcome_hash->{$entity_id}{$date}{description} )
     {
       $logger->error("CAN'T GET OUTCOME DESCRIPTION \'$entity_id\' \'$date\'");
       return 0;
     }
+
+  return $self->_get_outcome_hash->{$entity_id}{$date}{description};
 }
 
 ######################################################################
@@ -1495,16 +1434,13 @@ sub get_review_description {
   my $entity_id = shift;
   my $date      = shift;
 
-  if ( defined $self->_get_review_hash->{$entity_id}{$date}{description} )
-    {
-      return $self->_get_review_hash->{$entity_id}{$date}{description};
-    }
-
-  else
+  unless ( defined $self->_get_review_hash->{$entity_id}{$date}{description} )
     {
       $logger->error("CAN'T GET REVIEW DESCRIPTION \'$entity_id\' \'$date\'");
       return 0;
     }
+
+  return $self->_get_review_hash->{$entity_id}{$date}{description};
 }
 
 ######################################################################
@@ -1721,29 +1657,29 @@ sub summarize_variables {
 
 ######################################################################
 
-sub summarize_index {
+# sub summarize_index {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $summary = q{};
+#   my $summary = q{};
 
-  if (keys %{ $self->_get_index_hash })
-    {
-      $summary .= "Indexed Terms:\n\n";
+#   if (keys %{ $self->_get_index_hash })
+#     {
+#       $summary .= "Indexed Terms:\n\n";
 
-      foreach my $term (sort keys %{ $self->_get_index_hash })
-	{
-	  my $index     = $self->_get_index_hash->{$term};
-	  my $locations = join(', ', sort keys %{$index});
+#       foreach my $term (sort keys %{ $self->_get_index_hash })
+# 	{
+# 	  my $index     = $self->_get_index_hash->{$term};
+# 	  my $locations = join(', ', sort keys %{$index});
 
-	  $summary .= "  $term => $locations\n";
-	}
+# 	  $summary .= "  $term => $locations\n";
+# 	}
 
-      $summary .= "\n";
-    }
+#       $summary .= "\n";
+#     }
 
-  return $summary;
-}
+#   return $summary;
+# }
 
 ######################################################################
 
@@ -2001,10 +1937,7 @@ sub has_published_document_rendition {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
@@ -2044,17 +1977,17 @@ sub get_published_document_property_value {
 
   my $href = $self->_get_published_document_hash;
 
-  if ( exists $href->{$state}{$document_id}{$property_name} )
+  unless ( exists $href->{$state}{$document_id}{$property_name} )
     {
-      my $util = $self->get_util;
-
-      my $text = $href->{$state}{$document_id}{$property_name};
-
-      return $util->strip_string_markup($text);
+      $logger->error("CAN'T GET PUBLISHED DOCUMENT PROPERTY VALUE $state $document_id $property_name");
+      return 0;
     }
 
-  $logger->error("CAN'T GET PUBLISHED DOCUMENT PROPERTY VALUE $state $document_id $property_name");
-  return 0;
+  my $util = $self->get_util;
+
+  my $text = $href->{$state}{$document_id}{$property_name};
+
+  return $util->strip_string_markup($text);
 }
 
 ######################################################################
@@ -2092,15 +2025,15 @@ sub get_published_library_property_value {
 
   my $href = $self->_get_published_library_hash;
 
-  if ( exists $href->{$state}{$property_name} )
+  unless ( exists $href->{$state}{$property_name} )
     {
-      my $util = $self->get_util;
-
-      return $href->{$state}{$property_name};
+      $logger->error("CAN'T GET PUBLISHED LIBRARY PROPERTY VALUE $state $property_name");
+      return 0;
     }
 
-  $logger->error("CAN'T GET PUBLISHED LIBRARY PROPERTY VALUE $state $property_name");
-  return 0;
+  my $util = $self->get_util;
+
+  return $href->{$state}{$property_name};
 }
 
 ######################################################################
@@ -2462,13 +2395,13 @@ has variable_hash =>
 
 ######################################################################
 
-has index_hash =>
-  (
-   is        => 'ro',
-   isa       => 'HashRef',
-   reader    => '_get_index_hash',
-   default   => sub {{}},
-  );
+# has index_hash =>
+#   (
+#    is        => 'ro',
+#    isa       => 'HashRef',
+#    reader    => '_get_index_hash',
+#    default   => sub {{}},
+#   );
 
 # Index term data structure.  This is a hash of all index terms.  The
 # hash keys are the indexed terms.  The hash values are anonymous
@@ -3887,6 +3820,21 @@ sub _build_property_store {
 
 ######################################################################
 
+sub _has_file {
+
+  my $self     = shift;
+  my $filename = shift;
+
+  if ( exists $self->_get_file_hash->{$filename} )
+    {
+      return 1;
+    }
+
+  return 0;
+}
+
+######################################################################
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
@@ -3936,18 +3884,13 @@ reusable content.
   my $boolean      = $library->add_division($division);
   my $boolean      = $library->add_variable($definition);
   my $boolean      = $library->add_resource($resource);
-  my $boolean      = $library->add_index_term($term,$divid);
-  my $boolean      = $library->add_reference_file($filespec);
-  my $boolean      = $library->add_script_file($filespec);
   my $boolean      = $library->add_outcome($outcome);
   my $boolean      = $library->add_review($review);
-  my $boolean      = $library->has_file($filename);
   my $boolean      = $library->has_document($id);
   my $boolean      = $library->has_entity($id);
   my $boolean      = $library->has_division($id);
   my $boolean      = $library->has_variable($name,$namespace);
   my $boolean      = $library->has_resource($filespec);
-  my $boolean      = $library->has_index_term($term);
   my $boolean      = $library->has_outcome($entity_id,$date);
   my $boolean      = $library->has_review($entity_id,$date);
   my $file         = $library->get_file($filename);
@@ -3956,7 +3899,6 @@ reusable content.
   my $division     = $library->get_division($id);
   my $variable     = $library->get_variable($name,$namespace);
   my $resource     = $library->get_resource($filespec);
-  my $term         = $library->get_index_term($term);
   my $string       = $library->get_variable_value($name,$namespace);
   my $type         = $library->get_type($value);
   my $outcome      = $library->get_outcome($entity_id,$date);
