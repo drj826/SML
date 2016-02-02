@@ -123,7 +123,8 @@ sub get_element {
 
 sub add_triple {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $triple = shift;
 
   unless ( $triple )
@@ -163,7 +164,8 @@ sub add_triple {
 
 sub has_triple {
 
-  my $self      = shift;
+  my $self = shift;
+
   my $subject   = shift;
   my $predicate = shift;
   my $object    = shift;
@@ -188,7 +190,8 @@ sub has_triple {
 
 sub get_triple {
 
-  my $self      = shift;
+  my $self = shift;
+
   my $subject   = shift;
   my $predicate = shift;
   my $object    = shift;

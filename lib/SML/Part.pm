@@ -140,10 +140,7 @@ sub contains_parts {
       return 1;
     }
 
-  else
-    {
-      return 0;
-    }
+  return 0;
 }
 
 ######################################################################
@@ -228,6 +225,22 @@ sub get_part {
 
 ######################################################################
 
+sub add_part {
+
+  # Add a part to the part list.
+
+  my $self = shift;
+  my $part = shift;
+
+  push @{ $self->get_part_list }, $part;
+
+  $logger->trace("add part $part");
+
+  return 1;
+}
+
+######################################################################
+
 sub get_narrative_part_list {
 
   my $self = shift;
@@ -244,22 +257,6 @@ sub get_narrative_part_list {
     }
 
   return $narrative_part_list;
-}
-
-######################################################################
-
-sub add_part {
-
-  # Add a part to the part list.
-
-  my $self = shift;
-  my $part = shift;
-
-  push @{ $self->get_part_list }, $part;
-
-  $logger->trace("add part $part");
-
-  return 1;
 }
 
 ######################################################################
@@ -354,7 +351,8 @@ sub render {
 
   # Render the part using the specified rendition and style.
 
-  my $self      = shift;
+  my $self = shift;
+
   my $rendition = shift;
   my $style     = shift;
 
@@ -423,6 +421,8 @@ sub dump_part_structure {
 ######################################################################
 ######################################################################
 
+# NONE
+
 ######################################################################
 ######################################################################
 ##
@@ -469,7 +469,7 @@ __END__
 
 =head1 NAME
 
-C<SML::Part> - a part of a document.
+C<SML::Part> - a document part
 
 =head1 VERSION
 
@@ -483,70 +483,153 @@ C<SML::Part> - a part of a document.
                  library => $library,
                );
 
-  my $result  = $part->set_id;
-  my $id      = $part->get_id;
-  my $library = $part->get_library;
-  my $name    = $part->get_name;
-  my $result  = $part->set_content;
-  my $text    = $part->get_content;
-  my $aref    = $part->get_part_list;
-  my $result  = $part->init;
-  my $boolean = $part->has_content;
-  my $boolean = $part->contains_parts;
-  my $boolean = $part->has_part($id);
-  my $subpart = $part->get_part($id);
-  my $result  = $part->add_part($part);
-  my $doc     = $part->get_containing_document;
-  my $boolean = $part->is_in_section;
-  my $section = $part->get_containing_section;
-  my $text    = $part->render($rendition,$style);
-  my $text    = $part->dump_part_structure($indent);
+  my $name    = $part->get_name;                     # Str
+  my $library = $part->get_library;                  # SML::Library
+  my $id      = $part->get_id;                       # Str
+  my $result  = $part->set_id;                       # Bool
+  my $result  = $part->set_content;                  # Bool
+  my $text    = $part->get_content;                  # Str
+  my $boolean = $part->has_content;                  # Bool
+  my $part    = $part->get_container;                # SML::Part
+  my $result  = $part->set_container;                # Bool
+  my $result  = $part->has_container;                # Bool
+  my $aref    = $part->get_part_list;                # ArrayRef
+  my $result  = $part->is_narrative_part;            # Bool
+
+  my $result  = $part->init;                         # Bool
+  my $boolean = $part->contains_parts;               # Bool
+  my $boolean = $part->has_part($id);                # Bool
+  my $subpart = $part->get_part($id);                # SML::Part
+  my $result  = $part->add_part($part);              # Bool
+  my $list    = $part->get_narrative_part_list       # ArrayRef
+  my $doc     = $part->get_containing_document;      # SML::Document
+  my $result  = $part->is_in_section;                # Bool
+  my $section = $part->get_containing_section;       # SML::Section
+  my $text    = $part->render($rendition,$style);    # Str
+  my $text    = $part->dump_part_structure($indent); # Str
 
 =head1 DESCRIPTION
 
-An abstract class that represents a part of a document.  The three
-types of parts are L<"SML::Division">, L<"SML::Block">, and
-L<"SML::String">
+An abstract class that represents a part of a document.
+L<"SML::Division">s, L<"SML::Block">s, and L<"SML::String">s are three
+types of parts.
+
+Parts contain other parts to form a tree.
+
+A part may be either a data part or a narrative part.  A data part is
+an element that represents data about the enclosing division and is
+therefore not considered part of the narrative text.  Any part that
+isn't a data part is a narrative part.
 
 =head1 METHODS
 
-=head2 set_id
+=head2 get_name
 
-=head2 get_id
-
-=head2 get_id_path
+Return a scalar text value of the part's name.  Every part has a name.
 
 =head2 get_library
 
-=head2 get_name
+Return the L<"SML::Library"> to which this part belongs.  Every part
+belongs to one and only one library.
 
-=head2 set_content
+=head2 get_id
+
+Return a scalar text value of the part's ID.  Some parts require ID's
+others don't.
+
+=head2 set_id($id)
+
+Return a boolean value.  Set the part ID to the specified scalar text
+value.
+
+=head2 set_content($text)
+
+Return a boolean value.  Set the part content to the specified scalar
+text.
 
 =head2 get_content
 
-=head2 get_part_list
-
-=head2 init
+Return a scalar text value of the part's content.
 
 =head2 has_content
 
+Return a boolean; 1 if the part has content, 0 otherwise.
+
+=head2 get_container
+
+Return the SML::Part that contains this one.
+
+=head2 set_container($part)
+
+Return a boolean value; 1 if the operation succeeds, 0 if it fails.
+Set this part's container to the SML::Part specified.
+
+=head2 has_container
+
+Return a boolean value; 1 if this part has a container, 0 otherwise.
+
+=head2 get_part_list
+
+Return an ArrayRef to a list of parts that are part of this one.
+
+=head2 is_narrative_part
+
+Return a boolean value; 1 if this part is a narrative part, 0
+otherwise.  A narrative part is any part that is NOT a data part.  A
+data part is an element that represents data about the enclosing
+division and is therefore not considered part of the narrative text.
+
+=head2 init
+
+Return a boolean value; 1 means success, 0 means fail.  Initialize the
+part.  Clear the part content and empty the part list.
+
 =head2 contains_parts
+
+Return a boolean value; 1 if the part contains other parts, 0
+otherwise.
 
 =head2 has_part($id)
 
+Return a boolean value; 1 if the part contains the specified part ID,
+0 otherwise.  This method walks the entire part structure looking for
+the part with the specified ID.
+
 =head2 get_part($id)
+
+Return an SML::Part with the specified part ID.  This method walks the
+entire part structure looking for the part with the specified ID.
 
 =head2 add_part($part)
 
+Return a boolean value; 1 if the operation succeeds, 0 otherwise.  Add
+the specified part to this part's part list.
+
+=head2 get_narrative_part_list
+
+Return an ArrayRef to a list of narrative parts within this part.
+
 =head2 get_containing_document
+
+Return the SML::Document that contains this part.
 
 =head2 is_in_section
 
+Return a boolean value; 1 if this part is inside a section, 0
+otherwise.
+
 =head2 get_containing_section
+
+Return the SML::Section containing this part.
 
 =head2 render($rendition,$style)
 
+Return a scalar text value of this part rendered in the specified
+rendition and style.
+
 =head2 dump_part_structure($indent)
+
+Return a scalar text value of this part's internal tree structure.
 
 =head1 AUTHOR
 
