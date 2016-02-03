@@ -510,9 +510,9 @@ C<SML::Part> - a document part
 
 =head1 DESCRIPTION
 
-An abstract class that represents a part of a document.
-L<"SML::Division">s, L<"SML::Block">s, and L<"SML::String">s are three
-types of parts.
+C<SML::Part> is an abstract class that represents a part of a
+document.  L<"SML::Division">s, L<"SML::Block">s, and
+L<"SML::String">s are three types of parts.
 
 Parts contain other parts to form a tree.
 
@@ -637,7 +637,7 @@ Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012,2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)
