@@ -521,6 +521,10 @@ an element that represents data about the enclosing division and is
 therefore not considered part of the narrative text.  Any part that
 isn't a data part is a narrative part.
 
+Data parts and narrative parts can appear in any order.  By
+convention, however, authors often place the data parts at the
+beginning of the division.
+
 =head1 METHODS
 
 =head2 get_name

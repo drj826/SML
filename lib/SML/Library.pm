@@ -2062,7 +2062,7 @@ sub add_error {
 
   if ( exists $href->{$level}{$location}{$message} )
     {
-      $logger->warn("ERROR ALREADY EXISTS $level $location $message");
+      # $logger->warn("ERROR ALREADY EXISTS $level $location $message");
       return 0;
     }
 
