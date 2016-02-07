@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::Parser;
+package SML::Parser;                    # ci-000003
 
 use Moose;
 
@@ -20,61 +20,61 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Parser');
 
 # core classes
-use SML::Options;                     # ci-000382
-use SML::File;                        # ci-000384
-use SML::Line;                        # ci-000385
-use SML::Error;                       # ci-000???
+use SML::Options;                       # ci-000382
+use SML::File;                          # ci-000384
+use SML::Line;                          # ci-000385
+use SML::Error;                         # ci-000446
 
 # string classes
-use SML::String;                      # ci-000???
-use SML::AcronymTermReference;        # ci-000???
-use SML::CitationReference;           # ci-000???
-use SML::CrossReference;              # ci-000???
-use SML::LookupReference;             # ci-000???
-use SML::TitleReference;              # ci-000???
-use SML::FileReference;               # ci-000???
-use SML::FootnoteReference;           # ci-000???
-use SML::GlossaryDefinitionReference; # ci-000???
-use SML::GlossaryTermReference;       # ci-000???
-use SML::IDReference;                 # ci-000???
-use SML::IndexReference;              # ci-000???
-use SML::PageReference;               # ci-000???
-use SML::PathReference;               # ci-000???
-use SML::StatusReference;             # ci-000???
-use SML::Symbol;                      # ci-000???
-use SML::URLReference;                # ci-000???
-use SML::VariableReference;           # ci-000???
-use SML::EmailAddress;                # ci-000???
+use SML::String;                        # ci-000438
+use SML::AcronymTermReference;          # ci-000440
+use SML::CitationReference;             # ci-000442
+use SML::CrossReference;                # ci-000443
+use SML::LookupReference;               # ci-000456
+use SML::TitleReference;                # ci-000468
+use SML::FileReference;                 # ci-000447
+use SML::FootnoteReference;             # ci-000448
+use SML::GlossaryDefinitionReference;   # ci-000449
+use SML::GlossaryTermReference;         # ci-000450
+use SML::IDReference;                   # ci-000451
+use SML::IndexReference;                # ci-000455
+use SML::PageReference;                 # ci-000460
+use SML::PathReference;                 # ci-000461
+use SML::StatusReference;               # ci-000464
+use SML::Symbol;                        # ci-000467
+use SML::URLReference;                  # ci-000470
+use SML::VariableReference;             # ci-000472
+use SML::EmailAddress;                  # ci-000444
 
 # block classes
-use SML::Block;                       # ci-000387
-use SML::PreformattedBlock;           # ci-000427
-use SML::Paragraph;                   # ci-000425
-use SML::ListItem;                    # ci-000424
-use SML::DefinitionListItem;          # ci-000432
-use SML::Step;                        # ci-000???
-use SML::Image;                       # ci-000???
-use SML::Element;                     # ci-000386
-use SML::Definition;                  # ci-000415
-use SML::Note;                        # ci-000???
-use SML::Outcome;                     # ci-000???
-use SML::IndexEntry;                  # ci-000???
+use SML::Block;                         # ci-000387
+use SML::PreformattedBlock;             # ci-000427
+use SML::Paragraph;                     # ci-000425
+use SML::ListItem;                      # ci-000424
+use SML::DefinitionListItem;            # ci-000432
+use SML::Step;                          # ci-000465
+use SML::Image;                         # ci-000452
+use SML::Element;                       # ci-000386
+use SML::Definition;                    # ci-000415
+use SML::Note;                          # ci-000457
+use SML::Outcome;                       # ci-000459
+use SML::IndexEntry;                    # ci-000454
 
 # division classes
-use SML::Division;                    # ci-000381
-use SML::Structure;                   # ci-000393
-use SML::Entity;                      # ci-000416
-use SML::Document;                    # ci-000005
-use SML::Section;                     # ci-000392
-use SML::TableRow;                    # ci-000429
-use SML::TableCell;                   # ci-000428
-use SML::Figure;                      # ci-000396
-use SML::Listing;                     # ci-000397
-use SML::Source;                      # ci-000400
-use SML::Table;                       # ci-000401
-use SML::BulletList;                  # ci-000???
-use SML::EnumeratedList;              # ci-000???
-use SML::Triple;                      # ci-000404
+use SML::Division;                      # ci-000381
+use SML::Structure;                     # ci-000393
+use SML::Entity;                        # ci-000416
+use SML::Document;                      # ci-000005
+use SML::Section;                       # ci-000392
+use SML::TableRow;                      # ci-000429
+use SML::TableCell;                     # ci-000428
+use SML::Figure;                        # ci-000396
+use SML::Listing;                       # ci-000397
+use SML::Source;                        # ci-000400
+use SML::Table;                         # ci-000401
+use SML::BulletList;                    # ci-000441
+use SML::EnumeratedList;                # ci-000445
+use SML::Triple;                        # ci-000404
 
 $OUTPUT_AUTOFLUSH = 1;
 
@@ -98,8 +98,8 @@ $OUTPUT_AUTOFLUSH = 1;
 
 sub parse {
 
-  # Return a division object.  Create the divsion object by parsing
-  # the divisions lines. Add the new division to the library.
+  # Return an SML::Division object.  Create the divsion object by
+  # parsing the divisions lines. Add the new division to the library.
 
   my $self = shift;                     # Parser
   my $id   = shift;                     # ID of division to parse
@@ -110,7 +110,7 @@ sub parse {
       return 0;
     }
 
-  my $library = $self->_get_library;
+  my $library = $self->_get_library;    # SML::Library object
 
   unless ( $library->has_division_id($id) )
     {
@@ -119,7 +119,7 @@ sub parse {
       return 0;
     }
 
-  my $number = $self->_get_number;
+  my $number = $self->_get_number;      # parser number (Int)
 
   $logger->info("{$number} parse \'$id\'");
 
@@ -151,19 +151,11 @@ sub parse {
   # parse lines into blocks and divisions
   $self->_parse_lines;
 
-  # block-oriented processing
-  # do
-  #   {
-  #     # $self->_resolve_lookups      if $self->_contains_lookup;
-  #     $self->_substitute_variables if $self->_contains_variable;
-  #   }
-
-  #     while $self->_text_requires_block_processing;
-
-  my $division = $self->_get_division;
+  my $division = $self->_get_division;  # SML::Division
 
   unless ( $division )
     {
+      # This should never happen
       $logger->logdie("PARSER FOUND NO DIVISION \'$id\'");
     }
 
@@ -9623,7 +9615,7 @@ sub _validate_file_ref_semantics {
       $found_file = 1;
     }
 
-  foreach my $path (@{ $library->get_include_path })
+  foreach my $path (@{ $library->get_include_path_list })
     {
       if ( -f "$directory_path/$path/$resource_spec" )
 	{

@@ -236,6 +236,60 @@ sub commify_series {
  }
 
 ######################################################################
+
+sub syntax_highlight_perl {
+
+  my $self = shift;
+  my $code = shift;
+
+  use Syntax::Highlight::Perl::Improved ':FULL';
+
+  my $format_table =
+    {
+     'Variable_Scalar'   => 'color:#FFFFFF;',
+     'Variable_Array'    => 'color:#FFFFFF;',
+     'Variable_Hash'     => 'color:#FFFFFF;',
+     'Variable_Typeglob' => 'color:#f03;',
+     'Subroutine'        => 'color:#FFFFFF;',
+     'Quote'             => 'color:#DEDE73;',
+     'String'            => 'color:#DEDE73;',
+     'Comment_Normal'    => 'color:#ACAEAC;font-style:italic;',
+     'Comment_POD'       => 'color:#ACAEAC;font-family:garamond,serif;font-size:11pt;',
+     'Bareword'          => 'color:#FFFFFF;',
+     'Package'           => 'color:#FFFFFF;',
+     'Number'            => 'color:#4AAEAC;',
+     'Operator'          => 'color:#7BE283;',
+     'Symbol'            => 'color:#7BE283;',
+     'Keyword'           => 'color:#7BE283;',
+     'Builtin_Operator'  => 'color:#7BE283;',
+     'Builtin_Function'  => 'color:#7BE283;',
+     'Character'         => 'color:#DEDE73;',
+     'Directive'         => 'color:#ACAEAC;font-style:italic;',
+     'Label'             => 'color:#939;font-style:italic;',
+     'Line'              => 'color:#000;',
+     'Print'             => 'color:#7BE283;',
+     'Hash'              => 'color:#FFFFFF;',
+     'Translation_Operation' => 'color=#3199FF;',
+    };
+
+  my $formatter = Syntax::Highlight::Perl::Improved->new();
+
+  $formatter->define_substitution
+    (
+     '<' => '&lt;',
+     '>' => '&gt;',
+     '&' => '&amp;',
+    );
+
+  while ( my ( $type, $style ) = each %{ $format_table } )
+    {
+      $formatter->set_format($type, [ qq|<span style="$style">|,'</span>' ] );
+    }
+
+  return $formatter->format_string($code);
+}
+
+######################################################################
 ######################################################################
 ##
 ## Private Methods
