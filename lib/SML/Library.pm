@@ -18,18 +18,17 @@ use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Library');
 
-use SML::Syntax;
-use SML::Ontology;
-use SML::Parser;
-use SML::Reasoner;
-use SML::Glossary;
-use SML::AcronymList;
-use SML::References;
-use SML::Publisher;
-use SML::Util;
-use SML::Value;
-use SML::Error;
-use SML::PropertyStore;
+use SML::Syntax;                        # ci-000433
+use SML::Ontology;                      # ci-000437
+use SML::Parser;                        # ci-000003
+use SML::Reasoner;                      # ci-000380
+use SML::Glossary;                      # ci-000435
+use SML::AcronymList;                   # ci-000439
+use SML::References;                    # ci-000463
+use SML::Publisher;                     # ci-000462
+use SML::Util;                          # ci-000383
+use SML::Error;                         # ci-000446
+use SML::PropertyStore;                 # ci-000473
 
 ######################################################################
 ######################################################################
@@ -137,11 +136,11 @@ has directory_path =>
 
 ######################################################################
 
-has include_path =>
+has include_path_list =>
   (
    is      => 'ro',
    isa     => 'ArrayRef',
-   reader  => 'get_include_path',
+   reader  => 'get_include_path_list',
    default => sub {[]},
   );
 
@@ -291,9 +290,9 @@ has options =>
    is        => 'ro',
    isa       => 'SML::Options',
    reader    => 'get_options',
-   writer    => 'set_options',
-   clearer   => 'clear_options',
-   predicate => 'has_options',
+   # writer    => 'set_options',
+   # clearer   => 'clear_options',
+   # predicate => 'has_options',
    default   => sub { SML::Options->new },
   );
 
@@ -487,7 +486,7 @@ sub has_filespec {
   my $self     = shift;
   my $filename = shift;
 
-  my $include_path   = $self->get_include_path;
+  my $include_path   = $self->get_include_path_list;
   my $directory_path = $self->get_directory_path;
 
   if ( -f "$directory_path/$filename" )
@@ -516,7 +515,7 @@ sub get_filespec {
   my $self     = shift;
   my $filename = shift;
 
-  my $include_path   = $self->get_include_path;
+  my $include_path   = $self->get_include_path_list;
   my $directory_path = $self->get_directory_path;
 
   if ( -f "$directory_path/$filename" )
@@ -647,52 +646,6 @@ sub add_variable {
 
   return 1;
 }
-
-######################################################################
-
-# sub add_index_term {
-
-#   my $self  = shift;
-#   my $term  = shift;
-#   my $divid = shift;
-
-#   if ( exists $self->_get_index_hash->{$term} )
-#     {
-#       my $index = $self->_get_index_hash->{$term};
-#       $index->{ $divid } = 1;
-#     }
-
-#   else
-#     {
-#       $self->_get_index_hash->{$term} = { $divid => 1 };
-#     }
-
-#   return 1;
-# }
-
-######################################################################
-
-# sub add_reference_file {
-
-#   my $self     = shift;
-#   my $filespec = shift;
-
-#   push @{ $self->reference_files }, $filespec;
-
-#   return 1;
-# }
-
-######################################################################
-
-# sub add_script_file {
-
-#   my $self     = shift;
-#   my $filespec = shift;
-
-#   push @{ $self->script_files }, $filespec;
-
-#   return 1;
-# }
 
 ######################################################################
 
@@ -884,24 +837,6 @@ sub has_variable {
 
   return 0;
 }
-
-######################################################################
-
-# sub has_index_term {
-
-#   my $self  = shift;
-#   my $term  = shift;
-
-#   if ( exists $self->_get_index_hash->{$term} )
-#     {
-#       return 1;
-#     }
-
-#   else
-#     {
-#       return 0;
-#     }
-# }
 
 ######################################################################
 
@@ -1171,25 +1106,6 @@ sub get_variable {
 
   return $self->_get_variable_hash->{$name}{$namespace};
 }
-
-######################################################################
-
-# sub get_index_term {
-
-#   my $self  = shift;
-#   my $term  = shift;
-
-#   if ( exists $self->_get_index_hash->{$term} )
-#     {
-#       return $self->_get_index_hash->{$term};
-#     }
-
-#   else
-#     {
-#       $logger->error("CAN'T GET INDEX TERM \'$term\'");
-#       return 0;
-#     }
-# }
 
 ######################################################################
 
@@ -1654,32 +1570,6 @@ sub summarize_variables {
 
   return $summary;
 }
-
-######################################################################
-
-# sub summarize_index {
-
-#   my $self = shift;
-
-#   my $summary = q{};
-
-#   if (keys %{ $self->_get_index_hash })
-#     {
-#       $summary .= "Indexed Terms:\n\n";
-
-#       foreach my $term (sort keys %{ $self->_get_index_hash })
-# 	{
-# 	  my $index     = $self->_get_index_hash->{$term};
-# 	  my $locations = join(', ', sort keys %{$index});
-
-# 	  $summary .= "  $term => $locations\n";
-# 	}
-
-#       $summary .= "\n";
-#     }
-
-#   return $summary;
-# }
 
 ######################################################################
 
@@ -2338,39 +2228,6 @@ has entity_hash =>
 
 ######################################################################
 
-# has property_hash =>
-#   (
-#    is        => 'ro',
-#    isa       => 'HashRef',
-#    reader    => '_get_property_hash',
-#    default   => sub {{}},
-#   );
-
-# This is a hash of all properties of division in the library.
-#
-# $href->{$division_id}{$property_name}{$property_value} = $value_object;
-#
-# where:
-#
-#   $division_id    => STRING
-#   $property_name  => STRING
-#   $property_value => STRING
-#   $value_object   => SML::Value object
-
-######################################################################
-
-# has triple_hash =>
-#   (
-#    is      => 'ro',
-#    isa     => 'HashRef',
-#    reader  => '_get_triple_hash',
-#    default => sub {{}},
-#   );
-
-# $href->{$subject}{$predicate}{$object} = 1;
-
-######################################################################
-
 has variable_hash =>
   (
    is        => 'ro',
@@ -2380,35 +2237,6 @@ has variable_hash =>
   );
 
 #   $variable_ds->{$name}{$namespace} = $definition;
-
-######################################################################
-
-# has resource_hash =>
-#   (
-#    is        => 'ro',
-#    isa       => 'HashRef',
-#    reader    => '_get_resource_hash',
-#    default   => sub {{}},
-#   );
-
-#   $resource_ds->{$filespec} = $resource;
-
-######################################################################
-
-# has index_hash =>
-#   (
-#    is        => 'ro',
-#    isa       => 'HashRef',
-#    reader    => '_get_index_hash',
-#    default   => sub {{}},
-#   );
-
-# Index term data structure.  This is a hash of all index terms.  The
-# hash keys are the indexed terms.  The hash values are anonymous
-# hashes in which the key is the division ID in which the term
-# appears, and the value is simply a boolean.
-#
-#   $ih->{$term} = { $divid_1 => 1, $divid_2 => 1, ... };
 
 ######################################################################
 
@@ -2801,7 +2629,7 @@ sub BUILD {
   my $entity_count    = {};
   my $structure_count = {};
 
-  foreach my $directory (@{ $self->get_include_path })
+  foreach my $directory (@{ $self->get_include_path_list })
     {
       opendir(DIR,"$directory")
 	or die "Couldn't open dir: $directory from $cwd";
@@ -3157,7 +2985,7 @@ sub _add_include_path {
   my $self = shift;
   my $path = shift;
 
-  my $include_path   = $self->get_include_path;
+  my $include_path   = $self->get_include_path_list;
   my $directory_path = $self->get_directory_path;
 
   if ( not -d "$directory_path/$path" )
@@ -3608,13 +3436,8 @@ sub _build_sha_digest_filespec {
 
 sub _build_change_list {
 
-  # Return a hash that represents changes since the previous version
-  # of the document:
-  #
-  #   $href->{$division_id}{$action} = 1;
-  #
-  #   $division_id => division that changed
-  #   $action      => add, update, delete
+  # Return an ArrayRef that represents changes since the previous
+  # version of the document:
 
   my $self = shift;
 
@@ -3843,8 +3666,7 @@ __END__
 
 =head1 NAME
 
-C<SML::Library> - a collection of related L<"SML::Document">s and
-reusable content.
+SML::Library - a collection of related documents
 
 =head1 VERSION
 
@@ -3857,77 +3679,109 @@ reusable content.
                     config_filename => 'library.conf',
                   );
 
-  my $id           = $library->get_id;
-  my $name         = $library->get_name;
-  my $revision     = $library->get_revision;
-  my $ontology     = $library->get_ontology;
-  my $aref         = $library->get_ontology_rule_filespec_list;
-  my $parser       = $library->get_parser;
-  my $reasoner     = $library->get_reasoner;
-  my $publisher    = $library->get_publisher;
-  my $glossary     = $library->get_glossary;
-  my $acronym_list = $library->get_acronym_list;
-  my $references   = $library->get_references;
-  my $string       = $library->get_directory_path;
-  my $aref         = $library->get_include_path;
-  my $aref         = $library->get_region_name_list;
-  my $aref         = $library->get_environment_name_list;
-  my $string       = $library->get_template_dir;
-  my $string       = $library->get_published_dir;
+  $library->get_id;                               # Str
+  $library->get_name;                             # Str
+  $library->get_version;                          # Str
+  $library->has_version;                          # Bool
+  $library->get_previous_version;                 # Str
+  $library->has_previous_version;                 # Bool
+  $library->get_syntax;                           # SML::Syntax
+  $library->get_ontology_rule_filespec_list;      # ArrayRef
+  $library->get_directory_path;                   # Str
+  $library->get_include_path_list;                # ArrayRef
+  $library->get_template_dir;                     # Str
+  $library->get_published_dir;                    # Str
+  $library->get_plugins_dir;                      # Str
+  $library->get_images_dir;                       # Str
+  $library->get_images_list;                      # ArrayRef
+  $library->get_document_presentation_id_list;    # ArrayRef
+  $library->get_change_list;                      # ArrayRef
+  $library->get_add_count;                        # Int
+  $library->get_delete_count;                     # Int
+  $library->get_update_count;                     # Int
+  $library->get_options;                          # SML::Options
+  $library->get_util;                             # SML::Util
+  $library->get_ontology;                         # SML::Ontology
+  $library->get_reasoner;                         # SML::Reasoner
+  $library->get_publisher;                        # SML::Publisher
+  $library->get_glossary;                         # SML::Glossary
+  $library->get_acronym_list;                     # SML::AcronymList
+  $library->get_references;                       # SML::References
+  $library->get_index;                            # SML::Index
+  $library->get_property_store;                   # SML::PropertyStore
 
-  my $boolean      = $library->publish($id,$rendition,$style);
-  my $boolean      = $library->has_filespec($filespec);
-  my $string       = $library->get_filespec($filename);
-  my $boolean      = $library->add_file($file);
-  my $boolean      = $library->add_document($document);
-  my $boolean      = $library->add_entity($entity);
-  my $boolean      = $library->add_division($division);
-  my $boolean      = $library->add_variable($definition);
-  my $boolean      = $library->add_resource($resource);
-  my $boolean      = $library->add_outcome($outcome);
-  my $boolean      = $library->add_review($review);
-  my $boolean      = $library->has_document($id);
-  my $boolean      = $library->has_entity($id);
-  my $boolean      = $library->has_division($id);
-  my $boolean      = $library->has_variable($name,$namespace);
-  my $boolean      = $library->has_resource($filespec);
-  my $boolean      = $library->has_outcome($entity_id,$date);
-  my $boolean      = $library->has_review($entity_id,$date);
-  my $file         = $library->get_file($filename);
-  my $aref         = $library->get_document_list;
-  my $entity       = $library->get_entity($id);
-  my $division     = $library->get_division($id);
-  my $variable     = $library->get_variable($name,$namespace);
-  my $resource     = $library->get_resource($filespec);
-  my $string       = $library->get_variable_value($name,$namespace);
-  my $type         = $library->get_type($value);
-  my $outcome      = $library->get_outcome($entity_id,$date);
-  my $review       = $library->get_review($entity_id,$date);
-  my $aref         = $library->get_outcome_entity_id_list;
-  my $aref         = $library->get_review_entity_id_list;
-  my $aref         = $library->get_outcome_date_list($entity_id);
-  my $aref         = $library->get_review_date_list($entity_id);
-  my $aref         = $library->get_outcome_status($entity_id,$date);
-  my $aref         = $library->get_review_status($entity_id,$date);
-  my $description  = $library->get_outcome_description($entity_id,$date);
-  my $description  = $library->get_review_description($entity_id,$date);
-  my $string       = $library->summarize_content;
-  my $string       = $library->summarize_entities;
-  my $string       = $library->summarize_divisions;
-  my $string       = $library->summarize_glossary;
-  my $string       = $library->summarize_acronyms;
-  my $string       = $library->summarize_variables;
-  my $string       = $library->summarize_resources;
-  my $string       = $library->summarize_index;
-  my $string       = $library->summarize_sources;
-  my $string       = $library->summarize_outcomes;
-  my $string       = $library->summarize_reviews;
-  my $boolean      = $library->update_status_from_outcome($outcome);
+  $library->get_parser;                           # SML::Parser
+  $library->get_file_containing_id;               # SML::File
+  $library->has_filespec($filespec);              # Bool
+  $library->get_filespec($filename);              # Str
+  $library->add_file($file);                      # Bool
+  $library->add_document($document);              # Bool
+  $library->add_entity($entity);                  # Bool
+  $library->add_division($division);              # Bool
+  $library->add_variable($definition);            # Bool
+  $library->add_outcome($outcome);                # Bool
+  $library->add_review($review);                  # Bool
+  $library->has_document($id);                    # Bool
+  $library->has_document_id($id);                 # Bool
+  $library->has_division_id($id);                 # Bool
+  $library->has_entity($id);                      # Bool
+  $library->has_division($id);                    # Bool
+  $library->has_variable($name,$namespace);       # Bool
+  $library->has_outcome($entity_id,$date);        # Bool
+  $library->has_review($entity_id,$date);         # Bool
+  $library->has_images;                           # Bool
+  $library->get_file($filename);                  # SML::File
+  $library->get_document_list;                    # ArrayRef
+  $library->get_entity($id);                      # SML::Entity
+  $library->get_division($id);                    # SML::Division
+  $library->get_division_name_for_id($id)         # Str
+  $library->get_all_entities;                     # Bool
+  $library->get_all_documents;                    # Bool
+  $library->get_division_id_list_by_name($name);  # ArrayRef
+  $library->get_variable($name,$namespace);       # SML::Definition;
+  $library->get_variable_value($name,$namespace); # Str
+  $library->get_type($value);                     # Str
+  $library->get_outcome($entity_id,$date);        # SML::Outcome;
+  $library->get_review($entity_id,$date);         # SML::Outcome;
+  $library->get_outcome_entity_id_list;           # ArrayRef
+  $library->get_review_entity_id_list;            # ArrayRef
+  $library->get_outcome_date_list($entity_id);    # ArrayRef
+  $library->get_review_date_list($entity_id);     # ArrayRef
+  $library->get_outcome_status($entity_id,$date); # Str
+  $library->get_review_status($entity_id,$date);  # Str
+  $library->get_outcome_description($entity_id,$date); # Str
+  $library->get_review_description($entity_id,$date);  # Str
+  $library->summarize_content;                    # Str
+  $library->summarize_entities;                   # Str
+  $library->summarize_divisions;                  # Str
+  $library->summarize_glossary;                   # Str
+  $library->summarize_acronyms;                   # Str
+  $library->summarize_variables;                  # Str
+  $library->summarize_sources;                    # Str
+  $library->summarize_outcomes;                   # Str
+  $library->summarize_reviews;                    # Str
+  $library->update_status_from_outcome($outcome); # Bool
+  $library->contains_entities;                    # Bool
+  $library->get_division_count($name);            # Int
+  $library->increment_division_count($name);      # Int
+  $library->has_published_file($state,$filename); # Bool
+  $library->has_published_document($state,$id);   # Bool
+  $library->has_published_document_rendition($state,$id,$rendition); # Bool
+  $library->has_published_document_property_value($state,$id,$property_name); # Bool
+  $library->get_published_document_property_value($state,$id,$property_name); # Str
+  $library->has_published_library_property_value($state,$property_name);      # Bool
+  $library->get_published_library_property_value($state,$property_name);      # Str
+  $library->add_error($error);                    # Bool
+  $library->get_error_list;                       # ArrayRef
+  $library->get_error_count;                      # Int
+  $library->contains_error;                       # Bool
+  $library->store_sha_digest_file;                # Bool
+  $library->contains_changes;                     # Bool
 
 =head1 DESCRIPTION
 
-A library is a collection of SML documents and reusable content stored
-in text files.
+An SML::Library is a collection of SML documents and reusable content
+stored in text files.
 
 Library rules:
 
@@ -3935,7 +3789,7 @@ Each file name must be unique.  Even though you can organize text files
 into directories, each filename must be unique in the library.
 
 Each division name must be valid.  Every division name in the library
-mus be declared in the ontology.
+must be declared in the ontology.
 
 Each division ID must be unique.  Every division in the library must
 have a unique ID.
@@ -3948,31 +3802,133 @@ you went wrong.
 
 =head2 get_id
 
+Return a scalar text value which is the ID of this library.
+
 =head2 get_name
 
-=head2 get_revision
+Return a scalar text value which is the name of this library.
 
-=head2 get_sml
+=head2 get_version
 
-=head2 get_ontology
+Return a scalar text value which is the current version of this
+library.
+
+=head2 has_version
+
+Return 1 if this library has a current version string.
+
+=head2 get_previous_version
+
+Return a scalar text value which is the previous version of this
+library.
+
+=head2 has_previous_version
+
+Return 1 if this library has a previous version string.
+
+=head2 get_syntax
+
+Return the L<SML::Syntax> object for this library.
 
 =head2 get_ontology_rule_filespec_list
 
-=head2 get_parser
+Return an ArrayRef to a list of filespecs of files containing ontology
+rules.
+
+=head2 get_directory_path
+
+Return a scalar text value which is the full directory path to the
+library.
+
+=head2 get_include_path_list
+
+Return an ArrayRef to a list of path strings of directories containing
+SML files.
+
+=head2 get_template_dir
+
+Return a scalar text value of the template directory path.
+
+=head2 get_published_dir
+
+Return a scalar text value of the published directory path.  The
+published directory contains the published documents.
+
+=head2 get_plugins_dir
+
+Return a scalar text value of the plugins directory path.
+
+=head2 get_images_dir
+
+Return a scalar text value of the images directory path.
+
+=head2 get_image_list
+
+Return an ArrayRef to a list of image filenames.
+
+=head2 get_document_presentation_id_list
+
+Return an ArrayRef to a list of document IDs in the order in which
+they should be presented in any listing of library documents.
+
+=head2 get_change_list
+
+Return an ArrayRef to a list of changes made to the library since the
+previous version.  Each change is represented by an ArrayRef to a
+2-element list.  The first element is the change type (ADDED, DELETED,
+or UPDATED), and the second element is the division ID of the division
+that changed.
+
+=head2 get_add_count
+
+Return an integer count of the number of divisions that have been
+ADDED since the previous library version.
+
+=head2 get_delete_count
+
+Return an integer count of the number of divisions that have been
+DELETED since the previous library version.
+
+=head2 get_update_count
+
+Return an integer count of the number of divisions that have been
+UPDATED since the previous library version.
+
+=head2 get_options
+
+Return the L<SML::Options> object that holds the library configuration
+options.
+
+=head2 get_util
+
+Return the L<SML::Util> object that provides various library utility
+methods.
+
+=head2 get_ontology
+
+Return the L<SML::Ontology> object that defines the allowed library
+structures and entities, their properties, and how they relate to one
+another.
 
 =head2 get_reasoner
 
+Return the L<SML::Reasoner> object that infers relationships between
+entities based on ontology rules.
+
 =head2 get_publisher
 
+Return a L<SML::Publisher> object that can publish library documents
+to various renditions and styles.
+
 =head2 get_glossary
+
+Return the L<SML::Glossary> object that belongs to the library.
+
+=head2 get_parser
 
 =head2 get_acronym_list
 
 =head2 get_references
-
-=head2 get_directory_path
-
-=head2 get_include_path
 
 =head2 get_division_name_list
 
@@ -4104,7 +4060,7 @@ Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012,2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

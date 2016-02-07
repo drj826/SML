@@ -469,7 +469,7 @@ __END__
 
 =head1 NAME
 
-C<SML::Part> - a document part
+SML::Part - a document part
 
 =head1 VERSION
 
@@ -483,30 +483,30 @@ C<SML::Part> - a document part
                  library => $library,
                );
 
-  my $name    = $part->get_name;                     # Str
-  my $library = $part->get_library;                  # SML::Library
-  my $id      = $part->get_id;                       # Str
-  my $result  = $part->set_id;                       # Bool
-  my $result  = $part->set_content;                  # Bool
-  my $text    = $part->get_content;                  # Str
-  my $boolean = $part->has_content;                  # Bool
-  my $part    = $part->get_container;                # SML::Part
-  my $result  = $part->set_container;                # Bool
-  my $result  = $part->has_container;                # Bool
-  my $aref    = $part->get_part_list;                # ArrayRef
-  my $result  = $part->is_narrative_part;            # Bool
+  $part->get_name;                                # Str
+  $part->get_library;                             # SML::Library
+  $part->get_id;                                  # Str
+  $part->set_id;                                  # Bool
+  $part->set_content;                             # Bool
+  $part->get_content;                             # Str
+  $part->has_content;                             # Bool
+  $part->get_container;                           # SML::Part
+  $part->set_container;                           # Bool
+  $part->has_container;                           # Bool
+  $part->get_part_list;                           # ArrayRef
+  $part->is_narrative_part;                       # Bool
 
-  my $result  = $part->init;                         # Bool
-  my $boolean = $part->contains_parts;               # Bool
-  my $boolean = $part->has_part($id);                # Bool
-  my $subpart = $part->get_part($id);                # SML::Part
-  my $result  = $part->add_part($part);              # Bool
-  my $list    = $part->get_narrative_part_list       # ArrayRef
-  my $doc     = $part->get_containing_document;      # SML::Document
-  my $result  = $part->is_in_section;                # Bool
-  my $section = $part->get_containing_section;       # SML::Section
-  my $text    = $part->render($rendition,$style);    # Str
-  my $text    = $part->dump_part_structure($indent); # Str
+  $part->init;                                    # Bool
+  $part->contains_parts;                          # Bool
+  $part->has_part($id);                           # Bool
+  $part->get_part($id);                           # SML::Part
+  $part->add_part($part);                         # Bool
+  $part->get_narrative_part_list                  # ArrayRef
+  $part->get_containing_document;                 # SML::Document
+  $part->is_in_section;                           # Bool
+  $part->get_containing_section;                  # SML::Section
+  $part->render($rendition,$style);               # Str
+  $part->dump_part_structure($indent);            # Str
 
 =head1 DESCRIPTION
 
