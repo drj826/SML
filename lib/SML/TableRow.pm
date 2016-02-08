@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::TableRow;
+package SML::TableRow;                  # ci-000429
 
 use Moose;
 
@@ -8,7 +8,7 @@ use version; our $VERSION = qv('2.0.0');
 
 extends 'SML::Structure';
 
-use namespace::autoclean;
+use namespace::autoclean;               # ci-000466
 
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';

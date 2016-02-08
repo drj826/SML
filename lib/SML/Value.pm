@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::Value;
+package SML::Value;                     # ci-000471
 
 use Moose;
 

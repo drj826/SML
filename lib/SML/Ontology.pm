@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::Ontology;
+package SML::Ontology;                  # ci-000437
 
 use Moose;
 

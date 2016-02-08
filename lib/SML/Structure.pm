@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 
-package SML::Structure;
+package SML::Structure;                 # ci-000466
 
 use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Division';
+extends 'SML::Division';                # ci-000381
 
 use namespace::autoclean;
 

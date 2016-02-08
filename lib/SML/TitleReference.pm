@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 
-package SML::TitleReference;
+package SML::TitleReference;            # ci-000468
 
 use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::String';
+extends 'SML::String';                  # ci-000438
 
 use namespace::autoclean;
 

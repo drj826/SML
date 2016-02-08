@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 
-package SML::GlossaryTermReference;
+package SML::GlossaryTermReference;     # ci-000450
 
 use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::String';
+extends 'SML::String';                  # ci-000438
 
 use namespace::autoclean;
 

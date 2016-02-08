@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 
-package SML::Image;
+package SML::Image;                     # ci-000452
 
 use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Element';
+extends 'SML::Element';                 # ci-000386
 
 use namespace::autoclean;
 

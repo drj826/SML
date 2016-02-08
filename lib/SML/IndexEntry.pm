@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::IndexEntry;
+package SML::IndexEntry;                # ci-000454
 
 use Moose;
 

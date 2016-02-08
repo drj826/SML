@@ -1,10 +1,10 @@
 #!/usr/bin/perl
 
-package SML::Block;
+package SML::Block;                     # ci-000387
 
 use Moose;
 
-extends 'SML::Part';
+extends 'SML::Part';                    # ci-000436
 
 use version; our $VERSION = qv('2.0.0');
 
