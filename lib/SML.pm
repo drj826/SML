@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML;
+package SML;                            # ci-000002
 
 use Moose;
 
@@ -33,77 +33,7 @@ use SML::Library;
 ######################################################################
 ######################################################################
 
-# sub get_library {
-
-#   my $self = shift;
-#   my $id   = shift;
-
-#   if ( not $id )
-#     {
-#       $logger->error("YOU MUST SUPPLY THE ID OF THE LIBRARY YOU WANT");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_library_hash;
-
-#   if ( exists $hash->{$id} )
-#     {
-#       return $hash->{$id};
-#     }
-
-#   else
-#     {
-#       $logger->error("LIBRARY DOESN'T EXIST: $id");
-#       return 0;
-#     }
-# }
-
-######################################################################
-
-# sub add_library {
-
-#   my $self    = shift;
-#   my $library = shift;
-
-#   if ( not ref $library and $library->isa('SML::Library') )
-#     {
-#       $logger->error("CAN'T ADD NON-LIBRARY OBJECT: $library");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_library_hash;
-#   my $id = $library->get_id;
-
-#   $hash->{$id} = $library;
-
-#   return 1;
-# }
-
-######################################################################
-
-# sub has_library {
-
-#   my $self = shift;
-#   my $id   = shift;
-
-#   if ( not $id )
-#     {
-#       $logger->error("YOU MUST SUPPLY A LIBRARY ID");
-#       return 0;
-#     }
-
-#   my $hash = $self->_get_library_hash;
-
-#   if ( exists $hash->{$id} )
-#     {
-#       return 1;
-#     }
-
-#   else
-#     {
-#       return 0;
-#     }
-# }
+# NONE
 
 ######################################################################
 ######################################################################
@@ -113,14 +43,7 @@ use SML::Library;
 ######################################################################
 ######################################################################
 
-# has 'library_hash' =>
-#   (
-#    isa     => 'HashRef',
-#    reader  => '_get_library_hash',
-#    default => sub {{}},
-#   );
-
-# A hash of libraries keyed by library name.
+# NONE
 
 ######################################################################
 ######################################################################
@@ -142,17 +65,11 @@ __END__
 
 =head1 NAME
 
-C<SML> - a singleton that represents a customizable Structured Manuscript Language.
-
-=head1 VERSION
-
-This documentation refers to L<SML> version 2.0.0.
+SML - use SML software
 
 =head1 SYNOPSIS
 
   use SML;
-
-  my $sml = SML->instance;
 
 =head1 DESCRIPTION
 
@@ -162,15 +79,13 @@ edit, easy to automatically generate, able to express and validate
 semantic relationships, and contain all information necessary to
 publish professional documentation from plain text manuscripts.
 
-=head1 METHODS
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012,2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)
