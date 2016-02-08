@@ -19,6 +19,42 @@ my $logger = Log::Log4perl::get_logger('sml.Block');
 use Cwd;
 
 ######################################################################
+
+=head1 NAME
+
+SML::Block - a block of SML formatted text
+
+=head1 SYNOPSIS
+
+  SML::Block->new
+    (
+      name    => $name,                           # Str
+      library => $library,                        # SML::Library
+    );
+
+  $block->get_line_list;                          # ArrayRef
+  $block->get_containing_division;                # SML::Division
+  $block->set_containing_division($division);     # Bool
+  $block->has_containing_division;                # Bool
+  $block->has_valid_syntax;                       # Bool
+  $block->has_valid_semantics;                    # Bool
+  $block->add_line($line);                        # Bool
+  $block->add_part($part);                        # Bool
+  $block->get_first_line;                         # SML::Line
+  $block->get_location;                           # Str
+  $block->is_in_a($division_name);                # Bool
+
+=head1 DESCRIPTION
+
+A block is one or more contiguous whole lines of text.  Blocks are
+separated by blank lines and therefore cannot contain blank lines.
+Blocks may contain inline text elements
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -33,6 +69,14 @@ has line_list =>
    reader    => 'get_line_list',
    default   => sub {[]},
   );
+
+=head2 get_line_list
+
+Return an ArrayRef to a list of lines in this block.
+
+  my $list = $block->get_line_list;
+
+=cut
 
 ######################################################################
 
@@ -53,6 +97,26 @@ after 'set_containing_division' => sub {
   $logger->trace("..... containing division for \'$self\' now: \'$cd\'");
 };
 
+=head2 get_containing_division
+
+Return the L<SML::Division> that contains this block.
+
+  my $division = $block->get_containing_division;
+
+=head2 set_containing_division
+
+Set the specified division to be the one that contains this block.
+
+  my $result = $block->set_containing_division($division);
+
+=head2 has_containing_division
+
+Return 1 if this block has a containing division.
+
+  my $result = $block->has_containing_division;
+
+=cut
+
 ######################################################################
 
 has has_been_parsed =>
@@ -64,9 +128,22 @@ has has_been_parsed =>
    default => 0,
   );
 
-# This boolean value tracks whether the block has been parsed into
-# strings.  There's no reason to perform the unnecessary work of
-# parsing the same block over and over again.
+=head2 has_been_parsed
+
+Return 1 if this block has been parsed into strings. This boolean
+value tracks whether the block has been parsed into strings.  There's
+no reason to perform the unnecessary work of parsing the same block
+over and over again.
+
+  my $result = $block->has_been_parsed;
+
+=head2 set_has_been_parsed
+
+Set the value of 'has_been_parsed' to the specified value.
+
+  $block->set_has_been_parsed(1);
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -77,8 +154,6 @@ has has_been_parsed =>
 ######################################################################
 
 sub add_line {
-
-  # Add a line to this block.
 
   my $self = shift;
   my $line = shift;
@@ -94,11 +169,17 @@ sub add_line {
   return 1;
 }
 
+=head2 add_line
+
+Add a line to this block.  Return 1 if successful.
+
+  my $result = $block->add_line($line);
+
+=cut
+
 ######################################################################
 
 sub add_part {
-
-  # Only a string can be part of a block.
 
   my $self = shift;
   my $part = shift;
@@ -118,11 +199,18 @@ sub add_part {
   return 1;
 }
 
+=head2 add_part
+
+Add a part to this block.  Return 1 if successful.  An L<SML::String>
+is the only type of part that can be added to a block.
+
+  my $result = $block->add_part($string);
+
+=cut
+
 ######################################################################
 
 sub get_first_line {
-
-  # Return the first line of this block.
 
   my $self = shift;
 
@@ -135,12 +223,17 @@ sub get_first_line {
   return 0;
 }
 
+=head2 get_first_line
+
+Return the first line (an L<SML::Line>) of this block.
+
+  my $line = $block->get_first_line;
+
+=cut
+
 ######################################################################
 
 sub get_location {
-
-  # Return the location (filespec + line number) of the first line of
-  # this block.
 
   my $self = shift;
 
@@ -151,19 +244,21 @@ sub get_location {
       return $line->get_location;
     }
 
-  else
-    {
-      return 'UNKNOWN LOCATION';
-    }
-
+  return 'UNKNOWN LOCATION';
 }
+
+=head2 get_location
+
+Return the location (<filespec>:<line number>) of the first line of
+this block.
+
+  my $location = $block->get_location;
+
+=cut
 
 ######################################################################
 
 sub is_in_a {
-
-  # Return 1 if this block is "in a" division of "type" (even if it is
-  # buried several divisions deep).
 
   my $self = shift;
   my $name = shift;
@@ -190,6 +285,15 @@ sub is_in_a {
 
   return 0;
 }
+
+=head2 is_in_a
+
+Return 1 if this block is in a division with the specified name (even
+if it is buried several divisions deep).
+
+  my $result = $block->is_in_a($name);
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -244,75 +348,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::Block> - one or more contiguous L<"SML::Line">s.
-
-=head1 VERSION
-
-2.0.0
-
-=head1 SYNOPSIS
-
-  extends SML::Part
-
-  my $block = SML::Block->new
-                (
-                  name    => $name,
-                  library => $library,
-                );
-
-  my $aref     = $block->get_line_list;
-  my $division = $block->get_containing_division;
-  my $boolean  = $block->set_containing_division($division);
-  my $boolean  = $block->has_containing_division;
-  my $boolean  = $block->has_valid_syntax;
-  my $boolean  = $block->has_valid_semantics;
-  my $boolean  = $block->add_line($line);
-  my $boolean  = $block->add_part($part);
-  my $line     = $block->get_first_line;
-  my $string   = $block->get_location;
-  my $boolean  = $block->is_in_a($division_name);
-
-=head1 DESCRIPTION
-
-A block is one or more contiguous whole lines of text.  Blocks are
-separated by blank lines and therefore cannot contain blank lines.
-Blocks may contain inline text elements
-
-=head1 METHODS
-
-=head2 get_name_path
-
-=head2 get_line_list
-
-=head2 get_containing_division
-
-=head2 set_containing_division($division)
-
-=head2 has_containing_division
-
-=head2 has_valid_syntax
-
-=head2 has_valid_semantics
-
-=head2 add_line($line)
-
-=head2 add_part($part)
-
-=head2 get_first_line
-
-=head2 get_location
-
-=head2 is_in_a($division_type)
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012,2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)
