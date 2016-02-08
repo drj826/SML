@@ -254,7 +254,7 @@ sub syntax_highlight_perl {
      'Quote'             => 'color:#DEDE73;',
      'String'            => 'color:#DEDE73;',
      'Comment_Normal'    => 'color:#ACAEAC;font-style:italic;',
-     'Comment_POD'       => 'color:#ACAEAC;font-family:garamond,serif;font-size:11pt;',
+     'Comment_POD'       => 'color:#ACAEAC;font-style:italic;',
      'Bareword'          => 'color:#FFFFFF;',
      'Package'           => 'color:#FFFFFF;',
      'Number'            => 'color:#4AAEAC;',

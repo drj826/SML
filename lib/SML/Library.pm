@@ -31,6 +31,199 @@ use SML::Error;                         # ci-000446
 use SML::PropertyStore;                 # ci-000473
 
 ######################################################################
+
+=head1 NAME
+
+SML::Library - a collection of related documents
+
+=head1 SYNOPSIS
+
+  SML::Library->new(config_filename=>'library.conf');
+
+  $library->get_id;                               # Str
+  $library->get_name;                             # Str
+  $library->get_version;                          # Str
+  $library->has_version;                          # Bool
+  $library->get_previous_version;                 # Str
+  $library->has_previous_version;                 # Bool
+  $library->get_syntax;                           # SML::Syntax
+  $library->get_ontology_rule_filespec_list;      # ArrayRef
+  $library->get_directory_path;                   # Str
+  $library->get_include_path_list;                # ArrayRef
+  $library->get_template_dir;                     # Str
+  $library->get_published_dir;                    # Str
+  $library->get_plugins_dir;                      # Str
+  $library->get_images_dir;                       # Str
+  $library->get_images_list;                      # ArrayRef
+  $library->get_document_presentation_id_list;    # ArrayRef
+  $library->get_change_list;                      # ArrayRef
+  $library->get_add_count;                        # Int
+  $library->get_delete_count;                     # Int
+  $library->get_update_count;                     # Int
+  $library->get_options;                          # SML::Options
+  $library->get_util;                             # SML::Util
+  $library->get_ontology;                         # SML::Ontology
+  $library->get_reasoner;                         # SML::Reasoner
+  $library->get_publisher;                        # SML::Publisher
+  $library->get_glossary;                         # SML::Glossary
+  $library->get_acronym_list;                     # SML::AcronymList
+  $library->get_references;                       # SML::References
+  $library->get_index;                            # SML::Index
+  $library->get_property_store;                   # SML::PropertyStore
+
+  $library->get_parser;                           # SML::Parser
+  $library->get_file_containing_id;               # SML::File
+  $library->has_filespec($filespec);              # Bool
+  $library->get_filespec($filename);              # Str
+  $library->add_file($file);                      # Bool
+  $library->add_document($document);              # Bool
+  $library->add_entity($entity);                  # Bool
+  $library->add_division($division);              # Bool
+  $library->add_variable($definition);            # Bool
+  $library->add_outcome($outcome);                # Bool
+  $library->add_review($review);                  # Bool
+  $library->has_document($id);                    # Bool
+  $library->has_document_id($id);                 # Bool
+  $library->has_division_id($id);                 # Bool
+  $library->has_entity($id);                      # Bool
+  $library->has_division($id);                    # Bool
+  $library->has_variable($name,$namespace);       # Bool
+  $library->has_outcome($entity_id,$date);        # Bool
+  $library->has_review($entity_id,$date);         # Bool
+  $library->has_images;                           # Bool
+  $library->get_file($filename);                  # SML::File
+  $library->get_document_list;                    # ArrayRef
+  $library->get_entity($id);                      # SML::Entity
+  $library->get_division($id);                    # SML::Division
+  $library->get_division_name_for_id($id)         # Str
+  $library->get_all_entities;                     # Bool
+  $library->get_all_documents;                    # Bool
+  $library->get_division_id_list_by_name($name);  # ArrayRef
+  $library->get_variable($name,$namespace);       # SML::Definition;
+  $library->get_variable_value($name,$namespace); # Str
+  $library->get_type($value);                     # Str
+  $library->get_outcome($entity_id,$date);        # SML::Outcome;
+  $library->get_review($entity_id,$date);         # SML::Outcome;
+  $library->get_outcome_entity_id_list;           # ArrayRef
+  $library->get_review_entity_id_list;            # ArrayRef
+  $library->get_outcome_date_list($entity_id);    # ArrayRef
+  $library->get_review_date_list($entity_id);     # ArrayRef
+  $library->get_outcome_status($entity_id,$date); # Str
+  $library->get_review_status($entity_id,$date);  # Str
+  $library->get_outcome_description($entity_id,$date); # Str
+  $library->get_review_description($entity_id,$date);  # Str
+  $library->summarize_content;                    # Str
+  $library->summarize_entities;                   # Str
+  $library->summarize_divisions;                  # Str
+  $library->summarize_glossary;                   # Str
+  $library->summarize_acronyms;                   # Str
+  $library->summarize_variables;                  # Str
+  $library->summarize_sources;                    # Str
+  $library->summarize_outcomes;                   # Str
+  $library->summarize_reviews;                    # Str
+  $library->update_status_from_outcome($outcome); # Bool
+  $library->contains_entities;                    # Bool
+  $library->get_division_count($name);            # Int
+  $library->increment_division_count($name);      # Int
+  $library->has_published_file($state,$filename); # Bool
+  $library->has_published_document($state,$id);   # Bool
+  $library->has_published_document_rendition($state,$id,$rendition); # Bool
+  $library->has_published_document_property_value($state,$id,$property_name); # Bool
+  $library->get_published_document_property_value($state,$id,$property_name); # Str
+  $library->has_published_library_property_value($state,$property_name);      # Bool
+  $library->get_published_library_property_value($state,$property_name);      # Str
+  $library->add_error($error);                    # Bool
+  $library->get_error_list;                       # ArrayRef
+  $library->get_error_count;                      # Int
+  $library->contains_error;                       # Bool
+  $library->store_sha_digest_file;                # Bool
+  $library->contains_changes;                     # Bool
+
+=head1 DESCRIPTION
+
+An SML::Library is a collection of SML documents and reusable content
+stored in text files.
+
+Library rules:
+
+=over 4
+
+=item
+
+Each file name must be unique.  Even though you can organize text
+files into directories, each filename must be unique in the library.
+
+=item
+
+Each division name must be valid.  Every division name in the library
+must be declared in the ontology.
+
+=item
+
+Each division ID must be unique.  Every division in the library must
+have a unique ID.
+
+=back
+
+If you violate any of these rules you won't be able to even
+instantiate your library object.  Don't worry.  It will tell you where
+you went wrong.
+
+=head1 CONFIGURATION
+
+Here's an example configuration file:
+
+  name               "SML Engineering Library"
+  id                 "sml_engineering_library"
+
+  version            "v0.11"
+  previous_version   "v0.10"
+
+  directory_path     ".."
+  directory_name     "library"
+  template_dir       "templates"
+  published_dir      "../sml-library-published"
+  plugins_dir        "plugins"
+  images_dir         "files/images"
+
+  ontology_rule_file "ontology/ontology_rules_sml.conf"
+  ontology_rule_file "ontology/ontology_rules_lib.conf"
+
+  include_path       "."
+  include_path       "allocations"
+  include_path       "incl"
+  include_path       "requirements"
+  include_path       "roles"
+  include_path       "configuration_items"
+  include_path       "tests"
+
+  document           "sml-ug"
+  document           "sml-brd"
+  document           "sml-dfrd"
+  document           "sml-srd"
+  document           "sml-sdd"
+  document           "sml-ted"
+
+  pdflatex           "..\..\miktex\miktex\bin\pdflatex.exe"
+  pdflatex_args      "--main-memory=50000000 --extra-mem-bot=50000000"
+  bibtex             "..\..\miktex\miktex\bin\bibtex.exe"
+  makeindex          "..\..\miktex\miktex\bin\makeindex.exe"
+  svn                "..\..\..\svn\svn.exe"
+  use_git            "1"
+  git                "..\..\PortableGit\bin\git.exe"
+  convert            "..\..\ImageMagick-6.8.0-3\convert.exe"
+
+=head1 METHODS
+
+=head2 new
+
+Instantiate a new SML::Library.
+
+  my $library = SML::Library->new(config_filename=>'library.conf');
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -49,7 +242,14 @@ has id =>
    default   => 'lib',
   );
 
-# Specify the ID in the library configuration file.
+=head2 get_id
+
+Return a scalar text value which is the ID of this library. Specify
+the ID in the library configuration file.
+
+  my $id = $library->get_id;
+
+=cut
 
 ######################################################################
 
@@ -62,7 +262,14 @@ has name =>
    default   => 'library',
   );
 
-# Specify the name in the library configuration file.
+=head2 get_name
+
+Return a scalar text value which is the name of this library. Specify
+the name in the library configuration file.
+
+  my $name = $library->get_name;
+
+=cut
 
 ######################################################################
 
@@ -76,8 +283,20 @@ has version =>
    clearer   => '_clear_version',
   );
 
-# This is the current version of the library.  Specify the version in
-# the library configuration file.
+=head2 get_version
+
+Return a scalar text value which is the current version of this
+library. Specify the version in the library configuration file.
+
+  my $version = $library->get_version;
+
+=head2 has_version
+
+Return 1 if this library has a current version string.
+
+  my $result = $library->has_version;
+
+=cut
 
 ######################################################################
 
@@ -91,8 +310,21 @@ has previous_version =>
    clearer   => '_clear_previous_version',
   );
 
-# This is the previous version of the library.  Specify the previous
-# version in the library configuration file.
+=head2 get_previous_version
+
+Return a scalar text value which is the previous version of this
+library. Specify the previous version in the library configuration
+file.
+
+  my $previous = $library->get_previous_version;
+
+=head2 has_previous_version
+
+Return 1 if this library has a previous version string.
+
+  my $result = $library->has_previous_version;
+
+=cut
 
 ######################################################################
 
@@ -105,6 +337,14 @@ has syntax =>
    builder   => '_build_syntax',
   );
 
+=head2 get_syntax
+
+Return the L<SML::Syntax> object for this library.
+
+  my $syntax = $library->get_syntax;
+
+=cut
+
 ######################################################################
 
 has ontology_rule_filespec_list =>
@@ -116,8 +356,14 @@ has ontology_rule_filespec_list =>
    builder   => '_build_ontology_rule_filespec_list',
   );
 
-# This is a list of filespecs containing individual ontology rules.
-# These ontology rules specify the semantics of the library.
+=head2 get_ontology_rule_filespec_list
+
+Return an ArrayRef to a list of filespecs of files containing ontology
+rules. These ontology rules specify the semantics of the library.
+
+  my $aref = $library->get_ontology_rule_filespec_list;
+
+=cut
 
 ######################################################################
 
@@ -132,7 +378,14 @@ has directory_path =>
    default   => q{.},
   );
 
-# This is the name of the directory containing the library.
+=head2 get_directory_path
+
+Return a scalar text value which is the full directory path to the
+library.
+
+  my $path = $library->get_directory_path;
+
+=cut
 
 ######################################################################
 
@@ -144,7 +397,14 @@ has include_path_list =>
    default => sub {[]},
   );
 
-# This is a list of paths that contain library text files.
+=head2 get_include_path_list
+
+Return an ArrayRef to a list of path strings of directories containing
+SML files.
+
+  my $aref = $library->get_include_path_list;
+
+=cut
 
 ######################################################################
 
@@ -157,8 +417,15 @@ has template_dir =>
    default   => 'templates',
   );
 
-# This is the path to the directory containing Perl Template Toolkit
-# templates used to render content presentations.
+=head2 get_template_dir
+
+Return a scalar text value of the template directory path. This is the
+path to the directory containing Perl Template Toolkit templates used
+to render content presentations.
+
+  my $path = $library->get_template_dir;
+
+=cut
 
 ######################################################################
 
@@ -171,8 +438,14 @@ has published_dir =>
    default   => 'published',
   );
 
-# This is the directory to which files containing published renditions
-# are placed.
+=head2 get_published_dir
+
+Return a scalar text value of the published directory path.  The
+published directory is where the published documents are placed.
+
+  my $path = $library->get_published_dir;
+
+=cut
 
 ######################################################################
 
@@ -185,9 +458,16 @@ has plugins_dir =>
    default   => 'plugins',
   );
 
-# This is the directory containing plugins.  Plugins are
-# library-specific perl modules that perform special rendering
-# functions.
+=head2 get_plugins_dir
+
+Return a scalar text value of the plugins directory path. This is the
+directory containing plugins.  Plugins are library-specific perl
+modules that perform special rendering functions.
+
+  my $path = $library->get_plugins_dir;
+
+=cut
+
 
 ######################################################################
 
@@ -200,10 +480,18 @@ has images_dir =>
    default   => 'images',
   );
 
-# This is the directory containing images.  These are standard images
-# used in documents.  For instance, they include a paperclip image
-# that indicates attachements, and other icons used to represent
-# status, priority, etc.
+=head2 get_images_dir
+
+Return a scalar text value of the images directory path. This is the
+directory containing images.  These are standard images used in
+documents.  For instance, they include a paperclip image that
+indicates attachements, and other icons used to represent status,
+priority, etc.
+
+  my $path = $library->get_images_dir;
+
+=cut
+
 
 ######################################################################
 
@@ -215,6 +503,14 @@ has image_list =>
    default => sub {[]},
   );
 
+=head2 get_image_list
+
+Return an ArrayRef to a list of image filenames.
+
+  my $aref = $library->get_image_list;
+
+=cut
+
 ######################################################################
 
 has document_presentation_id_list =>
@@ -225,8 +521,14 @@ has document_presentation_id_list =>
    default => sub {[]},
   );
 
-# This 'document_presentation_id_list' is a list of document IDs in
-# the order they should be presented in the library index.
+=head2 get_document_presentation_id_list
+
+Return an ArrayRef to a list of document IDs in the order in which
+they should be presented in any listing of library documents.
+
+  my $aref = $library->get_document_presentation_id_list;
+
+=cut
 
 ######################################################################
 
@@ -239,7 +541,17 @@ has change_list =>
    builder => '_build_change_list',
   );
 
-# push @{$aref}, [$action,$division_id];
+=head2 get_change_list
+
+Return an ArrayRef to a list of changes made to the library since the
+previous version.  Each change is represented by an ArrayRef to a
+2-element list.  The first element is the change type (ADDED, DELETED,
+or UPDATED), and the second element is the division ID of the division
+that changed.
+
+  my $aref = $library->get_change_list;
+
+=cut
 
 ######################################################################
 
@@ -252,8 +564,14 @@ has add_count =>
    builder => '_build_add_count',
   );
 
-# This is number of divisions that have been ADDED since the previous
-# version.
+=head2 get_add_count
+
+Return an integer count of the number of divisions that have been
+ADDED since the previous library version.
+
+  my $count = $library->get_add_count;
+
+=cut
 
 ######################################################################
 
@@ -266,8 +584,14 @@ has delete_count =>
    builder => '_build_delete_count',
   );
 
-# This is number of divisions that have been DELETED since the
-# previous version.
+=head2 get_delete_count
+
+Return an integer count of the number of divisions that have been
+DELETED since the previous library version.
+
+  my $count = $library->get_delete_count;
+
+=cut
 
 ######################################################################
 
@@ -280,8 +604,14 @@ has update_count =>
    builder => '_build_update_count',
   );
 
-# This is number of divisions that have been UPDATED since the
-# previous version.
+=head2 get_update_count
+
+Return an integer count of the number of divisions that have been
+UPDATED since the previous library version.
+
+  my $count = $library->get_update_count;
+
+=cut
 
 ######################################################################
 
@@ -290,11 +620,18 @@ has options =>
    is        => 'ro',
    isa       => 'SML::Options',
    reader    => 'get_options',
-   # writer    => 'set_options',
-   # clearer   => 'clear_options',
-   # predicate => 'has_options',
-   default   => sub { SML::Options->new },
+   lazy      => 1,
+   builder   => '_build_options',
   );
+
+=head2 get_options
+
+Return the L<SML::Options> object that holds the library configuration
+options.
+
+  my $options = $library->get_options;
+
+=cut
 
 ######################################################################
 
@@ -307,6 +644,15 @@ has util =>
    builder   => '_build_util',
   );
 
+=head2 get_util
+
+Return the L<SML::Util> object that provides various library utility
+methods.
+
+  my $util = $library->get_util;
+
+=cut
+
 ######################################################################
 
 has ontology =>
@@ -318,7 +664,15 @@ has ontology =>
    builder   => '_build_ontology',
   );
 
-# The ontology describes the semantics of the library.
+=head2 get_ontology
+
+Return the L<SML::Ontology> object that defines the allowed library
+structures and entities, their properties, and how they relate to one
+another. The ontology describes the semantics of the library.
+
+  my $ontology = $library->get_ontology;
+
+=cut
 
 ######################################################################
 
@@ -331,8 +685,15 @@ has reasoner =>
    builder   => '_build_reasoner',
   );
 
-# The reasoner performs first order inferences based on semantics
-# declared in the ontology.
+=head2 get_reasoner
+
+Return the L<SML::Reasoner> object that infers relationships between
+entities based on ontology rules. The reasoner performs first order
+inferences based on semantics declared in the ontology.
+
+  my $reasoner = $library->get_reasoner;
+
+=cut
 
 ######################################################################
 
@@ -345,7 +706,14 @@ has publisher =>
    builder   => '_build_publisher',
   );
 
-# The publisher renders content presentations.
+=head2 get_publisher
+
+Return a L<SML::Publisher> object that can publish library documents
+to various renditions and styles.
+
+  my $publisher = $library->get_publisher;
+
+=cut
 
 ######################################################################
 
@@ -358,8 +726,16 @@ has glossary =>
    builder   => '_build_glossary',
   );
 
-# The glossary contains a library-wide collection of terms and their
-# definitions.
+=head2 get_glossary
+
+Return the L<SML::Glossary> object that belongs to the library. The
+glossary contains a library-wide collection of terms and their
+definitions.
+
+  my $glossary = $library->get_glossary;
+
+=cut
+
 
 ######################################################################
 
@@ -372,8 +748,16 @@ has acronym_list =>
    builder   => '_build_acronym_list',
   );
 
-# The acronym list contains a library-wide collection of acronyms and
-# their meanings.
+=head2 get_acronym_list
+
+Return the L<SML::AcronymList> that belongs to the library. The
+acronym list contains a library-wide collection of acronyms and their
+meanings.
+
+  my $acronym_list = $library->get_acronym_list;
+
+=cut
+
 
 ######################################################################
 
@@ -386,8 +770,16 @@ has references =>
    builder   => '_build_references',
   );
 
-# The references object contains a library-wide collection of source
-# references.
+=head2 get_references
+
+Return the L<SML::References> object that belongs to the library. The
+references object contains a library-wide collection of source
+references.
+
+  my $references = $library->get_references;
+
+=cut
+
 
 ######################################################################
 
@@ -400,7 +792,14 @@ has index =>
    builder   => '_build_index',
   );
 
-# The index object contains a library-wide index of terms.
+=head2 get_index
+
+Return the L<SML::Index> object that belongs to the library. The index
+object contains a library-wide index of terms.
+
+  my $index = $library->get_index;
+
+=cut
 
 ######################################################################
 
@@ -413,6 +812,14 @@ has property_store =>
    builder => '_build_property_store',
   );
 
+=head2 get_property_store
+
+Return the L<SML::PropertyStore> object that belongs to the library.
+
+  my $ps = $library->get_property_store;
+
+=cut
+
 ######################################################################
 ######################################################################
 ##
@@ -422,8 +829,6 @@ has property_store =>
 ######################################################################
 
 sub get_parser {
-
-  # Return a new parser object.
 
   my $self = shift;
 
@@ -438,11 +843,17 @@ sub get_parser {
     );
 }
 
+=head2 get_parser
+
+Return a new L<SML::Parser> object.
+
+  my $parser = $library->get_parser;
+
+=cut
+
 ######################################################################
 
 sub get_file_containing_id {
-
-  # Return the SML::File containing the specified division ID.
 
   my $self = shift;
   my $id   = shift;
@@ -476,6 +887,14 @@ sub get_file_containing_id {
   return $file_hash->{$filename};
 }
 
+=head2 get_file_containing_id
+
+Return the L<SML::File> containing the specified division ID.
+
+  my $file = $library->get_file_containing_id($id);
+
+=cut
+
 ######################################################################
 
 sub has_filespec {
@@ -484,19 +903,19 @@ sub has_filespec {
   # looking in each include path.
 
   my $self     = shift;
-  my $filename = shift;
+  my $filespec = shift;
 
   my $include_path   = $self->get_include_path_list;
   my $directory_path = $self->get_directory_path;
 
-  if ( -f "$directory_path/$filename" )
+  if ( -f "$directory_path/$filespec" )
     {
       return 1;
     }
 
   foreach my $path ( @{$include_path} )
     {
-      if ( -f "$directory_path/$path/$filename" )
+      if ( -f "$directory_path/$path/$filespec" )
 	{
 	  return 1;
 	}
@@ -504,6 +923,14 @@ sub has_filespec {
 
   return 0;
 }
+
+=head2 has_filespec
+
+Return 1 if the library contains the specified filespec.
+
+  my $result = $library->has_filespec($filespec)
+
+=cut
 
 ######################################################################
 
@@ -543,6 +970,14 @@ sub get_filespec {
   return 0;
 }
 
+=head2 get_filespec
+
+Return the filespec for the specified filename.
+
+  my $filespec = $library->get_filespec($filename);
+
+=cut
+
 ######################################################################
 
 sub add_file {
@@ -562,6 +997,15 @@ sub add_file {
 
   return 1;
 }
+
+=head2 add_file
+
+Add an L<SML::File> object to the library. Return 1 if the specified
+file is successfully added to the library.
+
+  my $result = $library->add_file($file);
+
+=cut
 
 ######################################################################
 
@@ -583,6 +1027,15 @@ sub add_document {
   return 1;
 }
 
+=head2 add_document
+
+Add an L<SML::Document> object to the library.  Return 1 of the
+specified document is successfully added to the library.
+
+  my $result = $library->add_document($document);
+
+=cut
+
 ######################################################################
 
 sub add_entity {
@@ -602,6 +1055,15 @@ sub add_entity {
 
   return 1;
 }
+
+=head2 add_entity
+
+Add an L<SML::Entity> object to the library.  Return 1 if the
+specified entity is successfully added to the library.
+
+  my $result = $library->add_entity($entity);
+
+=cut
 
 ######################################################################
 
@@ -626,6 +1088,15 @@ sub add_division {
   return 1;
 }
 
+=head2 add_division
+
+Add an L<SML::Division> object to the library.  Return 1 if the
+specified division is successfully added to the library.
+
+  my $result = $library->add_division($division);
+
+=cut
+
 ######################################################################
 
 sub add_variable {
@@ -647,24 +1118,30 @@ sub add_variable {
   return 1;
 }
 
+=head2 add_variable
+
+Add a variable definition (an L<SML::Definition> object) to the
+library.  Return 1 if the specified variable definition is
+successfully added to the library.
+
+  my $result = $library->add_variable($definition);
+
+=cut
+
 ######################################################################
 
 sub add_outcome {
 
-  # Add an outcome to the outcome data structure.  An outcome is a
-  # SML::Element.
-
   my $self    = shift;
   my $outcome = shift;
 
-  my $oh = $self->_get_outcome_hash;
-
   my $date      = $outcome->get_date;
   my $entity_id = $outcome->get_entity_id;
+  my $href      = $self->_get_outcome_hash;
 
-  $oh->{$entity_id}{$date}{status}      = $outcome->get_status;
-  $oh->{$entity_id}{$date}{description} = $outcome->get_description;
-  $oh->{$entity_id}{$date}{outcome}     = $outcome;
+  $href->{$entity_id}{$date}{status}      = $outcome->get_status;
+  $href->{$entity_id}{$date}{description} = $outcome->get_description;
+  $href->{$entity_id}{$date}{outcome}     = $outcome;
 
   my $options = $self->get_options;
 
@@ -676,12 +1153,22 @@ sub add_outcome {
   return 1;
 }
 
+=head2 add_outcome
+
+Add an L<SML::Outcome> object to the library.  Return 1 if the
+specified outcome is successfully added to the library.
+
+An "outcome" decribes the outcome of a test, audit, inspection, or
+review.  If the library's "use_formal_status" option is set to true
+then the most recent outcome will set the formal status of the entity.
+
+  my $result = $library->add_outcome($outcome);
+
+=cut
+
 ######################################################################
 
 sub add_review {
-
-  # Add an review to the review data structure.  An review is a
-  # SML::Element.
 
   my $self   = shift;
   my $review = shift;
@@ -704,13 +1191,21 @@ sub add_review {
   return 1;
 }
 
+=head2 add_review
+
+Add a review (an L<SML::Outcome> object) to the library.  Return 1 if
+the specified review is successfully added to the library.
+
+A "review" is an informal outcome of a test, audit, or inspection.  If
+the library's "use_formal_status" option is set to true then the m
+
+  my $result = $library->add_review($outcome);
+
+=cut
+
 ######################################################################
 
 sub has_document {
-
-  # Return 1 if the document object is in the library.  This means the
-  # document has already been parsed and the document object is
-  # available for use.
 
   my $self = shift;
   my $id   = shift;
@@ -723,13 +1218,18 @@ sub has_document {
   return 0;
 }
 
+=head2 has_document
+
+Return 1 if the library contains a parsed document with the specified
+ID.  This means the document has already been parsed into memory.
+
+  my $result = $library->has_document($id);
+
+=cut
+
 ######################################################################
 
 sub has_document_id {
-
-  # Return 1 if the document ID exists in the library.  This means
-  # that some file in the library contains a DOCUMENT division with
-  # the specified ID.
 
   my $self = shift;
   my $id   = shift;
@@ -753,13 +1253,19 @@ sub has_document_id {
   return 0;
 }
 
+=head2 has_document_id
+
+Return 1 if the document ID exists in the library.  This means that
+some file in the library contains a DOCUMENT division with the
+specified ID.
+
+  my $result = $library->has_document_id($id);
+
+=cut
+
 ######################################################################
 
 sub has_division_id {
-
-  # Return 1 if the division ID exists in the library.  This means
-  # that some file in the library contains a division with the
-  # specified ID.
 
   my $self = shift;
   my $id   = shift;
@@ -779,6 +1285,16 @@ sub has_division_id {
 
   return 0;
 }
+
+=head2 has_division_id
+
+Return 1 if the specified division ID exists in the library.  This
+means that some file in the library contains a division with the
+specified ID.
+
+  my $result = $library->has_division_id($id);
+
+=cut
 
 ######################################################################
 
@@ -801,6 +1317,15 @@ sub has_entity {
   return 0;
 }
 
+=head2 has_entity
+
+Return 1 if the library contains a parsed entity with the specified
+ID.  This means the entity has already been parsed into memory.
+
+  my $result = $library->has_entity($id);
+
+=cut
+
 ######################################################################
 
 sub has_division {
@@ -822,6 +1347,15 @@ sub has_division {
   return 0;
 }
 
+=head2 has_division
+
+Return 1 if the library contains a parsed division with the specified
+ID.  This means the division has already been parsed into memory.
+
+  my $result = $library->has_division($id);
+
+=cut
+
 ######################################################################
 
 sub has_variable {
@@ -837,6 +1371,15 @@ sub has_variable {
 
   return 0;
 }
+
+=head2 has_variable
+
+Return 1 if the library contains a variable with the specified name in
+the specified namespace.
+
+  my $result = $library->has_variable($name,$namespace);
+
+=cut
 
 ######################################################################
 
@@ -854,6 +1397,15 @@ sub has_outcome {
   return 0;
 }
 
+=head2 has_outcome
+
+Return 1 if the library contains an outcome for the specified entity
+from the specified date.
+
+  my $outcome = $library->has_outcome($entity_id,$date);
+
+=cut
+
 ######################################################################
 
 sub has_review {
@@ -870,21 +1422,36 @@ sub has_review {
   return 0;
 }
 
+=head2 has_review
+
+Return 1 if the library contains a review of the specified entity on
+the specified date.
+
+  my $review = $library->has_review($entity_id,$date);
+
+=cut
+
 ######################################################################
 
 sub has_images {
 
   my $self = shift;
 
-  my $aref = $self->get_image_list;
-
-  if ( scalar @{$aref} )
+  if ( scalar @{ $self->get_image_list } )
     {
       return 1;
     }
 
   return 0;
 }
+
+=head2 has_images
+
+Return 1 if the library contains images.
+
+  my $result = $library->has_images;
+
+=cut
 
 ######################################################################
 
@@ -893,14 +1460,22 @@ sub get_file {
   my $self     = shift;
   my $filename = shift;
 
-  if ( exists $self->_get_file_hash->{$filename} )
+  unless ( exists $self->_get_file_hash->{$filename} )
     {
-      return $self->_get_file_hash->{$filename};
+      $logger->error("CAN'T GET FILE \'$filename\'");
+      return 0;
     }
 
-  $logger->error("CAN'T GET FILE \'$filename\'");
-  return 0;
+  return $self->_get_file_hash->{$filename};
 }
+
+=head2 get_file
+
+Return the L<SML::File> with the specified filename.
+
+  my $file = $library->get_file($filename);
+
+=cut
 
 ######################################################################
 
@@ -921,6 +1496,15 @@ sub get_document_list {
   return $aref;
 }
 
+=head2 get_document_list
+
+Return an ArrayRef to a list of L<SML::Document> objects in the
+library.
+
+  my $list = $library->get_document_list;
+
+=cut
+
 ######################################################################
 
 sub get_entity {
@@ -936,6 +1520,14 @@ sub get_entity {
 
   return $self->_get_entity_hash->{$id};
 }
+
+=head2 get_entity
+
+Return an L<SML::Entity> object with the specified ID.
+
+  my $entity = $library->get_entity($id);
+
+=cut
 
 ######################################################################
 
@@ -965,6 +1557,14 @@ sub get_division {
     }
 }
 
+=head2 get_division
+
+Return the L<SML::Division> with the specified ID.
+
+  my $division = $library->get_division($id);
+
+=cut
+
 ######################################################################
 
 sub get_division_name_for_id {
@@ -991,11 +1591,17 @@ sub get_division_name_for_id {
   return $name;
 }
 
+=head2 get_division_name_for_id
+
+Return the name of the division with the specified ID.
+
+  my $name = $library->get_division_name_for_id($id);
+
+=cut
+
 ######################################################################
 
 sub get_all_entities {
-
-  # Parse all library entities into memory.
 
   my $self = shift;
 
@@ -1030,11 +1636,17 @@ sub get_all_entities {
   return 1;
 }
 
+=head2 get_all_entities
+
+Parse all library entities into memory.  Return 1 if successsful.
+
+  my $result = $library->get_all_entities;
+
+=cut
+
 ######################################################################
 
 sub get_all_documents {
-
-  # Parse all library documents into memory.
 
   my $self = shift;
 
@@ -1064,11 +1676,17 @@ sub get_all_documents {
   return 1;
 }
 
+=head2 get_all_documents
+
+Parse all library documents into memory.  Return 1 if successsful.
+
+  my $result = $library->get_all_documents;
+
+=cut
+
 ######################################################################
 
 sub get_division_id_list_by_name {
-
-  # Return a list of division IDs that have the specified name.
 
   my $self = shift;
   my $name = shift;
@@ -1090,6 +1708,15 @@ sub get_division_id_list_by_name {
   return $id_list;
 }
 
+=head2 get_division_id_list_by_name
+
+Return an ArrayRef to a list of division IDs that have the specified
+name.
+
+  my $aref = $library->get_division_id_list_by_name($name);
+
+=cut
+
 ######################################################################
 
 sub get_variable {
@@ -1106,6 +1733,15 @@ sub get_variable {
 
   return $self->_get_variable_hash->{$name}{$namespace};
 }
+
+=head2 get_variable
+
+Return the variable definition (an L<SML::Definition> object) for the
+specified name and namespace.
+
+  my $variable = $library->get_variable($name,$namespace);
+
+=cut
 
 ######################################################################
 
@@ -1126,11 +1762,18 @@ sub get_variable_value {
   return $definition->get_value;
 }
 
+=head2 get_variable_value
+
+Return the scalar text value of the variable for the specified name
+and namespace.
+
+  my $variable = $library->get_variable_value($name,$namespace);
+
+=cut
+
 ######################################################################
 
 sub get_type {
-
-  # Return the type of a value (division name, STRING, or BOOLEAN)
 
   my $self  = shift;
   my $value = shift;
@@ -1161,6 +1804,15 @@ sub get_type {
     }
 }
 
+=head2 get_type
+
+Return the type of the specified value (division name, STRING, or
+BOOLEAN)
+
+  my $type = $library->get_type($value);
+
+=cut
+
 ######################################################################
 
 sub get_outcome {
@@ -1177,6 +1829,15 @@ sub get_outcome {
 
   return $self->_get_outcome_hash->{$entity_id}{$date}{outcome};
 }
+
+=head2 get_outcome
+
+Return the outcome (an L<SML::Outcome> object) with the specified
+entity ID and date.
+
+  my $outcome = $library->get_outcome($entity_id,$date);
+
+=cut
 
 ######################################################################
 
@@ -1195,11 +1856,18 @@ sub get_review {
   return $self->_get_review_hash->{$entity_id}{$date}{review};
 }
 
+=head2 get_review
+
+Return the review (an L<SML::Outcome> object) with the specified
+entity ID and date.
+
+  my $review = $library->get_review($entity_id,$date);
+
+=cut
+
 ######################################################################
 
 sub get_outcome_entity_id_list {
-
-  # Return a list of entities for which there are outcome elements.
 
   my $self = shift;
 
@@ -1213,11 +1881,18 @@ sub get_outcome_entity_id_list {
   return $aref;
 }
 
+=head2 get_outcome_entity_id_list
+
+Return an ArrayRef for a list of entities for which there are outcome
+elements.
+
+  my $aref = $library->get_outcome_entity_id_list;
+
+=cut
+
 ######################################################################
 
 sub get_review_entity_id_list {
-
-  # Return a list of entities for which there are review elements.
 
   my $self = shift;
 
@@ -1231,12 +1906,18 @@ sub get_review_entity_id_list {
   return $aref;
 }
 
+=head2 get_review_entity_id_list
+
+Return an ArrayRef for a list of entities for which there are review
+elements.
+
+  my $aref = $library->get_review_entity_id_list;
+
+=cut
+
 ######################################################################
 
 sub get_outcome_date_list {
-
-  # Return a list of dates for which there are outcome elements for a
-  # specified entity.
 
   my $self      = shift;
   my $entity_id = shift;
@@ -1261,12 +1942,18 @@ sub get_outcome_date_list {
   return $date_list;
 }
 
+=head2 get_outcome_date_list
+
+Return an ArrayRef to a list of dates for which there are outcome
+elements for the specified entity.
+
+  my $aref = $library->get_outcome_date_list($entity_id);
+
+=cut
+
 ######################################################################
 
 sub get_review_date_list {
-
-  # Return a list of dates for which there are review elements for a
-  # specified entity.
 
   my $self      = shift;
   my $entity_id = shift;
@@ -1291,6 +1978,15 @@ sub get_review_date_list {
   return $date_list;
 }
 
+=head2 get_outcome_date_list
+
+Return an ArrayRef to a list of dates for which there are review
+elements for the specified entity.
+
+  my $aref = $library->get_review_date_list($entity_id);
+
+=cut
+
 ######################################################################
 
 sub get_outcome_status {
@@ -1307,6 +2003,14 @@ sub get_outcome_status {
 
   return $self->_get_outcome_hash->{$entity_id}{$date}{status};
 }
+
+=head2 get_outcome_status
+
+Return the status determined by the specified outcome.
+
+  my $status = $library->get_outcome_status($entity_id,$date);
+
+=cut
 
 ######################################################################
 
@@ -1325,6 +2029,14 @@ sub get_review_status {
   return $self->_get_review_hash->{$entity_id}{$date}{status};
 }
 
+=head2 get_review_status
+
+Return the status determined by the specified review.
+
+  my $status = $library->get_review_status($entity_id,$date);
+
+=cut
+
 ######################################################################
 
 sub get_outcome_description {
@@ -1341,6 +2053,14 @@ sub get_outcome_description {
 
   return $self->_get_outcome_hash->{$entity_id}{$date}{description};
 }
+
+=head2 get_outcome_description
+
+Return the description of the specified outcome.
+
+  my $description = $library->get_outcome_description($entity_id,$date);
+
+=cut
 
 ######################################################################
 
@@ -1359,11 +2079,17 @@ sub get_review_description {
   return $self->_get_review_hash->{$entity_id}{$date}{description};
 }
 
+=head2 get_review_description
+
+Return the description of the specified review.
+
+  my $description = $library->get_review_description($entity_id,$date);
+
+=cut
+
 ######################################################################
 
 sub summarize_content {
-
-  # Return a summary of the library's content.
 
   my $self = shift;
 
@@ -1382,6 +2108,14 @@ sub summarize_content {
 
   return $summary;
 }
+
+=head2 summarize_content
+
+Return a summary of the library's content.
+
+  my $text = $library->summarize_content;
+
+=cut
 
 ######################################################################
 
@@ -1420,6 +2154,14 @@ sub summarize_entities {
 
   return $summary;
 }
+
+=head2 summarize_entities
+
+Return a summary of the library's entities.
+
+  my $text = $library->summarize_entities;
+
+=cut
 
 ######################################################################
 
@@ -1483,6 +2225,14 @@ sub summarize_divisions {
   return $summary;
 }
 
+=head2 summarize_divisions
+
+Return a summary of the library's divisions.
+
+  my $text = $library->summarize_divisions;
+
+=cut
+
 ######################################################################
 
 sub summarize_glossary {
@@ -1513,6 +2263,14 @@ sub summarize_glossary {
 
   return $summary;
 }
+
+=head2 summarize_glossary
+
+Return a summary of the library's glossary.
+
+  my $text = $library->summarize_glossary;
+
+=cut
 
 ######################################################################
 
@@ -1545,6 +2303,14 @@ sub summarize_acronyms {
   return $summary;
 }
 
+=head2 summarize_acronyms
+
+Return a summary of the library's acronyms list.
+
+  my $text = $library->summarize_acronyms;
+
+=cut
+
 ######################################################################
 
 sub summarize_variables {
@@ -1570,6 +2336,14 @@ sub summarize_variables {
 
   return $summary;
 }
+
+=head2 summarize_variables
+
+Return a summary of the library's variables.
+
+  my $text = $library->summarize_variables;
+
+=cut
 
 ######################################################################
 
@@ -1597,6 +2371,14 @@ sub summarize_sources {
 
   return $summary;
 }
+
+=head2 summarize_sources
+
+Return a summary of the library's source references.
+
+  my $text = $library->summarize_sources;
+
+=cut
 
 ######################################################################
 
@@ -1626,6 +2408,14 @@ sub summarize_outcomes {
   return $summary;
 }
 
+=head2 summarize_outcomes
+
+Return a summary of the library's outcomes.
+
+  my $text = $library->summarize_outcomes;
+
+=cut
+
 ######################################################################
 
 sub summarize_reviews {
@@ -1654,17 +2444,20 @@ sub summarize_reviews {
   return $summary;
 }
 
+=head2 summarize_reviews
+
+Return a summary of the library's reviews.
+
+  my $text = $library->summarize_reviews;
+
+=cut
+
 ######################################################################
 
 sub update_status_from_outcome {
 
-  # Update the status of an entity based on an outcome.
-
   my $self    = shift;
   my $outcome = shift;
-
-  my $syntax = $self->get_syntax;
-  my $util   = $self->get_util;
 
   my $date        = $outcome->get_date;
   my $entity_id   = $outcome->get_entity_id;
@@ -1685,11 +2478,17 @@ sub update_status_from_outcome {
   return 1;
 }
 
+=head2 update_status_from_outcome
+
+Update the status of an entity based on an outcome.
+
+  my $result = $library->update_status_from_outcome($outcome);
+
+=cut
+
 ######################################################################
 
 sub contains_entities {
-
-  # Return 1 if the library contains any entities.
 
   my $self = shift;
 
@@ -1716,6 +2515,14 @@ sub contains_entities {
   return 0;
 }
 
+=head2 contains_entities
+
+Return 1 if the library contains any entities.
+
+  my $result = $library->contains_entities;
+
+=cut
+
 ######################################################################
 
 sub get_division_count {
@@ -1733,6 +2540,15 @@ sub get_division_count {
 
   return $href->{$name};
 }
+
+=head2 get_division_count
+
+Return an integer count of the number of divisions in the library with
+the specified name.
+
+  my $count = $library->get_division_count($name);
+
+=cut
 
 ######################################################################
 
@@ -1752,12 +2568,18 @@ sub increment_division_count {
   return ++ $counter->{$name};
 }
 
+=head2 increment_division_count
+
+Increment and return the integer count of the number of divisions in
+the library with the specified name.
+
+  my $count = $library->increment_division_count($name);
+
+=cut
+
 ######################################################################
 
 sub has_published_file {
-
-  # Check for the existence of a specific file in the 'published'
-  # directory.
 
   my $self = shift;
 
@@ -1773,6 +2595,16 @@ sub has_published_file {
 
   return 0;
 }
+
+=head2 has_published_file
+
+Check for the existence of a specific file in the 'published'
+directory under the specified state (DRAFT, REVIEW, or APPROVED).
+Return 1 if the file exists.
+
+  my $result = $library->has_published_file($state,$filename);
+
+=cut
 
 ######################################################################
 
@@ -1792,6 +2624,16 @@ sub has_published_document {
 
   return 0;
 }
+
+=head2 has_published_document
+
+Check for the existence of a published document in the 'published'
+directory under the specified state (DRAFT, REVIEW, or APPROVED).
+Return 1 if the document exists.
+
+  my $result = $library->has_published_document($state,$filename);
+
+=cut
 
 ######################################################################
 
@@ -1830,11 +2672,19 @@ sub has_published_document_rendition {
   return 0;
 }
 
+=head2 has_published_document
+
+Check for the existence of a published document rendition (HTML, PDF)
+in the 'published' directory under the specified state (DRAFT, REVIEW,
+or APPROVED).  Return 1 if the published document exists.
+
+  my $result = $library->has_published_document_rendition($state,$id,$rendition);
+
+=cut
+
 ######################################################################
 
 sub has_published_document_property_value {
-
-  # Return 1 if the specified published document property exists.
 
   my $self = shift;
 
@@ -1852,12 +2702,19 @@ sub has_published_document_property_value {
   return 0;
 }
 
+=head2 has_published_document_property_value
+
+Check for the existence of a published document property name in the
+'published' directory under the specified state (DRAFT, REVIEW, or
+APPROVED).  Return 1 if the published document property name exists.
+
+  my $result = $library->has_published_document_property_value($state,$id,$property_name);
+
+=cut
+
 ######################################################################
 
 sub get_published_document_property_value {
-
-  # Return the (string) value of the specified published document
-  # property.
 
   my $self = shift;
 
@@ -1880,11 +2737,17 @@ sub get_published_document_property_value {
   return $util->strip_string_markup($text);
 }
 
+=head2 get_published_document_property_value
+
+Return the value of a published document property.
+
+  my $result = $library->get_published_document_property_value($state,$id,$property_name);
+
+=cut
+
 ######################################################################
 
 sub has_published_library_property_value {
-
-  # Return 1 if the specified published library property exists.
 
   my $self = shift;
 
@@ -1901,12 +2764,18 @@ sub has_published_library_property_value {
   return 0;
 }
 
+=head2 has_published_library_property_value
+
+Check if the published library in the specified state (DRAFT, REVIEW,
+APPROVED) has a property with the specified name.
+
+  my $result = $library->has_published_library_property_value($state,$property_name);
+
+=cut
+
 ######################################################################
 
 sub get_published_library_property_value {
-
-  # Return the (string) value of the specified published library
-  # property.
 
   my $self = shift;
 
@@ -1925,6 +2794,15 @@ sub get_published_library_property_value {
 
   return $href->{$state}{$property_name};
 }
+
+=head2 get_published_library_property_value
+
+Return the value of the specified published library property for the
+specified state (DRAFT, REVIEW, APPROVED).
+
+  my $text = $library->get_published_library_property_value($state,$property_name);
+
+=cut
 
 ######################################################################
 
@@ -1961,6 +2839,14 @@ sub add_error {
   return 1;
 }
 
+=head2 add_error
+
+Add the specified error to the library's error collection.
+
+  my $result = $library->add_error($error);
+
+=cut
+
 ######################################################################
 
 sub get_error_list {
@@ -1987,6 +2873,14 @@ sub get_error_list {
   return $aref;
 }
 
+=head2 get_error_list
+
+Return an ArrayRef to a list of errors in the library.
+
+  my $aref = $library->get_error_list;
+
+=cut
+
 ######################################################################
 
 sub get_error_count {
@@ -1996,11 +2890,17 @@ sub get_error_count {
   return scalar @{ $self->get_error_list };
 }
 
+=head2 get_error_count
+
+Return an integer count of the number of errors in the library.
+
+  my $count = $library->get_error_count;
+
+=cut
+
 ######################################################################
 
 sub contains_error {
-
-  # Return 1 if the library contains an error.
 
   my $self = shift;
 
@@ -2013,6 +2913,14 @@ sub contains_error {
 
   return 0;
 }
+
+=head2 contains_error
+
+Return 1 if the library contains an error.
+
+  my $result = $library->contains_error;
+
+=cut
 
 ######################################################################
 
@@ -2053,12 +2961,18 @@ sub store_sha_digest_file {
   return 1;
 }
 
+=head2 store_sha_digest_file
+
+Store a SHA1 digest file containing a SHA1 digest for every division
+with an ID.  Return 1 if successful.
+
+  my $result = $library->store_sha_digest_file;
+
+=cut
+
 ######################################################################
 
 sub contains_changes {
-
-  # Return 1 if this document contains changes from a previous version
-  # that can be enumerated on a change page.
 
   my $self = shift;
 
@@ -2071,6 +2985,15 @@ sub contains_changes {
 
   return 0;
 }
+
+=head2 contains_changes
+
+Return 1 if this document contains changes from a previous version
+that can be enumerated on a change page.
+
+  my $result = $library->contains_changes;
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -3643,6 +4566,13 @@ sub _build_property_store {
 
 ######################################################################
 
+sub _build_options {
+
+  return SML::Options->new;
+}
+
+######################################################################
+
 sub _has_file {
 
   my $self     = shift;
@@ -3663,396 +4593,6 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 __END__
-
-=head1 NAME
-
-SML::Library - a collection of related documents
-
-=head1 VERSION
-
-2.0.0.
-
-=head1 SYNOPSIS
-
-  my $library = SML::Library->new
-                  (
-                    config_filename => 'library.conf',
-                  );
-
-  $library->get_id;                               # Str
-  $library->get_name;                             # Str
-  $library->get_version;                          # Str
-  $library->has_version;                          # Bool
-  $library->get_previous_version;                 # Str
-  $library->has_previous_version;                 # Bool
-  $library->get_syntax;                           # SML::Syntax
-  $library->get_ontology_rule_filespec_list;      # ArrayRef
-  $library->get_directory_path;                   # Str
-  $library->get_include_path_list;                # ArrayRef
-  $library->get_template_dir;                     # Str
-  $library->get_published_dir;                    # Str
-  $library->get_plugins_dir;                      # Str
-  $library->get_images_dir;                       # Str
-  $library->get_images_list;                      # ArrayRef
-  $library->get_document_presentation_id_list;    # ArrayRef
-  $library->get_change_list;                      # ArrayRef
-  $library->get_add_count;                        # Int
-  $library->get_delete_count;                     # Int
-  $library->get_update_count;                     # Int
-  $library->get_options;                          # SML::Options
-  $library->get_util;                             # SML::Util
-  $library->get_ontology;                         # SML::Ontology
-  $library->get_reasoner;                         # SML::Reasoner
-  $library->get_publisher;                        # SML::Publisher
-  $library->get_glossary;                         # SML::Glossary
-  $library->get_acronym_list;                     # SML::AcronymList
-  $library->get_references;                       # SML::References
-  $library->get_index;                            # SML::Index
-  $library->get_property_store;                   # SML::PropertyStore
-
-  $library->get_parser;                           # SML::Parser
-  $library->get_file_containing_id;               # SML::File
-  $library->has_filespec($filespec);              # Bool
-  $library->get_filespec($filename);              # Str
-  $library->add_file($file);                      # Bool
-  $library->add_document($document);              # Bool
-  $library->add_entity($entity);                  # Bool
-  $library->add_division($division);              # Bool
-  $library->add_variable($definition);            # Bool
-  $library->add_outcome($outcome);                # Bool
-  $library->add_review($review);                  # Bool
-  $library->has_document($id);                    # Bool
-  $library->has_document_id($id);                 # Bool
-  $library->has_division_id($id);                 # Bool
-  $library->has_entity($id);                      # Bool
-  $library->has_division($id);                    # Bool
-  $library->has_variable($name,$namespace);       # Bool
-  $library->has_outcome($entity_id,$date);        # Bool
-  $library->has_review($entity_id,$date);         # Bool
-  $library->has_images;                           # Bool
-  $library->get_file($filename);                  # SML::File
-  $library->get_document_list;                    # ArrayRef
-  $library->get_entity($id);                      # SML::Entity
-  $library->get_division($id);                    # SML::Division
-  $library->get_division_name_for_id($id)         # Str
-  $library->get_all_entities;                     # Bool
-  $library->get_all_documents;                    # Bool
-  $library->get_division_id_list_by_name($name);  # ArrayRef
-  $library->get_variable($name,$namespace);       # SML::Definition;
-  $library->get_variable_value($name,$namespace); # Str
-  $library->get_type($value);                     # Str
-  $library->get_outcome($entity_id,$date);        # SML::Outcome;
-  $library->get_review($entity_id,$date);         # SML::Outcome;
-  $library->get_outcome_entity_id_list;           # ArrayRef
-  $library->get_review_entity_id_list;            # ArrayRef
-  $library->get_outcome_date_list($entity_id);    # ArrayRef
-  $library->get_review_date_list($entity_id);     # ArrayRef
-  $library->get_outcome_status($entity_id,$date); # Str
-  $library->get_review_status($entity_id,$date);  # Str
-  $library->get_outcome_description($entity_id,$date); # Str
-  $library->get_review_description($entity_id,$date);  # Str
-  $library->summarize_content;                    # Str
-  $library->summarize_entities;                   # Str
-  $library->summarize_divisions;                  # Str
-  $library->summarize_glossary;                   # Str
-  $library->summarize_acronyms;                   # Str
-  $library->summarize_variables;                  # Str
-  $library->summarize_sources;                    # Str
-  $library->summarize_outcomes;                   # Str
-  $library->summarize_reviews;                    # Str
-  $library->update_status_from_outcome($outcome); # Bool
-  $library->contains_entities;                    # Bool
-  $library->get_division_count($name);            # Int
-  $library->increment_division_count($name);      # Int
-  $library->has_published_file($state,$filename); # Bool
-  $library->has_published_document($state,$id);   # Bool
-  $library->has_published_document_rendition($state,$id,$rendition); # Bool
-  $library->has_published_document_property_value($state,$id,$property_name); # Bool
-  $library->get_published_document_property_value($state,$id,$property_name); # Str
-  $library->has_published_library_property_value($state,$property_name);      # Bool
-  $library->get_published_library_property_value($state,$property_name);      # Str
-  $library->add_error($error);                    # Bool
-  $library->get_error_list;                       # ArrayRef
-  $library->get_error_count;                      # Int
-  $library->contains_error;                       # Bool
-  $library->store_sha_digest_file;                # Bool
-  $library->contains_changes;                     # Bool
-
-=head1 DESCRIPTION
-
-An SML::Library is a collection of SML documents and reusable content
-stored in text files.
-
-Library rules:
-
-Each file name must be unique.  Even though you can organize text files
-into directories, each filename must be unique in the library.
-
-Each division name must be valid.  Every division name in the library
-must be declared in the ontology.
-
-Each division ID must be unique.  Every division in the library must
-have a unique ID.
-
-If you violate any of these rules you won't be able to even
-instantiate your library object.  Don't worry.  It will tell you where
-you went wrong.
-
-=head1 METHODS
-
-=head2 get_id
-
-Return a scalar text value which is the ID of this library.
-
-=head2 get_name
-
-Return a scalar text value which is the name of this library.
-
-=head2 get_version
-
-Return a scalar text value which is the current version of this
-library.
-
-=head2 has_version
-
-Return 1 if this library has a current version string.
-
-=head2 get_previous_version
-
-Return a scalar text value which is the previous version of this
-library.
-
-=head2 has_previous_version
-
-Return 1 if this library has a previous version string.
-
-=head2 get_syntax
-
-Return the L<SML::Syntax> object for this library.
-
-=head2 get_ontology_rule_filespec_list
-
-Return an ArrayRef to a list of filespecs of files containing ontology
-rules.
-
-=head2 get_directory_path
-
-Return a scalar text value which is the full directory path to the
-library.
-
-=head2 get_include_path_list
-
-Return an ArrayRef to a list of path strings of directories containing
-SML files.
-
-=head2 get_template_dir
-
-Return a scalar text value of the template directory path.
-
-=head2 get_published_dir
-
-Return a scalar text value of the published directory path.  The
-published directory contains the published documents.
-
-=head2 get_plugins_dir
-
-Return a scalar text value of the plugins directory path.
-
-=head2 get_images_dir
-
-Return a scalar text value of the images directory path.
-
-=head2 get_image_list
-
-Return an ArrayRef to a list of image filenames.
-
-=head2 get_document_presentation_id_list
-
-Return an ArrayRef to a list of document IDs in the order in which
-they should be presented in any listing of library documents.
-
-=head2 get_change_list
-
-Return an ArrayRef to a list of changes made to the library since the
-previous version.  Each change is represented by an ArrayRef to a
-2-element list.  The first element is the change type (ADDED, DELETED,
-or UPDATED), and the second element is the division ID of the division
-that changed.
-
-=head2 get_add_count
-
-Return an integer count of the number of divisions that have been
-ADDED since the previous library version.
-
-=head2 get_delete_count
-
-Return an integer count of the number of divisions that have been
-DELETED since the previous library version.
-
-=head2 get_update_count
-
-Return an integer count of the number of divisions that have been
-UPDATED since the previous library version.
-
-=head2 get_options
-
-Return the L<SML::Options> object that holds the library configuration
-options.
-
-=head2 get_util
-
-Return the L<SML::Util> object that provides various library utility
-methods.
-
-=head2 get_ontology
-
-Return the L<SML::Ontology> object that defines the allowed library
-structures and entities, their properties, and how they relate to one
-another.
-
-=head2 get_reasoner
-
-Return the L<SML::Reasoner> object that infers relationships between
-entities based on ontology rules.
-
-=head2 get_publisher
-
-Return a L<SML::Publisher> object that can publish library documents
-to various renditions and styles.
-
-=head2 get_glossary
-
-Return the L<SML::Glossary> object that belongs to the library.
-
-=head2 get_parser
-
-=head2 get_acronym_list
-
-=head2 get_references
-
-=head2 get_division_name_list
-
-=head2 get_region_name_list
-
-=head2 get_environment_name_list
-
-=head2 get_template_dir
-
-=head2 has_filespec($filespec)
-
-=head2 get_filespec($filename)
-
-=head2 add_file($file)
-
-=head2 add_document($document)
-
-=head2 add_entity($entity)
-
-=head2 add_division($division)
-
-=head2 add_variable($definition)
-
-=head2 add_resource($resource)
-
-=head2 add_index_term($term,$divid)
-
-=head2 add_reference_file($filespec)
-
-=head2 add_script_file($filespec)
-
-=head2 add_outcome($outcome)
-
-=head2 add_review($review)
-
-=head2 has_file($filename)
-
-=head2 has_document($id)
-
-=head2 has_entity($id)
-
-=head2 has_division($id)
-
-=head2 has_property($id,$name)
-
-=head2 has_variable($name,$namespace)
-
-=head2 has_resource($filespec)
-
-=head2 has_index_term($term)
-
-=head2 has_outcome($entity_id,$date)
-
-=head2 has_review($entity_id,$date)
-
-=head2 get_file($filename)
-
-=head2 get_document($id)
-
-=head2 get_document_list
-
-=head2 get_entity($id)
-
-=head2 get_division($id)
-
-=head2 get_variable($name,$namespace)
-
-=head2 get_resource($filespec)
-
-=head2 get_index_term($term)
-
-=head2 get_variable_value($name,$namespace)
-
-=head2 get_data_segment_line_list($id)
-
-=head2 get_narrative_line_list($id)
-
-=head2 get_type($value)
-
-=head2 get_outcome($entity_id,$date)
-
-=head2 get_review($entity_id,$date)
-
-=head2 get_outcome_entity_id_list
-
-=head2 get_review_entity_id_list
-
-=head2 get_outcome_date_list($entity_id)
-
-=head2 get_review_date_list($entity_id)
-
-=head2 get_outcome_status($entity_id,$date)
-
-=head2 get_review_status($entity_id,$date)
-
-=head2 get_outcome_description($entity_id,$date)
-
-=head2 get_review_description($entity_id,$date)
-
-=head2 summarize_content
-
-=head2 summarize_entities
-
-=head2 summarize_divisions
-
-=head2 summarize_glossary
-
-=head2 summarize_acronyms
-
-=head2 summarize_variables
-
-=head2 summarize_resources
-
-=head2 summarize_index
-
-=head2 summarize_sources
-
-=head2 summarize_outcomes
-
-=head2 summarize_reviews
-
-=head2 replace_division_id($division,$id)
-
-=head2 update_status_from_outcome($outcome)
 
 =head1 AUTHOR
 

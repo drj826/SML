@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::AcronymList;
+package SML::AcronymList;               # ci-000439
 
 use Moose;
 
@@ -13,6 +13,32 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.AcronymList');
 
 ######################################################################
+
+=head1 NAME
+
+SML::AcronymList - a list of acronyms
+
+=head1 SYNOPSIS
+
+  SML::AcronymList->new();
+
+  $acronym_list->add_entry($definition);          # Bool
+  $acronym_list->has_entry($acronym,$namespace);  # Bool
+  $acronym_list->get_entry($acronym,$namespace);  # SML::Definition
+  $acronym_list->get_entry_list;                  # ArrayRef
+
+=head1 DESCRIPTION
+
+An acronym list is a list of acronym definitions (L<SML::Definition>
+objects) used in a special subject, field, or area of usage.  The
+acronym list may contain multiple alternative definitions of the same
+acronym in different namespaces.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -20,7 +46,7 @@ my $logger = Log::Log4perl::get_logger('sml.AcronymList');
 ######################################################################
 ######################################################################
 
-# NONE.
+# NONE
 
 ######################################################################
 ######################################################################
@@ -31,8 +57,6 @@ my $logger = Log::Log4perl::get_logger('sml.AcronymList');
 ######################################################################
 
 sub add_entry {
-
-  # Add a new entry to the acronym list.
 
   my $self       = shift;
   my $definition = shift;
@@ -64,12 +88,18 @@ sub add_entry {
   return 1;
 }
 
+=head2 add_entry
+
+Add a new entry (an L<SML::Definition>) to the acronym list.  Return 1
+if successful.
+
+  my $result = $acronym_list->add_entry($definition);
+
+=cut
+
 ######################################################################
 
 sub has_entry {
-
-  # Return 1 if the acronym list has the specified acronym in the
-  # specified (optional) namespace.
 
   my $self      = shift;
   my $acronym   = shift;
@@ -91,6 +121,15 @@ sub has_entry {
   return 0;
 }
 
+=head2 has_entry
+
+Return 1 if the acronym list has the specified acronym in the
+specified (optional) namespace.
+
+  my $result = $acronym_list->has_entry($acronym,$namespace);
+
+=cut
+
 ######################################################################
 
 sub get_entry {
@@ -110,11 +149,18 @@ sub get_entry {
   return $href->{$acronym}{$namespace};
 }
 
+=head2 get_entry
+
+Return the acronym list entry (an L<SML::Definition>) for the
+specified acronym and namespace.
+
+  my $definition = $acronym_list->get_entry($acronym,$namespace);
+
+=cut
+
 ######################################################################
 
 sub get_entry_list {
-
-  # Return an alphabetically sorted list of all acronyms.
 
   my $self = shift;
 
@@ -132,6 +178,14 @@ sub get_entry_list {
   return $aref;
 }
 
+=head2 get_entry_list
+
+Return an ArrayRef to an alphabetically sorted list of all acronyms.
+
+ my $list = $acronym_list->get_entry_list;
+
+=cut
+
 ######################################################################
 
 sub get_entry_count {
@@ -142,6 +196,14 @@ sub get_entry_count {
 
   return scalar @{ $self->get_entry_list };
 }
+
+=head2 get_entry_count
+
+Return an integer count of the number of entries in the acronym list.
+
+  my $count = $acronym_list->get_entry_count;
+
+=cut
 
 ######################################################################
 
@@ -157,6 +219,14 @@ sub contains_entries {
   return 0;
 }
 
+=head2 contains_entries
+
+Return 1 if the acronym list contains any entries.
+
+  my $result = $acronym_list->contains_entries;
+
+=cut
+
 ######################################################################
 
 sub get_group_list {
@@ -166,11 +236,20 @@ sub get_group_list {
   return [ sort keys %{ $self->_get_entry_group_hash } ];
 }
 
+=head2 get_group_list
+
+Return an ArrayRef to a list of groups in the acronym list.  The
+acronym list is organized into groups of entries.  Each group is
+identified by the first character of an acronym.  This means the
+acronym list is typically grouped by letter of the alphabet.
+
+  my $aref = $acronym_list->get_group_list;
+
+=cut
+
 ######################################################################
 
 sub get_group_entry_list {
-
-  # Return a list of entries belonging to a specified group.
 
   my $self  = shift;
   my $group = shift;
@@ -209,6 +288,15 @@ sub get_group_entry_list {
   return $aref;
 }
 
+=head2 get_group_entry_list
+
+Return an ArrayRef to a list of entries belonging to the specified
+group.
+
+  my $aref = $acronym_list->get_group_entry_list($group);
+
+=cut
+
 ######################################################################
 ######################################################################
 ##
@@ -235,59 +323,22 @@ has entry_group_hash =>
   );
 
 ######################################################################
+######################################################################
+##
+## Private Methods
+##
+######################################################################
+######################################################################
+
+# NONE
+
+######################################################################
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
 
 __END__
-
-=head1 NAME
-
-C<SML::AcronymList> - a list of acronyms used in a special subject,
-field, or area of usage, with accompanying definitions.
-
-=head1 VERSION
-
-2.0.0
-
-=head1 SYNOPSIS
-
-  my $acronym_list = SML::AcronymList->new();
-
-  my $boolean = $acronym_list->add_entry($definition);
-  my $boolean = $acronym_list->has_entry($acronym,$namespace);
-  my $acronym = $acronym_list->get_entry($acronym,$namespace);
-  my $aref    = $acronym_list->get_entry_list;  # alphabetized
-
-=head1 DESCRIPTION
-
-An acronym list is a list of acronyms used in a special subject,
-field, or area of usage, with accompanying definitions.  The acronym
-list may contain multiple alternative definitions of the same acronym
-in different namespaces.
-
-=head1 METHODS
-
-=head2 add_entry($definition)
-
-Add an acronym definition (must be an object of type
-L<"SML::Definition">).
-
-=head2 has_entry
-
-Returns 1 if acronym list contains a definition for the specified
-acronym/alternative pair.
-
-=head2 get_entry
-
-Returns the L<"SML::Definition"> for the specified acronym/alternative
-pair.
-
-=head2 get_entry_list
-
-Returns an C<ArrayRef> to an alphabatized list of L<"SML::Definition">
-objects in the acronym list.
 
 =head1 AUTHOR
 
