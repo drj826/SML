@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::Error;
+package SML::Error;                     # ci-000446
 
 use Moose;
 

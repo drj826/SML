@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::PropertyStore;
+package SML::PropertyStore;             # ci-000473
 
 use Moose;
 

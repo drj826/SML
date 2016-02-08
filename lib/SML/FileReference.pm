@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 
-package SML::FileReference;
+package SML::FileReference;             # ci-000447
 
 use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::String';
+extends 'SML::String';                  # ci-000438
 
 use namespace::autoclean;
 

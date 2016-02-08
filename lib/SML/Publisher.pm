@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::Publisher;
+package SML::Publisher;                 # ci-000462
 
 use Moose;
 

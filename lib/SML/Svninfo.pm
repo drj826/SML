@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::Svninfo;
+package SML::Svninfo;                   # ci-000420
 
 use Moose;
 

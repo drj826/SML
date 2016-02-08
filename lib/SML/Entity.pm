@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 
-package SML::Entity;
+package SML::Entity;                    # ci-000416
 
 use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Division';
+extends 'SML::Division';                # ci-000381
 
 use namespace::autoclean;
 

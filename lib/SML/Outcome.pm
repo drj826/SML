@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 
-package SML::Outcome;
+package SML::Outcome;                   # ci-000459
 
 use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Element';
+extends 'SML::Element';                 # ci-000386
 
 use namespace::autoclean;
 

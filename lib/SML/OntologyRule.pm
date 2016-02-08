@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::OntologyRule;
+package SML::OntologyRule;              # ci-000458
 
 use Moose;
 

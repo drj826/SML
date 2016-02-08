@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::Glossary;
+package SML::Glossary;                  # ci-000435
 
 use Moose;
 

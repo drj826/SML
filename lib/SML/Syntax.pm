@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::Syntax;
+package SML::Syntax;                    # ci-000433
 
 use Moose;
 

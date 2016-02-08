@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 
-package SML::BulletList;
+package SML::BulletList;                # ci-000441
 
 use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Structure';
+extends 'SML::Structure';               # ci-000466
 
 use namespace::autoclean;
 
@@ -15,18 +15,34 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.BulletList');
 
 ######################################################################
+
+=head1 NAME
+
+SML::BulletList - a list of bullet items
+
+=head1 SYNOPSIS
+
+  SML::BulletList->new(id=>$id,library=>$library);
+
+  $bullet_list->get_leading_whitespace;
+  $bullet_list->get_indent;
+
+=head1 DESCRIPTION
+
+SML::BulletList is an L<SML::Structure> that contains bullet items.
+Lists can be nested through indentation.  The top level list must have
+no indentation.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
 ##
 ######################################################################
-######################################################################
-
-has '+name' =>
-  (
-   default => 'BULLET_LIST',
-  );
-
 ######################################################################
 
 has leading_whitespace =>
@@ -37,20 +53,43 @@ has leading_whitespace =>
    required  => 1,
   );
 
-# The leading_whitespace is the whitespace at the beginning of the
-# items in the list.  It is significant because if the indent of one
-# list item is greater than the indent of the previous list item it
-# indicates the start of a sub-list.
+=head2 get_leading_whitespace
+
+Return a scalar value string of whitespace characters. The leading
+whitespace is the whitespace at the beginning of the items in the
+list.  It is significant because if the indent of one list item is
+greater than the indent of the previous list item it indicates the
+start of a sub-list.
+
+  my $whitespace = $bullet_list->get_leading_whitespace;
+
+=cut
 
 ######################################################################
 
-has ident =>
+has indent =>
   (
    is        => 'ro',
    isa       => 'Int',
    reader    => 'get_indent',
    builder   => '_build_indent',
    lazy      => 1,
+  );
+
+=head2 get_indent
+
+Return an integer value that represents the indentation level of the
+bullet list.
+
+  my $indent = $bullet_list->get_indent;
+
+=cut
+
+######################################################################
+
+has '+name' =>
+  (
+   default => 'BULLET_LIST',
   );
 
 ######################################################################
@@ -98,37 +137,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::BulletList> - an environment that instructs the publishing
-application to insert a list into the document.
-
-=head1 VERSION
-
-This documentation refers to L<"SML::BulletList"> version 2.0.0.
-
-=head1 SYNOPSIS
-
-  extends SML::Division
-
-  my $aref = SML::BulletList->new(id=>$id,library=>$library);
-
-=head1 DESCRIPTION
-
-An SML list environment instructs the publishing application to
-insert a list into the document.
-
-=head1 METHODS
-
-=head2 get_name
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012,2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

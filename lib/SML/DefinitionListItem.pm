@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 
-package SML::DefinitionListItem;
+package SML::DefinitionListItem;        # ci-000432
 
 use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::ListItem';
+extends 'SML::ListItem';                # ci-000424
 
 use namespace::autoclean;
 

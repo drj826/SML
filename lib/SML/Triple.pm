@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 
-package SML::Triple;
+package SML::Triple;                    # ci-000469
 
 use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Entity';
+extends 'SML::Entity';                  # ci-000416
 
 use namespace::autoclean;
 

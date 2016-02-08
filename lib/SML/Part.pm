@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::Part;
+package SML::Part;                      # ci-000436
 
 use Moose;
 

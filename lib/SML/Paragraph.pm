@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 
-package SML::Paragraph;
+package SML::Paragraph;                 # ci-000425
 
 use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Block';
+extends 'SML::Block';                   # ci-000387
 
 use namespace::autoclean;
 
