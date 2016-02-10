@@ -15,6 +15,34 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.CrossReference');
 
 ######################################################################
+
+=head1 NAME
+
+SML::CrossReference - reference another location in a library
+
+=head1 SYNOPSIS
+
+  SML::CrossReference->new
+    (
+      tag             => $tag,
+      target_id       => $target_id,
+      library         => $library,
+      containing_part => $part,
+    );
+
+  $ref->get_tag;                        # Str
+  $ref->get_target_id;                  # Str
+
+=head1 DESCRIPTION
+
+SML::CrossReference Extends L<SML::String> to represent a reference to
+another location in the library.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -30,6 +58,20 @@ has tag =>
    required => 1,
   );
 
+=head2 get_tag
+
+Return a scalar text value which is the cross reference tag.
+
+  my $tag = $cross_ref->get_tag;
+
+For example, if the cross reference is C<[ref:fig-main-window]> then
+the tag is C<ref>.
+
+The tag value, either C<ref> or simply C<r> has no significance in the
+current syntax.
+
+=cut
+
 ######################################################################
 
 has target_id =>
@@ -39,6 +81,17 @@ has target_id =>
    reader   => 'get_target_id',
    required => 1,
   );
+
+=head2 get_target_id
+
+Return a scalar text value which is the ID of the reference target.
+
+  my $id = $cross_ref->get_target_id;
+
+For example, if the cross reference is C<[ref:fig-main-window]> then
+the target ID is C<fig-main-window>.
+
+=cut
 
 ######################################################################
 
@@ -81,6 +134,17 @@ sub get_target_part {
   return $document->get_part($id);
 }
 
+=head2 get_target_part
+
+Return the part which is the target of the reference.
+
+  my $part = $cross_ref->get_target_part.
+
+For example if the cross reference is C<[ref:fig-main-window]> then
+C<get_target_part> might return the SML::Figure object referenced.
+
+=cut
+
 ######################################################################
 ######################################################################
 ##
@@ -109,38 +173,6 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::CrossReference> - a reference to another location in the document
-
-=head1 VERSION
-
-2.0.0
-
-=head1 SYNOPSIS
-
-  extends SML::String
-
-  example: [ref:introduction]
-
-  my $ref = SML::CrossReference->new
-              (
-                tag             => $tag,        # 'ref'
-                target_id       => $target_id,  # 'introduction'
-                library         => $library,
-                containing_part => $part,
-              );
-
-  my $string = $ref->get_tag;        # 'ref'
-  my $id     = $ref->get_target_id;  # 'introduction'
-
-=head1 DESCRIPTION
-
-Extends C<SML::String> to represent a reference to another location in
-the document.
-
-=head1 METHODS
-
 =head2 get_tag
 
 =head2 get_target_id
@@ -151,7 +183,7 @@ Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

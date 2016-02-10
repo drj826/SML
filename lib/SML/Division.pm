@@ -1,10 +1,10 @@
 #!/usr/bin/perl
 
-package SML::Division;
+package SML::Division;                  # ci-000381
 
 use Moose;
 
-extends 'SML::Part';
+extends 'SML::Part';                    # ci-000436
 
 use version; our $VERSION = qv('2.0.0');
 
@@ -17,6 +17,66 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Division');
 
 use lib "..";
+
+######################################################################
+
+=head1 NAME
+
+SML::Division - a sequence of blocks
+
+=head1 SYNOPSIS
+
+  SML::Division->new
+    (
+      id      => $id,
+      library => $library,
+      name    => $name,
+    );
+
+  $division->get_number;                                # Str
+  $division->set_number;                                # Bool
+  $division->get_previous_number;                       # Str
+  $division->set_previous_number($number);              # Bool
+  $division->get_next_number;                           # Str
+  $division->set_next_number($number);                  # Bool
+  $division->get_containing_division;                   # SML::Division
+  $division->set_containing_division($division);        # Bool
+  $division->has_containing_division;                   # Bool
+  $division->get_origin_line;                           # SML::Line
+  $division->has_origin_line;                           # Bool
+  $division->get_sha_digest;                            # Str
+
+  $division->add_division($division);                   # Bool
+  $division->add_part($part);                           # Bool
+  $division->add_attribute($element);                   # Bool
+  $division->contains_division_with_id($id);            # Bool
+  $division->contains_division_with_name($name);        # Bool
+  $division->contains_element_with_name($name);         # Bool
+  $division->get_list_of_divisions_with_name($name);    # ArrayRef
+  $division->get_list_of_elements_with_name($name);     # ArrayRef
+  $division->get_division_list;                         # ArrayRef
+  $division->get_block_list;                            # ArrayRef
+  $division->get_string_list;                           # ArrayRef
+  $division->get_element_list;                          # ArrayRef
+  $division->get_line_list;                             # ArrayRef
+  $division->get_first_part;                            # SML::Part
+  $division->get_first_line;                            # SML::Line
+  $division->get_containing_document;                   # SML::Document
+  $division->get_location;                              # Str
+  $division->get_containing_section;                    # SML::Section
+  $division->is_in_a($name);                            # Bool
+  $division->get_content;                               # Str
+
+=head1 DESCRIPTION
+
+An C<SML::Division> is a contiguous sequence of C<SML::Block>s.  A
+division has an unambiguous beginning and end.  Sometimes the
+beginning and end are explicit and other times they are implicit.
+Divisions may contain other divisions.
+
+=head1 METHODS
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -247,29 +307,6 @@ sub contains_division_with_id {
 
   return 0;
 }
-
-######################################################################
-
-# sub has_attribute {
-
-#   my $self      = shift;
-#   my $attribute = shift;
-
-#   unless ( $attribute )
-#     {
-#       $logger->error("YOU MUST SPECIFY ATTRIBUTE");
-#       return 0;
-#     }
-
-#   if ( exists $self->_get_attribute_hash->{$attribute} )
-#     {
-#       return 1;
-#     }
-#   else
-#     {
-#       return 0;
-#     }
-# }
 
 ######################################################################
 
@@ -809,159 +846,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::Division> - a L<"SML::Part"> which is a contiguous sequence of
-L<"SML::Block">s.
-
-=head1 VERSION
-
-2.0.0
-
-=head1 SYNOPSIS
-
-  extends SML::Part
-
-  my $division = SML::Division->new
-                   (
-                     id      => $id,
-                     library => $library,
-                     name    => $name,
-                   );
-
-  my $string   = $division->get_number;
-  my $boolean  = $division->set_number;
-  my $string   = $division->get_previous_number;
-  my $boolean  = $division->set_previous_number($number);
-  my $string   = $division->get_next_number;
-  my $boolean  = $division->set_next_number($number);
-  my $division = $division->get_containing_division;
-  my $boolean  = $division->set_containing_division($division);
-  my $boolean  = $division->has_containing_division;
-  my $boolean  = $division->has_valid_syntax;
-  my $boolean  = $division->has_valid_semantics;
-  my $boolean  = $division->has_valid_property_cardinality;
-  my $boolean  = $division->has_valid_property_values;
-  my $boolean  = $division->has_valid_infer_only_conformance;
-  my $boolean  = $division->has_valid_required_properties;
-  my $boolean  = $division->has_valid_composition;
-  my $boolean  = $division->has_valid_id_uniqueness;
-
-  my $boolean  = $division->add_division($division);
-  my $boolean  = $division->add_part($part);
-  my $boolean  = $division->add_property($property);
-  my $boolean  = $division->add_attribute($element);
-  my $boolean  = $division->contains_division_with_name($name);
-  my $boolean  = $division->contains_division_with_id($id);
-  my $boolean  = $division->has_property($property_name);
-  my $boolean  = $division->has_property_value($property_name,$value);
-  my $aref     = $division->get_division_list;
-  my $aref     = $division->get_list_of_divisions_with_name('SECTION');
-  my $aref     = $division->get_block_list;
-  my $aref     = $division->get_element_list;
-  my $aref     = $division->get_line_list;
-  my $part     = $division->get_first_part;
-  my $line     = $division->get_first_line;
-  my $document = $division->get_containing_document;
-  my $string   = $division->get_location;
-  my $section  = $division->get_containing_section;
-  my $boolean  = $division->is_in_a($division_name);
-  my $boolean  = $division->validate;
-
-=head1 DESCRIPTION
-
-A L<"SML::Division"> is a contiguous sequence of L<"SML::Block">s.  A
-division has an unambiguous beginning and end.  Sometimes the
-beginning and end are explicit and other times they are implicit.
-Divisions may contain other divisions.
-
-=head1 METHODS
-
-=head2 get_number
-
-=head2 set_number
-
-=head2 get_previous_number
-
-=head2 set_previous_number($number)
-
-=head2 get_next_number
-
-=head2 set_next_number($number)
-
-=head2 get_containing_division
-
-=head2 set_containing_division($division)
-
-=head2 has_containing_division
-
-=head2 has_valid_syntax
-
-=head2 has_valid_semantics
-
-=head2 has_valid_property_cardinality
-
-=head2 has_valid_property_values
-
-=head2 has_valid_infer_only_conformance
-
-=head2 has_valid_required_properties
-
-=head2 has_valid_composition
-
-=head2 has_valid_id_uniqueness
-
-=head2 add_division($division)
-
-=head2 add_part($part)
-
-=head2 add_property($property)
-
-=head2 add_property_element($element)
-
-=head2 add_attribute($element)
-
-=head2 contains_division($id)
-
-=head2 has_attribute($attribute_name)
-
-=head2 get_division_list
-
-=head2 has_sections
-
-=head2 get_list_of_divisions_with_name($name)
-
-=head2 get_block_list
-
-=head2 get_element_list
-
-=head2 get_line_list
-
-=head2 get_data_segment_line_list
-
-=head2 get_narrative_line_list
-
-=head2 get_first_part
-
-=head2 get_first_line
-
-=head2 get_containing_document
-
-=head2 get_location
-
-=head2 get_containing_section
-
-=head2 is_in_a($division_type)
-
-=head2 validate
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

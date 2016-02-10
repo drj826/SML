@@ -374,7 +374,7 @@ sub get_part {
 
   unless ( $id )
     {
-      $logger->logdie("CAN'T GET PART, MISSING ARGUMENT");
+      $logger->logcluck("CAN'T GET PART, MISSING ARGUMENT");
       return 0;
     }
 
