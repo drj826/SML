@@ -15,6 +15,36 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.CitationReference');
 
 ######################################################################
+
+=head1 NAME
+
+SML::CitationReference - cite a source
+
+=head1 SYNOPSIS
+
+  SML::CitationReference->new
+    (
+      tag             => $tag,
+      source_id       => $source_id,
+      details         => $details,
+      library         => $library,
+      containing_part => $part,
+    );
+
+  $ref->get_tag;                        # Str
+  $ref->get_source_id;                  # Str
+  $ref->get_details;                    # Str
+
+=head1 DESCRIPTION
+
+SML::CitationReference Extends L<SML::String> to represent a citation
+to a C<SML::Source>.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -30,6 +60,17 @@ has tag =>
    required => 1,
   );
 
+=head2 get_tag
+
+Return a scalar text value of the tag (either 'cite' or 'c').
+
+  my $tag = $citation_ref->get_tag;
+
+For example, if the citation reference is C<[cite:cms15, pg 44]> then
+the tag is C<cite>.
+
+=cut
+
 ######################################################################
 
 has source_id =>
@@ -40,6 +81,17 @@ has source_id =>
    required => 1,
   );
 
+=head2 get_source_id
+
+Return a scalar text value which is the ID of the referenced source.
+
+  my $id = $citation_ref->get_source_id;
+
+For example, if the citation reference is C<[cite:cms15, pg 44]> then
+the ID is C<cms15>.
+
+=cut
+
 ######################################################################
 
 has details =>
@@ -49,6 +101,18 @@ has details =>
    reader   => 'get_details',
    default  => '',
   );
+
+=head2 get_details
+
+Return a scalar text value which is the 'details' portion of the
+reference.
+
+  my $details = $citation_ref->get_details;
+
+For example, if the citation reference is C<[cite:cms15, pg 44]> then
+the 'details' part is C<pg 44>.
+
+=cut
 
 ######################################################################
 
@@ -102,52 +166,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::CitationReference> - a citation of a source of information
-
-=head1 VERSION
-
-2.0.0
-
-=head1 SYNOPSIS
-
-  extends SML::String
-
-  example: [cite:cms15, pg 44]
-
-  my $ref = SML::CitationReference->new
-              (
-                tag             => $tag,        # 'cite'
-                source_id       => $source_id,  # 'cms15'
-                details         => $details,    # 'pg 44'
-                library         => $library,
-                containing_part => $part,
-              );
-
-  my $string = $ref->get_tag;        # 'cite'
-  my $id     = $ref->get_source_id;  # 'cms15'
-  my $string = $ref->get_details;    # 'pg 44'
-
-=head1 DESCRIPTION
-
-Extends C<SML::String> to represent a citation to a C<SML::Source>.
-
-=head1 METHODS
-
-=head2 get_tag
-
-=head2 get_source_id
-
-=head2 get_details
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)
