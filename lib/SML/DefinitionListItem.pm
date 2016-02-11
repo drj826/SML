@@ -27,18 +27,17 @@ SML::DefinitionListItem - an item in a definition list.
   $item->get_term;                       # Str
   $item->set_term($term);                # Bool
   $item->has_term;                       # Bool
-
   $item->get_definition;                 # Str
   $item->set_definition($definition);    # Bool
   $item->has_definition;                 # Bool
-
   $item->get_term_string;                # SML::String
   $item->set_term_string($string);       # Bool
   $item->has_term_string;                # Bool
-
   $item->get_definition_string;          # Str
   $item->set_definition_string($string); # Bool
   $item->has_definition;                 # Bool
+
+  # methods inherited from SML::ListItem...
 
 =head1 DESCRIPTION
 

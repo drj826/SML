@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 
-package SML::Document;
+package SML::Document;                  # ci-000005
 
 use Moose;
 
 use version; our $VERSION = qv('2.0.0');
 
-extends 'SML::Structure';
+extends 'SML::Structure';               # ci-000466
 
 use namespace::autoclean;
 
@@ -14,11 +14,58 @@ use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Document');
 
-use SML::Library;        # ci-000410
-use SML::Glossary;
-use SML::AcronymList;
-use SML::References;
-use SML::Index;
+use SML::Library;                       # ci-000410
+use SML::Glossary;                      # ci-000435
+use SML::AcronymList;                   # ci-000439
+use SML::References;                    # ci-000463
+use SML::Index;                         # ci-000453
+
+######################################################################
+
+=head1 NAME
+
+SML::Document - a written work about a topic
+
+=head1 SYNOPSIS
+
+  SML::Document->new
+    (
+      id      => $id,
+      library => $library,
+    );
+
+  $document->get_glossary;                        # SML::Glossary
+  $document->get_acronym_list;                    # SML::AcronymList
+  $document->get_references;                      # SML::References
+  $document->get_index;                           # SML::Index
+  $document->get_change_list;                     # ArrayRef
+  $document->get_add_count;                       # Int
+  $document->get_delete_count;                    # Int
+  $document->get_update_count;                    # Int
+
+  $document->add_note($note);                     # Bool
+  $document->has_note($division_id,$number);      # Bool
+  $document->contains_header;                     # Bool
+  $document->contains_footer;                     # Bool
+  $document->add_error($error);                   # Bool
+  $document->get_error_list;                      # ArrayRef
+  $document->get_error_count;                     # Int
+  $document->contains_error;                      # Bool
+  $document->add_verion($version,$date,$string);  # Bool
+  $document->contains_version_history;            # Bool
+  $document->get_version_history_list;            # ArrayRef
+  $document->contains_changes;                    # Bool
+  $document->get_page_after;                      # Str
+  $document->get_page_before;                     # Str
+
+=head1 DESCRIPTION
+
+A document is an C<SML::Structure> that represents a written work
+about a topic.
+
+=head1 METHODS
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -43,6 +90,14 @@ has glossary =>
    builder  => '_build_glossary',
   );
 
+=head2 get_glossary
+
+Return the C<SML::Glossary> object that belongs to the document.
+
+  my $glossary = $document->get_glossary;
+
+=cut
+
 ######################################################################
 
 has acronym_list =>
@@ -52,6 +107,14 @@ has acronym_list =>
    lazy     => 1,
    builder  => '_build_acronym_list',
   );
+
+=head2 get_acronym_list
+
+Return the C<SML::AcronymList> object that belongs to the document.
+
+  my $acronym_list = $document->get_acronym_list;
+
+=cut
 
 ######################################################################
 
@@ -63,6 +126,14 @@ has references =>
    builder  => '_build_references',
   );
 
+=head2 get_references
+
+Return the C<SML::References> object that belongs to the document.
+
+  my $references = $document->get_references;
+
+=cut
+
 ######################################################################
 
 has index =>
@@ -72,6 +143,14 @@ has index =>
    lazy     => 1,
    builder  => '_build_index',
   );
+
+=head2 get_index
+
+Return the C<SML::Index> object that belongs to the document.
+
+  my $index = $document->get_index;
+
+=cut
 
 ######################################################################
 
@@ -84,7 +163,29 @@ has change_list =>
    builder => '_build_change_list',
   );
 
-# push @{$aref}, [$action,$division_id];
+=head2 get_change_list
+
+Return an ArrayRef to a list of changes made to the document since the
+previous (library) version.
+
+  my $aref = $document->get_change_list;
+
+Each change in the list is a 2-element anonymous array. The first
+element is the change action (ADDED, UPDATED, or DELETED) and the
+second element is the ID of the division changed.
+
+If you wanted to do something with each change in the document you
+might write a loop like this:
+
+  foreach my $change (@{ $document->get_change_list })
+    {
+      my $action      = $change->[0];
+      my $division_id = $change->[1];
+
+      # do something...
+    }
+
+=cut
 
 ######################################################################
 
@@ -97,8 +198,14 @@ has add_count =>
    builder => '_build_add_count',
   );
 
-# This is number of divisions that have been ADDED since the previous
-# version.
+=head2 get_add_count
+
+Return an integer which is the number of divisions that have been
+ADDED since the previous version.
+
+  my $count = $document->get_add_count;
+
+=cut
 
 ######################################################################
 
@@ -111,8 +218,14 @@ has delete_count =>
    builder => '_build_delete_count',
   );
 
-# This is number of divisions that have been DELETED since the
-# previous version.
+=head2 get_add_count
+
+Return an integer which is the number of divisions that have been
+DELETED since the previous version.
+
+  my $count = $document->get_delete_count;
+
+=cut
 
 ######################################################################
 
@@ -125,8 +238,14 @@ has update_count =>
    builder => '_build_update_count',
   );
 
-# This is number of divisions that have been UPDATED since the
-# previous version.
+=head2 get_add_count
+
+Return an integer which is the number of divisions that have been
+UPDATED since the previous version.
+
+  my $count = $document->get_update_count;
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -179,6 +298,14 @@ sub add_note {
   return 1;
 }
 
+=head2 add_note($note)
+
+Add a C<SML::Note> (i.e. a footnote) to the document.
+
+  my $result = $document->add_note($note);
+
+=cut
+
 ######################################################################
 
 sub has_note {
@@ -196,6 +323,15 @@ sub has_note {
 
   return 0;
 }
+
+=head2 has_note($id,$number)
+
+Return 1 if the document contains a note with the specified division
+ID and number.
+
+  my $result = $document->has_note;
+
+=cut
 
 ######################################################################
 
@@ -226,6 +362,14 @@ sub contains_header {
   return 0;
 }
 
+=head2 contains_header
+
+Return 1 if the document contains any header elements.
+
+  my $result = $document->contains_header;
+
+=cut
+
 ######################################################################
 
 sub contains_footer {
@@ -254,6 +398,14 @@ sub contains_footer {
 
   return 0;
 }
+
+=head2 contains_footer
+
+Return 1 if the document contains any footer elements.
+
+  my $result = $document->contains_footer;
+
+=cut
 
 ######################################################################
 
@@ -290,6 +442,15 @@ sub add_error {
   return 1;
 }
 
+=head2 add_error($error)
+
+Add the specified C<SML::Error> to the document. Return 1 if
+successful.
+
+  my $result = $document->add_error($error);
+
+=cut
+
 ######################################################################
 
 sub get_error_list {
@@ -316,6 +477,14 @@ sub get_error_list {
   return $aref;
 }
 
+=head2 get_error_list
+
+Return an ArrayRef to a list of errors in the document.
+
+  my $aref = $document->get_error_list;
+
+=cut
+
 ######################################################################
 
 sub get_error_count {
@@ -324,6 +493,14 @@ sub get_error_count {
 
   return scalar @{ $self->get_error_list };
 }
+
+=head2 get_error_count
+
+Return an integer count of the number of errors in the document.
+
+  my $count = $document->get_error_count;
+
+=cut
 
 ######################################################################
 
@@ -342,6 +519,14 @@ sub contains_error {
 
   return 0;
 }
+
+=head2 contains_error
+
+Return 1 if the document contains one or more errors.
+
+  my $result = $document->contains_error;
+
+=cut
 
 ######################################################################
 
@@ -374,6 +559,15 @@ sub add_version {
   return 1;
 }
 
+=head2 add_version($version,$date,$string)
+
+Add the specified version information to the document.  Return 1 if
+successful.
+
+  my $result = $document->add_version($version,$date,$string);
+
+=cut
+
 ######################################################################
 
 sub contains_version_history {
@@ -391,6 +585,14 @@ sub contains_version_history {
 
   return 0;
 }
+
+=head2 contains_version_history
+
+Return 1 if this document contains version history information.
+
+  my $result = $document->contains_version_history;
+
+=cut
 
 ######################################################################
 
@@ -416,6 +618,14 @@ sub get_version_history_list {
   return $aref;
 }
 
+=head2 get_version_history_list
+
+Return an ArrayRef to a list of versions of this document.
+
+  my $aref = $document->get_version_history_list;
+
+=cut
+
 ######################################################################
 
 sub contains_changes {
@@ -435,34 +645,18 @@ sub contains_changes {
   return 0;
 }
 
+=head2 contains_changes
+
+Return 1 if changes have been made to this document since the previous
+(library) version.
+
+  my $result = $document->contains_changes;
+
+=cut
+
 ######################################################################
 
 sub get_page_after {
-
-  # Return the page name of the page that should come AFTER the one
-  # specified.  This works for front matter pages, section pages, and
-  # back matter pages.
-  #
-  # Front matter pages should appear in the following default order:
-  #
-  #   1.  titlepage
-  #   2.  contents
-  #   3.  tables
-  #   4.  figures
-  #   5.  attachments
-  #   6.  listings
-  #   7.  demos
-  #   8.  exercises
-  #   9.  slides
-  #   10. history
-  #   11. change
-  #
-  #   ...pages by section number...
-  #
-  #   12. glossary
-  #   13. acronyms
-  #   14. references
-  #   15. index
 
   my $self     = shift;
   my $pagename = shift;
@@ -632,34 +826,40 @@ sub get_page_after {
     }
 }
 
+=head2 get_page_after($pagename)
+
+Return the page name of the page that should come AFTER the one
+specified.  This works for front matter pages, section pages, and back
+matter pages.
+
+  my $next_pagename = $document->get_page_after($this_pagename);
+
+Document pages should appear in the following default order:
+
+  1.  titlepage
+  2.  contents
+  3.  tables
+  4.  figures
+  5.  attachments
+  6.  listings
+  7.  demos
+  8.  exercises
+  9.  slides
+  10. history
+  11. change
+
+  ...pages by section number...
+
+  12. glossary
+  13. acronyms
+  14. references
+  15. index
+
+=cut
+
 ######################################################################
 
 sub get_page_before {
-
-  # Return the page name of the page that should come BEFORE the one
-  # specified.  This works for front matter pages, section pages, and
-  # back matter pages.
-  #
-  # Front matter pages should appear in the following default order:
-  #
-  #   1.  titlepage
-  #   2.  contents
-  #   3.  tables
-  #   4.  figures
-  #   5.  attachments
-  #   6.  listings
-  #   7.  demos
-  #   8.  exercises
-  #   9.  slides
-  #   10. history
-  #   11. change
-  #
-  #   ...pages by section number...
-  #
-  #   12. glossary
-  #   13. acronyms
-  #   14. references
-  #   15. index
 
   my $self     = shift;
   my $pagename = shift;
@@ -837,6 +1037,37 @@ sub get_page_before {
       $logger->error("THIS SHOULD NEVER HAPPEN, BAD PAGE NAME $pagename");
     }
 }
+
+=head2 get_page_before($pagename)
+
+Return the page name of the page that should come BEFORE the one
+specified.  This works for front matter pages, section pages, and back
+matter pages.
+
+  my $previous_pagename = $document-get_page_before($this_pagename);
+
+Document pages should appear in the following default order:
+
+  1.  titlepage
+  2.  contents
+  3.  tables
+  4.  figures
+  5.  attachments
+  6.  listings
+  7.  demos
+  8.  exercises
+  9.  slides
+  10. history
+  11. change
+
+  ...pages by section number...
+
+  12. glossary
+  13. acronyms
+  14. references
+  15. index
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -1039,87 +1270,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::Document> - a written work about a topic
-
-=head1 VERSION
-
-2.0.0
-
-=head1 SYNOPSIS
-
-  extends SML::Division
-
-  my $document = SML::Document->new
-                   (
-                     id      => $id,
-                     library => $library,
-                   );
-
-  my $glossary     = $document->get_glossary;
-  my $acronym_list = $document->get_acronym_list;
-  my $references   = $document->get_references;
-  my $string       = $document->get_author;
-  my $string       = $document->get_date;
-  my $string       = $document->get_revision;
-  my $boolean      = $document->is_valid;
-
-  my $boolean      = $document->add_note($note);
-  my $boolean      = $document->has_note($division_id,$number);
-  my $note         = $document->get_note($division_id,$number);
-
-=head1 DESCRIPTION
-
-A document is a written work about a topic.  Documents have types:
-book, report, or article. An SML document is composed of a DATA
-SEGMENT followed by a NARRATIVE SEGMENT.
-
-=head1 METHODS
-
-=head2 get_glossary
-
-=head2 get_acronym_list
-
-=head2 get_references
-
-=head2 get_author
-
-=head2 get_date
-
-=head2 get_revision
-
-=head2 is_valid
-
-=head2 add_note($note)
-
-=head2 add_index_term($term,$division_id)
-
-=head2 has_note($division_id,$number)
-
-=head2 has_index_term($term)
-
-=head2 has_glossary_term($term,$namespace)
-
-=head2 has_acronym($term,$namespace)
-
-=head2 has_source($id)
-
-=head2 get_acronym_definition($acronym,$namespace)
-
-=head2 get_note($division_id,$number)
-
-=head2 get_index_term($term)
-
-=head2 replace_division_id($division,$id)
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

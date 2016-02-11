@@ -28,30 +28,72 @@ SML::Definition - definition of a term in a namespace
       library => $library,
     );
 
-  $definition->get_term;                       # Str
-  $definition->set_term($term);                # Bool
-  $definition->has_term;                       # Bool
+  $definition->get_term;                          # Str
+  $definition->set_term($term);                   # Bool
+  $definition->has_term;                          # Bool
+  $definition->get_namespace;                     # Str
+  $definition->set_namespace($namespace);         # Bool
+  $definition->has_namespace;                     # Bool
+  $definition->get_definition;                    # Str
+  $definition->set_definition($definition);       # Bool
+  $definition->hash_definition;                   # Bool
+  $definition->get_term_string;                   # SML::String
+  $definition->set_term_string($string);          # Bool
+  $definition->has_term_string;                   # Bool
+  $definition->get_definition_string;             # SML::String
+  $definition->set_definition_string($string);    # Bool
+  $definition->has_definition_string;             # Bool
+  $definition->already_used;                      # Bool
+  $definition->set_already_used;                  # Bool
 
-  $definition->get_namespace;                  # Str
-  $definition->set_namespace($namespace);      # Bool
-  $definition->has_namespace;                  # Bool
+  $definition->get_bookmark;                      # Str
 
-  $definition->get_definition;                 # Str
-  $definition->set_definition($definition);    # Bool
-  $definition->hash_definition;                # Bool
+  # methods inherited from SML::Element...
 
-  $definition->get_term_string;                # SML::String
-  $definition->set_term_string($string);       # Bool
-  $definition->has_term_string;                # Bool
+  $element->get_value;                            # Str
+  $element->set_value($value);                    # Bool
+  $element->has_value;                            # Bool
 
-  $definition->get_definition_string;          # SML::String
-  $definition->set_definition_string($string); # Bool
-  $definition->has_definition_string;          # Bool
+  # methods inherited from SML::Block...
 
-  $definition->already_used;                   # Bool
-  $definition->set_already_used;               # Bool
+  $block->get_line_list;                          # ArrayRef
+  $block->get_containing_division;                # SML::Division
+  $block->set_containing_division($division);     # Bool
+  $block->has_containing_division;                # Bool
+  $block->has_valid_syntax;                       # Bool
+  $block->has_valid_semantics;                    # Bool
+  $block->add_line($line);                        # Bool
+  $block->add_part($part);                        # Bool
+  $block->get_first_line;                         # SML::Line
+  $block->get_location;                           # Str
+  $block->is_in_a($division_name);                # Bool
 
-  $definition->get_bookmark;                   # Str
+  # methods inherited from SML::Part...
+
+  $part->get_name;                                # Str
+  $part->get_library;                             # SML::Library
+  $part->get_id;                                  # Str
+  $part->set_id;                                  # Bool
+  $part->set_content;                             # Bool
+  $part->get_content;                             # Str
+  $part->has_content;                             # Bool
+  $part->get_container;                           # SML::Part
+  $part->set_container;                           # Bool
+  $part->has_container;                           # Bool
+  $part->get_part_list;                           # ArrayRef
+  $part->is_narrative_part;                       # Bool
+
+  $part->init;                                    # Bool
+  $part->contains_parts;                          # Bool
+  $part->has_part($id);                           # Bool
+  $part->get_part($id);                           # SML::Part
+  $part->add_part($part);                         # Bool
+  $part->get_narrative_part_list                  # ArrayRef
+  $part->get_containing_document;                 # SML::Document
+  $part->is_in_section;                           # Bool
+  $part->get_containing_section;                  # SML::Section
+  $part->render($rendition,$style);               # Str
+  $part->dump_part_structure($indent);            # Str
 
 =head1 DESCRIPTION
 
