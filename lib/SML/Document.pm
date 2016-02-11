@@ -34,29 +34,95 @@ SML::Document - a written work about a topic
       library => $library,
     );
 
-  $document->get_glossary;                        # SML::Glossary
-  $document->get_acronym_list;                    # SML::AcronymList
-  $document->get_references;                      # SML::References
-  $document->get_index;                           # SML::Index
-  $document->get_change_list;                     # ArrayRef
-  $document->get_add_count;                       # Int
-  $document->get_delete_count;                    # Int
-  $document->get_update_count;                    # Int
+  $document->get_glossary;                            # SML::Glossary
+  $document->get_acronym_list;                        # SML::AcronymList
+  $document->get_references;                          # SML::References
+  $document->get_index;                               # SML::Index
+  $document->get_change_list;                         # ArrayRef
+  $document->get_add_count;                           # Int
+  $document->get_delete_count;                        # Int
+  $document->get_update_count;                        # Int
 
-  $document->add_note($note);                     # Bool
-  $document->has_note($division_id,$number);      # Bool
-  $document->contains_header;                     # Bool
-  $document->contains_footer;                     # Bool
-  $document->add_error($error);                   # Bool
-  $document->get_error_list;                      # ArrayRef
-  $document->get_error_count;                     # Int
-  $document->contains_error;                      # Bool
-  $document->add_verion($version,$date,$string);  # Bool
-  $document->contains_version_history;            # Bool
-  $document->get_version_history_list;            # ArrayRef
-  $document->contains_changes;                    # Bool
-  $document->get_page_after;                      # Str
-  $document->get_page_before;                     # Str
+  $document->add_note($note);                         # Bool
+  $document->has_note($division_id,$number);          # Bool
+  $document->contains_header;                         # Bool
+  $document->contains_footer;                         # Bool
+  $document->add_error($error);                       # Bool
+  $document->get_error_list;                          # ArrayRef
+  $document->get_error_count;                         # Int
+  $document->contains_error;                          # Bool
+  $document->add_verion($version,$date,$string);      # Bool
+  $document->contains_version_history;                # Bool
+  $document->get_version_history_list;                # ArrayRef
+  $document->contains_changes;                        # Bool
+  $document->get_page_after;                          # Str
+  $document->get_page_before;                         # Str
+
+  # methods inherited from SML::Structure...
+
+  NONE
+
+  # methods inherited from SML::Division...
+
+  $division->get_number;                              # Str
+  $division->set_number;                              # Bool
+  $division->get_previous_number;                     # Str
+  $division->set_previous_number($number);            # Bool
+  $division->get_next_number;                         # Str
+  $division->set_next_number($number);                # Bool
+  $division->get_containing_division;                 # SML::Division
+  $division->set_containing_division($division);      # Bool
+  $division->has_containing_division;                 # Bool
+  $division->get_origin_line;                         # SML::Line
+  $division->has_origin_line;                         # Bool
+  $division->get_sha_digest;                          # Str
+
+  $division->add_part($part);                         # Bool
+  $division->add_attribute($element);                 # Bool
+  $division->contains_division_with_id($id);          # Bool
+  $division->contains_division_with_name($name);      # Bool
+  $division->contains_element_with_name($name);       # Bool
+  $division->get_list_of_divisions_with_name($name);  # ArrayRef
+  $division->get_list_of_elements_with_name($name);   # ArrayRef
+  $division->get_division_list;                       # ArrayRef
+  $division->get_block_list;                          # ArrayRef
+  $division->get_string_list;                         # ArrayRef
+  $division->get_element_list;                        # ArrayRef
+  $division->get_line_list;                           # ArrayRef
+  $division->get_first_part;                          # SML::Part
+  $division->get_first_line;                          # SML::Line
+  $division->get_containing_document;                 # SML::Document
+  $division->get_location;                            # Str
+  $division->get_containing_section;                  # SML::Section
+  $division->is_in_a($name);                          # Bool
+  $division->get_content;                             # Str
+
+  # methods inherited from SML::Part...
+
+  $part->get_name;                                    # Str
+  $part->get_library;                                 # SML::Library
+  $part->get_id;                                      # Str
+  $part->set_id;                                      # Bool
+  $part->set_content;                                 # Bool
+  $part->get_content;                                 # Str
+  $part->has_content;                                 # Bool
+  $part->get_container;                               # SML::Part
+  $part->set_container;                               # Bool
+  $part->has_container;                               # Bool
+  $part->get_part_list;                               # ArrayRef
+  $part->is_narrative_part;                           # Bool
+
+  $part->init;                                        # Bool
+  $part->contains_parts;                              # Bool
+  $part->has_part($id);                               # Bool
+  $part->get_part($id);                               # SML::Part
+  $part->add_part($part);                             # Bool
+  $part->get_narrative_part_list                      # ArrayRef
+  $part->get_containing_document;                     # SML::Document
+  $part->is_in_section;                               # Bool
+  $part->get_containing_section;                      # SML::Section
+  $part->render($rendition,$style);                   # Str
+  $part->dump_part_structure($indent);                # Str
 
 =head1 DESCRIPTION
 

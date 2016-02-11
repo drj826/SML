@@ -27,6 +27,10 @@ SML::BulletList - a list of bullet items
   $bullet_list->get_leading_whitespace;               # Str
   $bullet_list->get_indent;                           # Int
 
+  # methods inherited from SML::Structure...
+
+  NONE
+
   # methods inherited from SML::Division...
 
   $division->get_number;                              # Str
