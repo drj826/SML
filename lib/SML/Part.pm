@@ -22,34 +22,34 @@ SML::Part - a document part
 
   SML::Part->new
     (
-      name    => $name,                           # Str
-      library => $library,                        # SML::Library
+      name    => $name,
+      library => $library,
     );
 
-  $part->get_name;                                # Str
-  $part->get_library;                             # SML::Library
-  $part->get_id;                                  # Str
-  $part->set_id;                                  # Bool
-  $part->set_content;                             # Bool
-  $part->get_content;                             # Str
-  $part->has_content;                             # Bool
-  $part->get_container;                           # SML::Part
-  $part->set_container;                           # Bool
-  $part->has_container;                           # Bool
-  $part->get_part_list;                           # ArrayRef
-  $part->is_narrative_part;                       # Bool
+  $part->get_name;                      # Str
+  $part->get_library;                   # SML::Library
+  $part->get_id;                        # Str
+  $part->set_id;                        # Bool
+  $part->set_content;                   # Bool
+  $part->get_content;                   # Str
+  $part->has_content;                   # Bool
+  $part->get_container;                 # SML::Part
+  $part->set_container;                 # Bool
+  $part->has_container;                 # Bool
+  $part->get_part_list;                 # ArrayRef
+  $part->is_narrative_part;             # Bool
 
-  $part->init;                                    # Bool
-  $part->contains_parts;                          # Bool
-  $part->has_part($id);                           # Bool
-  $part->get_part($id);                           # SML::Part
-  $part->add_part($part);                         # Bool
-  $part->get_narrative_part_list                  # ArrayRef
-  $part->get_containing_document;                 # SML::Document
-  $part->is_in_section;                           # Bool
-  $part->get_containing_section;                  # SML::Section
-  $part->render($rendition,$style);               # Str
-  $part->dump_part_structure($indent);            # Str
+  $part->init;                          # Bool
+  $part->contains_parts;                # Bool
+  $part->has_part($id);                 # Bool
+  $part->get_part($id);                 # SML::Part
+  $part->add_part($part);               # Bool
+  $part->get_narrative_part_list        # ArrayRef
+  $part->get_containing_document;       # SML::Document
+  $part->is_in_section;                 # Bool
+  $part->get_containing_section;        # SML::Section
+  $part->render($rendition,$style);     # Str
+  $part->dump_part_structure($indent);  # Str
 
 =head1 DESCRIPTION
 
@@ -424,6 +424,20 @@ sub add_part {
   my $self = shift;
   my $part = shift;
 
+  unless ( defined $part )
+    {
+      $logger->logcluck("CAN'T ADD PART, MISSING ARGUMENT");
+      return 0;
+    }
+
+  unless ( ref $part and $part->isa('SML::Part') )
+    {
+      $logger->error("CAN'T ADD PART, NOT A PART $part");
+      return 0;
+    }
+
+  $part->set_container($self);
+
   push @{ $self->get_part_list }, $part;
 
   $logger->trace("add part $part");
@@ -433,8 +447,8 @@ sub add_part {
 
 =head2 add_part($part)
 
-Return a boolean value; 1 if the operation succeeds, 0 otherwise.  Add
-the specified part to this part's part list.
+Add the specified part to this part's part list. Return 1 if the
+operation succeeds, 0 otherwise.
 
   my $result = $part->add_part($part);
 

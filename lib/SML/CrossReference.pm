@@ -33,6 +33,43 @@ SML::CrossReference - reference another location in a library
   $ref->get_tag;                        # Str
   $ref->get_target_id;                  # Str
 
+  # methods inherited from SML::String...
+
+  $string->get_remaining;               # Str
+  $string->set_remaining;               # Bool
+  $string->get_containing_division;     # SML::Division
+  $string->get_containing_block;        # SML::Block
+  $string->get_plain_text;              # Str
+
+  $string->get_location;                # Str
+
+  # methods inherited from SML::Part...
+
+  $part->get_name;                      # Str
+  $part->get_library;                   # SML::Library
+  $part->get_id;                        # Str
+  $part->set_id;                        # Bool
+  $part->set_content;                   # Bool
+  $part->get_content;                   # Str
+  $part->has_content;                   # Bool
+  $part->get_container;                 # SML::Part
+  $part->set_container;                 # Bool
+  $part->has_container;                 # Bool
+  $part->get_part_list;                 # ArrayRef
+  $part->is_narrative_part;             # Bool
+
+  $part->init;                          # Bool
+  $part->contains_parts;                # Bool
+  $part->has_part($id);                 # Bool
+  $part->get_part($id);                 # SML::Part
+  $part->add_part($part);               # Bool
+  $part->get_narrative_part_list        # ArrayRef
+  $part->get_containing_document;       # SML::Document
+  $part->is_in_section;                 # Bool
+  $part->get_containing_section;        # SML::Section
+  $part->render($rendition,$style);     # Str
+  $part->dump_part_structure($indent);  # Str
+
 =head1 DESCRIPTION
 
 SML::CrossReference Extends L<SML::String> to represent a reference to

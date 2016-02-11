@@ -15,6 +15,66 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.String');
 
 ######################################################################
+
+=head1 NAME
+
+SML::String - a sequence of characters
+
+=head1 SYNOPSIS
+
+  SML::String->new
+    (
+      name            => $name,
+      content         => $content,
+      library         => $library,
+      containing_part => $part,
+    );
+
+  $string->get_remaining;               # Str
+  $string->set_remaining;               # Bool
+  $string->get_containing_division;     # SML::Division
+  $string->get_containing_block;        # SML::Block
+  $string->get_plain_text;              # Str
+
+  $string->get_location;                # Str
+
+  # methods inherited from SML::Part...
+
+  $part->get_name;                      # Str
+  $part->get_library;                   # SML::Library
+  $part->get_id;                        # Str
+  $part->set_id;                        # Bool
+  $part->set_content;                   # Bool
+  $part->get_content;                   # Str
+  $part->has_content;                   # Bool
+  $part->get_container;                 # SML::Part
+  $part->set_container;                 # Bool
+  $part->has_container;                 # Bool
+  $part->get_part_list;                 # ArrayRef
+  $part->is_narrative_part;             # Bool
+
+  $part->init;                          # Bool
+  $part->contains_parts;                # Bool
+  $part->has_part($id);                 # Bool
+  $part->get_part($id);                 # SML::Part
+  $part->add_part($part);               # Bool
+  $part->get_narrative_part_list        # ArrayRef
+  $part->get_containing_document;       # SML::Document
+  $part->is_in_section;                 # Bool
+  $part->get_containing_section;        # SML::Section
+  $part->render($rendition,$style);     # Str
+  $part->dump_part_structure($indent);  # Str
+
+=head1 DESCRIPTION
+
+An C<SML::String> is an C<SML::Part> of a document that is a sequence
+of characters.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -45,7 +105,21 @@ has remaining =>
    default => q{},
   );
 
-# This is text remaining to be parsed into string objects.
+=head2 get_remaining
+
+This is a scalar text value of the text remaining to be parsed into
+string objects.  It is used by the parser to track progress in parsing
+the content of the string.
+
+  my $remaining = $string->get_remaining;
+
+=head2 set_remaining($text)
+
+Set the text remaining to be parsed into string objects.
+
+  $string->set_remaining($text)
+
+=cut
 
 ######################################################################
 
@@ -58,6 +132,14 @@ has containing_division =>
    builder  => '_build_containing_division',
   );
 
+=head2 get_containing_division
+
+Return the C<SML::Division> that contains this string.
+
+  my $division = $string->get_containing_division;
+
+=cut
+
 ######################################################################
 
 has containing_block =>
@@ -69,6 +151,14 @@ has containing_block =>
    lazy     => 1,
   );
 
+=head2 get_containing_block
+
+Return the C<SML::Block> that contains this string.
+
+  my $block = $string->get_containing_block;
+
+=cut
+
 ######################################################################
 
 has plain_text =>
@@ -79,6 +169,14 @@ has plain_text =>
    builder => '_build_plain_text',
    lazy    => 1,
   );
+
+=head2 get_plain_text
+
+Return a plain text rendition of this string.
+
+  my $text = $string->get_plain_text;
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -100,6 +198,15 @@ sub get_location {
 
   return 'unknown';
 }
+
+=head2 get_location
+
+Return a scalar text value that represents the location of this string
+in the manuscript text.
+
+  my $location = $string->get_location;
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -208,47 +315,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::String> - a C<SML::Part> of a document that is a sequence of
-characters.
-
-=head1 VERSION
-
-2.0.0
-
-=head1 SYNOPSIS
-
-  extends SML::Part
-
-  my $string = SML::String->new
-                 (
-                   name            => $name,
-                   content         => $content,
-                   library         => $library,
-                   containing_part => $part,
-                 );
-
-  my $division = $string->get_containing_division;
-  my $block    = $string->get_containing_block;
-
-=head1 DESCRIPTION
-
-A C<SML::Part> of a document that is a sequence of characters.
-
-=head1 METHODS
-
-=head2 get_containing_division
-
-=head2 get_containing_block
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)
