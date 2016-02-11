@@ -246,30 +246,30 @@ sub syntax_highlight_perl {
 
   my $format_table =
     {
-     'Variable_Scalar'   => 'color:#FFFFFF;',
-     'Variable_Array'    => 'color:#FFFFFF;',
-     'Variable_Hash'     => 'color:#FFFFFF;',
-     'Variable_Typeglob' => 'color:#f03;',
-     'Subroutine'        => 'color:#FFFFFF;',
-     'Quote'             => 'color:#DEDE73;',
-     'String'            => 'color:#DEDE73;',
-     'Comment_Normal'    => 'color:#ACAEAC;font-style:italic;',
-     'Comment_POD'       => 'color:#ACAEAC;font-style:italic;',
-     'Bareword'          => 'color:#FFFFFF;',
-     'Package'           => 'color:#FFFFFF;',
-     'Number'            => 'color:#4AAEAC;',
-     'Operator'          => 'color:#7BE283;',
-     'Symbol'            => 'color:#7BE283;',
-     'Keyword'           => 'color:#7BE283;',
-     'Builtin_Operator'  => 'color:#7BE283;',
-     'Builtin_Function'  => 'color:#7BE283;',
-     'Character'         => 'color:#DEDE73;',
-     'Directive'         => 'color:#ACAEAC;font-style:italic;',
-     'Label'             => 'color:#939;font-style:italic;',
-     'Line'              => 'color:#000;',
-     'Print'             => 'color:#7BE283;',
-     'Hash'              => 'color:#FFFFFF;',
-     'Translation_Operation' => 'color=#3199FF;',
+     'Variable_Scalar'       => 'syntax_highlight_perl_Variable_Scalar',
+     'Variable_Array'        => 'syntax_highlight_perl_Variable_Array',
+     'Variable_Hash'         => 'syntax_highlight_perl_Variable_Hash',
+     'Variable_Typeglob'     => 'syntax_highlight_perl_Variable_Typeglob',
+     'Subroutine'            => 'syntax_highlight_perl_Subroutine',
+     'Quote'                 => 'syntax_highlight_perl_Quote',
+     'String'                => 'syntax_highlight_perl_String',
+     'Comment_Normal'        => 'syntax_highlight_perl_Comment_Normal',
+     'Comment_POD'           => 'syntax_highlight_perl_Comment_POD',
+     'Bareword'              => 'syntax_highlight_perl_Bareword',
+     'Package'               => 'syntax_highlight_perl_Package',
+     'Number'                => 'syntax_highlight_perl_Number',
+     'Operator'              => 'syntax_highlight_perl_Operator',
+     'Symbol'                => 'syntax_highlight_perl_Symbol',
+     'Keyword'               => 'syntax_highlight_perl_Keyword',
+     'Builtin_Operator'      => 'syntax_highlight_perl_Builtin_Operator',
+     'Builtin_Function'      => 'syntax_highlight_perl_Builtin_Function',
+     'Character'             => 'syntax_highlight_perl_Character',
+     'Directive'             => 'syntax_highlight_perl_Directive',
+     'Label'                 => 'syntax_highlight_perl_Label',
+     'Line'                  => 'syntax_highlight_perl_Line',
+     'Print'                 => 'syntax_highlight_perl_Print',
+     'Hash'                  => 'syntax_highlight_perl_Hash',
+     'Translation_Operation' => 'syntax_highlight_perl_Translation_Operation',
     };
 
   my $formatter = Syntax::Highlight::Perl::Improved->new();
@@ -281,9 +281,9 @@ sub syntax_highlight_perl {
      '&' => '&amp;',
     );
 
-  while ( my ( $type, $style ) = each %{ $format_table } )
+  while ( my ( $type, $class ) = each %{ $format_table } )
     {
-      $formatter->set_format($type, [ qq|<span style="$style">|,'</span>' ] );
+      $formatter->set_format($type, [ qq|<span class="$class">|,'</span>' ] );
     }
 
   return $formatter->format_string($code);
