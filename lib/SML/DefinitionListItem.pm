@@ -196,10 +196,10 @@ has '+name' =>
 
 ######################################################################
 
-has '+leading_whitespace' =>
-  (
-   required => 0,
-  );
+# has '+leading_whitespace' =>
+#   (
+#    required => 0,
+#   );
 
 # Definition list items are not indented.
 
