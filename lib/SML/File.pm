@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::File;
+package SML::File;                      # ci-000384
 
 use Moose;
 
@@ -22,6 +22,40 @@ my $logger = Log::Log4perl::get_logger('sml.File');
 use SML::Svninfo;
 
 ######################################################################
+
+=head1 NAME
+
+SML::File - a persisted file in a filesystem
+
+=head1 SYNOPSIS
+
+  SML::File->new
+    (
+      library  => $library,
+      filespec => $filespec,
+    );
+
+  $file->get_library;                   # SML::Library
+  $file->get_filespec;                  # Str
+  $file->get_filename;                  # Str
+  $file->get_directories;               # Str
+  $file->get_path;                      # Str
+  $file->get_text;                      # Str
+  $file->get_line_list;                 # ArrayRef
+  $file->get_sha_digest;                # Str
+  $file->get_md5_digest;                # Str
+  $file->get_svninfo;                   # SML::Svninfo
+  $file->set_svninfo($svninfo);         # Bool
+
+=head1 DESCRIPTION
+
+A C<SML::File> represents a persisted file in a filesystem.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -37,6 +71,14 @@ has library =>
    required => 1,
   );
 
+=head2 get_library
+
+Return the C<SML::Library> to which the file belongs.
+
+  my $library = $file->get_library;
+
+=cut
+
 ######################################################################
 
 has filespec =>
@@ -46,6 +88,23 @@ has filespec =>
    reader   => 'get_filespec',
    required => 1,
   );
+
+=head2 get_filespec
+
+Return the scalar text value which is the filespec of this file.
+
+  my $filespec = $file->get_filespec;
+
+The filespec is the string representing the file location as passed to
+the constructor.  In the case of a file element for instance:
+
+  file:: problems/rq-000001.txt
+         ----------------------
+                   ^
+                   |
+                filespec
+
+=cut
 
 ######################################################################
 
@@ -58,6 +117,23 @@ has filename =>
    builder  => '_build_filename',
   );
 
+=head2 get_filename
+
+Return the scalar text value which is the filename of this file.
+
+  my $filename = $file->get_filename;
+
+The filename is the name of the file including the suffix.  In the
+case of a file element for instance:
+
+  file:: problems/rq-000001.txt
+                  -------------
+                       ^
+                       |
+                    filename
+
+=cut
+
 ######################################################################
 
 has directories =>
@@ -68,6 +144,25 @@ has directories =>
    lazy     => 1,
    builder  => '_build_directories',
   );
+
+=head2 get_directories
+
+Return the scalar text value which is the "directory" portion of the
+filespec.
+
+  my $directories = $file->get_directories;
+
+This 'directories' attribute is that portion of the filespec
+representing the directories in the path containing the file.  In the
+case of a file element for instance:
+
+  file:: problems/rq-000001.txt
+         ---------
+             ^
+             |
+        directories
+
+=cut
 
 ######################################################################
 
@@ -80,6 +175,32 @@ has path =>
    builder  => '_build_path',
   );
 
+=head2 get_path
+
+Return the scalar text value which is the full path to the file.
+
+  my $path = $file->get_path;
+
+The path is the FULL path to the file (as opposed to any relative path
+to the file).  This path is built at object construction time by
+appending the 'directories' attribute to the current working directory
+(cwd).  For instance:
+
+  /users/drj/work/library/ + problems/
+  ------------------------   ---------
+             ^                  ^
+             |                  |
+            cwd            directories
+
+
+  /users/drj/work/library/problems/
+  ---------------------------------
+                 ^
+                 |
+               path
+
+=cut
+
 ######################################################################
 
 has text =>
@@ -90,6 +211,14 @@ has text =>
    lazy     => 1,
    builder  => '_build_text',
   );
+
+=head2 get_text
+
+Return the scalar text value which is the full text of the file content.
+
+  my $text = $file->get_text;
+
+=cut
 
 ######################################################################
 
@@ -102,6 +231,15 @@ has line_list =>
    builder  => '_build_line_list',
   );
 
+=head2 get_line_list
+
+Return an ArrayRef to a list of file lines (i.e. C<SML::Line>
+objects).
+
+  my $aref = $file->get_line_list;
+
+=cut
+
 ######################################################################
 
 has sha_digest =>
@@ -112,6 +250,15 @@ has sha_digest =>
    lazy     => 1,
    builder  => '_build_sha_digest',
   );
+
+=head2 get_sha_digest
+
+Return a scalar text value which is the SHA1 digest of the file
+contents.
+
+  my $digest = $file->get_sha_digest;
+
+=cut
 
 ######################################################################
 
@@ -124,6 +271,15 @@ has md5_digest =>
    builder  => '_build_md5_digest',
   );
 
+=head2 get_md5_digest
+
+Return a scalar text value which is the MD5 digest of the file
+contents.
+
+  my $digest = $file->get_md5_digest;
+
+=cut
+
 ######################################################################
 
 has svninfo =>
@@ -134,17 +290,21 @@ has svninfo =>
    writer   => 'set_svninfo',
   );
 
-######################################################################
+=head2 get_svninfo
 
-# has valid =>
-#   (
-#    is       => 'ro',
-#    isa      => 'Bool',
-#    reader   => 'is_valid',
-#    writer   => '_set_valid',
-#    lazy     => 1,
-#    builder  => '_validate',
-#   );
+Return an C<SML::Svninfo> object that represents the SVN revision
+repository meta-data about this file.
+
+  my $svninfo = $file->get_svninfo;
+
+=head2 set_svninfo
+
+Set the C<SML::Svninfo> object that represents the SVN revision
+repository meta-data about this file.
+
+  $file->set_svninfo($svninfo);
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -340,105 +500,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::File> - an L<"SML::Resource"> that represents a persisted file
-in a filesystem.
-
-=head1 VERSION
-
-This documentation refers to L<"SML::File"> version 2.0.0.
-
-=head1 SYNOPSIS
-
-  extends SML::Resource
-
-  my $file = SML::File->new();
-
-=head1 DESCRIPTION
-
-A L<"SML::File"> is an L<"SML::Resource"> that represents a persisted
-file in a filesystem.
-
-=head1 METHODS
-
-=head2 get_filespec
-
-The filespec is the string representing the file location as passed to
-the constructor.  In the case of a FILE element for instance:
-
-  FILE:: problems/rq-000001.txt
-         ----------------------
-                   ^
-                   |
-                filespec
-
-=head2 get_filename
-
-The filename is the name of the file including the suffix.  In the
-case of a FILE element for instance:
-
-  FILE:: problems/rq-000001.txt
-                  -------------
-                       ^
-                       |
-                    filename
-
-=head2 get_directories
-
-This 'directories' attribute is that portion of the filespec
-representing the directories in the path containing the file.  In the
-case of a FILE element for instance:
-
-  FILE:: problems/rq-000001.txt
-         ---------
-             ^
-             |
-        directories
-
-=head2 get_path
-
-The path is the FULL path to the file (as opposed to any relative path
-to the file).  This path is built at object construction time by
-appending the 'directories' attribute to the current working directory
-(cwd).  For instance:
-
-  /users/drj/work/library/ + problems/
-  ------------------------   ---------
-             ^                  ^
-             |                  |
-            cwd            directories
-
-
-  /users/drj/work/library/problems/
-  ---------------------------------
-                 ^
-                 |
-               path
-
-=head2 get_sha_digest
-
-=head2 get_md5_digest
-
-=head2 get_svn_info
-
-=head2 has_been_parsed
-
-This boolean attribute represents whether the contents of the file
-have been parsed into the library.
-
-=head2 is_valid
-
-This boolean attribute represents whether the file is valid (exists
-and is readable).
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)
