@@ -13,6 +13,41 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.IndexEntry');
 
 ######################################################################
+
+=head1 NAME
+
+SML::IndexEntry - an index term with a set of locators
+
+=head1 SYNOPSIS
+
+  SML::IndexEntry->new(term=>$term);
+
+  $entry->get_term;                     # Str
+  $entry->get_term_string;              # SML::String
+  $entry->set_term_string($string);     # Bool
+  $entry->get_document;                 # SML::Document
+  $entry->has_document;                 # Bool
+
+  $entry->add_locator($locator);        # Bool
+  $entry->add_subentry($subentry);      # Bool
+  $entry->has_subentry($term);          # Bool
+  $entry->get_subentry($term);          # SML::IndexEntry
+  $entry->add_cross_ref($other_entry);  # Bool
+  $entry->get_locator_list;             # ArrayRef
+  $entry->get_location($locator);       # SML::Division
+  $entry->has_subentries;               # Bool
+  $entry->get_subentry_list;            # ArrayRef
+
+=head1 DESCRIPTION
+
+A index is a list of terms in a special subject, field, or area of
+usage, with accompanying definitions.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -28,6 +63,14 @@ has term =>
    required => 1,
   );
 
+=head2 get_term
+
+Return a scalar text value which is the term of this index entry.
+
+  my $term = $entry->get_term;
+
+=cut
+
 ######################################################################
 
 has term_string =>
@@ -37,6 +80,20 @@ has term_string =>
    reader   => 'get_term_string',
    writer   => 'set_term_string',
   );
+
+=head2 get_term_string
+
+Return an C<SML::String> representation of the index term.
+
+  my $string = $entry->get_term_string;
+
+=head2 set_term_string($string)
+
+Set the term string (must be an C<SML::String> object).
+
+  $entry->set_term_string($string);
+
+=cut
 
 ######################################################################
 
@@ -48,6 +105,22 @@ has document =>
    predicate => 'has_document',
   );
 
+=head2 get_document
+
+Return the C<SML::Document> object containing this index entry.
+
+  my $document = $entry->get_document;
+
+=head2 has_document
+
+Return 1 if this index entry has a document which contains it.  (If
+this index entry belongs to a library index it won't have an
+associated document.)
+
+  my $result = $entry->has_document;
+
+=cut
+
 ######################################################################
 ######################################################################
 ##
@@ -58,11 +131,14 @@ has document =>
 
 sub add_locator {
 
-  # Add a locator (i.e. a division ID) where the term is discussed in
-  # the document.
-
   my $self    = shift;
   my $locator = shift;                  # a division ID
+
+  unless ( $locator )
+    {
+      $logger->error("CAN'T ADD LOCATOR, MISSING ARGUMENT");
+      return 0;
+    }
 
   my $href = $self->_get_locator_hash;
 
@@ -71,14 +147,28 @@ sub add_locator {
   return 1;
 }
 
+=head2 add_locator($locator)
+
+Add a locator to this index entry.  A locator is a division ID
+identifying a division relevant to the index term. Return 1 if
+successful.
+
+  my $result = $entry->add_locator($locator);
+
+=cut
+
 ######################################################################
 
 sub add_subentry {
 
-  # Add an index subentry to this one.
-
   my $self     = shift;
   my $subentry = shift;
+
+  unless ( $subentry )
+    {
+      $logger->error("CAN'T ADD SUBENTRY, MISSING ARGUMENT");
+      return 0;
+    }
 
   unless ( ref $subentry and $subentry->isa('SML::IndexEntry') )
     {
@@ -86,10 +176,7 @@ sub add_subentry {
       return 0;
     }
 
-  my $term = $subentry->get_term;
-
-  $logger->debug("add_subentry $term");
-
+  my $term     = $subentry->get_term;
   my $document = $self->get_document;
   my $library  = $document->get_library;
   my $util     = $library->get_util;
@@ -103,11 +190,19 @@ sub add_subentry {
   return 1;
 }
 
+=head2 add_subentry($subentry)
+
+Add a subentry (an C<SML::IndexEntry>) to the index entry.  Return 1
+if successful. Indexes are allowed to have 3 levels of entries: (1)
+entry, (2) subentry, (3) subsubentry.
+
+  my $result = $entry->add_subentry($subentry);
+
+=cut
+
 ######################################################################
 
 sub has_subentry {
-
-  # Return 1 if the index entry has the specified subentry.
 
   my $self = shift;
   my $term = shift;
@@ -122,6 +217,14 @@ sub has_subentry {
   return 0;
 }
 
+=head2 has_subentry($term)
+
+Return 1 if the index entry has a subentry for the specified term.
+
+  my $result = $entry->has_subentry($term);
+
+=cut
+
 ######################################################################
 
 sub get_subentry {
@@ -131,13 +234,23 @@ sub get_subentry {
 
   my $href = $self->_get_subentry_hash;
 
-  if ( exists $href->{$term} )
+  unless ( exists $href->{$term} )
     {
-      return $href->{$term};
+      $logger->error("CAN'T GET SUBENTRY, NO SUBENTRY FOR TERM $term");
+      return 0;
     }
 
-  return 0;
+  return $href->{$term};
 }
+
+=head2 get_subentry($term)
+
+Return the subentry (an C<SML::IndexEntry>) for the specified term.
+Throw and error if the entry has no subentry for the specified term.
+
+  my $result = $entry->has_subentry($term);
+
+=cut
 
 ######################################################################
 
@@ -146,22 +259,31 @@ sub add_cross_ref {
   # Add a cross reference for this index entry.
 
   my $self  = shift;
-  my $entry = shift;                    # cross-referenced entry
+  my $other_entry = shift;                    # cross-referenced entry
 
-  unless ( ref $entry and $entry->isa('SML::IndexEntry') )
+  unless ( ref $other_entry and $other_entry->isa('SML::IndexEntry') )
     {
-      $logger->error("NOT AN INDEX ENTRY, CAN'T CROSS REFERENCE \'$entry\'");
+      $logger->error("NOT AN INDEX ENTRY, CAN'T CROSS REFERENCE \'$other_entry\'");
       return 0;
     }
 
-  my $term = $entry->get_term;
+  my $term = $other_entry->get_term;
 
   my $href = $self->_get_cross_ref_hash;
 
-  $href->{$term} = $entry;
+  $href->{$term} = $other_entry;
 
   return 1;
 }
+
+=head2 add_cross_ref
+
+Add a cross reference between the entry and another entry.  Return 1
+if successful.
+
+  my $result = $entry->add_cross_ref($other_entry);
+
+=cut
 
 ######################################################################
 
@@ -174,11 +296,18 @@ sub get_locator_list {
   return keys %{ $href };
 }
 
+=head2 get_locator_list
+
+Return an ArrayRef to a list of locators (i.e. division IDs) for this
+entry.
+
+  my $aref = $entry->get_locator_list;
+
+=cut
+
 ######################################################################
 
 sub get_location {
-
-  # Return the titled division that contains the specified locator.
 
   my $self    = shift;
   my $locator = shift;
@@ -210,6 +339,15 @@ sub get_location {
   return 0;
 }
 
+=head2 get_location($locator)
+
+Return the titled division (an C<SML::Division>) that contains the
+specified locator.
+
+  my $division = $entry->get_location($locator);
+
+=cut
+
 ######################################################################
 
 sub has_subentries {
@@ -227,6 +365,14 @@ sub has_subentries {
 
   return 0;
 }
+
+=head2 has_subentries
+
+Return 1 if the entry has any subentries.
+
+  my $result = $entry->has_subentries;
+
+=cut
 
 ######################################################################
 
@@ -247,6 +393,15 @@ sub get_subentry_list {
 
   return $aref;
 }
+
+=head2 get_subentry_list
+
+Return an ArrayRef to a list of subentries alphabetized by subentry
+term.
+
+  my $aref = $entry->get_subentry_list;
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -302,49 +457,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::IndexEntry> - a term with a set of locators where the term is
-discussed in a document.
-
-=head1 VERSION
-
-This documentation refers to L<"SML::IndexEntry"> version 2.0.0.
-
-=head1 SYNOPSIS
-
-  my $entry = SML::IndexEntry->new();
-
-=head1 DESCRIPTION
-
-A index is a list of terms in a special subject, field, or area of
-usage, with accompanying definitions.
-
-=head1 METHODS
-
-=head2 add_entry
-
-Add a index entry.
-
-=head2 has_entry
-
-Check whether a specific index entry exists.
-
-=head2 get_entry
-
-Return a specific index entry.
-
-=head2 get_entry_list
-
-Return an alphabetically sorted list of all index entries.
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

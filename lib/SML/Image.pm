@@ -18,6 +18,24 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Image');
 
 ######################################################################
+
+=head1 NAME
+
+SML::Image - an image element
+
+=head1 SYNOPSIS
+
+  SML::Image->new(library=>$library);
+
+=head1 DESCRIPTION
+
+An image is an element who's value is a filespec to an image file.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -41,6 +59,15 @@ has basename =>
    lazy      => 1,
   );
 
+=head2 get_basename
+
+Return a scalar text value which is the base filename of the image
+file.
+
+  my $basename = $image->get_basename;
+
+=cut
+
 ######################################################################
 
 has size =>
@@ -51,6 +78,15 @@ has size =>
    builder   => '_build_size',
    lazy      => 1,
   );
+
+=head2 get_size
+
+Return a scalar text value which the size of the image in the format
+<height>x<width>.
+
+  my $size = $image->get_size;
+
+=cut
 
 ######################################################################
 
@@ -63,6 +99,14 @@ has width =>
    lazy      => 1,
   );
 
+=head2 get_width
+
+Return an scalar integer value of the image width in pixels.
+
+  my $width = $image->get_width;
+
+=cut
+
 ######################################################################
 
 has height =>
@@ -73,6 +117,14 @@ has height =>
    builder   => '_build_height',
    lazy      => 1,
   );
+
+=head2 get_width
+
+Return an scalar integer value of the image height in pixels.
+
+  my $height = $image->get_height;
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -183,33 +235,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::Image> - an image element
-
-=head1 VERSION
-
-This documentation refers to L<"SML::Image"> version 2.0.0.
-
-=head1 SYNOPSIS
-
-  extends SML::Element
-
-  my $image = SML::Image->new();
-
-=head1 DESCRIPTION
-
-An image is an element who's value is a filespec to an image file.
-
-=head1 METHODS
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

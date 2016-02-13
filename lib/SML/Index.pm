@@ -13,6 +13,33 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Index');
 
 ######################################################################
+
+=head1 NAME
+
+SML::Index - an index of terms
+
+=head1 SYNOPSIS
+
+  SML::Index->new(library=>$library);
+
+  $index->add_entry($entry);            # Bool
+  $index->has_entry($term);             # Bool
+  $index->get_entry($term);             # SML::IndexEntry
+  $index->get_entry_list;               # ArrayRef
+  $index->contains_entries;             # Bool
+  $index->get_group_list;               # ArrayRef
+  $index->get_group_entry_list($group); # ArrayRef
+
+=head1 DESCRIPTION
+
+A index is an alphabetized list of terms with accompanying locators to
+help you find information in the text.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -20,15 +47,7 @@ my $logger = Log::Log4perl::get_logger('sml.Index');
 ######################################################################
 ######################################################################
 
-has library =>
-  (
-   is       => 'ro',
-   isa      => 'SML::Library',
-   reader   => 'get_library',
-   required => 1,
-  );
-
-# This is the library object to which the index belongs.
+# NONE
 
 ######################################################################
 ######################################################################
@@ -43,18 +62,21 @@ sub add_entry {
   my $self  = shift;
   my $entry = shift;
 
+  unless ( $entry )
+    {
+      $logger->error("CAN'T ADD ENTRY, MISSING ARGUMENT");
+      return 0;
+    }
+
   unless ( ref $entry and $entry->isa('SML::IndexEntry') )
     {
       $logger->error("CAN'T ADD ENTRY, NOT AN INDEX ENTRY \'$entry\'");
       return 0;
     }
 
-  my $href = $self->_get_entry_hash;
-  my $term = $entry->get_term;
-
-  $logger->debug("add_entry $term");
-
-  my $library = $self->get_library;
+  my $href    = $self->_get_entry_hash;
+  my $term    = $entry->get_term;
+  my $library = $self->_get_library;
   my $util    = $library->get_util;
 
   $term = $util->strip_string_markup($term);
@@ -80,6 +102,15 @@ sub add_entry {
   return 1;
 }
 
+=head2 add_entry($entry)
+
+Add an entry (an C<SML::IndexEntry>) to the index.  Return 1 if
+successful.
+
+  my $result = $index->add_entry($index_entry);
+
+=cut
+
 ######################################################################
 
 sub has_entry {
@@ -96,6 +127,14 @@ sub has_entry {
 
   return 0;
 }
+
+=head2 has_entry($term)
+
+return 1 if the index contains an entry for the specified term.
+
+  my $result = $index->has_entry($term);
+
+=cut
 
 ######################################################################
 
@@ -116,6 +155,15 @@ sub get_entry {
   return $href->{$term};
 }
 
+=head2 get_entry($term)
+
+Return the entry (an C<SML::IndexEntry>) for the specified term.
+Throw an error if the specified term is not in the index.
+
+  my $entry = $index->get_entry($term);
+
+=cut
+
 ######################################################################
 
 sub get_entry_list {
@@ -135,11 +183,17 @@ sub get_entry_list {
   return $aref;
 }
 
+=head2 get_entry_list
+
+Return an ArrayRef to a list of index entries alphabetized by term.
+
+  my $aref = $index->get_entry_list;
+
+=cut
+
 ######################################################################
 
 sub contains_entries {
-
-  # Return 1 if the index has any entries.
 
   my $self = shift;
 
@@ -151,6 +205,14 @@ sub contains_entries {
   return 0;
 }
 
+=head2 contains_entries
+
+Return 1 if the index contains any entries.
+
+  my $result = $index->contains_entries;
+
+=cut
+
 ######################################################################
 
 sub get_group_list {
@@ -160,11 +222,18 @@ sub get_group_list {
   return [ sort keys %{ $self->_get_entry_group_hash } ];
 }
 
+=head2 get_group_list
+
+Return an ArrayRef to a list of groups in the index.  Index entries
+are grouped by the first character of terms.
+
+  my $aref = $index->get_group_list;
+
+=cut
+
 ######################################################################
 
 sub get_group_entry_list {
-
-  # Return a list of entries belonging to a specified group.
 
   my $self  = shift;
   my $group = shift;
@@ -189,12 +258,33 @@ sub get_group_entry_list {
   return $aref;
 }
 
+=head2 get_group_entry_list($group)
+
+Return an ArrayRef to a list of entries belonging to the specified
+group.
+
+  my $aref = $index->get_group_entry_list($group);
+
+=cut
+
 ######################################################################
 ######################################################################
 ##
 ## Private Attributes
 ##
 ######################################################################
+######################################################################
+
+has library =>
+  (
+   is       => 'ro',
+   isa      => 'SML::Library',
+   reader   => '_get_library',
+   required => 1,
+  );
+
+# This is the library object to which the index belongs.
+
 ######################################################################
 
 has entry_hash =>
@@ -225,6 +315,8 @@ has entry_group_hash =>
 ######################################################################
 ######################################################################
 
+# NONE
+
 ######################################################################
 
 no Moose;
@@ -233,49 +325,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::Index> - a list of terms in a special subject, field, or
-area of usage, with accompanying definitions.
-
-=head1 VERSION
-
-This documentation refers to L<"SML::Index"> version 2.0.0.
-
-=head1 SYNOPSIS
-
-  my $gloss = SML::Index->new( library => $library );
-
-=head1 DESCRIPTION
-
-A index is a list of terms in a special subject, field, or area of
-usage, with accompanying definitions.
-
-=head1 METHODS
-
-=head2 add_entry
-
-Add a index entry.
-
-=head2 has_entry
-
-Check whether a specific index entry exists.
-
-=head2 get_entry
-
-Return a specific index entry.
-
-=head2 get_entry_list
-
-Return an alphabetically sorted list of all index entries.
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)
