@@ -13,6 +13,100 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.OntologyRule');
 
 ######################################################################
+
+=head1 NAME
+
+SML::OntologyRule - an ontology rule
+
+=head1 SYNOPSIS
+
+  SML::OntologyRule->new
+    (
+      id              => $id,
+      ontology        => $ontology,
+      rule_type       => $rule_type,
+      division_name   => $division_name,
+      property_name   => $property_name,
+      value_type      => $value_type,
+      name_or_value   => $name_or_value,
+      inverse_rule_id => $inverse_rule_id,
+      multiplicity    => $multiplicity,
+      required        => $required,
+      imply_only      => $imply_only,
+    );
+
+  $rule->get_id;                        # Str
+  $rule->get_ontology;                  # SML::Ontology
+  $rule->get_rule_type;                 # Str (div, prp, enu, cmp, or def)
+  $rule->get_division_name;             # Str
+  $rule->get_property_name;             # Str
+  $rule->get_value_type;                # Str
+  $rule->name_or_value;                 # Str
+  $rule->get_inverse_rule_id;           # Str
+  $rule->get_multiplicity;              # Str
+  $rule->is_required;                   # Bool
+  $rule->is_imply_only;                 # Bool
+
+=head1 DESCRIPTION
+
+An ontology rule declares a fact about the ontology.  An ontology is
+composed of a collection of ontology rules.  Document semantics are
+validated against the set of ontology rules.
+
+There are five types of ontology rules, each asserts its own type of
+fact:
+
+=over 4
+
+=item
+
+div => A "division declaration rule" declares that a division with the
+specified name exists in the ontology.  For instance:
+
+  person      <-- division exists
+
+=item
+
+prp = A "property declaration rule" declares that divisions with a
+certain name I<may> have a property by the specified name.
+
+  person      <-- division name
+  hair color  <-- named property exists
+
+=item
+
+enu = An "enumeration declaration rule" declares that the value of a
+named property belonging to a named division may have the specified
+value.  For instance:
+
+  person      <-- division name
+  hair color  <-- named property
+  blonde      <-- allowed value
+
+=item
+
+cmp = A "composition declaration rule" declares that one type of
+division may be part of another type of division.  For instance:
+
+  person      <-- division named 'B' may be part of 'A'
+  family      <-- division named 'A' may have parts which are 'B'
+
+=item
+
+def = A "default value declaration rule" declares a default property
+value.  For instance:
+
+  DOCUMENT    <-- division name
+  state       <-- property name
+  DRAFT       <-- default value
+
+=back
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -28,7 +122,14 @@ has id =>
    required => 1,
   );
 
-# Unique identifier of this ontology rule.
+=head2 get_id
+
+Return a scalar text value which is the unique identifier of this
+ontology rule.
+
+  my $rule_id = $rule->get_id;
+
+=cut
 
 ######################################################################
 
@@ -40,7 +141,13 @@ has ontology =>
    required => 1,
   );
 
-# Ontology to which this rule belongs.
+=head2 get_ontology
+
+Return the C<SML::Ontology> to which this rule belongs.
+
+  my $ontology = $rule->get_ontology;
+
+=cut
 
 ######################################################################
 
@@ -52,13 +159,21 @@ has rule_type =>
    required => 1,
   );
 
-# One of:
-#
-#   div => division declaration rule
-#   prp => property declaration rule
-#   enu => enumeration declaration rule
-#   cmp => composition declaration rule
-#   def => default value declaration rule
+=head2 get_rule_type
+
+Return a scalar array value which is the type of the rule.
+
+  my $rule_type = $rule->get_type.
+
+One of:
+
+  div => division declaration rule
+  prp => property declaration rule
+  enu => enumeration declaration rule
+  cmp => composition declaration rule
+  def => default value declaration rule
+
+=cut
 
 ######################################################################
 
@@ -70,6 +185,15 @@ has division_name =>
    required => 1,
   );
 
+=head2 get_division_name
+
+Return a scalar text value which is the division name addressed by
+this rule.
+
+  my $division_name = $rule->get_division_name;
+
+=cut
+
 ######################################################################
 
 has property_name =>
@@ -80,7 +204,14 @@ has property_name =>
    required => 1,
   );
 
-# Must be a declared property.
+=head2 get_property_name
+
+return a scalar text value which is the property name addressed by
+this rule.
+
+  my $property_name = $rule->get_property_name;
+
+=cut
 
 ######################################################################
 
@@ -92,6 +223,15 @@ has value_type =>
    required => 1,
   );
 
+=head2 get_value_type
+
+Return a scalar text value which is the value type (more properly the
+object type) declared by this rule.
+
+  my $type = $rule->get_value_type;
+
+=cut
+
 ######################################################################
 
 has name_or_value =>
@@ -101,6 +241,15 @@ has name_or_value =>
    reader   => 'get_name_or_value',
    required => 1,
   );
+
+=head2 get_name_or_value
+
+Return a scalar text value which is the name or value of the object
+type declared by this rule.
+
+  my $name_or_value = $rule->get_name_or_value;
+
+=cut
 
 ######################################################################
 
@@ -112,6 +261,15 @@ has inverse_rule_id =>
    required => 1,
   );
 
+=head2 get_inverse_rule_id
+
+Return the scalar text value which is the ID of the ontology rule
+which is the inverse of this one.
+
+  my $rule_id = $rule->get_inverse_rule_id;
+
+=cut
+
 ######################################################################
 
 has multiplicity =>
@@ -122,7 +280,14 @@ has multiplicity =>
    required => 1,
   );
 
-# 1 or many
+=head2 get_multiplicity
+
+Return the scalar text value that represents the maximum allowed
+multiplicity declared by this rule ('1' or 'many').
+
+  my $multiplicity = $rule->get_multiplicity;
+
+=cut
 
 ######################################################################
 
@@ -134,6 +299,14 @@ has required =>
    required => 1,
   );
 
+=head2 is_required
+
+Return 1 if this rule represents a required property.
+
+  my $required = $rule->is_required;
+
+=cut
+
 ######################################################################
 
 has imply_only =>
@@ -143,6 +316,14 @@ has imply_only =>
    reader   => 'is_imply_only',
    required => 1,
   );
+
+=head2 is_imply_only
+
+Return 1 if this rule represents an "imply only" property.
+
+  my $imply_only = $rule->is_imply_only;
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -227,59 +408,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::OntologyRule> - a rule that asserts a triple about
-L<"SML::Entity">s and how they may relate to one another.
-
-=head1 VERSION
-
-This documentation refers to L<"SML::OntologyRule"> version 2.0.0.
-
-=head1 SYNOPSIS
-
-  my $or = SML::OntologyRule->new();
-
-=head1 DESCRIPTION
-
-An ontology rule asserts one of four facts: (1) the ontology contains
-a named entity (class rule), (2) a named entity has a named property
-of specified type and multiplicity (property rule), (3) the value of a
-property is allowed to be a specified value (enumerated value rule),
-or (4) a named entity may contain another named entity (composition
-rule).
-
-=head1 METHODS
-
-=head2 get_id
-
-=head2 get_ontology
-
-=head2 get_rule_type
-
-=head2 get_division_name
-
-=head2 get_property_name
-
-=head2 get_value_type
-
-=head2 get_name_or_value
-
-=head2 get_inverse_rule_id
-
-=head2 get_multiplicity
-
-=head2 is_required
-
-=head2 is_imply_only
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

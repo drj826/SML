@@ -79,6 +79,28 @@ use SML::Triple;                        # ci-000404
 $OUTPUT_AUTOFLUSH = 1;
 
 ######################################################################
+
+=head1 NAME
+
+SML::Parser - create SML objects from raw text
+
+=head1 SYNOPSIS
+
+  SML::Parser->new(library=>$library);
+
+  $parser->parse($id);                      # SML::Division
+  $parser->create_string($text,$container); # SML::String
+  $parser->parse_library_index_terms;       # Bool
+
+=head1 DESCRIPTION
+
+A parser creates SML objects from raw SML text.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -98,11 +120,9 @@ $OUTPUT_AUTOFLUSH = 1;
 
 sub parse {
 
-  # Return an SML::Division object.  Create the divsion object by
-  # parsing the divisions lines. Add the new division to the library.
-
   my $self = shift;                     # Parser
-  my $id   = shift;                     # ID of division to parse
+
+  my $id = shift;                       # ID of division to parse
 
   unless ( $id )
     {
@@ -141,9 +161,9 @@ sub parse {
   # line-oriented processing
   do
     {
-      $self->_resolve_includes  if $self->_contains_include;
-      $self->_resolve_plugins   if $self->_contains_plugin;
-      $self->_resolve_scripts   if $self->_contains_script;
+      $self->_resolve_includes if $self->_contains_include;
+      $self->_resolve_plugins  if $self->_contains_plugin;
+      $self->_resolve_scripts  if $self->_contains_script;
     }
 
     while $self->_text_requires_line_processing;
@@ -164,31 +184,19 @@ sub parse {
   return $division;
 }
 
-######################################################################
+=head2 parse($id)
 
-sub parse_library_index_terms {
+Return the SML::Division object for the specified division ID.  Create
+the divsion object by parsing the divisions lines. Add the new
+division to the library.
 
-  # Parse each plain text index term into an SML::String object.
+  my $division = $parser->parse($id);
 
-  my $self = shift;
-
-  my $library       = $self->_get_library;
-  my $library_index = $library->get_index;
-
-  foreach my $entry (@{ $library_index->get_entry_list })
-    {
-      $self->_parse_index_term($entry);
-    }
-
-  return 1;
-}
+=cut
 
 ######################################################################
 
 sub create_string {
-
-  # Return a string object. Create the string object by parsing text
-  # into a whole/part hierarchy of strings.
 
   my $self = shift;
 
@@ -799,6 +807,43 @@ sub create_string {
     }
 
 }
+
+=head2 create_string
+
+Return an C<SML::String> object for the specified raw SML text. Create
+the string object by parsing text into a whole/part hierarchy of
+strings and remember that the string belongs to the specified
+container.
+
+  my $string = $parser->create_string($text,$container);
+
+=cut
+
+######################################################################
+
+sub parse_library_index_terms {
+
+  my $self = shift;
+
+  my $library       = $self->_get_library;
+  my $library_index = $library->get_index;
+
+  foreach my $entry (@{ $library_index->get_entry_list })
+    {
+      $self->_parse_index_term($entry);
+    }
+
+  return 1;
+}
+
+=head2 parse_library_index_terms
+
+Parse each plain text index term into an SML::String object remembered
+by the library.  Return 1 if successful.
+
+  my $result = $parser->parse_library_index_terms;
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -1809,23 +1854,23 @@ sub _parse_lines {
 
   my $self = shift;
 
+  my $number         = $self->_get_number;
   my $library        = $self->_get_library;
   my $syntax         = $library->get_syntax;
-  my $options        = $library->get_options;
-  my $count_method   = $self->_get_count_method_hash;
-  my $max_iterations = $options->get_MAX_PARSE_LINES;
-  my $count          = ++ $count_method->{'_parse_lines'};
-  my $number         = $self->_get_number;
+  # my $options        = $library->get_options;
+  # my $count_method   = $self->_get_count_method_hash;
+  # my $max_iterations = $options->get_MAX_PARSE_LINES;
+  # my $count          = ++ $count_method->{'_parse_lines'};
 
-  $logger->trace("{$number} ($count) parse lines");
+  $logger->trace("{$number} parse lines");
 
   # MAX interations exceeded?
-  if ( $count > $max_iterations )
-    {
-      my $msg = "$count: EXCEEDED MAX ITERATIONS ($max_iterations)";
-      $logger->logcroak("$msg");
-      return 0;
-    }
+  # if ( $count > $max_iterations )
+  #   {
+  #     my $msg = "$count: EXCEEDED MAX ITERATIONS ($max_iterations)";
+  #     $logger->logcroak("$msg");
+  #     return 0;
+  #   }
 
   $self->_set_division_stack([]);
   $self->_set_container_stack([]);
@@ -2410,26 +2455,25 @@ sub _substitute_variables {
 
   my $self = shift;
 
+  my $number         = $self->_get_number;
   my $library        = $self->_get_library;
   my $syntax         = $library->get_syntax;
-  my $options        = $library->get_options;
   my $division       = $self->_get_division;
   my $block_list     = $division->get_block_list;
-  my $count_method   = $self->_get_count_method_hash;
-  my $max_iterations = $options->get_MAX_SUBSTITUTE_VARIABLES;
-  my $count          = ++ $count_method->{'_substitute_variables'};
+  # my $options        = $library->get_options;
+  # my $count_method   = $self->_get_count_method_hash;
+  # my $max_iterations = $options->get_MAX_SUBSTITUTE_VARIABLES;
+  # my $count          = ++ $count_method->{'_substitute_variables'};
   my $document       = undef;
   my $docid          = '';
-  my $number         = $self->_get_number;
 
-  $logger->trace("{$number} ($count) substitute variables");
+  $logger->trace("{$number} substitute variables");
 
-  if ( $count > $max_iterations )
-    {
-      my $msg = "EXCEEDED MAX ITERATIONS ($max_iterations)";
-      $logger->logcroak("$msg");
-    }
-
+  # if ( $count > $max_iterations )
+  #   {
+  #     my $msg = "EXCEEDED MAX ITERATIONS ($max_iterations)";
+  #     $logger->logcroak("$msg");
+  #   }
 
  BLOCK:
   foreach my $block (@{ $block_list })
@@ -5957,7 +6001,7 @@ sub _process_start_table_cell {
 	{
 	  my $paragraph = SML::Paragraph->new
 	    (
-	     name    => 'paragraph',
+	     name    => 'PARAGRAPH',
 	     library => $library,
 	    );
 
@@ -6002,7 +6046,7 @@ sub _process_start_table_cell {
 	{
 	  my $paragraph = SML::Paragraph->new
 	    (
-	     name    => 'paragraph',
+	     name    => 'PARAGRAPH',
 	     library => $library,
 	    );
 
@@ -6047,7 +6091,7 @@ sub _process_start_table_cell {
 	{
 	  my $paragraph = SML::Paragraph->new
 	    (
-	     name    => 'paragraph',
+	     name    => 'PARAGRAPH',
 	     library => $library,
 	    );
 
@@ -6084,7 +6128,7 @@ sub _process_start_table_cell {
 	{
 	  my $paragraph = SML::Paragraph->new
 	    (
-	     name    => 'paragraph',
+	     name    => 'PARAGRAPH',
 	     library => $library,
 	    );
 
@@ -6121,7 +6165,7 @@ sub _process_start_table_cell {
 	{
 	  my $paragraph = SML::Paragraph->new
 	    (
-	     name    => 'paragraph',
+	     name    => 'PARAGRAPH',
 	     library => $library,
 	    );
 
@@ -6223,7 +6267,12 @@ sub _process_paragraph_text {
       $self->_end_definition_list if $self->_in_definition_list;
       $self->_end_baretable       if $self->_in_baretable;
 
-      my $paragraph = SML::Paragraph->new(library=>$library);
+      my $paragraph = SML::Paragraph->new
+	(
+	 name    => 'PARAGRAPH',
+	 library => $library,
+	);
+
       $paragraph->add_line($line);
       $self->_begin_block($paragraph);
 
@@ -10470,40 +10519,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::Parser> - create division objects from raw SML text stored in
-files; create string objects from blocks of text; extract data from
-text
-
-=head1 VERSION
-
-2.0.0.
-
-=head1 SYNOPSIS
-
-  my $parser = SML::Parser->new(library=>$library);
-
-  my $library  = $parser->get_library;
-  my $division = $parser->parse($id);
-
-=head1 DESCRIPTION
-
-A parser creates division objects from raw SML text stored in files,
-creates string objects from blocks of text, and extracts data from
-sequences of line objects.
-
-=head1 METHODS
-
-=head2 get_library
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

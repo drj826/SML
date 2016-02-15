@@ -15,18 +15,29 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Paragraph');
 
 ######################################################################
+
+=head1 NAME
+
+SML::Paragraph - a block of text that expresses a thought
+
+=head1 SYNOPSIS
+
+  SML::Paragraph->new(library=>$library);
+
+=head1 DESCRIPTION
+
+An C<SML::Paragraph> is a block of text that expresses a thought.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
 ##
 ######################################################################
-######################################################################
-
-has '+name' =>
-  (
-   default => 'PARAGRAPH',
-  );
-
 ######################################################################
 
 has value =>
@@ -38,9 +49,29 @@ has value =>
    predicate => 'has_value',
   );
 
-# This is the raw text of the paragraph.  This can be different than
-# 'content' because when the paragraph is the first block of a table
-# cell the leading markup must be stripped.
+=head2 get_value
+
+Return a scalar text value which is the content of the paragraph.
+
+  my $text = $paragraph->get_value;
+
+This is the raw text of the paragraph.  This can be different than
+'content' because when the paragraph is the first block of a table
+cell the leading markup must be stripped.
+
+=head2 set_value($value)
+
+Set the value of a paragraph.
+
+  $paragraph->set_value($text);
+
+=head2 has_value
+
+Return 1 if the paragraph has a value.
+
+  my $result = $paragraph->has_value;
+
+=cut
 
 ######################################################################
 
@@ -52,6 +83,29 @@ has value_string =>
    writer    => 'set_value_string',
    predicate => 'has_value_string',
   );
+
+=head2 get_value_string
+
+Return an C<SML::String> of the content of the paragraph.
+
+  my $string = $paragraph->get_value_string;
+
+This is the C<SML::String> produced by parsing the raw text of the
+paragraph.
+
+=head2 set_value_string($string)
+
+Set the value string of a paragraph.
+
+  $paragraph->set_value_string($string);
+
+=head2 has_value_string
+
+Return 1 if the paragraph has a value string.
+
+  my $result = $paragraph->has_value_string;
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -67,35 +121,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::Paragraph> - a block of text that represents one item in a
-sequence or hierarchy of items.
-
-=head1 VERSION
-
-This documentation refers to L<"SML::Paragraph"> version 2.0.0.
-
-=head1 SYNOPSIS
-
-  extends SML::Block
-
-  my $para = SML::Paragraph->new();
-
-=head1 DESCRIPTION
-
-An paragraph is a block of text that represents one item in a sequence
-or hierarchy of items.
-
-=head1 METHODS
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

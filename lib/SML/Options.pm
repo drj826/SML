@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::Options;
+package SML::Options;                   # ci-000382
 
 use Moose;
 
@@ -13,6 +13,56 @@ use Config::General;
 use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Options');
+
+######################################################################
+
+=head1 NAME
+
+SML::Options - a set of SML options
+
+=head1 SYNOPSIS
+
+  SML::Options->new();
+
+  $options->get_config_filespec;                  # Str
+  $options->resolve_scripts;                      # Bool
+  $options->resolve_plugins;                      # Bool
+  $options->use_svn;                              # Bool
+  $options->get_svn_executable;                   # Str
+  $options->set_svn_executable($svn);             # Bool
+  $options->use_git;                              # Bool
+  $options->set_use_git(1);                       # Bool
+  $options->get_git_executable;                   # Str
+  $options->set_git_executable($git);             # Bool
+  $options->get_pdflatex_executable;              # Str
+  $options->set_pdflatex_executable($pdflatex);   # Bool
+  $options->get_pdflatex_args;                    # Str
+  $options->set_pdflatex_args($args);             # Bool
+  $options->get_bibtex_executable;                # Str
+  $options->set_bibtex_executable($bibtex);       # Bool
+  $options->get_makeindex_executable;             # Str
+  $options->set_makeindex_executable($makeindex); # Bool
+  $options->get_convert_executable;               # Str
+  $options->set_convert_executable($convert);     # Bool
+  $options->use_formal_status;                    # Bool
+  $options->set_use_formal_status(1);             # Bool
+  $options->get_MAX_SEC_DEPTH;                    # Int
+  $options->set_MAX_SEC_DEPTH($depth);            # Bool
+  $options->get_MAX_RESOLVE_INCLUDES;             # Int
+  $options->set_MAX_RESOLVE_INCLUDES($count);     # Bool
+  $options->get_MAX_RESOLVE_SCRIPTS;              # Int
+  $options->set_MAX_RESOLVE_SCRIPTS($count);      # Bool
+  $options->get_MAX_RESOLVE_PLUGINS;              # Int
+  $options->set_MAX_RESOLVE_PLUGINS($count);      # Bool
+
+=head1 DESCRIPTION
+
+A set of SML options that remembers the location of certain library
+executable programs and controls certain library functions.
+
+=head1 METHODS
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -30,27 +80,14 @@ has config_filespec =>
    default   => 'library.conf'
   );
 
-######################################################################
+=head2 get_config_filespec
 
-# has gui =>
-#   (
-#    is        => 'ro',
-#    isa       => 'Bool',
-#    reader    => 'using_gui',
-#    default   => 0,
-#    writer    => 'set_using_gui',
-#   );
+Return a scalar text value which is the filespec to the library
+configuration file.
 
-######################################################################
+  my $filespec = $options->get_config_filespec;
 
-# has verbose =>
-#   (
-#    is        => 'ro',
-#    isa       => 'Bool',
-#    reader    => 'be_verbose',
-#    default   => 0,
-#    writer    => 'set_be_verbose',
-#   );
+=cut
 
 ######################################################################
 
@@ -63,6 +100,22 @@ has resolve_scripts =>
    writer    => 'set_resolve_scripts',
   );
 
+=head2 resolve_scripts
+
+Return 1 if the library is configured to resolve scripts.  This value
+can be set in the library configuration file.
+
+  my $result = $options->resolve_scripts;
+
+=head2 set_resolve_scripts($bool)
+
+Set the boolean value that determines whether or not scripts are
+resolved.
+
+  $options->set_resolve_scripts(1);
+
+=cut
+
 ######################################################################
 
 has resolve_plugins =>
@@ -73,6 +126,22 @@ has resolve_plugins =>
    default   => 1,
    writer    => 'set_resolve_plugins',
   );
+
+=head2 resolve_plugins
+
+Return 1 if the library is configured to resolve plugins. This value
+can be set in the library configuration file.
+
+  my $result = $options->resolve_plugins;
+
+=head2 set_resolve_plugins($bool)
+
+Set the boolean value that determines whether or not plugins are
+resolved.
+
+  $options->set_resolve_plugins(1);
+
+=cut
 
 ######################################################################
 
@@ -85,6 +154,23 @@ has use_svn =>
    writer    => 'set_use_svn',
   );
 
+=head2 use_svn
+
+Return 1 if the library is configured to use SVN (i.e. subversion) as
+a version control system.  This value can be set in the library
+configuration file.
+
+  my $result = $options->use_svn;
+
+=head2 set_use_svn
+
+Set the boolean value that determines whether or not the library uses
+SVN as a version control system.
+
+  $options->set_use_svn(1);
+
+=cut
+
 ######################################################################
 
 has svn_executable =>
@@ -95,6 +181,21 @@ has svn_executable =>
    default   => 'svn.exe',
    writer    => 'set_svn_executable',
   );
+
+=head2 get_svn_executable
+
+Return the scalar text value which is the location of the SVN
+executable.
+
+  my $svn = $options->get_svn_executable;
+
+=head2 set_svn_executable
+
+Set the location of the SVN executable.
+
+  $options->set_svn_executable($svn);
+
+=cut
 
 ######################################################################
 
@@ -107,6 +208,22 @@ has use_git =>
    writer    => 'set_use_git',
   );
 
+=head2 use_git
+
+Return 1 if the library is configured to use git as a version control
+system.  This value can be set in the library configuration file.
+
+  my $result = $options->use_git;
+
+=head2 set_use_git
+
+Set the boolean value that determines whether or not the library uses
+git as a version control system.
+
+  $options->set_use_git(1);
+
+=cut
+
 ######################################################################
 
 has git_executable =>
@@ -117,6 +234,21 @@ has git_executable =>
    default   => 'git.exe',
    writer    => 'set_git_executable',
   );
+
+=head2 get_git_executable
+
+Return the scalar text value which is the location of the git
+executable.
+
+  my $git = $options->get_git_executable;
+
+=head2 set_git_executable
+
+Set the location of the git executable.
+
+  $options->set_git_executable($git);
+
+=cut
 
 ######################################################################
 
@@ -129,6 +261,21 @@ has pdflatex_executable =>
    writer    => 'set_pdflatex_executable',
 );
 
+=head2 get_pdflatex_executable
+
+Return the scalar text value which is the location of the pdflatex
+executable.
+
+  my $pdflatex = $options->get_pdflatex_executable;
+
+=head2 set_pdflatex_executable
+
+Set the location of the pdflatex executable.
+
+  $options->set_pdflatex_executable($pdflatex);
+
+=cut
+
 ######################################################################
 
 has pdflatex_args =>
@@ -139,6 +286,21 @@ has pdflatex_args =>
    default   => '--main-memory=50000000 --extra-mem-bot=50000000',
    writer    => 'set_pdflatex_args',
 );
+
+=head2 get_pdflatex_args
+
+Return the scalar text value which represents the arguments to be
+passed to pdflatex.
+
+  my $pdflatex = $options->get_pdflatex_args;
+
+=head2 set_pdflatex_args
+
+Set the arguments to be passed to pdflatex.
+
+  $options->set_pdflatex_args($pdflatex);
+
+=cut
 
 ######################################################################
 
@@ -151,6 +313,21 @@ has bibtex_executable =>
    writer    => 'set_bibtex_executable',
   );
 
+=head2 get_bibtex_executable
+
+Return the scalar text value which is the location of the bibtex
+executable.
+
+  my $bibtex = $options->get_bibtex_executable;
+
+=head2 set_bibtex_executable
+
+Set the location of the bibtex executable.
+
+  $options->set_bibtex_executable($bibtex);
+
+=cut
+
 ######################################################################
 
 has makeindex_executable =>
@@ -161,6 +338,21 @@ has makeindex_executable =>
    default   => 'makeindex.exe',
    writer    => 'set_makeindex_executable',
   );
+
+=head2 get_makeindex_executable
+
+Return the scalar text value which is the location of the makeindex
+executable.
+
+  my $makeindex = $options->get_makeindex_executable;
+
+=head2 set_makeindex_executable
+
+Set the location of the makeindex executable.
+
+  $options->set_makeindex_executable($makeindex);
+
+=cut
 
 ######################################################################
 
@@ -173,23 +365,20 @@ has convert_executable =>
    writer    => 'set_convert_executable',
   );
 
-######################################################################
+=head2 get_convert_executable
 
-# has trigger_resource_updates =>
-#   (
-#    is        => 'ro',
-#    isa       => 'Bool',
-#    reader    => 'trigger_resource_updates',
-#    default   => 0,
-#    writer    => 'set_trigger_resource_updates',
-#    clearer   => 'clear_trigger_resource_updates',
-#    predicate => 'has_trigger_resource_updates',
-#   );
+Return the scalar text value which is the location of the convert
+executable.
 
-# If 'trigger_resource_updates' is true, the application should update
-# the RESOURCES division in each SML document resource.  The purpose
-# of this function is to trigger a change in a resource whenever
-# another resource used by that resource is changed.
+  my $convert = $options->get_convert_executable;
+
+=head2 set_convert_executable
+
+Set the location of the convert executable.
+
+  $options->set_convert_executable($convert);
+
+=cut
 
 ######################################################################
 
@@ -199,13 +388,27 @@ has use_formal_status =>
    isa       => 'Bool',
    reader    => 'use_formal_status',
    writer    => 'set_use_formal_status',
-   clearer   => 'clear_use_formal_status',
-   predicate => 'has_use_formal_status',
+   # clearer   => 'clear_use_formal_status',
+   # predicate => 'has_use_formal_status',
    default   => 0,
   );
 
-# If 'use_formal_status' is true, the application should ONLY set the
-# status of an entity based on outcome statements.
+=head2 use_formal_status
+
+Return 1 if you want to use "formal" status of entities in your
+library.  If 'use_formal_status' is true, the application should ONLY
+set the status of an entity based on outcome statements.
+
+  my $result = $options->use_formal_status;
+
+=head2 set_use_formal_status
+
+Set the boolean value that tell the library whether or not to use
+formal entity status.
+
+  $options->set_use_formal_status(1);
+
+=cut
 
 ######################################################################
 
@@ -218,6 +421,22 @@ has MAX_SEC_DEPTH =>
    default   => 6,
   );
 
+=head2 get_MAX_SEC_DEPTH
+
+Return an integer which is the maximum allowable section depth for
+documents in the library.
+
+  my $max = $options->get_MAX_SEC_DEPTH;
+
+=head2 set_MAX_SEC_DEPTH
+
+Set the integer value which is the maximum allowable section depth for
+documents in the library.
+
+  $options->set_MAX_SEC_DEPTH($depth);
+
+=cut
+
 ######################################################################
 
 has MAX_RESOLVE_INCLUDES =>
@@ -228,6 +447,23 @@ has MAX_RESOLVE_INCLUDES =>
    writer    => 'set_MAX_RESOLVE_INCLUDES',
    default   => 20,
   );
+
+=head2 get_MAX_RESOLVE_INCLUDES
+
+Return an integer which is the maximum allowable number of times the
+application will resolve include statements in library documents.
+This maximum is designed to prevent infinite loops.
+
+  my $max = $options->get_MAX_RESOLVE_INCLUDES;
+
+=head2 set_MAX_RESOLVE_INCLUDES
+
+Set the integer value which is the maximum number of times to resolve
+includes statements in documents in the library.
+
+  $options->set_MAX_RESOLVE_INCLUDES($depth);
+
+=cut
 
 ######################################################################
 
@@ -240,6 +476,23 @@ has MAX_RESOLVE_SCRIPTS =>
    default   => 20,
   );
 
+=head2 get_MAX_RESOLVE_SCRIPTS
+
+Return an integer which is the maximum allowable number of times the
+application will resolve script statements in library documents.  This
+maximum is designed to prevent infinite loops.
+
+  my $max = $options->get_MAX_RESOLVE_SCRIPTS;
+
+=head2 set_MAX_RESOLVE_SCRIPTS
+
+Set the integer value which is the maximum number of times to resolve
+script statements in documents in the library.
+
+  $options->set_MAX_RESOLVE_SCRIPTS($depth);
+
+=cut
+
 ######################################################################
 
 has MAX_RESOLVE_PLUGINS =>
@@ -251,136 +504,54 @@ has MAX_RESOLVE_PLUGINS =>
    default   => 20,
   );
 
+=head2 get_MAX_RESOLVE_PLUGINS
+
+Return an integer which is the maximum allowable number of times the
+application will resolve plugin statements in library documents.  This
+maximum is designed to prevent infinite loops.
+
+  my $max = $options->get_MAX_RESOLVE_PLUGINS;
+
+=head2 set_MAX_RESOLVE_PLUGINS
+
+Set the integer value which is the maximum number of times to resolve
+plugin statements in documents in the library.
+
+  $options->set_MAX_RESOLVE_PLUGINS($depth);
+
+=cut
+
 ######################################################################
 
-# has MAX_RESOLVE_CONDITIONALS =>
+# has MAX_PARSE_LINES =>
 #   (
 #    is        => 'ro',
 #    isa       => 'Int',
-#    reader    => 'get_MAX_RESOLVE_CONDITIONALS',
-#    writer    => 'set_MAX_RESOLVE_CONDITIONALS',
-#    default   => 10,
-#   );
-
-######################################################################
-
-has MAX_PARSE_LINES =>
-  (
-   is        => 'ro',
-   isa       => 'Int',
-   reader    => 'get_MAX_PARSE_LINES',
-   writer    => 'set_MAX_PARSE_LINES',
-   default   => 20,
-  );
-
-######################################################################
-
-# has MAX_INSERT_CONTENT =>
-#   (
-#    is        => 'ro',
-#    isa       => 'Int',
-#    reader    => 'get_MAX_INSERT_CONTENT',
-#    writer    => 'set_MAX_INSERT_CONTENT',
+#    reader    => 'get_MAX_PARSE_LINES',
+#    writer    => 'set_MAX_PARSE_LINES',
 #    default   => 20,
 #   );
 
 ######################################################################
 
-has MAX_SUBSTITUTE_VARIABLES =>
-  (
-   is        => 'ro',
-   isa       => 'Int',
-   reader    => 'get_MAX_SUBSTITUTE_VARIABLES',
-   writer    => 'set_MAX_SUBSTITUTE_VARIABLES',
-   default   => 20,
-  );
-
-######################################################################
-
-has MAX_RESOLVE_LOOKUPS =>
-  (
-   is        => 'ro',
-   isa       => 'Int',
-   reader    => 'get_MAX_RESOLVE_LOOKUPS',
-   writer    => 'set_MAX_RESOLVE_LOOKUPS',
-   default   => 20,
-  );
-
-######################################################################
-
-# has MAX_RESOLVE_TEMPLATES =>
+# has MAX_SUBSTITUTE_VARIABLES =>
 #   (
 #    is        => 'ro',
 #    isa       => 'Int',
-#    reader    => 'get_MAX_RESOLVE_TEMPLATES',
-#    writer    => 'set_MAX_RESOLVE_TEMPLATES',
+#    reader    => 'get_MAX_SUBSTITUTE_VARIABLES',
+#    writer    => 'set_MAX_SUBSTITUTE_VARIABLES',
 #    default   => 20,
 #   );
 
 ######################################################################
 
-# has MAX_GENERATE_CONTENT =>
+# has MAX_RESOLVE_LOOKUPS =>
 #   (
 #    is        => 'ro',
 #    isa       => 'Int',
-#    reader    => 'get_MAX_GENERATE_CONTENT',
-#    writer    => 'set_MAX_GENERATE_CONTENT',
+#    reader    => 'get_MAX_RESOLVE_LOOKUPS',
+#    writer    => 'set_MAX_RESOLVE_LOOKUPS',
 #    default   => 20,
-#   );
-
-######################################################################
-
-# has MAX_ID_HIERARCHY_DEPTH =>
-#   (
-#    is        => 'ro',
-#    isa       => 'Int',
-#    reader    => 'get_MAX_ID_HIERARCHY_DEPTH',
-#    writer    => 'set_MAX_ID_HIERARCHY_DEPTH',
-#    default   => 20,
-#   );
-
-######################################################################
-
-# has status_icon_grey_filespec =>
-#   (
-#    is        => 'ro',
-#    isa       => 'Str',
-#    reader    => 'get_status_icon_grey_filespec',
-#    writer    => 'set_status_icon_grey_filespec',
-#    default   => 'status_grey.png',
-#   );
-
-######################################################################
-
-# has status_icon_green_filespec =>
-#   (
-#    is        => 'ro',
-#    isa       => 'Str',
-#    reader    => 'get_status_icon_green_filespec',
-#    writer    => 'set_status_icon_green_filespec',
-#    default   => 'status_green.png',
-#   );
-
-######################################################################
-
-# has status_icon_yellow_filespec =>
-#   (
-#    is        => 'ro',
-#    isa       => 'Str',
-#    reader    => 'get_status_icon_yellow_filespec',
-#    writer    => 'set_status_icon_yellow_filespec',
-#    default   => 'status_yellow.png',
-#   );
-
-######################################################################
-
-# has status_icon_red_filespec =>
-#   (
-#    is        => 'ro',
-#    isa       => 'Str',
-#    reader    => 'get_status_icon_red_filespec',
-#    writer    => 'set_status_icon_red_filespec',
-#    default   => 'status_red.png',
 #   );
 
 ######################################################################
@@ -583,89 +754,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::Options> - A class to store options.
-
-=head1 VERSION
-
-This documentation refers to L<"SML::Options"> version 2.0.0.
-
-=head1 SYNOPSIS
-
-  my $opt = SML::Options->new();
-
-=head1 DESCRIPTION
-
-A class to store options.
-
-=head1 METHODS
-
-=head2 get_config_filespec
-
-=head2 using_gui
-
-=head2 be_verbose
-
-=head2 resolve_scripts
-
-=head2 use_svn
-
-=head2 get_svn_executable
-
-=head2 get_pdflatex_executable
-
-=head2 get_pdflatex_args
-
-=head2 get_bibtex_executable
-
-=head2 get_makeindex_executable
-
-=head2 get_convert_executable
-
-=head2 trigger_resource_updates
-
-=head2 use_formal_status
-
-=head2 get_MAX_SEC_DEPTH
-
-=head2 get_MAX_RESOLVE_INCLUDES
-
-=head2 get_MAX_RESOLVE_SCRIPTS
-
-=head2 get_MAX_RESOLVE_PLUGINS
-
-=head2 get_MAX_RESOLVE_CONDITIONALS
-
-=head2 get_MAX_PARSE_LINES
-
-=head2 get_MAX_INSERT_CONTENT
-
-=head2 get_MAX_SUBSTITUTE_VARIABLES
-
-=head2 get_MAX_RESOLVE_LOOKUPS
-
-=head2 get_MAX_RESOLVE_TEMPLATES
-
-=head2 get_MAX_GENERATE_CONTENT
-
-=head2 get_MAX_ID_HIERARCHY_DEPTH
-
-=head2 get_status_icon_grey_filespec
-
-=head2 get_status_icon_green_filespec
-
-=head2 get_status_icon_yellow_filespec
-
-=head2 get_status_icon_red_filespec
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)
