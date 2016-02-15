@@ -13,6 +13,31 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Line');
 
 ######################################################################
+
+=head1 NAME
+
+SML::Line - A line of text
+
+=head1 SYNOPSIS
+
+  SML::Line->new(content=>$content);
+
+  $line->get_content;                   # Str
+  $line->get_file;                      # SML::File
+  $line->has_file;                      # Bool
+  $line->get_num;                       # Int
+  $line->get_location;                  # Str
+
+=head1 DESCRIPTION
+
+A single line of raw text. A line has content, a line number, and
+knows what file it came from.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -28,6 +53,14 @@ has content =>
    required  => 1,
   );
 
+=head2 get_content
+
+Return a scalar text value of the content of the line.
+
+  my $text = $line->get_content;
+
+=cut
+
 ######################################################################
 
 has file =>
@@ -38,10 +71,23 @@ has file =>
    predicate => 'has_file',
   );
 
-# This is the file object from which the line came.  Not all lines
-# come from files.  Lines can come from script output or other
-# generated sources.  Therefore it's OK if this attribute is
-# undefined.
+=head2 get_file
+
+Return the C<SML::File> object for the file from which the line came.
+
+  my $file = $line->get_file;
+
+Not all lines come from files.  Lines can come from script output or
+other generated sources.  Therefore it's OK if this attribute is
+undefined.
+
+=head2 has_file
+
+Return 1 if this line came from a file.
+
+  my $result = $line->has_file;
+
+=cut
 
 ######################################################################
 
@@ -52,8 +98,14 @@ has num =>
    reader   => 'get_num',
 );
 
-# This is the line number.  If the line came from a file it is the
-# line number in the file.
+=head2 get_num
+
+Return an integer number.  This is the line number.  If the line came
+from a file it is the line number in the file.
+
+  my $num = $line->get_num;
+
+=cut
 
 ######################################################################
 
@@ -65,6 +117,15 @@ has location =>
    lazy    => 1,
    builder => '_build_location',
   );
+
+=head2 get_location
+
+Return a scalar text value that represents the location of the line
+(<file>:<line_number>).
+
+  my $location = $line->get_location;
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -117,42 +178,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::Line> - A single line of raw text from an SML file.
-
-=head1 VERSION
-
-This documentation refers to L<"SML::Line"> version 2.0.0.
-
-=head1 SYNOPSIS
-
-  my $line = SML::Line->new(content=>$content);
-
-=head1 DESCRIPTION
-
-A single line of raw text from an SML file.  A line has content, a
-line number, and knows what file it came from.
-
-=head1 METHODS
-
-=head2 get_content
-
-=head2 get_file
-
-=head2 get_num
-
-=head2 get_filespec
-
-=head2 get_location
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

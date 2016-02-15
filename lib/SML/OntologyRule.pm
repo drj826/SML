@@ -114,11 +114,11 @@ has inverse_rule_id =>
 
 ######################################################################
 
-has cardinality =>
+has multiplicity =>
   (
    is       => 'ro',
    isa      => 'Str',
-   reader   => 'get_cardinality',
+   reader   => 'get_multiplicity',
    required => 1,
   );
 
@@ -182,7 +182,7 @@ sub BUILD {
   my $id            = $self->get_id;
   my $rule_type     = $self->get_rule_type;
   my $division_name = $self->get_division_name;
-  my $cardinality   = $self->get_cardinality;
+  my $multiplicity  = $self->get_multiplicity;
 
   # validate rule type
   unless ( $rule_type =~ /$syntax->{valid_ontology_rule_type}/xms )
@@ -209,10 +209,10 @@ sub BUILD {
 	}
     }
 
-  # validate cardinality value
-  unless ( $cardinality =~ /$syntax->{valid_cardinality_value}/xms )
+  # validate multiplicity value
+  unless ( $multiplicity =~ /$syntax->{valid_multiplicity_value}/xms )
     {
-      $logger->warn("INVALID CARDINALITY: \"$cardinality\" in $id");
+      $logger->warn("INVALID MULTIPLICITY: \"$multiplicity\" in $id");
       return 0;
     }
 
@@ -244,7 +244,7 @@ This documentation refers to L<"SML::OntologyRule"> version 2.0.0.
 
 An ontology rule asserts one of four facts: (1) the ontology contains
 a named entity (class rule), (2) a named entity has a named property
-of specified type and cardinality (property rule), (3) the value of a
+of specified type and multiplicity (property rule), (3) the value of a
 property is allowed to be a specified value (enumerated value rule),
 or (4) a named entity may contain another named entity (composition
 rule).
@@ -267,7 +267,7 @@ rule).
 
 =head2 get_inverse_rule_id
 
-=head2 get_cardinality
+=head2 get_multiplicity
 
 =head2 is_required
 

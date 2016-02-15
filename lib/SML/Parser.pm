@@ -377,10 +377,10 @@ sub create_string {
 	{
 	  my $args = {};
 
-	  $args->{target_property} = $2;
-	  $args->{target_id}       = $3;
-	  $args->{library}         = $self->_get_library;
-	  $args->{container}       = $container if $container;
+	  $args->{target_property_name} = $2;
+	  $args->{target_id}            = $3;
+	  $args->{library}              = $self->_get_library;
+	  $args->{container}            = $container if $container;
 
 	  return SML::LookupReference->new(%{$args});
 	}
@@ -2142,7 +2142,7 @@ sub _end_division {
 
   return 0 if not $division;
 
-  $self->_validate_property_cardinality($division);
+  $self->_validate_property_multiplicity($division);
   $self->_validate_property_values($division);
   $self->_validate_infer_only_conformance($division);
   $self->_validate_required_properties($division);
@@ -3872,7 +3872,7 @@ sub _process_start_element {
   my $division = $self->_get_current_division;
   my $divname  = $division->get_name;
 
-  unless ( $ontology->allows_property_name_in_division_name($name,$divname) )
+  unless ( $ontology->allows_property_name($name,$divname) )
     {
       my $msg = "UNRECOGNIZED ELEMENT $name IN $divname";
       my $location = $line->get_location;
@@ -9636,7 +9636,7 @@ sub _validate_file_ref_semantics {
 
 ######################################################################
 
-sub _validate_property_cardinality {
+sub _validate_property_multiplicity {
 
   my $self     = shift;
   my $division = shift;
@@ -9650,27 +9650,27 @@ sub _validate_property_cardinality {
 
   foreach my $property_name (@{ $ps->get_property_name_list($divid) })
     {
-      my $cardinality;
+      my $multiplicity;
 
       if ( $property_name eq 'id' )
 	{
-	  $cardinality = 1;
+	  $multiplicity = 1;
 	}
 
       else
 	{
-	  $cardinality = $ontology->property_allows_cardinality($divname,$property_name);
+	  $multiplicity = $ontology->get_property_multiplicity($divname,$property_name);
 	}
 
-      # Validate property cardinality
+      # Validate property multiplicity
       if ( $ontology->property_is_universal($property_name) )
 	{
-	  # OK, all universal properties have cardinality = many
+	  # OK, all universal properties have multiplicity = many
 	}
 
-      elsif ( not defined $cardinality )
+      elsif ( not defined $multiplicity )
 	{
-	  my $msg = "NO CARDINALITY FOR $divname $property_name";
+	  my $msg = "NO MULTIPLICITY FOR $divname $property_name";
 	  my $location = $division->get_location;
 	  $self->_handle_error('error',$msg,$location);
 	  $valid = 0;
@@ -9681,9 +9681,9 @@ sub _validate_property_cardinality {
 	  my $aref  = $ps->get_property_text_list($divid,$property_name);
 	  my $count = scalar(@{ $aref });
 
-	  if ( $cardinality eq '1' and $count > 1 )
+	  if ( $multiplicity eq '1' and $count > 1 )
 	    {
-	      my $msg = "INVALID PROPERTY CARDINALITY $divname ALLOWS ONLY 1 $property_name";
+	      my $msg = "INVALID PROPERTY MULTIPLICITY $divname ALLOWS ONLY 1 $property_name";
 	      my $location = $division->get_location;
 	      $self->_handle_error('warn',$msg,$location);
 	      $valid = 0;
@@ -9713,9 +9713,9 @@ sub _validate_property_values {
     {
       $seen->{$property_name} = 1;
 
-      my $imply_only  = $ontology->property_is_imply_only($divname,$property_name);
-      my $aref        = $ps->get_property_text_list($divid,$property_name);
-      my $cardinality = $ontology->property_allows_cardinality($divname,$property_name);
+      my $imply_only   = $ontology->property_is_imply_only($divname,$property_name);
+      my $aref         = $ps->get_property_text_list($divid,$property_name);
+      my $multiplicity = $ontology->get_property_multiplicity($divname,$property_name);
 
       foreach my $value (@{ $aref })
 	{
@@ -9799,7 +9799,7 @@ sub _validate_required_properties {
 
   # Validate that all required properties are defined
 
-  my $required_property_name_list = $ontology->get_list_of_required_property_names_for_division_name($divname);
+  my $required_property_name_list = $ontology->get_required_property_name_list($divname);
 
   foreach my $required_property_name (@{ $required_property_name_list })
     {

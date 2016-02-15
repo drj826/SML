@@ -421,7 +421,7 @@ sub publish_html_library_special_pages {
       #
       # Only publish a traceability tree page if this entity_name
       # allows the 'is_part_of' property.
-      if ( $ontology->allows_property_name_in_division_name('is_part_of',$entity_name) )
+      if ( $ontology->allows_property_name('is_part_of',$entity_name) )
 	{
 	  $logger->debug("publishing tm_tree.$entity_name.html");
 	  $tt->process("tm_tree_page.tt",$vars,"tm_tree.$entity_name.html")

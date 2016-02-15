@@ -19,6 +19,61 @@ my $logger = Log::Log4perl::get_logger('sml.Ontology');
 use SML::OntologyRule;
 
 ######################################################################
+
+=head1 NAME
+
+SML::Ontology - a formal specification of terms
+
+=head1 SYNOPSIS
+
+  SML::Ontology->new(library=>$library);
+
+  $ontology->get_library;                                                           # SML::Library
+
+  $ontology->get_allowed_property_value_list($division_name,$property_name);        # ArrayRef
+  $ontology->get_allowed_property_object_name_list($division_name,$property_name);  # ArrayRef
+  $ontology->value_must_be_division_id_for_property($division_name,$property_name); # Bool
+  $ontology->get_rule_for($division_name,$property_name,$name_or_value);            # SML::OntologyRule
+  $ontology->get_inverse_rule_for($subject_name,$predicate,$object_name);           # SML::OntologyRule
+  $ontology->get_rule_with_id($rule_id);                                            # SML::OntologyRule
+  $ontology->get_class_for_division_name($division_name);                           # Str
+  $ontology->get_allowed_property_name_list($division_name);                        # ArrayRef
+  $ontology->get_required_property_name_list($division_name);                       # ArrayRef
+  $ontology->has_division_with_name($name);                                         # Bool
+  $ontology->has_rule_for($division_name,$property_name,$name_or_value);            # Bool
+  $ontology->has_inverse_rule_for($division_name,$property_name,$name_or_value);    # Bool
+  $ontology->allows_division_name($name);                                           # Bool
+  $ontology->allows_property_name($property_name,$division_name);                   # Bool
+  $ontology->allows_composition($division_name_a,$division_name_b);                 # Bool
+  $ontology->allows_property_value($division_name,$property_name,$value);           # Bool
+  $ontology->allows_triple($subject,$predicate,$object);                            # Bool
+  $ontology->property_is_universal($name);                                          # Bool
+  $ontology->property_is_required($division_name,$property_name);                   # Bool
+  $ontology->property_is_imply_only($division_name,$property_name);                 # Bool
+  $ontology->get_property_multiplicity($division_name,$property_name);              # Str
+  $ontology->get_entity_name_list;                                                  # ArrayRef
+  $ontology->get_structure_name_list;                                               # ArrayRef
+  $ontology->get_allowed_containee_name_list($division_name);                       # ArrayRef
+  $ontology->get_rule_type_count($type);                                            # Int
+  $ontology->is_structure($name);                                                   # Bool
+  $ontology->is_entity($name);                                                      # Bool
+
+=head1 DESCRIPTION
+
+An ontology is an explicit formal specification of terms that
+represent the entities defined to exist in some area of interest, the
+relationships that hold among them, and the formal axioms that
+constrain the interpretation and well-formed use of those terms.
+
+In SML divisions are used to represent document structures and
+entities.  An SML ontology declares what structures and entities
+exist, their properties, and how they relate to one another.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -34,7 +89,13 @@ has library =>
    required  => 1,
   );
 
-# This is the library object to which the ontology belongs.
+=head2 get_library
+
+Return the C<SML::Library> object to which the ontology belongs.
+
+  my $library = $ontology->get_library;
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -46,12 +107,8 @@ has library =>
 
 sub get_allowed_property_value_list {
 
-  # Return a list of allowed property values (as defined in the
-  # enumerated value rules) for the specified division name and a
-  # property name.  For instance, return a list of allowed values for
-  # DOCUMENT state (DRAFT, REVIEW, APPROVED).
+  my $self = shift;
 
-  my $self          = shift;
   my $division_name = shift;
   my $property_name = shift;
 
@@ -60,14 +117,27 @@ sub get_allowed_property_value_list {
   return $href->{$division_name}{$property_name};
 }
 
+=head2 get_allowed_property_value_list($division_name,$property_name)
+
+Return an ArrayRef to a list of allowed property values (as defined in
+the enumerated value rules) for the specified division name and a
+property name.
+
+  my $aref = $ontology->get_allowed_property_value_list($division_name,$property_name);
+
+For instance, the following should return a list of allowed values for
+DOCUMENT state (DRAFT, REVIEW, APPROVED):
+
+  my $aref = $ontology->get_allowed_property_value_list('DOCUMENT','state');
+
+=cut
+
 ######################################################################
 
 sub get_allowed_property_object_name_list {
 
-  # Return a list of allowed property object names for the specified
-  # division name and property name.
+  my $self = shift;
 
-  my $self          = shift;
   my $division_name = shift;
   my $property_name = shift;
 
@@ -76,14 +146,21 @@ sub get_allowed_property_object_name_list {
   return [ sort keys %{ $href->{$division_name}{$property_name} }];
 }
 
+=head2 get_allowed_property_object_name_list($division_name,$property_name)
+
+Return an ArrayRef to a list of allowed property object names for the
+specified division name and property name.
+
+  my $aref = $ontology->get_allowed_property_object_name_list($division_name,$property_name);
+
+=cut
+
 ######################################################################
 
 sub value_must_be_division_id_for_property {
 
-  # Return 1 if the value of the specified property (division name,
-  # property name) MUST be a division ID (not a STRING or BOOLEAN).
+  my $self = shift;
 
-  my $self          = shift;
   my $division_name = shift;
   my $property_name = shift;
 
@@ -105,15 +182,21 @@ sub value_must_be_division_id_for_property {
   return 1;
 }
 
+=head2 value_must_be_division_id_for_property($division_name,$property_name)
+
+Return 1 if the value of the specified property (division name,
+property name) MUST be a division ID and not a STRING or BOOLEAN.
+
+  my $result = $ontology->value_must_be_division_id_for_property($division_name,$property_name)
+
+=cut
+
 ######################################################################
 
 sub get_rule_for {
 
-  # Return the rule for (1) the entity named $division_name, (2) the
-  # property named $property_name, and (3) that has an optional
-  # inverse entity named $inverse_entity_name.
+  my $self = shift;
 
-  my $self          = shift;
   my $division_name = shift;
   my $property_name = shift;
   my $name_or_value = shift;
@@ -125,18 +208,29 @@ sub get_rule_for {
   return $rule;
 }
 
+=head2 get_rule_for($division_name,$property_name,$name_or_value)
+
+Return the C<SML::OntologyRule> for (1) the entity named
+$division_name, (2) the property named $property_name, and (3) that
+has an optional inverse entity named $inverse_entity_name.
+
+  my $rule = $ontology->get_rule_for($division_name,$property_name,$name_or_value);
+
+=cut
+
 ######################################################################
 
 sub get_inverse_rule_for {
 
-  my $self         = shift;
+  my $self = shift;
+
   my $subject_name = shift;             # rq-002
   my $predicate    = shift;             # is_part_of
   my $object_name  = shift;             # rq-001
 
   unless ( $subject_name and $predicate and $object_name )
     {
-      $logger->error("CAN'T GET INVERSE RULE FOR $subject_name $predicate $object_name");
+      $logger->error("CAN'T GET INVERSE RULE, MISSING ARGUMENT(S)");
       return 0;
     }
 
@@ -147,11 +241,21 @@ sub get_inverse_rule_for {
   return $self->get_rule_with_id($inverse_rule_id);
 }
 
+=head2 get_inverse_rule_for($subject_name,$predicate,$object_name)
+
+Return the C<SML::OntologyRule> which is the inverse rule for the
+specified subject, predicate and object.
+
+  my $rule = $ontology->get_inverse_rule_for($subject_name,$predicate,$object_name);
+
+=cut
+
 ######################################################################
 
 sub get_rule_with_id {
 
-  my $self    = shift;
+  my $self = shift;
+
   my $rule_id = shift;
 
   unless ( $rule_id )
@@ -175,11 +279,20 @@ sub get_rule_with_id {
     }
 }
 
+=head2 get_rule_with_id($rule_id)
+
+Return the C<SML::OntologyRule> with the specified rule ID.
+
+  my $rule = $ontology->get_rule_with_id($rule_id);
+
+=cut
+
 ######################################################################
 
 sub get_class_for_division_name {
 
   my $self = shift;
+
   my $name = shift;
 
   unless ( $name )
@@ -199,20 +312,34 @@ sub get_class_for_division_name {
   return $href->{$name};
 }
 
+=head2 get_class_for_division_name($division_name)
+
+Return a scalar text value which is the class for the specified
+division name.
+
+  my $class = $ontology->get_class_for_division_name($division_name);
+
+For instance:
+
+  $ontology->get_class_for_division_name('DOCUMENT'); # SML::Document
+
+=cut
+
 ######################################################################
 
-sub get_list_of_allowed_property_names_for_division_name {
+sub get_allowed_property_name_list {
 
   my $self = shift;
-  my $name = shift;
 
-  if ( not $name )
+  my $division_name = shift;
+
+  if ( not $division_name )
     {
-      $logger->logcluck("CAN'T GET LIST OF ALLOWED PROPERTY NAMES FOR DIVISION NAME, MISSING ARGUMENT");
+      $logger->logcluck("CAN'T GET ALLOWED PROPERTY NAME LIST, MISSING ARGUMENT");
       return 0;
     }
 
-  my $href = $self->_get_properties_by_division_name_hash->{$name};
+  my $href = $self->_get_properties_by_division_name_hash->{$division_name};
 
   if ( not defined $href )
     {
@@ -227,46 +354,54 @@ sub get_list_of_allowed_property_names_for_division_name {
   return [ sort keys %{ $href } ];
 }
 
+=head2 get_allowed_property_name_list($division_name)
+
+Return an ArrayRef to a list of property names allowed for the
+specified division name.
+
+  my $aref = $ontology->get_allowed_property_name_list($division_name);
+
+=cut
+
 ######################################################################
 
-sub get_list_of_required_property_names_for_division_name {
+sub get_required_property_name_list {
 
   my $self = shift;
-  my $name = shift;
 
-  unless ( $name )
+  my $division_name = shift;
+
+  unless ( $division_name )
     {
-      $logger->error("CAN'T GET LIST OF REQUIRED PROPERTY NAMES FOR DIVISION NAME, MISSING ARGUMENT");
+      $logger->error("CAN'T GET REQUIRED PROPERTY NAME LIST, MISSING ARGUMENT");
       return 0;
     }
 
   my $href = $self->_get_required_properties_hash;
 
-  if ( exists $href->{$name} )
-    {
-      return [ sort keys %{ $href->{$name} } ]
-    }
-
-  else
+  unless ( exists $href->{$division_name} )
     {
       return [];
     }
+
+  return [ sort keys %{ $href->{$division_name} } ]
 }
+
+=head2 get_required_property_name_list($division_name)
+
+Return an ArrayRef to a list of property names required for the
+specified division name.
+
+  my $aref = $ontology->get_required_property_name_list($division_name);
+
+=cut
 
 ######################################################################
 
 sub has_division_with_name {
 
-  # If, DURING the reading of rule files you need to know whether an
-  # division with a specified name has been defined use THIS method.
-  #
-  # Notice that this method loops through the rule hash to determine
-  # whether the ontology defines an division with the specified name.
-  # The rule hash is built bit by bit as the rule files are read.
-  # This means this method will return an answer based on the rules
-  # read SO FAR.
-
   my $self = shift;
+
   my $name = shift;
 
   my $href = $self->_get_rule_hash;
@@ -284,14 +419,28 @@ sub has_division_with_name {
   return 0;
 }
 
+=head2 has_division_with_name($name)
+
+Return 1 if the ontology defines a division with the specified name.
+
+  my $result = $ontology->has_division_with_name($name);
+
+ONLY USE THIS METHOD DURING THE READING OF RULE FILES.
+
+Notice that this method loops through the rule hash to determine
+whether the ontology defines an division with the specified name.
+The rule hash is built bit by bit as the rule files are read.
+This means this method will return an answer based on the rules
+read SO FAR.
+
+=cut
+
 ######################################################################
 
 sub has_rule_for {
 
-  # Return 1 if the ontology has a rule for the specified division
-  # name, property name, and object name or value.
+  my $self = shift;
 
-  my $self          = shift;
   my $division_name = shift;
   my $property_name = shift;
   my $name_or_value = shift;
@@ -306,14 +455,21 @@ sub has_rule_for {
   return 0;
 }
 
+=head2 has_rule_for($division_name,$property_name,$name_or_value)
+
+Return 1 if the ontology has a rule for the specified division name,
+property name, and object name or value.
+
+  my $result = $ontology->has_rule_for($division_name,$property_name,$name_or_value);
+
+=cut
+
 ######################################################################
 
 sub has_inverse_rule_for {
 
-  # Return 1 if the ontology has an inverse rule for the specified
-  # division name and property name.
+  my $self = shift;
 
-  my $self          = shift;
   my $division_name = shift;
   my $property_name = shift;
   my $name_or_value = shift;
@@ -330,16 +486,21 @@ sub has_inverse_rule_for {
   return 0;
 }
 
+=head2 has_inverse_rule_for($division_name,$property_name,$name_or_value)
+
+Return 1 if the ontology has an inverse rule for the specified
+division name, property name, and object name or value.
+
+  my $result = $ontology->has_inverse_rule_for($division_name,$property_name,$name_or_value);
+
+=cut
+
 ######################################################################
 
 sub allows_division_name {
 
-  # Return 1 if the ontology allows the specified division name.
-  #
-  # ONLY USE AFTER the reading of rule files you need to know whether
-  # an entity with a specified name has been defined use THIS method.
-
   my $self = shift;
+
   my $name = shift;
 
   my $href = $self->_get_types_by_division_name_hash;
@@ -352,25 +513,33 @@ sub allows_division_name {
   return 0;
 }
 
+=head2 allows_division_name($name)
+
+Return 1 if the ontology allows the specified division name.
+
+  my $result = $ontology->allows_division_name($name);
+
+ONLY USE AFTER the reading of rule files you need to know whether an
+entity with a specified name has been defined use THIS method.
+
+=cut
+
 ######################################################################
 
-sub allows_property_name_in_division_name {
+sub allows_property_name {
 
-  my $self          = shift;
+  my $self = shift;
+
   my $property_name = shift;
   my $division_name = shift;
 
-  if ( not $division_name )
+  unless ( $property_name and $division_name )
     {
-      $logger->logcluck("YOU MUST PROVIDE AN ENTITY NAME");
+      $logger->logcluck("CAN'T CHECK IF ONTOLOGY ALLOWS PROPERTY NAME, MISSING ARGUMENT(S)");
+      return 0;
     }
 
-  if ( not $property_name )
-    {
-      $logger->logcluck("YOU MUST PROVIDE A PROPERTY NAME");
-    }
-
-  my $aref = $self->get_list_of_allowed_property_names_for_division_name($division_name);
+  my $aref = $self->get_allowed_property_name_list($division_name);
 
   if ( not $aref )
     {
@@ -385,7 +554,7 @@ sub allows_property_name_in_division_name {
 	}
     }
 
-  my $universal_list = $self->get_list_of_allowed_property_names_for_division_name('UNIVERSAL');
+  my $universal_list = $self->get_allowed_property_name_list('UNIVERSAL');
 
   foreach my $name (@{ $universal_list })
     {
@@ -398,13 +567,21 @@ sub allows_property_name_in_division_name {
   return 0;
 }
 
+=head2 allows_property_name($property_name,$division_name)
+
+Return 1 if the ontology allows the specified property name within the
+specified division.
+
+  my $result = $ontology_allows_property_name($property_name,$division_name);
+
+=cut
+
 ######################################################################
 
 sub allows_composition {
 
-  # Return 1 if division A is allowed within division B.
+  my $self = shift;
 
-  my $self            = shift;
   my $division_name_a = shift;
   my $division_name_b = shift;
 
@@ -418,11 +595,20 @@ sub allows_composition {
   return 0;
 }
 
+=head2 allows_composition($division_name_a,$division_name_b)
+
+Return 1 if division name A is allowed to be within division name B.
+
+  my $result = $ontology->allows_composition($division_name_a,$division_name_b);
+
+=cut
+
 ######################################################################
 
 sub allows_property_value {
 
-  my $self          = shift;
+  my $self = shift;
+
   my $division_name = shift;
   my $property_name = shift;
   my $value         = shift;
@@ -452,18 +638,28 @@ sub allows_property_value {
   return 0;
 }
 
+=head2 allows_property_value($division_name,$property_name,$value)
+
+Return 1 if the ontology allows the specified value for the specified
+property in the specified division.
+
+  my $result = $ontology->allows_property_value($division_name,$property_name,$value);
+
+=cut
+
 ######################################################################
 
 sub allows_triple {
 
-  my $self      = shift;
+  my $self = shift;
+
   my $subject   = shift;                # rq-002
   my $predicate = shift;                # is_part_of
   my $object    = shift;                # rq-001
 
   unless ( $subject and $predicate and $object )
     {
-      $logger->error("CAN'T CHECK IF ONTOLOGY ALLOWS TRIPLE $subject $predicate $object");
+      $logger->error("CAN'T CHECK IF ONTOLOGY ALLOWS TRIPLE, MISSING ARGUMENT(S)");
       return 0;
     }
 
@@ -479,15 +675,21 @@ sub allows_triple {
   return 0;
 }
 
+=head2 allows_triple($subject,$predicate,$object)
+
+Return 1 if the ontology allows the specified subject, predicate,
+object triple.
+
+  my $result = $ontology->allows_triple($subject,$predicate,$object);
+
+=cut
+
 ######################################################################
 
 sub property_is_universal {
 
-  # Return 1 if the specified property name is universal.  That means
-  # it can appear anywhere in the text and is not restricted to
-  # certain divisions.
-
   my $self = shift;
+
   my $name = shift;
 
   my $href = $self->_get_property_rules_lookup_hash;
@@ -500,14 +702,22 @@ sub property_is_universal {
   return 0;
 }
 
+=head2 property_is_universal($name)
+
+Return 1 if the named property is universal.  That means an element
+representing the property may appear anywhere in the text not just in
+specified divisions.
+
+  my $result = $ontology->property_is_universal($name);
+
+=cut
+
 ######################################################################
 
 sub property_is_required {
 
-  # Return 1 if the specified property is required for the specified
-  # division.
+  my $self = shift;
 
-  my $self          = shift;
   my $division_name = shift;
   my $property_name = shift;
 
@@ -521,11 +731,21 @@ sub property_is_required {
   return 0;
 }
 
+=head2 property_is_required($division_name,$property_name)
+
+Return 1 if the specified property is required within the specified
+division.
+
+  my $result = $ontology->property_is_required($division_name,$property_name);
+
+=cut
+
 ######################################################################
 
 sub property_is_imply_only {
 
-  my $self          = shift;
+  my $self = shift;
+
   my $division_name = shift;
   my $property_name = shift;
 
@@ -539,18 +759,44 @@ sub property_is_imply_only {
   return 1;
 }
 
+=head2 property_is_imply_only($division_name,$property_name)
+
+Return 1 if the specified property is "imply only" within the
+specified division.
+
+  my $result = $ontology->property_is_imply_only($division_name,$property_name);
+
+This means that an element explicitly declaring this property CANNOT
+appear in the manuscript.  The property may only be "implied"
+(inferred) by the reasoner.
+
+To prevent conflicts, each inversable property should be declared in
+the ontology such that only one may be explicit.
+
+Consider, for instance, the properties used to form a hierarchy of
+entities: 'is_part_of' and 'has_part'.  These two properties are
+inverse of one another.  If A 'is_part_of' B then it follows that B
+'has_part' A.
+
+A problem arises if you allow explicit declaration of both
+'is_part_of' and 'has_part' in your manuscripts: you can create
+conflicts.  You might say B 'is_part_of' A but also that C 'has_part'
+A.  This can't happen in a hierarchy (not directly).
+
+Setting an "imply only" condition prevents this problem.
+
+=cut
+
 ######################################################################
 
-sub property_allows_cardinality {
+sub get_property_multiplicity {
 
-  # Return the allowed cardinality of the specified division and
-  # property.
+  my $self = shift;
 
-  my $self          = shift;
   my $division_name = shift;
   my $property_name = shift;
 
-  my $href = $self->_get_cardinality_of_properties_hash;
+  my $href = $self->_get_multiplicity_of_properties_hash;
 
   if ( exists $href->{$division_name}{$property_name} )
     {
@@ -560,12 +806,22 @@ sub property_allows_cardinality {
   return 0;
 }
 
+=head2 get_property_multiplicity($division_name,$property_name)
+
+Return the declared multiplicity of the specified property in the
+specified division.
+
+  my $multiplicity = $ontology->get_property_multiplicity($division_name,$property_name);
+
+Multiplicity tells you the minimum and maximum allowed number of
+members in a set.  In SML it is the number of values a property is
+allowed to have and may be either '1' or 'many'.
+
+=cut
+
 ######################################################################
 
 sub get_entity_name_list {
-
-  # Return a list of division names that have a value type of
-  # SML::Entity.
 
   my $self = shift;
 
@@ -585,23 +841,22 @@ sub get_entity_name_list {
   return $aref;
 }
 
+=head2 get_entity_name_list
+
+Return an ArrayRef to a list of entity names declared by the ontology.
+
+  my $aref = $ontology->get_entity_name_list;
+
+=cut
+
 ######################################################################
 
 sub get_structure_name_list {
-
-  # Return a list of division names that DON'T have a value type of
-  # SML::Entity.
 
   my $self = shift;
 
   my $aref  = [];
   my $tbenh = $self->_get_types_by_division_name_hash;
-
-  # !!! BUG HERE !!!
-  #
-  # This should check for values equal to SML::Structure rather than
-  # values NOT equal to SML::Entity (but SML::Structure doesn't exist
-  # yet).
 
   foreach my $name ( sort keys %{ $tbenh } )
     {
@@ -616,13 +871,21 @@ sub get_structure_name_list {
   return $aref;
 }
 
+=head2 get_structure_name_list
+
+Return an ArrayRef to a list of structure names declared by the
+ontology.  If a division is not an entity it is a structure.
+
+  my $aref = $ontology->get_structure_name_list;
+
+=cut
+
 ######################################################################
 
 sub get_allowed_containee_name_list {
 
-  # Return a list of divisions allowed within the specified one.
+  my $self = shift;
 
-  my $self          = shift;
   my $division_name = shift;
 
   my $href = $self->_get_allowed_compositions_hash;
@@ -643,11 +906,21 @@ sub get_allowed_containee_name_list {
   return [ sort keys %{ $result_hash } ];
 }
 
+=head2 get_allowed_containee_name_list($division_name)
+
+Return an ArrayRef to a list of division names allowed to exist within
+the specified one.
+
+  my $aref = $ontology->get_allowed_containee_name_list($division_name);
+
+=cut
+
 ######################################################################
 
 sub get_rule_type_count {
 
   my $self = shift;
+
   my $type = shift;
 
   my $count     = 0;
@@ -666,15 +939,21 @@ sub get_rule_type_count {
   return $count;
 }
 
+=head2 get_rule_type_count($type)
+
+Return a scalar integer value for the number of rules of the specified
+type.
+
+  my $count = $ontology->get_rule_type_count($type);
+
+=cut
+
 ######################################################################
 
 sub is_structure {
 
-  # Return 1 if the specified name is the name of a structure
-  # division.  All divisions are structure divisions except for
-  # entities.
-
   my $self = shift;
+
   my $name = shift;
 
   unless ( $name )
@@ -701,14 +980,21 @@ sub is_structure {
   return 1;
 }
 
+=head2 is_structure($name)
+
+Return 1 if the specified name is the name of a document structure
+division.
+
+  my $result = $ontology->is_structure($name);
+
+=cut
+
 ######################################################################
 
 sub is_entity {
 
-  # Return 1 if the specified name is the name of an entity division.
-  # All divisions are structure divisions except for entities.
-
   my $self = shift;
+
   my $name = shift;
 
   unless ( $name )
@@ -724,6 +1010,15 @@ sub is_entity {
 
   return 1;
 }
+
+=head2 is_entity($name)
+
+Return 1 if the specified name is the name of a document entity
+division.
+
+  my $result = $ontology->is_entity($name);
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -823,16 +1118,16 @@ has imply_only_properties_hash =>
 
 ######################################################################
 
-has cardinality_of_properties_hash =>
+has multiplicity_of_properties_hash =>
   (
    is        => 'ro',
    isa       => 'HashRef',
-   reader    => '_get_cardinality_of_properties_hash',
+   reader    => '_get_multiplicity_of_properties_hash',
    lazy      => 1,
-   builder   => '_build_cardinality_of_properties_hash',
+   builder   => '_build_multiplicity_of_properties_hash',
   );
 
-# $href->{$division_name}{$property_name} = $cardinality;
+# $href->{$division_name}{$property_name} = $multiplicity;
 
 ######################################################################
 
@@ -896,7 +1191,7 @@ sub _build_builtin_rules {
      ['SML007', 'prp', 'PROPERTY_DECLARATION',    'has_property',    'Str'          , 'STRING','',  1,   1 ,''],
      ['SML008', 'prp', 'PROPERTY_DECLARATION',    'object_type',     'Str'          , 'STRING','',  1,   1 ,''],
      ['SML009', 'prp', 'PROPERTY_DECLARATION',    'object_name',     'Str'          , 'STRING','',  1,   1 ,''],
-     ['SML010', 'prp', 'PROPERTY_DECLARATION',    'cardinality',     'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML010', 'prp', 'PROPERTY_DECLARATION',    'multiplicity',    'Str'          , 'STRING','',  1,   1 ,''],
      ['SML011', 'prp', 'PROPERTY_DECLARATION',    'required',        'Str'          , 'STRING','',  1,   1 ,''],
      ['SML011', 'prp', 'PROPERTY_DECLARATION',    'description',     'Str'          , 'STRING','',  1,   0 ,''],
 
@@ -904,10 +1199,10 @@ sub _build_builtin_rules {
      ['SML013', 'prp', 'COMPOSITION_DECLARATION', 'division',        'Str'          , 'STRING','',  1,   1 ,''],
      ['SML014', 'prp', 'COMPOSITION_DECLARATION', 'containee_class', 'Str'          , 'STRING','',  1,   1 ,''],
      ['SML015', 'prp', 'COMPOSITION_DECLARATION', 'containee_name',  'Str'          , 'STRING','',  1,   1 ,''],
-     ['SML016', 'prp', 'COMPOSITION_DECLARATION', 'cardinality',     'Str'          , 'STRING','',  1,   1 ,''],
+     ['SML016', 'prp', 'COMPOSITION_DECLARATION', 'multiplicity',    'Str'          , 'STRING','',  1,   1 ,''],
      ['SML017', 'prp', 'COMPOSITION_DECLARATION', 'description',     'Str'          , 'STRING','',  1,   0 ,''],
-     ['SML018', 'enu', 'COMPOSITION_DECLARATION', 'cardinality',     'Str'          , '1',     '',  1,   1 ,''],
-     ['SML019', 'enu', 'COMPOSITION_DECLARATION', 'cardinality',     'Str'          , 'many',  '',  1,   1 ,''],
+     ['SML018', 'enu', 'COMPOSITION_DECLARATION', 'multiplicity',    'Str'          , '1',     '',  1,   1 ,''],
+     ['SML019', 'enu', 'COMPOSITION_DECLARATION', 'multiplicity',    'Str'          , 'many',  '',  1,   1 ,''],
 
      ['SML020', 'div', 'ENUMERATION_DECLARATION', 'exists',          'SML::Division', '',      '',  1,   '',''],
      ['SML021', 'prp', 'ENUMERATION_DECLARATION', 'division',        'Str'          , 'STRING','',  1,   1 ,''],
@@ -925,7 +1220,7 @@ sub _build_builtin_rules {
       my $value_type      = $rule->[4];
       my $name_or_value   = $rule->[5];
       my $inverse_rule_id = $rule->[6];
-      my $cardinality     = $rule->[7];
+      my $multiplicity    = $rule->[7];
       my $required        = $rule->[8];
       my $imply_only      = $rule->[9];
 
@@ -939,7 +1234,7 @@ sub _build_builtin_rules {
 	 value_type      => $value_type,
 	 name_or_value   => $name_or_value,
 	 inverse_rule_id => $inverse_rule_id,
-	 cardinality     => $cardinality,
+	 multiplicity    => $multiplicity,
 	 required        => $required,
 	 imply_only      => $imply_only,
 	);
@@ -998,7 +1293,7 @@ sub _read_rule_file {
       my $value_type      = $util->trim_whitespace( $field->[4] );
       my $name_or_value   = $util->trim_whitespace( $field->[5] );
       my $inverse_rule_id = $util->trim_whitespace( $field->[6] );
-      my $cardinality     = $util->trim_whitespace( $field->[7] );
+      my $multiplicity    = $util->trim_whitespace( $field->[7] );
       my $required        = $util->trim_whitespace( $field->[8] );
       my $imply_only      = $util->trim_whitespace( $field->[9] );
 
@@ -1012,7 +1307,7 @@ sub _read_rule_file {
 	 value_type      => $value_type,
 	 name_or_value   => $name_or_value,
 	 inverse_rule_id => $inverse_rule_id,
-	 cardinality     => $cardinality,
+	 multiplicity    => $multiplicity,
 	 required        => $required,
 	 imply_only      => $imply_only,
 	);
@@ -1228,14 +1523,14 @@ sub _build_imply_only_properties_hash {
 
 ######################################################################
 
-sub _build_cardinality_of_properties_hash {
+sub _build_multiplicity_of_properties_hash {
 
-  # Return a hash of 'cardinality of' properties indexed by division
+  # Return a hash of 'multiplicity of' properties indexed by division
   # name and property.
 
   my $self = shift;
 
-  my $coph = {};                        # cardinality of properties
+  my $coph = {};                        # multiplicity of properties
   my $href = $self->_get_rule_hash;
 
   foreach my $rule ( values %{ $href } )
@@ -1249,9 +1544,9 @@ sub _build_cardinality_of_properties_hash {
 
       my $division_name = $rule->get_division_name;
       my $property_name = $rule->get_property_name;
-      my $cardinality   = $rule->get_cardinality;
+      my $multiplicity  = $rule->get_multiplicity;
 
-      $coph->{$division_name}{$property_name} = $cardinality;
+      $coph->{$division_name}{$property_name} = $multiplicity;
 
     }
 
@@ -1298,37 +1593,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::Ontology> - an explicit formal specification of terms that
-represent the entities defined to exist in some area of interest, the
-relationships that hold among them, and the formal axioms that
-constrain the interpretation and well-formed use of those terms.
-
-=head1 VERSION
-
-This documentation refers to L<"SML::Ontology"> version 2.0.0.
-
-=head1 SYNOPSIS
-
-  my $ont = SML::Ontology->new();
-
-=head1 DESCRIPTION
-
-An ontology is an explicit formal specification of terms that
-represent the entities defined to exist in some area of interest, the
-relationships that hold among them, and the formal axioms that
-constrain the interpretation and well-formed use of those terms.
-
-=head1 METHODS
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

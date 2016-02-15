@@ -2727,7 +2727,7 @@ sub _build_division_test_case_list {
       {
        warning =>
        {
-	is_valid => 'INVALID PROPERTY CARDINALITY',
+	is_valid => 'INVALID PROPERTY MULTIPLICITY',
        },
       },
      },
@@ -3936,7 +3936,7 @@ sub _build_document_test_case_list {
      },
 
      {
-      # INVALID PROPERTY CARDINALITY
+      # INVALID PROPERTY MULTIPLICITY
       name     => 'td-000079',
       testfile => 'td-000079.txt',
       docid    => 'td-000079',
@@ -3948,7 +3948,7 @@ sub _build_document_test_case_list {
        {
 	is_valid =>
 	[
-	 ['sml.Division' => 'INVALID PROPERTY CARDINALITY'],
+	 ['sml.Division' => 'INVALID PROPERTY MULTIPLICITY'],
 	 ['sml.Document' => 'THE DOCUMENT IS NOT VALID'],
 	],
        },
@@ -4258,7 +4258,7 @@ sub _build_ontology_test_case_list {
 	'yellow',
 	'red',
        ],
-       get_list_of_allowed_property_names_for_division_name =>
+       get_allowed_property_name_list =>
        [
 	'allocation',
 	'assignee',
@@ -4332,7 +4332,7 @@ sub _build_ontology_test_case_list {
        get_rule_for => 'SML::OntologyRule',
        get_rule_with_id => 'SML::OntologyRule',
        get_class_for_entity_name => 'SML::Entity',
-       get_list_of_required_property_names_for_division_name =>
+       get_required_property_name_list =>
        [
 	'description',
 	'id',
@@ -4391,7 +4391,7 @@ sub _build_ontology_test_case_list {
        allows_property_value => 0,
        property_is_universal => 0,
        property_is_imply_only => 0,
-       property_allows_cardinality => 1,
+       get_property_multiplicity => 1,
       },
      },
 
@@ -4423,7 +4423,7 @@ sub _build_ontology_test_case_list {
       expected =>
       {
        property_is_imply_only => 1,
-       property_allows_cardinality => 'many',
+       get_property_multiplicity => 'many',
       },
      },
 

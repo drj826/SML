@@ -1465,7 +1465,7 @@ has valid_ontology_rule_type =>
 
 ######################################################################
 
-has valid_cardinality_value =>
+has valid_multiplicity_value =>
   (
    is      => 'ro',
    isa     => 'Str',
