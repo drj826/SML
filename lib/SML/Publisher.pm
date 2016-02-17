@@ -20,6 +20,35 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Publisher');
 
 ######################################################################
+
+=head1 NAME
+
+SML::Publisher - publish documents and other products
+
+=head1 SYNOPSIS
+
+  SML::Publisher->new(library=>$library);
+
+  $publisher->get_publish_date_time;                      # Str
+
+  $publisher->publish($id,$rendition,$style);             # Bool
+  $publisher->publish_all_documents($rendition,$style);   # Bool
+  $publisher->publish_html_overall_main_page($style);     # Bool
+  $publisher->publish_html_library_main_page($style);     # Bool
+  $publisher->publish_html_library_special_pages($style); # Bool
+  $publisher->can_publish($rendition,$styl);              # Bool
+
+=head1 DESCRIPTION
+
+A publisher generates published documents and other products from SML
+manuscripts.  You can specify the rendition and style to which you
+wish to publish the document.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -34,61 +63,6 @@ has publish_date_time =>
    reader  => 'get_publish_date_time',
    writer  => '_set_publish_date_time',
    default => q{},
-  );
-
-######################################################################
-
-has font_size_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => 'get_font_size_list',
-   lazy    => 1,
-   builder => '_build_font_size_list',
-  );
-
-######################################################################
-
-has font_weight_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => 'get_font_weight_list',
-   lazy    => 1,
-   builder => '_build_font_weight_list',
-  );
-
-######################################################################
-
-has font_shape_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => 'get_font_shape_list',
-   lazy    => 1,
-   builder => '_build_font_shape_list',
-  );
-
-######################################################################
-
-has font_family_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => 'get_font_family_list',
-   lazy    => 1,
-   builder => '_build_font_family_list',
-  );
-
-######################################################################
-
-has background_color_list =>
-  (
-   is      => 'ro',
-   isa     => 'ArrayRef',
-   reader  => 'get_background_color_list',
-   lazy    => 1,
-   builder => '_build_background_color_list',
   );
 
 ######################################################################
@@ -166,6 +140,18 @@ sub publish {
   return 1;
 }
 
+=head2 publish($id,$rendition,$style)
+
+Publish a document with the specified ID to the specified rendition
+and style. Return 1 if successful.
+
+  my $result = $publisher->publish($id,$rendition,$style);
+
+The "published_dir" option in the library.conf file controls where the
+document files are published.
+
+=cut
+
 ######################################################################
 
 sub publish_all_documents {
@@ -173,7 +159,7 @@ sub publish_all_documents {
   my $self = shift;
 
   my $rendition = shift;
-  my $style     = shift;
+  my $style     = shift || 'default';
 
   my $begin = time();
 
@@ -195,6 +181,15 @@ sub publish_all_documents {
 
   return 1;
 }
+
+=head2 publish_all_documents($rendition,$style)
+
+Publish all document in the library to the specified rendition and
+style.  Return 1 if successful.
+
+  my $result = $publisher->publish_all_documents($rendition,$style);
+
+=cut
 
 ######################################################################
 
@@ -250,6 +245,16 @@ sub publish_html_overall_main_page {
 
   return 1;
 }
+
+=head2 publish_html_overall_main_page($style)
+
+Publish the overall main page.  This is the page that shows the DRAFT,
+REVIEW, and APPROVED versions of the library on one page.  Return 1 if
+successful.
+
+  my $result = $publisher->publish_html_overall_main_page($style);
+
+=cut
 
 ######################################################################
 
@@ -322,6 +327,16 @@ sub publish_html_library_main_page {
 
   return 1;
 }
+
+=head2 publish_html_library_main_page($style)
+
+Publish the library main page. This is the page that enumerates the
+documents in the library and provides links to library-specific pages.
+Return 1 if successful.
+
+  my $result = $publisher->publish_html_library_main_page($style);
+
+=cut
 
 ######################################################################
 
@@ -483,11 +498,72 @@ sub publish_html_library_special_pages {
   return 1;
 }
 
+=head2 publish_html_library_special_pages($style)
+
+Publish the library special pages.
+
+  my $result = $publisher->publish_html_library_special_pages($style);
+
+Library special pages include:
+
+=over 4
+
+=item
+
+METADATA.txt => used to generate the overall main page without parsing
+any raw manuscript files.
+
+=item
+
+traceability page => displays links to various traceability views.
+
+=item
+
+traceability tree pages => displays expandable/collapsable views of
+entities that exist in hierarchies.
+
+=item
+
+ontology page => displays library ontology
+
+=item
+
+entities page => displays a index of entities sorted by entity ID
+
+=item
+
+glossary page => displays the library glossary
+
+=item
+
+acronym list page => displays the library acronym list
+
+=item
+
+references page => displays the library list of source references
+
+=item
+
+index page => displays the library-wide index of terms
+
+=item
+
+change page => displays changes made to the library since the previous version
+
+=item
+
+errors page => displays errrors in the library
+
+=back
+
+=cut
+
 ######################################################################
 
 sub can_publish {
 
-  my $self      = shift;
+  my $self = shift;
+
   my $rendition = shift;
   my $style     = shift;
 
@@ -532,6 +608,14 @@ sub can_publish {
     }
 }
 
+=head2 can_publish($rendition,$style)
+
+Return 1 if the publisher can publish the specified rendition and style.
+
+  my $result = $publisher->can_publish($rendition,$style);
+
+=cut
+
 ######################################################################
 ######################################################################
 ##
@@ -556,6 +640,61 @@ has scaled_image_width =>
    isa     => 'Str',
    reader  => '_get_scaled_image_width',
    default => '605',
+  );
+
+######################################################################
+
+has font_size_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_font_size_list',
+   lazy    => 1,
+   builder => '_build_font_size_list',
+  );
+
+######################################################################
+
+has font_weight_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_font_weight_list',
+   lazy    => 1,
+   builder => '_build_font_weight_list',
+  );
+
+######################################################################
+
+has font_shape_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_font_shape_list',
+   lazy    => 1,
+   builder => '_build_font_shape_list',
+  );
+
+######################################################################
+
+has font_family_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_font_family_list',
+   lazy    => 1,
+   builder => '_build_font_family_list',
+  );
+
+######################################################################
+
+has background_color_list =>
+  (
+   is      => 'ro',
+   isa     => 'ArrayRef',
+   reader  => 'get_background_color_list',
+   lazy    => 1,
+   builder => '_build_background_color_list',
   );
 
 ######################################################################
@@ -1281,45 +1420,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::Publisher> - generates published output files from SML
-documents
-
-=head1 VERSION
-
-2.0.0
-
-=head1 SYNOPSIS
-
-  my $publisher = SML::Publisher->new
-                    (
-                      library => $library,
-                    );
-
-  my $boolean = $publisher->publish($id,$rendition,$style);
-
-=head1 DESCRIPTION
-
-A publisher generates published output files from SML documents.  You
-can specify the rendition and style to which you wish to publish the
-document.
-
-Currently supported renditions are: html, latex, and pdf.
-
-Currently supported styles are: default.
-
-=head1 METHODS
-
-=head2 publish
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

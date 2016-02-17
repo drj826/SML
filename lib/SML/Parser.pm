@@ -3738,16 +3738,10 @@ sub _process_end_division_marker {
       $self->_parse_document_index_terms($document);
       $self->_validate_division_blocks($document);
       $self->_parse_division_blocks($document);
-      # $self->_transform_elements_to_properties($division);
       $self->_build_document_glossary($document);
       $self->_build_document_acronym_list($document);
       $self->_build_document_references($document);
     }
-
-  # elsif ( $ontology->is_entity($name) )
-  #   {
-  #     $self->_transform_elements_to_properties($division);
-  #   }
 
   my $block = SML::PreformattedBlock->new
     (

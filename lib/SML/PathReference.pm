@@ -15,6 +15,32 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.PathReference');
 
 ######################################################################
+
+=head1 NAME
+
+SML::PathReference - a reference to a file path
+
+=head1 SYNOPSIS
+
+  SML::PathReference->new
+    (
+      pathspec        => $pathspec,
+      library         => $library,
+      containing_part => $part,
+    );
+
+  $ref->get_pathspec;                   # Str
+
+=head1 DESCRIPTION
+
+An C<SML::PathReference> extends C<SML::String> to represent a file
+path specification.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -29,6 +55,14 @@ has pathspec =>
    reader   => 'get_pathspec',
    required => 1,
   );
+
+=head2 get_pathspec
+
+Return a scalar text value which is the path specification.
+
+  my $path = $ref->get_pathspec
+
+=cut
 
 ######################################################################
 
@@ -82,44 +116,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::PathReference> - a reference to a file path
-
-=head1 VERSION
-
-2.0.0
-
-=head1 SYNOPSIS
-
-  extends SML::String
-
-  example: [path:/etc/init]
-
-  my $ref = SML::PathReference->new
-              (
-                pathspec        => $pathspec,   # '/etc/init'
-                library         => $library,
-                containing_part => $part,
-              );
-
-  my $string = $ref->get_pathspec;   # '/etc/init'
-
-=head1 DESCRIPTION
-
-Extends C<SML::String> to represent a file path specification.
-
-=head1 METHODS
-
-=head2 get_pathspec
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

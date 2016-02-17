@@ -13,6 +13,32 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.References');
 
 ######################################################################
+
+=head1 NAME
+
+SML::References - a list of source references
+
+=head1 SYNOPSIS
+
+  SML::References->new();
+
+  $references->add_source($source);     # Bool
+  $references->has_source($id);         # Bool
+  $references->contains_entries;        # Bool
+  $references->get_source($id);         # SML::Source
+  $references->get_entry_count;         # Int
+  $references->get_entry_list;          # ArrayRef
+
+=head1 DESCRIPTION
+
+An C<SML::References> object remembers information about referenced
+sources.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -32,7 +58,8 @@ my $logger = Log::Log4perl::get_logger('sml.References');
 
 sub add_source {
 
-  my $self   = shift;
+  my $self = shift;
+
   my $source = shift;
 
   unless ( $source )
@@ -56,12 +83,21 @@ sub add_source {
   return 1;
 }
 
+=head2 add_source
+
+Add an C<SML::Source> to the list of references.
+
+  my $result = $references->add_source($source);
+
+=cut
+
 ######################################################################
 
 sub has_source {
 
   my $self = shift;
-  my $id   = shift;
+
+  my $id = shift;
 
   unless ( $id )
     {
@@ -77,6 +113,14 @@ sub has_source {
   return 0;
 }
 
+=head2 has_source
+
+Return 1 if the specified source is in the list of references.
+
+  my $result = $references->has_source($id);
+
+=cut
+
 ######################################################################
 
 sub contains_entries {
@@ -91,12 +135,21 @@ sub contains_entries {
   return 0;
 }
 
+=head2 contains_entries
+
+Return 1 if the references list contains any entries.
+
+  my $result = $references->contains_entries;
+
+=cut
+
 ######################################################################
 
 sub get_source {
 
   my $self = shift;
-  my $id   = shift;
+
+  my $id = shift;
 
   unless ( defined $self->_get_source_hash->{$id} )
     {
@@ -108,22 +161,30 @@ sub get_source {
   return $self->_get_source_hash->{$id};
 }
 
+=head2 get_source
+
+Return the C<SML::Source> with the specified ID.
+
+  my $source = $references->get_source($id);
+
+=cut
+
 ######################################################################
 
-sub get_sources {
+# sub get_sources {
 
-  my $self = shift;
-  my $id   = shift;
+#   my $self = shift;
+#   my $id   = shift;
 
-  unless ( values %{ $self->_get_source_hash } )
-    {
-      $logger->error("CAN'T GET SOURCES \'$id\'");
+#   unless ( values %{ $self->_get_source_hash } )
+#     {
+#       $logger->error("CAN'T GET SOURCES \'$id\'");
 
-      return 0;
-    }
+#       return 0;
+#     }
 
-  return $self->_get_source_hash;
-}
+#   return $self->_get_source_hash;
+# }
 
 ######################################################################
 
@@ -135,6 +196,15 @@ sub get_entry_count {
 
   return scalar keys %{ $self->_get_source_hash }
 }
+
+=head2 get_entry_count
+
+Return an integer count of the number of entries in the references
+list.
+
+  my $count = $references->get_entry_count;
+
+=cut
 
 ######################################################################
 
@@ -154,6 +224,14 @@ sub get_entry_list {
 
   return $aref;
 }
+
+=head2 get_entry_list
+
+Return an ArrayRef to a list of entries in the references list.
+
+  my $aref = $references->get_entry_list;
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -183,41 +261,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::References> - a list of cited references.
-
-=head1 VERSION
-
-This documentation refers to L<"SML::References"> version 2.0.0.
-
-=head1 SYNOPSIS
-
-  my $refs = SML::References->new();
-
-=head1 DESCRIPTION
-
-A references object remembers information about referenced sources.
-
-=head1 METHODS
-
-=head2 add_source
-
-=head2 has_source
-
-=head2 get_source
-
-=head2 get_sources
-
-=head2 replace_division_id
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

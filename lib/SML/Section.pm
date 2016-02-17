@@ -15,6 +15,36 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Section');
 
 ######################################################################
+
+=head1 NAME
+
+SML::Section - document structure containing info about a topic
+
+=head1 SYNOPSIS
+
+  SML::Section->new
+    (
+      depth   => $depth,
+      id      => $id,
+      library => $library,
+    );
+
+  $section->get_depth;                  # Int
+  $section->get_top_number;             # Str
+  $section->set_top_number;             # Bool
+
+=head1 DESCRIPTION
+
+An C<SML::Section> is a document structure that begins with a section
+heading and contains information about a specific topic.  Authors may
+create section headings at different levels to create a hierarchy of
+sections to organize document content.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -46,16 +76,6 @@ has depth =>
 
 ######################################################################
 
-# has sectype =>
-#   (
-#    is       => 'ro',
-#    isa      => 'Str',
-#    reader   => 'get_sectype',
-#    default  => 'Section',
-#   );
-
-######################################################################
-
 has top_number =>
   (
    is       => 'ro',
@@ -74,34 +94,8 @@ has top_number =>
 
 sub encloses_division_with_name {
 
-  # Return 1 if this section 'encloses' a division with the specified
-  # name.  If the section in question is chapter 3, this means return
-  # 1 if any sub-section of chapter 3 contains a division with the
-  # specified name.
-  #
-  # Sections exist in sequences and cannot be nested.  This may seem
-  # counterintuitive.  A section may not contain another section?
-  # What about sub-sections?  Technically, sections don't *contain*
-  # sub-sections.  Sections have properties like depth and number that
-  # make them appear nested, when in fact they are not.
-  #
-  # If you want to know if chapter 3 (or any of its sub-sections)
-  # contains a table, you must check each sub-section individually.
-  # That's what this method does.
-  #
-  # This method takes advantage of the way sections are numbered:
-  #
-  #   3
-  #   3.1
-  #   3.2
-  #   3.2.1
-  #   3.2.2
-  #
-  # It assumes one section 'encloses' another if the section number of
-  # the first matches the beginning of the second.  For instance, this
-  # method assumes section 3.2 encloses section 3.2.2.
-
   my $self = shift;
+
   my $name = shift;
 
   my $number       = $self->get_number;
@@ -123,6 +117,40 @@ sub encloses_division_with_name {
   return 0;
 }
 
+=head2 encloses_division_with_name($name)
+
+Return 1 if this section 'encloses' a division with the specified
+name.
+
+  my $result = $section->encloses_division_with_name($name);
+
+If the section in question is chapter 3, this means return 1 if any
+sub-section of chapter 3 contains a division with the specified name.
+
+Sections exist in sequences and cannot be nested.  This may seem
+counterintuitive.  A section may not contain another section?  What
+about sub-sections?  Technically, sections don't *contain*
+sub-sections.  Sections have properties like depth and number that
+make them appear nested, when in fact they are not.
+
+If you want to know if chapter 3 (or any of its sub-sections) contains
+a table, you must check each sub-section individually.  That's what
+this method does.
+
+This method takes advantage of the way sections are numbered:
+
+  3
+  3.1
+  3.2
+  3.2.1
+  3.2.2
+
+It assumes one section 'encloses' another if the section number of the
+first matches the beginning of the second.  For instance, this method
+assumes section 3.2 encloses section 3.2.2.
+
+=cut
+
 ######################################################################
 
 no Moose;
@@ -131,51 +159,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::Section> - an element of document structure that begins with a
-section heading and contains information about a specific topic.
-
-=head1 VERSION
-
-2.0.0
-
-=head1 SYNOPSIS
-
-  extends SML::Division
-
-  my $section = SML::Section->new
-                  (
-                    depth   => $depth,
-                    id      => $id,
-                    library => $library,
-                  );
-
-  my $integer = $section->get_depth;
-  my $string  = $section->get_top_number;
-
-=head1 DESCRIPTION
-
-An SML section is an element of document structure that begins with a
-section heading, and contains information about a specific topic.
-Authors may create section headings at different levels to create a
-hierarchy of sections to organize document content.
-
-=head1 METHODS
-
-=head2 get_depth
-
-=head2 get_sectype
-
-=head2 get_top_number
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

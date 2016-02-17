@@ -2353,12 +2353,13 @@ sub summarize_sources {
 
   my $summary = q{};
   my $ps      = $self->get_property_store;
+  my $href    = $self->get_references;
 
   if ( $self->get_references->contains_entries )
     {
       $summary .= "Source References:\n\n";
 
-      foreach my $source ( values %{ $self->get_references->get_sources })
+      foreach my $source (@{ $href->get_entry_list })
 	{
 	  my $id    = $source->get_id;
 	  my $title = $ps->get_property_text($id,'title');

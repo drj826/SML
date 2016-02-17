@@ -14,13 +14,82 @@ use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.PropertyStore');
 
-# Meaning of terms:
-#
-#   value = raw SML text from a manuscript
-#
-#   string = a value turned into an SML::String
-#
-#   text = the plain text representation of a string
+######################################################################
+
+=head1 NAME
+
+SML::PropertyStore - store all properties in a library
+
+=head1 SYNOPSIS
+
+  SML::PropertyStore->new(library=>$library);
+
+  $ps->add_element($division_id,$element);                                # Bool
+  $ps->get_element($division_id,$property_name,$value);                   # SML::Element
+  $ps->add_triple($triple);                                               # Bool
+  $ps->has_triple($subject,$predicate,$object);                           # Bool
+  $ps->get_triple($subject,$predicate,$object);                           # SML::Triple
+  $ps->has_triple_for($subject,$predicate);                               # Bool
+  $ps->get_division_id_list;                                              # ArrayRef
+  $ps->add_property_value($division_id,$property_name,$value);            # Bool
+  $ps->set_property_text($division_id,$property_name,$text);              # Bool
+  $ps->get_property_text($division_id,$property_name);                    # Str
+  $ps->get_property_string($division_id,$property_name);                  # SML::String
+  $ps->get_property_string_for_value($division_id,$property_name,$value); # SML::String
+  $ps->get_property_text_for_value($division_id,$property_name,$value);   # Str
+  $ps->get_property_origin($division_id,$property_name);                  # Str
+  $ps->get_property_value_list($division_id,$property_name);              # ArrayRef
+  $ps->get_property_text_list($division_id,$property_name);               # ArrayRef
+  $ps->get_property_string_list($division_id,$property_name);             # ArrayRef
+  $ps->has_property($division_id,$property_name);                         # Bool
+  $ps->get_property_name_list($division_id);                              # ArrayRef
+  $ps->is_from_manuscript($division_id,$property_name,$value);            # Bool
+
+=head1 DESCRIPTION
+
+An C<SML::PropertyStore> stores all properties of all divisions in a
+library.  Each library has a property store. In addition to
+properties, the property store keeps things related to properties:
+elements, triples, and property origin information.  It also memoizes
+property data in different forms: raw SML values, SML strings, and
+plain text.  These different forms of property data are particularly
+helpful to template designers.
+
+The following terms have very sepcific meanings:
+
+=over 4
+
+=item
+
+value => raw SML text from a manuscript
+
+=item
+
+string => a value turned into an C<SML::String>
+
+=item
+
+text => the plain text representation of a string
+
+=item
+
+element => an C<SML::Element>
+
+=back
+
+A property may have multiple values and this complicates things a
+little.  For instance the 'author' property of 'DOCUMENT' may have
+multiple values (multiple individual authors).
+
+=head1 METHODS
+
+=head2 new
+
+Instantiate a new C<SML::PropertyStore>
+
+  SML::PropertyStore->new(library=>$library);
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -92,6 +161,15 @@ sub add_element {
   return 1;
 }
 
+=head2 add_element($division_id,$element)
+
+Add an C<SML::Element> to the property store.  An element represents
+one property value.
+
+  my $result = $ps->add_element;
+
+=cut
+
 ######################################################################
 
 sub get_element {
@@ -118,6 +196,15 @@ sub get_element {
 
   return $href->{$division_id}{$property_name}{$value};
 }
+
+=head2 get_element($division_id,$property_name,$value)
+
+Return the C<SML::Element> for the spcified division ID, property
+name, and raw value.
+
+  my $element = $ps->get_element($division_id,$property_name,$value);
+
+=cut
 
 ######################################################################
 
@@ -160,6 +247,14 @@ sub add_triple {
   return 1;
 }
 
+=head2 add_triple($triple)
+
+Add a triple to the property store.
+
+  my $result = $ps->add_triple($triple);
+
+=cut
+
 ######################################################################
 
 sub has_triple {
@@ -185,6 +280,15 @@ sub has_triple {
 
   return 0;
 }
+
+=head2 has_triple($subject,$predicate,$object)
+
+Return 1 if the property store has a triple for the specified subject,
+predicate, and object.
+
+  my $result = $ps->has_triple($subject,$predicate,$object);
+
+=cut
 
 ######################################################################
 
@@ -212,6 +316,15 @@ sub get_triple {
 
   return $href->{$subject}{$predicate}{$object};
 }
+
+=head2 get_triple($subject,$predicate,$object)
+
+Return the C<SML::Triple> for the specified subject, predicate, and
+object.
+
+  my $triple = $ps->get_triple($subject,$predicate,$object);
+
+=cut
 
 ######################################################################
 
@@ -241,6 +354,15 @@ sub has_triple_for {
   return 0;
 }
 
+=head2 has_triple_for($subject,$predicate)
+
+Return 1 if the property store has a triple for the specified subject
+and predicate.
+
+  my $result = $ps->has_triple_for($subject,$predicate);
+
+=cut
+
 ######################################################################
 
 sub get_division_id_list {
@@ -251,6 +373,14 @@ sub get_division_id_list {
 
   return [ keys %{$href} ];
 }
+
+=head2 get_division_id_list
+
+Return a list of division IDs known to the property store.
+
+  my $aref = $ps->get_division_id_list;
+
+=cut
 
 ######################################################################
 
@@ -274,6 +404,14 @@ sub add_property_value {
 
   return 1;
 }
+
+=head2 add_property_value
+
+Add a property value to the property store.
+
+  my $result = $ps->add_property_value($division_id,$property_name,$value);
+
+=cut
 
 ######################################################################
 
@@ -305,6 +443,14 @@ sub set_property_text {
 
   return 1;
 }
+
+=head2 set_property_text($division_id,$property_name,$text)
+
+Set the text value for the specified property.
+
+  my $result = $ps->set_property_text($division_id,$property_name,$text);
+
+=cut
 
 ######################################################################
 
@@ -343,6 +489,15 @@ sub get_property_text {
 
   return $text;
 }
+
+=head2 get_property_text($division_id,$property_name)
+
+Return a scalar text value which is the plain text rendition of a
+property value.
+
+  my $text = $ps->get_property_text($division_id,$property_name);
+
+=cut
 
 ######################################################################
 
@@ -387,6 +542,14 @@ sub get_property_string {
   return $string;
 }
 
+=head2 get_property_string($division_id,$property_name)
+
+Return an C<SML::String> rendition of a property value.
+
+  my $string = $ps->get_property_string($division_id,$property_name);
+
+=cut
+
 ######################################################################
 
 sub get_property_string_for_value {
@@ -422,6 +585,15 @@ sub get_property_string_for_value {
   return $string;
 }
 
+=head2 get_property_string_for_value($division_id,$property_name,$value)
+
+Return an C<SML::String> for a single value of a (potentially
+multivalued) property.
+
+  my $string = $ps->get_property_string_for_value($division_id,$property_name,$value);
+
+=cut
+
 ######################################################################
 
 sub get_property_text_for_value {
@@ -452,6 +624,15 @@ sub get_property_text_for_value {
 
   return $text;
 }
+
+=head2 get_property_text_for_value($division_id,$property_name,$value)
+
+Return a scalar text value for a single value of a (potentially
+multivalued) property.
+
+  my $text = $ps->get_property_text_for_value($division_id,$property_name,$value);
+
+=cut
 
 ######################################################################
 
@@ -492,6 +673,15 @@ sub get_property_origin {
   return $util->commify_series(@{$origin_list});
 }
 
+=head2 get_property_origin($division_id,$property_name)
+
+Return a scalar text value which represents the location of the
+origin(s) of the specified property.
+
+  my $origin = $ps->get_property_origin($division_id,$property_name);
+
+=cut
+
 ######################################################################
 
 sub get_property_value_list {
@@ -517,6 +707,14 @@ sub get_property_value_list {
 
   return [ keys %{ $pr_href->{$division_id}{$property_name} } ];
 }
+
+=head2 get_property_value_list($division_id,$property_name)
+
+Return an ArrayRef to a list of raw SML values for the specified property.
+
+  my $aref = $ps->get_property_value_list($division_id,$property_name);
+
+=cut
 
 ######################################################################
 
@@ -562,6 +760,15 @@ sub get_property_text_list {
 
   return $text_list;
 }
+
+=head2 get_property_text_list($division_id,$property_name)
+
+Return an ArrayRef to a list of plain text values for the specified
+property.
+
+  my $aref = $ps->get_property_text_list($division_id,$property_name);
+
+=cut
 
 ######################################################################
 
@@ -612,6 +819,15 @@ sub get_property_string_list {
   return $string_list;
 }
 
+=head2 get_property_string_list($division_id,$property_name)
+
+Return an ArrayRef to a list of C<SML::String> values for the
+specified property.
+
+  my $aref = $ps->get_property_string_list($division_id,$property_name);
+
+=cut
+
 ######################################################################
 
 sub has_property {
@@ -636,6 +852,14 @@ sub has_property {
 
   return 0;
 }
+
+=head2 has_property
+
+Return 1 if the property store has the specified property.
+
+  my $result = $ps->has_property($division_id,$property_name);
+
+=cut
 
 ######################################################################
 
@@ -664,6 +888,15 @@ sub get_property_name_list {
 
   return [ keys %{ $pr_href->{$division_id} } ];
 }
+
+=head2 get_property_name_list($division_id)
+
+Return an ArrayRef to a list of property names for the specified
+division.
+
+  my $aref = $ps->get_property_name_list($division_id);
+
+=cut
 
 ######################################################################
 
@@ -701,6 +934,16 @@ sub is_from_manuscript {
 
   return 0;
 }
+
+=head2 is_from_manuscript($division_id,$property_name,$value)
+
+Return 1 if the specified property value originates from manuscript
+text (as opposed to being inferred by the reasoner or generated by a
+plugin).
+
+  my $result = $ps->is_from_manuscript($division_id,$property_name,$value);
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -985,3 +1228,26 @@ sub _set_property_origin {
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
+
+__END__
+
+=head1 AUTHOR
+
+Don Johnson (drj826@acm.org)
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
+
+Distributed under the terms of the Gnu General Public License (version
+2, 1991)
+
+This software is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+License for more details.
+
+MODIFICATIONS AND ENHANCEMENTS TO THIS SOFTWARE OR WORKS DERIVED FROM
+THIS SOFTWARE MUST BE MADE FREELY AVAILABLE UNDER THESE SAME TERMS.
+
+=cut
