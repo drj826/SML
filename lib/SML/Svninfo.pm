@@ -19,6 +19,32 @@ my $logger = Log::Log4perl::get_logger('sml.Svninfo');
 use SML::Options;
 
 ######################################################################
+
+=head1 NAME
+
+SML::Svninfo - SVN info about a file
+
+=head1 SYNOPSIS
+
+  SML::Svninfo->new(filespec=>$filespec);
+
+  $svninfo->get_filename;               # Str
+  $svninfo->get_library;                # SML::Library
+  $svninfo->get_revision;               # Str
+  $svninfo->get_date;                   # Str
+  $svninfo->get_author;                 # Str
+  $svninfo->has_been_modified;          # Bool
+  $svninfo->get_days_old;               # Int
+
+=head1 DESCRIPTION
+
+Svninfo objects represent change control information about a file.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -34,6 +60,15 @@ has filename =>
    required => 1,
   );
 
+=head2 get_filename
+
+Return a scalar text value which is the filename of the file under
+revision control.
+
+  my $filename = $svninfo->get_filename;
+
+=cut
+
 ######################################################################
 
 has library =>
@@ -43,6 +78,14 @@ has library =>
    reader   => 'get_library',
    required => 1,
   );
+
+=head2 get_library
+
+Return the C<SML::Library> to which this file belongs.
+
+  my $library = $svninfo->get_library;
+
+=cut
 
 ######################################################################
 
@@ -55,6 +98,15 @@ has revision =>
    clearer   => 'clear_revision',
    predicate => 'has_revision',
   );
+
+=head2 get_revision
+
+Return a scalar text value which is the revision number of the current
+file revision.
+
+  my $revision = $svninfo->get_revision;
+
+=cut
 
 ######################################################################
 
@@ -69,6 +121,15 @@ has date =>
    default   => 'unknown',
   );
 
+=head2 get_date
+
+Return a scalar text value which is the date of the most current
+revision of the file.
+
+  my $date = $svninfo->get_date;
+
+=cut
+
 ######################################################################
 
 has author =>
@@ -79,6 +140,15 @@ has author =>
    writer  => 'set_author',
    default => 'unknown',
   );
+
+=head2 get_author
+
+Return a scalar text value which is the author (last individual to
+edit the file).
+
+  my $author = $svninfo->get_author;
+
+=cut
 
 ######################################################################
 
@@ -91,6 +161,15 @@ has modified =>
    default => 0,
   );
 
+=head2 has_been_modified
+
+Return 1 if the working copy of the file has been modified since the
+last commit.
+
+  my $result = $svninfo->has_been_modified;
+
+=cut
+
 ######################################################################
 
 has days_old =>
@@ -101,17 +180,25 @@ has days_old =>
    writer  => 'set_days_old',
   );
 
+=head2 get_days_old
+
+Return an integer value which is the number of days since the last
+revision of the file.
+
+  my $age = $svninfo->get_days_old;
+
+=cut
 
 ######################################################################
 
-has text =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   reader  => 'get_text',
-   writer  => 'set_text',
-   default => '',
-  );
+# has text =>
+#   (
+#    is      => 'ro',
+#    isa     => 'Str',
+#    reader  => 'get_text',
+#    writer  => 'set_text',
+#    default => '',
+#   );
 
 ######################################################################
 ######################################################################
@@ -392,46 +479,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::Svninfo> - an object that represents change control information
-about a file.
-
-=head1 VERSION
-
-This documentation refers to L<"SML::Svninfo"> version 2.0.0.
-
-=head1 SYNOPSIS
-
-  my $svninfo = SML::Svninfo->new(filespec=>$filespec);
-
-=head1 DESCRIPTION
-
-Svninfo objects represent change control information about a file.
-
-=head1 METHODS
-
-=head2 get_filespec
-
-=head2 get_revision
-
-=head2 get_date
-
-=head2 get_author
-
-=head2 has_been_modified
-
-=head2 get_days_old
-
-=head2 get_text
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

@@ -2702,6 +2702,7 @@ sub _end_block {
   # validate certain block semantics
   $self->_validate_cross_ref_semantics($block);
   $self->_validate_id_ref_semantics($block);
+  $self->_validate_title_ref_semantics($block);
   $self->_validate_page_ref_semantics($block);
 
   if ( $block->isa('SML::Element') )
@@ -8711,6 +8712,62 @@ sub _validate_id_ref_semantics {
 	}
 
       $text =~ s/$syntax->{id_ref}//xms;
+    }
+
+  return $valid;
+}
+
+######################################################################
+
+sub _validate_title_ref_semantics {
+
+  my $self  = shift;
+  my $block = shift;
+
+  if ( $block->isa('SML::PreformattedBlock') )
+    {
+      return 1;
+    }
+
+  my $library = $self->_get_library;
+  my $syntax  = $library->get_syntax;
+  my $util    = $library->get_util;
+  my $text    = $block->get_content;
+
+  if (
+      not
+      (
+       $text =~ /$syntax->{title_ref}/xms
+       or
+       $text =~ /$syntax->{begin_title_ref}/xms
+      )
+     )
+    {
+      return 1;
+    }
+
+  $text = $util->remove_literals($text);
+
+  my $valid = 1;
+
+  while ( $text =~ /$syntax->{title_ref}/xms )
+    {
+      my $id = $2;
+
+      if ( $library->has_division_id($id) )
+	{
+	  $logger->trace("title reference to \'$id\' is valid");
+	}
+
+      else
+	{
+	  my $msg = "INVALID TITLE REFERENCE $id";
+	  my $location = $block->get_location;
+	  $self->_handle_error('warn',$msg,$location);
+	  $valid = 0;
+	}
+
+      $text =~ s/$syntax->{title_ref}//xms;
     }
 
   return $valid;

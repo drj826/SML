@@ -15,6 +15,33 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Symbol');
 
 ######################################################################
+
+=head1 NAME
+
+SML::Symbol - a special character not represented by 7-bit ASCII
+
+=head1 SYNOPSIS
+
+  SML::Symbol->new
+    (
+      content         => $content,
+      library         => $library,
+      containing_part => $part,
+    );
+
+  $symbol->get_preceding_character;     # Str
+  $symbol->get_following_character;     # Str
+
+=head1 DESCRIPTION
+
+An C<SML::Symbol> extends an C<SML::String> to represent a symbol not
+represented by 7-bit ACSII.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -37,7 +64,13 @@ has preceding_character =>
    default => '',
   );
 
-# This is the single character immediately preceding
+=head2 get_preceding_character
+
+Return the single character immediately preceding the symbol.
+
+  my $char = $symbol->get_preceding_character;
+
+=cut
 
 ######################################################################
 
@@ -49,6 +82,14 @@ has following_character =>
    default => '',
   );
 
+=head2 get_following_character
+
+Return the single character immediately following the symbol.
+
+  my $char = $symbol->get_following_character;
+
+=cut
+
 ######################################################################
 ######################################################################
 ##
@@ -56,6 +97,8 @@ has following_character =>
 ##
 ######################################################################
 ######################################################################
+
+# NONE
 
 ######################################################################
 ######################################################################
@@ -65,6 +108,8 @@ has following_character =>
 ######################################################################
 ######################################################################
 
+# NONE
+
 ######################################################################
 ######################################################################
 ##
@@ -72,6 +117,8 @@ has following_character =>
 ##
 ######################################################################
 ######################################################################
+
+# NONE
 
 ######################################################################
 
@@ -81,46 +128,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::Symbol> - a special character not represented by 7-bit ASCII
-
-=head1 VERSION
-
-2.0.0
-
-=head1 SYNOPSIS
-
-  extends SML::String
-
-  my $symbol = SML::Symbol->new
-              (
-                content         => $content,
-                library         => $library,
-                containing_part => $part,
-              );
-
-  my $string = $symbol->get_preceding_character;
-  my $string = $symbol->get_following_character;
-
-=head1 DESCRIPTION
-
-Extends C<SML::String> to represent a symbol not represented by 7-bit
-ACSII.
-
-=head1 METHODS
-
-=head2 get_preceding_character
-
-=head2 get_following_character
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)
