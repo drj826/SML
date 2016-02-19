@@ -15,6 +15,34 @@ with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.TitleReference');
 
 ######################################################################
+
+=head1 NAME
+
+SML::TitleReference - a reference to the title of a division
+
+=head1 SYNOPSIS
+
+  SML::TitleReference->new
+    (
+      tag             => $tag,
+      target_id       => $target_id,
+      library         => $library,
+      containing_part => $part,
+    );
+
+  $ref->get_tag;                        # Str
+  $ref->get_target_id;                  # Str
+
+=head1 DESCRIPTION
+
+An C<SML::TitleReference> extends C<SML::String> to represent a
+reference to the title of a division in the library.
+
+=head1 METHODS
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Public Attributes
@@ -30,6 +58,15 @@ has tag =>
    required => 1,
   );
 
+=head2 get_tag
+
+Return a scalar text value which is the tag of the element (not
+significant).
+
+  my $tag = $ref->get_tag;
+
+=cut
+
 ######################################################################
 
 has target_id =>
@@ -39,6 +76,14 @@ has target_id =>
    reader   => 'get_target_id',
    required => 1,
   );
+
+=head2 get_target_id
+
+Return a scalar text value which is the ID of the referenced division.
+
+  my $target_id = $ref->get_target_id;
+
+=cut
 
 ######################################################################
 
@@ -80,6 +125,14 @@ sub get_target_part {
   return $document->get_part($id);
 }
 
+=head2 get_target_part
+
+Return the referenced C<SML::Part>.
+
+  my $part = $ref->get_target_part;
+
+=cut
+
 ######################################################################
 ######################################################################
 ##
@@ -115,49 +168,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::TitleReference> - a reference to another location in the document
-
-=head1 VERSION
-
-2.0.0
-
-=head1 SYNOPSIS
-
-  extends SML::String
-
-  example: [ref:introduction]
-
-  my $ref = SML::TitleReference->new
-              (
-                tag             => $tag,        # 'ref'
-                target_id       => $target_id,  # 'introduction'
-                library         => $library,
-                containing_part => $part,
-              );
-
-  my $string = $ref->get_tag;        # 'ref'
-  my $id     = $ref->get_target_id;  # 'introduction'
-
-=head1 DESCRIPTION
-
-Extends C<SML::String> to represent a reference to another location in
-the document.
-
-=head1 METHODS
-
-=head2 get_tag
-
-=head2 get_target_id
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)

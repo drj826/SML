@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package SML::Util;
+package SML::Util;                      # ci-000383
 
 use Moose;
 
@@ -12,12 +12,23 @@ use Log::Log4perl qw(:easy);
 with 'MooseX::Log::Log4perl';
 my $logger = Log::Log4perl::get_logger('sml.Util');
 
-use SML::Options;
-use SML::Line;
-use SML::Block;
-use SML::File;
-use SML::Document;
-# use SML::Library;
+######################################################################
+
+=head1 NAME
+
+SML::Util - SML utility methods
+
+=head1 SYNOPSIS
+
+  SML::Util->new(library=>$library);
+
+=head1 DESCRIPTION
+
+An C<SML::Util> object provides various utility methods.
+
+=head1 METHODS
+
+=cut
 
 ######################################################################
 ######################################################################
@@ -27,13 +38,7 @@ use SML::Document;
 ######################################################################
 ######################################################################
 
-has library =>
-  (
-   is       => 'ro',
-   isa      => 'SML::Library',
-   reader   => 'get_library',
-   required => 1,
-  );
+# NONE
 
 ######################################################################
 ######################################################################
@@ -45,9 +50,8 @@ has library =>
 
 sub trim_whitespace {
 
-  # Trim leading and trailing whitespace from a line of text.
-
   my $self = shift;
+
   my $text = shift || '';
 
   $text =~ s/^\s*//m;            # ignore leading whitespace
@@ -56,27 +60,42 @@ sub trim_whitespace {
   return $text;
 }
 
+=head2 trim_whitespace($text)
+
+Remove the leading and trailing whitespace from a string.
+
+  my $text = $util->trim_whitespace($text);
+
+=cut
+
 ######################################################################
 
 sub compress_whitespace {
 
-  # Compress multiple whitespaces within a string into a single
-  # whitespace.
-
   my $self = shift;
+
   my $text = shift || '';
 
   $text =~ s/\s+/ /g;
 
   return $text;
-
 }
+
+=head2 compress_whitespace($text)
+
+Compress multiple whitespaces within a string into a single
+whitespace.
+
+  my $text = $util->compress_whitespace($text);
+
+=cut
 
 ######################################################################
 
 sub remove_newlines {
 
   my $self = shift;
+
   my $text = shift || '';
 
   $text =~ s/\r?\n/ /g;
@@ -84,11 +103,20 @@ sub remove_newlines {
   return $text;
 }
 
+=head2 remove_newlines($text)
+
+Remove newlines from a string of text.
+
+  my $text = $util->remove_newlines($text);
+
+=cut
+
 ######################################################################
 
 sub wrap {
 
   my $self = shift;
+
   my $text = shift || '';
 
   # Wrap text to 70 columns.
@@ -101,14 +129,21 @@ sub wrap {
   return $result;
 }
 
+=head2 wrap($text)
+
+Wrap a block of text to 70 columns.
+
+  my $text = $util->wrap($text);
+
+=cut
+
 ######################################################################
 
 sub hyphenate {
 
-  # Convert periods to hyphens.
-
   my $self = shift;
-  my $text = shift;
+
+  my $text = shift || '';
 
   unless ( $text )
     {
@@ -121,14 +156,23 @@ sub hyphenate {
   return $text;
 }
 
+=head2 hyphenate($text)
+
+Convert periods to hyphens within a string.
+
+  my $text = $util->hyphenate($text);
+
+=cut
+
 ######################################################################
 
 sub remove_literals {
 
   my $self = shift;
-  my $text = shift;
 
-  my $library = $self->get_library;
+  my $text = shift || '';
+
+  my $library = $self->_get_library;
   my $syntax  = $library->get_syntax;
 
   $text =~ s/$syntax->{literal}//g;
@@ -136,14 +180,23 @@ sub remove_literals {
   return $text;
 }
 
+=head2 remove_literals($text)
+
+Remove all SML literal strings from a text string.
+
+  my $text = $util->remove_literals($text);
+
+=cut
+
 ######################################################################
 
 sub remove_keystroke_symbols {
 
   my $self = shift;
-  my $text = shift;
 
-  my $library = $self->get_library;
+  my $text = shift || '';
+
+  my $library = $self->_get_library;
   my $syntax  = $library->get_syntax;
 
   $text =~ s/$syntax->{keystroke_symbol}//g;
@@ -151,11 +204,20 @@ sub remove_keystroke_symbols {
   return $text;
 }
 
+=head2 remove_keystroke_symbols($text)
+
+Remove all SML keystroke symbols from a text string.
+
+  my $text = $util->remove_keystroke_symbols($text);
+
+=cut
+
 ######################################################################
 
 sub walk_directory {
 
-  my $self     = shift;
+  my $self = shift;
+
   my $filespec = shift;
   my $callback = shift;
 
@@ -185,14 +247,24 @@ sub walk_directory {
   return 1;
 }
 
+=head2 walk_directory($filespec,$callback)
+
+Recursively walk a directory and execute a callback.  Return 1 if
+successful.
+
+  my $result = $util->walk_directory($filespec,$callback);
+
+=cut
+
 ######################################################################
 
 sub strip_string_markup {
 
   my $self = shift;
-  my $text = shift;
 
-  my $library = $self->get_library;
+  my $text = shift || '';
+
+  my $library = $self->_get_library;
   my $syntax  = $library->get_syntax;
 
   $text =~ s/$syntax->{bold_string}/$1/g;
@@ -218,14 +290,17 @@ sub strip_string_markup {
   return $text;
 }
 
+=head2 strip_string_markup($text)
+
+Strip all string markup out of a text string.
+
+  my $text = $util->strip_string_markup($text);
+
+=cut
+
 ######################################################################
 
 sub commify_series {
-
-  # Return a scalar which is a comma separated series of elements
-  # joined with an "and" before the last element.
-  #
-  # Cite: Perl Cookbook section 4.2 pg 93.
 
   my $self = shift;
 
@@ -233,7 +308,17 @@ sub commify_series {
   ( @_ == 1 ) ? $_[0]             :
   ( @_ == 2 ) ? join(" and ", @_) :
                 join(", ", @_[ 0 .. ($#_-1)], "and $_[-1]");
- }
+}
+
+=head2 commify_series
+
+Return a scalar which is a comma separated series of elements joined
+with an "and" before the last element. Cite: Perl Cookbook section 4.2
+pg 93.
+
+  my $text = $util->commify_series(@list);
+
+=cut
 
 ######################################################################
 
@@ -289,6 +374,31 @@ sub syntax_highlight_perl {
   return $formatter->format_string($code);
 }
 
+=head2 syntax_highlight_perl($code)
+
+Given a block of Perl code, return a scalar text value which is Perl
+code syntax highlighted using HTML.
+
+  my $highlighted_code = $util->syntax_highlight_perl($code);
+
+=cut
+
+######################################################################
+######################################################################
+##
+## Private Attributes
+##
+######################################################################
+######################################################################
+
+has library =>
+  (
+   is       => 'ro',
+   isa      => 'SML::Library',
+   reader   => '_get_library',
+   required => 1,
+  );
+
 ######################################################################
 ######################################################################
 ##
@@ -307,59 +417,13 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 NAME
-
-C<SML::Util> - an object that can perform string manipulations and
-other amazing feats.
-
-=head1 VERSION
-
-This documentation refers to L<"SML::Util"> version 2.0.0.
-
-=head1 SYNOPSIS
-
-  my $opt = SML::Options->new();
-
-=head1 DESCRIPTION
-
-A SML options object can perform string manipulations and other
-amazing feats.
-
-=head1 METHODS
-
-=head2 get_options
-
-=head2 get_blank_line
-
-=head2 get_empty_block
-
-=head2 get_empty_file
-
-=head2 get_empty_document
-
-=head2 get_default_section
-
-=head2 trim_whitespace
-
-=head2 compress_whitespace
-
-=head2 remove_newlines
-
-=head2 wrap
-
-=head2 hyphenate
-
-=head2 remove_literals
-
-=head2 remove_keystroke_symbols
-
 =head1 AUTHOR
 
 Don Johnson (drj826@acm.org)
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2012,2013 Don Johnson (drj826@acm.org)
+Copyright (c) 2012-2016 Don Johnson (drj826@acm.org)
 
 Distributed under the terms of the Gnu General Public License (version
 2, 1991)
