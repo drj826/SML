@@ -167,6 +167,9 @@ sub publish_all_documents {
 
   $logger->info("publish all library documents");
 
+  my $now = localtime();
+  $self->_set_publish_date_time( $now );
+
   my $id_list = $library->get_division_id_list_by_name('DOCUMENT');
 
   foreach my $id (@{ $id_list })
@@ -204,6 +207,9 @@ sub publish_html_overall_main_page {
   my $begin = time();
 
   $logger->info("publish $style html overall index page");
+
+  my $now = localtime();
+  $self->_set_publish_date_time( $now );
 
   my $library      = $self->_get_library;
   my $template_dir = $library->get_template_dir . "/html/$style";
@@ -269,6 +275,9 @@ sub publish_html_library_main_page {
   my $begin = time();
 
   $logger->info("publish $style html library index page");
+
+  my $now = localtime();
+  $self->_set_publish_date_time( $now );
 
   my $library      = $self->_get_library;
   my $template_dir = $library->get_template_dir . "/html/$style";
