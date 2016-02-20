@@ -757,9 +757,15 @@ sub _publish_html_document {
     }
 
   # delete old errors file (if any)
-  if ( -f "$output_dir/$id.errors.html" )
+  if ( -f "$output_dir/errors.html" )
     {
-      unlink "$output_dir/$id.errors.html";
+      unlink "$output_dir/errors.html";
+    }
+
+  # delete old change file (if any)
+  if ( -f "$output_dir/change.html" )
+    {
+      unlink "$output_dir/change.html";
     }
 
   my $tt_config =
