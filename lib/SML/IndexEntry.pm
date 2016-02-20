@@ -411,6 +411,18 @@ term.
 ######################################################################
 ######################################################################
 
+has library =>
+  (
+   is        => 'ro',
+   isa       => 'SML::Library',
+   reader    => '_get_library',
+   required  => 1,
+  );
+
+# This is the library to which this index entry belongs.
+
+######################################################################
+
 has locator_hash =>
   (
    is      => 'ro',
@@ -448,6 +460,20 @@ has cross_ref_hash =>
 ##
 ######################################################################
 ######################################################################
+
+sub BUILD {
+
+  my $self = shift;
+
+  my $library = $self->_get_library;
+  my $parser  = $library->get_parser;
+  my $term    = $self->get_term;
+  my $string  = $parser->create_string($term);
+
+  $self->set_term_string($string);
+
+  return 1;
+}
 
 ######################################################################
 

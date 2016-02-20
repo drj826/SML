@@ -90,7 +90,6 @@ SML::Parser - create SML objects from raw text
 
   $parser->parse($id);                      # SML::Division
   $parser->create_string($text,$container); # SML::String
-  $parser->parse_library_index_terms;       # Bool
 
 =head1 DESCRIPTION
 
@@ -821,29 +820,29 @@ container.
 
 ######################################################################
 
-sub parse_library_index_terms {
+# sub parse_library_index_terms {
 
-  my $self = shift;
+#   my $self = shift;
 
-  my $library       = $self->_get_library;
-  my $library_index = $library->get_index;
+#   my $library       = $self->_get_library;
+#   my $library_index = $library->get_index;
 
-  foreach my $entry (@{ $library_index->get_entry_list })
-    {
-      $self->_parse_index_term($entry);
-    }
+#   foreach my $entry (@{ $library_index->get_entry_list })
+#     {
+#       $self->_parse_index_term($entry);
+#     }
 
-  return 1;
-}
+#   return 1;
+# }
 
-=head2 parse_library_index_terms
+# =head2 parse_library_index_terms
 
-Parse each plain text index term into an SML::String object remembered
-by the library.  Return 1 if successful.
+# Parse each plain text index term into an SML::String object remembered
+# by the library.  Return 1 if successful.
 
-  my $result = $parser->parse_library_index_terms;
+#   my $result = $parser->parse_library_index_terms;
 
-=cut
+# =cut
 
 ######################################################################
 ######################################################################
@@ -3736,7 +3735,7 @@ sub _process_end_division_marker {
       my $document = $division;
 
       $self->_build_document_index($document);
-      $self->_parse_document_index_terms($document);
+      # $self->_parse_document_index_terms($document);
       $self->_validate_division_blocks($document);
       $self->_parse_division_blocks($document);
       $self->_build_document_glossary($document);
@@ -10053,6 +10052,7 @@ sub _process_index_string {
 	(
 	 term     => $term,
 	 document => $document,
+	 library  => $library,
 	);
 
       $document_index->add_entry($document_entry);
@@ -10064,6 +10064,7 @@ sub _process_index_string {
 	(
 	 term     => $term,
 	 document => $document,
+	 library  => $library,
 	);
 
       $library_index->add_entry($library_entry);
@@ -10083,6 +10084,7 @@ sub _process_index_string {
 	    (
 	     term     => $subterm,
 	     document => $document,
+	     library  => $library,
 	    );
 
 	  $document_entry->add_subentry($document_subentry);
@@ -10094,6 +10096,7 @@ sub _process_index_string {
 	    (
 	     term     => $subterm,
 	     document => $document,
+	     library  => $library,
 	    );
 
 	  $library_entry->add_subentry($library_subentry);
@@ -10113,6 +10116,7 @@ sub _process_index_string {
 		(
 		 term     => $subsubterm,
 		 document => $document,
+		 library  => $library,
 		);
 
 	      $document_subentry->add_subentry($document_subsubentry);
@@ -10124,6 +10128,7 @@ sub _process_index_string {
 		(
 		 term     => $subsubterm,
 		 document => $document,
+		 library  => $library,
 		);
 
 	      $library_subentry->add_subentry($library_subsubentry);
@@ -10184,70 +10189,70 @@ sub _build_document_index {
 
 ######################################################################
 
-sub _parse_document_index_terms {
+# sub _parse_document_index_terms {
 
-  # Parse each plain text index term into an SML::String object.
+#   # Parse each plain text index term into an SML::String object.
 
-  my $self     = shift;
-  my $document = shift;
+#   my $self     = shift;
+#   my $document = shift;
 
-  unless ( ref $document )
-    {
-      my $msg = "CAN'T PARSE DOCUMENT INDEX TERMS, MISSING ARGUMENT";
-      $self->_handle_error('error',$msg);
-      return 0;
-    }
+#   unless ( ref $document )
+#     {
+#       my $msg = "CAN'T PARSE DOCUMENT INDEX TERMS, MISSING ARGUMENT";
+#       $self->_handle_error('error',$msg);
+#       return 0;
+#     }
 
-  my $name = $document->get_name;
+#   my $name = $document->get_name;
 
-  unless ( $name eq 'DOCUMENT' )
-    {
-      my $msg = "CAN'T PARSE DOCUMENT INDEX TERMS, NOT A DOCUMENT $document";
-      $self->_handle_error('error',$msg);
-      return 0;
-    }
+#   unless ( $name eq 'DOCUMENT' )
+#     {
+#       my $msg = "CAN'T PARSE DOCUMENT INDEX TERMS, NOT A DOCUMENT $document";
+#       $self->_handle_error('error',$msg);
+#       return 0;
+#     }
 
-  my $document_index = $document->get_index;
+#   my $document_index = $document->get_index;
 
-  foreach my $entry (@{ $document_index->get_entry_list })
-    {
-      $self->_parse_index_term($entry);
-    }
+#   foreach my $entry (@{ $document_index->get_entry_list })
+#     {
+#       $self->_parse_index_term($entry);
+#     }
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
-sub _parse_index_term {
+# sub _parse_index_term {
 
-  # Parse a plain text index term into an SML::String object.
+#   # Parse a plain text index term into an SML::String object.
 
-  my $self  = shift;
-  my $entry = shift;
+#   my $self  = shift;
+#   my $entry = shift;
 
-  unless ( ref $entry )
-    {
-      my $msg = "CAN'T PARSE INDEX TERM, MISSING ARGUMENT";
-      $self->_handle_error('error',$msg);
-      return 0;
-    }
+#   unless ( ref $entry )
+#     {
+#       my $msg = "CAN'T PARSE INDEX TERM, MISSING ARGUMENT";
+#       $self->_handle_error('error',$msg);
+#       return 0;
+#     }
 
-  my $term   = $entry->get_term;
-  my $string = $self->create_string($term);
+#   my $term   = $entry->get_term;
+#   my $string = $self->create_string($term);
 
-  $entry->set_term_string($string);
+#   $entry->set_term_string($string);
 
-  if ( $entry->has_subentries )
-    {
-      foreach my $subentry (@{ $entry->get_subentry_list })
-	{
-	  $self->_parse_index_term($subentry);
-	}
-    }
+#   if ( $entry->has_subentries )
+#     {
+#       foreach my $subentry (@{ $entry->get_subentry_list })
+# 	{
+# 	  $self->_parse_index_term($subentry);
+# 	}
+#     }
 
-  return 1;
-}
+#   return 1;
+# }
 
 ######################################################################
 
