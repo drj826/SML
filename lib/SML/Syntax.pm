@@ -20,6 +20,46 @@ SML::Syntax - regular expressions that define SML syntax
 
   SML::Syntax->new();
 
+  # DIVISION BOUNDARIES
+
+  $syntax->start_division;
+  $syntax->end_division;
+  $syntax->start_section;
+  $syntax->table_cell;
+  $syntax->end_table_row;
+
+  # CONTENT BLOCKS
+
+  $syntax->paragraph_text;
+  $syntax->list_item;
+  $syntax->bull_list_item;
+  $syntax->enum_list_item;
+  $syntax->def_list_item;
+  $syntax->indented_text;
+  $syntax->comment_line;
+
+  # NAMED VALUE ELEMENTS
+
+  $syntax->element;
+  $syntax->title_element;
+  $syntax->include_element;
+  $syntax->plugin_element;
+  $syntax->csvfile_element;
+  $syntax->script_element;
+  $syntax->outcome_element;
+  $syntax->review_element;
+  $syntax->index_element;
+  $syntax->file_element;
+  $syntax->image_element;
+  $syntax->definition_element;
+  $syntax->glossary_element;
+  $syntax->variable_element;
+  $syntax->attr_element;
+  $syntax->acronym_element;
+  $syntax->footnote_element;
+  $syntax->step_element;
+  $syntax->ver_element;
+
   # NON-REFERENCE STRINGS
 
   $syntax->bold
@@ -39,6 +79,7 @@ SML::Syntax - regular expressions that define SML syntax
   $syntax->xml_tag
   $syntax->sglquote_string;
   $syntax->dblquote_string;
+  $syntax->literal;
 
   # EXTERNAL REFERENCE STRINGS
 
@@ -73,11 +114,7 @@ SML::Syntax - regular expressions that define SML syntax
   $syntax->status_ref;
   $syntax->priority_ref;
 
-  # OTHER STRINGS
-
-  $syntax->literal;
-
-  # REPLACEMENT SYMBOLS
+  # CONTEXTUAL REPLACEMENT REFERENCES
 
   $syntax->thepage_ref;
   $syntax->thedate_ref;
@@ -86,7 +123,7 @@ SML::Syntax - regular expressions that define SML syntax
   $syntax->theversion_ref;
   $syntax->therevision_ref;
 
-  # OTHER SYMBOLS
+  # SYMBOLS
 
   $syntax->linebreak_symbol;
   $syntax->pagebreak_symbol;
@@ -102,46 +139,6 @@ SML::Syntax - regular expressions that define SML syntax
   $syntax->trademark_symbol;
   $syntax->reg_trademark_symbol;
   $syntax->section_symbol;
-
-  # BLOCKS
-
-  $syntax->paragraph_text;
-  $syntax->list_item;
-  $syntax->bull_list_item;
-  $syntax->enum_list_item;
-  $syntax->def_list_item;
-  $syntax->indented_text;
-  $syntax->comment_line;
-
-  # ELEMENTS
-
-  $syntax->element;
-  $syntax->title_element;
-  $syntax->include_element;
-  $syntax->plugin_element;
-  $syntax->csvfile_element;
-  $syntax->script_element;
-  $syntax->outcome_element;
-  $syntax->review_element;
-  $syntax->index_element;
-  $syntax->file_element;
-  $syntax->image_element;
-  $syntax->definition_element;
-  $syntax->glossary_element;
-  $syntax->variable_element;
-  $syntax->attr_element;
-  $syntax->acronym_element;
-  $syntax->footnote_element;
-  $syntax->step_element;
-  $syntax->ver_element;
-
-  # DIVISION SYNTAX
-
-  $syntax->start_division;
-  $syntax->end_division;
-  $syntax->start_section;
-  $syntax->table_cell;
-  $syntax->end_table_row;
 
   # OTHER REGULAR EXPRESSIONS
 
@@ -184,6 +181,837 @@ express document structure and content.
 ##
 ######################################################################
 ######################################################################
+
+#---------------------------------------------------------------------
+# DIVISION BOUNDARIES
+#---------------------------------------------------------------------
+
+has start_division =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^>{3}(\w+)(\.([\w\-]+))?',
+  );
+
+=head2 start_division
+
+Start a division.
+
+  $1 = division name
+  $3 = division ID
+
+Example:
+
+  >>>DOCUMENT.sml-ug
+     -------- ------
+        $1      $3
+
+=cut
+
+######################################################################
+
+has end_division =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^<{3}(\w+)',
+  );
+
+=head2 end_division
+
+End a division.
+
+  $1 = division name
+
+Example:
+
+  <<<DOCUMENT
+     --------
+        $1
+
+=cut
+
+######################################################################
+
+has start_section =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(\*+)(\.([-\w]+))?\s+(.*?)\s*$',
+  );
+
+=head2 start_section
+
+Start a section.
+
+  $1 = 1 or more '*'
+  $3 = section ID
+  $4 = section heading
+
+Example:
+
+  **** Turbo Encabulator Unilateral Phase Detractors
+  ---- ---------------------------------------------
+   $1                      $4
+
+
+  ****.chap_4 Inverse Reactive Current
+  ---- ------ ------------------------
+   $1    $3             $4
+
+=cut
+
+######################################################################
+
+has table_cell =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^:(:)?(\S+:)?\s*(.*)?$',
+  );
+
+=head2 table_cell
+
+Begin a table cell.
+
+  $1 = emphasis indicator
+  $2 = arguments
+  $3 = paragraph content
+
+Example:
+
+  : column 1, row 1
+
+=cut
+
+######################################################################
+
+has end_table_row =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^-{3}',
+  );
+
+=head2 end_table_row
+
+End a table row.
+
+  ---
+
+=cut
+
+#---------------------------------------------------------------------
+# CONTENT BLOCKS
+#---------------------------------------------------------------------
+
+has paragraph_text =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(:{1,2}\S*:?\s*)?([^\s#].*)$',
+  );
+
+=head2 paragraph_text
+
+Match paragraph text.
+
+  $1 = table cell markup (begin table cell)
+  $2 = paragraph text
+
+A paragraph can be just about any block of text.  The two main
+exceptions are (1) a block of text that begins with one or more white
+spaces is pre-formatted text, and (2) a block of text that begins with
+a '#' is a comment.  The default regular expression above represents
+these two exceptions.
+
+The first block of a table cell may be a paragraph.  In this case the
+paragraph text will be preceded by the table cell syntax.
+
+There are other exceptions not represented by the default regular
+expression above.  For instance a block of text that begins with a
+'-', '+', or '=' (followed by one or more spaces) is a list item and a
+block of text that begins with a '*' (followed by one or more spaces)
+is a section heading. Parser logic is used to distinguish these blocks
+from paragraph text.  The parser will detect that a block is one of
+these before detecting that a block is a just a plain paragraph.
+
+=cut
+
+######################################################################
+
+has list_item =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(\s*)([\-\+\=])\s+(.*)',
+  );
+
+=head2 list_item
+
+A list item (bullet, enumerated, or definition).
+
+  $1 = indent
+  $2 = bullet character
+  $3 = item text
+
+Examples:
+
+  - bullet list item
+
+  + enumerated list item
+
+  = term = definition list item
+
+=cut
+
+######################################################################
+
+has bull_list_item =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(\s*)\-\s+(.*)',
+  );
+
+=head2 bull_list_item
+
+A bullet list item.
+
+  $1 = leading whitespace
+  $2 = value
+
+Example:
+
+      - bullet list item
+  ----  ----------------
+   $1           $2
+
+=cut
+
+######################################################################
+
+has enum_list_item =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(\s*)\+\s+(.*)',
+  );
+
+=head2 enum_list_item
+
+An enumerated list item.
+
+  $1 = leading whitespace
+  $2 = value
+
+Example:
+
+      + enumerated list item
+  ----  --------------------
+   $1            $2
+
+=cut
+
+######################################################################
+
+has def_list_item =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^\=\s+(.*?)\s+\=\s+(.*?)\s*$',
+  );
+
+=head2 def_list_item
+
+A definition list item.
+
+  $1 = term
+  $2 = definition
+
+Example:
+
+  = term = definition of term...
+    ----   ---------------------
+     $1              $2
+
+=cut
+
+######################################################################
+
+has indented_text =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^\s+\S+',
+  );
+
+=head2 indented_text
+
+Match any indented text.
+
+=cut
+
+######################################################################
+
+has comment_line =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^#',
+  );
+
+=head2 comment_line
+
+Match a comment line.
+
+  # A comment line is one that begins with a '#'
+
+=cut
+
+# !!! BUG HERE !!!
+#
+# Improve comment line syntax to allow leading whitespace.
+
+#---------------------------------------------------------------------
+# NAMED VALUE ELEMENTS
+#---------------------------------------------------------------------
+
+has element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^([a-zA-Z_]+)::(\S+:)?\s*(.*?)(\s*\#(.*))?$',
+   #            1             2         3    4     5
+  );
+
+=head2 element
+
+Regular expression to match an element.
+
+  $1 = element name
+  $2 = element args
+  $3 = element value
+  $5 = comment text
+
+Examples:
+
+  title:: Document Title
+  -----   --------------
+    $1          $3
+
+  column::1:head: Column Header
+  ------  ------  -------------
+    $1      $2          $3
+
+  is_part_of:: ci-000510 # SML Perl Modules
+  ----------   ---------   ----------------
+    $1             $3              $5
+
+=cut
+
+######################################################################
+
+has title_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(title)::([^\s\:]+:)?\s*(.*?)$',
+  );
+
+=head2 title_element
+
+A title of a division.
+
+  $1 = element name  (always 'title')
+  $2 = element args
+  $3 = element value (title text)
+
+Example:
+
+  title:: Retroencabulator Waneshaft Bearing
+  -----   ----------------------------------
+    $1                    $3
+
+=cut
+
+######################################################################
+
+has include_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(\*+\s+)?include::([\w\-\*\$]+:)*\s+(.+?)\s*(\#(.*))?$',
+   #            1                 2                 3       4  5
+  );
+
+=head2 include_element
+
+Include a division.
+
+  $1 = leading asterisks
+  $2 = args
+  $3 = division ID
+  $5 = comment text
+
+Examples:
+
+  include:: rq-000123 # Parse Text Into Objects
+            ---------   -----------------------
+                $3                $5
+
+  include::flat: rq-000123
+           ----  ---------
+            $2       $3
+
+  include::hide: rq-000123
+           ----  ---------
+            $2       $3
+
+  **** include:: rq-000123
+  ----           ---------
+   $1                $3
+
+=cut
+
+######################################################################
+
+has plugin_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(\*+\s+)?plugin::([\w\-\*\$]+:)*\s*(\S+)?\s*(.*)?$',
+   #            1                2                 3        4
+  );
+
+=head2 plugin_element
+
+Run a plugin and insert the results into the document.
+
+  $1 = leading asterisks
+  $2 = args
+  $3 = plugin name
+  $4 = plugin arguments
+
+Examples:
+
+  plugin:: Pod2Txt ../SML/lib/SML/Syntax.pm
+           ------- ------------------------
+              $3              $4
+
+  **** plugin:: Parts2Sections ci-000503
+  ----          -------------- ---------
+   $1                  $3          $4
+
+=cut
+
+######################################################################
+
+has csvfile_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^csvfile::\s+(.*?)\s*$',
+  );
+
+=head2 csvfile_element
+
+Read in property values from a CSV file.
+
+  $1 = csv filename
+
+Example:
+
+  csvfile:: files/csv/ci-properties.csv
+
+=cut
+
+# !!! BUG HERE !!!
+#
+# SML::Parser doesn't yet know what to do with a csvfile element.
+
+######################################################################
+
+has script_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(\*+\s+)?script::(\S+?:)?\s*(.*?)$',
+   #            1                2          3
+  );
+
+=head2 script_element
+
+Run a script and place the output in the document.
+
+  $1 = leading asterisks
+  $2 = args
+  $3 = command
+
+Example:
+
+  script:: nmap -A -T4 scanme.nmap.org
+           ---------------------------
+                       $3
+
+=cut
+
+######################################################################
+
+has outcome_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(outcome)::(.*?):(.*?):(.*?):\s*(.*)$',
+  );
+
+=head2 outcome_element
+
+Record the outcome of a formal test or audit.
+
+  $1 = element name (always 'outcome')
+  $2 = date         (yyyy-mm-dd)
+  $3 = entity ID
+  $4 = status color (green, yellow, red, grey)
+  $5 = outcome description
+
+Example:
+
+  outcome::2016-02-18:rq-000123:green: This requirement is OK.
+  -------  ---------- --------- -----  -----------------------
+    $1         $2         $3     $4              $5
+
+=cut
+
+######################################################################
+
+has review_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(review)::(.*?):(.*?):(.*?):\s*(.*)$',
+  );
+
+=head2 review_element
+
+Record the outcome of a review.
+
+  $1 = element name (always 'review')
+  $2 = date         (yyyy-mm-dd)
+  $3 = entity ID
+  $4 = status color (green, yellow, red, grey)
+  $5 = review description
+
+Example:
+
+  review::2016-02-18:rq-000123:green: This requirement is OK.
+  ------  ---------- --------- -----  -----------------------
+    $1        $2         $3     $4              $5
+
+=cut
+
+######################################################################
+
+has index_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(index)::((\S+):)?\s*(.*)$',
+  );
+
+=head2 index_element
+
+Add terms to the index.
+
+  $1 = element name  (always 'index')
+  $3 = element arg   ('begin' or 'end')
+  $4 = element value (index entry)
+
+Example:
+
+  index:: ci-000004; SML Core Software
+  -----   ----------------------------
+    $1                 $4
+
+  index:: table of contents!font size
+  -----   ---------------------------
+    $1                 $4
+
+=cut
+
+######################################################################
+
+has file_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^file::\s*(.+?)\s*(\#(.*))?\s*$',
+  );
+
+=head2 file_element
+
+Insert the contents of a file.
+
+  $1 = filespec
+  $3 = comment text
+
+Example:
+
+  file:: /etc/inittab
+         ------------
+              $3
+
+=cut
+
+######################################################################
+
+has image_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(image|logo_image_(left|center|right|small))::\s*(.*?)\s*(\#(.*))?\s*$',
+  );
+
+=head2 image_element
+
+Insert an image.
+
+  $1 = element_name
+  $3 = filespec
+  $5 = comment text
+
+Example:
+
+  image:: files/images/logo.png
+  -----   ---------------------
+    $1             $3
+
+=cut
+
+######################################################################
+
+has definition_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^([a-zA-Z_]+)::\s*(.*?)\s*(\{(.*?)\})?\s*=\s*(.*?)\s*(\#(.*))?\s*$',
+  );
+
+=head2 definition_element
+
+Define a term.
+
+  $1 = element name
+  $2 = defined term
+  $4 = namespace
+  $5 = definition text
+  $7 = comment text
+
+Example:
+
+  acronym:: TLA = Three Letter Acronym
+  -------   ---   --------------------
+     $1      $2            $5
+
+
+  acronym:: COTS {CMMI} = commercial off the shelf
+  -------   ----  ----    ------------------------
+     $1      $2    $4               $5
+
+=cut
+
+######################################################################
+
+has glossary_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(glossary)::([^\s\:]+:)?\s*((.*?)\s*(\{(.*?)\})?\s*=\s*(.*))$',
+  );
+
+=head2 glossary_element
+
+Define a glossary term.
+
+  $1 = element name  (always 'glossary')
+  $2 = element args
+  $3 = element value (term {namespace} = definition)
+  $4 = glossary term
+  $6 = namespace
+  $7 = definition text
+
+Example:
+
+  glossary:: configuration item = A system thingy...
+  --------   ------------------   ------------------
+     $1              $4                   $7
+
+=cut
+
+######################################################################
+
+has variable_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(var)::([^\s\:]+:)?\s*((.*?)\s*(\{(.*?)\})?\s*=\s*(.*))$',
+  );
+
+=head2 variable_element
+
+Define a variable value.
+
+  $1 = element name   (always 'var')
+  $2 = element args
+  $3 = element value  (term {namespace} = definition)
+  $4 = variable name  (term)
+  $6 = namespace      (OPTIONAL)
+  $7 = variable value (definition)
+
+Example:
+
+  var:: head_count = 26,345
+  ---   ----------   ------
+   $1       $4         $7
+
+=cut
+
+######################################################################
+
+has attr_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(attr)::([^\s\:]+:)?\s*((.*?)\s*(\{(.*?)\})?\s*=\s*(.*))$',
+  );
+
+=head2 attr_element
+
+Define an attribute.
+
+  $1 = element name   (always 'attr')
+  $2 = element args
+  $3 = element value  (term {namespace} = definition)
+  $4 = variable name  (term)
+  $6 = namespace      (OPTIONAL)
+  $7 = variable value (definition)
+
+Example:
+
+  attr:: hair color = blonde
+  ----   ----------   ------
+   $1        $4         $7
+
+=cut
+
+######################################################################
+
+has acronym_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(acronym)::([^\s\:]+:)?\s*((.*?)\s*(\{(.*?)\})?\s*=\s*(.*))$',
+  );
+
+=head2 acronym_element
+
+Define an acronym.
+
+  $1 = element name (always 'acronym')
+  $2 = element args
+  $3 = element value (acronym {namespace} = definition)
+  $4 = acronym term
+  $6 = namespace
+  $7 = acronym definition
+
+Example:
+
+  acronym:: TLA = Three Letter Acronym
+  -------   ---   --------------------
+     $1      $4            $7
+
+
+  acronym:: COTS {CMMI} = commercial off the shelf
+  -------   ----  ----    ------------------------
+     $1      $4    $6               $7
+
+=cut
+
+######################################################################
+
+has footnote_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(footnote)::([^\s\:]+):\s*(.*)?$',
+  );
+
+=head2 footnote_element
+
+A footnote.
+
+  $1 = element name  (always 'footnote')
+  $2 = element args  (note number)
+  $3 = element value (note text)
+
+Example:
+
+  footnote::1: Some assembly required, batteries not included.
+  --------  -  -----------------------------------------------
+     $1     $2                      $3
+
+=cut
+
+######################################################################
+
+has step_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^(step)::([^\s\:]+:)?\s*(.*)$',
+  );
+
+=head2 step_element
+
+An item in a step list.
+
+  $1 = element name (always 'step')
+  $2 = element args
+  $3 = element value (step description)
+
+Example:
+
+  step:: Check power and ground.
+  ----   -----------------------
+   $1              $3
+
+=cut
+
+######################################################################
+
+has ver_element =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '^ver::\s+(.+?)\s+=\s+(.+?)\s+=\s+(.*)$',
+   #                    1           2           3
+  );
+
+=head2 ver_element
+
+An entry in a version history.
+
+  $1 = version
+  $2 = date
+  $3 = description
+
+Example:
+
+  ver:: 1.5 = 2012-03-23 = Updated glossary organization.
+        ---   ----------   ------------------------------
+         $1       $2                   $3
+
+=cut
 
 #---------------------------------------------------------------------
 # NON-REFERENCE STRINGS
@@ -550,6 +1378,27 @@ Example:
   ``double quoted string''
     --------------------
               $1
+
+=cut
+
+######################################################################
+
+has literal =>
+  (
+   is      => 'ro',
+   isa     => 'Str',
+   default => '\{lit:(.*?)\}',
+  );
+
+=head2 literal
+
+Present a literal string.
+
+  $1 = literal text
+
+Example:
+
+  {lit:__init__.py}
 
 =cut
 
@@ -1161,30 +2010,7 @@ Example:
 =cut
 
 #---------------------------------------------------------------------
-# OTHER STRINGS
-#---------------------------------------------------------------------
-
-has literal =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '\{lit:(.*?)\}',
-  );
-
-=head2 literal
-
-Present a literal string.
-
-  $1 = literal text
-
-Example:
-
-  {lit:__init__.py}
-
-=cut
-
-#---------------------------------------------------------------------
-# REPLACEMENT SYMBOLS
+# CONTECTUAL REPLACEMENT REFERENCES
 #---------------------------------------------------------------------
 
 has thepage_ref =>
@@ -1290,7 +2116,7 @@ Reference the current revision number (if any).
 =cut
 
 #---------------------------------------------------------------------
-# OTHER SYMBOLS
+# SYMBOLS
 #---------------------------------------------------------------------
 
 has linebreak_symbol =>
@@ -1572,838 +2398,7 @@ Insert a section symbol.
 # captured characters to the left and right of the symbol.
 
 #---------------------------------------------------------------------
-# BLOCKS
-#---------------------------------------------------------------------
-
-has paragraph_text =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(:{1,2}\S*:?\s*)?([^\s#].*)$',
-  );
-
-=head2 paragraph_text
-
-Match paragraph text.
-
-  $1 = table cell markup (begin table cell)
-  $2 = paragraph text
-
-A paragraph can be just about any block of text.  The two main
-exceptions are (1) a block of text that begins with one or more white
-spaces is pre-formatted text, and (2) a block of text that begins with
-a '#' is a comment.  The default regular expression above represents
-these two exceptions.
-
-The first block of a table cell may be a paragraph.  In this case the
-paragraph text will be preceded by the table cell syntax.
-
-There are other exceptions not represented by the default regular
-expression above.  For instance a block of text that begins with a
-'-', '+', or '=' (followed by one or more spaces) is a list item and a
-block of text that begins with a '*' (followed by one or more spaces)
-is a section heading. Parser logic is used to distinguish these blocks
-from paragraph text.  The parser will detect that a block is one of
-these before detecting that a block is a just a plain paragraph.
-
-=cut
-
-######################################################################
-
-has list_item =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(\s*)([\-\+\=])\s+(.*)',
-  );
-
-=head2 list_item
-
-A list item (bullet, enumerated, or definition).
-
-  $1 = indent
-  $2 = bullet character
-  $3 = item text
-
-Examples:
-
-  - bullet list item
-
-  + enumerated list item
-
-  = term = definition list item
-
-=cut
-
-######################################################################
-
-has bull_list_item =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(\s*)\-\s+(.*)',
-  );
-
-=head2 bull_list_item
-
-A bullet list item.
-
-  $1 = leading whitespace
-  $2 = value
-
-Example:
-
-      - bullet list item
-  ----  ----------------
-   $1           $2
-
-=cut
-
-######################################################################
-
-has enum_list_item =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(\s*)\+\s+(.*)',
-  );
-
-=head2 enum_list_item
-
-An enumerated list item.
-
-  $1 = leading whitespace
-  $2 = value
-
-Example:
-
-      + enumerated list item
-  ----  --------------------
-   $1            $2
-
-=cut
-
-######################################################################
-
-has def_list_item =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^\=\s+(.*?)\s+\=\s+(.*?)\s*$',
-  );
-
-=head2 def_list_item
-
-A definition list item.
-
-  $1 = term
-  $2 = definition
-
-Example:
-
-  = term = definition of term...
-    ----   ---------------------
-     $1              $2
-
-=cut
-
-######################################################################
-
-has indented_text =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^\s+\S+',
-  );
-
-=head2 indented_text
-
-Match any indented text.
-
-=cut
-
-######################################################################
-
-has comment_line =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^#',
-  );
-
-=head2 comment_line
-
-Match a comment line.
-
-  # A comment line is one that begins with a '#'
-
-=cut
-
-# !!! BUG HERE !!!
-#
-# Improve comment line syntax to allow leading whitespace.
-
-#---------------------------------------------------------------------
-# ELEMENTS
-#---------------------------------------------------------------------
-
-has element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^([a-zA-Z_]+)::(\S+:)?\s*(.*?)(\s*\#(.*))?$',
-   #            1             2         3    4     5
-  );
-
-=head2 element
-
-Regular expression to match an element.
-
-  $1 = element name
-  $2 = element args
-  $3 = element value
-  $5 = comment text
-
-Examples:
-
-  title:: Document Title
-  -----   --------------
-    $1          $3
-
-  column::1:head: Column Header
-  ------  ------  -------------
-    $1      $2          $3
-
-  is_part_of:: ci-000510 # SML Perl Modules
-  ----------   ---------   ----------------
-    $1             $3              $5
-
-=cut
-
-######################################################################
-
-has title_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(title)::([^\s\:]+:)?\s*(.*?)$',
-  );
-
-=head2 title_element
-
-A title of a division.
-
-  $1 = element name  (always 'title')
-  $2 = element args
-  $3 = element value (title text)
-
-Example:
-
-  title:: Retroencabulator Waneshaft Bearing
-  -----   ----------------------------------
-    $1                    $3
-
-=cut
-
-######################################################################
-
-has include_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(\*+\s+)?include::([\w\-\*\$]+:)*\s+(.+?)\s*(\#(.*))?$',
-   #            1                 2                 3       4  5
-  );
-
-=head2 include_element
-
-Include a division.
-
-  $1 = leading asterisks
-  $2 = args
-  $3 = division ID
-  $5 = comment text
-
-Examples:
-
-  include:: rq-000123 # Parse Text Into Objects
-            ---------   -----------------------
-                $3                $5
-
-  include::flat: rq-000123
-           ----  ---------
-            $2       $3
-
-  include::hide: rq-000123
-           ----  ---------
-            $2       $3
-
-  **** include:: rq-000123
-  ----           ---------
-   $1                $3
-
-=cut
-
-######################################################################
-
-has plugin_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(\*+\s+)?plugin::([\w\-\*\$]+:)*\s*(\S+)?\s*(.*)?$',
-   #            1                2                 3        4
-  );
-
-=head2 plugin_element
-
-Run a plugin and insert the results into the document.
-
-  $1 = leading asterisks
-  $2 = args
-  $3 = plugin name
-  $4 = plugin arguments
-
-Examples:
-
-  plugin:: Pod2Txt ../SML/lib/SML/Syntax.pm
-           ------- ------------------------
-              $3              $4
-
-  **** plugin:: Parts2Sections ci-000503
-  ----          -------------- ---------
-   $1                  $3          $4
-
-=cut
-
-######################################################################
-
-has csvfile_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^csvfile::\s+(.*?)\s*$',
-  );
-
-=head2 csvfile_element
-
-Read in property values from a CSV file.
-
-  $1 = csv filename
-
-Example:
-
-  csvfile:: files/csv/ci-properties.csv
-
-=cut
-
-# !!! BUG HERE !!!
-#
-# SML::Parser doesn't yet know what to do with a csvfile element.
-
-######################################################################
-
-has script_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(\*+\s+)?script::(\S+?:)?\s*(.*?)$',
-   #            1                2          3
-  );
-
-=head2 script_element
-
-Run a script and place the output in the document.
-
-  $1 = leading asterisks
-  $2 = args
-  $3 = command
-
-Example:
-
-  script:: nmap -A -T4 scanme.nmap.org
-           ---------------------------
-                       $3
-
-=cut
-
-######################################################################
-
-has outcome_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(outcome)::(.*?):(.*?):(.*?):\s*(.*)$',
-  );
-
-=head2 outcome_element
-
-Record the outcome of a formal test or audit.
-
-  $1 = element name (always 'outcome')
-  $2 = date         (yyyy-mm-dd)
-  $3 = entity ID
-  $4 = status color (green, yellow, red, grey)
-  $5 = outcome description
-
-Example:
-
-  outcome::2016-02-18:rq-000123:green: This requirement is OK.
-  -------  ---------- --------- -----  -----------------------
-    $1         $2         $3     $4              $5
-
-=cut
-
-######################################################################
-
-has review_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(review)::(.*?):(.*?):(.*?):\s*(.*)$',
-  );
-
-=head2 review_element
-
-Record the outcome of a review.
-
-  $1 = element name (always 'review')
-  $2 = date         (yyyy-mm-dd)
-  $3 = entity ID
-  $4 = status color (green, yellow, red, grey)
-  $5 = review description
-
-Example:
-
-  review::2016-02-18:rq-000123:green: This requirement is OK.
-  ------  ---------- --------- -----  -----------------------
-    $1        $2         $3     $4              $5
-
-=cut
-
-######################################################################
-
-has index_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(index)::((\S+):)?\s*(.*)$',
-  );
-
-=head2 index_element
-
-Add terms to the index.
-
-  $1 = element name  (always 'index')
-  $3 = element arg   ('begin' or 'end')
-  $4 = element value (index entry)
-
-Example:
-
-  index:: ci-000004; SML Core Software
-  -----   ----------------------------
-    $1                 $4
-
-  index:: table of contents!font size
-  -----   ---------------------------
-    $1                 $4
-
-=cut
-
-######################################################################
-
-has file_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^file::\s*(.+?)\s*(\#(.*))?\s*$',
-  );
-
-=head2 file_element
-
-Insert the contents of a file.
-
-  $1 = filespec
-  $3 = comment text
-
-Example:
-
-  file:: /etc/inittab
-         ------------
-              $3
-
-=cut
-
-######################################################################
-
-has image_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(image|logo_image_(left|center|right|small))::\s*(.*?)\s*(\#(.*))?\s*$',
-  );
-
-=head2 image_element
-
-Insert an image.
-
-  $1 = element_name
-  $3 = filespec
-  $5 = comment text
-
-Example:
-
-  image:: files/images/logo.png
-  -----   ---------------------
-    $1             $3
-
-=cut
-
-######################################################################
-
-has definition_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^([a-zA-Z_]+)::\s*(.*?)\s*(\{(.*?)\})?\s*=\s*(.*?)\s*(\#(.*))?\s*$',
-  );
-
-=head2 definition_element
-
-Define a term.
-
-  $1 = element name
-  $2 = defined term
-  $4 = namespace
-  $5 = definition text
-  $7 = comment text
-
-Example:
-
-  acronym:: TLA = Three Letter Acronym
-  -------   ---   --------------------
-     $1      $2            $5
-
-
-  acronym:: COTS {CMMI} = commercial off the shelf
-  -------   ----  ----    ------------------------
-     $1      $2    $4               $5
-
-=cut
-
-######################################################################
-
-has glossary_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(glossary)::([^\s\:]+:)?\s*((.*?)\s*(\{(.*?)\})?\s*=\s*(.*))$',
-  );
-
-=head2 glossary_element
-
-Define a glossary term.
-
-  $1 = element name  (always 'glossary')
-  $2 = element args
-  $3 = element value (term {namespace} = definition)
-  $4 = glossary term
-  $6 = namespace
-  $7 = definition text
-
-Example:
-
-  glossary:: configuration item = A system thingy...
-  --------   ------------------   ------------------
-     $1              $4                   $7
-
-=cut
-
-######################################################################
-
-has variable_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(var)::([^\s\:]+:)?\s*((.*?)\s*(\{(.*?)\})?\s*=\s*(.*))$',
-  );
-
-=head2 variable_element
-
-Define a variable value.
-
-  $1 = element name   (always 'var')
-  $2 = element args
-  $3 = element value  (term {namespace} = definition)
-  $4 = variable name  (term)
-  $6 = namespace      (OPTIONAL)
-  $7 = variable value (definition)
-
-Example:
-
-  var:: head_count = 26,345
-  ---   ----------   ------
-   $1       $4         $7
-
-=cut
-
-######################################################################
-
-has attr_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(attr)::([^\s\:]+:)?\s*((.*?)\s*(\{(.*?)\})?\s*=\s*(.*))$',
-  );
-
-=head2 attr_element
-
-Define an attribute.
-
-  $1 = element name   (always 'attr')
-  $2 = element args
-  $3 = element value  (term {namespace} = definition)
-  $4 = variable name  (term)
-  $6 = namespace      (OPTIONAL)
-  $7 = variable value (definition)
-
-Example:
-
-  attr:: hair color = blonde
-  ----   ----------   ------
-   $1        $4         $7
-
-=cut
-
-######################################################################
-
-has acronym_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(acronym)::([^\s\:]+:)?\s*((.*?)\s*(\{(.*?)\})?\s*=\s*(.*))$',
-  );
-
-=head2 acronym_element
-
-Define an acronym.
-
-  $1 = element name (always 'acronym')
-  $2 = element args
-  $3 = element value (acronym {namespace} = definition)
-  $4 = acronym term
-  $6 = namespace
-  $7 = acronym definition
-
-Example:
-
-  acronym:: TLA = Three Letter Acronym
-  -------   ---   --------------------
-     $1      $4            $7
-
-
-  acronym:: COTS {CMMI} = commercial off the shelf
-  -------   ----  ----    ------------------------
-     $1      $4    $6               $7
-
-=cut
-
-######################################################################
-
-has footnote_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(footnote)::([^\s\:]+):\s*(.*)?$',
-  );
-
-=head2 footnote_element
-
-A footnote.
-
-  $1 = element name  (always 'footnote')
-  $2 = element args  (note number)
-  $3 = element value (note text)
-
-Example:
-
-  footnote::1: Some assembly required, batteries not included.
-  --------  -  -----------------------------------------------
-     $1     $2                      $3
-
-=cut
-
-######################################################################
-
-has step_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(step)::([^\s\:]+:)?\s*(.*)$',
-  );
-
-=head2 step_element
-
-An item in a step list.
-
-  $1 = element name (always 'step')
-  $2 = element args
-  $3 = element value (step description)
-
-Example:
-
-  step:: Check power and ground.
-  ----   -----------------------
-   $1              $3
-
-=cut
-
-######################################################################
-
-has ver_element =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^ver::\s+(.+?)\s+=\s+(.+?)\s+=\s+(.*)$',
-   #                    1           2           3
-  );
-
-=head2 ver_element
-
-An entry in a version history.
-
-  $1 = version
-  $2 = date
-  $3 = description
-
-Example:
-
-  ver:: 1.5 = 2012-03-23 = Updated glossary organization.
-        ---   ----------   ------------------------------
-         $1       $2                   $3
-
-=cut
-
-#---------------------------------------------------------------------
-# DIVISION SYNTAX
-#---------------------------------------------------------------------
-
-has start_division =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^>{3}(\w+)(\.([\w\-]+))?',
-  );
-
-=head2 start_division
-
-Start a division.
-
-  $1 = division name
-  $3 = division ID
-
-Example:
-
-  >>>DOCUMENT.sml-ug
-     -------- ------
-        $1      $3
-
-=cut
-
-######################################################################
-
-has end_division =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^<{3}(\w+)',
-  );
-
-=head2 end_division
-
-End a division.
-
-  $1 = division name
-
-Example:
-
-  <<<DOCUMENT
-     --------
-        $1
-
-=cut
-
-######################################################################
-
-has start_section =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^(\*+)(\.([-\w]+))?\s+(.*?)\s*$',
-  );
-
-=head2 start_section
-
-Start a section.
-
-  $1 = 1 or more '*'
-  $3 = section ID
-  $4 = section heading
-
-Example:
-
-  **** Turbo Encabulator Unilateral Phase Detractors
-  ---- ---------------------------------------------
-   $1                      $4
-
-
-  ****.chap_4 Inverse Reactive Current
-  ---- ------ ------------------------
-   $1    $3             $4
-
-=cut
-
-######################################################################
-
-has table_cell =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^:(:)?(\S+:)?\s*(.*)?$',
-  );
-
-=head2 table_cell
-
-Begin a table cell.
-
-  $1 = emphasis indicator
-  $2 = arguments
-  $3 = paragraph content
-
-Example:
-
-  : column 1, row 1
-
-=cut
-
-######################################################################
-
-has end_table_row =>
-  (
-   is      => 'ro',
-   isa     => 'Str',
-   default => '^-{3}',
-  );
-
-=head2 end_table_row
-
-End a table row.
-
-  ---
-
-=cut
-
-#---------------------------------------------------------------------
-# OTHER REGEXS
+# OTHER REGULAR EXPRESSIONS
 #---------------------------------------------------------------------
 
 has blank_line =>
