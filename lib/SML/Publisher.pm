@@ -239,6 +239,11 @@ sub publish_html_overall_main_page {
 
   my $vars = { library => $library };
 
+  # library stats page
+  $logger->debug("publishing library stats page.html");
+  $tt->process("overall_main_page_stats.tt",$vars,"library-stats.html")
+    || die $tt->error(), "\n";
+
   # overall index page
   $logger->debug("publishing overall index.html");
   $tt->process("overall_main_page.tt",$vars,"index.html")

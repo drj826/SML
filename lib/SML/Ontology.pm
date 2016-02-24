@@ -55,6 +55,7 @@ SML::Ontology - a formal specification of terms
   $ontology->get_structure_name_list;                                               # ArrayRef
   $ontology->get_allowed_containee_name_list($division_name);                       # ArrayRef
   $ontology->get_rule_type_count($type);                                            # Int
+  $ontology->get_rule_type_list;                                                    # ArrayRef
   $ontology->is_structure($name);                                                   # Bool
   $ontology->is_entity($name);                                                      # Bool
 
@@ -923,6 +924,12 @@ sub get_rule_type_count {
 
   my $type = shift;
 
+  unless ( $type )
+    {
+      $logger->error("CAN'T GET RULE TYPE COUNT, MISSING ARGUMENT(S)");
+      return 0;
+    }
+
   my $count     = 0;
   my $rule_hash = $self->_get_rule_hash;
 
@@ -945,6 +952,34 @@ Return a scalar integer value for the number of rules of the specified
 type.
 
   my $count = $ontology->get_rule_type_count($type);
+
+=cut
+
+######################################################################
+
+sub get_rule_type_list {
+
+  my $self = shift;
+
+  my $rule_hash = $self->_get_rule_hash;
+
+  my $result_hash = {};
+
+  foreach my $rule ( values %{ $rule_hash } )
+    {
+      my $rule_type = $rule->get_rule_type;
+
+      $result_hash->{$rule_type} = 1;
+    }
+
+  return [ sort keys %{ $result_hash } ];
+}
+
+=head2 get_rule_type_list
+
+Return an ArrayRef to the list of rules in the ontology
+
+  my $aref = $ontology->get_rule_type_list;
 
 =cut
 
