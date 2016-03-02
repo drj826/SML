@@ -1856,20 +1856,8 @@ sub _parse_lines {
   my $number         = $self->_get_number;
   my $library        = $self->_get_library;
   my $syntax         = $library->get_syntax;
-  # my $options        = $library->get_options;
-  # my $count_method   = $self->_get_count_method_hash;
-  # my $max_iterations = $options->get_MAX_PARSE_LINES;
-  # my $count          = ++ $count_method->{'_parse_lines'};
 
   $logger->trace("{$number} parse lines");
-
-  # MAX interations exceeded?
-  # if ( $count > $max_iterations )
-  #   {
-  #     my $msg = "$count: EXCEEDED MAX ITERATIONS ($max_iterations)";
-  #     $logger->logcroak("$msg");
-  #     return 0;
-  #   }
 
   $self->_set_division_stack([]);
   $self->_set_container_stack([]);

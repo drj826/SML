@@ -191,6 +191,7 @@ has start_division =>
    is      => 'ro',
    isa     => 'Str',
    default => '^>{3}(\w+)(\.([\w\-]+))?',
+   #                1    2  3
   );
 
 =head2 start_division
@@ -200,11 +201,27 @@ Start a division.
   $1 = division name
   $3 = division ID
 
-Example:
+Examples:
+
+  >>>TABLE
+     -----
+      $1
 
   >>>DOCUMENT.sml-ug
      -------- ------
         $1      $3
+
+  >>>FIGURE.fig-class-diagram-syntax
+     ------ ------------------------
+       $1             $3
+
+  >>>requirement.rq-000005
+     ----------- ---------
+          $1         $3
+
+  >>>configuration_item.ci-000433
+     ------------------ ---------
+              $1            $3
 
 =cut
 
@@ -215,6 +232,7 @@ has end_division =>
    is      => 'ro',
    isa     => 'Str',
    default => '^<{3}(\w+)',
+   #                1
   );
 
 =head2 end_division
@@ -223,11 +241,27 @@ End a division.
 
   $1 = division name
 
-Example:
+Examples:
+
+  <<<TABLE
+     -----
+      $1
 
   <<<DOCUMENT
      --------
         $1
+
+  <<<FIGURE
+     ------
+       $1
+
+  <<<requirement
+     -----------
+          $1
+
+  <<<configuration_item
+     ------------------
+             $1
 
 =cut
 
@@ -237,7 +271,8 @@ has start_section =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(\*+)(\.([-\w]+))?\s+(.*?)\s*$',
+   default => '^(\*+)(\.([-\w]+))?\s+(.+)\s*$',
+   #            1    2  3            4
   );
 
 =head2 start_section
@@ -246,18 +281,18 @@ Start a section.
 
   $1 = 1 or more '*'
   $3 = section ID
-  $4 = section heading
+  $4 = section heading  (required)
 
-Example:
+Examples:
 
   **** Turbo Encabulator Unilateral Phase Detractors
   ---- ---------------------------------------------
    $1                      $4
 
 
-  ****.chap_4 Inverse Reactive Current
-  ---- ------ ------------------------
-   $1    $3             $4
+  ****.irc Inverse Reactive Current
+  ---- --- ------------------------
+   $1  $3           $4
 
 =cut
 
@@ -268,6 +303,7 @@ has table_cell =>
    is      => 'ro',
    isa     => 'Str',
    default => '^:(:)?(\S+:)?\s*(.*)?$',
+   #             1   2         3
   );
 
 =head2 table_cell
@@ -278,9 +314,11 @@ Begin a table cell.
   $2 = arguments
   $3 = paragraph content
 
-Example:
+Examples:
 
-  : column 1, row 1
+  : table cell
+
+  :: emphasized table cell
 
 =cut
 
@@ -310,6 +348,7 @@ has paragraph_text =>
    is      => 'ro',
    isa     => 'Str',
    default => '^(:{1,2}\S*:?\s*)?([^\s#].*)$',
+   #            1                2
   );
 
 =head2 paragraph_text
@@ -345,6 +384,7 @@ has list_item =>
    is      => 'ro',
    isa     => 'Str',
    default => '^(\s*)([\-\+\=])\s+(.*)',
+   #            1    2            3
   );
 
 =head2 list_item
@@ -372,6 +412,7 @@ has bull_list_item =>
    is      => 'ro',
    isa     => 'Str',
    default => '^(\s*)\-\s+(.*)',
+   #            1         2
   );
 
 =head2 bull_list_item
@@ -396,6 +437,7 @@ has enum_list_item =>
    is      => 'ro',
    isa     => 'Str',
    default => '^(\s*)\+\s+(.*)',
+   #            1         2
   );
 
 =head2 enum_list_item
@@ -420,6 +462,7 @@ has def_list_item =>
    is      => 'ro',
    isa     => 'Str',
    default => '^\=\s+(.*?)\s+\=\s+(.*?)\s*$',
+   #                 1            2
   );
 
 =head2 def_list_item
@@ -517,6 +560,7 @@ has title_element =>
    is      => 'ro',
    isa     => 'Str',
    default => '^(title)::([^\s\:]+:)?\s*(.*?)$',
+   #            1        2              3
   );
 
 =head2 title_element
@@ -612,6 +656,7 @@ has csvfile_element =>
    is      => 'ro',
    isa     => 'Str',
    default => '^csvfile::\s+(.*?)\s*$',
+   #                        1
   );
 
 =head2 csvfile_element
@@ -663,6 +708,7 @@ has outcome_element =>
    is      => 'ro',
    isa     => 'Str',
    default => '^(outcome)::(.*?):(.*?):(.*?):\s*(.*)$',
+   #            1          2     3     4        5
   );
 
 =head2 outcome_element
@@ -690,6 +736,7 @@ has review_element =>
    is      => 'ro',
    isa     => 'Str',
    default => '^(review)::(.*?):(.*?):(.*?):\s*(.*)$',
+   #            1         2     3     4        5
   );
 
 =head2 review_element
@@ -717,6 +764,7 @@ has index_element =>
    is      => 'ro',
    isa     => 'Str',
    default => '^(index)::((\S+):)?\s*(.*)$',
+   #            1        23          4
   );
 
 =head2 index_element
@@ -746,6 +794,7 @@ has file_element =>
    is      => 'ro',
    isa     => 'Str',
    default => '^file::\s*(.+?)\s*(\#(.*))?\s*$',
+   #                     1       2  3
   );
 
 =head2 file_element
@@ -770,6 +819,7 @@ has image_element =>
    is      => 'ro',
    isa     => 'Str',
    default => '^(image|logo_image_(left|center|right|small))::\s*(.*?)\s*(\#(.*))?\s*$',
+   #            1                 2                              3       4  5
   );
 
 =head2 image_element
@@ -795,6 +845,7 @@ has definition_element =>
    is      => 'ro',
    isa     => 'Str',
    default => '^([a-zA-Z_]+)::\s*(.*?)\s*(\{(.*?)\})?\s*=\s*(.*?)\s*(\#(.*))?\s*$',
+   #            1                2       3  4               5       6  7
   );
 
 =head2 definition_element
@@ -827,6 +878,7 @@ has glossary_element =>
    is      => 'ro',
    isa     => 'Str',
    default => '^(glossary)::([^\s\:]+:)?\s*((.*?)\s*(\{(.*?)\})?\s*=\s*(.*))$',
+   #            1           2              34       5  6               7
   );
 
 =head2 glossary_element
@@ -855,6 +907,7 @@ has variable_element =>
    is      => 'ro',
    isa     => 'Str',
    default => '^(var)::([^\s\:]+:)?\s*((.*?)\s*(\{(.*?)\})?\s*=\s*(.*))$',
+   #            1      2              34       5  6               7
   );
 
 =head2 variable_element
@@ -883,6 +936,7 @@ has attr_element =>
    is      => 'ro',
    isa     => 'Str',
    default => '^(attr)::([^\s\:]+:)?\s*((.*?)\s*(\{(.*?)\})?\s*=\s*(.*))$',
+   #            1       2              34       5  6               7
   );
 
 =head2 attr_element
@@ -911,6 +965,7 @@ has acronym_element =>
    is      => 'ro',
    isa     => 'Str',
    default => '^(acronym)::([^\s\:]+:)?\s*((.*?)\s*(\{(.*?)\})?\s*=\s*(.*))$',
+   #            1          2              34       5  6               7
   );
 
 =head2 acronym_element
@@ -944,6 +999,7 @@ has footnote_element =>
    is      => 'ro',
    isa     => 'Str',
    default => '^(footnote)::([^\s\:]+):\s*(.*)?$',
+   #            1           2             3
   );
 
 =head2 footnote_element
@@ -969,6 +1025,7 @@ has step_element =>
    is      => 'ro',
    isa     => 'Str',
    default => '^(step)::([^\s\:]+:)?\s*(.*)$',
+   #            1       2              3
   );
 
 =head2 step_element
@@ -1022,6 +1079,7 @@ has bold =>
    is      => 'ro',
    isa     => 'Str',
    default => '([^!]?)!!([^!]?)',
+   #           1        2
   );
 
 =head2 bold
@@ -1041,6 +1099,7 @@ has bold_string =>
    is      => 'ro',
    isa     => 'Str',
    default => '!!([^!]+?)!!',
+   #             1
   );
 
 =head2 bold_string
@@ -1064,6 +1123,7 @@ has italics =>
    is      => 'ro',
    isa     => 'Str',
    default => '([^~]?)~~([^~]?)',
+   #           1        2
   );
 
 =head2 italics
@@ -1083,6 +1143,7 @@ has italics_string =>
    is      => 'ro',
    isa     => 'Str',
    default => '~~([^~]+?)~~',
+   #             1
   );
 
 =head2 italics_string
@@ -1106,6 +1167,7 @@ has fixedwidth =>
    is      => 'ro',
    isa     => 'Str',
    default => '([^\|]?)\|\|([^\|]?)',
+   #           1           2
   );
 
 =head2 fixedwidth
@@ -1125,6 +1187,7 @@ has fixedwidth_string =>
    is      => 'ro',
    isa     => 'Str',
    default => '\|\|([^\|]+?)\|\|',
+   #               1
   );
 
 =head2 fixedwidth_string
@@ -1148,6 +1211,7 @@ has underline =>
    is      => 'ro',
    isa     => 'Str',
    default => '([^_]?)__([^_]?)',
+   #           1        2
   );
 
 =head2 underline
@@ -1167,6 +1231,7 @@ has underline_string =>
    is      => 'ro',
    isa     => 'Str',
    default => '__([^_]+?)__',
+   #             1
   );
 
 =head2 underline_string
@@ -1190,6 +1255,7 @@ has superscript =>
    is      => 'ro',
    isa     => 'Str',
    default => '([^\^]?)\^\^([^\^]?)',
+   #           1           2
   );
 
 =head2 superscript
@@ -1209,6 +1275,7 @@ has superscript_string =>
    is      => 'ro',
    isa     => 'Str',
    default => '\^\^([^\^]+?)\^\^',
+   #               1
   );
 
 =head2 superscript_string
@@ -1230,6 +1297,7 @@ has subscript =>
    is      => 'ro',
    isa     => 'Str',
    default => '([^\,]?)\,\,([^\,]?)',
+   #           1           2
   );
 
 =head2 subscript
@@ -1249,6 +1317,7 @@ has subscript_string =>
    is      => 'ro',
    isa     => 'Str',
    default => '\,\,([^\,]+?)\,\,',
+   #               1
   );
 
 =head2 subscript_string
@@ -1270,6 +1339,7 @@ has keystroke_symbol =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[\[([^\]]+?)\]\]',
+   #               1
   );
 
 =head2 keystroke_symbol
@@ -1295,6 +1365,7 @@ has user_entered_text =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[(enter|en):\s*([^\]]+?)\s*\]',
+   #             1             2
   );
 
 =head2 user_entered_text
@@ -1319,6 +1390,7 @@ has xml_tag =>
    is      => 'ro',
    isa     => 'Str',
    default => '<([^>]+)>',
+   #            1
   );
 
 =head2 xml_tag
@@ -1342,6 +1414,7 @@ has sglquote_string =>
    is      => 'ro',
    isa     => 'Str',
    default => q{`([^`']*?)'},
+   #             1
   );
 
 =head2 sglquote_string
@@ -1365,6 +1438,7 @@ has dblquote_string =>
    is      => 'ro',
    isa     => 'Str',
    default => q{``([^`']*?)''},
+   #              1
   );
 
 =head2 dblquote_string
@@ -1388,6 +1462,7 @@ has literal =>
    is      => 'ro',
    isa     => 'Str',
    default => '\{lit:(.*?)\}',
+   #                 1
   );
 
 =head2 literal
@@ -1411,6 +1486,7 @@ has file_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[file:\s*([^\]]+?)\s*\]',
+   #                     1
   );
 
 =head2 file_ref
@@ -1434,6 +1510,7 @@ has path_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[path:\s*([^\]]+?)\s*\]',
+   #                     1
   );
 
 =head2 path_ref
@@ -1457,6 +1534,7 @@ has url_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[url:\s*([^\s\|\]]+?)(\|(.*))?\s*\]',
+   #                    1            2  3
   );
 
 =head2 url_ref
@@ -1485,6 +1563,7 @@ has command_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[cmd:\s*([^\]]+?)\s*\]',
+   #                    1
   );
 
 =head2 command_ref
@@ -1508,7 +1587,7 @@ has email_addr =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[email:\s*([^\s\|\]]+?)(\|(.*))?\s*\]',
-   # default => '\b([a-zA-Z0-9._]+@[a-zA-Z0-9._]+\.[a-zA-Z0-9._]+)\b',
+   #                      1            2  3
   );
 
 =head2 email_addr
@@ -1539,6 +1618,7 @@ has lookup_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[(lookup|l):([^\]]+?):([\w\-\.]+)\]',
+   #             1          2         3
   );
 
 =head2 lookup_ref
@@ -1564,6 +1644,7 @@ has cross_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[(ref|r):\s*([^\s\]]+?)\s*\]',
+   #             1          2
   );
 
 =head2 cross_ref
@@ -1588,6 +1669,7 @@ has begin_cross_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[(ref|r):',
+   #             1
   );
 
 =head2 begin_cross_ref
@@ -1603,6 +1685,7 @@ has title_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[(title|t):\s*([^\s\]]+?)\s*\]',
+   #             1            2
   );
 
 =head2 title_ref
@@ -1627,6 +1710,7 @@ has begin_title_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[(title|t):',
+   #             1
   );
 
 =head2 begin_title_ref
@@ -1644,6 +1728,7 @@ has id_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[id:\s*([^\s\]]+?)\s*\]',
+   #                   1
   );
 
 =head2 id_ref
@@ -1682,6 +1767,7 @@ has page_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[(page|pg):\s*([^\s\]]+?)\s*\]',
+   #             1            2
   );
 
 =head2 page_ref
@@ -1706,6 +1792,7 @@ has begin_page_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[(page|pg):',
+   #             1
   );
 
 =head2 begin_page_ref
@@ -1721,6 +1808,7 @@ has footnote_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[f:(\S+):(\S+)\]',
+   #               1     2
   );
 
 =head2 footnote_ref
@@ -1743,6 +1831,7 @@ has index_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[(index|i):\s*([^\]]+?)\s*\]',
+   #             1            2
   );
 
 =head2 index_ref
@@ -1767,6 +1856,7 @@ has citation_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[(cite|c):\s*([^\s\]]+?)\s*(,\s*(.*))?\s*\]',
+   #             1           2             3    4
   );
 
 =head2 citation_ref
@@ -1794,6 +1884,7 @@ has begin_citation_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[(cite|c):',
+   #             1
   );
 
 =head2 begin_citation_ref
@@ -1811,6 +1902,7 @@ has variable_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[var:([^\]]+)(:([^\]]+))?\]',
+   #                 1       2 3
   );
 
 =head2 variable_ref
@@ -1833,6 +1925,7 @@ has gloss_term_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[(g|G|gls|Gls):(([^\s\]]+?):)?([^\]]+?)\]',
+   #             1             23             4
   );
 
 =head2 gloss_term_ref
@@ -1864,6 +1957,7 @@ has begin_gloss_term_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[(g|G|gls|Gls):',
+   #             1
   );
 
 =head2 begin_gloss_term_ref
@@ -1881,6 +1975,7 @@ has gloss_def_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[def:(([^\s\]]+?):)?([^\]]+?)\]',
+   #                 12             3
   );
 
 =head2 gloss_def_ref
@@ -1920,6 +2015,7 @@ has acronym_term_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[(a|ac|acs|acl):(([^\s\]]+?):)?([^\]]+?)\]',
+   #             1              23             4
   );
 
 =head2 acronym_term_ref
@@ -1951,6 +2047,7 @@ has begin_acronym_term_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[(a|ac|acs|acl):',
+   #             1
   );
 
 =head2 begin_acronym_term_ref
@@ -1966,6 +2063,7 @@ has status_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[status:\s*([^\s\]]+?)\s*\]',
+   #                       1
   );
 
 =head2 status_ref
@@ -1990,6 +2088,7 @@ has priority_ref =>
    is      => 'ro',
    isa     => 'Str',
    default => '\[priority:\s*([^\s\]]+?)\s*\]',
+   #                         1
   );
 
 =head2 priority_ref
@@ -2005,7 +2104,7 @@ Example:
             --------
                $1
 
-  [priority:rq-000123]
+  [priority:rq-000123]    <-- lookup priority of rq-000123
 
 =cut
 
@@ -2231,6 +2330,7 @@ has left_arrow_symbol =>
    is      => 'ro',
    isa     => 'Str',
    default => '<-([^-]?)',
+   #              1
   );
 
 =head2 left_arrow_symbol
@@ -2257,6 +2357,7 @@ has right_arrow_symbol =>
    is      => 'ro',
    isa     => 'Str',
    default => '([^-]?)->',
+   #           1
   );
 
 =head2 right_arrow_symbol
