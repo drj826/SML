@@ -1676,12 +1676,16 @@ sub _run_plugin {
   my $raw_line_list = $object->render;  # list of raw text lines
   my $line_list     = [];               # list of line objects
 
+  my $linenum = 0;
+
   foreach my $raw_line (@{ $raw_line_list })
     {
+      ++ $linenum;
+
       my $newline = SML::Line->new
 	(
-	 file    => $old_line->get_file,
-	 num     => $old_line->get_num,
+	 plugin  => "$plugin:$plugin_args",
+	 num     => $linenum,
 	 content => $raw_line,
 	);
 
@@ -1710,6 +1714,9 @@ sub _run_script {
   my $number = $self->_get_number;
   $logger->info("{$number} run script: $command");
 
+  my $parts  = [ split(/\s+/,$command) ];
+  my $script = $parts->[0];
+
   my $library       = $self->_get_library;
   my $library_path  = $library->get_directory_path;
   my $original_path = getcwd;
@@ -1722,12 +1729,16 @@ sub _run_script {
 
   my $line_list = [];
 
+  my $i = 0;
+
   foreach my $raw_line ( @output )
     {
+      ++ $i;
+
       my $line = SML::Line->new
 	(
-	 file    => $old_line->get_file,
-	 num     => $old_line->get_num,
+	 script  => $script,
+	 num     => $i,
 	 content => $raw_line,
 	);
       push @{ $line_list }, $line;
@@ -3423,7 +3434,7 @@ sub _hide_tag {
 
   my $line = SML::Line->new
     (
-     file    => 'generated',
+     script  => 'hideme',
      num     => '0',
      content => "###hide\n\n",
     );
@@ -3450,7 +3461,7 @@ sub _flatten {
 
   my $newline = SML::Line->new
     (
-     file    => 'generated',
+     script  => 'flattenme',
      num     => '0',
      content => "$content",
     );
@@ -3460,19 +3471,19 @@ sub _flatten {
 
 ######################################################################
 
-sub _sechead_line {
+# sub _sechead_line {
 
-  my $self      = shift;                # SML::Parser object
-  my $asterisks = shift;                # string
-  my $title     = shift;                # string
+#   my $self      = shift;                # SML::Parser object
+#   my $asterisks = shift;                # string
+#   my $title     = shift;                # string
 
-  my $line = SML::Line->new
-    (
-     content => "$asterisks $title\n",
-    );
+#   my $line = SML::Line->new
+#     (
+#      content => "$asterisks $title\n",
+#     );
 
-  return $line;
-}
+#   return $line;
+# }
 
 ######################################################################
 
@@ -3627,7 +3638,7 @@ sub _process_start_division_marker {
 
   if ( not $id )
     {
-      $id = "$name-$num";
+      $id = "$name:$location";
     }
 
   my $class = $ontology->get_class_for_division_name($name);
@@ -3787,7 +3798,7 @@ sub _process_start_section_heading {
 
   if ( not $id )
     {
-      $id = "section-$num";
+      $id = "SECTION:$location";
     }
 
   # new section
@@ -5894,11 +5905,12 @@ sub _process_start_table_cell {
   my $emphasis   = shift;
   my $attributes = shift || q{};
 
-  my $library = $self->_get_library;
-  my $ps      = $library->get_property_store;
-  my $syntax  = $library->get_syntax;
-  my $text    = $line->get_content;
-  my $number  = $self->_get_number;
+  my $library  = $self->_get_library;
+  my $ps       = $library->get_property_store;
+  my $syntax   = $library->get_syntax;
+  my $text     = $line->get_content;
+  my $number   = $self->_get_number;
+  my $location = $line->get_location;
 
   $logger->trace("{$number} ----- table cell");
 
@@ -5940,7 +5952,7 @@ sub _process_start_table_cell {
     {
       # new BARE_TABLE
       my $tnum = $self->_count_baretables + 1;
-      my $tid  = "BARE_TABLE-$tnum";
+      my $tid  = "BARE_TABLE:$location";
 
       my $baretable = SML::Structure->new
 	(
@@ -5953,7 +5965,7 @@ sub _process_start_table_cell {
 
       # new BARE_TABLE_ROW
       my $rnum = $self->_count_table_rows + 1;
-      my $rid  = "BARE_TABLE_ROW-$tnum-$rnum";
+      my $rid  = "BARE_TABLE_ROW:$location";
 
       my $tablerow = SML::TableRow->new
 	(
@@ -5965,7 +5977,7 @@ sub _process_start_table_cell {
 
       # new BARE_TABLE_CELL
       my $cnum = $self->_count_table_cells + 1;
-      my $cid  = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
+      my $cid  = "BARE_TABLE_CELL:$location";
       my $args = {};
 
       $args->{id}       = $cid;
@@ -5998,7 +6010,7 @@ sub _process_start_table_cell {
       # new BARE_TABLE_ROW
       my $tnum = $self->_count_baretables;
       my $rnum = $self->_count_table_rows + 1;
-      my $rid  = "BARE_TABLE_ROW-$tnum-$rnum";
+      my $rid  = "BARE_TABLE_ROW:$location";
 
       my $tablerow = SML::TableRow->new
 	(
@@ -6010,7 +6022,7 @@ sub _process_start_table_cell {
 
       # new BARE_TABLE_CELL
       my $cnum = $self->_count_table_cells + 1;
-      my $cid  = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
+      my $cid  = "BARE_TABLE_CELL:$location";
       my $args = {};
 
       $args->{id}       = $cid;
@@ -6043,7 +6055,7 @@ sub _process_start_table_cell {
       # new TABLE_ROW
       my $tnum = $self->_count_tables;
       my $rnum = $self->_count_table_rows + 1;
-      my $rid  = "TABLE_ROW-$tnum-$rnum";
+      my $rid  = "TABLE_ROW:$location";
 
       my $tablerow = SML::TableRow->new
 	(
@@ -6055,7 +6067,7 @@ sub _process_start_table_cell {
 
       # new TABLE_CELL
       my $cnum = $self->_count_table_cells + 1;
-      my $cid  = "TABLE_CELL-$tnum-$rnum-$cnum";
+      my $cid  = "TABLE_CELL:$location";
       my $args = {};
 
       $args->{id}       = $cid;
@@ -6092,7 +6104,7 @@ sub _process_start_table_cell {
       my $tnum = $self->_count_baretables;
       my $rnum = $self->_count_table_rows;
       my $cnum = $self->_count_table_cells + 1;
-      my $cid  = "BARE_TABLE_CELL-$tnum-$rnum-$cnum";
+      my $cid  = "BARE_TABLE_CELL:$location";
       my $args = {};
 
       $args->{id}       = $cid;
@@ -6129,7 +6141,7 @@ sub _process_start_table_cell {
       my $tnum = $self->_count_tables;
       my $rnum = $self->_count_table_rows;
       my $cnum = $self->_count_table_cells + 1;
-      my $cid  = "TABLE_CELL-$tnum-$rnum-$cnum";
+      my $cid  = "TABLE_CELL:$location";
       my $args = {};
 
       $args->{id}       = $cid;
@@ -7925,9 +7937,49 @@ sub _convert_to_section_line_list {
 
   $asterisks .= '*' until length($asterisks) == $depth;
 
-  my $sechead = $self->_sechead_line($asterisks,$title);
+  my $old_first_line = $oll->[0];
+  my $sec_head_line;
 
-  push @{ $nll }, $sechead;
+  # old line from file?
+  if ( $old_first_line->has_file )
+    {
+      $sec_head_line = SML::Line->new
+	(
+	 file    => $old_first_line->get_file,
+	 num     => $old_first_line->get_num,
+	 content => "$asterisks $title\n",
+	);
+    }
+
+  # old line from plugin?
+  elsif ( $old_first_line->has_plugin )
+    {
+      $sec_head_line = SML::Line->new
+	(
+	 plugin  => $old_first_line->get_plugin,
+	 num     => $old_first_line->get_num,
+	 content => "$asterisks $title\n",
+	);
+    }
+
+  # old line from script?
+  elsif ( $old_first_line->has_script )
+    {
+      $sec_head_line = SML::Line->new
+	(
+	 script  => $old_first_line->get_script,
+	 num     => $old_first_line->get_num,
+	 content => "$asterisks $title\n",
+	);
+    }
+
+  else
+    {
+      $logger->error("THIS SHOULD NEVER HAPPEN, OLD LINE FROM UNKNOWN LOCATION");
+      return [];
+    }
+
+  push @{ $nll }, $sec_head_line;
   push @{ $nll }, SML::Line->new(content=>"\n");
 
   foreach my $line (@{ $oll })

@@ -57,6 +57,8 @@ SML::Ontology - a formal specification of terms
   $ontology->get_rule_type_count($type);                                            # Int
   $ontology->is_structure($name);                                                   # Bool
   $ontology->is_entity($name);                                                      # Bool
+  $ontology->has_default_property_value($division_name,$property_name);             # Bool
+  $ontology->get_default_property_value($division_name,$property_name);             # Str
 
 =head1 DESCRIPTION
 
@@ -1021,6 +1023,78 @@ division.
 =cut
 
 ######################################################################
+
+sub has_default_property_value {
+
+  my $self = shift;
+
+  my $division_name = shift;
+  my $property_name = shift;
+
+  unless ( $division_name and $property_name )
+    {
+      $logger->error("CAN'T CHECK IF ONTOLOGY HAS DEFAULT PROPERTY VALUE, MISSING ARGUMENTS");
+      return 0;
+    }
+
+  my $href = $self->_get_default_property_value_hash;
+
+  if ( exists $href->{$division_name}{$property_name} )
+    {
+      return 1;
+    }
+
+  return 0;
+}
+
+=head2 has_default_property_value($division_name,$property_name)
+
+Return 1 if the specified property for the specified division has a
+default value.
+
+  my $result = $ontology->has_default_property_value($division_name,$property_name)
+
+=cut
+
+######################################################################
+
+sub get_default_property_value {
+
+  my $self = shift;
+
+  my $division_name = shift;
+  my $property_name = shift;
+
+  unless ( $division_name and $property_name )
+    {
+      $logger->error("CAN'T GET DEFAULT PROPERTY VALUE, MISSING ARGUMENTS");
+      return 0;
+    }
+
+  my $href = $self->_get_default_property_value_hash;
+
+  if ( exists $href->{$division_name}{$property_name} )
+    {
+      $href->{$division_name}{$property_name};
+    }
+
+  else
+    {
+      $logger->error("NO DEFAULT PROPERTY VALUE DEFINED FOR $division_name $property_name");
+      return 0;
+    }
+}
+
+=head2 has_default_property_value($division_name,$property_name)
+
+Return 1 if the specified property for the specified division has a
+default value.
+
+  my $result = $ontology->has_default_property_value($division_name,$property_name)
+
+=cut
+
+######################################################################
 ######################################################################
 ##
 ## Private Attributes
@@ -1141,6 +1215,19 @@ has required_properties_hash =>
   );
 
 # $href->{$division_name}{$property_name} = 1;
+
+######################################################################
+
+has default_property_value_hash =>
+  (
+   is        => 'ro',
+   isa       => 'HashRef',
+   reader    => '_get_default_property_value_hash',
+   lazy      => 1,
+   builder   => '_build_default_property_value_hash',
+  );
+
+# $href->{$division_name}{$property_name} = $value;
 
 ######################################################################
 ######################################################################
@@ -1583,6 +1670,37 @@ sub _build_required_properties_hash {
     }
 
   return $rph;
+}
+
+######################################################################
+
+sub _build_default_property_value_hash {
+
+  # Return a hash of default property values by division name and
+  # property name.
+
+  my $self = shift;
+
+  my $dpvh = {};                        # default property value hash
+  my $href = $self->_get_rule_hash;
+
+  foreach my $rule ( values %{ $href } )
+    {
+      my $rule_type = $rule->get_rule_type;
+
+      unless ($rule_type eq 'def')
+	{
+	  next;
+	}
+
+      my $division_name = $rule->get_division_name;
+      my $property_name = $rule->get_property_name;
+      my $value         = $rule->get_name_or_value;
+
+      $dpvh->{$division_name}{$property_name} = $value
+    }
+
+  return $dpvh;
 }
 
 ######################################################################

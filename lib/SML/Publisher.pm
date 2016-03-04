@@ -478,6 +478,11 @@ sub publish_html_library_special_pages {
   $tt->process("library_references_page.tt",$vars,"references.html")
     || die $tt->error(), "\n";
 
+  # library statistics page
+  $logger->debug("publishing statistics.html");
+  $tt->process("library_statistics_page.tt",$vars,"statistics.html")
+    || die $tt->error(), "\n";
+
   # library index page
   $logger->debug("publishing library_index.html");
   $tt->process("library_index_page.tt",$vars,"library_index.html")
@@ -554,6 +559,10 @@ references page => displays the library list of source references
 =item
 
 index page => displays the library-wide index of terms
+
+=item
+
+statistics page => displays library statistics
 
 =item
 

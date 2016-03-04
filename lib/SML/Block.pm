@@ -271,7 +271,12 @@ sub get_location {
       return $line->get_location;
     }
 
-  return 'UNKNOWN LOCATION';
+  else
+    {
+      $logger->error("BLOCK FROM UNKNOWN LOCATION");
+
+      return 'UNKNOWN LOCATION';
+    }
 }
 
 =head2 get_location

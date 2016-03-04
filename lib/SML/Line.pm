@@ -20,18 +20,41 @@ SML::Line - A line of text
 
 =head1 SYNOPSIS
 
-  SML::Line->new(content=>$content);
+  SML::Line->new
+    (
+      file    => $file,
+      num     => $num,
+      content => $content,
+    );
+
+  SML::Line->new
+    (
+      plugin  => $plugin,
+      num     => $num,
+      content => $content,
+    );
+
+  SML::Line->new
+    (
+      script  => $script,
+      num     => $num,
+      content => $content,
+    );
 
   $line->get_content;                   # Str
   $line->get_file;                      # SML::File
   $line->has_file;                      # Bool
+  $line->get_plugin;                    # Str
+  $line->has_plugin;                    # Bool
+  $line->get_script;                    # Str
+  $line->has_script;                    # Bool
   $line->get_num;                       # Int
   $line->get_location;                  # Str
 
 =head1 DESCRIPTION
 
 A single line of raw text. A line has content, a line number, and
-knows what file it came from.
+knows what file, plugin, or script it came from.
 
 =head1 METHODS
 
@@ -86,6 +109,62 @@ undefined.
 Return 1 if this line came from a file.
 
   my $result = $line->has_file;
+
+=cut
+
+######################################################################
+
+has plugin =>
+  (
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_plugin',
+   predicate => 'has_plugin',
+  );
+
+=head2 get_plugin
+
+Return the plugin from which the line came.
+
+  my $plugin = $line->get_plugin;
+
+This is the plugin that produced the line.  This string includes the
+plugin name and args spearated by a colon:
+
+  Parts2Sections:rq-000123
+
+=head2 has_script
+
+Return 1 if this line came from a plugin.
+
+  my $result = $line->has_plugin;
+
+=cut
+
+######################################################################
+
+has script =>
+  (
+   is        => 'ro',
+   isa       => 'Str',
+   reader    => 'get_script',
+   predicate => 'has_script',
+  );
+
+=head2 get_script
+
+Return the script from which the line came.
+
+  my $script = $line->get_script;
+
+This is the script that produced the line.  This string includes the
+script name and args spearated by a colon.
+
+=head2 has_script
+
+Return 1 if this line came from a script.
+
+  my $result = $line->has_script;
 
 =cut
 
@@ -152,22 +231,37 @@ sub _build_location {
 
   my $self = shift;
 
-  my $file = $self->get_file;
-
-  unless ( $file )
+  if ( $self->has_file )
     {
-      return 'UNKNOWN LOCATION';
-    }
+      my $file     = $self->get_file;
+      my $filename = $file->get_filename;
+      my $num      = $self->get_num;
 
-  my $filename = $file->get_filename;
-  my $num      = $self->get_num;
-
-  if ( $filename and $num )
-    {
       return "$filename:$num";
     }
 
-  return 'UNKNOWN LOCATION';
+  elsif ( $self->has_plugin )
+    {
+      my $plugin = $self->get_plugin;
+      my $num    = $self->get_num;
+
+      return "$plugin:$num";
+    }
+
+  elsif ( $self->has_script )
+    {
+      my $script = $self->get_script;
+      my $num    = $self->get_num;
+
+      return "$script:$num";
+    }
+
+  else
+    {
+      $logger->error("LINE FROM UNKNOWN LOCATION");
+
+      return 'UNKNOWN LOCATION';
+    }
 }
 
 ######################################################################

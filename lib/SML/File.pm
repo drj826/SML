@@ -443,9 +443,9 @@ sub _build_line_list {
 
       my $line = SML::Line->new
 	(
-	 content => $text,
 	 file    => $self,
 	 num     => $i,
+	 content => $text,
 	);
 
       push(@{ $line_list },$line);

@@ -1085,6 +1085,14 @@ sub add_division {
 
   $href->{$id} = $division;
 
+  my $name     = $division->get_name;
+  my $location = $division->get_location;
+  my $parts    = [ split(/:/,$location) ];
+  my $filename = $parts->[0];
+  my $id_hash  = $self->_get_id_hash;
+
+  $id_hash->{$id} = [$filename,$name];
+
   return 1;
 }
 
@@ -2537,9 +2545,30 @@ sub get_division_count {
       return 0;
     }
 
-  my $href = $self->_get_division_counter_hash;
+  my $href  = $self->_get_id_hash;
+  my $count = 0;
 
-  return $href->{$name};
+  foreach my $value ( values %{ $href } )
+    {
+      my $division_name = $value->[1];
+
+      if ( $division_name eq $name )
+	{
+	  ++ $count;
+	}
+    }
+
+  return $count;
+
+  # NOTE: My original implementation used the division counter hash
+  # for division counts.  Intuitive, right?  However, this counts the
+  # number of times divisions with a name are *parsed* and not the
+  # number of unique instances in the library.  Therefore the division
+  # counter hash returns incorrect counts.
+
+  # my $href = $self->_get_division_counter_hash;
+
+  # return $href->{$name};
 }
 
 =head2 get_division_count
@@ -3574,8 +3603,12 @@ sub BUILD {
 
 	  my $in_comment_division = 0;
 
+	  my $linenum = 0;
+
 	  foreach (@{ $lines })
 	    {
+	      ++ $linenum;
+
 	      if (/$syntax->{comment_line}/)
 		{
 		  next;
@@ -3624,7 +3657,7 @@ sub BUILD {
 		      $logger->error("NEITHER STRUCTURE OR ENTITY: $name");
 		    }
 
-		  my $id = $3 || $name . "-" . $division_count->{$name};
+		  my $id = $3 || "$name:$textfile:$linenum";
 
 		  # validate ID uniqueness (unless this is a CONDITIONAL division)
 		  unless ( $name eq 'CONDITIONAL' )
@@ -3654,7 +3687,7 @@ sub BUILD {
 		  ++ $division_count->{$name};
 		  ++ $structure_count->{$name};
 
-		  my $id = $3 || $name . "-" . $division_count->{$name};
+		  my $id = $3 || "$name:$textfile:$linenum";
 
 		  $logger->debug("division: $name $id");
 
@@ -3672,6 +3705,29 @@ sub BUILD {
 			{
 			  $us_id_hash->{$id} = [$filespec,$name];
 			}
+		    }
+		}
+
+	      elsif (/$syntax->{table_cell}/)
+		{
+		  my $name = 'TABLE_CELL';
+
+		  ++ $division_count->{$name};
+		  ++ $structure_count->{$name};
+
+		  my $id = "$name:$textfile:$linenum";
+
+		  $logger->debug("division: $name $id");
+
+		  if ( exists $id_hash->{$id} )
+		    {
+		      my $firstfile = $id_hash->{$id}->[0];
+		      $logger->logdie("DUPLICATE ID \'$id\' IN \'$filespec\' (ALSO IN \'$firstfile\')");
+		    }
+
+		  else
+		    {
+		      $id_hash->{$id} = [$filespec,$name];
 		    }
 		}
 	    }

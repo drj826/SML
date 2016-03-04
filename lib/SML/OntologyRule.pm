@@ -41,7 +41,7 @@ SML::OntologyRule - an ontology rule
   $rule->get_division_name;             # Str
   $rule->get_property_name;             # Str
   $rule->get_value_type;                # Str
-  $rule->name_or_value;                 # Str
+  $rule->get_name_or_value;             # Str
   $rule->get_inverse_rule_id;           # Str
   $rule->get_multiplicity;              # Str
   $rule->is_required;                   # Bool
