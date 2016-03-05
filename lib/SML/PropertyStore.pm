@@ -550,15 +550,7 @@ sub get_property_string {
       return 0;
     }
 
-  $logger->debug("get_property_string: $division_id, $property_name");
-
   my $value_list = [ keys %{ $pr_href->{$division_id}{$property_name} } ];
-
-  # DEBUGGING...
-  foreach my $value (@{ $value_list })
-    {
-      $logger->debug("  value: $value");
-    }
 
   my $util       = $library->get_util;
   my $text       = $util->commify_series(@{$value_list});
@@ -1007,19 +999,6 @@ sub get_division_count_by_property_value {
 
       if ( $name eq $division_name )
 	{
-	  # fill in default value if necessary
-	  if
-	    (
-	     $ontology->has_default_property_value($division_name,$property_name)
-	     and
-	     not exists $href->{$id}{$property_name}
-	    )
-	    {
-	      my $default_value = $ontology->get_default_property_value($division_name,$property_name);
-
-	      $self->add_property_value($id,$property_name,$default_value);
-	    }
-
 	  foreach my $pname ( keys %{ $href->{$id} } )
 	    {
 	      if ( $pname eq $property_name )

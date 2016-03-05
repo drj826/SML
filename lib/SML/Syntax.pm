@@ -943,12 +943,12 @@ has attr_element =>
 
 Define an attribute.
 
-  $1 = element name   (always 'attr')
+  $1 = element name    (always 'attr')
   $2 = element args
-  $3 = element value  (term {namespace} = definition)
-  $4 = variable name  (term)
-  $6 = namespace      (OPTIONAL)
-  $7 = variable value (definition)
+  $3 = element value   (term {namespace} = definition)
+  $4 = attribute name  (term)
+  $6 = namespace       (OPTIONAL)
+  $7 = attribute value (definition)
 
 Example:
 
@@ -1058,7 +1058,7 @@ has ver_element =>
 
 An entry in a version history.
 
-  $1 = version
+  $1 = version identifier
   $2 = date
   $3 = description
 
@@ -2703,7 +2703,7 @@ has valid_priority =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '^(low|medium|high|critical)$',
+   default => '^(low|routine|high|critical)$',
   );
 
 =head2 valid_priority

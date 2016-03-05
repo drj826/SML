@@ -1046,12 +1046,13 @@ sub BUILD {
 
   my $self = shift;
 
-  my $id      = $self->get_id;
-  my $library = $self->get_library;
-  my $ps      = $library->get_property_store;
+  my $id = $self->get_id;
 
   if ( $id )
     {
+      my $library = $self->get_library;
+      my $ps      = $library->get_property_store;
+
       $ps->add_property_value($id,'id',$id);
     }
 

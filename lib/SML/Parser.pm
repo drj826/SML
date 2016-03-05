@@ -819,32 +819,6 @@ container.
 =cut
 
 ######################################################################
-
-# sub parse_library_index_terms {
-
-#   my $self = shift;
-
-#   my $library       = $self->_get_library;
-#   my $library_index = $library->get_index;
-
-#   foreach my $entry (@{ $library_index->get_entry_list })
-#     {
-#       $self->_parse_index_term($entry);
-#     }
-
-#   return 1;
-# }
-
-# =head2 parse_library_index_terms
-
-# Parse each plain text index term into an SML::String object remembered
-# by the library.  Return 1 if successful.
-
-#   my $result = $parser->parse_library_index_terms;
-
-# =cut
-
-######################################################################
 ######################################################################
 ##
 ## Private Attributes
@@ -5122,8 +5096,6 @@ sub _process_end_outcome {
 
       $library->add_outcome($outcome);
 
-      # $ps->add_property_value($entity_id,'outcome',$outcome_value);
-
       my $reasoner = $library->get_reasoner;
       $reasoner->infer_status_from_outcome($outcome);
 
@@ -5208,8 +5180,6 @@ sub _process_end_review {
       $review->set_value($review_value);
 
       $library->add_review($review);
-
-      # $ps->add_property_value($entity_id,'review',$review_value);
     }
 
   else
