@@ -489,8 +489,8 @@ sub get_property_text {
 
   unless ( exists $pr_href->{$division_id}{$property_name} )
     {
-      $logger->error("CAN'T GET PROPERTY TEXT, NO PROPERTY $division_id $property_name");
-      return 0;
+      # $logger->error("CAN'T GET PROPERTY TEXT, NO PROPERTY $division_id $property_name");
+      return q{};
     }
 
   my $string = $self->get_property_string($division_id,$property_name);

@@ -6477,7 +6477,7 @@ sub _build_string_test_case_list {
       library => $self->get_test_library_1,
       expected =>
       {
-       get_name => 'pagecount_ref',
+       get_name => 'thepagecount_ref',
        get_content => '',
        contains_parts => 0,
        render =>

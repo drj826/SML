@@ -328,7 +328,7 @@ sub create_string {
      or
      $string_type eq 'thedate_ref'
      or
-     $string_type eq 'pagecount_ref'
+     $string_type eq 'thepagecount_ref'
      or
      $string_type eq 'thesection_ref'
      or
@@ -7408,7 +7408,7 @@ sub _build_string_type_list {
      'theversion_ref',
      'therevision_ref',
      'thedate_ref',
-     'pagecount_ref',
+     'thepagecount_ref',
      'thesection_ref',
      'linebreak_symbol',
      'pagebreak_symbol',
@@ -7448,7 +7448,7 @@ sub _build_single_string_type_list {
      'theversion_ref',
      'therevision_ref',
      'thedate_ref',
-     'pagecount_ref',
+     'thepagecount_ref',
      'thesection_ref',
      'linebreak_symbol',
      'pagebreak_symbol',

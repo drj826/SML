@@ -118,7 +118,7 @@ SML::Syntax - regular expressions that define SML syntax
 
   $syntax->thepage_ref;
   $syntax->thedate_ref;
-  $syntax->pagecount_ref;
+  $syntax->thepagecount_ref;
   $syntax->thesection_ref;
   $syntax->theversion_ref;
   $syntax->therevision_ref;
@@ -2147,14 +2147,14 @@ and not the value of the document's date property.
 
 ######################################################################
 
-has pagecount_ref =>
+has thepagecount_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
    default => '\[pagecount\]',
   );
 
-=head2 pagecount_ref
+=head2 thepagecount_ref
 
 Reference the document total page count.  This is useful in headers or
 footers where you want to say this is page 15 of 132.
