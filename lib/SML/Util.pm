@@ -175,7 +175,7 @@ sub remove_literals {
   my $library = $self->_get_library;
   my $syntax  = $library->get_syntax;
 
-  $text =~ s/$syntax->{literal}//g;
+  $text =~ s/$syntax->{literal_string}//g;
 
   return $text;
 }
@@ -283,7 +283,7 @@ sub strip_string_markup {
   $text =~ s/$syntax->{url_ref}/$1/g;
   $text =~ s/$syntax->{command_ref}/$1/g;
   $text =~ s/$syntax->{email_addr}/$1/g;
-  $text =~ s/$syntax->{literal}/$1/g;
+  $text =~ s/$syntax->{literal_string}/$1/g;
 
   $text =~ s/$syntax->{linebreak_symbol}/ /g;
 

@@ -79,7 +79,7 @@ SML::Syntax - regular expressions that define SML syntax
   $syntax->xml_tag
   $syntax->sglquote_string;
   $syntax->dblquote_string;
-  $syntax->literal;
+  $syntax->literal_string;
 
   # EXTERNAL REFERENCE STRINGS
 
@@ -1377,7 +1377,7 @@ Regular expression that matches user entered text.
 
 Example:
 
-  [enter:username]
+  [enter:password]
    ----- --------
      $1     $2
 
@@ -1457,7 +1457,7 @@ Example:
 
 ######################################################################
 
-has literal =>
+has literal_string =>
   (
    is      => 'ro',
    isa     => 'Str',
@@ -1465,7 +1465,7 @@ has literal =>
    #                 1
   );
 
-=head2 literal
+=head2 literal_string
 
 Present a literal string.
 
@@ -1815,7 +1815,7 @@ has footnote_ref =>
 
 Reference a footnote.
 
-  $1 = section ID
+  $1 = division ID
   $2 = footnote number
 
 Example:

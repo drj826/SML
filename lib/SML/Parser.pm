@@ -757,7 +757,7 @@ sub create_string {
 	}
     }
 
-  elsif ( $string_type eq 'literal' )
+  elsif ( $string_type eq 'literal_string' )
     {
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
@@ -7418,7 +7418,7 @@ sub _build_string_type_list {
      'user_entered_text',
      'command_ref',
      'xml_tag',
-     'literal',
+     'literal_string',
      'email_addr',
     ];
 }
@@ -7453,7 +7453,7 @@ sub _build_single_string_type_list {
      'linebreak_symbol',
      'pagebreak_symbol',
      'clearpage_symbol',
-     'literal',
+     'literal_string',
      'email_addr',
     ];
 }
