@@ -429,7 +429,7 @@ sub publish_html_library_special_pages {
   $tt->process("library_METADATA.tt",$vars,"METADATA.txt")
     || die $tt->error(), "\n";
 
-  # traceability page
+  # traceability pages
   $logger->debug("publishing traceability.html");
   $tt->process("library_traceability_page.tt",$vars,"traceability.html")
     || die $tt->error(), "\n";
@@ -440,6 +440,10 @@ sub publish_html_library_special_pages {
   foreach my $entity_name (@{ $entity_name_list })
     {
       $vars->{entity_name} = $entity_name;
+
+      # traceability matrix page
+      $logger->debug("publishing tm_${entity_name}.html");
+      $tt->process("tm_page.tt",$vars,"tm_${entity_name}.html");
 
       # traceability tree page
       #
@@ -933,6 +937,7 @@ sub _publish_html_document {
 	    || die $tt->error(), "\n";
 	}
 
+      # document errors
       if ( $document->contains_error )
 	{
 	  $logger->debug("publishing $id errors.html");
