@@ -281,7 +281,7 @@ sub strip_string_markup {
   $text =~ s/$syntax->{file_ref}/$1/g;
   $text =~ s/$syntax->{path_ref}/$1/g;
   $text =~ s/$syntax->{url_ref}/$1/g;
-  $text =~ s/$syntax->{command_ref}/$1/g;
+  $text =~ s/$syntax->{code_ref}/$2/g;
   $text =~ s/$syntax->{email_addr}/$1/g;
   $text =~ s/$syntax->{literal_string}/$1/g;
 

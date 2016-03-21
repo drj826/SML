@@ -715,14 +715,14 @@ sub create_string {
 	}
     }
 
-  elsif ( $string_type eq 'command_ref' )
+  elsif ( $string_type eq 'code_ref' )
     {
       if ( $text =~ /$syntax->{$string_type}/ )
 	{
 	  my $args = {};
 
-	  $args->{name}      = 'COMMAND_REF';
-	  $args->{content}   = $1;
+	  $args->{name}      = 'CODE_REF';
+	  $args->{content}   = $2;
 	  $args->{library}   = $self->_get_library;
 	  $args->{container} = $container if $container;
 
@@ -7416,7 +7416,7 @@ sub _build_string_type_list {
 
      # substrings that represent special meaning
      'user_entered_text',
-     'command_ref',
+     'code_ref',
      'xml_tag',
      'literal_string',
      'email_addr',

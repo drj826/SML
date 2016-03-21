@@ -86,7 +86,7 @@ SML::Syntax - regular expressions that define SML syntax
   $syntax->file_ref;
   $syntax->path_ref;
   $syntax->url_ref;
-  $syntax->command_ref;
+  $syntax->code_ref;
   $syntax->email_addr;
 
   # INTERNAL REFERENCE STRINGS
@@ -1558,25 +1558,25 @@ Example:
 
 ######################################################################
 
-has command_ref =>
+has code_ref =>
   (
    is      => 'ro',
    isa     => 'Str',
-   default => '\[cmd:\s*([^\]]+?)\s*\]',
-   #                    1
+   default => '\[(cmd|code):\s*([^\]]+?)\s*\]',
+   #             1             2
   );
 
-=head2 command_ref
+=head2 code_ref
 
-A command you would type on the command line.
+Some code or a command you would type on the command line.
 
-  $1 = command
+  $2 = code
 
 Example:
 
   [cmd:cat /etc/passwd | grep root]
        ---------------------------
-                   $1
+                   $2
 
 =cut
 

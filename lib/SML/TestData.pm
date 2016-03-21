@@ -86,7 +86,7 @@ has bullet_list_item_test_case_list =>
 ######################################################################
 
 # citation_reference
-# command_reference
+# code_reference
 # comment_block
 # comment_division
 # conditional
@@ -1716,7 +1716,7 @@ sub _build_block_test_case_list {
      },
 
      {
-      name     => 'command_reference_1',
+      name     => 'code_reference_1',
       content  => '[cmd:pwd]',
       subclass => 'SML::Paragraph',
       document => $self->get_test_document_1,
@@ -1741,7 +1741,7 @@ sub _build_block_test_case_list {
      },
 
      {
-      name     => 'command_reference_2',
+      name     => 'code_reference_2',
       content  => '[cmd:ls -al | grep -i bin | sort]',
       subclass => 'SML::Paragraph',
       document => $self->get_test_document_1,
@@ -5892,12 +5892,12 @@ sub _build_string_test_case_list {
      },
 
      {
-      name => 'command_reference_1',
+      name => 'code_reference_1',
       text => q{[cmd:ls -al | grep bogus]},
       library => $self->get_test_library_1,
       expected =>
       {
-       get_name => 'COMMAND_REF',
+       get_name => 'CODE_REF',
        get_content => 'ls -al | grep bogus',
        contains_parts => 0,
        render =>
