@@ -186,8 +186,8 @@ Here's an example configuration file:
   plugins_dir        "plugins"
   images_dir         "files/images"
 
-  ontology_rule_file "ontology/ontology_rules_sml.conf"
-  ontology_rule_file "ontology/ontology_rules_lib.conf"
+  ontology_rule_file "ontology_rules_sml.conf"
+  ontology_rule_file "ontology_rules_lib.conf"
 
   include_path       "."
   include_path       "allocations"
@@ -3059,8 +3059,10 @@ has ontology_rule_filename_list =>
    is        => 'ro',
    isa       => 'ArrayRef',
    reader    => '_get_ontology_rule_filename_list',
-   writer    => '_set_ontology_rule_filename_list',
-   default   => sub {['ontology_rules_sml.conf','ontology_rules_lib.conf']}
+   lazy      => 1,
+   builder   => '_build_ontology_rule_filename_list',
+   # writer    => '_set_ontology_rule_filename_list',
+   # default   => sub {['ontology_rules_sml.conf','ontology_rules_lib.conf']}
   );
 
 ######################################################################
@@ -3548,26 +3550,26 @@ sub BUILD {
 	}
     }
 
-  # set ontology rule file list
-  my $rule_file_list = [];
+  # # set ontology rule file list
+  # my $rule_file_list = [];
 
-  if ( $config{'ontology_rule_file'} )
-    {
-      if ( ref $config{'ontology_rule_file'} eq 'ARRAY' )
-	{
-	  foreach my $filename (@{ $config{'ontology_rule_file'} })
-	    {
-	      push @{$rule_file_list}, $filename;
-	    }
-	}
+  # if ( $config{'ontology_rule_file'} )
+  #   {
+  #     if ( ref $config{'ontology_rule_file'} eq 'ARRAY' )
+  # 	{
+  # 	  foreach my $filename (@{ $config{'ontology_rule_file'} })
+  # 	    {
+  # 	      push @{$rule_file_list}, $filename;
+  # 	    }
+  # 	}
 
-      else
-	{
-	  push @{$rule_file_list}, $config{'ontology_rule_file'};
-	}
-    }
+  #     else
+  # 	{
+  # 	  push @{$rule_file_list}, $config{'ontology_rule_file'};
+  # 	}
+  #   }
 
-  $self->_set_ontology_rule_filename_list($rule_file_list);
+  # $self->_set_ontology_rule_filename_list($rule_file_list);
 
   #-------------------------------------------------------------------
   # scan for divisions, populate id_hash
@@ -4139,6 +4141,58 @@ sub _build_sml_ontology_rule_filespec {
 
   $logger->logdie("COULD NOT LOCATE SML ONTOLOGY CONFIG FILE");
   return 0;
+}
+
+######################################################################
+
+sub _build_ontology_rule_filename_list {
+
+  use Config::General;
+
+  my $self = shift;
+
+  my $config_filespec = $self->_get_config_filespec;
+  my %config          = ();
+
+  # validate existence of config file
+  if ( not -f $config_filespec )
+    {
+      die "Couldn't read $config_filespec\n";
+    }
+
+  # read the config file
+  else
+    {
+      my $config = Config::General->new($config_filespec);
+      %config = $config->getall;
+    }
+
+  # set ontology rule file list
+  my $rule_file_list = [];
+
+  if ( $config{'ontology_rule_file'} )
+    {
+      if ( ref $config{'ontology_rule_file'} eq 'ARRAY' )
+	{
+	  foreach my $filename (@{ $config{'ontology_rule_file'} })
+	    {
+	      push @{$rule_file_list}, $filename;
+	    }
+	}
+
+      else
+	{
+	  push @{$rule_file_list}, $config{'ontology_rule_file'};
+	}
+    }
+
+  else
+    {
+      $logger->fatal("NO ONTOLOGY RULE FILES IDENTIFIED IN LIBRARY CONFIG");
+      die "NO ONTOLOGY RULE FILES IDENTIFIED IN LIBRARY CONFIG";
+    }
+
+  return $rule_file_list;
 }
 
 ######################################################################
